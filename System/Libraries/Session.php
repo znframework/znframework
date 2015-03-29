@@ -36,6 +36,8 @@ class Sess
 			else
 				$_SESSION[$name] = $values;
 		}
+		
+		session_regenerate_id();
 	}
 	
 	public static function select($name = '')
