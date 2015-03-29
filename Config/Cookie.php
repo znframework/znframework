@@ -18,6 +18,11 @@ SETTINGS
 5-secure
 6-httponly
 //--------------------------------------------------------------------------------------------------------------------------
+/* ENCODE	*/
+// İşlev: cookie değerlerini tutan anahtar ifadeler şifrelensin mi?
+// true olması durumunda session bilgisini tutan anahtar ifadeler şifrelenir.
+// false olması durumunda anahtar ifadeler şifrelenmez.
+$config['Cookie']['encode'] = true;
 
 /* TIME	*/
 // İşlev:Çerez süresini ayarlamak için kullanılır.
