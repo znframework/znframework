@@ -26,6 +26,13 @@ if( ! function_exists('encoder'))
 			return md5($str);
 		else if($type === 'sha1')
 			return sha1($str);	
+		else
+		{
+			if(in_array($type, hash_algos()))
+				return hash($type, $str);
+			else
+				return md5($str);
+		}
 	}
 }
 
