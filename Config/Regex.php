@@ -21,41 +21,41 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 $config['Regex']['regex_chars'] = array(
 	'<non-numeric>' 	=> '\D',
 	'<numeric>' 		=> '\d',
-	'<non-schar>' 		=> '\W',
-	'<schar>' 			=> '\w',
-	'<char>' 			=> '.',
+	'<schar>' 		=> '\W',
+	'<non-schar>' 		=> '\w',
+	'<char>' 		=> '.',
 	'<non-space>' 		=> '\S',
-	'<space>'			=> '\s',
+	'<space>'		=> '\s',
 	'<starting>'		=> '^',
-	'<ending>'			=> '$',
+	'<ending>'		=> '$',
 	'<repeat-z>'		=> '*',
-	'<repeat>'			=> '+',
-	'<whether>'			=> '?',
-	'<or>'				=> '|',
+	'<repeat>'		=> '+',
+	'<whether>'		=> '?',
+	'<or>'			=> '|',
 	'<perline-r>'		=> '\r',
-	'<perline>'			=> '\n',
-	'<tab>'				=> '\t',
-	'<esc>'				=> '\e',
-	'<hex>'				=> '\x'
+	'<perline>'		=> '\n',
+	'<tab>'			=> '\t',
+	'<esc>'			=> '\e',
+	'<hex>'			=> '\x'
 );
 
 /*Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle ilgili aşağıdaki değişiklikler yapılmıştır. */
 $config['Regex']['setting_chars'] = array(
-	'<insens>' 			=> 'i',
+	'<insens>' 		=> 'i',
 	'<generic>' 		=> 'g',
-	'<each>' 			=> 's',
+	'<each>' 		=> 's',
 	'<multiline>'		=> 'm', 
 	'<inspace>' 		=> 'x'
 );
 
 /*Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi kullanmak için aşağıdaki değişiklikler yapılmıştır. */
 $config['Regex']['special_chars'] = array(
-	'.' 				=> '\.',
-	'^' 				=> '\^',
-	'$' 				=> '\$',
-	'*' 				=> '\*',
-	'+' 				=> '\+',
-	'?' 				=> '\?',
-	'|' 				=> '\|',
-	'/' 				=> '\/'
+	'.' 			=> '\.',
+	'^' 			=> '\^',
+	'$' 			=> '\$',
+	'*' 			=> '\*',
+	'+' 			=> '\+',
+	'?' 			=> '\?',
+	'|' 			=> '\|',
+	'/' 			=> '\/'
 );
