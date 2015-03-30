@@ -150,3 +150,31 @@ if( ! function_exists('string_search'))
 			return strpos($str, $needle);
 	}	
 }
+
+// Function: string_reshuffle()
+// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
+// Parametreler
+// @str = Değişiklik yapılacak metin.
+// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
+// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
+if( ! function_exists('string_reshuffle'))
+{
+	function string_reshuffle($str = '', $shuffle = '', $reshuffle = '')
+	{
+		if( ! is_string($str) || empty($str)) return false;
+		if( ! (is_string($shuffle) || is_numeric($shuffle))) return $str;
+		if( ! (is_string($reshuffle) || is_numeric($reshuffle))) return $str;
+		
+		if(empty($shuffle)) return $str;
+		
+		$shuffleex = explode($shuffle, $str);
+		
+		$newstr = "";
+		foreach($shuffleex as $v)
+		{
+			$newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;	
+		} 
+		
+		return substr($newstr, 0, -strlen($reshuffle));
+	}	
+}
