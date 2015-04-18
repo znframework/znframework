@@ -1,0 +1,18 @@
+{
+    "repositories": 
+    [
+        {
+            "url": "https://github.com/znframework/znframework.git",
+            "type": "git"
+        }
+    ],
+
+    "description" : "ZN Dynamic framework",
+    "name" : "ZN Dynamic/Framework",
+    "license": "MIT",
+
+    "require": 
+    {
+        "znframework/znframework": ">=5.2.4"
+    }
+}
