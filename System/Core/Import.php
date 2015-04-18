@@ -474,7 +474,7 @@ class Import
 		$conLang = array_unique(config::get('Masterpage','script'));
 		$params = @array_unique(func_get_args());
 		$str = '';
-		foreach(@array_unique(func_get_args()) as $script)
+		foreach($params as $script)
 		{
 			if(is_array($script)) $script = "";
 			
