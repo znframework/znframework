@@ -8,7 +8,7 @@
     ],
 
     "description" : "ZNDynamic framework",
-    "name" : "ZNDynamic/Framework",
+    "name" : "znframework/znframework",
     "license": "MIT",
 
     "require": 
