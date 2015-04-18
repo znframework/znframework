@@ -27,7 +27,7 @@ if(!function_exists('searcher'))
 		
 		if( ! is_array($search_data))
 		{	
-			if( ! (is_string($search_word) || is_numeric($search_word))) return false;
+			if( ! is_value($search_word)) return false;
 			
 			if($output === 'str' || $output === 'string') 
 				return strstr($search_data, $search_word);

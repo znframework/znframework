@@ -19,7 +19,6 @@
 	
 	default development
 */
-
 System::run('development');
 
 class System
@@ -33,22 +32,25 @@ class System
 			case 'publication' :
 				error_reporting(0); 
 			break;
-		
+			
 			case 'development' : 
-				error_reporting(E_ALL);
+				error_reporting(-1);
 			break; 
+			
+			default: echo 'Invalid Application Environment! Available Options: development or publication'; exit;
 		}		
 		
-		if($benchmark_testing) $start = microtime();
+		if($benchmark_testing === true) $start = microtime();
 		
 		require_once 'System/Core/Hierarchy.php'; // sistem yükleniyor...
-		
-		if($benchmark_testing) $finish = microtime(); 
-		
-		if($benchmark_testing)
+	
+		if($benchmark_testing === true)
 		{
-			echo "//// BENCHMARK TIME TEST : <strong>".round($finish - $start, 4)." SECOND</strong> ////<br>";
-			echo "//// BENCHMARK MEMORY USAGE TEST : <strong>".memory_get_usage()." BYTES</strong> ////";
+			$finish = microtime();
+			
+			echo "//// BENCHMARK TIME TEST : <strong>".round($finish - $start, 4)." SECOND</strong> ////<br>".
+			     "//// BENCHMARK MEMORY USAGE TEST : <strong>".memory_get_usage()." BYTES</strong> ////<br>".
+			     "//// BENCHMARK MEMORY PEAK USAGE TEST : <strong>".memory_get_peak_usage()." BYTES</strong> ////";
 		}
 	}
 }

@@ -20,7 +20,7 @@ if( ! function_exists('encoder'))
 {
 	function encoder($str = '', $type = 'md5')
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		if( ! is_string($type)) $type = 'md5';
 		if($type === 'md5')
 			return md5($str);

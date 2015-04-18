@@ -126,6 +126,4 @@ class Ajax
 		
 		if($total_rows > $limit) return $links; else return false;
 	}
-	
-
 }

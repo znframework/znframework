@@ -46,4 +46,10 @@ define('TRINKETS_DIR', 'Designer/Trinkets/');			/* TRINKETS_DIR */
 
 define('FONTS_DIR', 'Designer/Fonts/');					/* FONTS_DIR */
 
+define('FILES_DIR', 'Designer/Trinkets/Files/');		/* FILES_DIR */
+
 define('UPLOADS_DIR', 'Designer/Trinkets/Uploads/');	/* UPLOADS_DIR */
+
+define('DB_DIR', 'System/Database/');					/* DB_DIR */
+
+define('DRIVES_DIR', 'System/Database/Drivers/');		/* DRIVES_DIR */

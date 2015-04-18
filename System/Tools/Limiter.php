@@ -60,7 +60,7 @@ if(!function_exists('word_limiter'))
 // Dönen Değer: Dönüştürülmüş veri.
 if(!function_exists('char_limiter'))
 {
-	function char_limiter($str = '', $limit = 500, $endchar = '...',  $striptags = true)
+	function char_limiter($str = '', $limit = 500, $endchar = '...',  $striptags = false, $encoding = "utf-8")
 	{
 		if( ! is_string($str)) return false;
 		if( ! is_numeric($limit)) $limit = 500;
@@ -83,7 +83,7 @@ if(!function_exists('char_limiter'))
 		}
 		else
 		{
-			return substr($str, 0, $limit).$endchar;	
+			return mb_substr($str, 0, $limit, $encoding).$endchar;	
 		}
 	}	
 }

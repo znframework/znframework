@@ -22,7 +22,7 @@ if(!function_exists('word_filter'))
 {
 	function word_filter($string = '', $badwords = '', $changechar = '[badwords]')
 	{
-		if( ! (is_string($string) || is_numeric($string))) return false;
+		if( ! is_value($string)) return false;
 		
 		import::library('Regex');
 	

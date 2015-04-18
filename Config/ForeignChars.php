@@ -108,43 +108,6 @@ $config['ForeignChars']['accent_chars'] = array(
 	'я' 															=> 'ya'
 );
 
-/* UPPER LOWER CASE CHARS */
-$config['ForeignChars']['upper_lower_case_chars'] = array
-(
-	'A' => 'a',
-	'B' => 'b',
-	'C' => 'c',
-	'Ç' => 'ç',
-	'D' => 'd',
-	'E' => 'e',
-	'F' => 'f',
-	'G' => 'g',
-	'Ğ' => 'ğ',
-	'H' => 'h',
-	'I' => 'ı',
-	'İ' => 'i',
-	'J' => 'j',
-	'K' => 'k',
-	'L' => 'l',
-	'M' => 'm',
-	'N' => 'n',
-	'O' => 'o',
-	'Ö' => 'ö',
-	'P' => 'p',
-	'Q' => 'q',
-	'R' => 'r',
-	'S' => 's',
-	'Ş' => 'ş',
-	'T' => 't',
-	'U' => 'u',
-	'Ü' => 'ü',
-	'V' => 'v',
-	'W' => 'w',
-	'X' => 'x',
-	'Y' => 'y',
-	'Z' => 'z',
-);
-
 /* NUMERICAL CODES */
 $config['ForeignChars']['numerical_codes'] = array(
 	'À'	=> '&#192;',

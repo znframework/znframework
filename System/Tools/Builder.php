@@ -50,7 +50,7 @@ if(!file_exists('xml_builder'))
 	function xml_builder($elements = '', $content = '', $attribute = '', $version = '1.0', $encoding = 'utf-8')
 	{		
 		if( ! is_string($elements)) return false;		
-		if( ! is_string($content)) $content = '';	
+		if( ! is_value($content)) $content = '';	
 		if( ! is_string($version)) $version = '1.0';
 		if( ! is_string($encoding)) $encoding = 'utf-8';
 	

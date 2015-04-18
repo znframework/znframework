@@ -24,48 +24,26 @@ SETTINGS
 /* DRIVER */
 // İşlev:Mysql bağlantı türünü belirlemek için kullanılır.
 // Parametre:Metinsel türde bağlantı türü girilir.
-// Örnek: mysql / mysqli;
-$config['Database']['driver'] 		= 'mysql'; // String
-
-/* HOST */
-// İşlev:Mysql bağlantısı sağlanacak sunudu adını belirlemek için kullanılır.
-// Parametre:Metinsel türde sunucu adı girilir.
-// Örnek: 'localhost';
+// Drivers: mysql , mysqli , pdo , odbc , mssql , sqlite , postgre , sqlsrv , sqlite3 , oci8 , ibase , cubrid , fbsql , sybase
+// PDO Sub Drivers = 4d , cubrid , dblib , firebird , ibm , informix , mysql , oci , odbc , pgsql , sqlite , sqlsrv
+// Pdo Driver Seçili ise alt sürülerini kullanmak için  
+// pdo->subdriver. Örnek: pdo->mysql , pdo->dblib
+$config['Database']['driver'] 		= 'mysqli'; // String
 $config['Database']['host'] 		= 'localhost'; // String
-
-/* USER */
-// İşlev:Mysql kullanıcı adını belirlemek için kullanılır.
-// Parametre:Metinsel türde mysql'de oluşturulan kullanıcı adı bilgisi girilir.
-// Örnek: 'root';
-$config['Database']['user'] 		= 'root'; // String
-
-/* PASSWORD */
-// İşlev:Mysql kullanıcı şifresini belirlemek için kullanılır.
-// Parametre:Metinsel türde mysql'de oluşturulan şifre bilgisi girilir.
-// Örnek: '';
-$config['Database']['password']		= ''; // String
-
-/* DATABASE */
-// İşlev:Bağlantı sağlanacak veritabanını belirlemek için kullanılır.
-// Parametre:Metinsel türde mysql'de oluşturulan veritabanı bilgisi girilir.
-// Örnek: 'test';
 $config['Database']['database'] 	= 'test'; // String
-
-/* PREFIX */
-// İşlev:Tablolara ön ek belirlemek için kullanılır.
-// Parametre:Metinsel türde mysql'de oluşturulan tabloya ön ek bilgisi girilir.
-// Örnek: '';
+$config['Database']['user'] 		= 'root'; // String
+$config['Database']['password']		= ''; // String
+$config['Database']['dsn'] 			= ''; // String
+$config['Database']['server'] 		= ''; // String
+$config['Database']['port'] 		= ''; // String
+$config['Database']['appname'] 		= ''; // String
+$config['Database']['service'] 		= ''; // String
+$config['Database']['protocol'] 	= ''; // String
+$config['Database']['role'] 		= ''; // String
+$config['Database']['pconnect'] 	= false; // Boolean
+$config['Database']['encode'] 		= false; // Boolean
 $config['Database']['prefix'] 		= ''; // String
-
-/* CHARSET */
-// İşlev:Mysql veritabanı karakter setini belirlemek için kullanılır.
-// Parametre:Metinsel türde veritabanı karakter seti bilgisi girilir.
-// Örnek: 'utf-8';
-$config['Database']['charset'] 		= 'utf-8'; // String
-
-/* COLLATION */
-// İşlev:Mysql veritabanı karakter karşılaştırması türünü belirlemek için kullanılır.
-// Parametre:Metinsel türde veritabanı karakter karşılaştırma bilgisi girilir.
-// Örnek: 'utf8_general_ci';
+$config['Database']['charset'] 		= 'utf8'; // String
 $config['Database']['collation'] 	= 'utf8_general_ci'; // String
+$config['Database']['different_connection'] = array(); // String
 //--------------------------------------------------------------------------------------------------------------------------

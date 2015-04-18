@@ -16,7 +16,6 @@ class Import
 	
 	private static $is_import = array();
 	
-	
 	/* IMPORT LIBRARY */
 	
 	/*
@@ -28,33 +27,44 @@ class Import
 		
 		NOT: bir nesne birkez import edildikten sonra bir daha aynı dosyayı aynı sayfada import edemezsiniz.
 	*/
-
 	
 	public static function library()
 	{
 		$conLang = array_unique(config::get('Autoload','Library'));
 		
 		/* PLURAL LIBRARY */
-		
+	
 		foreach(@array_unique(func_get_args()) as $class)
 		{
 			if(is_array($class)) $class = "";
 			
-			if(!in_array($class,$conLang))
-			{
+			if( ! in_array($class,$conLang))
+			{			
 				$path = LIBRARIES_DIR.suffix($class,".php");
+						
+				if(is_file_exists($path) && ! class_exists($class))
+					require_once($path);
+				else if(is_file_exists(SYSTEM_DIR.$path) && ! class_exists($class))
+					require_once(SYSTEM_DIR.$path);	
+				else
+				{
+					$different_directory = config::get('Libraries', 'different_directory');
+					
+					if( ! empty($different_directory))foreach($different_directory as $dir)
+					{
+						$path = suffix($dir, '/').suffix($class,".php");	
+						if(is_file($path) && ! class_exists($class))
+							require_once($path);					
+					}	
+				}
 				
-				if(is_file_exists($path) && !class_exists($class)) require_once($path);
-				
-				else if(is_file_exists(SYSTEM_DIR.$path) && !class_exists($class)) require_once(SYSTEM_DIR.$path);
-			}
+				is_imported($class);
+			}	
 		}
-
 	}
 	
 	
 	/* IMPORT TOOL */
-	
 	public static function tool()
 	{
 		$conLang = array_unique(config::get('Autoload','Tool'));
@@ -62,7 +72,7 @@ class Import
 		foreach(@array_unique(func_get_args()) as $tool)
 		{
 			if(is_array($tool)) $tool = "";
-			if(!in_array($tool,$conLang))
+			if( ! in_array($tool,$conLang))
 			{
 				$path = TOOLS_DIR.suffix($tool,".php");
 				
@@ -349,7 +359,8 @@ class Import
 	{
 		
 		$str = "<style type='text/css'>";
-		foreach(@array_unique(func_get_args()) as $font)
+		$params = @array_unique(func_get_args());
+		foreach($params as $font)
 		{	
 			if(is_array($font)) $font = "";
 			
@@ -402,16 +413,30 @@ class Import
 		}
 		
 		$str .= '</style>'."\n";
-		if($str) echo $str; else return false;
-		
+		if($str) 
+		{
+			if($params[count($params) - 1] === true)
+			{
+				return $str;
+			}
+			else
+			{
+				echo $str; 
+			}
+		}
+		else
+		{ 
+			return false;
+		}
 	}
 	
 	
 	public static function style()
 	{
 		$conLang = array_unique(config::get('Masterpage','style'));
-		
-		foreach(@array_unique(func_get_args()) as $style)
+		$params = @array_unique(func_get_args());
+		$str = '';
+		foreach($params as $style)
 		{
 			if(is_array($style)) $style = "";
 			
@@ -419,12 +444,27 @@ class Import
 			{
 				if(is_file_exists(STYLES_DIR.suffix($style,".css")))
 				{
-					echo '<link href="'.base_url().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'."\n";
+					$str .= '<link href="'.base_url().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'."\n";
 				}
 				self::$is_import[] = "style_".$style;
 			}
 		}
 		
+		if($str) 
+		{
+			if($params[count($params) - 1] === true)
+			{
+				return $str;
+			}
+			else
+			{
+				echo $str; 
+			}
+		}
+		else
+		{ 
+			return false;
+		}
 		
 	}	
 	
@@ -432,7 +472,8 @@ class Import
 	public static function script()
 	{
 		$conLang = array_unique(config::get('Masterpage','script'));
-	
+		$params = @array_unique(func_get_args());
+		$str = '';
 		foreach(@array_unique(func_get_args()) as $script)
 		{
 			if(is_array($script)) $script = "";
@@ -441,11 +482,27 @@ class Import
 			{
 				if(is_file_exists(SCRIPTS_DIR.suffix($script,".js")))
 				{
-					echo '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($script,".js").'"></script>'."\n";
+					$str .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($script,".js").'"></script>'."\n";
 				}
 				self::$is_import[] = "script_".$script;
 			}
 		}
+		if($str) 
+		{
+			if($params[count($params) - 1] === true)
+			{
+				return $str;
+			}
+			else
+			{
+				echo $str; 
+			}
+		}
+		else
+		{ 
+			return false;
+		}
+		
 	}
 	
 	

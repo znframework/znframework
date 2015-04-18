@@ -100,7 +100,7 @@ $config['DateTime']['set_time_format_chars'] = array
 // hepsini karşılığı D özel ifadesidir.
 $config['DateTime']['set_date_format_chars'] = array
 (
-	'<short_day_name><short_day>|<sd>' 							=> 'D',
+	'<short_day_name>|<short_day>|<sd>' 						=> 'D',
 	'<day_name>|<day>|<d>' 										=> 'l',
 	'<day_number0>|<daynum0>|<dn0>' 							=> 'd',
 	'<day_number>|<daynum>|<dn>' 								=> 'j',
@@ -121,7 +121,7 @@ $config['DateTime']['set_date_format_chars'] = array
 	'<hour24>|<h24>' 											=> 'G',
 	'<hour012>|<h012>' 											=> 'h',
 	'<hour12>|<h12>' 											=> 'g',
-	'<minute0>|<minute>|<min|<min0>' 							=> 'i',
+	'<minute0>|<minute>|<min>|<min0>' 							=> 'i',
 	'<AMPM>|<AM>' 												=> 'A',
 	'<ampm>|<am>' 												=> 'a',
 	'<second>|<second0>|<sec>|<sec0>' 							=> 's',

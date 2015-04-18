@@ -141,6 +141,32 @@ function is_repmac()
 	return $result;
 }
 
+// Function: is_value()
+// İşlev: Parametrenin metinsel, sayılsal veya boolean türde veri içerip içermediğini kontrol eder.
+// Parametreler: Herhangi bir değer.
+// Dönen Değerler: Parametre metinsel, sayısal veya bollean türde ise true, değilse false değeri döner.
+
+function is_value($str = NULL)
+{
+	if(is_string($str) || is_numeric($str) || is_bool($str))
+		return true;
+	else
+		return false;
+}	
+
+// Function: is_char()
+// İşlev: Parametrenin metinsel veya sayılsal türde veri içerip içermediğini kontrol eder.
+// Parametreler: Herhangi bir değer.
+// Dönen Değerler: Parametre metinsel veya sayısal türde ise true, değilse false değeri döner.
+
+function is_char($str = NULL)
+{
+	if(is_string($str) || is_numeric($str))
+		return true;
+	else
+		return false;
+}	
+
 // Function: get_lang()
 // İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir.
 // Parametreler: Yok.
@@ -491,7 +517,7 @@ function path_info($file = "", $info = "basename")
 	if( ! empty($file))
 	{
 		$pathinfo = pathinfo($file);
-		if(isset($pathinfo[$info]))
+		if( isset($pathinfo[$info]))
 			return $pathinfo[$info];
 		else 
 			return false;
@@ -514,6 +540,16 @@ function extension($file = '', $dote = false)
 	
 	if($dote) $dote = '.'; else $dote = '';
 	return $dote.path_info($file, "extension");
+}
+
+// Function: remove_extension()
+// İşlev: Metinsel dosya isimlerinde yer alan uzantıları kaldırmak için kullanılır.
+// Dönen Değerler: Uzantısı kaldırılmış dosya adı.
+
+function remove_extension($file = '')
+{
+	if( ! is_string($file)) return false;
+	return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
 }
 
 // Function: divide()
@@ -639,7 +675,7 @@ function server($type = '')
 // $data = array() yönlendirilecek sayfaya veri gönderme, $exit = true 
 // Dönen Değerler: Yok.
 
-function redirect($url = '', $time = '0', $data = array(), $exit = true)
+function redirect($url = '', $time = 0, $data = array(), $exit = true)
 {	
 	if( ! is_string($url)) return false;
 	if(empty($url)) return false;
@@ -663,7 +699,7 @@ function redirect($url = '', $time = '0', $data = array(), $exit = true)
 		}		
 	}
 	
-	if($time == 0) 
+	if($time === 0) 
 	{
 		header("Location: {$url}", true);
 	}
@@ -768,6 +804,55 @@ function tool($file = NULL, $function = NULL, $parameters = array())
 	
 	if( function_exists($function) ) return call_user_func_array( $function , $parameters ); else return false;
 }
+
+// Function: imported_libraries()
+// İşlev: Çağrılmış olan kütüphanelerin listesini dizi türde verir.
+// Dönen Değerler: Dahil edilen kütüphanelerin listesi.
+
+function imported_libraries()
+{	
+	$libraries = array();
+	foreach(get_required_files() as $files) 
+	{
+		$real_libdir = 'Libraries';
+
+		if(strstr($files, $real_libdir))
+		{
+			$fileex = explode($real_libdir, $files);
+			
+			$class = remove_extension($fileex[1]);
+			
+			$libraries[] = str_replace(array('\\','/'), '', $class);
+		}	
+	}
+	
+	return $libraries;
+}
+
+// Function: imported_tools()
+// İşlev: Çağrılmış olan araçların listesini dizi türde verir.
+// Dönen Değerler: Dahil edilen araçların listesi.
+
+function imported_tools()
+{	
+	$libraries = array();
+	foreach(get_required_files() as $files) 
+	{
+		$real_libdir = 'Tools';
+
+		if(strstr($files, $real_libdir))
+		{
+			$fileex = explode($real_libdir, $files);
+			
+			$class = remove_extension($fileex[1]);
+			
+			$libraries[] = str_replace(array('\\','/'), '', $class);
+		}	
+	}
+	
+	return $libraries;
+}
+
 //------------------------------------SYSTEM AND USER FUNCTIONS END-------------------------------------------------------------------
 
 
@@ -797,7 +882,7 @@ function request_uri()
 function route_uri($request_uri = '')
 {
 	if(config::get("Route","open_page"))
-			if($request_uri == 'index.php' || empty($request_uri)) $request_uri = config::get("Route","open_page");
+			if($request_uri === 'index.php' || empty($request_uri)) $request_uri = config::get("Route","open_page");
 			
 	$uri_change = config::get('Route','change_uri');
 		
@@ -1012,12 +1097,9 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$sets = "";
 		foreach($all_settings as $k => $v)
 		{
-			if( ! empty($v))
+			if($v !== '')
 			{
-				if( ! ini_set($k, $v))
-				{
-					$sets .= "php_value $k $v\n";
-				} 
+				$sets .= "php_value $k $v\n";		 
 			}			
 		}
 		
@@ -1036,11 +1118,13 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$get_contents = '';
 	
 	// $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
-	if($htaccess == $get_contents) return false;
+	if(trim($htaccess) == trim($get_contents)) return false;
 	
+	//echo $get_contents."<br>";
+	//echo $htaccess;
 	// .htaccess dosyasını oluştur.
 	$file_open 	= fopen('.htaccess', 'w');
-	$file_write = fwrite($file_open, $htaccess);
+	$file_write = fwrite($file_open, trim($htaccess));
 	fclose($file_open);
 	
 	// $htaccess değişkenini kaldır.
@@ -1051,31 +1135,40 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 // oto yükleme yapmak için kullanılan fonksiyon
 
 function autoload($elements = '', $folder = '')
-{
-	
+{	
 	if( ! is_array($elements) ) return false;
 	
-	if(count( config::get('Autoload','Language') ) > 0)
+	$autoload_config = config::get('Autoload','Language');
+	
+	if( ! empty($autoload_config))
 	{
 		global $lang;
 		require_once CORE_DIR.'Lang.php';	
 	}
-
-	if($folder == "Languages") $current_lang = config::get('Language',get_lang()).'/'; else $current_lang = '';
+	
+	if($folder === "Languages") $current_lang = config::get('Language',get_lang()).'/'; else $current_lang = '';
 
 	foreach(array_unique($elements) as $rows)
 	{
+		$path = $folder.'/'.$current_lang.suffix($rows,".php");	
 		
-		$path = $folder.'/'.$current_lang.suffix($rows,".php");
-		
-	
 		if(is_file_exists($path) && extension($path) != "")
-		{
 			require_once($path);
-		}
 		else if(is_file_exists(SYSTEM_DIR.$path) && extension($path) != "")
-		{
 			require_once(SYSTEM_DIR.$path);
+		else
+		{
+			if($folder === 'Libraries')
+			{
+				$different_directory = config::get('Libraries', 'different_directory');
+					
+				if( ! empty($different_directory))foreach($different_directory as $dir)
+				{
+					$path = suffix($dir, '/').suffix($rows,".php");	
+					if(is_file($path) && ! class_exists($rows))
+						require_once($path);
+				}
+			}	
 		}
 	}
 }
@@ -1114,10 +1207,41 @@ function index_status()
 		return '';	
 }
 
-function get_error($lang_file, $error_msg, $ex = '')
+function get_message($lang_file, $error_msg, $ex = '')
 {
 	import::language($lang_file);
 	
 	return lang($error_msg, $ex);
+}
+
+function is_imported($class = '')
+{
+	if(strstr($class, '/'))
+		$class = divide($class, '/', -1);	
+
+	$short_name = config::get('Libraries', 'short_name');		
+		
+	if(isset($short_name[$class]))
+		$class = $short_name[$class];
+	
+	$var = strtolower($class);
+	
+	if(class_exists($class))
+		reference()->$var = new $class;
+}
+
+function error_report($type = NULL)
+{	
+	$result = error_get_last();
+	
+	if($type === NULL)
+		return $result;
+	else
+		return $result[$type];
+}
+
+function &reference()
+{
+	return zndynamic::reference();	
 }
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------

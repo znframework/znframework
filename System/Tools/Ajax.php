@@ -26,6 +26,6 @@ function json_send_back($data = array())
 // Dönen Değer: Parametre olarak girilen ifade.
 function send_back($data = '')
 {
-	if(empty($data) || is_array($data))return false;
+	if( ! is_value($data)) return false;
 	echo $data; exit;	
 }	

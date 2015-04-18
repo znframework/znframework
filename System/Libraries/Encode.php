@@ -61,5 +61,22 @@ class Encode
 		return md5($string.$config);
 
 	}
+	
+	public static function type($str = '', $type = 'md5')
+	{
+		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_string($type)) $type = 'md5';
+		if($type === 'md5')
+			return md5($str);
+		else if($type === 'sha1')
+			return sha1($str);	
+		else
+		{
+			if(in_array($type, hash_algos()))
+				return hash($type, $str);
+			else
+				return md5($str);
+		}
+	}
 
 }

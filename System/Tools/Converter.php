@@ -22,7 +22,7 @@ if(!function_exists('char_converter'))
 {
 	function char_converter($string = '', $type = 'char', $change_type = 'html')
 	{
-		if( ! is_string($string)) return false;
+		if( ! is_value($string)) return false;
 		if( ! is_string($type)) $type = 'char';
 		if( ! is_string($change_type)) $change_type = 'html';
 				
@@ -110,62 +110,34 @@ if( ! function_exists('url_word_converter'))
 	}
 }
 
-// Function: uplowcase_converter()
+// Function: case_converter()
 // İşlev: Büyük küçük harfe dönüştürme.
 // Parametreler
 // @string = Dönüştürülecek metin.
 // @type = Hangi türe çevireleceği. Parametrenin alabileceği değerler upper, lower, initial
-// 1-upper/up = Büyük harfe dönüştürür. Örnek: ZN FRAMEWORK
-// 2-lower/low = Küçük harfe dönüştürür. Örnek: zn framework
-// 3-initial = Kelimelerin sadece ilk harfini büyük diğer harflerini küçük harfe dönüştürür. Örnek: Zn Framework
+// 1-upper = Büyük harfe dönüştürür. Örnek: ZN FRAMEWORK
+// 2-lower = Küçük harfe dönüştürür. Örnek: zn framework
+// 3-title = Kelimelerin sadece ilk harfini büyük diğer harflerini küçük harfe dönüştürür. Örnek: Zn Framework
 // Dönen Değer: Karakterleri dönüştürülmüş metin.
-if( ! function_exists('uplowcase_converter'))
+if( ! function_exists('case_converter'))
 {
-	function uplowcase_converter($str = '', $type = 'lower')
+	function case_converter($str = '', $type = 'lower', $encoding = "utf-8")
 	{
 		if( ! is_string($str)) return false;
 		if( ! is_string($type)) $type = 'lower';
 				
 		if(empty($str)) return false;
 		
-		$chars = config::get('ForeignChars', 'upper_lower_case_chars');
+		$types  = array(
+			'lower' => MB_CASE_LOWER,
+			'upper' => MB_CASE_UPPER,
+			'title' => MB_CASE_TITLE
+		);
 		
-		$upper = array_keys($chars);
-		$lower = array_values($chars);
-		
-		if($type === 'lower' || $type === 'low')
-		{
-			return str_replace($upper, $lower, $str);
-		}
-		elseif($type === 'upper' || $type === 'up')
-		{
-			return str_replace($lower, $upper, $str);
-			
-		}
-		elseif($type === 'initial')
-		{
-			$str = preg_replace("/\s+/", ' ', $str);
-			$str = str_replace("&nbsp;", "", $str);
-			str_replace($upper, $lower, $str);
-				
-			$strs = explode(' ', $str);
-			
-			$newstr = ""; $firstchar = "";
-			foreach($strs as $val)
-			{
-				$firstchar = $val[0];
-				$firstchar = str_replace($lower, $upper, $firstchar);
-				$newstr .= $firstchar.substr($val,1)." ";
-			}
-			
-			$newstr = trim($newstr);
-			
-			return $newstr;
-		}
+		if(isset($types[$type])) 
+			$type = $types[$type];
 		else
-		{
-			return str_replace($upper, $lower, $str);
-		}
-		
+			$type = $types["lower"];
+		return mb_convert_case($str, $type, $encoding);	
 	}	
 }

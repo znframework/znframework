@@ -46,8 +46,8 @@ if(!function_exists('html_element'))
 {
 	function html_element($element = '', $str = '', $attributes = "")
 	{
-		if( ! (is_string($element) || is_numeric($element))) return false;
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($element)) return false;
+		if( ! is_value($str)) return false;
 		return '<'.$element.attributes($attributes).'>'.$str.'</'.$element.'>';
 	}	
 }
@@ -62,7 +62,7 @@ if(!function_exists('multi_attr'))
 {
 	function multi_attr($str = '', $array = array())
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		
 		$open = "";
 		$close = "";
@@ -108,7 +108,7 @@ if(!function_exists('heading'))
 {
 	function heading($str = '', $type = 3, $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		if( ! is_numeric($type)) $type = 3;
 		
 		return '<h'.$type.attributes($attributes).'>'.$str.'</h'.$type.'>';
@@ -125,7 +125,7 @@ if(!function_exists('font'))
 {
 	function font($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<font'.attributes($attributes).'>'.$str.'</font>';
 	}	
 }
@@ -140,7 +140,7 @@ if(!function_exists('parag'))
 {
 	function parag($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return	'<p'.attributes($attributes).'>'.$str.'</p>';
 	}
 }
@@ -155,7 +155,7 @@ if(!function_exists('bold'))
 {
 	function bold($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<bold'.attributes($attributes).'>'.$str.'</bold>';
 	}
 }
@@ -170,7 +170,7 @@ if(!function_exists('strong'))
 {
 	function strong($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<strong'.attributes($attributes).'>'.$str.'</strong>';
 	}
 }
@@ -185,7 +185,7 @@ if(!function_exists('italic'))
 {
 	function italic($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<em'.attributes($attributes).'>'.$str.'</em>';
 	}
 }
@@ -200,7 +200,7 @@ if(!function_exists('underline'))
 {
 	function underline($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<u'.attributes($attributes).'>'.$str.'</u>';
 	}
 }
@@ -215,7 +215,7 @@ if(!function_exists('overline'))
 {
 	function overline($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<del'.attributes($attributes).'>'.$str.'</del>';
 	}
 }
@@ -230,7 +230,7 @@ if(!function_exists('overtext'))
 {
 	function overtext($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<sup'.attributes($attributes).'>'.$str.'</sup>';
 	}
 }
@@ -245,7 +245,7 @@ if(!function_exists('undertext'))
 {
 	function undertext($str = '', $attributes = "")
 	{
-		if( ! (is_string($str) || is_numeric($str))) return false;
+		if( ! is_value($str)) return false;
 		return '<sub'.attributes($attributes).'>'.$str.'</sub>';
 	}
 }
@@ -275,7 +275,7 @@ if(!function_exists('anchor'))
 	function anchor($url = '', $value = '', $_attributes = '')
 	{
 		if( ! is_string($url)) return false;
-		if( ! (is_string($value) || is_numeric($value))) return false;
+		if( ! is_value($value)) return false;
 		
 		if( ! is_url($url)) 
 			$url = site_url($url);
@@ -356,7 +356,7 @@ if(!function_exists('meta'))
 	function meta($name = '', $content = '' ,$type = 'name')
 	{
 		if( ! is_string($type)) $type = 'name';
-		if( ! (is_string($content) || is_numeric($content))) $content = '';
+		if( ! is_value($content)) $content = '';
 		
 		if( ! is_array($name))
 		{

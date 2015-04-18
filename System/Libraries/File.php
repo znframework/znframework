@@ -25,7 +25,7 @@ class File
 		}
 		else
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;		
 		}
@@ -39,7 +39,7 @@ class File
 		
 		if( ! file_exists($file))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -56,7 +56,7 @@ class File
 		
 		if( ! file_exists($path))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $path);
+			self::$error = get_message('File', 'file_not_found_error', $path);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -71,7 +71,7 @@ class File
 		
 		if( ! file_exists($file))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -98,7 +98,7 @@ class File
 			touch($name);
 		else
 		{
-			self::$error = get_error('File', 'file_already_file_error', $name);
+			self::$error = get_message('File', 'file_already_file_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -111,7 +111,7 @@ class File
 		
 		if( ! file_exists($name)) 
 		{
-			self::$error = get_error('File', 'file_not_found_error', $name);
+			self::$error = get_message('File', 'file_not_found_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -127,7 +127,7 @@ class File
 		
 		if( ! file_exists($file))	
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -143,7 +143,7 @@ class File
 		if( ! is_numeric($permission)) $permission = 0755;
 		if( ! file_exists($name))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $name);
+			self::$error = get_message('File', 'file_not_found_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -157,7 +157,7 @@ class File
 		if( ! is_string($type)) $type = "d.m.Y G:i:s";
 		if( ! file_exists($file))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -172,7 +172,7 @@ class File
 		if( ! is_string($type)) $type = "d.m.Y G:i:s";
 		if( ! file_exists($file))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -187,13 +187,15 @@ class File
 		if( ! is_string($type)) $type = "b";
 		if( ! file_exists($file))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'file_not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
 		$size = 0;
 	
-		if(extension($file)!= "")
+		$extension = extension($file);
+		
+		if( ! empty($extension))
 		{
 			$size += filesize($file);
 		}
@@ -214,10 +216,10 @@ class File
 			}	
 		}
 		
-		if($type == "b")return  $size;
-		if($type == "kb")return round($size / 1024, 2);
-		if($type == "mb")return round($size / (1024 * 1024), 2);
-		if($type == "gb")return round($size / (1024 * 1024 * 1024), 2);
+		if($type === "b")return  $size;
+		if($type === "kb")return round($size / 1024, 2);
+		if($type === "mb")return round($size / (1024 * 1024), 2);
+		if($type === "gb")return round($size / (1024 * 1024 * 1024), 2);
 	}
 	
 	
@@ -227,7 +229,7 @@ class File
 		if( ! is_string($target)) $target = '';
 		if( ! file_exists($zip))
 		{
-			self::$error = get_error('File', 'file_not_found_error', $zip);
+			self::$error = get_message('File', 'file_not_found_error', $zip);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}

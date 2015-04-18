@@ -108,7 +108,7 @@ class Structure
 			{
 				if( ! config::get('Route', 'show_404'))
 				{
-					echo get_error('System', 'system_call_user_func_class_error');
+					echo get_message('System', 'system_call_user_func_class_error');
 					return false;
 				}
 				else
@@ -127,7 +127,7 @@ class Structure
 			{
 				if( ! config::get('Route', 'show_404'))
 				{
-					echo get_error('System', 'system_call_user_func_array_error');
+					echo get_message('System', 'system_call_user_func_array_error');
 					return false;
 				}
 				else
@@ -143,7 +143,7 @@ class Structure
 			}
 			else
 			{
-				echo get_error('System', 'system_not_is_file_error');
+				echo get_message('System', 'system_not_is_file_error');
 				return false;
 			}		
 		}

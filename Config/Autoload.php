@@ -21,6 +21,9 @@ SETTINGS
 // İşlev:Otomatik olarak kütüphane yüklemek için kullanılır
 // Parametre:Dahil etmek istediğiniz kütüphaneleri diziye elaman olarak sırayla ekleyin.
 // Örnek: array("Database", "Validation");
+// System/ dizininde yer alan Database Sınıflarını kullanmak için
+// Sorgulama işlemleri için DbQueryBuilder
+// Oluşturma işlemleri için DbForge sınıf isimlerini kullanınız.
 $config['Autoload']['Library'] 	= array(); // Array
 
 /* TOOL	*/

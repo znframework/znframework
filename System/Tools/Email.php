@@ -24,7 +24,7 @@ if(!function_exists("send_email"))
 	{
 		if( ! is_string($to) || ! is_email($to)) return false;
 		if( ! is_string($subject)) $subject = '';
-		if( ! is_string($message)) $message = '';
+		if( ! is_value($message)) $message = '';
 		if( ! is_string($extra)) $extra = '';
 		
 		$result = mail($to,$subject,$message, $extra);	
@@ -48,7 +48,7 @@ if(!function_exists("send_imap_email"))
 	{
 		if( ! is_string($to) || ! is_email($to)) return false;
 		if( ! is_string($subject)) $subject = '';
-		if( ! is_string($message)) $message = '';
+		if( ! is_value($message)) $message = '';
 		if( ! is_string($extra)) $extra = '';
 		
 		$result = imap_mail($to,$subject,$message, $extra);	

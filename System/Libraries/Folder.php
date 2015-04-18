@@ -23,7 +23,7 @@ class Folder
 			mkdir($name,$permission);
 		else
 		{
-			self::$error =  get_error('Folder', 'folder_already_file_error', $name);
+			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			//return false; 
 		}
@@ -37,7 +37,7 @@ class Folder
 			rmdir($name);
 		else
 		{
-			self::$error = get_error('Folder', 'folder_not_found_error', $name);
+			self::$error = get_message('Folder', 'folder_not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			//return false;	
 		}
@@ -50,7 +50,7 @@ class Folder
 		
 		if( ! file_exists($source))
 		{
-			self::$error = get_error('Folder', 'folder_not_found_error', $source);
+			self::$error = get_message('Folder', 'folder_not_found_error', $source);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}
@@ -58,7 +58,7 @@ class Folder
 		if(extension($source) == "")
 		{
 			import::library("Folder");
-			if(count(folder::files($source)) == 0)
+			if(count(folder::files($source)) === 0)
 			{
 				@copy($source, $target);
 			}
@@ -89,14 +89,16 @@ class Folder
 		
 		if( ! file_exists($name))
 		{
-			self::$error = get_error('Folder', 'folder_not_found_error', $name);
+			self::$error = get_message('Folder', 'folder_not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}
 		
 		import::library("File");
 		
-		if( ! empty(extension($name)))
+		$extension = extension($name);
+		
+		if( ! empty($extension))
 		{
 			file::delete($name);	
 		}
@@ -109,16 +111,17 @@ class Folder
 			else
 			{
 				
-				if( ! empty(extension($name)))
+				if( ! empty($extension))
 				{
 					file::delete($name."/".$val);
 				}
 				else
 				{
 		
-					for($i = 0; $i < 5; $i++)foreach(self::files($name) as $val)
+					for($i = 0; $i < count(self::files($name)); $i++)foreach(self::files($name) as $val)
 					{					
 						folder::delete($name."/".$val);
+						echo $name."/".$val."<br><br>";
 					}
 				}
 			}
@@ -135,7 +138,7 @@ class Folder
 		
 		if(is_file($path))
 		{
-			self::$error = get_error('Folder', 'folder_folder_parameter_error', $path);
+			self::$error = get_message('Folder', 'folder_folder_parameter_error', $path);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;		
 		}
@@ -150,21 +153,22 @@ class Folder
 			while($file = readdir($dir))
 			{
 		
-				if($file != '.' && $file != '..')
+				if($file !== '.' && $file !== '..')
 				{
 						
-						if( ! empty($extension) && $extension != 'dir')
+						if( ! empty($extension) && $extension !== 'dir')
 						{
-							if(extension($file) == $extension)
+							if(extension($file) === $extension)
 							{
 							 $files[] = $file;	
 							}
 						}
 						else
 						{
-							if($extension == 'dir')
+							if($extension === 'dir')
 							{
-								if(empty(extension($file)))
+								$extens = extension($file);
+								if(empty($extens))
 								{
 									$files[] = $file;	
 								}
@@ -202,7 +206,7 @@ class Folder
 		
 		if( ! file_exists($name))
 		{
-			self::$error = get_error('Folder', 'folder_not_found_error', $name);
+			self::$error = get_message('Folder', 'folder_not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}

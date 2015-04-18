@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $title; // Coder/home.php sayfasından gönderilen başlık bilgisi ?></title>
-<?php import::style("style"); // Çağrılan Stil Dosyasının Yolu: Designer/Styles/style.php ?>
+<?php echo $style; // Çağrılan Stil Dosyasının Yolu: Designer/Styles/style.css ?>
 </head>
 
 <body>

@@ -94,7 +94,7 @@ if(!file_exists('set_time'))
 // Dönen Değer: Ayarlanan tarih saat bilgisi
 if(!file_exists('set_date'))
 {
-	function set_date($exp='h:i:s')
+	function set_date($exp = 'h:i:s')
 	{
 		if( ! is_string($exp)) return false;
 		

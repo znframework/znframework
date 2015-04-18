@@ -26,14 +26,14 @@ class Cart
 	{
 		if( empty($product) )
 		{
-			self::$error = get_error('Cart', 'cart_insert_parameter_empty_error');
+			self::$error = get_message('Cart', 'cart_insert_parameter_empty_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( ! is_array($product))
 		{
-			self::$error = get_error('Cart', 'cart_array_parameter_error');
+			self::$error = get_message('Cart', 'cart_array_parameter_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -65,7 +65,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = get_error('Cart', 'cart_no_data_error');
+			self::$error = get_message('Cart', 'cart_no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -82,7 +82,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = get_error('Cart', 'cart_no_data_error');
+			self::$error = get_message('Cart', 'cart_no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -98,7 +98,7 @@ class Cart
 		
 		if(empty(self::$items))
 		{
-			self::$error = get_error('Cart', 'cart_no_data_error');
+			self::$error = get_message('Cart', 'cart_no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -106,8 +106,8 @@ class Cart
 		$total = "";
 		foreach(self::$items as $values)
 		{
-			$values['quantity'] = ($values['quantity']) ? $values['quantity'] : 1;
-			$total += $values['price'] * $values['quantity'];
+			$quantity = (isset($values['quantity'])) ? $values['quantity'] : 1;
+			$total += $values['price'] * $quantity;
 		}
 		return $total;
 	}
@@ -122,21 +122,21 @@ class Cart
 		
 		if( empty($code) )
 		{
-			self::$error = get_error('Cart', 'cart_update_code_error');
+			self::$error = get_message('Cart', 'cart_update_code_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( empty($data) )
 		{
-			self::$error = get_error('Cart', 'cart_update_parameter_empty_error');
+			self::$error = get_message('Cart', 'cart_update_parameter_empty_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( ! is_array($data))
 		{
-			self::$error = get_error('Cart', 'cart_update_array_parameter_error');
+			self::$error = get_message('Cart', 'cart_update_array_parameter_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -183,7 +183,7 @@ class Cart
 		
 		if( empty($code) )
 		{
-			self::$error = get_error('Cart', 'cart_delete_code_error');
+			self::$error = get_message('Cart', 'cart_delete_code_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}

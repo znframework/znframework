@@ -81,7 +81,7 @@ class Config
 		{	
 			if(is_array($val)) return false;
 			
-			if($val) ini_set($key, $val);
+			if($val !== '') ini_set($key, $val);
 		}
 		else
 		{

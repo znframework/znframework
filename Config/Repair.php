@@ -28,7 +28,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * 	Varsayılan: 127.0.0.1.
 *-------------------------------------------------------------------------------
 */
-// aşağıdaki özelliklerin çalışması için bu özelliğin true yapılması gerekemektedir.
+// aşağıdaki özelliklerin çalışması için bu özelliğin true yapılması gerekmektedir.
 $config['Repair']['mode'] = false; 
 // array()local ip 127.0.0.1
 $config['Repair']['machines'] = array(); 

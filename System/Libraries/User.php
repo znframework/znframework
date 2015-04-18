@@ -99,15 +99,17 @@ class User
 		$password_column  	= config::get("User","password_column");
 		$activation_column 	= config::get("User","activation_column");
 		
-		if( ! empty(uri::get('user')) && ! empty(uri::get('pass')))	
+		$user = uri::get('user');
+		$pass = uri::get('pass');
+		if( ! empty($user) && ! empty($pass))	
 		{
-			db::where($username_column, '=', uri::get('user'));
-			db::where($password_column, '=', uri::get('pass'));		
+			db::where($username_column, '=', $user);
+			db::where($password_column, '=', $pass);		
 			$get = db::get($table_name);			
 			$row = $get->row;		
 			if( ! empty($row))
 			{
-				db::where($username_column, '=', uri::get('user'));
+				db::where($username_column, '=', $user);
 				db::update($table_name, array($activation_column => '1'));
 				self::$success = lang("user_activation_complete");
 				return true;
@@ -277,6 +279,8 @@ class User
 			if( ! isset($_SESSION)) session_start();
 			
 			$_SESSION[md5($username_column)] = $username; 
+			
+			session_regenerate_id();
 			
 			if(method::post($remember_me) || $remember_me)
 			{

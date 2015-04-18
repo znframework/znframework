@@ -31,13 +31,13 @@ class Cook
 		
 		if(empty($name))
 		{			
-			self::$error = get_error('Cookie', 'cook_name_parameter_empty_error');
+			self::$error = get_message('Cookie', 'cook_name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
 		if(empty($value))
 		{
-			self::$error = get_error('Cookie', 'cook_value_parameter_empty_error');
+			self::$error = get_message('Cookie', 'cook_value_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -58,7 +58,7 @@ class Cook
 			return true;
 		else
 		{
-			self::$error = get_error('Cookie', 'cook_set_error');
+			self::$error = get_message('Cookie', 'cook_set_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -77,7 +77,7 @@ class Cook
 		
 		if(empty($name))
 		{
-			self::$error = get_error('Cookie', 'cook_name_parameter_empty_error');
+			self::$error = get_message('Cookie', 'cook_name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -91,7 +91,7 @@ class Cook
 			return $_COOKIE[$name]; 
 		else 
 		{
-			self::$error = get_error('Cookie', 'cook_not_select_error');
+			self::$error = get_message('Cookie', 'cook_not_select_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;	
 		}
@@ -112,7 +112,7 @@ class Cook
 
 		if(empty($name))
 		{
-			self::$error = get_error('Cookie', 'cook_name_parameter_empty_error');
+			self::$error = get_message('Cookie', 'cook_name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -128,7 +128,7 @@ class Cook
 			setcookie($name,"",(time() - 1), $path); 
 		else
 		{ 
-			self::$error = get_error('Cookie', 'cook_not_delete_error');
+			self::$error = get_message('Cookie', 'cook_not_delete_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;		
 		}

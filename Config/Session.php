@@ -18,7 +18,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *-------------------------------------------------------------
 */
 
-// İşlev: session değerlerini tutan anahtar ifadeler şifrelnsin mi?
+// İşlev: session değerlerini tutan anahtar ifadeler şifrelensin mi?
 // true olması durumunda session bilgisini tutan anahtar ifadeler şifrelenir.
 // false olması durumunda anahtar ifadeler şifrelenmez.
 $config['Session']['encode'] = true;

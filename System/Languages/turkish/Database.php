@@ -16,8 +16,16 @@ $lang['db_string_error'] = '% parametre sorgu kaynak değişkeni içermelidir!';
 $lang['db_connect_resource_error'] = '% parametre bağlantı kaynak değişkeni içermelidir!';
 $lang['db_class_not_exists_error'] = '% parametre sınıf bilgisi bulunamadı!';
 $lang['db_invalid_charset_error'] = 'Böyle bir karakter seti bulunamadı!';
-$lang['db_mysql_connect_error'] = 'HATA: Mysql bağlantısı sağlanamadı! Lütfen bağlantı ayarlarınızı kontrol edin.';
+$lang['db_mysql_connect_error'] = 'HATA: Veritabanı bağlantısı sağlanamadı! Lütfen bağlantı ayarlarınızı kontrol edin.';
 $lang['db_string_parameter_error'] = '% parametre metinsel veri türü içermelidir!';
 $lang['db_numeric_parameter_error'] = '% parametre numerik veri türü içermelidir!';
 $lang['db_array_parameter_error'] = '% parametre dizi veri türü içermelidir!';
+$lang['db_array_string_parameter_error'] = '% parametre dizi veya metinsel veri türü içermelidir!';
 $lang['db_driver_error'] = '`%` sürücüsü bulunamadı!';
+$lang['db_dublicate_column_error'] = '`%` sütunu zaten var!';
+$lang['db_no_drop_column_error'] = '`%` sütunu daha önce kaldırıldığı için silinemiyor!';
+
+
+$lang['db_optimize_tables_success'] = 'Optimizasyon işlemi başarı ile tamamlandı.';
+$lang['db_backup_tables_success'] = 'Yedekleme işlemi başarı ile tamamlandı.';
+$lang['db_repair_tables_success'] = 'Onarma işlemi başarı ile tamamlandı.';

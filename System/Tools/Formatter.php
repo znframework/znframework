@@ -36,38 +36,44 @@ if( ! function_exists('byte_formatter'))
 		if($bytes <= $byte && $bytes > -1)
 		{
 			$un = ($unit) ? " Bytes" : "";
-			return $bytes.$un;
+			$return = $bytes.$un;
 		}
 		else if($bytes <= $kb && $bytes > $byte)
 		{
 			$un = ($unit) ? " KB" : "";
-			return round(($bytes / $byte),$precision).$un;
+			$return =  round(($bytes / $byte),$precision).$un;
 		}
 		else if($bytes <= $mb && $bytes > $kb)
 		{	
 			$un = ($unit) ? " MB" : "";
-			return round(($bytes / $kb),$precision).$un;
+			$return =  round(($bytes / $kb),$precision).$un;
 		}
 		else if($bytes <= $gb && $bytes > $mb)
 		{	
 			$un = ($unit) ? " GB" : "";
-			return round(($bytes / $mb),$precision).$un;
+			$return =   round(($bytes / $mb),$precision).$un;
 		}
 		else if($bytes <= $tb && $bytes > $gb)
 		{
 			$un = ($unit) ? " TB" : "";
-			return round(($bytes / $gb),$precision).$un;
+			$return =   round(($bytes / $gb),$precision).$un;
 		}
 		else if($bytes <= $pb && $bytes > $tb)
 		{
 			$un = ($unit) ? " PB" : "";
-			return round(($bytes / $tb),$precision).$un;
+			$return =   round(($bytes / $tb),$precision).$un;
 		}
 		else if($bytes <= $eb && $bytes > $pb)
 		{
 			$un = ($unit) ? " EB" : "";
-			return round(($bytes / $pb),$precision).$un;
+			$return =   round(($bytes / $pb),$precision).$un;
 		}
+		else
+		{
+			$un = ($unit) ? " Bytes" : "";
+			$return = str_replace(",",".",number_format($bytes)).$un;
+		}
+		return $return;
 	}
 }
 

@@ -42,7 +42,58 @@ if( ! function_exists('trim_slashes'))
 	}	
 }
 
-// Function: sub_string()
+// Function: uppercase()
+// İşlev: Metinsel ifadeleri büyük harfe çevirir.
+// Parametreler
+// @str = Metin
+// @encoding = Kodlama Türü
+if( ! function_exists('uppercase'))
+{
+	function uppercase($str = '', $encoding = 'utf-8')
+	{
+		if( ! is_string($str)) return false;
+		
+		$str = mb_strtoupper($str, $encoding);
+		
+		return $str;
+	}	
+}
+
+// Function: lowercase()
+// İşlev: Metinsel ifadeleri küçük harfe çevirir.
+// Parametreler
+// @str = Metin
+// @encoding = Kodlama Türü
+if( ! function_exists('lowercase'))
+{
+	function lowercase($str = '', $encoding = 'utf-8')
+	{
+		if( ! is_string($str)) return false;
+		
+		$str = mb_strtolower($str, $encoding);
+		
+		return $str;
+	}	
+}
+
+// Function: titlecase()
+// İşlev: Metinsel ifadeleri küçük harfe çevirir.
+// Parametreler
+// @str = Metin
+// @encoding = Kodlama Türü
+if( ! function_exists('titlecase'))
+{
+	function titlecase($str = '', $encoding = 'utf-8')
+	{
+		if( ! is_string($str)) return false;
+		
+		$str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
+		
+		return $str;
+	}	
+}
+
+// Function: substring()
 // İşlev: Veriyi kırpmak için kullanılır.
 // Parametreler
 // @str = Kırpılacak veri.
@@ -53,9 +104,9 @@ if( ! function_exists('trim_slashes'))
 // @count = Kaç karakter kırpılacağı. Parametrenin alabileceği değerler: sayısal veriler, all
 // 1- sayısal veriler: herhangi bir sayı.
 // 1- all: Kalan bütün karakterler.
-if( ! function_exists('sub_string'))
+if( ! function_exists('substring'))
 {
-	function sub_string($str = '', $starting = 0, $count = 0)
+	function substring($str = '', $starting = 0, $count = 0, $encoding = "utf-8")
 	{
 		if( ! is_string($str)) return false;
 		if( ! (is_numeric($starting) || is_string($starting))) $starting = 0;
@@ -65,66 +116,12 @@ if( ! function_exists('sub_string'))
 		{ 
 			return $str;
 		}
+		if($starting === 'first') $starting = 0;
+		if($starting === 'middle') $starting = floor(mb_strlen($str, $encoding) / 2);
 		
-		if( is_numeric($starting) )	
-		{
-			if( $starting > strlen($str)) 
-			{	
-				return $str;
-			}
-		}
-		if( is_numeric($count) && is_numeric($starting))
-		{	
-			if($starting < strlen($str) && ($starting + $count > strlen($str)))
-			{	
-				$count = strlen($str);
-			}
-		}
-		$new_str = NULL;
-		
-		$ending = $starting + $count;		
-				
-		if($starting >= 0 || $starting === "first" || $starting === "middle")
-		{
-			if($starting === "first")
-				$starting = 0;
+		if($count === 'all') $count = mb_strlen($str, $encoding) - ($starting);
 
-			if($starting === "middle")
-				$starting = (int)floor(strlen($str) / 2);	
-				
-					
-			if($count === 'all')
-				$ending = strlen($str);
-			else
-				$ending = $count + $starting;
-			
-			for($i = $starting; $i < $ending; $i++)
-			{
-				if(isset($str[$i]))
-					$new_str .= $str[$i];
-			}
-		
-			return $new_str;
-		}
-		else
-		{	
-			$starting = strlen($str) + $starting;
-	
-			if( $starting + $count > strlen($str))
-				return $str;
-			
-			$ending = $starting + $count;
-			
-			if($count === 'all')
-				$ending = strlen($str);
-					
-			for($i = $starting; $i < $ending; $i++)
-			{
-				$new_str .= $str[$i];	
-			}	
-			return $new_str;
-		}		
-	
+		return mb_substr($str, $starting, $count, $encoding);
 	}	
 }
 
@@ -151,6 +148,78 @@ if( ! function_exists('string_search'))
 	}	
 }
 
+// Function: string_reshuffle()
+// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
+// Parametreler
+// @str = Değişiklik yapılacak metin.
+// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
+// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
+if( ! function_exists('string_reshuffle'))
+{
+	function string_reshuffle($str = '', $shuffle = '', $reshuffle = '')
+	{
+		if( ! is_string($str) || empty($str)) return false;
+		if( ! is_value($shuffle)) return $str;
+		if( ! is_value($reshuffle)) return $str;
+		
+		if(empty($shuffle)) return $str;
+		
+		$shuffleex = explode($shuffle, $str);
+		
+		$newstr = "";
+		foreach($shuffleex as $v)
+		{
+			$newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;	
+		} 
+		
+		return substr($newstr, 0, -strlen($reshuffle));
+	}	
+}
+
+// Function: string_reshuffle()
+// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
+// Parametreler
+// @str = Değişiklik yapılacak metin.
+// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
+// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
+if( ! function_exists('string_recurrent_char_count'))
+{
+	function string_recurrent_char_count($str = '', $char = '')
+	{
+		if( ! is_string($str) || empty($str)) return false;
+		if( ! is_value($char)) return $str;
+		
+		return count(explode($char, $str)) - 1;
+	}	
+}
+
+// Function: string_replacement()
+// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
+// Parametreler
+// @str = Değişiklik yapılacak metin.
+// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
+// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
+if( ! function_exists('string_placement'))
+{
+	function string_placement($str = '', $delimiter = '?', $array = array())
+	{
+		if( ! is_string($str) || empty($str)) return false;
+		if( ! is_array($array)) return false;
+		
+		if( ! empty($delimiter))
+			$strex = explode($delimiter, $str);
+		else
+			$strex = $str;
+			
+		$newstr = '';
+		for($i = 0; $i < count($array); $i++)
+		{
+			$newstr .= $strex[$i].$array[$i];
+		}
+	
+		return $newstr;
+	}	
+}
 // Function: string_reshuffle()
 // İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
 // Parametreler
