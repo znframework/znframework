@@ -2,17 +2,19 @@
     "repositories": 
     [
         {
-            "url": "https://github.com/znframework/znframework.git",
-            "type": "git"
+            "url" : "https://github.com/znframework/znframework.git",
+            "type" : "git"
         }
     ],
-	"author" : "Ozan UYKUN",
+    
+    "author" : "Ozan UYKUN",
     "description" : "ZNDynamic framework",
     "name" : "znframework/znframework",
-    "license": "MIT",
+    "license" : "MIT",
 	
     "require": 
     {
-        "znframework/znframework": ">=5.2.4"
+	"znframework/znframework" : "dev-master",
+        "php" : ">=5.2.4"
     }
 }
