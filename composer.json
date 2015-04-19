@@ -6,11 +6,11 @@
             "type": "git"
         }
     ],
-
+	"author" : "Ozan UYKUN",
     "description" : "ZNDynamic framework",
     "name" : "znframework/znframework",
     "license": "MIT",
-
+	
     "require": 
     {
         "znframework/znframework": ">=5.2.4"
