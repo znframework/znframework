@@ -1,42 +1,24 @@
 {
-<<<<<<< HEAD
-	"repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "znframework/znframework",
-                "version": "1.1.0",
-                "dist": {
-                    "url": "https://github.com/znframework/znframework.git",
-                    "type": "git"
-                }
-            }
-        }
-    ],
+
+	"repositories": 
+	[
+	        {
+	            "type": "package",
+	            "package": 
+	            {
+	                "name": "znframework/znframework",
+	                "version": "1.1.0",
+	                "dist": 
+	                {
+	                    "url": "https://github.com/znframework/znframework.git",
+	                    "type": "git"
+	                }
+	             }
+	         }
+	],
 	
-	"require" : 
+	"require": 
 	{
 		"znframework/znframework": "dev-master"
 	}
 }
-=======
-    "repositories": 
-    [
-        {
-            "url" : "https://github.com/znframework/znframework.git",
-            "type" : "git"
-        }
-    ],
-    
-    "author" : "Ozan UYKUN",
-    "description" : "ZNDynamic framework",
-    "name" : "znframework/znframework",
-    "license" : "MIT",
-	
-    "require": 
-    {
-	"znframework/znframework" : "dev-master",
-        "php" : ">=5.2.4"
-    }
-}
->>>>>>> origin/master
