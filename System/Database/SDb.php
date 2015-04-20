@@ -2,6 +2,7 @@
 class SDb
 {
 	private static $select;
+	private static $select_column;
 	private static $from;
 	private static $where;
 	private static $all;
@@ -47,7 +48,8 @@ class SDb
 	{
 		if( ! is_string($condition)) $condition = '*';
 		
-		self::$select = 'SELECT '.$condition.' ';
+		self::$select_column = ' '.$condition.' ';
+		self::$select = 'SELECT';
 	}
 	
 	public static function from($table = '')
@@ -64,9 +66,7 @@ class SDb
 		if(empty(self::$connect)) self::connect();
 		
 		$value = "'".self::$db->real_escape_string($value)."'";
-		
-		$condition = ' '.$logical.' ';
-		
+
 		self::$where .= ' '.$column.' '.$value.' '.$logical.' ';
 	}
 	
@@ -77,9 +77,7 @@ class SDb
 		if(empty(self::$connect)) self::connect();
 		
 		$value = "'".self::$db->real_escape_string($value)."'";
-		
-		$condition = ' '.$logical.' ';
-		
+
 		self::$having = ' '.$column.' '.$value.' '.$logical.' ';
 	}
 	
@@ -96,15 +94,38 @@ class SDb
 		
 		if(empty(self::$connect)) self::connect();
 		
-		if(empty(self::$select)) self::$select = 'SELECT * ';
+		if(empty(self::$select)) { self::$select = 'SELECT'; self::$select_column = ' * '; }
 				
 		if( ! empty($table)) self::$from = ' FROM '.self::$prefix.$table.' ';
 		
-		if( ! empty(self::$where)) $where = ' WHERE '; else $where = '';
+		if( ! empty(self::$where)) 
+		{
+			$where = ' WHERE '; 
+	
+			if(strtolower(substr(trim(self::$where),-2)) === 'or')
+				self::$where = substr(trim(self::$where),0,-2);
 		
-		if( ! empty(self::$having)) $having = ' HAVING '; else $having = '';
+			if(strtolower(substr(trim(self::$where),-3)) === 'and')
+				self::$where = substr(trim(self::$where),0,-3);		
+		}
+		else 
+			$where = '';
 		
-		$query_builder = self::$all.
+		if( ! empty(self::$having))
+		{
+			$having = ' HAVING '; 
+			
+			if(strtolower(substr(trim(self::$having),-2)) === 'or')
+				self::$having = substr(trim(self::$having),0,-2);
+		
+			if(strtolower(substr(trim(self::$having),-3)) === 'and')
+				self::$having = substr(trim(self::$having),0,-3);		
+		}
+		else 
+			$having = '';
+		
+		$query_builder = self::$select.
+						 self::$all.
 						 self::$distinct.
 						 self::$distinctrow.
 						 self::$high_priority.
@@ -115,8 +136,8 @@ class SDb
 						 self::$cache.
 						 self::$no_cache.
 						 self::$calc_found_rows.
-						 self::$select.
 						 self::$math.
+						 self::$select_column.
 						 self::$from.
 						 self::$join.
 						 $where.self::$where.
@@ -332,6 +353,7 @@ class SDb
 		self::$no_cache = NULL;
 		self::$calc_found_rows = NULL;
 		self::$select = NULL;
+		self::$select_column = NULL;
 		self::$math = NULL;
 		self::$from = NULL;
 		self::$where = NULL;

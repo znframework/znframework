@@ -176,15 +176,14 @@ if( ! function_exists('string_reshuffle'))
 	}	
 }
 
-// Function: string_reshuffle()
-// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
+// Function: string_recurrent_count()
+// İşlev: Metinsel ifadelerde tekrarlayan karakter veya karakterlerin sayısını öğrenmek için kullanılır.
 // Parametreler
-// @str = Değişiklik yapılacak metin.
-// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
-// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
-if( ! function_exists('string_recurrent_char_count'))
+// @str = Arama yapılacak metin.
+// @char = Kaç kez tekrar ettiği hesaplanmak istenen karakter veya karakterler.
+if( ! function_exists('string_recurrent_count'))
 {
-	function string_recurrent_char_count($str = '', $char = '')
+	function string_recurrent_count($str = '', $char = '')
 	{
 		if( ! is_string($str) || empty($str)) return false;
 		if( ! is_value($char)) return $str;
@@ -193,12 +192,12 @@ if( ! function_exists('string_recurrent_char_count'))
 	}	
 }
 
-// Function: string_replacement()
-// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
+// Function: string_placement()
+// İşlev: Metinsel ifadeler içinde istenilen karakterlerin yerine başka karakterler yerleştirmek için kullanılır.
 // Parametreler
 // @str = Değişiklik yapılacak metin.
-// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
-// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
+// @delimiter = Hangi karakterin yerine yerleştirme yapılacağı.
+// @array = Değiştirilmek istenen karakterler yerine sırasıyla hangi karakterlerin geleceği.
 if( ! function_exists('string_placement'))
 {
 	function string_placement($str = '', $delimiter = '?', $array = array())
@@ -209,41 +208,18 @@ if( ! function_exists('string_placement'))
 		if( ! empty($delimiter))
 			$strex = explode($delimiter, $str);
 		else
-			$strex = $str;
+			return $str;
+		
+		if((count($strex) - 1) !== count($array))
+			return $str;
 			
 		$newstr = '';
+		
 		for($i = 0; $i < count($array); $i++)
 		{
 			$newstr .= $strex[$i].$array[$i];
 		}
 	
-		return $newstr;
-	}	
-}
-// Function: string_reshuffle()
-// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
-// Parametreler
-// @str = Değişiklik yapılacak metin.
-// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
-// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
-if( ! function_exists('string_reshuffle'))
-{
-	function string_reshuffle($str = '', $shuffle = '', $reshuffle = '')
-	{
-		if( ! is_string($str) || empty($str)) return false;
-		if( ! (is_string($shuffle) || is_numeric($shuffle))) return $str;
-		if( ! (is_string($reshuffle) || is_numeric($reshuffle))) return $str;
-		
-		if(empty($shuffle)) return $str;
-		
-		$shuffleex = explode($shuffle, $str);
-		
-		$newstr = "";
-		foreach($shuffleex as $v)
-		{
-			$newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;	
-		} 
-		
-		return substr($newstr, 0, -strlen($reshuffle));
+		return $newstr.$strex[count($array)];
 	}	
 }

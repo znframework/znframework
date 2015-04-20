@@ -20,7 +20,7 @@ if( ! function_exists('sql_file_uploader'))
 	{
 		if( ! is_string($sql_file)) return false;
 		if( empty($sql_file)) return false;
-		import::library("File","Database");
+		import::library("File","SDb");
 		
 		$file_contents = file::contents(suffix($sql_file,".sql"));
 		
@@ -35,7 +35,7 @@ if( ! function_exists('sql_file_uploader'))
 		{
 			if($query !== '')
 			{
-				db::query(trim($query));
+				sdb::exec_query(trim($query));
 			}
 		}
 	

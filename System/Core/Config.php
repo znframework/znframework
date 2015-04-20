@@ -16,7 +16,7 @@ class Config
 	private static $config = array();
 	private static $load_control = false;
 	
-	private static function _config($file, $con)
+	private static function _config($file)
 	{
 		global $config;
 		
@@ -41,7 +41,7 @@ class Config
 		
 		if(empty($file)) return false;	
 		
-		self::_config($file, $configs);
+		self::_config($file);
 		
 		if(empty($configs))  
 		{
@@ -64,7 +64,7 @@ class Config
 		
 		if(empty($file) || empty($configs)) return false;
 	
-		self::_config($file, $configs);
+		self::_config($file);
 		
 		self::$set_configs[$file][$configs] = $set;
 		

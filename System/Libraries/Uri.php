@@ -14,9 +14,17 @@ class Uri
 	
 	private static function clean_path()
 	{
-		$path_info = server('current_path');
+		$path_info = clean_injection(request_uri());
 		
-		$path_info = str_replace("/".get_lang()."/","",$path_info);
+		// ----------------------------------------------------------------------
+		
+		// URL YÖNLENDİRİLİYOR...
+		
+		$path_info = route_uri($path_info);
+		
+		
+		if(current_lang())
+			$path_info = str_replace(current_lang()."/","",$path_info);
 		
 		return $path_info;
 	}
@@ -153,7 +161,7 @@ class Uri
 		
 		if($ok > 0) $seg -= 1;
 	
-		if( isset( $part[$seg]) ) return $part[$seg]; else false;
+		if( isset( $part[$seg]) ) return clean_injection($part[$seg]); else false;
 	}	
 	
 	public static function current_segment()
@@ -164,8 +172,8 @@ class Uri
 	
 		if(count($str) > 1) 
 		{
-			return $str[count($str) - 1];	
+			return clean_injection($str[count($str) - 1]);	
 		}
-		return $str[0];	
+		return clean_injection($str[0]);	
 	}
 }

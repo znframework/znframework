@@ -28,10 +28,10 @@ class Repair
 		$repair_pages = config::get("Repair","pages");
 		
 		// Eğer Config/Repair.php dosyasında pages = "all" olarrak alınmış ise tüm sayfalar için tadilat modu uygulanıyor demektir.
-		if( is_string($repair_pages))
+		if(is_string($repair_pages))
 		{
-			if($repair_pages == "all")
-				if(current_path() != config::get("Repair","route_page")) 
+			if($repair_pages === "all")
+				if(current_path() !== config::get("Repair","route_page")) 
 					redirect(config::get("Repair","route_page"));
 		}
 		
@@ -40,9 +40,9 @@ class Repair
 		if(is_array($repair_pages))
 		{
 			// Eğer Config/Repair.php dosyasında pages = array("all") olarrak alınmış ise tüm sayfalar için tadilat modu uygulanıyor demektir.
-			if($repair_pages[0] == "all")
+			if($repair_pages[0] === "all")
 			{
-				if(current_path() != config::get("Repair","route_page")) 
+				if(current_path() !== config::get("Repair","route_page")) 
 					redirect(config::get("Repair","route_page"));
 			}
 			foreach($repair_pages as $rp)
@@ -53,7 +53,7 @@ class Repair
 				// Eğer gelen sayfa o anki url içinde geçiyorsa yani sonuc -1 den büyükse yönlendirme sayfası olarak belirlene sayfaya yönlendir.
 				if($page_pos > -1)
 				{
-					if(current_path() != config::get("Repair","route_page")) 
+					if(current_path() !== config::get("Repair","route_page")) 
 						redirect(config::get("Repair","route_page"));
 				}	
 			}

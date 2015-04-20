@@ -2,6 +2,7 @@
 class Db
 {
 	private $select;
+	private $select_column;
 	private $from;
 	private $where;
 	private $all;
@@ -43,7 +44,8 @@ class Db
 	{
 		if( ! is_string($condition)) $condition = '*';
 		
-		$this->select = 'SELECT '.$condition.' ';
+		$this->select_column = ' '.$condition.' ';
+		$this->select = 'SELECT';
 		return $this;
 	}
 	
@@ -62,8 +64,6 @@ class Db
 		
 		$value = "'".$this->db->real_escape_string($value)."'";
 		
-		$condition = ' '.$logical.' ';
-		
 		$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
 		
 		return $this;
@@ -74,9 +74,7 @@ class Db
 		if( ! (is_string($column) || is_string($value))) return false;
 		
 		$value = "'".$this->db->real_escape_string($value)."'";
-		
-		$condition = ' '.$logical.' ';
-		
+
 		$this->having = ' '.$column.' '.$value.' '.$logical.' ';
 		
 		return $this;
@@ -95,15 +93,38 @@ class Db
 	{
 		if( ! is_string($table)) return false;
 		
-		if(empty($this->select)) $this->select = 'SELECT * ';
+		if(empty($this->select)) { $this->select = 'SELECT'; $this->select_column = ' * ';}
 				
 		if( ! empty($table)) $this->from = ' FROM '.$this->prefix.$table.' ';
 		
-		if( ! empty($this->where)) $where = ' WHERE '; else $where = '';
+		if( ! empty($this->where))
+		{
+			 $where = ' WHERE '; 
+			
+			if(strtolower(substr(trim($this->where),-2)) === 'or')
+				$this->where = substr(trim($this->where),0,-2);
+			
+			if(strtolower(substr(trim($this->where),-3)) === 'and')
+				$this->where = substr(trim($this->where),0,-3);		
+		}
+		else 
+			$where = '';
 		
-		if( ! empty($this->having)) $having = ' HAVING '; else $having = '';
+		if( ! empty($this->having)) 
+		{
+			$having = ' HAVING '; 
+			
+			if(strtolower(substr(trim($this->having),-2)) === 'or')
+				$this->having = substr(trim($this->having),0,-2);
+			
+			if(strtolower(substr(trim($this->having),-3)) === 'and')
+				$this->having = substr(trim($this->having),0,-3);	
+		}
+		else 
+			$having = '';
 		
-		$query_builder = $this->all.
+		$query_builder = $this->select.
+						 $this->all.
 						 $this->distinct.
 						 $this->distinctrow.
 						 $this->high_priority.
@@ -114,8 +135,8 @@ class Db
 						 $this->cache.
 						 $this->no_cache.
 						 $this->calc_found_rows.
-						 $this->select.
 						 $this->math.
+						 $this->select_column.
 						 $this->from.
 						 $this->join.
 						 $where.$this->where.
@@ -329,6 +350,7 @@ class Db
 		$this->no_cache = NULL;
 		$this->calc_found_rows = NULL;
 		$this->select = NULL;
+		$this->select_column = NULL;
 		$this->math = NULL;
 		$this->from = NULL;
 		$this->where = NULL;

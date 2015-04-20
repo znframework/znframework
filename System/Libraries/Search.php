@@ -63,7 +63,7 @@ class Search
 		if( ! (is_string($word) || is_numeric($word))) return false;
 		if( ! is_string($type)) $type = "inside";
 		
-		import::library('Database');
+		import::library('SDb');
 		$word = addslashes($word);
 		
 		$str = "";
@@ -74,12 +74,11 @@ class Search
 		
 		foreach($conditions as $key => $values)
 		{
-			db::distinct();
-
+			sdb::distinct();
 			
 			foreach($values as $keys)
 			{	
-				db::or_where($keys,'like',$str);
+				sdb::where($keys.' like', $str, 'or');
 				
 				if( ! empty(self::$filter))
 				{
@@ -88,14 +87,14 @@ class Search
 						$exval = explode("|", $val);
 		
 						if($exval[3] === "and")
-							db::where($key.".".$exval[0], $exval[1], $exval[2]);	
+							sdb::where("and".$key.".".$exval[0].' '.$exval[1], $exval[2]);	
 						if($exval[3] === "or")
-							db::or_where($key.".".$exval[0], $exval[1], $exval[2]);
+							sdb::where("or ".$key.".".$exval[0].' '.$exval[1], $exval[2]);
 					}	
 				}
 			}
-			$get = db::get($key);
-			self::$result[$key] = $get->result;
+			sdb::get($key);
+			self::$result[$key] = sdb::result();
 		}
 		
 		$result = self::$result;

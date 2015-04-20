@@ -13,7 +13,7 @@ function dbcommon()
 			$driver  = $subdrivers[0];
 		}
 		
-		$driver_path = DRIVES_DIR.$driver.'.php';
+		$driver_path = DRIVERS_DIR.$driver.'.php';
 		
 		if( is_file($driver_path) )			
 			require_once($driver_path);

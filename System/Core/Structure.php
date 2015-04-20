@@ -22,30 +22,15 @@ class Structure
 {
 	public static function run()
 	{
-			
-		// SQL ENJEKSİYONLAR ENGELLENİYOR...
-		
-		$request_uri = clean_injection(request_uri());
-		
-		// ----------------------------------------------------------------------
-		
-		// URL YÖNLENDİRİLİYOR...
-		
-		$request_uri = route_uri($request_uri);
-			
-		// ----------------------------------------------------------------------
-			
-		// URL DÜZENLENİYOR...
-			
+	
 		$url_join 			= ''; 	
 		$url_parameters 	= '';	  
 		$is_file 			= ''; 	
 		$parameters 		= array();
 		$contents 			= '';
 		
-		
-		$request_uri = str_replace(suffix(get_lang()),"",$request_uri);
-		
+		$request_uri = request_uri();	
+
 		$url = explode("?", $request_uri);
 		
 		$url_explode = explode("/", $url[0]);

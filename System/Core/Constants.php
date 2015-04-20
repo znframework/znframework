@@ -52,4 +52,4 @@ define('UPLOADS_DIR', 'Designer/Trinkets/Uploads/');	/* UPLOADS_DIR */
 
 define('DB_DIR', 'System/Database/');					/* DB_DIR */
 
-define('DRIVES_DIR', 'System/Database/Drivers/');		/* DRIVES_DIR */
+define('DRIVERS_DIR', 'System/Database/Drivers/');		/* DRIVERS_DIR */

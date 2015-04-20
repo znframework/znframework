@@ -30,11 +30,13 @@ class ZNDynamic
 		self::$reference =& $this;
 		// Dahil edilen kütüphaneler tanımlanıyor...
 		$libraries = config::get('Autoload','Library');
-		$libraries[] = 'Config';
-		$libraries[] = 'Import';
-		if( ! empty($libraries))
+		
+		if( ! empty($libraries)) 
 			foreach($libraries as $class)
 				is_imported($class);
+			
+		is_imported('Config');
+		is_imported('Import');
 	}
 	
 	/*

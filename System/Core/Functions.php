@@ -245,7 +245,7 @@ function suffix($string = '', $fix = '/')
 		return $string.$fix;	
 	}
 	
-	if($prefix == $fix) return $string; else return $string.$fix;
+	if($prefix === $fix) return $string; else return $string.$fix;
 }
 
 // Function: prefix()
@@ -272,7 +272,7 @@ function prefix($string = '',$fix = '/')
 	{
 		return $fix.$string;	
 	}
-	if($prefix == $fix) return $string; else return $fix.$string;
+	if($prefix === $fix) return $string; else return $fix.$string;
 }
 
 // Function: current_url()
@@ -282,7 +282,7 @@ function prefix($string = '',$fix = '/')
 
 function current_url()
 {
-	return clean_injection(ssl_status().server('host').server('request_uri'));
+	return ssl_status().server('host').clean_injection(server('request_uri'));
 }
 
 // Function: site_url()
@@ -298,7 +298,7 @@ function site_url($uri = '', $index = 0)
 	if( ! is_numeric($index)) $index = 0;
 	if($index > 0 ) $index = 0;
 	
-	if(BASE_DIR != "/")
+	if(BASE_DIR !== "/")
 	{
 		$base_dir = substr(BASE_DIR,1,-1);
 		$base_dir = explode("/", $base_dir);
@@ -314,9 +314,9 @@ function site_url($uri = '', $index = 0)
 		$new_base_dir = BASE_DIR;
 	}
 	
-	if(server("host") != "localhost" && strstr(server('host'),"www") == "") $host = "www.".server('host'); else $host = server('host');
+	if(server("host") !== "localhost" && strstr(server('host'),"www") == "") $host = "www.".server('host'); else $host = server('host');
 
-	return clean_injection(ssl_status().$host.$new_base_dir.index_status().suffix(current_lang()).$uri);
+	return ssl_status().$host.$new_base_dir.index_status().suffix(current_lang()).clean_injection($uri);
 }
 
 // Function: base_url()
@@ -331,7 +331,7 @@ function base_url($uri = '', $index = 0)
 	if( ! is_numeric($index)) $index = 0;
 	if($index > 0 ) $index = 0;
 	
-	if(BASE_DIR != "/")
+	if(BASE_DIR !== "/")
 	{
 		$base_dir = substr(BASE_DIR,1,-1);
 		$base_dir = explode("/", $base_dir);
@@ -347,13 +347,13 @@ function base_url($uri = '', $index = 0)
 		$new_base_dir = BASE_DIR;
 	}
 	
-	if(server("host") != "localhost" && strstr(server('host'),"www") == "") 
+	if(server("host") !== "localhost" && strstr(server('host'),"www") == "") 
 	{
 		$host = "www.".server('host'); 
 	}
 	else $host = server('host');
 	
-	return clean_injection(ssl_status().$host.$new_base_dir.$uri);
+	return ssl_status().$host.$new_base_dir.clean_injection($uri);
 }	
 	
 // Function: prev_url()
@@ -371,7 +371,7 @@ function prev_url()
 		$str =  str_replace($str_ex[0]."/", "", $str);	
 	}
 	
-	return clean_injection(site_url($str));	
+	return site_url(clean_injection($str));	
 }
 
 // Function: hostname()
@@ -382,7 +382,7 @@ function prev_url()
 function hostname($uri = "")
 {	
 	if( ! is_string($uri)) return false;
-	return clean_injection(ssl_status().suffix(server('host')).$uri);
+	return ssl_status().suffix(server('host')).clean_injection($uri);
 }
 
 // Function: current_path()
@@ -397,7 +397,7 @@ function current_path($is_path = true)
 	
 	$current_page_path = str_replace("/".get_lang()."/","", server('current_path'));
 	
-	if($current_page_path[0] == "/")
+	if($current_page_path[0] === "/")
 	{
 		$current_page_path = substr($current_page_path,1,strlen($current_page_path)-1);
 	}
@@ -431,7 +431,7 @@ function base_path($uri = '', $index = 0)
 	
 	if($index > 0 ) $index = 0;
 	
-	if(BASE_DIR != "/")
+	if(BASE_DIR !== "/")
 	{
 		$base_dir = substr(BASE_DIR,1,-1);
 		$base_dir = explode("/", $base_dir);
@@ -873,16 +873,20 @@ function request_uri()
 {
 	$request_uri = (server('current_path')) ? substr(server('current_path'),1) : current_uri();
 	
-	if(@$request_uri[strlen($request_uri) - 1] == "/")
+	if(@$request_uri[strlen($request_uri) - 1] === "/")
 			$request_uri = substr($request_uri, 0, -1);
 			
-	return $request_uri;
+	$request_uri = route_uri($request_uri);
+	
+	return str_replace(suffix(get_lang()),"",clean_injection($request_uri));
 }
 
 function route_uri($request_uri = '')
 {
 	if(config::get("Route","open_page"))
-			if($request_uri === 'index.php' || empty($request_uri)) $request_uri = config::get("Route","open_page");
+	{
+			if($request_uri === 'index.php' || empty($request_uri) || $request_uri === get_lang()) $request_uri = config::get("Route","open_page");
+	}
 			
 	$uri_change = config::get('Route','change_uri');
 		
@@ -1118,7 +1122,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$get_contents = '';
 	
 	// $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
-	if(trim($htaccess) == trim($get_contents)) return false;
+	if(trim($htaccess) === trim($get_contents)) return false;
 	
 	//echo $get_contents."<br>";
 	//echo $htaccess;
@@ -1237,7 +1241,10 @@ function error_report($type = NULL)
 	if($type === NULL)
 		return $result;
 	else
-		return $result[$type];
+		if(isset($result[$type]))
+			return $result[$type];
+		else
+			return false;
 }
 
 function &reference()

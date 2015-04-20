@@ -42,22 +42,22 @@ class User
 		$activation_column 		= config::get("User","activation_column");
 		if( ! isset($data[$username_column]) ||  ! isset($data[$password_column]) ) return false;
 		
-		import::library('Database','Method',"Encode");
+		import::library('SDb','Method',"Encode");
 		
 		$login_username = $data[$username_column];
 		$login_password = $data[$password_column];	
 		$encode_password = encode::super($login_password);	
 		
-		db::where($username_column,'=',$login_username);	
-		$get = db::get($table_name);
+		sdb::where($username_column.' =',$login_username);	
+		sdb::get($table_name);
 		
-		$username_control = $get->total_rows;
+		$username_control = sdb::total_rows();
 		
 		if( empty($username_control) )
 		{
 			$data[$password_column] = $encode_password;
 			
-			if(db::insert($table_name , $data))
+			if(sdb::insert($table_name , $data))
 			{
 				self::$error = false;
 				self::$success = lang('user_register_success');
@@ -91,7 +91,7 @@ class User
 	
 	public static function activation_complete()
 	{
-		import::library('Uri', 'Database');
+		import::library('Uri', 'SDb');
 		import::language("User");
 		
 		$table_name 		= config::get("User","table_name");
@@ -103,14 +103,14 @@ class User
 		$pass = uri::get('pass');
 		if( ! empty($user) && ! empty($pass))	
 		{
-			db::where($username_column, '=', $user);
-			db::where($password_column, '=', $pass);		
-			$get = db::get($table_name);			
-			$row = $get->row;		
+			sdb::where($username_column.' =', $user, 'and');
+			sdb::where($password_column.' =', $pass);		
+			sdb::get($table_name);			
+			$row = sdb::row();		
 			if( ! empty($row))
 			{
-				db::where($username_column, '=', $user);
-				db::update($table_name, array($activation_column => '1'));
+				sdb::where($username_column.' =', $user);
+				sdb::update($table_name, array($activation_column => '1'));
 				self::$success = lang("user_activation_complete");
 				return true;
 			}	
@@ -163,12 +163,12 @@ class User
 		$table_name 	= config::get("User","table_name");
 		if( ! empty($active_column))
 		{
-			import::library('Database');
+			import::library('SDb');
 			
-			db::where($active_column, '=', 1);
-			$get = db::get($table_name);
+			sdb::where($active_column.' =', 1);
+			sdb::get($table_name);
 		
-			$total_rows = $get->total_rows;
+			$total_rows = sdb::total_rows();
 			
 			if( $total_rows )
 				return $total_rows;
@@ -185,12 +185,12 @@ class User
 		$table_name 	= config::get("User","table_name");
 		if( ! empty($banned_column))
 		{
-			import::library('Database');
+			import::library('SDb');
 			
-			db::where($banned_column, '=', 1);
-			$get = db::get($table_name);
+			sdb::where($banned_column.' =', 1);
+			sdb::get($table_name);
 		
-			$total_rows = $get->total_rows;
+			$total_rows = sdb::total_rows();
 			
 			if( ! empty($total_rows))
 				return $total_rows;
@@ -205,12 +205,11 @@ class User
 	{
 		$table_name = config::get("User","table_name");
 		
-		import::library('Database');
+		import::library('SDb');
+
+		sdb::get($table_name);
 		
-		db::get($table_name);	
-		$get = db::get($table_name);
-		
-		$total_rows = $get->total_rows;
+		$total_rows = sdb::total_rows();
 		
 		if( ! empty($total_rows))
 			return $total_rows;
@@ -226,7 +225,7 @@ class User
 		if( ! (is_bool($remember_me) || is_string($remember_me) || is_numeric($remember_me))) $remember_me = false;
 		
 		import::language("User");
-		import::library('Database','Method','Encode', 'Cookie');
+		import::library('SDb','Method','Encode', 'Cookie');
 		
 		$username = $un;
 		$password = encode::super($pw);
@@ -239,9 +238,9 @@ class User
 		$active_column 		= config::get("User","active_column");
 		$activation_column 	= config::get("User","activation_column");
 		
-		db::where($username_column,'=',$username);
-		$get = db::get($table_name);
-		$r = $get->row;
+		sdb::where($username_column.' =',$username);
+		sdb::get($table_name);
+		$r = sdb::row();
 		
 		
 		
@@ -294,8 +293,8 @@ class User
 			if( ! empty($active_column))
 			{
 			
-				db::where($username_column, "=", $username);
-				db::update($table_name, array($active_column  => 1));
+				sdb::where($username_column.' =', $username);
+				sdb::update($table_name, array($active_column  => 1));
 			}
 			
 			self::$error = false;
@@ -315,7 +314,7 @@ class User
 		if( ! is_string($return_link_path)) $return_link_path = "";
 
 		import::language("User");
-		import::library("Database","Encode","Email");
+		import::library("SDb","Encode","Email");
 		
 		$username_column  	= config::get("User","username_column");
 	
@@ -327,14 +326,14 @@ class User
 		
 		if( ! empty($email_column))
 		{
-			db::where($email_column ,"=", $email);
+			sdb::where($email_column.' =', $email);
 		}
 		else
 		{
-			db::where($username_column ,"=", $email);
+			sdb::where($username_column.' =', $email);
 		}
 		
-		$get = db::get($table_name); $row = $get->row;
+		sdb::get($table_name); $row = sdb::row();
 		
 		$result = "";
 		
@@ -361,13 +360,13 @@ class User
 			{
 				if( ! empty($email_column))
 				{
-					db::where($email_column ,"=", $email);
+					sdb::where($email_column.' =', $email);
 				}
 				else
 				{
-					db::where($username_column ,"=", $email);
+					sdb::where($username_column.' =', $email);
 				}
-				db::update($table_name, array($password_column => $encode_password));
+				sdb::update($table_name, array($password_column => $encode_password));
 
 				self::$error = true;	
 				self::$success = lang("user_forgot_password_success");
@@ -402,7 +401,7 @@ class User
 			if(empty($new)) return false;
 			if(empty($data)) return false;
 			
-			import::library("Database", "Encode");
+			import::library("SDb", "Encode");
 			import::language("User");
 			
 			if(empty($new_again)) $new_again = $new;
@@ -433,8 +432,8 @@ class User
 			{
 				$data[$pc] = $new_password;
 				$data[$uc] = $username;
-				db::where($uc,"=",$username);
-				if(db::update($tn, $data))
+				sdb::where($uc.' =', $username);
+				if(sdb::update($tn, $data))
 				{
 					self::$error = false;
 					self::$success = lang('update_process_success');
@@ -453,17 +452,17 @@ class User
 	
 	public static function is_login()
 	{
-		import::library('Cookie');
+		import::library('Cookie', 'SDb');
 		
 		$c_username = cook::select(md5(config::get("User","username_column")));
 		$c_password = cook::select(md5(config::get("User","password_column")));
 		$result = "";
 		if( ! empty($c_username) && ! empty($c_password))
 		{
-			db::where(config::get("User","username_column"),'=',$c_username);
-			db::where(config::get("User","password_column"),'=',$c_password);
-			$get = db::get(config::get("User","table_name"));
-			$result = $get->total_rows;
+			sdb::where(config::get("User","username_column").' =',$c_username, 'and');
+			sdb::where(config::get("User","password_column").' =',$c_password);
+			sdb::get(config::get("User","table_name"));
+			$result = sdb::total_rows();
 		}
 		
 		$username = config::get("User","username_column");
@@ -490,15 +489,15 @@ class User
 	{
 		if( ! isset($_SESSION)) session_start();
 		
-		import::library('Database');
+		import::library('SDb');
 		
 		if(isset($_SESSION[md5(config::get("User","username_column"))]))
 		{
 			$data = array();
 			self::$username = $_SESSION[md5(config::get("User","username_column"))];
-			db::where(config::get("User","username_column"),'=',self::$username);
-			$get = db::get(config::get("User","table_name"));
-			$r = $get->row;
+			sdb::where(config::get("User","username_column").' =',self::$username);
+			sdb::get(config::get("User","table_name"));
+			$r = sdb::row();
 			
 			return (object)$r;
 		}
@@ -510,7 +509,7 @@ class User
 		if( ! is_string($redirect_url)) $redirect_url = '';
 		if( ! is_numeric($time)) $time = 0;
 		
-		import::library('Cookie');
+		import::library('Cookie', 'SDb');
 		
 		$username = config::get("User","username_column");
 		
@@ -520,8 +519,8 @@ class User
 			
 			if(config::get("User","active_column") != "")
 			{	
-				db::where(config::get("User","username_column"), "=", self::data()->$username);
-				db::update(config::get("User","table_name"), array(config::get("User","active_column") => 0));
+				sdb::where(config::get("User","username_column").' =', self::data()->$username);
+				sdb::update(config::get("User","table_name"), array(config::get("User","active_column") => 0));
 			}
 			
 			cook::delete(md5(config::get("User","username_column")));

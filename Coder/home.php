@@ -19,4 +19,9 @@ class Home extends ZNDynamic
 		// sınıflara ve diğer nesnelere dinamik erişim sağlanabilir oldu.
 		// NOT: Nesnelere ister dinamik isterseniz de statik erişim sağlayabilirsiniz. 
 	}
+
+	function ex()
+	{
+
+	}
 }
