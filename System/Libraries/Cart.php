@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-if(!isset($_SESSION)) session_start();
+if( ! isset($_SESSION)) session_start();
 
 class Cart
 {
@@ -22,7 +22,7 @@ class Cart
 	// Sepete Ürün ekler.
 	// parametre => ürün ile ilgili istenilen bilgiler
 	
-	public static function insert($product = array())
+	public static function insert_item($product = array())
 	{
 		if( empty($product) )
 		{
@@ -38,29 +38,32 @@ class Cart
 			return false;	
 		}
 		
-		if( isset($_SESSION['cart']) )
+		if( ! isset($product['quantity']))
+			$product['quantity'] = 1;
+		
+		if( isset($_SESSION[md5('cart')]) )
 		{
-			self::$items = $_SESSION['cart'];
+			self::$items = $_SESSION[md5('cart')];
 			array_push(self::$items, $product);
-			$_SESSION['cart'] = self::$items;
+			$_SESSION[md5('cart')] = self::$items;
 		}
 		else
 		{
 			array_push(self::$items, $product);
-			$_SESSION['cart'] = self::$items;
+			$_SESSION[md5('cart')] = self::$items;
 		}
-		self::$items = $_SESSION['cart'];
+		self::$items = $_SESSION[md5('cart')];
 		return self::$items;
 	}
 	
 	
 	// Sepetteki ürünleri verir.
 	
-	public static function items()
+	public static function select_items()
 	{
-		if(isset($_SESSION['cart']))
+		if(isset($_SESSION[md5('cart')]))
 		{
-			self::$items = $_SESSION['cart'];
+			self::$items = $_SESSION[md5('cart')];
 			return self::$items;	
 		}
 		else
@@ -71,20 +74,47 @@ class Cart
 		}
 	}
 	
+	public static function select_item($code = '')
+	{
+		if(empty($code)) return false;
+				
+		self::$items = (isset($_SESSION[md5('cart')])) ? $_SESSION[md5('cart')] : "";
+		
+		if(empty(self::$items)) return false;
+		
+		foreach(self::$items as $row)
+		{
+			if( ! is_array($code))
+				$key = array_search($code, $row);
+			else
+				if(isset($row[key($code)]) && $row[key($code)] == current($code))
+					$key = $row;
+				
+			if( ! empty($key))
+				return (object)$row;
+		}
+	}
+	
 	// Sepette kaç ürün olduğunu verir.
 	
 	public static function total_items()
 	{
-		if(isset($_SESSION['cart']))
+		if(isset($_SESSION[md5('cart')]))
 		{
-			self::$items = $_SESSION['cart'];
-			return count(self::$items);
+			self::$items = $_SESSION[md5('cart')];
+			$total_items = 0;
+			if( ! empty(self::$items))foreach(self::$items as $item)
+			{
+				$total_items += $item['quantity'];	
+			}
+			
+			return $total_items;
 		}
 		else
 		{
 			self::$error = get_message('Cart', 'cart_no_data_error');
 			report('Error', self::$error, 'CartLibrary');
-			return false;	
+			return 0;	
 		}
 	}
 	
@@ -94,13 +124,13 @@ class Cart
 	
 	public static function total_prices()
 	{
-		self::$items = (isset($_SESSION['cart'])) ? $_SESSION['cart'] : "";
+		self::$items = (isset($_SESSION[md5('cart')])) ? $_SESSION[md5('cart')] : "";
 		
 		if(empty(self::$items))
 		{
 			self::$error = get_message('Cart', 'cart_no_data_error');
 			report('Error', self::$error, 'CartLibrary');
-			return false;	
+			return 0;	
 		}
 		
 		$total = "";
@@ -116,10 +146,8 @@ class Cart
 	// Code değerine göre değiştireceği elemanı seçer
 	// Data ile de değiştirilecek veriler eklenir.
 	
-	public static function update($code = '', $data = '')
-	{
-		if( ! (is_string($code) || is_numeric($code))) $code = '';
-		
+	public static function update_item($code = '', $data = '')
+	{	
 		if( empty($code) )
 		{
 			self::$error = get_message('Cart', 'cart_update_code_error');
@@ -143,7 +171,7 @@ class Cart
 		
 		
 		
-		self::$items = (isset($_SESSION['cart'])) ? $_SESSION['cart'] : "";
+		self::$items = (isset($_SESSION[md5('cart')])) ? $_SESSION[md5('cart')] : "";
 		
 		if(empty(self::$items)) return false;
 		
@@ -151,11 +179,15 @@ class Cart
 		
 		foreach(self::$items as $row)
 		{
+			if(is_array($code)) 
+				if(isset($row[key($code)]) && $row[key($code)] == current($code))
+					$code = $row[key($code)];
+					
 			$key = array_search($code,$row);
-			if($key)
+			if( ! empty($key))
 			{
 				array_splice(self::$items,$i,1);
-				if(count($data) != count($row))
+				if(count($data) !== count($row))
 				{
 					foreach($data as $k => $v)
 					{
@@ -172,15 +204,13 @@ class Cart
 			$i++;
 		}
 		
-		$_SESSION['cart'] = self::$items;
+		$_SESSION[md5('cart')] = self::$items;
 	}
 	
 	// Code bilgisine göre sepetteki ürünü temizler.
 	
-	public static function delete($code = '')
-	{
-		if( ! (is_string($code) || is_numeric($code))) $code = '';
-		
+	public static function delete_item($code = '')
+	{		
 		if( empty($code) )
 		{
 			self::$error = get_message('Cart', 'cart_delete_code_error');
@@ -188,32 +218,36 @@ class Cart
 			return false;	
 		}
 
-		self::$items = (isset($_SESSION['cart'])) ? $_SESSION['cart'] : "";
+		self::$items = (isset($_SESSION[md5('cart')])) ? $_SESSION[md5('cart')] : "";
 		
 		if( empty(self::$items) ) return false;
 		
 		$i=0;
+		
 		foreach(self::$items as $row)
-		{
-			$key = array_search($code,$row);
-			if($key)
+		{	
+			if(is_array($code)) 
+				if(isset($row[key($code)]) && $row[key($code)] == current($code))
+					$code = $row[key($code)];
+			
+			$key = array_search($code, $row);
+			if( ! empty($key))
 			{
-				array_splice(self::$items,$i,1);
+				array_splice(self::$items,$i--,1);
 			}
 		
 			$i++;
 		}
 		
-		$_SESSION['cart'] = self::$items;
-		
+		$_SESSION[md5('cart')] = self::$items;		
 	}
 	
 	// Sepetteki tüm ürünleri siler.
 	
-	public static function all_delete()
+	public static function delete_items()
 	{
-		if(isset($_SESSION['cart']))
-				unset($_SESSION['cart']);
+		if(isset($_SESSION[md5('cart')]))
+				unset($_SESSION[md5('cart')]);
 	}
 	
 	// Sayısal bir değeri para birimi olarak değiştirir.
