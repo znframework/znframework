@@ -11,7 +11,7 @@
 	                "dist": 
 	                {
 	                    "url": "https://github.com/znframework/znframework.git",
-	                    "type": "git"
+	                    "type": "vcs"
 	                }
 	             }
 	         }
