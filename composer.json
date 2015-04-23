@@ -16,5 +16,12 @@
 	"require" : 
 	{
 		"znframework/znframework": "dev-master"
+	},
+	
+	"autoload": 
+	{
+		 "classmap" : [
+			"Src/Upgrage/"
+		]
 	}
 }
