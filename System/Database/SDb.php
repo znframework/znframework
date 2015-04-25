@@ -136,8 +136,8 @@ class SDb
 						 self::$cache.
 						 self::$no_cache.
 						 self::$calc_found_rows.
-						 self::$math.
 						 self::$select_column.
+						 self::$math.
 						 self::$from.
 						 self::$join.
 						 $where.self::$where.

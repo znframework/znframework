@@ -23,7 +23,7 @@ class Sess
 		{
 			foreach($name as $key => $value)
 			{
-				if(config::get('Session','encode') == true)
+				if(config::get('Session','encode') === true)
 					$_SESSION[md5($key)] = $value;
 				else
 					$_SESSION[$key] = $value;
@@ -31,7 +31,7 @@ class Sess
 		}
 		else
 		{
-			if(config::get('Session','encode') == true)
+			if(config::get('Session','encode') === true)
 				$_SESSION[md5($name)] = $values;
 			else
 				$_SESSION[$name] = $values;
@@ -48,7 +48,7 @@ class Sess
 		{
 			foreach($name as $key)
 			{
-				if(config::get('Session','encode') == true)
+				if(config::get('Session','encode') === true)
 					$session[$key] = $_SESSION[md5($key)];
 				else
 					$session[$key] = $_SESSION[$key];
@@ -57,7 +57,7 @@ class Sess
 		}
 		else
 		{
-			if(config::get('Session','encode') == true)
+			if(config::get('Session','encode') === true)
 				if(isset($_SESSION[md5($name)])) 
 					return $_SESSION[md5($name)]; else return false;
 			else
@@ -82,7 +82,7 @@ class Sess
 			foreach($name as $value)
 			{
 				$val = $value;
-				if(config::get('Session','encode') == true)
+				if(config::get('Session','encode') === true)
 					if(isset($_SESSION[md5($val)])) 
 						unset($_SESSION[md5($val)]);
 				else
@@ -94,7 +94,7 @@ class Sess
 		{
 			$val = $name;
 		}
-		if(config::get('Session','encode') == true)
+		if(config::get('Session','encode') === true)
 			if(isset($_SESSION[md5($val)]))
 				unset($_SESSION[md5($val)]);
 		else

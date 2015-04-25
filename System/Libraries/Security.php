@@ -85,7 +85,7 @@ class Sec
 	{
 		if( ! is_string($string)) return false;
 		if( ! is_string($type)) $type = 'quotes';
-		if($type == 'quotes') $tp = ENT_QUOTES; else if($type == 'nonquotes')$tp = ENT_NOQUOTES; else $tp = ENT_COMPAT;
+		if($type === 'quotes') $tp = ENT_QUOTES; else if($type === 'nonquotes')$tp = ENT_NOQUOTES; else $tp = ENT_COMPAT;
 		return htmlspecialchars(trim($string), $tp);
 	}
 	public static function html_decode($string, $type = 'quotes')
@@ -93,7 +93,7 @@ class Sec
 		if( ! is_string($string)) return false;
 		if( ! is_string($type)) $type = 'quotes';
 		
-		if($type == 'quotes') $tp = ENT_QUOTES; else if($type == 'nonquotes')$tp = ENT_NOQUOTES; else $tp = ENT_COMPAT;
+		if($type === 'quotes') $tp = ENT_QUOTES; else if($type === 'nonquotes')$tp = ENT_NOQUOTES; else $tp = ENT_COMPAT;
 		return htmlspecialchars_decode(trim($string), $tp);
 	}
 }

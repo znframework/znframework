@@ -134,9 +134,9 @@ class Db
 						 $this->buffer_result.
 						 $this->cache.
 						 $this->no_cache.
-						 $this->calc_found_rows.
-						 $this->math.
+						 $this->calc_found_rows.					 
 						 $this->select_column.
+						 $this->math.
 						 $this->from.
 						 $this->join.
 						 $where.$this->where.

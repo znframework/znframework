@@ -47,7 +47,7 @@ class Cook
 		if(empty($domain)) $domain = config::get("Cookie","domain");
 		if(empty($secure)) $secure = config::get("Cookie","secure");
 		if(empty($httponly)) $httponly = config::get("Cookie","httponly");
-		if(config::get("Cookie","encode") == true)
+		if(config::get("Cookie","encode") === true)
 		{
 			$name = md5($name);
 		}

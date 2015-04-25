@@ -22,7 +22,6 @@ class Structure
 {
 	public static function run()
 	{
-	
 		$url_join 			= ''; 	
 		$url_parameters 	= '';	  
 		$is_file 			= ''; 	

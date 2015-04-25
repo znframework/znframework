@@ -44,9 +44,9 @@ class Perm
 			{
 				$page = trim($page);
 			
-				if($page[0] == "!") $rule = substr(trim($page),1); else $rule = trim($page);
+				if($page[0] === "!") $rule = substr(trim($page),1); else $rule = trim($page);
 				
-				if($pages[0] == "perm=>")
+				if($pages[0] === "perm=>")
 				{
 					if(strpos($current_url, $rule) > -1)
 					{
@@ -76,10 +76,10 @@ class Perm
 		else
 		{
 			
-			if($rules[0] == "!") $page = substr(trim($rules),1); else $page = trim($rules);
+			if($rules[0] === "!") $page = substr(trim($rules),1); else $page = trim($rules);
 			if(strpos($current_url, $page) > -1)
 			{
-				if($rules[0] != "!") return $object; else return false;			
+				if($rules[0] !== "!") return $object; else return false;			
 			}
 			else
 			{
@@ -116,9 +116,9 @@ class Perm
 			{
 				$page = trim($page);
 			
-				if(@$page[0] == "!") $rule = substr(trim($page),1); else $rule = trim($page);
+				if(@$page[0] === "!") $rule = substr(trim($page),1); else $rule = trim($page);
 				
-				if($pages[0] == "perm=>")
+				if($pages[0] === "perm=>")
 				{
 					if(strpos($current_url, $rule) > -1)
 					{
@@ -148,10 +148,10 @@ class Perm
 		else
 		{
 			
-			if($rules[0] == "!") $page = substr(trim($rules),1); else $page = trim($rules);
+			if($rules[0] === "!") $page = substr(trim($rules),1); else $page = trim($rules);
 			if(strpos($current_url, $page) > -1)
 			{
-				if($rules[0] != "!") return true; else return false;			
+				if($rules[0] !== "!") return true; else return false;			
 			}
 			else
 			{

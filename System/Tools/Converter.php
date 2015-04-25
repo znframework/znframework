@@ -97,7 +97,7 @@ if( ! function_exists('url_word_converter'))
 		
 		$str = str_replace(array_keys($accent), array_values($accent), $str); 
 		
-		$str = str_replace(array("'",'"',"?",":",".",";","<",">","&","^","%","~","!","\\","\/","[","]","(",")","{","}","$","+"),"",$str);
+		$str = str_replace(array("'",'"',"?",":",".",";","<",">","&","%","~","\\","\/","[","]","(",")","$"),"",$str);
 		
 		$str = preg_replace("/\s+/", ' ', $str);
 		

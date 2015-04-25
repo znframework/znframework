@@ -55,7 +55,9 @@ class Folder
 			return false;	
 		}
 		
-		if(extension($source) == "")
+		$extension = extension($source);
+		
+		if(empty($extension))
 		{
 			import::library("Folder");
 			if(count(folder::files($source)) === 0)

@@ -33,42 +33,42 @@ class Image
 	private static function from_file_type($paths)
 	{
 		
-		if(strtolower(extension(self::$file)) == "jpg")  	  return imagecreatefromjpeg($paths);
-		else if(strtolower(extension(self::$file)) == "jpeg") return imagecreatefromjpeg($paths);
-		else if(strtolower(extension(self::$file)) == "png")  return imagecreatefrompng($paths);
-		else if(strtolower(extension(self::$file)) == "gif")  return imagecreatefromgif($paths);
+		if(strtolower(extension(self::$file)) === "jpg")  	  return imagecreatefromjpeg($paths);
+		else if(strtolower(extension(self::$file)) === "jpeg") return imagecreatefromjpeg($paths);
+		else if(strtolower(extension(self::$file)) === "png")  return imagecreatefrompng($paths);
+		else if(strtolower(extension(self::$file)) === "gif")  return imagecreatefromgif($paths);
 		else return false;
 	}
 	
 	private static function is_image_file($file)
 	{
 		
-		if(strtolower(extension($file)) == "jpg")  	  return true;
-		else if(strtolower(extension($file)) == "jpeg") return true;
-		else if(strtolower(extension($file)) == "png")  return true;
-		else if(strtolower(extension($file)) == "gif")  return true;
+		if(strtolower(extension($file)) === "jpg")  	  return true;
+		else if(strtolower(extension($file)) === "jpeg") return true;
+		else if(strtolower(extension($file)) === "png")  return true;
+		else if(strtolower(extension($file)) === "gif")  return true;
 		else return false;
 	}
 	
 	private static function create_file_type($files, $paths, $quality = 0)
 	{
 	
-		if(strtolower(extension(self::$file)) == "jpg")
+		if(strtolower(extension(self::$file)) === "jpg")
 		{
-			if($quality == 0) $quality = 80;
+			if($quality === 0) $quality = 80;
 			return imagejpeg($files, $paths, $quality);
 		}
-		else if(strtolower(extension(self::$file)) == "jpeg")
+		else if(strtolower(extension(self::$file)) === "jpeg")
 		{
-			if($quality == 0) $quality = 80;
+			if($quality === 0) $quality = 80;
 			return imagejpeg($files, $paths, $quality);
 		}
-		else if(strtolower(extension(self::$file)) == "png")
+		else if(strtolower(extension(self::$file)) === "png")
 		{
-			if($quality == 0) $quality = 8;
+			if($quality === 0) $quality = 8;
 			return imagepng($files, $paths, $quality);
 		}
-		else if(strtolower(extension(self::$file)) == "gif")  return imagegif($files, $paths);
+		else if(strtolower(extension(self::$file)) === "gif")  return imagegif($files, $paths);
 		else return false;
 	}
 	

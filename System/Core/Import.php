@@ -631,9 +631,9 @@ class Import
 				$path = CODER_DIR.suffix($class,".php");
 			
 				if(is_file_exists($path) && !class_exists($class)) require_once($path);
-				
-	
 			}
+
+			is_imported($class);
 		}
 	
 	}

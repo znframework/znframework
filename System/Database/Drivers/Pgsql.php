@@ -1,5 +1,5 @@
 <?php
-class SybaseDriver
+class PgsqlDriver
 {
 	private $config;
 	private $connect;
@@ -7,40 +7,51 @@ class SybaseDriver
 	public function connect($config = array())
 	{
 		$this->config = $config;
+		$dsn = '';
+		if(empty($this->config['dsn'])) 
+		{
+			if( ! empty($this->config['host']))$dsn .= 'host='.$this->config['host'];
+			if( ! empty($this->config['port']))$dsn .= ' port='.$this->config['port'];
+			if( ! empty($this->config['database']))$dsn .= ' dbname='.$this->config['database'];
+			if( ! empty($this->config['user']))$dsn .= ' user='.$this->config['user'];
+			if( ! empty($this->config['password']))$dsn .= ' password='.$this->config['password'];
+		}
+		else
+			$dsn = $this->config['dsn'];
+			
 		$this->connect = 	($this->config['pconnect'] === true)
-							? @sybase_pconnect($this->config['host'], $this->config['user'], $this->config['password'] , $this->config['charset'] , $this->config['appname'])
-							: @sybase_connect($this->config['host'], $this->config['user'], $this->config['password'] , $this->config['charset'] , $this->config['appname']);
-		
+							? @pg_pconnect($dsn)
+							: @pg_connect($dsn);
+							
 		if( empty($this->connect) ) die(get_message('Database', 'db_mysql_connect_error'));
 		
-		sybase_select_db($this->config['database'], $this->connect);
+		if( ! empty($this->config['charset'])) pg_set_client_encoding($this->connect, $this->config['charset']);
 	}
 	
 	public function exec($query)
 	{
-		return sybase_query($this->connect, $query);
+		return pg_query($this->connect, $query);
 	}
 	
-	public function query($query, $security = array())
+	public function query($query)
 	{
-		$this->query = sybase_query($query, $this->connect);
+		$this->query = pg_query($this->connect, $query);
 		return $this->query;
 	}
 	
 	public function trans_start()
 	{
-		sybase_query($this->connect, 'BEGIN TRANSACTION');
-		return true;
+		return (bool) pg_query($this->connect, 'BEGIN');
 	}
 	
 	public function trans_rollback()
 	{
-		return sybase_query($this->connect, 'ROLLBACK TRANSACTION');	 
+		return (bool) pg_query($this->connect, 'ROLLBACK');
 	}
 	
 	public function trans_commit()
 	{
-		return sybase_query($this->connect, 'COMMIT TRANSACTION');
+		return (bool) pg_query($this->connect, 'COMMIT');
 	}
 	
 	public function list_databases()
@@ -65,32 +76,30 @@ class SybaseDriver
 		$columns = array();
 		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
 		{
-			$info = sybase_fetch_field($this->query, $i);
-			
 			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $info->name;
-			$columns[$i]->type			= $info->type;
-			$columns[$i]->max_length	= $info->max_length;
+			$columns[$i]->name			= pg_field_name($this->query, $i);
+			$columns[$i]->type			= pg_field_type($this->query, $i);
+			$columns[$i]->max_length	= pg_field_size($this->query, $i);
 		}
 		return $columns;
 	}
-	
+		
 	public function backup($filename = ''){ return false; }
-	
+		
 	public function truncate($table = ''){ return false; }
 	
 	public function add_column(){ return false; }
 	
 	public function drop_column(){ return false; }
 	
-	public function rename_column(){ return false; }
+	public function rename_column(){ return 'RENAME COLUMN '; }
 	
 	public function modify_column(){ return false; }
 	
 	public function num_rows()
 	{
 		if( ! empty($this->query))
-			return sybase_num_rows($this->query);
+			return pg_num_rows($this->query);
 		else
 			return 0;	
 	}
@@ -103,7 +112,7 @@ class SybaseDriver
 		$num_fields = $this->num_fields();
 		for($i=0; $i < $num_fields; $i++)
 		{		
-			$columns[] = sybase_fetch_field($this->query, $i);
+			$columns[] = pg_field_name($this->query, $i);
 		}
 		
 		return $columns;
@@ -112,7 +121,7 @@ class SybaseDriver
 	public function num_fields()
 	{
 		if( ! empty($this->query))
-			return sybase_num_fields($this->query);
+			return pg_num_fields($this->query);
 		else
 			return 0;	
 	}
@@ -120,7 +129,7 @@ class SybaseDriver
 	{
 		if( empty($this->query)) return false;
 		$rows = array();
-		while($data = sybase_fetch_assoc($this->query))
+		while($data = pg_fetch_assoc($this->query))
 		{
 			$rows[] = (object)$data;
 		}
@@ -132,7 +141,7 @@ class SybaseDriver
 	{
 		if( empty($this->query)) return false;
 		$rows = array();
-		while($data = sybase_fetch_assoc($this->query))
+		while($data = pg_fetch_assoc($this->query))
 		{
 			$rows[] = $data;
 		}
@@ -143,19 +152,20 @@ class SybaseDriver
 	public function row()
 	{
 		if( empty($this->query)) return false;
-		$data = sybase_fetch_assoc($this->query);
+		$data = pg_fetch_assoc($this->query);
 		return (object)$data;
 	}
 	
 	public function real_escape_string($data = '')
 	{
-		return str_replace(array("'",'"'), array("\'", '\"'), $data);
+		if( empty($this->connect)) return false;
+		return pg_escape_string($this->connect, $data);
 	}
 	
 	public function error()
 	{
 		if( ! empty($this->connect))
-			return sybase_get_last_message();
+			return pg_last_error($this->connect);
 		else
 			return false;
 	}
@@ -163,7 +173,7 @@ class SybaseDriver
 	public function fetch_row()
 	{
 		if( ! empty($this->query))
-			return sybase_fetch_row($this->query);
+			return pg_fetch_row($this->query);
 		else
 			return 0;	
 	}
@@ -171,7 +181,7 @@ class SybaseDriver
 	public function fetch_array()
 	{
 		if( ! empty($this->query))
-			return sybase_fetch_array($this->query);
+			return pg_fetch_array($this->query);
 		else
 			return false;	
 	}
@@ -179,7 +189,7 @@ class SybaseDriver
 	public function fetch_assoc()
 	{
 		if( ! empty($this->query))
-			return sybase_fetch_assoc($this->query);
+			return pg_fetch_assoc($this->query);
 		else
 			return false;	
 	}
@@ -187,18 +197,18 @@ class SybaseDriver
 	public function affected_rows()
 	{
 		if( ! empty($this->connect))
-			return sybase_affected_rows($this->connect);
+			return pg_affected_rows($this->connect);
 		else
 			return false;	
 	}
 	
 	public function close()
 	{
-		if( ! empty($this->connect)) @sybase_close($this->connect); else return false;
+		if( ! empty($this->connect)) @pg_close($this->connect); else return false;
 	}	
 	
 	public function version()
 	{
-		if( ! empty($this->connect)) return false;
+		if( ! empty($this->connect)) return pg_version($this->connect); else return false;
 	}
 }

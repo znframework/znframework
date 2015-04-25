@@ -9,6 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 1-short_name
+2-different_directory
 
 */
 
@@ -19,7 +20,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 //-------------------------------------------------------------------------------------
 // İşlev: Kütüphanelerin sınıf isimlerinde dosya isminden farklı bir
-// isim kullanılması düşünüyorsa bu bölüme ilave edilmelidir.
+// isim kullanılması düşünülüyorsa bu bölüme ilave edilmelidir.
 // Veri: array().
 // Kullanımı: array('Database' => 'Db' , ...);
 //-------------------------------------------------------------------------------------

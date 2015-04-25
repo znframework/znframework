@@ -29,14 +29,7 @@ class ZNDynamic
 	{
 		self::$reference =& $this;
 		// Dahil edilen kütüphaneler tanımlanıyor...
-		$libraries = config::get('Autoload','Library');
-		
-		if( ! empty($libraries)) 
-			foreach($libraries as $class)
-				is_imported($class);
-			
-		is_imported('Config');
-		is_imported('Import');
+		zndynamic_autoloaded();
 	}
 	
 	/*
@@ -46,7 +39,7 @@ class ZNDynamic
 	 */
 	
 	public static function &reference()
-	{
+	{	
 		return self::$reference;		
 	}
 }

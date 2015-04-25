@@ -144,16 +144,16 @@ if(!file_exists('time_formatter'))
 		if($output === "minute") 	$out = 60;
 		if($output === "hour") 		$out = 60 * 60;
 		if($output === "day") 		$out = 60 * 60 * 24;
-		if($output === "month") 		$out = 60 * 60 * 24 * 30;
+		if($output === "month") 	$out = 60 * 60 * 24 * 30;
 		if($output === "year")		$out = 60 * 60 * 24 * 30 * 12;
 		
 		
 		if($type === "second") 	$time = $count;
 		if($type === "minute") 	$time = 60 * $count;
 		if($type === "hour") 	$time = 60 * 60 * $count;
-		if($type === "day") 		$time = 60 * 60 * 24 * $count;
+		if($type === "day") 	$time = 60 * 60 * 24 * $count;
 		if($type === "month") 	$time = 60 * 60 * 24 * 30 * $count;
-		if($type === "year")		$time = 60 * 60 * 24 * 30 * 12 * $count;
+		if($type === "year")	$time = 60 * 60 * 24 * 30 * 12 * $count;
 		
 		
 		return $time / $out;	
