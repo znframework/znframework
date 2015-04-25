@@ -1218,22 +1218,6 @@ function get_message($lang_file, $error_msg, $ex = '')
 	return lang($error_msg, $ex);
 }
 
-function is_imported($class = '')
-{
-	if(strstr($class, '/'))
-		$class = divide($class, '/', -1);	
-
-	$short_name = config::get('Libraries', 'short_name');		
-		
-	if(isset($short_name[$class]))
-		$class = $short_name[$class];
-	
-	$var = strtolower($class);
-	
-	if(class_exists($class))
-		reference()->$var = new $class;
-}
-
 function error_report($type = NULL)
 {	
 	$result = error_get_last();
@@ -1247,8 +1231,53 @@ function error_report($type = NULL)
 			return false;
 }
 
+
+function zndynamic_autoloaded()
+{
+	$autoload = config::get('Autoload');
+		
+	$libraries = $autoload['Library'];
+	$coders = $autoload['Coder'];
+	
+	$classes = array_merge($libraries, $coders);
+	
+	if( ! empty($classes)) 
+		foreach($classes as $class)
+			 is_imported($class);
+		
+	is_imported('Config');
+	is_imported('Import');
+}
+
+function is_imported($class = '')
+{
+	if(strstr($class, '/'))
+		$class = divide($class, '/', -1);	
+
+	$short_name = config::get('Libraries', 'short_name');		
+		
+	if(isset($short_name[$class]))
+		$class = $short_name[$class];
+	
+	$var = strtolower($class);
+	
+	if(class_exists($class))
+		@reference()->$var = new $class;
+}
+
 function &reference()
 {
 	return zndynamic::reference();	
 }
+
+function &this()
+{
+	$zndynamic =& reference(); 
+	
+	if(empty($zndynamic))
+		zndynamic_autoloaded();
+
+	return reference();	
+}
+
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------
