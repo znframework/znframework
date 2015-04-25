@@ -1,4 +1,4 @@
-# znframework
+# ZN Dynamic Framework
 ZN Framework Türkiye'nin İlk PHP Tabanlı Profesyonel Kod Çatısı
 
 Kod Çatısı ve Kullanım Kılavuzu
