@@ -1,10 +1,15 @@
 # ZN Dynamic Framework
-ZN Framework Türkiye'nin İlk PHP Tabanlı Profesyonel Kod Çatısı
 
-Kod Çatısı ve Kullanım Kılavuzu
-http://www.zntr.net/indir
+# ZN Framework Nedir? (What Is ZN Framework?)
+ZN PHP Kod çatısı statik sınıflar kullanılarak oluşturulumuş güvenilir url bağlantıları ve alt yapısıyla geliştirilmiş açık kaynak kodlu kod çatısıdır.
 
-ZN Framework is Turkey's First Professional PHP Web Framework
+# Dökümantasyon (Documentation)
+Framework kullanımı ile ilgili dökümantasyona ulaşmak için aşağıdaki bağlantıyı kullanın.
+http://www.zntr.net/Guide/index.html
 
-ZN Framework and User Guide 
-http://www.zntr.net/indir
+# Topluluk (Contribute)
+Kullanıcıların soru ve sorunlarını paylaşabileceği bir forumda mevcuttur. Aşağıdaki bağlantı ile foruma ulaşabilirsiniz.
+http://www.zntr.net/forum
+
+# Detaylar (Details)
+ZN Framework ile ilgili tüm detaylar http://www.zntr.net adresinde mevcuttur. Sizleri aramızda görmekten şeref duyarız.
