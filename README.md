@@ -21,3 +21,7 @@ http://www.zntr.net/forum
 
 ZN Framework ile ilgili tüm detaylar http://www.zntr.net adresinde mevcuttur. Sizleri aramızda görmekten şeref duyarız.<br>
 (All details of the Framework is available at http://www.zntr.net ZN. We would be honored to see you among us.)
+
+<h3>Şimdi Kullanın (Use Now)</h3>
+ZN kod çatısını kullanmak için aşağıdaki bağlantıya gitmeniz yeterlidir.<br>
+(To use the ZN Framework, simply go to the link below.)
