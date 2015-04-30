@@ -24,5 +24,5 @@ ZN Framework ile ilgili tüm detaylar http://www.zntr.net adresinde mevcuttur. S
 
 <h3>Şimdi Kullanın (Use Now)</h3>
 ZN kod çatısını kullanmak için aşağıdaki bağlantıya gitmeniz yeterlidir.<br>
-(To use the ZN Framework, simply go to the link below.)
+(To use the ZN Framework, simply go to the link below.)<br>
 <a href='http://www.zntr.net'>ZN Framework İndir</a>
