@@ -20,7 +20,7 @@ Kullanıcıların soru ve sorunlarını paylaşabileceği bir forumda mevcuttur.
 <h3>Detaylar (Details)</h3>
 
 ZN Framework ile ilgili tüm detaylar <a href='http://www.zntr.net'>zntr.net</a> adresinde mevcuttur. Sizleri aramızda görmekten şeref duyarız.<br>
-(All details of the Framework is available at http://www.zntr.net ZN. We would be honored to see you among us.)
+(All details of the Framework is available at <a href='http://www.zntr.net'>zntr.net</a> ZN. We would be honored to see you among us.)
 
 <h3>Şimdi Kullanın (Use Now)</h3>
 ZN kod çatısını kullanmak için aşağıdaki bağlantıya gitmeniz yeterlidir.<br>
