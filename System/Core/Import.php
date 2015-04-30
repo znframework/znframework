@@ -13,7 +13,6 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 class Import
 {
-	
 	private static $is_import = array();
 	
 	/* IMPORT LIBRARY */
@@ -30,7 +29,8 @@ class Import
 	
 	public static function library()
 	{
-		$conLang = array_unique(config::get('Autoload','Library'));
+		
+		$conLang = array_unique(config::get('Autoload','library'));
 		
 		/* PLURAL LIBRARY */
 	
@@ -57,17 +57,16 @@ class Import
 							require_once($path);					
 					}	
 				}
-				
 				is_imported($class);
 			}	
-		}
+		}	
 	}
 	
 	
 	/* IMPORT TOOL */
 	public static function tool()
 	{
-		$conLang = array_unique(config::get('Autoload','Tool'));
+		$conLang = array_unique(config::get('Autoload','tool'));
 		
 		foreach(@array_unique(func_get_args()) as $tool)
 		{
@@ -78,7 +77,7 @@ class Import
 				
 				if(is_file_exists($path) && !is_import($path)) require_once($path);
 				
-				else if(is_file_exists(SYSTEM_DIR.$path) && !is_import(SYSTEM_DIR.$path)) require_once(SYSTEM_DIR.$path);
+				else if(is_file_exists(SYSTEM_DIR.$path) && ! is_import(SYSTEM_DIR.$path)) require_once(SYSTEM_DIR.$path);
 				
 			}
 		}
@@ -88,7 +87,7 @@ class Import
 	
 	public static function language()
 	{
-		$conLang = array_unique(config::get('Autoload','Language'));
+		$conLang = array_unique(config::get('Autoload','language'));
 		
 		global $lang;
 
@@ -620,7 +619,7 @@ class Import
 	public static function coder()
 	{
 		
-		$conLang = array_unique(config::get('Autoload','Coder'));
+		$conLang = array_unique(config::get('Autoload','coder'));
 		
 		foreach(@array_unique(func_get_args()) as $class)
 		{
@@ -630,9 +629,8 @@ class Import
 			{
 				$path = CODER_DIR.suffix($class,".php");
 			
-				if(is_file_exists($path) && !class_exists($class)) require_once($path);
+				if(is_file_exists($path) && ! class_exists($class)) require_once($path);
 			}
-
 			is_imported($class);
 		}
 	
