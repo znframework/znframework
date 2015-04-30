@@ -8,13 +8,13 @@ ZN PHP Kod çatısı statik sınıflar kullanılarak oluşturulumuş güvenilir 
 <h3>Dökümantasyon (Documentation)</h3>
 
 Framework kullanımı ile ilgili dökümantasyona ulaşmak için aşağıdaki bağlantıyı kullanın.<br>
-(For additional documentation regarding use ZN Framework use the following link.)
+(For additional documentation regarding use ZN Framework use the following link.)<br>
 <a href='http://www.zntr.net/Guide/index.html'>Kullanma Kılavuz</a>
 
 <h3>Topluluk (Contribute)</h3>
 
 Kullanıcıların soru ve sorunlarını paylaşabileceği bir forumda mevcuttur. Aşağıdaki bağlantı ile foruma ulaşabilirsiniz.<br>
-(Users are presented at a forum of questions and problems can be shared. You can find forums on the link below.)
+(Users are presented at a forum of questions and problems can be shared. You can find forums on the link below.)<br>
 <a href='http://www.zntr.net/forum'>ZN Framewok Forum</a>
 
 <h3>Detaylar (Details)</h3>
