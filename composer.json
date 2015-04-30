@@ -21,8 +21,7 @@
 	"autoload": 
 	{
 		 "classmap" : [
-			"System",
-			"Config"
+			"System"
 		]
 	}
 }
