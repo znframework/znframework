@@ -14,23 +14,31 @@ class Bench
 	private static $start_test;
 	private static $end_test;
 	private static $tests = array();
+	private static $memtests = array();
+	private static $test_count = 0;
 	
 	public static function test_start($test = '')
 	{
 		if( ! is_string($test)) return false;
 		
+		self::$test_count++;
+		$legancy = (self::$test_count === 1) ? $legancy = 136 : 56;
+	
 		$test = $test."_start";
 		
 		self::$tests[$test] = microtime();
+		self::$memtests[$test] = memory_get_usage() + $legancy;
 	}
 	
 	public static function test_end($test = '')
 	{
 		if( ! is_string($test)) return false;
-		
-		$test = $test."_end";
 
-		self::$tests[$test] = microtime();
+		$test = $test."_end";
+		
+		self::$memtests[$test] = memory_get_usage();	
+		
+		self::$tests[$test] = microtime();		
 	}
 	
 	public static function elapsed_time($result = '', $decimal = 4)
@@ -50,15 +58,32 @@ class Bench
 	public static function memory_usage($real_memory = false)
 	{
 		if( ! is_bool($real_memory)) $real_memory = false;
-		import::tool('Formatter');
-		return  byte_formatter(memory_get_usage($real_memory));
+		return  memory_get_usage($real_memory);
 	}
 	
-	public static function memory_peak_usage($real_memory = false)
+	public static function max_memory_usage($real_memory = false)
 	{
 		if( ! is_bool($real_memory)) $real_memory = false;
-		import::tool('Formatter');
-		return  byte_formatter(memory_get_peak_usage($real_memory));
+
+		return  memory_get_peak_usage($real_memory);
+	}
+	
+	
+	public static function calculated_memory($result = '')
+	{
+		if( ! is_string($result)) return false;
+		
+		$resend = $result."_end";
+		$restart = $result."_start";
+
+		if(isset(self::$memtests[$resend]) && isset(self::$memtests[$restart]))
+		{
+			$calc = self::$memtests[$resend] - self::$memtests[$restart];
+		
+			return $calc;
+		}
+		else
+			return false;
 	}
 
 }
