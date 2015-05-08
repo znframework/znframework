@@ -20,8 +20,8 @@ class Sec
 		if( empty($badwords) )
 		{
 			$secnc = config::get("Security", "nc_encode");
-			$badwords = $secnc['bad_words'];
-			$changechar = $secnc['change_bad_words'];
+			$badwords = $secnc['bad_chars'];
+			$changechar = $secnc['change_bad_chars'];
 		}
 		if(!is_array($badwords)) return  $string = reg::replace($badwords, $changechar, $string, '<inspace><insens>');
 		
@@ -65,7 +65,7 @@ class Sec
 	{
 		if( ! is_string($string)) return false;
 		$secnc = config::get("Security", "nc_encode");
-		return self::nc_encode(htmlspecialchars(trim($string)), $secnc['bad_words'], $secnc['change_bad_words']);
+		return self::nc_encode(htmlspecialchars(trim($string)), $secnc['bad_chars'], $secnc['change_bad_chars']);
 	}
 		
 	public static function injection_encode($string = '')

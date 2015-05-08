@@ -12,6 +12,23 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 //------------------------------------SYSTEM AND USER FUNCTIONS START-----------------------------------------------------------------
 
+// Function: is_phpversion()
+// İşlev: Parametrenin geçerli php sürümü olup olmadığını kontrol eder.
+// Parametreler: $version => Geçerliliği kontrol edilecek veri.
+// Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
+
+function is_phpversion($version = '5.2.4')
+{
+	if( ! is_value($version)) return false;
+	
+	$version = (string)$version;
+	
+	if(version_compare(PHP_VERSION, $version, '>='))
+		return true;
+	else
+		return false;
+}
+
 // Function: undefined()
 // İşlev: Parametrenin değer alıp almadığını kontrol eder.
 // Parametreler: $str = Herhangi bir değer.
@@ -166,6 +183,36 @@ function is_char($str = NULL)
 	else
 		return false;
 }	
+
+// Function: is_charset()
+// İşlev: Parametrenin geçerli karakter seti olup olmadığını kontrol eder.
+// Parametreler: Geçerli karakter seti.
+// Dönen Değerler: Parametre geçerli karakter seti ise true, değilse false değeri döner.
+
+function is_charset($charset = '')
+{
+	if( ! is_string($charset)) return false;
+	
+	$charsets = mb_list_encodings();
+	$newcharsets = array();
+	$charset = strtolower($charset);
+	foreach($charsets as $ch)
+		$newcharsets[] = strtolower($ch);
+	
+	if(array_search($charset, $newcharsets, true))
+		return true;
+	else
+		return false;
+}
+
+// Function: charset_list()
+// İşlev: Geçerli karakter seli listesini verir.
+// Dönen Değerler: Karakter setlerini listeler.
+
+function charset_list()
+{
+	return mb_list_encodings();	
+}
 
 // Function: get_lang()
 // İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir.
@@ -946,7 +993,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		}
 	}
 
-	$message = "Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message."\n";
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message."\n";
 	error_log($message, 3, $log_dir.suffix($destination,$extension));
 }
 
@@ -1142,7 +1189,7 @@ function autoload($elements = '', $folder = '')
 {	
 	if( ! is_array($elements) ) return false;
 	
-	$autoload_config = config::get('Autoload','Language');
+	$autoload_config = config::get('Autoload','language');
 	
 	if( ! empty($autoload_config))
 	{
@@ -1236,9 +1283,8 @@ function zndynamic_autoloaded()
 {
 	$autoload = config::get('Autoload');
 		
-	$libraries = $autoload['Library'];
-	$coders = $autoload['Coder'];
-	
+	$libraries = $autoload['library'];
+	$coders = $autoload['coder'];
 	$classes = array_merge($libraries, $coders);
 	
 	if( ! empty($classes)) 
@@ -1262,22 +1308,34 @@ function is_imported($class = '')
 	$var = strtolower($class);
 	
 	if(class_exists($class))
-		@reference()->$var = new $class;
+	{
+		/* VARIABLE AND FUNCTIONAL ACCESS */
+		if( ! is_object(zn::$zndynamic))
+		{		
+			zn::$zndynamic = new stdClass();		
+		}
+		else
+		{
+			zn::$zndynamic->$var = new $class;
+		}
+		
+		if( ! is_object(zn::$use))
+		{	
+			zn::$use = new stdClass();
+		}
+		else
+		{	
+			zn::$use->$var = new $class;
+		}
+	}
 }
 
-function &reference()
+function &using()
 {
-	return zndynamic::reference();	
-}
-
-function &this()
-{
-	$zndynamic =& reference(); 
-	
-	if(empty($zndynamic))
+	if(empty(zn::$zndynamic))
 		zndynamic_autoloaded();
-
-	return reference();	
+	
+	return zn::$zndynamic;
 }
 
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------

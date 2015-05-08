@@ -105,7 +105,7 @@ class Val
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
 		if(in_array('nc_encode',$config)){
 			$secnc = config::get("Security", "nc_encode");
-			$edit = sec::nc_encode($edit, $secnc['bad_words'], $secnc['change_bad_words']);
+			$edit = sec::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.

@@ -95,9 +95,11 @@ if( ! function_exists('url_word_converter'))
 		
 		$accent = multi_key_array($accent);
 		
+		$badchars = config::get('Security', 'url_bad_chars');
+		
 		$str = str_replace(array_keys($accent), array_values($accent), $str); 
 		
-		$str = str_replace(array("'",'"',"?",":",".",";","<",">","&","%","~","\\","\/","[","]","(",")","$"),"",$str);
+		$str = str_replace($badchars,"",$str);
 		
 		$str = preg_replace("/\s+/", ' ', $str);
 		
@@ -139,5 +141,24 @@ if( ! function_exists('case_converter'))
 		else
 			$type = $types["lower"];
 		return mb_convert_case($str, $type, $encoding);	
+	}	
+}
+
+// Function: charset_converter()
+// İşlev: Metnin karakter setini değiştirmek için kullanılır.
+// Parametreler
+// @string = Dönüştürülecek metin.
+// @from_charset = Hangi karakter setinden dönüşüm yapılacağı.
+// @to_charset = Hangi karakter setine dönüşüm yapılacağı.
+// Dönen Değer: Karakterleri dönüştürülmüş metin.
+if( ! function_exists('charset_converter'))
+{
+	function charset_converter($str = '', $from_charset = 'utf-8', $to_charset = 'utf-8')
+	{
+		if( ! is_string($str) || ! is_string($from_charset) || ! is_string($to_charset)) return false;
+		
+		if( ! is_charset($from_charset) || ! is_charset($to_charset)) return false;
+		
+		return mb_convert_encoding($str, $from_charset, $to_charset);	
 	}	
 }

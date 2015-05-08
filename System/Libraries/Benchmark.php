@@ -15,15 +15,19 @@ class Bench
 	private static $end_test;
 	private static $tests = array();
 	private static $memtests = array();
+	private static $test_count = 0;
 	
 	public static function test_start($test = '')
 	{
 		if( ! is_string($test)) return false;
 		
+		self::$test_count++;
+		$legancy = (self::$test_count === 1) ? $legancy = 136 : 56;
+	
 		$test = $test."_start";
 		
 		self::$tests[$test] = microtime();
-		self::$memtests[$test] = memory_get_usage();
+		self::$memtests[$test] = memory_get_usage() + $legancy;
 	}
 	
 	public static function test_end($test = '')
@@ -32,10 +36,9 @@ class Bench
 
 		$test = $test."_end";
 		
-		self::$memtests[$test] = memory_get_usage() - 136;
+		self::$memtests[$test] = memory_get_usage();	
 		
-		self::$tests[$test] = microtime();
-		
+		self::$tests[$test] = microtime();		
 	}
 	
 	public static function elapsed_time($result = '', $decimal = 4)
@@ -72,15 +75,12 @@ class Bench
 		
 		$resend = $result."_end";
 		$restart = $result."_start";
-		
+
 		if(isset(self::$memtests[$resend]) && isset(self::$memtests[$restart]))
 		{
 			$calc = self::$memtests[$resend] - self::$memtests[$restart];
-			
-			if(count(self::$memtests) > 2)
-				return $calc;
-			else
-				return $calc - 104;
+		
+			return $calc;
 		}
 		else
 			return false;
