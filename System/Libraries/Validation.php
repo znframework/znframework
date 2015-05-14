@@ -100,22 +100,27 @@ class Val
 		$i=0;
 		
 		// kenar boşluklarını kaldırır.
-		if(in_array('trim',$config)) {$edit = trim($edit);}		
+		if(in_array('trim',$config)) 
+			$edit = trim($edit);		
 			
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
-		if(in_array('nc_encode',$config)){
+		if(in_array('nc_encode',$config))
+		{
 			$secnc = config::get("Security", "nc_encode");
 			$edit = sec::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
-		if(in_array('html_encode',$config)){$edit = sec::html_encode($edit);}		
+		if(in_array('html_encode',$config))
+			$edit = sec::html_encode($edit);		
 		
 		// nail_clean tırnak işaretlerini temizlemek için kullanılır.
-		if(in_array('nail_encode',$config)){$edit = sec::nail_encode($edit);}	
+		if(in_array('xss_encode',$config))
+			$edit = sec::xss_encode($edit);	
 		
 		// tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
-		if(in_array('injection_encode',$config)){$edit = sec::injection_encode($edit);}	
+		if(in_array('injection_encode',$config))
+			$edit = sec::injection_encode($edit);
 		
 		
 		self::$nval[$name] = $edit;
@@ -165,7 +170,7 @@ class Val
 		if(isset($config['match']))
 		{ 
 			$pm = "";
-			if($met === "post") 		$pm = method::post($config['match']);
+			if($met === "post") 	$pm = method::post($config['match']);
 			if($met === "get") 		$pm = method::post($config['match']);
 			if($met === "request") 	$pm = method::post($config['match']);
 

@@ -21,10 +21,13 @@ SETTINGS
 // İşlev:Otomatik olarak kütüphane yüklemek için kullanılır
 // Parametre:Dahil etmek istediğiniz kütüphaneleri diziye elaman olarak sırayla ekleyin.
 // Örnek: array("Database", "Validation");
-// System/ dizininde yer alan Database Sınıflarını kullanmak için
-// Sorgulama işlemleri için DbQueryBuilder
-// Oluşturma işlemleri için DbForge sınıf isimlerini kullanınız.
 $config['Autoload']['library'] 	= array(); // Array
+
+/* COMPONENT	*/
+// İşlev:Otomatik olarak bileşen yüklemek için kullanılır
+// Parametre:Dahil etmek istediğiniz bileşenleri diziye elaman olarak sırayla ekleyin.
+// Örnek: array("Database", "Validation");
+$config['Autoload']['component'] = array(); // Array
 
 /* TOOL	*/
 // İşlev:Otomatik olarak araç yüklemek için kullanılır
@@ -32,11 +35,11 @@ $config['Autoload']['library'] 	= array(); // Array
 // Örnek: array("Cleaner", "Rounder");
 $config['Autoload']['tool'] 	= array(); // Array
 
-/* CODER	*/
-// İşlev:Otomatik olarak kodlayıcı dosyası yüklemek için kullanılır
-// Parametre:Dahil etmek istediğiniz kodlayıcı dosyalarını diziye elaman olarak sırayla ekleyin.
-// Örnek: array("CoderPage1", "CoderPage2");
-$config['Autoload']['coder'] 	= array(); // Array
+/* MODEL	*/
+// İşlev:Otomatik olarak model dosyası yüklemek için kullanılır
+// Parametre:Dahil etmek istediğiniz model dosyalarını diziye elaman olarak sırayla ekleyin.
+// Örnek: array("ModelPage1", "ModelPage2");
+$config['Autoload']['model'] 	= array(); // Array
 
 /* LANGUAGE	*/
 // İşlev:Otomatik olarak dil dosyası yüklemek için kullanılır

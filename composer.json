@@ -21,7 +21,9 @@
 	"autoload": 
 	{
 		 "classmap" : [
-			"System"
+			"System/Libraries",
+			"System/Components",
+			"System/Database"
 		]
 	}
 }

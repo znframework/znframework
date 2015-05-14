@@ -79,15 +79,24 @@ class Config
 		
 		if( ! is_array($key))
 		{	
-			if(is_array($val)) return false;
+			if(is_array($val))
+			{
+				return false;
+			}
 			
-			if($val !== '') ini_set($key, $val);
+			if($val !== '') 
+			{
+				ini_set($key, $val);
+			}
 		}
 		else
 		{
 			foreach($key as $k => $v)
 			{
-				if($v) ini_set($k, $v); 			
+				if($v !== '') 
+				{
+					ini_set($k, $v); 			
+				}
 			}
 		}
 	}

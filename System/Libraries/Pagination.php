@@ -42,12 +42,11 @@ class Pag
 	
 	public static function create($start = '')
 	{
-		
-		import::library('Uri');
 		$page  = "";
 		$links = "";
 		if(empty($start)) 
 		{
+			import::library('Uri');
 			if( ! is_numeric(uri::segment(-1))) 
 				$start_page = 0; 
 			else 
@@ -120,13 +119,20 @@ class Pag
 			if(isset(self::$class['links'])) $links_class =  ' class="'.self::$class['links'].'" '; else $links_class = '';
 			if(isset(self::$class['prev'])) $first_tag_class =  ' class="'.self::$class['prev'].'" '; else $first_tag_class = '';
 			
-			$lastest_tag = '<a href="'.self::$url.(self::$total_rows - (self::$total_rows % self::$limit) - 1).'"'.$lastest_tag_class.'>'.self::$lastest_tag.'</a>';
-			$firstest_tag = '<a href="'.self::$url.'0"'.$firstest_tag_class.'>'.self::$firstest_tag.'</a>';
+			if(isset(self::$style['last'])) $lastest_tag_style =  ' style="'.self::$style['last'].'" '; else $lastest_tag_style = '';
+			if(isset(self::$style['first'])) $firstest_tag_style =  ' style="'.self::$style['first'].'" '; else $firstest_tag_style = '';
+			if(isset(self::$style['next'])) $last_tag_style =  ' style="'.self::$style['next'].'" '; else $last_tag_style = '';
+			if(isset(self::$style['current'])) $current_link_style =  ' style="'.self::$style['current'].'" '; else $current_link_style = '';
+			if(isset(self::$style['links'])) $links_style =  ' style="'.self::$style['links'].'" '; else $links_style = '';
+			if(isset(self::$style['prev'])) $first_tag_style =  ' style="'.self::$style['prev'].'" '; else $first_tag_style = '';
+			
+			$lastest_tag = '<a href="'.self::$url.(self::$total_rows - (self::$total_rows % self::$limit) - 1).'"'.$lastest_tag_class.$lastest_tag_style.'>'.self::$lastest_tag.'</a>';
+			$firstest_tag = '<a href="'.self::$url.'0"'.$firstest_tag_class.$firstest_tag_style.'>'.self::$firstest_tag.'</a>';
 			
 			
 			if($start_page > 0)
 			{
-				$first = '<a href="'.self::$url.($start_page - self::$limit ).'"'.$first_tag_class.'>'.self::$first_tag.'</a>';
+				$first = '<a href="'.self::$url.($start_page - self::$limit ).'"'.$first_tag_class.$first_tag_style.'>'.self::$first_tag.'</a>';
 				
 			}
 			else
@@ -140,7 +146,7 @@ class Pag
 			
 			if($start_page < self::$total_rows - self::$limit)
 			{
-				$last = '<a href="'.self::$url.($start_page + self::$limit).'"'.$last_tag_class.'>'.self::$last_tag.'</a>';	
+				$last = '<a href="'.self::$url.($start_page + self::$limit).'"'.$last_tag_class.$last_tag_style.'>'.self::$last_tag.'</a>';	
 				
 			}
 			else
@@ -176,7 +182,7 @@ class Pag
 					$current_link = '';	
 				}
 				
-				$links .= '<a href="'.self::$url.$page.'"'.$links_class.'><span '.$current_link.'> '.$i.'</span></a>';
+				$links .= '<a href="'.self::$url.$page.'"'.$links_class.$links_style.'><span '.$current_link.'> '.$i.'</span></a>';
 			}
 	
 			if(self::$total_rows > self::$limit) return $firstest_tag.' '.$first.' '.$links.' '.$last.' '.$lastest_tag;

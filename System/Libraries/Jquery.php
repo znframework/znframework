@@ -15,7 +15,7 @@ class Jquery
 	// PATH AND TYPE
 	private static $type      = 'text/javascript';
 	private static $j_path    = 'System/References/Jquery/Jquery.js';
-	private static $jui_path    = 'System/References/Jquery/Jquery-ui.js';
+	private static $jui_path    = 'System/References/Jquery/JqueryUi.js';
 	private static $ready;
 	// Script Open
 	public static function open($jquery_library = true, $jquery_ui_library = false, $ready = true)
@@ -174,7 +174,6 @@ class Jquery
 		if( ! is_string($element)) $element = 'this';
 		if( ! is_array($params)) $params = array();
 		if( ! (is_numeric($speed) || is_string($speed))) $speed = '';
-		if( ! is_string($callback)) $callback = '';
 		if( ! is_string($complete)) $complete = '';
 		
 		$js_animate = "";
@@ -192,8 +191,8 @@ class Jquery
 		
 		if( ! empty($speed))
 		{
-			if( is_numeric($speed ))    $speed    = ",\n".$speed."";
-			else  $speed    = ",\n\t'".$speed."'";
+			if( is_numeric($speed ))    $speed    = ",\n\t\t$speed";
+			else  $speed    = ",\n\t\t'".$speed."'";
 		}
 	
 		if( is_array($easing) )
@@ -230,7 +229,7 @@ class Jquery
 		}
 		else if( ! empty($easing)) 
 		{
-			$easing   = ",\n'".$easing."'";
+			$easing   = ",\n\t\t'".$easing."'";
 		}
 		
 		if( ! empty($complete))	$complete = ",\n\t\tfunction(){".$complete."}";
@@ -302,7 +301,7 @@ class Jquery
 	{
 		if( ! is_string($element)) $element = 'this';
 		if( ! is_string($type)) $type = 'attr';
-
+  
 		$attr = "";
 		switch($type)
 		{

@@ -23,5 +23,5 @@ class ZN
 	 * Static @var zndynamic
 	 *
 	 */
-	public static $zndynamic;
+	public static $dynamic;
 }

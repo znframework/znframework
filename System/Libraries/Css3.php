@@ -11,7 +11,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 class Css3
 {
-	private static $browsers = array("","-o-","-ms-","-moz-","-webkit-");
+	private static $browsers = array();
 	
 	public static function open()
 	{
@@ -34,7 +34,9 @@ class Css3
 		$str  = "";
 		$str .= $element."{\n";
 		
-		foreach(self::$browsers as $val)
+		$browsers = config::get('Css3', 'browsers');	
+		
+		foreach($browsers as $val)
 		{
 			if( ! is_array($property))
 			{
@@ -67,6 +69,8 @@ class Css3
 		$str  = "";
 		$str .= $element."{\n";
 		
+		$browsers = config::get('Css3', 'browsers');	
+		
 		if(isset($param["property"]))
 		{
 			$property_ex = explode(":",$param["property"]);
@@ -74,7 +78,7 @@ class Css3
 			
 			$str .= $param["property"].";\n";
 			
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."transition-property:$property;\n";
 			}
@@ -82,7 +86,7 @@ class Css3
 		
 		if(isset($param["duration"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."transition-duration:".$param["duration"].";\n";
 			}
@@ -90,7 +94,7 @@ class Css3
 		
 		if(isset($param["delay"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."transition-delay:".$param["delay"].";\n";
 			}
@@ -98,7 +102,7 @@ class Css3
 		
 		if(isset($param["animation"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."transition-timing-function:".$param["animation"].";\n";
 			}
@@ -119,7 +123,9 @@ class Css3
 		$str  = "";
 		$str .= $element."{\n";
 		
-		foreach(self::$browsers as $val)
+		$browsers = config::get('Css3', 'browsers');	
+		
+		foreach($browsers as $val)
 		{
 			$str .= $val."box-shadow:".$param["x"]." ".$param["y"]." ".$param["blur"]." ".$param["diffusion"]." ".$param["color"].";\n";
 		}
@@ -137,9 +143,11 @@ class Css3
 		$str  = "";
 		$str .= $element."{\n";
 		
+		$browsers = config::get('Css3', 'browsers');	
+		
 		if(isset($param["radius"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."border-radius:".$param["radius"].";\n";
 			}
@@ -147,14 +155,14 @@ class Css3
 		}
 		if(isset($param["top-left-radius"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."border-top-left-radius:".$param["top-left-radius"].";\n";
 			}
 		}
 		if(isset($param["top-right-radius"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."border-top-right-radius:".$param["top-right-radius"].";\n";
 			}
@@ -162,7 +170,7 @@ class Css3
 		}
 		if(isset($param["bottom-left-radius"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."border-bottom-left-radius:".$param["bottom-left-radius"].";\n";
 			}
@@ -170,7 +178,7 @@ class Css3
 		
 		if(isset($param["bottom-right-radius"]))
 		{
-			foreach(self::$browsers as $val)
+			foreach($browsers as $val)
 			{
 				$str .= $val."border-bottom-right-radius:".$param["bottom-right-radius"].";\n";
 			}
@@ -192,7 +200,9 @@ class Css3
 		$str  = "";
 		$str .= $element."{\n";
 		
-		foreach(self::$browsers as $val)
+		$browsers = config::get('Css3', 'browsers');	
+		
+		foreach($browsers as $val)
 		{
 			$str .= $val.$code.":".$property.";\n";
 		}

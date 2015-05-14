@@ -31,7 +31,7 @@ class Reg
 		
 		if($ex) $ex = str_replace(array_keys($setting_chars), array_values($setting_chars), $ex);
 		
-		$pattern = $delimiter.$pattern.$delimiter.$ex;	
+		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
 		preg_match($pattern, $str , $return);	
 		return $return;
 	}
@@ -55,7 +55,7 @@ class Reg
 		
 		if($ex) $ex = str_replace(array_keys($setting_chars), array_values($setting_chars), $ex);
 		
-		$pattern = $delimiter.$pattern.$delimiter.$ex;	
+		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
 		preg_match_all($pattern, $str , $return);	
 		return $return;
 	}
@@ -78,7 +78,7 @@ class Reg
 		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
 		if($ex) $ex = str_replace(array_keys($setting_chars), array_values($setting_chars), $ex);
 		
-		$pattern = $delimiter.$pattern.$delimiter.$ex;	
+		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
 		return preg_replace($pattern, $rep, $str);
 	}
 	

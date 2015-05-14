@@ -11,7 +11,6 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 config::iniset(config::get('Session','settings'));
 if(!isset($_SESSION)) session_start();
-
 class Sess
 {
 

@@ -42,20 +42,24 @@ class Cook
 			return false;
 		}
 		
-		if(empty($time)) $time = config::get("Cookie","time");
-		if(empty($path)) $path = config::get("Cookie","path");
-		if(empty($domain)) $domain = config::get("Cookie","domain");
-		if(empty($secure)) $secure = config::get("Cookie","secure");
-		if(empty($httponly)) $httponly = config::get("Cookie","httponly");
-		if(config::get("Cookie","encode") === true)
+		$cookie_config = config::get("Cookie");
+		
+		if(empty($time)) $time = $cookie_config["time"];
+		if(empty($path)) $path = $cookie_config["path"];
+		if(empty($domain)) $domain = $cookie_config["domain"];
+		if(empty($secure)) $secure = $cookie_config["secure"];
+		if(empty($httponly)) $httponly = $cookie_config["httponly"];
+		
+		if($cookie_config["encode"] === true)
 		{
 			$name = md5($name);
 		}
 		
-		$_COOKIE[$name] = $value;
-		
 		if(setcookie($name, $value, time() + $time, $path, $domain, $secure, $httponly))
+		{
+			session_regenerate_id();
 			return true;
+		}
 		else
 		{
 			self::$error = get_message('Cookie', 'cook_set_error');
@@ -102,11 +106,10 @@ class Cook
 		Oluşturulan çerezi silmek için kullanılır.
 	*/	
 	
-	public static function delete($name = '', $path = '', $domain = '')
+	public static function delete($name = '', $path = '')
 	{
 		if( ! (is_string($name) || is_numeric($name))) return false;
 		if( ! is_string($path)) $path = '';
-		if( ! is_string($domain)) $domain = '';
 		
 		import::language('Cookie');
 
@@ -143,11 +146,11 @@ class Cook
 	
 	public static function delete_all()
 	{	
-		$time = config::get("Cookie","time");
+		$path = config::get('Cookie', 'path');
 		
 		if( ! empty($_COOKIE) ) foreach ($_COOKIE as $key => $val)
 		{			
-			setcookie($key, "", time() - $time);
+			setcookie($key, '', time() - 1, $path);
 		}
 		else return false;
 	}

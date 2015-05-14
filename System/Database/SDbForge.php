@@ -1,4 +1,14 @@
 <?php
+/************************************************************/
+/*                  STATIC DB FORGE LIBRARY                 */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 class SDbForge
 {
 	private static $prefix;

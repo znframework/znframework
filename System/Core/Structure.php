@@ -51,7 +51,7 @@ class Structure
 		{
 			$url_join .= $url_explode[$i];
 		
-			if( is_file( CODER_DIR.suffix($url_join,".php") ) )
+			if( is_file( CONTROLLERS_DIR.suffix($url_join,".php") ) )
 			{
 			
 				if( isset($url_explode[$i]) )
@@ -66,7 +66,7 @@ class Structure
 				
 				$url_parameters = $i+2;
 				$last_join 		= $url_join;		
-				$is_file 		= CODER_DIR.suffix($last_join,".php");
+				$is_file 		= CONTROLLERS_DIR.suffix($last_join,".php");
 			}
 			else
 			{
@@ -133,13 +133,13 @@ class Structure
 				}
 			}
 				
-			zn::$zndynamic = new $page;
+			zn::$dynamic = new $page;
 			
 			zndynamic_autoloaded();
 					
-			if(is_callable(array(zn::$zndynamic, $function)))
+			if(is_callable(array(zn::$dynamic, $function)))
 			{
-				call_user_func_array( array(zn::$zndynamic, $function), $parameters);
+				call_user_func_array( array(zn::$dynamic, $function), $parameters);
 			}
 			else
 			{

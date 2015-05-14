@@ -1,4 +1,14 @@
 <?php
+/************************************************************/
+/*                        DB COMMON                         */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 function dbcommon()
 {	
 	$config = config::get('Database');

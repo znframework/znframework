@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 1-bad_chars
-2-url_indection_change_char
+2-url_change_char
 
 */
 
@@ -41,7 +41,7 @@ $config['Security']['nc_encode'] = array
 // Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri koymanız gereklidir. Örnek \.
 // Değiştirme işlemi için preg_replace() yöntemi kullanıldığı için özel karakterlerin başına \ karaketeri getirmelisiniz.
 // Sınırlayıcı karakterler olan / / karakterleri kullanmanıza gerek yoktur. Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.
-$config['Security']['url_injection_change_chars'] = array
+$config['Security']['url_change_chars'] = array
 (
 	'<' 	=> '',
 	'>' 	=> ''
@@ -67,45 +67,34 @@ $config['Security']['file_bad_chars'] = array
 // URL adresinde tehlike yaratacak karater listesi.
 $config['Security']['url_bad_chars'] = array
 (
-	'"', 
-	"'", 
-	'<', 
-	'>', 
-	"?", 
-	':', 
-	'=', 
-	'{', 
-	'}', 
-	'[', 
-	']', 
-	'(',
-	'../', 
-	')', 
-	';', 
-	'%20', 
-	'&22',
-	'&', 
-	'/', 
-	'\\', 
-	'#', 
-	'$'
+	'"', "'", '<', '>', "?", '&',
+	':', '=', '{', '}', '[', '/',
+    ']', '(', ')', ';', '$', '#',
+	'\\', '../', '%20', '&22'
+);
+
+
+// Script saldırılarına neden olacak karater listesi.
+$config['Security']['injection_bad_chars'] = array
+(
+	'or.+\=' => '',
 );
 
 
 // Script saldırılarına neden olacak karater listesi.
 $config['Security']['script_bad_chars'] = array
 (
-	'document.cookie',
-	'document.write',
-	'.parentNode',
-	'.innerHTML',
-	'-moz-binding',
-	'<comment>',
-	'<![CDATA[',
-	'<!--',
-	'-->',
-	'<',
-	'>',
+	'document\.cookie'	=> 'document&#46;cookie',
+	'document\.write' 	=> 'document&#46;write',
+	'\.parentNode' 		=> '&#46;parentNode',
+	'\.innerHTML' 		=> '&#46;innerHTML',
+	'\-moz\-binding' 	=> '&#150;moz&#150;binding',
+	'<comment>' 		=> '&#60;comment&#62;',
+	'<\!\[CDATA\[',
+	'<\!\-\-',
+	'\-\->',
+	'<' 				=> '&#60;',
+	'>' 				=> '&#62;',
 );
 
 // Düzenli ifadelerde tehlikeye neden olacak karater listesi.

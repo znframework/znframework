@@ -41,21 +41,56 @@ Starting::run();
 class Starting
 {
 	public static function run()
-	{			
+	{	
+		// INI AYARLAR YAPILANDIRILIYOR...
+		
+		$iniset = config::get('Ini', 'settings');
+		
+		if( ! empty($iniset)) 
+		{
+			config::iniset($iniset);
+		}
+		
+		// ----------------------------------------------------------------------
+		
+				
 		// HTACCESS DOSYASI OLUŞTURULUYOR... 
 		
-		create_htaccess_file();
-		
+		if(config::get('Htaccess','create_file') === true) 
+		{
+			create_htaccess_file();
+		}
+	
 		// ----------------------------------------------------------------------
 		
 		// OTOMATİK YÜKLEMELER İŞLENİYOR...
 		
 		$autoload = config::get('Autoload');
-			
-		autoload($autoload['library']  , 'Libraries');
-		autoload($autoload['tool']     , 'Tools');
-		autoload($autoload['language'] , 'Languages');
-		autoload($autoload['coder']    , 'Coder');
+		
+		if( ! empty($autoload['library'] ))	
+		{
+			autoload($autoload['library'], 'Libraries');
+		}
+		
+		if( ! empty($autoload['component'] ))	
+		{
+			autoload($autoload['component'], 'Components');
+		}
+		
+		if( ! empty($autoload['tool'] ))	
+		{
+			autoload($autoload['tool'], 'Tools');
+		}
+		
+		if( ! empty($autoload['language'] ))	
+		{
+			autoload($autoload['language'], 'Languages');
+		}
+		
+		if( ! empty($autoload['model'] ))	
+		{
+			autoload($autoload['model'], 'Models');
+		}
 		
 		// ----------------------------------------------------------------------
 		

@@ -184,6 +184,17 @@ function is_char($str = NULL)
 		return false;
 }	
 
+function is_hash($type = '')
+{
+	if( ! is_string($type))
+		return false;
+	
+	if(in_array($type, hash_algos()))
+		return true;
+	else
+		return false;
+}
+
 // Function: is_charset()
 // İşlev: Parametrenin geçerli karakter seti olup olmadığını kontrol eder.
 // Parametreler: Geçerli karakter seti.
@@ -939,7 +950,11 @@ function route_uri($request_uri = '')
 		
 	if( ! empty($uri_change))
 	{
-		$request_uri = str_replace(array_keys($uri_change), array_values($uri_change), $request_uri); 	
+		foreach($uri_change as $key => $val)
+		{		
+			$key = trim($key, '/');
+			$request_uri = preg_replace("/".$key."/xi", $val, $request_uri);
+		}
 	}
 	
 	return $request_uri;
@@ -947,14 +962,15 @@ function route_uri($request_uri = '')
 
 function clean_injection($string = "")
 {
-	$url_injection_change_chars = config::get("Security", "url_injection_change_chars");
+	$url_injection_change_chars = config::get("Security", "url_change_chars");
 
 	if( empty($url_injection_change_chars)) return $string;
 	
 	$badwords = $url_injection_change_chars;
 	
 	foreach($badwords as $key => $val)
-	{			
+	{		
+		$key = trim($key, '/');
 		$string = preg_replace("/".$key."/xi", $val, $string);
 	}
 	
@@ -1000,10 +1016,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 // htaccess yönlendirme dosyası oluşturuluyor
 
 function create_htaccess_file()
-{
-	// Htaccess dosyası oluşturma ayarı false ise htaccess dosyası oluşturma
-	if( ! config::get('Htaccess','create_file')) return false;
-	
+{	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = config::get('Cache');
 	
@@ -1201,12 +1214,30 @@ function autoload($elements = '', $folder = '')
 
 	foreach(array_unique($elements) as $rows)
 	{
-		$path = $folder.'/'.$current_lang.suffix($rows,".php");	
+		if($folder === 'Components')
+		{
+			if( ! strstr($rows, '/'))
+			{
+				$rows = $rows.'/'.$rows;
+			}
+		}
+		$path = $folder.'/'.$current_lang.suffix($rows,".php");		
 		
-		if(is_file_exists($path) && extension($path) != "")
-			require_once($path);
-		else if(is_file_exists(SYSTEM_DIR.$path) && extension($path) != "")
+		$path_app = APP_DIR.$path;
+		
+		$extension = extension($path);
+		
+		if( is_file_exists($path_app) && ! empty($extension))
+		{			
+			if(is_file_exists($path_app))
+			{
+				require_once($path_app);
+			}
+		}
+		else if(is_file_exists(SYSTEM_DIR.$path))
+		{
 			require_once(SYSTEM_DIR.$path);
+		}
 		else
 		{
 			if($folder === 'Libraries')
@@ -1217,7 +1248,9 @@ function autoload($elements = '', $folder = '')
 				{
 					$path = suffix($dir, '/').suffix($rows,".php");	
 					if(is_file($path) && ! class_exists($rows))
+					{
 						require_once($path);
+					}
 				}
 			}	
 		}
@@ -1284,41 +1317,80 @@ function zndynamic_autoloaded()
 	$autoload = config::get('Autoload');
 		
 	$libraries = $autoload['library'];
-	$coders = $autoload['coder'];
-	$classes = array_merge($libraries, $coders);
+	$model = $autoload['model'];
+	$components = $autoload['component'];
 	
-	if( ! empty($classes)) 
-		foreach($classes as $class)
-			 is_imported($class);
+	if( ! empty($libraries)) 
+		foreach($libraries as $class)
+			 is_imported($class, 'Library');
+			 
+	if( ! empty($components))
+		foreach($components as $class)
+			 is_imported($class, 'Component');
+			 
+	if( ! empty($model))
+		foreach($model as $class)
+			 is_imported($class, 'Model');
 		
 	is_imported('Config');
 	is_imported('Import');
 }
 
-function is_imported($class = '')
+function is_imported($class = '', $type = NULL)
 {
+	
+	if(extension($class))
+		$class = remove_extension($class);
+		
 	if(strstr($class, '/'))
-		$class = divide($class, '/', -1);	
-
+	{
+		$classex = explode('/', $class);
+		$class = $classex[count($classex) - 1];
+		$component = $classex[count($classex) - 2];	
+	}
 	$short_name = config::get('Libraries', 'short_name');		
 		
 	if(isset($short_name[$class]))
+	{
 		$class = $short_name[$class];
+	}
 	
 	$var = strtolower($class);
-	
-	if(class_exists($class))
+		
+	if($type === 'Component')
 	{
-		/* VARIABLE AND FUNCTIONAL ACCESS */
-		if( ! is_object(zn::$zndynamic))
-		{		
-			zn::$zndynamic = new stdClass();		
+		if( ! isset($component))
+		{
+			$component = '';	
 		}
 		else
 		{
-			zn::$zndynamic->$var = new $class;
+			if(isset($short_name[$component]))
+			{
+				$component = $short_name[$component];
+			}
+			
+			if($component === $class)
+			{
+				$component = '';
+			}	
 		}
 		
+		$class = $type.$component.$class;
+	}
+	
+	if(class_exists($class))
+	{	
+		/* VARIABLE AND FUNCTIONAL ACCESS */
+		if( ! is_object(zn::$dynamic))
+		{		
+			zn::$dynamic = new stdClass();		
+		}
+		else
+		{
+			zn::$dynamic->$var = new $class;
+		}
+	
 		if( ! is_object(zn::$use))
 		{	
 			zn::$use = new stdClass();
@@ -1332,10 +1404,10 @@ function is_imported($class = '')
 
 function &using()
 {
-	if(empty(zn::$zndynamic))
+	if(empty(zn::$dynamic))
 		zndynamic_autoloaded();
 	
-	return zn::$zndynamic;
+	return zn::$dynamic;
 }
 
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------

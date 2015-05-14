@@ -39,15 +39,15 @@ SETTINGS
 
 /* HEAD PAGE  */
 // İşlev:Masterpage olarak belirlen sayfanın head etiketleri arasına harici kod yazmak için sayfa belirlemek için kullanlır.
-// Parametre:Metinsel türde Designer/Pages/ dizininden tüm sayfalar için geçerli olacak bir head sayfası belirlenir. 
+// Parametre:Metinsel türde Views/Pages/ dizininden tüm sayfalar için geçerli olacak bir head sayfası belirlenir. 
 // Örnek: "head";
-$config['Masterpage']['head_page'] = ''; // Designer/Pages/head_page.php
+$config['Masterpage']['head_page'] = ''; // Views/Pages/head_page.php
 
 /* BODY PAGE  */
 // İşlev:Masterpage olacak sayfayı ayarlamak için kullanılır.
-// Parametre:Metinsel türde Designer/Pages/ dizininden masterpage olarak düşünülen sayfa adı bilgisi girilir. 
+// Parametre:Metinsel türde Views/Pages/ dizininden masterpage olarak düşünülen sayfa adı bilgisi girilir. 
 // Örnek: "body";
-$config['Masterpage']['body_page'] = ''; // Designer/Pages/body_page.php
+$config['Masterpage']['body_page'] = ''; // Views/Pages/body_page.php
 
 /* Sayfanın döküman türü varsayılan:xhtml1-trans*/
 $config['Masterpage']['doctype'] = 'xhtml1_transitional';
@@ -64,20 +64,16 @@ $config['Masterpage']['logo'] = '';
 /* Web sitesinin arkaplan resmi varsayılan=*/
 $config['Masterpage']['bg_image'] = '';
 
-/* Harici font kullanımı kullanmak istediğiniz özel fontları Designer/Fonts/ dizinine atıp bu dizin içindek dosyanın adını yazarak kullanabilirsiniz varsayılan:*/
-/* Aşağıdaki dizi içerisine Designer/Fonts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir*/
+/* Harici font kullanımı kullanmak istediğiniz özel fontları Views/Fonts/ dizinine atıp bu dizin içindek dosyanın adını yazarak kullanabilirsiniz varsayılan:*/
+/* Aşağıdaki dizi içerisine Views/Fonts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir*/
 $config['Masterpage']['font'] 	= array();
 
-/* SVG, WOFF, EOT, OTF, TTF uzantılı fontlar dışında başka bir uzantılı font kullanacaksınız aşağıdaki diziye eklemeniz gerekmektedir.*/
-/* Uzantı başında (.) nokta karakteri kullanmanıza yoktur. Örnek array('ufo', 'fon') şeklinde yazmanı yeterlidir.*/
-$config['Masterpage']['different_font_extensions'] 	= array();
-
-/* Harici css dosyası kullanımı kullanmak istediğiniz sitil dosyalarını Designer/Styles/ dizinine atmanız gerekmektedir*/
-/* Aşağıdaki dizi içerisine Designer/Styles/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir*/
+/* Harici css dosyası kullanımı kullanmak istediğiniz sitil dosyalarını Views/Styles/ dizinine atmanız gerekmektedir*/
+/* Aşağıdaki dizi içerisine Views/Styles/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir*/
 $config['Masterpage']['style'] 	= array();
 
 /* Harici javascript dosyası kullanımı*/
-/* Aşağıdaki dizi içerisine Designer/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir*/
+/* Aşağıdaki dizi içerisine Views/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir*/
 $config['Masterpage']['script'] 	= array();
 
 /* Tüm sayfalar için varsayılan başlık bilgisi*/
