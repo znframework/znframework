@@ -177,7 +177,7 @@ class ComponentCssTransform
 		return $this;
 	}
 	
-	public function skewX($x = '')
+	public function skewx($x = '')
 	{
 		if( ! is_value($x))
 		{
@@ -194,7 +194,7 @@ class ComponentCssTransform
 		return $this;
 	}
 		
-	public function skewY($y = '')
+	public function skewy($y = '')
 	{
 		if( ! is_value($y))
 		{
