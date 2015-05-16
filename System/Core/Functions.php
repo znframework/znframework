@@ -394,7 +394,7 @@ function site_url($uri = '', $index = 0)
 		$new_base_dir = BASE_DIR;
 	}
 	
-	if(server("host") !== "localhost" && strstr(server('host'),"www") == "") $host = "www.".server('host'); else $host = server('host');
+        $host = server('host');
 
 	return ssl_status().$host.$new_base_dir.index_status().suffix(current_lang()).clean_injection($uri);
 }
@@ -427,11 +427,7 @@ function base_url($uri = '', $index = 0)
 		$new_base_dir = BASE_DIR;
 	}
 	
-	if(server("host") !== "localhost" && strstr(server('host'),"www") == "") 
-	{
-		$host = "www.".server('host'); 
-	}
-	else $host = server('host');
+	$host = server('host');
 	
 	return ssl_status().$host.$new_base_dir.clean_injection($uri);
 }	
