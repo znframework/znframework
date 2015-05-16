@@ -225,6 +225,28 @@ function charset_list()
 	return mb_list_encodings();	
 }
 
+// Function: ln()
+// İşlev: Farklı işletim sistemlerine göre satır sonunu ifade eder.
+// Dönen Değerler: \n\r, \r veya \n.
+
+function ln($repeat = 1)
+{
+	if ( strtoupper(substr(PHP_OS,0,3)) === 'WIN' ) 
+	{
+        $ln = "\r\n";        
+    }
+    elseif ( strtoupper(substr(PHP_OS,0,3)) === 'MAC')
+	{
+        $ln = "\r";
+	}
+	else
+	{
+        $ln = "\n";
+	}
+	
+	return str_repeat($ln, $repeat);
+}
+
 // Function: get_lang()
 // İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir.
 // Parametreler: Yok.
