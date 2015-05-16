@@ -11,36 +11,73 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 class Css3
 {
-	private static $browsers = array();
-	
+	/******************************************************************************************
+	* OPEN                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Html <style> tagı açmak için kullanılır.								  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
 	public static function open()
 	{
-		$str  = "<style type='text/css'>\n";
+		$str  = "<style type='text/css'>".ln();
 		return $str;	
 	}
 	
-	
+	/******************************************************************************************
+	* CLOSE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Html </style> tagı açmak için kullanılır.	Yani açılan style tagını      |
+	| kapatmak için kullanılır							  									  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
 	public static function close()
 	{
-		$str = "</style>\n";	
+		$str = "</style>".ln();	
 		return $str;
 	}
 
-	
+	/******************************************************************************************
+	* TRANSFORM                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Css3 ile birlikte gelen  transform nesnesini kullanmak için oluşturldu. |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi transform nesneleri uygulanacaksa onlar belirtirlir. 	  |
+	| 																					      |
+	| Örnek Kullanım: transform('#nesne', array('skew' => '10, 4', 'rotate' => '10deg'))	  |
+	| Not: 2. parametre için birden fazla özellik ve değer ekleyebilirsiniz.			      |
+	| 																					      |
+	| Transform Nesneleri																	  |
+	| 1-rotate       																		  |
+	| 2-scale, scaleX, scaleY																  |
+	| 3-skey, skewX, skewY																	  |
+	| 4-translate, translateX, translateY													  |
+	| 5-matrix																				  |
+	| 																					      |
+	******************************************************************************************/
 	public static function transform($element = '', $property = array())
 	{
-		if( ! is_string($element) || empty($element)) return false;
+		if( ! is_string($element) || empty($element) ) 
+		{
+			return false;
+		}
 		
-		$str  = "";
-		$str .= $element."{\n";
+		$str  = '';
+		$str .= $element."{".ln();
 		
+		// Config dosyasındaki desteklenen tarayıcıların listesi alınıyor.
 		$browsers = config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{
-			if( ! is_array($property))
+			if( ! is_array($property) )
 			{
-				$str .= $val."transform:".$property.";\n";
+				$str .= $val."transform:".$property.";".ln();
 			}
 			else
 			{
@@ -50,98 +87,305 @@ class Css3
 					$str .= $k."(".$v.") ";	
 				}
 				$str = substr($str, 0, -1);
-				$str .= ";\n";
+				$str .= ";".ln();
 			}
 		}
 		
-		$str .= "}\n";
+		$str .= "}".ln();
 		
 		return $str;
 		
 	}
 	
-	
+	/******************************************************************************************
+	* TRANSITION                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Css3 ile birlikte gelen transition nesnesini kullanmak için oluşturldu. |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi transition nesneleri uygulanacaksa onlar belirtirlir. 	  |
+	| 																					      |
+	| Örnek Kullanım: transition('#nesne', array(transition nesneleri))	 					  |
+	| 																					      |
+	| Transition Nesneleri																	  |
+	| 1-property       																		  |
+	| 2-duration																  			  |
+	| 3-delay																 				  |
+	| 4-animation veya easing => transtion-timing-function									  |
+	| 																					      |
+	******************************************************************************************/
 	public static function transition($element = '', $param = array())
 	{
-		if( ! is_string($element) || empty($element)) return false;
-		if( ! is_array($param)) $param = array();
+		if( ! is_string($element) || empty($element) ) 
+		{
+			return false;
+		}
+		if( ! is_array($param) ) 
+		{
+			$param = array();
+		}
 		
 		$str  = "";
-		$str .= $element."{\n";
+		$str .= $element."{".ln();
 		
 		$browsers = config::get('Css3', 'browsers');	
 		
-		if(isset($param["property"]))
+		// Geçiş verilecek özellik belirleniyor.
+		if( isset($param["property"]) )
 		{
 			$property_ex = explode(":",$param["property"]);
 			$property = $property_ex[0];
 			
-			$str .= $param["property"].";\n";
+			$str .= $param["property"].";".ln();
 			
 			foreach($browsers as $val)
 			{
-				$str .= $val."transition-property:$property;\n";
+				$str .= $val."transition-property:$property;".ln();
 			}
 		}
 		
-		if(isset($param["duration"]))
+		// Geçiş süresi belirleniyor.
+		if( isset($param["duration"]) )
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."transition-duration:".$param["duration"].";\n";
+				$str .= $val."transition-duration:".$param["duration"].";".ln();
 			}
 		}
 		
-		if(isset($param["delay"]))
+		// Geçişe başlama süresi belirleniyor.
+		if( isset($param["delay"]) )
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."transition-delay:".$param["delay"].";\n";
+				$str .= $val."transition-delay:".$param["delay"].";".ln();
 			}
 		}
 		
-		if(isset($param["animation"]))
+		// Geçiş efekti belirleniyor.
+		if( isset($param["animation"]) )
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."transition-timing-function:".$param["animation"].";\n";
+				$str .= $val."transition-timing-function:".$param["animation"].";".ln();
+			}
+		}
+		
+		// Geçiş efekti belirleniyor. animation parametresinin alternatifidir.
+		if( isset($param["easing"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-timing-function:".$param["easing"].";".ln();
 			}
 		}
 			
-		$str .= "}\n";
+		$str .= "}".ln();
 		
 		return $str;
 	}
 	
-	// SHADOW = Gölge Verir, x = yatayda, y = dikeyde, blur = gölgenin netliği, color = gölgenin rengi
-	
-	public static function box_shadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
+	/******************************************************************************************
+	* ANIMATION                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Css3 ile birlikte gelen animation nesnesini kullanmak için oluşturldu.  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi animation nesneleri uygulanacaksa onlar belirtirlir. 	  |
+	| 																					      |
+	| Örnek Kullanım: animation('#nesne', array(animation nesneleri))	 					  |
+	| 																					      |
+	| Animation Nesneleri																	  |
+	| 1-name         																		  |
+	| 2-duration																  			  |
+	| 3-delay																 				  |
+	| 4-animation veya easing => animation-timing-function									  |
+	| 5-direction									 								          |
+	| 6-status => animation-play-state										 				  |
+	| 7-fill => animation-fill-mode  										 				  |
+	| 8-repeat => animation-iteration-count  										 		  |
+	| 																					      |
+	******************************************************************************************/
+	public static function animation($element = '', $param = array())
 	{
-		if( ! is_string($element) || empty($element)) return false;
-		if( ! is_array($param)) $param = array();
+		if( ! is_string($element) || empty($element) ) 
+		{
+			return false;
+		}
+		if( ! is_array($param) ) 
+		{
+			$param = array();
+		}
 		
 		$str  = "";
-		$str .= $element."{\n";
+		$str .= $element."{".ln();
+		
+		$browsers = config::get('Css3', 'browsers');	
+		
+		// Animasyon uygulanacak nesnenin adı.
+		if( isset($param["name"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-name:".$param["name"].";".ln();
+			}
+		}
+		
+		// Animasyon süresi.
+		if( isset($param["duration"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-duration:".$param["duration"].";".ln();
+			}
+		}
+		
+		// Animasyon başlama süresi.
+		if( isset($param["delay"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-delay:".$param["delay"].";".ln();
+			}
+		}
+		
+		// Animasyon efekti.
+		if( isset($param["easing"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-timing-function:".$param["easing"].";".ln();
+			}
+		}
+		
+		// Animasyon efekti. esasing nesnesinin alternatifidir.
+		if( isset($param["animation"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-timing-function:".$param["animation"].";".ln();
+			}
+		}
+		
+		// Animasyon yönü.
+		if(isset($param["direction"]))
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-direction:".$param["direction"].";".ln();
+			}
+		}
+		
+		// Animasyon durumu.
+		if( isset($param["status"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-play-state:".$param["status"].";".ln();
+			}
+		}
+		
+		// Animasyon doldurma modu.
+		if( isset($param["fill"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-fill-mode:".$param["fill"].";".ln();
+			}
+		}
+		
+		// Animasyon tekrarı.
+		if( isset($param["repeat"]) )
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation-iteration-count:".$param["repeat"].";".ln();
+			}
+		}
+			
+		$str .= "}".ln();
+		
+		return $str;
+	}
+	
+	/******************************************************************************************
+	* BOX SHADOW                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Css3 ile birlikte gelen box-shadow nesnesini kullanmak için oluşturldu. |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi shadow nesneleri uygulanacaksa onlar belirtirlir. 	      |
+	| 																					      |
+	| Örnek Kullanım: box_shadow('#nesne', array(shadow nesneleri))	 					      |
+	| 																					      |
+	| Box Shadow Nesneleri																	  |
+	| 1-x         																		  	  |
+	| 2-y																  			  		  |
+	| 3-blur																 				  |
+	| 4-diffusion									  										  |
+	| 5-color									 								              |
+	| 																					      |
+	******************************************************************************************/
+	public static function box_shadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
+	{
+		if( ! is_string($element) || empty($element) ) 
+		{
+			return false;
+		}
+		if( ! is_array($param) ) 
+		{
+			$param = array();
+		}
+		
+		$str  = "";
+		$str .= $element."{".ln();
 		
 		$browsers = config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{
-			$str .= $val."box-shadow:".$param["x"]." ".$param["y"]." ".$param["blur"]." ".$param["diffusion"]." ".$param["color"].";\n";
+			$str .= $val."box-shadow:".$param["x"]." ".$param["y"]." ".$param["blur"]." ".$param["diffusion"]." ".$param["color"].";".ln();
 		}
 				
-		$str .= "}\n";
+		$str .= "}".ln();
 		return $str;
 	} 
 	
-	
+	/******************************************************************************************
+	* BORDER RADIUS                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Css3 ile birlikte gelen border-radius nesnesini kullanımıdır. 		  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi radius nesneleri uygulanacaksa onlar belirtirlir. 	      |
+	| 																					      |
+	| Örnek Kullanım: border_radius('#nesne', array(shadow nesneleri))	 					  |
+	| 																					      |
+	| Box Shadow Nesneleri																	  |
+	| 1-radius         																		  |
+	| 2-top-left-radius																  		  |
+	| 3-top-right-radius																 	  |
+	| 4-bottom-left-radius									  								  |
+	| 5-bottom-right-radius								 								      |
+	| 																					      |
+	******************************************************************************************/
 	public static function border_radius($element = '', $param = array())
 	{
-		if( ! is_string($element) || empty($element)) return false;
-		if( ! is_array($param)) $param = array();
+		if( ! is_string($element) || empty($element) ) 
+		{
+			return false;
+		}
+		if( ! is_array($param) ) 
+		{
+			$param = array();
+		}
 		
 		$str  = "";
-		$str .= $element."{\n";
+		$str .= $element."{".ln();
 		
 		$browsers = config::get('Css3', 'browsers');	
 		
@@ -149,7 +393,7 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-radius:".$param["radius"].";\n";
+				$str .= $val."border-radius:".$param["radius"].";".ln();
 			}
 			
 		}
@@ -157,14 +401,14 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-top-left-radius:".$param["top-left-radius"].";\n";
+				$str .= $val."border-top-left-radius:".$param["top-left-radius"].";".ln();
 			}
 		}
 		if(isset($param["top-right-radius"]))
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-top-right-radius:".$param["top-right-radius"].";\n";
+				$str .= $val."border-top-right-radius:".$param["top-right-radius"].";".ln();
 			}
 
 		}
@@ -172,7 +416,7 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-bottom-left-radius:".$param["bottom-left-radius"].";\n";
+				$str .= $val."border-bottom-left-radius:".$param["bottom-left-radius"].";".ln();
 			}
 		}
 		
@@ -180,34 +424,54 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-bottom-right-radius:".$param["bottom-right-radius"].";\n";
+				$str .= $val."border-bottom-right-radius:".$param["bottom-right-radius"].";".ln();
 			}
 		
 		}
 		
-		$str .= "}\n";
+		$str .= "}".ln();
 	
 		return $str;
 	}
 	
-	
+	/******************************************************************************************
+	* CODE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Herhangi bir nesneye css3 kodu eklemek için kullanılır. 		          |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi radius nesneleri uygulanacaksa onlar belirtirlir. 	      |
+	| 																					      |
+	| Örnek Kullanım: code('#nesne', 'transform', 'skew(10,5)scale(5,3)')	 				  |
+	| 																					      |
+	******************************************************************************************/
 	public static function code($element = '', $code = '', $property = '')
 	{
-		if( ! is_string($element) || empty($element)) return false;
-		if( ! is_string($code)) $code = '';
-		if( ! is_string($property)) $property = '';
-	
+		if( ! is_string($element) || empty($element)) 
+		{
+			return false;
+		}
+		if( ! is_string($code)) 
+		{
+			$code = '';
+		}
+		if( ! is_string($property)) 
+		{
+			$property = '';
+		}
+		
 		$str  = "";
-		$str .= $element."{\n";
+		$str .= $element."{".ln();
 		
 		$browsers = config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{
-			$str .= $val.$code.":".$property.";\n";
+			$str .= $val.$code.":".$property.";".ln();
 		}
 		
-		$str .= "}\n";
+		$str .= "}".ln();
 		
 		return $str;
 	}

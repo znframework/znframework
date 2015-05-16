@@ -9,21 +9,92 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* PHP MAILER SINIFI REFERANS ALINARAK OLUŞTURULMUŞTUR.                                    *
+*******************************************************************************************
+| Bu sınıfın oluşturulmasında PHPMailer sınıfı referans alınmıştır.                       |
+|          																				  |
+| Camel standartlarında yazılan PHPmailer yöntemleri PHP yazım standartına çevrilmiştir.  |
+|          																				  |
+| Bu nedenle bu sınıfın kullanımında yer alan bir çok yöntemin nasıl kullanıldığı ile     |
+| ilgili detaylı bilgiyi PHPMailer dökümantasyonundan yararlanarak öğrenebilirsiniz.	  |
+| biz temel olarak kullanılması gereken ve önemli gördüğümüz yöntemleri anlattık.     	  |
+|          																				  |
+******************************************************************************************/
 class Email {
 	
+	/* Mail Değişkeni
+	 *  
+	 * E-posta gönderilecek adresini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $mail			= '';
+	
+	/* From Mail Değişkeni
+	 *  
+	 * E-posta gönderen adresini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $from_email		= '';
+	
+	/* From Name Değişkeni
+	 *  
+	 * E-posta gönderen isim bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $from_name		= '';
+	
+	/* Subject Değişkeni
+	 *  
+	 * E-posta konu bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $subject			= '';
+	
+	/* Message Değişkeni
+	 *  
+	 * E-posta mesaj bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $message			= '';
+	
+	/* Error Değişkeni
+	 *  
+	 * E-posta işlemlerinde oluşan hata bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $error			= '';
+	
+	/* Detail Değişkeni
+	 *  
+	 * E-posta işlemleri ile ilgili detaylı bilgiyi
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $detail			= '';
 	
+	/* Settins Dizi Değişkeni
+	 *  
+	 * E-posta işlemleri ile ilgili ayarları
+	 * tutması için oluşturulmuştur.
+	 *
+	 * Ayarlarda herhangi bir değişiklik yapılmamışsa
+	 * varsayılan olarak ayarlı verileri kullanır.
+	 * Bu nedenler ayarların '' işaretleri içinde olması
+	 * bu ayarların yapılmadığı anlamına gelmez.
+	 *
+	 */
 	private static $settings 		= array(
 		'username'					=> '', // kullanici@site.xxx
 		'fromname'					=> '', // Kullanici İsmi
 		'password'					=> '', // Kullanıcı Şifresi
-		'port'						=> '',// Port Numarası
+		'port'						=> '', // Port Numarası
 		'host'						=> '', // mail.alanadi.xxx
 		'is_html'					=> '', 
 		'is_smtp'					=> '', 
@@ -33,7 +104,7 @@ class Email {
 		'smtp_keep_alive'			=> '',
 		'charset'					=> '',	
 		'alt_body'					=> '',
-		'priorty'					=> '', // 3
+		'priority'					=> '', // 3
 		'content'					=> '', // text/plain
 		'encoding'					=> '', // 8bit
 		'word_wrap'					=> '',
@@ -67,102 +138,203 @@ class Email {
 		'xmailer'					=> ''
 	);
 	
-	
+	/******************************************************************************************
+	* SETTINGS                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: E-posta gönderimi için yapılması gereken ayarları yapmak içindir.		  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array var @settings => E-posta gönderimi için yapılacak gerekli ayarlar.			  |
+	|          																				  |
+	| Örnek Kullanım: settings(array('username' => 'xx', 'password' => '12345'))         	  |
+	| Geçerli kullanılabilir ayarlar yukarıdaki listede mevcuttur. Genel bir ayarmalama       |
+	| için ise Config/Email.php dosyası kullanılabilir.					  					  |
+	|          																				  |
+	******************************************************************************************/
 	public static function settings($settings = array())
 	{
-		if(is_array($settings)) foreach($settings as $k => $v)
+		if( is_array($settings) ) 
 		{
-			self::$settings[$k] = $v;
+			foreach($settings as $k => $v)
+			{
+				self::$settings[$k] = $v;
+			}
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* RECEIVER                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: E-posta alıcısının e-posta bilgisini belirlemek içindir.		  		  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string/array var @email => Alıcı e-posta adresidir. Çoklu e-posta gönderimi için     |
+	| bu parametrenin dizi olarak ayarlanması gerekmetedir. Bu parametre dizi olarak		  |
+	| ayarlanırsa 2. parametrenin kullanımına gerek yoktur.  								  |
+	| 2. string var @name => Alıcının isim bilgisini tutar. 1. parametre dizi ise kullanımına |
+	| gerek yoktur.         																  |
+	|          																				  |
+	| Örnek Kullanım: receiver('bilgi@zntr.net', 'ZNTR')        	  						  |
+	| Örnek Kullanım: receiver(array('bilgi@zntr.net' => 'ZNTR', '2.eposta' => '2. isim' ...))|
+	|          																				  |
+	******************************************************************************************/
 	public static function receiver($email = '', $name = '')
 	{
-		if(empty(self::$mail)) return false;
-		 
-		if( ! is_string($name)) $name = '';
-		if(isset($email))
+		if( empty(self::$mail) )
 		{
-			if( ! is_array($email)) 
+			return false;
+		}
+		
+		if( ! is_string($name) )
+		{
+			$name = '';
+		}
+		
+		if( isset($email) )
+		{
+			if( ! is_array($email) ) 
+			{
 				self::$mail->AddAddress($email, $name);
-			else 
-				foreach($email as $e => $n) 
+			}
+			else
+			{ 
+				foreach($email as $e => $n)
+				{ 
 					self::$mail->AddAddress($e, $n);
+				}
+			}
 		}	
 	}
 	
+	/******************************************************************************************
+	* SENDER                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: E-posta göndericisinin e-posta bilgisini belirlemek içindir.		      |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @email => Gönderici e-posta adresidir.       							  |
+	| 2. string var @name => Göndericinin isim bilgisini tutar.      					      |
+	|          																				  |
+	| Örnek Kullanım: sender('bilgi@zntr.net', 'ZNTR')        	  						      |
+	|          																				  |
+	******************************************************************************************/
+	public static function sender($email = '', $name = '')
+	{
+		if( empty(self::$mail) )
+		{
+			return false;
+		}
+		
+		if( ! is_string($email) ) 
+		{
+			return false;
+		}
+		if( ! is_string($name) )
+		{
+			$name = '';
+		}
+		
+		self::$from_email = $email;
+		self::$from_name  = $name;	
+	}
 	
 	public static function add_reply_to($email = '', $name = '')
 	{
-		if(empty(self::$mail)) return false;
-		
-		if( ! is_string($name)) $name = '';
-		if(isset($email))
+		if( empty(self::$mail) ) 
 		{
-			if( ! is_array($email)) 
+			return false;
+		}
+		if( ! is_string($name) ) 
+		{
+			$name = '';
+		}
+		if( isset($email) )
+		{
+			if( ! is_array($email) )
+			{ 
 				self::$mail->AddReplyTo($email, $name);
-			else 
-				foreach($email as $e => $n) 
+			}
+			else
+			{ 
+				foreach($email as $e => $n)
+				{
 					self::$mail->AddReplyTo($e, $n);
+				}
+			}
 		}
 	}
 	
 	
 	public static function add_cc($email = '', $name = '')
 	{
-		if(empty(self::$mail)) return false;
-		
-		if( ! is_string($name)) $name = '';
-		if(isset(self::$email))
+		if( empty(self::$mail) ) 
 		{
-			if( ! is_array($email)) 
+			return false;
+		}
+		
+		if( ! is_string($name) )
+		{
+			$name = '';
+		}
+		if( isset(self::$email) )
+		{
+			if( ! is_array($email) )
+			{ 
 				self::$mail->AddCC($email, $name);
+			}
 			else 
-				foreach($email as $e => $n) 
+			{
+				foreach($email as $e => $n)
+				{
 					self::$mail->AddCC($e, $n);
+				}
+			}
 		}
 	}
 	
 	
 	public static function add_bcc($email = '', $name = '')
 	{
-		if(empty(self::$mail)) return false;
-		
-		if( ! is_string($name)) $name = '';
-		if(isset($email))
+		if (empty(self::$mail) )
 		{
-			if( ! is_array($email)) 
+			return false;
+		}
+		if( ! is_string($name) )
+		{
+			$name = '';
+		}
+		if( isset($email) )
+		{
+			if( ! is_array($email) )
+			{ 
 				self::$mail->AddBCC($email, $name);
-			else 
+			}
+			else
+			{ 
 				foreach($email as $e => $n) 
+				{
 					self::$mail->AddBCC($e, $n);
+				}
+			}
 		}
 	}
 	
-	
-	public static function sender($email = '', $name = '')
-	{
-		if(empty(self::$mail)) return false;
-		
-		if( ! is_string($email)) return false;
-		if( ! is_string($name)) $name = '';
-		
-		self::$from_email = $email;
-		self::$from_name  = $name;	
-	}
-	
-	
 	public static function subject($subject = '')
 	{
-		if( ! is_string($subject)) return false;
+		if( ! is_string($subject) )
+		{
+			return false;
+		}
 		self::$subject = $subject;
 	}
 	
 	
 	public static function message($message = '')
 	{
-		if( ! is_string($message)) return false;
+		if( ! is_string($message) )
+		{
+			return false;
+		}
 		self::$message = $message;
 	}
 	
@@ -189,22 +361,30 @@ class Email {
 	
 	public static function is_mail()
 	{
-		if(empty(self::$mail)) return false;
-		
+		if( empty(self::$mail) )
+		{
+			return false;
+		}
 		self::$mail->IsMail();
 	}
 	
 	
 	public static function is_send_mail()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->IsSendmail();
 	}
 	
 	
 	public static function is_q_mail()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) )
+		{
+			return false;
+		}
 		self::$mail->IsQmail();
 	}
 	
@@ -621,137 +801,542 @@ class Email {
 	
 	public static function add_attachment($add_attachment = '', $add_attachment_file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		if(empty(self::$mail)) return false;
-		
-		if( ! is_string($add_attachment_file_name)) $add_attachment_file_name = '';
-		if( ! is_string($encoding)) $encoding = 'base64';
-		if( ! is_string($type)) $type = 'application/octet-stream';
-		
-		if(isset($add_attachment))
+		if (empty(self::$mail) )
 		{
-			if( ! is_array($add_attachment)) 
+			return false;
+		}
+		
+		if( ! is_string($add_attachment_file_name) ) 
+		{
+			$add_attachment_file_name = '';
+		}
+		
+		if( ! is_string($encoding) )
+		{
+			$encoding = 'base64';
+		}
+		
+		if( ! is_string($type ))
+		{
+			$type = 'application/octet-stream';
+		}
+		
+		if( isset($add_attachment) )
+		{
+			if( ! is_array($add_attachment) )
+			{ 
 				self::$mail->AddAttachment($add_attachment, $add_attachment_file_name, $encoding, $type);
-			else 
-				foreach($add_attachment as $k => $v) 
+			}
+			else
+			{ 
+				foreach($add_attachment as $k => $v)
+				{ 
 					self::$mail->AddAttachment($k, $v);
+				}
+			}
 		}
 	}
 	
 	
 	public static function send($subject = '', $message = '')
 	{	
-		if(empty(self::$mail)) return false;
+		//------------------------------------------------------------------
+		//  Parametre konrolleri
+		//------------------------------------------------------------------
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		
-		if( ! is_string($subject)) $subject = '';
-		if( ! is_string($message)) $message = '';
+		if( ! is_string($subject) ) 
+		{
+			$subject = '';
+		}
 		
+		if( ! is_string($message) ) 
+		{
+			$message = '';
+		}
+		//------------------------------------------------------------------
+		
+		//------------------------------------------------------------------
+		//  Config/Email.php dosyasında yer alan e-posta ayarları alınıyor.
+		//------------------------------------------------------------------
 		$genset = config::get('Email');	
+		//------------------------------------------------------------------
+		//------------------------------------------------------------------
+		//------------------------------------------------------------------
 		
-		$from_email = (self::$from_email) 			? self::$from_email 			: $genset['username'];
-		$from_name  = (self::$from_name)  			? self::$from_name  			: $genset['fromname'];
-		$is_html	= (self::$settings['is_html']) 	? self::$settings['is_html'] 	: $genset['is_html'];
-		$is_smtp	= (self::$settings['is_smtp'])  ? (self::$settings['is_smtp'])	: $genset['is_smtp'];
-				
-		if($is_smtp) 
+		//------------------------------------------------------------------
+		//  Alıcı e-posta bilgisi
+		//------------------------------------------------------------------
+		$from_email = ( self::$from_email ) 			
+					  ? self::$from_email 			
+					  : $genset['username'];
+		
+		//------------------------------------------------------------------
+		//  Alıcı isim bilgisi
+		//------------------------------------------------------------------			  
+		$from_name  = ( self::$from_name )  			
+					  ? self::$from_name  			
+					  : $genset['fromname'];
+		
+		//------------------------------------------------------------------
+		//  E-posta içeriğinin html içerikli olup olmayacağı bilgisi
+		//------------------------------------------------------------------			  
+		$is_html	= ( self::$settings['is_html'] ) 	
+					  ? self::$settings['is_html'] 	
+					  : $genset['is_html'];
+		
+		//------------------------------------------------------------------
+		//  Gönderim için SMTP'nin kullanılıp kullanılmayacağı bilgisi
+		//------------------------------------------------------------------			  
+		$is_smtp	= ( self::$settings['is_smtp'] )  
+		              ? self::$settings['is_smtp']	
+					  : $genset['is_smtp'];
+		
+		//------------------------------------------------------------------
+		//  SMTP Durumu
+		//------------------------------------------------------------------		
+		if( ! empty($is_smtp) ) 
+		{
 			self::$mail->IsSMTP();  
-			
-		self::$mail->IsHTML($is_html);
-		self::$mail->SetFrom($from_email, $from_name);                       		
-		self::$mail->Subject = ($subject === '') ? self::$subject : $subject;
-		self::$mail->Body = ($message === '') ? self::$message : $message;;
+		}
 		
+		self::$mail->IsHTML($is_html);
+		
+		self::$mail->SetFrom($from_email, $from_name); 
+		
+		//------------------------------------------------------------------
+		//  Parametre olarak konu bilgisin girilip girilmediği
+		//------------------------------------------------------------------                      		
+		self::$mail->Subject = ( $subject === '' ) 
+							   ? self::$subject 
+							   : $subject;
+		
+		//------------------------------------------------------------------
+		//  Parametre olarak mesaj bilgisinin girilip girilmediği
+		//------------------------------------------------------------------					   
+		self::$mail->Body 	 = ( $message === '' ) 
+							   ? self::$message 
+							   : $message;;
+		
+		//------------------------------------------------------------------
+		//  Smtp Auth Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['smtp_auth'] || $genset['smtp_auth']) 
-			self::$mail->SMTPAuth 	= (self::$settings['smtp_auth']) 	? self::$settings['smtp_auth'] 		: $genset['smtp_auth'];
-		if(self::$settings['charset'] || $genset['charset']) 
-			self::$mail->CharSet  	= (self::$settings['charset']) 		? self::$settings['charset'] 		: $genset['charset'];	
+		{
+			self::$mail->SMTPAuth 	= ( self::$settings['smtp_auth'] ) 	
+								      ? self::$settings['smtp_auth'] 		
+									  : $genset['smtp_auth'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Charset Ayarı
+		//------------------------------------------------------------------
+		if(self::$settings['charset'] || $genset['charset'])
+		{
+			self::$mail->CharSet  	= ( self::$settings['charset'] ) 		
+									  ? self::$settings['charset'] 		
+									  : $genset['charset'];	
+		}
+		
+		//------------------------------------------------------------------
+		//  Host Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['host'] || $genset['host'])
-			self::$mail->Host     	= (self::$settings['host']) 		? self::$settings['host'] 			: $genset['host'];
+		{
+			self::$mail->Host     	= ( self::$settings['host'] ) 		
+									  ? self::$settings['host'] 			
+									  : $genset['host'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Port Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['port'] || $genset['port'])
-			self::$mail->Port 		= (self::$settings['port']) 		? self::$settings['port'] 			: $genset['port']; 
+		{
+			self::$mail->Port 		= ( self::$settings['port'] ) 		
+			                          ? self::$settings['port'] 			
+									  : $genset['port']; 
+		}
+		
+		//------------------------------------------------------------------
+		//  Username Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['username'] || $genset['username'])
-			self::$mail->Username 	= (self::$settings['username']) 	? self::$settings['username'] 		: $genset['username'];
+		{
+			self::$mail->Username 	= ( self::$settings['username'] ) 	
+			                          ? self::$settings['username'] 		
+									  : $genset['username'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Password Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['password'] || $genset['password'])
-			self::$mail->Password 	= (self::$settings['password']) 	? self::$settings['password'] 		: $genset['password'];	
+		{
+			self::$mail->Password 	= ( self::$settings['password'] ) 	
+			                          ? self::$settings['password'] 		
+									  : $genset['password'];	
+		}
+		
+		//------------------------------------------------------------------
+		//  Smtp Secure Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['smtp_secure'] || $genset['smtp_secure'])
-			self::$mail->SMTPSecure 	= (self::$settings['smtp_secure']) 	? self::$settings['smtp_secure'] 	: $genset['smtp_secure'];
-		if(self::$settings['priorty'] || $genset['priorty'])
-			self::$mail->Priority		= (self::$settings['priorty']) 		? self::$settings['priorty']		: $genset['priorty'];
+		{
+			self::$mail->SMTPSecure = ( self::$settings['smtp_secure'] ) 	
+			                          ? self::$settings['smtp_secure'] 	
+									  : $genset['smtp_secure'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Priority Ayarı
+		//------------------------------------------------------------------
+		if(self::$settings['priority'] || $genset['priority'])
+		{
+			self::$mail->Priority	= ( self::$settings['priority'] ) 		
+			                          ? self::$settings['priority']		
+									  : $genset['priority'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Content Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['content'] || $genset['content'])
-			self::$mail->ContentType 	= (self::$settings['content']) 		? self::$settings['content'] 		: $genset['content'];
+		{
+			self::$mail->ContentType = ( self::$settings['content'] ) 		
+			                           ? self::$settings['content'] 		
+									   : $genset['content'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Encoding Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['encoding'] || $genset['encoding'])
-			self::$mail->Encoding 	= (self::$settings['encoding']) 	? self::$settings['encoding']		: $genset['encoding'];
+		{
+			self::$mail->Encoding 	= ( self::$settings['encoding'] ) 	
+			                          ? self::$settings['encoding']		
+									  : $genset['encoding'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Sender Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['sender'] || $genset['sender'])
-			self::$mail->Sender		= (self::$settings['sender']) 		? self::$settings['sender']			: $genset['sender'];
+		{
+			self::$mail->Sender		= ( self::$settings['sender'] ) 		
+									  ? self::$settings['sender']			
+									  : $genset['sender'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Return Path Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['return_path'] || $genset['return_path'])
-			self::$mail->ReturnPath	= (self::$settings['return_path'])	? self::$settings['return_path']	: $genset['return_path'];
+		{
+			self::$mail->ReturnPath	= ( self::$settings['return_path'] )	
+			                          ? self::$settings['return_path']	
+									  : $genset['return_path'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Alt Body Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['alt_body'] || $genset['alt_body'])
-			self::$mail->AltBody		= (self::$settings['alt_body']) 	? self::$settings['alt_body']		: $genset['alt_body'];
+		{
+			self::$mail->AltBody	= ( self::$settings['alt_body'] ) 	
+			                          ? self::$settings['alt_body']		
+									  : $genset['alt_body'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Word Wrap Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['word_wrap'] || $genset['word_wrap'])
-			self::$mail->WordWrap 	= (self::$settings['word_wrap']) 	? self::$settings['word_wrap']		: $genset['word_wrap'];		
+		{
+			self::$mail->WordWrap 	= ( self::$settings['word_wrap'] ) 	
+								      ? self::$settings['word_wrap']		
+									  : $genset['word_wrap'];		
+		}
+		
+		//------------------------------------------------------------------
+		//  Mailer Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['mailer'] || $genset['mailer'])
-			self::$mail->Mailer		= (self::$settings['mailer'])	 	? self::$settings['mailer']			: $genset['mailer'];
+		{
+			self::$mail->Mailer		= ( self::$settings['mailer'] )	 	
+									  ? self::$settings['mailer']			
+									  : $genset['mailer'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Send Mail Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['send_mail'] || $genset['send_mail'])
-			self::$mail->Sendmail		= (self::$settings['send_mail'])  	? self::$settings['send_mail']		: $genset['send_mail'];
+		{
+			self::$mail->Sendmail	= ( self::$settings['send_mail'] )  	
+									  ? self::$settings['send_mail']		
+									  : $genset['send_mail'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Use Send Mail Options Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['use_send_mail_options'] || $genset['use_send_mail_options'])
-			self::$mail->UseSendmailOptions = (self::$settings['use_send_mail_options']) ? self::$settings['use_send_mail_options'] : $genset['use_send_mail_options'];
+		{
+			self::$mail->UseSendmailOptions = ( self::$settings['use_send_mail_options'] ) 
+											  ? self::$settings['use_send_mail_options'] 
+											  : $genset['use_send_mail_options'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Plugin Dir Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['plugin_dir'] || $genset['plugin_dir'])
-			self::$mail->PluginDir 	= (self::$settings['plugin_dir']) 	? self::$settings['plugin_dir']		: $genset['plugin_dir'];
+		{
+			self::$mail->PluginDir 	= ( self::$settings['plugin_dir'] ) 	
+									  ? self::$settings['plugin_dir']		
+									  : $genset['plugin_dir'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Confirm Reading To Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['confirm_reading_to'] || $genset['confirm_reading_to'])
-			self::$mail->ConfirmReadingTo = (self::$settings['confirm_reading_to']) ? self::$settings['confirm_reading_to'] : $genset['confirm_reading_to'];
+		{
+			self::$mail->ConfirmReadingTo = ( self::$settings['confirm_reading_to'] ) 
+											? self::$settings['confirm_reading_to'] 
+											: $genset['confirm_reading_to'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Message Id Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['message_id'] || $genset['message_id'])
-			self::$mail->MessageID 	= (self::$settings['message_id']) 	? self::$settings['message_id']		: $genset['message_id'];
+		{
+			self::$mail->MessageID 	= ( self::$settings['message_id'] ) 	
+									  ? self::$settings['message_id']		
+									  : $genset['message_id'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Message Date Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['message_date'] || $genset['message_date'])
-			self::$mail->MessageDate 	= (self::$settings['message_date']) ? self::$settings['message_date']	: $genset['message_date'];
+		{
+			self::$mail->MessageDate = ( self::$settings['message_date'] ) 
+									   ? self::$settings['message_date']	
+									   : $genset['message_date'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Helo Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['helo'] || $genset['helo'])
-			self::$mail->Helo			= (self::$settings['helo']) 		? self::$settings['helo']			: $genset['helo'];
+		{
+			self::$mail->Helo		= ( self::$settings['helo'] ) 		
+									  ? self::$settings['helo']			
+									  : $genset['helo'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Realm Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['realm'] || $genset['realm'])
-			self::$mail->Realm		= (self::$settings['realm'])		? self::$settings['realm']			: $genset['realm'];
+		{
+			self::$mail->Realm		= ( self::$settings['realm'] )		
+			                          ? self::$settings['realm']			
+									  : $genset['realm'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Work Station Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['work_station'] || $genset['work_station'])
-			self::$mail->Workstation	= (self::$settings['work_station']) ? self::$settings['work_station']	: $genset['work_station'];
+		{
+			self::$mail->Workstation = ( self::$settings['work_station'] ) 
+									   ? self::$settings['work_station']	
+									   : $genset['work_station'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Timeout Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['timeout'] || $genset['timeout'])
-			self::$mail->Timeout		= (self::$settings['timeout']) 		? self::$settings['timeout']		: $genset['timeout'];
+		{
+			self::$mail->Timeout	= ( self::$settings['timeout'] ) 		
+									  ? self::$settings['timeout']		
+									  : $genset['timeout'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Smtp Debug Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['smtp_debug'] || $genset['smtp_debug'])
-			self::$mail->SMTPDebug	= (self::$settings['smtp_debug']) 	? self::$settings['smtp_debug']		: $genset['smtp_debug'];
+		{
+			self::$mail->SMTPDebug	= ( self::$settings['smtp_debug'] ) 	
+									  ? self::$settings['smtp_debug']		
+									  : $genset['smtp_debug'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Debug Output Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['debug_output'] || $genset['debug_output'])
-			self::$mail->Debugoutput	= (self::$settings['debug_output']) ? self::$settings['debug_output'] 	: $genset['debug_output'];
+		{
+			self::$mail->Debugoutput = ( self::$settings['debug_output'] ) 
+									   ? self::$settings['debug_output'] 	
+									   : $genset['debug_output'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Smtp Keep Alive Ayarı
+		//------------------------------------------------------------------s
 		if(self::$settings['smtp_keep_alive'] || $genset['smtp_keep_alive'])
-			self::$mail->SMTPKeepAlive = (self::$settings['smtp_keep_alive']) ? self::$settings['smtp_keep_alive'] : $genset['smtp_keep_alive'];
+		{
+			self::$mail->SMTPKeepAlive = ( self::$settings['smtp_keep_alive'] ) 
+										 ? self::$settings['smtp_keep_alive'] 
+										 : $genset['smtp_keep_alive'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Single To Ayarı
+		//------------------------------------------------------------------
 		if(self::$settings['single_to'] || $genset['single_to'])
-			self::$mail->SingleTo		= (self::$settings['single_to']) 	? self::$settings['single_to']		: $genset['single_to'];
-		if(! empty(self::$settings['single_to_array']) || ! empty($genset['single_to_array']))
-			self::$mail->SingleToArray = ( ! empty(self::$settings['single_to_array'])) ? self::$settings['single_to_array'] : $genset['single_to_array'];
-		if(self::$settings['le'] || $genset['le'])
-			self::$mail->LE	= (self::$settings['le']) ? self::$settings['le'] 	: $genset['le'];
-		if(self::$settings['dkim_selector'] || $genset['dkim_selector'])
-			self::$mail->DKIM_selector = (self::$settings['dkim_selector']) ? self::$settings['dkim_selector']: $genset['dkim_selector'];
-		if(self::$settings['dkim_identity'] || $genset['dkim_identity'])
-			self::$mail->DKIM_identity = (self::$settings['dkim_identity']) ? self::$settings['dkim_identity']: $genset['dkim_identity'];
-		if(self::$settings['dkim_pass_phrase'] || $genset['dkim_pass_phrase'])
-			self::$mail->DKIM_passphrase = (self::$settings['dkim_pass_phrase']) ? self::$settings['dkim_pass_phrase'] : $genset['dkim_pass_phrase'];
-		if(self::$settings['dkim_domain'] || $genset['dkim_domain'])
-			self::$mail->DKIM_domain	= (self::$settings['dkim_domain'])	? self::$settings['dkim_domain']	: $genset['dkim_domain'];
-		if(self::$settings['dkim_private'] || $genset['dkim_private'])
-			self::$mail->DKIM_private = (self::$settings['dkim_private']) ? self::$settings['dkim_private']	: $genset['dkim_private'];
-		if(self::$settings['action_function'] || $genset['action_function'])
-			self::$mail->action_function = (self::$settings['action_function']) ? self::$settings['action_function'] : $genset['action_function'];
-		if(self::$settings['version'] || $genset['version'])
-			self::$mail->Version		= (self::$settings['version'])		? self::$settings['version']		: $genset['version'];
-		if(self::$settings['xmailer'] || $genset['xmailer'])
-			self::$mail->XMailer 		= (self::$settings['xmailer']) 		? self::$settings['xmailer']		: $genset['xmailer'];
+		{
+			self::$mail->SingleTo	= ( self::$settings['single_to'] ) 	
+									  ? self::$settings['single_to']		
+									  : $genset['single_to'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Single To Array Ayarı
+		//------------------------------------------------------------------
+		if( ! empty(self::$settings['single_to_array']) || ! empty($genset['single_to_array']) )
+		{
+			self::$mail->SingleToArray = ( ! empty(self::$settings['single_to_array']) ) 
+										 ? self::$settings['single_to_array'] 
+										 : $genset['single_to_array'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Le Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['le'] || $genset['le'] )
+		{
+			self::$mail->LE	= ( self::$settings['le'] ) 
+							  ? self::$settings['le'] 	
+							  : $genset['le'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Dkim Selector Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['dkim_selector'] || $genset['dkim_selector'] )
+		{
+			self::$mail->DKIM_selector = ( self::$settings['dkim_selector'] ) 
+									     ? self::$settings['dkim_selector']
+										 : $genset['dkim_selector'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Dkim Identity Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['dkim_identity'] || $genset['dkim_identity'] )
+		{
+			self::$mail->DKIM_identity = ( self::$settings['dkim_identity'] ) 
+										 ? self::$settings['dkim_identity']
+										 : $genset['dkim_identity'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Dkim Pass Phrase Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['dkim_pass_phrase'] || $genset['dkim_pass_phrase'] )
+		{
+			self::$mail->DKIM_passphrase = ( self::$settings['dkim_pass_phrase'] ) 
+										   ? self::$settings['dkim_pass_phrase'] 
+										   : $genset['dkim_pass_phrase'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Dkim Domain Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['dkim_domain'] || $genset['dkim_domain'])
+		{
+			self::$mail->DKIM_domain	= ( self::$settings['dkim_domain'] )	
+										  ? self::$settings['dkim_domain']	
+										  : $genset['dkim_domain'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Dkim Private Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['dkim_private'] || $genset['dkim_private'] )
+		{
+			self::$mail->DKIM_private = ( self::$settings['dkim_private'] ) 
+										? self::$settings['dkim_private']	
+										: $genset['dkim_private'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Action Function Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['action_function'] || $genset['action_function'] )
+		{
+			self::$mail->action_function = ( self::$settings['action_function'] ) 
+									       ? self::$settings['action_function'] 
+										   : $genset['action_function'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Version Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['version'] || $genset['version'] )
+		{
+			self::$mail->Version		= ( self::$settings['version'] )		
+									      ? self::$settings['version']		
+										  : $genset['version'];
+		}
+		
+		//------------------------------------------------------------------
+		//  Xmailer Ayarı
+		//------------------------------------------------------------------
+		if( self::$settings['xmailer'] || $genset['xmailer'])
+		{
+			self::$mail->XMailer 		= ( self::$settings['xmailer'] ) 		
+										  ? self::$settings['xmailer']		
+										  : $genset['xmailer'];
+		}
 		
 		self::$detail = self::$mail;
 		
-		if(self::$mail->Send())
+		//------------------------------------------------------------------
+		//  Mail Gönderiliyor...
+		//------------------------------------------------------------------
+		if( self::$mail->Send() )
 		{
 			return true;
 		}
+		
 		else
 		{ 
-			if(self::$mail->ErrorInfo) self::$error = lang(self::$mail->ErrorInfo);
+			//------------------------------------------------------------------
+			//  Gönderim Başarısız...
+			//------------------------------------------------------------------
+			if( self::$mail->ErrorInfo )
+			{
+				self::$error = lang(self::$mail->ErrorInfo);
+			}
 			return false;
 		}
 	}
 	
+	//------------------------------------------------------------------
+	//  Değişkenler Sıfırlanıyor
+	//------------------------------------------------------------------
 	public static function close()
 	{
 		if(isset(self::$mail))  	self::$mail = NULL;
