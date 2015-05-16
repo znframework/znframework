@@ -507,7 +507,7 @@ function prefix($string = '',$fix = '/')
 
 function current_url()
 {
-	return ssl_status().server('name').clean_injection(server('request_uri'));
+	return ssl_status().host().clean_injection(server('request_uri'));
 }
 
 // Function: site_url()
@@ -606,7 +606,7 @@ function base_url($uri = '', $index = 0)
 	
 function prev_url()
 {
- $str = str_replace(ssl_status().server('name').BASE_DIR.index_status(), "",server("referer"));
+ $str = str_replace(ssl_status().host().BASE_DIR.index_status(), "",server("referer"));
 	
 	if( current_lang() )
 	{
@@ -629,7 +629,7 @@ function hostname($uri = "")
 		return false;
 	}
 	
-	return ssl_status().suffix(server('name')).clean_injection($uri);
+	return ssl_status().suffix(host()).clean_injection($uri);
 }
 
 // Function: host()
@@ -762,7 +762,7 @@ function prev_path($is_path = true)
 		$is_path = true;
 	}
 	
-	$str = str_replace(ssl_status().server('name').BASE_DIR.index_status(), '', server("referer"));
+	$str = str_replace(ssl_status().host().BASE_DIR.index_status(), '', server("referer"));
 	
 	if( current_lang() )
 	{
