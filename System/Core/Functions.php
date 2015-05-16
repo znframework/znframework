@@ -19,14 +19,21 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 function is_phpversion($version = '5.2.4')
 {
-	if( ! is_value($version)) return false;
+	if( ! is_value($version) )
+	{
+		return false;
+	}
 	
 	$version = (string)$version;
 	
 	if(version_compare(PHP_VERSION, $version, '>='))
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }
 
 // Function: undefined()
@@ -36,10 +43,14 @@ function is_phpversion($version = '5.2.4')
 
 function undefined($str = NULL)
 {
-	if(isset($str))
+	if( isset($str) )
+	{
 		return false;
+	}
 	else
+	{
 		return true;
+	}
 }
 
 // Function: is_defined()
@@ -49,10 +60,14 @@ function undefined($str = NULL)
 
 function is_defined($str = NULL)
 {
-	if(isset($str))
+	if( isset($str) )
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }
 
 // Function: is_import()
@@ -62,11 +77,19 @@ function is_defined($str = NULL)
 
 function is_import($path = '')
 {	
-	if( ! is_string($path)) return false;
-	if(in_array(realpath(suffix($path,".php")), get_required_files())) 
-		return true;
-	else 
+	if( ! is_string($path) )
+	{
 		return false;
+	}
+	
+	if( in_array( realpath(suffix($path,".php")), get_required_files() ) ) 
+	{
+		return true;
+	}
+	else
+	{ 
+		return false;
+	}
 }
 
 // Function: is_file_exists()
@@ -74,20 +97,31 @@ function is_import($path = '')
 // Parametreler: $file = Kontrol edilecek dosya yolu.
 // Dönen Değerler: Parametre dosya yolunu ifade ediyor ve böyle bir dosya var ise true bu şartlara uymuyorsa false değeri döner.
 
-function is_file_exists($file = "")
+function is_file_exists($file = '')
 {
-	if( ! is_string($file)) return false;
-	
-	if(is_url($file))
-		$file = trim(str_replace(base_url(),"",$file));
-	
-	if( ! is_file($file))
+	if( ! is_string($file) ) 
+	{
 		return false;
+	}
 	
-	if(file_exists($file)) 
+	if( is_url($file) )
+	{
+		$file = trim(str_replace(base_url(), '', $file));
+	}
+	
+	if( ! is_file($file) )
+	{
+		return false;
+	}
+	
+	if( file_exists($file) ) 
+	{
 		return true; 
-	else 
+	}
+	else
+	{ 
 		return false;
+	}
 }
 
 // Function: is_dir_exists()
@@ -95,20 +129,31 @@ function is_file_exists($file = "")
 // Parametreler: $dir = Kontrol edilecek dosya yolu.
 // Dönen Değerler: Parametre dizin yolunu ifade ediyor ve böyle bir dizin var ise true bu şartlara uymuyorsa false değeri döner.
 
-function is_dir_exists($dir = "")
+function is_dir_exists($dir = '')
 {
-	if( ! is_string($dir)) return false;
-	
-	if(is_url($dir))
-		$dir = trim(str_replace(base_url(),"",$dir));
-	
-	if( ! is_dir($dir))
+	if( ! is_string($dir) ) 
+	{
 		return false;
+	}
 	
-	if(file_exists($dir)) 
+	if( is_url($dir) )
+	{
+		$dir = trim(str_replace(base_url(), '', $dir));
+	}
+	
+	if( ! is_dir($dir) )
+	{
+		return false;
+	}
+	
+	if( file_exists($dir) ) 
+	{
 		return true; 
-	else 
+	}
+	else
+	{ 
 		return false;
+	}
 }
 
 // Function: is_url()
@@ -118,11 +163,19 @@ function is_dir_exists($dir = "")
 
 function is_url($url = '')
 {
-	if( ! is_string($url)) return false;
-	if( ! preg_match('#^(\w+:)?//#i', $url))
+	if( ! is_string($url) ) 
+	{
 		return false;
+	}
+	
+	if( ! preg_match('#^(\w+:)?//#i', $url) )
+	{
+		return false;
+	}
 	else
+	{
 		return true;
+	}
 }
 
 // Function: is_email()
@@ -132,11 +185,19 @@ function is_url($url = '')
 
 function is_email($email = '')
 {
-	if( ! is_string($email)) return false;
-	if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) 
+	if( ! is_string($email) ) 
+	{
+		return false;
+	}
+	
+	if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email) )
+	{ 
 		return false; 
-	else 
+	}
+	else
+	{ 
 		return true;
+	}
 }
 
 // Function: is_repmac()
@@ -148,12 +209,18 @@ function is_email($email = '')
 
 function is_repmac()
 {
-	if(is_array(config::get('Repair','machines')))
+	if( is_array(config::get('Repair','machines')) )
+	{
 		$result = in_array(ipv4(), config::get('Repair','machines'));
-	else if(ipv4() == config::get('Repair','machines')) 
+	}
+	elseif( ipv4() == config::get('Repair','machines') )
+	{
 		$result = true;
+	}
 	else 
+	{
 		$result = false;
+	}
 	
 	return $result;
 }
@@ -165,10 +232,14 @@ function is_repmac()
 
 function is_value($str = NULL)
 {
-	if(is_string($str) || is_numeric($str) || is_bool($str))
+	if( is_string($str) || is_numeric($str) || is_bool($str) )
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }	
 
 // Function: is_char()
@@ -178,21 +249,31 @@ function is_value($str = NULL)
 
 function is_char($str = NULL)
 {
-	if(is_string($str) || is_numeric($str))
+	if( is_string($str) || is_numeric($str) )
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }	
 
 function is_hash($type = '')
 {
-	if( ! is_string($type))
+	if( ! is_string($type) )
+	{
 		return false;
+	}
 	
-	if(in_array($type, hash_algos()))
+	if( in_array($type, hash_algos()) )
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }
 
 // Function: is_charset()
@@ -202,18 +283,28 @@ function is_hash($type = '')
 
 function is_charset($charset = '')
 {
-	if( ! is_string($charset)) return false;
-	
-	$charsets = mb_list_encodings();
-	$newcharsets = array();
-	$charset = strtolower($charset);
-	foreach($charsets as $ch)
-		$newcharsets[] = strtolower($ch);
-	
-	if(array_search($charset, $newcharsets, true))
-		return true;
-	else
+	if( ! is_string($charset) )
+	{
 		return false;
+	}
+	
+	$charsets    = mb_list_encodings();
+	$newcharsets = array();
+	$charset     = strtolower($charset);
+	
+	foreach($charsets as $ch)
+	{
+		$newcharsets[] = strtolower($ch);
+	}
+	
+	if( array_search($charset, $newcharsets, true) )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 // Function: charset_list()
@@ -254,12 +345,19 @@ function ln($repeat = 1)
 
 function get_lang()
 {
-	if( ! isset($_SESSION)) session_start();
+	if( ! isset($_SESSION) ) 
+	{
+		session_start();
+	}
 	
-	if( ! isset($_SESSION[md5("lang")])) 
+	if( ! isset($_SESSION[md5("lang")]) ) 
+	{
 		return "tr";
-	else 
+	}
+	else
+	{ 
 		return $_SESSION[md5("lang")];
+	}
 }
 
 // Function: set_lang()
@@ -269,8 +367,15 @@ function get_lang()
 
 function set_lang($l = "tr")
 {
-	if( ! is_string($l)) return false;
-	if( ! isset($_SESSION)) session_start();
+	if( ! is_string($l) )
+	{
+		return false;
+	}
+	
+	if( ! isset($_SESSION) ) 
+	{
+		session_start();
+	}
 	
 	$_SESSION[md5("lang")] = $l;
 }
@@ -284,18 +389,24 @@ function set_lang($l = "tr")
 
 function current_lang()
 {
-	if( ! isset($_SESSION)) session_start();
+	if( ! isset($_SESSION) ) 
+	{
+		session_start();
+	}
 	
-	
-	if( ! config::get("Uri","lang")) 
+	if( ! config::get("Uri","lang") ) 
+	{
 		return false;
+	}
 	else
 	{ 
 		$sess = $_SESSION[md5("lang")];
 		
-		if( ! isset($sess))
+		if( ! isset($sess) )
+		{
 			$_SESSION[md5("lang")] = "tr"; 
-	 	
+		}
+		
 		return $_SESSION[md5("lang")];
 	}
 }
@@ -309,14 +420,24 @@ function current_lang()
 
 function suffix($string = '', $fix = '/')
 {
-	if( ! is_string($string)) return false;
-	if( ! is_string($fix)) $fix = '/';
+	if( ! is_string($string) ) 
+	{
+		return false;
+	}
+	
+	if( ! is_string($fix) )
+	{
+		$fix = '/';
+	}
 	
 	$prefix = '';
 	
-	if(empty($string)) return false;
+	if( empty($string) )
+	{
+		return false;
+	}
 	
-	if(strlen($fix) < strlen($string))
+	if( strlen($fix) < strlen($string) )
 	{
 		for($i=0;$i<strlen($fix);$i++) $prefix .= $string[strlen($string) - strlen($fix) + $i]; 
 	}
@@ -325,7 +446,14 @@ function suffix($string = '', $fix = '/')
 		return $string.$fix;	
 	}
 	
-	if($prefix === $fix) return $string; else return $string.$fix;
+	if($prefix === $fix) 
+	{
+		return $string; 
+	}
+	else 
+	{
+		return $string.$fix;
+	}
 }
 
 // Function: prefix()
@@ -337,14 +465,24 @@ function suffix($string = '', $fix = '/')
 
 function prefix($string = '',$fix = '/')
 {
-	if( ! is_string($string)) return false;
-	if( ! is_string($fix)) $fix = '/';
+	if( ! is_string($string) )
+	{
+		return false;
+	}
+	
+	if( ! is_string($fix) ) 
+	{
+		$fix = '/';
+	}
 	
 	$prefix = '';
 	
-	if(empty($string)) return false;
+	if( empty($string) )
+	{
+		return false;
+	}
 	
-	if(strlen($fix) < strlen($string))
+	if( strlen($fix) < strlen($string) )
 	{
 		for($i=0;$i<strlen($fix);$i++) $prefix .= $string[$i]; 
 	}
@@ -352,7 +490,14 @@ function prefix($string = '',$fix = '/')
 	{
 		return $fix.$string;	
 	}
-	if($prefix === $fix) return $string; else return $fix.$string;
+	if($prefix === $fix)
+	{
+		return $string; 
+	}
+	else 
+	{
+		return $fix.$string;
+	}
 }
 
 // Function: current_url()
@@ -362,7 +507,7 @@ function prefix($string = '',$fix = '/')
 
 function current_url()
 {
-	return ssl_status().server('host').clean_injection(server('request_uri'));
+	return ssl_status().server('name').clean_injection(server('request_uri'));
 }
 
 // Function: site_url()
@@ -374,11 +519,22 @@ function current_url()
 
 function site_url($uri = '', $index = 0)
 {
-	if( ! is_string($uri)) return false;
-	if( ! is_numeric($index)) $index = 0;
-	if($index > 0 ) $index = 0;
+	if( ! is_string($uri) ) 
+	{
+		return false;
+	}
 	
-	if(BASE_DIR !== "/")
+	if( ! is_numeric($index) )
+	{
+		$index = 0;
+	}
+	
+	if( $index > 0 )
+	{
+		$index = 0;
+	}
+	
+	if( BASE_DIR !== "/" )
 	{
 		$base_dir = substr(BASE_DIR,1,-1);
 		$base_dir = explode("/", $base_dir);
@@ -394,8 +550,8 @@ function site_url($uri = '', $index = 0)
 		$new_base_dir = BASE_DIR;
 	}
 	
-        $host = server('host');
-
+	$host = host();
+	
 	return ssl_status().$host.$new_base_dir.index_status().suffix(current_lang()).clean_injection($uri);
 }
 
@@ -407,11 +563,22 @@ function site_url($uri = '', $index = 0)
 
 function base_url($uri = '', $index = 0)
 {
-	if( ! is_string($uri)) return false;
-	if( ! is_numeric($index)) $index = 0;
-	if($index > 0 ) $index = 0;
+	if( ! is_string($uri) ) 
+	{
+		return false;
+	}
 	
-	if(BASE_DIR !== "/")
+	if( ! is_numeric($index) )
+	{
+		$index = 0;
+	}
+	
+	if( $index > 0 ) 
+	{
+		$index = 0;
+	}
+	
+	if( BASE_DIR !== "/" )
 	{
 		$base_dir = substr(BASE_DIR,1,-1);
 		$base_dir = explode("/", $base_dir);
@@ -427,7 +594,7 @@ function base_url($uri = '', $index = 0)
 		$new_base_dir = BASE_DIR;
 	}
 	
-	$host = server('host');
+	$host = host();
 	
 	return ssl_status().$host.$new_base_dir.clean_injection($uri);
 }	
@@ -439,12 +606,12 @@ function base_url($uri = '', $index = 0)
 	
 function prev_url()
 {
- $str = str_replace(ssl_status().server('host').BASE_DIR.index_status(), "",server("referer"));
+ $str = str_replace(ssl_status().server('name').BASE_DIR.index_status(), "",server("referer"));
 	
 	if( current_lang() )
 	{
 		$str_ex = explode("/",$str);
-		$str =  str_replace($str_ex[0]."/", "", $str);	
+		$str    = str_replace($str_ex[0]."/", "", $str);	
 	}
 	
 	return site_url(clean_injection($str));	
@@ -457,8 +624,52 @@ function prev_url()
 	
 function hostname($uri = "")
 {	
-	if( ! is_string($uri)) return false;
-	return ssl_status().suffix(server('host')).clean_injection($uri);
+	if( ! is_string($uri) ) 
+	{
+		return false;
+	}
+	
+	return ssl_status().suffix(server('name')).clean_injection($uri);
+}
+
+// Function: host()
+// İşlev: Sitenin bulunduğu hostun adını verir.
+// Dönen Değerler: sunucuadi
+
+function host() 
+{
+	if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
+	{
+		$host =	$_SERVER['HTTP_X_FORWARDED_HOST'];
+		
+		$elements = explode(',', $host);
+
+		$host = trim(end($elements));
+	}
+	else
+	{
+		if( isset($_SERVER['HTTP_HOST']) )
+		{
+			$host = $_SERVER['HTTP_HOST'];
+		}
+		else
+		{
+			if( isset($_SERVER['SERVER_NAME']) )
+			{
+				$host = $_SERVER['SERVER_NAME'];
+			}
+			else
+			{
+				$host = ! empty($_SERVER['SERVER_ADDR']) 
+						? $_SERVER['SERVER_ADDR'] 
+						: '';	
+			}
+		}
+	}
+	
+	$host = preg_replace('/:\d+$/', '', $host);
+		
+	return trim($host);
 }
 
 // Function: current_path()
@@ -469,16 +680,19 @@ function hostname($uri = "")
 
 function current_path($is_path = true)
 {
-	if( ! is_bool($is_path)) $is_path = true;
-	
-	$current_page_path = str_replace("/".get_lang()."/","", server('current_path'));
-	
-	if($current_page_path[0] === "/")
+	if( ! is_bool($is_path) ) 
 	{
-		$current_page_path = substr($current_page_path,1,strlen($current_page_path)-1);
+		$is_path = true;
 	}
 	
-	if($is_path)
+	$current_page_path = str_replace("/".get_lang()."/", "", server('current_path'));
+	
+	if ($current_page_path[0] === "/" )
+	{
+		$current_page_path = substr($current_page_path, 1, strlen($current_page_path)-1);
+	}
+	
+	if( $is_path === true )
 	{	
 		return $current_page_path;
 	}
@@ -486,7 +700,7 @@ function current_path($is_path = true)
 	{
 		$str = explode("/", $current_page_path);
 	
-		if(count($str) > 1) 
+		if( count($str) > 1 ) 
 		{
 			return $str[count($str) - 1];	
 		}
@@ -502,14 +716,24 @@ function current_path($is_path = true)
 
 function base_path($uri = '', $index = 0)
 {
-	if( ! is_string($uri)) return false;
-	if( ! is_numeric($index)) $index = 0;
-	
-	if($index > 0 ) $index = 0;
-	
-	if(BASE_DIR !== "/")
+	if( ! is_string($uri) ) 
 	{
-		$base_dir = substr(BASE_DIR,1,-1);
+		return false;
+	}
+	
+	if( ! is_numeric($index) ) 
+	{
+		$index = 0;
+	}
+	
+	if( $index > 0 ) 
+	{
+		$index = 0;
+	}
+	
+	if( BASE_DIR !== "/" )
+	{
+		$base_dir = substr(BASE_DIR, 1, -1);
 		$base_dir = explode("/", $base_dir);
 		$new_base_dir = "";
 		
@@ -533,16 +757,19 @@ function base_path($uri = '', $index = 0)
 	
 function prev_path($is_path = true)
 {
-	if( ! is_bool($is_path)) $is_path = true;
+	if( ! is_bool($is_path) ) 
+	{
+		$is_path = true;
+	}
 	
-	$str = str_replace(ssl_status().server('host').BASE_DIR.index_status(), "",server("referer"));
+	$str = str_replace(ssl_status().server('name').BASE_DIR.index_status(), '', server("referer"));
 	
 	if( current_lang() )
 	{
 		$str = explode("/",$str); return $str[1]; 
 	}
 	
-	if($is_path)
+	if( $is_path === true )
 	{
 		return $str;	
 	}
@@ -550,7 +777,7 @@ function prev_path($is_path = true)
 	{
 		$str = explode("/", $str);
 		
-		if(count($str) > 1) 
+		if( count($str) > 1 ) 
 		{
 			return $str[count($str) - 1];	
 		}
@@ -566,16 +793,26 @@ function prev_path($is_path = true)
 
 function file_path($file = "", $remove_url = "")
 {
-	if( ! is_string($file)) return false;
-	if( ! is_string($remove_url)) $remove_url = "";
-	
-	if(is_url($file))
+	if( ! is_string($file) ) 
 	{
-		if( ! is_url($remove_url))
-			$remove_url = base_url();
-			
-		$file = trim(str_replace($remove_url,"",$file));
+		return false;
 	}
+	
+	if( ! is_string($remove_url) ) 
+	{
+		$remove_url = "";
+	}
+	
+	if( is_url($file) )
+	{
+		if( ! is_url($remove_url) )
+		{
+			$remove_url = base_url();
+		}
+		
+		$file = trim(str_replace($remove_url, '', $file));
+	}
+	
 	return $file;
 }
 
