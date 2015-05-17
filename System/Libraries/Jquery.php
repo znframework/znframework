@@ -200,6 +200,466 @@ class Jquery
 		return $event;
 	}	
 	
+	// Olay olşturmak için
+	protected static function _event($type = '', $element = 'this', $callback = '', $callback2 = '')
+	{	
+		if( ! is_string($element) )
+		{
+			$element = 'this';
+		}
+		if( ! is_string($type) ) 
+		{
+			$type = 'click';
+		}
+		if( ! is_string($callback) ) 
+		{
+			$callback = '';
+		}		
+		
+		if( ! is_string($callback2) ) 
+		{
+			$callback2 = '';
+		}
+		
+		if( ! empty($callback2))
+		{
+			$callback2 = ", function(e)".ln()."{".ln().$callback2.ln()."}";
+		}
+		
+		$element = ( in_array($element, self::$keywords) )
+				   ? $element
+				   : "\"$element\"";
+		
+		$event = '$('.$element.').'.$type.'(function(e)'.ln().'{'.ln().$callback.ln().'}'.$callback2.');'.ln();
+		
+		return $event;
+	}	
+	
+	/******************************************************************************************
+	* CLICK                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: click('#nesne', 'alert(1);');                     	  				  |
+	|															                              |
+	******************************************************************************************/	
+	public static function click($element = 'this', $callback = '')
+	{
+		return self::_event('click', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* BLUR                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: blur('#nesne', 'alert(1);');                  	     				  |
+	|															                              |
+	******************************************************************************************/	
+	public static function blur($element = 'this', $callback = '')
+	{
+		return self::_event('blur', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* CHANGE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: change('#nesne',             'alert(1);');        	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function change($element = 'this', $callback = '')
+	{
+		return self::_event('change', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* DOUBLE CLICK                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: dblclick('#nesne', 'alert(1);');        	     						  |
+	|															                              |
+	******************************************************************************************/	
+	public static function dblclick($element = 'this', $callback = '')
+	{
+		return self::_event('dblclick', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* RESIZE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: resize('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function resize($element = 'this', $callback = '')
+	{
+		return self::_event('resize', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* SCROLL                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: scroll('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function scroll($element = 'this', $callback = '')
+	{
+		return self::_event('scroll', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* LOAD                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: load('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function load($element = 'this', $callback = '')
+	{
+		return self::_event('load', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* UNLOAD                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: unload('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function unload($element = 'this', $callback = '')
+	{
+		return self::_event('unload', $element, $callback);
+	}	
+	
+	/******************************************************************************************
+	* FOCUS                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: focus('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function focus($element = 'this', $callback = '')
+	{
+		return self::_event('focus', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* FOCUSIN                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: focusin('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function focusin($element = 'this', $callback = '')
+	{
+		return self::_event('focusin', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* FOCUSOUT                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: focusout('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function focusout($element = 'this', $callback = '')
+	{
+		return self::_event('focusout', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* SELECT                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: select('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function select($element = 'this', $callback = '')
+	{
+		return self::_event('select', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* SUBMIT                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: submit('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function submit($element = 'this', $callback = '')
+	{
+		return self::_event('submit', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* KEYDOWN                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: keydown('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function keydown($element = 'this', $callback = '')
+	{
+		return self::_event('keydown', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* KEYPRESS                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: keypress('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function keypress($element = 'this', $callback = '')
+	{
+		return self::_event('keypress', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* KEYUP                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: keyup('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function keyup($element = 'this', $callback = '')
+	{
+		return self::_event('keyup', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* HOVER                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: hover('#nesne', 'alert(1);');                     	     			  |
+	|															                              |
+	******************************************************************************************/	
+	public static function hover($element = 'this', $callback = '')
+	{
+		return self::_event('hover', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSEOVER                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mousedown('#nesne', 'alert(1);');                     	     	      |
+	|															                              |
+	******************************************************************************************/	
+	public static function mousedown($element = 'this', $callback = '')
+	{
+		return self::_event('mousedown', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSEENTER                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mouseenter('#nesne', 'alert(1);');                     	     	      |
+	|															                              |
+	******************************************************************************************/	
+	public static function mouseenter($element = 'this', $callback = '')
+	{
+		return self::_event('mouseenter', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSELEAVE                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mouseleave('#nesne', 'alert(1);');                     	     	      |
+	|															                              |
+	******************************************************************************************/	
+	public static function mouseleave($element = 'this', $callback = '')
+	{
+		return self::_event('mouseleave', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSEMOVE                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mousemove('#nesne', 'alert(1);');                     	     	      |
+	|															                              |
+	******************************************************************************************/	
+	public static function mousemove($element = 'this', $callback = '')
+	{
+		return self::_event('mousemove', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSEOUT                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mouseout('#nesne', 'alert(1);');                     	     	          |
+	|															                              |
+	******************************************************************************************/	
+	public static function mouseout($element = 'this', $callback = '')
+	{
+		return self::_event('mouseout', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSEOVER                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mouseover('#nesne', 'alert(1);');                     	     	      |
+	|															                              |
+	******************************************************************************************/	
+	public static function mouseover($element = 'this', $callback = '')
+	{
+		return self::_event('mouseover', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* MOUSEUP                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: mouseup('#nesne', 'alert(1);');                     	     	          |
+	|															                              |
+	******************************************************************************************/	
+	public static function mouseup($element = 'this', $callback = '')
+	{
+		return self::_event('mouseup', $element, $callback);
+	}
+	
+	/******************************************************************************************
+	* TOGGLE CLICK                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Jquery olay nesnesi oluşturmak için kullanılır.                         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
+	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
+	|          																				  |
+	| Örnek Kullanım: tglclick('#nesne', 'alert(1);');                     	     	          |
+	|															                              |
+	******************************************************************************************/	
+	public static function tglclick($element = 'this', $callback = '', $callback2 = '')
+	{
+		return self::_event('toggle', $element, $callback, $callback2);
+	}
+	
 	// Jquery nesneleri için.
 	protected static function _object($type = '', $element = "this", $speed = "", $easing = "",$callback = "")
 	{
@@ -450,22 +910,12 @@ class Jquery
 		
 		$js_animate = '';
 		
-		$animate = "\t\t{";
+		$animate = "\t\t";
 		
-		if( ! empty($params) )foreach($params as $key => $val)
+		if( ! empty($params) )
 		{
-			if( is_numeric($val) )
-			{
-				$animate .= $key.':'.$val.',';
-			}
-			else 
-			{
-				$animate .= $key.':"'.$val.'",';
-			}
+			$animate .= self::object_data($params);
 		}
-		$animate = substr($animate,0,-1);
-		
-		$animate .= "}";
 		
 		if( ! empty($speed) )
 		{
@@ -481,47 +931,7 @@ class Jquery
 	
 		if( is_array($easing) )
 		{
-			$ease = ",".ln()."\t\t{";
-			foreach($easing as $key => $val)
-			{
-				if( ! is_array($val) )
-				{
-					if( is_numeric($val)) 
-					{
-						$ease .= $key.':'.$val.',';
-					}
-					else 
-					{
-						$ease .= $key.':"'.$val.'",';
-					}
-				}
-				else
-				{
-					$ease_control = true;
-					$ease .= $key.":{";
-					foreach($val as $k => $v)
-					{
-						if( is_numeric($val) ) 
-						{
-							$ease .= $k.':'.$v.',';
-						}
-						else 
-						{
-							$ease .= $k.':"'.$v.'",';
-						}
-					}
-					$ease = substr($ease,0,-1);
-					$ease .= "}";
-				}
-				
-			}
-			if( ! isset($ease_control) )
-			{
-				$ease = substr($ease,0,-1);
-			}
-			
-			$ease .= "}";
-			
+			$ease = ",".ln()."\t\t".self::object_data($easing);			
 			$easing = $ease;
 	
 		}
@@ -571,9 +981,9 @@ class Jquery
 			$element = 'this';
 		}
 		
-		if( ! is_string($type) ) 
+		if( ! is_string($classType) ) 
 		{
-			$type = '';
+			$classType = '';
 		}
 		
 		if( ! is_string($class) ) 
@@ -659,22 +1069,20 @@ class Jquery
 		
 		$attr = '';
 		
-		if( is_array($attrs) )foreach($attrs as $key => $val)
+		if( is_array($attrs) )
 		{
-			if( is_numeric($val))
-			{
-				$attr .= $key.':'.$val.',';
-			}
-			else 
-			{
-				$attr .= $key.':"'.$val.'",';
-			}
-			
-			$attr = substr($attr, 0, -1);
+			$attr .= self::object_data($attrs);
 		}
 		else
 		{
-			$attr = "\"$attr\"";	
+			$attrex = explode(",", $attrs);
+	
+			$attr = "\"$attrex[0]\"";	
+			
+			if( isset($attrex[1]) )
+			{
+				$attr .= ', "'.trim($attrex[1]).'"';	
+			}
 		}
 			
 		$element = ( in_array($element, self::$keywords) )
@@ -706,7 +1114,7 @@ class Jquery
 	******************************************************************************************/	
 	public static function attr($element = '', $attr = '')
 	{
-		return self::_class('attr', $element, $attr);
+		return self::_attr('attr', $element, $attr);
 	}
 	
 	/******************************************************************************************
@@ -729,7 +1137,7 @@ class Jquery
 	******************************************************************************************/	
 	public static function removeattr($element = '', $attr = '')
 	{
-		return self::_class('removeAttr', $element, $attr);
+		return self::_attr('removeAttr', $element, $attr);
 	}
 	
 	/******************************************************************************************
