@@ -191,8 +191,7 @@ class Form
 		}
 		
 		$value = ( ! empty($value)) 
-				 ? 'value="
-				 '.$value.'"' 
+				 ? 'value="'.$value.'"' 
 				 : "";
 		
 		// Herhangi bir id değeri tanımlanmamışsa
@@ -332,7 +331,7 @@ class Form
 		{
 			$name = '';
 		}
-		if( ! is_string($selected) )
+		if( ! is_value($selected) )
 		{
 			$selected = '';
 		}
