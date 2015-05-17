@@ -11,6 +11,35 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 class Ajax
 {
+	/* Functions Dizi Değişkeni
+	 *  
+	 * Fonksiyon içerikli veri tutacak özellikler
+	 * için oluşturulmuştur.
+	 *
+	 */
+	protected static $functions = array
+	(
+		'error', 
+		'success', 
+		'complete', 
+		'beforeSend', 
+		'dataFilter'
+	);
+	
+	/* Callback Functions Dizi Değişkeni
+	 *  
+	 * Dönüş Fonksiyon içerikli veri tutacak özellikler
+	 * için oluşturulmuştur.
+	 *
+	 */
+	protected static $callback_functions = array
+	(
+		'done', 
+		'always', 
+		'then', 
+		'fail'
+    );
+	
 	/******************************************************************************************
 	* SEND                                                                               	  *
 	*******************************************************************************************
@@ -28,7 +57,7 @@ class Ajax
 		{
 			return false;
 		}
-		
+	
 		$methods['type'] = ''; $method = '';		
 		
 		// type: parametresinin değeri varsayılan olarak post belirlenmiştir.
@@ -54,54 +83,80 @@ class Ajax
 			// 3-beforeSend
 			// 4-dataFilter
 			// 5-error
-			if( $key === "error" || $key === "success" || $key === "complete" || $key === "beforeSend"  || $key === "dataFilter" )
+			
+			if( in_array($key, self::$functions) )
 			{
 				$value = "function(data){".$val."}"; 	
 			}
 			else
 			{
-				$value = '"'.$val.'"';
+				$value = self::_value_control($val);
 			}
 			
 			// Anahtar olarak gönderilen verilerden herhangi biri aşağıdaki koşulu sağlarsa
 			// bu değer dönüş fonksiyonu olarak değerlendirilecektir.
-			if( $key !== 'done' && $key !== 'then' && $key !== 'fail' && $key !== 'always' )
+			if( ! in_array($key, self::$callback_functions) )
 			{
-				$method .= "\t\t".$key.':'.$value.','."\n";
+				$method .= "\t\t".$key.':'.$value.','.ln();
 			}
 		}
 		
 		$method = substr($method,0,-2);
 		
-		$ajax = "\t".'$.ajax'."\n\t".'({'."\n".$method."\n\t".'})';
+		$ajax = "\t".'$.ajax'.ln()."\t".'({'.ln().$method.ln()."\t".'})';
+		
 		
 		// Dönüş Yöntemleri
 		// 1-done
 		// 2-then
 		// fail
 		// always
-		if( isset($methods['done']) )  	  
+		
+		$is_callback = false;
+		
+		foreach(self::$callback_functions as $callfunc)
 		{
-			$ajax .= '.done(function(data){'."\n\t\t".$methods['done']."\n\t".'});'."\n";
+			if( isset($methods[$callfunc]) )
+			{
+				$ajax .= '.'.$callfunc.'(function(data){'.ln()."\t\t".$methods[$callfunc].ln()."\t".'});'.ln();
+				$is_callback = true;
+			}
 		}
-		elseif( isset($methods['then']) )   
+	
+		if($is_callback === false)
 		{
-			$ajax .= '.then(function(data){'."\n\t\t".$methods['then']."\n\t".'});'."\n";
-		}
-		elseif( isset($methods['fail']) )   
-		{
-			$ajax .= '.fail(function(data){'."\n\t\t".$methods['fail']."\n\t".'});'."\n";
-		}
-		elseif( isset($methods['always']) ) 
-		{
-			$ajax .= '.always(function(data){'."\n\t\t".$methods['always']."\n\t".'});'."\n";
-		}
-		else
-		{
-			$ajax .= ";\n";
+			$ajax .= ";".ln();
 		}
 		
 		return $ajax;
+	}
+	
+	// Özelliklerin değerlerinin kontrolü sağlanıyor..
+	// Eğer anahtar içerikli kelimeler içermiyorsa
+	// Veri tırnak içerisine alınıyor.
+	protected static function _value_control($val)
+	{
+		if( strtolower($val) === "true")
+		{
+			return "true";	
+		}
+		elseif( strtolower($val) === "false")
+		{
+			return "false";	
+		}
+	    elseif(preg_match('/\{.+\:.+\}/', $val))
+		{
+			return $val;
+		}
+		elseif(preg_match('/function.*\(.*\)/', $val))
+		{
+			return $val;	
+		}
+		else
+		{
+			return "\"$val\"";	
+		}
+		
 	}
 	
 	/******************************************************************************************
@@ -274,7 +329,7 @@ class Ajax
 		
 		$next = $start + $limit;
 		
-		$links  = "\n<div ajax='pagination'>\n";
+		$links  = ln()."<div ajax='pagination'>".ln();
 		
 		// Başlangıç değerinin pozitif olma durumuna göre gerekli kontrol sağlanıyor.------------
 		if($start > 0) 
@@ -305,7 +360,7 @@ class Ajax
 			{
 				$attr = "";	
 			}
-			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>\n";
+			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>".ln();
 			// ----------------------------------------------------------------------------------
 		}
 		// --------------------------------------------------------------------------------------
@@ -313,11 +368,11 @@ class Ajax
 		// Sonraki butonunun durumu kontrol ediliyor...------------------------------------------
 		if( $next < $total_rows ) 
 		{
-			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>\n";
+			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>".ln();
 		}
 		// --------------------------------------------------------------------------------------
 		
-		$links .= "</div>\n";
+		$links .= "</div>".ln();
 		
 		// Toplam satırın limit miktarına göre durumu kontrol ediliyor...------------------------
 		if( $total_rows > $limit )
