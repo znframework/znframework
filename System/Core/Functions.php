@@ -667,8 +667,6 @@ function host()
 		}
 	}
 	
-	$host = preg_replace('/:\d+$/', '', $host);
-		
 	return trim($host);
 }
 
