@@ -792,7 +792,7 @@ class Html5
 	******************************************************************************************/ 
 	public static function keygen($_attributes = '')
 	{
-		return '<keygen'.self::attributes($_attributes).'>'."\n";
+		return '<keygen'.self::attributes($_attributes).'>'.ln();
 	}
 	
 	// HTML5 medya nesneleri için
@@ -861,7 +861,7 @@ class Html5
 	/******************************************************************************************
 	* VIDEO                                                                                   *
 	*******************************************************************************************
-	| Genel Kullanım: Html <video></source> tagının kullanımıdır.    			      	      |
+	| Genel Kullanım: Html <video></video> tagının kullanımıdır.    			      	      |
 	|															                              |
 	| Parametreler: 3 parametresi vardır.		                                              |
 	| 1. string var @src => HTML nesnesinin kaynağı belirtilir.	  				              |
