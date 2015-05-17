@@ -11,12 +11,39 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 class Image
 {
-	
+	/* Dir Name Değişkeni
+	 *  
+	 * Oluşturulan yeni resmin kaydedileceği dizin bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $dir_name = 'thumbs';
+	
+	/* Fıle Değişkeni
+	 *  
+	 * Dosyanın yol bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $file;
+	
+	/* Thumb Path Değişkeni
+	 *  
+	 * Thumb dosyası için yol bilgini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $thumb_path;
+	
+	/* Error Değişkeni
+	 *  
+	 * Ftp işlemlerinde oluşan hata bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $error;
-
+	
+	// Dosya yolu verisinde düzenleme yapılıyor.
 	private static function new_path($file_path)
 	{
 		$file_ex = explode("/", $file_path);
@@ -30,57 +57,148 @@ class Image
 		self::$thumb_path = str_replace(base_url(), "", self::$thumb_path);
 	}
 	
+	// Uzantı kontrolü yapıyor.
 	private static function from_file_type($paths)
 	{
 		
-		if(strtolower(extension(self::$file)) === "jpg")  	  return imagecreatefromjpeg($paths);
-		else if(strtolower(extension(self::$file)) === "jpeg") return imagecreatefromjpeg($paths);
-		else if(strtolower(extension(self::$file)) === "png")  return imagecreatefrompng($paths);
-		else if(strtolower(extension(self::$file)) === "gif")  return imagecreatefromgif($paths);
-		else return false;
+		// UZANTI JPG
+		if( strtolower(extension(self::$file)) === 'jpg' )
+		{ 
+			return imagecreatefromjpeg($paths);
+		}
+		// UZANTI JPEG
+		elseif( strtolower(extension(self::$file)) === 'jpeg' ) 
+		{
+			return imagecreatefromjpeg($paths);
+		}
+		// UZANTI PNG
+		elseif( strtolower(extension(self::$file)) === 'png' )
+		{
+			return imagecreatefrompng($paths);
+		}
+		// UZANTI GIF
+		elseif( strtolower(extension(self::$file)) === 'gif' )  
+		{
+			return imagecreatefromgif($paths);
+		}
+		else 
+		{
+			return false;
+		}
 	}
 	
+	// Dosya uzantısı kontrol ediliyor.
 	private static function is_image_file($file)
 	{
+		$extensions = array('jpg', 'jpeg', 'png', 'gif');
 		
-		if(strtolower(extension($file)) === "jpg")  	  return true;
-		else if(strtolower(extension($file)) === "jpeg") return true;
-		else if(strtolower(extension($file)) === "png")  return true;
-		else if(strtolower(extension($file)) === "gif")  return true;
-		else return false;
+		if( in_array(strtolower(extension($file)), $extensions))
+		{
+			return true;	
+		}
+		else
+		{
+			return false;	
+		}
 	}
 	
+	// Dosya uzantısına göre oluşturulucak image dosyası.
+	// Aynı zamanda uzantılara göre kalite parametresi ayarlanıyor.
 	private static function create_file_type($files, $paths, $quality = 0)
 	{
-	
-		if(strtolower(extension(self::$file)) === "jpg")
+		// JPG İÇİN KALİTE AYARI
+		if( strtolower(extension(self::$file)) === 'jpg' )
 		{
-			if($quality === 0) $quality = 80;
+			if( $quality === 0 ) 
+			{
+				$quality = 80;
+			}
+			
 			return imagejpeg($files, $paths, $quality);
 		}
-		else if(strtolower(extension(self::$file)) === "jpeg")
+		// JPEG İÇİN KALİTE AYARI
+		elseif( strtolower(extension(self::$file)) === 'jpeg' )
 		{
-			if($quality === 0) $quality = 80;
+			if( $quality === 0 ) 
+			{
+				$quality = 80;
+			}
+			
 			return imagejpeg($files, $paths, $quality);
 		}
-		else if(strtolower(extension(self::$file)) === "png")
+		// PNG İÇİN KALİTE AYARI
+		elseif( strtolower(extension(self::$file)) === 'png' )
 		{
-			if($quality === 0) $quality = 8;
+			if( $quality === 0 )
+			{
+				$quality = 8;
+			}
+			
 			return imagepng($files, $paths, $quality);
 		}
-		else if(strtolower(extension(self::$file)) === "gif")  return imagegif($files, $paths);
-		else return false;
+		// GIF İÇİN KALİTE AYARI
+		elseif( strtolower(extension(self::$file)) === 'gif' )
+		{
+			return imagegif($files, $paths);
+		}
+		else 
+		{
+			return false;
+		}
 	}
 	
+	/******************************************************************************************
+	* THUMB                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Resmi ölçeklendirip ölçeklenen yeni resmin yolunu verir.  	          |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @fpath => Ölçeklendirilmek istenen resim.	  						      |
+	| 2. array var @settings => Resim üzerinde değişiklik yapmayı sağlayan ayarlar.	          |
+	|          																				  |
+	| Örnek Kullanım: thumb('ornek/resim.jpg', array(Ayarlar));        	  		              |      
+	|          																				  |
+	| 2. Ayarlar Parametresinin Kullanılabilir Parametreleri.         						  |
+	|																						  |
+	| 1. x => Resmi yatay düzlemde kaçıncı pixelden kırpmaya başlayacağını ifade eder.        |
+	| 2. y => Resmi dikey düzlemde kaçıncı pixelden kırpmaya başlayacağı ifade eder.          |
+	| 3. width => Resmin kırpma genişliğini belirlemek için kullanılır.                       |
+	| 4. height => Resmin kırpma yüksekliğini belirlemek için kullanılır.                     |
+	| 5. rewidth => Resmin yeni genişlik değer ayarlanır.                                     |
+	| 6. reheight => Resmin yeni yükseklik değer ayarlanır.                                   |
+	| 7. prowidth  => Eğer genişlik fazla ise bu ayara göre resmin yükseklik değeri otomatik  |
+	| olarak orantılı ayarlanır.                                  							  |
+	| 8. proheight => Eğer yükseklik fazla ise bu ayara göre resmin genişlik değeri otomatik  |
+	| olarak orantılı ayarlanır.                                   				              |
+	| 9. quality  => Resmin kalitesini ayarlamak için kullanılır.                             |
+	|          																				  |
+	******************************************************************************************/	
 	public static function thumb($fpath = '', $set = array())
 	{
-		if( ! is_string($fpath)) return false;
-		if( ! is_array($set)) $set = array();
+		// Parametre kontrolleri yapılıyor -------------------------------------------
+		if( ! is_string($fpath) ) 
+		{
+			return false;
+		}
+		if( ! is_array($set) )
+		{
+			$set = array();
+		}
+		// ---------------------------------------------------------------------------
 		
-		$file_path 		= (isset($fpath)) ? trim($fpath) : "";
+		$file_path = ( isset($fpath) ) 
+					 ? trim($fpath) 
+					 : '';
 		
-		if(strstr($file_path, base_url()) != "") $file_path = str_replace(base_url(),"",$file_path);
+		// Yol bilgis url eki içeriyorsa 
+		// bu ekin temizlenmesi sağlanıyor.
+		if( strstr($file_path, base_url()) ) 
+		{
+			$file_path = str_replace(base_url(), '', $file_path);
+		}
 		
+		// Geçersiz yol bilgisi girilmiş ise
+		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($file_path) )
 		{
 			self::$error = get_message('Image', 'image_file_not_found_error', $file_path);
@@ -88,6 +206,8 @@ class Image
 			return false;	
 		}
 		
+		// Dosyanın uzantısı belirlenen uzantılır dışında
+		// ise durumu rapor etmesi sağlanıyor.
 		if( ! self::is_image_file($file_path) )
 		{
 			self::$error = get_message('Image', 'image_not_image_file_error', $file_path);
@@ -95,23 +215,52 @@ class Image
 			return false;	
 		}
 		
-		
+		// Ayarlar parametresinde tanımlayan ayarlara
+		// varsayılan değerler atanıyor.
 		list($current_width, $current_height) = getimagesize($file_path);
 		
-		$width 			= (isset($set["width"])) 		? $set["width"] 		: $current_width;
-		$height 		= (isset($set["height"])) 		? $set["height"] 		: $current_height;
-		$rewidth 		= (isset($set["rewidth"])) 		? $set["rewidth"] 		: 0;
-		$reheight 		= (isset($set["reheight"])) 	? $set["reheight"]		: 0;
-		$x				= (isset($set["x"])) 			? $set["x"] 			: 0;
-		$y				= (isset($set["y"])) 			? $set["y"] 			: 0;
-		$quality 		= (isset($set["quality"])) 		? $set["quality"] 		: 0;
+		// WIDTH Ayarı
+		$width 			= ( isset($set["width"]) ) 		
+						  ? $set["width"] 		
+						  : $current_width;
 		
-		if(isset($set["prowidth"]) || isset($set["proheight"]))
+		// HEIGHT Ayarı				  
+		$height 		= ( isset($set["height"]) ) 		
+					      ? $set["height"] 		
+						  : $current_height;
+		
+		// REWIDTH Ayarı				  
+		$rewidth 		= ( isset($set["rewidth"]) ) 		
+						  ? $set["rewidth"] 		
+						  : 0;
+		
+		// REHEIGHT Ayarı					  
+		$reheight 		= ( isset($set["reheight"]) ) 	
+						  ? $set["reheight"]		
+						  : 0;
+		
+		// X Ayarı
+		$x				= ( isset($set["x"]) ) 			
+						  ? $set["x"] 			
+						  : 0;
+		
+		// Y Ayarı				  
+		$y				= ( isset($set["y"]) ) 			
+						  ? $set["y"] 			
+						  : 0;
+		
+		// QUALITY Ayarı				  
+		$quality 		= ( isset($set["quality"]) ) 		
+						  ? $set["quality"] 		
+						  : 0;
+		
+		
+		if( isset($set["prowidth"]) || isset($set["proheight"]) )
 		{
 		
-			if(isset($set["proheight"]))
+			if( isset($set["proheight"]) )
 			{
-				if($set["proheight"] < $current_height )
+				if( $set["proheight"] < $current_height )
 				{
 					/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
 					$height = $set["proheight"];
@@ -120,9 +269,9 @@ class Image
 					$width = round(($current_width * $height) / $current_height);
 				}
 			}
-			if(isset($set["prowidth"]))
+			if( isset($set["prowidth"]) )
 			{
-				if($set["prowidth"] < $current_width )
+				if( $set["prowidth"] < $current_width )
 				{
 					/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
 					$width = $set["prowidth"];
@@ -136,39 +285,70 @@ class Image
 		
 		$r_width = $width; $r_height = $height;
 		
-		if( $rewidth ) $width = $rewidth;
-		if( $reheight ) $height = $reheight;
+		// Yeni genişlik değerinin kontrolü yapılıyor.
+		if( ! empty($rewidth) ) 
+		{
+			$width = $rewidth;
+		}
 		
+		// Yeni yükseklik değerinin kontrolü yapılıyor.
+		if( ! empty($reheight) ) 
+		{
+			$height = $reheight;
+		}
+		
+		// Oluşturulacak yeni dosyanın isim bilgisi oluşturuluyor.
+		// Bu isimlendirmede şu bilgiler yer alacak.
+		// 1-Resmin Adı
+		// 2-X değeri
+		// 3-Y değeri
+		// 4-Genişlik Değeri
+		// 5-Yükseklik Değeri
 		$prefix = "-".$x."x".$y."px-".$width."x".$height."size";
 		
 		self::new_path($file_path);
 		
+		// Dizin bilgisi kontrol ediliyor.
+		// Eğer thumb isminde bir dizin
+		// yoksa oluşturuluyor.
 		if( ! is_dir(self::$thumb_path) ) 
 		{ 
 			import::library('Folder'); 
 			
-			folder::create(self::$thumb_path);
-			
+			folder::create(self::$thumb_path);		
 		}
-		$exten_clean = str_replace(extension(self::$file, true),"",self::$file);
+		
+		// Dosya uzantısı temizleniyor.
+		$exten_clean = str_replace(extension(self::$file, true), '', self::$file);
 		
 		$new_file = $exten_clean.$prefix.extension(self::$file, true);
 		
-		if( file_exists(self::$thumb_path.$new_file) ) return base_url(self::$thumb_path.$new_file);
-					
-	
+		// Yeni oluşturulan dosya varsa yeni dosyanın 
+		// yol ve isim bilgisi oluşturuluyor.
+		// Ve geri dönüş değeri olarak kulllanılıyor.
+		// Böyle bir dosya daha önce yoksa
+		// İşlemler kaldığı yerden dosya oluşturulana
+		// kadar devam ediyor.
+		if( file_exists(self::$thumb_path.$new_file) ) 
+		{
+			return base_url(self::$thumb_path.$new_file);
+		}
+		
 		$r_file   = self::from_file_type($file_path);
-
 		
 		$n_file   = imagecreatetruecolor($width, $height);
 		
-		if(isset($set["prowidth"]) || isset($set["proheight"]))
+		if( isset($set["prowidth"]) || isset($set["proheight"]) )
 		{
 			$r_width = $current_width; $r_height = $current_height;
 		}
 	
-		
-		if(strtolower(extension($file_path)) == "png")
+		// Dosyanın .png uzantılı olması durumunda
+		// Kırpma işlemlerinin transparant olması
+		// sağlanıyor. Diğer uzantılarda transparantlık 
+		// elde edilemeyeceğinden bu işlem sadece
+		// PNG uzantılı dosyalar için gerçekleşecektir.
+		if( strtolower(extension($file_path)) === "png" )
 		{
 			imagealphablending($n_file, false);
 			imagesavealpha($n_file,true);
@@ -186,23 +366,50 @@ class Image
 		
 	}
 	
-	
+	/******************************************************************************************
+	* SIZE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Yolu belirtilen dosyanın boyutunu verilen genişlik veya yükseklik 	  |
+	| değerine göre orantılı şekilde almak için kullanılır.  	                              |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                              	      |
+	| 1. string var @fpath => Boyutu istenen resim dosyasının yolu.	  						  |
+	| 2. numeric var @width => Resmin genişlik ölçüsünün belirlenmesi.	                      |
+	| 3. numeric var @height => Resmin yükseklik ölçüsünün belirlenmesi.	                  |
+	|          																				  |
+	| Örnek Kullanım: size('ornek/resim.jpg', 10);        	  		                          |      
+	|          																				  |
+	| Not: Genişlik veya yükseklik parametrelerinden sadece bir tanesi kullanılmalıdır.       |
+	|          																				  |
+	******************************************************************************************/	
 	public static function size($path = '', $width = 0, $height = 0)
 	{
-		if( ! is_string($path)) return false;
-		if( ! is_numeric($width)) $width = 0;
-		if( ! is_numeric($height)) $height = 0;
-		
-		if(empty($path))
+		// Parametre kontrolleri yapılıyor. ------------------------------------------
+		if( ! is_string($path) ) 
+		{
+			return false;
+		}
+		if( ! is_numeric($width) )
+		{
+			$width = 0;
+		}
+		if( ! is_numeric($height) ) 
+		{
+			$height = 0;
+		}
+		if( empty($path) )
 		{
 			self::$error = get_message('Image', 'image_file_not_found_error', $path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
+		// ---------------------------------------------------------------------------
 		
+		// Yola göre resmin boyutları isteniyor.
 		$g = @getimagesize($path);
 		
-		if(empty($g))
+		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
+		if( empty($g) )
 		{
 			self::$error = get_message('Image', 'image_file_not_found_error', $path);
 			report('Error', self::$error, 'ImageLibrary');
@@ -211,7 +418,8 @@ class Image
 		
 		$x = $g[0]; $y = $g[1];
 		
-		if($width > 0)
+		// Genişliğe göre yüksekliği orantılar.
+		if( $width > 0 )
 		{
 			if($width <= $x)
 			{
@@ -231,6 +439,7 @@ class Image
 			}
 		}
 		
+		// Yüksekliğe göre genişliği orantılar.
 		if($height > 0)
 		{
 			if($height <= $y)
@@ -250,17 +459,29 @@ class Image
 				$x = $x * $o;	
 			}
 		}
+		
 		$array["width"] = round($x); $array["height"] = round($y);
 		
 		return (object)$array;
 	}
 	
+	/******************************************************************************************
+	* ERROR                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Image işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.|
+	|     														                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|     														                              |
+	******************************************************************************************/
 	public static function error()
 	{
-		if(isset(self::$error))
+		if( isset(self::$error) )
+		{
 			return self::$error;
+		}
 		else
+		{
 			return false;
+		}
 	}
-	
 }
