@@ -31,14 +31,14 @@ class Import
 	{	
 		$config_library = array_unique(config::get('Autoload','library'));
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
 		
 		if(isset($arguments[0]) && is_array($arguments[0]))
 		{
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach($arguments as $class)
+		if( ! empty($arguments))foreach(array_unique($arguments) as $class)
 		{
 			if(is_array($class)) $class = '';
 			
@@ -78,16 +78,16 @@ class Import
 	{
 		$config_component = array_unique(config::get('Autoload','component'));
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
 		
 		if(isset($arguments[0]) && is_array($arguments[0]))
 		{
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach($arguments as $class)
+		if( ! empty($arguments))foreach(array_unique($arguments) as $class)
 		{
-			if(is_array($class)) $class = '';
+			if( is_array($class) ) $class = '';
 			
 			if( ! in_array($class, $config_component))
 			{		
@@ -117,14 +117,14 @@ class Import
 	{
 		$config_tool = array_unique(config::get('Autoload','tool'));
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
 		
 		if(isset($arguments[0]) && is_array($arguments[0]))
 		{
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach($arguments as $tool)
+		if( ! empty($arguments))foreach(array_unique($arguments) as $tool)
 		{
 			if(is_array($tool)) $tool = '';
 			
@@ -158,24 +158,24 @@ class Import
 
 		$current_lang = config::get('Language',get_lang());
 
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach($arguments as $language)
+		if( ! empty($arguments))foreach(array_unique($arguments) as $language)
 		{	
-			if(is_array($language)) $language = '';
+			if( is_array($language) ) $language = '';
 		
-			if( ! in_array($language, $config_language))
+			if( ! in_array($language, $config_language) )
 			{
 				$lang_path = $current_lang.'/'.suffix($language,".php");
 				
 				$path = LANGUAGES_DIR.$lang_path;
 							
-				if(is_file_exists($path) && ! is_import($path)) 
+				if( is_file_exists($path) && ! is_import($path) ) 
 				{
 					require_once($path);	
 				}
@@ -195,11 +195,15 @@ class Import
 	{	
 		$masterpageset = config::get('Masterpage');
 		
-		$page = 		(isset($head['body_page'])) ? $head['body_page'] : $masterpageset['body_page'];
+		$page = 		( isset($head['body_page']) ) 
+					    ? $head['body_page'] 
+						: $masterpageset['body_page'];
 		
-		$head_page = 	(isset($head['head_page'])) ? $head['head_page'] : $masterpageset['head_page'];
+		$head_page = 	( isset($head['head_page']) ) 
+					    ? $head['head_page'] 
+						: $masterpageset['head_page'];
 	
-		if( ! is_file(PAGES_DIR.suffix($page,".php")))
+		if( ! is_file(PAGES_DIR.suffix($page,".php")) )
 		{ 
 			$page = ''; 
 		}
@@ -208,7 +212,7 @@ class Import
 			$page = PAGES_DIR.suffix($page,".php");
 		}
 		
-		if( ! is_file(PAGES_DIR.suffix($head_page,".php"))) 
+		if( ! is_file(PAGES_DIR.suffix($head_page,".php")) ) 
 		{
 			$head_page = ''; 
 		}
@@ -221,7 +225,7 @@ class Import
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'."\n";
 		$header .= '<head>'."\n";
 		
-		if(is_array ($masterpageset["content_charset"]))
+		if( is_array($masterpageset["content_charset"]) )
 		{
 			foreach($masterpageset["content_charset"] as $v)
 			{
@@ -232,213 +236,212 @@ class Import
 		{
 			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'" />'."\n";	
 		}
+		
 		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'" />'."\n";
 		
-		$title = 		(isset($head['title'])) 		? $head['title'] 		: $masterpageset['title'];
-		$cache = 		(isset($head['cache'])) 		? $head['cache'] 		: $masterpageset['cache'];
-		$refresh = 		(isset($head['refresh'])) 		? $head['refresh'] 		: $masterpageset['refresh'];
-		$abstract = 	(isset($head['abstract'])) 		? $head['abstract'] 	: $masterpageset['abstract'];
-		$description = 	(isset($head['description'])) 	? $head['description'] 	: $masterpageset['description'];
-		$copyright = 	(isset($head['copyright'])) 	? $head['copyright'] 	: $masterpageset['copyright'];
-		$expires = 		(isset($head['expires'])) 		? $head['expires'] 		: $masterpageset['expires'];
-		$pragma = 		(isset($head['pragma'])) 		? $head['pragma'] 		: $masterpageset['pragma'];		
-		$keywords = 	(isset($head['keywords'])) 		? $head['keywords'] 	: $masterpageset['keywords'];
-		$author = 		(isset($head['author'])) 		? $head['author'] 		: $masterpageset['author'];
-		$designer = 	(isset($head['designer'])) 		? $head['designer'] 	: $masterpageset['designer'];
-		$distribution = (isset($head['distribution'])) 	? $head['distribution'] : $masterpageset['distribution'];
-		$revisit = 		(isset($head['revisit'])) 		? $head['revisit'] 		: $masterpageset['revisit'];
-		$robots = 		(isset($head['robots'])) 		? $head['robots'] 		: $masterpageset['robots'];
-		$datas = 		(isset($head['data'])) 			? $head['data'] 		: $masterpageset['data'];
-		$meta = 		(isset($head['meta'])) 			? $head['meta'] 		: $masterpageset['meta'];
-		$font_arr = 	(isset($head['font'])) 			? $head['font'] 		: $masterpageset["font"];
+		$title = 		( isset($head['title']) ) 		
+						? $head['title'] 		
+						: $masterpageset['title'];
+						
+		$cache = 		( isset($head['cache']) ) 		
+		 				? $head['cache'] 		
+						: $masterpageset['cache'];
+						
+		$refresh = 		( isset($head['refresh']) ) 		
+						? $head['refresh'] 		
+						: $masterpageset['refresh'];
+						
+		$abstract = 	( isset($head['abstract']) ) 		
+						? $head['abstract'] 	
+						: $masterpageset['abstract'];
+						
+		$description = 	( isset($head['description']) ) 	
+						? $head['description'] 	
+						: $masterpageset['description'];
+						
+		$copyright = 	( isset($head['copyright']) ) 	
+						? $head['copyright'] 	
+						: $masterpageset['copyright'];
+						
+		$expires = 		( isset($head['expires']) ) 		
+						? $head['expires'] 		
+						: $masterpageset['expires'];
+						
+		$pragma = 		( isset($head['pragma']) ) 		
+						? $head['pragma'] 		
+						: $masterpageset['pragma'];
+								
+		$keywords = 	( isset($head['keywords']) ) 		
+						? $head['keywords'] 	
+						: $masterpageset['keywords'];
+						
+		$author = 		( isset($head['author']) ) 		
+						? $head['author'] 		
+						: $masterpageset['author'];
+						
+		$designer = 	( isset($head['designer']) ) 		
+						? $head['designer'] 	
+						: $masterpageset['designer'];
+						
+		$distribution = ( isset($head['distribution']) ) 	
+						? $head['distribution'] 
+						: $masterpageset['distribution'];
+						
+		$revisit = 		( isset($head['revisit']) ) 		
+						? $head['revisit'] 		
+						: $masterpageset['revisit'];
+						
+		$robots = 		( isset($head['robots']) ) 		
+						? $head['robots'] 		
+						: $masterpageset['robots'];
+						
+		$datas = 		( isset($head['data']) ) 			
+						? $head['data'] 		
+						: $masterpageset['data'];
+						
+		$meta = 		( isset($head['meta']) ) 			
+						? $head['meta'] 		
+						: $masterpageset['meta'];
+						
+		$font_arr = 	( isset($head['font']) ) 			
+						? $head['font'] 		
+						: $masterpageset["font"];
 		
-		if($title) $header .= '<title>'.$title.'</title>'."\n";
+		if( ! empty($title) ) 			
+		{
+			$header .= '<title>'.$title.'</title>'."\n";	
+		}
 		
-		if($cache) 			$header .= '<meta http-equiv="cache-control" content="'.$cache.'" />'."\n";
-		if($refresh) 		$header .= '<meta http-equiv="refresh" content="'.$refresh.'" />'."\n";		
-		if($abstract) 		$header .= '<meta name="abstract" content="'.$abstract.'" />'."\n";
-		if($description) 	$header .= '<meta name="description" content="'.$description.'" />'."\n";
-		if($copyright) 		$header .= '<meta name="copyright" content="'.$copyright.'" />'."\n";
-		if($expires) 		$header .= '<meta name="expires" content="'.$expires.'" />'."\n";
-			
-		if($robots && ! is_array($robots)) 
+		if( ! empty($cache) ) 			
+		{
+			$header .= '<meta http-equiv="cache-control" content="'.$cache.'" />'."\n";
+		}
+		
+		if( ! empty($refresh) ) 		
+		{
+			$header .= '<meta http-equiv="refresh" content="'.$refresh.'" />'."\n";		
+		}
+		
+		if( ! empty($abstract) ) 		
+		{
+			$header .= '<meta name="abstract" content="'.$abstract.'" />'."\n";
+		}
+		
+		if( ! empty($description) ) 	
+		{
+			$header .= '<meta name="description" content="'.$description.'" />'."\n";
+		}
+		
+		if( ! empty($copyright) ) 		
+		{
+			$header .= '<meta name="copyright" content="'.$copyright.'" />'."\n";
+		}
+		
+		if( ! empty($expires) ) 		
+		{
+			$header .= '<meta name="expires" content="'.$expires.'" />'."\n";
+		}
+		
+		if( ! empty($robots) && ! is_array($robots)) 
 		{
 			$header .= '<meta name="robots" content="'.$robots.'" />'."\n";
 		}
 		else
 		{
-			if(is_array($robots))foreach($robots as $rob)
+			if( is_array($robots) )foreach($robots as $rob)
 			{
 				$header .= '<meta name="robots" content="'.$rob.'" />'."\n";
 			}
 		}	
 		
-		if( ! empty($meta['name']) && is_array($meta['name']))foreach($meta['name'] as $k => $v)
+		if( ! empty($meta['name'] ) && is_array($meta['name']) )foreach($meta['name'] as $k => $v)
 		{
 			$header .= '<meta name="'.$k.'" content="'.$v.'" />'."\n";
 		}
 		
-		if( ! empty($meta['http']) && is_array($meta['http']))foreach($meta['http'] as $k => $v)
+		if( ! empty($meta['http']) && is_array($meta['http']) )foreach($meta['http'] as $k => $v)
 		{
 			$header .= '<meta http-equiv="'.$k.'" content="'.$v.'" />'."\n";
 		}
-		
-		
-		if($pragma) 		$header .= '<meta name="pragma" content="'.$pragma.'" />'."\n";	
-		if($keywords) 		$header .= '<meta name="keywords" content="'.$keywords.'" />'."\n";	
-		if($author) 		$header .= '<meta name="author" content="'.$author.'" />'."\n";
-		if($designer) 		$header .= '<meta name="designer" content="'.$designer.'" />'."\n";
-		if($distribution) 	$header .= '<meta name="distribution" content="'.$distribution.'" />'."\n";
-		if($revisit) 		$header .= '<meta name="revisit-after" content="'.$revisit.'" />'."\n";
 			
+		if( ! empty($pragma) ) 		
+		{
+			$header .= '<meta name="pragma" content="'.$pragma.'" />'."\n";	
+		}
+		
+		if( ! empty($keywords) ) 		
+		{
+			$header .= '<meta name="keywords" content="'.$keywords.'" />'."\n";	
+		}
+		
+		if( ! empty($author) ) 		
+		{
+			$header .= '<meta name="author" content="'.$author.'" />'."\n";
+		}
+		
+		if( ! empty($designer) ) 		
+		{
+			$header .= '<meta name="designer" content="'.$designer.'" />'."\n";
+		}
+		
+		if( ! empty($distribution) ) 	
+		{
+			$header .= '<meta name="distribution" content="'.$distribution.'" />'."\n";
+		}
+		
+		if( ! empty($revisit) ) 		
+		{
+			$header .= '<meta name="revisit-after" content="'.$revisit.'" />'."\n";	
+		}
 		
 		if( ! empty($font_arr) )
 		{					
-			if( ! is_array($font_arr)) 
-			{
-				$fonts = array($font_arr); 
-			}
-			else
-			{ 
-				$fonts = $font_arr;
-			}
-			
-			$str = "<style type='text/css'>\n";
-			
-			if(is_array($fonts))foreach($fonts as $font)
-			{
-				if(is_array($font)) $font = "";
-				
-				$f = divide($font, "/", -1);
-	
-				// SVG IE VE MOZILLA DESTEKLEMIYOR
-				if(is_file_exists(FONTS_DIR.$font.".svg"))
-				{				
-					$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".svg").'") format("truetype")}'."\n";					
-				}
-				
-				if(is_file_exists(FONTS_DIR.$font.".woff"))
-				{	
-					$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".woff").'") format("truetype")}'."\n";
-				}
-				
-				// OTF IE VE CHROME DESTEKLEMIYOR
-				if(is_file_exists(FONTS_DIR.$font.".otf"))
-				{
-					$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".otf").'") format("truetype")}'."\n";		
-				}
-				
-				// TTF IE DESTEKLEMIYOR
-				if(is_file_exists(FONTS_DIR.$font.".ttf"))
-				{		
-					$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".ttf").'") format("truetype")}'."\n";		
-				}
-				
-				// FARKLI FONT UZANTILARI
-				$differentfont = config::get('Font', 'different_font_extensions');
-				
-				if( ! empty($differentfont))
-				{			
-					if(is_array($differentfont))foreach($differentfont as $of)
-					{
-						if(is_file_exists(FONTS_DIR.$font.prefix($of, '.')))
-						{		
-							$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'."\n";;			
-						}
-					}	
-				}
-							
-				// EOT IE DESTEKLIYOR
-				if(is_file_exists(FONTS_DIR.$font.".eot"))
-				{
-					$str .= '<!--[if IE]>';
-					$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".eot").'") format("truetype")}';
-					$str .= '<![endif]-->';
-					$str .= "\n";
-				}		
-			}	
-			
-			$str .= '</style>'."\n"; 
-			$header .= $str;
+			$header .= self::font($font_arr, true);
 		}
 		
-		if(is_array($masterpageset['script']))
+		if( is_array($masterpageset['script']) )
 		{
-			foreach(array_unique($masterpageset['script']) as $row)
-			{	
-				if(isset($row) && is_file_exists(SCRIPTS_DIR.suffix($row,".js"))) 
-				{
-					$header .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($row,".js").'"></script>'."\n";
-				}
-			}
+			$header .= self::script($masterpageset['script'], true);
 		}
 		
-		if(isset($head['script']) && ! is_array($head['script']) && is_file_exists(SCRIPTS_DIR.suffix($head['script'],".js"))) 
+		if( isset($head['script']) )
 		{
-			$header .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($head['script'],".js").'"></script>'."\n";
+			$header .= self::script($head['script'], true);
 		}
 		
-		if(isset($head['script']) && is_array($head['script']))
+		if( is_array($masterpageset['style']) )
 		{
-			foreach(@array_unique($head['script']) as $row)
-			{
-				if(file_exists(SCRIPTS_DIR.suffix($row,".js")))
-				{
-					$header .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($row,".js").'"></script>'."\n";
-				}		
-			}	
+			$header .= self::style($masterpageset['style'], true);
 		}
 		
-		if(is_array($masterpageset['style']))
+		if( isset($head['style']) )
 		{
-			foreach(@array_unique($masterpageset['style']) as $row)
-			{
-				if(file_exists(STYLES_DIR.suffix($row,".css")))
-				{
-					$header .= '<link href="'.base_url().STYLES_DIR.suffix($row,".css").'" rel="stylesheet" type="text/css" />'."\n";
-				}
-			}
+			$header .= self::style($head['style'], true);
 		}
 		
-		if(isset($head['style']) && ! is_array($head['style']) && is_file_exists(STYLES_DIR.suffix($head['style'],".css"))) 
-		{
-			$header .= '<link href="'.base_url().STYLES_DIR.suffix($head['style'],".css").'" rel="stylesheet" type="text/css" />'."\n";
-		}
-
-		if(isset($head['style']) && is_array($head['style']))
-		{
-			foreach(@array_unique($head['style']) as $row)
-			{
-				if(file_exists(STYLES_DIR.suffix($row,".css")))
-				{
-					$header .= '<link href="'.base_url().STYLES_DIR.suffix($row,".css").'" rel="stylesheet" type="text/css" />'."\n";
-				}			
-			}
-		}
-		
-		if($masterpageset['logo']) 
+		if( $masterpageset['logo'] ) 
 		{
 			$header .= '<link rel="shortcut icon" href="'.base_url($masterpageset['logo']).'" />'."\n";
 		}
 		
-		if(isset($head['page_image'])) 
+		if( isset($head['page_image']) ) 
 		{
 			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'."\n";	
 		}
 		
-		if($datas && ! is_array($head['data']))
+		if( $datas && ! is_array($head['data']) )
 		{ 
 			$header .= $datas."\n"; 
 		}
 		else
 		{
-			if(is_array($datas))foreach($datas as $v)
+			if( is_array($datas) )foreach($datas as $v)
 			{
 				$header .= $v."\n";	
 			}	
 		}
 		
-		if( ! empty($head_page))
+		if( ! empty($head_page) )
 		{
 			ob_start(); 
 			require_once($head_page); 
@@ -446,11 +449,10 @@ class Import
 			ob_end_clean(); 
 			$header .= $content."\n" ; 	
 		}
-	
 		
 		$header .= '</head>'."\n";
 		
-		if($masterpageset["bg_image"]) 
+		if( $masterpageset["bg_image"] ) 
 		{
 			$bg_image = " background='".base_url($masterpageset["bg_image"])."' bgproperties='fixed'"; 
 		}
@@ -463,12 +465,12 @@ class Import
 	
 		echo $header;
 		
-		if(is_array($data)) 
+		if( is_array($data) ) 
 		{
 			extract($data, EXTR_OVERWRITE, 'extract');
 		}
 		
-		if( ! empty($page)) 
+		if( ! empty($page) ) 
 		{
 			require($page);	
 		}
@@ -476,24 +478,23 @@ class Import
 		$footer  = "\n".'</body>'."\n";
 		$footer .= '</html>';
 		
-		echo $footer;
-		
-	}
-	
+		echo $footer;	
+	}	
 	
 	public static function font()
 	{
 		
 		$str = "<style type='text/css'>";
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
+		$args      = $arguments;
 		
 		if(isset($arguments[0]) && is_array($arguments[0]))
 		{
 			$arguments = $arguments[0];
 		}
 		
-		foreach($arguments as $font)
+		foreach(array_unique($arguments) as $font)
 		{	
 			if(is_array($font)) $font = '';
 			
@@ -545,9 +546,9 @@ class Import
 		
 		$str .= '</style>'."\n";
 		
-		if( ! empty($str)) 
+		if( ! empty($str) ) 
 		{
-			if($arguments[count($arguments) - 1] === true)
+			if($args[count($args) - 1] === true)
 			{
 				return $str;
 			}
@@ -569,16 +570,17 @@ class Import
 		
 		$str = '';
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
+		$args      = $arguments;
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
-		foreach($arguments as $style)
+		foreach(array_unique($arguments) as $style)
 		{
-			if(is_array($style)) $style = '';
+			if( is_array($style) ) $style = '';
 			
 			if( ! in_array($style, $config_style) && ! in_array("style_".$style, self::$is_import))
 			{
@@ -590,9 +592,9 @@ class Import
 			}
 		}
 		
-		if($str) 
+		if( ! empty($str) ) 
 		{
-			if($arguments[count($arguments) - 1] === true)
+			if( $args[count($args) - 1] === true )
 			{
 				return $str;
 			}
@@ -615,18 +617,19 @@ class Import
 		
 		$str = '';
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
+		$args      = $arguments;
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
-		foreach($arguments as $script)
+		foreach(array_unique($arguments) as $script)
 		{
-			if(is_array($script)) $script = '';
+			if( is_array($script) ) $script = '';
 			
-			if( ! in_array($script, $config_script) && ! in_array("script_".$script, self::$is_import))
+			if( ! in_array($script, $config_script) && ! in_array("script_".$script, self::$is_import) )
 			{
 				if(is_file_exists(SCRIPTS_DIR.suffix($script,".js")))
 				{
@@ -641,9 +644,9 @@ class Import
 				self::$is_import[] = "script_".$script;
 			}
 		}
-		if($str) 
+		if( ! empty($str) ) 
 		{
-			if($arguments[count($arguments) - 1] === true)
+			if( $args[count($args) - 1] === true )
 			{
 				return $str;
 			}
@@ -662,12 +665,12 @@ class Import
 	
 	public static function something($page = '', $data = '', $ob_get_contents = false)
 	{
-		if( ! is_string($page)) 
+		if( ! is_string($page) ) 
 		{
 			return false;
 		}
 		
-		if(is_array($data))
+		if( is_array($data) )
 		{
 			extract($data, EXTR_OVERWRITE, 'extract');
 		}
@@ -677,32 +680,32 @@ class Import
 		switch(extension($page))
 		{
 			case 'js':
-				if( ! is_file_exists($page)) return false;
+				if( ! is_file_exists($page) ) return false;
 				echo '<script type="text/javascript" src="'.base_url().$page.'"></script>'."\n";
 			break;	
 			
 			case 'css':
-				if( ! is_file_exists($page)) return false;
+				if( ! is_file_exists($page) ) return false;
 				echo '<link href="'.base_url().$page.'" rel="stylesheet" type="text/css" />'."\n";
 			break;
 			
 			default;
 				$other = 1;
 		}
-		if($other === 1)
+		if( $other === 1 )
 		{
-			if($ob_get_contents === false)
+			if( $ob_get_contents === false )
 			{
-				if( ! is_file_exists(suffix($page,".php"))) 
+				if( ! is_file_exists(suffix($page,".php")) ) 
 				{
 					return false;
 				}
 				require(suffix($page,".php")); 
 			}
 			
-			if($ob_get_contents === true)
+			if( $ob_get_contents === true )
 			{
-				if( ! is_file_exists(suffix($page,".php"))) 
+				if( ! is_file_exists(suffix($page,".php")) ) 
 				{
 					return false;
 				}
@@ -719,12 +722,12 @@ class Import
 	
 	public static function package($packages = "")
 	{
-		if( ! is_string($packages)) 
+		if( ! is_string($packages) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_dir_exists($packages)) 
+		if( ! is_dir_exists($packages) ) 
 		{
 			return false;
 		}
@@ -735,23 +738,23 @@ class Import
 		{
 			foreach(folder::files($packages) as $val)
 			{				
-				if(extension($val) === "php")
+				if( extension($val) === "php" )
 				{
 					require_once (suffix($packages).$val);
 				}
-				if(extension($val) === "htm")
+				if( extension($val) === "htm" )
 				{
 					require_once (suffix($packages).$val);
 				}
-				if(extension($val) === "html")
+				if( extension($val) === "html" )
 				{
 					require_once (suffix($packages).$val);
 				}
-				if(extension($val) === "js")
+				if( extension($val) === "js" )
 				{
 					echo '<script type="text/javascript" src="'.base_url().suffix($packages).$val.'"></script>'."\n";
 				}
-				if(extension($val) === "css")
+				if( extension($val) === "css" )
 				{
 					echo '<link href="'.base_url().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'."\n";
 				}
@@ -766,28 +769,28 @@ class Import
 	
 	public static function page($page = '', $data = '', $ob_get_contents = false)
 	{
-		if( ! is_string($page))
+		if( ! is_string($page) )
 		{
 			return false;
 		}
 		
-		if(is_array($data))
+		if( is_array($data) )
 		{
 			extract($data, EXTR_OVERWRITE, 'extract');
 		}
 		
-		if($ob_get_contents === false)
+		if( $ob_get_contents === false )
 		{
-			if( ! is_file_exists(PAGES_DIR.suffix($page,".php"))) 
+			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
 			{
 				return false;
 			}
 			require(PAGES_DIR.suffix($page,".php")); 
 		}
 		
-		if($ob_get_contents === true)
+		if( $ob_get_contents === true )
 		{
-			if( ! is_file_exists(PAGES_DIR.suffix($page,".php"))) 
+			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
 			{
 				return false;
 			}
@@ -811,25 +814,25 @@ class Import
 		
 		$config_coder = array_unique(config::get('Autoload','model'));
 		
-		$arguments = array_unique(func_get_args());
+		$arguments = func_get_args();
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
-		foreach($arguments as $class)
+		foreach(array_unique($arguments) as $class)
 		{
-			if(is_array($class)) 
+			if( is_array($class) ) 
 			{
 				$class = '';
 			}
 			
-			if( ! in_array($class, $config_coder))
+			if( ! in_array($class, $config_coder) )
 			{
 				$path = MODELS_DIR.suffix($class,".php");
 			
-				if(is_file_exists($path) && ! class_exists($class)) 
+				if( is_file_exists($path) && ! class_exists($class) ) 
 				{
 					require_once($path);
 				}
