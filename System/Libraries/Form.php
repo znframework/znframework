@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 class Form
 {
 	/******************************************************************************************
-	* ATTRIBUTES                                                                              *
+	* PROTECTED ATTRIBUTES                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Form nesnelerine ait özellik ve değer çifti belirtmek için kullanılır.  |
 	|															                              |
@@ -20,13 +20,10 @@ class Form
 	| 1. array var @attributes => Özellik ve değer çiftlerini içerecek dizi parametresi.	  |
 	|          																				  |
 	| Örnek Kullanım: attributes(array('name' => 'ornek', 'id' => 'zntr'));        			  |
-	| // name="ornek" id="zntr"       																				  |
-	|          																				  |
-	| Genellikle From Sınıfı için oluşturulmuştur. Protected yerine Public tanımlamasının     |
-	| nedeni kullanıcıların ihtiyacının olabilme ihtimalidir.         						  |
+	| // name="ornek" id="zntr"       														  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function attributes($attributes = '')
+	protected static function attributes($attributes = '')
 	{
 		$attribute = "";
 		
@@ -206,7 +203,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'."\n";
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.ln();
 	}
 	
 	/******************************************************************************************
@@ -285,7 +282,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 		
-		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'."\n";
+		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'.ln();
 	}
 
 	/******************************************************************************************
@@ -372,10 +369,10 @@ class Form
 			{
 				$select = "";
 			}
-			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'."\n";
+			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.ln();
 		}
 		
-		$selectbox .= '</select>'."\n";	
+		$selectbox .= '</select>'.ln();	
 		
 		return $selectbox;
 	}
