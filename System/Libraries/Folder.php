@@ -22,9 +22,9 @@ class Folder
 	/******************************************************************************************
 	* CREATE                                                                                  *
 	*******************************************************************************************
-	| Genel Kullanım: Dosya oluşturmak için kullanılır.    				     			      |
+	| Genel Kullanım: Dizin oluşturmak için kullanılır.    				     			      |
 	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                   |
+	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @name => Oluşturulacak dizinin adı veya yolu.							  |
 	| 2. string var @permission => Oluşturulacak dizinin yetki kodu							  |
 	|          											  									  |
@@ -52,6 +52,71 @@ class Folder
 			report('Error', self::$error, 'FolderLibrary');
 			// return false; edilmiyor nedeni içi dolu dizini silmek için
 			// bu yöntem aşağıda döngüde kullanılıyor.
+		}
+	}
+	
+	/******************************************************************************************
+	* CHANGE                                                                           		  *
+	*******************************************************************************************
+	| Genel Kullanım: Çalışma dizini değiştirmek için kullanılır.    	 		     		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @name => Değiştirilecek çalışma dizininin adı veya yolu.				  |
+	|          											  									  |
+	| Örnek Kullanım: $veri = changer('dizin/yeniDizin');        					          |
+	|          																				  |
+	******************************************************************************************/	
+	public static function change($name = '')
+	{		
+		if( ! is_string($name) ) 
+		{
+			$name = '';
+		}
+		
+		if( file_exists($name) && is_dir($name) )
+		{
+			chdir($name);
+		}
+		else
+		{
+			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
+			report('Error', self::$error, 'FolderLibrary');
+			return false;
+		}
+	}
+	
+	/******************************************************************************************
+	* RENAME                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Dizinin adını değiştirmek için kullanılır.    				     	  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @oldname => Dizinin eski ismi.							  				  |
+	| 2. string var @newname => Dizinin yeni ismi.							  				  |
+	|          											  									  |
+	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
+	|          																				  |
+	******************************************************************************************/
+	public static function rename($oldname = '', $newname = '')
+	{		
+		if( ! is_string($oldname) ) 
+		{
+			$oldname = '';
+		}
+		if( ! is_string($newname) ) 
+		{
+			$newname = '';
+		}
+		
+		if( file_exists($oldname) )
+		{
+			rename($oldname, $newname);
+		}
+		else
+		{
+			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
+			report('Error', self::$error, 'FolderLibrary');
+			return false;
 		}
 	}
 	
@@ -415,4 +480,3 @@ class Folder
 		}
 	}
 }
-
