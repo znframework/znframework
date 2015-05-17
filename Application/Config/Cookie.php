@@ -22,9 +22,15 @@ SETTINGS
 */
 /* ENCODE	*/
 // İşlev: cookie değerlerini tutan anahtar ifadeler şifrelensin mi?
-// true olması durumunda session bilgisini tutan anahtar ifadeler şifrelenir.
-// false olması durumunda anahtar ifadeler şifrelenmez.
-$config['Cookie']['encode'] = true;
+// Şifrelenmesini istediğini hash algorimatsını yazmanız yeterlidir.
+// Boş bırakılması halinde herhangi bir şifreleme yapmauacaktır.
+$config['Cookie']['encode'] = 'md5';
+
+/* REGENERATE ID */
+// İşlev: Çerez oluşturulurken farklı bir PHPSESSID oluşturmasını
+// sağlamak için bu değerin true olması gerekir. Güvenlik açısındanda
+// true olması önerilir.
+$config['Cookie']['regenerate'] = true;
 
 /* TIME	*/
 // İşlev:Çerez süresini ayarlamak için kullanılır.
