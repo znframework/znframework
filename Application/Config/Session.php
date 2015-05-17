@@ -19,9 +19,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 
 // İşlev: session değerlerini tutan anahtar ifadeler şifrelensin mi?
-// true olması durumunda session bilgisini tutan anahtar ifadeler şifrelenir.
-// false olması durumunda anahtar ifadeler şifrelenmez.
-$config['Session']['encode'] = true;
+// Şifrelenmesini istediğini hash algorimatsını yazmanız yeterlidir.
+// Boş bırakılması halinde herhangi bir şifreleme yapmayacaktır.
+$config['Session']['encode'] = 'md5';
+
+// İşlev: Oturum oluşturulurken farklı bir PHPSESSID oluşturmasını
+// sağlamak için bu değerin true olması gerekir. Güvenlik açısındanda
+// true olması önerilir.
+$config['Session']['regenerate'] = true;
 
 // İşlev: Değişiklik yapılan ini ayarlarını .htacess dosyasına eklesin mi?
 // true olması durumunda alttaki ayarlar .htaccess  dosyasına eklenir.
