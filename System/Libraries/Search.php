@@ -11,43 +11,78 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 class Search
 {
-	// private static $result 
-	// @var array
-	// Arama sonucu verilerini tutaması için tanımlanmış dizi değişken
+	/* Result Değişkeni
+	 *  
+	 * Arama sonucu verilerini tutaması
+	 * için tanımlanmış dizi değişken
+	 */
 	private static $result;
 	
-	// private static $filter 
-	// @var = array
-	// Aramayı başlatmadan önce filtre uygulamak için
-	// tanımlanmış dizi değişken
+	/* Filter Değişkeni
+	 *  
+	 * Aramayı başlatmadan önce filtre uygulamak için
+	 * tanımlanmış dizi değişken
+	 */
 	private static $filter = array();
 	
-	// filter()
-	// @column string = sütun ismi
-	// @operator string = karşılaştırma veya mantıksal operatör
-	// @value string/numeric = değer
-	public static function filter($column = '', $operator = '', $value = '')
+	// filter ve or_filter için.
+	protected static function _filter($column = '', $value = '', $type)
 	{
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
-		if( ! is_string($column) || ! is_string($operator)) return false;
+		if( ! is_string($column) || ! is_string($operator) ) 
+		{
+			return false;
+		}
 		
 		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
-		if( ! (is_string($value) || is_numeric($value))) return false;
+		if( ! (is_string($value) || is_numeric($value)) ) 
+		{
+			return false;
+		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
-		self::$filter[] = "$column|$operator|$value|and";
+		self::$filter[] = "$column|$value|$type";
 	}
 	
-	public static function or_filter($column = '', $operator = '', $value = '')
+	/******************************************************************************************
+	* FILTER                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Aramaya filtre uygulamak için kullanılır.                               |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
+	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
+	|          																				  |
+	| Örnek Kullanım: filter('yas >', 15);        	  			  							  |
+	| // where yas > 15         														      |
+	|          																				  |
+	| ÇOKLU FİLTRELEME         																  |
+	| [VE] bağlacı ile yapılmak isteniyorsa filter() yöntemini kullanılır.        			  |
+	| [VEYA] bağlacı ile yapılmak isteniyorsa or_filter() yöntemini kullanılır.        		  |
+	|          																				  |
+	******************************************************************************************/	
+	public static function filter($column = '', $value = '')
 	{
-		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
-		if( ! is_string($column) || ! is_string($operator)) return false;
-		
-		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
-		if( ! (is_string($value) || is_numeric($value))) return false;
-		
-		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
-		self::$filter[] = "$column|$operator|$value|or";
+		self::_filter($column, $value, 'and');
+	}
+	
+	/******************************************************************************************
+	* OR FILTER                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Aramaya birden fazla filtre uygulanacağı zamana ve kullanımda veya      |
+	| bağlacı tercih edileceği zaman kullanılır.                                              |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
+	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
+	|          																				  |
+	| Örnek Kullanım: or_filter('yas >', 15);        	  			  						  |
+	| // or where yas > 15         														      |
+	|          																				  |
+	******************************************************************************************/	
+	public static function or_filter($column = '', $value = '')
+	{
+		self::_filter($column, $value, 'or');
 	}
 	
 	// get()	
@@ -56,51 +91,122 @@ class Search
 	// örnek: array('table1' => array('column1','column2') , 'table2' => array('column1','column2'));
 	// @word string = aranacak kelime
 	// @type string = arama türü => starting, ending, inside
-	
+	/******************************************************************************************
+	* GET                                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Arama işlemini başlatır ve sonucu çıktılar.                             |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. array var @conditions => Arama yapılacak tablo adı ve tabloya ait sütun dizisidir.   |
+	| 2. string var @word  => Belirtilen tablo ve sütunlarda aranacak veri.                   |
+	| 3. string var @type  => Aranan kelimenin içinde geçen, ile başlayan ve ile biten durumu.|
+	|          																				  |
+	| Örnek Kullanım: 																		  |
+	| get(																					  |	
+	|	  array																				  |
+	|	  (																					  |
+	|		   'table1' => array('column1','column2') , 									  |
+	|		   'table2' => array('column1','column2')										  |	
+	|     ) 																			      |
+	| );        	  			  							  						          |
+	|          																				  |
+	| 3. TYPE Parametresi 3 farklı değer alabilir        									  |
+	| inside, starting, ending         														  |
+	|          																				  |
+	******************************************************************************************/	
 	public static function get($conditions = array(), $word = '', $type = 'inside')
 	{
-		if( ! is_array($conditions)) return false;
-		if( ! (is_string($word) || is_numeric($word))) return false;
-		if( ! is_string($type)) $type = "inside";
+		// Parametreler kontrol ediliyor. -----------------------------------------
+		if( ! is_array($conditions) ) 
+		{
+			return false;
+		}
+		
+		if( ! (is_string($word) || is_numeric($word)) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = "inside";
+		}
+		// ------------------------------------------------------------------------
 		
 		import::library('SDb');
+		
 		$word = addslashes($word);
 		
 		$str = "";
 		
-		if($type === "inside") $str = '%'.$word.'%';
-		if($type === "starting") $str = $word.'%';
-		if($type === "ending") $str = '%'.$word;
+		// Aramanın neye göre yapılacağı belirtiliyor. ----------------------------
+		
+		// İçerisinde Geçen
+		if( $type === "inside" ) 
+		{
+			$str = '%'.$word.'%';
+		}
+		
+		// İle Başlayan
+		if( $type === "starting" ) 
+		{
+			$str = $word.'%';
+		}
+		
+		// İle Biten
+		if( $type === "ending" ) 
+		{
+			$str = '%'.$word;
+		}
+		// ------------------------------------------------------------------------
 		
 		foreach($conditions as $key => $values)
 		{
+			// Tekrarlayan verileri engelle.
 			sdb::distinct();
 			
 			foreach($values as $keys)
 			{	
 				sdb::where($keys.' like', $str, 'or');
 				
-				if( ! empty(self::$filter))
+				// Filter dizisi boş değilse
+				// Filtrelere göre verileri çek
+				if( ! empty(self::$filter) )
 				{
 					foreach(self::$filter as $val)
 					{		
 						$exval = explode("|", $val);
-		
-						if($exval[3] === "and")
-							sdb::where("and".$key.".".$exval[0].' '.$exval[1], $exval[2]);	
-						if($exval[3] === "or")
-							sdb::where("or ".$key.".".$exval[0].' '.$exval[1], $exval[2]);
+						
+						// Ve bağlaçlı filter kullanılmışsa
+						if( $exval[2] === "and" )
+						{
+							sdb::where("and".$key.".".$exval[0].' ', $exval[1]);	
+						}
+						
+						// Veya bağlaçlı or_filter kullanılmışsa
+						if( $exval[2] === "or" )
+						{
+							sdb::where("or ".$key.".".$exval[0].' ', $exval[1]);
+						}
 					}	
 				}
 			}
+			
+			// Sonuçları getir.
 			sdb::get($key);
+			
+			// Sonuçları result dizisine yazdır.
 			self::$result[$key] = sdb::result();
 		}
 		
+	
 		$result = self::$result;
+		
+		// Değişkenleri sıfırla
 		self::$result = '';
 		self::$filter = array();
-		return (object)$result;
-	
+		
+		// Sonuçları object veri türünde döndür.
+		return (object)$result;	
 	}
 }
