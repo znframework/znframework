@@ -85,12 +85,6 @@ class Search
 		self::_filter($column, $value, 'or');
 	}
 	
-	// get()	
-	// site içi aramak için kullanılır
-	// @conditions array = tablo adı ve tabloya ait sütun dizisidir
-	// örnek: array('table1' => array('column1','column2') , 'table2' => array('column1','column2'));
-	// @word string = aranacak kelime
-	// @type string = arama türü => starting, ending, inside
 	/******************************************************************************************
 	* GET                                                                                     *
 	*******************************************************************************************
