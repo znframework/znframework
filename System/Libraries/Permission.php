@@ -11,44 +11,100 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 class Perm
 {
+	/* Permission Değişkeni
+	 *  
+	 * Config/Permission.php dosyasındaki ayar
+	 * bilgilerini tutması için oluşturulmuştur.
+	 */
 	private static $permission = array();
+	
+	/* Result Değişkeni
+	 *  
+	 * Yetki sonucu durum
+	 * bilgisini tutması için oluşturulmuştur.
+	 */
 	private static $result;
 	
+	/******************************************************************************************
+	* PROCESS                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Nesnelere yetki vermek için oluşturulmuştur.                            |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. numeric var @role_id => Yetkilerin uygulanacağı rol numarası.                        |
+	| 2. string var @process => Yetkinin uygulanacağı nesnenin yetki ismi.                    |
+	| 3. string var @process => Yetkinin uygulanacağı nesne.                   				  |
+	|          																				  |
+	| NOT: Yetkiler Config/Permission.php dosyasından ayarlanmaktadır.         				  |
+	|          																				  |
+	| Örnek Kullanım: process(4, 'guncelle', '<input type="button">');        	  			  |
+	|          																				  |
+	| Yukarıda yapılan işlem rol id'si 4 olan kullanıcı için yetki ismi guncelle olan		  |
+	| nesneni bu kullanıcıya görüntülenip görüntülenmeyeceğidir. Eğer yetkisi rol id'si		  |
+	| için izin verilmişse bu nesneyi görecektir. Aksi halde bu nesne yine bu kullanıcı için  |
+	| görüntülenmeyecektir.         														  |
+	|          																				  |
+	******************************************************************************************/	
 	public static function process($role_id = '', $process = '', $object = '')
 	{
-		if( ! is_numeric($role_id)) return false;
-		if( ! is_string($process)) $process = '';
-		if( ! is_string($object)) $object = '';
+		// Parametrelerin kontrolleri yapılıyor.
+		if( ! is_numeric($role_id) ) 
+		{
+			return false;
+		}
+		if( ! is_value($process) ) 
+		{
+			$process = '';
+		}
+		if( ! is_value($object) ) 
+		{
+			$object = '';
+		}
 		
 		self::$permission = config::get('Permission','process');
 		
-		if(isset(self::$permission[$role_id])) 
+		if( isset(self::$permission[$role_id]) ) 
+		{
 			$rules = self::$permission[$role_id]; 
+		}
 		else
+		{
 			return false;
+		}
 		
 		$current_url = $process;
 		
-		switch($rules)
+		switch( $rules )
 		{
-			case 'all'	: return $object;  break;
-			case 'any'	: return false; break;	
+			case 'all' : 
+				return $object;  
+			break;
+			
+			case 'any' : 
+				return false; 
+			break;	
 		}
 		
-		if(strpos($rules,"|") > -1) // Birden fazla sayfa var ise..........
-		{
-			
+		if( strpos($rules,"|") > -1 ) // Birden fazla yetki var ise..........
+		{		
 			$pages = explode("|", $rules);
 		
 			foreach($pages as $page)
 			{
 				$page = trim($page);
 			
-				if($page[0] === "!") $rule = substr(trim($page),1); else $rule = trim($page);
-				
-				if($pages[0] === "perm=>")
+				if( $page[0] === "!" ) 
 				{
-					if(strpos($current_url, $rule) > -1)
+					$rule = substr(trim($page), 1); 
+				}
+				else 
+				{
+					$rule = trim($page);
+				}
+				
+				if( $pages[0] === "perm=>" )
+				{
+					if( strpos($current_url, $rule) > -1 )
 					{
 						 return $object;
 					}
@@ -60,7 +116,7 @@ class Perm
 				else
 				{
 					
-					if(strpos($current_url, $rule) > -1)
+					if( strpos($current_url, $rule) > -1 )
 					{					
 						 return false;
 					}
@@ -74,12 +130,28 @@ class Perm
 			return self::$result;
 		}
 		else
-		{
-			
-			if($rules[0] === "!") $page = substr(trim($rules),1); else $page = trim($rules);
-			if(strpos($current_url, $page) > -1)
+		{	
+			// tek bir yetki varsa
+				
+			if( $rules[0] === "!" ) 
 			{
-				if($rules[0] !== "!") return $object; else return false;			
+				$page = substr(trim($rules),1); 
+			}
+			else 
+			{
+				$page = trim($rules);
+			}
+			
+			if( strpos($current_url, $page) > -1 )
+			{
+				if( $rules[0] !== "!" ) 
+				{
+					return $object; 
+				}
+				else 
+				{
+					return false;			
+				}
 			}
 			else
 			{
@@ -89,26 +161,51 @@ class Perm
 
 	}
 	
+	/******************************************************************************************
+	* PAGE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Sayfalara yetki vermek için oluşturulmuştur.                            |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. numeric var @role_id => Yetkilerin uygulanacağı rol numarası.                        |
+	|          																				  |
+	| NOT: Yetkiler Config/Permission.php dosyasından ayarlanmaktadır.         				  |
+	|          																				  |
+	| Örnek Kullanım: page(4);        	  			  									      |
+	|          																				  |
+	******************************************************************************************/
 	public static function page($role_id = '6')
 	{
-		if( ! is_numeric($role_id)) return false;
+		if( ! is_numeric($role_id) ) 
+		{
+			return false;
+		}
 		
 		self::$permission = config::get('Permission','page');
 		
-		if(isset(self::$permission[$role_id])) 
+		if( isset(self::$permission[$role_id]) )
+		{ 
 			$rules = self::$permission[$role_id]; 
+		}
 		else
-			return false;
-
-		$current_url = server('current_path');
-		
-		switch($rules)
 		{
-			case 'all'	: return true;  break;
-			case 'any'	: return false; break;	
+			return false;
 		}
 		
-		if(strpos($rules,"|")) // Birden fazla sayfa var ise..........
+		$current_url = server('current_path');
+		
+		switch( $rules )
+		{
+			case 'all' : 
+				return true;  
+			break;
+			
+			case 'any' : 
+				return false; 
+			break;	
+		}
+		
+		if( strpos($rules,"|") ) // Birden fazla sayfa var ise..........
 		{
 			$pages = explode("|", $rules);
 		
@@ -116,11 +213,18 @@ class Perm
 			{
 				$page = trim($page);
 			
-				if(@$page[0] === "!") $rule = substr(trim($page),1); else $rule = trim($page);
-				
-				if($pages[0] === "perm=>")
+				if( @$page[0] === "!" ) 
 				{
-					if(strpos($current_url, $rule) > -1)
+					$rule = substr(trim($page), 1); 
+				}
+				else 
+				{
+					$rule = trim($page);
+				}
+				
+				if( $pages[0] === "perm=>" )
+				{
+					if( strpos($current_url, $rule) > -1 )
 					{
 						 return true;
 					}
@@ -132,7 +236,7 @@ class Perm
 				else
 				{
 					
-					if(@strpos($current_url, $rule) > -1)
+					if( @strpos($current_url, $rule) > -1 )
 					{					
 						 return false;
 					}
@@ -146,19 +250,31 @@ class Perm
 			return self::$result;
 		}
 		else
-		{
-			
-			if($rules[0] === "!") $page = substr(trim($rules),1); else $page = trim($rules);
-			if(strpos($current_url, $page) > -1)
+		{		
+			if( $rules[0] === "!" ) 
 			{
-				if($rules[0] !== "!") return true; else return false;			
+				$page = substr(trim($rules),1); 
+			}
+			else 
+			{
+				$page = trim($rules);
+			}
+			
+			if( strpos($current_url, $page) > -1 )
+			{
+				if( $rules[0] !== "!" ) 
+				{
+					return true; 
+				}
+				else 
+				{
+					return false;			
+				}
 			}
 			else
 			{
 				return true;	
 			}
 		}
-		
-	
 	}	
 }
