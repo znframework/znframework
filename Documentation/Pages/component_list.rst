@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZN KOD ÇATISI</title>
+<link type="text/css" rel="stylesheet" href="../Styles/Structure.css" />
+<script src="../Scripts/Jquery.js"></script>
+<script src="../Scripts/Structure.js"></script>
+</head>
+
+<body>
+    <div id="content-document"><a href="#">Döküman</a> » <a href="components.html">Bileşenler</a> » List(Liste) Bileşeni</div> 
+    <p class="ctfont">List(Liste Bileşeni</p>
+    <p>Liste işlemlerini yapmak için oluşturulmuştur .</p>
+    <ul><li><a href="#" class="infont">Liste Bileşenini ve Yöntemleri</a><br><br>
+        <ul>
+        	<li><a href="#list_import">Liste Bileşenini Dahil Etmek</b></a></li>
+            <li><a href="#list_others">Liste Bileşeni Yöntemleri</b></a></li>          
+        </ul>
+    </li></ul>
+    
+    <p class="cstfont" id="list_import">Liste Bileşenini Dahil Etmek</p>
+	<div type="code">import::component(<sf>'List'</sf>)</div> 	
+    
+    <p class="cstfont" id="list_others">Liste Bileşeni Yöntemleri</p>
+    <p>Liste bileşenine ait yöntemler aşağıdaki tabloda listelenmiştir</p>
+    
+  	<p>
+    <table class="cfont">
+    	<tr><th>Liste Oluşturma Yöntemleri</th><td>Anlamları</td><td>Kullanımları</td></tr>
+        <tr><td><cf>type( <vf>$tip</vf> = <sf>'circ'</sf> )</cf></td><td>Liste sıralama tipi.</td><td><cf><vf>$this</vf>->list->type(<sf>'square'</sf>)</cf></td></tr>
+        <tr><td><cf>elements( <vf>$secenekler</vf> )</cf></td><td>Listede yer alacak bilgiler. Parametreye dizi veya sıralı parametre gönderebilirsiniz.</td><td><cf>->elements(<sf>'a'</sf>, <sf>'b'</sf>, <sf>'c'</sf>)</cf></td></tr>
+        <tr><td><cf>attr( <vf>$ozellikler</vf> )</cf></td><td>Listeye eklemek istenilen özellik="değer" çiftleri.</td><td><cf>->attr(<kf>array</kf>(<sf>'name'</sf> => <sf>'liste'</sf>))</cf></td></tr>	
+        <tr><td><cf>css( <vf>$class</vf> )</cf></td><td>Css sınıfı eklemek için kullanılır.</td><td><cf>->css(<sf>'bold, red-color'</sf>)</cf></td></tr>
+        <tr><td><cf>style( <vf>$style</vf> )</cf></td><td>Stiller eklemek için kullanılır.</td><td><cf>->style(<kf>array</kf>(<sf>'color'</sf> => <sf>'red'</sf>))</cf></td></tr>
+        <tr><td><cf>create( [ <vf>$tip</vf> = <sf>'ul'</sf> ] )</cf></td><td>Liste nesnesini oluşturmak için kullanılan son yöntemdir. İsteğe bağlı tek parametresi vardır. Liste tipi.</td><td><cf>->create(<sf>'ol'</sf>);</cf></td></tr>
+    </table>
+    </p>
+    
+    <p>Yukarıdaki yöntemlerin kullanımına yönelik örnekler aşağıda verilmiştir.</p>
+    
+    <p>
+    <div type="code">
+    <vf>$this</vf>->list->elements(<sf>'a'</sf>, <sf>'b'</sf>, <sf>'c'</sf>)->create(<sf>'ol'</sf>);
+    </div>
+    </p>
+    
+    <p>
+    <div type="code">
+    <vf>$this</vf>->list->type(<sf>'disc'</sf>)->elements(<kf>array</kf>(<sf>'a'</sf>, <sf>'b'</sf>, <sf>'c'</sf>))->create(<sf>'ul'</sf>);
+    </div>
+    </p>
+     
+    <div type="prev-next">
+    	<div type="prev-btn"><a href="components_jquery.html">Önceki</a></div><div type="next-btn"><a href="component_pagination .html">Sonraki</a></div>
+    </div>
+ 
+</body>
+</html>              
