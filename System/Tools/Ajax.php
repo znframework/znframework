@@ -10,22 +10,40 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 
-// Function: json_send_back()
-// İşlev:Dizi olarak girilen verileri json veri tipine dönüştürür.
-// Parametreler: $data = Json veri tipine dönüştürülecek dizi verisi.
-// Dönen Değer: Json tipinde veri.
+/******************************************************************************************
+* JSON SEND BACK                                                                          *
+*******************************************************************************************
+| Genel Kullanım: Ajax işlemleri sırasında verinin json tipinde veri olarak gönderilmesi  |
+| için kullanılır.														                  |
+|																						  |
+| Parametreler: Tek dizi parametresi vardır.                                              |
+| 1. array var @data => Gönderilecek olan dizi.							  				  |
+|          																				  |
+******************************************************************************************/	
 function json_send_back($data = array())
 {
-	if( ! is_array($data) || empty($data)) return false;
+	if( ! is_array($data) || empty($data) ) 
+	{
+		return false;
+	}
+	
 	json_encode($data);	exit;
 }
 
-// Function: send_back()
-// İşlev:Ajax veri ekrana yazdırıldıktan sonra yöntemin sonlandırılmasını sağlar.
-// Parametreler: $data = Ekrana bastırılacak değer.
-// Dönen Değer: Parametre olarak girilen ifade.
+/******************************************************************************************
+* SEND BACK                                                                               *
+*******************************************************************************************
+| Genel Kullanım: Ajax işlemleri sırasında veri döndürmek için kullanılır.				  |
+|																						  |
+| Parametreler: Tek parametreden oluşur.                                                  |
+| 1. mixed var @data => Çıktı oluşturulacak veri.							  		      |
+|          																				  |
+******************************************************************************************/	
 function send_back($data = '')
 {
-	if( ! is_value($data)) return false;
+	if( ! is_value($data) ) 
+	{
+		return false;
+	}
 	echo $data; exit;	
 }	
