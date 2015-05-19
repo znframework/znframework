@@ -9,39 +9,80 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+
+/******************************************************************************************
+* Tarih-Saat bölgesi ayarlanıyor. Bu ayarı değiştirmek için Config/DateTime.php bakınız.  *
+******************************************************************************************/
 date_default_timezone_set(config::get('DateTime', 'timezone'));
 
-// Function: standart_time()
-// İşlev: Starndart tarih ve saat bilgisi üretir.
-// Dönen Değer: 12.01.2015 09:02:41
-if(!file_exists('standart_time'))
+/******************************************************************************************
+* STANDART TIME                                                                           *
+*******************************************************************************************
+| Genel Kullanım: Standart tarih ve saat bilgisi üretir.			  	                  |
+|																						  |
+| Parametreler: Herhangi bir parametresi yoktur.                                          |
+|																						  |
+| Örnek Kullanım: standart_time() // 12.01.2015 09:02:41								  |
+|       																				  |
+******************************************************************************************/
+if( ! file_exists('standart_time') )
 {
 	function standart_time()
 	{	
-		$setlocale = config::get('DateTime', 'setlocale');
+		// Config/DateTime.php dosyasından
+		// Tarih saat ayarları alınıyor.
+		$config = config::get('DateTime');
+		
+		$setlocale = $config['setlocale'];
+		
+		// Dil biçimi ayarlanıyor.
 		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
-		return iconv(config::get('DateTime', 'iconv_in_charset'),config::get('DateTime', 'iconv_out_charset'), strftime("%d %B %Y, %A %H:%M:%S"));
+		
+		// Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
+		// Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
+		return iconv($config['iconv_in_charset'], $config['iconv_out_charset'], strftime("%d %B %Y, %A %H:%M:%S"));
 	}
 }
 
-// Function: current_time()
-// İşlev: Aktif saat bilgisini verir.
-// Dönen Değer: 09:02:41
-if(!file_exists('current_time'))
+/******************************************************************************************
+* CURRENT TIME                                                                            *
+*******************************************************************************************
+| Genel Kullanım: Aktif saat bilgisini verir.			  	                              |
+|																						  |
+| Parametreler: Herhangi bir parametresi yoktur.                                          |
+|																						  |
+| Örnek Kullanım: current_time() // 09:02:41							                  |
+|       																				  |
+******************************************************************************************/
+if( ! file_exists('current_time') )
 {
-	function current_time($clock='%H:%M:%S')
+	function current_time( $clock = '%H:%M:%S' )
 	{
-		if( ! is_string($clock)) return false;
+		if( ! is_string($clock) ) 
+		{
+			return false;
+		}
+		
 		$setlocale = config::get('DateTime', 'setlocale');
+		
+		// Dil biçimi ayarlanıyor.
 		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
+		
 		return strftime($clock);	
 	}
 }
 
-// Function: current_date()
-// İşlev: Aktif tarih bilgisini verir.
-// Dönen Değer: 09:02:41
-if(!file_exists('current_date'))
+/******************************************************************************************
+* CURRENT DATE                                                                            *
+*******************************************************************************************
+| Genel Kullanım: Aktif tarih bilgisini verir.			  	                              |
+|																						  |
+| Parametreler: Herhangi bir parametresi yoktur.                                          |
+|																						  |
+| Örnek Kullanım: current_date() // 01.01.2006							                  |
+|       																				  |
+******************************************************************************************/
+if( ! file_exists('current_date') )
 {
 	function current_date()
 	{		
@@ -49,10 +90,17 @@ if(!file_exists('current_date'))
 	}
 }
 
-// Function: current_date_time()
-// İşlev: Aktif tarih ve saat bilgisini verir.
-// Dönen Değer: 12.01.2015 09:02:41
-if(!file_exists('current_date_time'))
+/******************************************************************************************
+* CURRENT DATE TIME                                                                       *
+*******************************************************************************************
+| Genel Kullanım: Aktif tarih ve saat bilgisini verir.			  	                      |
+|																						  |
+| Parametreler: Herhangi bir parametresi yoktur.                                          |
+|																						  |
+| Örnek Kullanım: current_date_time() // 12.01.2015 09:02:41							  |
+|       																				  |
+******************************************************************************************/
+if( ! file_exists('current_date_time') )
 {
 	function current_date_time()
 	{		
@@ -60,43 +108,73 @@ if(!file_exists('current_date_time'))
 	}
 }
 
-// Function: set_time()
-// İşlev: Tarih ve saat ayarlamaları yapmak için kullanılır.
-// Parametreler
-// @exp = Tarih ve saat ayarlaması yapmak için kullanılacak biçim karaketerleri. Örnek: <day>.<month>.<year>
-// Dönen Değer: Ayarlanan tarih saat bilgisi
-if(!file_exists('set_time'))
+/******************************************************************************************
+* SET TIME                                                                                *
+*******************************************************************************************
+| Genel Kullanım: Tarih ve saat ayarlamaları yapmak için kullanılır.			  	      |
+|																						  |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. string var @exp => Tarih ve saat ayarlaması yapmak için kullanılacak biçim 		  |
+| karaketerleri.				                                                          |   
+|																						  |
+| Biçim Karakterler Listesi																  |
+| Config/DateTime.php dosyasınki set_time_format_chars parametreli listeye bakınız.		  |
+|																						  |
+| Örnek Kullanım:  																	      |
+| echo set_time('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
+|       																				  |
+******************************************************************************************/
+if( ! file_exists('set_time') )
 {
 	function set_time($exp = '')
 	{	
-		if( ! is_string($exp)) return false;
+		if( ! is_string($exp) ) 
+		{
+			return false;
+		}
 		
 		import::tool('Array');
 		
-		$chars = config::get('DateTime', 'set_time_format_chars');
+		$config = config::get('DateTime'); 
+		
+		$chars = $config['set_time_format_chars'];
 		
 		$chars = multi_key_array($chars);
 		
 		$setExp = str_replace(array_keys($chars), array_values($chars), $exp);
 		
-		$setlocale = config::get('DateTime', 'setlocale');
+		$setlocale = $config['setlocale'];
 		
 		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
 		
-		return iconv(config::get('DateTime', 'iconv_in_charset'),config::get('DateTime', 'iconv_out_charset'), strftime($setExp));
+		return iconv($config['iconv_in_charset'], $config['iconv_out_charset'], strftime($setExp));
 	}
 }
 
-// Function: set_date()
-// İşlev: Tarih ve saat ayarlamaları yapmak için kullanılır.
-// Parametreler
-// @exp = Tarih ve saat ayarlaması yapmak için kullanılacak biçim karaketerleri. Örnek: <day>.<month>.<year>
-// Dönen Değer: Ayarlanan tarih saat bilgisi
-if(!file_exists('set_date'))
+/******************************************************************************************
+* SET DATE                                                                                *
+*******************************************************************************************
+| Genel Kullanım: Tarih ve saat ayarlamaları yapmak için kullanılır.			  	      |
+|																						  |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. string var @exp => Tarih ve saat ayarlaması yapmak için kullanılacak biçim 		  |
+| karaketerleri.				                                                          |   
+|																						  |
+| Biçim Karakterler Listesi																  |
+| Config/DateTime.php dosyasınki set_date_format_chars parametreli listeye bakınız.		  |
+|																						  |
+| Örnek Kullanım:  																	      |
+| echo set_date('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
+|       																				  |
+******************************************************************************************/
+if( ! file_exists('set_date') )
 {
 	function set_date($exp = 'h:i:s')
 	{
-		if( ! is_string($exp)) return false;
+		if( ! is_string($exp) ) 
+		{
+			return false;
+		}
 		
 		import::tool('Array');
 		
@@ -109,4 +187,3 @@ if(!file_exists('set_date'))
 		return iconv(config::get('DateTime', 'iconv_in_charset'),config::get('DateTime', 'iconv_out_charset'), date($newClock));
 	}
 }
-
