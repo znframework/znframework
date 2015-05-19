@@ -10,23 +10,31 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 
-// Function: attributes()
-// İşlev: Dizi olarak girilen anahtar değer çiftlerini özellik="değer" formuna sokmak için kullanılır.
-// Parametreler
-// @attributes = Dizi parametresi alır özellik ve değer içeren.
-// Dönen Değer: Json tipinde veri.
-
+/******************************************************************************************
+* ATTRIBUTES                                                                              *
+*******************************************************************************************
+| Genel Kullanım: Html nesnelerine ait özellik ve değer çifti belirtmek için kullanılır.  |
+|															                              |
+| Parametreler: Tek dizi parametresi vardır.                                              |
+| 1. array var @attributes => Özellik ve değer çiftlerini içerecek dizi parametresi.	  |
+|          																				  |
+| Örnek Kullanım: attributes(array('name' => 'ornek', 'id' => 'zntr'));        			  |
+| // name="ornek" id="zntr"       														  |
+|          																				  |
+******************************************************************************************/	
 if(!function_exists('attributes'))
 {
 	function attributes($attributes = '')
 	{
 		$attribute = '';
-		if(is_array($attributes))
+		if( is_array($attributes) )
 		{
 			foreach($attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
 				$attribute .= ' '.$key.'="'.$values.'"';
 			}	
 		}
@@ -35,84 +43,147 @@ if(!function_exists('attributes'))
 	}
 }
 
-// Function: xml_builder()
-// İşlev: Xml belgesi oluşturmak için kullanılır.
-// Parametreler
-// @elements = Elementin adı eğer node elemen olacaksa node=eleman adı şeklinde yazılılır.
-// @content = Elementin içeriği.
-// @attribute = Elementin özellikleri.
-// @version = Xml belgesinin versiyon bilgisi.
-// @encoding = Xml belgesinin versiyon karakter seti.
-// Dönen Değer: Xml belgesi.
-
+/******************************************************************************************
+* XML BUILDER                                                                             *
+*******************************************************************************************
+| Genel Kullanım: Xml belgesi oluşturmak için kullanılır. 								  |
+|																						  |
+| Parametreler: 5 parametresi vardır.                                              		  |
+| 1. string var @element => Eleman ismi.						     	  				  |
+| 2. string var @content => Elemanın içeriği.		      								  |
+| 3. array var @attribute => Özellik eklemek içindir.									  |
+| 4. [ string var @version ] => Oluşturulacak belgenin sürümü. Varsayılan:1.0    		  |
+| 5. [ string var @encoding ] => Oluşturulacak belgenin karakter seti. Varsayılan:utf-8   |
+|          																				  |
+| Örnek Kullanım:         																  |
+| echo xml_builder																		  |
+| (																						  |
+|	'node=medya', 	 // 1. Parametre Eleman adı: node=medya.							  |
+|       xml_builder	 // 2. Parametre İçerik.											  |
+|       (																			      |
+|           'vidyo', 'Vidyo Elementi', array('xml:id' => 'vidyo')						  |
+|       ).																				  |
+|       xml_builder																		  |
+|       (																				  |
+|           'resim', 'Resim Elementi', array('xml:id' => 'resim')						  |
+|       ),																				  |
+|       array('xml:id' => 'node')  // 3. Parametre Özellikler.							  |
+| ); 																					  |
+|																						  |
+******************************************************************************************/	
 if(!file_exists('xml_builder'))
 {
 	function xml_builder($elements = '', $content = '', $attribute = '', $version = '1.0', $encoding = 'utf-8')
 	{		
-		if( ! is_string($elements)) return false;		
-		if( ! is_value($content)) $content = '';	
-		if( ! is_string($version)) $version = '1.0';
-		if( ! is_string($encoding)) $encoding = 'utf-8';
-	
-		if(empty($elements)) return false;
-		
-		if(strstr($elements, "node"))
+		if( ! is_string($elements) || empty($elements) ) 
+		{
+			return false;		
+		}
+		if( ! is_value($content) ) 
+		{
+			$content = '';	
+		}
+		if( ! is_string($version) ) 
+		{
+			$version = '1.0';
+		}
+		if( ! is_string($encoding) ) 
+		{
+			$encoding = 'utf-8';
+		}
+
+		if( strstr($elements, "node") )
 		{
 			$elements_ex = explode("=", $elements);
 			$elements = trim($elements_ex[1]);
 			$str = '<?xml version="'.$version.'" encoding="'.$encoding.'"?>';
 		}		
 		else
-			$str = "";
-			
-		$str .= "\n".'<'.$elements.attributes($attribute).'>'."\n\t".$content."\n".'</'.$elements.'>'."\n";
+		{
+			$str = '';
+		}
+		
+		$str .= ln().'<'.$elements.attributes($attribute).'>'.ln()."\t".$content.ln().'</'.$elements.'>'.ln();
 		return $str;
 	}	
 }
 
-// Function: list_builder()
-// İşlev: Liste oluşturmak için kullanılır.
-// Parametreler
-// @elements = Dizi tipinde liste elemanları girilir.
-// @attributes = Elementin özellikleri.
-// @type = Liste tipi.
-// Dönen Değer: Liste.
-
+/******************************************************************************************
+* LIST BUILDER                                                                            *
+*******************************************************************************************
+| Genel Kullanım: Liste oluşturmak için kullanılır. 							     	  |
+|																						  |
+| Parametreler: 5 parametresi vardır.                                              		  |
+| 1. array var @elements => Listeyi oluşturacak seçenekler.						     	  |
+| 2. array var @attributes => Listeye özellik eklemek için.		      					  |
+| 3. string var @type => Liste türü. Varsayılan:ul   									  |
+|          																				  |
+| Örnek Kullanım:         																  |
+| echo list_builder(array('a', 'b', 'c'), array('name' => 'liste'), 'ol');                |
+|																						  |
+******************************************************************************************/	
 if(!function_exists('list_builder'))
 {
 	function list_builder($elements = '', $attributes = '', $type = 'ul')
 	{
-		if( ! is_array($elements) || empty($elements)) return false;
+		if( ! is_array($elements) || empty($elements) ) 
+		{
+			return false;
+		}
 		
-		if( ! is_string($type)) $type = 'ul';
+		if( ! is_string($type) ) 
+		{
+			$type = 'ul';
+		}
 		
-		$list = '<'.$type.attributes($attributes).'>'."\n";
+		$list = '<'.$type.attributes($attributes).'>'.ln();
 		
-		$i=0;
+		$i = 0;
+		
 		foreach($elements as $k => $values)
 		{
-			$list .= "\t".'<li>'.$values.'</li>'."\n";
+			$list .= "\t".'<li>'.$values.'</li>'.ln();
 			$i++;
 		}
 		
-		$list .= '</'.$type.'>'."\n";
+		$list .= '</'.$type.'>'.ln();
+		
 		return $list;
 	}
 }
 
-// Function: table_builder()
-// İşlev: Liste oluşturmak için kullanılır.
-// Parametreler
-// @elements = Dizi tipinde liste elemanları girilir.
-// @attributes = Elementin özellikleri.
-// @type = Liste tipi.
-// Dönen Değer: Liste.
-
+/******************************************************************************************
+* TABLE BUILDER                                                                           *
+*******************************************************************************************
+| Genel Kullanım: Tablo oluşturmak için kullanılır. 							     	  |
+|																						  |
+| Parametreler: 2 parametresi vardır.                                              		  |
+| 1. array var @elements => Tabloya oluşturacak satır ve sütunlar.				     	  |
+| 2. array var @attributes => Tabloya özellik eklemek için.		      					  |
+|          																				  |
+| Örnek Kullanım:         																  |
+| $elemanlar = array(																	  |
+|     array("1", "2", "3" => array("colspan" => "3")), 									  |
+|     array("6", "7", "8", "9", "10")													  |
+| );																					  |
+|																						  |
+| $ozellikler = array(																      |
+|    "border" => "1", 																	  |
+|    "width" => "300", 																      |
+|    "height" => "100"																	  |
+| );																					  |
+|																						  |
+| echo table_builder($elemanlar, $ozellikler);											  |
+|																						  |
+******************************************************************************************/	
 if(!file_exists('table_builder'))
 {
 	function table_builder($elements = '', $attributes = '')
 	{
-		if( ! is_array($elements) || empty($elements)) return false;
+		if( ! is_array($elements) || empty($elements) ) 
+		{
+			return false;
+		}
 		
 		$table = '<table '.attributes($attributes).'>';
 		$colno = 1;
@@ -120,24 +191,24 @@ if(!file_exists('table_builder'))
 		
 		foreach($elements as $key => $element)
 		{
-			$table .= "\n\t".'<tr>'."\n";
+			$table .= ln()."\t".'<tr>'.ln();
 			
-			if(is_array($element))foreach($element as $k => $v)
+			if( is_array($element) ) foreach($element as $k => $v)
 			{
 				$val = $v;
-				$attr = "";
+				$attr = '';
 				
-				if(is_array($v))
+				if( is_array($v) )
 				{
 					$attr = attributes($v);
 					$val = $k;
 				}
 			
-				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'."\n";	
+				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.ln();	
 				$colno++;
 			}
 		
-			$table .= "\t".'</tr>'."\n";
+			$table .= "\t".'</tr>'.ln();
 			$rowno++;
 		}
 		$table .= '</table>';
@@ -145,4 +216,3 @@ if(!file_exists('table_builder'))
 		return $table;
 	}
 }
-
