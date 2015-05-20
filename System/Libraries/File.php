@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* FILE                                                                               	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : File   		     					                          |
+| Sınıfı Kullanırken      :	file::   		    									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class File
 {
 	/* Error Değişkeni
@@ -177,7 +185,7 @@ class File
 	*******************************************************************************************
 	| Genel Kullanım: Dosya oluşturmak için kullanılır.    				     			      |
 	|															                              |
-	| Parametreler: Tex parametresi vardır.                                                   |
+	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @name => Oluşturulacak dosyanın adı veya yolu.							  |
 	|          											  									  |
 	| Örnek Kullanım: create('dizin/yeniDosya.txt');        						          |
@@ -210,7 +218,7 @@ class File
 	*******************************************************************************************
 	| Genel Kullanım: Dosya silmek için kullanılır.    	 			     			          |
 	|															                              |
-	| Parametreler: Tex parametresi vardır.                                                   |
+	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @name => Silinecek dosyanın adı veya yolu.							      |
 	|          											  									  |
 	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
@@ -397,7 +405,7 @@ class File
 	| 4. gb => giga byte cinsinden değer döndürür.          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function size($file = '', $type = "b")
+	public static function size($file = '', $type = "b", $decimal = 2)
 	{
 		// Parametre kontrolleri yapılıyor. --------------------------------------------
 		if( ! is_string($file) ) 
@@ -456,17 +464,17 @@ class File
 		// KILO BYTES
 		if( $type === "kb" )
 		{
-			return round($size / 1024, 2);
+			return round($size / 1024, $decimal);
 		}
 		// MEGA BYTES
 		if( $type === "mb" )
 		{
-			return round($size / (1024 * 1024), 2);
+			return round($size / (1024 * 1024), $decimal);
 		}
 		// GIGA BYTES
 		if( $type === "gb" )
 		{
-			return round($size / (1024 * 1024 * 1024), 2);
+			return round($size / (1024 * 1024 * 1024), $decimal);
 		}
 	}
 	
@@ -509,7 +517,7 @@ class File
 		{
 			$zip_file = zip_entry_name($zip_content);
 			
-			if(strpos($zip_file, '.'))
+			if( strpos($zip_file, '.') )
 			{
 				$target_path = suffix($target).$zip_file;
 				

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZN KOD ÇATISI</title>
+<link type="text/css" rel="stylesheet" href="../Styles/Structure.css" />
+<script src="../Scripts/Jquery.js"></script>
+<script src="../Scripts/Structure.js"></script>
+</head>
+
+<body>
+    <div id="content-document"><a href="#">Döküman</a> » <a href="components.html">Bileşenler</a> » Session(Oturum) Bileşeni</div> 
+    <p class="ctfont">Session(Oturum) Bileşeni</p>
+    <p>Oturum işlemlerini yapmak için oluşturulmuştur .</p>
+    <ul><li><a href="#" class="infont">Oturum Bileşenini ve Yöntemleri</a><br><br>
+        <ul>
+        	<li><a href="#cookie_import">Oturum Bileşenini Dahil Etmek</b></a></li>
+            <li><a href="#cookie_others">Oturum Bileşeni Yöntemleri</b></a></li>          
+        </ul>
+    </li></ul>
+    
+    <p class="cstfont" id="cookie_import">Oturum Bileşenini Dahil Etmek</p>
+	<div type="code">import::component(<sf>'Session'</sf>)</div> 	
+    
+    <p class="cstfont" id="cookie_others">Oturum Bileşeni Yöntemleri</p>
+    <p>Oturum bileşenine ait yöntemler aşağıdaki tabloda listelenmiştir</p>
+    
+  	<p>
+    <table class="cfont">
+    	<tr><th>Oturum Oluşturma Yöntemleri</th><td>Anlamları</td><td>Kullanımları</td></tr>
+        <tr><td><cf>name( <vf>$ad</vf> )</cf></td><td>Oturum ismi.</td><td><cf><vf>$this</vf>->sess->name(<sf>'Oturum Adı'</sf>)</cf></td></tr>
+        <tr><td><cf>value( <vf>$deger</vf> )</cf></td><td>Oturum değeri.</td><td><cf>->value(<sf>'Değer'</sf>)</cf></td></tr>
+        <tr><td><cf>encode( <vf>$anahtar_hash_algo</vf> , <vf>$deger_hash_algo</vf> )</cf></td><td>Oturumu şifrelemek için kullanılır. 2 parametresi vardır. 1. parametre çerezin anahtar değerini, 2. parametre oturumun tuttuğu veriyi şifrelemek için kullanılır. Bu yöntemin kullanımı isteğe bağlıdır. Sadece anahtar veya sadece değer bilgisini şifreleyebilirsiniz.</td><td><cf>->encode(<sf>'md5'</sf>, <sf>'sha1'</sf>)</cf></td></tr>
+        <tr><td><cf>create( [ <vf>$name</vf> ] , [ <vf>$value</vf> ] )</cf></td><td>Oturum oluşumunu tamamlama yöntemidir. Ancak isteğe bağlı olarak isim veya değer bilgisi içerebilir.</td><td><cf>->create(<sf>'oturum'</sf>, <sf>'Değer'</sf>); <comment>// Sonlandırma komutu</comment></cf></td></tr>
+    </table>
+    </p>
+    
+    <p>Yukarıdaki yöntemlerin kullanımına yönelik örnekler aşağıda verilmiştir.</p>
+    
+    <p>
+    <strong>Kısayoldan</strong> oturum oluşturmak için;
+    <div type="code">
+    <vf>$this</vf>->sess->create(<sf>'ornek_isim'</sf>, <sf>'Örnek Değer'</sf>);
+    </div>
+    </p>
+    
+    <p>
+    İsim ve değer için <strong>yöntem</strong> kullanma;
+    <div type="code">
+    <vf>$this</vf>->sess->name(<sf>'ornek_isim'</sf>)->value(<sf>'Örnek Değer'</sf>)->create();
+    </div>
+    </p>
+    
+    <p>
+    Oturumu <strong>şifrelemek</strong>;
+    <div type="code">
+    <vf>$this</vf>->sess->encode(<sf>'sha1'</sf>)->create(<sf>'ornek_isim'</sf>, <sf>'Örnek Değer'</sf>);
+    </div>
+    </p>
+    
+  	<p>
+    <table class="cfont">
+    	<tr><th>Oturum Kullanma Yöntemleri</th><td>Anlamları</td><td>Kullanımları</td></tr>
+        <tr><td><cf>name( <vf>$ad</vf> )</cf></td><td>Oturum ismi.</td><td><cf><vf>$this</vf>->sess->name(<sf>'oturum'</sf>)</cf></td></tr>
+        <tr><td><cf>decode( <vf>$anahtar_hash_algo</vf> )</cf></td><td>Anahtarı şifrelenen oturumu kullanabilmek için kullanılır. Hangi algoritma ile şifrelenmişse o algoritma ile kullanılmak durumundadır.</td><td><cf>->decode(<sf>'md5'</sf>)</cf></td></tr>
+        <tr><td><cf>select( [ <vf>$name</vf> ] )</cf></td><td>Oturum seçimini tamamlama yöntemidir. Ancak isteğe bağlı olarak isim bilgisi içerebilir.</td><td><cf>->select(<sf>'oturum'</sf>); </cf></td></tr>
+    </table>
+    </p>
+    
+    <p>
+    <strong>Kısayoldan</strong> oturumu kullanmak için;
+    <div type="code">
+    <vf>$this</vf>->sess->select(<sf>'ornek_isim'</sf>); <comment>// Örnek Değer</comment>
+    </div>
+    </p>
+    
+    <p>
+    <strong>Şifrelenmiş</strong> oturumu kullanmak için;
+    <div type="code">
+    <vf>$this</vf>->sess->decode(<sf>'sha1'</sf>)->select(<sf>'ornek_isim'</sf>); <comment>// Örnek Değer</comment>
+    </div>
+    </p>
+    
+    <p>
+    <strong>Tüm oluşturulumuş</strong> oturumları listelemek;
+    <div type="code">
+    <vf>$this</vf>->sess->select(); <comment>// Parametre belirtilmediği taktirde daha önce oluşturulmuş tüm oturumların listesini verir.</comment>
+    </div>
+    </p>
+    
+    
+    <p>
+    <table class="cfont">
+    	<tr><th>Oturumu Silme Yöntemleri</th><td>Anlamları</td><td>Kullanımları</td></tr>
+        <tr><td><cf>name( <vf>$ad</vf> )</cf></td><td>Oturum ismi.</td><td><cf><vf>$this</vf>->sess->name(<sf>'oturum'</sf>)</cf></td></tr>
+        <tr><td><cf>decode( <vf>$anahtar_hash_algo</vf> )</cf></td><td>Anahtarı şifrelenen oturumu kullanabilmek için kullanılır. Hangi algoritma ile şifrelenmişse o algoritma ile kullanılmak durumundadır.</td><td><cf>->decode(<sf>'md5'</sf>)</cf></td></tr>
+        <tr><td><cf>delete( [ <vf>$name</vf> ] )</cf></td><td>Oturum silme işlemini tamamlama yöntemidir. Ancak isteğe bağlı olarak isim bilgisi içerebilir.</td><td><cf>->delete(<sf>'oturum'</sf>); </cf></td></tr>
+    </table>
+    </p>
+    
+    <p>
+    <strong>Kısayoldan</strong> oturumu silmek için;
+    <div type="code">
+    <vf>$this</vf>->sess->delete(<sf>'oturum'</sf>); 
+    </div>
+    </p>
+    
+    <p>
+    <strong>Şifrelenmiş</strong> oturumu silmek için;
+    <div type="code">
+    <vf>$this</vf>->sess->decode(<sf>'sha1'</sf>)->delete(<sf>'oturum'</sf>);
+    </div>
+    </p>
+    
+    <p>
+    <strong>Tüm oluşturulumuş</strong> oturumu silmek için;
+    <div type="code">
+    <vf>$this</vf>->sess->delete(); <comment>// Parametre belirtilmediği taktirde daha önce oluşturulmuş tüm oturumların silinmesini sağlar.</comment>
+    </div>
+    </p>
+    
+    
+    <div type="prev-next">
+    	<div type="prev-btn"><a href="component_pagination.html">Önceki</a></div><div type="next-btn"><a href="component_table.html">Sonraki</a></div>
+    </div>
+ 
+</body>
+</html>              

@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* PROTECTED OBJECTS                                                                       *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil Edilemez.     							     		  |
+| Sınıfı Kullanırken      :	Kullanılamaz.       									      |
+| 																						  |
+| NOT: Yardımcı sınıftır.     															  |
+******************************************************************************************/
 class ComponentJqueryObjects
 {
 	protected function _booltostr($bool = true)
@@ -68,7 +76,7 @@ class ComponentJqueryObjects
 	
 	protected function _is_func($data)
 	{
-		if(preg_match('/function\(.*\)\{.*\}/', $data))
+		if(preg_match('/function.*\(.*\)/', $data))
 		{
 			return true;	
 		}

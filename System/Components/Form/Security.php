@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* PROTECTED SECURITY                                                                      *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil Edilmez   		     							      |
+| Sınıfı Kullanırken      :	Kullanılmaz      									 		  |
+| 																						  |
+| NOT: From kütüphanesine yardımcı sınıftır.     										  |
+******************************************************************************************/
 class ComponentFormSecurity
 {
 	protected function xss_encode($value)

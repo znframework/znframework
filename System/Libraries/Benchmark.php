@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* BENCHMARK                                                                           	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Benchmark  							                          |
+| Sınıfı Kullanırken      :	bench::													      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/	
 class Bench
 {
 	/* Tests Dizi Değişkeni

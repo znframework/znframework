@@ -1,6 +1,14 @@
 <?php
-// % => name
-// # => count
+/************************************************************/
+/*                    FOLDER LANGUAGE                       */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['folder_not_found_error'] = '`%` dizini bulunamadı!';
 $lang['folder_already_file_error'] = '`%` dizini zaten var!';
 $lang['folder_folder_parameter_error'] = '`%` yolu dizin bilgisi içermelidir!';

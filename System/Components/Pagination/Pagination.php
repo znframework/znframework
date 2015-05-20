@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* PAGINATION                                                                              *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Pagination      							     			  |
+| Sınıfı Kullanırken      :	$this->pag->       									      	  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentPag
 {
 	protected $url			= NULL;
@@ -26,7 +34,7 @@ class ComponentPag
 	
 	public function url($url = '')
 	{
-		if( ! is_url($url))
+		if( ! is_url($url) )
 		{
 			$url = site_url($url);	
 		}
@@ -38,7 +46,7 @@ class ComponentPag
 	
 	public function start($start = 0)
 	{
-		if( ! is_numeric($start))
+		if( ! is_numeric($start) )
 		{
 			return $this;
 		}
@@ -50,7 +58,7 @@ class ComponentPag
 	
 	public function limit($limit = 10)
 	{
-		if( ! is_numeric($limit))
+		if( ! is_numeric($limit) )
 		{
 			return $this;
 		}
@@ -62,7 +70,7 @@ class ComponentPag
 	
 	public function total_rows($total_rows = 0)
 	{
-		if( ! is_numeric($total_rows))
+		if( ! is_numeric($total_rows) )
 		{
 			return $this;
 		}
@@ -74,7 +82,7 @@ class ComponentPag
 	
 	public function count_links($count_links = 10)
 	{
-		if( ! is_numeric($count_links))
+		if( ! is_numeric($count_links) )
 		{
 			return $this;
 		}
@@ -86,7 +94,7 @@ class ComponentPag
 	
 	public function attr($attr = array())
 	{
-		if( ! is_array($attr))
+		if( ! is_array($attr) )
 		{
 			return $this;	
 		}
@@ -108,7 +116,7 @@ class ComponentPag
 	
 	public function css($css = '')
 	{
-		if( ! is_array($css))
+		if( ! is_array($css) )
 		{
 			return $this;	
 		}
@@ -120,7 +128,7 @@ class ComponentPag
 	
 	public function style($style = array())
 	{
-		if( ! is_array($style))
+		if( ! is_array($style) )
 		{
 			return $this;	
 		}
@@ -132,19 +140,19 @@ class ComponentPag
 	
 	public function create($start = NULL, $limit = NULL, $total_rows = NULL, $url = NULL)
 	{
-		$start = 		($start !== NULL) 
+		$start = 		( $start !== NULL ) 
 				 		? $start
 				 		: $this->start;
 				 
-		$total_rows = 	($total_rows !== NULL) 
+		$total_rows = 	( $total_rows !== NULL ) 
 				      	? $total_rows
 				      	: $this->total_rows;
 		
-		$limit = 		($limit !== NULL) 
+		$limit = 		( $limit !== NULL ) 
 				 		? $limit
 				 		: $this->limit;
 				 
-		if($url !== NULL)
+		if( $url !== NULL )
 		{
 			$this->url($url);
 		}
@@ -154,33 +162,47 @@ class ComponentPag
 		$page  = "";
 		$links = "";
 		
-		if($start === NULL) 
+		if( $start === NULL ) 
 		{
 			import::library('Uri');
 			
-			if( ! is_numeric(uri::segment(-1))) 
+			if( ! is_numeric(uri::segment(-1)) )
+			{ 
 				$start_page = 0; 
-			else 
+			}
+			else
+			{ 
 				$start_page = uri::segment(-1);
+			}
 		}
 		else 
 		{
-			if( ! is_numeric($start)) $start = 0;
+			if( ! is_numeric($start) ) 
+			{
+				$start = 0;
+			}
+			
 			$start_page = $start;
 		}
+		
 		$per_page = @ceil($total_rows / $limit);
 		
-		if($this->count_links > $per_page)
+		if( $this->count_links > $per_page )
 		{
 		
 			for($i = 1; $i <= $per_page; $i++)
 			{
 				$page = ($i - 1) * $limit;
 				
-				if($i - 1 == $start_page / $limit)
+				if( $i - 1 == $start_page / $limit )
 				{
-					$current_link = (isset($this->css['current'])) ? 'class="'.$this->css['current'].'"' : "";
-					$current_link_style =  (isset($this->style['current'])) ? 'style="'.$this->style['current'].'"' : "";
+					$current_link = ( isset($this->css['current']) ) 
+								    ? 'class="'.$this->css['current'].'"' 
+									: '';
+									
+					$current_link_style =  ( isset($this->style['current']) ) 
+								           ? 'style="'.$this->style['current'].'"' 
+										   : '';
 				}
 				else
 				{
@@ -188,19 +210,25 @@ class ComponentPag
 					$current_link_style = '';	
 				}
 				
-				$class_links = (isset($this->css['links'])) ? 'class="'.$this->css['links'].'"' : "";
-				$style_links = (isset($this->style['links'])) ? 'style="'.$this->style['links'].'"' : "";
+				$class_links = ( isset($this->css['links']) ) 
+							   ? 'class="'.$this->css['links'].'"' 
+							   : '';
+
+				$style_links = ( isset($this->style['links']) ) 
+							   ? 'style="'.$this->style['links'].'"' 
+							   : '';
+							   
 				$links .= '<a href="'.$url.$page.'" '.$class_links.' '.$style_links.'><span '.$current_link.' '.$current_link_style.'> '.$i.'</span></a>';
 			}
 			
-			if($start_page != 0)
+			if( $start_page != 0 )
 			{
 
-				if(isset($this->css['prev']))
+				if( isset($this->css['prev']) )
 				{
 					$class_prev = 'class="'.$this->css['prev'].'"';
 				}
-				elseif(isset($this->css['links']))
+				elseif( isset($this->css['links']) )
 				{
 					$class_prev = 'class="'.$this->css['links'].'"';
 				}
@@ -209,11 +237,11 @@ class ComponentPag
 					$class_prev = '';	
 				}
 				
-				if(isset($this->style['prev']))
+				if( isset($this->style['prev']) )
 				{
 					$style_prev = 'style="'.$this->style['prev'].'"';
 				}
-				elseif(isset($this->style['links']))
+				elseif( isset($this->style['links']) )
 				{
 					$style_prev = 'style="'.$this->style['links'].'"';
 				}
@@ -229,13 +257,13 @@ class ComponentPag
 				$first = '';	
 			}
 			
-			if($start_page != $page)
+			if( $start_page != $page )
 			{
-				if(isset($this->css['next']))
+				if( isset($this->css['next']) )
 				{
 					$class_next = 'class="'.$this->css['next'].'"';
 				}
-				elseif(isset($this->css['links']))
+				elseif( isset($this->css['links']) )
 				{
 					$class_next = 'class="'.$this->css['links'].'"';
 				}
@@ -244,11 +272,11 @@ class ComponentPag
 					$class_next = '';	
 				}
 				
-				if(isset($this->style['next']))
+				if( isset($this->style['next']) )
 				{
 					$style_next = 'style="'.$this->style['next'].'"';
 				}
-				elseif(isset($this->style['links']))
+				elseif( isset($this->style['links']) )
 				{
 					$style_next = 'style="'.$this->style['links'].'"';
 				}
@@ -267,23 +295,74 @@ class ComponentPag
 			if($total_rows > $limit) return $first.' '.$links.' '.$last;
 		}
 		else
-		{
-			
+		{	
 			$per_page = $this->count_links;
 			
-			if(isset($this->css['last'])) $lastest_tag_class =  ' class="'.$this->css['last'].'" '; else $lastest_tag_class = '';
-			if(isset($this->css['first'])) $firstest_tag_class =  ' class="'.$this->css['first'].'" '; else $firstest_tag_class = '';
-			if(isset($this->css['next'])) $last_tag_class =  ' class="'.$this->css['next'].'" '; else $last_tag_class = '';
-			if(isset($this->css['current'])) $current_link_class =  ' class="'.$this->css['current'].'" '; else $current_link_class = '';
-			if(isset($this->css['links'])) $links_class =  ' class="'.$this->css['links'].'" '; else $links_class = '';
-			if(isset($this->css['prev'])) $first_tag_class =  ' class="'.$this->css['prev'].'" '; else $first_tag_class = '';
+			// Linkler için class kontrolleri sağlanıyor. ------------------------------
 			
-			if(isset($this->style['last'])) $lastest_tag_style =  ' style="'.$this->style['last'].'" '; else $lastest_tag_style = '';
-			if(isset($this->style['first'])) $firstest_tag_style =  ' style="'.$this->style['first'].'" '; else $firstest_tag_style = '';
-			if(isset($this->style['next'])) $last_tag_style =  ' style="'.$this->style['next'].'" '; else $last_tag_style = '';
-			if(isset($this->style['current'])) $current_link_style =  ' style="'.$this->style['current'].'" '; else $current_link_style = '';
-			if(isset($this->style['links'])) $links_style =  ' style="'.$this->style['links'].'" '; else $links_style = '';
-			if(isset($this->style['prev'])) $first_tag_style =  ' style="'.$this->style['prev'].'" '; else $first_tag_style = '';
+			// LAST LINK
+			$lastest_tag_class = ( isset($this->css['last']) ) 
+								 ? ' class="'.$this->css['last'].'" ' 
+								 : '';
+			
+			// FIRST LINK
+			$firstest_tag_class = ( isset($this->css['first']) ) 
+								  ? ' class="'.$this->css['first'].'" ' 
+								  : '';
+			
+			// NEXT LINK
+			$last_tag_class = ( isset($this->css['next']) ) 
+							  ? ' class="'.$this->css['next'].'" ' 
+							  : '';
+			
+			// CURRENT LINK 
+			$current_link_class = ( isset($this->css['current']) ) 
+								  ? ' class="'.$this->css['current'].'" ' 
+								  : '';
+			
+			// LINKS 					  
+			$links_class = ( isset($this->css['links']) ) 
+						   ? ' class="'.$this->css['links'].'" ' 
+						   : '';
+			
+			// PREV 					  
+			$first_tag_class = ( isset($this->css['prev']) ) 
+							   ? ' class="'.$this->css['prev'].'" ' 
+							   : '';					 
+			// -------------------------------------------------------------------------
+			
+			// Linkler için style kontrolleri sağlanıyor. ------------------------------
+			
+			// LAST LINK
+			$lastest_tag_style = ( isset($this->style['last']) ) 
+							   ? ' style="'.$this->style['last'].'" ' 
+							   : '';
+			
+			// FIRST LINK
+			$firstest_tag_style = ( isset($this->style['first']) ) 
+							   ? ' style="'.$this->style['first'].'" ' 
+							   : '';	
+			
+			// NEXT LINK
+			$last_tag_style = ( isset($this->style['next']) ) 
+							   ? ' style="'.$this->style['next'].'" ' 
+							   : '';				   
+			
+			// CURRENT LINK 
+			$current_link_style = ( isset($this->style['current']) ) 
+							   ? ' style="'.$this->style['current'].'" ' 
+							   : '';
+			
+			// LINKS 
+			$links_style = ( isset($this->style['links']) ) 
+							   ? ' style="'.$this->style['links'].'" ' 
+							   : '';
+			
+			// PREV
+			$first_tag_style = ( isset($this->style['prev']) ) 
+							   ? ' style="'.$this->style['prev'].'" ' 
+							   : '';				   
+			// -------------------------------------------------------------------------
 			
 			
 			$lastest_tag = '<a href="'.$url.($total_rows - ($total_rows % $limit) - 1).'"'.$lastest_tag_class.$lastest_tag_style.'>'.$this->lastest_tag.'</a>';

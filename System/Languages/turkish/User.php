@@ -1,4 +1,14 @@
 <?php
+/************************************************************/
+/*                     USER LANGUAGE                        */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['user_register_success'] = 'Kaydınızı başarı ile tamamlandı.';
 $lang['user_register_error'] = 'Sisteme daha önceden kayıt olduğunuz için işleminiz gerçekleştirilemedi!';
 $lang['user_register_email_error'] = 'Sisteme daha önceden kayıtlı e-posta olduğu için işleminiz gerçekleştirilemedi!';

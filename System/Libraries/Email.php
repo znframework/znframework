@@ -21,6 +21,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | biz temel olarak kullanılması gereken ve önemli gördüğümüz yöntemleri anlattık.     	  |
 |          																				  |
 ******************************************************************************************/
+/******************************************************************************************
+* EMAIL                                                                             	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Email   							                          |
+| Sınıfı Kullanırken      :	email::   											          |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Email {
 	
 	/* Mail Değişkeni

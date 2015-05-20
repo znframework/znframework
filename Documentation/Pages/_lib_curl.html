@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZN KOD ÇATISI</title>
+<link type="text/css" rel="stylesheet" href="../Styles/Structure.css" />
+<script src="../Scripts/Jquery.js"></script>
+<script src="../Scripts/Structure.js"></script>
+</head>
+
+<body>
+    <div id="content-document"><a href="#">Döküman</a> » <a href="libraries.html">Kütüphaneler</a> » CURL Sınıfı</div> 
+    <p class="ctfont"> Clien URL Sınıfı</p>
+    <p>CURL Sınıfı ile başka sitelerin içeriğini çekme, dosya indirme, çerez oluşturma gibi bir çok işi yerine getirir.</p>
+    <ul><li><a href="#">CURL Sınıfı ve Yöntemleri</a>
+        <ul>
+            <li><a href="#curl_open">curl::open()</a></li>
+            <li><a href="#curl_settings">curl::settings()</a></li>
+            <li><a href="#curl_execute">curl::execute()</a></li>  
+            <li><a href="#curl_close">curl::close()</a></li>      
+            <li><a href="#curl_info">curl::info()</a></li>
+            <li><a href="#curl_error">curl::error()</a></li>
+            <li><a href="#curl_error">curl::errno()</a></li> 
+            <li><a href="#curl_error">curl::errval()</a></li>        
+            <li><a href="#curl_version">curl::version()</a></li>
+            <li><a href="#curl_php5">curl::strerror() PHP Version > 5.5.0</a></li>
+            <li><a href="#curl_php5">curl::reset() PHP Version > 5.5.0</a></li>
+            <li><a href="#curl_php5">curl::escape() PHP Version > 5.5.0</a></li>
+            <li><a href="#curl_php5">curl::unescape() PHP Version > 5.5.0</a></li>
+           
+        </ul>
+    </li></ul>
+   	<p class="cstfont" id="curl_open">CURL İşlemi Başlatmak curl::open()</p>
+   	<p>Bir curl oturumunun başlatılmasını sağlar. 1 parametresi vardır.</p>
+    <p>
+    <table class="cfont">
+    	<tr><th>Parametreler</th><td>Varsayılan Değer</td><td>Alacağı Değer</td><td>Anlamı</td></tr>
+        <tr><th>URL</th><td>NULL</td><td>'herhangi bir url'</td><td>bağlantının kurulacağı url belirtilir.</td></tr>
+    </table>
+    </p>
+    <div type="code">
+    <pre><x><</x>?php
+<kf>class</kf> CurlIslemleri
+{
+	<kf>public</kf> <ff>function</ff> index()
+        {
+            import::library(<sf>'Curl'</sf>); <comment>// Önce Curl sınıfı dahil edilir. </comment>
+            
+            <vf>$site</vf> = <sf>'http://www.ornek.com'</sf>;
+            curl::open(<vf>$site</vf>); <comment>// Şuanda curl oturumunu başlatmış olduk.</comment>
+        }
+}</pre>
+    </div>
+    
+    <p class="cstfont" id="curl_settings">CURL İşlemleri İçin Seçenekler Belirleme curl::settings()</p>
+   	<p>Bir curl işlemleri için seçeneklerin belirlenmesini sağlar. 2 parametresi vardır.</p>
+    <p>
+    <table class="cfont">
+    	<tr><th>Parametreler</th><td>Varsayılan Değer</td><td>Alacağı Değer</td><td>Anlamı</td></tr>
+        <tr><th>Eğer birden fazla seçenek kullanılacaksa 1. Parametreye dizi değişken gönderilir.</th><td>array()</td><td>1. Parametre = array('senecek_adi' => 'secenek_degeri')</td><td>curl işlemleri için hangi seçeneklerin seçileceği belirtilir.</td></tr>
+        <tr><th>Tek bir seçenek kullanılacaksa 2 parametre gönderilir.</th><td>NULL</td><td>1. Parametre = 'senecek_adi', 2. Parametre = 'secenek_degeri'</td><td>curl işlemleri için hangi seçeneklerin seçileceği belirtilir.</td></tr>
+    </table>
+    </p>
+     <p>CURLOPT_XXX Tipindeki seçenekler <b>Config/Curl.php</b> doyasında düzenlenmiş ve yeni değerler kazanmıştır yani CURLOPT_COOKIESESSION böyle bir ifade 'cookie_session' şeklinde düzenlenmiştir gördüğünüz gibi CURLOPT ibaresi kaldırılmış ve kalan bölüm küçük harfle yazılıp sözcükler arasına alt tire konulmuştur. Değişikliklere <b>Config/Curl.php</b> buradan bakabilirsiniz.</p>
+    
+     <p>
+    <table id="parametre_table" class="cfont">
+    	<tr><th width="300">Parametre Anahtar ve Değer Çifti</th><td>Karşılığı</td><td>Anlamları</td></tr>       
+        <tr><th>proxy => 'deger'</th><td>CURLOPT_PROXY</td><td>İstekleri tünelleyecek HTTP vekili.</td></tr>
+        <tr><th>url => 'deger'</th><td>CURLOPT_URL</td><td>Bir oturumu açmak için ya da değiştirmek için kullanılan adresi tutar</td></tr>
+        <tr><th>post_fields => 'deger'</th><td>CURLOPT_POSTFIELDS</td><td>Bir HTTP "POST" işleminde gönderilecek verinin tamamı. Bir dosya göndermek için dosya ismini başına @ koyarak tam yoluyla belirtin. 'para1=val1<x>&</x>para2=val2<x>&</x>...' benzeri kodlanmış bir dizge veya alan isimlerinin anahtar, değerlerinin değer olarak yer aldığı bir dizi belirtilebilir. değer bir dizi ise Content-Type başlığına multipart/form-data atanır.</td></tr>
+        <tr><th>header => 'deger'</th><td>CURLOPT_HEADER</td><td>Çıktıda başlık bulunması için TRUE olmalıdır.</td></tr>
+        <tr><th>referer => 'deger'</th><td>CURLOPT_REFERER</td><td>Bir HTTP isteğinde kullanılacak "Referer : " başlığının içeriği.</td></tr>
+        <tr><th>user_agent => 'deger'</th><td>CURLOPT_USERAGENT</td><td>HTTP isteğinde kullanılacak "User-Agent: " başlığının içeriği</td></tr>
+        <tr><th>nobody => 'deger'</th><td>CURLOPT_NOBODY</td><td>Çıktıdaki gövdeyi dışlamak için TRUE olmalıdır.</td></tr>
+        <tr><th>return_transfer => 'deger'</th><td>CURLOPT_RETURNTRANSFER</td><td>Aktarımı doğrudan çıktılamak yerine bir dizge olarak curl::execute() işlevinden döndürmek için TRUE olmalıdır.</td></tr>
+        <tr><th>timeout => 'deger'</th><td>CURLOPT_TIMEOUT</td><td>CURL işlevlerinin çalışmasına izin verilecek azami saniye sayısı.</td></tr> 
+        <tr><th>connection_timeout => 'deger'</th><td>CURLOPT_CONNECTTIMEOUT</td><td>Saniye cinsinden bağlantının deneneceği süre. Bağlantının sonsuza kadar beklenmesi için 0 kullanın.</td></tr>
+        
+        <tr><th>http_proxy_tunnel => 'deger'</th><td>CURLOPT_HTTPPROXYTUNNEL</td><td>Belirtilen HTTP vekili üzerinden tünel kullanılacaksa TRUE olmalıdır.</td></tr>
+        <tr><th>follow_location => 'deger'</th><td>CURLOPT_FOLLOWLOCATION</td><td>HTTP başlığının bir parçası olarak sunucunun gönderdiği "Location: " başlığını izlemek için TRUE olmalıdır. Bu izleme, CURLOPT_MAXREDIRS tanımlanmadıkça ardışıktır, yani PHP gönderilen tüm "Location: " başlıklarını izleyecektir.</td></tr>
+        <tr><th>proxy_user_pwd => 'deger'</th><td>CURLOPT_PROXYUSERPWD</td><td>Vekil bağlantısı için kullanılacak kullanıcı adı ve parola; "[kullanıcı]:[parola]" biçeminde belirtilir.</td></tr>
+        <tr><th>post => 'deger'</th><td>CURLOPT_POST</td><td>Normal bir HTTP POST yapmak için TRUE olmalıdır.</td></tr>
+        <tr><th>ssl_verify_host => 'deger'</th><td>CURLOPT_SSL_VERIFYHOST</td><td>SL eş sertifikasında ortak bir ismin varlığına bakılması için 1 olmalıdır. Ortak bir ismin varlığının yanında sağlanan konak ismi ile eşleşmenin de aranması için 2 olmalıdır.</td></tr>
+        <tr><th>ssl_verify_peer => 'deger'</th><td>CURLOPT_SSL_VERIFYPEER</td><td>CURL'un eş sertifikasını doğrulamayı durdurması için FALSE olmalıdır.</td></tr>
+        <tr><th>file => 'deger'</th><td>CURLOPT_FILE</td><td>Aktarımın yazılacağı dosya. "STDOUT"(tarayıcı penceresi) öntanımlıdır.</td></tr>      
+        <tr><th>encoding => 'deger'</th><td>CURLOPT_ENCODING</td><td>"Accept-Encoding: " başlığının içeriği. Yanıtın kodlanmasını sağlar. Desteklenen kodlamalar: "identity", "deflate" ve "gzip". Boş bir dizge "" belirtilirse desteklenen tüm kodlamaları içeren bir başlık gönderilir.</td></tr>
+        <tr><th>auto_referer => 'deger'</th><td>CURLOPT_AUTOREFERER</td><td>Bir Location: yönlendirmesini izleyen bir isteğin Referer: başlığının özdevinimli olarak atanması için TRUE olmalıdır.</td></tr>
+        <tr><th>maxredirs => 'deger'</th><td>CURLOPT_MAXREDIRS</td><td>İzlenecek HTTP yönlendirmelerinin azami sayısı. 'follow_location' ile birlikte kullanılır.</td></tr>
+        <tr><th>verbose => 'deger'</th><td>CURLOPT_VERBOSE</td><td>Ayrıntılı bilgi çıktılanması için TRUE olmalıdır. Çıktıyı standart hataya veya CURLOPT_STDERR kullanarak belirtilen dosyaya yazar.</td></tr> 
+        <tr><th>binary_transfer => 'deger'</th><td>CURLOPT_BINARYTRANSFER</td><td>'return_transfer' kullanıldığında ham çıktı dönmesi için TRUE olmalıdır.</td></tr>
+        <tr><th>cookie_session => 'deger'</th><td>CURLOPT_COOKIESESSION</td><td>Oturumu yeni bir çerez oturumu olarak imlemek için TRUE olmalıdır. libcurl'un önceki oturumdan yüklenecek oturum çerezlerini yoksaymasına sebep olur. Öntanımlı olarak libcurl, oturum çerezi olup olmadıklarına bakmaksızın tüm çerezleri daima saklar ve yükler. Oturum çerezleri için belli bir zaman aşımı yoktur ve atandıkları oturum boyunca etkindirler.</td></tr>
+        <tr><th>crlf => 'deger'</th><td>CURLOPT_CRLF</td><td>Aktarım sırasında Unix satır sonlarını CRLF satır sonlarına dönüştürmek için TRUE olmalıdır.</td></tr>
+        <tr><th>dns_use_global_cache => 'deger'</th><td>CURLOPT_DNS_USE_GLOBAL_CACHE</td><td>Küresel DNS önbelleğini kullanmak için TRUE olmalıdır. Bu seçenek evreler bakımından güvenli değildir ve öntanımlı olarak etkindir.</td></tr>
+        <tr><th>fail_on_error => 'deger'</th><td>CURLOPT_FAILONERROR</td><td>Dönen HTTP kodunun 400'e eşit veya büyük olması durumunda sessiz kalmak için TRUE olmalıdır. Öntanımlı davranış kodu yok sayıp sayfayı normal olarak döndürmektir.</td></tr>
+        <tr><th>file_time => 'deger'</th><td>CURLOPT_FILETIME</td><td>Uzak belgenin değişiklik tarihi alınmaya çalışılacaksa TRUE olmalıdır. Bu değer, curl::info() ile 'file_time' seçeneği kullanılarak alınabilir.</td></tr>
+        
+        <tr><th>forbit_reuse => 'deger'</th><td>CURLOPT_FORBID_REUSE</td><td>İşlem bittiğinde yeniden kullanım için beklemeksizin bağlantının mutlaka kapatılması için TRUE olmalıdır.</td></tr>
+        <tr><th>fresh_connect => 'deger'</th><td>CURLOPT_FRESH_CONNECT</td><td>Önbellektekini kullanmaksızın yeni bir bağlantı açmak için TRUE olmalıdır.</td></tr>
+        <tr><th>ftp_use_eprt => 'deger'</th><td>CURLOPT_FTP_USE_EPRT</td><td>Etkin FTP indirmeleri yapılırken EPRT (ve LPRT) kullanmak için TRUE olmalıdır. EPRT ve LPRT'yi iptal edip sadece PORT kullanmak için FALSE kullanın.</td></tr>
+        <tr><th>ftp_use_epsv => 'deger'</th><td>CURLOPT_FTP_USE_EPSV</td><td>PASV'ye dönmeden önce FTP aktarımı için önce EPSV komutunu denemek için TRUE olmalıdır.</td></tr>
+        <tr><th>ftp_append => 'deger'</th><td>CURLOPT_FTPAPPEND</td><td>Uzak dosyanın üzerine yazmak yerine sonuna ekleme yapmak için TRUE olmalıdır.</td></tr>
+        <tr><th>ftp_ascii => 'deger'</th><td>CURLOPT_FTPASCII</td><td>CURLOPT_TRANSFERTEXT için takma addır; onun yerine bunu kullanın.</td></tr>
+        <tr><th>ftp_list_only => 'deger'</th><td>CURLOPT_FTPLISTONLY</td><td>Sadece FTP dizinindeki isimler listelenecekse TRUE olmalıdır.</td></tr>
+        <tr><th>http_get => 'deger'</th><td>CURLOPT_HTTPGET</td><td>HTTP istek yönteminin GET olması için TRUE olmalıdır. GET öntanımlı olduğundan bu sadece istek yöntemi değiştiğinde işe yarar.</td></tr>
+        <tr><th>mute => 'deger'</th><td>CURLOPT_MUTE</td><td>CURL işlevleriyle ilgili olarak tamamen sessiz kalınması için TRUE olmalıdır</td></tr>
+        <tr><th>netrc => 'deger'</th><td>CURLOPT_NETRC</td><td>Bağlantı kurulan uzak site için kullanıcı adını ve parolasını bulmak amacıyla ~/.netrc dosyasına bakılmasını sağlamak için TRUE olmalıdır.</td></tr>
+        <tr><th>no_progress => 'deger'</th><td>CURLOPT_NOPROGRESS</td><td>cURL aktarımının gelişim göstergesini kapatmak için TRUE olmalıdır. PHP bu seçeneğe öntanımlı olarak TRUE atar. Bu sadece hata ayıklama amacıyla değiştirlmelidir.</td></tr>
+        <tr><th>no_signal => 'deger'</th><td>CURLOPT_NOSIGNAL</td><td>PHP sürecine bir sinyal gönderilmesine sebep olan cURL işlevlerini yoksaymak için TRUE olmalıdır. Çok evreli SAPI'lerde, öntanımlı olarak böyledir; dolayısıyla zaman aşımı seçenekleri hala kullanılabilir olur.</td></tr>
+        <tr><th>put => 'deger'</th><td>CURLOPT_PUT</td><td>Bir dosyaya HTTP PUT yapmak için TRUE olmalıdır. Bu dosya CURLOPT_INFILE ve CURLOPT_INFILESIZE ile atanmalıdır.</td></tr>
+        <tr><th>transfer_text => 'deger'</th><td>CURLOPT_TRANSFERTEXT</td><td>FTP aktarımlarında ASCII kip kullanmak için TRUE olmalıdır. LDAP için veri, HTML yerine salt metin olarak alınır. Windows sistemlerinde, STDOUT'a ikil kip atanmaz.</td></tr>
+        <tr><th>unrestricted_auth => 'deger'</th><td>CURLOPT_UNRESTRICTED_AUTH</td><td>'follow_locaiton' kullanarak Location: yönlendirmelerini izlerken konut ismi değişse bile, kullanıcı ve parola gönderimini sağlamak için TRUE olmalıdır.</td></tr>
+        <tr><th>upload => 'deger'</th><td>CURLOPT_UPLOAD</td><td>Karşıya yüklemeye hazır olmak için TRUE olmalıdır.</td></tr>
+        <tr><th>buffer_size => 'deger'</th><td>CURLOPT_BUFFERSIZE</td><td>Okuma için kullanılacak tamponun boyutu. Ancak, bu isteğin yerine getirileceğinin bir garantisi yoktur.</td></tr>
+        <tr><th>close_policy => 'deger'</th><td>CURLOPT_CLOSEPOLICY</td><td>CURLCLOSEPOLICY_LEAST_RECENTLY_USED veya CURLCLOSEPOLICY_OLDEST olabilir. Bunlardan başka CURLCLOSEPOLICY_ önekli üç sabit daha vardır, ancak, bunlar CURL tarafından henüz desteklenmemektedir.</td></tr>
+        <tr><th>connect_timeout_ms => 'deger'</th><td>CURLOPT_CONNECTTIMEOUT_MS</td><td>Milisaniye cinsinden bağlantının deneneceği süre. Bağlantının sonsuza kadar beklenmesi için 0 kullanın</td></tr>
+        <tr><th>dns_cache_timeout => 'deger'</th><td>CURLOPT_DNS_CACHE_TIMEOUT</td><td>Saniye cinsinden DNS girdilerinin bellekte kalma süresi. Bu seçeneğin öntanımlı değeri 120 saniyedir.</td></tr>
+        <tr><th>ftp_ssl_auth => 'deger'</th><td>CURLOPT_FTPSSLAUTH</td><td>FTP kimlik doğrulama yöntemi (etkinse): CURLFTPAUTH_SSL (önce SSL denenir), CURLFTPAUTH_TLS (önce TLS denenir) veya CURLFTPAUTH_DEFAULT (CURL karar verir).</td></tr>
+        <tr><th>http_version => 'deger'</th><td>CURLOPT_HTTP_VERSION</td><td>CURL_HTTP_VERSION_NONE (öntanımlı olup hangi sürümün kullanılacağına CURL karar verir), CURL_HTTP_VERSION_1_0 (HTTP/1.0 zorlanır), veya CURL_HTTP_VERSION_1_1 (HTTP/1.1 zorlanır).</td></tr>
+        <tr><th>http_auth => 'deger'</th><td>CURLOPT_HTTPAUTH</td><td>HTTP kimlik doğrulama yöntem(ler)i: CURLAUTH_BASIC, CURLAUTH_DIGEST, CURLAUTH_GSSNEGOTIATE, CURLAUTH_NTLM, CURLAUTH_ANY ve CURLAUTH_ANYSAFE.Birden fazla yöntem belirtilecekse sabitler arasında bitsel VEYA işleci kullanılabilir. Bu takdirde, cURL belirtilen yöntemlerden hangisinin sunucu tarafından en iyi desteklendiğini saptamaya çalışır ve onu kullanır.CURLAUTH_ANY sabiti CURLAUTH_BASIC | CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM ifadesi için bir kısaltmadır.CURLAUTH_ANYSAFE sabiti CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM ifadesi için bir kısaltmadır.</td></tr>
+        <tr><th>in_file_size => 'deger'</th><td>CURLOPT_INFILESIZE</td><td>Dosya karşıya yüklenirken dosyanın bayt cinsinden tahmini boyutu.</td></tr>
+        <tr><th>low_speed_limit => 'deger'</th><td>CURLOPT_LOW_SPEED_LIMIT</td><td>PHP'nin aktarımın çok yavaş olduğunu varsayarak çıkması için, CURLOPT_LOW_SPEED_TIME saniye süresince aktarımın altında kalacağı, saniyedeki bayt sayısı olarak aktarım hızı.</td></tr>
+        <tr><th>low_speed_time => 'deger'</th><td>CURLOPT_LOW_SPEED_TIME</td><td>PHP'nin aktarımın çok yavaş olduğunu varsayarak çıkması için, aktarım hızının CURLOPT_LOW_SPEED_LIMIT'in altında kalacağı, saniye cinsinden aktarım süresi.</td></tr>
+        <tr><th>max_connects => 'deger'</th><td>CURLOPT_MAXCONNECTS</td><td>İzin verilen kalıcı bağlantıların azami sayısı. Bu sınıra ulaşıldığında hangi bağlantının kapatılacağını saptamak için CURLOPT_CLOSEPOLICY kullanılır.</td></tr>
+        <tr><th>port => 'deger'</th><td>CURLOPT_PORT</td><td>Bağlantı için kullanılacak ikincil port numarası.</td></tr>
+        <tr><th>protocols => 'deger'</th><td>CURLOPT_PROTOCOLS</td><td>URLPROTO_* değerlerinden oluşan bir bit maskesi. libcurl'un aktarımda kullanabileceği protokolleri belirler. Bu seçenek, kurulu libcurl'un geniş bir protokol çeşidini desteklemesini gerektirir. Seçenekle bu protokollerin bir alt kümesi belirtilebilir. libcurl öntanımlı olarak, desteklediği tüm protokolleri kabul edecektir. Ayrıca, CURLOPT_REDIR_PROTOCOLS seçeneğine de bakınız. Olası protokol seçenekleri: CURLPROTO_HTTP, CURLPROTO_HTTPS, CURLPROTO_FTP, CURLPROTO_FTPS, CURLPROTO_SCP, CURLPROTO_SFTP, CURLPROTO_TELNET, CURLPROTO_LDAP, CURLPROTO_LDAPS, CURLPROTO_DICT, CURLPROTO_FILE, CURLPROTO_TFTP, CURLPROTO_ALL</td></tr>
+        <tr><th>proxy_auth => 'deger'</th><td>CURLOPT_PROXYAUTH</td><td>Vekil bağlantı için kullanılacak HTTP kimlik doğrulama yöntem(ler)i. CURLOPT_HTTPAUTH seçeneğindeki bit maskesi kullanılır. Vekil kimlik doğrulaması için şimdilik sadece CURLAUTH_BASIC ve CURLAUTH_NTLM desteklenmektedir.</td></tr>
+        <tr><th>proxy_port => 'deger'</th><td>CURLOPT_PROXYPORT</td><td>Bağlanılacak vekil port numarası. Port numarası CURLOPT_PROXY ile de atanabilir.</td></tr>
+        <tr><th>proxy_type => 'deger'</th><td>CURLOPT_PROXYTYPE</td><td>CURLPROXY_HTTP (öntanımlı) veya CURLPROXY_SOCKS5 olabilir.</td></tr>
+        <tr><th>redir_protocols => 'deger'</th><td>CURLOPT_REDIR_PROTOCOLS</td><td>CURLPROTO_* değerlerinden oluşan bir bit maskesi. CURLOPT_FOLLOWLOCATION etkin olduğu takdirde, bir yönlendirme izlenirken libcurl'un aktarımda kullanacağı protokoller belirtilir. Bu seçenek, yönlendirmelerde aktarımın belli protokollerle sınırlanmasına imkan verir. libcurl öntanımlı olarak FILE ve SCP haricinde tüm protokollere izin verir. Bu davranış, izlemelerde tüm protokollerin koşulsuz olarak desteklendiği 7.19.4 öncesi sürümlerden farklıdır. Protokol sabitleri için CURLOPT_PROTOCOLS seçeneğine de bakınız.</td></tr>
+        <tr><th>resume_form => 'deger'</th><td>CURLOPT_RESUME_FROM</td><td>Bayt cinsinden aktarımın devam ettirileceği konum.</td></tr>
+        <tr><th>ssl_version => 'deger'</th><td>CURLOPT_SSLVERSION</td><td>Kullanılacak SSL sürümü (2 veya 3). Öntanımlı olarak PHP bunu kendi saptamaya çalışırsa da bazı durumlarda bunun elle belirtilmesi gerekir.</td></tr>
+        <tr><th>time_condition => 'deger'</th><td>CURLOPT_TIMECONDITION</td><td>CURLOPT_TIMEVALUE değerinin nasıl ele alınacağı belirtilir. Sayfayı sadece, CURLOPT_TIMEVALUE ile belirtilen süre içinde değiştirilmediği takdirde döndürmek için CURL_TIMECOND_IFMODSINCE kullanın. Sayfa değişmişse, CURLOPT_HEADER seçeneğinin TRUE olduğu varsayımıyla "304 Not Modified" (304 değişiklik yok) başlığı döndürülür. Bu davranışı ters çevirmek için CURL_TIMECOND_IFUNMODSINCE kullanın. CURL_TIMECOND_IFMODSINCE öntanımlıdır.</td></tr>
+        <tr><th>timeout_ms => 'deger'</th><td>CURLOPT_TIMEOUT_MS</td><td>CURL işlevlerinin çalışmasına izin verilecek azami milisaniye sayısı.</td></tr>
+        <tr><th>time_value => 'deger'</th><td>CURLOPT_TIMEVALUE</td><td>1 Ocak 1970'den beri geçen saniye sayısı. Bu değer CURLOPT_TIMECONDITION tarafından kullanılır. CURL_TIMECOND_IFMODSINCE öntanımlıdır.</td></tr>
+        <tr><th>cainfo => 'deger'</th><td>CURLOPT_CAINFO</td><td>Eşle doğrulanacak bir veya daha fazla sertifikanın tutulduğu dosyanın ismi. Bu sadece CURLOPT_SSL_VERIFYPEER ile birlikte kullanıldığında anlamlıdır.</td></tr>
+        <tr><th>capath => 'deger'</th><td>CURLOPT_CAPATH</td><td>Çok sayıda CA sertifikasının tutulduğu dizinin yolu. CURLOPT_SSL_VERIFYPEER seçeneğiyle birlikte kullanılır.</td></tr>
+        <tr><th>cookie => 'deger'</th><td>CURLOPT_COOKIE</td><td>HTTP isteğinde kullanılacak "Cookie: " başlığının içeriği. Bir noktalı virgülden sonra gelen bir boşlukla ayrılarak çok sayıda çerez belirtilebilir ("urun=pantolon; renk=mavi" gibi).</td></tr>
+        <tr><th>cookie_file => 'deger'</th><td>CURLOPT_COOKIEFILE</td><td>Çerez verisini içeren dosyanın adı. Çerez dosyası Netscape biçeminde veya bir dosyaya dökümlenmiş salt HTTP tarzı başlıklar biçeminde olabilir.</td></tr>
+        <tr><th>cookie_jar => 'deger'</th><td>CURLOPT_COOKIEJAR</td><td>Bağlantı kapandığında tüm dahili çerezlerin kaydedileceği dosyanın ismi.</td></tr>
+        <tr><th>custom_request => 'deger'</th><td>CURLOPT_CUSTOMREQUEST</td><td>Bir HTTP isteği yaparken "GET" veya "HEAD" yerine kullanılacak özel istek yöntemi. "DELETE" veya biraz daha çapraşık HTTP istekleri yapmak için kullanışlıdır. Geçerli değerlerin bazıları: "GET", "POST", "CONNECT"; yani, istek satırının tamamını buraya girmeyin. Örneğin, "GET /index.html HTTP/1.0\r\n\r\n" girdisi yanlış olacaktır. Belirteceğiniz istek yöntemini sunucunun desteklediğinden emin olmadan bir şey belirtmeyin.</td></tr>
+        <tr><th>egd_socket => 'deger'</th><td>CURLOPT_EGDSOCKET</td><td>Bozunum değerlerini toplama uygulamasına bir dosya ismi belirtmesi dışında CURLOPT_RANDOM_FILE gibidir.</td></tr>
+        <tr><th>ftp_port => 'deger'</th><td>CURLOPT_FTPPORT</td><td>FTP "POST" komutu için kullanılacak IP adresini almakta kullanılacak değer. "POST" komutu, uzak sunucunun bizim belirttiğimiz IP adresine bağlanmasını söyler. Dizge bir IP adresi içerebileceği gibi bir konakismi, (Unix altında) bir ağ arayüzü adı veya sistemin öntanımlı IP adresinin kullanılacağı anlamında '-' olabilir.</td></tr>
+        <tr><th>interface => 'deger'</th><td>CURLOPT_INTERFACE</td><td>Kullanılacak giden ağ arayüzünün ismi. Bir ağ arabirimi ismi, bir IP adresi veya bir konak ismi olabilir.</td></tr>
+        <tr><th>krb4_level => 'deger'</th><td>CURLOPT_KRB4LEVEL</td><td>KRB4 (Kerberos 4) güvenlik seviyesi. Geçerli değerler (en güçsüzden en güçlüye doğru): "clear", "safe", "confidential", "private".. Dizge bunlardan biri değilse "private" kullanılır. Bu seçeneğe NULL atanması KRB4 güvenliğini iptal eder. Şimdilik KRB4 güvenliği sadece FTP aktarımlarında çalışmaktadır.</td></tr>
+        <tr><th>random_file => 'deger'</th><td>CURLOPT_RANDOM_FILE</td><td>SSL için rasgele sayı üretecini tohumlamakta kullanılacak dosya ismi.</td></tr>
+        <tr><th>range => 'deger'</th><td>CURLOPT_RANGE</td><td>X ve Y isteğe bağlı olmak üzere "X-Y" biçeminde alınacak veri aralığı. HTTP aktarımları, "X-Y,N-M" biçeminde virgüllerle ayrılmış olarak çok sayıda aralığı destekler.</td></tr>
+        <tr><th>ssl_cipher_list => 'deger'</th><td>CURLOPT_SSL_CIPHER_LIST</td><td>SSL için kullanılacak şifrelerin listesi. Örneğin, RC4-SHA ve TLSv1 geçerli şifre listeleridir.</td></tr>
+        <tr><th>ssl_cert => 'deger'</th><td>CURLOPT_SSLCERT</td><td>PEM biçemli sertifikayı içeren dosyanın ismi.</td></tr>
+        <tr><th>ssl_cert_passwd => 'deger'</th><td>CURLOPT_SSLCERTPASSWD</td><td>CURLOPT_SSLCERT sertifikasını kullanmak için gereken parola.</td></tr>
+        <tr><th>ssl_cert_type => 'deger'</th><td>CURLOPT_SSLCERTTYPE</td><td>Sertifika biçemi. Desteklenen biçemler: "PEM" (öntanımlı), "DER" ve "ENG".</td></tr>
+        <tr><th>ssl_engine => 'deger'</th><td>CURLOPT_SSLENGINE</td><td>CURLOPT_SSLKEY ile belirtilmiş gizli SSL anahtarının şifreleme motoru için betimleyici</td></tr>
+        <tr><th>ssl_engine_default => 'deger'</th><td>CURLOPT_SSLENGINE_DEFAULT</td><td>Bakışımsız şifreleme işlemleri için kullanılan şifreleme motoru için betimleyici.</td></tr>
+        <tr><th>ssl_key => 'deger'</th><td>CURLOPT_SSLKEY</td><td>Gizli SSL anahtarını içeren dosyanın ismi.</td></tr>
+        <tr><th>ssl_key_passwd => 'deger'</th><td>CURLOPT_SSLKEYPASSWD</td><td>URLOPT_SSLKEY ile belirtilen gizli SSL anahtarını kullanmak için gereken gizli parola. Bu seçenekle belirtilen parolayı yetkisiz kişilerin okumaması için PHP betiğini güvenilir bir yerde tutmaya çalışın.</td></tr>
+        <tr><th>ssl_key_type => 'deger'</th><td>CURLOPT_SSLKEYTYPE</td><td>CURLOPT_SSLKEY ile belirtilen gizli SSL anahtarının anahtar türü. Desteklenen anahtar türleri: "PEM" (öntanımlı), "DER", ve "ENG".</td></tr>
+        <tr><th>user_pwd => 'deger'</th><td>CURLOPT_USERPWD</td><td>Bağlantı için kullanılmak üzere "[kullanıcı]:[parola]" biçeminde kullanıcı adı ve parola.</td></tr>
+        <tr><th>http_200_aliases => 'deger'</th><td>CURLOPT_HTTP200ALIASES</td><td>Hata değil geçerli yanıtlar olarak ele alınmak üzere HTTP 200 yanıtlarını içeren bir dizi.</td></tr>
+        <tr><th>http_header => 'deger'</th><td>CURLOPT_HTTPHEADER</td><td>HTTP başlık alanlarını içeren bir dizi.</td></tr>
+        <tr><th>post_quote => 'deger'</th><td>CURLOPT_POSTQUOTE</td><td>FTP isteği yapıldıktan sonra sunucu üzerinde çalıştırılacak komutları içeren bir dizi.</td></tr>
+        <tr><th>quote => 'deger'</th><td>CURLOPT_QUOTE</td><td>FTP isteği yapılmadan önce sunucu üzerinde çalıştırılacak komutları içeren bir dizi.</td></tr>
+        <tr><th>in_file => 'deger'</th><td>CURLOPT_INFILE</td><td>Karşıya yükleme sırasında aktarımın okuyacağı dosya.</td></tr>
+        <tr><th>stderr => 'deger'</th><td>CURLOPT_STDERR</td><td>Çıktı hatalarının gönderileceği STDERR yerine kullanılacak dosya.</td></tr>
+        <tr><th>white_header => 'deger'</th><td>CURLOPT_WRITEHEADER</td><td>Aktarımın başlık bölümünün yazılacağı dosya.</td></tr>
+        <tr><th>header_function => 'deger'</th><td>CURLOPT_HEADERFUNCTION</td><td>İki değiştirgeli bir geriçağırım işlevinin ismi. Değiştirgelerin ilki bir cURL özkaynağı, ikincisi ise başlık verisinin yazılacağı bir dizge olmalıdır. Başlık verisi bu geriçağırım işlevi kullanılırken yazılmalıdır. İşlevin dönüş değeri yazılan bayt sayısı olmalıdır.</td></tr>
+        <tr><th>passwd_function => 'deger'</th><td>CURLOPT_PASSWDFUNCTION</td><td>Üç değiştirgeli bir geriçağırım işlevinin ismi. Değiştirgelerin ilki bir cURL özkaynağı, ikincisi parola istemi belirten bir dizge, üçüncüsü ise parolanın azami uzunluğu olmalıdır. İşlevin dönüş değeri parolayı içeren bir dizge olmalıdır.</td></tr>
+        <tr><th>progress_function => 'deger'</th><td>CURLOPT_PROGRESSFUNCTION</td><td>Geriçağırım işlevinin üç değiştirge aldığı durumda geriçağırım işlevinin ismi. Değiştirgelerin ilki bir cURL özkaynağı, ikincisi bir dosya tanıtıcısı, üçüncüsü ise uzunluk olmalıdır. İşlevin dönüş değeri veriyi içeren bir dizge olmalıdır.</td></tr>
+        <tr><th>read_function => 'deger'</th><td>CURLOPT_READFUNCTION</td><td>İki değiştirgeli bir geriçağırım işlevinin ismi. Değiştirgelerin ilki bir CURL özkaynağı, ikincisi ise okunacak veriyi iceren bir dizge olmalıdır. Veri bu geriçağırım işlevi kullanılarak okunmalıdır. İşlevin dönüş değeri okunan bayt sayısı olmalıdır. Dosya sonunun bildirmek için ise 0 dönmelidir.</td></tr>
+        <tr><th>write_function => 'deger'</th><td>CURLOPT_WRITEFUNCTION</td><td>İki değiştirgeli bir geriçağırım işlevinin ismi. Değiştirgelerin ilki bir CURL özkaynağı, ikincisi ise yazılacak veriyi içeren bir dizge olmalıdır. Veri bu geriçağırım işlevi kullanılarak yazılmalıdır. İşlevin dönüş değeri yazılan bayt sayısı olmalıdır.</td></tr>
+    </table>
+    </p>
+   
+    <div type="code">
+    <pre><x><</x>?php
+<kf>class</kf> CurlIslemleri
+{
+	<kf>public</kf> <ff>function</ff> index()
+        {
+            import::library(<sf>'Curl'</sf>); <comment>// Önce Curl sınıfı dahil edilir. </comment>
+            
+            <vf>$site</vf> = <sf>'http://www.ornek.com'</sf>;
+            curl::open(<vf>$site</vf>); <comment>// Şuanda curl oturumunu başlatmış olduk.</comment>
+            <vf>$opt</vf> = <kf>array</kf>(
+            	<sf>'return_transfer'</sf> => <kf>true</kf>,
+                <sf>'header'</sf> => <kf>true</kf>
+            );
+            curl::settings(<vf>$opt</vf>); <comment>// Ayarlar belirlendi.</comment>
+        }
+}</pre>
+    </div>
+		
+    <p>Yukarıda settings() yönteminde birden fazla seçenek kullanıldığı için seçenekler dizi olarak gönderildi. Tek bir seçenek yollasaydık aşağıdaki gibide kullanabilirdiniz.</p>
+    <div type="code">curl::settings(<sf>'return_transfer'</sf>, <kf>true</sf>);</div>
+    
+    <p class="cstfont" id="curl_execute">CURL İşlemlerini Çalıştırmak curl::execute()</p>
+   	<p>Yapılan curl işlemlerinin çalıştırılmasını sağlar.</p>
+   
+    <div type="code">
+    <pre><x><</x>?php
+<kf>class</kf> CurlIslemleri
+{
+	<kf>public</kf> <ff>function</ff> index()
+        {
+            import::library(<sf>'Curl'</sf>); <comment>// Önce Curl sınıfı dahil edilir. </comment>
+            
+            <vf>$site</vf> = <sf>'http://www.ornek.com'</sf>;
+            curl::open(<vf>$site</vf>); <comment>// Şuanda curl oturumunu başlatmış olduk.</comment>
+            <vf>$opt</vf> = <kf>array</kf>(
+            	<sf>'return_transfer'</sf> => <kf>true</kf>,
+                <sf>'header'</sf> => <kf>true</kf>
+            );
+            curl::settings(<vf>$opt</vf>); <comment>// Ayarlar belirlendi.</comment>
+            curl::execute(); <comment>// Curl işlemleri çalıştırılıyor.</comment>
+        }
+}</pre>
+    </div>
+    
+    <p class="cstfont" id="curl_close">CURL İşlemlerini Sonlandırmak curl::close()</p>
+   	<p>Yapılan curl işlemlerinin sonlandırılmasını sağlar. Her farklı curl oturumunun kapatılması gerekir.</p>
+   
+    <div type="code">
+    <pre><x><</x>?php
+<kf>class</kf> CurlIslemleri
+{
+	<kf>public</kf> <ff>function</ff> index()
+        {
+            import::library(<sf>'Curl'</sf>); <comment>// Önce Curl sınıfı dahil edilir. </comment>
+            
+            <vf>$site</vf> = <sf>'http://www.ornek.com'</sf>;
+            curl::open(<vf>$site</vf>); <comment>// Şuanda curl oturumunu başlatmış olduk.</comment>
+            <vf>$opt</vf> = <kf>array</kf>(
+            	<sf>'return_transfer'</sf> => <kf>true</kf>,
+                <sf>'header'</sf> => <kf>true</kf>
+            );
+            curl::settings(<vf>$opt</vf>); <comment>// Ayarlar belirlendi.</comment>
+            curl::execute(); <comment>// Curl işlemleri çalıştırılıyor.</comment>
+            
+            curl::close(); <comment>// Başlatılmış Curl işlemleri sonlandırır.</comment>
+        }
+}</pre>
+    </div>
+    
+    <p class="cstfont" id="curl_info">CURL İşlemleri Hakkında Bilgi Almak curl::info()</p>
+   	<p>Bir curl işlemleri hakkında bilgi sağlar. 1 parametresi vardır.</p>
+     <table class="cfont">
+    	<tr><th>Parametreler</th><td>Varsayılan Değer</td><td>Alacağı Değer</td><td>Anlamı</td></tr>
+        <tr><th>Bilgi</th><td>NULL</td><td>'bilgi_adi'</td><td>curl işlemleri sırasında öğrenilmek istenen bilgileri belirtilir.</td></tr>
+    </table>
+     <p>CURLOPT_XXX Tipindeki seçenekler <b>Config/Curl.php</b> doyasında düzenlenmiş ve yeni değerler kazanmıştır yani CURLINFO_SPEED_DOWNLOAD böyle bir ifade 'speed_download' şeklinde düzenlenmiştir gördüğünüz gibi CURLINFO ibaresi kaldırılmış ve kalan bölüm küçük harfle yazılıp sözcükler arasına alt tire konulmuştur. Değişikliklere <b>Config/Curl.php</b> buradan bakabilirsiniz.</p>
+    <p>
+    <table  id="parametre_table" class="cfont">
+    	<tr><th>Parametrenin Alacağı Değerleri</th><td>Karşılığı</td><td>Anlamları</td></tr>       
+        <tr><th>effective_url</th><td>CURLINFO_EFFECTIVE_URL</td><td>Son etkili URL</td></tr>
+        <tr><th>http_code</th><td>CURLINFO_HTTP_CODE</td><td>Alınan son http kodu</td></tr>
+        <tr><th>file_time</th><td>CURLINFO_FILETIME</td><td>Alınan belgenin uzaklık zamanı</td></tr>
+        <tr><th>total_time</th><td>CURLINFO_TOTAL_TIME</td><td>Son transfer için süren saniye cinsinden işlem süresi</td></tr>
+        <tr><th>name_lookup_time</th><td>CURLINFO_NAMELOOKUP_TIME</td><td>Çözülme sürecinde saniye cinsinden geçen süre</td></tr>
+        <tr><th>connect_time</th><td>CURLINFO_CONNECT_TIME</td><td>Bağlanma sürecinde saniye cinsinden geçen süre</td></tr>
+        <tr><th>pre_transfer_time</th><td>CURLINFO_PRETRANSFER_TIME</td><td>Dosya transferi başlamadan hemen önceye kadar geçen süre</td></tr>
+        <tr><th>start_transfer_time</th><td>CURLINFO_STARTTRANSFER_TIME</td><td>İşlemin başlamasına kadar geçen süre</td></tr> 
+        <tr><th>redirect_count</th><td>CURLINFO_REDIRECT_COUNT</td><td>Yönlendirme Sayısı</td></tr>
+        <tr><th>redirect_time</th><td>CURLINFO_REDIRECT_TIME</td><td>Yönlendirme Zamanı</td></tr>
+        <tr><th>redirect_url</th><td>CURLINFO_REDIRECT_URL</td><td>Yönlendirilecek URL</td></tr>
+        <tr><th>primary_ip</th><td>CURLINFO_PRIMARY_IP</td><td>En son bağlantı ip adresi</td></tr>
+        <tr><th>primary_port</th><td>CURLINFO_PRIMARY_PORT</td><td>En son hedef bağlantı noktası</td></tr>
+        <tr><th>local_ip</th><td>CURLINFO_LOCAL_IP</td><td>Yerel(kaynak) en son bağlantı IP adresi</td></tr>
+        <tr><th>local_port</th><td>CURLINFO_LOCAL_PORT</td><td>En son yerel(kaynak) bağlantı noktası</td></tr>
+        <tr><th>size_upload</th><td>CURLINFO_SIZE_UPLOAD</td><td>Yüklenen toplam bayt sayısı</td></tr>      
+        <tr><th>size_download</th><td>CURLINFO_SIZE_DOWNLOAD</td><td>İndirilen toplam bayt sayısı</td></tr>
+        <tr><th>speed_download</th><td>CURLINFO_SPEED_DOWNLOAD</td><td>Ortlama indirme hızı</td></tr>
+        <tr><th>speed_upload</th><td>CURLINFO_SPEED_UPLOAD</td><td>Ortalama yükleme hızı</td></tr>
+        <tr><th>header_size</th><td>CURLINFO_HEADER_SIZE</td><td>Alınan tüm başlıkların toplam boyutu</td></tr> 
+        <tr><th>header_out</th><td>CURLINFO_HEADER_OUT</td><td>Bu seçeneğin çalışması için CURLINFO_HEADER_SIZE değerinin curl::setting() fonksiyonu ile çağrılması gerekmektedir.</td></tr>
+        <tr><th>request_size</th><td>CURLINFO_REQUEST_SIZE</td><td>HTTP istekleri için sadece şuanda verilen isteklerin toplam büyüklüğü</td></tr>
+        <tr><th>ssl_verify_result</th><td>CURLINFO_SSL_VERIFYRESULT</td><td>SSL sertifika doğrulaması</td></tr>
+        <tr><th>content_length_download</th><td>CURLINFO_CONTENT_LENGTH_DOWNLOAD</td><td>İçeriğin indirilme uzunluğu</td></tr>
+        <tr><th>content_length_upload</th><td>CURLINFO_CONTENT_LENGTH_UPLOAD</td><td>İçeriğin yüklenme uzunluğu</td></tr>
+        <tr><th>content_type</th><td>CURLINFO_CONTENT_TYPE</td><td>İçeriğin tiği</td></tr>
+        <tr><th>private</th><td>CURLINFO_PRIVATE</td><td>Curl tanıtıcısı ile ilgili özel veri</td></tr>
+    </table>
+    </p>
+   
+    <div type="code">
+    <pre><x><</x>?php
+<kf>class</kf> CurlIslemleri
+{
+	<kf>public</kf> <ff>function</ff> index()
+        {
+            import::library(<sf>'Curl'</sf>); <comment>// Önce Curl sınıfı dahil edilir. </comment>
+            
+            <vf>$site</vf> = <sf>'http://www.ornek.com'</sf>;
+            curl::open(<vf>$site</vf>); <comment>// Şuanda curl oturumunu başlatmış olduk.</comment>
+            <vf>$opt</vf> = <kf>array</kf>(
+            	<sf>'return_transfer'</sf> => <kf>true</kf>,
+                <sf>'header'</sf> => <kf>true</kf>
+            );
+            curl::settings(<vf>$opt</vf>); <comment>// Ayarlar belirlendi.</comment>
+            curl::execute(); <comment>// Curl işlemleri çalıştırılıyor.</comment>
+            
+            curl::info();     
+            
+            curl::close(); <comment>// Başlatılmış Curl işlemleri sonlandırır.</comment>
+        }
+}</pre>
+    </div>
+      
+    <p class="cstfont" id="curl_php5">CURL İşlemleri Hata Denedimi curl::error, curl::errorno()</p>
+   	<p>Bir curl işlemleri sırasında oluşan hataların ne olduklarını anlamak için bu fonksiyonlardan yararlanılı.</p>
+   
+    <div type="code"><kf>echo</kf> curl::error();</div>
+    <p><div type="code"><kf>echo</kf> curl::errno();</div></p>
+    <p><div type="code"><kf>echo</kf> curl::errval();  <comment>// Config/Curl.php dosyasında hata numaraları ve anlamları yer almaktadır. Dönecek hata numarasına göre size hatanın anlamını verecektir.</comment></div>
+    
+    <p class="cstfont" id="curl_error">PHP 5.5.0 Versiyon Sonrası Geliştirilen Curl Metotları</p>
+	<p>Bu metotların kullanılabilmesi için PHP versiyonunuzun 5.5.0 dan büyük olması gereklidir. Geliştmeyede devam etmekte olan farklı curl fonksiyonlarıda bulunur.</p>
+    <div type="code">curl::strerror();</div>
+    <p><div type="code">curl::reset();</div></p>
+    <p><div type="code">curl::escape();</div></p>
+    <p><div type="code">curl::unescape();</div></p>
+    
+    <div type="note"><div>NOT</div><div>Amacımız sizlere curl işlemerinin ZN'de nasıl düzenlendiğini göstermektir doğrudan doğruya curl anlatmak değildir. Curl işlemleri hakkında daha detaylı bilgiye curl ile ilgili kaynaklardan ulaşabilirsiniz.</div></div>
+    
+    
+    <p class="cstfont" id="curl_version">CURL Versiyonu Öğrenmek, curl::version()</p>
+   	<p>Curl versiyonu hakkında bilgi almak için kullanılır. İsteğe bağlı 1 parametre alır herhangi bir parametre kullanımazsak bilgiler dizi olarak döner.</p>
+	<div type="code"><ff>var_dump</ff>(curl::version());</div>
+    <p>
+    <table class="cfont">
+    	<tr><th>curl::version() Parametre Değerleri</th><td>Anlamları</td></tr>
+        <tr><th>version_number</th><td>CURL 24 bitlik versiyon numarası</td></tr>
+        <tr><th>version</th><td>CURL versiyonu</td></tr>
+        <tr><th>ssl_version_number</th><td>24 bitlik SSL versiyon numarası</td></tr>
+        <tr><th>ssl_version</th><td>SSL versiyonu</td></tr>
+        <tr><th>libz_version</th><td>Zlib versiyon numarası</td></tr>
+        <tr><th>host</th><td>Host bilgisi</td></tr>
+        <tr><th>age</th><td></td></tr>
+        <tr><th>features</th><td></td></tr>
+        <tr><th>protocols</th><td>Protokoller. Dizi olarak tutulur.</td></tr>
+    </table>
+    </p>
+    <div type="prev-next">
+    	<div type="prev-btn"><a href="lib_css3.html">Önceki</a></div><div type="next-btn"><a href="lib_db.html">Sonraki</a></div>
+    </div>
+ 
+</body>
+</html>              

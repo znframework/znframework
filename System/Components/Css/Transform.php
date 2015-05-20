@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* TRANSFORM                                                                               *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Css/Transform   		     							      |
+| Sınıfı Kullanırken      :	$this->transform->       									  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentCssTransform
 {
 	/* Selector Variables

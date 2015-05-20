@@ -25,7 +25,7 @@ class Home // extends Controller
 	|  ZN Framewok Web Site: http://www.zntr.net	   				   |
 	|                                                                  |
 	\******************************************************************/
-		
+
 	function index($params = "")
 	{		
 		$data["title"] 			 = "ZN FRAMEWORK";
@@ -35,5 +35,3 @@ class Home // extends Controller
 		$this->import->page("welcome", $data); // Importing page => Views/Pages/welcome.php
 	}
 }
-
-

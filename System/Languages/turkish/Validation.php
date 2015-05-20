@@ -1,6 +1,14 @@
 <?php
-// % => name
-// # => count
+/************************************************************/
+/*                   VALIDATION LANGUAGE                    */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['validation_required'] = '% alanı boş geçilemez!';
 $lang['validation_password_match'] = 'Şifreler uyumsuz!';
 $lang['validation_data_match'] = '% bilgileri uyumsuz!';

@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* FOLDER                                                                            	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Folder   							                          |
+| Sınıfı Kullanırken      :	folder::   											          |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Folder
 {
 	/* Error Değişkeni
@@ -306,7 +314,7 @@ class Folder
 	|															                              |
 	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @path => Listesi alınacak dizinin adı veya yolu.						  |
-	| 1. string var @extension => Listede hangi uzantılı dosyaların yer alacağıdır. Bu 		  |
+	| 2. string var @extension => Listede hangi uzantılı dosyaların yer alacağıdır. Bu 		  |
 	| parametre boş bırakılırsa tüm dosya ve dizinler listeye alınacaktır.         			  |
 	|          											  									  |
 	| Örnek Kullanım: $veri = files('dizin/', 'php'); // php uzantılı dosyaları listeler.     |

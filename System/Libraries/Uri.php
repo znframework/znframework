@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* URI                                                                                	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Uri   								                          |
+| Sınıfı Kullanırken      :	uri::		   											      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Uri
 {
 	// Uri işlemleri için oluşturulmuştur.

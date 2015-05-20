@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* COOKIE                                                                               	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Cookie     							                          |
+| Sınıfı Kullanırken      :	cook::													      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/	
 class Cook
 {
 	/* Error Değişkeni
@@ -36,7 +44,7 @@ class Cook
 	| üzerinden erişilebilir olacaktır. Varsayılan:true					 					  |
 	|          																				  |
 	| Örnek Kullanım: insert('isim', 'Değer');       										  |
-	| Not: Application/Config/Cookie.php dosyası üzeinden ayarlarını yapılandırabilirsiniz.   |
+	| Not: Application/Config/Cookie.php dosyası üzerinden ayarlarını yapılandırabilirsiniz.  |
 	|          																				  |
 	******************************************************************************************/
 	public static function insert($name = '', $value = '', $time = '', $path = '', $domain = '', $secure = false, $httponly = true) // varsayılan süre 1 hafta

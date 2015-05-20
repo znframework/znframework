@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* CSS                                                                                     *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Css   		     							                  |
+| Sınıfı Kullanırken      :	$this->css->       									  		  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentCss
 {
 	protected $easing;

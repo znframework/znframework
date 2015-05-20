@@ -11,6 +11,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 if( ! isset($_SESSION)) session_start();
 
+/******************************************************************************************
+* CART                                                                               	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Cart     							                          |
+| Sınıfı Kullanırken      :	cart::													      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/	
 class Cart
 {
 	/* Items Dizi Değişkeni
@@ -470,7 +478,7 @@ class Cart
 	}
 	
 	/******************************************************************************************
-	* ERROR                                                                           *
+	* ERROR                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Sepet işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.|
 	|     														                              |

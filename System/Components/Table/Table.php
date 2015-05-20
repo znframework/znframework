@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* TABLE                                                                                   *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Table            							     			  |
+| Sınıfı Kullanırken      :	$this->table->     									      	  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentTable
 {
 	protected $attr = array();

@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* CURL                                                                                	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Curl     							                          |
+| Sınıfı Kullanırken      :	curl::													      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Curl
 {
 	/* Inıt Değişkeni
@@ -59,8 +67,8 @@ class Curl
 	|          																				  |
 	| 1. Parametre için 2 tür kullanım mümkündür.         									  |
 	|          																				  |
-	| Örnek Kullanım: setting('url', 'http://www.example.xxx/');       						  |
-	| Örnek Kullanım: setting(array('url' => 'http://www.example.xxx/', ...));   			  |
+	| Örnek Kullanım: settings('url', 'http://www.example.xxx/');       				      |
+	| Örnek Kullanım: settings(array('url' => 'http://www.example.xxx/', ...));   			  |
 	|          																				  |
 	******************************************************************************************/
 	public static function settings($settings = '', $value = '')

@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* PAGINATION                                                                           	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Pagination   							                      |
+| Sınıfı Kullanırken      :	pag::   											          |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Pag
 {
 	/* Total Rows Değişkeni
@@ -337,33 +345,33 @@ class Pag
 			// Linkler için style kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastest_tag_style = ( isset(self::$class['last']) ) 
-							   ? ' style="'.self::$class['last'].'" ' 
+			$lastest_tag_style = ( isset(self::$style['last']) ) 
+							   ? ' style="'.self::$style['last'].'" ' 
 							   : '';
 			
 			// FIRST LINK
-			$firstest_tag_style = ( isset(self::$class['first']) ) 
-							   ? ' style="'.self::$class['first'].'" ' 
+			$firstest_tag_style = ( isset(self::$style['first']) ) 
+							   ? ' style="'.self::$style['first'].'" ' 
 							   : '';	
 			
 			// NEXT LINK
-			$last_tag_style = ( isset(self::$class['next']) ) 
-							   ? ' style="'.self::$class['next'].'" ' 
+			$last_tag_style = ( isset(self::$style['next']) ) 
+							   ? ' style="'.self::$style['next'].'" ' 
 							   : '';				   
 			
 			// CURRENT LINK 
-			$current_link_style = ( isset(self::$class['current']) ) 
-							   ? ' style="'.self::$class['current'].'" ' 
+			$current_link_style = ( isset(self::$style['current']) ) 
+							   ? ' style="'.self::$style['current'].'" ' 
 							   : '';
 			
 			// LINKS 
-			$links_style = ( isset(self::$class['links']) ) 
-							   ? ' style="'.self::$class['links'].'" ' 
+			$links_style = ( isset(self::$style['links']) ) 
+							   ? ' style="'.self::$style['links'].'" ' 
 							   : '';
 			
 			// PREV
-			$first_tag_style = ( isset(self::$class['prev']) ) 
-							   ? ' style="'.self::$class['prev'].'" ' 
+			$first_tag_style = ( isset(self::$style['prev']) ) 
+							   ? ' style="'.self::$style['prev'].'" ' 
 							   : '';				   
 			// -------------------------------------------------------------------------
 			

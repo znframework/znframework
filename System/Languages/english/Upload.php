@@ -1,5 +1,14 @@
 <?php
+/************************************************************/
+/*                   UPLOAD LANGUAGE                        */
+/************************************************************/
+/*
 
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['upload_extension_error'] = 'Invalid file extension!';
 $lang['upload_unknown_error'] = 'Unknown error or file is too large!';
 $lang['upload_0'] = 'The file was uploaded successfully.';

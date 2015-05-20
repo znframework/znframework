@@ -10,6 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Form/Security.php');
+/******************************************************************************************
+* PROTECTED VALIDATION                                                                    *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil Edilmez   		     							      |
+| Sınıfı Kullanırken      :	Kullanılmaz      									 		  |
+| 																						  |
+| NOT: From kütüphanesine yardımcı sınıftır.     										  |
+******************************************************************************************/
 class ComponentFormValidation extends ComponentFormSecurity
 {
 	protected $required;

@@ -13,6 +13,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * Config/Upload.php dosyasından Ini ayarlarını yapılandır.                                *
 ******************************************************************************************/
 config::iniset(config::get('Upload','settings'));
+/******************************************************************************************
+* UPLOAD                                                                            	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Upload   							                          |
+| Sınıfı Kullanırken      :	upload::   											          |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Upload
 {
 	/* Settings Değişkeni

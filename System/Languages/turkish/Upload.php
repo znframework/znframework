@@ -1,5 +1,14 @@
 <?php
+/************************************************************/
+/*                   UPLOAD LANGUAGE                        */
+/************************************************************/
+/*
 
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['upload_extension_error'] = 'Geçersiz dosya uzantısı!';
 $lang['upload_unknown_error'] = 'Bilinmeyen hata veya çok büyük boyutlu dosya!';
 $lang['upload_0'] = 'Dosya başarı ile yüklendi.';

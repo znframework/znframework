@@ -1,4 +1,14 @@
 <?php
+/************************************************************/
+/*                     USER LANGUAGE                        */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['user_register_success'] = 'Your registration was completed successfully.';
 $lang['user_register_error'] = 'You have already registered with the system for the transaction could not be performed!';
 $lang['user_register_email_error'] = 'Your process because the system could not be performed previously registered e-mail!';

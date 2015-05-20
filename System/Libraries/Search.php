@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* SEARCH                                                                            	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Search   							                          |
+| Sınıfı Kullanırken      :	search::   							    				      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Search
 {
 	/* Result Değişkeni

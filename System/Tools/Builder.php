@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | // name="ornek" id="zntr"       														  |
 |          																				  |
 ******************************************************************************************/	
-if(!function_exists('attributes'))
+if( ! function_exists('attributes') )
 {
 	function attributes($attributes = '')
 	{
@@ -71,7 +71,7 @@ if(!function_exists('attributes'))
 | ); 																					  |
 |																						  |
 ******************************************************************************************/	
-if(!file_exists('xml_builder'))
+if( ! file_exists('xml_builder') )
 {
 	function xml_builder($elements = '', $content = '', $attribute = '', $version = '1.0', $encoding = 'utf-8')
 	{		
@@ -122,7 +122,7 @@ if(!file_exists('xml_builder'))
 | echo list_builder(array('a', 'b', 'c'), array('name' => 'liste'), 'ol');                |
 |																						  |
 ******************************************************************************************/	
-if(!function_exists('list_builder'))
+if( ! function_exists('list_builder') )
 {
 	function list_builder($elements = '', $attributes = '', $type = 'ul')
 	{
@@ -176,7 +176,7 @@ if(!function_exists('list_builder'))
 | echo table_builder($elemanlar, $ozellikler);											  |
 |																						  |
 ******************************************************************************************/	
-if(!file_exists('table_builder'))
+if( ! file_exists('table_builder') )
 {
 	function table_builder($elements = '', $attributes = '')
 	{

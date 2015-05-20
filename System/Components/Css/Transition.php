@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                    TRANSLATE COMPONENT                   */
+/*                   TRANSITION COMPONENT                   */
 /************************************************************/
 /*
 
@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* TRANSITION                                                                              *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Css/Transition   		     							      |
+| Sınıfı Kullanırken      :	$this->transition->       									  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentCssTransition
 {
 	protected $easing;

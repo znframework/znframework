@@ -1,6 +1,14 @@
 <?php
-// % => name
-// # => count
+/************************************************************/
+/*                     COOKIE LANGUAGE                      */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['cook_name_parameter_empty_error'] = 'Çerez isim parametresi boş!';
 $lang['cook_value_parameter_empty_error'] = 'Çerez değer parametresi boş!';
 $lang['cook_set_error'] = 'Çerez tanımlanamadı!';

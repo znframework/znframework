@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* LIST                                                                                    *
+*******************************************************************************************
+| Dahil(Import) Edilirken : List     							     			  		  |
+| Sınıfı Kullanırken      :	$this->list->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentList
 {
 	/* Attr Değişkeni

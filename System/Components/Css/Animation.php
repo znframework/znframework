@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* ANIMATION                                                                               *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Css/Animation     							                  |
+| Sınıfı Kullanırken      :	$this->animation->       									  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/	
 class ComponentCssAnimation
 {
 	protected $easing;

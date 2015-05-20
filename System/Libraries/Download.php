@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* DOWNLOAD                                                                            	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Download   							                          |
+| Sınıfı Kullanırken      :	download::   											      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Download
 {
 	/* Error Değişkeni

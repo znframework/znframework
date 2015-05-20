@@ -10,6 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Form/Validation.php');
+/******************************************************************************************
+* FORM                                                                                    *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Form  		     							     			  |
+| Sınıfı Kullanırken      :	$this->form->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentForm extends ComponentFormValidation
 {
 	protected $name;
@@ -382,7 +390,7 @@ class ComponentForm extends ComponentFormValidation
 	{
 		if($output === 'array')
 			return $this->valid_error;
-		elseif($output === 'echo')
+		elseif($output === 'echo' || $output === 'string')
 		{	
 			$out = '';
 			if( ! empty($this->valid_error)) foreach($this->valid_error as $error)

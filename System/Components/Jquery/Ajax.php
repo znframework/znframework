@@ -10,6 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+/******************************************************************************************
+* AJAX                                                                                    *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Jquery/Ajax     							     			  |
+| Sınıfı Kullanırken      :	$this->ajax->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentJqueryAjax extends ComponentJqueryObjects
 {
 	/* Function Variables
@@ -711,6 +719,11 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 		$this->_default_variable();
 		
 		return $ajax;
+	}
+	
+	public function create($url = '', $data = '')
+	{
+		return $this->send($url, $data);	
 	}
 	
 	// DEFAULT VARIABLES

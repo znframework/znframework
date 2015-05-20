@@ -10,13 +10,55 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+/******************************************************************************************
+* JQUERY                                                                                  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Jquery     							     			     	  |
+| Sınıfı Kullanırken      :	$this->jquery->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentJquery extends ComponentJqueryObjects
 {
+	/* Selector Variables
+	 * Selector 
+	 * this, #custom, .example
+	 *
+	 * $(this), $("#custom"), $(".example") 
+	 */
 	protected $selector = 'this';
+	
+	/* Property Variables
+	 * Property 
+	 * css, attr, val
+	 *
+	 * $.css(), .attr(), .val()
+	 */
+	 
 	protected $property = '';
+	
+	/* Callback Variables
+	 * Data Function
+	 * alert("example");
+	 *
+	 * function(data){alert("example");}
+	 */
 	protected $func = '';
+	
+	/* Attributes Variables
+	 * Attributes 
+	 * 
+	 *
+	 * {key:val} 
+	 */
 	protected $attr = '';
 	
+	/* Selector Function
+	 * Params: string @selector 
+	 * this, #custom, .example
+	 *
+	 * $(this), $("#custom"), $(".example") 
+	 */
 	public function selector($selector = '')
 	{
 		if( ! is_char($selector))
@@ -35,6 +77,12 @@ class ComponentJquery extends ComponentJqueryObjects
 		return $this;
 	}	
 	
+	/* Property Function
+	 * Params: string @property , array @attr
+	 * this, #custom, .example
+	 *
+	 * .css(a,b,c), .attr(a,b,c), .val('deger')
+	 */
 	public function property($property = '', $attr = array())
 	{
 		if( ! is_string($property))

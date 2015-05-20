@@ -666,7 +666,7 @@ function host()
 			}
 		}
 	}
-	
+		
 	return trim($host);
 }
 
@@ -1296,6 +1296,40 @@ function imported_tools()
 	return $tools;
 }
 
+// Function: get_message()
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+function get_message($lang_file, $error_msg, $ex = '')
+{
+	import::language($lang_file);
+	
+	return lang($error_msg, $ex);
+}
+
+// Function: error_report()
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+function error_report($type = NULL)
+{	
+	$result = error_get_last();
+	
+	if( $type === NULL )
+	{
+		return $result;
+	}
+	else
+	{
+		if( isset($result[$type]) )
+		{
+			return $result[$type];
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
 //------------------------------------SYSTEM AND USER FUNCTIONS END-------------------------------------------------------------------
 
 
@@ -1787,40 +1821,6 @@ function index_status()
 	else
 	{ 
 		return '';	
-	}
-}
-
-// Function: get_message()
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-function get_message($lang_file, $error_msg, $ex = '')
-{
-	import::language($lang_file);
-	
-	return lang($error_msg, $ex);
-}
-
-// Function: error_report()
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-function error_report($type = NULL)
-{	
-	$result = error_get_last();
-	
-	if( $type === NULL )
-	{
-		return $result;
-	}
-	else
-	{
-		if( isset($result[$type]) )
-		{
-			return $result[$type];
-		}
-		else
-		{
-			return false;
-		}
 	}
 }
 

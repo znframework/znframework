@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* JSON                                                                               	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Json     							                          |
+| Sınıfı Kullanırken      :	json::      											      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Json
 {
 	/* Key Değişkeni
@@ -33,7 +41,7 @@ class Json
 	| Parametreler: 3 parametresi vardır.                                              	      |
 	| 1. array var @data => Özel veriye çevrilecek dizi parametresi.        	  			  |
 	| 2. [ string var @key ] => Anahtar değer ayracı. Varsayılan:+-?||?-+	                  |
-	| 3. [ string var @seperator => Parametre ayracı. Varsayılan:|?-++-?|	                  |
+	| 3. [ string var @seperator ] => Parametre ayracı. Varsayılan:|?-++-?|	                  |
 	|          																				  |
 	| Örnek Kullanım: encode(array(1 => 1, 2 => 2));        	  					          |
 	| // 1+-?||?-+1|?-++-?|2+-?||?-+2     													  |
@@ -89,7 +97,7 @@ class Json
 	| Parametreler: 3 parametresi vardır.                                              	      |
 	| 1. array var @data => Object veri türüne çevrilecek özel veri.        	  			  |
 	| 2. [ string var @key ] => Anahtar değer ayracı. Varsayılan:+-?||?-+	                  |
-	| 3. [ string var @seperator => Parametre ayracı. Varsayılan:|?-++-?|	                  |
+	| 3. [ string var @seperator ] => Parametre ayracı. Varsayılan:|?-++-?|	                  |
 	|          																				  |
 	| Örnek Kullanım: decode('1+-?||?-+1|?-++-?|2+-?||?-+2 ');        	  					  |
 	| //  (object)array(1 => 1, 2 => 2)   													  |

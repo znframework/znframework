@@ -17,11 +17,10 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *-------------------------------------------------------------
 */
 
-
 //-------------------------------------------------------------------------------------
 // İşlev: Kütüphanelerin sınıf isimlerinde dosya isminden farklı bir
 // isim kullanılması düşünülüyorsa bu bölüme ilave edilmelidir.
-// Veri: array().
+// Dosya Adı => Sınıf Adı
 // Kullanımı: array('Database' => 'Db' , ...);
 //-------------------------------------------------------------------------------------
 $config['Libraries']['short_name'] 	= array

@@ -34,7 +34,8 @@ $config['Session']['regenerate'] = true;
 $config['Session']['set_htaccess_file'] = false; 
 
 //---------------------------------------------// VARSAYILAN DEĞERLER
-$config['Session']['settings'] = array(
+$config['Session']['settings'] = array
+(
 	'session.save_path'					=> '', // NULL
 	'session.name' 						=> '', // PHPSESSID
 	'session.save_handler'				=> '', // files

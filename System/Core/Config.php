@@ -12,8 +12,28 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 class Config
 {
+	/*
+	 * Set edilen ayarları tutacak dizi değişken
+	 *
+	 * array @set_configs
+	 *
+	 */
 	private static $set_configs = array();
+	
+	/*
+	 * Ayarları tutacak dizi değişken
+	 *
+	 * array @config
+	 *
+	 */
 	private static $config = array();
+	
+	/*
+	 * Ayarın daha önce yüklenip yüklenilmediğinin kontrolü.
+	 *
+	 * boolean @load_control
+	 *
+	 */
 	private static $load_control = false;
 	
 	private static function _config($file)
@@ -32,9 +52,15 @@ class Config
 		}
 	}
 	
-	// Function: get()
-	// İşlev: İstenilen ayarı çağırmak için kullanılır. 
-	
+	/* GET FUNCTION
+	 *
+	 * Ayar çağırmak için kullanılır.
+	 *
+	 * 2 Parametresi vardır.
+	 *
+	 * 1. Parametre string @file: Çağrılacak config dosyasının adı.
+	 * 2. Parametre string @configs: Dosya içerisinden çağrılmak istenen dizi anahtarı.
+	 */
 	public static function get($file = '', $configs = '')
 	{	
 		if( ! is_string($file)) return false;
@@ -55,9 +81,16 @@ class Config
 		if( isset(self::$config[$file][$configs]) ) return self::$config[$file][$configs]; else return false;
 	}
 	
-	// Function: get()
-	// İşlev: İstenilen ayarı değiştirmek için kullanılır.
-	
+	/* SET FUNCTION
+	 *
+	 * Ayar bilgisini değiştirmek için kullanılır.
+	 *
+	 * 3 Parametresi vardır.
+	 *
+	 * 1. Parametre string @file: Çağrılacak config dosyasının adı.
+	 * 2. Parametre string @configs: Dosya içerisinden değiştirilmek istenen dizi anahtarı.
+	 * 3. Parametre mixed @set: Eski ayarın yerini alması istenilen yeni değer.
+	 */
 	public static function set($file = '', $configs = '', $set = '')
 	{
 		if( ! is_string($file)) return false;
@@ -71,7 +104,19 @@ class Config
 		if(isset(self::$config[$file][$configs])) return self::$config[$file][$configs] = $set;	
 	}
 	
-	
+	/* INISET FUNCTION
+	 *
+	 * PHP INI ayarlarını yapılandırmak için kullanılır.
+	 *
+	 * 2 Parametresi vardır.
+	 *
+	 * 1. Parametre string or array @key: Değiştirilmek istenen ini ayarının adı.
+	 * 2. Parametre string @val: Yeni ayar
+	 *
+	 * Birden fazla ayarın aynı anda değiştirilmesi istenirse
+	 * 2. parametre dizi olarak belirtilir. Bu durumda 2. parametre kullanılmaz.
+	 * array(key1 => val1, key2 => val2 ...) kullanılır.
+	 */
 	public static function iniset($key = '', $val = '')
 	{
 		
@@ -101,7 +146,18 @@ class Config
 		}
 	}
 	
-	
+	/* INIGET FUNCTION
+	 *
+	 * PHP INI ayar veya ayarlarının değerlerini öğrenmek için kullanılır.
+	 *
+	 * 1 Parametresi vardır.
+	 *
+	 * 1. Parametre string or array @key: Çağrılması istenilen ayarın adı
+	 *
+	 * Birden fazla ayarın aynı anda değer bilgisinin alınması isteniyorsa.
+	 * 2. parametre dizi olarak belirtilir.
+	 * array(key1, key2 ...) kullanılır.
+	 */
 	public static function iniget($key = '')
 	{
 		if(empty($key)) return false;
@@ -121,7 +177,10 @@ class Config
 		}
 	}
 	
-	
+	/* INIGET ALL FUNCTION
+	 *
+	 * Tüm yapılandırılmış ini ayarlarını almak için kullanılır.
+	 */
 	public static function iniget_all($extension = '', $details = true)
 	{
 		if(empty($extension)) 
@@ -130,7 +189,10 @@ class Config
 			return ini_get_all($extension, $details);	
 	}
 	
-	
+	/* INI RESTORE FUNCTION
+	 *
+	 * Tüm yapılandırılmış ini ayarlarını sıfırlamak için kullanılır.
+	 */
 	public static function inirestore($str = '')
 	{
 		return ini_restore($str);	

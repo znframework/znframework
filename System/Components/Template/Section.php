@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* SECTION                                                                                 *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Template/Section      							     	      |
+| Sınıfı Kullanırken      :	$this->section->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentTemplateSection
 {
 	protected $attr = array();

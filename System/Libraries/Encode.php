@@ -9,12 +9,20 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* ENCODE                                                                            	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Encode   							                          |
+| Sınıfı Kullanırken      :	encode::    											      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Encode
 {
 	/******************************************************************************************
 	* CREATE                                                                                  *
 	*******************************************************************************************
-	| Genel Kullanım: Rastgele şifre oluşturmak için kullanılır.						     	  |
+	| Genel Kullanım: Rastgele şifre oluşturmak için kullanılır.						      |
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @count => Şifrenin karakter uzunluğu. Varsayılan:6						  |
@@ -124,7 +132,7 @@ class Encode
 		// eklenecek ek veri kabul edilir.
 		if( empty($project_key) ) 
 		{
-			$additional = md5(server('host')); 
+			$additional = md5(host()); 
 		}
 		else 
 		{

@@ -20,14 +20,17 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | 1. array var @data => Gönderilecek olan dizi.							  				  |
 |          																				  |
 ******************************************************************************************/	
-function json_send_back($data = array())
+if( ! function_exists('json_send_back') )
 {
-	if( ! is_array($data) || empty($data) ) 
+	function json_send_back($data = array())
 	{
-		return false;
+		if( ! is_array($data) || empty($data) ) 
+		{
+			return false;
+		}
+		
+		json_encode($data);	exit;
 	}
-	
-	json_encode($data);	exit;
 }
 
 /******************************************************************************************
@@ -39,11 +42,14 @@ function json_send_back($data = array())
 | 1. mixed var @data => Çıktı oluşturulacak veri.							  		      |
 |          																				  |
 ******************************************************************************************/	
-function send_back($data = '')
+if( ! function_exists('send_back') )
 {
-	if( ! is_value($data) ) 
+	function send_back($data = '')
 	{
-		return false;
-	}
-	echo $data; exit;	
-}	
+		if( ! is_value($data) ) 
+		{
+			return false;
+		}
+		echo $data; exit;	
+	}	
+}

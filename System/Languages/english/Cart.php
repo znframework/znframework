@@ -1,6 +1,14 @@
 <?php
-// % => name
-// # => count
+/************************************************************/
+/*                     CART LANGUAGE                        */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['cart_array_parameter_error'] = 'Insert data parameter must array information to be added!';
 $lang['cart_update_array_parameter_error'] = 'Update data parameter must array information to be updated!';
 $lang['cart_insert_parameter_empty_error'] = 'Added data parameter is empty!';

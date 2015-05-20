@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZN KOD ÇATISI</title>
+<link type="text/css" rel="stylesheet" href="../Styles/Structure.css" />
+<script src="../Scripts/Jquery.js"></script>
+<script src="../Scripts/Structure.js"></script>
+</head>
+
+<body>
+    <div id="content-document"><a href="#">Döküman</a> » <a href="components.html">Bileşenler</a> » Pagination(Sayfalama) Bileşeni</div> 
+    <p class="ctfont">Pagination(Sayfalama) Bileşeni</p>
+    <p>Sayfalama işlemlerini yapmak için oluşturulmuştur .</p>
+    <ul><li><a href="#" class="infont">Sayfalama Bileşenini ve Yöntemleri</a><br><br>
+        <ul>
+        	<li><a href="#pag_import">Sayfalama Bileşenini Dahil Etmek</b></a></li>
+            <li><a href="#pag_others">Sayfalama Bileşeni Yöntemleri</b></a></li>          
+        </ul>
+    </li></ul>
+    
+    <p class="cstfont" id="pag_import">Sayfalama Bileşenini Dahil Etmek</p>
+	<div type="code">import::component(<sf>'Pagination'</sf>)</div> 	
+    
+    <p class="cstfont" id="pag_others">Sayfalama Bileşeni Yöntemleri</p>
+    <p>Sayfalama bileşenine ait yöntemler aşağıdaki tabloda listelenmiştir</p>
+    
+  	<p>
+    <table class="cfont">
+    	<tr><th>Sayfalama Oluşturma Yöntemleri</th><td>Anlamları</td><td>Kullanımları</td></tr>
+        <tr><td><cf>url( <vf>$url</vf> )</cf></td><td>Sayfalamanın kullanılacağı URL adresi.</td><td><cf><vf>$this</vf>->pag->url(<sf>'http://www.ornek.xxx/urunler/sayfa/'</sf>)</cf></td></tr>
+        <tr><td><cf>start( <vf>$baslangic</vf> )</cf></td><td>Kaçıncı kayıttan listelenmeye başlayacağı.</td><td><cf>->start(<sf>0</sf>)</cf></td></tr>
+        <tr><td><cf>limit( <vf>$limit</vf> )</cf></td><td>Tek bir sayfada olması istenilen kayıt sayısı.</td><td><cf>->limit(<sf>10</sf>)</cf></td></tr>	
+        <tr><td><cf>total_rows( <vf>$toplam_kayit</vf> )</cf></td><td>Toplam kayıt sayısı.</td><td><cf>->total_rows(<sf>200</sf>)</cf></td></tr>
+        <tr><td><cf>count_links( <vf>$link_sayisi</vf> )</cf></td><td>Sayfalamada yer alacak link sayısı.</td><td><cf>->count_links(<sf>10</sf>)</cf></td></tr>
+        <tr><td><cf>attr( <vf>$ozellikler</vf> )</cf></td><td>Limit, total_rows gibi sayfalama özelliklerinin hepsini dizi tipinde bu yöntem ile belirtebilirsiniz.</td><td><cf>->attr(<kf>array</kf>(<sf>'start'</sf> => <sf>0</sf>, <sf>'limit'</sf> => <sf>10</sf>))</cf></td></tr>
+        <tr><td><cf>style( <vf>$style</vf> )</cf></td><td>Sayfalama nesnelerine stil eklemek için kullanılır.</td><td><cf>->style(<kf>array</kf>(<sf>'current'</sf> => <sf>'color:red'</sf>))</cf></td></tr>
+        <tr><td><cf>css( <vf>$css</vf> )</cf></td><td>Sayfalama nesnelerine css sinifi eklemek için kullanılır.</td><td><cf>->css(<kf>array</kf>(<sf>'current'</sf> => <sf>'red-color'</sf>))</cf></td></tr>
+        <tr><td><cf>create( [ <vf>$start</vf> ], [ <vf>$start</vf> ], [ <vf>$total_rows</vf> ], [ <vf>$url</vf> ] )</cf></td><td>Sayfalama oluşturma yöntemidir. İsteğe bağlı 4 parametresi vardır.</td><td><cf>->create();</cf></td></tr>
+    </table>
+    </p>
+    
+    <p>Yukarıdaki yöntemlerin kullanımına yönelik örnekler aşağıda verilmiştir.</p>
+    
+    <p>
+    <div type="code">
+    <vf>$this</vf>->pag->url(<sf>'urunler/sayfa'</sf>)->limit(<sf>10</sf>)->total_rows(<sf>200</sf>)->start(<sf>0</sf>)->create();
+    </div>
+    </p>
+    
+    <p>
+    <div type="code">
+<pre><vf>$this</vf>->pag
+     ->url(<sf>'urunler/sayfa'</sf>)
+     ->limit(<sf>10</sf>)
+     ->total_rows(<sf>200</sf>)
+     ->start(<sf>0</sf>)
+     ->style(<kf>array</kf>(<sf>'current'</sf> => <sf>'color:blue'</sf>, <sf>'font-size'</sf> => <sf>'11px'</sf>))
+     ->create();
+    </pre>
+    </div>
+    </p>
+     
+    <div type="prev-next">
+    	<div type="prev-btn"><a href="component_list.html">Önceki</a></div><div type="next-btn"><a href="component_session.html">Sonraki</a></div>
+    </div>
+ 
+</body>
+</html>              

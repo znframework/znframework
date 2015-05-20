@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* STYLE                                                                                   *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Jquery/Style     							     			  |
+| Sınıfı Kullanırken      :	$this->style->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentJqueryScript
 {
 	protected $ready    = true;

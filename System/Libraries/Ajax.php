@@ -9,6 +9,14 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* AJAX                                                                               	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Ajax  							                              |
+| Sınıfı Kullanırken      :	ajax::													      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/	
 class Ajax
 {
 	/* Functions Dizi Değişkeni

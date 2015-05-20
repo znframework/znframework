@@ -17,6 +17,14 @@ config::iniset(config::get('Session','settings'));
 * Herhangi bir oturum başlatılmamışsa oturumu başlat.                                     *
 ******************************************************************************************/
 if( ! isset($_SESSION) ) session_start();
+/******************************************************************************************
+* SESSION                                                                            	  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Session   							                          |
+| Sınıfı Kullanırken      :	sess::   											          |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class Sess
 {
 

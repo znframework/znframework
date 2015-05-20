@@ -1,4 +1,14 @@
 <?php
+/************************************************************/
+/*                     EMAIL LANGUAGE                       */
+/************************************************************/
+/*
+
+Author: Ozan UYKUN
+Site: http://www.zntr.net
+Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+
+*/
 $lang['authenticate']         = 'SMTP Error: Could not authenticate.';
 $lang['connect_host']         = 'SMTP Error: Could not connect to SMTP host.';
 $lang['data_not_accepted']    = 'SMTP Error: Data not accepted.';

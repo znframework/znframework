@@ -12,14 +12,26 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 if(!isset($_SESSION)) session_start();
 
+// Güvenlik ayarlarını kullanabilmek için global bir tanımlama yapıldı.
 global $config;
 
+// Captha.php ayar dosyasının yolu belirleniyor.
 $path 	= "../../Config/Captcha.php";
 
+/* Captha.php ayar dosyası çağrılıyor.
+ *
+ *
+ *
+ */
 require_once $path;
 
 $set = $config["Captcha"]["settings"];
 
+/* Güvenlik kodu için değişiklik yapılabilecek ayar listesi.
+ *
+ * 
+ * Bu ayarlar varsayılan olarak ayarlanmıştır.
+ */
 
 if(isset($_SESSION[md5('captcha_code')]))
 {
@@ -36,10 +48,21 @@ if(isset($_SESSION[md5('captcha_code')]))
 	if( ! isset($set["grid_space"]["x"]))$set["grid_space"]["x"] 				= 10; 
 	if( ! isset($set["grid_color"]))$set["grid_color"]							= "240|240|240";
 	if( ! isset($set["background"]))$set["background"]							= array();
-
+	
+	// 0-255 arasında değer alacak renk kodları için
+	// 0|20|155 gibi bir kullanım için aşağıda
+	// explode ile ayırma işlemleri yapılmaktadır.
+	
+	// SET FONT COLOR
 	$set_font_color = explode("|",$set["font_color"]);
+	
+	// SET BG COLOR
 	$set_bg_color	= explode("|",$set["bg_color"]);
+	
+	// SET BORDER COLOR
 	$set_border_color	= explode("|",$set["border_color"]);
+	
+	// SET GRID COLOR
 	$set_grid_color	= explode("|",$set["grid_color"]);
 	
 	
@@ -48,28 +71,45 @@ if(isset($_SESSION[md5('captcha_code')]))
 	$font_color 	= imagecolorallocate($file, $set_font_color[0], $set_font_color[1], $set_font_color[2]);
 	$color 			= imagecolorallocate($file, $set_bg_color[0], $set_bg_color[1], $set_bg_color[2]);
 	
+	// ARKAPLAN RESMI--------------------------------------------------------------------------------------
 	if( ! empty($set["background"]) )
 	{
 		if(is_array($set["background"]))
+		{
 			$set["background"] = $set["background"][rand(0, count($set["background"]) - 1)];
-			
-		
-		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) == 'png')
+		}
+		/***************************************************************************/
+		// Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
+		/***************************************************************************/	
+		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'png')
+		{
 			$file = imagecreatefrompng('../../'.$set["background"]);
-		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) == 'jpeg')
+		}
+		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpeg')
+		{	
 			$file = imagecreatefromjpeg('../../'.$set["background"]);
-		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) == 'jpg')
+		}
+		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpg')
+		{	
 			$file = imagecreatefromjpeg('../../'.$set["background"]);
-		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) == 'gif')
+		}
+		if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'gif')
+		{	
 			$file = imagecreatefromgif('../../'.$set["background"]);
+		}
 	}
 	else
 	{
+		// Arkaplan olarak resim belirtilmemiş ise arkaplan rengini ayarlar.
 		imagefill($file, 0, 0, $color);
 	}
+	//-----------------------------------------------------------------------------------------------------
+	
+	// Resim üzerinde görüntülenecek kod bilgisi.
 	imagestring($file, $set["image_string"]["size"], $set["image_string"]["x"], $set["image_string"]["y"],  $_SESSION[md5('captcha_code')], $font_color);
 	
-	if($set["grid"] == true)
+	// GRID --------------------------------------------------------------------------------------
+	if($set["grid"] === true)
 	{
 		$grid_interval_x  = $set["width"] / $set["grid_space"]["x"];
 		
@@ -92,17 +132,19 @@ if(isset($_SESSION[md5('captcha_code')]))
 		}
 		
 	}
+	// ---------------------------------------------------------------------------------------------	
 	
-	if($set["border"] == true)
+	// BORDER --------------------------------------------------------------------------------------
+	if($set["border"] === true)
 	{
 		$border_color 	= imagecolorallocate($file, $set_border_color[0], $set_border_color[1], $set_border_color[2]);
+		
 		imageline($file,0,0,$set["width"],0,$border_color); // UST
 		imageline($file,$set["width"]-1,0,$set["width"]-1,$set["height"],$border_color); // SAG
 		imageline($file,0,$set["height"]-1,$set["width"],$set["height"]-1,$border_color); // ALT
 		imageline($file,0,0,0,$set["height"]-1,$border_color); // SOL
 	}
-	
-
+	// ---------------------------------------------------------------------------------------------
 	
 	header("Content,type: image/png");
 	imagepng($file);

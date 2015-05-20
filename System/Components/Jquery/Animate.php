@@ -10,6 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+/******************************************************************************************
+* ANIMATE                                                                                 *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Jquery/Animate     							     			  |
+| Sınıfı Kullanırken      :	$this->animate->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentJqueryAnimate extends ComponentJqueryObjects
 {
 	/* Easing Variables
@@ -129,6 +137,18 @@ class ComponentJqueryAnimate extends ComponentJqueryObjects
 	}
 	
 	public function callback($params = '', $callback = '')
+	{
+		if( ! is_string($callback))
+		{
+			return $this;	
+		}
+		
+		$this->callback = ",\n\t\tfunction($params){".$callback."}";
+		
+		return $this;
+	}
+	
+	public function func($params = '', $callback = '')
 	{
 		if( ! is_string($callback))
 		{

@@ -10,6 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+/******************************************************************************************
+* ACTION                                                                                  *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Jquery/Action     							     			  |
+| Sınıfı Kullanırken      :	$this->action->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentJqueryAction extends ComponentJqueryObjects
 {
 	/* Selector Variables
@@ -240,6 +248,18 @@ class ComponentJqueryAction extends ComponentJqueryObjects
 	}
 	
 	public function callback($params = '', $callback = '')
+	{
+		if( ! is_string($callback))
+		{
+			return $this;	
+		}
+		
+		$this->callback = ", function($params)\n{\n\t$callback\n}";
+		
+		return $this;
+	}
+	
+	public function func($params = '', $callback = '')
 	{
 		if( ! is_string($callback))
 		{

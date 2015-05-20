@@ -10,6 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+/******************************************************************************************
+* EVENT                                                                                   *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Jquery/Event     							     			  |
+| Sınıfı Kullanırken      :	$this->event->       									      |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+******************************************************************************************/
 class ComponentJqueryEvent extends ComponentJqueryObjects
 {
 	/* Selector Variables
@@ -724,6 +732,27 @@ class ComponentJqueryEvent extends ComponentJqueryObjects
 	 * @return function(data, event){alert('custom');}
 	 */
 	public function callback($params = '', $callback = '')
+	{
+		if( ! is_string($callback))
+		{
+			return $this;	
+		}
+		
+		$this->callback = "function($params)\n{\n\t$callback\n}";
+		
+		return $this;
+	}
+	
+	/* Callback/Function Data Function
+	 *
+	 * Params: string @params, string @callback
+	 *
+	 * @params: data, event
+	 * @callback: alert('custom');
+	 *
+	 * @return function(data, event){alert('custom');}
+	 */
+	public function func($params = '', $callback = '')
 	{
 		if( ! is_string($callback))
 		{

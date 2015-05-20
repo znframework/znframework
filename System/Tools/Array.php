@@ -34,7 +34,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | var_dump(array_pos_change($dizi, "b", 4));  // Çıktı: a c d e b						  |
 |																						  |
 ******************************************************************************************/	
-if(!function_exists('array_pos_change'))
+if( ! function_exists('array_pos_change') )
 {
 	function array_pos_change($array = '', $poss = '', $changePos = '')
 	{
@@ -114,7 +114,7 @@ if(!function_exists('array_pos_change'))
 | var_dump(array_pos_reverse($dizi, "b", 4));  // Çıktı: a e c d b    					  |
 |          																				  |
 ******************************************************************************************/
-if(!function_exists('array_pos_reverse'))
+if( ! function_exists('array_pos_reverse') )
 {
 	function array_pos_reverse($array = '', $poss = '', $changePos = '')
 	{
@@ -190,7 +190,7 @@ if(!function_exists('array_pos_reverse'))
 | var_dump(array_delete_element($dizi, array(1, 2)));  // Çıktı: a d e  				  |
 |          																				  |
 ******************************************************************************************/
-if( ! function_exists("array_delete_element"))
+if( ! function_exists("array_delete_element") )
 {
 	function array_delete_element($array = array(), $object = "")
 	{
@@ -276,7 +276,7 @@ if( ! function_exists("array_delete_element"))
 | 'd' => string 'deger' (length=5)     													  |
 |          																				  |
 ******************************************************************************************/
-if( ! function_exists("multi_key_array"))
+if( ! function_exists("multi_key_array") )
 {
 	function multi_key_array($array = array(), $key_split = "|")
 	{
@@ -318,7 +318,7 @@ if( ! function_exists("multi_key_array"))
 | 4-keys // Diziye ait tüm anahtarlar elde edilir.        								  |
 |          																				  |
 ******************************************************************************************/
-if( ! function_exists("array_keyval"))
+if( ! function_exists("array_keyval") )
 {
 	function array_keyval($array = array(), $keyval = "val")
 	{
@@ -362,7 +362,7 @@ if( ! function_exists("array_keyval"))
 | // {1:true, 2:false} 																	  |
 |          																				  |
 ******************************************************************************************/
-if( ! function_exists('array_object'))
+if( ! function_exists('array_object') )
 {
 	function array_object($data = array())
 	{
