@@ -17,7 +17,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 |																						  |
 | Parametreler: 2 parametresi vardır.                                              	      |
 | 1. string/array var @search_data => Aranacak metin veya dizi elamanları.				  |
+<<<<<<< HEAD
 | 2. string/array var @clean_word => Silinecek metin veya dizi elamanları.				  |
+=======
+| 3. string/array var @clean_word => Silinecek metin veya dizi elamanları.				  |
+>>>>>>> origin/master
 |          																				  |
 | Örnek Kullanım:  																	      |
 |																				          |

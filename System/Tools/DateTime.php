@@ -186,4 +186,8 @@ if( ! file_exists('set_date') )
 		
 		return iconv(config::get('DateTime', 'iconv_in_charset'),config::get('DateTime', 'iconv_out_charset'), date($newClock));
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

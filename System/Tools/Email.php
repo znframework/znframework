@@ -89,12 +89,21 @@ if(!function_exists("send_imap_email"))
 		{
 			$subject = '';
 		}
+<<<<<<< HEAD
 		
 		if( ! is_value($message) ) 
 		{
 			$message = '';
 		}
 		
+=======
+		
+		if( ! is_value($message) ) 
+		{
+			$message = '';
+		}
+		
+>>>>>>> origin/master
 		if( ! is_string($extra) ) 
 		{
 			$extra = '';
