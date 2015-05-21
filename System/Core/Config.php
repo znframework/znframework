@@ -9,7 +9,17 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
+/******************************************************************************************
+* CONFIG CLASS                                                                            *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
+| Sınıfı Kullanırken      :	config::, $this->config, zn::$use->config, this()->config     |
+| 																						  |
+| Genel Kullanım:																          |
+| Config/ dizininde yer alan config dosyalarındaki ayarları kullanmak					  |
+| bu ayarlar üzerinde değişiklik yapmak gibi işlemler için oluşturulmuştur.			      |
+|																						  |
+******************************************************************************************/	
 class Config
 {
 	/*
@@ -238,5 +248,4 @@ class Config
 	{
 		return ini_restore($str);	
 	}
-
 }
