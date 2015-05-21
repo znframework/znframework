@@ -1482,12 +1482,12 @@ function create_htaccess_file()
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
 	// Gzip ile ön bellekleme başlatılmış olur.
-	if( ! empty($config['mod_gzip'])) 
+	if( $config['mod_gzip']['status'] === true ) 
 	{
 		$mod_gzip = '<ifModule mod_gzip.c>
 mod_gzip_on Yes
 mod_gzip_dechunk Yes
-mod_gzip_item_include file .('.$config['mod_gzip_item_include_file'].')$
+mod_gzip_item_include file .('.$config['mod_gzip']['included_file_extension'].')$
 mod_gzip_item_include handler ^cgi-script$
 mod_gzip_item_include mime ^text/.*
 mod_gzip_item_include mime ^application/x-javascript.*
@@ -1504,17 +1504,17 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 	//-----------------------EXPIRES----------------------------------------------------------
 	// mod_expires = true ayarı yapılmışsa aşağıdaki kodları ekler.
 	// Tarayıcı ile ön bellekleme başlatılmış olur.
-	if( ! empty($config['mod_expires'])) 
+	if( $config['mod_expires']['status'] === true ) 
 	{
 		$exp = '';
-		foreach($config['expires_by_type'] as $type => $value)
+		foreach($config['mod_expires']['file_type_time'] as $type => $value)
 		{
 			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.ln();
 		}
 		
 		$mod_expires = '<ifModule mod_expires.c>
 ExpiresActive On
-ExpiresDefault "access plus '.$config['expires_default_time'].' seconds"
+ExpiresDefault "access plus '.$config['mod_expires']['default_time'].' seconds"
 '.$exp.'
 </ifModule>'.ln(2);
 	}
@@ -1527,10 +1527,10 @@ ExpiresDefault "access plus '.$config['expires_default_time'].' seconds"
 	//-----------------------HEADERS----------------------------------------------------------
 	// mod_headers = true ayarı yapılmışsa aşağıdaki kodları ekler.
 	// Header ile ön bellekleme başlatılmış olur.
-	if( ! empty($config['mod_headers']) ) 
+	if( $config['mod_headers']['status'] === true ) 
 	{
 		$fmatch = '';
-		foreach($config['file_match_cache_control'] as $type => $value)
+		foreach($config['mod_headers']['file_extension_time_access'] as $type => $value)
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
