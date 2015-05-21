@@ -21,18 +21,18 @@ if( ! function_exists("lang") )
 
 	function lang($str = '', $changed = '')
 	{		
-		if( ! is_string($str)) return false;
-		
-		if(empty($str)) return false;
+		if( ! is_string($str) ||  empty($str) ) 
+		{
+			return false;
+		}
 		
 		global $lang;
 		
-		if( ! is_array($changed))
+		if( ! is_array($changed) )
 		{
-			if(strpos(@$lang[$str],"%") > -1 && $changed != '')
+			if( strpos(@$lang[$str],"%") > -1 && ! empty($changed) )
 			{
 				return str_replace("%", $changed , $lang[$str]);
-				echo 1;	
 			}
 			else
 			{
@@ -41,14 +41,16 @@ if( ! function_exists("lang") )
 		}
 		else
 		{
-			if( ! empty($changed))
+			if( ! empty($changed) )
 			{
 				$values = array();
+				
 				foreach($changed as $key => $value)
 				{
 					$keys[] = $key;
 					$values[] = $value;	
 				}
+				
 				return str_replace($keys, $values, $lang[$str]);
 			}
 			else
@@ -57,5 +59,4 @@ if( ! function_exists("lang") )
 			}
 		}
 	}
-	
 }
