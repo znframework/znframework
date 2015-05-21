@@ -10,9 +10,24 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
+/******************************************************************************************
+* CONTROLLER CLASS                                                                        *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
+| Sınıfı Kullanırken      :	import::, $this->import, zn::$use->import, this()->import     |
+| 																						  |
+| Genel Kullanım:																          |
+| Kütüphane, araç, bileşen veya model sınıflarını dahil etmek için kullanılır.			  |
+|																						  |
+******************************************************************************************/	
 class Import
 {
+	/* Is Import Değişkeni
+	 *  
+	 * Bir sınıfın daha önce dahil edilip edilmediği
+	 * bilgisini tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $is_import = array();
 	
 	/* IMPORT LIBRARY */
@@ -27,31 +42,48 @@ class Import
 		NOT: bir nesne birkez import edildikten sonra bir daha aynı dosyayı aynı sayfada import edemezsiniz.
 	*/
 	
+	/******************************************************************************************
+	* LIBRARY                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Libraries veya System/Libraries dizinlerinde yer alan kütüphaneleri	  |
+	| dahil etmek için kullanılır.										  					  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array/args var @libraries => Parametre olarak sıralı kütüphaneler veya dizi içinde	  |
+	| eleman olarak kullanılan kütüphaneleri dahil etmek için kullanılır.					  |
+	|          																				  |
+	| Örnek Kullanım: import::library('k1', 'k2' ... 'kN');        							  |
+	| Örnek Kullanım: import::library(array('k1', 'k2' ... 'kN'));        					  |
+	|          																				  |
+	******************************************************************************************/
 	public static function library()
 	{	
 		$config_library = array_unique(config::get('Autoload','library'));
 		
 		$arguments = func_get_args();
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach(array_unique($arguments) as $class)
+		if( ! empty($arguments) )foreach(array_unique($arguments) as $class)
 		{
-			if(is_array($class)) $class = '';
+			if( is_array($class) ) 
+			{
+				$class = '';
+			}
 			
-			if( ! in_array($class, $config_library))
+			if( ! in_array($class, $config_library) )
 			{	
 				$class_path = suffix($class,".php"); 
 				$path = LIBRARIES_DIR.$class_path;		
 						
-				if(is_file_exists($path) && ! class_exists($class))
+				if( is_file_exists($path) && ! class_exists($class) )
 				{	
 					require_once($path);	
 				}
-				else if(is_file_exists(SYSTEM_LIBRARIES_DIR.$class_path) && ! class_exists($class))
+				elseif( is_file_exists(SYSTEM_LIBRARIES_DIR.$class_path) && ! class_exists($class) )
 				{	
 					require_once(SYSTEM_LIBRARIES_DIR.$class_path);	
 				}
@@ -59,10 +91,11 @@ class Import
 				{
 					$different_directory = config::get('Libraries', 'different_directory');
 					
-					if( ! empty($different_directory))foreach($different_directory as $dir)
+					if( ! empty($different_directory) )foreach($different_directory as $dir)
 					{
-						$path = suffix($dir, '/').suffix($class,".php");	
-						if(is_file($path) && ! class_exists($class))
+						$path = suffix($dir, '/').suffix($class,".php");
+							
+						if( is_file($path) && ! class_exists($class) )
 						{
 							require_once($path);					
 						}
@@ -73,23 +106,39 @@ class Import
 		}	
 	}
 	
-	
+	/******************************************************************************************
+	* COMPONENT                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: System/Components dizininde yer alan bileşenleri				   	      |
+	| dahil etmek için kullanılır.										  					  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array/args var @components => Parametre olarak sıralı kütüphaneler veya dizi içinde  |
+	| eleman olarak kullanılan kütüphaneleri dahil etmek için kullanılır.					  |
+	|          																				  |
+	| Örnek Kullanım: import::component('c1', 'c2' ... 'cN');        						  |
+	| Örnek Kullanım: import::component(array('c1', 'c2' ... 'cN'));        				  |
+	|          																				  |
+	******************************************************************************************/
 	public static function component()
 	{
 		$config_component = array_unique(config::get('Autoload','component'));
 		
 		$arguments = func_get_args();
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach(array_unique($arguments) as $class)
+		if( ! empty($arguments) )foreach(array_unique($arguments) as $class)
 		{
-			if( is_array($class) ) $class = '';
+			if( is_array($class) ) 
+			{
+				$class = '';
+			}
 			
-			if( ! in_array($class, $config_component))
+			if( ! in_array($class, $config_component) )
 			{		
 				if( ! strstr($class, '/'))
 				{
@@ -98,7 +147,7 @@ class Import
 					
 				$path = SYSTEM_COMPONENTS_DIR.suffix($class,".php");
 						
-				if(is_file_exists($path) && ! class_exists($class))
+				if( is_file_exists($path) && ! class_exists($class) )
 				{
 					require_once($path);	
 				}
@@ -111,32 +160,48 @@ class Import
 		}	
 	}
 	
-	
-	/* IMPORT TOOL */
+	/******************************************************************************************
+	* TOOL                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Tools veya System/Tools dizinlerinde yer alan araçları		   	      |
+	| dahil etmek için kullanılır.										  					  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array/args var @tools => Parametre olarak sıralı araçları veya dizi içinde	          |
+	| eleman olarak kullanılan araçları dahil etmek için kullanılır.					      |
+	|          																				  |
+	| Örnek Kullanım: import::tool('t1', 't2' ... 'tN');        						  	  |
+	| Örnek Kullanım: import::tool(array('t1', 't2' ... 'tN'));        				          |
+	|          																				  |
+	******************************************************************************************/
 	public static function tool()
 	{
 		$config_tool = array_unique(config::get('Autoload','tool'));
 		
 		$arguments = func_get_args();
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
 		if( ! empty($arguments))foreach(array_unique($arguments) as $tool)
 		{
-			if(is_array($tool)) $tool = '';
+			if( is_array($tool )) 
+			{
+				$tool = '';
+			}
 			
-			if( ! in_array($tool, $config_tool))
+			if( ! in_array($tool, $config_tool) )
 			{
 				$tool_path = suffix($tool,".php");
 				$path = TOOLS_DIR.$tool_path;
-				if(is_file_exists($path ) && ! is_import($path)) 
+				
+				if( is_file_exists($path ) && ! is_import($path) ) 
 				{
 					require_once($path);				
 				}
-				elseif(is_file_exists(SYSTEM_TOOLS_DIR.$tool_path) && ! is_import(SYSTEM_TOOLS_DIR.$tool_path)) 
+				elseif( is_file_exists(SYSTEM_TOOLS_DIR.$tool_path) && ! is_import(SYSTEM_TOOLS_DIR.$tool_path) ) 
 				{			
 					require_once(SYSTEM_TOOLS_DIR.$tool_path);				
 				}
@@ -148,8 +213,20 @@ class Import
 		}
 	}
 	
-	/* IMPORT LANGUAGE */
-	
+	/******************************************************************************************
+	* LANGUAGE                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Languages veya System/Languages dizinlerinde yer alan dil dosyalarını   |
+	| dahil etmek için kullanılır.										  					  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array/args var @languages => Parametre olarak sıralı dil dosyalarını veya dizi içinde|
+	| eleman olarak kullanılan dil dosyalarını dahil etmek için kullanılır.					  |
+	|          																				  |
+	| Örnek Kullanım: import::language('l1', 'l2' ... 'lN');        						  |
+	| Örnek Kullanım: import::language(array('l1', 'l2' ... 'lN'));        				      |
+	|          																				  |
+	******************************************************************************************/
 	public static function language()
 	{
 		$config_language = array_unique(config::get('Autoload','language'));
@@ -165,10 +242,13 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments))foreach(array_unique($arguments) as $language)
+		if( ! empty($arguments) )foreach(array_unique($arguments) as $language)
 		{	
-			if( is_array($language) ) $language = '';
-		
+			if( is_array($language) ) 
+			{
+				$language = '';
+			}
+			
 			if( ! in_array($language, $config_language) )
 			{
 				$lang_path = $current_lang.'/'.suffix($language,".php");
@@ -179,7 +259,7 @@ class Import
 				{
 					require_once($path);	
 				}
-				else if(is_file_exists(SYSTEM_LANGUAGES_DIR.$lang_path)  && ! is_import(SYSTEM_LANGUAGES_DIR.$lang_path))
+				elseif( is_file_exists(SYSTEM_LANGUAGES_DIR.$lang_path)  && ! is_import(SYSTEM_LANGUAGES_DIR.$lang_path) )
 				{
 					require_once(SYSTEM_LANGUAGES_DIR.$lang_path);	
 				}
@@ -189,8 +269,22 @@ class Import
 	
 	}
 	
-	/* IMPORT MASTERPAGE */
-	
+	/******************************************************************************************
+	* MASTERPAGE                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Views/Pages/ dizini içinde yer alan herhangi bir sayfayı masterpage     |
+	| olarak ayarlamak için kullanılır.										  				  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. array var @data => Sayfanın body bölümüne veri göndermek için kullanılır. 		      |
+	| 2. array var @head => Sayfanın head bölümüne veri göndermek için kullanılır. 			  |
+	|          																				  |
+	| Örnek Kullanım: import::masterpage();        						  					  |
+	|          																				  |
+	| NOT: Bir sayfayı masterpage olarak ayarlamak için Config/Masterpage.php dosyası		  |
+	| kullanılır.	        															      |
+	|          																				  |
+	******************************************************************************************/
 	public static function masterpage($data = array(), $head = array())
 	{	
 		$masterpageset = config::get('Masterpage');
@@ -221,23 +315,23 @@ class Import
 			$head_page = PAGES_DIR.suffix($head_page,".php");
 		}
 		
-		$header  = config::get('Doctype', $masterpageset['doctype'])."\n";
-		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'."\n";
-		$header .= '<head>'."\n";
+		$header  = config::get('Doctype', $masterpageset['doctype']).ln();
+		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.ln();
+		$header .= '<head>'.ln();
 		
 		if( is_array($masterpageset["content_charset"]) )
 		{
 			foreach($masterpageset["content_charset"] as $v)
 			{
-				$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$v.'" />'."\n";	
+				$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$v.'" />'.ln();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'" />'."\n";	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'" />'.ln();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'" />'."\n";
+		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'" />'.ln();
 		
 		$title = 		( isset($head['title']) ) 		
 						? $head['title'] 		
@@ -309,89 +403,89 @@ class Import
 		
 		if( ! empty($title) ) 			
 		{
-			$header .= '<title>'.$title.'</title>'."\n";	
+			$header .= '<title>'.$title.'</title>'.ln();	
 		}
 		
 		if( ! empty($cache) ) 			
 		{
-			$header .= '<meta http-equiv="cache-control" content="'.$cache.'" />'."\n";
+			$header .= '<meta http-equiv="cache-control" content="'.$cache.'" />'.ln();
 		}
 		
 		if( ! empty($refresh) ) 		
 		{
-			$header .= '<meta http-equiv="refresh" content="'.$refresh.'" />'."\n";		
+			$header .= '<meta http-equiv="refresh" content="'.$refresh.'" />'.ln();		
 		}
 		
 		if( ! empty($abstract) ) 		
 		{
-			$header .= '<meta name="abstract" content="'.$abstract.'" />'."\n";
+			$header .= '<meta name="abstract" content="'.$abstract.'" />'.ln();
 		}
 		
 		if( ! empty($description) ) 	
 		{
-			$header .= '<meta name="description" content="'.$description.'" />'."\n";
+			$header .= '<meta name="description" content="'.$description.'" />'.ln();
 		}
 		
 		if( ! empty($copyright) ) 		
 		{
-			$header .= '<meta name="copyright" content="'.$copyright.'" />'."\n";
+			$header .= '<meta name="copyright" content="'.$copyright.'" />'.ln();
 		}
 		
 		if( ! empty($expires) ) 		
 		{
-			$header .= '<meta name="expires" content="'.$expires.'" />'."\n";
+			$header .= '<meta name="expires" content="'.$expires.'" />'.ln();
 		}
 		
 		if( ! empty($robots) && ! is_array($robots)) 
 		{
-			$header .= '<meta name="robots" content="'.$robots.'" />'."\n";
+			$header .= '<meta name="robots" content="'.$robots.'" />'.ln();
 		}
 		else
 		{
 			if( is_array($robots) )foreach($robots as $rob)
 			{
-				$header .= '<meta name="robots" content="'.$rob.'" />'."\n";
+				$header .= '<meta name="robots" content="'.$rob.'" />'.ln();
 			}
 		}	
 		
 		if( ! empty($meta['name'] ) && is_array($meta['name']) )foreach($meta['name'] as $k => $v)
 		{
-			$header .= '<meta name="'.$k.'" content="'.$v.'" />'."\n";
+			$header .= '<meta name="'.$k.'" content="'.$v.'" />'.ln();
 		}
 		
 		if( ! empty($meta['http']) && is_array($meta['http']) )foreach($meta['http'] as $k => $v)
 		{
-			$header .= '<meta http-equiv="'.$k.'" content="'.$v.'" />'."\n";
+			$header .= '<meta http-equiv="'.$k.'" content="'.$v.'" />'.ln();
 		}
 			
 		if( ! empty($pragma) ) 		
 		{
-			$header .= '<meta name="pragma" content="'.$pragma.'" />'."\n";	
+			$header .= '<meta name="pragma" content="'.$pragma.'" />'.ln();	
 		}
 		
 		if( ! empty($keywords) ) 		
 		{
-			$header .= '<meta name="keywords" content="'.$keywords.'" />'."\n";	
+			$header .= '<meta name="keywords" content="'.$keywords.'" />'.ln();	
 		}
 		
 		if( ! empty($author) ) 		
 		{
-			$header .= '<meta name="author" content="'.$author.'" />'."\n";
+			$header .= '<meta name="author" content="'.$author.'" />'.ln();
 		}
 		
 		if( ! empty($designer) ) 		
 		{
-			$header .= '<meta name="designer" content="'.$designer.'" />'."\n";
+			$header .= '<meta name="designer" content="'.$designer.'" />'.ln();
 		}
 		
 		if( ! empty($distribution) ) 	
 		{
-			$header .= '<meta name="distribution" content="'.$distribution.'" />'."\n";
+			$header .= '<meta name="distribution" content="'.$distribution.'" />'.ln();
 		}
 		
 		if( ! empty($revisit) ) 		
 		{
-			$header .= '<meta name="revisit-after" content="'.$revisit.'" />'."\n";	
+			$header .= '<meta name="revisit-after" content="'.$revisit.'" />'.ln();	
 		}
 		
 		if( ! empty($font_arr) )
@@ -421,23 +515,23 @@ class Import
 		
 		if( $masterpageset['logo'] ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.base_url($masterpageset['logo']).'" />'."\n";
+			$header .= '<link rel="shortcut icon" href="'.base_url($masterpageset['logo']).'" />'.ln();
 		}
 		
 		if( isset($head['page_image']) ) 
 		{
-			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'."\n";	
+			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'.ln();	
 		}
 		
 		if( $datas && ! is_array($head['data']) )
 		{ 
-			$header .= $datas."\n"; 
+			$header .= $datas.ln(); 
 		}
 		else
 		{
 			if( is_array($datas) )foreach($datas as $v)
 			{
-				$header .= $v."\n";	
+				$header .= $v.ln();	
 			}	
 		}
 		
@@ -447,10 +541,10 @@ class Import
 			require_once($head_page); 
 			$content = ob_get_contents(); 
 			ob_end_clean(); 
-			$header .= $content."\n" ; 	
+			$header .= $content.ln() ; 	
 		}
 		
-		$header .= '</head>'."\n";
+		$header .= '</head>'.ln();
 		
 		if( $masterpageset["bg_image"] ) 
 		{
@@ -461,7 +555,7 @@ class Import
 			$bg_image = "";
 		}
 		
-		$header .= '<body'.$bg_image.'>'."\n";
+		$header .= '<body'.$bg_image.'>'.ln();
 	
 		echo $header;
 		
@@ -475,80 +569,96 @@ class Import
 			require($page);	
 		}
 		
-		$footer  = "\n".'</body>'."\n";
+		$footer  = ln().'</body>'.ln();
 		$footer .= '</html>';
 		
 		echo $footer;	
 	}	
 	
+	/******************************************************************************************
+	* FONT                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Harici font yüklemek için kullanılır. Yüklenmek istenen fontlar		  |
+	| Views/Fonts/ dizinine atılır.										  				      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. array/args var @fonts => Parametre olarak sıralı font dosyalarını veya dizi içinde   |
+	| eleman olarak kullanılan font dosyalarını dahil etmek için kullanılır.			      |
+	|          																				  |
+	| Örnek Kullanım: import::font('f1', 'f2' ... 'fN');        						      |
+	| Örnek Kullanım: import::font(array('f1', 'f2' ... 'fN'));        				          |
+	|          																				  |
+	******************************************************************************************/
 	public static function font()
-	{
-		
+	{	
 		$str = "<style type='text/css'>";
 		
 		$arguments = func_get_args();
 		$args      = $arguments;
 		
-		if(isset($arguments[0]) && is_array($arguments[0]))
+		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
 		}
 		
 		foreach(array_unique($arguments) as $font)
 		{	
-			if(is_array($font)) $font = '';
+			if( is_array($font) ) 
+			{
+				$font = '';
+			}
 			
 			$f = divide($font, "/", -1);
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
-			if(is_file_exists(FONTS_DIR.$font.".svg"))
+			if( is_file_exists(FONTS_DIR.$font.".svg") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".svg").'") format("truetype")}'."\n";;				
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".svg").'") format("truetype")}'.ln();				
 			}
-			if(is_file_exists(FONTS_DIR.$font.".woff"))
+			if( is_file_exists(FONTS_DIR.$font.".woff") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".woff").'") format("truetype")}'."\n";;		
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".woff").'") format("truetype")}'.ln();		
 			}
 			// OTF IE VE CHROME DESTEKLEMIYOR
-			if(is_file_exists(FONTS_DIR.$font.".otf"))
+			if( is_file_exists(FONTS_DIR.$font.".otf") )
 			{
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".otf").'") format("truetype")}'."\n";;			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".otf").'") format("truetype")}'.ln();			
 			}
 			
 			// TTF IE DESTEKLEMIYOR
-			if(is_file_exists(FONTS_DIR.$font.".ttf"))
+			if( is_file_exists(FONTS_DIR.$font.".ttf") )
 			{		
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".ttf").'") format("truetype")}'."\n";;			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".ttf").'") format("truetype")}'.ln();			
 			}
 			
 			// FARKLI FONTLAR
 			$differentset = config::get('Font', 'different_font_extensions');
 			
-			if( ! empty($differentset))
+			if( ! empty($differentset) )
 			{			
 				foreach($differentset as $of)
 				{
-					if(is_file_exists(FONTS_DIR.$font.prefix($of, '.')))
+					if( is_file_exists(FONTS_DIR.$font.prefix($of, '.')) )
 					{		
-						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'."\n";;			
+						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'.ln();			
 					}
 				}	
 			}
 			
 			// EOT IE DESTEKLIYOR
-			if(is_file_exists(FONTS_DIR.$font.".eot"))
+			if( is_file_exists(FONTS_DIR.$font.".eot") )
 			{
 				$str .= '<!--[if IE]>';
 				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".eot").'") format("truetype")}';
 				$str .= '<![endif]-->';
-				$str .= "\n";
+				$str .= ln();
 			}		
 		}
 		
-		$str .= '</style>'."\n";
+		$str .= '</style>'.ln();
 		
 		if( ! empty($str) ) 
 		{
-			if($args[count($args) - 1] === true)
+			if( $args[count($args) - 1] === true )
 			{
 				return $str;
 			}
@@ -563,7 +673,20 @@ class Import
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* STYLE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Harici stil yüklemek için kullanılır. Yüklenmek istenen stiller		  |
+	| Views/Styles/ dizinine atılır.									  				      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. array/args var @styles => Parametre olarak sıralı stil dosyalarını veya dizi içinde  |
+	| eleman olarak kullanılan stil dosyalarını dahil etmek için kullanılır.			      |
+	|          																				  |
+	| Örnek Kullanım: import::style('s1', 's2' ... 'sN');        						      |
+	| Örnek Kullanım: import::style(array('s1', 's2' ... 'sN'));        				      |
+	|          																				  |
+	******************************************************************************************/
 	public static function style()
 	{
 		$config_style = array_unique(config::get('Masterpage','style'));
@@ -580,13 +703,16 @@ class Import
 		
 		foreach(array_unique($arguments) as $style)
 		{
-			if( is_array($style) ) $style = '';
-			
-			if( ! in_array($style, $config_style) && ! in_array("style_".$style, self::$is_import))
+			if( is_array($style) ) 
 			{
-				if(is_file_exists(STYLES_DIR.suffix($style,".css")))
+				$style = '';
+			}
+			
+			if( ! in_array($style, $config_style) && ! in_array("style_".$style, self::$is_import) )
+			{
+				if( is_file_exists(STYLES_DIR.suffix($style,".css")) )
 				{
-					$str .= '<link href="'.base_url().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'."\n";
+					$str .= '<link href="'.base_url().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.ln();
 				}
 				self::$is_import[] = "style_".$style;
 			}
@@ -610,7 +736,20 @@ class Import
 		
 	}	
 
-
+	/******************************************************************************************
+	* SCRIPT                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Harici js dosyası yüklemek için kullanılır. Yüklenmek istenen stiller	  |
+	| Views/Scripts/ dizinine atılır.										  				  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. array/args var @scripts => Parametre olarak sıralı js dosyalarını veya dizi içinde   |
+	| eleman olarak kullanılan js dosyalarını dahil etmek için kullanılır.			     	  |
+	|          																				  |
+	| Örnek Kullanım: import::script('s1', 's2' ... 'sN');        						      |
+	| Örnek Kullanım: import::script(script('s1', 's2' ... 'sN'));        				      |
+	|          																				  |
+	******************************************************************************************/
 	public static function script()
 	{
 		$config_script = array_unique(config::get('Masterpage','script'));
@@ -627,18 +766,21 @@ class Import
 		
 		foreach(array_unique($arguments) as $script)
 		{
-			if( is_array($script) ) $script = '';
+			if( is_array($script) ) 
+			{
+				$script = '';
+			}
 			
 			if( ! in_array($script, $config_script) && ! in_array("script_".$script, self::$is_import) )
 			{
-				if(is_file_exists(SCRIPTS_DIR.suffix($script,".js")))
+				if( is_file_exists(SCRIPTS_DIR.suffix($script,".js")) )
 				{
-					$str .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($script,".js").'"></script>'."\n";
+					$str .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($script,".js").'"></script>'.ln();
 				}
 				
-				if($script === 'Jquery' || $script === 'JqueryUi')
+				if( $script === 'Jquery' || $script === 'JqueryUi' )
 				{
-					$str .= '<script type="text/javascript" src="'.base_url().REFERENCES_DIR.'Jquery/'.suffix($script,".js").'"></script>'."\n";
+					$str .= '<script type="text/javascript" src="'.base_url().REFERENCES_DIR.'Jquery/'.suffix($script,".js").'"></script>'.ln();
 				}
 				
 				self::$is_import[] = "script_".$script;
@@ -662,7 +804,20 @@ class Import
 		
 	}
 	
-	
+	/******************************************************************************************
+	* SOMETHING                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Herhangi bir dosya dahil etmek için kullanılır.						  |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::something('Application/Views/Pages/OrnekSayfa.php');        	  |
+	| Örnek Kullanım: import::something('Application/Views/Style/Stil.js');        	          |
+	|          																				  |
+	******************************************************************************************/
 	public static function something($page = '', $data = '', $ob_get_contents = false)
 	{
 		if( ! is_string($page) ) 
@@ -680,13 +835,19 @@ class Import
 		switch(extension($page))
 		{
 			case 'js':
-				if( ! is_file_exists($page) ) return false;
-				echo '<script type="text/javascript" src="'.base_url().$page.'"></script>'."\n";
+				if( ! is_file_exists($page) ) 
+				{
+					return false;
+				}
+				echo '<script type="text/javascript" src="'.base_url().$page.'"></script>'.ln();
 			break;	
 			
 			case 'css':
-				if( ! is_file_exists($page) ) return false;
-				echo '<link href="'.base_url().$page.'" rel="stylesheet" type="text/css" />'."\n";
+				if( ! is_file_exists($page) ) 
+				{
+					return false;
+				}
+				echo '<link href="'.base_url().$page.'" rel="stylesheet" type="text/css" />'.ln();
 			break;
 			
 			default;
@@ -719,7 +880,17 @@ class Import
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* PACKAGE                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Bir dizin içindeki dosyaları aynı anda dahil etmek için kullanılır.	  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @packages => Dahil edilecek dosyaların bulunduğu dizin.					  |
+	|          																				  |
+	| Örnek Kullanım: import::something('Application/Views/Pages/');        	              |
+	|          																				  |
+	******************************************************************************************/
 	public static function package($packages = "")
 	{
 		if( ! is_string($packages) ) 
@@ -752,11 +923,11 @@ class Import
 				}
 				if( extension($val) === "js" )
 				{
-					echo '<script type="text/javascript" src="'.base_url().suffix($packages).$val.'"></script>'."\n";
+					echo '<script type="text/javascript" src="'.base_url().suffix($packages).$val.'"></script>'.ln();
 				}
 				if( extension($val) === "css" )
 				{
-					echo '<link href="'.base_url().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'."\n";
+					echo '<link href="'.base_url().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.ln();
 				}
 			}
 		}
@@ -766,7 +937,19 @@ class Import
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* PAGE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
 	public static function page($page = '', $data = '', $ob_get_contents = false)
 	{
 		if( ! is_string($page) )
@@ -794,21 +977,48 @@ class Import
 			{
 				return false;
 			}
+			
 			ob_start(); 
 			require(PAGES_DIR.suffix($page,".php")); 
 			$content = ob_get_contents(); 
 			ob_end_clean(); 
+			
 			return $content ; 
 		}
 	
 	}
 	
+	/******************************************************************************************
+	* VIEW                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
 	public static function view($page = '', $data = '', $ob_get_contents = false)
 	{
 		return self::page($page, $data, $ob_get_contents);
 	}
 	
-	
+	/******************************************************************************************
+	* MODEL                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Model dizinlerinde yer alan dosyaları dahil etmek için kullanılır. 	  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array/args var @models => Parametre olarak sıralı model dosyalarını veya dizi içinde |
+	| eleman olarak kullanılan model dosyalarını dahil etmek için kullanılır.				  |
+	|          																				  |
+	| Örnek Kullanım: import::library('k1', 'k2' ... 'kN');        							  |
+	| Örnek Kullanım: import::library(array('k1', 'k2' ... 'kN'));        					  |
+	|          																				  |
+	******************************************************************************************/
 	public static function model()
 	{
 		
