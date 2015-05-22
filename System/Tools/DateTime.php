@@ -40,7 +40,7 @@ if( ! file_exists('standart_time') )
 		
 		// Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
 		// Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
-		return iconv($config['iconv_in_charset'], $config['iconv_out_charset'], strftime("%d %B %Y, %A %H:%M:%S"));
+		return strftime("%d %B %Y, %A %H:%M:%S");
 	}
 }
 
@@ -147,7 +147,7 @@ if( ! file_exists('set_time') )
 		
 		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
 		
-		return iconv($config['iconv_in_charset'], $config['iconv_out_charset'], strftime($setExp));
+		return strftime($setExp);
 	}
 }
 
@@ -184,10 +184,6 @@ if( ! file_exists('set_date') )
 		
 		$newClock = str_replace(array_keys($chars), array_values($chars), $exp);
 		
-		return iconv(config::get('DateTime', 'iconv_in_charset'),config::get('DateTime', 'iconv_out_charset'), date($newClock));
+		return date($newClock);
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
