@@ -9,8 +9,13 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
-
+/******************************************************************************************
+* REPAIR CLASS                                                                            *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
+| Sınıfı Kullanırken      :	Sistem tarafından kullanılır.							      |
+|																						  |
+******************************************************************************************/	
 class Repair
 {
 	public static function mode()
@@ -61,11 +66,11 @@ class Repair
 			foreach($repair_pages as $rp)
 			{
 				// Gelen sayfa o anki url içinde geçip geçmediğini kontrol ediliyor.
-				$page_pos = strpos(current_path(), $rp);	
+				$page_pos = strstr(current_path(), $rp);	
 				
 				// Eğer gelen sayfa o anki url içinde geçiyorsa yani sonuc -1 den büyükse 
 				// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
-				if( $page_pos > -1 )
+				if( ! empty($page_pos) )
 				{
 					if( current_path() !== config::get("Repair","route_page") )
 					{

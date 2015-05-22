@@ -9,56 +9,128 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* BASE_DIR: Sistem kök dizini.                                                            *
+******************************************************************************************/	
+$base_dir = explode("index.php", $_SERVER['SCRIPT_NAME']);
 
-$base_dir = explode("index.php",$_SERVER['SCRIPT_NAME']); // sistem dizini belirleniyor...
-
-if(isset($base_dir[0]))
+if( isset($base_dir[0]) )
 {
 	define('BASE_DIR', $base_dir[0]);
 }
+/*****************************************************************************************/
 
-define('SYSTEM_DIR', 'System/'); 							/* SYSTEM_DIR */
+/******************************************************************************************
+* SYSTEM_DIR: System/                                                                     *
+******************************************************************************************/	
+define('SYSTEM_DIR', 'System/'); 	
 
-define('CONFIG_DIR', APP_DIR.'Config/'); 					/* CONFIG_DIR */
+/******************************************************************************************
+* CONFIG_DIR: Application/Config/                                                         *
+******************************************************************************************/
+define('CONFIG_DIR', APP_DIR.'Config/'); 
 
-define('CORE_DIR', SYSTEM_DIR.'Core/'); 					/* CORE_DIR */
+/******************************************************************************************
+* CORE_DIR: System/Core/                                                         		  *
+******************************************************************************************/
+define('CORE_DIR', SYSTEM_DIR.'Core/'); 		
 
-define('REFERENCES_DIR', SYSTEM_DIR.'References/'); 		/* REFERENCES_DIR */
+/******************************************************************************************
+* REFERENCES_DIR: System/References/                                                      *
+******************************************************************************************/
+define('REFERENCES_DIR', SYSTEM_DIR.'References/'); 
 
-define('SYSTEM_LANGUAGES_DIR', SYSTEM_DIR.'Languages/');	/* SYSTEM_LANGUAGES_DIR */
+/******************************************************************************************
+* SYSTEM_LANGUAGES_DIR: System/Languages/                                                 *
+******************************************************************************************/
+define('SYSTEM_LANGUAGES_DIR', SYSTEM_DIR.'Languages/');
 
-define('LANGUAGES_DIR', APP_DIR.'Languages/'); 				/* LANGUAGES_DIR */
+/******************************************************************************************
+* LANGUAGES_DIR: Application/Languages/                                                   *
+******************************************************************************************/
+define('LANGUAGES_DIR', APP_DIR.'Languages/'); 
 
-define('SYSTEM_LIBRARIES_DIR', SYSTEM_DIR.'Libraries/');	/* SYSTEM_LIBRARIES_DIR */
+/******************************************************************************************
+* SYSTEM_LIBRARIES_DIR: System/Libraries/                                                 *
+******************************************************************************************/
+define('SYSTEM_LIBRARIES_DIR', SYSTEM_DIR.'Libraries/');
 
-define('LIBRARIES_DIR', APP_DIR.'Libraries/'); 				/* LIBRARIES_DIR */
+/******************************************************************************************
+* LIBRARIES_DIR: Application/Libraries/                                                   * 
+******************************************************************************************/
+define('LIBRARIES_DIR', APP_DIR.'Libraries/'); 			
 
-define('SYSTEM_TOOLS_DIR', SYSTEM_DIR.'Tools/'); 			/* SYSTEM_TOOLS_DIR */
+/******************************************************************************************
+* SYSTEM_TOOLS_DIR: System/Tools/                                                 		  * 
+******************************************************************************************/
+define('SYSTEM_TOOLS_DIR', SYSTEM_DIR.'Tools/'); 			
 
-define('TOOLS_DIR', APP_DIR.'Tools/'); 						/* TOOLS_DIR */
+/******************************************************************************************
+* TOOLS_DIR: Application/Tools/                                                 		  * 
+******************************************************************************************/
+define('TOOLS_DIR', APP_DIR.'Tools/'); 					
 
-define('CONTROLLERS_DIR', APP_DIR.'Controllers/'); 			/* CONTROLLERS_DIR */
+/******************************************************************************************
+* CONTROLLERS_DIR: Application/Controllers/                                               * 
+******************************************************************************************/
+define('CONTROLLERS_DIR', APP_DIR.'Controllers/'); 			
 
-define('MODELS_DIR', APP_DIR.'Models/'); 					/* MODELS_DIR */
+/******************************************************************************************
+* MODELS_DIR: Application/Models/                                             			  * 
+******************************************************************************************/
+define('MODELS_DIR', APP_DIR.'Models/'); 				
 
-define('VIEWS_DIR', APP_DIR.'Views/'); 						/* VIEWS_DIR */
-	
-define('SCRIPTS_DIR', VIEWS_DIR.'Scripts/'); 				/* SCRIPTS_DIR */
+/******************************************************************************************
+* VIEWS_DIR: Application/Views/                                             			  * 
+******************************************************************************************/
+define('VIEWS_DIR', APP_DIR.'Views/'); 						
 
-define('PAGES_DIR', VIEWS_DIR.'Pages/'); 					/* PAGES_DIR */
+/******************************************************************************************
+* SCRIPTS_DIR: Application/Views/Scripts/                                             	  * 
+******************************************************************************************/	
+define('SCRIPTS_DIR', VIEWS_DIR.'Scripts/'); 				
 
-define('STYLES_DIR', VIEWS_DIR.'Styles/'); 					/* STYLES_DIR */
+/******************************************************************************************
+* PAGES_DIR: Application/Views/Pages/    	                                         	  * 
+******************************************************************************************/	
+define('PAGES_DIR', VIEWS_DIR.'Pages/'); 					
 
-define('TRINKETS_DIR', VIEWS_DIR.'Trinkets/');				/* TRINKETS_DIR */
+/******************************************************************************************
+* STYLES_DIR: Application/Views/Styles/       	                                      	  * 
+******************************************************************************************/	
+define('STYLES_DIR', VIEWS_DIR.'Styles/'); 				
 
-define('FONTS_DIR', VIEWS_DIR.'Fonts/');					/* FONTS_DIR */
+/******************************************************************************************
+* TRINKETS_DIR: Application/Views/Trinkets/    	                                      	  * 
+******************************************************************************************/	
+define('TRINKETS_DIR', VIEWS_DIR.'Trinkets/');				
 
-define('FILES_DIR', TRINKETS_DIR.'Files/');					/* FILES_DIR */
+/******************************************************************************************
+* FONTS_DIR: Application/Views/Fonts/    	                                      	  	  * 
+******************************************************************************************/	
+define('FONTS_DIR', VIEWS_DIR.'Fonts/');					
 
-define('UPLOADS_DIR', TRINKETS_DIR.'Uploads/');				/* UPLOADS_DIR */
+/******************************************************************************************
+* FILES_DIR: Application/Views/Trinkets/Files/    	                                      * 
+******************************************************************************************/	
+define('FILES_DIR', TRINKETS_DIR.'Files/');					
 
-define('DB_DIR', SYSTEM_DIR.'Database/');					/* DB_DIR */
+/******************************************************************************************
+* UPLOADS_DIR: Application/Views/Trinkets/Uploads/    	                                  * 
+******************************************************************************************/
+define('UPLOADS_DIR', TRINKETS_DIR.'Uploads/');				
 
-define('DRIVERS_DIR', DB_DIR.'Drivers/');					/* DRIVERS_DIR */
+/******************************************************************************************
+* DB_DIR: System/Database/    	                                  						  * 
+******************************************************************************************/
+define('DB_DIR', SYSTEM_DIR.'Database/');				
 
-define('SYSTEM_COMPONENTS_DIR', SYSTEM_DIR.'Components/');	/* SYSTEM_COMPONENTS_DIR */
+/******************************************************************************************
+* DB_DIR: System/Database/Drivers/    	                                  				  * 
+******************************************************************************************/
+define('DRIVERS_DIR', DB_DIR.'Drivers/');				
+
+/******************************************************************************************
+* DB_DIR: System/Components/    	 	                                 				  * 
+******************************************************************************************/
+define('SYSTEM_COMPONENTS_DIR', SYSTEM_DIR.'Components/');

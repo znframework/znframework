@@ -10,36 +10,75 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
-/*------------------------------------------------------------------------------------------------------*/
 Hierarchy::run();
-
+/******************************************************************************************
+* HIEARCHY CLASS                                                                          *
+*******************************************************************************************
+| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
+| Sınıfı Kullanırken      :	Sistem kullanır.										      |
+| 																						  |
+| Genel Kullanım:																          |
+| Oluşturulan çekirdek yapılarının belli bir sıra ile dahil edilmesi için kullanılmıştır. |
+|																						  |
+******************************************************************************************/	
 class Hierarchy
 {
+	// Hiyerarşi sınıfı çalıştırma yöntemi
 	public static function run()
 	{ 
-		require_once 'System/Core/ZN.php'; 			// global erişim yükleniyor...
+		/******************************************************************************************
+		* Global değişken oluşturmak için ZN sınıfı dahil ediliyor.                               *
+		******************************************************************************************/	
+		require_once 'System/Core/ZN.php'; 		
 		
-		require_once 'System/Core/Constants.php'; 	// sabit tanımlamalar yükleniyor...
+		/******************************************************************************************
+		* Sabitler dahil ediliyor.                                                                *
+		******************************************************************************************/
+		require_once 'System/Core/Constants.php'; 
 		
-		require_once 'System/Core/Config.php'; 		// ayarlar yükleniyor...
+		/******************************************************************************************
+		* Sabitler dahil ediliyor.                                                                *
+		******************************************************************************************/
+		require_once 'System/Core/Config.php'; 	
 		
-		require_once 'System/Core/Functions.php'; 	// sistem fonksiyonları yükleniyor...
+		/******************************************************************************************
+		* Fonksiyonlar dahil ediliyor.                                                            *
+		******************************************************************************************/
+		require_once 'System/Core/Functions.php'; 
 		
-		require_once 'System/Core/Controller.php';	// dinamik yapılı kütüphane kullanımı yükleniyor...
+		/******************************************************************************************
+		* Controller sınıfı dahil ediliyor.                                                       *
+		******************************************************************************************/
+		require_once 'System/Core/Controller.php';	
 		
-		require_once 'System/Core/Model.php';		// dinamik yapılı kütüphane kullanımı yükleniyor...
+		/******************************************************************************************
+		* Model sınıfı dahil ediliyor.                                                            *
+		******************************************************************************************/
+		require_once 'System/Core/Model.php';		
 		
-		require_once 'System/Core/MagicGet.php';	// dinamik yapılı kütüphane kullanımı yükleniyor...
+		/******************************************************************************************
+		* MagicGet sınıfı dahil ediliyor.                                                         *
+		******************************************************************************************/
+		require_once 'System/Core/MagicGet.php';	
 		
-		require_once 'System/Core/Import.php'; 		// dahil etme sınıfı yükleniyor...
+		/******************************************************************************************
+		* Import dahil etmek sınıfı dahil ediliyor.                                               *
+		******************************************************************************************/
+		require_once 'System/Core/Import.php'; 		
 		
-		require_once 'System/Core/Starting.php'; 	// oto yükleme dosyaları varsa onlar yükleniyor...
+		/******************************************************************************************
+		* Başlangıçta çalıştırılması isenen yöntemler çalıştırılıyor.                             *
+		******************************************************************************************/
+		require_once 'System/Core/Starting.php'; 	
 		
-		require_once 'System/Core/Repair.php'; 	    // tadilat dosyası yükleniyor...
+		/******************************************************************************************
+		* Onarım sınıfı dahil ediliyor.                             							  *
+		******************************************************************************************/
+		require_once 'System/Core/Repair.php'; 	   
 		
-		require_once 'System/Core/Structure.php'; 	// zn url sistemi yükleniyor... 
+		/******************************************************************************************
+		* ZN Temel yapısı dahil ediliyor.                             							  *
+		******************************************************************************************/
+		require_once 'System/Core/Structure.php'; 	
 	}
 }
-
-/*-----------------------------------SİSTEM YÜKLENİYOR---------------------------------------------------*/

@@ -9,11 +9,16 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+/******************************************************************************************
+* ZN CLASS                                                        		                  *
+*******************************************************************************************
+| Doğrudan erişim sağlamak için global değişken kullanımı sağlamak için oluşturulmuştur.  |
+******************************************************************************************/
 class ZN
 {
-	/* SUPER GLOBAL VARIABLE *
+	/* ZN USE DEĞİŞKENİ
 	 *
-	 * Super global variables for direct access
+	 * Direk erişim sağlayabilmek için oluşturulmuştur.
 	 * 
 	 */
 	public static $use;
