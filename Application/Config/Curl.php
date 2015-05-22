@@ -8,18 +8,19 @@ Author: Ozan UYKUN
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
-//--------------------------------------------------------------------------------------------------------------------------
-SETTINGS
-//--------------------------------------------------------------------------------------------------------------------------
-1-options
-2-info
-3-errors
-//--------------------------------------------------------------------------------------------------------------------------
+/******************************************************************************************
+* CURL                                                                           	  	  *
+*******************************************************************************************
+| Genel Kullanım: Curl işlemleri için kullanılabilir seçenekler yer almaktadır.       	  |
+******************************************************************************************/
 
-/* OPTIONS */
-// İşlev:Curl ile kullanılan seçeneklerin yerini alacak yeni değerleri ayarlamak için kullanılır.
-// Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 
-// Örnek: array('url' => CURLOPT_URL);
+/******************************************************************************************
+* OPTIONS                                                                           	  *
+*******************************************************************************************
+| Genel Kullanım: Curl ile kullanılan seçeneklerin yerini alacak yeni değerleri ayarlamak |
+| için kullanılır. Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 				  |
+| Örnek: array('url' => CURLOPT_URL);								                      |
+******************************************************************************************/
 $config['Curl']['options'] = array( // Array
 
 	'url' 						=> CURLOPT_URL,
@@ -124,10 +125,13 @@ $config['Curl']['options'] = array( // Array
 
 );
 
-/* INFO */
-// İşlev:Curl işlemleri hakkında bilgi almak için kullanılan parametreleri kısaltmak için kullanılır.
-// Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 
-// Örnek: array('speed_download' => CURLINFO_SPEED_DOWNLOAD);
+/******************************************************************************************
+* INFO                                                                               	  *
+*******************************************************************************************
+| Genel Kullanım: Curl işlemleri hakkında bilgi almak için kullanılan parametreleri 	  |
+| kısaltmak için kullanılır. Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 	  |
+| Örnek: array('speed_download' => CURLINFO_SPEED_DOWNLOAD);							  |
+******************************************************************************************/
 $config['Curl']['info'] = array(
 
 	'speed_download' 			=> CURLINFO_SPEED_DOWNLOAD,
@@ -159,10 +163,13 @@ $config['Curl']['info'] = array(
 	'private' 					=> CURLINFO_PRIVATE
 );
 
-/* ERRORS */
-// İşlev:Curl işlemleri sırasında oluşan hataların ne olduklarını öğrenmek için kullanılır.
-// Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 
-// Örnek: array(1 => 'CURLE_UNSUPPORTED_PROTOCOL');
+/******************************************************************************************
+* ERRORS                                                                               	  *
+*******************************************************************************************
+| Genel Kullanım: Curl işlemleri sırasında oluşan hataların ne olduklarını öğrenmek 	  |
+| için kullanılır. Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 			      |
+| Örnek: array(1 => 'CURLE_UNSUPPORTED_PROTOCOL');						                  |
+******************************************************************************************/	
 $config['Curl']['errors'] = array(
 
 	0  => CURLE_OK,
@@ -244,4 +251,3 @@ $config['Curl']['errors'] = array(
 	87 => 'CURLE_FTP_BAD_FILE_LIST',
 	88 => 'CURLE_CHUNK_FAILED'
 );
-//--------------------------------------------------------------------------------------------------------------------------

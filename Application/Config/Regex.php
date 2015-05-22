@@ -8,17 +8,20 @@ Author: Ozan UYKUN
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
-1-regex_chars
-2-settings_chars
-3-special_chars
+/******************************************************************************************
+* REGULAR EXPIRESSIONS                                                                    *
+*******************************************************************************************
+| Genel Kullanımı: Regex.php kütüphanesi ile ilgili ayarları içerir.					  |
+******************************************************************************************/
 
-*/
-
-/*
-*-------------------------------------------------------------
-*/
-/*Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki değişiklikler yapılmıştır. */
-$config['Regex']['regex_chars'] = array(
+/******************************************************************************************
+* REGULAR EXPIRESSION CHARS                                                               *
+*******************************************************************************************
+| Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki 		  |
+| değişiklikler yapılmıştır.					  										  |
+******************************************************************************************/
+$config['Regex']['regex_chars'] = array
+(
 	'<non-numeric>' 	=> '\D',
 	'<numeric>' 		=> '\d',
 	'<schar>' 			=> '\W',
@@ -39,8 +42,14 @@ $config['Regex']['regex_chars'] = array(
 	'<hex>'				=> '\x'
 );
 
-/*Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle ilgili aşağıdaki değişiklikler yapılmıştır. */
-$config['Regex']['setting_chars'] = array(
+/******************************************************************************************
+* REGULAR EXPIRESSION SETTING CHARS                                                       *
+*******************************************************************************************
+| Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle 	  |
+| ilgili aşağıdaki değişiklikler yapılmıştır 											  |
+******************************************************************************************/
+$config['Regex']['setting_chars'] = array
+(
 	'<insens>' 			=> 'i',
 	'<generic>' 		=> 'g',
 	'<each>' 			=> 's',
@@ -48,8 +57,14 @@ $config['Regex']['setting_chars'] = array(
 	'<inspace>' 		=> 'x'
 );
 
-/*Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi kullanmak için aşağıdaki değişiklikler yapılmıştır. */
-$config['Regex']['special_chars'] = array(
+/******************************************************************************************
+* REGULAR EXPIRESSION SPECIAL CHARS                                                       *
+*******************************************************************************************
+| Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi  |
+| kullanmak için aşağıdaki değişiklikler yapılmıştır.									  |
+******************************************************************************************/
+$config['Regex']['special_chars'] = array
+(
 	'.' 				=> '\.',
 	'^' 				=> '\^',
 	'$' 				=> '\$',

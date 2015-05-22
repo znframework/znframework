@@ -8,22 +8,43 @@ Author: Ozan UYKUN
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
-1-open_page
-2-show_404
-3-change_uri
+/******************************************************************************************
+* ROUTE                                                                                   *
+*******************************************************************************************
+| Genel Kullanımı: Açılış sayfası, hata sayfası veya URI yönlendirme gibi işlemlerin      |
+| yapıldığı ayar dosyasıdır.									  						  |						
+******************************************************************************************/
 
-*/
-
-/*
-*-------------------------------------------------------------
-*/
-
-// route 404 page
+/******************************************************************************************
+* OPEN PAGE                                                                               *
+*******************************************************************************************
+| Genel Kullanımı: Başlangıçta varsayılan açılış sayfasını sağlayan Controller dosyasıdır.|
+| Dikkat edilirse açılış sayfası welcome.php'dir ancak bu işlemi yapan home.php	          |
+| Controller dosyasıdır.																  |						
+******************************************************************************************/
 $config['Route']['open_page'] 	= 'home';
 
-// route 404 page
+/******************************************************************************************
+* OPEN PAGE                                                                               *
+*******************************************************************************************
+| Genel Kullanımı: Geçersiz URI adresi girildiğinde yönlendirilmek istenen URI yoludur.   |						
+******************************************************************************************/
 $config['Route']['show_404'] 	= '';
 
-// yeni url değeri => değiştirilecek url değeri
-// anahtarlar değerin ters olmasının sebebi url çevirmede birden fazla çevirme imkanı sağlamaktır.
+/******************************************************************************************
+* CHANGE URI                                                                              *
+*******************************************************************************************
+| Genel Kullanımı: URI adreslerinde değişiklik yapmak yani URI yönlendirme yapmak için    |
+| kullanılır. Yönlendirmeler bir dizi içerisinde belirtilir. Dizi anahtar verisi olarak   |
+| Eski URI bilgisi, değer verisi olarakta yeni URI bilgisi yazılır. Böylece bir sayfaya   |
+| birden fazla yönlendirme verisi girilebilir.   										  |	
+|    																			          |	
+| Örnek Kullanım:  																		  |
+| array																					  |
+| (																						  |
+| 'anasayfa' => 'home/index',															  |
+| 'home'     => 'home/index'														      |
+| );																				      |
+| Yukarıdaki kullanımda home/index için 2 farklı yönlendirme sağlamış olduk.		      |							
+******************************************************************************************/
 $config['Route']['change_uri'] 	= array();
