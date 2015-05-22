@@ -9,32 +9,53 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
-// Function: mtrim()
-// İşlev: Verideki tüm boşlukları silmek için kullanılır.
-// Parametreler
-// @str = Boşlukları silinecek veri.
-if( ! function_exists('mtrim'))
+/******************************************************************************************
+*  MTRIM                                                                    			  *
+*******************************************************************************************
+| Genel Kullanım: Verideki tüm boşlukları silmek için kullanılır.   	                  |
+|																						  |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. string var @str => Boşlukları silinecek veri.			  					          |
+|          																				  |
+| Örnek Kullanım: mtrim(' abc bcd '); // abcbcd         						  		  |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('mtrim') )
 {
 	function mtrim($str = '')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) ) 
+		{
+			return false;
+		}
 		
-		$str = preg_replace('/\s+/',"",$str);
-		$str = preg_replace('/&nbsp;/',"",$str);
+		$str = preg_replace('/\s+/', '', $str);
+		$str = preg_replace('/&nbsp;/', '', $str);
+		
 		return $str;
 	}	
 }
 
-// Function: trim_slashes()
-// İşlev: Verinin başındaki veya sonundaki / taksim karakterlerini silmek için kullanılır.
-// Parametreler
-// @str = Başındaki ve sonundaki / taksim işaretleri temizlenecek olan veri.
-if( ! function_exists('trim_slashes'))
+/******************************************************************************************
+*  TRIM SLASHES                                                               			  *
+*******************************************************************************************
+| Genel Kullanım: Verinin başındaki veya sonundaki / taksim karakterlerini silmek 		  |
+| için kullanılır.   	                  											      |
+|																						  |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. string var @str => Başındaki ve sonundaki / taksim işaretleri temizlenecek olan veri.|
+|          																				  |
+| Örnek Kullanım: trim_slashes('/abc bcd/'); // abc bcd         						  |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('trim_slashes') )
 {
 	function trim_slashes($str = '')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) ) 
+		{
+			return false;
+		}
 		
 		$str = trim($str, "/");
 		
@@ -42,16 +63,26 @@ if( ! function_exists('trim_slashes'))
 	}	
 }
 
-// Function: uppercase()
-// İşlev: Metinsel ifadeleri büyük harfe çevirir.
-// Parametreler
-// @str = Metin
-// @encoding = Kodlama Türü
-if( ! function_exists('uppercase'))
+/******************************************************************************************
+*  UPPERCASE                                                                 			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadeleri büyük harfe çevirir.   	                  		  |
+|																						  |
+| Parametreler: 2 parametresi vardır.                                              	      |
+| 1. string var @str => Büyük harfe çevirelecek metin.								      |
+| 2. string var @encoding => Kodlama Türü.		    								      |
+|          																				  |
+| Örnek Kullanım: uppercase('zntr.net'); // ZNTR.NET         						      |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('uppercase') )
 {
 	function uppercase($str = '', $encoding = 'utf-8')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) || ! is_charset($encoding) ) 
+		{
+			return false;
+		}
 		
 		$str = mb_strtoupper($str, $encoding);
 		
@@ -59,16 +90,26 @@ if( ! function_exists('uppercase'))
 	}	
 }
 
-// Function: lowercase()
-// İşlev: Metinsel ifadeleri küçük harfe çevirir.
-// Parametreler
-// @str = Metin
-// @encoding = Kodlama Türü
-if( ! function_exists('lowercase'))
+/******************************************************************************************
+*  LOWERCASE                                                                 			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadeleri küçük harfe çevirir.   	                  		  |
+|																						  |
+| Parametreler: 2 parametresi vardır.                                              	      |
+| 1. string var @str => Küçük harfe çevirelecek metin.								      |
+| 2. string var @encoding => Kodlama Türü.		    								      |
+|          																				  |
+| Örnek Kullanım: uppercase('ZNTR.NET'); // zntr.net         						      |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('lowercase') )
 {
 	function lowercase($str = '', $encoding = 'utf-8')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) || ! is_charset($encoding) ) 
+		{
+			return false;
+		}
 		
 		$str = mb_strtolower($str, $encoding);
 		
@@ -76,16 +117,26 @@ if( ! function_exists('lowercase'))
 	}	
 }
 
-// Function: titlecase()
-// İşlev: Metinsel ifadeleri küçük harfe çevirir.
-// Parametreler
-// @str = Metin
-// @encoding = Kodlama Türü
-if( ! function_exists('titlecase'))
+/******************************************************************************************
+*  TITLECASE                                                                 			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadelerin sadece ilk harfini büyük harfe çevirir.     		  |
+|																						  |
+| Parametreler: 2 parametresi vardır.                                              	      |
+| 1. string var @str => Küçük harfe çevirelecek metin.								      |
+| 2. string var @encoding => Kodlama Türü.		    								      |
+|          																				  |
+| Örnek Kullanım: titlecase('ZNTR.NET'); // Zntr.net         						      |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('titlecase') )
 {
 	function titlecase($str = '', $encoding = 'utf-8')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) || ! is_charset($encoding) ) 
+		{
+			return false;
+		}
 		
 		$str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
 		
@@ -93,80 +144,155 @@ if( ! function_exists('titlecase'))
 	}	
 }
 
-// Function: substring()
-// İşlev: Veriyi kırpmak için kullanılır.
-// Parametreler
-// @str = Kırpılacak veri.
-// @starting = Kırpmaya kaçıncı karakterden başlnacağı. Parametrenin alabileceği değerler: sayısal veriler, first, middle
-// 1- sayısal veriler: herhangi bir sayı.
-// 2- first: ilk karakterden itibaren.
-// 3- middle: ortanca karakterden itibaren.
-// @count = Kaç karakter kırpılacağı. Parametrenin alabileceği değerler: sayısal veriler, all
-// 1- sayısal veriler: herhangi bir sayı.
-// 1- all: Kalan bütün karakterler.
-if( ! function_exists('substring'))
+/******************************************************************************************
+*  SUBSTRING                                                                 			  *
+*******************************************************************************************
+| Genel Kullanım: Substr kullanımıdır. Ancak parametreler noktasında küçük bir fark vardır|
+|																						  |
+| Parametreler: 4 parametresi vardır.                                              	      |
+| 1. string var @str => Kırpılacak metin.								                  |
+| 2. numeric/string var @starting => Kırpmaya kaçıncı karakterden başlnacağı. 			  |
+| Parametrenin alabileceği değerler: sayısal veriler, first, middle.					  |
+|	2.1- sayısal veriler: herhangi bir sayı.											  |
+|	2.2- first: ilk karakterden itibaren.												  |
+|	2.3- middle: ortanca karakterden itibaren.											  |
+| 3. numeric/string var @count => Kaç karakter kırpılacağı. 							  |
+| Parametrenin alabileceği değerler: sayısal veriler, all								  |
+| 	3.1- sayısal veriler: herhangi bir sayı.											  |
+| 	3.2- all: Kalan bütün karakterler..		    						                  |
+| 4. string var @encoding => Kodlama Türü.		    								      |
+|          																				  |
+| Örnek Kullanım: substring('ZNTR.NET', 0, 4); // ZNTR         						      |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('substring') )
 {
 	function substring($str = '', $starting = 0, $count = 0, $encoding = "utf-8")
 	{
-		if( ! is_string($str)) return false;
-		if( ! (is_numeric($starting) || is_string($starting))) $starting = 0;
-		if( ! (is_numeric($count) || is_string($count))) $count = 0;
+		if( ! is_string($str) ) 
+		{
+			return false;
+		}
 		
-		if(empty($count))
+		if( ! is_char($starting) ) 
+		{
+			$starting = 0;
+		}
+		
+		if( ! is_char($count) ) 
+		{
+			$count = 0;
+		}
+		
+		if( empty($count) )
 		{ 
 			return $str;
 		}
-		if($starting === 'first') $starting = 0;
-		if($starting === 'middle') $starting = floor(mb_strlen($str, $encoding) / 2);
 		
-		if($count === 'all') $count = mb_strlen($str, $encoding) - ($starting);
-
+		if( $starting === 'first' ) 
+		{
+			$starting = 0;
+		}
+		
+		if( $starting === 'middle' ) 
+		{
+			$starting = floor(mb_strlen($str, $encoding) / 2);
+		}
+		
+		if( $count === 'all') 
+		{
+			$count = mb_strlen($str, $encoding) - ($starting);
+		}
+		
 		return mb_substr($str, $starting, $count, $encoding);
 	}	
 }
 
-// Function: string_search()
-// İşlev: Metinsel ifadeler içinde arama yapmak için kullanılır.
-// Parametreler
-// @str = Arama yapılacak metin.
-// @needle = Aranan karakter veya karakterler.
-// @type = Arama sonucunun türü. Parametrenin alabileceği değerler: str/string veya pos/position
-// 1-str/string: aranan kelime bulunmuş ise bulunan veri döner.
-// 2-pos/position: aranan kelime bulunmuş ise bulunan verinin ilk karakterinin indeks numarası döner.
-if( ! function_exists('string_search'))
+/******************************************************************************************
+*  STRING SEARCH                                                              			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadeler içinde arama yapmak için kullanılır.     		      |
+|																						  |
+| Parametreler: 3 parametresi vardır.                                              	      |
+| 1. string var @str => Arama yapılacak metin.								              |
+| 2. string var @needle => Aranan karakter veya karakterler.		    				  |
+| 3. string var @type => Arama sonucunun türü. 											  |
+| Parametrenin alabileceği değerler: str/string veya pos/position.						  | 
+| 	3.1-str/string: aranan kelime bulunmuş ise bulunan veri döner.				          |
+| 	3.2-pos/position: aranan kelime bulunmuş ise bulunan verinin ilk karakterinin 		  |
+|   indeks numarası döner.   								          					  |
+|          																				  |
+| Örnek Kullanım: string_search('ZNTR.NET', 'NET'); // NET         						  |
+| Örnek Kullanım: string_search('ZNTR.NET', 'NET', 'pos'); // 5         				  |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('string_search') )
 {
 	function string_search($str = '', $needle = '', $type = "str")
 	{
-		if( ! is_string($str)) return false;
-		if( ! is_string($type)) $type = "str";
-		if( ! is_string($needle)) $needle = "";
+		if( ! is_string($str) ) 
+		{
+			return false;
+		}
 		
-		if($type === "str" || $type === "string")
+		if( ! is_string($type) ) 
+		{
+			$type = "str";
+		}
+		
+		if( ! is_string($needle ) ) 
+		{
+			$needle = "";
+		}
+		
+		if( $type === "str" || $type === "string" )
+		{
 			return strstr($str, $needle);
+		}
 		if($type === "pos" || $type === "position")
+		{
 			return strpos($str, $needle);
+		}
 	}	
 }
 
-// Function: string_reshuffle()
-// İşlev: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile yer değiştirmek için kullanılır.
-// Parametreler
-// @str = Değişiklik yapılacak metin.
-// @shuffle = Yer değiştirilmesi istenen ilk karakter veya karakterler.
-// @reshuffle = Yer değiştirilmesi istenen ikinci karakter veya karakterler.
-if( ! function_exists('string_reshuffle'))
+/******************************************************************************************
+*  STRING RESHUFFLE                                                           			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadeler içinde istenilen karaketerleri birbirleri ile 		  |
+| yer değiştirmek için kullanılır.     		      						  			      |
+|																						  |
+| Parametreler: 3 parametresi vardır.                                              	      |
+| 1. string var @str => Değişiklik yapılacak metin.								          |
+| 2. string var @shuffle => Yer değiştirilmesi istenen ilk karakter veya karakterler.	  |
+| 3. string var @reshuffle => Yer değiştirilmesi istenen ikinci karakter veya karakterler.|
+|          																				  |
+| Örnek Kullanım: string_reshuffle('ZNTR.NET', '.', 'N'); // Z.TRN.ET         			  |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('string_reshuffle') )
 {
 	function string_reshuffle($str = '', $shuffle = '', $reshuffle = '')
 	{
-		if( ! is_string($str) || empty($str)) return false;
-		if( ! is_value($shuffle)) return $str;
-		if( ! is_value($reshuffle)) return $str;
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
 		
-		if(empty($shuffle)) return $str;
+		if( ! is_value($shuffle) || empty($shuffle) ) 
+		{
+			return $str;
+		}
+		
+		if( ! is_value($reshuffle) ) 
+		{
+			return $str;
+		}
 		
 		$shuffleex = explode($shuffle, $str);
 		
-		$newstr = "";
+		$newstr = '';
+		
 		foreach($shuffleex as $v)
 		{
 			$newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;	
@@ -176,43 +302,81 @@ if( ! function_exists('string_reshuffle'))
 	}	
 }
 
-// Function: string_recurrent_count()
-// İşlev: Metinsel ifadelerde tekrarlayan karakter veya karakterlerin sayısını öğrenmek için kullanılır.
-// Parametreler
-// @str = Arama yapılacak metin.
-// @char = Kaç kez tekrar ettiği hesaplanmak istenen karakter veya karakterler.
-if( ! function_exists('string_recurrent_count'))
+/******************************************************************************************
+*  STRING RECURRENT COUNT                                                      			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadelerde tekrarlayan karakter veya karakterlerin 			  |
+| sayısını öğrenmek için kullanılır.     		      						  			  |
+|																						  |
+| Parametreler: 2 parametresi vardır.                                              	      |
+| 1. string var @str => Arama yapılacak metin.								         	  |
+| 2. string var @shuffle => Kaç kez tekrar ettiği hesaplanmak istenen karakter veya 	  |
+| karakterler.	  																		  |
+|          																				  |
+| Örnek Kullanım: string_recurrent_count('ZNTR.NET', 'N'); // 2               			  |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('string_recurrent_count') )
 {
 	function string_recurrent_count($str = '', $char = '')
 	{
-		if( ! is_string($str) || empty($str)) return false;
-		if( ! is_value($char)) return $str;
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_value($char) ) 
+		{
+			return $str;
+		}
 		
 		return count(explode($char, $str)) - 1;
 	}	
 }
 
-// Function: string_placement()
-// İşlev: Metinsel ifadeler içinde istenilen karakterlerin yerine başka karakterler yerleştirmek için kullanılır.
-// Parametreler
-// @str = Değişiklik yapılacak metin.
-// @delimiter = Hangi karakterin yerine yerleştirme yapılacağı.
-// @array = Değiştirilmek istenen karakterler yerine sırasıyla hangi karakterlerin geleceği.
-if( ! function_exists('string_placement'))
+/******************************************************************************************
+*  STRING PLACEMENT                                                          			  *
+*******************************************************************************************
+| Genel Kullanım: Metinsel ifadeler içinde istenilen karakterlerin yerine başka 		  |
+| karakterler yerleştirmek için kullanılır.     		      						  	  |
+|																						  |
+| Parametreler: 3 parametresi vardır.                                              	      |
+| 1. string var @str => Değişiklik yapılacak metin.								          |
+| 2. string var @delimiter => Hangi karakterin yerine yerleştirme yapılacağı.	  		  |
+| 3. array var @array => Değiştirilmek istenen karakterler yerine sırasıyla hangi 
+| karakterlerin geleceği.	  		  													  |
+|          																				  |
+| Örnek Kullanım: string_recurrent_count('ZNTR.NET', 'N', array('+', '-')); // Z+TR.-ET   |
+|          																				  |
+******************************************************************************************/
+if( ! function_exists('string_placement') )
 {
 	function string_placement($str = '', $delimiter = '?', $array = array())
 	{
-		if( ! is_string($str) || empty($str)) return false;
-		if( ! is_array($array)) return false;
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
 		
-		if( ! empty($delimiter))
+		if( ! is_array($array) ) 
+		{
+			return false;
+		}
+		
+		if( ! empty($delimiter) )
+		{
 			$strex = explode($delimiter, $str);
+		}
 		else
+		{
 			return $str;
+		}
 		
-		if((count($strex) - 1) !== count($array))
+		if( (count($strex) - 1) !== count($array) )
+		{
 			return $str;
-			
+		}
+		
 		$newstr = '';
 		
 		for($i = 0; $i < count($array); $i++)

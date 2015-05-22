@@ -21,47 +21,69 @@ if(!function_exists('rounder'))
 {
 	function rounder($number = '', $count = 0, $type = "average")
 	{
-		if( ! is_numeric($number)) return false;
-		if( ! is_numeric($count)) $count = 0;
-		if( ! is_string($type)) $type = "average";
-		
-		if(empty($number)) 
-			return false;
-			
-		if( is_int($number)) 
-			return $number;
-			
-		if($type === 'average')
-			return round($number, $count);
-			
-		if($type === 'down')
+		if( ! is_numeric($number) ) 
 		{
-			if($count == 0) 
+			return false;
+		}
+		
+		if( ! is_numeric($count) ) 
+		{
+			$count = 0;
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = "average";
+		}
+		
+		if( empty($number) )
+		{ 
+			return false;
+		}
+		
+		if( is_int($number) )
+		{ 
+			return $number;
+		}
+		
+		if( $type === 'average' )
+		{
+			return round($number, $count);
+		}
+		
+		if( $type === 'down' )
+		{
+			if( $count == 0 ) 
+			{
 				return floor($number);	
-				
+			}
+			
 			$numbers = explode(".", $number);
 			
 			$edit = 0;
 			
-			if( ! empty($numbers[1]))
+			if( ! empty($numbers[1]) )
 			{
 				$edit = substr($numbers[1], 0, $count);
 				
 				return (float)$numbers[0].".".$edit;
 			}
 		}
-		if($type === 'up')
+		if( $type === 'up' )
 		{
-			if($count == 0) 
+			if($count == 0)
+			{ 
 				return ceil($number);
-				
+			}
+			
 			$numbers = explode(".", $number);
 			
 			$edit = 0;
 			
-			if( ! empty($numbers[1]))
+			if( ! empty($numbers[1]) )
 			{
 				$edit = substr($numbers[1], 0, $count);
+				
 				return (float)$numbers[0].".".($edit + 1);
 			}
 			

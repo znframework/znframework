@@ -21,9 +21,20 @@ if( ! function_exists('byte_formatter'))
 {
 	function byte_formatter($bytes = 0, $precision = 1, $unit = true)
 	{
-		if( ! is_numeric($bytes)) return false;
-		if( ! is_numeric($precision)) return false;		
-		if( ! is_bool($unit)) $unit = true;
+		if( ! is_numeric($bytes) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_numeric($precision) ) 
+		{
+			return false;		
+		}
+		
+		if( ! is_bool($unit) ) 
+		{
+			$unit = true;
+		}
 		
 		$byte 	= 1024;
 		$kb		= 1024 * $byte;
@@ -33,45 +44,69 @@ if( ! function_exists('byte_formatter'))
 		$pb		= 1024 * $tb;
 		$eb		= 1024 * $pb;
 		
-		if($bytes <= $byte && $bytes > -1)
+		if( $bytes <= $byte && $bytes > -1 )
 		{
-			$un = ($unit) ? " Bytes" : "";
+			$un = ( ! empty($unit) ) 
+				  ? " Bytes" 
+				  : "";
+			
 			$return = $bytes.$un;
 		}
-		else if($bytes <= $kb && $bytes > $byte)
+		elseif( $bytes <= $kb && $bytes > $byte )
 		{
-			$un = ($unit) ? " KB" : "";
+			$un = ( ! empty($unit) ) 
+				  ? " KB" 
+				  : "";
+				  
 			$return =  round(($bytes / $byte),$precision).$un;
 		}
-		else if($bytes <= $mb && $bytes > $kb)
+		elseif( $bytes <= $mb && $bytes > $kb )
 		{	
-			$un = ($unit) ? " MB" : "";
+			$un = ( ! empty($unit) ) 
+				  ? " MB" 
+				  : "";
+				  
 			$return =  round(($bytes / $kb),$precision).$un;
 		}
-		else if($bytes <= $gb && $bytes > $mb)
+		elseif($bytes <= $gb && $bytes > $mb)
 		{	
-			$un = ($unit) ? " GB" : "";
+			$un = ( ! empty($unit) ) 
+				  ? " GB" 
+				  : "";
+				  
 			$return =   round(($bytes / $mb),$precision).$un;
 		}
-		else if($bytes <= $tb && $bytes > $gb)
+		elseif($bytes <= $tb && $bytes > $gb)
 		{
-			$un = ($unit) ? " TB" : "";
+			$un = ( ! empty($unit) ) 
+			      ? " TB" 
+				  : "";
+				  
 			$return =   round(($bytes / $gb),$precision).$un;
 		}
-		else if($bytes <= $pb && $bytes > $tb)
+		elseif( $bytes <= $pb && $bytes > $tb )
 		{
-			$un = ($unit) ? " PB" : "";
+			$un = ( ! empty($unit) ) 
+				  ? " PB" 
+				  : "";
+				  
 			$return =   round(($bytes / $tb),$precision).$un;
 		}
-		else if($bytes <= $eb && $bytes > $pb)
+		elseif( $bytes <= $eb && $bytes > $pb )
 		{
-			$un = ($unit) ? " EB" : "";
+			$un = ( ! empty($unit) ) 
+				  ? " EB" 
+				  : "";
+				  
 			$return =   round(($bytes / $pb),$precision).$un;
 		}
 		else
 		{
-			$un = ($unit) ? " Bytes" : "";
-			$return = str_replace(",",".",number_format($bytes)).$un;
+			$un = ( ! empty($unit) ) 
+				  ? " Bytes" 
+				  : "";
+				  
+			$return = str_replace(",", ".", number_format($bytes)).$un;
 		}
 		return $return;
 	}
@@ -87,8 +122,15 @@ if( ! function_exists('money_formatter'))
 {
 	function money_formatter($money = 0, $type = '')
 	{
-		if( ! is_numeric($money)) return false;
-		if( ! is_string($type)) $type = '';
+		if( ! is_numeric($money) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = '';
+		}
 		
 		$moneyFormat = '';
 		
@@ -102,7 +144,7 @@ if( ! function_exists('money_formatter'))
 		
 		for($i=0; $i<strlen($str); $i++)
 		{
-			if($i%3 === 0)
+			if( $i%3 === 0 )
 			{
 				array_unshift($join, '.');
 			}
@@ -113,13 +155,21 @@ if( ! function_exists('money_formatter'))
 		{
 			$moneyFormat .= $join[$i];	
 		}
-		$type = ($type) ? ' '.$type : '';
 		
-		$remaining = (isset($str_ex[1])) ? $str_ex[1] : '00';
+		$type = ( ! empty($type) ) 
+			    ? ' '.$type 
+				: '';
 		
-		if(strlen($remaining) === 1) $remaining .= '0';
-				
-		$moneyFormat = substr($moneyFormat,0,-1).','.$remaining.$type;
+		$remaining = ( isset($str_ex[1]) ) 
+					 ? $str_ex[1] 
+					 : '00';
+		
+		if( strlen($remaining) === 1 ) 
+		{
+			$remaining .= '0';
+		}
+		
+		$moneyFormat = substr($moneyFormat, 0, -1).','.$remaining.$type;
 		
 		return $moneyFormat;
 	}
@@ -136,26 +186,35 @@ if(!file_exists('time_formatter'))
 {
 	function time_formatter($count = '', $type = "second", $output = "day")
 	{
-		if( ! is_numeric($count)) return false;
-		if( ! is_string($type)) $type = "second";
-		if( ! is_string($output)) $output = "day";
+		if( ! is_numeric($count) ) 
+		{
+			return false;
+		}
 		
-		if($output === "second") 	$out = 1;
-		if($output === "minute") 	$out = 60;
-		if($output === "hour") 		$out = 60 * 60;
-		if($output === "day") 		$out = 60 * 60 * 24;
-		if($output === "month") 	$out = 60 * 60 * 24 * 30;
-		if($output === "year")		$out = 60 * 60 * 24 * 30 * 12;
+		if( ! is_string($type) ) 
+		{
+			$type = "second";
+		}
 		
+		if( ! is_string($output) ) 
+		{
+			$output = "day";
+		}
 		
-		if($type === "second") 	$time = $count;
-		if($type === "minute") 	$time = 60 * $count;
-		if($type === "hour") 	$time = 60 * 60 * $count;
-		if($type === "day") 	$time = 60 * 60 * 24 * $count;
-		if($type === "month") 	$time = 60 * 60 * 24 * 30 * $count;
-		if($type === "year")	$time = 60 * 60 * 24 * 30 * 12 * $count;
+		if($output === "second") $out = 1;
+		if($output === "minute") $out = 60;
+		if($output === "hour") 	 $out = 60 * 60;
+		if($output === "day") 	 $out = 60 * 60 * 24;
+		if($output === "month")  $out = 60 * 60 * 24 * 30;
+		if($output === "year")	 $out = 60 * 60 * 24 * 30 * 12;
 		
-		
+		if($type === "second") 	 $time = $count;
+		if($type === "minute") 	 $time = 60 * $count;
+		if($type === "hour") 	 $time = 60 * 60 * $count;
+		if($type === "day") 	 $time = 60 * 60 * 24 * $count;
+		if($type === "month") 	 $time = 60 * 60 * 24 * 30 * $count;
+		if($type === "year")	 $time = 60 * 60 * 24 * 30 * 12 * $count;
+			
 		return $time / $out;	
 	}	
 }

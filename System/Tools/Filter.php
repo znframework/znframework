@@ -22,28 +22,36 @@ if(!function_exists('word_filter'))
 {
 	function word_filter($string = '', $badwords = '', $changechar = '[badwords]')
 	{
-		if( ! is_value($string)) return false;
+		if( ! is_value($string) ) 
+		{
+			return false;
+		}
 		
 		import::library('Regex');
 	
-		if( ! is_array($badwords)) return  $string = reg::replace($badwords, $changechar, $string, '<inspace><insens>');
+		if( ! is_array($badwords) ) 
+		{
+			return  $string = reg::replace($badwords, $changechar, $string, '<inspace><insens>');
+		}
 		
 		$ch = '';
 		$i = 0;	
+		
 		foreach($badwords as $value)
 		{
-			if( ! is_array($changechar))
+			if( ! is_array($changechar) )
 			{
 				$ch = $changechar;
 			}
 			else
 			{
-				if(isset($changechar[$i]))
+				if( isset($changechar[$i]) )
 				{
 					$ch = $changechar[$i];	
 					$i++;
 				}
 			}
+			
 			$string = reg::replace($value, $ch, $string, '<inspace><insens>');
 		}
 

@@ -20,18 +20,34 @@ if( ! function_exists('encoder'))
 {
 	function encoder($str = '', $type = 'md5')
 	{
-		if( ! is_value($str)) return false;
-		if( ! is_string($type)) $type = 'md5';
-		if($type === 'md5')
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = 'md5';
+		}
+		
+		if( $type === 'md5' )
+		{
 			return md5($str);
-		else if($type === 'sha1')
+		}
+		elseif( $type === 'sha1' )
+		{ 
 			return sha1($str);	
+		}
 		else
 		{
-			if(in_array($type, hash_algos()))
+			if( in_array($type, hash_algos()) )
+			{
 				return hash($type, $str);
+			}
 			else
+			{
 				return md5($str);
+			}
 		}
 	}
 }
@@ -45,20 +61,18 @@ if( ! function_exists('php_tag_encoder'))
 {
 	function php_tag_encoder($str = '')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
 		
-		if (empty($str)) return $str;
-		
-		$php_tag_chars = array(
-			'<?',
-			'?>'
-		);
-		$php_tag_html_chars = array(
-			'&#60;&#63;',
-			'&#63;&#62;'
+		$php_tag_chars = array
+		(
+			'<?' => '&#60;&#63;',
+			'?>' => '&#63;&#62;'
 		);
 		
-		return str_replace($php_tag_chars, $php_tag_html_chars, $str);
+		return str_replace(array_keys($php_tag_chars), array_values($php_tag_chars), $str);
 	}
 }
 
@@ -71,11 +85,18 @@ if( ! function_exists('nail_encoder'))
 {
 	function nail_encoder($str = '')
 	{
-		if( ! is_string($str)) return false;
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
 		
-		if (empty($str))return $str;
+		$nail_chars = array
+		(
+			"'" => "&#145;",
+			'"' => "&#147;"
+		);
 		
-		$str = str_replace(array("'",'"'),array("&#145;", "&#147;"),$str);
+		$str = str_replace(array_keys($nail_chars), array_values($nail_chars), $str);
 		
 		return $str;
 	}
@@ -90,9 +111,10 @@ if( ! function_exists("foreign_char_encoder"))
 {
 	function foreign_char_encoder($str = '')
 	{	
-		if( ! is_string($str)) return false;
-	
-		if (empty($str))return $str;
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
 		
 		$chars = config::get('ForeignChars', 'numerical_codes');
 		

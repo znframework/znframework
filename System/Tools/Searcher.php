@@ -23,54 +23,83 @@ if(!function_exists('searcher'))
 {
 	function searcher($search_data = '', $search_word = '', $output = 'bool')
 	{
-		if( ! is_string($output)) $output = 'bool';
+		if( ! is_string($output) ) 
+		{
+			$output = 'bool';
+		}
 		
-		if( ! is_array($search_data))
+		if( ! is_array($search_data) )
 		{	
-			if( ! is_value($search_word)) return false;
+			if( ! is_value($search_word) ) 
+			{
+				return false;
+			}
 			
-			if($output === 'str' || $output === 'string') 
+			if( $output === 'str' || $output === 'string' ) 
+			{
 				return strstr($search_data, $search_word);
-			else if	($output === 'pos' || $output === 'position') 
+			}
+			elseif( $output === 'pos' || $output === 'position' ) 
 				return strpos($search_data, $search_word);
-			else if	($output === 'bool' || $output === 'boolean') 
+			elseif( $output === 'bool' || $output === 'boolean' ) 
 			{
 				$result = strpos($search_data, $search_word);
-				if($result > -1) 
+				
+				if( $result > -1 )
+				{ 
 					return true;
+				}
 				else
+				{
 					return false;
+				}
 			}
 			else 
+			{
 				return false;
+			}
 		}
 		else
 		{			
 			$result = array_search($search_word, $search_data);	
 			
-			if($output === 'pos' || $output === 'position')
+			if( $output === 'pos' || $output === 'position' )
 			{
-				if( ! empty($result))
+				if( ! empty($result) )
+				{
 					return $result;
+				}
 				else
+				{
 					return -1;
+				}
 			}
-			else if($output === 'bool' || $output === 'boolean')
+			elseif( $output === 'bool' || $output === 'boolean' )
 			{
-				if( ! empty($result))
+				if( ! empty($result) )
+				{
 					return true;
+				}
 				else
+				{
 					return false;
+				}
 			}
-			else if($output === 'str' || $output === 'string')
+			elseif( $output === 'str' || $output === 'string' )
 			{
-				if( ! empty($result))
+				if( ! empty($result) )
+				{
 					return $search_word;
+				}
 				else
+				{
 					return false;
+				}
 			}
 			else
+			{
 				return false;
+			}
 		}
 	}
 }

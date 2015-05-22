@@ -9,17 +9,27 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
-// Function: sql_file_uploader()
-// İşlev: Sunucunuzda yer alan sql dosyasını mysql servere yüklemek için kullanılır.
-// Parametreler
-// @sql_file = Sql dosyasının sunucudaki yolu.
+/******************************************************************************************
+*  SQL FILE UPLOADER                                                           			  *
+*******************************************************************************************
+| Genel Kullanım: Sunucunuzda yer alan sql dosyasını mysql servere yüklemek 			  |
+| için kullanılır.														                  |
+|																						  |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. string var @sql_file => Sql dosyasının sunucudaki yolu.			  			      |
+|          																				  |
+| Örnek Kullanım: sql_file_uploader('Database/file.sql');         						  |
+|          																				  |
+******************************************************************************************/
 if( ! function_exists('sql_file_uploader'))
 {
 	function sql_file_uploader($sql_file = '')
 	{
-		if( ! is_string($sql_file)) return false;
-		if( empty($sql_file)) return false;
+		if( ! is_string($sql_file) || empty($sql_file) ) 
+		{
+			return false;
+		}
+		
 		import::library("File","SDb");
 		
 		$file_contents = file::contents(suffix($sql_file,".sql"));
@@ -33,44 +43,70 @@ if( ! function_exists('sql_file_uploader'))
 		
 		foreach($queries as $query)
 		{
-			if($query !== '')
+			if( $query !== '' )
 			{
 				sdb::exec_query(trim($query));
 			}
 		}
-	
     }
 }
 
-// Function: file_uploader()
-// İşlev: Herhangi bir dosyayı sunucunuza yüklemek için kullanılır.
-// Parametreler
-// @filename = input file nesnesinin adı.
-// @rootdir = Dosyanın hangi dizine yükleneceği.
+/******************************************************************************************
+* FILE UPLOADER                                                           			      *
+*******************************************************************************************
+| Genel Kullanım: Herhangi bir dosyayı sunucunuza yüklemek için kullanılır			      |													              
+|																						  |
+| Parametreler: 2 parametresi vardır.                                              	      |  
+| 1. string var @filename => input file nesnesinin adı.			  					      |
+| 2. string var @rootdir => Dosyanın hangi dizine yükleneceği.			  				  |
+|          																				  |
+| Örnek Kullanım: file_uploader('upload');         						      		      |
+|          																				  |
+******************************************************************************************/
 if( ! function_exists('file_uploader'))
 {
 	function file_uploader($filename = 'upload', $rootdir = UPLOADS_DIR)
 	{	
-		if( ! is_string($filename)) return false;
-		if( ! is_string($rootdir)) $rootdir = UPLOADS_DIR;
+		if( ! is_string($filename) )
+		{
+			return false;
+		}
+		
+		if( ! is_string($rootdir) ) 
+		{
+			$rootdir = UPLOADS_DIR;
+		}
 		
 		$root = $rootdir;
 	
-		if( ! isset($_FILES[$filename]['name'])) return false;
+		if( ! isset($_FILES[$filename]['name']) ) 
+		{
+			return false;
+		}
 		
 		$name = $_FILES[$filename]['name'];
 		
-		if(is_array($name))
+		if( is_array($name) )
 		{	
-			if(empty($name[0])) return false;		
+			if( empty($name[0]) ) 
+			{
+				return false;		
+			}
+			
 			$status = 0;	
+			
 			for($index = 0; $index < count($name); $index++)
 			{	
 				$source = $_FILES[$filename]['tmp_name'][$index];
 				$target = $root.'/'.$name[$index];
 
-				if( ! is_file($rootdir)){ move_uploaded_file($source,$target); $status = 1;} 
+				if( ! is_file($rootdir) )
+				{ 
+					move_uploaded_file($source,$target); 
+					$status = 1;
+				} 
 			}
+			
 			return $status;
 		}	
 		else
@@ -79,7 +115,12 @@ if( ! function_exists('file_uploader'))
 			
 			$target = $root.'/'.$name;		
 	
-			if( ! is_file($rootdir)) move_uploaded_file($source,$target); return true;
+			if( ! is_file($rootdir) ) 
+			{
+				move_uploaded_file($source,$target); 
+			}
+	
+			return true;
 		}	
     }
 }

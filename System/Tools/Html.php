@@ -21,12 +21,15 @@ if(!function_exists('attributes'))
 	{
 		$attribute = '';
 		
-		if(is_array($attributes))
+		if( is_array($attributes) )
 		{
 			foreach($attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.'="'.$values.'"';
 			}	
 		}
@@ -46,8 +49,16 @@ if(!function_exists('html_element'))
 {
 	function html_element($element = '', $str = '', $attributes = "")
 	{
-		if( ! is_value($element)) return false;
-		if( ! is_value($str)) return false;
+		if( ! is_value($element) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<'.$element.attributes($attributes).'>'.$str.'</'.$element.'>';
 	}	
 }
@@ -62,17 +73,22 @@ if(!function_exists('multi_attr'))
 {
 	function multi_attr($str = '', $array = array())
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
 		
 		$open = "";
 		$close = "";
 		$att = "";
-		if(is_array($array))foreach($array as $k => $v)
+		
+		if( is_array($array) )foreach($array as $k => $v)
 		{
-			if( ! is_numeric($k))
+			if( ! is_numeric($k) )
 			{
 				$element = $k;	
-				if( ! is_array($v))
+				
+				if( ! is_array($v) )
 				{
 					$att = ' '.$v;
 				}
@@ -93,6 +109,7 @@ if(!function_exists('multi_attr'))
 		{
 			return $str;
 		}
+		
 		return $open.$str.$close;
 	}
 }
@@ -108,8 +125,15 @@ if(!function_exists('heading'))
 {
 	function heading($str = '', $type = 3, $attributes = "")
 	{
-		if( ! is_value($str)) return false;
-		if( ! is_numeric($type)) $type = 3;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_numeric($type) ) 
+		{
+			$type = 3;
+		}
 		
 		return '<h'.$type.attributes($attributes).'>'.$str.'</h'.$type.'>';
 	}	
@@ -125,7 +149,11 @@ if(!function_exists('font'))
 {
 	function font($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<font'.attributes($attributes).'>'.$str.'</font>';
 	}	
 }
@@ -140,7 +168,10 @@ if(!function_exists('parag'))
 {
 	function parag($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
 		return	'<p'.attributes($attributes).'>'.$str.'</p>';
 	}
 }
@@ -155,7 +186,11 @@ if(!function_exists('bold'))
 {
 	function bold($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<bold'.attributes($attributes).'>'.$str.'</bold>';
 	}
 }
@@ -170,7 +205,11 @@ if(!function_exists('strong'))
 {
 	function strong($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<strong'.attributes($attributes).'>'.$str.'</strong>';
 	}
 }
@@ -185,7 +224,11 @@ if(!function_exists('italic'))
 {
 	function italic($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<em'.attributes($attributes).'>'.$str.'</em>';
 	}
 }
@@ -200,7 +243,11 @@ if(!function_exists('underline'))
 {
 	function underline($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<u'.attributes($attributes).'>'.$str.'</u>';
 	}
 }
@@ -215,7 +262,11 @@ if(!function_exists('overline'))
 {
 	function overline($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<del'.attributes($attributes).'>'.$str.'</del>';
 	}
 }
@@ -230,7 +281,11 @@ if(!function_exists('overtext'))
 {
 	function overtext($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<sup'.attributes($attributes).'>'.$str.'</sup>';
 	}
 }
@@ -245,7 +300,11 @@ if(!function_exists('undertext'))
 {
 	function undertext($str = '', $attributes = "")
 	{
-		if( ! is_value($str)) return false;
+		if( ! is_value($str) ) 
+		{
+			return false;
+		}
+		
 		return '<sub'.attributes($attributes).'>'.$str.'</sub>';
 	}
 }
@@ -258,7 +317,11 @@ if(!function_exists('space'))
 {
 	function space($count = 5)
 	{
-		if( ! is_numeric($count)) $count = 5;
+		if( ! is_numeric($count) ) 
+		{
+			$count = 5;
+		}
+		
 		return str_repeat("&nbsp;", $count);
 	}
 }
@@ -274,14 +337,25 @@ if(!function_exists('anchor'))
 {
 	function anchor($url = '', $value = '', $_attributes = '')
 	{
-		if( ! is_string($url)) return false;
-		if( ! is_value($value)) return false;
+		if( ! is_string($url) )
+		{
+			return false;
+		}
 		
-		if( ! is_url($url)) 
+		if( ! is_value($value) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_url($url) )
+		{ 
 			$url = site_url($url);
+		}
 		
-		if($value == '') 
+		if( empty($value) )
+		{ 
 			$value = $url;
+		}
 		
 		return '<a'.attributes($_attributes).' href="'.$url.'">'.$value.'</a>';	
 	}
@@ -297,8 +371,16 @@ if(!function_exists('mailto'))
 {
 	function mailto($mail = '', $_attributes = '')
 	{
-		if( ! is_string($mail)) return false;
-		if( ! is_email($mail)) return false;
+		if( ! is_string($mail) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_email($mail) ) 
+		{
+			return false;
+		}
+		
 		return '<a'.attributes($_attributes).' href="mailto:'.$mail.'">'.$mail.'</a>';	
 	}
 }
@@ -313,20 +395,34 @@ if(!function_exists('image'))
 {
 	function image($src = '', $_attributes = '')
 	{
-		if( ! is_string($src)) return false;
+		if( ! is_string($src) ) 
+		{
+			return false;
+		}
 		
-		if( ! is_url($src)) $src = base_url($src);
+		if( ! is_url($src) ) 
+		{
+			$src = base_url($src);
+		}
 		
-		if( ! isset($_attributes["title"])) 
+		if( ! isset($_attributes["title"]) )
+		{ 
 			$title = 'title=""'; 
-		else 
+		}
+		else
+		{ 
 			$title = '';
-			
-		if( ! isset($_attributes["alt"])) 
+		}
+		
+		if( ! isset($_attributes["alt"]) )
+		{ 
 			$alt = 'alt=""'; 
-		else 
+		}
+		else
+		{ 
 			$alt = '';
-			
+		}
+		
 		return '<img src="'.$src.'"'.attributes($_attributes).' '.$title.' '.$alt.' />';	
 	}
 }
@@ -339,7 +435,11 @@ if(!function_exists('br'))
 {
 	function br($count = 1)
 	{
-		if( ! is_numeric($count)) $count = 1;
+		if( ! is_numeric($count) ) 
+		{
+			$count = 1;
+		}
+		
 		return str_repeat("<br />", $count);
 	}
 }
@@ -355,52 +455,85 @@ if(!function_exists('meta'))
 {
 	function meta($name = '', $content = '' ,$type = 'name')
 	{
-		if( ! is_string($type)) $type = 'name';
-		if( ! is_value($content)) $content = '';
-		
-		if( ! is_array($name))
+		if( ! is_string($type) )
 		{
-			if($type === 'name' && $name !== '') 
+			$type = 'name';
+		}
+		
+		if( ! is_value($content) ) 
+		{
+			$content = '';
+		}
+		
+		if( ! is_array($name) )
+		{
+			if( $type === 'name' && $name !== '' ) 
+			{
 				$name = ' name="'.$name.'"'; 
-			else if($type === 'http' && $name !== '') 
+			}
+			elseif( $type === 'http' && $name !== '' )
+			{ 
 				$name = ' http-equiv="'.$name.'"'; 
+			}
 			else
+			{
 				$name = '';
+			}
 			
-			if($content !== '') 
+			if( $content !== '' ) 
+			{
 				$content = ' content="'.$content.'"';	
-			else 
+			}
+			else
+			{ 
 				$content = '';
-				
+			}
+			
 			return '<meta'.$name.$content.' />'."\n";
 		}
 		else
 		{
 			$metas = '';
+			
 			foreach($name as $val)
 			{
-				if( ! isset($val['name'])) 
+				if( ! isset($val['name']) )
+				{ 
 					$val['name'] = '';
-					
-				if( ! isset($val['content'])) 
-					$val['content'] = '';
+				}
 				
-				if( ! isset($val['type'])) 
+				if( ! isset($val['content']) ) 
+				{
+					$val['content'] = '';
+				}
+				
+				if( ! isset($val['type']) )
+				{ 
 					$val['type'] = 'name';
-					
-				if($val['type'] !== '' && $val['type'] === 'http') 
+				}
+				
+				if( $val['type'] !== '' && $val['type'] === 'http' )
+				{ 
 					$type = ' http-equiv="'.$val['name'].'"';
-					
-				if($val['type'] !== '' && $val['type'] === 'name')
+				}
+				
+				if( $val['type'] !== '' && $val['type'] === 'name' )
+				{
 					$type = ' name="'.$val['name'].'"';			
-					
-				if($val['content'] !== '')
+				}
+				
+				if( $val['content'] !== '' )
+				{
 					$content = ' content="'.$val['content'].'"';
+				}
 				else
+				{
 					$content = '';
-					
+				}
+				
 				$metas .= '<meta'.$type.$content.' />'."\n";
-			}	
+			}
+				
 			return $metas;
 		}
 	}

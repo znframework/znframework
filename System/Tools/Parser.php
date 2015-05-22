@@ -16,11 +16,15 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 // @var = Türü dönüştürülecek veri.
 // @type = Hangi türe dönüştürüleceği. Parametrenin alabileceği değerler: int/integer, bool/boolean, string, float, real, double, object, array, unset
 // Dönen Değer: Dönüştürülmüş veri.
-if(!function_exists('parser'))
+if( ! function_exists('parser') )
 {
 	function parser($var = '', $type = 'int')
 	{
-		if( ! is_string($type)) return false;
+		if( ! is_string($type) ) 
+		{
+			return false;
+		}
+		
 		switch($type)
 		{
 			case 'int':

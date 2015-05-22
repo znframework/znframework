@@ -20,13 +20,25 @@ if( ! function_exists('repeater'))
 {
 	function repeater($str = '', $count = 1)
 	{		
-		if( ! is_string($str)) return false;
-		if( ! is_numeric($count)) $count = 1;
+		if( ! is_string($str) ) 
+		{
+			return false;
+		}
 		
-		if(empty($str)) return false; 
-			
-		if($count == 0) 
+		if( ! is_numeric($count) ) 
+		{
 			$count = 1;
+		}
+		
+		if( empty($str) ) 
+		{
+			return false; 
+		}
+		
+		if( $count == 0 )
+		{ 
+			$count = 1;
+		}
 		
 		return str_repeat($str, $count);
 	}

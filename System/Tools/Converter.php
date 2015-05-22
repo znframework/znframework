@@ -59,21 +59,12 @@ if(!function_exists('char_converter'))
 			$hex_remaining = ($i%16);
 			$hex_remaining = str_replace(array(10,11,12,13,14,15),array('A','B','C','D','E','F'),$hex_remaining);
 			$hex = ( floor($i/16) ).$hex_remaining;
-<<<<<<< HEAD
 			
 			if( $hex[0] == '0' ) 
 			{
 				$hex = $hex[1];	
 			}
 			
-=======
-			
-			if( $hex[0] == '0' ) 
-			{
-				$hex = $hex[1];	
-			}
-			
->>>>>>> origin/master
 			if( chr($i) !== ' ' )
 			{
 				$chars['char'][] 	= chr($i);
@@ -197,21 +188,12 @@ if( ! function_exists('case_converter'))
 		{
 			return false;
 		}
-<<<<<<< HEAD
 		
 		if( ! is_string($type) ) 
 		{
 			$type = 'lower';
 		}
 		
-=======
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'lower';
-		}
-		
->>>>>>> origin/master
 		$types  = array
 		(
 			'lower' => MB_CASE_LOWER,

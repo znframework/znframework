@@ -30,11 +30,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | echo password_creator('10', 'numeric'); // Çıktı: 738693701							  |
 |       																				  |
 ******************************************************************************************/
-<<<<<<< HEAD
 if( ! function_exists('password_creator') )
-=======
-if( ! function_exists('password_creator'))
->>>>>>> origin/master
 {
 	function password_creator($count = 6, $chars = "all")
 	{

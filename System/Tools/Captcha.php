@@ -29,7 +29,10 @@ if( ! function_exists('create_captcha'))
 {
 	function create_captcha($img = false)
 	{
-		if( ! isset($_SESSION) ) session_start();
+		if( ! isset($_SESSION) ) 
+		{
+			session_start();
+		}
 		
 		$set = config::get("Captcha");
 		
@@ -76,26 +79,26 @@ if( ! function_exists('create_captcha'))
 			// ARKAPLAN RESMI--------------------------------------------------------------------------------------
 			if( ! empty($set["background"]) )
 			{
-				if(is_array($set["background"]))
+				if( is_array($set["background"]) )
 				{
 					$set["background"] = $set["background"][rand(0, count($set["background"]) - 1)];
 				}
 				/***************************************************************************/
 				// Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
 				/***************************************************************************/	
-				if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'png')
+				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'png' )
 				{
 					$file = imagecreatefrompng($set["background"]);
 				}
-				if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpeg')
+				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpeg' )
 				{	
 					$file = imagecreatefromjpeg($set["background"]);
 				}
-				if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpg')
+				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpg' )
 				{	
 					$file = imagecreatefromjpeg($set["background"]);
 				}
-				if(strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'gif')
+				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'gif' )
 				{	
 					$file = imagecreatefromgif($set["background"]);
 				}
