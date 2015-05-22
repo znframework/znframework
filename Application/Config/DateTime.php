@@ -8,58 +8,44 @@ Author: Ozan UYKUN
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
-//--------------------------------------------------------------------------------------------------------------------------
-SETTINGS
-//--------------------------------------------------------------------------------------------------------------------------
-1-timezone
-2-iconv_in_charset
-3-iconv_out_charset
-4-setlocale
-5-set_time_format_chars
-6-set_date_format_chars
-//--------------------------------------------------------------------------------------------------------------------------
+/******************************************************************************************
+* DATETIME                                                                         	  	  *
+*******************************************************************************************
+| Genel Kullanım: Tarih saat ile ilgili ayarları yapmak için kullanılır.      			  |
+******************************************************************************************/
 
-/* TIME ZONE */
-// Saatlerde kaymama olmaması için bölge seçimi yapılmıştır.
-// Bulunduğunu bölgeye göre ayarlayabilirsiniz. 
-// Varsayılan olarak Europe/Istanbul seçilmiştir.
+/******************************************************************************************
+* TIMEZONE                                                                         	  	  *
+*******************************************************************************************
+| Genel Kullanım: Saatlerde kaymama olmaması için bölge seçimi yapılmıştır.				  |
+| Bulunduğunu bölgeye göre ayarlayabilirsiniz.											  | 
+| Varsayılan olarak Europe/Istanbul seçilmiştir.      									  |	
+******************************************************************************************/
 $config['DateTime']['timezone'] = 'Europe/Istanbul';
 
-/* ICONV IN CHARSET */
-// Tüm Tarih ve Saat fonksiyonları için geçerli bir ayardır.
-// Bazı karakterlerin özellikle Türkçe karakterlerin
-// bozuk görünmesi sebebi ile kullanımış bir yöntemdir.
-// iconv() yönteminin giriş dili olarak latin5 belirlenmiştir.
-$config['DateTime']['iconv_in_charset'] = 'latin5';
-
-/* ICONV OUT CHARSET */
-// Tüm Tarih ve Saat fonksiyonları için geçerli bir ayardır.
-// Yukarıdaki giriş karakterlerin hangi karakter setine
-// çevrileceğini belirler. utf-8 olarak belirlenmiştir.
-$config['DateTime']['iconv_out_charset'] = 'utf-8';
-
-/* SET LOCALE */
-// Bu ayarın geçerli olduğu Tarih ve Saat fonksiyonları
-// standart_time()
-// current_time()
-// current_date()
-// current_date_time()
-// set_time()
+/******************************************************************************************
+* SETLOCALE                                                                         	  *
+*******************************************************************************************
+| Genel Kullanım: Türkçe içerikli karakterleri desteklemesi amacıyla kullanılır.   		  |	
+| set_date() yöntemi haric diğer yöntemler için kullanılır.							      |					
+******************************************************************************************/
 $config['DateTime']['setlocale'] = array(
 
-	'charset' => 'tr_TR.UTF-8',
-	'language' => 'turkish',
-	
+	'charset'  => 'tr_TR.UTF-8',
+	'language' => 'turkish',	
 );
 
-/* SET TIME FORMAT CHARS */
-// set_time() yöntemi için oluşturulmuş özel kullanımlar yerine
-// aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.
-// Örnek: %a yerine <short_day> ifadesi kullanılabilir.
-// ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 
-// kullanılabilirler.
-// Örnek: <short_day_name> , <short_day> ya da <sd> kullanılabilir
-// hepsini karşılığı %a özel ifadesidir.
+/******************************************************************************************
+* SET TIME FORMAT CHARS                                                                   *
+*******************************************************************************************
+| Genel Kullanım: set_time() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
+| aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  |
+| Örnek: %a yerine <short_day> ifadesi kullanılabilir.									  |
+| ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  |
+| kullanılabilirler.																	  |
+| Örnek: <short_day_name> , <short_day> ya da <sd> kullanılabilir						  |
+| hepsini karşılığı %a özel ifadesidir.						      						  |					
+******************************************************************************************/
 $config['DateTime']['set_time_format_chars'] = array
 (
 	'<short_day_name>|<short_day>|<sd>' 						=> '%a',
@@ -90,14 +76,18 @@ $config['DateTime']['set_time_format_chars'] = array
 	'<date>' 													=> '%x'
 );
 
-/* SET DATE FORMAT CHARS */
-// set_date() yöntemi için oluşturulmuş özel kullanımlar yerine
-// aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.
-// Örnek: D yerine <short_day> ifadesi kullanılabilir.
-// ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 
-// kullanılabilirler.
-// Örnek: <short_day_name> , <short_day> ya da <sd> kullanılabilir
-// hepsini karşılığı D özel ifadesidir.
+
+/******************************************************************************************
+* SET DATE FORMAT CHARS                                                                   *
+*******************************************************************************************
+| Genel Kullanım: set_date() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
+| aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  |
+| Örnek: D yerine <short_day> ifadesi kullanılabilir.									  |
+| ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  |
+| kullanılabilirler.																	  |
+| Örnek: <short_day_name> , <short_day> ya da <sd> kullanılabilir						  |
+| hepsini karşılığı D özel ifadesidir.						      						  |					
+******************************************************************************************/
 $config['DateTime']['set_date_format_chars'] = array
 (
 	'<short_day_name>|<short_day>|<sd>' 						=> 'D',
@@ -131,4 +121,3 @@ $config['DateTime']['set_date_format_chars'] = array
 	'<rfc>' 													=> 'r',
 	'<unix>' 													=> 'U'																										
 );
-//--------------------------------------------------------------------------------------------------------------------------
