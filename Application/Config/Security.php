@@ -8,18 +8,18 @@ Author: Ozan UYKUN
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
-/******************************************************************************************
-* SECURITY                                                                                *
-*******************************************************************************************
-| Genel Kullanımı: Sistem güvenliği için oluşturulmuş bir ayar dosyasıdır.			      |						
-******************************************************************************************/
+1-bad_chars
+2-url_change_char
 
-/******************************************************************************************
-* NC ENCODE                                                                               *
-*******************************************************************************************
-| Genel Kullanımı: Security sınıfında kullanılan nc_encode() yönteminin temizlemesi 	  |
-| istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.			      |						
-******************************************************************************************/
+*/
+
+/*
+*-------------------------------------------------------------
+*/
+
+
+// Security sınıfında kullanılan nc_encode() yönteminin temizlemesi istenilen kelimeler.
+// Temizlenen kelimelerin yerini alacak yeni kelime.
 $config['Security']['nc_encode'] = array 
 (
 		'bad_chars' => array
@@ -30,25 +30,17 @@ $config['Security']['nc_encode'] = array
 			'?>',
 			'<', 
 			'>',
-		), // string veya array
+		), // string veya array veri tipi içerebilir.
 		
-		'change_bad_chars' => '[badchars]' // string veya array
+		'change_bad_chars' => '[badchars]' // string veya array veri tipi olmalıdır.
 );
 
-/******************************************************************************************
-* URL CHANGE CHARS                                                                        *
-*******************************************************************************************
-| Genel Kullanımı: URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve 		  |
-| değiştirilmesini istediğiniz kelimeler veya imgeler. Anahtar ifade olarak değişmesini   |
-| istediğiniz karakterler, değer olarak değişecek karakterlerin yerini                    |
-| alacak yeni karakterler.																  |
-| NOT: Küçük-Büyük harf duyarlılığı yoktur. 											  |
-| Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri |
-| koymanız gereklidir. Örnek \. Değiştirme işlemi için preg_replace() yöntemi kullanıldığı|
-| için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler 	  |
-| olan / / karakterleri kullanmanıza gerek yoktur. 										  |
-| Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.			     					  |						
-******************************************************************************************/
+// URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve değiştirilmesini istediğiniz kelimeler veya imgeler.
+// Anahtar ifade olarak değişmesini istediğiniz karakterler, değer olarak değişecek karakterlerin yerini alacak yeni karakterler.
+// NOT: Küçük-Büyük harf duyarlılığı yoktur. 
+// Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri koymanız gereklidir. Örnek \.
+// Değiştirme işlemi için preg_replace() yöntemi kullanıldığı için özel karakterlerin başına \ karaketeri getirmelisiniz.
+// Sınırlayıcı karakterler olan / / karakterleri kullanmanıza gerek yoktur. Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.
 $config['Security']['url_change_chars'] = array
 (
 	'<' 	=> '',
@@ -56,11 +48,7 @@ $config['Security']['url_change_chars'] = array
 	// 'old_chars' => 'change_new_chars'
 ); 
 
-/******************************************************************************************
-* FILE BAD CHARS                                                                          *
-*******************************************************************************************
-| Genel Kullanımı: Dosya isimlerinde tehlike yaratacak karater listesi.			          |						
-******************************************************************************************/
+// Dosya isimlerinde tehlike yaratacak karater listesi.
 $config['Security']['file_bad_chars'] = array
 (
 	'<!--', '-->', '<', '>', '"', "'", '&', '?', '$', '#', '{', '}', '[', ']', '=', ';', '../', '%20', '&22',
@@ -76,11 +64,7 @@ $config['Security']['file_bad_chars'] = array
 	'%3d'		// =
 );
 
-/******************************************************************************************
-* URL BAD CHARS                                                                           *
-*******************************************************************************************
-| Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.			          	  |						
-******************************************************************************************/
+// URL adresinde tehlike yaratacak karater listesi.
 $config['Security']['url_bad_chars'] = array
 (
 	'"', "'", '<', '>', "?", '&',
@@ -89,21 +73,15 @@ $config['Security']['url_bad_chars'] = array
 	'\\', '../', '%20', '&22'
 );
 
-/******************************************************************************************
-* INJECTION BAD CHARS                                                                     *
-*******************************************************************************************
-| Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          |						
-******************************************************************************************/
+
+// Script saldırılarına neden olacak karater listesi.
 $config['Security']['injection_bad_chars'] = array
 (
 	'or.+\=' => '',
 );
 
-/******************************************************************************************
-* SCRIPT BAD CHARS                                                                        *
-*******************************************************************************************
-| Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          |						
-******************************************************************************************/
+
+// Script saldırılarına neden olacak karater listesi.
 $config['Security']['script_bad_chars'] = array
 (
 	'document\.cookie'	=> 'document&#46;cookie',
@@ -119,11 +97,7 @@ $config['Security']['script_bad_chars'] = array
 	'>' 				=> '&#62;',
 );
 
-/******************************************************************************************
-* REGULAR EXPRESSION BAD CHARS                                                            *
-*******************************************************************************************
-| Genel Kullanımı: Düzenli ifadelerde tehlikeye neden olacak karater listesi.			  |						
-******************************************************************************************/
+// Düzenli ifadelerde tehlikeye neden olacak karater listesi.
 $config['Security']['regex_bad_chars'] = array
 (
 	"([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?",

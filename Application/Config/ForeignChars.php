@@ -8,23 +8,15 @@ Author: Ozan UYKUN
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
-/******************************************************************************************
-* FOREIGN CHARS                                                                           *
-*******************************************************************************************
-| Genel Kullanım: Yabancı karakter kullanımına yönelik bir takım ayarlamaları içerir.     |
-******************************************************************************************/
+//--------------------------------------------------------------------------------------------------------------------------
+SETTINGS
+//--------------------------------------------------------------------------------------------------------------------------
+1-accent_chars
+2-numerical_codes
+//--------------------------------------------------------------------------------------------------------------------------
 
-/******************************************************************************************
-* ACCENT CHARS                                                                            *
-*******************************************************************************************
-| Genel Kullanım: Yabancı dillerde yer alan aksan farklılıklarını gidermek için kullanılır|
-| Anahtar olarak farklı aksanlardaki harf kullanımları yer alırken değer olarak bu        |
-| aksanların dönüştürüleceği standart harfler yer almaktadır.						      |
-|																						  |
-| Not: Daha çok accent_converter() yöntemi ile birlikte kullanılmaktadır.				  |
-******************************************************************************************/
-$config['ForeignChars']['accent_chars'] = array
-(
+/* ACCENT CHARS */
+$config['ForeignChars']['accent_chars'] = array(
 	'ä|æ|ǽ' 														=> 'ae',
 	'ö|œ' 															=> 'oe',
 	'ü' 															=> 'ue',
@@ -55,7 +47,7 @@ $config['ForeignChars']['accent_chars'] = array
 	'ĵ' 															=> 'j',
 	'Ķ|Κ|К' 														=> 'K',
 	'ķ|κ|к' 														=> 'k',
-	'Ĺ|Ļ|Ľ|Ŀ|Ł|Λ|Л' 												=> 'L',
+	'Ĺ|Ļ|Ľ|Ŀ|Ł|Λ|Л' 													=> 'L',
 	'ĺ|ļ|ľ|ŀ|ł|λ|л' 													=> 'l',
 	'М' 															=> 'M',
 	'м' 															=> 'm',
@@ -116,17 +108,8 @@ $config['ForeignChars']['accent_chars'] = array
 	'я' 															=> 'ya'
 );
 
-/******************************************************************************************
-* NUMERICAL CODES                                                                         *
-*******************************************************************************************
-| Genel Kullanım: Yabancı dillerde yer alan farklı aksanlı karakterlerin oluşturduğu.	  |
-| karakter bozukluklarını gidermek için bu karakterlerin numerik koda çevrilmesi sağlanır.|
-| Böyle oluşan karakter bozuklukları ortadan kaldırılmış olur.						      |
-|																						  |
-| Not: Daha çok Converter.php aracı ile birlikte kullanılmaktadır.				          |
-******************************************************************************************/
-$config['ForeignChars']['numerical_codes'] = array
-(
+/* NUMERICAL CODES */
+$config['ForeignChars']['numerical_codes'] = array(
 	'À'	=> '&#192;',
 	'Ā'	=> '&#256;',
 	'ā'	=> '&#257;',
@@ -522,3 +505,4 @@ $config['ForeignChars']['numerical_codes'] = array
 	'ȥ' => '&#549;',
 	'ɀ' => '&#576;',
 );
+//--------------------------------------------------------------------------------------------------------------------------
