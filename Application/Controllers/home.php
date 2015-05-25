@@ -34,15 +34,4 @@ class Home // extends Controller
 			
 		$this->import->page("welcome", $data); // Importing page => Views/Pages/welcome.php
 	}
-	
-	function ex()
-	{
-		$this->import->component('Template.*');	
-		
-		echo $this->section->float('left')->text_align('center')->border('solid 1px #900')->size(100, 100)->content('1')->create().
-		     $this->section->float('left')->text_align('center')->clear('left')->border('solid 1px #900')->size(100, 100)->content('2')->create().
-		     $this->section->float('left')->text_align('center')->border('solid 1px #900')->size(100, 100)->content('3')->create().
-		     $this->section->float('left')->text_align('center')->border('solid 1px #900')->size(100, 100)->content('4')->create();
-	
-	}
 }

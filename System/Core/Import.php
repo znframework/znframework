@@ -165,7 +165,11 @@ class Import
 					
 					import::library('Folder');
 				
+<<<<<<< HEAD
 					$all_components = folder::files(SYSTEM_COMPONENTS_DIR.$classex[0], 'php');
+=======
+					$all_components = folder::files(SYSTEM_COMPONENTS_DIR.$classex[0]);
+>>>>>>> 0db0909ca8ff4b4eb79ecabab2e29435346d7e53
 					
 					if( ! empty($all_components ) )foreach($all_components as $component)
 					{
