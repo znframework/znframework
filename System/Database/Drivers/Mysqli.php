@@ -149,7 +149,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function list_databases()
 	{
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -161,7 +161,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -220,7 +220,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -232,7 +232,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function truncate($table = '')
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -244,7 +244,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function add_column()
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -256,7 +256,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function drop_column()
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -268,7 +268,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function rename_column()
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -280,7 +280,7 @@ class MysqliDriver
 	******************************************************************************************/
 	public function modify_column()
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	

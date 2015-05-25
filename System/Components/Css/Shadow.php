@@ -19,33 +19,56 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 class ComponentCssShadow
 {
+	/* Easing Değişkeni
+	 *  
+	 * Easing animasyon bilgisini tutması 
+	 * için oluşturulumuştur. 
+	 */
 	protected $easing;
 	
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
+	/* Selector Değişkeni
+	 *  
+	 * Seçici bilgisini tutması için
+	 * oluşturulumuştur. 
 	 */
 	protected $selector = 'this';
-	protected $attr;
-	protected $params = array();
 	
+	/* Attr Değişkeni
+	 *  
+	 * Eklenmek istenen farklı css kodlarına.
+	 * ait bilgileri tutması için oluşturulmuştur.
+	 */
+	protected $attr;
+	
+	/* Params Değişkeni
+	 *  
+	 * Sınıfa ait kullanacak
+	 * verileri tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $params = array();
 
+	// Construct yapıcısı tarafından
+	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct()
 	{
 		$this->browsers = config::get('Css3', 'browsers');	
 	}
 	
-	/* Selector Function
-	 * Params: string @selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
+	/******************************************************************************************
+	* SELECTOR                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Css kodlarının uygulanacağı nesne seçicisi.        		  		      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @selector => .nesne, #eleman, td ... gibi seçiciler belirtilir.		      |
+	|          																				  |
+	| Örnek Kullanım: ->selector('#eleman') 						 		 		  		  |
+	|          																				  |
+	******************************************************************************************/
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector))
+		if( ! is_char($selector) )
 		{
 			return $this;	
 		}
@@ -55,15 +78,29 @@ class ComponentCssShadow
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* ATTR                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Farklı bir css kodu ekleneceği zaman kullanılır.        		  		  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array var @_attributes => Eklenecek css kodları ve değerleri.		     			  |
+	|          																				  |
+	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
+	|          																				  |
+	******************************************************************************************/
 	public function attr($_attributes = array())
 	{
-		$attribute = "";
-		if(is_array($_attributes))
+		$attribute = '';
+		
+		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
 				$attribute .= ' '.$key.':'.$values.';';
 			}	
 		}
@@ -73,14 +110,25 @@ class ComponentCssShadow
 		return $this;	
 	}
 	
+	/******************************************************************************************
+	* X                                                                                       *
+	*******************************************************************************************
+	| Genel Kullanım: Gölgenin yataydaki boyutu.        		  		  				      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->x(10) // 10px 		  												  |
+	|          																				  |
+	******************************************************************************************/
 	public function x($val = '')
 	{
-		if( ! is_value($val))
+		if( ! is_value($val) )
 		{
 			return $this;	
 		}
 		
-		if(is_numeric($val))
+		if( is_numeric($val) )
 		{
 			$val = $val."px";
 		}
@@ -90,31 +138,43 @@ class ComponentCssShadow
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* HORIZONTAL / X                                                                          *
+	*******************************************************************************************
+	| Genel Kullanım: X() yönteminin alternatifidir. Gölgenin yataydaki boyutu.        		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->horizontal(10) // 10px 		  										  |
+	|          																				  |
+	******************************************************************************************/
 	public function horizontal($val = '')
 	{
-		if( ! is_value($val))
-		{
-			return $this;	
-		}
-		
-		if(is_numeric($val))
-		{
-			$val = $val."px";
-		}
-		
-		$this->params['horizontal'] = $val;
+		$this->x($val);
 		
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* Y                                                                                       *
+	*******************************************************************************************
+	| Genel Kullanım: Gölgenin dikeydeki boyutu.        		  		  				      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->y(10) // 10px 		  												  |
+	|          																				  |
+	******************************************************************************************/
 	public function y($val = '')
 	{
-		if( ! is_value($val))
+		if( ! is_value($val) )
 		{
 			return $this;	
 		}
 		
-		if(is_numeric($val))
+		if( is_numeric($val) )
 		{
 			$val = $val."px";
 		}
@@ -124,31 +184,43 @@ class ComponentCssShadow
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* VERTICAL / Y                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Y() yönteminin alternatifidir. Gölgenin dikeydeki boyutu.        		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->y(10) // 10px 		  												  |
+	|          																				  |
+	******************************************************************************************/
 	public function vertical($val = '')
 	{
-		if( ! is_value($val))
-		{
-			return $this;	
-		}
-		
-		if(is_numeric($val))
-		{
-			$val = $val."px";
-		}
-		
-		$this->params['vertical'] = $val;
+		$this->y($val);
 		
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* BLUR                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Gölgenin görünülük miktarıdır.        		  						  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->blur(10) // 10px 		  											  |
+	|          																				  |
+	******************************************************************************************/
 	public function blur($val = '')
 	{
-		if( ! is_value($val))
+		if( ! is_value($val) )
 		{
 			return $this;	
 		}
 		
-		if(is_numeric($val))
+		if( is_numeric($val) )
 		{
 			$val = $val."px";
 		}
@@ -158,14 +230,25 @@ class ComponentCssShadow
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* DIFFUSION                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Gölgenin yayılma miktarı.        		  						  		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->diffusion(10) // 10px 		  										  |
+	|          																				  |
+	******************************************************************************************/
 	public function diffusion($val = '')
 	{
-		if( ! is_value($val))
+		if( ! is_value($val) )
 		{
 			return $this;	
 		}
 		
-		if(is_numeric($val))
+		if( is_numeric($val) )
 		{
 			$val = $val."px";
 		}
@@ -175,23 +258,36 @@ class ComponentCssShadow
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* SPREAD / DIFFUSION                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: diffusion() yönteminin alternatifidir. Gölgenin yayılma miktarı.        |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Miktar.		     			  							  |
+	|          																				  |
+	| Örnek Kullanım: ->spread(10) // 10px 		  										      |
+	|          																				  |
+	******************************************************************************************/
 	public function spread($val = '')
 	{
-		if( ! is_value($val))
-		{
-			return $this;	
-		}
-		
-		if(is_numeric($val))
-		{
-			$val = $val."px";
-		}
-		
-		$this->params['spread'] = $val;
+		$this->diffusion($val);
 		
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* COLOR                                                                     			  *
+	*******************************************************************************************
+	| Genel Kullanım: Gölgenin rengini belirlemek için kullanılır.					          |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Renk kodu veya adı.  		  							  |
+	|          																				  |
+	| Örnek Kullanım: ->color('red')			  										      |
+	| Örnek Kullanım: ->color('000') // #000		  										  |
+	|          																				  |
+	******************************************************************************************/
 	public function color($val = '')
 	{
 		if( ! is_value($val))
@@ -199,7 +295,7 @@ class ComponentCssShadow
 			return $this;	
 		}
 		
-		if(is_numeric($val))
+		if( is_numeric($val) )
 		{
 			$val = "#".$val;
 		}
@@ -208,13 +304,19 @@ class ComponentCssShadow
 		
 		return $this;
 	}
-		
+	
+	/******************************************************************************************
+	* CREATE                                                                     			  *
+	*******************************************************************************************
+	| Genel Kullanım: Efekti tamamlamak için kullanılan zincirin son halkasıdır.			  |
+	|															                              |
+	| Örnek Kullanım: ->create()					  										  |
+	|          																				  |
+	******************************************************************************************/	
 	public function create()
 	{
-		$combine_transitions = func_get_args();
-		
-		$str  = $this->selector."{\n";	
-		$str .= $this->attr."\n";
+		$str  = $this->selector."{".ln();	
+		$str .= $this->attr.ln();
 		
 		$shadow = 	"box-shadow:".
 					$this->params['horizontal']." ".
@@ -222,20 +324,25 @@ class ComponentCssShadow
 					$this->params['blur']." ".
 					$this->params['spread']." ".
 					$this->params['color'].";".
-		$browser = '';			
+		$browser = '';	
+				
 		foreach($this->browsers as $val)
 		{
-			$str .= $val.$shadow."\n";
+			$str .= $val.$shadow.ln();
 		}
-		$str .= "}\n";
+		$str .= "}".ln();
 		
 		return $str;
 	}
 	
+	// VARSAYILAN DEĞİŞKEN AYARLARI
+	// Efekt tamamlandığında değişkenler
+	// varsayılan ayarlarına getirmek için
+	// kullanılmaktadır.
 	protected function _default_variable()
 	{
-		if( ! empty($this->attr)) 		$this->attr = NULL;
-		if( ! empty($this->params))		$this->params = array();
-		if($this->selector !== 'this')  $this->selector = 'this';
+		if( ! empty($this->attr) ) 			$this->attr = NULL;
+		if( ! empty($this->params) )		$this->params = array();
+		if( $this->selector !== 'this' )  	$this->selector = 'this';
 	}
 }

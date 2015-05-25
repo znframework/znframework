@@ -149,6 +149,7 @@ class IbaseDriver
 	******************************************************************************************/
 	public function list_databases()
 	{
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -160,7 +161,7 @@ class IbaseDriver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -249,7 +250,7 @@ class IbaseDriver
 	******************************************************************************************/
 	public function add_column()
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -261,7 +262,7 @@ class IbaseDriver
 	******************************************************************************************/
 	public function drop_column()
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -451,10 +452,14 @@ class IbaseDriver
 	******************************************************************************************/
 	public function fetch_array()
 	{
-		if( ! empty($this->query))
+		if( ! empty($this->query) )
+		{
 			return ibase_fetch_array($this->query);
+		}
 		else
+		{
 			return false;	
+		}
 	}
 	
 	/******************************************************************************************
@@ -465,10 +470,14 @@ class IbaseDriver
 	******************************************************************************************/
 	public function fetch_assoc()
 	{
-		if( ! empty($this->query))
+		if( ! empty($this->query) )
+		{
 			return ibase_fetch_assoc($this->query);
+		}
 		else
+		{
 			return false;	
+		}
 	}
 	
 	/******************************************************************************************

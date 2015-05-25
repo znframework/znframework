@@ -129,7 +129,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function list_databases()
 	{
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -141,7 +141,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Destelemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -201,7 +201,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -224,7 +224,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function add_column()
 	{
-		// Desteklemiyor. 
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -236,7 +236,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function drop_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -248,7 +248,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function rename_column()
 	{
-		// Desteklemiyor. 
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -260,7 +260,7 @@ class Sqlite3Driver
 	******************************************************************************************/
 	public function modify_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	

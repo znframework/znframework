@@ -174,7 +174,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -230,7 +230,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -242,7 +242,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function truncate($table = '')
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -254,7 +254,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function add_column()
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -266,7 +266,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function drop_column()
 	{
-		// Desteklenmiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -278,7 +278,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function rename_column()
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -290,7 +290,7 @@ class CubridDriver
 	******************************************************************************************/
 	public function modify_column()
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	

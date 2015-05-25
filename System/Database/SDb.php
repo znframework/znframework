@@ -227,11 +227,7 @@ class SDb
 	 */
 	private static $db;
 	
-<<<<<<< HEAD
 	/* Connect Değişkeni
-=======
-	/* Db Değişkeni
->>>>>>> origin/master
 	 *  
 	 * Veritabanı bağlantı bilgisini
 	 * tutmak için oluşturulmuştur.
@@ -1473,8 +1469,4 @@ class SDb
 		self::$order_by = NULL;
 		self::$limit = NULL;
 	}	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master

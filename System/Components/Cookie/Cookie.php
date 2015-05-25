@@ -19,17 +19,87 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/	
 class ComponentCook
 {
+	/* Name Değişkeni
+	 *  
+	 * Çerez adı bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $name;
+	
+	/* Value Değişkeni
+	 *  
+	 * Çerez değeri bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $value;
+	
+	/* Time Değişkeni
+	 *  
+	 * Çerez süre bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $time;
+	
+	/* Path Değişkeni
+	 *  
+	 * Çerez dizin bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $path;
+	
+	/* Doman Değişkeni
+	 *  
+	 * Çerez domain bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $domain;
+	
+	/* Secure Değişkeni
+	 *  
+	 * Çerez https durum bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $secure;
+	
+	/* Regenerate Değişkeni
+	 *  
+	 * Çerez id bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $regenerate = true;
+	
+	/* Encode Değişkeni
+	 *  
+	 * Çerez şifreleme bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $encode = array();
+	
+	/* Http Only Değişkeni
+	 *  
+	 * Çerez kullanım yeri bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $httponly;
+	
+	/* Error Değişkeni
+	 *  
+	 * Çerez işlemlerinde hata bilgisini tutması
+	 * için oluşturulumuştur.
+	 */
 	protected $error;
 	
+	/******************************************************************************************
+	* NAME                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Oluşturulacak çerezin adını belirtmek için kullanılır.                  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @name => Çerez adı.					          							  |
+	|          																				  |
+	| Örnek Kullanım: ->name('yeni_cerez')										              |
+	|          																				  |
+	******************************************************************************************/
 	public function name($name = '')
 	{
 		if( ! is_char($name))
@@ -42,6 +112,17 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* TIME                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Oluşturulacak çerezin süresini belirtmek için kullanılır.               |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @time => Çerezin ne kadar süre ile kalacağı.					          |
+	|          																				  |
+	| Örnek Kullanım: ->time(3600) // 1 saat. 										          |
+	|          																				  |
+	******************************************************************************************/
 	public function time($time = '')
 	{
 		if( ! is_numeric($time))
@@ -54,6 +135,20 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* ENCODE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Çerez anahtarını veya tuttuğu değer şifrelemek için kullanılır.         |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @name => Çerezin adını şifrelemek için geçerli olan şifreleme             |
+	| algoritmalarından biri girilir. Örnek: md5									          |
+	| 2. string var @value => Çerezin değerini şifrelemek için geçerli olan şifreleme         |
+	| algoritmalarından biri girilir. Örnek: md5									          |
+	|          																				  |
+	| Örnek Kullanım: ->encode('md5', 'sha1') 			 									  |
+	|          																				  |
+	******************************************************************************************/
 	public function encode($name = '', $value = '')
 	{
 		if( ! ( is_hash($name) || is_hash($value) ))
@@ -67,6 +162,20 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* DECODE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Şifrelenen çerez anahtarını decode etmek için kullanılır. Ancak değer   |
+	| decode edilemez. Aslında tam anlamıyla anahtarında decode edildiğinden bahsedilemez.	  |
+	| bu nedenle sadece anahtar için decode kullanımı mevcuttur. 					          |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @hash => Çerezin anahtarı hangi şifreleme algorimatsı ile şifrelenmişse	  |
+	| o algoritma kullanılarak çerezin değerine ulaşılabilir.				                  |
+	|          																				  |
+	| Örnek Kullanım: ->decode('md5') 			 									  		  |
+	|          																				  |
+	******************************************************************************************/
 	public function decode($hash = '')
 	{
 		if( ! is_hash($hash))
@@ -79,6 +188,17 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* VALUE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Oluşturulacak çerezin değerini belirtmek için kullanılır.               |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. mixed var @value => Çerez tutacağı veri.					          				  |
+	|          																				  |
+	| Örnek Kullanım: ->value('Çerezin Değeri')										          |
+	|          																				  |
+	******************************************************************************************/
 	public function value($value = '')
 	{
 		$this->value = $value;
@@ -86,6 +206,19 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* REGENERATE                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: PHPSESSID değerinin yeninden oluşturuması için kullanılır. True olarak  |
+	| ayarlanması durumunda çerezin her çalıştırıldığında farklı bir id alması güvenliği 	  |
+	| artırmış olacaktır.		     												          |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. boolean var @regenerate => True veya false değeri alır. Varsayılan:true              |
+	|          																				  |
+	| Örnek Kullanım: ->regenerate(false)										              |
+	|          																				  |
+	******************************************************************************************/
 	public function regenerate($regenerate = true)
 	{
 		if( ! is_bool($regenerate))
@@ -98,6 +231,17 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* PATH                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Çerezlerin oluşturulacağı dizini belirlemek için kullanılır.	          |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @path => Dizinin var olacağı dizin yolu. Varsayılan:/                     |
+	|          																				  |
+	| Örnek Kullanım: ->path('cerezler/')										              |
+	|          																				  |
+	******************************************************************************************/
 	public function path($path = '')
 	{
 		if( ! is_string($path))
@@ -110,6 +254,17 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* PATH                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Çerezlerin kullanılabilir olacağı domaini belirtmek için kullanılır.    |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @domain => Domain ismi.                   								  |
+	|          																				  |
+	| Örnek Kullanım: ->domain('http://www.zntr.net')										  |
+	|          																				  |
+	******************************************************************************************/
 	public function domain($domain = '')
 	{
 		if( ! is_string($domain))
@@ -122,6 +277,18 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* SECURE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Çerezler için https bağlantısının kullanılıp kullanılmayacağıdır.       |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. boolean var @secure => True olarak ayarlanması durumunda sadece https bağlantısı	  |
+	| için geçerli olacaktır. Varsayılan:false                  							  |
+	|          																				  |
+	| Örnek Kullanım: ->secure(true)										 				  |
+	|          																				  |
+	******************************************************************************************/
 	public function secure($secure = false)
 	{
 		if( ! is_bool($secure))
@@ -134,6 +301,19 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* HTTP ONLY                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: TRUE olduğu takdirde çerez sadece HTTP protokolü üzerinden erişilebilir |
+    | olacaktır.       																		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. boolean var @httponly => True olarak ayarlanması durumunda sadece http protokülü	  |
+	| için geçerli olacaktır. Varsayılan:true                    							  |
+	|          																				  |
+	| Örnek Kullanım: ->httponly(true)										 				  |
+	|          																				  |
+	******************************************************************************************/
 	public function httponly($httponly = true)
 	{
 		if( ! is_bool($httponly))
@@ -146,11 +326,24 @@ class ComponentCook
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* CREATE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Çerezi oluşturmak için zincirin son halkası olarak kullanılır. 		  |
+	| 2 tane isteğe bağlı parametresi vardır.       										  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. [ string var @name ] => Çerezin ismi, name() yöntemine alternatifdir.		    	  |
+	| 2. [ mixed var @value ] => Çerezin değeri, value() yöntemine alternatifdir.		      |
+	|          																				  |
+	| Örnek Kullanım: ->create('cerez', 'İçerik');									 		  |
+	|          																				  |
+	******************************************************************************************/
 	public function create($name = '', $value = '')
 	{
-		if( ! empty($name)) 
+		if( ! empty($name) ) 
 		{
-			if( ! is_char($name))
+			if( ! is_char($name) )
 			{
 				return false;
 			}
@@ -158,24 +351,24 @@ class ComponentCook
 			$this->name($name);
 		}
 		
-		if( ! empty($value))
+		if( ! empty($value) )
 		{
 			$this->value($value);	
 		}
 		
 		if( ! empty($this->encode) )
 		{
-			if(isset($this->encode['name']))
+			if(isset($this->encode['name']) )
 			{
-				if(is_hash($this->encode['name']))
+				if(is_hash($this->encode['name']) )
 				{
 					$this->name = hash($this->encode['name'], $this->name);		
 				}		
 			}
 			
-			if(isset($this->encode['value']))
+			if( isset($this->encode['value']) )
 			{
-				if(is_hash($this->encode['value']))
+				if( is_hash($this->encode['value']) )
 				{
 					$this->value = hash($this->encode['value'], $this->value);	
 				}
@@ -184,23 +377,23 @@ class ComponentCook
 		
 		$cookie_config = config::get("Cookie");
 		
-		if(empty($this->time)) 		$this->time 	= $cookie_config["time"];
-		if(empty($this->path)) 		$this->path 	= $cookie_config["path"];
-		if(empty($this->domain)) 	$this->domain 	= $cookie_config["domain"];
-		if(empty($this->secure)) 	$this->secure 	= $cookie_config["secure"];
-		if(empty($this->httponly)) 	$this->httponly = $cookie_config["httponly"];
+		if( empty($this->time) ) 		$this->time 	= $cookie_config["time"];
+		if( empty($this->path) ) 		$this->path 	= $cookie_config["path"];
+		if( empty($this->domain) ) 		$this->domain 	= $cookie_config["domain"];
+		if( empty($this->secure) ) 		$this->secure 	= $cookie_config["secure"];
+		if( empty($this->httponly) ) 	$this->httponly = $cookie_config["httponly"];
 		
-		if( ! isset($this->encode['name']))
+		if( ! isset($this->encode['name']) )
 		{
-			if($cookie_config["encode"] === true)
+			if( $cookie_config["encode"] === true )
 			{
 				$this->name = md5($this->name);
 			}
 		}
 		
-		if(setcookie($this->name, $this->value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httponly))
+		if( setcookie($this->name, $this->value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httponly) )
 		{
-			if($this->regenerate === true)
+			if( $this->regenerate === true )
 			{
 				session_regenerate_id();	
 			}
@@ -217,25 +410,37 @@ class ComponentCook
 		}
 	} 
 	
+	/******************************************************************************************
+	* SELECT                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Daha önce oluşturulmuş çerezlere erişmek için kullanılır.        		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @name => Çerezin ismi.		    	  									  |
+	|          																				  |
+	| Örnek Kullanım: ->select('cerez'); // cerez adlı çerezi seçer.		 		  		  |
+	| Örnek Kullanım: ->select(); // tüm çerezleri seçer.		 		  		  		 	  |
+	|          																				  |
+	******************************************************************************************/
 	public function select($name = '')
 	{
-		if( ! is_value($name))
+		if( ! is_value($name) )
 		{
 			return false;	
 		}
 		
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
 			$name = $this->name;
 			$this->name = NULL;	
 		}
 		
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
 			return $_COOKIE;
 		}
 		
-		if(isset($this->encode['name']))
+		if( isset($this->encode['name']) )
 		{
 			if(is_hash($this->encode['name']))
 			{
@@ -251,12 +456,12 @@ class ComponentCook
 			}
 		}
 		
-		if( ! empty($this->decode))
+		if( ! empty($this->decode) )
 		{
 			$this->decode = NULL;	
 		}
 		
-		if(isset($_COOKIE[$name]))
+		if( isset($_COOKIE[$name]) )
 		{
 			return $_COOKIE[$name];
 		}
@@ -266,14 +471,26 @@ class ComponentCook
 		}
 	}
 	
+	/******************************************************************************************
+	* DELETE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Daha önce oluşturulmuş çerezleri silmek için kullanılır.        		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @name => Çerezin ismi.		    	  									  |
+	|          																				  |
+	| Örnek Kullanım: ->delete('cerez'); // cerez adlı çerezi siler.		 		  		  |
+	| Örnek Kullanım: ->delete(); // tüm çerezleri siler.		 		  		  		 	  |
+	|          																				  |
+	******************************************************************************************/
 	public function delete($name = '')
 	{
-		if( ! is_value($name))
+		if( ! is_value($name) )
 		{
 			return false;	
 		}
 	
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
 			$name = $this->name;
 			$this->name = NULL;	
@@ -281,12 +498,12 @@ class ComponentCook
 		
 		$cookie_config = config::get("Cookie");
 		
-		if(empty($this->path))
+		if( empty($this->path) )
 		{	
 			$this->path = $cookie_config["path"];
 		}
 		
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
 			if( ! empty($_COOKIE) ) foreach ($_COOKIE as $key => $val)
 			{			
@@ -294,9 +511,9 @@ class ComponentCook
 			}
 		}	
 		
-		if(isset($this->encode['name']))
+		if( isset($this->encode['name']) )
 		{
-			if(is_hash($this->encode['name']))
+			if( is_hash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);	
 				$this->encode = array();	
@@ -304,13 +521,13 @@ class ComponentCook
 		}
 		else
 		{
-			if($cookie_config["encode"] === true)
+			if( $cookie_config["encode"] === true )
 			{
 				$name = md5($name);
 			}
 		}
 		
-		if(isset($_COOKIE[$name]))
+		if( isset($_COOKIE[$name]) )
 		{ 	
 			setcookie($name, '', (time() - 1), $this->path); 
 			$this->path = NULL;

@@ -50,7 +50,8 @@ if( ! function_exists('create_captcha'))
 			if( ! isset($set["image_string"]["x"]))$set["image_string"]["x"] 			= "23";
 			if( ! isset($set["image_string"]["y"]))$set["image_string"]["y"] 			= "9";
 			if( ! isset($set["grid"]))$set["grid"] 										= false; 
-			if( ! isset($set["grid_space"]["x"]))$set["grid_space"]["x"] 				= 10; 
+			if( ! isset($set["grid_space"]["x"]))$set["grid_space"]["x"] 				= 12; 
+			if( ! isset($set["grid_space"]["y"]))$set["grid_space"]["y"] 				= 4; 
 			if( ! isset($set["grid_color"]))$set["grid_color"]							= "240|240|240";
 			if( ! isset($set["background"]))$set["background"]							= array();
 			
@@ -73,8 +74,8 @@ if( ! function_exists('create_captcha'))
 			
 			$file = @imagecreatetruecolor($set["width"], $set["height"]);	  
 				  
-			$font_color 	= imagecolorallocate($file, $set_font_color[0], $set_font_color[1], $set_font_color[2]);
-			$color 			= imagecolorallocate($file, $set_bg_color[0], $set_bg_color[1], $set_bg_color[2]);
+			$font_color 	= @imagecolorallocate($file, $set_font_color[0], $set_font_color[1], $set_font_color[2]);
+			$color 			= @imagecolorallocate($file, $set_bg_color[0], $set_bg_color[1], $set_bg_color[2]);
 			
 			// ARKAPLAN RESMI--------------------------------------------------------------------------------------
 			if( ! empty($set["background"]) )
@@ -106,12 +107,12 @@ if( ! function_exists('create_captcha'))
 			else
 			{
 				// Arkaplan olarak resim belirtilmemiş ise arkaplan rengini ayarlar.
-				imagefill($file, 0, 0, $color);
+				@imagefill($file, 0, 0, $color);
 			}
 			//-----------------------------------------------------------------------------------------------------
 			
 			// Resim üzerinde görüntülenecek kod bilgisi.
-			imagestring($file, $set["image_string"]["size"], $set["image_string"]["x"], $set["image_string"]["y"],  $_SESSION[md5('captcha_code')], $font_color);
+			@imagestring($file, $set["image_string"]["size"], $set["image_string"]["x"], $set["image_string"]["y"],  $_SESSION[md5('captcha_code')], $font_color);
 			
 			// GRID --------------------------------------------------------------------------------------
 			if( $set["grid"] === true )
@@ -124,16 +125,16 @@ if( ! function_exists('create_captcha'))
 					
 				} else $grid_interval_y  = $set["height"] / $set["grid_space"]["y"];
 				
-				$grid_color 	= imagecolorallocate($file, $set_grid_color[0], $set_grid_color[1], $set_grid_color[2]);
+				$grid_color 	= @imagecolorallocate($file, $set_grid_color[0], $set_grid_color[1], $set_grid_color[2]);
 				
 				for($x = 0 ; $x <= $set["width"] ; $x += $grid_interval_x)
 				{
-					imageline($file,$x,0,$x,$set["height"] - 1,$grid_color);
+					@imageline($file,$x,0,$x,$set["height"] - 1,$grid_color);
 				}
 				
 				for($y = 0 ; $y <= $set["width"] ; $y += $grid_interval_y)
 				{
-					imageline($file,0,$y,$set["width"],$y,$grid_color);
+					@imageline($file,0,$y,$set["width"],$y,$grid_color);
 				}
 				
 			}
@@ -142,12 +143,12 @@ if( ! function_exists('create_captcha'))
 			// BORDER --------------------------------------------------------------------------------------
 			if( $set["border"] === true )
 			{
-				$border_color 	= imagecolorallocate($file, $set_border_color[0], $set_border_color[1], $set_border_color[2]);
+				$border_color 	= @imagecolorallocate($file, $set_border_color[0], $set_border_color[1], $set_border_color[2]);
 				
-				imageline($file, 0, 0, $set["width"], 0, $border_color); // UST
-				imageline($file, $set["width"] - 1, 0, $set["width"] - 1, $set["height"], $border_color); // SAG
-				imageline($file, 0, $set["height"] - 1, $set["width"], $set["height"] - 1, $border_color); // ALT
-				imageline($file, 0, 0, 0, $set["height"] - 1, $border_color); // SOL
+				@imageline($file, 0, 0, $set["width"], 0, $border_color); // UST
+				@imageline($file, $set["width"] - 1, 0, $set["width"] - 1, $set["height"], $border_color); // SAG
+				@imageline($file, 0, $set["height"] - 1, $set["width"], $set["height"] - 1, $border_color); // ALT
+				@imageline($file, 0, 0, 0, $set["height"] - 1, $border_color); // SOL
 			}
 			// ---------------------------------------------------------------------------------------------
 			

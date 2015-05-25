@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Common.php');
 /******************************************************************************************
 * JQUERY                                                                                  *
 *******************************************************************************************
@@ -18,7 +18,7 @@ require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentJquery extends ComponentJqueryObjects
+class ComponentJquery extends ComponentJqueryCommon
 {
 	/* Selector Variables
 	 * Selector 
@@ -142,7 +142,7 @@ class ComponentJquery extends ComponentJqueryObjects
 	{
 		$combine_function = func_get_args();
 		
-		$complete  = "\n\t$($this->selector)";
+		$complete  = ln()."\t$($this->selector)";
 		
 		$complete .= $this->complete();
 		

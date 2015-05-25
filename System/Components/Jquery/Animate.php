@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Common.php');
 /******************************************************************************************
 * ANIMATE                                                                                 *
 *******************************************************************************************
@@ -18,7 +18,7 @@ require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentJqueryAnimate extends ComponentJqueryObjects
+class ComponentJqueryAnimate extends ComponentJqueryCommon
 {
 	/* Easing Variables
 	 * Easing 
@@ -143,7 +143,7 @@ class ComponentJqueryAnimate extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->callback = ",\n\t\tfunction($params){".$callback."}";
+		$this->callback = ",".ln()."\t\tfunction($params){".$callback."}";
 		
 		return $this;
 	}
@@ -155,7 +155,7 @@ class ComponentJqueryAnimate extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->callback = ",\n\t\tfunction($params){".$callback."}";
+		$this->callback = ",".ln()."\t\tfunction($params){".$callback."}";
 		
 		return $this;
 	}
@@ -196,13 +196,13 @@ class ComponentJqueryAnimate extends ComponentJqueryObjects
 	public function complete()
 	{
 		$animatemid = '';
-		$animate  = ".animate\n\t(";
-		if( ! empty($this->attr))     $animatemid .= "\n\t".$this->attr;
+		$animate  = ".animate".ln()."\t(";
+		if( ! empty($this->attr))     $animatemid .= ln()."\t".$this->attr;
 		if( ! empty($this->speed))    $animatemid .= $this->speed;
-		if( ! empty($this->easing))	  $animatemid .= ",\n\t".$this->_object($this->easing);
+		if( ! empty($this->easing))	  $animatemid .= ",".ln()."\t".$this->_object($this->easing);
 		if( ! empty($this->callback)) $animatemid .= $this->callback;
 		$animate .= trim($animatemid, ',');
-		$animate .= "\n\t)";
+		$animate .= ln()."\t)";
 		
 		$this->_default_variable();
 		
@@ -213,7 +213,7 @@ class ComponentJqueryAnimate extends ComponentJqueryObjects
 	{
 		$combine_animation = func_get_args();
 		
-		$animate  = "\n\t$($this->selector)";
+		$animate  = ln()."\t$($this->selector)";
 		
 		$animate .= $this->complete();
 		
@@ -222,7 +222,7 @@ class ComponentJqueryAnimate extends ComponentJqueryObjects
 			$animate .= $animation;
 		}
 	
-		$animate .= ";\n";
+		$animate .= ";".ln();
 			
 		return $animate;
 	}

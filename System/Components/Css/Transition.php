@@ -19,33 +19,56 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 class ComponentCssTransition
 {
+	/* Easing Değişkeni
+	 *  
+	 * Easing animasyon bilgisini tutması 
+	 * için oluşturulumuştur. 
+	 */
 	protected $easing;
 	
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
+	/* Selector Değişkeni
+	 *  
+	 * Seçici bilgisini tutması için
+	 * oluşturulumuştur. 
 	 */
 	protected $selector = 'this';
+	
+	/* Attr Değişkeni
+	 *  
+	 * Eklenmek istenen farklı css kodlarına.
+	 * ait bilgileri tutması için oluşturulmuştur.
+	 */
 	protected $attr;
+	
+	/* Transtions Değişkeni
+	 *  
+	 * Geçiş efektlerine ait kullanacak
+	 * verileri tutması için oluşturulmuştur.
+	 *
+	 */
 	protected $transitions = '';
 	
-
+	// Construct yapıcısı tarafından
+	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct()
 	{
 		$this->browsers = config::get('Css3', 'browsers');	
 	}
 	
-	/* Selector Function
-	 * Params: string @selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
+	/******************************************************************************************
+	* SELECTOR                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Css kodlarının uygulanacağı nesne seçicisi.        		  		      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @selector => .nesne, #eleman, td ... gibi seçiciler belirtilir.		      |
+	|          																				  |
+	| Örnek Kullanım: ->selector('#eleman') 						 		 		  		  |
+	|          																				  |
+	******************************************************************************************/
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector))
+		if( ! is_char($selector) )
 		{
 			return $this;	
 		}
@@ -55,15 +78,29 @@ class ComponentCssTransition
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* ATTR                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Farklı bir css kodu ekleneceği zaman kullanılır.        		  		  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array var @_attributes => Eklenecek css kodları ve değerleri.		     			  |
+	|          																				  |
+	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
+	|          																				  |
+	******************************************************************************************/
 	public function attr($_attributes = array())
 	{
-		$attribute = "";
-		if(is_array($_attributes))
+		$attribute = '';
+		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.':'.$values.';';
 			}	
 		}
@@ -80,7 +117,7 @@ class ComponentCssTransition
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-property:$property;\n");
+		$this->transitions .= $this->_transitions("transition-property:$property;".ln());
 		
 		return $this;
 	}
@@ -97,7 +134,7 @@ class ComponentCssTransition
 			$duration = $duration."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-duration:$duration;\n");
+		$this->transitions .= $this->_transitions("transition-duration:$duration;".ln());
 		
 		return $this;
 	}
@@ -114,7 +151,7 @@ class ComponentCssTransition
 			$delay = $delay."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-delay:$delay;\n");
+		$this->transitions .= $this->_transitions("transition-delay:$delay;".ln());
 		
 		return $this;
 	}
@@ -126,7 +163,7 @@ class ComponentCssTransition
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-timing-function:$easing;\n");
+		$this->transitions .= $this->_transitions("transition-timing-function:$easing;".ln());
 		
 		return $this;
 	}
@@ -139,7 +176,7 @@ class ComponentCssTransition
 			$transitions .= "$val$data";
 		}
 		
-		return "\n".$transitions;
+		return ln().$transitions;
 	}
 	
 	public function complete()
@@ -153,19 +190,21 @@ class ComponentCssTransition
 	{
 		$combine_transitions = func_get_args();
 		
-		$str  = $this->selector."{\n";	
-		$str .= $this->attr."\n";
+		$str  = $this->selector."{".ln();	
+		$str .= $this->attr.ln();
 		$str .= $this->complete();
-		if( ! empty($combine_transitions))foreach($combine_transitions as $transition)
+		
+		if( ! empty($combine_transitions) )foreach($combine_transitions as $transition)
 		{			
 			$str .= $transition;
 		}
 	
-		$str .= "}\n";
+		$str .= "}".ln();
 		
 		return $str;
 	}
 	
+	// Değişkenler default ayarlarına getiriliyor.
 	protected function _default_variable()
 	{
 		if( ! empty($this->attr)) 		$this->attr = NULL;

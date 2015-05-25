@@ -126,6 +126,12 @@ class Import
 		
 		$arguments = func_get_args();
 		
+		// Parametre olarak gönderilen sıralı argümenler
+		// içindeki ilk eleman dizi ise
+		// bu diziyi sıralı argümen olarak kabul etmesini
+		// sağlamak amacıyla oluşturulmuştur.
+		// Böylece hem sıralı argümen olarak 
+		// hem de dizi olarak bileşenler dahil edilebilecektir.
 		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];
@@ -139,10 +145,36 @@ class Import
 			}
 			
 			if( ! in_array($class, $config_component) )
-			{		
-				if( ! strstr($class, '/'))
+			{	
+				// Bileşenler dahil edilirken bir bileşene ait
+				// Tüm alt bileşenleri dahil etmek için
+				// Bileşen/* veya Bileşen.* kullanabilmek
+				// için bu bölümde kontroller yapılmaktadır.	
+				if( ! strstr($class, '/') &&  ! strstr($class, '.*') )
 				{
 					 $class = $class.'/'.$class;
+				}
+				elseif( strstr($class, '/*') || strstr($class, '.*') )
+				{
+					if( strstr($class, '.*') )
+					{
+						$class = str_replace('.*', '/*', $class);	
+					}
+					
+					$classex = explode('/', $class );
+					
+					import::library('Folder');
+				
+					$all_components = folder::files(SYSTEM_COMPONENTS_DIR.$classex[0], 'php');
+					
+					if( ! empty($all_components ) )foreach($all_components as $component)
+					{
+						$component_path = SYSTEM_COMPONENTS_DIR.$classex[0].'/'.$component;
+						
+						require_once($component_path);	
+						
+						is_imported($classex[0].'/'.$component, 'Component');
+					}
 				}
 					
 				$path = SYSTEM_COMPONENTS_DIR.suffix($class,".php");
@@ -155,6 +187,7 @@ class Import
 				{
 					return false;
 				}
+	
 				is_imported($class, 'Component');
 			}	
 		}	

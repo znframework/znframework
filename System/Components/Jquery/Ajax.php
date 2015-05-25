@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Common.php');
 /******************************************************************************************
 * AJAX                                                                                    *
 *******************************************************************************************
@@ -18,7 +18,7 @@ require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentJqueryAjax extends ComponentJqueryObjects
+class ComponentJqueryAjax extends ComponentJqueryCommon
 {
 	/* Function Variables
 	 * success, error, complete...
@@ -57,7 +57,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			$url = site_url($url);	
 		}
 		
-		$this->sets['url'] = "\turl:\"$url\",\n";
+		$this->sets['url'] = "\turl:\"$url\",".ln();
 		
 		return $this;	
 	}
@@ -72,7 +72,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['data'] = "\tdata:$data,\n";
+		$this->sets['data'] = "\tdata:$data,".ln();
 		
 		return $this;	
 	}
@@ -87,7 +87,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['headers'] = "\theaders:$headers,\n";
+		$this->sets['headers'] = "\theaders:$headers,".ln();
 		
 		return $this;	
 	}
@@ -102,7 +102,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$if_modified = $this->_booltostr($if_modified);
-		$this->sets['if_modified'] = "\tifModified:$if_modified,\n";
+		$this->sets['if_modified'] = "\tifModified:$if_modified,".ln();
 		
 		return $this;	
 	}
@@ -117,7 +117,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$is_local = $this->_booltostr($is_local);
-		$this->sets['is_local'] = "\tisLocal:$is_local,\n";
+		$this->sets['is_local'] = "\tisLocal:$is_local,".ln();
 		
 		return $this;	
 	}
@@ -133,7 +133,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$mime_type = $this->_booltostr($mime_type);
-		$this->sets['mime_type'] = "\tmimeType:$mime_type,\n";
+		$this->sets['mime_type'] = "\tmimeType:$mime_type,".ln();
 		
 		return $this;	
 	}
@@ -158,7 +158,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;
 		}
 		
-		$this->sets['jsonp'] = "\tjsonp:$jsonp,\n";
+		$this->sets['jsonp'] = "\tjsonp:$jsonp,".ln();
 		
 		return $this;	
 	}
@@ -180,7 +180,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			$jsonp_callback = "\"$jsonp_callback\"";
 		}
 		
-		$this->sets['jsonp_callback'] = "\tjsonpCallback:$jsonp_callback,\n";
+		$this->sets['jsonp_callback'] = "\tjsonpCallback:$jsonp_callback,".ln();
 		
 		return $this;	
 	}
@@ -195,7 +195,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['type'] = "\tdataType:\"$type\",\n";
+		$this->sets['type'] = "\tdataType:\"$type\",".ln();
 		
 		return $this;
 	}
@@ -210,7 +210,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['password'] = "\tpassword:\"$password\",\n";
+		$this->sets['password'] = "\tpassword:\"$password\",".ln();
 		
 		return $this;
 	}
@@ -225,7 +225,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['username'] = "\tusername:\"$username\",\n";
+		$this->sets['username'] = "\tusername:\"$username\",".ln();
 		
 		return $this;
 	}
@@ -241,7 +241,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['method'] = "\ttype:\"$method\",\n";
+		$this->sets['method'] = "\ttype:\"$method\",".ln();
 		
 		return $this;
 	}
@@ -257,7 +257,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['method'] = "\ttype:\"$method\",\n";
+		$this->sets['method'] = "\ttype:\"$method\",".ln();
 		
 		return $this;
 	}
@@ -272,7 +272,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['script_charset'] = "\tscriptCharset:\"$script_charset\",\n";
+		$this->sets['script_charset'] = "\tscriptCharset:\"$script_charset\",".ln();
 		
 		return $this;
 	}
@@ -287,7 +287,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$traditional = $this->_booltostr($traditional);
-		$this->sets['traditional'] = "\ttraditional:$traditional,\n";
+		$this->sets['traditional'] = "\ttraditional:$traditional,".ln();
 		
 		return $this;
 	}
@@ -302,7 +302,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$process_data = $this->_booltostr($process_data);
-		$this->sets['process_data'] = "\tprocessData:$process_data,\n";
+		$this->sets['process_data'] = "\tprocessData:$process_data,".ln();
 		
 		return $this;
 	}
@@ -317,7 +317,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$cache = $this->_booltostr($cache);
-		$this->sets['cache'] = "\tcache:$cache,\n";
+		$this->sets['cache'] = "\tcache:$cache,".ln();
 		
 		return $this;
 	}
@@ -332,7 +332,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['xhr_fields'] = "\txhrFields:$xhr_fields,\n";
+		$this->sets['xhr_fields'] = "\txhrFields:$xhr_fields,".ln();
 		
 		return $this;
 	}
@@ -347,7 +347,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['context'] = "\tcontext:$context,\n";
+		$this->sets['context'] = "\tcontext:$context,".ln();
 		
 		return $this;
 	}
@@ -362,7 +362,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['accepts'] = "\taccepts:$accepts,\n";
+		$this->sets['accepts'] = "\taccepts:$accepts,".ln();
 		
 		return $this;
 	}
@@ -377,7 +377,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['contents'] = "\tcontents:$contents,\n";
+		$this->sets['contents'] = "\tcontents:$contents,".ln();
 		
 		return $this;
 	}
@@ -392,7 +392,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$async = $this->_booltostr($async);
-		$this->sets['async'] = "\tasync:$async,\n";
+		$this->sets['async'] = "\tasync:$async,".ln();
 		
 		return $this;
 	}
@@ -407,7 +407,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$cross_domain = $this->_booltostr($cross_domain);
-		$this->sets['cross_domain'] = "\tcrossDomain:$cross_domain,\n";
+		$this->sets['cross_domain'] = "\tcrossDomain:$cross_domain,".ln();
 		
 		return $this;
 	}
@@ -422,7 +422,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['timeout'] = "\ttimeout:$timeout,\n";
+		$this->sets['timeout'] = "\ttimeout:$timeout,".ln();
 		
 		return $this;
 	}
@@ -438,7 +438,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		$globals = $this->_booltostr($globals);
-		$this->sets['globals'] = "\tglobal:$globals,\n";
+		$this->sets['globals'] = "\tglobal:$globals,".ln();
 		
 		return $this;
 	}
@@ -464,7 +464,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->sets['content_type'] = "\tcontentType:$content_type,\n";
+		$this->sets['content_type'] = "\tcontentType:$content_type,".ln();
 		
 		return $this;
 	}
@@ -476,7 +476,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;	
 		}	
 		
-		$status_code = "\n\t$name:\n\t{";
+		$status_code = ln()."\t$name:".ln()."\t{";
 		
 		if( ! empty($codes))
 		{
@@ -490,13 +490,13 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 					$value = $params[1];
 				}
 				
-				$status_code .= "\n\t\t$code:function($param)\n\t\t{\n\t\t\t$value\n\t\t},\n";
+				$status_code .= ln()."\t\t$code:function($param)".ln()."\t\t{".ln()."\t\t\t$value".ln()."\t\t},".ln();
 			}
-			$status_code = trim(trim($status_code), ',')."\n";
+			$status_code = trim(trim($status_code), ',').ln();
 		}
 		$status_code .= "\t}";
 		
-		$this->functions[$name] = "\n\t".$status_code;
+		$this->functions[$name] = ln()."\t".$status_code;
 	}
 	
 	// STATUS CODE Property -------------------------------------------------------
@@ -534,7 +534,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;
 		}
 		
-		$this->functions[$name] = "\n\t$name:function($params)\n\t{\n\t\t$codes\n\t}";
+		$this->functions[$name] = ln()."\t$name:function($params)".ln()."\t{".ln()."\t\t$codes".ln()."\t}";
 	}
 	
 	// SUCCESS FUNCTION Property -------------------------------------------------------
@@ -604,7 +604,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			return $this;
 		}
 		
-		$this->callbacks[$name] = "\n.$name(function($params)\n{\n\t$codes\n})";
+		$this->callbacks[$name] = ln().".$name(function($params)".ln()."{".ln()."\t$codes".ln()."})";
 	}	
 	
 	// DONE CALLBACK FUNCTION Property -------------------------------------------------------
@@ -691,7 +691,7 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 		
 		$ajax = substr($ajax,0,-1);
 		
-		$ajax .= "\n";
+		$ajax .= ln();
 		
 		if( ! empty($this->functions))foreach($this->functions as $val)
 		{
@@ -707,14 +707,14 @@ class ComponentJqueryAjax extends ComponentJqueryObjects
 			{
 				$callbacks .= $val;	
 			}
-			$callbacks .= ";\n";
+			$callbacks .= ";".ln();
 		}
 		else
 		{
-			$callbacks = ";\n";
+			$callbacks = ";".ln();
 		}
 		
-		$ajax = "\n$.ajax\n({\n$ajax\n})$callbacks";
+		$ajax = ln()."$.ajax".ln()."({".ln()."$ajax".ln()."})$callbacks";
 		
 		$this->_default_variable();
 		

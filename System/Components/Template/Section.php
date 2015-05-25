@@ -27,7 +27,7 @@ class ComponentTemplateSection
 	protected function _attributes($attributes = '')
 	{
 		$attribute = '';
-		if(is_array($attributes))
+		if( is_array($attributes) )
 		{
 			foreach($attributes as $key => $values)
 			{
@@ -42,7 +42,7 @@ class ComponentTemplateSection
 		
 	public function attr($attributes = array())
 	{
-		if( ! is_array($attributes))
+		if( ! is_array($attributes) )
 		{
 			return $this;	
 		}
@@ -136,7 +136,7 @@ class ComponentTemplateSection
 		return $this;
 	}
 	
-	public function border_style($border = 'solid')
+	public function border_type($border = 'solid')
 	{
 		if( ! is_value($border) )
 		{
@@ -160,6 +160,23 @@ class ComponentTemplateSection
 		return $this;
 	}
 	
+	public function border_size($border_size = '')
+	{
+		if( ! is_value($border_size) )
+		{
+			return $this;	
+		}
+		
+		if( is_numeric($border_size) )
+		{
+			$border_size = $border_size.'px';	
+		}
+		
+		if( ! empty($border_size)) $this->style .= ' border-width:'.$border_size.';';
+		
+		return $this;
+	}
+	
 	public function bgcolor($bgcolor = '')
 	{
 		if( ! is_value($bgcolor) )
@@ -168,18 +185,6 @@ class ComponentTemplateSection
 		}
 		
 		if( ! empty($bgcolor)) $this->style .= ' background-color:'.$bgcolor.';';
-		
-		return $this;
-	}
-	
-	public function zindex($zindex = '')
-	{
-		if( ! is_value($zindex) )
-		{
-			return $this;	
-		}
-		
-		if( ! empty($zindex)) $this->style .= ' z-index:'.$zindex.';';
 		
 		return $this;
 	}
@@ -221,6 +226,19 @@ class ComponentTemplateSection
 		}
 		return $this;
 	}
+	
+	public function zindex($zindex = '')
+	{
+		if( ! is_value($zindex) )
+		{
+			return $this;	
+		}
+		
+		if( ! empty($zindex)) $this->style .= ' z-index:'.$zindex.';';
+		
+		return $this;
+	}
+	
 	
 	public function size($width = '', $height = '')
 	{
@@ -354,12 +372,16 @@ class ComponentTemplateSection
 	public function style($_attributes = array())
 	{
 		$attribute = "";
-		if(is_array($_attributes))
+		
+		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.':'.$values.';';
 			}	
 		}
@@ -371,7 +393,7 @@ class ComponentTemplateSection
 
 	public function content($content = '')
 	{
-		if( ! is_value($content))
+		if( ! is_value($content) )
 		{
 			return $this;
 		}

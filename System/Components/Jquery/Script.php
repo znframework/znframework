@@ -58,11 +58,11 @@ class ComponentJqueryScript
 	{		
 		$script = "";
 		$script .= import::script('Jquery', true);
-		$script .= "<script type=\"$this->type\">\n";
+		$script .= "<script type=\"$this->type\">".ln();
 		
 		if($this->ready)
 		{
-			$script .= "$(document).ready(function()\n{\n";
+			$script .= "$(document).ready(function()".ln()."{".ln();
 		}
 		return $script;
 	}
@@ -73,9 +73,9 @@ class ComponentJqueryScript
 		if($this->ready)
 		{
 			$this->ready = true;
-			$script .= "\n".'});'."\n";
+			$script .= ln().'});'.ln();
 		}
-		$script .=  '</script>'."\n";
+		$script .=  '</script>'.ln();
 		return $script;
 	}	
 }

@@ -19,27 +19,39 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 class ComponentCssTransform
 {
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
+	/* Selector Değişkeni
+	 *  
+	 * Seçici bilgisini tutması için
+	 * oluşturulumuştur. 
 	 */
 	protected $selector = 'this';
+	
+	/* Transforms Değişkeni
+	 *  
+	 * Dönüşüm efektlerine ait kullanacak
+	 * verileri tutması için oluşturulmuştur.
+	 *
+	 */
 	protected $transforms = array();
-	protected $browsers;
 	 
+	// Construct yapıcısı tarafından
+	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct()
 	{
 		$this->browsers = config::get('Css3', 'browsers');	
 	}
 	
-	/* Selector Function
-	 * Params: string @selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
+	/******************************************************************************************
+	* SELECTOR                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Css kodlarının uygulanacağı nesne seçicisi.        		  		      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @selector => .nesne, #eleman, td ... gibi seçiciler belirtilir.		      |
+	|          																				  |
+	| Örnek Kullanım: ->selector('#eleman') 						 		 		  		  |
+	|          																				  |
+	******************************************************************************************/
 	public function selector($selector = '')
 	{
 		if( ! is_char($selector))
@@ -75,14 +87,14 @@ class ComponentCssTransform
 	protected function _transform($data)
 	{
 		$str  = '';
-		$str .= $this->selector."{\n";	
+		$str .= $this->selector."{".ln();	
 		
 		foreach($this->browsers as $val)
 		{
-			$str .= $val."transform:$data;\n";
+			$str .= $val."transform:$data;".ln();
 		}
 		
-		$str .= "}\n";
+		$str .= "}".ln();
 		
 		return $str;
 	}

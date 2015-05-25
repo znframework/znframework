@@ -184,12 +184,15 @@ class ComponentTable
 	public function style($_attributes = array())
 	{
 		$attribute = "";
-		if(is_array($_attributes))
+		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.':'.$values.';';
 			}	
 		}

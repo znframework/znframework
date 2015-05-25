@@ -186,8 +186,4 @@ if( ! file_exists('set_date') )
 		
 		return date($newClock);
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master

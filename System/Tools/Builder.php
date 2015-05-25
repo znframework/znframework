@@ -103,7 +103,7 @@ if( ! file_exists('xml_builder') )
 			$str = '';
 		}
 		
-		$str .= ln().'<'.$elements.attributes($attribute).'>'.ln()."\t".$content.ln().'</'.$elements.'>'.ln();
+		$str .= ln().'<'.$elements.attributes($attribute).'>'.$content.'</'.$elements.'>'.ln();
 		return $str;
 	}	
 }

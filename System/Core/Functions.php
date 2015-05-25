@@ -1910,6 +1910,7 @@ function is_imported($class = '', $type = NULL)
 	
 	if(class_exists($class))
 	{	
+		
 		/* VARIABLE AND FUNCTIONAL ACCESS */
 		if( ! is_object(zn::$dynamic) )
 		{		

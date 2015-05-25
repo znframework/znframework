@@ -208,7 +208,7 @@ class SDbTool
 			$return.= 'DROP TABLE '.$table.';';
 			self::$db->query('SHOW CREATE TABLE '.$table);
 			$row2 = self::$db->fetch_row();
-			$return.= "\n\n".$row2[1].";\n\n";
+			$return.= ln(2).$row2[1].";".ln(2);
 		
 			for ($i = 0; $i < $num_fields; $i++) 
 			{		
@@ -235,10 +235,10 @@ class SDbTool
 							$return.= ','; 
 						}
 					}
-					$return.= ");\n";
+					$return.= ");".ln();
 				}
 			}
-			$return.="\n\n\n";
+			$return .= ln(3);
 		}
 		
 		if( empty($filename) ) 

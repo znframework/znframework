@@ -137,7 +137,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function list_databases()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -149,7 +149,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -161,7 +161,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function insert_id()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -201,7 +201,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -221,7 +221,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function add_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -233,7 +233,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function drop_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -253,7 +253,7 @@ class OdbcDriver
 	******************************************************************************************/
 	public function modify_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	

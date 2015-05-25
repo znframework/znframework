@@ -31,7 +31,8 @@ $config['Libraries']['short_name'] 	= array
 	'Regex'			=> 'Reg',
 	'Security'		=> 'Sec',
 	'Session'		=> 'Sess',
-	'Validation'	=> 'Val'
+	'Validation'	=> 'Val',
+	'Thumbnail'		=> 'Thumb'
 );	
 
 /******************************************************************************************

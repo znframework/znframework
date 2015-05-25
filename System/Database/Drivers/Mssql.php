@@ -134,7 +134,7 @@ class MssqlDriver
 	******************************************************************************************/
 	public function list_databases()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -146,7 +146,7 @@ class MssqlDriver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -211,7 +211,7 @@ class MssqlDriver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -234,7 +234,7 @@ class MssqlDriver
 	******************************************************************************************/
 	public function add_column()
 	{
-		// Desteklemiyor. 
+		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
 	}
 	
@@ -246,7 +246,7 @@ class MssqlDriver
 	******************************************************************************************/
 	public function drop_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	

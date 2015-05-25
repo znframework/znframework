@@ -178,7 +178,7 @@ class Oci8Driver
 	******************************************************************************************/
 	public function list_databases()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -190,7 +190,7 @@ class Oci8Driver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	

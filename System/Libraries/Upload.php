@@ -282,16 +282,6 @@ class Upload
 		}
 	}
 	
-	// Upload edilen dosya bilgileri
-	// $params
-	/*
-		1-name -> dosyanın adı
-		2-type -> dosyanın tipi
-		3-size -> dosyanın boyutu
-		4-tmp_name -> dosyanın temp yolundaki adı
-		5-error -> dosya yükleme sırasında hata var ise 1 değeri alır.
-	*/
-	
 	/******************************************************************************************
 	* INFO                                                                                    *
 	*******************************************************************************************

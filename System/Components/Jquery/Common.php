@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                    COMPONENT  OBJECTS                   	*/
+/*                    COMMON  OBJECTS                   	*/
 /************************************************************/
 /*
 
@@ -10,14 +10,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* PROTECTED OBJECTS                                                                       *
+* PROTECTED COMMON                                                                        *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Dahil Edilemez.     							     		  |
 | Sınıfı Kullanırken      :	Kullanılamaz.       									      |
 | 																						  |
 | NOT: Yardımcı sınıftır.     															  |
 ******************************************************************************************/
-class ComponentJqueryObjects
+class ComponentJqueryCommon
 {
 	protected function _booltostr($bool = true)
 	{
@@ -109,7 +109,7 @@ class ComponentJqueryObjects
 		}
 		else
 		{
-			$object = "\n\t\t\"$array\"";	
+			$object = ln()."\t\t\"$array\"";	
 		}
 		
 		return $object;

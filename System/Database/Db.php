@@ -968,13 +968,8 @@ class Db
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. array/string var @expression => Matematiksel yöntemlerin yazımı için kullanılır.     |
 	|          																				  |
-<<<<<<< HEAD
 	| Örnek Kullanım: ->math( array('avg' => array('sayi', 'id')) );  // Dizi olarak          |
 	| Örnek Kullanım: ->math('AVG(sayi, id)') // Metin olarak                                 |
-=======
-	| Örnek Kullanım: ->math( array('avg' => array('sayi', 'id')) );  // Dizi olarak            |
-	| Örnek Kullanım: ->math('AVG(sayi, id)') // Metin olarak                                   |
->>>>>>> origin/master
 	|          																				  |
 	******************************************************************************************/
 	public function math($expresion = array())

@@ -228,7 +228,7 @@ class FbsqlDriver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{   
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -240,7 +240,7 @@ class FbsqlDriver
 	******************************************************************************************/
 	public function truncate($table = '')
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -252,7 +252,7 @@ class FbsqlDriver
 	******************************************************************************************/
 	public function add_column()
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -264,7 +264,7 @@ class FbsqlDriver
 	******************************************************************************************/
 	public function drop_column()
 	{ 
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -542,7 +542,7 @@ class FbsqlDriver
 	******************************************************************************************/
 	public function version()
 	{	
-		// Desteklenmiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		if( ! empty($this->connect) ) 
 		{
 			return false;

@@ -78,32 +78,35 @@ if(!function_exists('multi_attr'))
 			return false;
 		}
 		
-		$open = "";
-		$close = "";
-		$att = "";
-		
-		if( is_array($array) )foreach($array as $k => $v)
+		if( is_array($array) )
 		{
-			if( ! is_numeric($k) )
+			$open = '';
+			$close = '';
+			$att = '';
+			
+			foreach($array as $k => $v)
 			{
-				$element = $k;	
-				
-				if( ! is_array($v) )
+				if( ! is_numeric($k) )
 				{
-					$att = ' '.$v;
+					$element = $k;	
+					
+					if( ! is_array($v) )
+					{
+						$att = ' '.$v;
+					}
+					else
+					{
+						$att = attributes($v);	
+					}
 				}
 				else
 				{
-					$att = attributes($v);	
+					$element = $v;	
 				}
+				
+				$open .= '<'.$element.$att.'>';
+				$close = '</'.$element.'>'.$close;
 			}
-			else
-			{
-				$element = $v;	
-			}
-			
-			$open .= '<'.$element.$att.'>';
-			$close = '</'.$element.'>'.$close;
 		}
 		else
 		{
@@ -347,7 +350,7 @@ if(!function_exists('anchor'))
 			return false;
 		}
 		
-		if( ! is_url($url) )
+		if( ! is_url($url) && ! strstr($url, '#'))
 		{ 
 			$url = site_url($url);
 		}

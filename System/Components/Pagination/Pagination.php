@@ -92,6 +92,40 @@ class ComponentPag
 		return $this;
 	}
 	
+	public function link_names($prev = '[prev]', $next = '[next]', $first = '[first]', $last = '[last]')
+	{
+		if( ! ( is_string($day) && is_string($month) ) )	
+		{
+			return $this;	
+		}
+		
+		// ÖNCEKİ BUTONU
+		if( ! empty($prev) )
+		{
+			$this->first_tag    = $prev;
+		}
+		
+		// SONRAKİ BUTONU
+		if( ! empty($next) )
+		{
+			$this->last_tag     = $next;
+		}
+		
+		// EN BAŞTAKİ BUTON
+		if( ! empty($first) )
+		{
+			$this->firstest_tag = $first;
+		}
+			
+		// EN SONDAKİ BUTON
+		if( ! empty($last) )
+		{
+			$this->lastest_tag  = $last;
+		}
+		
+		return $this;
+	}
+	
 	public function attr($attr = array())
 	{
 		if( ! is_array($attr) )

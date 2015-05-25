@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
+require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Common.php');
 /******************************************************************************************
 * EVENT                                                                                   *
 *******************************************************************************************
@@ -18,7 +18,7 @@ require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Objects.php');
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentJqueryEvent extends ComponentJqueryObjects
+class ComponentJqueryEvent extends ComponentJqueryCommon
 {
 	/* Selector Variables
 	 * Selector 
@@ -738,7 +738,7 @@ class ComponentJqueryEvent extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->callback = "function($params)\n{\n\t$callback\n}";
+		$this->callback = "function($params)".ln()."{".ln()."\t$callback".ln()."}";
 		
 		return $this;
 	}
@@ -759,7 +759,7 @@ class ComponentJqueryEvent extends ComponentJqueryObjects
 			return $this;	
 		}
 		
-		$this->callback = "function($params)\n{\n\t$callback\n}";
+		$this->callback = "function($params)".ln()."{".ln()."\t$callback".ln()."}";
 		
 		return $this;
 	}
@@ -793,7 +793,7 @@ class ComponentJqueryEvent extends ComponentJqueryObjects
 	{
 		$combine_event = func_get_args();
 		
-		$event  = "\n$($this->selector)";
+		$event  = ln()."$($this->selector)";
 		$event .= $this->complete();
 		if( ! empty($combine_event))foreach($combine_event as $e)
 		{			

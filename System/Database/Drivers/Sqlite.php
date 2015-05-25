@@ -129,7 +129,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function list_databases()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -141,7 +141,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function list_tables()
 	{
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false;
 	}
 	
@@ -197,7 +197,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function backup($filename = '')
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -220,7 +220,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function add_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -231,7 +231,8 @@ class SqliteDriver
 	|          																				  |
 	******************************************************************************************/
 	public function drop_column()
-	{ 
+	{
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -243,7 +244,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function rename_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -255,7 +256,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function modify_column()
 	{ 
-		// Desteklemiyor.
+		// Ön tanımlı sorgu kullanıyor.
 		return false; 
 	}
 	
@@ -480,7 +481,7 @@ class SqliteDriver
 	******************************************************************************************/
 	public function affected_rows()
 	{
-		// Desteklenmiyor
+		// Ön tanımlı sorgu kullanıyor.
 		if( ! empty($this->connect) )
 		{
 			return false;

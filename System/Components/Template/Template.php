@@ -32,13 +32,16 @@ class ComponentTemplate
 	
 	protected function _style($_attributes = array())
 	{
-		$attribute = "";
-		if(is_array($_attributes))
+		$attribute = '';
+		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.':'.$values.';';
 			}	
 		}
@@ -48,112 +51,112 @@ class ComponentTemplate
 	
 	public function header($header = '', $styles = array())
 	{
-		if( ! is_value($header))
+		if( ! is_value($header) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = ' style="'.$this->_style($styles).'"'
-			: $style = "";
+		? $style = ' style="'.$this->_style($styles).'"'
+	    : $style = "";
 		
-		$this->header = "<div section=\"header\"$style>$header\t</div>";
+		$this->header = "<div section=\"header\"$style>$header</div>";
 		
 		return $this;
 	}
 	
 	public function footer($footer = '', $styles = array())
 	{
-		if( ! is_value($footer))
+		if( ! is_value($footer) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = ' style="'.$this->_style($styles).'"'
-			: $style = "";
+		? $style = ' style="'.$this->_style($styles).'"'
+		: $style = "";
 			
-		$this->footer = "<div section=\"footer\"$style>$footer\t</div>";
+		$this->footer = "<div section=\"footer\"$style>$footer</div>";
 		
 		return $this;
 	}
 	
 	public function leftside($leftside = '', $styles = array())
 	{
-		if( ! is_value($leftside))
+		if( ! is_value($leftside) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = $this->_style($styles)
-			: $style = "";
+		? $style = $this->_style($styles)
+		: $style = "";
 			
-		$this->leftside = "<div section=\"leftside\" style=\"float:left;$style\">$leftside\t\t</div>";
+		$this->leftside = "<div section=\"leftside\" style=\"float:left;$style\">$leftside</div>";
 		
 		return $this;
 	}
 	
 	public function rightside($rightside = '', $styles = array())
 	{
-		if( ! is_value($rightside))
+		if( ! is_value($rightside) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = $this->_style($styles)
-			: $style = "";
+		? $style = $this->_style($styles)
+		: $style = "";
 			
-		$this->rightside = "<div section=\"rightside\" style=\"float:left;$style\">$rightside\t\t</div>";
+		$this->rightside = "<div section=\"rightside\" style=\"float:left;$style\">$rightside</div>";
 		
 		return $this;
 	}
 	
 	public function content($content = '', $styles = array())
 	{
-		if( ! is_value($content))
+		if( ! is_value($content) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = $this->_style($styles)
-			: $style = "";
+		? $style = $this->_style($styles)
+		: $style = "";
 			
-		$this->content = "<div section=\"content\" style=\"float:left;$style\">$content\t\t</div>";
+		$this->content = "<div section=\"content\" style=\"float:left;$style\">$content</div>";
 		
 		return $this;
 	}
 	
 	public function bottom($content = '', $styles = array())
 	{
-		if( ! is_value($content))
+		if( ! is_value($content) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = $this->_style($styles)
-			: $style = "";
+		? $style = $this->_style($styles)
+		: $style = "";
 			
-		$this->bottom = "<div section=\"bottom\"style=\"$style\">$content\t\t</div>\n";
+		$this->bottom = "<div section=\"bottom\" style=\"$style\">$content</div>".ln();
 		
 		return $this;
 	}
 	
 	public function top($content = '', $styles = array())
 	{
-		if( ! is_value($content))
+		if( ! is_value($content) )
 		{
 			return $this;	
 		}
 		
 		! empty($styles)
-			? $style = $this->_style($styles)
-			: $style = "";
+		? $style = $this->_style($styles)
+		: $style = "";
 			
-		$this->top = "<div section=\"top\"style=\"$style\">$content\t\t</div>\n";
+		$this->top = "<div section=\"top\" style=\"$style\">$content</div>".ln();
 		
 		return $this;
 	}
@@ -183,8 +186,8 @@ class ComponentTemplate
 	public function middle($styles = array())
 	{
 		! empty($styles)
-			? $style = ' style="'.$this->_style($styles).'"'
-			: $style = "";
+		? $style = ' style="'.$this->_style($styles).'"'
+		: $style = "";
 		
 		$this->middle = $style;
 		
@@ -193,20 +196,20 @@ class ComponentTemplate
 	
 	public function align($align = 'center')
 	{
-		if( ! is_string($align))
+		if( ! is_string($align) )
 		{
 			return $this;	
 		}
 		
-		if($align === 'center')
+		if( $align === 'center' )
 		{
 			$this->body['margin'] = 'auto';	
 		}
-		elseif($align === 'left')
+		elseif( $align === 'left' )
 		{
 			$this->body['float'] = 	'left';	
 		}
-		elseif($align === 'right')
+		elseif( $align === 'right' )
 		{
 			$this->body['float'] =  'right';	
 		}
@@ -220,12 +223,12 @@ class ComponentTemplate
 	
 	public function width($width = '1000')
 	{
-		if( ! is_value($width))
+		if( ! is_value($width) )
 		{
 			return $this;	
 		}
 		
-		if(is_numeric($width))
+		if( is_numeric($width) )
 		{
 			$width = $width.'px';	
 		}
@@ -237,27 +240,44 @@ class ComponentTemplate
 	public function create()
 	{
 		! empty($styles)
-			? $style = ' style="'.$this->_style($styles).'"'
-			: $style = "";
+		? $style = ' style="'.$this->_style($styles).'"'
+		: $style = "";
 		
 		if( ! isset($this->body['width']) )
 		{
 			$this->body['width'] = '1000px';	
 		}
-		$template  = '';	
-		if( !empty($this->top) ) $template .= $this->top;
-		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">\n";
-		$template .= "\t$this->header\n";	
-		$template .= "\t<div section=\"middle\"$this->middle>\n";
-		$template .= "\t\t$this->leftside\n";
-		$template .= "\t\t$this->content\n";
-		$template .= "\t\t$this->rightside\n";
-		$template .= "\t\t<div style=\"clear:both\"></div>\n";
-		$template .= "\t</div>\n";	
-		$template .= "\t$this->footer\n";
-		$template .= "</div>\n";
-		if( !empty($this->bottom) ) $template .= $this->bottom;
+		
+		$template  = '';
+			
+		if( ! empty($this->top) ) 
+		{
+			$template .= $this->top;
+		}
+		
+		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">".ln();
+		$template .= "\t$this->header".ln();	
+		$template .= "\t<div section=\"middle\"$this->middle>".ln();
+		$template .= "\t\t$this->leftside".ln();
+		$template .= "\t\t$this->content".ln();
+		$template .= "\t\t$this->rightside".ln();
+		$template .= "\t\t<div style=\"clear:both\"></div>".ln();
+		$template .= "\t</div>".ln();	
+		$template .= "\t$this->footer".ln();
+		$template .= "</div>".ln();
+		
+		if( ! empty($this->bottom) ) 
+		{
+			if( ! empty($this->body['float']) )
+			{
+				$template .= "<div style=\"clear:both\"></div>".ln();
+			}
+			
+			$template .= $this->bottom;
+		}
+		
 		$this->_default_variable();
+		
 		return $template;
 	}
 	
