@@ -40,7 +40,9 @@ if(!function_exists('searcher'))
 				return strstr($search_data, $search_word);
 			}
 			elseif( $output === 'pos' || $output === 'position' ) 
+			{
 				return strpos($search_data, $search_word);
+			}
 			elseif( $output === 'bool' || $output === 'boolean' ) 
 			{
 				$result = strpos($search_data, $search_word);

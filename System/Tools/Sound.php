@@ -32,14 +32,9 @@ if(!function_exists("add_sound"))
 			return false;
 		}
 		
-		if( ! is_bool($autostart) ) 
+		if( ! ( is_bool($autostart) || is_bool($loop) ) ) 
 		{
-			$autostart = true;
-		}
-		
-		if( ! is_bool($loop) ) 
-		{
-			$loop = true;
+			return false;
 		}
 		
 		if( $autostart === true )

@@ -20,7 +20,7 @@ if( ! function_exists('repeater'))
 {
 	function repeater($str = '', $count = 1)
 	{		
-		if( ! is_string($str) ) 
+		if( ! is_string($str) || empty($str) ) 
 		{
 			return false;
 		}
@@ -28,11 +28,6 @@ if( ! function_exists('repeater'))
 		if( ! is_numeric($count) ) 
 		{
 			$count = 1;
-		}
-		
-		if( empty($str) ) 
-		{
-			return false; 
 		}
 		
 		if( $count == 0 )

@@ -110,6 +110,17 @@ class ComponentCssTransition
 		return $this;	
 	}
 	
+	/******************************************************************************************
+	* TRANSITION PROPERTY                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: transition-duration kullanımıdır.    				  			  		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                              	  |
+	| 1. string/numeric var @property => Özellikler bilgisi.			   					  	      |
+	|          																				  |
+	| Örnek Kullanım: ->property('color') 		  									  	 	 	  |
+	|          																				  |
+	******************************************************************************************/
 	public function property($property = '')
 	{
 		if( ! is_value($property))
@@ -122,6 +133,17 @@ class ComponentCssTransition
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* TRANSITION DURATION                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: transition-duration kullanımıdır.    				  			  		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                              	  |
+	| 1. string/numeric var @duration => Süre bilgisi.			   					  	      |
+	|          																				  |
+	| Örnek Kullanım: ->duration(2) 		  									  	 	 	  |
+	|          																				  |
+	******************************************************************************************/
 	public function duration($duration = '')
 	{
 		if( ! is_value($duration))
@@ -139,14 +161,25 @@ class ComponentCssTransition
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* TRANSITION DELAY                                                                         *
+	*******************************************************************************************
+	| Genel Kullanım: transition-delay kullanımıdır.    				  		  		      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                              	  |
+	| 1. string/numeric var @delay => Geçikme bilgisi.			   					  	      |
+	|          																				  |
+	| Örnek Kullanım: ->delay(2) 		  									  	 	 	  	  |
+	|          																				  |
+	******************************************************************************************/
 	public function delay($delay = '')
 	{
-		if( ! is_value($delay))
+		if( ! is_value($delay) )
 		{
 			return $this;	
 		}
 		
-		if(is_numeric($delay))
+		if( is_numeric($delay) )
 		{
 			$delay = $delay."s";	
 		}
@@ -156,6 +189,17 @@ class ComponentCssTransition
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* TRANSITION TIMING FUNCTION                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: transition-timing-function kullanımıdır.    				  			  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                              	  |
+	| 1. string var @easing => Animasyon türü bilgisi.			   					  	      |
+	|          																				  |
+	| Örnek Kullanım: ->easing('ease-in-out') 		  									  	  |
+	|          																				  |
+	******************************************************************************************/
 	public function easing($easing = '')
 	{
 		if( ! is_value($easing))
@@ -168,6 +212,7 @@ class ComponentCssTransition
 		return $this;
 	}
 	
+	// PROTECTED transitions nesnesi
 	public function _transitions($data)
 	{
 		$transitions = "";
@@ -179,6 +224,15 @@ class ComponentCssTransition
 		return ln().$transitions;
 	}
 	
+	/******************************************************************************************
+	* TRANSITION COMPLETE                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Çoklu animasyon oluşturulacağı zaman sonlandırma yöntemi olarak		  |
+	| kullanılır    				  			  											  |
+	|															                              |	
+	| Örnek Kullanım: ->complete() 		  									  	 			  |
+	|          																				  |
+	******************************************************************************************/
 	public function complete()
 	{
 		$trans = $this->transitions;	
@@ -186,6 +240,14 @@ class ComponentCssTransition
 		return $trans;
 	}
 	
+	/******************************************************************************************
+	* TRANSITION CREATE	                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: Animasyon oluşturmada kullanılan son yöntemdir.   					  |
+	|															                              |	
+	| Örnek Kullanım: ->create() 		  									  	 			  |
+	|          																				  |
+	******************************************************************************************/
 	public function create()
 	{
 		$combine_transitions = func_get_args();
@@ -207,8 +269,8 @@ class ComponentCssTransition
 	// Değişkenler default ayarlarına getiriliyor.
 	protected function _default_variable()
 	{
-		if( ! empty($this->attr)) 		$this->attr = NULL;
-		if( ! empty($this->transitions))$this->transitions = '';
-		if($this->selector !== 'this')  $this->selector = 'this';
+		if( ! empty($this->attr) ) 		  $this->attr = NULL;
+		if( ! empty($this->transitions) ) $this->transitions = '';
+		if( $this->selector !== 'this' )  $this->selector = 'this';
 	}
 }

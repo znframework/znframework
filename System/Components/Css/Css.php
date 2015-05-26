@@ -112,6 +112,7 @@ class ComponentCss
 		return $str;
 	}
 	
+	// Değişkenler varsayılan ayarlarına getiriliyor.
 	protected function _default_variable()
 	{
 		if( ! empty($this->attr) ) 		$this->attr = NULL;

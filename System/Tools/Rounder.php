@@ -21,7 +21,7 @@ if(!function_exists('rounder'))
 {
 	function rounder($number = '', $count = 0, $type = "average")
 	{
-		if( ! is_numeric($number) ) 
+		if( ! is_numeric($number) || empty($number) ) 
 		{
 			return false;
 		}
@@ -34,11 +34,6 @@ if(!function_exists('rounder'))
 		if( ! is_string($type) ) 
 		{
 			$type = "average";
-		}
-		
-		if( empty($number) )
-		{ 
-			return false;
 		}
 		
 		if( is_int($number) )

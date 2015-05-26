@@ -1,11 +1,14 @@
 {
-	"repositories": [
+	"repositories": 
+	[
         {
             "type": "package",
-            "package": {
+            "package": 
+			{
                 "name": "znframework/znframework",
                 "version": "1.1.0",
-                "dist": {
+                "dist": 
+				{
                     "url": "https://github.com/znframework/znframework.git",
                     "type": "git"
                 }
@@ -20,7 +23,8 @@
 	
 	"autoload": 
 	{
-		 "classmap" : [
+		"classmap" : 
+		[
 			"System/Libraries",
 			"System/Components",
 			"System/Database"
