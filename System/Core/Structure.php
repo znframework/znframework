@@ -92,7 +92,11 @@ class Structure
 			$url_join .= $url_explode[$i];
 			
 			// URL için geçerli bir sayfa bilgisi elde edilirse...
+<<<<<<< HEAD
 			if( is_file( CONTROLLERS_DIR.suffix($url_join, ".php") ) )
+=======
+			if( is_file( CONTROLLERS_DIR.suffix($url_join,".php") ) )
+>>>>>>> origin/master
 			{
 				// -------------------------------------------------------------------------------
 				//  1. Bölüm:Dosya ve Sınıf ismini oluşturur.
@@ -105,7 +109,11 @@ class Structure
 				// -------------------------------------------------------------------------------
 				//  2. Bölüm:Fonksiyon veya Yöntem ismini oluşturur.
 				// -------------------------------------------------------------------------------
+<<<<<<< HEAD
 				if( isset($url_explode[$i + 1]) )	
+=======
+				if( isset($url_explode[$i+1]) )	
+>>>>>>> origin/master
 				{
 					$function = $url_explode[$i + 1];
 				}
@@ -113,7 +121,11 @@ class Structure
 				// -------------------------------------------------------------------------------
 				//  3. Bölüm ve Sonraki Bölümler:Parametreleri oluşturur.
 				// -------------------------------------------------------------------------------
+<<<<<<< HEAD
 				$url_parameters = $i + 2;
+=======
+				$url_parameters = $i+2;
+>>>>>>> origin/master
 				$last_join 		= $url_join;		
 				$is_file 		= CONTROLLERS_DIR.suffix($last_join, ".php");
 			}
