@@ -23,44 +23,37 @@ $config['Calendar']['month_names'] = array
 (
 	'tr' => array
 			(
-				'Ocak', 'Şubat', 'Mart', 
-				'Nisan', 'Mayıs', 'Haziran', 
-				'Temmuz', 'Ağustos', 'Eylül', 
-				'Ekim', 'Kasım', 'Aralık'
+				'Ocak' 		=> 'Oca', 
+				'Şubat' 	=> 'Şub', 
+				'Mart' 		=> 'Mar', 
+				'Nisan' 	=> 'Nis', 
+				'Mayıs' 	=> 'May', 
+				'Haziran' 	=> 'Haz', 
+				'Temmuz' 	=> 'Tem', 
+				'Ağustos' 	=> 'Ağu', 
+				'Eylül' 	=> 'Eyl', 
+				'Ekim' 		=> 'Eki', 
+				'Kasım'		=> 'Kas', 
+				'Aralık' 	=> 'Ara'
 			),
 				
 	'en' => array
 			(
-				'Janury', 'February', 'March', 
-				'April', 'May', 'June', 
-				'July', 'August', 'September', 
-				'October', 'November', 'December'
+				'Janury'	=> 'Jan', 
+				'February'	=> 'Feb', 
+				'March'		=> 'Mar', 
+				'April'		=> 'Apr', 
+				'May'		=> 'May', 
+				'June'		=> 'Jun', 
+				'July'		=> 'Jul', 
+				'August'	=> 'Aug', 
+				'September'	=> 'Sep', 
+				'October'	=> 'Oct', 
+				'November'	=> 'Nov', 
+				'December'	=> 'Dec'
 			)
 );
 
-/******************************************************************************************
-*SHORT MONTH NAMES                                                                        *
-*******************************************************************************************
-| Genel Kullanım: Dillere göre kısa isimli ay bilgilerini tutan dizidir.                  |
-******************************************************************************************/
-$config['Calendar']['short_month_names'] = array
-(
-	'tr' => array
-			(
-				'Oca', 'Şub', 'Mar', 
-				'Nis', 'May', 'Haz', 
-				'Tem', 'Ağu', 'Eyl', 
-				'Eki', 'Kas', 'Ara'
-			),
-				
-	'en' => array
-			(
-				'Jan', 'Feb', 'Mar', 
-				'Apr', 'May', 'Jun', 
-				'Jul', 'Aug', 'Sep', 
-				'Oct', 'Nov', 'Dec'
-			)
-);
 
 /******************************************************************************************
 * DAY NAMES                                                                           	  *
@@ -71,36 +64,23 @@ $config['Calendar']['day_names'] = array
 (
 	'tr' => array
 			(
-				'Pazartesi', 'Salı', 
-				'Çarşamba', 'Perşembe', 
-				'Cuma', 'Cumartesi', 'Pazar'
+				'Pazartesi' => 'Pzt', 
+				'Salı'		=> 'Sal',	 	
+				'Çarşamba'	=> 'Çar', 
+				'Perşembe'	=> 'Per', 
+				'Cuma'		=> 'Cum', 
+				'Cumartesi'	=> 'Cts', 
+				'Pazar'		=> 'Paz'
 			),
 				
 	'en' => array
 			(
-				'Monday', 'Tuesday', 
-				'Wednesday', 'Thursday', 
-				'Friday', 'Saturday', 'Sunday'
-			)
-);
-
-
-/******************************************************************************************
-* SHORT DAY NAMES                                                                         *
-*******************************************************************************************
-| Genel Kullanım: Dillere göre kısa isimli gün bilgilerini tutan dizidir.                 |
-******************************************************************************************/
-$config['Calendar']['short_day_names'] = array
-(
-	'tr' => array
-			(
-				'Pzt', 'Sal', 'Çar', 
-				'Per', 'Cum', 'Cts', 'Paz'
-			),	
-			
-	'en' => array
-			(
-				'Mon', 'Tue', 'Wed', 
-				'Thu', 'Fri', 'Sat', 'Sun'
+				'Monday'	=> 'Mon', 
+				'Tuesday'	=> 'Tue', 
+				'Wednesday'	=> 'Wed', 
+				'Thursday'	=> 'Thu', 
+				'Friday'	=> 'Fri', 
+				'Saturday'	=> 'Sat', 
+				'Sunday'	=> 'Sun'
 			)
 );
