@@ -36,9 +36,7 @@ class Home // extends Controller
 	}
 	
 	function ex()
-	{	 
-		import::library('Encode');
-		
-		echo encode::super('a');
+	{
+		import::masterpage();	
 	}
 }

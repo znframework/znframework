@@ -55,12 +55,12 @@ $config['Masterpage']['content_charset'] = array('utf-8');
 $config['Masterpage']['content_language'] = 'tr';
 
 /******************************************************************************************
-* LOGO                                                             		  	  			  *
+* BROWSER/SHORTCUT ICON                                                             	  *
 *******************************************************************************************
-| Genel Kullanım: Web sitesinin tarayıcıda görünen logo eklemek için logonun 			  |
+| Genel Kullanım: Web sitesinin tarayıcıda görünen ikon eklemek için ikonun 			  |
 | yolunu yazınız.										  		  			 	          | 
 ******************************************************************************************/
-$config['Masterpage']['logo'] = '';
+$config['Masterpage']['browser_icon'] = '';
 
 /******************************************************************************************
 * BACKGROUND IMAGE                                                		  	  			  *
@@ -77,7 +77,7 @@ $config['Masterpage']['bg_image'] = '';
 | Aşağıdaki dizi içerisine Views/Fonts/ dizinindeki dosya/dosyaların isimlerini 		  |
 | yazmanız yeterlidir.								  			 					 	  |		
 ******************************************************************************************/
-$config['Masterpage']['font'] 	= array();
+$config['Masterpage']['font'] = array();
 
 /******************************************************************************************
 * STYLE			                                                		  	  			  *
@@ -86,7 +86,7 @@ $config['Masterpage']['font'] 	= array();
 | Views/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine Views/Styles/ 	  |
 | dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.							  |		
 ******************************************************************************************/
-$config['Masterpage']['style'] 	= array();
+$config['Masterpage']['style'] = array();
 
 /******************************************************************************************
 * SCRIPT     	                                                		  	  			  *
@@ -94,7 +94,7 @@ $config['Masterpage']['style'] 	= array();
 | Genel Kullanım: Harici javascript dosyası kullanımı. Aşağıdaki dizi içerisine 		  |
 | Views/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.			  |		
 ******************************************************************************************/
-$config['Masterpage']['script'] 	= array();
+$config['Masterpage']['script'] = array();
 
 /******************************************************************************************
 * TITLE     	                                                		  	  			  *
@@ -104,108 +104,30 @@ $config['Masterpage']['script'] 	= array();
 $config['Masterpage']['title'] 	= '';
 
 /******************************************************************************************
-* DESCRIPTION  	                                                		  	  			  *
+* META DATAS             	                                                		  	  *
 *******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan açıklama bilgisi.					 	  |	
-******************************************************************************************/
-$config['Masterpage']['description'] = '';
-
-/******************************************************************************************
-* AUTHOR    	                                                		  	  			  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan sayfa yazarı bilgisi.					  |	
-******************************************************************************************/
-$config['Masterpage']['author'] = '';
-
-/******************************************************************************************
-* DESIGNER    	                                                		  	  			  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan sayfa tasarımcı bilgisi.					  |	
-******************************************************************************************/
-$config['Masterpage']['designer'] = '';
-
-/******************************************************************************************
-* DISTRIBUTION 	                                                		  	  			  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan sayfanın hitap bilgisi.					  |	
-******************************************************************************************/
-$config['Masterpage']['distribution'] = '';
-
-/******************************************************************************************
-* KEYWORDS 	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan site anahtar kelimeler bilgisi.			  |	
-******************************************************************************************/
-$config['Masterpage']['keywords'] = '';
-
-/******************************************************************************************
-* CACHE 	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan ilgili sayfayı ön bellekleme bilgisi.	  |	
-******************************************************************************************/
-$config['Masterpage']['cache'] 	= '';
-
-/******************************************************************************************
-* REFRESH 	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan sayfa yenilenme bilgisi.	  				  |	
-******************************************************************************************/
-$config['Masterpage']['refresh'] = '';
-
-/******************************************************************************************
-* ABSTRACT 	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan site bilgisi.	  				 		  |	
-******************************************************************************************/
-$config['Masterpage']['abstract'] = '';
-
-/******************************************************************************************
-* COPYRIGHT	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan telif hakkı bilgisi.	  				 	  |	
-******************************************************************************************/
-$config['Masterpage']['copyright'] = '';
-
-/******************************************************************************************
-* EXPIRES	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan zaman aşımı bilgisi.	  				 	  |	
-******************************************************************************************/
-$config['Masterpage']['expires'] = '';
-
-/******************************************************************************************
-* PRAGMA	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan sistem bilgilerini arama motoruna 		  |
-| gösterme bilgisi.	  				 	  												  |	
-******************************************************************************************/
-$config['Masterpage']['pragma'] = '';
-
-/******************************************************************************************
-* REVISIT	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan güncellenme bilgisi 		  				  |
-******************************************************************************************/
-$config['Masterpage']['revisit'] = '';
-
-/******************************************************************************************
-* ROBOTS	                                                		  	  			  	  *
-*******************************************************************************************
-| Genel Kullanım: Tüm sayfalar için varsayılan arama motoru takip linkleri bilgisi.		  |
-******************************************************************************************/
-$config['Masterpage']['robots'] = array();
-
-/******************************************************************************************
-* META NAME	ve HTTP                                               		  	  			  *
-*******************************************************************************************
-| Genel Kullanım: Farklı bir meta tagı veya tagları kullanmak istiyorsanız dizi içerisine |
-| ve bu veri name içerikli ise name => content tipi anahtar => değer bilgiler girin. Şayet|
-| http-equiv içerkli ise http-equiv => content tipi anahtar => değer bilgiler girin.	  |
+| Genel Kullanım: Standart olarak kullanılan meta verilerini kullanmak için oluşturuldu.  |	
+| Meta içeri name ise name-> ayracı, http-equiv ise http-> ayracı kullanılarak 			  |
+| meta tagları ekleyebilirsiniz.														  |
+|																					      |
+| Aşağıdaki taglar ön tanımlı meta taglarıdır.  									      |
+|																					      |
 ******************************************************************************************/
 $config['Masterpage']['meta'] = array
 (
-	'name' => array(),
-	'http' => array()
+	'name->description'		=> '', 
+	'name->author'			=> '',
+	'name->designer'		=> '',
+	'name->distribution'	=> '',
+	'name->keywords'		=> '',
+	'http->cache-control' 	=> '',
+	'http->refresh'			=> '',
+	'name->abstract'		=> '',
+	'name->copyright'		=> '',
+	'name->expires'			=> '',
+	'name->pragma'			=> '',
+	'name->revisit-after'	=> '',
+	'name->robots'			=> array()
 );
 
 /******************************************************************************************

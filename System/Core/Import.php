@@ -356,171 +356,66 @@ class Import
 		{
 			foreach($masterpageset["content_charset"] as $v)
 			{
-				$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$v.'" />'.ln();	
+				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".ln();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'" />'.ln();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'">'.ln();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'" />'.ln();
+		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'">'.ln();
 		
-		$title = 		( isset($head['title']) ) 		
-						? $head['title'] 		
-						: $masterpageset['title'];
-						
-		$cache = 		( isset($head['cache']) ) 		
-		 				? $head['cache'] 		
-						: $masterpageset['cache'];
-						
-		$refresh = 		( isset($head['refresh']) ) 		
-						? $head['refresh'] 		
-						: $masterpageset['refresh'];
-						
-		$abstract = 	( isset($head['abstract']) ) 		
-						? $head['abstract'] 	
-						: $masterpageset['abstract'];
-						
-		$description = 	( isset($head['description']) ) 	
-						? $head['description'] 	
-						: $masterpageset['description'];
-						
-		$copyright = 	( isset($head['copyright']) ) 	
-						? $head['copyright'] 	
-						: $masterpageset['copyright'];
-						
-		$expires = 		( isset($head['expires']) ) 		
-						? $head['expires'] 		
-						: $masterpageset['expires'];
-						
-		$pragma = 		( isset($head['pragma']) ) 		
-						? $head['pragma'] 		
-						: $masterpageset['pragma'];
-								
-		$keywords = 	( isset($head['keywords']) ) 		
-						? $head['keywords'] 	
-						: $masterpageset['keywords'];
-						
-		$author = 		( isset($head['author']) ) 		
-						? $head['author'] 		
-						: $masterpageset['author'];
-						
-		$designer = 	( isset($head['designer']) ) 		
-						? $head['designer'] 	
-						: $masterpageset['designer'];
-						
-		$distribution = ( isset($head['distribution']) ) 	
-						? $head['distribution'] 
-						: $masterpageset['distribution'];
-						
-		$revisit = 		( isset($head['revisit']) ) 		
-						? $head['revisit'] 		
-						: $masterpageset['revisit'];
-						
-		$robots = 		( isset($head['robots']) ) 		
-						? $head['robots'] 		
-						: $masterpageset['robots'];
 						
 		$datas = 		( isset($head['data']) ) 			
 						? $head['data'] 		
 						: $masterpageset['data'];
 						
-		$meta = 		( isset($head['meta']) ) 			
+		$metas = 		( isset($head['meta']) ) 			
 						? $head['meta'] 		
 						: $masterpageset['meta'];
 						
 		$font_arr = 	( isset($head['font']) ) 			
 						? $head['font'] 		
 						: $masterpageset["font"];
+						
+		$title = 		( isset($head['title']) ) 			
+						? $head['title'] 		
+						: $masterpageset["title"];
 		
 		if( ! empty($title) ) 			
 		{
 			$header .= '<title>'.$title.'</title>'.ln();	
 		}
 		
-		if( ! empty($cache) ) 			
+		if( ! empty($metas) ) foreach($metas as $name => $content)
 		{
-			$header .= '<meta http-equiv="cache-control" content="'.$cache.'" />'.ln();
-		}
-		
-		if( ! empty($refresh) ) 		
-		{
-			$header .= '<meta http-equiv="refresh" content="'.$refresh.'" />'.ln();		
-		}
-		
-		if( ! empty($abstract) ) 		
-		{
-			$header .= '<meta name="abstract" content="'.$abstract.'" />'.ln();
-		}
-		
-		if( ! empty($description) ) 	
-		{
-			$header .= '<meta name="description" content="'.$description.'" />'.ln();
-		}
-		
-		if( ! empty($copyright) ) 		
-		{
-			$header .= '<meta name="copyright" content="'.$copyright.'" />'.ln();
-		}
-		
-		if( ! empty($expires) ) 		
-		{
-			$header .= '<meta name="expires" content="'.$expires.'" />'.ln();
-		}
-		
-		if( ! empty($robots) && ! is_array($robots)) 
-		{
-			$header .= '<meta name="robots" content="'.$robots.'" />'.ln();
-		}
-		else
-		{
-			if( is_array($robots) )foreach($robots as $rob)
+			if( ! empty($content) )
 			{
-				$header .= '<meta name="robots" content="'.$rob.'" />'.ln();
+				$nameex = explode("->", $name);
+				
+				$httporname = ( $nameex[0] === 'http' )
+							  ? 'http-equiv'
+							  : 'name';
+				
+				$name 		= ( isset($nameex[1]) )
+							  ? $nameex[1]
+							  : $nameex[0];
+							  
+				if( ! is_array($content) )
+				{			  
+					$header .= "<meta $httporname=\"$name\" content=\"$content\">".ln();
+				}
+				else
+				{
+					foreach($content as $key => $val)
+					{
+						$header .= "<meta $httporname=\"$name\" content=\"$val\">".ln();	
+					}	
+				}
 			}
-		}	
-		
-		if( ! empty($meta['name'] ) && is_array($meta['name']) )foreach($meta['name'] as $k => $v)
-		{
-			$header .= '<meta name="'.$k.'" content="'.$v.'" />'.ln();
 		}
-		
-		if( ! empty($meta['http']) && is_array($meta['http']) )foreach($meta['http'] as $k => $v)
-		{
-			$header .= '<meta http-equiv="'.$k.'" content="'.$v.'" />'.ln();
-		}
-			
-		if( ! empty($pragma) ) 		
-		{
-			$header .= '<meta name="pragma" content="'.$pragma.'" />'.ln();	
-		}
-		
-		if( ! empty($keywords) ) 		
-		{
-			$header .= '<meta name="keywords" content="'.$keywords.'" />'.ln();	
-		}
-		
-		if( ! empty($author) ) 		
-		{
-			$header .= '<meta name="author" content="'.$author.'" />'.ln();
-		}
-		
-		if( ! empty($designer) ) 		
-		{
-			$header .= '<meta name="designer" content="'.$designer.'" />'.ln();
-		}
-		
-		if( ! empty($distribution) ) 	
-		{
-			$header .= '<meta name="distribution" content="'.$distribution.'" />'.ln();
-		}
-		
-		if( ! empty($revisit) ) 		
-		{
-			$header .= '<meta name="revisit-after" content="'.$revisit.'" />'.ln();	
-		}
-		
+	
 		if( ! empty($font_arr) )
 		{					
 			$header .= self::font($font_arr, true);
@@ -546,34 +441,41 @@ class Import
 			$header .= self::style($head['style'], true);
 		}
 		
-		if( $masterpageset['logo'] ) 
+		if( ! empty($masterpageset['browser_icon']) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.base_url($masterpageset['logo']).'" />'.ln();
+			$header .= '<link rel="shortcut icon" href="'.base_url($masterpageset['browser_icon']).'" />'.ln();
 		}
 		
-		if( isset($head['page_image']) ) 
+		if( ! empty($head['page_image']) ) 
 		{
 			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'.ln();	
 		}
 		
-		if( $datas && ! is_array($head['data']) )
+		if( ! empty($datas) )
 		{ 
-			$header .= $datas.ln(); 
-		}
-		else
-		{
-			if( is_array($datas) )foreach($datas as $v)
+			if( ! is_array($datas) )
+			{ 
+				$header .= $datas.ln(); 
+			}
+			else
 			{
-				$header .= $v.ln();	
-			}	
+				foreach($datas as $v)
+				{
+					$header .= $v.ln();	
+				}	
+			}
 		}
 		
 		if( ! empty($head_page) )
 		{
 			ob_start(); 
+			
 			require_once($head_page); 
-			$content = ob_get_contents(); 
+			
+			$content = ob_get_contents();
+			 
 			ob_end_clean(); 
+			
 			$header .= $content.ln() ; 	
 		}
 		

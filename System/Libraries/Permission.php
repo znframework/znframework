@@ -110,7 +110,7 @@ class Perm
 					$rule = trim($page);
 				}
 				
-				if( $pages[0] === "perm=>" )
+				if( $pages[0] === "perm->" )
 				{
 					if( strpos($current_url, $rule) > -1 )
 					{
@@ -230,7 +230,7 @@ class Perm
 					$rule = trim($page);
 				}
 				
-				if( $pages[0] === "perm=>" )
+				if( $pages[0] === "perm->" )
 				{
 					if( strpos($current_url, $rule) > -1 )
 					{

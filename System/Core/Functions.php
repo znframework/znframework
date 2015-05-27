@@ -259,6 +259,10 @@ function is_char($str = NULL)
 	}
 }	
 
+// Function: is_hash()
+// İşlev: Parametrenin geçerli şifreleme algoritmalarından biri olup olmadığını kontrol eder.
+// Parametreler: Herhangi bir değer.
+// Dönen Değerler: Parametre geçerli algoritmalardan biri ise true, değilse false değeri döner.
 function is_hash($type = '')
 {
 	if( ! is_string($type) )
@@ -314,6 +318,25 @@ function is_charset($charset = '')
 function charset_list()
 {
 	return mb_list_encodings();	
+}
+
+// Function: compare()
+// İşlev: İki veri arasında karşılaştırma yapmak için kullanılır.
+// Parametreler: @p1 , @operator , $p2.
+// Dönen Değerler: Karşılaştırma sağlanıyorsa true sağlanmıyorsa false değeri döner.
+function compare($p1 = '', $operator = '=', $p2 = '')
+{
+	if( ! ( is_value($p1) || is_value($p2) ) )
+	{
+		return false;
+	}
+	
+	if( ! is_string($operator) )
+	{
+		return false;	
+	}
+	
+	return version_compare($p1, $p2, $operator);
 }
 
 // Function: ln()
