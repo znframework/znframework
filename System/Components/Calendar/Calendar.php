@@ -129,23 +129,9 @@ class ComponentCalendar
 			return $this;	
 		}
 		
-		if( $day === 'short' )
-		{
-			$this->day_names = 'short';	
-		}
-		else
-		{
-			$this->day_names = 'long';	
-		}
-		
-		if( $month === 'short' )
-		{
-			$this->month_names = 'short';	
-		}
-		else
-		{
-			$this->month_names = 'long';	
-		}
+		$this->day_names   = $day;	
+
+		$this->month_names = $month;	
 	
 		return $this;
 	}
