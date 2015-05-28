@@ -53,6 +53,10 @@ $config['Calendar']['month_names'] = array
 				'December'	=> 'Dec'
 			)
 );
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 
 /******************************************************************************************
 * DAY NAMES                                                                           	  *
@@ -82,4 +86,8 @@ $config['Calendar']['day_names'] = array
 				'Saturday'	=> 'Sat', 
 				'Sunday'	=> 'Sun'
 			)
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> origin/master

@@ -1,7 +1,7 @@
 <?php
 /******************************************************************\
 |                                                                  | 
-|                  ZN FRAMEWORK SYSTEM RUNNING                     |
+|                          ZN FRAMEWORK                            |
 |                                                                  |
 *******************************************************************/
 
@@ -14,22 +14,22 @@
 */
 
 /* 
-	SYSTEM RUN MODE PARMETERS
+	SİSTEM ÇALIŞTIRMA MODLARI
 	
 	1-development
 	2-publication 
 	
-	default development
+	Varsayılan: development
 */
 
 /* SYSTEM RUN *
  *
  * 
- * System running
+ * Sistem çalıştırılıyor...
  */
 System::run('development');
 
-/* CLASS SYSTEMS *
+/* SYSTEM SINIFI *
  *
  * 
  * 
@@ -39,31 +39,31 @@ class System
 	public static function run($apptype)
 	{	
 		//------------------------------------------------------------------
-		//  Application Directory
+		//  Uygulama Dizini
 		//------------------------------------------------------------------
 		define('APP_DIR', 'Application/');
 		
-		// Available Environment Options
+		// Kullanılabilir Uygulama Seçenekleri
 		switch($apptype)
 		{ 
-			// Publication Mode
+			// Publication Yayın Modu
 			case 'publication' :
 				error_reporting(0); 
 			break;
-			
-			// Development Mode
+		
+			// Developmen Geliştirme Modu
 			case 'development' : 
 				error_reporting(-1);
 			break; 
 			
-			// Different Mode Warning Message
+			// Farklı bir kullanım hatası
 			default: echo 'Invalid Application Environment! Available Options: development or publication'; exit;
 		}	
 		
 		
 		/******************************************************************\
 		|                                                                  | 
-		|                SYSTEM BENCHMARK PERFORMANCE TEST                 |
+		|                SİSTEM BENCHMARK PERFORMANS TESTİ                 |
 		|                                                                  |
 		*******************************************************************/
 		
@@ -71,7 +71,7 @@ class System
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
-		//  System Performance Test Start: true or false
+		//  Sistem Performans Testini Başlat: true or false
 		//------------------------------------------------------------------	
 		$BENCHMARK_PERFOMANCE_TEST_START = false;	
 		//------------------------------------------------------------------
@@ -82,23 +82,23 @@ class System
 		if($BENCHMARK_PERFOMANCE_TEST_START === true) 
 		{
 			//------------------------------------------------------------------
-			//  System Elapsed Time Calculation Starting
+			//  Sisteminin Açılış Zamanını Hesaplamayı Başlat
 			//------------------------------------------------------------------
 			$start = microtime();
 		}
 		
 		//******************************************************************
-		//  System loading ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//  Sistem yükleniyor ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//
 		require_once 'System/Core/Hierarchy.php'; // <<<<<<<<<<<<<<<<<<<<<<<
 		//
-		//  System running ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//  Sistem çalıştırılıyor ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//******************************************************************
 		
 		if($BENCHMARK_PERFOMANCE_TEST_START === true)
 		{	
 			//------------------------------------------------------------------
-			//  System Elapsed Time Calculation Ending
+			//  Sistemin Açılış Zamanını Hesaplamayı Bitir
 			//------------------------------------------------------------------
 			$finish 		  = microtime();
 			
@@ -108,17 +108,17 @@ class System
 			$elapsed_time     = round($finish - $start, 4);
 			
 			//------------------------------------------------------------------
-			//  System Memory Usage Calculating
+			//  Sistemin Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
 			$memory_usage 	  = memory_get_usage();
 			
 			//------------------------------------------------------------------
-			//  System Max Memory Usage Calculating
+			//  Sistemin Maksimum Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
 			$max_memory_usage = memory_get_peak_usage();
 			
 			//------------------------------------------------------------------
-			//  Benchmark Perfomance Test Result
+			//  Benchmark Performans Sonuç Tablosu
 			//------------------------------------------------------------------
 			$bench_result     = "
 			<pre>
@@ -139,11 +139,9 @@ class System
 			echo $bench_result;
 					
 			//------------------------------------------------------------------
-			//  System benchmark test is reported
+			//  Sistem benchmark performans test sonuçlarını raporla.
 			//------------------------------------------------------------------
 			report('BenchmarkTestResults', $bench_result, 'BenchmarkTestResults');
 		}
 	}
 }
-
-/*-----------------------------------------------END HOMEPAGE---------------------------------------------------*/
