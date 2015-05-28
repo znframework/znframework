@@ -43,4 +43,4 @@ $config['Libraries']['short_name'] 	= array
 | Veri: array().																		  |
 | Kullanımı: array(DB_DIR, 'System/xx/' , a/c/);   								  	      |
 ******************************************************************************************/
-$config['Libraries']['different_directory'] = array(DB_DIR);
+$config['Libraries']['different_directory'] = array(DB_DIR, CACHE_DIR);

@@ -27,12 +27,16 @@ class ComponentTemplateSection
 	protected function _attributes($attributes = '')
 	{
 		$attribute = '';
+		
 		if( is_array($attributes) )
 		{
 			foreach($attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if(is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.'="'.$values.'"';
 			}	
 		}
@@ -316,7 +320,7 @@ class ComponentTemplateSection
 
 		$style = ' style="clear:'.$clear.';" ';
 		
-		$section  = "\n".'<div '.$style.'></div>'."\n";
+		$section  = ln().'<div '.$style.'></div>'.ln();
 		
 		return $section;
 	}
@@ -340,7 +344,10 @@ class ComponentTemplateSection
 			return $this;	
 		}
 		
-		if( ! empty($align)) $this->style .= ' float:'.$align.';';
+		if( ! empty($align) ) 
+		{
+			$this->style .= ' float:'.$align.';';
+		}
 		
 		return $this;
 	}
@@ -352,7 +359,47 @@ class ComponentTemplateSection
 			return $this;	
 		}
 		
-		if( ! empty($margin)) $this->style .= ' margin:'.$margin.';';
+		if( ! empty($margin) ) 
+		{
+			$this->style .= ' margin:'.$margin.';';
+		}
+		
+		return $this;
+	}
+	
+	public function coordinate($x = '', $y = '')
+	{
+		if( ! ( is_value($x) || is_value() ) )
+		{
+			return $this;	
+		}
+		
+		$x2 = 0;
+		$y2 = 0;
+		
+		if( $x > 0 )
+		{
+			$x2 = 0;	
+		}
+		else
+		{
+			$x2 = $x;
+			$x  = 0;	
+		}
+		
+		if( $y > 0 )
+		{
+			$y2 = 0;	
+		}
+		else
+		{
+			$y2 = $y;
+			$y  = 0;	
+		}
+
+		$margin = "$y $x2 $y2 $x";
+		
+		$this->margin($margin);
 		
 		return $this;
 	}
@@ -364,7 +411,10 @@ class ComponentTemplateSection
 			return $this;	
 		}
 		
-		if( ! empty($padding)) $this->style .= ' padding:'.$padding.';';
+		if( ! empty($padding) ) 
+		{
+			$this->style .= ' padding:'.$padding.';';
+		}
 		
 		return $this;
 	}
@@ -405,32 +455,36 @@ class ComponentTemplateSection
 	
 	public function create($content = '')
 	{
-		
 		! empty($this->clear)
-			? $clear = $this->clear
-			: $clear = "";	
+		? $clear = $this->clear
+		: $clear = "";	
 			
 		! empty($this->attr)
-			? $attr = $this->attr
-			: $attr = array();
+		? $attr = $this->attr
+		: $attr = array();
 		
 		! empty($this->style)
-			? $attr['style'] = $this->style
-			: NULL;	
+		? $attr['style'] = $this->style
+		: NULL;	
 		
-		if( ! empty($content))
+		if( ! empty($content) )
 		{
 			$this->content = $content;	
 		}	
 		
-		$section  = "\n\t\t".'<div'.$this->_attributes($attr).'>';
-		if( ! empty($this->content)) $section .= "\n\t\t\t$this->content";
-		$section .= "\n\t\t</div>\n$clear";	
+		$section  = ln().'<div'.$this->_attributes($attr).'>';
 		
-		if( ! empty($this->clear))   $this->clear = NULL;
-		if( ! empty($this->style)) 	 $this->style = '';
-		if( ! empty($this->content)) $this->content = '';
-		if( ! empty($this->attr))    $this->attr = array();
+		if( ! empty($this->content) ) 
+		{
+			$section .= ln()."$this->content";
+		}
+		
+		$section .= ln()."</div>".ln()."$clear";	
+		
+		if( ! empty($this->clear) )   $this->clear = NULL;
+		if( ! empty($this->style) ) 	$this->style = '';
+		if( ! empty($this->content) ) $this->content = '';
+		if( ! empty($this->attr) )    $this->attr = array();
 		return $section;
 	}
 }

@@ -1460,13 +1460,13 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		return false;
 	}
 	
-	$log_dir = 'Logs/';
+	$log_dir = APP_DIR.'Logs/';
 	$extension = '.log';
 	
 	if( ! is_dir($log_dir) )
 	{
-		import::library('Folder',0777);
-		folder::create($log_dir);	
+		import::library('Folder');
+		folder::create($log_dir, 0777);	
 	}
 	
 	if( is_file($log_dir.suffix($destination,$extension)) )

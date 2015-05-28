@@ -432,35 +432,30 @@ class ComponentThumb
 						  ? $this->sets["quality"] 		
 						  : 0;
 		
-		
-		if( isset($this->sets["prowidth"]) || isset($this->sets["proheight"]) )
+		if( isset($this->sets["proheight"]) )
 		{
-		
-			if( isset($this->sets["proheight"]) )
+			if( $this->sets["proheight"] < $current_height )
 			{
-				if( $this->sets["proheight"] < $current_height )
-				{
-					/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
-					$height = $this->sets["proheight"];
-					 
-					/* resmin yeni genişliği buluyoruz */
-					$width = round(($current_width * $height) / $current_height);
-				}
+				/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
+				$height = $this->sets["proheight"];
+				 
+				/* resmin yeni genişliği buluyoruz */
+				$width = round(($current_width * $height) / $current_height);
 			}
-			if( isset($this->sets["prowidth"]) )
-			{
-				if( $this->sets["prowidth"] < $current_width )
-				{
-					/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
-					$width = $this->sets["prowidth"];
-					 
-					/* resmin yeni genişliği buluyoruz */
-					$height = round(($current_height * $width) / $current_width);
-				}
-			}
-			
 		}
 		
+		if( isset($this->sets["prowidth"]) )
+		{
+			if( $this->sets["prowidth"] < $current_width )
+			{
+				/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
+				$width = $this->sets["prowidth"];
+				 
+				/* resmin yeni genişliği buluyoruz */
+				$height = round(($current_height * $width) / $current_width);
+			}
+		}
+	
 		$r_width = $width; $r_height = $height;
 		
 		// Yeni genişlik değerinin kontrolü yapılıyor.

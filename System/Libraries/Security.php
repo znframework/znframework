@@ -56,13 +56,13 @@ class Sec
 		
 		foreach($badwords as $value)
 		{		
-			if( ! is_array($changechar))
+			if( ! is_array($changechar) )
 			{
 				$ch = $changechar;
 			}
 			else
 			{
-				if(isset($changechar[$i]))
+				if( isset($changechar[$i]) )
 				{
 					$ch = $changechar[$i];	
 					$i++;

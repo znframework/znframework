@@ -262,35 +262,30 @@ class Image
 						  ? $set["quality"] 		
 						  : 0;
 		
-		
-		if( isset($set["prowidth"]) || isset($set["proheight"]) )
+		if( isset($set["proheight"]) )
 		{
-		
-			if( isset($set["proheight"]) )
+			if( $set["proheight"] < $current_height )
 			{
-				if( $set["proheight"] < $current_height )
-				{
-					/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
-					$height = $set["proheight"];
-					 
-					/* resmin yeni genişliği buluyoruz */
-					$width = round(($current_width * $height) / $current_height);
-				}
+				/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
+				$height = $set["proheight"];
+				 
+				/* resmin yeni genişliği buluyoruz */
+				$width = round(($current_width * $height) / $current_height);
 			}
-			if( isset($set["prowidth"]) )
-			{
-				if( $set["prowidth"] < $current_width )
-				{
-					/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
-					$width = $set["prowidth"];
-					 
-					/* resmin yeni genişliği buluyoruz */
-					$height = round(($current_height * $width) / $current_width);
-				}
-			}
-			
 		}
 		
+		if( isset($set["prowidth"]) )
+		{
+			if( $set["prowidth"] < $current_width )
+			{
+				/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
+				$width = $set["prowidth"];
+				 
+				/* resmin yeni genişliği buluyoruz */
+				$height = round(($current_height * $width) / $current_width);
+			}
+		}
+	
 		$r_width = $width; $r_height = $height;
 		
 		// Yeni genişlik değerinin kontrolü yapılıyor.

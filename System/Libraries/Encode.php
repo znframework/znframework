@@ -86,14 +86,21 @@ class Encode
 			return false;
 		}
 		
+		$algo = config::get('Encode', 'type');
+		
+		if( ! is_hash($algo) )
+		{
+			$algo = 'md5';	
+		}
 		// Ek veri şifreleniyor.
-		$additional = md5($additional);
+		
+		$additional = hash($algo, $additional);
 		
 		// Veri şifreleniyor.
-		$data = md5($data);
+		$data = hash($algo, $data);
 		
 		// Veri ve ek yeniden şifreleniyor.
-		return md5($data.$additional);
+		return hash($algo, $data.$additional);
 
 		
 	}	
@@ -127,23 +134,30 @@ class Encode
 		
 		$project_key = config::get('Encode','project_key');
 		
+		$algo = config::get('Encode', 'type');
+		
+		if( ! is_hash($algo) )
+		{
+			$algo = 'md5';	
+		}
+		
 		// Proje Anahatarı belirtizme bu veri yerine
 		// Proje anahtarı olarak sitenin host adresi
 		// eklenecek ek veri kabul edilir.
 		if( empty($project_key) ) 
 		{
-			$additional = md5(host()); 
+			$additional = hash($algo, host()); 
 		}
 		else 
 		{
-			$additional = md5($project_key);
+			$additional = hash($algo, $project_key);
 		}
 		
 		// Veri şifreleniyor.
-		$data = md5($data);
+		$data = hash($algo, $data);
 		
 		// Veri ve ek yeniden şifreleniyor.
-		return md5($data.$additional);
+		return hash($algo, $data.$additional);
 
 	}
 	

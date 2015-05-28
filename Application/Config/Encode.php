@@ -15,6 +15,15 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 
 /******************************************************************************************
+* ENCODE  TYPE                                                                        	  *
+*******************************************************************************************
+| Genel Kullanım: Encode.php kütüphanesinde yer alan yöntemlerin temel olarak hangi		  |
+| şifreleme algoritmasını kullanacağı seçmek için kullanılır. Şifrelenmesini istediğiniz  |
+| hash algorimatsını yazmanız yeterlidir.				 								  |											
+******************************************************************************************/
+$config['Encode']['type'] = 'md5';
+
+/******************************************************************************************
 * PROJECT KEY                                                                         	  *
 *******************************************************************************************
 | Genel Kullanım: Encode sınıfına ait super() yöntemi için oluşturulmuş şifrelemeye	      |

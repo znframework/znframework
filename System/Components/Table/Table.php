@@ -252,7 +252,7 @@ class ComponentTable
 		
 		foreach($elements as $key => $element)
 		{
-			$table .= "\n\t".'<tr>'."\n";
+			$table .= ln()."\t".'<tr>'.ln();
 			
 			if(is_array($element))foreach($element as $k => $v)
 			{
@@ -265,11 +265,11 @@ class ComponentTable
 					$val = $k;
 				}
 			
-				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'."\n";	
+				$table .= "\t\t".'<td'.$attr.'>'.$val."\t\t".'</td>'.ln();	
 				$colno++;
 			}
 		
-			$table .= "\t".'</tr>'."\n";
+			$table .= "\t".'</tr>'.ln();
 			$rowno++;
 		}
 		

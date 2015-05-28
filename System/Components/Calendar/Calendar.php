@@ -38,14 +38,14 @@ class ComponentCalendar
 	 * Ay isimleri bilgisini tutması
 	 * için oluşturulumuştur.
 	 */
-	protected $month_names;
+	protected $month_names = 'long';
 	
 	/* Day Names Değişkeni
 	 *  
 	 * Gün isimleri bilgisini tutması
 	 * için oluşturulumuştur.
 	 */
-	protected $day_names;
+	protected $day_names = 'short';
 	
 	/* Prev Değişkeni
 	 *  
@@ -129,23 +129,9 @@ class ComponentCalendar
 			return $this;	
 		}
 		
-		if( $day === 'short' )
-		{
-			$this->day_names   = $this->config['short_day_names'];	
-		}
-		else
-		{
-			$this->day_names   =  $this->config['day_names'];	
-		}
-		
-		if( $month === 'short' )
-		{
-			$this->month_names   =  $this->config['short_month_names'];	
-		}
-		else
-		{
-			$this->month_names   =  $this->config['month_names'];	
-		}
+		$this->day_names   = $day;	
+
+		$this->month_names = $month;	
 	
 		return $this;
 	}
@@ -315,11 +301,23 @@ class ComponentCalendar
 		
 		// Ay ismini sitenin aktif
 		// diline göre ayarlar. 
-		$monthname = $this->month_names[get_lang()][$month - 1];
 		
+		
+		if( $this->month_names === 'long' )
+		{
+			$month_names = array_keys($this->config['month_names'][get_lang()]);
+		}
+		else
+		{
+			$month_names = array_values($this->config['month_names'][get_lang()]);
+		}
+		
+		$monthname = $month_names[$month - 1];
 		// Gün ismini sitenin aktif
 		// diline göre ayarlar.
-		$daynames  = $this->day_names[get_lang()];
+		$daynames  = ( $this->day_names === 'long' )
+					 ? array_keys($this->config['day_names'][get_lang()])
+					 : array_values($this->config['day_names'][get_lang()]);
 		
 		// Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
 		$first_day = getdate( mktime(0, 0, 0, $month, 1, $year) );
@@ -398,7 +396,7 @@ class ComponentCalendar
 		
 		$active_day = 0;
 		
-		for($i=$first_day['wday']; $i<=7; $i++)
+		for($i = $first_day['wday']; $i<=7; $i++)
 		{
 			$active_day++;
 			

@@ -205,7 +205,7 @@ class ComponentList
 		
 		foreach($elements as $k => $values)
 		{	
-			$list .= "\t".'<li>'.$values.'</li>'."\n";
+			$list .= "\t".'<li>'.$values.'</li>'.ln();
 			$i++;
 		}
 				

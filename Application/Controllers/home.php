@@ -34,9 +34,4 @@ class Home // extends Controller
 			
 		$this->import->page("welcome", $data); // Importing page => Views/Pages/welcome.php
 	}
-	
-	function ex()
-	{
-		import::masterpage();	
-	}
 }

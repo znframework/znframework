@@ -104,7 +104,7 @@ class Starting
 		{
 			require_once($autoload['composer']);
 		}
-		else
+		elseif( ! empty($autoload['composer']) )
 		{
 			report('Error', $autoload['composer'].' was not found.','AutoloadComposer');
 		}
