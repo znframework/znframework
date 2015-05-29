@@ -73,6 +73,14 @@ class PdoDriver
 		'sqlsrv'
 	);
 	
+	/* Sub Driver Değişkeni
+	 *  
+	 * PDO Alt sürücü bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $sub_driver;
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -100,7 +108,7 @@ class PdoDriver
 			die(get_message('Database', 'db_driver_error', $this->select_driver));		
 		}
 		
-		$this-> connect = 	$this->_sub_drivers($this->_dsn($this->config['dsn']), $this->config['user'], $this->config['password']); 	
+		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	
 		
 		// Mysql için karakterseti sorguları
 		if( $this->select_driver === 'mysql' )
@@ -585,295 +593,21 @@ class PdoDriver
 	}
 	
 	// Alt sürücüler nesne oluşturulma işlemi.
-	private function _sub_drivers($dsn, $usr, $pass)
+	private function _sub_drivers($usr, $pass)
 	{
+		$driver = 'PDO'.ucwords($this->select_driver).'Driver';
+		
+		require_once(DRIVERS_DIR.'PDODrivers/'.suffix($this->select_driver, '.php'));
+		
+		$this->sub_driver = new $driver;
+		
 		try
 		{
-			return new PDO($dsn, $usr, $pass);
+			return new PDO($this->sub_driver->dsn(), $usr, $pass);
 		}
 		catch(PDOException $e)
 		{
 			die(get_message('Database', 'db_mysql_connect_error'));
 		}
-	}
-	
-	// Farklı alt sürücülere göre bağlantı çeşitleri.
-	private function _dsn($dsn = '')
-	{
-		if( ! empty($dsn) ) 
-		{
-			return $dsn;
-		}
-		
-		$dsn = '';
-		
-		// 4D SÜRÜCÜ BAĞLANTISI
-		if( $this->select_driver === '4d' )
-		{
-			$dsn  = '4d:host='.( empty($this->config['host']) ) 
-				   			   ? '127.0.0.1' 
-							   : $this->config['host'];
-							   
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';dbname='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';port='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['charset']) ) 
-					? ';charset='.$this->config['charset'] 
-					: '';
-		}
-		// CUBRID SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'cubrid' )
-		{
-			$dsn  = 'cubrid:host='.( empty($this->config['host']) ) 
-								   ? '127.0.0.1' 
-								   : $this->config['host'];
-			
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';dbname='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';port='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['charset']) ) 
-					? ';charset='.$this->config['charset'] 
-					: '';
-		}
-		// DBLIB SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'dblib' )
-		{
-			$dsn  = 'dblib:host='.( empty($this->config['host']) ) 
-								  ? '127.0.0.1' 
-								  : $this->config['host'];
-								  
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';dbname='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';port='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['appname']) ) 
-					? ';appname='.$this->config['appname'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['charset']) ) 
-					? ';charset='.$this->config['charset'] 
-					: '';
-		}
-		// FIREBIRD SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'firebird' )
-		{
-			$dsn  = 'firebird:'.
-			
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? 'dbname='.$this->config['database'] 
-					: 'dbname='.$this->config['host'];
-					
-			$dsn .= ( ! empty($this->config['charset']) ) 
-					? ';charset='.$this->config['charset'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['role']) ) 
-					? ';role='.$this->config['role'] 
-					: '';
-		}
-		// IBM SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'ibm' )
-		{
-			$dsn  = 'DRIVER:{IBM DB2 ODBC DRIVER}'.
-			
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';DATABASE='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['host']) ) 
-					? ';HOSTNAME='.$this->config['host'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';PORT='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['protocol']) ) 
-					? ';PROTOCOL='.$this->config['protocol'] 
-					: ';PROTOCOL=TCPIP';
-		}
-		// INFORMIX SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'informix' )
-		{
-			$dsn  = 'informix:host='.
-			
-			$dsn .= ( empty($this->config['host']) ) 	
-					? '127.0.0.1' 
-					: $this->config['host'];
-					
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';database='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['service']) ) 
-					? ';service='.$this->config['service'] 
-					: $this->config['port'];
-					
-			$dsn .= ( ! empty($this->config['server']) ) 
-					? ';server='.$this->config['server'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['protocol']) ) 
-					? ';protocol='.$this->config['server'] 
-					: 'onsoctcp';
-
-			$dsn .= ';EnableScrollableCursors=1';
-		}
-		// MYSQL SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'mysql' )
-		{	
-			$dsn  = 'mysql:host='.
-			
-			$dsn .= ( empty($this->config['host']) ) 
-					? '127.0.0.1' 
-					: $this->config['host'];
-					
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';dbname='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';PORT='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['charset']) ) 
-					? ';charset='.$this->config['charset'] 
-					: '';
-		}
-		// OCI SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'oci' )
-		{
-			$dsn  = 'oci:dbname='.
-			
-			$dsn .= ( empty($this->config['host']) ) 
-					? ';dbname=127.0.0.1' 
-					: 'dbname=//'.$this->config['host'];
-					
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';dbname='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ':'.$this->config['port'] 
-					: '';
-			
-			$dsn .= ( ! empty($this->config['charset']) ) 
-					? ';charset='.$this->config['charset'] 
-					: '';
-		}
-		// ODBC SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'odbc' )
-		{
-			$dsn  = 'odbc:DRIVER={IBM DB2 ODBC DRIVER}'.
-			
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';DATABASE='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['host']) ) 
-					? ';HOSTNAME='.$this->config['host'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';PORT='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['protocol']) ) 
-					? ';PROTOCOL='.$this->config['protocol'] 
-					: ';PROTOCOL=TCPIP';
-					
-			$dsn .= ( ! empty($this->config['user']) ) 
-					? ';UID='.$this->config['user'] 
-					: '';
-			
-			$dsn .= ( ! empty($this->config['password']) ) 
-					? ';PWD='.$this->config['password'] 
-					: '';
-		}
-		// PGSQL SÜRÜCÜ BAĞLANTISI 
-		elseif( $this->select_driver === 'pgsql' )
-		{
-			$dsn  = 'pgsql:host='.
-			
-			$dsn .= ( empty($this->config['host']) ) 
-					? '127.0.0.1' 
-					: $this->config['host'];
-			
-			$dsn .= ( ! empty($this->config['database']) ) 
-					? ';dbname='.$this->config['database'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ';port='.$this->config['port'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['user']) ) 
-					? ';username='.$this->config['user'] 
-					: '';
-					
-			$dsn .= ( ! empty($this->config['password']) ) 
-					? ';password='.$this->config['password'] 
-					: '';
-		}
-		// SQLITE SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'sqlite' )
-		{
-			$dsn = 'sqlite:';
-			
-			if( ! empty($this->config['database']) )
-			{
-				$dsn .= $this->config['database'];
-			}
-			elseif( ! empty($this->config['host']) ) 
-			{
-				$dsn .= $this->config['host'];
-			}
-			else 
-			{
-				$dsn .= ':memory:';
-			}
-		}
-		// SQLSRV SÜRÜCÜ BAĞLANTISI
-		elseif( $this->select_driver === 'sqlsrv' )
-		{
-			$dsn  = 'sqlsrv:Server=';
-			if( ! empty($this->config['server']) ) 
-			{
-				$dsn .= $this->config['server'];
-			}
-			elseif( ! empty($this->config['host']) ) 
-			{
-				$dsn .= $this->config['server'];
-			}
-			else 
-			{
-				$dsn .= '127.0.0.1';
-			}
-			
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ','.$this->config['port'] 
-					: '';
-			
-			$dsn .= ( ! empty($this->config['database'])) 
-			        ? ';Database='.$this->config['database'] 
-					: '';
-					
-		}
-	
-		return $dsn;
 	}
 }
