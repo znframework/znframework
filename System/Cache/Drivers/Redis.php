@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                  FILE DRIVER LIBRARY                     */
+/*                  REDIS DRIVER LIBRARY                    */
 /************************************************************/
 /*
 
@@ -10,35 +10,91 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* FILE DRIVER		                                                                      *
+* REDIS DRIVER		                                                                      *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Dahil Edilemez.  							                  |
 | Sınıfı Kullanırken      :	Kullanılamaz.												  |
 | 																						  |
 | NOT: Ön bellekleme kütüphanesi için oluşturulmuş yardımcı sınıftır.                     |
 ******************************************************************************************/	
-class FileDriver
+class RedisDriver
 {
-	/* Path Değişkeni
+	/* Redis Değişkeni
 	 *  
-	 * Ön bellekleme dizin bilgisini
-	 * tutması için oluşturulmuştur.
+	 * Redis sınıfı bilgisini
+	 * barındırmak için oluşturulmuştur.
 	 *
 	 */
-	protected $path;
+	 
+	protected $redis;
+	
+	/* Serialized Değişkeni
+	 *  
+	 * Ön bellekleme bilgilerini
+	 * barındırmak için oluşturulmuştur.
+	 *
+	 */
+	protected $serialized = array();
 	
 	/******************************************************************************************
-	* CONSTRUCT YAPICISI                                                                      *
+	* CONNECT                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Nesne tanımlaması ve ön bellek ayarları çalıştırılıyor.				  |
+	|          																				  |
 	******************************************************************************************/
-	public function __construct()
+	public function connect($settings = array())
 	{
-		$this->path = APP_DIR.'Cache/';
-		
-		if( ! is_dir_exists($this->path) )
+		if( $this->is_supported() === false )
 		{
-			library('Folder', 'create', array($this->path, 0777));	
-		}	
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+		}
+		
+		$config = config::get('Cache', 'driver_settings');
+		
+		$config = ! empty($settings)
+				  ? $settings
+				  : $config['redis'];	
+		
+		$this->redis = new Redis();
+		
+		try
+		{
+			if( $config['socket_type'] === 'unix' )
+			{
+				$success = $this->redis->connect($config['socket']);
+			}
+			else 
+			{
+				$success = $this->redis->connect($config['host'], $config['port'], $config['timeout']);
+			}
+			if ( empty($success) )
+			{
+				die(get_message('Cache', 'cache_connection_refused', 'Connection'));
+			}
+		}
+		catch( RedisException $e )
+		{
+			die(get_message('Cache', 'cache_connection_refused', $e->getMessage()));
+		}
+		
+		if( isset($config['password']) )
+		{
+			if ( ! $this->redis->auth($config['password']))
+			{
+				die(get_message('Cache', 'cache_authentication_failed'));
+			}
+		}
+
+		$serialized = $this->redis->sMembers('redis_serialized');
+		
+		if ( ! empty($serialized) )
+		{
+			$this->serialized = array_flip($serialized);
+		}
+		
+		return true;
 	}
+	
 	/******************************************************************************************
 	* SELECT                                                                                  *
 	*******************************************************************************************
@@ -52,11 +108,18 @@ class FileDriver
 	******************************************************************************************/
 	public function select($key)
 	{
-		$data = $this->_select($key);
-
-		return ( is_array($data) ) 
-			   ? $data['data'] 
-			   : false;
+		if( $this->is_supported() === false )
+		{
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+		}
+		
+		$value = $this->redis->get($key);
+		
+		if( $value !== false && isset($this->serialized[$key]) )
+		{
+			return unserialize($value);
+		}
+		return $value;
 	}
 	
 	/******************************************************************************************
@@ -66,29 +129,41 @@ class FileDriver
 	|															                              |
 	| Parametreler: 4 parametresi vardır.                                                     |
 	| 1. string var @key => Nesne anahtarı.							 	 			    	  |
-	| 2. variable var @var => Nesne.							 	 			    	 	  |
+	| 2. variable var @data => Nesne.							 	 			    	 	  |
 	| 3. numeric var @time => Saklanacağı zaman.							 	 			  |
 	| 4. mixed var @compressed => Sıkıştırma.							 	 			  	  |
 	|          																				  |
 	| Örnek Kullanım: ->get('nesne');			        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function insert($key, $var, $time = 60, $compressed = false)
+	public function insert($key, $data, $time = 60, $compressed = false)
 	{
-		$datas = array
-		(
-			'time'	=> time(),
-			'ttl'	=> $time,
-			'data'	=> $var
-		);
-		
-		if( library('File', 'write', array($this->path.$key, serialize($datas))) )
+		if( $this->is_supported() === false )
 		{
-			chmod($this->path.$key, 0640);
-			return true;
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
 		}
 		
-		return false;
+		if( is_array($data) OR is_object($data) )
+		{
+			if( ! $this->redis->sIsMember('redis_serialized', $key) && ! $this->redis->sAdd('redis_serialized', $key) )
+			{
+				return false;
+			}
+			
+			if( ! isset($this->serialized[$key]) )
+			{
+				$this->serialized[$key] = true;	
+			}
+			
+			$data = serialize($data);
+		}
+		elseif( isset($this->serialized[$key]) )
+		{
+			$this->serialized[$key] = NULL;
+			
+			$this->redis->sRemove('redis_serialized', $key);
+		}
+		return $this->redis->set($key, $data, $time);
 	}
 	
 	/******************************************************************************************
@@ -104,9 +179,22 @@ class FileDriver
 	******************************************************************************************/
 	public function delete($key)
 	{
-		return ( file_exists($this->path.$key) )
-		 	   ? unlink($this->path.$key) 
-			   : false;
+		if( $this->is_supported() === false )
+		{
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+		}
+		
+		if( $this->redis->delete($key) !== 1 )
+		{
+			return false;
+		}
+		if( isset($this->serialized[$key]) )
+		{
+			$this->serialized[$key] = NULL;
+			
+			$this->redis->sRemove('redis_serialized', $key);
+		}
+		return TRUE;
 	}
 	
 	/******************************************************************************************
@@ -123,22 +211,12 @@ class FileDriver
 	******************************************************************************************/
 	public function increment($key, $increment = 1)
 	{
-		$data = $this->_select($key);
-		
-		if( $data === false )
+		if( $this->is_supported() === false )
 		{
-			$data = array('data' => 0, 'ttl' => 60);
-		}
-		elseif( ! is_numeric($data['data']) )
-		{
-			return false;
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
 		}
 		
-		$new_value = $data['data'] + $increment;
-		
-		return ( $this->insert($key, $new_value, $data['ttl']) )
-			   ? $new_value
-			   : false;
+		return $this->redis->incr($key, $increment);
 	}
 	
 	/******************************************************************************************
@@ -155,22 +233,12 @@ class FileDriver
 	******************************************************************************************/
 	public function decrement($key, $decrement = 1)
 	{
-		$data = $this->_select($key);
-		
-		if ($data === FALSE)
+		if( $this->is_supported() === false )
 		{
-			$data = array('data' => 0, 'ttl' => 60);
-		}
-		elseif ( ! is_numeric($data['data']))
-		{
-			return FALSE;
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
 		}
 		
-		$new_value = $data['data'] - $decrement;
-		
-		return $this->insert($key, $new_value, $data['ttl'])
-			   ? $new_value
-			   : false;
+		return $this->redis->decr($key, $decrement);
 	}
 	
 	/******************************************************************************************
@@ -181,7 +249,12 @@ class FileDriver
 	******************************************************************************************/
 	public function clean()
 	{
-		return library('Folder', 'delete', array($this->path));
+		if( $this->is_supported() === false )
+		{
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+		}
+		
+		return $this->redis->flushDB();
 	}
 	
 	/******************************************************************************************
@@ -195,9 +268,14 @@ class FileDriver
 	| Örnek Kullanım: ->info('user');			        		     					      |
 	|          																				  |
 	******************************************************************************************/
-	public function info($type = NULL)
-	{
-		return library('Folder', 'file_info', array($this->path));
+	public function info()
+ 	{
+		if( $this->is_supported() === false )
+		{
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+		}
+		
+		return $this->redis->info();
  	}
 	
 	/******************************************************************************************
@@ -213,26 +291,19 @@ class FileDriver
 	******************************************************************************************/
 	public function get_metadata($key)
 	{
-		if( ! file_exists($this->path.$key) )
+		if( $this->is_supported() === false )
 		{
-			return false;
+			die(get_message('Cache', 'cache_unsupported', 'Redis'));
 		}
 		
-		$data = unserialize(file_get_contents($this->path.$key));
+		$data = $this->select($key);
 		
-		if( is_array($data) )
+		if( $data !== false )
 		{
-			$mtime = filemtime($this->path.$key);
-			
-			if ( ! isset($data['ttl']))
-			{
-				return false;
-			}
-			
 			return array
 			(
-				'expire' => $mtime + $data['ttl'],
-				'mtime'	 => $mtime
+				'expire' => time() + $this->redis->ttl($key),
+				'data' 	 => $data
 			);
 		}
 		
@@ -247,28 +318,28 @@ class FileDriver
 	******************************************************************************************/
 	public function is_supported()
 	{
-		return is_writable($this->path);
-	}
-	
-	/******************************************************************************************
-	* PROTECTED SELECT	                                                                      *
-	******************************************************************************************/
-	protected function _select($key)
-	{
-		if ( ! file_exists($this->path.$key))
+		if( ! extension_loaded('redis') )
 		{
-			return false;
-		}
-		
-		$data = unserialize(file_get_contents($this->path.$key));
-		
-		if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
-		{
-			unlink($this->path.$key);
+			$report = get_message('Cache', 'cache_unsupported', 'Redis');
+			report('CacheUnsupported', $report, 'CacheLibary');
 			
 			return false;
 		}
 		
-		return $data;
+		return $this->connect();
+	}
+	
+	/******************************************************************************************
+	* DESTRUCT                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Nesne tanımlaması kapatılıyor.						 				  |
+	|          																				  |
+	******************************************************************************************/
+	public function __destruct()
+	{
+		if( ! empty($this->redis) )
+		{
+			$this->redis->close();
+		}
 	}
 }

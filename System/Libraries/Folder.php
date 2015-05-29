@@ -58,8 +58,6 @@ class Folder
 		{
 			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
-			// return false; edilmiyor nedeni içi dolu dizini silmek için
-			// bu yöntem aşağıda döngüde kullanılıyor.
 		}
 	}
 	
@@ -146,7 +144,7 @@ class Folder
 			$name = '';
 		}
 		
-		if( file_exists($name) && is_dir($name) ) 
+		if( is_dir_exists($name) ) 
 		{
 			rmdir($name);
 		}
@@ -154,8 +152,6 @@ class Folder
 		{
 			self::$error = get_message('Folder', 'folder_not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
-			// return false; edilmiyor nedeni içi dolu dizini silmek için
-			// bu yöntem aşağıda döngüde kullanılıyor.
 		}
 	}
 	
@@ -191,10 +187,8 @@ class Folder
 		}
 		// ----------------------------------------------------------------------------
 		
-		$extension = extension($source);
-		
 		// Bu bir dizinse
-		if( empty($extension) )
+		if( is_dir($source) )
 		{
 			import::library("Folder");
 			
@@ -204,9 +198,7 @@ class Folder
 				@copy($source, $target);
 			}
 			else
-			{
-				// Dizinin içinde mevcut dosya yoksa
-				
+			{			
 				// Kopyalanacak dizin mevcut değilse oluştur.
 				if( ! is_dir($target) && ! file_exists($target) )
 				{
@@ -258,10 +250,8 @@ class Folder
 		
 		import::library("File");
 		
-		$extension = extension($name);
-		
 		// Bu bir dosya ise
-		if( ! empty($extension) )
+		if( is_file($name) )
 		{
 			// dosyayı sil
 			file::delete($name);	
@@ -271,32 +261,19 @@ class Folder
 			// Bu bir dizinse
 			
 			// Dizin boş ise
-			if( ! self::files($name))
+			if( ! self::files($name) )
 			{
 				// Boş dizini sil
 				self::delete_empty($name);
 			}	
 			else
-			{
-				// Dizin boş değilse
-				
-				// Bu bir dosya ise 
-				if( ! empty($extension))
+			{			
+				// Silme işlemini başlat
+				for($i = 0; $i < count(self::files($name)); $i++)
 				{
-					// Dosyayı sil
-					file::delete($name."/".$val);
-				}
-				else
-				{
-					// Bu bir dizinse
-					
-					// Silme işlemini başlat
-					for($i = 0; $i < count(self::files($name)); $i++)
-					{
-						foreach(self::files($name) as $val)
-						{					
-							folder::delete($name."/".$val);
-						}
+					foreach(self::files($name) as $val)
+					{					
+						folder::delete($name."/".$val);
 					}
 				}
 			}
@@ -304,7 +281,6 @@ class Folder
 			// İçeriği silinmiş olan hedef dizinide sil.
 			self::delete_empty($name);
 		}
-		
 	}
 	
 	/******************************************************************************************
@@ -402,6 +378,17 @@ class Folder
 	******************************************************************************************/
 	public static function file_info($dir = '', $extension = '')
 	{
+		// Parametre kontrolleri yapılıyor. -------------------------------------------	
+		if( ! is_string($dir) ) 
+		{
+			return false;	
+		}
+		if( ! is_string($extension) ) 
+		{
+			$extension = '';
+		}	
+		// ----------------------------------------------------------------------------
+		
 		$files = self::files($dir, $extension);
 		
 		$dir = suffix($dir);

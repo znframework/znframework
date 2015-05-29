@@ -19,7 +19,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Ön bellekleme türü seçmek için kullanılır.		   	          		  |
 | Parametre: Ön bellekleme sürücülerinin herhangi biri.									  |
-| Drivers: apc, memcache, wincache, file    					 	 					  |			
+| Drivers: apc, memcache, wincache, file, redis  				 	 					  |			
 ******************************************************************************************/
 $config['Cache']['driver'] = 'file';
 
@@ -37,6 +37,15 @@ $config['Cache']['driver_settings'] = array
 		'host'	 => '127.0.0.1',
 		'port' 	 => '11211',
 		'weight' => '1',
+	),
+	
+	'redis' => array
+	(
+		'password' 	  => NULL,
+		'socket_type' => 'tcp',
+		'host' 		  => '127.0.0.1',	
+		'port' 		  => 6379,
+		'timeout' 	  => 0
 	)
 );
 
