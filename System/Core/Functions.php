@@ -1168,37 +1168,18 @@ function library($class = NULL, $function = NULL, $parameters = array())
 		return false;
 	}
 	
-	if( is_array($class) ) 
-	{
-		$file = key($class);
-		$class = current($class); 
-	}
-	else 
-	{
-		$file = $class;
-		
-		$strpos = strpos($file , "/");
-		if( isset($strpos) )
-		{
-			$file_ex = explode("/",$file);
-			$class = $file_ex[count($file_ex) - 1];	
-		}
-	}
-	
-	$path = LIBRARIES_DIR.suffix($file, ".php");	
+	$path = LIBRARIES_DIR.suffix($class, ".php");	
 
 	if( ! is_file_exists($path) ) 
 	{
-		$path = SYSTEM_DIR.$path;
+		$path = SYSTEM_LIBRARIES_DIR.suffix($class, ".php");
 	}
-	
+		
 	if( ! is_file_exists($path) ) 
 	{
 		return false;
 	}
-	
-	global $var;
-		
+
 	if( ! is_import($path) && ! class_exists($path) ) 
 	{
 		require_once $path;
@@ -1241,7 +1222,7 @@ function tool($file = NULL, $function = NULL, $parameters = array())
 	
 	if( ! is_file_exists($path) )
 	{
-		$path = SYSTEM_DIR.$path;
+		$path = SYSTEM_TOOLS_DIR.suffix($file, ".php");
 	}
 	
 	if( ! is_file_exists($path) ) 

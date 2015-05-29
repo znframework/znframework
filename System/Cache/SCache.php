@@ -1,6 +1,6 @@
-<?php
+<?php 
 /************************************************************/
-/*                  MEMCACHE DRIVER LIBRARY                 */
+/*                      CACHE LIBRARY                       */
 /************************************************************/
 /*
 
@@ -10,42 +10,48 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* MEMCACHE DRIVER		                                                                  *
+* Cache		                                                                           	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Dahil Edilemez.  							                  |
-| Sınıfı Kullanırken      :	Kullanılamaz.												  |
+| Dahil(Import) Edilirken : SCache  							                          |
+| Sınıfı Kullanırken      :	scache::     												  |
 | 																						  |
-| NOT: Ön bellekleme kütüphanesi için oluşturulmuş yardımcı sınıftır.                     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/	
-class MemcacheDriver
+class SCache
 {
+	/* Cache Değişkeni
+	 *  
+	 * Cache sürücüsünü
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */ 
+	protected static $cache;
+	
+	protected static $settings = false;
 	/******************************************************************************************
-	* CONNECT                                                                                 *
+	* CONSTRUCT                                                                               *
 	*******************************************************************************************
 	| Genel Kullanım: Nesne tanımlaması ve ön bellek ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($settings = array())
+	public static function settings($driver = '')
 	{
-		if( ! function_exists('memcache_add_server') )
+		require_once(CACHE_DIR.'CacheCommon.php');
+		
+		self::$cache = cachecommon($driver);
+		
+		if( self::$cache === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			if( empty($driver) )
+			{
+				$config = config::get('Cache');
+				$driver = $config['driver'];
+			}
+		
+			die(get_message('Cache', 'cache_invalid_driver', $driver));	
 		}
 		
-		$config = config::get('Cache', 'driver_settings');
-		
-		$config = ! empty($settings)
-				  ? $settings
-				  : $config['memcache'];
-			
-		$connect = @memcache_add_server($config['host'], $config['port'], $config['weight']);		
-		
-		if( empty($connect) )
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
-		
-		return true;
+		self::$settings = true;
 	}
 	
 	/******************************************************************************************
@@ -59,18 +65,14 @@ class MemcacheDriver
 	| Örnek Kullanım: ->get('nesne');			        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function select($key)
-	{
-		if( ! function_exists('memcache_get') )
+	public static function select($key = '')
+	{ 
+		if( empty(self::$settings) )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			self::settings();	
 		}
 		
-		$data = memcache_get($key);
-		
-		return ( is_array($data) ) 
-			   ? $data[0] 
-			   : $data;
+		return self::$cache->select($key);
 	}
 	
 	/******************************************************************************************
@@ -87,21 +89,14 @@ class MemcacheDriver
 	| Örnek Kullanım: ->get('nesne');			        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function insert($key, $var, $time = 60, $compressed = false)
+	public static function insert($key = '', $var = '', $time = 60, $compressed = false)
 	{
-		if( $compressed !== true )
+		if( empty(self::$settings) )
 		{
-			$var = array($var, time(), $time);
+			self::settings();	
 		}
 		
-		if( function_exists('memcache_set') )
-		{
-			return memcache_set($key, $var, 0, $time);
-		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		return self::$cache->insert($key, $var, $time, $compressed);
 	}
 	
 	/******************************************************************************************
@@ -115,16 +110,14 @@ class MemcacheDriver
 	| Örnek Kullanım: ->delete('nesne');			        							      |
 	|          																				  |
 	******************************************************************************************/
-	public function delete($key)
+	public static function delete($key = '')
 	{
-		if( function_exists('memcache_delete') )
+		if( empty(self::$settings) )
 		{
-			return memcache_delete($key);
+			self::settings();	
 		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		
+		return self::$cache->delete($key);
 	}
 	
 	/******************************************************************************************
@@ -139,16 +132,14 @@ class MemcacheDriver
 	| Örnek Kullanım: ->increment('nesne', 1);			        							  |
 	|          																				  |
 	******************************************************************************************/
-	public function increment($key, $increment = 1)
+	public static function increment($key = '', $increment = 1)
 	{
-		if( function_exists('memcache_increment') )
+		if( empty(self::$settings) )
 		{
-			return memcache_increment($key, $increment);
+			self::settings();	
 		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		
+		return self::$cache->increment($key, $increment);
 	}
 	
 	/******************************************************************************************
@@ -163,16 +154,14 @@ class MemcacheDriver
 	| Örnek Kullanım: ->decrement('nesne', 1);			        							  |
 	|          																				  |
 	******************************************************************************************/
-	public function decrement($key, $decrement = 1)
+	public static function decrement($key = '', $decrement = 1)
 	{
-		if( function_exists('memcache_decrement') )
+		if( empty(self::$settings) )
 		{
-			return memcache_decrement($key, $decrement);
+			self::settings();	
 		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		
+		return self::$cache->decrement($key, $decrement);
 	}
 	
 	/******************************************************************************************
@@ -181,16 +170,14 @@ class MemcacheDriver
 	| Genel Kullanım: Tüm önbelleği silmek için kullanılır.					                  |
 	|          																				  |
 	******************************************************************************************/
-	public function clean()
+	public static function clean()
 	{
-		if( function_exists('memcache_flush') )
+		if( empty(self::$settings) )
 		{
-			return memcache_flush();
+			self::settings();	
 		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		
+		return self::$cache->clean();
 	}
 	
 	/******************************************************************************************
@@ -204,17 +191,15 @@ class MemcacheDriver
 	| Örnek Kullanım: ->info('user');			        		     					      |
 	|          																				  |
 	******************************************************************************************/
-	public function info()
- 	{
-		if( function_exists('memcache_get_stats') )
+	public static function info($type = 'user')
+	{
+		if( empty(self::$settings) )
 		{
-			return memcache_get_stats(true);
+			self::settings();	
 		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
- 	}
+		
+		return self::$cache->info($type);
+	}
 	
 	/******************************************************************************************
 	* GET METADATA                                                                            *
@@ -227,28 +212,14 @@ class MemcacheDriver
 	| Örnek Kullanım: ->get_metadata('nesne');			        		     				  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_metadata($key)
+	public static function get_metadata($key = '')
 	{
-		if( ! function_exists('memcache_get') )
+		if( empty(self::$settings) )
 		{
-			return die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			self::settings();	
 		}
 		
-		$stored = memcache_get($key);
-		
-		if( count($stored) !== 3 )
-		{
-			return false;
-		}
-		
-		list($data, $time, $expire) = $stored;
-		
-		return array
-		(
-			'expire' => $time + $expire,
-			'mtime'	 => $time,
-			'data'	 => $data
-		);
+		return self::$cache->get_metadata($key);
 	}
 	
 	/******************************************************************************************
@@ -257,15 +228,30 @@ class MemcacheDriver
 	| Genel Kullanım: Sürücünün desteklenip desklenmediğini öğrenmek için kullanılır.         |
 	|          																				  |
 	******************************************************************************************/
-	public function is_supported()
+	public static function is_supported()
 	{
-		if ( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
+		if( empty(self::$settings) )
 		{
-			$report = get_message('Cache', 'cache_unsupported', 'Memcache');
-			report('CacheUnsupported', $report, 'CacheLibary');
-			return false;
+			self::settings();	
 		}
 		
-		return $this->connect();
+		return self::$cache->is_supported();
+	}
+	
+	/******************************************************************************************
+	* DIFFERENT DRIVER                                                                        *
+	*******************************************************************************************
+	| Genel Kullanım: Farklı sürücüleri aynı anda kullanmak için kullanılır. 		          |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @driver => Farklı olarak kullanılacak sürücü.							  |
+	|																						  |
+	| Örnek Kullanım: ->different_driver('apc');			        		     			  |
+	|          																				  |
+	******************************************************************************************/
+	public static function driver($driver = '')
+	{	
+		import::library('Cache');	
+		return new Cache($driver);	
 	}
 }

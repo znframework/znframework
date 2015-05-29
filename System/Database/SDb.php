@@ -1400,6 +1400,8 @@ class SDb
 			}
 		}
 		
+		import::library('Db');
+		
 		return new Db($config_different[$connect_name]);
 	}
 	

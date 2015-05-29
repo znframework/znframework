@@ -26,14 +26,7 @@ function cachecommon($driver = '')
 	if( isset($config['driver']) ) 
 	{	
 		// Geçerli sürücüler
-		$drivers = array
-		(
-			'Memcache',
-			'Wincache',
-			'Apc'
-		);
-		
-		
+		$drivers = library('folder', 'files', array(CACHE_DIR.'Drivers/', 'php'));	
 		
 		if( empty($driver) )
 		{
@@ -48,7 +41,7 @@ function cachecommon($driver = '')
 		}
 		
 		// Sürücünün geçerliliği kontrol ediliyor. 
-		if( ! in_array($driver, $drivers) )
+		if( ! in_array(suffix($driver, '.php'), $drivers) )
 		{
 			return false;	
 		}

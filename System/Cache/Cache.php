@@ -64,7 +64,7 @@ class Cache
 	******************************************************************************************/
 	public function select($key = '')
 	{ 
-		$this->cache->select($key);
+		return $this->cache->select($key);
 	}
 	
 	/******************************************************************************************
@@ -201,7 +201,7 @@ class Cache
 	| Örnek Kullanım: ->different_driver('apc');			        		     			  |
 	|          																				  |
 	******************************************************************************************/
-	public function different_driver($driver = '')
+	public function driver($driver = '')
 	{
 		return new Cache($driver);	
 	}

@@ -1,5 +1,5 @@
 <?php
-class Home // extends Controller
+class Home extends Controller
 {	
 	/******************************************************************\
 	|																   | 

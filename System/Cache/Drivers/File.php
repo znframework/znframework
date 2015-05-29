@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                  MEMCACHE DRIVER LIBRARY                 */
+/*                  FILE DRIVER LIBRARY                     */
 /************************************************************/
 /*
 
@@ -10,44 +10,35 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* MEMCACHE DRIVER		                                                                  *
+* FILE DRIVER		                                                                      *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Dahil Edilemez.  							                  |
 | Sınıfı Kullanırken      :	Kullanılamaz.												  |
 | 																						  |
 | NOT: Ön bellekleme kütüphanesi için oluşturulmuş yardımcı sınıftır.                     |
 ******************************************************************************************/	
-class MemcacheDriver
+class FileDriver
 {
-	/******************************************************************************************
-	* CONNECT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Nesne tanımlaması ve ön bellek ayarları çalıştırılıyor.				  |
-	|          																				  |
-	******************************************************************************************/
-	public function connect($settings = array())
-	{
-		if( ! function_exists('memcache_add_server') )
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
-		
-		$config = config::get('Cache', 'driver_settings');
-		
-		$config = ! empty($settings)
-				  ? $settings
-				  : $config['memcache'];
-			
-		$connect = @memcache_add_server($config['host'], $config['port'], $config['weight']);		
-		
-		if( empty($connect) )
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
-		
-		return true;
-	}
+	/* Path Değişkeni
+	 *  
+	 * Ön bellekleme dizin bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $path;
 	
+	/******************************************************************************************
+	* CONSTRUCT YAPICISI                                                                      *
+	******************************************************************************************/
+	public function __construct()
+	{
+		$this->path = APP_DIR.'Cache/';
+		
+		if( ! is_dir_exists($this->path) )
+		{
+			library('Folder', 'create', array($this->path, 0777));	
+		}	
+	}
 	/******************************************************************************************
 	* SELECT                                                                                  *
 	*******************************************************************************************
@@ -61,16 +52,11 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function select($key)
 	{
-		if( ! function_exists('memcache_get') )
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
-		
-		$data = memcache_get($key);
-		
+		$data = $this->_select($key);
+
 		return ( is_array($data) ) 
-			   ? $data[0] 
-			   : $data;
+			   ? $data['data'] 
+			   : false;
 	}
 	
 	/******************************************************************************************
@@ -89,19 +75,20 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function insert($key, $var, $time = 60, $compressed = false)
 	{
-		if( $compressed !== true )
+		$datas = array
+		(
+			'time'	=> time(),
+			'ttl'	=> $time,
+			'data'	=> $var
+		);
+		
+		if( library('File', 'write', array($this->path.$key, serialize($datas))) )
 		{
-			$var = array($var, time(), $time);
+			chmod($this->path.$key, 0640);
+			return true;
 		}
 		
-		if( function_exists('memcache_set') )
-		{
-			return memcache_set($key, $var, 0, $time);
-		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		return false;
 	}
 	
 	/******************************************************************************************
@@ -117,14 +104,9 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function delete($key)
 	{
-		if( function_exists('memcache_delete') )
-		{
-			return memcache_delete($key);
-		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		return ( file_exists($this->path.$key) )
+		 	   ? unlink($this->path.$key) 
+			   : false;
 	}
 	
 	/******************************************************************************************
@@ -141,14 +123,22 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function increment($key, $increment = 1)
 	{
-		if( function_exists('memcache_increment') )
+		$data = $this->_select($key);
+		
+		if( $data === false )
 		{
-			return memcache_increment($key, $increment);
+			$data = array('data' => 0, 'ttl' => 60);
 		}
-		else
+		elseif( ! is_numeric($data['data']) )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return false;
 		}
+		
+		$new_value = $data['data'] + $increment;
+		
+		return ( $this->insert($key, $new_value, $data['ttl']) )
+			   ? $new_value
+			   : false;
 	}
 	
 	/******************************************************************************************
@@ -165,14 +155,22 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function decrement($key, $decrement = 1)
 	{
-		if( function_exists('memcache_decrement') )
+		$data = $this->_select($key);
+		
+		if ($data === FALSE)
 		{
-			return memcache_decrement($key, $decrement);
+			$data = array('data' => 0, 'ttl' => 60);
 		}
-		else
+		elseif ( ! is_numeric($data['data']))
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return FALSE;
 		}
+		
+		$new_value = $data['data'] - $decrement;
+		
+		return $this->insert($key, $new_value, $data['ttl'])
+			   ? $new_value
+			   : false;
 	}
 	
 	/******************************************************************************************
@@ -183,14 +181,7 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function clean()
 	{
-		if( function_exists('memcache_flush') )
-		{
-			return memcache_flush();
-		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+		return library('Folder', 'delete', array($this->path));
 	}
 	
 	/******************************************************************************************
@@ -204,16 +195,9 @@ class MemcacheDriver
 	| Örnek Kullanım: ->info('user');			        		     					      |
 	|          																				  |
 	******************************************************************************************/
-	public function info()
- 	{
-		if( function_exists('memcache_get_stats') )
-		{
-			return memcache_get_stats(true);
-		}
-		else
-		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
+	public function info($type = NULL)
+	{
+		return library('Folder', 'file_info', array($this->path));
  	}
 	
 	/******************************************************************************************
@@ -229,26 +213,30 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function get_metadata($key)
 	{
-		if( ! function_exists('memcache_get') )
-		{
-			return die(get_message('Cache', 'cache_unsupported', 'Memcache'));
-		}
-		
-		$stored = memcache_get($key);
-		
-		if( count($stored) !== 3 )
+		if( ! file_exists($this->path.$key) )
 		{
 			return false;
 		}
 		
-		list($data, $time, $expire) = $stored;
+		$data = unserialize(file_get_contents($this->path.$key));
 		
-		return array
-		(
-			'expire' => $time + $expire,
-			'mtime'	 => $time,
-			'data'	 => $data
-		);
+		if( is_array($data) )
+		{
+			$mtime = filemtime($this->path.$key);
+			
+			if ( ! isset($data['ttl']))
+			{
+				return false;
+			}
+			
+			return array
+			(
+				'expire' => $mtime + $data['ttl'],
+				'mtime'	 => $mtime
+			);
+		}
+		
+		return false;
 	}
 	
 	/******************************************************************************************
@@ -259,13 +247,30 @@ class MemcacheDriver
 	******************************************************************************************/
 	public function is_supported()
 	{
-		if ( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
+		return is_writable($this->path);
+	}
+	
+	/******************************************************************************************
+	* PROTECTED SELECT	                                                                      *
+	******************************************************************************************/
+	protected function _select($key)
+	{
+		if ( ! file_exists($this->path.$key))
 		{
-			$report = get_message('Cache', 'cache_unsupported', 'Memcache');
-			report('CacheUnsupported', $report, 'CacheLibary');
 			return false;
 		}
 		
-		return $this->connect();
+		$data = unserialize(file_get_contents($this->path.$key));
+		
+		if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
+		{
+			unlink($this->path.$key);
+		
+		
+			
+			return false;
+		}
+		
+		return $data;
 	}
 }

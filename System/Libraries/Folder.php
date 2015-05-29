@@ -394,6 +394,35 @@ class Folder
 	}	
 	
 	/******************************************************************************************
+	* FILE INFO	                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Bir dizinin içerisinde yer alan dosyalar hakkında bilgi edinmek için	  |
+	| kullanılır.																			  |
+	|															                              |
+	******************************************************************************************/
+	public static function file_info($dir = '', $extension = '')
+	{
+		$files = self::files($dir, $extension);
+		
+		$dir = suffix($dir);
+		
+		$files_info = array();
+		
+		foreach($files as $file)
+		{
+			$files_info[$file]['basename'] 	 = path_info($dir.$file, 'basename');
+			$files_info[$file]['size'] 		 = filesize($dir.$file);
+			$files_info[$file]['date'] 		 = filemtime($dir.$file);
+			$files_info[$file]['readable'] 	 = is_readable($dir.$file);
+			$files_info[$file]['writable'] 	 = is_writable($dir.$file);
+			$files_info[$file]['executable'] = is_executable($dir.$file);
+			$files_info[$file]['permission'] = fileperms($dir.$file);
+		}
+		
+		return $files_info;
+	}
+	
+	/******************************************************************************************
 	* ALL FILES	                                                                              *
 	*******************************************************************************************
 	| Genel Kullanım: Bir dizin içindeki dosya ve dizin listesini almak için kullanılır.      |

@@ -19,9 +19,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Ön bellekleme türü seçmek için kullanılır.		   	          		  |
 | Parametre: Ön bellekleme sürücülerinin herhangi biri.									  |
-| Drivers: apc, memcache, wincache								 	 					  |			
+| Drivers: apc, memcache, wincache, file    					 	 					  |			
 ******************************************************************************************/
-$config['Cache']['driver'] = 'memcache';
+$config['Cache']['driver'] = 'file';
 
 /******************************************************************************************
 * MEMCACHE SETTINGS                                                                       *

@@ -13,3 +13,5 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 $lang['cache_driver_error'] = '`%` driver not found!';
 $lang['cache_unsupported'] = '`%` PHP extension must be loaded to use Wincache Cache!';
 $lang['cache_invalid_driver'] = '`%` driver is invalid!';
+$lang['cache_connection_refused'] = 'Connection refused! Error:`%`';
+$lang['cache_authentication_failed'] = 'Authentication failed!';

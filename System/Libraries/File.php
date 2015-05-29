@@ -91,19 +91,11 @@ class File
 			$data = '';
 		}
 		
-		if( ! file_exists($file) )
-		{
-			self::$error = get_message('File', 'file_not_found_error', $file);
-			report('Error', self::$error, 'FileLibrary');
-			return false;	
-		}
-		else
-		{
-			// Dosyaya veriyi yaz.
-			$file_open 	= fopen($file, 'w');
-			$file_write = fwrite($file_open, $data);
-			fclose($file_open);
-		}
+		$file_open 	= fopen($file, 'w');
+		
+		$file_write = fwrite($file_open, $data);
+		
+		fclose($file_open);
 	}	
 	
 	/******************************************************************************************
@@ -123,6 +115,7 @@ class File
 		{
 			return false;
 		}
+		
 		if( ! file_exists($path) )
 		{
 			self::$error = get_message('File', 'file_not_found_error', $path);
@@ -266,20 +259,14 @@ class File
 		{
 			$data = '';
 		}
+	
+		// Dosyaya veriyi yaz.
+		$file_open 	= fopen($file, 'a');
 		
-		if( ! file_exists($file) )	
-		{
-			self::$error = get_message('File', 'file_not_found_error', $file);
-			report('Error', self::$error, 'FileLibrary');
-			return false;
-		}
-		else
-		{
-			// Dosyaya veriyi yaz.
-			$file_open 	= fopen($file, 'a');
-			$file_write = fwrite($file_open, $data);
-			fclose($file_open);
-		}
+		$file_write = fwrite($file_open, $data);
+		
+		fclose($file_open);
+
 	}	
 
 	/******************************************************************************************
