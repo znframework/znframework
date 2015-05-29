@@ -112,7 +112,9 @@ class Css3
 	|															                              |
 	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
-	| 2. array var @propery => hangi transition nesneleri uygulanacaksa onlar belirtirlir. 	  |
+	| 2. string/array var @propery => hangi transition nesneleri uygulanacaksa onlar 		  |
+	| belirtirlir. Kısa kullanım için bu parametreye metinsel veri girilebilir. 	  		  |
+	| 3. array var @attr => Farklı css kodları eklemek için kullanılır 			  			  |
 	| 																					      |
 	| Örnek Kullanım: transition('#nesne', array(transition nesneleri))	 					  |
 	| 																					      |
@@ -123,72 +125,84 @@ class Css3
 	| 4-animation veya easing => transtion-timing-function									  |
 	| 																					      |
 	******************************************************************************************/
-	public static function transition($element = '', $param = array())
+	public static function transition($element = '', $param = array(), $attr = array())
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
 			return false;
 		}
-		if( ! is_array($param) ) 
-		{
-			$param = array();
-		}
-		
+	
 		$str  = "";
 		$str .= $element."{".ln();
 		
+		// Farklı css kodları kullanmanız gerektiğinde 
+		// bu parametre kullanılır.
+		if( is_array($attr) && ! empty($attr) ) foreach($attr as $k => $v)
+		{
+			$str .= "$k:$v;".ln();	
+		}
+		
 		$browsers = config::get('Css3', 'browsers');	
 		
-		// Geçiş verilecek özellik belirleniyor.
-		if( isset($param["property"]) )
+		if( is_array($param) )
 		{
-			$property_ex = explode(":",$param["property"]);
-			$property = $property_ex[0];
+			// Geçiş verilecek özellik belirleniyor.
+			if( isset($param["property"]) )
+			{
+				$property_ex = explode(":",$param["property"]);
+				$property = $property_ex[0];
+				
+				$str .= $param["property"].";".ln();
+				
+				foreach($browsers as $val)
+				{
+					$str .= $val."transition-property:$property;".ln();
+				}
+			}
 			
-			$str .= $param["property"].";".ln();
+			// Geçiş süresi belirleniyor.
+			if( isset($param["duration"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."transition-duration:".$param["duration"].";".ln();
+				}
+			}
 			
-			foreach($browsers as $val)
+			// Geçişe başlama süresi belirleniyor.
+			if( isset($param["delay"]) )
 			{
-				$str .= $val."transition-property:$property;".ln();
+				foreach($browsers as $val)
+				{
+					$str .= $val."transition-delay:".$param["delay"].";".ln();
+				}
 			}
-		}
-		
-		// Geçiş süresi belirleniyor.
-		if( isset($param["duration"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."transition-duration:".$param["duration"].";".ln();
-			}
-		}
-		
-		// Geçişe başlama süresi belirleniyor.
-		if( isset($param["delay"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."transition-delay:".$param["delay"].";".ln();
-			}
-		}
-		
-		// Geçiş efekti belirleniyor.
-		if( isset($param["animation"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."transition-timing-function:".$param["animation"].";".ln();
-			}
-		}
-		
-		// Geçiş efekti belirleniyor. animation parametresinin alternatifidir.
-		if( isset($param["easing"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-timing-function:".$param["easing"].";".ln();
-			}
-		}
 			
+			// Geçiş efekti belirleniyor.
+			if( isset($param["animation"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."transition-timing-function:".$param["animation"].";".ln();
+				}
+			}			
+			elseif( isset($param["easing"]) )
+			{
+				// Geçiş efekti belirleniyor. animation parametresinin alternatifidir.
+				foreach($browsers as $val)
+				{
+					$str .= $val."transition-timing-function:".$param["easing"].";".ln();
+				}
+			}
+		}
+		else
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."transition:$param;".ln();
+			}
+		}
+		
 		$str .= "}".ln();
 		
 		return $str;
@@ -201,7 +215,9 @@ class Css3
 	|															                              |
 	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
-	| 2. array var @propery => hangi animation nesneleri uygulanacaksa onlar belirtirlir. 	  |
+	| 2. string/array var @propery => hangi animasyon nesneleri uygulanacaksa onlar 		  |
+	| belirtirlir. Kısa kullanım için bu parametreye metinsel veri girilebilir. 	  		  |
+	| 3. array var @attr => Farklı css kodları eklemek için kullanılır 			  			  |
 	| 																					      |
 	| Örnek Kullanım: animation('#nesne', array(animation nesneleri))	 					  |
 	| 																					      |
@@ -216,15 +232,11 @@ class Css3
 	| 8-repeat => animation-iteration-count  										 		  |
 	| 																					      |
 	******************************************************************************************/
-	public static function animation($element = '', $param = array())
+	public static function animation($element = '', $param = array(), $attr = array())
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
 			return false;
-		}
-		if( ! is_array($param) ) 
-		{
-			$param = array();
 		}
 		
 		$str  = "";
@@ -232,87 +244,103 @@ class Css3
 		
 		$browsers = config::get('Css3', 'browsers');	
 		
-		// Animasyon uygulanacak nesnenin adı.
-		if( isset($param["name"]) )
+		// Farklı css kodları kullanmanız gerektiğinde 
+		// bu parametre kullanılır.
+		if( is_array($attr) && ! empty($attr) ) foreach($attr as $k => $v)
 		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-name:".$param["name"].";".ln();
-			}
+			$str .= "$k:$v;".ln();	
 		}
 		
-		// Animasyon süresi.
-		if( isset($param["duration"]) )
+		if( is_array($param) )
 		{
-			foreach($browsers as $val)
+			// Animasyon uygulanacak nesnenin adı.
+			if( isset($param["name"]) )
 			{
-				$str .= $val."animation-duration:".$param["duration"].";".ln();
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-name:".$param["name"].";".ln();
+				}
 			}
-		}
-		
-		// Animasyon başlama süresi.
-		if( isset($param["delay"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-delay:".$param["delay"].";".ln();
-			}
-		}
-		
-		// Animasyon efekti.
-		if( isset($param["easing"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-timing-function:".$param["easing"].";".ln();
-			}
-		}
-		
-		// Animasyon efekti. esasing nesnesinin alternatifidir.
-		if( isset($param["animation"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-timing-function:".$param["animation"].";".ln();
-			}
-		}
-		
-		// Animasyon yönü.
-		if(isset($param["direction"]))
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-direction:".$param["direction"].";".ln();
-			}
-		}
-		
-		// Animasyon durumu.
-		if( isset($param["status"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-play-state:".$param["status"].";".ln();
-			}
-		}
-		
-		// Animasyon doldurma modu.
-		if( isset($param["fill"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-fill-mode:".$param["fill"].";".ln();
-			}
-		}
-		
-		// Animasyon tekrarı.
-		if( isset($param["repeat"]) )
-		{
-			foreach($browsers as $val)
-			{
-				$str .= $val."animation-iteration-count:".$param["repeat"].";".ln();
-			}
-		}
 			
+			// Animasyon süresi.
+			if( isset($param["duration"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-duration:".$param["duration"].";".ln();
+				}
+			}
+			
+			// Animasyon başlama süresi.
+			if( isset($param["delay"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-delay:".$param["delay"].";".ln();
+				}
+			}
+			
+			// Animasyon efekti.
+			if( isset($param["easing"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-timing-function:".$param["easing"].";".ln();
+				}
+			}
+			elseif( isset($param["animation"]) )
+			{
+				// Animasyon efekti. esasing nesnesinin alternatifidir.
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-timing-function:".$param["animation"].";".ln();
+				}
+			}
+			
+			// Animasyon yönü.
+			if(isset($param["direction"]))
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-direction:".$param["direction"].";".ln();
+				}
+			}
+			
+			// Animasyon durumu.
+			if( isset($param["status"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-play-state:".$param["status"].";".ln();
+				}
+			}
+			
+			// Animasyon doldurma modu.
+			if( isset($param["fill"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-fill-mode:".$param["fill"].";".ln();
+				}
+			}
+			
+			// Animasyon tekrarı.
+			if( isset($param["repeat"]) )
+			{
+				foreach($browsers as $val)
+				{
+					$str .= $val."animation-iteration-count:".$param["repeat"].";".ln();
+				}
+			}
+		}
+		else
+		{
+			foreach($browsers as $val)
+			{
+				$str .= $val."animation:$param;".ln();
+			}
+		}
+		
 		$str .= "}".ln();
 		
 		return $str;
