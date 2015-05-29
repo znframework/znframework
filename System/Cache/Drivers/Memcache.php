@@ -29,7 +29,7 @@ class MemcacheDriver
 	{
 		if( ! function_exists('memcache_add_server') )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 		
 		$config = config::get('Cache', 'driver_settings');
@@ -63,7 +63,7 @@ class MemcacheDriver
 	{
 		if( ! function_exists('memcache_get') )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 		
 		$data = memcache_get($key);
@@ -100,7 +100,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 	}
 	
@@ -123,7 +123,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 	}
 	
@@ -147,7 +147,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 	}
 	
@@ -171,7 +171,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 	}
 	
@@ -189,7 +189,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 	}
 	
@@ -212,7 +212,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
  	}
 	
@@ -231,7 +231,7 @@ class MemcacheDriver
 	{
 		if( ! function_exists('memcache_get') )
 		{
-			return die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			return get_message('Cache', 'cache_unsupported', 'Memcache');
 		}
 		
 		$stored = memcache_get($key);

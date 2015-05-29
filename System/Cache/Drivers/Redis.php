@@ -46,7 +46,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		$config = config::get('Cache', 'driver_settings');
@@ -110,7 +110,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		$value = $this->redis->get($key);
@@ -140,7 +140,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		if( is_array($data) OR is_object($data) )
@@ -181,7 +181,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		if( $this->redis->delete($key) !== 1 )
@@ -213,7 +213,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		return $this->redis->incr($key, $increment);
@@ -235,7 +235,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		return $this->redis->decr($key, $decrement);
@@ -251,7 +251,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		return $this->redis->flushDB();
@@ -272,7 +272,7 @@ class RedisDriver
  	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		return $this->redis->info();
@@ -293,7 +293,7 @@ class RedisDriver
 	{
 		if( $this->is_supported() === false )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Redis'));
+			return get_message('Cache', 'cache_unsupported', 'Redis');
 		}
 		
 		$data = $this->select($key);
