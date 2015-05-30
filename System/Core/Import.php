@@ -933,14 +933,6 @@ class Import
 				{
 					require_once (suffix($packages).$val);
 				}
-				if( extension($val) === "htm" )
-				{
-					require_once (suffix($packages).$val);
-				}
-				if( extension($val) === "html" )
-				{
-					require_once (suffix($packages).$val);
-				}
 				if( extension($val) === "js" )
 				{
 					echo '<script type="text/javascript" src="'.base_url().suffix($packages).$val.'"></script>'.ln();

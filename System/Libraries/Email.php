@@ -98,7 +98,8 @@ class Email {
 	 * bu ayarların yapılmadığı anlamına gelmez.
 	 *
 	 */
-	private static $settings 		= array(
+	private static $settings 		= array
+	(
 		'username'					=> '', // kullanici@site.xxx
 		'fromname'					=> '', // Kullanici İsmi
 		'password'					=> '', // Kullanıcı Şifresi
@@ -246,6 +247,9 @@ class Email {
 		self::$from_name  = $name;	
 	}
 	
+	/******************************************************************************************
+	* ADD REPLY TO                                                                            *
+	******************************************************************************************/
 	public static function add_reply_to($email = '', $name = '')
 	{
 		if( empty(self::$mail) ) 
@@ -272,7 +276,9 @@ class Email {
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* ADD CC                                                                                  *
+	******************************************************************************************/
 	public static function add_cc($email = '', $name = '')
 	{
 		if( empty(self::$mail) ) 
@@ -300,10 +306,12 @@ class Email {
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* ADD BCC                                                                                 *
+	******************************************************************************************/
 	public static function add_bcc($email = '', $name = '')
 	{
-		if (empty(self::$mail) )
+		if( empty(self::$mail) )
 		{
 			return false;
 		}
@@ -327,6 +335,9 @@ class Email {
 		}
 	}
 	
+	/******************************************************************************************
+	* SUBJECT                                                                                 *
+	******************************************************************************************/
 	public static function subject($subject = '')
 	{
 		if( ! is_string($subject) )
@@ -336,7 +347,9 @@ class Email {
 		self::$subject = $subject;
 	}
 	
-	
+	/******************************************************************************************
+	* MESSAGE                                                                                 *
+	******************************************************************************************/
 	public static function message($message = '')
 	{
 		if( ! is_string($message) )
@@ -346,19 +359,25 @@ class Email {
 		self::$message = $message;
 	}
 	
-	
+	/******************************************************************************************
+	* ERROR                                                                                   *
+	******************************************************************************************/
 	public static function error()
 	{
 		return self::$error;
 	}
 	
-	
+	/******************************************************************************************
+	* DETAIL                                                                                  *
+	******************************************************************************************/
 	public static function detail()
 	{
 		return self::$detail;
 	}
 	
-	
+	/******************************************************************************************
+	* OPEN                                                                                    *
+	******************************************************************************************/
 	public static function open()
 	{
 		import::language('Email');
@@ -366,7 +385,9 @@ class Email {
 		self::$mail = new PHPMailer();
 	}
 	
-	
+	/******************************************************************************************
+	* IS MAIL                                                                                 *
+	******************************************************************************************/
 	public static function is_mail()
 	{
 		if( empty(self::$mail) )
@@ -376,7 +397,9 @@ class Email {
 		self::$mail->IsMail();
 	}
 	
-	
+	/******************************************************************************************
+	* IS SEND MAIL                                                                            *
+	******************************************************************************************/
 	public static function is_send_mail()
 	{
 		if( empty(self::$mail) ) 
@@ -386,7 +409,9 @@ class Email {
 		self::$mail->IsSendmail();
 	}
 	
-	
+	/******************************************************************************************
+	* IS Q MAIL                                                                               *
+	******************************************************************************************/
 	public static function is_q_mail()
 	{
 		if( empty(self::$mail) )
@@ -396,420 +421,795 @@ class Email {
 		self::$mail->IsQmail();
 	}
 	
-	
+	/******************************************************************************************
+	* VALIDATE ADDRESS                                                                        *
+	******************************************************************************************/
 	public static function validate_address()
 	{
 		return self::$mail->ValidateAddress();
 	}
 	
-	
+	/******************************************************************************************
+	* PRE SEND                                                                                *
+	******************************************************************************************/
 	public static function pre_send()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->PreSend();
 	}
 	
-	
+	/******************************************************************************************
+	* POST SENT                                                                               *
+	******************************************************************************************/
 	public static function post_send()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->PostSend();
 	}
 	
-	
+	/******************************************************************************************
+	* SMTP CONNECT                                                                            *
+	******************************************************************************************/
 	public static function smtp_connect()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->SmtpConnect();
 	}
 	
-	
+	/******************************************************************************************
+	* SMPT CLOSE                                                                              *
+	******************************************************************************************/
 	public static function smpt_close()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->SmtpClose();
 	}
 	
-	
+	/******************************************************************************************
+	* ADDR APPEND                                                                             *
+	******************************************************************************************/
 	public static function addr_append($type = '', $addr = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($type)) $type = '';
-		if( ! is_string($addr)) $addr = '';
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = '';
+		}
+		
+		if( ! is_string($addr) )
+		{
+			$addr = '';
+		}
 		
 		return self::$mail->AddrAppend($type, $addr);
 	}
 	
+	/******************************************************************************************
+	* ADDR FORMAT                                                                             *
+	******************************************************************************************/
 	public static function addr_format($addr = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($addr)) $addr = '';
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($addr) ) 
+		{
+			$addr = '';
+		}
+		
 		return self::$mail->AddrFormat($addr);
 	}
 
-	
+	/******************************************************************************************
+	* WRAP TEXT                                                                               *
+	******************************************************************************************/
 	public static function wrap_text($message = '', $length = 0, $qp_mode = false)
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($message)) return false;		
-		if( ! is_numeric($length)) $length = 0;
-		if( ! is_bool($qp_mode)) $qp_mode = false;
+		if( empty(self::$mail) || ! is_string($message) ) 
+		{
+			return false;
+		}
+	
+		if( ! is_numeric($length) ) 
+		{
+			$length = 0;
+		}
+		
+		if( ! is_bool($qp_mode) ) 
+		{
+			$qp_mode = false;
+		}
 		
 		return self::$mail->WrapText($message, $length, $qp_mode);
 	}
 	
+	/******************************************************************************************
+	* UTF8 CHAR BOUNDARY                                                                      *
+	******************************************************************************************/
 	public static function utf8_char_boundary($encode_text = '', $max_length = 0)
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($encode_text)) return false;
-		if( ! is_numeric($max_length)) $max_length = 0;
+		if( empty(self::$mail) || ! is_string($encode_text) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_numeric($max_length) ) 
+		{
+			$max_length = 0;
+		}
+		
 		return self::$mail->UTF8CharBoundary($encode_text, $max_length);
 	}
 	
-	
+	/******************************************************************************************
+	* SET WORD WRAP                                                                           *
+	******************************************************************************************/
 	public static function set_word_wrap()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->SetWordWrap();
 	}
 	
-	
+	/******************************************************************************************
+	* CREATE HEADER                                                                           *
+	******************************************************************************************/
 	public static function create_header()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->CreateHeader();
 	}
 	
-	
+	/******************************************************************************************
+	* GET MAIL MIME                                                                           *
+	******************************************************************************************/
 	public static function get_mail_mime()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->GetMailMIME();
 	}
 	
-	
+	/******************************************************************************************
+	* GET SENT MIME MESSAGE                                                                   *
+	******************************************************************************************/
 	public static function get_sent_mime_message()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->GetSentMIMEMessage();
 	}
 	
-	
+	/******************************************************************************************
+	* CREATE BODY                                                                             *
+	******************************************************************************************/
 	public static function create_body()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->CreateBody();
 	}
 	
-	
+	/******************************************************************************************
+	* HEADER LINE                                                                             *
+	******************************************************************************************/
 	public static function heder_line($name = '', $value = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($name)) return false;
-		if( ! is_string($value)) $value = '';
+		if( empty(self::$mail) || ! is_string($name) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($value) ) 
+		{
+			$value = '';
+		}
+		
 		return self::$mail->HeaderLine($name, $value);
 	}
 	
-	
+	/******************************************************************************************
+	* TEXT LINE                                                                               *
+	******************************************************************************************/
 	public static function text_line($value = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! (is_string($value) || is_numeric($value))) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
+		
+		if( ! (is_string($value) || is_numeric($value)) ) 
+		{
+			return false;
+		}
+		
 		return self::$mail->TextLine($value);
 	}
 	
-	
+	/******************************************************************************************
+	* GET ATTACHMENTS                                                                         *
+	******************************************************************************************/
 	public static function get_attachments()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->GetAttachments();
 	}
 	
-	
+	/******************************************************************************************
+	* ENCODE STRING                                                                           *
+	******************************************************************************************/
 	public static function encode_string($str = '', $encoding = 'base64')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
-		if( ! is_string($encoding)) $encoding = 'base64';
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
+	
+		if( ! is_string($encoding) ) 
+		{
+			$encoding = 'base64';
+		}
 		
 		return self::$mail->EncodeString($str, $encoding);
 	}
 	
-	
+	/******************************************************************************************
+	* ENCODE HEADER                                                                           *
+	******************************************************************************************/
 	public static function encode_header($str = '', $position = 'text')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
-		if( ! is_string($position)) $position = 'text';
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
+	
+		if( ! is_string($position) ) 
+		{
+			$position = 'text';
+		}
+		
 		return self::$mail->EncodeHeader($str, $position);
 	}
 	
-	
+	/******************************************************************************************
+	* HAS MULTI BYTES                                                                         *
+	******************************************************************************************/
 	public static function has_multi_bytes($str = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
+		
 		return self::$mail->HasMultiBytes($str);
 	}
 	
-	
+	/******************************************************************************************
+	* BASE64 ENCODE WRAP MB                                                                   *
+	******************************************************************************************/
 	public static function base64_encode_wrap_mb($str = '', $lf = NULL)
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
-		if( ! is_string($lf)) $lf = NULL;
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($lf) ) 
+		{
+			$lf = NULL;
+		}
+		
 		return self::$mail->Base64EncodeWrapMB($str, $lf);
 	}
 	
-	
+	/******************************************************************************************
+	* ENCODE QP PHP                                                                           *
+	******************************************************************************************/
 	public static function encode_qp_php($input = '', $line_max = 76, $space_conv = false)
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($input)) return false;
-		if( ! is_numeric($line_max)) $line_max = 76;
-		if( ! is_bool($space_conv)) $space_conv = false;
+		if( empty(self::$mail) || ! is_string($input) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_numeric($line_max) ) 
+		{
+			$line_max = 76;
+		}
+		
+		if( ! is_bool($space_conv) ) 
+		{
+			$space_conv = false;
+		}
 		
 		return self::$mail->EncodeQPphp($input, $line_max, $space_conv);
 	}
 
-	
+	/******************************************************************************************
+	* ENCODE QP                                                                               *
+	******************************************************************************************/
 	public static function encode_qp($string = '', $line_max = 76, $space_conv = false)
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($string)) return false;
-		if( ! is_numeric($line_max)) $line_max = 76;
-		if( ! is_bool($space_conv)) $space_conv = false;
+		if( empty(self::$mail) || ! is_string($string) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_numeric($line_max) ) 
+		{
+			$line_max = 76;
+		}
+		
+		if( ! is_bool($space_conv) ) 
+		{
+			$space_conv = false;
+		}
+		
 		return self::$mail->EncodeQP($string, $line_max, $space_conv);
 	}
 
-	
+	/******************************************************************************************
+	* ENCODE Q                                                                                *
+	******************************************************************************************/
 	public static function encode_q($str = '', $position = 'text')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
-		if( ! is_string($position)) $position = 'text';
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($position) ) 
+		{
+			$position = 'text';
+		}
+		
 		return self::$mail->EncodeQ($str, $position);
 	}	
 
-	
+	/******************************************************************************************
+	* ADD STRING ATTACHMENT                                                                   *
+	******************************************************************************************/
 	public static function add_string_attachment($string = '', $filename = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($string)) return false;
-		if( ! is_string($filename)) $filename = '';
-		if( ! is_string($encoding)) $encoding = 'base64';
-		if( ! is_string($type)) $type = 'application/octet-stream';
+		if( empty(self::$mail) || ! is_string($string) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($filename) ) 
+		{
+			$filename = '';
+		}
+		
+		if( ! is_string($encoding) ) 
+		{
+			$encoding = 'base64';
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = 'application/octet-stream';
+		}
 		
 		return self::$mail->AddStringAttachment($string, $filename, $encoding, $type);
 	}
 
-	
+	/******************************************************************************************
+	* ADD EMBEDDED IMAGE                                                                      *
+	******************************************************************************************/
 	public static function add_embedded_image($path = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($path)) return false;
-		if( ! (is_string($cid) || is_numeric($cid))) return false;
-		if( ! is_string($name)) $name = '';
-		if( ! is_string($encoding)) $encoding = 'base64';
-		if( ! is_string($type)) $type = 'application/octet-stream';
+		if( empty(self::$mail) || ! is_string($path) ) 
+		{
+			return false;
+		}
+		
+		if( ! (is_string($cid) || is_numeric($cid)) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($name) ) 
+		{
+			$name = '';
+		}
+		
+		if( ! is_string($encoding) ) 
+		{
+			$encoding = 'base64';
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = 'application/octet-stream';
+		}
+		
 		return self::$mail->AddEmbeddedImage($path, $cid, $name, $encoding, $type);
 	}
 
-	
+	/******************************************************************************************
+	* ADD STRING EMBEDDED IMAGE                                                               *
+	******************************************************************************************/
 	public static function add_string_embedded_image($string = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($string)) return false;
-		if( ! (is_string($cid) || is_numeric($cid))) return false;
-		if( ! is_string($name)) $name = '';
-		if( ! is_string($encoding)) $encoding = 'base64';
-		if( ! is_string($type)) $type = 'application/octet-stream';
+		if( empty(self::$mail) || ! is_string($string) ) 
+		{
+			return false;
+		}
+		
+		if( ! (is_string($cid) || is_numeric($cid)) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($name) ) 
+		{
+			$name = '';
+		}
+		
+		if( ! is_string($encoding) ) 
+		{
+			$encoding = 'base64';
+		}
+		
+		if( ! is_string($type) ) 
+		{
+			$type = 'application/octet-stream';
+		}
+		
 		return self::$mail->AddStringEmbeddedImage($string, $cid, $name, $encoding, $type);
 	}
 	
-	
+	/******************************************************************************************
+	* INLINE IMAGE EXISTS                                                                     *
+	******************************************************************************************/
 	public static function inline_image_exists()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->InlineImageExists();
 	}
 	
-	
+	/******************************************************************************************
+	* ATTACHMENT EXISTS                                                                       *
+	******************************************************************************************/
 	public static function attachment_exists()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->AttachmentExists();
 	}
 	
-	
+	/******************************************************************************************
+	* ALTERNATIVE EXISTS                                                                      *
+	******************************************************************************************/
 	public static function alternative_exists()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->AlternativeExists();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR ADDRESS                                                                           *
+	******************************************************************************************/
 	public static function clear_address()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearAddresses();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR CC                                                                                *
+	******************************************************************************************/
 	public static function clear_cc()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearCCs();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR BCC                                                                               *
+	******************************************************************************************/
 	public static function clear_bcc()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearBCCs();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR REPLY TO                                                                          *
+	******************************************************************************************/
 	public static function clear_reply_to()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearReplyTos();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR ALL RECIPIENTS                                                                    *
+	******************************************************************************************/
 	public static function clear_all_recipients()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearAllRecipients();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR ATTACHMENTS                                                                       *
+	******************************************************************************************/
 	public static function clear_attachments()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearAttachments();
 	}
 	
-	
+	/******************************************************************************************
+	* CLEAR CUSTOM HEADERS                                                                    *
+	******************************************************************************************/
 	public static function clear_custom_headers()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		self::$mail->ClearCustomHeaders();
 	}
 	
-	
+	/******************************************************************************************
+	* RFC DATE                                                                                *
+	******************************************************************************************/
 	public static function rfc_date()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->RFCDate();
 	}
 	
-	
+	/******************************************************************************************
+	* IS ERROR                                                                                *
+	******************************************************************************************/
 	public static function is_error()
 	{
-		if(empty(self::$mail)) return false;
+		if( empty(self::$mail) ) 
+		{
+			return false;
+		}
 		return self::$mail->IsError();
 	}
 	
-	
+	/******************************************************************************************
+	* FIX EOL                                                                                 *
+	******************************************************************************************/
 	public static function fix_eol($str = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
 		return self::$mail->FixEOL($str);
 	}
 	
-	
+	/******************************************************************************************
+	* ADD CUSTOM HEADER                                                                       *
+	******************************************************************************************/
 	public static function add_custom_header($name = '', $value = NULL)
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($name)) return false;
-		if( ! is_string($value)) $value = NULL;
+		if( empty(self::$mail) || ! is_string($name) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($value) ) 
+		{
+			$value = NULL;
+		}
+		
 		return self::$mail->AddCustomHeader($name = '', $value = '');
 	}
 	
-	
+	/******************************************************************************************
+	* MSG HTML                                                                                *
+	******************************************************************************************/
 	public static function msg_html($message = '', $basedir = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($message)) return false;
-		if( ! is_string($basedir)) $basedir = '';
+		if( empty(self::$mail) || ! is_string($message) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($basedir) ) 
+		{
+			$basedir = '';
+		}
+		
 		return self::$mail->MsgHTML($message, $basedir);
 	}
 	
-	
+	/******************************************************************************************
+	* SET                                                                                     *
+	******************************************************************************************/
 	public static function set($name = '', $value = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($name)) return false;
-		if( ! is_string($value)) $value = '';
+		if( empty(self::$mail) || ! is_string($name) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($value) ) 
+		{
+			$value = '';
+		}
+		
 		return self::$mail->set($name, $value);
 	}
 	
-	
+	/******************************************************************************************
+	* SECURE HEADER                                                                           *
+	******************************************************************************************/
 	public static function secure_header($str = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($str)) return false;
+		if( empty(self::$mail) || ! is_string($str) ) 
+		{
+			return false;
+		}
+		
 		return self::$mail->SecureHeader($str);
 	}
 	
-	
+	/******************************************************************************************
+	* SIGN                                                                                    *
+	******************************************************************************************/
 	public static function sign($cert_filename = '', $key_filename = '', $key_pass = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($cert_filename) || ! is_string($key_filename)) return false;
-		if( ! is_string($key_pass)) $key_pass = '';
+		if( empty(self::$mail) || ! is_string($cert_filename) || ! is_string($key_filename) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($key_pass) ) 
+		{
+			$key_pass = '';
+		}
 		
 		return self::$mail->Sign($cert_filename, $key_filename, $key_pass);
 	}
 	
-	
+	/******************************************************************************************
+	* DKIM QP                                                                                 *
+	******************************************************************************************/
 	public static function dkim_qp($txt = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($txt)) return false;
+		if( empty(self::$mail) || ! is_string($txt) ) 
+		{
+			return false;
+		}
 		return self::$mail->DKIM_QP($txt);
 	}
 	
-	
+	/******************************************************************************************
+	* DKIM SIGN                                                                               *
+	******************************************************************************************/
 	public static function dkim_sign($s = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($s)) return false;
+		if( empty(self::$mail) || ! is_string($s) ) 
+		{
+			return false;
+		}
 		return self::$mail->DKIM_Sign($s);
 	}
 	
-	
+	/******************************************************************************************
+	* DIKIM HEADER C                                                                          *
+	******************************************************************************************/
 	public static function dkim_header_c($s = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($s)) return false;
+		if( empty(self::$mail) || ! is_string($s) ) 
+		{
+			return false;
+		}
 		return self::$mail->DKIM_HeaderC($s);
 	}
 	
-	
+	/******************************************************************************************
+	* DKIM BODY C                                                                             *
+	******************************************************************************************/
 	public static function dkim_body_c($body = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! is_string($body)) return false;
+		if( empty(self::$mail) || ! is_string($body) ) 
+		{
+			return false;
+		}
 		return self::$mail->DKIM_BodyC($body);
 	}
 	
-	
+	/******************************************************************************************
+	* DKIM ADD                                                                                *
+	******************************************************************************************/
 	public static function dkim_add($headers_line = '', $subject = '', $body = '')
 	{
-		if(empty(self::$mail)) return false;
-		if( ! (is_string($headers_line) || is_numeric($headers_line))) return false;
-		if( ! is_string($subject)) $subject = '';
-		if( ! is_string($body)) $body = '';
+		if( empty(self::$mail) || ! (is_string($headers_line) || is_numeric($headers_line)) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($subject) ) 
+		{
+			$subject = '';
+		}
+		
+		if( ! is_string($body) ) 
+		{
+			$body = '';
+		}
+		
 		return self::$mail->DKIM_Add($headers_line, $subject, $body);
 	}
 	
-	
+	/******************************************************************************************
+	* ADD ATTACHMENT                                                                          *
+	******************************************************************************************/
 	public static function add_attachment($add_attachment = '', $add_attachment_file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		if (empty(self::$mail) )
+		if( empty(self::$mail) )
 		{
 			return false;
 		}
@@ -845,7 +1245,9 @@ class Email {
 		}
 	}
 	
-	
+	/******************************************************************************************
+	* SEND                                                                                    *
+	******************************************************************************************/
 	public static function send($subject = '', $message = '')
 	{	
 		//------------------------------------------------------------------
@@ -932,7 +1334,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Smtp Auth Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['smtp_auth'] || $genset['smtp_auth']) 
+		if( self::$settings['smtp_auth'] || $genset['smtp_auth'] ) 
 		{
 			self::$mail->SMTPAuth 	= ( self::$settings['smtp_auth'] ) 	
 								      ? self::$settings['smtp_auth'] 		
@@ -942,7 +1344,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Charset Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['charset'] || $genset['charset'])
+		if (self::$settings['charset'] || $genset['charset'] )
 		{
 			self::$mail->CharSet  	= ( self::$settings['charset'] ) 		
 									  ? self::$settings['charset'] 		
@@ -952,7 +1354,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Host Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['host'] || $genset['host'])
+		if( self::$settings['host'] || $genset['host'] )
 		{
 			self::$mail->Host     	= ( self::$settings['host'] ) 		
 									  ? self::$settings['host'] 			
@@ -962,7 +1364,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Port Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['port'] || $genset['port'])
+		if( self::$settings['port'] || $genset['port'] )
 		{
 			self::$mail->Port 		= ( self::$settings['port'] ) 		
 			                          ? self::$settings['port'] 			
@@ -972,7 +1374,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Username Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['username'] || $genset['username'])
+		if( self::$settings['username'] || $genset['username'] )
 		{
 			self::$mail->Username 	= ( self::$settings['username'] ) 	
 			                          ? self::$settings['username'] 		
@@ -982,7 +1384,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Password Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['password'] || $genset['password'])
+		if( self::$settings['password'] || $genset['password'] )
 		{
 			self::$mail->Password 	= ( self::$settings['password'] ) 	
 			                          ? self::$settings['password'] 		
@@ -992,7 +1394,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Smtp Secure Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['smtp_secure'] || $genset['smtp_secure'])
+		if( self::$settings['smtp_secure'] || $genset['smtp_secure'] )
 		{
 			self::$mail->SMTPSecure = ( self::$settings['smtp_secure'] ) 	
 			                          ? self::$settings['smtp_secure'] 	
@@ -1002,7 +1404,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Priority Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['priority'] || $genset['priority'])
+		if( self::$settings['priority'] || $genset['priority'] )
 		{
 			self::$mail->Priority	= ( self::$settings['priority'] ) 		
 			                          ? self::$settings['priority']		
@@ -1012,7 +1414,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Content Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['content'] || $genset['content'])
+		if( self::$settings['content'] || $genset['content'] )
 		{
 			self::$mail->ContentType = ( self::$settings['content'] ) 		
 			                           ? self::$settings['content'] 		
@@ -1022,7 +1424,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Encoding Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['encoding'] || $genset['encoding'])
+		if( self::$settings['encoding'] || $genset['encoding'] )
 		{
 			self::$mail->Encoding 	= ( self::$settings['encoding'] ) 	
 			                          ? self::$settings['encoding']		
@@ -1032,7 +1434,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Sender Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['sender'] || $genset['sender'])
+		if( self::$settings['sender'] || $genset['sender'] )
 		{
 			self::$mail->Sender		= ( self::$settings['sender'] ) 		
 									  ? self::$settings['sender']			
@@ -1042,7 +1444,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Return Path Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['return_path'] || $genset['return_path'])
+		if( self::$settings['return_path'] || $genset['return_path'] )
 		{
 			self::$mail->ReturnPath	= ( self::$settings['return_path'] )	
 			                          ? self::$settings['return_path']	
@@ -1052,7 +1454,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Alt Body Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['alt_body'] || $genset['alt_body'])
+		if( self::$settings['alt_body'] || $genset['alt_body'] )
 		{
 			self::$mail->AltBody	= ( self::$settings['alt_body'] ) 	
 			                          ? self::$settings['alt_body']		
@@ -1062,7 +1464,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Word Wrap Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['word_wrap'] || $genset['word_wrap'])
+		if( self::$settings['word_wrap'] || $genset['word_wrap'] )
 		{
 			self::$mail->WordWrap 	= ( self::$settings['word_wrap'] ) 	
 								      ? self::$settings['word_wrap']		
@@ -1072,7 +1474,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Mailer Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['mailer'] || $genset['mailer'])
+		if( self::$settings['mailer'] || $genset['mailer'] )
 		{
 			self::$mail->Mailer		= ( self::$settings['mailer'] )	 	
 									  ? self::$settings['mailer']			
@@ -1082,7 +1484,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Send Mail Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['send_mail'] || $genset['send_mail'])
+		if( self::$settings['send_mail'] || $genset['send_mail'] )
 		{
 			self::$mail->Sendmail	= ( self::$settings['send_mail'] )  	
 									  ? self::$settings['send_mail']		
@@ -1092,7 +1494,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Use Send Mail Options Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['use_send_mail_options'] || $genset['use_send_mail_options'])
+		if( self::$settings['use_send_mail_options'] || $genset['use_send_mail_options'] )
 		{
 			self::$mail->UseSendmailOptions = ( self::$settings['use_send_mail_options'] ) 
 											  ? self::$settings['use_send_mail_options'] 
@@ -1102,7 +1504,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Plugin Dir Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['plugin_dir'] || $genset['plugin_dir'])
+		if( self::$settings['plugin_dir'] || $genset['plugin_dir'] )
 		{
 			self::$mail->PluginDir 	= ( self::$settings['plugin_dir'] ) 	
 									  ? self::$settings['plugin_dir']		
@@ -1112,7 +1514,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Confirm Reading To Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['confirm_reading_to'] || $genset['confirm_reading_to'])
+		if( self::$settings['confirm_reading_to'] || $genset['confirm_reading_to'] )
 		{
 			self::$mail->ConfirmReadingTo = ( self::$settings['confirm_reading_to'] ) 
 											? self::$settings['confirm_reading_to'] 
@@ -1122,7 +1524,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Message Id Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['message_id'] || $genset['message_id'])
+		if( self::$settings['message_id'] || $genset['message_id'] )
 		{
 			self::$mail->MessageID 	= ( self::$settings['message_id'] ) 	
 									  ? self::$settings['message_id']		
@@ -1132,7 +1534,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Message Date Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['message_date'] || $genset['message_date'])
+		if (self::$settings['message_date'] || $genset['message_date'] )
 		{
 			self::$mail->MessageDate = ( self::$settings['message_date'] ) 
 									   ? self::$settings['message_date']	
@@ -1142,7 +1544,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Helo Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['helo'] || $genset['helo'])
+		if( self::$settings['helo'] || $genset['helo'] )
 		{
 			self::$mail->Helo		= ( self::$settings['helo'] ) 		
 									  ? self::$settings['helo']			
@@ -1152,7 +1554,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Realm Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['realm'] || $genset['realm'])
+		if( self::$settings['realm'] || $genset['realm'] )
 		{
 			self::$mail->Realm		= ( self::$settings['realm'] )		
 			                          ? self::$settings['realm']			
@@ -1162,7 +1564,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Work Station Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['work_station'] || $genset['work_station'])
+		if( self::$settings['work_station'] || $genset['work_station'] )
 		{
 			self::$mail->Workstation = ( self::$settings['work_station'] ) 
 									   ? self::$settings['work_station']	
@@ -1172,7 +1574,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Timeout Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['timeout'] || $genset['timeout'])
+		if( self::$settings['timeout'] || $genset['timeout'] )
 		{
 			self::$mail->Timeout	= ( self::$settings['timeout'] ) 		
 									  ? self::$settings['timeout']		
@@ -1182,7 +1584,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Smtp Debug Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['smtp_debug'] || $genset['smtp_debug'])
+		if( self::$settings['smtp_debug'] || $genset['smtp_debug'] )
 		{
 			self::$mail->SMTPDebug	= ( self::$settings['smtp_debug'] ) 	
 									  ? self::$settings['smtp_debug']		
@@ -1192,7 +1594,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Debug Output Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['debug_output'] || $genset['debug_output'])
+		if( self::$settings['debug_output'] || $genset['debug_output'] )
 		{
 			self::$mail->Debugoutput = ( self::$settings['debug_output'] ) 
 									   ? self::$settings['debug_output'] 	
@@ -1201,8 +1603,8 @@ class Email {
 		
 		//------------------------------------------------------------------
 		//  Smtp Keep Alive Ayarı
-		//------------------------------------------------------------------s
-		if(self::$settings['smtp_keep_alive'] || $genset['smtp_keep_alive'])
+		//------------------------------------------------------------------
+		if( self::$settings['smtp_keep_alive'] || $genset['smtp_keep_alive'] )
 		{
 			self::$mail->SMTPKeepAlive = ( self::$settings['smtp_keep_alive'] ) 
 										 ? self::$settings['smtp_keep_alive'] 
@@ -1212,7 +1614,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Single To Ayarı
 		//------------------------------------------------------------------
-		if(self::$settings['single_to'] || $genset['single_to'])
+		if( self::$settings['single_to'] || $genset['single_to'] )
 		{
 			self::$mail->SingleTo	= ( self::$settings['single_to'] ) 	
 									  ? self::$settings['single_to']		
@@ -1347,13 +1749,13 @@ class Email {
 	//------------------------------------------------------------------
 	public static function close()
 	{
-		if(isset(self::$mail))  	self::$mail = NULL;
-		if(isset(self::$error)) 	self::$error = NULL;
-		if(isset(self::$from_mail)) self::$from_mail = NULL;
-		if(isset(self::$from_name)) self::$from_name = NULL;
-		if(isset(self::$subject)) 	self::$subject = NULL;
-		if(isset(self::$message)) 	self::$message = NULL;
-		if(isset(self::$detail)) 	self::$detail = NULL;	
+		if( isset(self::$mail) )  		self::$mail = NULL;
+		if( isset(self::$error) ) 		self::$error = NULL;
+		if( isset(self::$from_mail) ) 	self::$from_mail = NULL;
+		if( isset(self::$from_name) ) 	self::$from_name = NULL;
+		if( isset(self::$subject) ) 	self::$subject = NULL;
+		if( isset(self::$message) ) 	self::$message = NULL;
+		if( isset(self::$detail) ) 		self::$detail = NULL;	
 	}
 
 }
