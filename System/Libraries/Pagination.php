@@ -458,7 +458,7 @@ class Pag
 				// Aktif sayfa linki kontrol ediliyor.		
 				if( $i - 1 == $start_page / self::$limit )
 				{
-					$current_link = $current_link_class;
+					$current_link = $current_link_class.$current_link_style;
 				}
 				else
 				{
