@@ -179,7 +179,7 @@ class User
 	******************************************************************************************/
 	public static function activation_complete()
 	{
-		import::library('Uri', 'SDb');
+		import::library('SDb');
 		import::language("User");
 		
 		// ------------------------------------------------------------------------------

@@ -181,9 +181,7 @@ class Pag
 		// Uri bilgisindeki son segmenti
 		// başlangıç değeri olarak ayarla
 		if( empty($start) ) 
-		{
-			import::library('Uri');
-			
+		{	
 			// Eğer son segmen sayısal bir veri değilse
 			// Başlangıç değerini 0 olarak ayarla.
 			if( ! is_numeric(uri::segment(-1)) )
@@ -458,7 +456,7 @@ class Pag
 				// Aktif sayfa linki kontrol ediliyor.		
 				if( $i - 1 == $start_page / self::$limit )
 				{
-					$current_link = $current_link_class;
+					$current_link = $current_link_class.$current_link_style;
 				}
 				else
 				{

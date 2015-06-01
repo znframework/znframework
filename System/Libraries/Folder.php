@@ -389,24 +389,36 @@ class Folder
 		}	
 		// ----------------------------------------------------------------------------
 		
-		$files = self::files($dir, $extension);
-		
-		$dir = suffix($dir);
-		
-		$files_info = array();
-		
-		foreach($files as $file)
+		if( is_dir($dir) )
 		{
-			$files_info[$file]['basename'] 	 = path_info($dir.$file, 'basename');
-			$files_info[$file]['size'] 		 = filesize($dir.$file);
-			$files_info[$file]['date'] 		 = filemtime($dir.$file);
-			$files_info[$file]['readable'] 	 = is_readable($dir.$file);
-			$files_info[$file]['writable'] 	 = is_writable($dir.$file);
-			$files_info[$file]['executable'] = is_executable($dir.$file);
-			$files_info[$file]['permission'] = fileperms($dir.$file);
+			$files = self::files($dir, $extension);
+			
+			$dir = suffix($dir);
+			
+			$files_info = array();
+			
+			foreach($files as $file)
+			{
+				$files_info[$file]['basename'] 	 = path_info($dir.$file, 'basename');
+				$files_info[$file]['size'] 		 = filesize($dir.$file);
+				$files_info[$file]['date'] 		 = filemtime($dir.$file);
+				$files_info[$file]['readable'] 	 = is_readable($dir.$file);
+				$files_info[$file]['writable'] 	 = is_writable($dir.$file);
+				$files_info[$file]['executable'] = is_executable($dir.$file);
+				$files_info[$file]['permission'] = fileperms($dir.$file);
+			}
+			
+			return $files_info;
 		}
-		
-		return $files_info;
+		elseif( is_file($dir) )
+		{
+			$fileinfo = library('File', 'info', array($dir));
+			return (array)$fileinfo;
+		}
+		else
+		{
+			return false;
+		}	
 	}
 	
 	/******************************************************************************************

@@ -1750,7 +1750,6 @@ class Email {
 	public static function close()
 	{
 		if( isset(self::$mail) )  		self::$mail = NULL;
-		if( isset(self::$error) ) 		self::$error = NULL;
 		if( isset(self::$from_mail) ) 	self::$from_mail = NULL;
 		if( isset(self::$from_name) ) 	self::$from_name = NULL;
 		if( isset(self::$subject) ) 	self::$subject = NULL;

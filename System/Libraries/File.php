@@ -375,6 +375,40 @@ class File
 	}
 	
 	/******************************************************************************************
+	* INFO		                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Dosyanın hakkında bilgi almak için kullanılır.						  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @file => Bilgileri öğrenilecek dosyanın yolu.			  		          |
+	|          																				  |
+	| Örnek Kullanım: file::info('dizin/dosya.txt');        						          |
+	|          																				  |
+	| Dönen Değerler: basename, size, date, readable, writable, executable, permission        |
+	|          																				  |
+	******************************************************************************************/
+	public static function info($file = '')
+	{
+		if( ! is_file($file) )
+		{
+			return false;
+		}
+		
+		$file_info = array
+		(
+			'basename' 	 => path_info($file, 'basename'),
+			'size'		 => filesize($file),
+			'date' 		 => filemtime($file),
+			'readable' 	 => is_readable($file),
+			'writable' 	 => is_writable($file),
+			'executable' => is_executable($file),
+			'permission' => fileperms($file)	
+		);
+		
+		return (object)$file_info;
+	}
+	
+	/******************************************************************************************
 	* SIZE		                                                                              *
 	*******************************************************************************************
 	| Genel Kullanım: Dosyanın boyutunu öğrenmek için kullanılır.							  |

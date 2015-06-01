@@ -254,8 +254,6 @@ class ComponentCalendar
 		// yıl bilgisini tutmaktadır.
 		if( $month === NULL && $year === NULL) 
 		{
-			import::library('Uri');
-			
 			if( ! is_numeric(uri::segment(-1)) )
 			{ 
 				$month = $today['mon']; 

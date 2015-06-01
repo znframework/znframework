@@ -311,6 +311,111 @@ function is_charset($charset = '')
 	}
 }
 
+/******************************************************************************************
+* OUTPUT                                                                                  *
+*******************************************************************************************
+| Genel Kullanım: Düzenli çıktı oluşturmak için kullanılır. Özelikle dizi nesnelerinde	  |
+| dizi içeriğinin düzenli çıktısını almak için kullanılır.			  					  |
+|															                              |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. mixed var @data => Çıktısı oluşturulacak nesne.									  |
+|          																				  |
+| Örnek Kullanım: output(array(1,2,3));        							  	  			  |
+|          																				  |
+******************************************************************************************/
+function output($data = '', $display = true)
+{
+	$globalstyle  = ' style="font-family:monospace, Tahoma, Arial; font-size:12px;"';
+	
+	$output  = "<span$globalstyle>";
+	$output .= "<pre>";
+	$output .= '********************************************************<br>';
+	$output .= '* DATA OUTPUT                                          *<br>';
+	$output .= '********************************************************';
+	$output .= "</pre>";
+	$output .= _output($data);
+	$output .= "<br>";
+	$output .= '********************************************************';
+	$output .= "</span>";
+	
+	if( $display === true)
+	{
+		echo $output;
+	}
+	else
+	{
+		return $output;	
+	}
+}	
+function _output($data = '', $tab = '', $start = 0)
+{
+	static $start;
+	
+	$output = '';
+	$eof 	= '<br>';
+	$tab 	= str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
+	
+	$lengthstyle = ' style="color:grey"';
+	$keystyle 	 = ' style="color:#000"';
+	$typestyle   = ' style="color:#8C2300"';
+	
+	$vartype = 'array';
+	
+	if( is_object($data) )
+	{
+		$data = (array)$data;
+		$vartype = 'object';
+	}
+	
+	if( ! is_array($data) )
+	{
+		return $data.$eof;	
+	}
+	else
+	{
+		foreach($data as $k => $v)
+		{
+			if( is_object($v) )
+			{
+				$v = (array)$v;
+				$vartype = 'object';
+			}
+			
+			if( ! is_array($v) )
+			{	
+				$valstyle  = ' style="color:green;"';	
+				
+				$type = gettype($v);
+				
+				if( $type === 'string' )
+				{
+					$v = "'".$v."'";	
+					$valstyle = ' style="color:red;"';
+					
+					$type = 'string';
+				}
+				elseif( $type === 'boolean' )
+				{
+					$v = ( $v === true )
+						 ? 'true'
+						 : 'false';
+					
+					$type = 'boolean';
+				}
+				
+				$output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>,$eof";
+			}
+			else
+			{
+				$output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof "._output($v, $tab, $start++)." $tab), ".$eof;	
+				$start--;
+			}
+		}
+	}
+	
+	return $output;
+}	
+
 // Function: charset_list()
 // İşlev: Geçerli karakter seli listesini verir.
 // Dönen Değerler: Karakter setlerini listeler.
@@ -375,7 +480,7 @@ function get_lang()
 	
 	if( ! isset($_SESSION[md5("lang")]) ) 
 	{
-		return "tr";
+		return $_SESSION[md5("lang")] = "tr";
 	}
 	else
 	{ 
@@ -422,15 +527,15 @@ function current_lang()
 		return false;
 	}
 	else
-	{ 
-		$sess = $_SESSION[md5("lang")];
-		
-		if( ! isset($sess) )
+	{ 	
+		if( isset($_SESSION[md5("lang")]) )
 		{
-			$_SESSION[md5("lang")] = "tr"; 
+			return $_SESSION[md5("lang")];
 		}
-		
-		return $_SESSION[md5("lang")];
+		else
+		{
+			return $_SESSION[md5("lang")] = 'tr';
+		}
 	}
 }
 
@@ -1863,6 +1968,8 @@ function zndynamic_autoloaded()
 	
 	is_imported('Config');
 	is_imported('Import');
+	is_imported('Uri');
+	is_imported('Benchmark');
 }
 
 // Function: is_imported()
@@ -1874,7 +1981,7 @@ function is_imported($class = '', $type = NULL)
 	{
 		$class = remove_extension($class);
 	}
-	
+
 	if( strstr($class, '/') )
 	{
 		$classex = explode('/', $class);
