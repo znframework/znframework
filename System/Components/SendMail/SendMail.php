@@ -477,8 +477,4 @@ class ComponentSendMail
 	{
 		email::close();	
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master

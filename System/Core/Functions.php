@@ -311,6 +311,15 @@ function is_charset($charset = '')
 	}
 }
 
+// Function: charset_list()
+// İşlev: Geçerli karakter seli listesini verir.
+// Dönen Değerler: Karakter setlerini listeler.
+
+function charset_list()
+{
+	return mb_list_encodings();	
+}
+
 /******************************************************************************************
 * OUTPUT                                                                                  *
 *******************************************************************************************
@@ -415,15 +424,6 @@ function _output($data = '', $tab = '', $start = 0)
 	
 	return $output;
 }	
-
-// Function: charset_list()
-// İşlev: Geçerli karakter seli listesini verir.
-// Dönen Değerler: Karakter setlerini listeler.
-
-function charset_list()
-{
-	return mb_list_encodings();	
-}
 
 // Function: compare()
 // İşlev: İki veri arasında karşılaştırma yapmak için kullanılır.
