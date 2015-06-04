@@ -25,8 +25,7 @@
 	{
 		"classmap" : 
 		[
-			"System/",
-			"Application/Libraries/"
+			"System/"
 		]
 	}
 }
