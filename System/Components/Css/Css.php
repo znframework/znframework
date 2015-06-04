@@ -26,19 +26,19 @@ class ComponentCss
 	 */
 	protected $easing;
 	
+	/* Manipulation Değişkeni
+	 *  
+	 * Değişiklik bilgisini tutması 
+	 * için oluşturulumuştur. 
+	 */
+	protected $manipulation;
+	
 	/* Selector Değişkeni
 	 *  
 	 * Seçici bilgisini tutması için
 	 * oluşturulumuştur. 
 	 */
 	protected $selector = 'this';
-	
-	/* Attr Değişkeni
-	 *  
-	 * Eklenmek istenen farklı css kodlarına.
-	 * ait bilgileri tutması için oluşturulmuştur.
-	 */
-	protected $attr;
 	
 	// Construct yapıcısı tarafından
 	// Config/Css3.php dosyasından ayarlar alınıyor.
@@ -51,7 +51,7 @@ class ComponentCss
 	 * Params: string @selector 
 	 * this, #custom, .example
 	 *
-	 * $(this), $("#custom"), $(".example") 
+	 * this, #custom, .example
 	 */
 	public function selector($selector = '')
 	{
@@ -68,20 +68,21 @@ class ComponentCss
 	// PROTECTED ATTR
 	protected function _attr($_attributes = array())
 	{
-		$attribute = "";
-		if(is_array($_attributes))
+		$attribute = '';
+		
+		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
 				$attribute .= ' '.$key.':'.$values.';';
 			}	
 		}
 		
-		$this->attr = $attribute;
-		
-		return $this;	
+		return $attribute;	
 	}
 	
 	/******************************************************************************************
@@ -101,15 +102,125 @@ class ComponentCss
 		{
 			return false;	
 		}
-		$this->_attr($attr);	
-		
+
 		$str  = $this->selector."{".ln();	
-		$str .= $this->attr.ln();
+		$str .= $this->_attr($attr).ln();
 		$str .= "}".ln();
 		
 		$this->_default_variable();
 		
 		return $str;
+	}
+	
+	/******************************************************************************************
+	* FILE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Manüpile edilmek istenen css dosyasının adını belirtmek için kullanılır.|
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @file => Dosya adı bilgisi.  					  						  |
+	|          																				  |
+	| Örnek Kullanım: ->file('style')					 		         					  |
+	|          																				  |
+	******************************************************************************************/
+	public function file($file = '')
+	{
+		if( is_string($file) )
+		{
+			import::library('File');
+			
+			$this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
+			$this->manipulation['file'] = file::contents($this->manipulation['filename']);
+		}
+		
+		return $this;	
+	}
+	
+	// PROTECTED MANIPULATION
+	protected function _manipulation($selector)
+	{
+		$space = '\s*';
+		$all   = '.*';
+		
+		$file = $this->manipulation['file'];
+		
+		if( empty($file) )
+		{
+			return false;	
+		}
+		
+		preg_match('/'.$selector.$space.'\{'.$space.$all.$space.'\}'.$space.'/', $file, $output);
+		
+		if( ! empty($output[0]) )
+		{
+			$output = $output[0];	
+		}
+		else
+		{
+			return false;	
+		}
+		
+		return $output;
+	}
+	
+	/******************************************************************************************
+	* GET SELECTOR                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Manüpile edilmek istenen css dosyasında yer alan seçiçinin içeriğine.	  |
+	| erişmek için kullanılır.																  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @selector => Seçici bilgisi.					  						  |
+	|          																				  |
+	| Örnek Kullanım: ->get_selector('.test');			 		         					  |
+	|          																				  |
+	******************************************************************************************/
+	public function get_selector($selector = '')
+	{
+		if( ! is_string($selector) )
+		{
+			return false;	
+		}
+		
+		$space = '\s*';
+		
+		$output = $this->_manipulation($selector);
+					  
+		$output = preg_replace('/'.$selector.$space.'\{/', '', $output);
+		$output = preg_replace('/\}/', '', $output);
+		
+		return trim($output);
+	}
+	
+	/******************************************************************************************
+	* SET SELECTOR                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Manüpile edilmek istenen css dosyasında yer alan seçiçinin içeriğine.	  |
+	| erişmek için kullanılır.																  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @selector => Seçici bilgisi.					  						  |
+	| 1. array var @attr => Yeni değerler.					  						  		  |
+	|          																				  |
+	| Örnek Kullanım: ->set_selector('.test', array('color' => 'red'));			 		      |
+	|          																				  |
+	******************************************************************************************/
+	public function set_selector($selector = '', $attr = array())
+	{
+		if( ! is_string($selector) || ! is_array($attr) )
+		{
+			return false;	
+		}	
+
+		$file = $this->manipulation['file'];
+		
+		$value = $this->selector($selector)->attr($attr);
+		
+		$output = $this->_manipulation($selector);
+		
+		$output = str_replace($output, $value , $file);
+		
+		file::write($this->manipulation['filename'], $output);
 	}
 	
 	// Değişkenler varsayılan ayarlarına getiriliyor.
