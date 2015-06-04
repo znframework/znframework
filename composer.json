@@ -25,9 +25,8 @@
 	{
 		"classmap" : 
 		[
-			"System/Libraries",
-			"System/Components",
-			"System/Database"
+			"System/",
+			"Application/Libraries/"
 		]
 	}
 }
