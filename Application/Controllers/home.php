@@ -44,7 +44,7 @@ class Home // extends Controller
 		$data["welcome_message"] = "ZN KOD ÇATISINA HOŞ GELDİNİZ";
 		
 		/******************************************************************************************
-		* Dahile Edilen Welcome.php Görünüm Sayfası                                               *
+		* Dahil Edilen Welcome.php Görünüm Sayfası                                                *
 		*******************************************************************************************
 		| 1. welcome => Views/Pages/welcome.php sayfası dahil ediliyor.					          |
 		| 2. data => Yukarıdaki verileri tutan data dizisi dahil edilen sayfaya gönderiliyor.	  |

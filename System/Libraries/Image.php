@@ -70,22 +70,22 @@ class Image
 	{
 		
 		// UZANTI JPG
-		if( strtolower(extension(self::$file)) === 'jpg' )
+		if( extension(self::$file) === 'jpg' )
 		{ 
 			return imagecreatefromjpeg($paths);
 		}
 		// UZANTI JPEG
-		elseif( strtolower(extension(self::$file)) === 'jpeg' ) 
+		elseif( extension(self::$file) === 'jpeg' ) 
 		{
 			return imagecreatefromjpeg($paths);
 		}
 		// UZANTI PNG
-		elseif( strtolower(extension(self::$file)) === 'png' )
+		elseif( extension(self::$file) === 'png' )
 		{
 			return imagecreatefrompng($paths);
 		}
 		// UZANTI GIF
-		elseif( strtolower(extension(self::$file)) === 'gif' )  
+		elseif( extension(self::$file) === 'gif' )  
 		{
 			return imagecreatefromgif($paths);
 		}
@@ -100,7 +100,7 @@ class Image
 	{
 		$extensions = array('jpg', 'jpeg', 'png', 'gif');
 		
-		if( in_array(strtolower(extension($file)), $extensions))
+		if( in_array(extension($file), $extensions))
 		{
 			return true;	
 		}
@@ -115,7 +115,7 @@ class Image
 	private static function create_file_type($files, $paths, $quality = 0)
 	{
 		// JPG İÇİN KALİTE AYARI
-		if( strtolower(extension(self::$file)) === 'jpg' )
+		if( extension(self::$file) === 'jpg' )
 		{
 			if( $quality === 0 ) 
 			{
@@ -125,7 +125,7 @@ class Image
 			return imagejpeg($files, $paths, $quality);
 		}
 		// JPEG İÇİN KALİTE AYARI
-		elseif( strtolower(extension(self::$file)) === 'jpeg' )
+		elseif( extension(self::$file) === 'jpeg' )
 		{
 			if( $quality === 0 ) 
 			{
@@ -135,7 +135,7 @@ class Image
 			return imagejpeg($files, $paths, $quality);
 		}
 		// PNG İÇİN KALİTE AYARI
-		elseif( strtolower(extension(self::$file)) === 'png' )
+		elseif( extension(self::$file) === 'png' )
 		{
 			if( $quality === 0 )
 			{
@@ -145,7 +145,7 @@ class Image
 			return imagepng($files, $paths, $quality);
 		}
 		// GIF İÇİN KALİTE AYARI
-		elseif( strtolower(extension(self::$file)) === 'gif' )
+		elseif( extension(self::$file) === 'gif' )
 		{
 			return imagegif($files, $paths);
 		}
@@ -351,7 +351,7 @@ class Image
 		// sağlanıyor. Diğer uzantılarda transparantlık 
 		// elde edilemeyeceğinden bu işlem sadece
 		// PNG uzantılı dosyalar için gerçekleşecektir.
-		if( strtolower(extension($file_path)) === "png" )
+		if( extension($file_path) === "png" )
 		{
 			imagealphablending($n_file, false);
 			imagesavealpha($n_file,true);

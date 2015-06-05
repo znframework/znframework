@@ -803,6 +803,7 @@ class Import
 				self::$is_import[] = "script_".$script;
 			}
 		}
+		
 		if( ! empty($str) ) 
 		{
 			if( $args[count($args) - 1] === true )
@@ -841,57 +842,58 @@ class Import
 		{
 			return false;
 		}
-		
-		if( is_array($data) )
+
+		if( extension($page) === 'js' )
 		{
-			extract($data, EXTR_OVERWRITE, 'extract');
+			if( ! is_file_exists($page) ) 
+			{
+				return false;
+			}
+			echo '<script type="text/javascript" src="'.base_url().$page.'"></script>'.ln();
 		}
-		
-		$other = 0;
-		
-		switch(extension($page))
+		elseif( extension($page) === 'css' )	
 		{
-			case 'js':
-				if( ! is_file_exists($page) ) 
-				{
-					return false;
-				}
-				echo '<script type="text/javascript" src="'.base_url().$page.'"></script>'.ln();
-			break;	
-			
-			case 'css':
-				if( ! is_file_exists($page) ) 
-				{
-					return false;
-				}
-				echo '<link href="'.base_url().$page.'" rel="stylesheet" type="text/css" />'.ln();
-			break;
-			
-			default;
-				$other = 1;
+			if( ! is_file_exists($page) ) 
+			{
+				return false;
+			}
+			echo '<link href="'.base_url().$page.'" rel="stylesheet" type="text/css" />'.ln();
 		}
-		if( $other === 1 )
+		else
 		{
+			if( is_array($data) )
+			{
+				extract($data, EXTR_OVERWRITE, 'extract');
+			}
+			
+			$extension = ! extension($page)
+						 ? '.php'
+						 : '';
+			
+			$page .= $extension;
+			
 			if( $ob_get_contents === false )
 			{
-				if( ! is_file_exists(suffix($page,".php")) ) 
+				if( ! is_file_exists($page) ) 
 				{
 					return false;
 				}
-				require(suffix($page,".php")); 
+				
+				require($page); 
 			}
 			
 			if( $ob_get_contents === true )
 			{
-				if( ! is_file_exists(suffix($page,".php")) ) 
+				if( ! is_file_exists($page) ) 
 				{
 					return false;
 				}
 				
 				ob_start(); 
-				require(suffix($page,".php")); 
+				require($page); 
 				$content = ob_get_contents(); 
 				ob_end_clean();
+				
 				return $content ; 
 			}
 		}
@@ -908,14 +910,9 @@ class Import
 	| Örnek Kullanım: import::something('Application/Views/Pages/');        	              |
 	|          																				  |
 	******************************************************************************************/
-	public static function package($packages = "")
+	public static function package($packages = "", $different_extension = array() )
 	{
-		if( ! is_string($packages) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_dir_exists($packages) ) 
+		if( ! ( is_string($packages) || is_dir_exists($packages) || is_array($different_extension) ) ) 
 		{
 			return false;
 		}
@@ -930,13 +927,23 @@ class Import
 				{
 					require_once (suffix($packages).$val);
 				}
-				if( extension($val) === "js" )
+				elseif( extension($val) === "js" )
 				{
 					echo '<script type="text/javascript" src="'.base_url().suffix($packages).$val.'"></script>'.ln();
 				}
-				if( extension($val) === "css" )
+				elseif( extension($val) === "css" )
 				{
 					echo '<link href="'.base_url().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.ln();
+				}
+				else
+				{
+					if( ! empty($different_extension) )
+					{
+						if( in_array(extension($val), $different_extension) )
+						{
+							require_once(suffix($packages).$val);	
+						}
+					}
 				}
 			}
 		}

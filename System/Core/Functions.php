@@ -1005,7 +1005,7 @@ function extension($file = '', $dote = false)
 		$dote = '';
 	}
 	
-	return $dote.path_info($file, "extension");
+	return $dote.strtolower(path_info($file, "extension"));
 }
 
 // Function: remove_extension()

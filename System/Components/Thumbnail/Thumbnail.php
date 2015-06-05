@@ -78,22 +78,22 @@ class ComponentThumb
 	{
 		
 		// UZANTI JPG
-		if( strtolower(extension($this->file)) === 'jpg' )
+		if( extension($this->file) === 'jpg' )
 		{ 
 			return imagecreatefromjpeg($paths);
 		}
 		// UZANTI JPEG
-		elseif( strtolower(extension($this->file)) === 'jpeg' ) 
+		elseif( extension($this->file) === 'jpeg' ) 
 		{
 			return imagecreatefromjpeg($paths);
 		}
 		// UZANTI PNG
-		elseif( strtolower(extension($this->file)) === 'png' )
+		elseif( extension($this->file) === 'png' )
 		{
 			return imagecreatefrompng($paths);
 		}
 		// UZANTI GIF
-		elseif( strtolower(extension($this->file)) === 'gif' )  
+		elseif( extension($this->file) === 'gif' )  
 		{
 			return imagecreatefromgif($paths);
 		}
@@ -108,7 +108,7 @@ class ComponentThumb
 	{
 		$extensions = array('jpg', 'jpeg', 'png', 'gif');
 		
-		if( in_array(strtolower(extension($file)), $extensions))
+		if( in_array(extension($file), $extensions))
 		{
 			return true;	
 		}
@@ -123,7 +123,7 @@ class ComponentThumb
 	private function create_file_type($files, $paths, $quality = 0)
 	{
 		// JPG İÇİN KALİTE AYARI
-		if( strtolower(extension($this->file)) === 'jpg' )
+		if( extension($this->file) === 'jpg' )
 		{
 			if( $quality === 0 ) 
 			{
@@ -133,7 +133,7 @@ class ComponentThumb
 			return imagejpeg($files, $paths, $quality);
 		}
 		// JPEG İÇİN KALİTE AYARI
-		elseif( strtolower(extension($this->file)) === 'jpeg' )
+		elseif( extension($this->file) === 'jpeg' )
 		{
 			if( $quality === 0 ) 
 			{
@@ -143,7 +143,7 @@ class ComponentThumb
 			return imagejpeg($files, $paths, $quality);
 		}
 		// PNG İÇİN KALİTE AYARI
-		elseif( strtolower(extension($this->file)) === 'png' )
+		elseif( extension($this->file) === 'png' )
 		{
 			if( $quality === 0 )
 			{
@@ -153,7 +153,7 @@ class ComponentThumb
 			return imagepng($files, $paths, $quality);
 		}
 		// GIF İÇİN KALİTE AYARI
-		elseif( strtolower(extension($this->file)) === 'gif' )
+		elseif( extension($this->file) === 'gif' )
 		{
 			return imagegif($files, $paths);
 		}
@@ -521,7 +521,7 @@ class ComponentThumb
 		// sağlanıyor. Diğer uzantılarda transparantlık 
 		// elde edilemeyeceğinden bu işlem sadece
 		// PNG uzantılı dosyalar için gerçekleşecektir.
-		if( strtolower(extension($file_path)) === "png" )
+		if( extension($file_path) === "png" )
 		{
 			imagealphablending($n_file, false);
 			imagesavealpha($n_file,true);
