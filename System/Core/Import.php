@@ -709,8 +709,6 @@ class Import
 	******************************************************************************************/
 	public static function style()
 	{
-		$config_style = array_unique(config::get('Masterpage','style'));
-		
 		$str = '';
 		
 		$arguments = func_get_args();
@@ -721,14 +719,15 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
+		
 		foreach(array_unique($arguments) as $style)
 		{
 			if( is_array($style) ) 
 			{
 				$style = '';
-			}
-			
-			if( ! in_array($style, $config_style) && ! in_array("style_".$style, self::$is_import) )
+			}	
+		
+			if( ! in_array("style_".$style, self::$is_import) )
 			{
 				if( is_file_exists(STYLES_DIR.suffix($style,".css")) )
 				{
@@ -772,8 +771,6 @@ class Import
 	******************************************************************************************/
 	public static function script()
 	{
-		$config_script = array_unique(config::get('Masterpage','script'));
-		
 		$str = '';
 		
 		$arguments = func_get_args();
@@ -791,7 +788,7 @@ class Import
 				$script = '';
 			}
 			
-			if( ! in_array($script, $config_script) && ! in_array("script_".$script, self::$is_import) )
+			if( ! in_array("script_".$script, self::$is_import) )
 			{
 				if( is_file_exists(SCRIPTS_DIR.suffix($script,".js")) )
 				{
