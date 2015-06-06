@@ -67,7 +67,7 @@ class DbForge
 			return false;
 		}
 		
-		$this->db->exec('CREATE DATABASE '.$dbname);
+		return $this->db->exec('CREATE DATABASE '.$dbname);
 	}
 	
 	/******************************************************************************************
@@ -88,7 +88,7 @@ class DbForge
 			return false;
 		}
 		
-		$this->db->exec('DROP DATABASE '.$dbname);
+		return $this->db->exec('DROP DATABASE '.$dbname);
 	}
 	
 	/******************************************************************************************
@@ -123,7 +123,7 @@ class DbForge
 			$column .= $key.' '.$value.',';
 		}
 		
-		$this->db->exec('CREATE TABLE '.$this->prefix.$table.'('.substr($column,0,-1).')');
+		return $this->db->exec('CREATE TABLE '.$this->prefix.$table.'('.substr($column,0,-1).')');
 	}
 	
 	/******************************************************************************************
@@ -144,7 +144,7 @@ class DbForge
 			return false;
 		}
 		
-		$this->db->exec('DROP TABLE '.$this->prefix.$table);
+		return $this->db->exec('DROP TABLE '.$this->prefix.$table);
 	}
 	
 	/******************************************************************************************
@@ -165,23 +165,23 @@ class DbForge
 	{
 		if( key($condition) === 'rename_table' ) 			
 		{
-			$this->rename_table($table, $condition['rename_table']);
+			return $this->rename_table($table, $condition['rename_table']);
 		}
 		elseif( key($condition) === 'add_column' ) 		
 		{
-			$this->add_column($table, $condition['add_column']);
+			return $this->add_column($table, $condition['add_column']);
 		}
 		elseif( key($condition) === 'drop_column' ) 		
 		{
-			$this->drop_column($table, $condition['drop_column']);	
+			return $this->drop_column($table, $condition['drop_column']);	
 		}
 		elseif( key($condition) === 'modify_column' ) 	
 		{
-			$this->modify_column($table, $condition['modify_column']);
+			return $this->modify_column($table, $condition['modify_column']);
 		}
 		elseif( key($condition) === 'rename_column' ) 	
 		{
-			$this->rename_column($table, $condition['rename_column']);
+			return $this->rename_column($table, $condition['rename_column']);
 		}
 	}
 	
@@ -210,7 +210,7 @@ class DbForge
 			return false;
 		}
 		
-		$this->db->exec('ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$new_name);
+		return $this->db->exec('ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$new_name);
 	}
 	
 	/******************************************************************************************
@@ -272,7 +272,7 @@ class DbForge
 			
 		$con = substr($con, 0 , -1);
 		
-		$this->db->exec('ALTER TABLE '.$table.' '.$con.';'); 
+		return $this->db->exec('ALTER TABLE '.$table.' '.$con.';'); 
 	}
 	
 	/******************************************************************************************
@@ -313,7 +313,7 @@ class DbForge
 		
 		if( ! is_array($column) )
 		{
-			$this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$drop_column.$column.';');		
+			return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$drop_column.$column.';');		
 		}
 		else
 		{
@@ -383,7 +383,7 @@ class DbForge
 		
 		$con = substr($con, 0 , -1);
 		
-		$this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$con.';');
+		return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$con.';');
 	}
 	
 	/******************************************************************************************
@@ -445,7 +445,7 @@ class DbForge
 		
 		$con = substr($con, 0 , -1);
 		
-		$this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$con.';');
+		return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$con.';');
 	}
 	
 	/******************************************************************************************
@@ -477,7 +477,7 @@ class DbForge
 			$truncate = 'TRUNCATE TABLE ';
 		}
 		
-		$this->db->exec($truncate.$this->prefix.$table);
+		return $this->db->exec($truncate.$this->prefix.$table);
 	}
 	
 	/******************************************************************************************

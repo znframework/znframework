@@ -90,7 +90,7 @@ class SDbForge
 			self::connect();
 		}
 		
-		self::$db->exec('CREATE DATABASE '.$dbname);
+		return self::$db->exec('CREATE DATABASE '.$dbname);
 	}
 	
 	/******************************************************************************************
@@ -116,7 +116,7 @@ class SDbForge
 			self::connect();
 		}
 		
-		self::$db->exec('DROP DATABASE '.$dbname);
+		return self::$db->exec('DROP DATABASE '.$dbname);
 	}
 	
 	/******************************************************************************************
@@ -157,7 +157,7 @@ class SDbForge
 			self::connect();
 		}
 		
-		self::$db->exec('CREATE TABLE '.self::$prefix.$table.'('.substr($column,0,-1).')');
+		return self::$db->exec('CREATE TABLE '.self::$prefix.$table.'('.substr($column,0,-1).')');
 	}
 	
 	/******************************************************************************************
@@ -183,7 +183,7 @@ class SDbForge
 			self::connect();
 		}
 		
-		self::$db->exec('DROP TABLE '.self::$prefix.$table);
+		return self::$db->exec('DROP TABLE '.self::$prefix.$table);
 	}
 	
 	/******************************************************************************************
@@ -259,7 +259,7 @@ class SDbForge
 			self::connect();
 		}
 		
-		self::$db->exec('ALTER TABLE '.self::$prefix.$name.' RENAME TO '.self::$prefix.$new_name);
+		return self::$db->exec('ALTER TABLE '.self::$prefix.$name.' RENAME TO '.self::$prefix.$new_name);
 	}
 	
 	/******************************************************************************************
@@ -326,7 +326,7 @@ class SDbForge
 			
 		$con = substr($con, 0 , -1);
 		
-		self::$db->exec('ALTER TABLE '.$table.' '.$con.';'); 
+		return self::$db->exec('ALTER TABLE '.$table.' '.$con.';'); 
 	}
 	
 	/******************************************************************************************
@@ -447,7 +447,7 @@ class SDbForge
 		
 		$con = substr($con, 0 , -1);
 		
-		self::$db->exec('ALTER TABLE '.self::$prefix.$table.' '.$con.';');
+		return self::$db->exec('ALTER TABLE '.self::$prefix.$table.' '.$con.';');
 	}
 	
 	/******************************************************************************************
@@ -514,7 +514,7 @@ class SDbForge
 		
 		$con = substr($con, 0 , -1);
 		
-		self::$db->exec('ALTER TABLE '.self::$prefix.$table.' '.$con.';');
+		return self::$db->exec('ALTER TABLE '.self::$prefix.$table.' '.$con.';');
 	}
 	
 	/******************************************************************************************
@@ -551,7 +551,7 @@ class SDbForge
 			$truncate = 'TRUNCATE TABLE ';
 		}
 		
-		self::$db->exec($truncate.self::$prefix.$table);
+		return self::$db->exec($truncate.self::$prefix.$table);
 	}
 	
 	/******************************************************************************************
@@ -601,5 +601,13 @@ class SDbForge
 		return new DbForge($config_different[$connect_name]);
 	}
 	
-	public static function error(){ if(empty(self::$connect)) return false; return self::$db->error(); }
+	public static function error()
+	{ 
+		if( empty(self::$connect) ) 
+		{
+			return false; 
+		}
+		
+		return self::$db->error(); 
+	}
 }

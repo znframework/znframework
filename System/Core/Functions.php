@@ -321,7 +321,7 @@ function charset_list()
 }
 
 /******************************************************************************************
-* OUTPUT                                                                                  *
+* OUTPUT WITH VERSION 1.4                                                                 *
 *******************************************************************************************
 | Genel Kullanım: Düzenli çıktı oluşturmak için kullanılır. Özelikle dizi nesnelerinde	  |
 | dizi içeriğinin düzenli çıktısını almak için kullanılır.			  					  |
@@ -424,6 +424,62 @@ function _output($data = '', $tab = '', $start = 0)
 	
 	return $output;
 }	
+
+/******************************************************************************************
+* WRITE WITH VERSION 1.4                                                                  *
+*******************************************************************************************
+| Genel Kullanım: Çıktı oluşturmak için kullanılır.			  					          |
+|															                              |
+| Parametreler: 2 parametresi vardır.                                              	      |
+| 1. mixed var @data => Ekrana yazdırılacak veri.									      |
+| 2. array var @vars => Yazdırılacak veri içine değişken değeri göndermek için kullanılır.|
+|          																				  |
+| Örnek Kullanım: write('Merhaba {0}', array('Dünya')); // Merhaba Dünya       			  |
+| Örnek Kullanım: write('Merhaba {x}', array('x' => 'Dünya')); // Merhaba Dünya       	  |
+|          																				  |
+******************************************************************************************/
+function write($data = '', $vars = array())
+{
+	if( ! is_value($data) )
+	{
+		echo 'Not String!'; 
+		return false;
+	}
+
+	if( ! empty($data) && is_array($vars) )
+	{
+		$vars_array = array();
+		
+		foreach($vars as $k => $v)
+		{
+			$vars_array['{'.$k.'}']	= $v;
+		}
+		
+		$data = str_replace(array_keys($vars_array), array_values($vars_array), $data);
+	}
+	
+	echo $data;
+}
+
+/******************************************************************************************
+* WRITELN WITH VERSION 1.4                                                                *
+*******************************************************************************************
+| Genel Kullanım: Çıktı oluşturmak için kullanılır.	Write() yönteminde farkı çıktıdan	  | 
+| sonra bir alt satıra geçer.								  					          |
+|															                              |
+| Parametreler: 3 parametresi vardır.                                              	      |
+| 1. mixed var @data => Ekrana yazdırılacak veri.									      |
+| 2. array var @vars => Yazdırılacak veri içine değişken değeri göndermek için kullanılır.|
+| 3. numeric var @br_count => Kaç adet alt satır bırakılacağı. Varsayılan:1				  |
+|          																				  |
+| Örnek Kullanım: writeln('Merhaba {0}', array('Dünya')); // Merhaba Dünya       		  |
+| Örnek Kullanım: writeln('Merhaba {x}', array('x' => 'Dünya')); // Merhaba Dünya         |
+|          																				  |
+******************************************************************************************/
+function writeln($data = '', $vars = array(), $br_count = 1)
+{
+	echo write($data, $vars).str_repeat("<br>", $br_count);
+}
 
 // Function: compare()
 // İşlev: İki veri arasında karşılaştırma yapmak için kullanılır.

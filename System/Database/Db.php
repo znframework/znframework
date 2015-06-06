@@ -1158,7 +1158,7 @@ class Db
 		
 		$secure = $this->secure;
 		
-		$this->db->query($this->_query_security($insert_query), $secure);
+		return $this->db->query($this->_query_security($insert_query), $secure);
 	}
 	
 	/******************************************************************************************
@@ -1206,7 +1206,7 @@ class Db
 		
 		$this->where = NULL;
 		$secure = $this->secure;
-		$this->db->query($this->_query_security($update_query), $secure);	
+		return $this->db->query($this->_query_security($update_query), $secure);	
 	}
 	
 	/******************************************************************************************
@@ -1242,7 +1242,7 @@ class Db
 		
 		$secure = $this->secure;
 		
-		$this->db->query($this->_query_security($delete_query), $secure);
+		return $this->db->query($this->_query_security($delete_query), $secure);
 	}
 	
 	/******************************************************************************************

@@ -719,7 +719,6 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
-		
 		foreach(array_unique($arguments) as $style)
 		{
 			if( is_array($style) ) 

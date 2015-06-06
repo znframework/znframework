@@ -485,7 +485,7 @@ class SDb
 		
 		$secure = self::$secure;
 		
-		self::$db->query(self::_query_security($query_builder), $secure);
+		return self::$db->query(self::_query_security($query_builder), $secure);
 	}
 	
 	/******************************************************************************************
@@ -1225,6 +1225,7 @@ class SDb
 		foreach($datas as $key => $value)
 		{
 			$data .= $key.",";
+			
 			if( $value !== '?' )
 			{
 				$values .= "'".$value."'".",";
@@ -1239,7 +1240,7 @@ class SDb
 		
 		$secure = self::$secure;
 		
-		self::$db->query(self::_query_security($insert_query), $secure);
+		return self::$db->query(self::_query_security($insert_query), $secure);
 	}
 	
 	/******************************************************************************************
@@ -1294,7 +1295,7 @@ class SDb
 		
 		$secure = self::$secure;
 		
-		self::$db->query(self::_query_security($update_query), $secure);	
+		return self::$db->query(self::_query_security($update_query), $secure);	
 	}
 	
 	/******************************************************************************************
@@ -1335,7 +1336,7 @@ class SDb
 		
 		$secure = self::$secure;
 		
-		self::$db->query(self::_query_security($delete_query), $secure);
+		return self::$db->query(self::_query_security($delete_query), $secure);
 	}
 	
 	/******************************************************************************************
