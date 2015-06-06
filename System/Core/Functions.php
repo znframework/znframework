@@ -1607,14 +1607,11 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 	
 	if( ! is_dir($log_dir) )
 	{
-		import::library('Folder');
 		folder::create($log_dir, 0777);	
 	}
 	
 	if( is_file($log_dir.suffix($destination,$extension)) )
 	{
-		import::library('File');
-
 		if( empty($time) ) 
 		{
 			$time = config::get('Log', 'file_time');
@@ -2075,9 +2072,8 @@ function is_imported($class = '', $type = NULL)
 		$class = $type.$component.$class;
 	}
 	
-	if(class_exists($class))
+	if( class_exists($class) )
 	{	
-		
 		/* VARIABLE AND FUNCTIONAL ACCESS */
 		if( ! is_object(zn::$dynamic) )
 		{		

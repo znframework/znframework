@@ -316,8 +316,6 @@ class Image
 		// yoksa oluşturuluyor.
 		if( ! is_dir(self::$thumb_path) ) 
 		{ 
-			import::library('Folder'); 
-			
 			folder::create(self::$thumb_path);		
 		}
 		

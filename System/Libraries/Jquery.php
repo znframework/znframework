@@ -976,8 +976,6 @@ class Jquery
 	******************************************************************************************/	
 	public static function ajax($methods = array())
 	{
-		import::library('Ajax');
-		
 		return ajax::send($methods);
 	}
 	

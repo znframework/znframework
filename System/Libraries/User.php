@@ -105,12 +105,6 @@ class User
 			return false;
 		}
 		
-		// ------------------------------------------------------------------------------
-		// SDB, METHOD, ENCODE KÜTÜPHANELERİNİ YÜKLE
-		// ------------------------------------------------------------------------------
-		import::library('SDb','Method',"Encode");
-		// ------------------------------------------------------------------------------
-		
 		$login_username  = $data[$username_column];
 		$login_password  = $data[$password_column];	
 		$encode_password = encode::super($login_password);	
@@ -179,7 +173,6 @@ class User
 	******************************************************************************************/
 	public static function activation_complete()
 	{
-		import::library('SDb');
 		import::language("User");
 		
 		// ------------------------------------------------------------------------------
@@ -230,7 +223,6 @@ class User
 	// Aktivasyon işlemi için
 	private static function _activation($user = "", $pass = "", $activation_return_link = '', $email = '')
 	{
-		import::library("Email");
 		import::language("User");
 		
 		if( ! is_url($activation_return_link) )
@@ -283,8 +275,6 @@ class User
 		
 		if( ! empty($active_column) )
 		{
-			import::library('SDb');
-			
 			sdb::where($active_column.' =', 1);
 			sdb::get($table_name);
 		
@@ -319,9 +309,7 @@ class User
 		$table_name 	= config::get("User","table_name");
 		
 		if( ! empty($banned_column) )
-		{
-			import::library('SDb');
-			
+		{	
 			sdb::where($banned_column.' =', 1);
 			sdb::get($table_name);
 		
@@ -354,8 +342,6 @@ class User
 	{
 		$table_name = config::get("User","table_name");
 		
-		import::library('SDb');
-
 		sdb::get($table_name);
 		
 		$total_rows = sdb::total_rows();
@@ -399,7 +385,6 @@ class User
 		}
 		
 		import::language("User");
-		import::library('SDb','Method','Encode', 'Cookie');
 		
 		$username = $un;
 		$password = encode::super($pw);
@@ -513,7 +498,6 @@ class User
 		}
 		
 		import::language("User");
-		import::library("SDb","Encode","Email");
 		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
@@ -645,7 +629,6 @@ class User
 				$new_again = $new;
 			}
 			
-			import::library("SDb", "Encode");
 			import::language("User");
 			
 			$user_config = config::get("User");	
@@ -710,8 +693,6 @@ class User
 	******************************************************************************************/	
 	public static function is_login()
 	{
-		import::library('Cookie', 'SDb');
-		
 		$c_username = cook::select(md5(config::get("User","username_column")));
 		$c_password = cook::select(md5(config::get("User","password_column")));
 		
@@ -769,9 +750,7 @@ class User
 		{
 			session_start();
 		}
-		
-		import::library('SDb');
-		
+
 		if( isset($_SESSION[md5(config::get("User","username_column"))]) )
 		{
 			$data = array();
@@ -809,9 +788,7 @@ class User
 		{
 			$time = 0;
 		}
-		
-		import::library('Cookie', 'SDb');
-		
+
 		$username = config::get("User","username_column");
 		
 		if( isset(self::data()->$username) )

@@ -403,9 +403,7 @@ class SDbTool
 				}
 			}
 		}
-		
-		import::library('DbTool');
-		
+
 		return new DbTool($config_different[$connect_name]);
 	}
 }

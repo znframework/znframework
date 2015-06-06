@@ -29,9 +29,7 @@ if( ! function_exists('sql_file_uploader'))
 		{
 			return false;
 		}
-		
-		import::library("File","SDb");
-		
+
 		$file_contents = file::contents(suffix($sql_file,".sql"));
 		
 		$file_contents = preg_replace("/SET (.*?);/","",$file_contents);

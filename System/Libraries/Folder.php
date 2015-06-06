@@ -190,8 +190,6 @@ class Folder
 		// Bu bir dizinse
 		if( is_dir($source) )
 		{
-			import::library("Folder");
-			
 			// Dizinin içinde mevcut dosya varsa
 			if( ! folder::files($source) )
 			{
@@ -247,9 +245,7 @@ class Folder
 			return false;	
 		}
 		// ----------------------------------------------------------------------------
-		
-		import::library("File");
-		
+
 		// Bu bir dosya ise
 		if( is_file($name) )
 		{

@@ -70,8 +70,6 @@ class Html5
 	******************************************************************************************/	
 	public static function form_open($name = '', $_attributes = '')
 	{
-		import::library('Form');
-		
 		return form::open($name, $_attributes);
 	}
 
@@ -88,8 +86,6 @@ class Html5
 	******************************************************************************************/	
 	public static function form_close()
 	{
-		import::library('Form');
-		
 		return form::close();
 	}
 	

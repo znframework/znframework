@@ -27,8 +27,6 @@ if(!function_exists('word_filter'))
 			return false;
 		}
 		
-		import::library('Regex');
-	
 		if( ! is_array($badwords) ) 
 		{
 			return  $string = reg::replace($badwords, $changechar, $string, '<inspace><insens>');

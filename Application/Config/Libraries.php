@@ -36,6 +36,22 @@ $config['Libraries']['short_name'] 	= array
 );	
 
 /******************************************************************************************
+* AUTOLOADER DIRECTORY                                                             		  *
+*******************************************************************************************
+| Genel Kullanım: Kütüphane olarak çağrılmak istenen dosyaların yer aldığı dizin		  |
+| aşağıdaki diziye belirtilerek kütüphane gibi dahil edilibilir hale gelir.			      |
+| Veri: array().																		  |
+| Kullanımı: array(DB_DIR, 'System/xx/' , a/c/);   								  	      |
+******************************************************************************************/
+$config['Libraries']['autoloader_directory'] = array
+(
+	LIBRARIES_DIR,
+	SYSTEM_LIBRARIES_DIR,
+	CACHE_DIR,
+	DB_DIR
+);
+
+/******************************************************************************************
 * DIFFERENT DIRECTORY                                                             		  *
 *******************************************************************************************
 | Genel Kullanım: Kütüphane olarak çağrılmak istenen dosyaların yer aldığı dizin		  |
@@ -43,4 +59,8 @@ $config['Libraries']['short_name'] 	= array
 | Veri: array().																		  |
 | Kullanımı: array(DB_DIR, 'System/xx/' , a/c/);   								  	      |
 ******************************************************************************************/
-$config['Libraries']['different_directory'] = array(DB_DIR, CACHE_DIR);
+$config['Libraries']['different_directory'] = array
+(
+	DB_DIR, 
+	CACHE_DIR
+);

@@ -37,8 +37,6 @@ class ComponentSendMail
 	{
 		$this->settings = config::get('Email');
 			
-		import::library('Email');
-		
 		email::open();
 	}
 	

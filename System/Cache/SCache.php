@@ -10,7 +10,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* Cache		                                                                           	  *
+* CACHE	WITH VERSION 1.3	                                                              *
 *******************************************************************************************
 | Dahil(Import) Edilirken : SCache  							                          |
 | Sınıfı Kullanırken      :	scache::     												  |
@@ -251,7 +251,6 @@ class SCache
 	******************************************************************************************/
 	public static function driver($driver = '')
 	{	
-		import::library('Cache');	
 		return new Cache($driver);	
 	}
 }

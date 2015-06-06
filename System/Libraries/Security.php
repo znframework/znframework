@@ -39,9 +39,7 @@ class Sec
 		{
 			return false;
 		}
-		
-		import::library('Regex');
-		
+	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
 		if( empty($badwords) )
 		{

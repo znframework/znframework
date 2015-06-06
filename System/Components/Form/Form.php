@@ -164,7 +164,6 @@ class ComponentForm extends ComponentFormValidation
 	// dil dosyası dahil ediliyor.
 	public function __construct()
 	{
-		import::library('Security');
 		import::language('Validation');	
 	}
 	

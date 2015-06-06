@@ -134,9 +134,7 @@ class Search
 			$type = "inside";
 		}
 		// ------------------------------------------------------------------------
-		
-		import::library('SDb');
-		
+
 		$word = addslashes($word);
 		
 		$str = "";

@@ -456,9 +456,6 @@ class File
 		}
 		else
 		{
-			// Bu bir dizin ise
-			import::library("Folder");
-			
 			// Dizin içerisinde dosyalar mevcut ise 
 			if( folder::files($file) )
 			{

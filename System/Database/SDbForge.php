@@ -596,8 +596,6 @@ class SDbForge
 			}
 		}
 		
-		import::library('DbForge');
-		
 		return new DbForge($config_different[$connect_name]);
 	}
 	

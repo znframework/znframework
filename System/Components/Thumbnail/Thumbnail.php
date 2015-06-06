@@ -486,8 +486,6 @@ class ComponentThumb
 		// yoksa oluşturuluyor.
 		if( ! is_dir($this->thumb_path) ) 
 		{ 
-			import::library('Folder'); 
-			
 			folder::create($this->thumb_path);		
 		}
 		

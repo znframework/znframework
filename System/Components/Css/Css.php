@@ -127,8 +127,6 @@ class ComponentCss
 	{
 		if( is_string($file) )
 		{
-			import::library('File');
-			
 			$this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
 			$this->manipulation['file'] = file::contents($this->manipulation['filename']);
 		}

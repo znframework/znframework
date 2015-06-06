@@ -162,9 +162,7 @@ class Import
 					}
 					
 					$classex = explode('/', $class );
-					
-					import::library('Folder');
-				
+	
 					$all_components = folder::files(SYSTEM_COMPONENTS_DIR.$classex[0], 'php');
 					
 					if( ! empty($all_components ) )foreach($all_components as $component)
@@ -915,9 +913,7 @@ class Import
 		{
 			return false;
 		}
-		
-		import::library("Folder");	
-		
+	
 		if( folder::files($packages) ) 
 		{
 			foreach(folder::files($packages) as $val)
@@ -1036,7 +1032,6 @@ class Import
 	******************************************************************************************/
 	public static function model()
 	{
-		
 		$config_coder = array_unique(config::get('Autoload','model'));
 		
 		$arguments = func_get_args();

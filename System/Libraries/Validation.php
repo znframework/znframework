@@ -52,8 +52,6 @@ class Val
 	 */
 	protected static function _method_type($name = '', $met = '')
 	{
-		import::library('Method');
-
 		if( $met === "post" ) 		
 		{
 			return method::post($name);
@@ -322,10 +320,8 @@ class Val
 		{
 			return false;
 		}
-		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
 		
-		// birinci parametre otomatik olarak post ile alınıyor
-		import::library('Method','Security','Validation','Encode');
+		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
 		import::language('Validation');
 		
 		$view_name = ( empty($view_name) ) 

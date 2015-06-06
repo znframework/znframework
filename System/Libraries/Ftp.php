@@ -581,8 +581,6 @@ class Ftp
 		}
 		else
 		{
-			import::library("Folder");
-			
 			if( self::files($path) )
 			{
 				foreach(self::files($path) as $val)
