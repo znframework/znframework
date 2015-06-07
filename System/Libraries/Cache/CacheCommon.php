@@ -26,7 +26,7 @@ function cachecommon($driver = '')
 	if( isset($config['driver']) ) 
 	{	
 		// Geçerli sürücüler
-		$drivers = library('folder', 'files', array(CACHE_DIR.'Drivers/', 'php'));	
+		$drivers = library('folder', 'files', array(SYSTEM_LIBRARIES_DIR.'Cache/Drivers/', 'php'));	
 		
 		if( empty($driver) )
 		{
@@ -46,7 +46,7 @@ function cachecommon($driver = '')
 			return false;	
 		}
 		
-		$driver_path = CACHE_DIR.'Drivers/'.$driver.'.php';
+		$driver_path = SYSTEM_LIBRARIES_DIR.'Cache/Drivers/'.$driver.'.php';
 		
 		// Hangi sürücü kullanılacaksa
 		// o sürüyü dahil ediyor.

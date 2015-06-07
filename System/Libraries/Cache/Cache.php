@@ -35,7 +35,7 @@ class Cache
 	******************************************************************************************/
 	public function __construct($driver = '')
 	{
-		require_once(CACHE_DIR.'CacheCommon.php');
+		require_once(SYSTEM_LIBRARIES_DIR.'Cache/CacheCommon.php');
 		
 		$this->cache = cachecommon($driver);
 		
