@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * THUMBNAIL                                                                               *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Thumbnail            							     		  |
-| Sınıfı Kullanırken      :	$this->thumb->     					     				      |
+| Sınıfı Kullanırken      :	$this->thumbnail->     					     				  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentThumb
+class Thumbnail
 {
 	/* Dir Name Değişkeni
 	 *  

@@ -16,11 +16,11 @@ if(!isset($_SESSION)) session_start();
 * SESSION                                                                                 *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Session          							     			  |
-| Sınıfı Kullanırken      :	$this->sess->       									      |
+| Sınıfı Kullanırken      :	$this->session->       									      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentSess
+class Session
 {
 	protected $name;
 	protected $value;

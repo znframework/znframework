@@ -67,40 +67,15 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
-		if( ! empty($arguments) )foreach(array_unique($arguments) as $class)
+		if( ! empty($arguments) ) foreach(array_unique($arguments) as $class)
 		{
 			if( is_array($class) ) 
 			{
 				$class = '';
 			}
-			
+	
 			if( ! in_array($class, $config_library) )
 			{	
-				$class_path = suffix($class,".php"); 
-				$path = LIBRARIES_DIR.$class_path;		
-						
-				if( is_file_exists($path) && ! class_exists($class) )
-				{	
-					require_once($path);	
-				}
-				elseif( is_file_exists(SYSTEM_LIBRARIES_DIR.$class_path) && ! class_exists($class) )
-				{	
-					require_once(SYSTEM_LIBRARIES_DIR.$class_path);	
-				}
-				else
-				{
-					$different_directory = config::get('Libraries', 'different_directory');
-					
-					if( ! empty($different_directory) )foreach($different_directory as $dir)
-					{
-						$path = suffix($dir, '/').suffix($class,".php");
-							
-						if( is_file($path) && ! class_exists($class) )
-						{
-							require_once($path);					
-						}
-					}	
-				}
 				is_imported($class);
 			}	
 		}	
@@ -122,73 +97,7 @@ class Import
 	******************************************************************************************/
 	public static function component()
 	{
-		$config_component = array_unique(config::get('Autoload','component'));
-		
-		$arguments = func_get_args();
-		
-		// Parametre olarak gönderilen sıralı argümenler
-		// içindeki ilk eleman dizi ise
-		// bu diziyi sıralı argümen olarak kabul etmesini
-		// sağlamak amacıyla oluşturulmuştur.
-		// Böylece hem sıralı argümen olarak 
-		// hem de dizi olarak bileşenler dahil edilebilecektir.
-		if( isset($arguments[0]) && is_array($arguments[0]) )
-		{
-			$arguments = $arguments[0];
-		}
-		
-		if( ! empty($arguments) )foreach(array_unique($arguments) as $class)
-		{
-			if( is_array($class) ) 
-			{
-				$class = '';
-			}
-			
-			if( ! in_array($class, $config_component) )
-			{	
-				// Bileşenler dahil edilirken bir bileşene ait
-				// Tüm alt bileşenleri dahil etmek için
-				// Bileşen/* veya Bileşen.* kullanabilmek
-				// için bu bölümde kontroller yapılmaktadır.	
-				if( ! strstr($class, '/') &&  ! strstr($class, '.*') )
-				{
-					 $class = $class.'/'.$class;
-				}
-				elseif( strstr($class, '/*') || strstr($class, '.*') )
-				{
-					if( strstr($class, '.*') )
-					{
-						$class = str_replace('.*', '/*', $class);	
-					}
-					
-					$classex = explode('/', $class );
-	
-					$all_components = folder::files(SYSTEM_COMPONENTS_DIR.$classex[0], 'php');
-					
-					if( ! empty($all_components ) )foreach($all_components as $component)
-					{
-						$component_path = SYSTEM_COMPONENTS_DIR.$classex[0].'/'.$component;
-						
-						require_once($component_path);	
-						
-						is_imported($classex[0].'/'.$component, 'Component');
-					}
-				}
-					
-				$path = SYSTEM_COMPONENTS_DIR.suffix($class,".php");
-						
-				if( is_file_exists($path) && ! class_exists($class) )
-				{
-					require_once($path);	
-				}
-				else
-				{
-					return false;
-				}
-	
-				is_imported($class, 'Component');
-			}	
-		}	
+		return self::library(func_get_args());	
 	}
 	
 	/******************************************************************************************
@@ -226,7 +135,7 @@ class Import
 			if( ! in_array($tool, $config_tool) )
 			{
 				$tool_path = suffix($tool,".php");
-				$path = TOOLS_DIR.$tool_path;
+				$path      = TOOLS_DIR.$tool_path;
 				
 				if( is_file_exists($path ) && ! is_import($path) ) 
 				{
@@ -296,8 +205,8 @@ class Import
 				}
 			}		
 		}
+		
 		require_once CORE_DIR.'Lang.php';
-	
 	}
 	
 	/******************************************************************************************
@@ -1057,7 +966,7 @@ class Import
 					require_once($path);
 				}
 			}
-			is_imported($class, 'Model');
+			is_imported($class);
 		}	
 	}
 }

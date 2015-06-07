@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * COOOKIE                                                                                 *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Cookie     							                          |
-| Sınıfı Kullanırken      :	$this->cook->       										  |
+| Sınıfı Kullanırken      :	$this->cookie->       										  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/	
-class ComponentCook
+class Cookie
 {
 	/* Name Değişkeni
 	 *  

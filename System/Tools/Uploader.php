@@ -39,11 +39,13 @@ if( ! function_exists('sql_file_uploader'))
 		
 		$queries = explode(";\n", $file_contents);
 		
+		$db = new Db;
+		
 		foreach($queries as $query)
 		{
 			if( $query !== '' )
 			{
-				sdb::exec_query(trim($query));
+				$db->exec_query(trim($query));
 			}
 		}
     }

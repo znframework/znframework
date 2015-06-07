@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Common.php');
+require_once(COMPONENTS_DIR.'Jquery/Common.php');
 /******************************************************************************************
 * JQUERY                                                                                  *
 *******************************************************************************************
@@ -18,7 +18,7 @@ require_once(SYSTEM_COMPONENTS_DIR.'Jquery/Common.php');
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentJquery extends ComponentJqueryCommon
+class Jquery extends ComponentJqueryCommon
 {
 	/* Selector Variables
 	 * Selector 

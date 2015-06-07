@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * VALIDATION                                                                          	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Validation   							                      |
-| Sınıfı Kullanırken      :	val::   											      	  |
+| Sınıfı Kullanırken      :	validation::   											      	  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Val
+class Validation
 {
 	/* Errors Değişkeni
 	 *  
@@ -349,25 +349,25 @@ class Val
 		if( in_array('nc_encode',$config) )
 		{
 			$secnc = config::get("Security", "nc_encode");
-			$edit = sec::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
+			$edit = security::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
 		if( in_array('html_encode',$config) )
 		{
-			$edit = sec::html_encode($edit);		
+			$edit = security::html_encode($edit);		
 		}
 		
 		// nail_clean tırnak işaretlerini temizlemek için kullanılır.
 		if( in_array('xss_encode',$config) )
 		{
-			$edit = sec::xss_encode($edit);	
+			$edit = security::xss_encode($edit);	
 		}
 		
 		// tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
 		if( in_array('injection_encode',$config) )
 		{
-			$edit = sec::injection_encode($edit);
+			$edit = security::injection_encode($edit);
 		}
 		
 		self::$nval[$name] = $edit;

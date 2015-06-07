@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * PAGINATION                                                                              *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Pagination      							     			  |
-| Sınıfı Kullanırken      :	$this->pag->       									      	  |
+| Sınıfı Kullanırken      :	$this->pagination->       									      	  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentPag
+class Pagination
 {
 	protected $url			= NULL;
 	protected $limit		= NULL;

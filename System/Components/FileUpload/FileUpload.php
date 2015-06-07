@@ -16,12 +16,12 @@ config::iniset(config::get('Upload','settings'));
 /******************************************************************************************
 * UPLOAD                                                                                  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Upload            							     			  |
-| Sınıfı Kullanırken      :	$this->upload->     									      |
+| Dahil(Import) Edilirken : FileUpload            							     		  |
+| Sınıfı Kullanırken      :	$this->fileupload->     									  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentUpload
+class FileUpload
 {
 	/* Settings Değişkeni
 	 *  

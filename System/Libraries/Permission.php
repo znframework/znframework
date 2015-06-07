@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * PERMISSON                                                                            	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Permission   							                      |
-| Sınıfı Kullanırken      :	perm::   											          |
+| Sınıfı Kullanırken      :	permission::   											          |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Perm
+class Permission
 {
 	/* Permission Değişkeni
 	 *  

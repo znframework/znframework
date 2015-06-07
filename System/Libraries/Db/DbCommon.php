@@ -38,7 +38,7 @@ function dbcommon()
 			$driver  = $subdrivers[0];
 		}
 		
-		$driver_path = DRIVERS_DIR.$driver.'.php';
+		$driver_path = SYSTEM_LIBRARIES_DIR.'Db/Drivers/'.$driver.'.php';
 		
 		// Hangi sürücü kullanılacaksa
 		// o sürüyü dahil ediyor.

@@ -35,7 +35,7 @@ class DbTool
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		require_once(DB_DIR.'DbCommon.php');
+		require_once(SYSTEM_LIBRARIES_DIR.'Db/DbCommon.php');
 		
 		$this->db = dbcommon();
 		

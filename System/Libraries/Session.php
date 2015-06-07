@@ -21,11 +21,11 @@ if( ! isset($_SESSION) ) session_start();
 * SESSION                                                                            	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Session   							                          |
-| Sınıfı Kullanırken      :	sess::   											          |
+| Sınıfı Kullanırken      :	session::   											          |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Sess
+class Session
 {
 
 	/******************************************************************************************

@@ -17,7 +17,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Sec
+class Security
 {
 	/******************************************************************************************
 	* NC ENCODE                                                                               *
@@ -47,7 +47,7 @@ class Sec
 			$badwords = $secnc['bad_chars'];
 			$changechar = $secnc['change_bad_chars'];
 		}
-		if( ! is_array($badwords)) return  $string = reg::replace($badwords, $changechar, $string, '<inspace><insens>');
+		if( ! is_array($badwords)) return  $string = regex::replace($badwords, $changechar, $string, '<inspace><insens>');
 		
 		$ch = '';
 		$i = 0;	
@@ -67,7 +67,7 @@ class Sec
 				}
 			}
 			
-			$string = reg::replace($value, $ch, $string, '<inspace><insens>');
+			$string = regex::replace($value, $ch, $string, '<inspace><insens>');
 		}
 	
 		return $string;

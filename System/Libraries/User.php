@@ -109,10 +109,11 @@ class User
 		$login_password  = $data[$password_column];	
 		$encode_password = encode::super($login_password);	
 		
-		sdb::where($username_column.' =',$login_username);	
-		sdb::get($table_name);
+		$db = new Db;
 		
-		$username_control = sdb::total_rows();
+		$username_control = $db->where($username_column.' =',$login_username)
+							   ->get($table_name)
+							   ->total_rows();
 		
 		// Daha önce böyle bir kullanıcı
 		// yoksa kullanıcı kaydetme işlemini başlat.
@@ -120,7 +121,7 @@ class User
 		{
 			$data[$password_column] = $encode_password;
 			
-			if( sdb::insert($table_name , $data) )
+			if( $db->insert($table_name , $data) )
 			{
 				self::$error = false;
 				self::$success = lang('user_register_success');
@@ -193,16 +194,18 @@ class User
 		
 		if( ! empty($user) && ! empty($pass) )	
 		{
-			sdb::where($username_column.' =', $user, 'and');
-			sdb::where($password_column.' =', $pass);		
-			sdb::get($table_name);	
-					
-			$row = sdb::row();	
+			$db = new Db;
+			
+			$row = $db->where($username_column.' =', $user, 'and')
+			          ->where($password_column.' =', $pass)		
+			          ->get($table_name)
+					  ->row();	
 				
 			if( ! empty($row) )
 			{
-				sdb::where($username_column.' =', $user);
-				sdb::update($table_name, array($activation_column => '1'));
+				$db->where($username_column.' =', $user)
+				   ->update($table_name, array($activation_column => '1'));
+				
 				self::$success = lang("user_activation_complete");
 				
 				return true;
@@ -275,10 +278,11 @@ class User
 		
 		if( ! empty($active_column) )
 		{
-			sdb::where($active_column.' =', 1);
-			sdb::get($table_name);
-		
-			$total_rows = sdb::total_rows();
+			$db = new Db;
+			
+			$total_rows = $db->where($active_column.' =', 1)
+							 ->get($table_name)
+							 ->total_rows();
 			
 			if( ! empty($total_rows) )
 			{
@@ -310,10 +314,11 @@ class User
 		
 		if( ! empty($banned_column) )
 		{	
-			sdb::where($banned_column.' =', 1);
-			sdb::get($table_name);
-		
-			$total_rows = sdb::total_rows();
+			$db = new Db;
+			
+			$total_rows = $db->where($banned_column.' =', 1)
+							 ->get($table_name)
+						 	 ->total_rows();
 			
 			if( ! empty($total_rows) )
 			{
@@ -342,9 +347,9 @@ class User
 	{
 		$table_name = config::get("User","table_name");
 		
-		sdb::get($table_name);
+		$db = new Db;
 		
-		$total_rows = sdb::total_rows();
+		$total_rows = $db->get($table_name)->total_rows();
 		
 		if( ! empty($total_rows) )
 		{
@@ -403,9 +408,11 @@ class User
 		$activation_column 	= $user_config["activation_column"];
 		// ------------------------------------------------------------------------------
 		
-		sdb::where($username_column.' =',$username);
-		sdb::get($table_name);
-		$r = sdb::row();
+		$db = new Db;
+		
+		$r = $db->where($username_column.' =',$username)
+			    ->get($table_name)
+				->row();
 			
 		$password_control   = $r->$password_column;
 		$banned_control     = '';
@@ -415,7 +422,6 @@ class User
 		{
 			$banned = $banned_column ;
 			$banned_control = $r->$banned ;
-			
 		}
 		
 		if( ! empty($activation_column) )
@@ -423,7 +429,6 @@ class User
 			$activation_control = $r->$activation_column ;			
 		}
 		
-	
 		if( ! empty($r->$username_column) && $password_control == $password )
 		{
 			if( ! empty($banned_column) && ! empty($banned_control) )
@@ -449,17 +454,16 @@ class User
 			
 			if( method::post($remember_me) || ! empty($remember_me) )
 			{
-				if( cook::select(md5($username_column)) != $username )
+				if( cookie::select(md5($username_column)) != $username )
 				{					
-					cook::insert(md5($username_column),$username);
-					cook::insert(md5($password_column),$password);
+					cookie::insert(md5($username_column),$username);
+					cookie::insert(md5($password_column),$password);
 				}
 			}
 			
 			if( ! empty($active_column) )
 			{		
-				sdb::where($username_column.' =', $username);
-				sdb::update($table_name, array($active_column  => 1));
+				$db->where($username_column.' =', $username)->update($table_name, array($active_column  => 1));
 			}
 			
 			self::$error = false;
@@ -510,16 +514,18 @@ class User
 		$table_name 		= $user_config["table_name"];	
 		// ------------------------------------------------------------------------------
 		
+		$db = new Db;
+		
 		if( ! empty($email_column) )
 		{
-			sdb::where($email_column.' =', $email);
+			$db->where($email_column.' =', $email);
 		}
 		else
 		{
-			sdb::where($username_column.' =', $email);
+			$db->where($username_column.' =', $email);
 		}
 		
-		sdb::get($table_name); $row = sdb::row();
+		$row = $db->get($table_name)->row();
 		
 		$result = "";
 		
@@ -550,13 +556,14 @@ class User
 			{
 				if( ! empty($email_column) )
 				{
-					sdb::where($email_column.' =', $email);
+					$db->where($email_column.' =', $email);
 				}
 				else
 				{
-					sdb::where($username_column.' =', $email);
+					$db->where($username_column.' =', $email);
 				}
-				sdb::update($table_name, array($password_column => $encode_password));
+				
+				$db->update($table_name, array($password_column => $encode_password));
 
 				self::$error = true;	
 				self::$success = lang("user_forgot_password_success");
@@ -659,9 +666,11 @@ class User
 				$data[$pc] = $new_password;
 				$data[$uc] = $username;
 				
-				sdb::where($uc.' =', $username);
+				$db = new Db;
 				
-				if( sdb::update($tn, $data) )
+				$db->where($uc.' =', $username);
+				
+				if( $db->update($tn, $data) )
 				{
 					self::$error = false;
 					self::$success = lang('update_process_success');
@@ -693,18 +702,18 @@ class User
 	******************************************************************************************/	
 	public static function is_login()
 	{
-		$c_username = cook::select(md5(config::get("User","username_column")));
-		$c_password = cook::select(md5(config::get("User","password_column")));
+		$c_username = cookie::select(md5(config::get("User","username_column")));
+		$c_password = cookie::select(md5(config::get("User","password_column")));
 		
 		$result = '';
 		
 		if( ! empty($c_username) && ! empty($c_password) )
 		{
-			sdb::where(config::get("User","username_column").' =',$c_username, 'and');
-			sdb::where(config::get("User","password_column").' =',$c_password);
-			sdb::get(config::get("User","table_name"));
-			
-			$result = sdb::total_rows();
+			$db = new Db;
+			$result = $db->where(config::get("User","username_column").' =',$c_username, 'and')
+						 ->where(config::get("User","password_column").' =',$c_password)
+						 ->get(config::get("User","table_name"))
+						 ->total_rows();
 		}
 		
 		$username = config::get("User","username_column");
@@ -755,10 +764,12 @@ class User
 		{
 			$data = array();
 			self::$username = $_SESSION[md5(config::get("User","username_column"))];
-			sdb::where(config::get("User","username_column").' =',self::$username);
-			sdb::get(config::get("User","table_name"));
 			
-			$r = sdb::row();
+			$db = new Db;
+			
+			$r = $db->where(config::get("User","username_column").' =',self::$username)
+				    ->get(config::get("User","table_name"))
+					->row();
 			
 			return (object)$r;
 		}
@@ -800,12 +811,14 @@ class User
 			
 			if( config::get("User","active_column") )
 			{	
-				sdb::where(config::get("User","username_column").' =', self::data()->$username);
-				sdb::update(config::get("User","table_name"), array(config::get("User","active_column") => 0));
+				$db = new Db;
+				
+				$db->where(config::get("User","username_column").' =', self::data()->$username)
+				   ->update(config::get("User","table_name"), array(config::get("User","active_column") => 0));
 			}
 			
-			cook::delete(md5(config::get("User","username_column")));
-			cook::delete(md5(config::get("User","password_column")));	
+			cookie::delete(md5(config::get("User","username_column")));
+			cookie::delete(md5(config::get("User","password_column")));	
 			
 			if( isset($_SESSION[md5(config::get("User","username_column"))]) ) 
 			{

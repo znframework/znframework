@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-class Home extends Controller
+class Home // extends Controller
 {	
 	/******************************************************************\
 	|																   | 

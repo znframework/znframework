@@ -28,19 +28,31 @@ class Autoloader
 	{
 		$file  = divide($class, '\\', -1);
 		
-		$file  = $file.'.php';    
-		
-		$class_path = $file; 
-		
-		$libraries_dir = config::get('Libraries', 'autoloader_directory');
+		$file .= '.php';    
+
+		$libraries_dir = library('Config', 'get', array('Libraries', 'autoloader_directory'));
 		
 		foreach( $libraries_dir as $lib )
 		{
 			$library = $lib.$file;
 			
-			if( is_file_exists($library) )
+			if( is_file_exists($library) && ! class_exists($library))
 			{		
 				require_once($library);	
+			}
+			else
+			{
+				$dirs = library('Folder', 'files', array($lib, 'dir'));
+					
+				if( ! empty($dirs) ) foreach($dirs as $dir)
+				{
+					$dirpath = $lib.$dir.'/'.$file;
+			
+					if( is_file_exists($dirpath) && ! class_exists($class) )
+					{
+						require_once($dirpath);		
+					}
+				}
 			}
 		}
 		

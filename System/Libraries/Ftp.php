@@ -496,7 +496,7 @@ class Ftp
 		
 		$list = @ftp_nlist(self::$connect, $path);
 	
-		foreach($list as $file)
+		if( ! empty($list) ) foreach($list as $file)
 		{
 			if( $file !== '.' && $file !== '..' )
 			{				

@@ -37,7 +37,7 @@ class Search
 	protected static function _filter($column = '', $value = '', $type)
 	{
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
-		if( ! is_string($column) || ! is_string($operator) ) 
+		if( ! is_string($column) || ! is_string($column) ) 
 		{
 			return false;
 		}
@@ -160,14 +160,16 @@ class Search
 		}
 		// ------------------------------------------------------------------------
 		
+		$db = new Db();
+		
 		foreach($conditions as $key => $values)
 		{
 			// Tekrarlayan verileri engelle.
-			sdb::distinct();
+			$db->distinct();
 			
 			foreach($values as $keys)
 			{	
-				sdb::where($keys.' like', $str, 'or');
+				$db->where($keys.' like', $str);
 				
 				// Filter dizisi boş değilse
 				// Filtrelere göre verileri çek
@@ -180,28 +182,28 @@ class Search
 						// Ve bağlaçlı filter kullanılmışsa
 						if( $exval[2] === "and" )
 						{
-							sdb::where("and".$key.".".$exval[0].' ', $exval[1]);	
+							$db->where("and $exval[0] ", $exval[1]);	
 						}
 						
 						// Veya bağlaçlı or_filter kullanılmışsa
 						if( $exval[2] === "or" )
 						{
-							sdb::where("or ".$key.".".$exval[0].' ', $exval[1]);
+							$db->where("or $exval[0] ", $exval[1]);
 						}
 					}	
 				}
 			}
 			
 			// Sonuçları getir.
-			sdb::get($key);
+			$db->get($key);
 			
 			// Sonuçları result dizisine yazdır.
-			self::$result[$key] = sdb::result();
+			self::$result[$key] = $db->result();
 		}
 		
-	
 		$result = self::$result;
 		
+		$db->close();
 		// Değişkenleri sıfırla
 		self::$result = '';
 		self::$filter = array();

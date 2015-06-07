@@ -17,7 +17,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentCssTransform
+class Transform
 {
 	/* Selector Değişkeni
 	 *  

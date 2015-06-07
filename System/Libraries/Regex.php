@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * REGEX                                                                              	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Regex   							                          |
-| Sınıfı Kullanırken      :	reg::   											          |
+| Sınıfı Kullanırken      :	regex::   											          |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Reg
+class Regex
 {
 	/******************************************************************************************
 	* MATCH                                                                                   *

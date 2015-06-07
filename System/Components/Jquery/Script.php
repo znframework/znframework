@@ -17,7 +17,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class ComponentJqueryScript
+class Script
 {
 	protected $ready    = true;
 	protected $type 	= 'text/javascript';

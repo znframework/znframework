@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-require_once(SYSTEM_COMPONENTS_DIR.'Form/Security.php');
+require_once(COMPONENTS_DIR.'Form/Security.php');
 /******************************************************************************************
 * PROTECTED VALIDATION                                                                    *
 *******************************************************************************************

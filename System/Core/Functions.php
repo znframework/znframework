@@ -1913,23 +1913,6 @@ function autoload($elements = '', $folder = '')
 		{
 			require_once(SYSTEM_DIR.$path);
 		}
-		else
-		{
-			if( $folder === 'Libraries' )
-			{
-				$different_directory = config::get('Libraries', 'different_directory');
-					
-				if( ! empty($different_directory) )foreach($different_directory as $dir)
-				{
-					$path = suffix($dir, '/').suffix($rows,".php");
-						
-					if( is_file($path) && ! class_exists($rows) )
-					{
-						require_once($path);
-					}
-				}
-			}	
-		}
 	}
 }
 
@@ -1991,38 +1974,22 @@ function index_status()
 // Dönen Değerler: Sistem kullanıyor.
 function zndynamic_autoloaded()
 {
-	$autoload   = config::get('Autoload');
+	$autoload   = config::get('Autoload');	
 		
+	$prefereds  = config::get('Libraries', 'preloaded');
 	$libraries  = $autoload['library'];
 	$model 		= $autoload['model'];
 	$components = $autoload['component'];
 	
-	if( ! empty($libraries) ) 
+	$import_files = array_merge($prefereds, $libraries, $model, $components);
+	
+	if( ! empty($import_files) ) 
 	{
-		foreach($libraries as $class)
+		foreach($import_files as $class)
 		{
 			 is_imported($class, 'Library');
 		}
 	}
-	if( ! empty($components) )
-	{
-		foreach($components as $class)
-		{
-			 is_imported($class, 'Component');
-		}
-	}
-	if( ! empty($model) )
-	{
-		foreach($model as $class)
-		{
-			 is_imported($class, 'Model');
-		}
-	}
-	
-	is_imported('Config');
-	is_imported('Import');
-	is_imported('Uri');
-	is_imported('Benchmark');
 }
 
 // Function: is_imported()
@@ -2034,44 +2001,9 @@ function is_imported($class = '', $type = NULL)
 	{
 		$class = remove_extension($class);
 	}
-
-	if( strstr($class, '/') )
-	{
-		$classex = explode('/', $class);
-		$class = $classex[count($classex) - 1];
-		$component = $classex[count($classex) - 2];	
-	}
-	$short_name = config::get('Libraries', 'short_name');		
-		
-	if( isset($short_name[$class]) )
-	{
-		$class = $short_name[$class];
-	}
 	
 	$var = strtolower($class);
 		
-	if( $type === 'Component' )
-	{
-		if( ! isset($component) )
-		{
-			$component = '';	
-		}
-		else
-		{
-			if( isset($short_name[$component]) )
-			{
-				$component = $short_name[$component];
-			}
-			
-			if( $component === $class )
-			{
-				$component = '';
-			}	
-		}
-		
-		$class = $type.$component.$class;
-	}
-	
 	if( class_exists($class) )
 	{	
 		/* VARIABLE AND FUNCTIONAL ACCESS */

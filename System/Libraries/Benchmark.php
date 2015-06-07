@@ -13,11 +13,12 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * BENCHMARK                                                                           	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Dahil Etmeye Gerek Yoktur.   							      |
-| Sınıfı Kullanırken      :	bench::, $this->bench, zn::$use->bench, this()->bench		  |
+| Sınıfı Kullanırken      :	benchmark::, $this->benchmark, zn::$use->benchmark, 		  |
+| this()->benchmark	  																	  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/	
-class Bench
+class Benchmark
 {
 	/* Tests Dizi Değişkeni
 	 *  

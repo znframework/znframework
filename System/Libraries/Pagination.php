@@ -13,11 +13,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * PAGINATION                                                                           	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Pagination   							                      |
-| Sınıfı Kullanırken      :	pag::   											          |
+| Sınıfı Kullanırken      :	pagination::   											          |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Pag
+class Pagination
 {
 	/* Total Rows Değişkeni
 	 *  

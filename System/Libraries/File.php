@@ -144,7 +144,7 @@ class File
 	******************************************************************************************/
 	public static function find($file = '', $data = '')
 	{
-		if( ! is_string($file) ) 
+		if( ! is_string($file) || empty($data) ) 
 		{
 			return false;
 		}

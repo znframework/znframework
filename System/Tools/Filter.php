@@ -29,7 +29,7 @@ if(!function_exists('word_filter'))
 		
 		if( ! is_array($badwords) ) 
 		{
-			return  $string = reg::replace($badwords, $changechar, $string, '<inspace><insens>');
+			return  $string = regex::replace($badwords, $changechar, $string, '<inspace><insens>');
 		}
 		
 		$ch = '';
@@ -50,7 +50,7 @@ if(!function_exists('word_filter'))
 				}
 			}
 			
-			$string = reg::replace($value, $ch, $string, '<inspace><insens>');
+			$string = regex::replace($value, $ch, $string, '<inspace><insens>');
 		}
 
 		return $string;

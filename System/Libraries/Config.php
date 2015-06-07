@@ -38,14 +38,6 @@ class Config
 	 */
 	private static $config = array();
 	
-	/*
-	 * Ayarın daha önce yüklenip yüklenilmediğinin kontrolü.
-	 *
-	 * boolean @load_control
-	 *
-	 */
-	private static $load_control = false;
-	
 	// config() yöntemi için oluşturulmuştur.
 	// Parametreye göre ayar dosyasını yükler.
 	private static function _config($file)

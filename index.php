@@ -53,7 +53,7 @@ class System
 		//------------------------------------------------------------------
 		// Kullanılabilir Uygulama Seçenekleri
 		//------------------------------------------------------------------
-		switch(APP_TYPE)
+		switch( APP_TYPE )
 		{ 
 			//------------------------------------------------------------------
 			// Publication Yayın Modu
@@ -97,7 +97,7 @@ class System
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		
-		if($BENCHMARK_PERFOMANCE_TEST_START === true) 
+		if( $BENCHMARK_PERFOMANCE_TEST_START === true ) 
 		{
 			//------------------------------------------------------------------
 			//  Sisteminin Açılış Zamanını Hesaplamayı Başlat
@@ -114,7 +114,7 @@ class System
 		//  Sistem çalıştırılıyor ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//******************************************************************
 		
-		if($BENCHMARK_PERFOMANCE_TEST_START === true)
+		if( $BENCHMARK_PERFOMANCE_TEST_START === true )
 		{	
 			//------------------------------------------------------------------
 			//  Sistemin Açılış Zamanını Hesaplamayı Bitir

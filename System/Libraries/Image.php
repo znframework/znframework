@@ -383,7 +383,7 @@ class Image
 	| Not: Genişlik veya yükseklik parametrelerinden sadece bir tanesi kullanılmalıdır.       |
 	|          																				  |
 	******************************************************************************************/	
-	public static function size($path = '', $width = 0, $height = 0)
+	public static function get_prosize($path = '', $width = 0, $height = 0)
 	{
 		// Parametre kontrolleri yapılıyor. ------------------------------------------
 		if( ! is_string($path) ) 
