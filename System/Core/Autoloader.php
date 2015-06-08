@@ -30,7 +30,7 @@ class Autoloader
 		
 		$file .= '.php';    
 
-		$autoloader_directory = library('Config', 'get', array('Libraries', 'autoloader_directory'));
+		$autoloader_directory = library('Config', 'get', array('Autoload', 'directory'));
 		
 		foreach( $autoloader_directory as $lib )
 		{

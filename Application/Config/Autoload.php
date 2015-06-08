@@ -60,6 +60,32 @@ $config['Autoload']['model'] 	= array(); // Array
 $config['Autoload']['language'] = array(); // Array
 
 /******************************************************************************************
+* AUTOLOADER DIRECTORY                                                             		  *
+*******************************************************************************************
+| Genel Kullanım: Kütüphane olarak çağrılmak istenen dosyaların yer aldığı dizin		  |
+| aşağıdaki diziye belirtilerek kütüphane gibi dahil edilibilir hale gelir.			      |
+| Veri: array().																		  |
+| Kullanımı: array(DB_DIR, 'System/xx/' , a/c/);   								  	      |
+******************************************************************************************/
+$config['Autoload']['directory'] = array
+(
+	LIBRARIES_DIR,
+	SYSTEM_LIBRARIES_DIR,
+	COMPONENTS_DIR,
+	MODELS_DIR
+);
+
+/******************************************************************************************
+* PRELOADED                                                                            	  *
+*******************************************************************************************
+| Genel Kullanım: $this-> kullanımı ile herhangi bir dahil edilmeye ihtiyaç duyamayan	  |
+| Sınıfları belirtmek için kullanılır.       		      								  |
+| Parametre: Dahil etmek istediğiniz kütüphaneleri diziye elaman olarak sırayla ekleyin.  |
+| Örnek: array('Config' ...);															  |
+******************************************************************************************/	
+$config['Autoload']['preloaded'] = array('Config', 'Import', 'Benchmark', 'Uri');
+
+/******************************************************************************************
 * COMPOSER AUTOLOAD                                                                       *
 *******************************************************************************************
 | Genel Kullanım: Composer autoload dosyasının yüklenip yüklenilmeyeceğine karar verir.   |

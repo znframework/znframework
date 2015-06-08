@@ -1932,19 +1932,19 @@ function index_status()
 function zndynamic_autoloaded()
 {
 	$autoload   = config::get('Autoload');	
-		
-	$prefereds  = config::get('Libraries', 'preloaded');
+	
+	$preloaded  = $autoload['preloaded'];	
 	$libraries  = $autoload['library'];
 	$model 		= $autoload['model'];
 	$components = $autoload['component'];
 	
-	$import_files = array_merge($prefereds, $libraries, $model, $components);
+	$import_files = array_merge($preloaded, $libraries, $model, $components);
 	
 	if( ! empty($import_files) ) 
 	{
 		foreach($import_files as $class)
 		{
-			 is_imported($class, 'Library');
+			 is_imported($class);
 		}
 	}
 }
@@ -1960,7 +1960,7 @@ function is_imported($class = '', $type = NULL)
 	}
 	
 	$var = strtolower($class);
-		
+
 	if( class_exists($class) )
 	{	
 		/* VARIABLE AND FUNCTIONAL ACCESS */
