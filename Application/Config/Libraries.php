@@ -33,6 +33,7 @@ $config['Libraries']['preloaded'] = array('Config', 'Import', 'Uri', 'Benchmark'
 $config['Libraries']['autoloader_directory'] = array
 (
 	LIBRARIES_DIR,
+	SYSTEM_LIBRARIES_DIR,
 	COMPONENTS_DIR,
-	SYSTEM_LIBRARIES_DIR
+	MODELS_DIR
 );

@@ -65,31 +65,31 @@ class Starting
 		// Kütüphaneleri otomatik yükle.
 		if( ! empty($autoload['library']) )	
 		{
-			autoload($autoload['library'], 'Libraries');
+			import::library($autoload['library']);
 		}
 		
 		// Bileşenleri otomatik yükle.
 		if( ! empty($autoload['component']) )	
 		{
-			autoload($autoload['component'], 'Components');
+			import::component($autoload['component']);
 		}
 		
 		// Araçları otomatik yükle.
 		if( ! empty($autoload['tool']) )	
 		{
-			autoload($autoload['tool'], 'Tools');
+			import::tool($autoload['tool']);
 		}
 		
 		// Dil dosyalarını otomatik yükle.
 		if( ! empty($autoload['language']) )	
 		{
-			autoload($autoload['language'], 'Languages');
+			import::language($autoload['language']);
 		}
 		
 		// Model dosyalarını otomatik yükle.
 		if( ! empty($autoload['model']) )	
 		{
-			autoload($autoload['model'], 'Models');
+			import::model($autoload['model']);
 		}	
 		// ----------------------------------------------------------------------
 		

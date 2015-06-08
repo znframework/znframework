@@ -30,18 +30,6 @@ class Import
 	 */
 	private static $is_import = array();
 	
-	/* IMPORT LIBRARY */
-	
-	/*
-		Import kütüphanesi öncelikle import edeceği dosyayı uygulama içerisinde arar
-		daha sonra sistemin içinde arar, eğer siz aynı isimle iki tane sınıf oluşturmuş iseniz
-		bunlardan sizin oluşturduğunuz öncelikli olup onu çağıracaktır.
-		
-		bu sistem diğer import nesneleri içinde geçerlidir.
-		
-		NOT: bir nesne birkez import edildikten sonra bir daha aynı dosyayı aynı sayfada import edemezsiniz.
-	*/
-	
 	/******************************************************************************************
 	* LIBRARY                                                                                 *
 	*******************************************************************************************
@@ -58,8 +46,6 @@ class Import
 	******************************************************************************************/
 	public static function library()
 	{	
-		$config_library = array_unique(config::get('Autoload','library'));
-		
 		$arguments = func_get_args();
 		
 		if( isset($arguments[0]) && is_array($arguments[0]) )
@@ -73,11 +59,8 @@ class Import
 			{
 				$class = '';
 			}
-	
-			if( ! in_array($class, $config_library) )
-			{	
-				is_imported($class);
-			}	
+			
+			is_imported($class);
 		}	
 	}
 	
@@ -98,6 +81,93 @@ class Import
 	public static function component()
 	{
 		return self::library(func_get_args());	
+	}
+	
+	/******************************************************************************************
+	* MODEL                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Model dizinlerinde yer alan dosyaları dahil etmek için kullanılır. 	  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array/args var @models => Parametre olarak sıralı model dosyalarını veya dizi içinde |
+	| eleman olarak kullanılan model dosyalarını dahil etmek için kullanılır.				  |
+	|          																				  |
+	| Örnek Kullanım: import::model('k1', 'k2' ... 'kN');        							  |
+	| Örnek Kullanım: import::model(array('k1', 'k2' ... 'kN'));        					  |
+	|          																				  |
+	******************************************************************************************/
+	public static function model()
+	{
+		return self::library(func_get_args());
+	}
+	
+	/******************************************************************************************
+	* PAGE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public static function page($page = '', $data = '', $ob_get_contents = false)
+	{
+		if( ! is_string($page) )
+		{
+			return false;
+		}
+		
+		if( is_array($data) )
+		{
+			extract($data, EXTR_OVERWRITE, 'extract');
+		}
+		
+		if( $ob_get_contents === false )
+		{
+			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
+			{
+				return false;
+			}
+			require(PAGES_DIR.suffix($page,".php")); 
+		}
+		
+		if( $ob_get_contents === true )
+		{
+			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
+			{
+				return false;
+			}
+			
+			ob_start(); 
+			require(PAGES_DIR.suffix($page,".php")); 
+			$content = ob_get_contents(); 
+			ob_end_clean(); 
+			
+			return $content ; 
+		}
+	
+	}
+	
+	/******************************************************************************************
+	* VIEW                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public static function view($page = '', $data = '', $ob_get_contents = false)
+	{
+		return self::page($page, $data, $ob_get_contents);
 	}
 	
 	/******************************************************************************************
@@ -855,118 +925,5 @@ class Import
 		{
 			return false;
 		}
-	}
-	
-	/******************************************************************************************
-	* PAGE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public static function page($page = '', $data = '', $ob_get_contents = false)
-	{
-		if( ! is_string($page) )
-		{
-			return false;
-		}
-		
-		if( is_array($data) )
-		{
-			extract($data, EXTR_OVERWRITE, 'extract');
-		}
-		
-		if( $ob_get_contents === false )
-		{
-			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
-			{
-				return false;
-			}
-			require(PAGES_DIR.suffix($page,".php")); 
-		}
-		
-		if( $ob_get_contents === true )
-		{
-			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
-			{
-				return false;
-			}
-			
-			ob_start(); 
-			require(PAGES_DIR.suffix($page,".php")); 
-			$content = ob_get_contents(); 
-			ob_end_clean(); 
-			
-			return $content ; 
-		}
-	
-	}
-	
-	/******************************************************************************************
-	* VIEW                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public static function view($page = '', $data = '', $ob_get_contents = false)
-	{
-		return self::page($page, $data, $ob_get_contents);
-	}
-	
-	/******************************************************************************************
-	* MODEL                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Model dizinlerinde yer alan dosyaları dahil etmek için kullanılır. 	  |
-	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array/args var @models => Parametre olarak sıralı model dosyalarını veya dizi içinde |
-	| eleman olarak kullanılan model dosyalarını dahil etmek için kullanılır.				  |
-	|          																				  |
-	| Örnek Kullanım: import::library('k1', 'k2' ... 'kN');        							  |
-	| Örnek Kullanım: import::library(array('k1', 'k2' ... 'kN'));        					  |
-	|          																				  |
-	******************************************************************************************/
-	public static function model()
-	{
-		$config_coder = array_unique(config::get('Autoload','model'));
-		
-		$arguments = func_get_args();
-		
-		if( isset($arguments[0]) && is_array($arguments[0]) )
-		{
-			$arguments = $arguments[0];
-		}
-		
-		foreach(array_unique($arguments) as $class)
-		{
-			if( is_array($class) ) 
-			{
-				$class = '';
-			}
-			
-			if( ! in_array($class, $config_coder) )
-			{
-				$path = MODELS_DIR.suffix($class,".php");
-			
-				if( is_file_exists($path) && ! class_exists($class) ) 
-				{
-					require_once($path);
-				}
-			}
-			is_imported($class);
-		}	
 	}
 }

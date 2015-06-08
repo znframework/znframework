@@ -321,7 +321,7 @@ function charset_list()
 }
 
 /******************************************************************************************
-* OUTPUT WITH VERSION 1.4                                                                 *
+* OUTPUT - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                       *
 *******************************************************************************************
 | Genel Kullanım: Düzenli çıktı oluşturmak için kullanılır. Özelikle dizi nesnelerinde	  |
 | dizi içeriğinin düzenli çıktısını almak için kullanılır.			  					  |
@@ -426,7 +426,7 @@ function _output($data = '', $tab = '', $start = 0)
 }	
 
 /******************************************************************************************
-* WRITE WITH VERSION 1.4                                                                  *
+* WRITE - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                        *
 *******************************************************************************************
 | Genel Kullanım: Çıktı oluşturmak için kullanılır.			  					          |
 |															                              |
@@ -462,7 +462,7 @@ function write($data = '', $vars = array())
 }
 
 /******************************************************************************************
-* WRITELN WITH VERSION 1.4                                                                *
+* WRITELN - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                      *
 *******************************************************************************************
 | Genel Kullanım: Çıktı oluşturmak için kullanılır.	Write() yönteminde farkı çıktıdan	  | 
 | sonra bir alt satıra geçer.								  					          |
@@ -1314,14 +1314,7 @@ function redirect_data($k = '')
 	}
 }
 
-
-// Function: redirect_data()
-// İşlev: Doğrudan kütüphaneleri kullanmak için kullanılır.
-// Parametreler: $class = Çağrılacak sınıfın adı, $function = Çağrılan sınıfın kullanılacak olan yöntemi
-// $parameters = varsa yöntemin parametreleri.
-// Dosya ismi ile sınıf ismi farklı ise $class parametresine dizi olarak yazıyoruz array("Database" => "Db")
-// Dönen Değerler: Yok.
-
+// Function: library()
 function library($class = NULL, $function = NULL, $parameters = array())
 {
 	if( empty($class) || empty($function) ) 
@@ -1348,6 +1341,11 @@ function library($class = NULL, $function = NULL, $parameters = array())
 	
 	if( ! isset($var) )
 	{
+		if( strstr($class, '/') )
+		{
+			$class = divide($class, '/', -1);
+		}
+		
 		$var = new $class;
 	}
 	
@@ -1366,12 +1364,7 @@ function library($class = NULL, $function = NULL, $parameters = array())
 	}
 }
 
-// Function: redirect_data()
-// İşlev: Doğrudan araçları kullanmak için kullanılır.
-// Parametreler: $file = Çağrılacak araç dosyasının adı, $function = Çağrılan aracın kullanılacak olan yöntemi
-// $parameters = varsa yöntemin parametreleri.
-// Dönen Değerler: Yok.
-
+// Function: tool()
 function tool($file = NULL, $function = NULL, $parameters = array())
 {
 	if( empty($file) || empty($function) ) 
@@ -1411,10 +1404,28 @@ function tool($file = NULL, $function = NULL, $parameters = array())
 	}
 }
 
-// Function: imported_libraries()
-// İşlev: Çağrılmış olan kütüphanelerin listesini dizi türde verir.
-// Dönen Değerler: Dahil edilen kütüphanelerin listesi.
+/******************************************************************************************
+* USELIB - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                       *
+*******************************************************************************************
+| Genel Kullanım: Herhangi bir sınıfı kullanmak için oluşturulmuştur.					  |
+|															                              |
+| Parametreler: Tek parametresi vardır.                                              	  |
+| 1. string var @class => Kullanılacak sınıf ismi.									      |
+|          																				  |
+| Örnek Kullanım: uselib('Db')->get('Download')->result(); // Sonuçlar..	       		  |
+|          																				  |
+******************************************************************************************/
+function uselib($class)
+{
+	return new $class;
+}
 
+/******************************************************************************************
+* IMPORTED LIBRARIES - DAHİL EDİLDİĞİ SÜRÜM:1.2                                           *
+*******************************************************************************************
+| Genel Kullanım: Dahil edilen kütüphane listesine erişmek için kullanılır.				  | 
+|          																				  |
+******************************************************************************************/
 function imported_libraries()
 {	
 	$libraries = array();
@@ -1436,10 +1447,12 @@ function imported_libraries()
 	return $libraries;
 }
 
-// Function: imported_tools()
-// İşlev: Çağrılmış olan araçların listesini dizi türde verir.
-// Dönen Değerler: Dahil edilen araçların listesi.
-
+/******************************************************************************************
+* IMPORTED TOOLS - DAHİL EDİLDİĞİ SÜRÜM:1.2                                               *
+*******************************************************************************************
+| Genel Kullanım: Dahil edilen kütüphane listesine erişmek için kullanılır.				  | 
+|          																				  |
+******************************************************************************************/
 function imported_tools()
 {	
 	$tools = array();
@@ -1858,62 +1871,6 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	// $htaccess değişkenini kaldır.
 	unset( $htaccess );	
 	
-}
-
-// Function: autoload()
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-function autoload($elements = '', $folder = '')
-{	
-	if( ! is_array($elements) ) 
-	{
-		return false;
-	}
-	
-	$autoload_config = config::get('Autoload','language');
-	
-	if( ! empty($autoload_config) )
-	{
-		global $lang;
-		require_once CORE_DIR.'Lang.php';	
-	}
-	
-	if( $folder === "Languages" ) 
-	{
-		$current_lang = config::get('Language',get_lang()).'/'; 
-	}
-	else 
-	{
-		$current_lang = '';
-	}
-	
-	foreach(array_unique($elements) as $rows)
-	{
-		if( $folder === 'Components' )
-		{
-			if( ! strstr($rows, '/') )
-			{
-				$rows = $rows.'/'.$rows;
-			}
-		}
-		$path = $folder.'/'.$current_lang.suffix($rows,".php");		
-		
-		$path_app = APP_DIR.$path;
-		
-		$extension = extension($path);
-		
-		if( is_file_exists($path_app) && ! empty($extension) )
-		{			
-			if( is_file_exists($path_app) )
-			{
-				require_once($path_app);
-			}
-		}
-		elseif( is_file_exists(SYSTEM_DIR.$path) )
-		{
-			require_once(SYSTEM_DIR.$path);
-		}
-	}
 }
 
 // Function: headers()
