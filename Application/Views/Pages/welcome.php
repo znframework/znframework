@@ -4,12 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $title; // Controllers/home.php sayfasından gönderilen başlık bilgisi ?></title>
 <?php echo $style; // Çağrılan Stil Dosyasının Yolu: Views/Styles/style.css ?>
+<?php echo $font; // Çağrılan Stil Dosyasının Yolu: Views/Styles/style.css ?>
 </head>
 
 <body>
 
     <div id="header">
-    	<div class="font white-color bold">ZNTR.NET</div>
+    	<div class="font white-color">ZNTR.NET</div>
     </div>
     <div id="title" class="border font"><?php echo $welcome_message; // Controllers/home.php sayfasından gönderilen mesaj bilgisi ?></div>
     <div id="content" class="font black-color">
@@ -19,8 +20,9 @@
         <p>Daha iyi kullanım için <a target="_blank" href="<?php echo base_url("Documentation/index.html")?>" class="bold">kullanma kılavuzundan</a> yararlanabilirsiniz</p>
     </div>
     <div id="footer">
-    	<div class="font white-color bold">(c) copyright 2015 - Tüm hakları saklıdır. www.zntr.net </div>
+    	<div class="font white-color">(c) copyright 2015 - Tüm hakları saklıdır. www.zntr.net </div>
     </div>
+    <div id="logo"><img width="500" height="417" src="<?php echo base_url(FILES_DIR.'znlogo.png');?>" /></div>
 </body>
 
 </html>

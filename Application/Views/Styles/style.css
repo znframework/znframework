@@ -2,12 +2,13 @@ body{ padding:0px; margin:0px;}
 a{ color:#13A7C7; }
 a:hover{ color:#000;}
 #header{ height:40px; background:#13A7C7; margin-bottom:5px;}
-#footer{ height:40px; background:#13A7C7; margin-top:5px;}
+#footer{ height:40px; background:#13A7C7; margin-top:5px; margin-bottom:20px;}
 #header div{ position:absolute; margin-top:12px; margin-left:10px;}
 #footer div{ position:absolute; margin-top:12px; margin-left:10px;}
 #title{ padding-top:10px; padding-bottom:10px; margin:0px auto; text-align:center;}
 #content{ border:solid 1px #333; margin-top:5px; text-align:center;}
-.font{ font-family:Tahoma, Geneva, sans-serif; font-size:14px; color:#13A7C7;}
+#logo{ width:500px; height:417px; margin:0 auto;}
+.font{ font-family:textfont; font-size:16px; color:#13A7C7;}
 .border{ border:solid 1px #13A7C7;}
 .white-color{ color:#fff; }
 .black-color{ color:#000; }

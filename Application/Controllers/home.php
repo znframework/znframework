@@ -37,10 +37,12 @@ class Home // extends Controller
 		*******************************************************************************************
 		| 1. title => ZN FRAMEWORK					          									  |
 		| 2. style => Views/Styles/style.css					          						  |
-		| 3. welcome_message => ZN KOD ÇATISINA HOŞ GELDİNİZ				          			  |
+		| 3. font => Views/Fonts/textfont.ttf					          						  |
+		| 4. welcome_message => ZN KOD ÇATISINA HOŞ GELDİNİZ				          			  |
 		******************************************************************************************/
 		$data["title"] 			 = "ZN FRAMEWORK";
 		$data["style"] 			 = $this->import->style("style", true);
+		$data["font"]			 = $this->import->font("textfont", true);
 		$data["welcome_message"] = "ZN KOD ÇATISINA HOŞ GELDİNİZ";
 		
 		/******************************************************************************************
