@@ -160,7 +160,7 @@ class Search
 		}
 		// ------------------------------------------------------------------------
 		
-		$db = new Db();
+		$db = uselib('Database\Db');
 		
 		foreach($conditions as $key => $values)
 		{

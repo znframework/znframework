@@ -109,7 +109,7 @@ class User
 		$login_password  = $data[$password_column];	
 		$encode_password = encode::super($login_password);	
 		
-		$db = new Db;
+		$db = uselib('Database\Db');
 		
 		$username_control = $db->where($username_column.' =',$login_username)
 							   ->get($table_name)
@@ -194,7 +194,7 @@ class User
 		
 		if( ! empty($user) && ! empty($pass) )	
 		{
-			$db = new Db;
+			$db = uselib('Database\Db');
 			
 			$row = $db->where($username_column.' =', $user, 'and')
 			          ->where($password_column.' =', $pass)		
@@ -278,7 +278,7 @@ class User
 		
 		if( ! empty($active_column) )
 		{
-			$db = new Db;
+			$db = uselib('Database\Db');
 			
 			$total_rows = $db->where($active_column.' =', 1)
 							 ->get($table_name)
@@ -314,7 +314,7 @@ class User
 		
 		if( ! empty($banned_column) )
 		{	
-			$db = new Db;
+			$db = uselib('Database\Db');
 			
 			$total_rows = $db->where($banned_column.' =', 1)
 							 ->get($table_name)
@@ -347,7 +347,7 @@ class User
 	{
 		$table_name = config::get("User","table_name");
 		
-		$db = new Db;
+		$db = uselib('Database\Db');
 		
 		$total_rows = $db->get($table_name)->total_rows();
 		
@@ -408,7 +408,7 @@ class User
 		$activation_column 	= $user_config["activation_column"];
 		// ------------------------------------------------------------------------------
 		
-		$db = new Db;
+		$db = uselib('Database\Db');
 		
 		$r = $db->where($username_column.' =',$username)
 			    ->get($table_name)
@@ -514,7 +514,7 @@ class User
 		$table_name 		= $user_config["table_name"];	
 		// ------------------------------------------------------------------------------
 		
-		$db = new Db;
+		$db = uselib('Database\Db');
 		
 		if( ! empty($email_column) )
 		{
@@ -666,7 +666,7 @@ class User
 				$data[$pc] = $new_password;
 				$data[$uc] = $username;
 				
-				$db = new Db;
+				$db = uselib('Database\Db');
 				
 				$db->where($uc.' =', $username);
 				
@@ -709,7 +709,7 @@ class User
 		
 		if( ! empty($c_username) && ! empty($c_password) )
 		{
-			$db = new Db;
+			$db = uselib('Database\Db');
 			$result = $db->where(config::get("User","username_column").' =',$c_username, 'and')
 						 ->where(config::get("User","password_column").' =',$c_password)
 						 ->get(config::get("User","table_name"))
@@ -765,7 +765,7 @@ class User
 			$data = array();
 			self::$username = $_SESSION[md5(config::get("User","username_column"))];
 			
-			$db = new Db;
+			$db = uselib('Database\Db');
 			
 			$r = $db->where(config::get("User","username_column").' =',self::$username)
 				    ->get(config::get("User","table_name"))
@@ -811,7 +811,7 @@ class User
 			
 			if( config::get("User","active_column") )
 			{	
-				$db = new Db;
+				$db = uselib('Database\Db');
 				
 				$db->where(config::get("User","username_column").' =', self::data()->$username)
 				   ->update(config::get("User","table_name"), array(config::get("User","active_column") => 0));

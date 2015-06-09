@@ -39,7 +39,7 @@ if( ! function_exists('sql_file_uploader'))
 		
 		$queries = explode(";\n", $file_contents);
 		
-		$db = new Db;
+		$db = uselib('Database\Db');
 		
 		foreach($queries as $query)
 		{

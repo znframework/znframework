@@ -408,7 +408,7 @@ class Folder
 		}
 		elseif( is_file($dir) )
 		{
-			$fileinfo = library('File', 'info', array($dir));
+			$fileinfo = file::info($dir);
 			return (array)$fileinfo;
 		}
 		else

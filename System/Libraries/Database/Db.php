@@ -9,6 +9,9 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+namespace Database;
+
+use Config;
 /******************************************************************************************
 * Db		                                                                           	  *
 *******************************************************************************************
@@ -227,7 +230,7 @@ class Db
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		require_once(SYSTEM_LIBRARIES_DIR.'Db/DbCommon.php');
+		require_once(SYSTEM_LIBRARIES_DIR.'Database/DbCommon.php');
 		
 		$this->db = dbcommon();
 		

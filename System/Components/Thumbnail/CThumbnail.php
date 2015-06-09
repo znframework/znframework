@@ -9,15 +9,18 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+namespace Thumbnail;
+
+use Folder;
 /******************************************************************************************
 * THUMBNAIL                                                                               *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Thumbnail            							     		  |
-| Sınıfı Kullanırken      :	$this->thumbnail->     					     				  |
+| Dahil(Import) Edilirken : CThumbnail            							     		  |
+| Sınıfı Kullanırken      :	$this->cthumbnail->     					     				  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class Thumbnail
+class CThumbnail
 {
 	/* Dir Name Değişkeni
 	 *  

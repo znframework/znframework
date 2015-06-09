@@ -1321,33 +1321,8 @@ function library($class = NULL, $function = NULL, $parameters = array())
 	{
 		return false;
 	}
-	
-	$path = LIBRARIES_DIR.suffix($class, ".php");	
-
-	if( ! is_file_exists($path) ) 
-	{
-		$path = SYSTEM_LIBRARIES_DIR.suffix($class, ".php");
-	}
 		
-	if( ! is_file_exists($path) ) 
-	{
-		return false;
-	}
-
-	if( ! is_import($path) && ! class_exists($path) ) 
-	{
-		require_once $path;
-	}
-	
-	if( ! isset($var) )
-	{
-		if( strstr($class, '/') )
-		{
-			$class = divide($class, '/', -1);
-		}
-		
-		$var = new $class;
-	}
+	$var = uselib($class);
 	
 	if( ! is_array($parameters) ) 
 	{
@@ -1415,9 +1390,23 @@ function tool($file = NULL, $function = NULL, $parameters = array())
 | Örnek Kullanım: uselib('Db')->get('Download')->result(); // Sonuçlar..	       		  |
 |          																				  |
 ******************************************************************************************/
-function uselib($class)
+function uselib($class = '')
 {
-	return new $class;
+	$class = ns_short_name($class);
+	
+	if( strstr($class, '/') )
+	{
+		$class = str_replace('/', '\\', $class);
+	}
+	
+	if( class_exists($class) )
+	{
+		return new $class;
+	}
+	else
+	{
+		return false;	
+	}
 }
 
 /******************************************************************************************
@@ -1949,20 +1938,52 @@ function zndynamic_autoloaded()
 	}
 }
 
+/******************************************************************************************
+* NS SHORT NAME - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                *
+*******************************************************************************************
+| Genel Kullanım: İsim alanı kısaltması kontrolünü sağlaması için oluşturulmuştur.		  |
+|          																				  |
+******************************************************************************************/
+function ns_short_name($class = '')
+{
+	$short_namespace = config::get('Namespace', 'short_name');
+
+	if( isset($short_namespace[ucwords($class)]) )
+	{
+		$class = $short_namespace[ucwords($class)];
+	}
+	
+	return $class;
+}
+
 // Function: is_imported()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 function is_imported($class = '', $type = NULL)
-{
+{	
+	$class = ns_short_name($class);
+	
 	if( extension($class) )
 	{
 		$class = remove_extension($class);
 	}
 	
-	$var = strtolower($class);
-
+	if( strstr($class, '/') )
+	{
+		$class = str_replace('/', '\\', $class);
+	}
+		
 	if( class_exists($class) )
 	{	
+		if( strstr($class, '\\') )
+		{	
+			$var = strtolower(divide($class, '\\', -1));
+		}
+		else
+		{
+			$var = strtolower($class);
+		}
+		
 		/* VARIABLE AND FUNCTIONAL ACCESS */
 		if( ! is_object(zn::$dynamic) )
 		{		

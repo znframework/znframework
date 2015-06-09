@@ -26,42 +26,35 @@ class Autoloader
 	*/
 	public static function run($class)
 	{
-		$file  = divide($class, '\\', -1);
+		$class = ns_short_name($class);
 		
-		$file .= '.php';    
-
-		$autoloader_directory = library('Config', 'get', array('Autoload', 'directory'));
+		$file  = str_replace('\\', '/', $class).'.php'; 
 		
-		foreach( $autoloader_directory as $lib )
-		{
-			$library = $lib.$file;
-			
-			if( is_file_exists($library) && ! class_exists($library))
-			{		
-				require_once($library);	
-			}
-			else
-			{
-				$dirs = library('Folder', 'files', array($lib, 'dir'));
-					
-				if( ! empty($dirs) ) foreach($dirs as $dir)
-				{
-					$dirpath = $lib.$dir.'/'.$file;
-			
-					if( is_file_exists($dirpath) && ! class_exists($class) )
-					{
-						require_once($dirpath);		
-					}
-				}
-			}
+		$library 		= LIBRARIES_DIR.$file;	
+		$system_library = SYSTEM_LIBRARIES_DIR.$file;
+		$components 	= COMPONENTS_DIR.$file;
+		$model 			= MODELS_DIR.$file;
+		
+		if( is_file_exists($library) )
+		{		
+			require_once($library);	
 		}
-		
-		if( method_exists($class, '_init') )
-		{
-			call_user_func_array($class.'::_init');
+		elseif( is_file_exists($system_library) )
+		{		
+			require_once($system_library);
 		}
-		
-		return false;
+		elseif( is_file_exists($components) )
+		{		
+			require_once($components);
+		}
+		elseif( is_file_exists($model) )
+		{		
+			require_once($model);
+		}
+		else
+		{
+			report('ClassNotFound', "file:$file, class:$class is not found", 'ClassNotFound');
+		}
 	} 
 }
 

@@ -9,7 +9,12 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
+namespace Form;
+
 require_once(COMPONENTS_DIR.'Form/Validation.php');
+
+use Import;
+use Form\ComponentFormValidation;
 /******************************************************************************************
 * FORM                                                                                    *
 *******************************************************************************************
