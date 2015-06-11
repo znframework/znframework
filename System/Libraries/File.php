@@ -59,7 +59,7 @@ class File
 		else
 		{
 			// Dosya mevcut değilse hata raporu oluştur.
-			self::$error = get_message('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;		
 		}
@@ -118,7 +118,7 @@ class File
 		
 		if( ! file_exists($path) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $path);
+			self::$error = get_message('File', 'not_found_error', $path);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -154,7 +154,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -200,7 +200,7 @@ class File
 		else
 		{
 			// Dosya mevcutsa hatayı rapor et.
-			self::$error = get_message('File', 'file_already_file_error', $name);
+			self::$error = get_message('File', 'already_file_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -225,7 +225,7 @@ class File
 		}
 		if( ! file_exists($name)) 
 		{
-			self::$error = get_message('File', 'file_not_found_error', $name);
+			self::$error = get_message('File', 'not_found_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -293,7 +293,7 @@ class File
 		}
 		if( ! file_exists($name) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $name);
+			self::$error = get_message('File', 'not_found_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -328,7 +328,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -363,7 +363,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -439,7 +439,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $file);
+			self::$error = get_message('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -521,7 +521,7 @@ class File
 		}
 		if( ! file_exists($source) )
 		{
-			self::$error = get_message('File', 'file_not_found_error', $source);
+			self::$error = get_message('File', 'not_found_error', $source);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}

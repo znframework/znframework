@@ -347,7 +347,7 @@ class Db
 		
 		$value = "'".$this->db->real_escape_string($value)."'";
 
-		$this->having = ' '.$column.' '.$value.' '.$logical.' ';
+		$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
 		
 		return $this;
 	}
@@ -412,14 +412,14 @@ class Db
 		{
 			 $where = ' WHERE '; 
 			
-			if( strtolower(substr(trim($this->where),-2)) === 'or' )
+			if( strtolower(substr(trim($this->where), -2)) === 'or' )
 			{
-				$this->where = substr(trim($this->where),0,-2);
+				$this->where = substr(trim($this->where), 0, -2);
 			}
 			
-			if( strtolower(substr(trim($this->where),-3)) === 'and' )
+			if( strtolower(substr(trim($this->where), -3)) === 'and' )
 			{
-				$this->where = substr(trim($this->where),0,-3);		
+				$this->where = substr(trim($this->where), 0, -3);		
 			}
 		}
 		else 
@@ -433,14 +433,14 @@ class Db
 		{
 			$having = ' HAVING '; 
 			
-			if( strtolower(substr(trim($this->having),-2)) === 'or' )
+			if( strtolower(substr(trim($this->having), -2)) === 'or' )
 			{
-				$this->having = substr(trim($this->having),0,-2);
+				$this->having = substr(trim($this->having), 0, -2);
 			}
 			
-			if( strtolower(substr(trim($this->having),-3)) === 'and' )
+			if( strtolower(substr(trim($this->having), -3)) === 'and' )
 			{
-				$this->having = substr(trim($this->having),0,-3);	
+				$this->having = substr(trim($this->having), 0, -3);	
 			}
 		}
 		else 

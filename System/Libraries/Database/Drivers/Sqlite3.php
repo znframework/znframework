@@ -61,7 +61,7 @@ class Sqlite3Driver
 		}	
 		catch(Exception $e)
 		{
-			die(get_message('Database', 'db_mysql_connect_error'));
+			die(get_message('Database', 'mysql_connect_error'));
 		}
 	}	
 	

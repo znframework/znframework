@@ -164,8 +164,6 @@ class Upload
 			self::settings();
 		}
 		
-		import::language('Upload');
-		
 		self::$file = $filename;
 
 		$root = $rootdir;
@@ -220,7 +218,7 @@ class Upload
 
 				if( isset(self::$settings['extensions']) && ! in_array(extension($name[$index]), $extensions) )
 				{
-					self::$extension_control = lang('upload_extension_error');	
+					self::$extension_control = lang('Upload', 'extension_error');	
 				}
 				elseif( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($source) )
 				{
@@ -266,7 +264,7 @@ class Upload
 			
 			if( isset(self::$settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				self::$extension_control = lang('upload_extension_error');	
+				self::$extension_control = lang('Upload', 'extension_error');	
 			}
 			else
 			{	
@@ -351,11 +349,9 @@ class Upload
 	******************************************************************************************/
 	public static function error()
 	{
-		import::language('Upload');
-		
 		if( ! isset($_FILES[self::$file]['error']) ) 
 		{
-			return lang('upload_unknown_error');
+			return lang('Upload', 'unknown_error');
 		}
 		
 		$error_no = $_FILES[self::$file]['error'];
@@ -364,15 +360,15 @@ class Upload
 		self::$errors = array
 		(
 			'0'  => "scc", 			  // Dosya başarı ile yüklendi. 
-			'1'  => lang('upload_1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
-			'2'  => lang('upload_2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
-			'3'  => lang('upload_3'), // Dosya yükleme işlemi tamamlanmadı. 
-			'4'  => lang('upload_4'), // Yüklenecek dosya yok. 
-			'6'  => lang('upload_6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
-			'7'  => lang('upload_7'), // Dosya dik üzerine yazılamadı. 
-			'8'  => lang('upload_8'), // Dosya yükleme uzantı desteği yok. 
-			'9'  => lang("upload_9"), // Dosya yükleme yolu geçerli değil.
-			'10' => lang("upload_10") // Belirlenen maksimum dosya boyutu aşıldı!
+			'1'  => lang('Upload', '1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
+			'2'  => lang('Upload', '2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
+			'3'  => lang('Upload', '3'), // Dosya yükleme işlemi tamamlanmadı. 
+			'4'  => lang('Upload', '4'), // Yüklenecek dosya yok. 
+			'6'  => lang('Upload', '6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
+			'7'  => lang('Upload', '7'), // Dosya dik üzerine yazılamadı. 
+			'8'  => lang('Upload', '8'), // Dosya yükleme uzantı desteği yok. 
+			'9'  => lang('Upload', '9'), // Dosya yükleme yolu geçerli değil.
+			'10' => lang('Upload', '10') // Belirlenen maksimum dosya boyutu aşıldı!
 		);
 		// Manuel belirlenen hata oluşmuşsa
 		if( ! empty(self::$manuel_error) )
@@ -398,7 +394,46 @@ class Upload
 		// hata uyarısı ver.	
 		else 
 		{
-			return lang('upload_unknown_error');
+			return lang('Upload', 'unknown_error');
 		}
 	}
+	
+	/******************************************************************************************
+	*  SQL FILE UPLOADER                                                           			  *
+	*******************************************************************************************
+	| Genel Kullanım: Sunucunuzda yer alan sql dosyasını mysql servere yüklemek 			  |
+	| için kullanılır.														                  |
+	|																						  |
+	| Parametreler: Tek parametresi vardır.                                              	  |
+	| 1. string var @sql_file => Sql dosyasının sunucudaki yolu.			  			      |
+	|          																				  |
+	| Örnek Kullanım: sql_file('Database/file.sql');         						  		  |
+	|          																				  |
+	******************************************************************************************/
+	public static function sql_file($sql_file = '')
+	{
+		if( ! is_string($sql_file) || empty($sql_file) ) 
+		{
+			return false;
+		}
+
+		$file_contents = file::contents(suffix($sql_file,".sql"));
+		
+		$file_contents = preg_replace("/SET (.*?);/","",$file_contents);
+		$file_contents = preg_replace("/\/\*(.*?)\*\//","",$file_contents);
+		$file_contents = preg_replace("/--(.*?)\n/","",$file_contents);
+		$file_contents = preg_replace("/\/\*!40101/","",$file_contents);
+		
+		$queries = explode(";\n", $file_contents);
+		
+		$db = uselib('Database\Db');
+		
+		foreach($queries as $query)
+		{
+			if( $query !== '' )
+			{
+				$db->exec_query(trim($query));
+			}
+		}
+    }
 }

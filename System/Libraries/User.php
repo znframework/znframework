@@ -80,12 +80,6 @@ class User
 		}
 		
 		// ------------------------------------------------------------------------------
-		// USER DİL DOSYASINI YÜKLE
-		// ------------------------------------------------------------------------------
-		import::language("User");
-		// ------------------------------------------------------------------------------
-		
-		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
@@ -124,7 +118,7 @@ class User
 			if( $db->insert($table_name , $data) )
 			{
 				self::$error = false;
-				self::$success = lang('user_register_success');
+				self::$success = lang('User', 'register_success');
 				
 				if( ! empty($activation_column) )
 				{
@@ -148,13 +142,13 @@ class User
 			}
 			else
 			{
-				self::$error = lang('user_register_unknown_error');	
+				self::$error = lang('User', 'register_unknown_error');	
 				return false;
 			}
 		}
 		else
 		{
-			self::$error = lang('user_register_error');
+			self::$error = lang('User', 'register_error');
 			return false;
 		}
 		
@@ -174,8 +168,6 @@ class User
 	******************************************************************************************/
 	public static function activation_complete()
 	{
-		import::language("User");
-		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
@@ -206,19 +198,19 @@ class User
 				$db->where($username_column.' =', $user)
 				   ->update($table_name, array($activation_column => '1'));
 				
-				self::$success = lang("user_activation_complete");
+				self::$success = lang('User', 'activation_complete');
 				
 				return true;
 			}	
 			else
 			{
-				self::$error = lang("user_activation_complete_error");
+				self::$error = lang('User', 'activation_complete_error');
 				return false;
 			}				
 		}
 		else
 		{
-			self::$error = lang("user_activation_complete_error");
+			self::$error = lang('User', 'activation_complete_error');
 			return false;
 		}
 	}
@@ -226,8 +218,6 @@ class User
 	// Aktivasyon işlemi için
 	private static function _activation($user = "", $pass = "", $activation_return_link = '', $email = '')
 	{
-		import::language("User");
-		
 		if( ! is_url($activation_return_link) )
 		{
 			$url = base_url(suffix($activation_return_link));
@@ -237,7 +227,7 @@ class User
 			$url = suffix($activation_return_link);
 		}
 		
-		$message = "<a href='".$url."user/".$user."/pass/".$pass."'>".lang("user_activation")."</a>";	
+		$message = "<a href='".$url."user/".$user."/pass/".$pass."'>".lang('User', 'activation')."</a>";	
 		
 		$user = ( ! empty($email) ) 
 				? $email 
@@ -246,15 +236,15 @@ class User
 		email::open();
 		email::receiver($user, $user);
 		
-		if( email::send(lang("user_activation_process"), $message) )
+		if( email::send(lang('User', 'activation_process'), $message) )
 		{
-			self::$success = lang("user_activation_email");
+			self::$success = lang('User', 'activation_email');
 			return true;
 		}
 		else
 		{	
 			self::$success = false;
-			self::$error = lang("user_email_error");
+			self::$error = lang('User', 'email_error');
 			return false;
 		}
 		
@@ -388,9 +378,7 @@ class User
 		{
 			$remember_me = false;
 		}
-		
-		import::language("User");
-		
+
 		$username = $un;
 		$password = encode::super($pw);
 		
@@ -433,13 +421,13 @@ class User
 		{
 			if( ! empty($banned_column) && ! empty($banned_control) )
 			{
-				self::$error = lang('user_banned_error');	
+				self::$error = lang('User', 'user_banned_error');	
 				return false;
 			}
 			
 			if( ! empty($activation_column) && empty($activation_control) )
 			{
-				self::$error = lang('user_activation_error');	
+				self::$error = lang('User', 'activation_error');	
 				return false;
 			}
 			
@@ -467,12 +455,12 @@ class User
 			}
 			
 			self::$error = false;
-			self::$success = lang('user_login_success');
+			self::$success = lang('User', 'login_success');
 			return true;
 		}
 		else
 		{
-			self::$error = lang('user_login_error');	
+			self::$error = lang('User', 'login_error');	
 			return false;
 		}
 	}
@@ -500,9 +488,7 @@ class User
 		{
 			$return_link_path = '';
 		}
-		
-		import::language("User");
-		
+
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
@@ -541,18 +527,18 @@ class User
 			$encode_password = encode::super($new_password);
 			$message = "
 			<pre>
-				".lang("user_username").": ".$row->$username_column."
+				".lang('User', 'username').": ".$row->$username_column."
 
-				".lang("user_password").": ".$new_password."
+				".lang('User', 'password').": ".$new_password."
 				
-				<a href='".$return_link_path."'>".lang("user_learn_new_password")."</a>
+				<a href='".$return_link_path."'>".lang('User', 'learn_new_password')."</a>
 			</pre>
 			";
 			
 			email::open();
 			email::receiver($email, $email);
 			
-			if( email::send(lang("user_new_your_password"), $message) )
+			if( email::send(lang('User', 'new_your_password'), $message) )
 			{
 				if( ! empty($email_column) )
 				{
@@ -566,13 +552,13 @@ class User
 				$db->update($table_name, array($password_column => $encode_password));
 
 				self::$error = true;	
-				self::$success = lang("user_forgot_password_success");
+				self::$success = lang('User', 'forgot_password_success');
 				return false;
 			}
 			else
 			{	
 				self::$success = false;
-				self::$error = lang("user_email_error");
+				self::$error = lang('User', 'email_error');
 				return false;
 			}
 			email::close();
@@ -580,7 +566,7 @@ class User
 		else
 		{
 			self::$success = false;
-			self::$error = lang("user_forgot_password_error");	
+			self::$error = lang('User', 'forgot_password_error');	
 			return false;
 		}
 	}
@@ -635,9 +621,7 @@ class User
 			{
 				$new_again = $new;
 			}
-			
-			import::language("User");
-			
+	
 			$user_config = config::get("User");	
 			$pc = $user_config["password_column"];
 			$uc = $user_config["username_column"];	
@@ -653,12 +637,12 @@ class User
 					
 			if( $old_password != $password )
 			{
-				self::$error = lang("user_old_password_error");
+				self::$error = lang('User', 'old_password_error');
 				return false;	
 			}
 			elseif( $new_password != $new_password_again )
 			{
-				self::$error = lang("user_password_not_match_error");
+				self::$error = lang('User', 'password_not_match_error');
 				return false;
 			}
 			else
@@ -673,12 +657,12 @@ class User
 				if( $db->update($tn, $data) )
 				{
 					self::$error = false;
-					self::$success = lang('update_process_success');
+					self::$success = lang('User', 'update_process_success');
 					return true;
 				}
 				else
 				{
-					self::$error = lang('user_register_unknown_error');	
+					self::$error = lang('User', 'register_unknown_error');	
 					return false;
 				}		
 			}

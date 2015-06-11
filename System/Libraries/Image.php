@@ -209,7 +209,7 @@ class Image
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($file_path) )
 		{
-			self::$error = get_message('Image', 'image_file_not_found_error', $file_path);
+			self::$error = get_message('Image', 'not_found_error', $file_path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
@@ -218,7 +218,7 @@ class Image
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! self::is_image_file($file_path) )
 		{
-			self::$error = get_message('Image', 'image_not_image_file_error', $file_path);
+			self::$error = get_message('Image', 'not_image_file_error', $file_path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
@@ -400,7 +400,7 @@ class Image
 		}
 		if( empty($path) )
 		{
-			self::$error = get_message('Image', 'image_file_not_found_error', $path);
+			self::$error = get_message('Image', 'not_found_error', $path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
@@ -412,7 +412,7 @@ class Image
 		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			self::$error = get_message('Image', 'image_file_not_found_error', $path);
+			self::$error = get_message('Image', 'not_found_error', $path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}

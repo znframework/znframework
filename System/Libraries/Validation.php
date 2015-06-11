@@ -322,8 +322,7 @@ class Validation
 		}
 		
 		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
-		import::language('Validation');
-		
+
 		$view_name = ( empty($view_name) ) 
 					 ? $name 
 					 : $view_name;
@@ -349,7 +348,7 @@ class Validation
 		if( in_array('nc_encode',$config) )
 		{
 			$secnc = config::get("Security", "nc_encode");
-			$edit = security::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
+			$edit  = security::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
@@ -377,7 +376,7 @@ class Validation
 		{ 
 			if( empty($edit) )
 			{ 		
-				$required 			= lang('validation_required',$view_name);
+				$required 			= lang('Validation', 'required',$view_name);
 				$messages[$i] 		= $required.'<br>'; $i++;
 				self::$error[$name] = $required;
 			} 
@@ -395,7 +394,7 @@ class Validation
 			
 			if( $edit != $_SESSION[md5('captcha_code')] )
 			{ 
-				$security_code 		= lang('validation_security_code',$view_name);
+				$security_code 		= lang('Validation', 'security_code',$view_name);
 				$messages[$i] 		= $security_code.'<br>'; $i++;
 				self::$error[$name] = $security_code;
 			} 
@@ -408,7 +407,7 @@ class Validation
 			
 			if( $edit != $pm )
 			{ 
-				$password_match 	= lang('validation_password_match',$view_name);
+				$password_match 	= lang('Validation', 'password_match',$view_name);
 				$messages[$i] 		= $password_match.'<br>'; $i++;
 				self::$error[$name] = $password_match;
 			} 
@@ -420,7 +419,7 @@ class Validation
 			
 			if( $edit != $pm )
 			{ 
-				$password_match 	= lang('validation_data_match',$view_name);
+				$password_match 	= lang('Validation', 'data_match',$view_name);
 				$messages[$i] 		= $password_match.'<br>'; $i++;
 				self::$error[$name] = $password_match;
 			} 
@@ -433,7 +432,7 @@ class Validation
 	
 			if( encode::super($edit) != $pm )
 			{ 
-				$old_password_match = lang('validation_old_password_match',$view_name);
+				$old_password_match = lang('Validation', 'old_password_match',$view_name);
 				$messages[$i] 		= $old_password_match.'<br>'; $i++;
 				self::$error[$name] = $old_password_match;
 			} 
@@ -444,7 +443,7 @@ class Validation
 		{ 
 			if( ! is_numeric($edit) )
 			{ 
-				$numeric 			= lang('validation_numeric',$view_name);
+				$numeric 			= lang('Validation', 'numeric',$view_name);
 				$messages[$i] 		= $numeric.'<br>'; $i++;
 				self::$error[$name] = $numeric;
 			} 
@@ -455,7 +454,7 @@ class Validation
 		{ 
 			if( ! self::email($edit) )
 			{ 
-				$email 				= lang('validation_email',$view_name);
+				$email 				= lang('Validation', 'email',$view_name);
 				$messages[$i] 		= $email.'<br>';  $i++;
 				self::$error[$name] = $email;
 			} 
@@ -465,7 +464,7 @@ class Validation
 		{ 
 			if( ! self::url($edit) )
 			{ 
-				$url 				= lang('validation_url',$view_name);
+				$url 				= lang('Validation', 'url',$view_name);
 				$messages[$i] 		= $url.'<br>';  $i++;
 				self::$error[$name] = $url;
 			} 
@@ -475,7 +474,7 @@ class Validation
 		{ 
 			if( ! self::identity($edit) )
 			{ 
-				$identity 			= lang('validation_identity',$view_name);
+				$identity 			= lang('Validation', 'identity',$view_name);
 				$messages[$i] 		= $identity.'<br>';  $i++;
 				self::$error[$name] = $identity;
 			} 
@@ -486,7 +485,7 @@ class Validation
 		{
 			if( self::specialchar($edit) )
 			{ 
-				$nospecial_char 	= lang('validation_nospecial_char',$view_name);
+				$nospecial_char 	= lang('Validation', 'nospecial_char',$view_name);
 				$messages[$i] 		= $nospecial_char.'<br>';  $i++;
 				self::$error[$name] = $nospecial_char;
 			} 
@@ -497,7 +496,7 @@ class Validation
 		{ 
 			if( ! self::maxchar($edit, $config['maxchar']) )
 			{ 
-				$maxchar 			= lang('validation_maxchar',array("%"=>$view_name, "#" => $config['maxchar']));
+				$maxchar 			= lang('Validation', 'maxchar',array("%"=>$view_name, "#" => $config['maxchar']));
 				$messages[$i] 		= $maxchar.'<br>';  $i++;
 				self::$error[$name] = $maxchar;
 			} 
@@ -508,7 +507,7 @@ class Validation
 		{	
 			if( ! self::minchar($edit, $config['minchar']) )
 			{ 
-				$minchar 			= lang('validation_minchar',array("%"=>$view_name, "#" => $config['minchar']));
+				$minchar 			= lang('Validation', 'minchar',array("%"=>$view_name, "#" => $config['minchar']));
 				$messages[$i] 		= $minchar.'<br>'; $i++;
 				self::$error[$name] = $minchar;
 			} 

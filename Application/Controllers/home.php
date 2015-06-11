@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-class Home // extends Controller
+class Home extends Controller
 {	
 	/******************************************************************\
 	|																   | 
@@ -29,7 +29,7 @@ class Home // extends Controller
 	|  Daha detaylı kullanım için: http://www.zntr.net	   			   |
 	|                                                                  |
 	\******************************************************************/
-
+	
 	function index($params = "")
 	{		
 		/******************************************************************************************
@@ -54,5 +54,5 @@ class Home // extends Controller
 		| NOT: Bu işlem için view() ya da page() yöntemlerinden her ikiside kullanılabilir.		  |
 		******************************************************************************************/
 		$this->import->view("welcome", $data);
-	}	
+	}
 }

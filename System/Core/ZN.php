@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                      GLOBAL ACCESS                       */
+/*                   	 STRUCTURE URL                      */
 /************************************************************/
 /*
 
@@ -10,23 +10,17 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* ZN CLASS                                                        		                  *
+* CONTROLLER CLASS                                                                        *
 *******************************************************************************************
-| Doğrudan erişim sağlamak için global değişken kullanımı sağlamak için oluşturulmuştur.  |
-******************************************************************************************/
+| Küresel değişken kullanmak için oluşturulmuştur.										  |
+******************************************************************************************/	
 class ZN
 {
-	/* ZN USE DEĞİŞKENİ
-	 *
-	 * Direk erişim sağlayabilmek için oluşturulmuştur.
-	 * 
-	 */
-	public static $use;
-	
-	/* ZN DESIGN PATTERNS
-	 *
-	 * Static @var zndynamic
+	/* Use Global Değişkeni
+	 *  
+	 * $this nesnesine ait bilgileri
+	 * barındırmak için oluşturulmuştur.
 	 *
 	 */
-	public static $dynamic;
+	public static $use;	
 }

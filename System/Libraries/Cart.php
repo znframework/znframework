@@ -9,15 +9,13 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-if( ! isset($_SESSION)) session_start();
-
+if( ! isset($_SESSION) ) session_start();
 /******************************************************************************************
 * CART                                                                               	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Cart     							                          |
-| Sınıfı Kullanırken      :	cart::													      |
+| Sınıfı Kullanırken : cart::, $this->cart, zn::$use->cart, uselib('cart')	  			  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class Cart
 {
@@ -61,7 +59,7 @@ class Cart
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			self::$error = get_message('Cart', 'cart_insert_parameter_empty_error');
+			self::$error = get_message('Cart', 'insert_parameter_empty_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -69,7 +67,7 @@ class Cart
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			self::$error = get_message('Cart', 'cart_array_parameter_error');
+			self::$error = get_message('Cart', 'array_parameter_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -114,7 +112,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = get_message('Cart', 'cart_no_data_error');
+			self::$error = get_message('Cart', 'no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -201,7 +199,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = get_message('Cart', 'cart_no_data_error');
+			self::$error = get_message('Cart', 'no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return 0;	
 		}
@@ -227,7 +225,7 @@ class Cart
 		
 		if( empty(self::$items) )
 		{
-			self::$error = get_message('Cart', 'cart_no_data_error');
+			self::$error = get_message('Cart', 'no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return 0;	
 		}
@@ -270,21 +268,21 @@ class Cart
 	{	
 		if( empty($code) )
 		{
-			self::$error = get_message('Cart', 'cart_update_code_error');
+			self::$error = get_message('Cart', 'update_code_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( empty($data) )
 		{
-			self::$error = get_message('Cart', 'cart_update_parameter_empty_error');
+			self::$error = get_message('Cart', 'update_parameter_empty_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( ! is_array($data) )
 		{
-			self::$error = get_message('Cart', 'cart_update_array_parameter_error');
+			self::$error = get_message('Cart', 'update_array_parameter_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}	
@@ -357,7 +355,7 @@ class Cart
 	{		
 		if( empty($code) )
 		{
-			self::$error = get_message('Cart', 'cart_delete_code_error');
+			self::$error = get_message('Cart', 'delete_code_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}

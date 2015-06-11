@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                     CAPTCHA BUILDER                      */
+/*                     LIBRARY CAPTCHA                      */
 /************************************************************/
 /*
 
@@ -9,25 +9,31 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
 /******************************************************************************************
-* CREATE CAPTCHA                                                                          *
+* CAPTCHA                                                                             	  *
 *******************************************************************************************
-| Genel Kullanım: Güvenlik kodu oluşturmak için kullanılır. 							  |
-|																						  |
-| Parametreler: Tek parametresi vardır.                                              	  |
-| 1. boolean var @img => <img> nesnesi oluşturulsun mu?.						     	  |
-|          																				  |
-| Örnek Kullanım:         																  |
-| echo create_captcha(true);															  |
-|																						  |
-| $kod = create_captcha(); 																  |
-| echo '<img src="'.$kod.'" />'; 														  |
-|																						  |
+| Sınıfı Kullanırken : captcha::, $this->captcha, zn::$use->captcha, uselib('captcha')	  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
-if( ! function_exists('create_captcha'))
+class Captcha
 {
-	function create_captcha($img = false)
+	/******************************************************************************************
+	* CREATE CAPTCHA                                                                          *
+	*******************************************************************************************
+	| Genel Kullanım: Güvenlik kodu oluşturmak için kullanılır. 							  |
+	|																						  |
+	| Parametreler: Tek parametresi vardır.                                              	  |
+	| 1. boolean var @img => <img> nesnesi oluşturulsun mu?.						     	  |
+	|          																				  |
+	| Örnek Kullanım:         																  |
+	| echo create_captcha(true);															  |
+	|																						  |
+	| $kod = create_captcha(); 																  |
+	| echo '<img src="'.$kod.'" />'; 														  |
+	|																						  |
+	******************************************************************************************/	
+	public static function create($img = false)
 	{
 		if( ! isset($_SESSION) ) 
 		{
@@ -185,22 +191,19 @@ if( ! function_exists('create_captcha'))
 			return $captcha;
 		}	
 	}
-}
 
-/******************************************************************************************
-* GET CAPTCHA CODE                                                                        *
-*******************************************************************************************
-| Genel Kullanım: Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir. 		  |
-|																						  |
-| Parametreler: Herhangi bir parametresi yoktur.                                          |
-|          																				  |
-| Örnek Kullanım:         																  |
-| echo get_captcha_code(); // Çıktı: 1A4D31 											  |
-|																						  |
-******************************************************************************************/	
-if( ! function_exists('get_captcha_code') )
-{
-	function get_captcha_code()
+	/******************************************************************************************
+	* GET CAPTCHA CODE                                                                        *
+	*******************************************************************************************
+	| Genel Kullanım: Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir. 		  |
+	|																						  |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım:         																  |
+	| echo get_captcha_code(); // Çıktı: 1A4D31 											  |
+	|																						  |
+	******************************************************************************************/	
+	public static function get_code()
 	{
 		if( ! isset($_SESSION) ) 
 		{

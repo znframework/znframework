@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * COOKIE                                                                               	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Cookie     							                          |
-| Sınıfı Kullanırken      :	cookie::													      |
+| Sınıfı Kullanırken      :	cookie::													  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class Cookie
 {
@@ -78,13 +77,13 @@ class Cookie
 		}
 		if( empty($name) )
 		{			
-			self::$error = get_message('Cookie', 'cook_name_parameter_empty_error');
+			self::$error = get_message('Cookie', 'name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
 		if( empty($value) )
 		{
-			self::$error = get_message('Cookie', 'cook_value_parameter_empty_error');
+			self::$error = get_message('Cookie', 'value_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -135,7 +134,7 @@ class Cookie
 		}
 		else
 		{
-			self::$error = get_message('Cookie', 'cook_set_error');
+			self::$error = get_message('Cookie', 'set_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -159,12 +158,10 @@ class Cookie
 		{
 			return false;
 		}
-		
-		import::language('Cookie');
-		
+
 		if( empty($name) )
 		{
-			self::$error = get_message('Cookie', 'cook_name_parameter_empty_error');
+			self::$error = get_message('Cookie', 'name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -184,7 +181,7 @@ class Cookie
 		}
 		else 
 		{
-			self::$error = get_message('Cookie', 'cook_not_select_error');
+			self::$error = get_message('Cookie', 'not_select_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;	
 		}
@@ -213,11 +210,9 @@ class Cookie
 			$path = '';
 		}
 		
-		import::language('Cookie');
-
 		if( empty($name) )
 		{
-			self::$error = get_message('Cookie', 'cook_name_parameter_empty_error');
+			self::$error = get_message('Cookie', 'name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -241,7 +236,7 @@ class Cookie
 		}
 		else
 		{ 
-			self::$error = get_message('Cookie', 'cook_not_delete_error');
+			self::$error = get_message('Cookie', 'not_delete_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;		
 		}

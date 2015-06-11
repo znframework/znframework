@@ -42,14 +42,14 @@ class Download
 	{
 		if( ! is_string($file) )
 		{
-			self::$error = get_message('Download', 'download_string_parameter_error');
+			self::$error = get_message('Download', 'string_parameter_error');
 			report('Error', self::$error, 'DownloadLibrary');
 			return false;	
 		}
 		
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('Download', 'download_empty_parameter_error');
+			self::$error = get_message('Download', 'empty_parameter_error');
 			report('Error', self::$error, 'DownloadLibrary');
 			return false;	
 		}

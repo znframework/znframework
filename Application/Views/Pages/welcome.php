@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $title; // Controllers/home.php sayfasından gönderilen başlık bilgisi ?></title>
 <?php echo $style; // Çağrılan Stil Dosyasının Yolu: Views/Styles/style.css ?>
-<?php echo $font; // Çağrılan Stil Dosyasının Yolu: Views/Styles/style.css ?>
+<?php echo $font; // Çağrılan Font Dosyasının Yolu: Views/Fonts/textfont.ttf ?>
 </head>
 
 <body>

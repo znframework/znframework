@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * AJAX                                                                               	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Ajax  							                              |
-| Sınıfı Kullanırken      :	ajax::													      |
+| Sınıfı Kullanırken      :	ajax::, $this->ajax, zn::$use->ajax, uselib('ajax')			  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class Ajax
 {

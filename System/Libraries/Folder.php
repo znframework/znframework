@@ -56,7 +56,7 @@ class Folder
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
+			self::$error =  get_message('Folder', 'already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 		}
 	}
@@ -85,7 +85,7 @@ class Folder
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
+			self::$error =  get_message('Folder', 'already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;
 		}
@@ -120,7 +120,7 @@ class Folder
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'folder_already_file_error', $name);
+			self::$error =  get_message('Folder', 'already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;
 		}
@@ -150,7 +150,7 @@ class Folder
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'folder_not_found_error', $name);
+			self::$error = get_message('Folder', 'not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 		}
 	}
@@ -181,7 +181,7 @@ class Folder
 		
 		if( ! file_exists($source) )
 		{
-			self::$error = get_message('Folder', 'folder_not_found_error', $source);
+			self::$error = get_message('Folder', 'not_found_error', $source);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}
@@ -240,7 +240,7 @@ class Folder
 		}
 		if( ! file_exists($name) )
 		{
-			self::$error = get_message('Folder', 'folder_not_found_error', $name);
+			self::$error = get_message('Folder', 'not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}
@@ -307,7 +307,7 @@ class Folder
 		}		
 		if( is_file($path) )
 		{
-			self::$error = get_message('Folder', 'folder_folder_parameter_error', $path);
+			self::$error = get_message('Folder', 'parameter_error', $path);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;		
 		}
@@ -481,7 +481,7 @@ class Folder
 		
 		if( ! file_exists($name))
 		{
-			self::$error = get_message('Folder', 'folder_not_found_error', $name);
+			self::$error = get_message('Folder', 'not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}

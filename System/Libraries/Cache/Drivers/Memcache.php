@@ -29,7 +29,7 @@ class MemcacheDriver
 	{
 		if( ! function_exists('memcache_add_server') )
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 		
 		$config = config::get('Cache', 'driver_settings');
@@ -42,7 +42,7 @@ class MemcacheDriver
 		
 		if( empty($connect) )
 		{
-			die(get_message('Cache', 'cache_unsupported', 'Memcache'));
+			die(get_message('Cache', 'unsupported', 'Memcache'));
 		}
 		
 		return true;
@@ -63,7 +63,7 @@ class MemcacheDriver
 	{
 		if( ! function_exists('memcache_get') )
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 		
 		$data = memcache_get($key);
@@ -100,7 +100,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 	}
 	
@@ -123,7 +123,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 	}
 	
@@ -147,7 +147,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 	}
 	
@@ -171,7 +171,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 	}
 	
@@ -189,7 +189,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 	}
 	
@@ -212,7 +212,7 @@ class MemcacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
  	}
 	
@@ -231,7 +231,7 @@ class MemcacheDriver
 	{
 		if( ! function_exists('memcache_get') )
 		{
-			return get_message('Cache', 'cache_unsupported', 'Memcache');
+			return get_message('Cache', 'unsupported', 'Memcache');
 		}
 		
 		$stored = memcache_get($key);
@@ -261,7 +261,7 @@ class MemcacheDriver
 	{
 		if ( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
 		{
-			$report = get_message('Cache', 'cache_unsupported', 'Memcache');
+			$report = get_message('Cache', 'unsupported', 'Memcache');
 			report('CacheUnsupported', $report, 'CacheLibary');
 			return false;
 		}

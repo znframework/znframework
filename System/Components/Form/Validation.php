@@ -35,23 +35,23 @@ class ComponentFormValidation extends ComponentFormSecurity
 		}
 		else
 		{
-			$this->valid_error[$object][] = lang('validation_required', $object);
+			$this->valid_error[$object][] = lang('Validation', 'required', $object);
 		}
 	}
 	
 	protected function email($object = '', $value = '')
 	{
-		$validation_email = lang('validation_email', $object);
+		$email = lang('Validation', 'email', $object);
 		
 		if( ! is_string($value) ) 
 		{
-			$this->valid_error[$object][] = $validation_email;
+			$this->valid_error[$object][] = $email;
 			return false;
 		}
 		
 		if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $value) ) 
 		{
-			$this->valid_error[$object][] = $validation_email; 
+			$this->valid_error[$object][] = $email; 
 		}
 		else 
 		{
@@ -61,11 +61,11 @@ class ComponentFormValidation extends ComponentFormSecurity
 	
 	protected function _match($object = '', $data1 = '', $data2 = '')
 	{
-		$validation_data_match = lang('validation_data_match', $object);
+		$data_match = lang('Validation', 'data_match', $object);
 		
 		if( ! (is_value($data1) || is_value($data2)) )
 		{
-			$this->valid_error[$object][] = $validation_data_match;
+			$this->valid_error[$object][] = $data_match;
 			return false;	
 		}
 		
@@ -75,23 +75,23 @@ class ComponentFormValidation extends ComponentFormSecurity
 		}
 		else
 		{
-			$this->valid_error[$object][] = $validation_data_match;
+			$this->valid_error[$object][] = $data_match;
 		}
 	}
 	
 	protected function url($object = '', $value = '')
 	{
-		$validation_url = lang('validation_url', $object);
+		$url = lang('Validation', 'url', $object);
 		
 		if( ! is_string($value) )
 		{ 
-			$this->valid_error[$object][] = $validation_url;
+			$this->valid_error[$object][] = $url;
 			return false;
 		}
 		
 		if( ! preg_match('#^(\w+:)?//#i', $value) ) 
 		{
-			$this->valid_error[$object][] = $validation_url; 
+			$this->valid_error[$object][] = $url; 
 		}
 		else
 		{ 
@@ -101,16 +101,16 @@ class ComponentFormValidation extends ComponentFormSecurity
 	
 	protected function specialchar($object = '', $value = '')
 	{
-		$validation_nospecial_char = lang('validation_nospecial_char', $object);
+		$nospecial_char = lang('Validation', 'nospecial_char', $object);
 		
 		if( ! is_string($value) )
 		{
-			$this->valid_error[$object][] = $validation_nospecial_char;
+			$this->valid_error[$object][] = $nospecial_char;
 			return false;
 		}
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $value) ) 
 		{
-			$this->valid_error[$object][] = $validation_nospecial_char; 
+			$this->valid_error[$object][] = $nospecial_char; 
 		}
 		else
 		{ 
@@ -122,7 +122,7 @@ class ComponentFormValidation extends ComponentFormSecurity
 	{
 		if( ! is_numeric($value) )
 		{ 
-			$this->valid_error[$object][] = lang('validation_numeric',$object);
+			$this->valid_error[$object][] = lang('Validation', 'numeric',$object);
 		} 
 		else
 		{
@@ -145,22 +145,22 @@ class ComponentFormValidation extends ComponentFormSecurity
 		
 		if( $minchar > strlen($value) )   
 		{	
-			$this->valid_error[$object][] = lang('validation_minchar', array('%' => $object, '#' => $minchar));
+			$this->valid_error[$object][] = lang('Validation', 'minchar', array('%' => $object, '#' => $minchar));
 		}
 		
 		if( $maxchar < strlen($value) ) 
 		{
-			$this->valid_error[$object][] = lang('validation_maxchar', array('%' => $object, '#' => $maxchar));
+			$this->valid_error[$object][] = lang('Validation', 'maxchar', array('%' => $object, '#' => $maxchar));
 		}
 	}
 	
 	protected function identity($object = '', $value = 0)
 	{
-		$validation_identity = lang('validation_identity', $object);
+		$identity = lang('Validation', 'identity', $object);
 		
 		if( ! is_numeric($value) || strlen($value) != 11 )
 		{
-			$this->valid_error[$object][] = $validation_identity;
+			$this->valid_error[$object][] = $identity;
 			return false;
 		}
 		
@@ -190,7 +190,7 @@ class ComponentFormValidation extends ComponentFormSecurity
 		
 		if( $err === false )
 		{
-			$this->valid_error[$object][] = $validation_identity;
+			$this->valid_error[$object][] = $identity;
 		}
 		else 
 		{

@@ -231,8 +231,6 @@ class CUpload
 		{
 			$rootdir = $this->settings['target'];
 		}
-
-		import::language('Upload');
 		
 		$this->file = $filename;
 
@@ -288,7 +286,7 @@ class CUpload
 
 				if( isset($this->settings['extensions']) && ! in_array(extension($name[$index]), $extensions) )
 				{
-					$this->extension_control = lang('upload_extension_error');	
+					$this->extension_control = lang('Upload', 'extension_error');	
 				}
 				elseif( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($source) )
 				{
@@ -334,7 +332,7 @@ class CUpload
 			
 			if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				$this->extension_control = lang('upload_extension_error');	
+				$this->extension_control = lang('Upload', 'extension_error');	
 			}
 			else
 			{	
@@ -419,11 +417,9 @@ class CUpload
 	******************************************************************************************/
 	public function error()
 	{
-		import::language('Upload');
-		
 		if( ! isset($_FILES[$this->file]['error']) ) 
 		{
-			return lang('upload_unknown_error');
+			return lang('Upload', 'unknown_error');
 		}
 		
 		$error_no = $_FILES[$this->file]['error'];
@@ -432,15 +428,15 @@ class CUpload
 		$this->errors = array
 		(
 			'0'  => "scc", 			  // Dosya başarı ile yüklendi. 
-			'1'  => lang('upload_1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
-			'2'  => lang('upload_2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
-			'3'  => lang('upload_3'), // Dosya yükleme işlemi tamamlanmadı. 
-			'4'  => lang('upload_4'), // Yüklenecek dosya yok. 
-			'6'  => lang('upload_6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
-			'7'  => lang('upload_7'), // Dosya dik üzerine yazılamadı. 
-			'8'  => lang('upload_8'), // Dosya yükleme uzantı desteği yok. 
-			'9'  => lang("upload_9"), // Dosya yükleme yolu geçerli değil.
-			'10' => lang("upload_10") // Belirlenen maksimum dosya boyutu aşıldı!
+			'1'  => lang('Upload', '1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
+			'2'  => lang('Upload', '2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
+			'3'  => lang('Upload', '3'), // Dosya yükleme işlemi tamamlanmadı. 
+			'4'  => lang('Upload', '4'), // Yüklenecek dosya yok. 
+			'6'  => lang('Upload', '6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
+			'7'  => lang('Upload', '7'), // Dosya dik üzerine yazılamadı. 
+			'8'  => lang('Upload', '8'), // Dosya yükleme uzantı desteği yok. 
+			'9'  => lang('Upload', '9'), // Dosya yükleme yolu geçerli değil.
+			'10' => lang('Upload', '10') // Belirlenen maksimum dosya boyutu aşıldı!
 		);
 		// Manuel belirlenen hata oluşmuşsa
 		if( ! empty($this->manuel_error) )
@@ -466,7 +462,7 @@ class CUpload
 		// hata uyarısı ver.	
 		else 
 		{
-			return lang('upload_unknown_error');
+			return lang('Upload', 'unknown_error');
 		}
 	}
 }

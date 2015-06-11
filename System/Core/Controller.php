@@ -22,14 +22,36 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/	
 class Controller
 {
-	// Controller sınıfı yapıcısı
+	/******************************************************************************************
+	* CONSTRUCT                                                                               *
+	*******************************************************************************************
+	| Nesnelere $this nesnesi ile erişmek için kullanılmaktadır.							  |
+	| 																						  |
+	******************************************************************************************/	
 	public function __construct()
 	{
-		// $this nesnesi zn::$dynamic nesnesi
-		// aracılığı ile referans alınmaktadır.
-		zn::$dynamic =& $this;
+		// ---------------------------------------------------------------------
+		// Eğer çalışılan sayfada __construct yapıcısı kullanılırsa 
+		// Conroller sınıfının sağlıklı çalışması için bu yöntemin için
+		// parent::__construct() kodu ilave edilerek Conroller->__construct()
+		// yönteminin çalışması sağlanır.
+		// ---------------------------------------------------------------------
+		zn::$use =& $this;
+		// ---------------------------------------------------------------------
+	}
 		
-		// Dahil edilen kütüphaneler tanımlanıyor...
-		zndynamic_autoloaded();
+	/******************************************************************************************
+	* GET                                                                                     *
+	*******************************************************************************************
+	| Nesnelere $this nesnesi ile sınıflara erişmek için kullanılmaktadır.					  |
+	| 																						  |
+	******************************************************************************************/	
+	public function __get($class)
+	{
+		if( ! isset($this->$class) )
+		{
+			$this->$class = uselib($class);	
+			return $this->$class ;
+		}
 	}
 }

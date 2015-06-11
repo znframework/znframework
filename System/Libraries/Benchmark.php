@@ -13,10 +13,10 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * BENCHMARK                                                                           	  *
 *******************************************************************************************
 | Dahil(Import) Edilirken : Dahil Etmeye Gerek Yoktur.   							      |
-| Sınıfı Kullanırken      :	benchmark::, $this->benchmark, zn::$use->benchmark, 		  |
+| Sınıfı Kullanırken      :	benchmark::, $this->benchmark, zn::$use->benchmark	 		  |
 | this()->benchmark	  																	  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class Benchmark
 {

@@ -181,7 +181,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'folder_already_file_error', $path);
+			self::$error =  get_message('Folder', 'already_file_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false; 
 		}
@@ -216,7 +216,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'folder_not_found_error', $path);
+			self::$error = get_message('Folder', 'not_found_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -249,7 +249,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'folder_change_folder_error', $path);
+			self::$error = get_message('Folder', 'change_folder_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -285,7 +285,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'folder_change_folder_name_error', $oldname);
+			self::$error = get_message('Folder', 'change_folder_name_error', $oldname);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -320,7 +320,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('File', 'file_not_found_error', $path);
+			self::$error = get_message('File', 'not_found_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -371,7 +371,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('File', 'file_remote_upload_error', $local_path);
+			self::$error = get_message('File', 'remote_upload_error', $local_path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -422,7 +422,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('File', 'file_remote_download_error', $local_path);
+			self::$error = get_message('File', 'remote_download_error', $local_path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}

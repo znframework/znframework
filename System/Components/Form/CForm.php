@@ -167,10 +167,6 @@ class CForm extends ComponentFormValidation
 	
 	// CONSTRUCT yapıcısı ile kütüphane ve
 	// dil dosyası dahil ediliyor.
-	public function __construct()
-	{
-		import::language('Validation');	
-	}
 	
 	public function name($name = '', $object_name = '')
 	{

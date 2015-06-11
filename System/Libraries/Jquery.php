@@ -1221,9 +1221,7 @@ class Jquery
 	******************************************************************************************/	
 	public static function object_data($data = array())
 	{
-		import::tool('Array');
-		
-		return array_object($data);
+		return arrays::object_data($data);
 	}
 	
 	/******************************************************************************************

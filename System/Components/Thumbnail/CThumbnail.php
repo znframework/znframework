@@ -382,7 +382,7 @@ class CThumbnail
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($file_path) )
 		{
-			$this->error = get_message('Image', 'image_file_not_found_error', $file_path);
+			$this->error = get_message('Image', 'not_found_error', $file_path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
@@ -391,7 +391,7 @@ class CThumbnail
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! $this->is_image_file($file_path) )
 		{
-			$this->error = get_message('Image', 'image_not_image_file_error', $file_path);
+			$this->error = get_message('Image', 'not_image_file_error', $file_path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
@@ -584,7 +584,7 @@ class CThumbnail
 				 
 		if( empty($path) )
 		{
-			$this->error = get_message('Image', 'image_file_not_found_error', $path);
+			$this->error = get_message('Image', 'not_found_error', $path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
@@ -596,7 +596,7 @@ class CThumbnail
 		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			$this->error = get_message('Image', 'image_file_not_found_error', $path);
+			$this->error = get_message('Image', 'not_found_error', $path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}

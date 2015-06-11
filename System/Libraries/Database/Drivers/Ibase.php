@@ -78,7 +78,7 @@ class IbaseDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'db_mysql_connect_error'));
+			die(get_message('Database', 'mysql_connect_error'));
 		}
 	}
 	

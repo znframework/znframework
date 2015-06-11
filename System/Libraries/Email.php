@@ -380,7 +380,6 @@ class Email {
 	******************************************************************************************/
 	public static function open()
 	{
-		import::language('Email');
 		import::package(REFERENCES_DIR.'PHPMailer');	
 		self::$mail = new PHPMailer();
 	}
@@ -1738,7 +1737,7 @@ class Email {
 			//------------------------------------------------------------------
 			if( self::$mail->ErrorInfo )
 			{
-				self::$error = lang(self::$mail->ErrorInfo);
+				self::$error = lang('Email', self::$mail->ErrorInfo);
 			}
 			return false;
 		}
@@ -1756,5 +1755,38 @@ class Email {
 		if( isset(self::$message) ) 	self::$message = NULL;
 		if( isset(self::$detail) ) 		self::$detail = NULL;	
 	}
-
+	
+	public static function basic_send($to = '', $subject = '', $message = '', $extra = '')
+	{
+		if( ! is_string($to) || ! is_email($to) ) 
+		{
+			return false;
+		}
+		
+		if( ! is_string($subject) ) 
+		{
+			$subject = '';
+		}
+		
+		if( ! is_value($message) ) 
+		{
+			$message = '';
+		}
+		
+		if( ! is_string($extra) ) 
+		{
+			$extra = '';
+		}
+		
+		$result = mb_send_mail($to, $subject, $message, $extra);
+			
+		if( empty($result) ) 
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 }

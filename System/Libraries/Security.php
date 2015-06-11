@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * SECURITY                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Security   							                          |
-| Sınıfı Kullanırken      :	Sec::   											          |
+| Sınıfı Kullanırken      :	security::   											      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Security
 {
@@ -243,4 +242,126 @@ class Security
 		
 		return htmlspecialchars_decode(trim($string), $tp);
 	}
+	
+	// Function: php_tag_encode()
+	// İşlev: Php taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public static function php_tag_encode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		$php_tag_chars = array
+		(
+			'<?' => '&#60;&#63;',
+			'?>' => '&#63;&#62;'
+		);
+		
+		return str_replace(array_keys($php_tag_chars), array_values($php_tag_chars), $str);
+	}
+	
+	// Function: php_tag_decode()
+	// İşlev: Php taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public static function php_tag_decode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		$php_tag_chars = array
+		(
+			'<?' => '&#60;&#63;',
+			'?>' => '&#63;&#62;'
+		);
+		
+		return str_replace(array_values($php_tag_chars), array_keys($php_tag_chars), $str);
+	}
+	
+	// Function: nail_encode()
+	// İşlev: Tırnak işaretlerini numerik koda dönüştürmek çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public static function nail_encode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		$nail_chars = array
+		(
+			"'" => "&#145;",
+			'"' => "&#147;"
+		);
+		
+		$str = str_replace(array_keys($nail_chars), array_values($nail_chars), $str);
+		
+		return $str;
+	}
+	
+	// Function: nail_decode()
+	// İşlev: Tırnak işaretlerini numerik koda dönüştürmek çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public static function nail_decode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		$nail_chars = array
+		(
+			"'" => "&#145;",
+			'"' => "&#147;"
+		);
+		
+		$str = str_replace(array_values($nail_chars), array_keys($nail_chars), $str);
+		
+		return $str;
+	}
+	
+	// Function: foreign_char_encode()
+	// İşlev: Farklı dillerdeki yabancı karakterleri numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public static function foreign_char_encode($str = '')
+	{	
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		$chars = config::get('ForeignChars', 'numerical_codes');
+		
+		return str_replace(array_keys($chars), array_values($chars), $str);
+	}	
+	
+	// Function: foreign_char_decode()
+	// İşlev: Farklı dillerdeki yabancı karakterleri numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public static function foreign_char_decode($str = '')
+	{	
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return false;
+		}
+		
+		$chars = config::get('ForeignChars', 'numerical_codes');
+		
+		return str_replace(array_values($chars), array_keys($chars), $str);
+	}	
 }

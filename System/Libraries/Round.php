@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                    TOOL ROUNDER                          */
+/*                     LIBRARY ROUND                        */
 /************************************************************/
 /*
 
@@ -9,17 +9,23 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
-// Function: rounder()
-// İşlev: Sayıları yuvarlamak için kullanılır.
-// Parametreler
-// @number = Yuvarlanacak sayı.
-// @count = Virgülden sonraki ondalıklı bölmün kaç karakter olacağı
-// @type = Yuvarlamanın yönü. Parametrenin alabileceği değerler: average, down, up
-// Dönen Değer: Yuvarlanmı sayısal veri.
-if(!function_exists('rounder'))
+/******************************************************************************************
+* ROUND                                                                               	  *
+*******************************************************************************************
+| Sınıfı Kullanırken : round::, $this->round, zn::$use->round, uselib('round')	  	  	  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
+******************************************************************************************/	
+class Round
 {
-	function rounder($number = '', $count = 0, $type = "average")
+	// Function: data()
+	// İşlev: Sayıları yuvarlamak için kullanılır.
+	// Parametreler
+	// @number = Yuvarlanacak sayı.
+	// @count = Virgülden sonraki ondalıklı bölmün kaç karakter olacağı
+	// @type = Yuvarlamanın yönü. Parametrenin alabileceği değerler: average, down, up
+	// Dönen Değer: Yuvarlanmı sayısal veri.
+	public static function data($number = '', $count = 0, $type = "average")
 	{
 		if( ! is_numeric($number) || empty($number) ) 
 		{

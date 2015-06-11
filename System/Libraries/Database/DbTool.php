@@ -223,7 +223,7 @@ class DbTool
 		fwrite($handle,$return);
 		fclose($handle);
 		
-		return get_message('Database', 'db_backup_tables_success');
+		return get_message('Database', 'backup_tables_success');
 	}
 	
 	/******************************************************************************************
@@ -273,7 +273,7 @@ class DbTool
 			}
 		}
 	
-		return get_message('Database', 'db_optimize_tables_success');
+		return get_message('Database', 'optimize_tables_success');
 	}
 	
 	/******************************************************************************************
@@ -323,7 +323,7 @@ class DbTool
 			}
 		}
 				
-		return get_message('Database', 'db_repair_tables_success');
+		return get_message('Database', 'repair_tables_success');
 	}
 	
 	/******************************************************************************************

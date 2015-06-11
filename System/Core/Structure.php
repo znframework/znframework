@@ -187,7 +187,7 @@ class Structure
 			{
 				if( ! config::get('Route', 'show_404') )
 				{
-					$error = get_message('System', 'system_call_user_func_class_error');
+					$error = get_message('System', 'call_user_func_class_error');
 					
 					// Sayfa bilgisine erişilemezse hata bildir.
 					echo $error;
@@ -207,26 +207,21 @@ class Structure
 			// -------------------------------------------------------------------------------
 			// Sayfaya ait controller nesnesi oluşturuluyor.
 			// -------------------------------------------------------------------------------
-			zn::$dynamic = new $page;
-			
-			// -------------------------------------------------------------------------------
-			// Otomatik yüklemeleri güncelle.
-			// -------------------------------------------------------------------------------
-			zndynamic_autoloaded();
+			 $var = new $page;
 				
 			// -------------------------------------------------------------------------------
 			// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
 			// -------------------------------------------------------------------------------	
-			if( is_callable(array(zn::$dynamic, $function)) )
+			if( is_callable(array($var, $function)) )
 			{
-				call_user_func_array( array(zn::$dynamic, $function), $parameters);
+				call_user_func_array( array($var, $function), $parameters);
 			}
 			else
 			{
 				// Sayfa bilgisine erişilemezse hata bildir.
 				if( ! config::get('Route', 'show_404') )
 				{
-					$error = get_message('System', 'system_call_user_func_array_error');
+					$error = get_message('System', 'call_user_func_array_error');
 					
 					// Hatayı ekrana yazdır.
 					echo $error;
@@ -252,7 +247,7 @@ class Structure
 			}
 			else
 			{
-				$error = get_message('System', 'system_not_is_file_error');
+				$error = get_message('System', 'not_is_file_error');
 				
 				// Hatayı ekrana yazdır.
 				echo $error;

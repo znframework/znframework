@@ -259,6 +259,29 @@ function is_char($str = NULL)
 	}
 }	
 
+/******************************************************************************************
+* IS DECLARED CLASS - DAHİL EDİLDİĞİ SÜRÜM:1.5                                            *
+*******************************************************************************************
+| Genel Kullanım: Bir sınıfın tanımlanıp tanımlanmadığını kontrol etmek için kullanılır.  | 
+|          																				  |
+******************************************************************************************/
+function is_declared_class($class = '')
+{
+	if( ! is_string($class) )
+	{
+		return false;
+	}
+	
+	if( in_array(strtolower($class), array_map('strtolower', get_declared_classes())) )
+	{
+		return true;	
+	}
+	else
+	{
+		return false;	
+	}
+}
+
 // Function: is_hash()
 // İşlev: Parametrenin geçerli şifreleme algoritmalarından biri olup olmadığını kontrol eder.
 // Parametreler: Herhangi bir değer.
@@ -564,6 +587,97 @@ function set_lang($l = "tr")
 	$_SESSION[md5("lang")] = $l;
 }
 
+/******************************************************************************************
+* LANG FUNCTION                                                                           *
+*******************************************************************************************
+| Genel Kullanım: Dahil edilen dil dosyalarına ait verileri kullanma işlevini üstlenir.	  |
+|																						  |
+| Parametreler																			  |
+| @str = Dil dosyası içerisinde anahtar ifade.											  |
+| @changed = Dil dosyası içerisinde karakteri istenilen karakter ile değiştirmek. 		  |
+| Örnek: % ibaresi yerine 'abc'															  |
+|																						  |
+******************************************************************************************/
+function lang($file = '', $str = '', $changed = '')
+{
+	// Parametreler kontrol ediliyor.		
+	if( ! is_string($file) || ! is_string($str) ) 
+	{
+		return false;
+	}
+	
+	
+	$key 		= remove_extension($file, 'php');
+	$file 		= config::get('Language', get_lang()).'/'.suffix($file, '.php');
+	$langdir    = LANGUAGES_DIR.$file ;
+	$syslangdir = SYSTEM_LANGUAGES_DIR.$file;
+	
+	global $lang;
+	
+	if( is_file_exists($langdir) ) 
+	{
+		require_once($langdir);	
+	}
+	elseif( is_file_exists($syslangdir) )
+	{
+		require_once($syslangdir);	
+	}
+	
+	// Belirtilen anahtar dahil edilen
+	// Dil dosyası içerisinde mevcutsa
+	// İşlemlere devam et.
+	if( isset($lang[$key][$str]) )
+	{
+		$langstr = $lang[$key][$str];	
+	}
+	elseif(isset($lang[$key]))
+	{
+		return $lang[$key];	
+	}
+	else
+	{
+		return false;	
+	}
+	
+	// 2. Parametre Dizi değilse
+	// Dil dosyaları içerisinde yer alan
+	// & işareti yerine bu parametrenin değerin ata.
+	if( ! is_array($changed) )
+	{
+		if( strstr($langstr, "%") && ! empty($changed) )
+		{
+			return str_replace("%", $changed , $langstr);
+		}
+		else
+		{
+			return $langstr;
+		}
+	}
+	else
+	{
+		// 2. Parametre dizi ise
+		// Anahtar olarak belirtilen
+		// İşaretler yerine karşılarında
+		// yer alan değerleri ata.
+		if( ! empty($changed) )
+		{
+			$values = array();
+			
+			foreach($changed as $key => $value)
+			{
+				$keys[] = $key;
+				$values[] = $value;	
+			}
+			
+			return str_replace($keys, $values, $langstr);
+		}
+		else
+		{
+			return $langstr;
+		}
+	}
+}
+
 // Function: current_lang()
 // İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir get_lang() yönteminden farkı
 // Config/Uri.php dosyasından lang = true olarak ayarlanmamışsa herhangi bir sonuç vermez.
@@ -594,6 +708,8 @@ function current_lang()
 		}
 	}
 }
+
+
 
 // Function: suffix()
 // İşlev: Parametre olarak girilen değerlerin sonuna ek koymak için kullanılır.
@@ -1339,46 +1455,6 @@ function library($class = NULL, $function = NULL, $parameters = array())
 	}
 }
 
-// Function: tool()
-function tool($file = NULL, $function = NULL, $parameters = array())
-{
-	if( empty($file) || empty($function) ) 
-	{
-		return false;
-	}
-	
-	$path = TOOLS_DIR.suffix($file, ".php");
-	
-	if( ! is_file_exists($path) )
-	{
-		$path = SYSTEM_TOOLS_DIR.suffix($file, ".php");
-	}
-	
-	if( ! is_file_exists($path) ) 
-	{
-		return false;
-	}
-	
-	if( ! is_import($path) ) 
-	{
-		require_once $path;
-	}
-	
-	if( ! is_array($parameters) ) 
-	{
-		$parameters = array($parameters);
-	}
-	
-	if( function_exists($function) ) 
-	{
-		return call_user_func_array( $function , $parameters ); 
-	}
-	else 
-	{
-		return false;
-	}
-}
-
 /******************************************************************************************
 * USELIB - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                       *
 *******************************************************************************************
@@ -1392,7 +1468,12 @@ function tool($file = NULL, $function = NULL, $parameters = array())
 ******************************************************************************************/
 function uselib($class = '')
 {
-	$class = ns_short_name($class);
+	$shortname = ns_short_name($class);
+
+	if( ! empty($shortname['namespace']) )
+	{
+		$class = $shortname['namespace'];
+	}
 	
 	if( strstr($class, '/') )
 	{
@@ -1401,11 +1482,25 @@ function uselib($class = '')
 	
 	if( class_exists($class) )
 	{
-		return new $class;
+		if( ! isset(zn::$use->$class) )
+		{
+			if( ! is_object(zn::$use) )
+			{
+				zn::$use = new stdClass();	
+			}
+			
+			zn::$use->$class = new $class;
+			
+			return zn::$use->$class;
+		}
+		else
+		{
+			return zn::$use->$class;	
+		}
 	}
 	else
 	{
-		return false;	
+		return $class;	
 	}
 }
 
@@ -1468,9 +1563,7 @@ function imported_tools()
 // Dönen Değerler: Sistem kullanıyor.
 function get_message($lang_file, $error_msg, $ex = '')
 {
-	import::language($lang_file);
-	
-	return lang($error_msg, $ex);
+	return lang($lang_file, $error_msg, $ex);
 }
 
 // Function: error_report()
@@ -1562,7 +1655,6 @@ function route_uri($request_uri = '')
 	{
 		foreach($uri_change as $key => $val)
 		{		
-			$key = trim($key, '/');
 			$request_uri = preg_replace('/'.$key.'/xi', $val, $request_uri);
 		}
 	}
@@ -1586,7 +1678,6 @@ function clean_injection($string = "")
 	
 	foreach($badwords as $key => $val)
 	{		
-		$key = trim($key, '/');
 		$string = preg_replace('/'.$key.'/xi', $val, $string);
 	}
 	
@@ -1915,107 +2006,24 @@ function index_status()
 	}
 }
 
-// Function: zndynamic_autoloaded()
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-function zndynamic_autoloaded()
-{
-	$autoload   = config::get('Autoload');	
-	
-	$preloaded  = $autoload['preloaded'];	
-	$libraries  = $autoload['library'];
-	$model 		= $autoload['model'];
-	$components = $autoload['component'];
-	
-	$import_files = array_merge($preloaded, $libraries, $model, $components);
-	
-	if( ! empty($import_files) ) 
-	{
-		foreach($import_files as $class)
-		{
-			 is_imported($class);
-		}
-	}
-}
-
 /******************************************************************************************
-* NS SHORT NAME - DAHİL EDİLDİĞİ SÜRÜM:1.4                                                *
+* NS SHORT NAME - DAHİL EDİLDİĞİ SÜRÜM:1.5                                                *
 *******************************************************************************************
 | Genel Kullanım: İsim alanı kısaltması kontrolünü sağlaması için oluşturulmuştur.		  |
 |          																				  |
 ******************************************************************************************/
 function ns_short_name($class = '')
 {
-	$short_namespace = config::get('Namespace', 'short_name');
-
-	if( isset($short_namespace[ucwords($class)]) )
-	{
-		$class = $short_namespace[ucwords($class)];
-	}
+	$namespaces = config::get('Namespace', 'short_name');
 	
-	return $class;
+	$longns  = array_values($namespaces);
+	$shortns = array_map('strtolower', array_keys($namespaces));	
+	$number  = array_search(strtolower($class), $shortns);
+	
+	$namespace = $number > -1
+			   ? $longns[$number]
+			   : $namespace = '';	
+	
+	return array('classname' => $class, 'namespace' => $namespace);
 }
-
-// Function: is_imported()
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-function is_imported($class = '', $type = NULL)
-{	
-	$class = ns_short_name($class);
-	
-	if( extension($class) )
-	{
-		$class = remove_extension($class);
-	}
-	
-	if( strstr($class, '/') )
-	{
-		$class = str_replace('/', '\\', $class);
-	}
-		
-	if( class_exists($class) )
-	{	
-		if( strstr($class, '\\') )
-		{	
-			$var = strtolower(divide($class, '\\', -1));
-		}
-		else
-		{
-			$var = strtolower($class);
-		}
-		
-		/* VARIABLE AND FUNCTIONAL ACCESS */
-		if( ! is_object(zn::$dynamic) )
-		{		
-			zn::$dynamic = new stdClass();		
-		}
-		else
-		{
-			zn::$dynamic->$var = new $class;
-		}
-	
-		if( ! is_object(zn::$use) )
-		{	
-			zn::$use = new stdClass();
-		}
-		else
-		{	
-			zn::$use->$var = new $class;
-		}
-	}
-}
-
-// Function: using()
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-function &using()
-{
-	if( empty(zn::$dynamic) )
-	{
-		zndynamic_autoloaded();
-	}
-	
-	return zn::$dynamic;
-}
-
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------

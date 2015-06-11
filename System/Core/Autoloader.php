@@ -26,8 +26,6 @@ class Autoloader
 	*/
 	public static function run($class)
 	{
-		$class = ns_short_name($class);
-		
 		$file  = str_replace('\\', '/', $class).'.php'; 
 		
 		$library 		= LIBRARIES_DIR.$file;	

@@ -105,7 +105,7 @@ class PdoDriver
 		
 		if( ! in_array($this->select_driver, $this->pdo_subdrivers) )
 		{
-			die(get_message('Database', 'db_driver_error', $this->select_driver));		
+			die(get_message('Database', 'driver_error', $this->select_driver));		
 		}
 		
 		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	
@@ -607,7 +607,7 @@ class PdoDriver
 		}
 		catch(PDOException $e)
 		{
-			die(get_message('Database', 'db_mysql_connect_error'));
+			die(get_message('Database', 'mysql_connect_error'));
 		}
 	}
 }

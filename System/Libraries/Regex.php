@@ -66,13 +66,11 @@ class Regex
 		
 		$pattern = str_replace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
-		import::tool('Array');	
-		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = multi_key_array(config::get('Regex','regex_chars'));
+		$regex_chars   = arrays::multikey(config::get('Regex','regex_chars'));
 		
-		$setting_chars = multi_key_array(config::get('Regex','setting_chars'));
+		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
@@ -136,13 +134,11 @@ class Regex
 		
 		$pattern = str_replace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
-		import::tool('Array');	
-		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = multi_key_array(config::get('Regex','regex_chars'));
+		$regex_chars   = arrays::multikey(config::get('Regex','regex_chars'));
 		
-		$setting_chars = multi_key_array(config::get('Regex','setting_chars'));
+		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
@@ -211,13 +207,11 @@ class Regex
 		
 		$pattern = str_replace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
-		import::tool('Array');	
-		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = multi_key_array(config::get('Regex','regex_chars'));
+		$regex_chars   = arrays::multikey(config::get('Regex','regex_chars'));
 		
-		$setting_chars = multi_key_array(config::get('Regex','setting_chars'));
+		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	

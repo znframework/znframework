@@ -38,9 +38,26 @@ class Encode
 			$count = 6;
 		}
 		
+		if( ! is_string($chars) ) 
+		{
+			$chars = "all";
+		}
+		
 		$password   	= '';
+		
 		// Şifreleme için kullanılacak karakter listesi.
-		$characters 	= "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ";
+		if( $chars === "all" ) 
+		{
+			$characters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ";
+		}
+		if( $chars === "numeric" ) 
+		{
+			$characters = "1234567890";
+		}
+		if( $chars === "string" || $chars === "alpha" )
+		{ 
+			$characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ";
+		}
 		
 		// Parametre olarak belirtilen sayı kadar karakter
 		// listesinden karakterler seçilerek
@@ -49,6 +66,7 @@ class Encode
 		{
 			$password .= substr( $characters, rand( 0, strlen($characters)), 1 );	
 		}
+		
 		return $password;
 	}	
 	
@@ -214,5 +232,4 @@ class Encode
 			}
 		}
 	}
-
 }

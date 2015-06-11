@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                  TOOL FORMATTER                          */
+/*                     LIBRARY FORMAT                       */
 /************************************************************/
 /*
 
@@ -9,17 +9,23 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
-// Function: byte_formatter()
-// İşlev: Girilen sayısal veriyi bayt biçimine çevirir.
-// Parametreler
-// @bytes = Sayısal veri.
-// @precision = Virgülden sonraki ondalıklı bölümün kaç karaker olacağı.
-// @unit = Dönüştürülen verinin birimi görüntülensin mi?.
-// Dönen Değer: Dönüştürülmüş veri.
-if( ! function_exists('byte_formatter'))
+/******************************************************************************************
+* FORMAT                                                                             	  *
+*******************************************************************************************
+| Sınıfı Kullanırken : format::, $this->format, zn::$use->format, uselib('format')	  	  |
+| 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
+******************************************************************************************/	
+class Format
 {
-	function byte_formatter($bytes = 0, $precision = 1, $unit = true)
+	// Function: byte_formatter()
+	// İşlev: Girilen sayısal veriyi bayt biçimine çevirir.
+	// Parametreler
+	// @bytes = Sayısal veri.
+	// @precision = Virgülden sonraki ondalıklı bölümün kaç karaker olacağı.
+	// @unit = Dönüştürülen verinin birimi görüntülensin mi?.
+	// Dönen Değer: Dönüştürülmüş veri.
+	public static function byte($bytes = 0, $precision = 1, $unit = true)
 	{
 		if( ! is_numeric($bytes) ) 
 		{
@@ -110,17 +116,14 @@ if( ! function_exists('byte_formatter'))
 		}
 		return $return;
 	}
-}
 
-// Function: money_formatter()
-// İşlev: Girilen sayısal veriyi para birimine çevirir.
-// Parametreler
-// @money = Sayısal veri. Örnek 1.000,00
-// @type = Paranın birimi belirlenir. Örnek 1.000,00 TL
-// Dönen Değer: Dönüştürülmüş veri.
-if( ! function_exists('money_formatter'))
-{
-	function money_formatter($money = 0, $type = '')
+	// Function: money_formatter()
+	// İşlev: Girilen sayısal veriyi para birimine çevirir.
+	// Parametreler
+	// @money = Sayısal veri. Örnek 1.000,00
+	// @type = Paranın birimi belirlenir. Örnek 1.000,00 TL
+	// Dönen Değer: Dönüştürülmüş veri.
+	public static function money($money = 0, $type = '')
 	{
 		if( ! is_numeric($money) ) 
 		{
@@ -173,18 +176,15 @@ if( ! function_exists('money_formatter'))
 		
 		return $moneyFormat;
 	}
-}
 
-// Function: time_formatter()
-// İşlev: Girilen sayısal veriyi zamana çevirir.
-// Parametreler
-// @count = Sayısal veri. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
-// @type = Hangi türden. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
-// @type = Hangi türe 
-// Dönen Değer: Dönüştürülmüş veri.
-if(!file_exists('time_formatter'))
-{
-	function time_formatter($count = '', $type = "second", $output = "day")
+	// Function: time_formatter()
+	// İşlev: Girilen sayısal veriyi zamana çevirir.
+	// Parametreler
+	// @count = Sayısal veri. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
+	// @type = Hangi türden. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
+	// @type = Hangi türe 
+	// Dönen Değer: Dönüştürülmüş veri.
+	public static function time($count = '', $type = "second", $output = "day")
 	{
 		if( ! is_numeric($count) ) 
 		{
