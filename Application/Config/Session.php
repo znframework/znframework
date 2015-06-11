@@ -17,7 +17,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * ENCODE                                                                                  *
 *******************************************************************************************
-| Genel Kullanımı: session değerlerini tutan anahtar ifadeler şifrelensin mi?			  |
+| Genel Kullanımı: Session değerlerini tutan anahtar ifadeler şifrelensin mi?			  |
 | Şifrelenmesini istediğini hash algorimatsını yazmanız yeterlidir.					      |
 | Boş bırakılması halinde herhangi bir şifreleme yapmayacaktır.			                  |						
 ******************************************************************************************/

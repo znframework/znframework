@@ -18,7 +18,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * SYMBOLS                                                                                 *
 *******************************************************************************************
 | Genel Kullanımı: Aşağıda sembollerin listesi yer almaktadır. Bu sembolleri 			  |
-| kullanabilmek için symbol() aracından yararlanılır.	  								  |						
+| kullanabilmek için symbol::name() yönteminden yararlanılır.	  						  |						
 ******************************************************************************************/
 $config['Symbols'] = array
 (

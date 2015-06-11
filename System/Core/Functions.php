@@ -1504,60 +1504,6 @@ function uselib($class = '')
 	}
 }
 
-/******************************************************************************************
-* IMPORTED LIBRARIES - DAHİL EDİLDİĞİ SÜRÜM:1.2                                           *
-*******************************************************************************************
-| Genel Kullanım: Dahil edilen kütüphane listesine erişmek için kullanılır.				  | 
-|          																				  |
-******************************************************************************************/
-function imported_libraries()
-{	
-	$libraries = array();
-	
-	foreach(get_required_files() as $files) 
-	{
-		$real_libdir = 'Libraries';
-
-		if( strstr($files, $real_libdir) )
-		{
-			$fileex = explode($real_libdir, $files);
-			
-			$class = remove_extension($fileex[1]);
-			
-			$libraries[] = str_replace(array('\\','/'), '', $class);
-		}	
-	}
-	
-	return $libraries;
-}
-
-/******************************************************************************************
-* IMPORTED TOOLS - DAHİL EDİLDİĞİ SÜRÜM:1.2                                               *
-*******************************************************************************************
-| Genel Kullanım: Dahil edilen kütüphane listesine erişmek için kullanılır.				  | 
-|          																				  |
-******************************************************************************************/
-function imported_tools()
-{	
-	$tools = array();
-	
-	foreach(get_required_files() as $files) 
-	{
-		$real_libdir = 'Tools';
-
-		if( strstr($files, $real_libdir) )
-		{
-			$fileex = explode($real_libdir, $files);
-			
-			$class = remove_extension($fileex[1]);
-			
-			$tools[] = str_replace(array('\\','/'), '', $class);
-		}	
-	}
-	
-	return $tools;
-}
-
 // Function: get_message()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
