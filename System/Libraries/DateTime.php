@@ -86,12 +86,12 @@ class DateTime
 	******************************************************************************************/
 	public static function current_date()
 	{		
-		return datetime::set_date("<daynum0>.<monnum0>.<year>");
+		return self::set_date("<daynum0>.<monnum0>.<year>");
 	}
 
 
 	/******************************************************************************************
-	* CURRENT DATE TIME                                                                       *
+	* CURRENT                                                                       		  *
 	*******************************************************************************************
 	| Genel Kullanım: Aktif tarih ve saat bilgisini verir.			  	                      |
 	|																						  |
@@ -100,9 +100,9 @@ class DateTime
 	| Örnek Kullanım: current_date_time() // 12.01.2015 09:02:41							  |
 	|       																				  |
 	******************************************************************************************/
-	public static function current_date_time()
+	public static function current()
 	{		
-		return datetime::set_date("<daynum0>.<monnum0>.<year> <hour024>:<minute>:<second>");
+		return self::set_date("<daynum0>.<monnum0>.<year> <hour024>:<minute>:<second>");
 	}
 
 

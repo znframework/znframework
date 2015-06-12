@@ -55,4 +55,10 @@ class Home extends Controller
 		******************************************************************************************/
 		$this->import->view("welcome", $data);
 	}
+	
+	function ex()
+	{
+		// SÜTUN DEĞERİNİ 1 ARTIRIR
+		output($this->db->table('Download')->get()->result() );	
+	}
 }

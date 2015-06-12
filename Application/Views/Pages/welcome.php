@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
     <div id="header">
     	<div class="font white-color">ZNTR.NET</div>
     </div>

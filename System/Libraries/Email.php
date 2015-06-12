@@ -1756,6 +1756,17 @@ class Email {
 		if( isset(self::$detail) ) 		self::$detail = NULL;	
 	}
 	
+	/******************************************************************************************
+	* BASIC SEND                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Basit e-posta göndermek için kullanılır.							      |
+	|															                              |
+	| Parametreler: 4 parametresi vardır.                                                     |  
+	| @to, @subject, @message, @extra													      |
+	|          																				  |
+	| Örnek Kullanım: email::basic_send('o@w.c', 'Konu', 'Mesaj')         					  |
+	|          																				  |
+	******************************************************************************************/
 	public static function basic_send($to = '', $subject = '', $message = '', $extra = '')
 	{
 		if( ! is_string($to) || ! is_email($to) ) 

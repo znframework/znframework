@@ -46,6 +46,14 @@ class Db
 	 */
 	private $from;
 	
+	/* Table Değişkeni
+	 *  
+	 * TABLE bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $table;
+	
 	/* Where Değişkeni
 	 *  
 	 * WHERE bilgisini
@@ -292,6 +300,29 @@ class Db
 	}
 	
 	/******************************************************************************************
+	* TABLE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde Tablo ismi belirtmek için oluşturulmuştur.			  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @table => Tablo adı parametresidir.                                       |
+	|          																				  |
+	| Örnek Kullanım: ->table('OrnekTablo')		        									  |
+	|          																				  |
+	******************************************************************************************/
+	public function table($table = '')
+	{
+		if( ! is_string($table) ) 
+		{
+			return false;
+		}
+		
+		$this->table = ' '.$this->prefix.$table.' ';
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
 	* WHERE                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
@@ -404,6 +435,10 @@ class Db
 		if( ! empty($table) ) 
 		{
 			$this->from = ' FROM '.$this->prefix.$table.' ';
+		}
+		elseif( ! empty($this->table) )
+		{
+			$this->from = ' FROM '.$this->prefix.$this->table.' ';
 		}
 		
 		// Çoklu WHERE kullanımından dolayı
@@ -1119,6 +1154,92 @@ class Db
 	}
 	
 	/******************************************************************************************
+	* PROTECTED INCREMENT VE DECREMENT                                                        *
+	******************************************************************************************/
+	protected function _incdec($table = '', $columns = array(), $incdec = 0)
+	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$columns = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
+		if( ! is_string($table) || empty($columns) )
+		{
+			return false;
+		}
+
+		if( is_array($columns) ) foreach($columns as $v)
+		{
+			$newcolumns[$v] = "$v + $incdec";	
+		}
+		else
+		{
+			$newcolumns = array($columns => "$columns + $incdec");	
+		}
+
+		if( ! empty($this->where) ) 
+		{
+			$where = ' WHERE '; 
+		}
+		else 
+		{
+			$where = '';
+		}
+		
+		$data = '';
+		
+		foreach($newcolumns as $key => $value)
+		{
+			$data .= $key.'='.$value.',';
+		}
+		$set = ' SET '.substr($data,0,-1);
+		
+		$update_query = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
+		
+		$this->where = NULL;
+		
+		return $this->db->query($update_query);
+	}
+	
+	/******************************************************************************************
+	* INCREMENT                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Belirtilen sütunların değerini 1 artırır.	  							  |
+	|															                              |
+	| Parametreler: 2 dizi parametresi vardır.                                                |
+	| 1. string var @table => Tablo Adı.					 			                      |
+	| 2. string/array var @columns => Bir bir artırılacak sütun veya sütunlar.                |
+	|          																				  |
+	| Örnek Kullanım: ->increment('OrnekTablo', 'Hit')				  				          |
+	|          																				  |
+	******************************************************************************************/
+	public function increment($table = '', $columns = array())
+	{
+		return $this->_incdec($table, $columns, 1);
+	}
+	
+	/******************************************************************************************
+	* DECREMENT                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Belirtilen sütunların değerini 1 azaltır.	  							  |
+	|															                              |
+	| Parametreler: 2 dizi parametresi vardır.                                                |
+	| 1. string var @table => Tablo Adı.					 			                      |
+	| 2. string/array var @columns => Bir bir azaltılacak sütun veya sütunlar.                |
+	|          																				  |
+	| Örnek Kullanım: ->decrement('OrnekTablo', 'Hit')				  				          |
+	|          																				  |
+	******************************************************************************************/
+	public function decrement($table = '', $columns = array())
+	{
+		return $this->_incdec($table, $columns, -1);
+	}
+	
+	/******************************************************************************************
 	* INSERT                                                                                  *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde veri eklemek için INSERT işlemini gerçekleştirir.	  |
@@ -1132,6 +1253,15 @@ class Db
 	******************************************************************************************/
 	public function insert($table = '', $datas = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$datas = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -1178,6 +1308,15 @@ class Db
 	******************************************************************************************/
 	public function update($table = '', $set = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$set   = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -1239,10 +1378,16 @@ class Db
 			$where = '';
 		}
 		
+		if( ! empty($this->table) ) 
+		{
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		$delete_query = 'DELETE FROM '.$this->prefix.$table.$where.$this->where;
 		
 		$this->where = NULL;
-		
+			
 		$secure = $this->secure;
 		
 		return $this->db->query($this->_query_security($delete_query), $secure);
@@ -1321,11 +1466,15 @@ class Db
 				$strex = explode('?', $query);	
 				$newstr = '';
 				
-				for($i = 0; $i < count($secure); $i++)
+				if( ! empty($strex) ) for($i = 0; $i < count($strex); $i++)
 				{
-					$newstr .= $strex[$i].$this->db->real_escape_string($secure[$i]);
+					$sec = isset($secure[$i])
+							  ? $secure[$i]
+							  : NULL;
+							  
+					$newstr .= $strex[$i].$this->db->real_escape_string($sec);
 				}
-			
+
 				$query = $newstr;
 			}
 			else
@@ -1364,6 +1513,7 @@ class Db
 		$this->select_column = NULL;
 		$this->math = NULL;
 		$this->from = NULL;
+		$this->table = NULL;
 		$this->where = NULL;
 		$this->group_by = NULL;
 		$this->having = NULL;

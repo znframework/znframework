@@ -24,13 +24,14 @@ class Encode
 	*******************************************************************************************
 	| Genel Kullanım: Rastgele şifre oluşturmak için kullanılır.						      |
 	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
+	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. numeric var @count => Şifrenin karakter uzunluğu. Varsayılan:6						  |
+	| 1. string var @chars => Şifrelemede hangi karakterlerin kullanılacağı. Varsayılan:all	  |
 	|          																				  |
 	| Örnek Kullanım: create(5);        									                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function create($count = 6)
+	public static function create($count = 6, $chars = 'all')
 	{
 		// Parametre numeric yani sayısal veri içermelidir.
 		if( ! is_numeric($count) ) 
