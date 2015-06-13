@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * SECURITY                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	security::   											      |
+| Sınıfı Kullanırken      :	security:: , $this->security , zn::$use->security   		  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

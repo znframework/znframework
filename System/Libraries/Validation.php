@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * VALIDATION                                                                          	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Validation   							                      |
-| Sınıfı Kullanırken      :	validation::   											      	  |
+| Sınıfı Kullanırken      :	validation::, $this->validation, uselib('validation')   	  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Validation
 {

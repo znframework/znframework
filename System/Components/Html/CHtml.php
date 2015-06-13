@@ -17,10 +17,9 @@ use Html\ComponentHtmlCommon;
 /******************************************************************************************
 * HTML                                                                                    *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CHtml              							     			  |
 | Sınıfı Kullanırken      :	$this->chtml->     	     								      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CHtml extends ComponentHtmlCommon
 {

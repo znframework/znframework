@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * REGEX                                                                              	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Regex   							                          |
-| Sınıfı Kullanırken      :	regex::   											          |
+| Sınıfı Kullanırken      :	regex:: , $this->regex , zn::$use->regex , uselib('regex')    |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Regex
 {

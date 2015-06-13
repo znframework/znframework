@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * JQUERY                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Jquery   							                          |
-| Sınıfı Kullanırken      :	jquery::   									     		      |
+| Sınıfı Kullanırken      :	jquery:: , $this->jquery , uselib('jquery')  		          |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Jquery
 {	

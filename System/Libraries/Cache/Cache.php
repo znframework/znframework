@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * CACHE	WITH VERSION 1.3	                                                              *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Cache  							                              |
 | Sınıfı Kullanırken      :	$this->cache->												  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class Cache
 {

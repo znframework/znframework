@@ -12,8 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * USER                                                                              	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : User   								                          |
-| Sınıfı Kullanırken      :	user::   												      |
+| Sınıfı Kullanırken      :	user:: , $this->user , zn::$use->user , uselib('user')-> 	  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/

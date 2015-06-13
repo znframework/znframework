@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * TRANSFORM                                                                               *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CTransform   		     							          |
 | Sınıfı Kullanırken      :	$this->ctransform->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CTransform
 {

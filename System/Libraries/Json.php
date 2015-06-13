@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * JSON                                                                               	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Json     							                          |
-| Sınıfı Kullanırken      :	json::      											      |
+| Sınıfı Kullanırken      :	json:: , $this->json , uselib('json')-> , zn::$use->json      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Json
 {

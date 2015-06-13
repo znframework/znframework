@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CURL                                                                                	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	curl::													      |
+| Sınıfı Kullanırken      :	curl:: , $this->curl , uselib('curl') , zn::$use->curl        |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

@@ -13,12 +13,11 @@ namespace Lister;
 /******************************************************************************************
 * LIST                                                                                    *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CList     							     			  		  |
-| Sınıfı Kullanırken      :	$this->clist->       									      |
+| Sınıfı Kullanırken      :	$this->clister->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CList
+class CLister
 {
 	/* Attr Değişkeni
 	 *  

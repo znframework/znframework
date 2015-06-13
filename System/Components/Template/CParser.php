@@ -15,10 +15,9 @@ use Import;
 /******************************************************************************************
 * SECTION                                                                                 *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CParser      							     	      |
 | Sınıfı Kullanırken      :	$this->cparser->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CParser
 {

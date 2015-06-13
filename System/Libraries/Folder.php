@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FOLDER                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Folder   							                          |
-| Sınıfı Kullanırken      :	folder::   											          |
+| Sınıfı Kullanırken      :	folder:: , $this->folder , uselib('folder') , zn::$use->folder|
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Folder
 {

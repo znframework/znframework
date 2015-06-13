@@ -15,10 +15,9 @@ use Folder;
 /******************************************************************************************
 * THUMBNAIL                                                                               *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CThumbnail            							     		  |
-| Sınıfı Kullanırken      :	$this->cthumbnail->     					     				  |
+| Sınıfı Kullanırken      :	$this->cthumbnail->     					     			  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CThumbnail
 {

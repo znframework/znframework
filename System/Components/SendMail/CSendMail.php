@@ -16,10 +16,9 @@ use Config;
 /******************************************************************************************
 * EMAIL                                                                                   *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CSendMail            							     	      |
 | Sınıfı Kullanırken      :	$this->csendmail->     									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CSendMail
 {

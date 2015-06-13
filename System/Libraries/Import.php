@@ -13,11 +13,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CONTROLLER CLASS                                                                        *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
-| Sınıfı Kullanırken      :	import::, $this->import, zn::$use->import, this()->import     |
-| 																						  |
-| Genel Kullanım:																          |
-| Kütüphane, araç, bileşen veya model sınıflarını dahil etmek için kullanılır.			  |
+| Sınıfı Kullanırken      :	import::, $this->import, zn::$use->import, uselib('import')   |
 |																						  |
 ******************************************************************************************/	
 class Import

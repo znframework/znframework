@@ -24,10 +24,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * EMAIL                                                                             	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Email   							                          |
-| Sınıfı Kullanırken      :	email::   											          |
+| Sınıfı Kullanırken      :	email:: , $this->email , zn::$use->email , uselib('email')    |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Email {
 	

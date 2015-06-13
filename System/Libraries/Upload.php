@@ -16,10 +16,9 @@ config::iniSet(config::get('Upload','settings'));
 /******************************************************************************************
 * UPLOAD                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Upload   							                          |
-| Sınıfı Kullanırken      :	upload::   											          |
+| Sınıfı Kullanırken      :	upload:: , $this->upload , zn::$use->upload , uselib('upload')|
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Upload
 {

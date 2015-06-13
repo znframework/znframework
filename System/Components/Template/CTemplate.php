@@ -13,10 +13,9 @@ namespace Template;
 /******************************************************************************************
 * TEMPLATE                                                                                *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CTemplate      							     			      |
 | Sınıfı Kullanırken      :	$this->ctemplate->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CTemplate
 {

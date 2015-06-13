@@ -17,10 +17,9 @@ use Html\ComponentHtmlCommon;
 /******************************************************************************************
 * MAILTO                                                                                  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CMailto           							     		  	  |
 | Sınıfı Kullanırken      :	$this->cmailto->     	     								  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CMailto extends ComponentHtmlCommon
 {

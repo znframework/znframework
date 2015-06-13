@@ -16,10 +16,9 @@ use Uri;
 /******************************************************************************************
 * CALENDAR                                                                                *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CCalendar           							     		  |
 | Sınıfı Kullanırken      :	$this->ccalendar->     					   				      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CCalendar
 {

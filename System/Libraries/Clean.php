@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CLEAN                                                                              	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	clean::   											          |
+| Sınıfı Kullanırken      :	clean:: , $this->clean , uselib('clean') , zn::$use->clean    |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

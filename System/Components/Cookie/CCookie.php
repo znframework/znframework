@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * COOOKIE                                                                                 *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CCookie     							                      |
 | Sınıfı Kullanırken      :	$this->ccookie->       										  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class CCookie
 {

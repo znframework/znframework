@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * DbForge                                                                           	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : DbForge							                              |
 | Sınıfı Kullanırken      :	$this->dbforge->										      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class DbForge
 {
@@ -29,6 +28,14 @@ class DbForge
 	 *
 	 */
 	private $prefix;
+	
+	/* Table Değişkeni
+	 *  
+	 * TABLE bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $table;
 	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
@@ -50,6 +57,29 @@ class DbForge
 		}
 		
 		$this->db->connect($config);
+	}
+	
+	/******************************************************************************************
+	* TABLE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde Tablo ismi belirtmek için oluşturulmuştur.			  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @table => Tablo adı parametresidir.                                       |
+	|          																				  |
+	| Örnek Kullanım: ->table('OrnekTablo')		        									  |
+	|          																				  |
+	******************************************************************************************/
+	public function table($table = '')
+	{
+		if( ! is_string($table) ) 
+		{
+			return false;
+		}
+		
+		$this->table = ' '.$this->prefix.$table.' ';
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
@@ -108,6 +138,15 @@ class DbForge
 	******************************************************************************************/
 	public function createTable($table = '', $condition = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$condition = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -142,6 +181,14 @@ class DbForge
 	******************************************************************************************/
 	public function dropTable($table = '')
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -166,6 +213,15 @@ class DbForge
 	******************************************************************************************/
 	public function alterTable($table = '', $condition = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$condition = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( key($condition) === 'rename_table' ) 			
 		{
 			return $this->renameTable($table, $condition['rename_table']);
@@ -203,6 +259,15 @@ class DbForge
 	******************************************************************************************/	
 	public function renameTable($name = '', $new_name = '')
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$new_name = $name;
+			$name = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($name) || ! is_string($new_name) ) 
 		{
 			return false;
@@ -233,6 +298,15 @@ class DbForge
 	******************************************************************************************/	
 	public function addColumn($table = '', $condition = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$condition = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -295,6 +369,15 @@ class DbForge
 	******************************************************************************************/	
 	public function dropColumn($table = '', $column = '')
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$column = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -344,6 +427,15 @@ class DbForge
 	******************************************************************************************/	
 	public function modifyColumn($table = '', $condition = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$condition = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -406,6 +498,15 @@ class DbForge
 	******************************************************************************************/
 	public function renameColumn($table = '', $condition = array())
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$condition = $table;
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;
@@ -466,6 +567,14 @@ class DbForge
 	******************************************************************************************/
 	public function truncate($table = '')
 	{
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return false;

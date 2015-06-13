@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FORM                                                                               	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Form   			     				                          |
-| Sınıfı Kullanırken      :	form::   						    					      |
+| Sınıfı Kullanırken      :	form:: , $this->form , zn::$use->form , uselib('form')->      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Form
 {

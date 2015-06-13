@@ -18,10 +18,9 @@ use Form\ComponentFormValidation;
 /******************************************************************************************
 * FORM                                                                                    *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CForm  		     							     			  |
 | Sınıfı Kullanırken      :	$this->cform->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CForm extends ComponentFormValidation
 {

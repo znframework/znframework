@@ -13,8 +13,7 @@ namespace Table;
 /******************************************************************************************
 * TABLE                                                                                   *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CTable            							     			  |
-| Sınıfı Kullanırken      :	$this->ctable->     									      	  |
+| Sınıfı Kullanırken      :	$this->ctable->     									      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/

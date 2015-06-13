@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * DbTool		                                                                          *
 *******************************************************************************************
-| Dahil(Import) Edilirken : DbTool 							                              |
 | Sınıfı Kullanırken      :	$this->dbtool->												  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class DbTool
 {		

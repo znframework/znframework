@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * SHADOW                                                                                  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CShadow   		     							              |
 | Sınıfı Kullanırken      :	$this->cshadow->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CShadow
 {

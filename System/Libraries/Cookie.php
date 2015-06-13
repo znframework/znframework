@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * COOKIE                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	cookie::													  |
+| Sınıfı Kullanırken      :	cookie:: , $this->cookie , uselib('cookie') , zn::$use->cookie|
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	

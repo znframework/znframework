@@ -17,10 +17,9 @@ use Html\ComponentHtmlCommon;
 /******************************************************************************************
 * IMG                                                                                     *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CImg             							     		      |
 | Sınıfı Kullanırken      :	$this->cimg->     	     								      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CImg extends ComponentHtmlCommon
 {

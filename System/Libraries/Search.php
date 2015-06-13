@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * SEARCH                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Search   							                          |
-| Sınıfı Kullanırken      :	search::   							    				      |
+| Sınıfı Kullanırken      :	search:: , $this->search , zn::$use->search , uselib('search')|
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Search
 {

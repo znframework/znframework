@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * PERMISSON                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Permission   							                      |
-| Sınıfı Kullanırken      :	permission::   											          |
+| Sınıfı Kullanırken      :	permission:: , $this->permission , uselib('permission')   	  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Permission
 {

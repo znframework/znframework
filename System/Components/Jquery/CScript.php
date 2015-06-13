@@ -15,10 +15,9 @@ use Import;
 /******************************************************************************************
 * STYLE                                                                                   *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CStyle     							     			  		  |
 | Sınıfı Kullanırken      :	$this->cstyle->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CScript
 {

@@ -17,10 +17,9 @@ use Jquery\ComponentJqueryCommon;
 /******************************************************************************************
 * EVENT                                                                                   *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CEvent     							     			  		  |
 | Sınıfı Kullanırken      :	$this->cevent->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CEvent extends ComponentJqueryCommon
 {

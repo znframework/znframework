@@ -19,10 +19,9 @@ if(!isset($_SESSION)) session_start();
 /******************************************************************************************
 * SESSION                                                                                 *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CSession          							     			  |
 | Sınıfı Kullanırken      :	$this->csession->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CSession
 {

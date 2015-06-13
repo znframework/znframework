@@ -15,9 +15,9 @@ use Uri;
 /******************************************************************************************
 * PAGINATION                                                                              *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CPagination      							     			  |
 | Sınıfı Kullanırken      :	$this->cpagination->       									  |
 | 																						  |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CPagination
 {

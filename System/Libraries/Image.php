@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * IMAGE                                                                            	      *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Image   							                          |
-| Sınıfı Kullanırken      :	image::   											          |
+| Sınıfı Kullanırken      :	image:: , $this->image , uselib('image')-> , zn::$use->image  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Image
 {

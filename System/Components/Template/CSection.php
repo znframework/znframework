@@ -13,10 +13,9 @@ namespace Template;
 /******************************************************************************************
 * SECTION                                                                                 *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CSection      							     	      |
-| Sınıfı Kullanırken      :	$this->csection->       									      |
+| Sınıfı Kullanırken      :	$this->csection->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CSection
 {

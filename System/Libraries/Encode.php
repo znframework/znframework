@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * ENCODE                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Encode   							                          |
-| Sınıfı Kullanırken      :	encode::    											      |
+| Sınıfı Kullanırken      :	encode:: , $this->encode , zn::$use->encode , uselib('encode')|
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Encode
 {

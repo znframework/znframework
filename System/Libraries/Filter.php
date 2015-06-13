@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FILTER                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	filter::   											          |
+| Sınıfı Kullanırken      :	filter:: , $this->filter , uselib('filter') , zn::$use->filter|
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

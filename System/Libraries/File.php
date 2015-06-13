@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FILE                                                                               	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : File   		     					                          |
-| Sınıfı Kullanırken      :	file::   		    									      |
+| Sınıfı Kullanırken      :	file:: , $this->file , uselib('file') , zn::$use->file        |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class File
 {

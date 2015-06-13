@@ -13,10 +13,9 @@ namespace Xml;
 /******************************************************************************************
 * XML                                                                                     *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CXml              							     			  |
 | Sınıfı Kullanırken      :	$this->cxml->     	     								      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CXml
 {

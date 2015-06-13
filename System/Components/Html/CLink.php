@@ -17,10 +17,9 @@ use Html\ComponentHtmlCommon;
 /******************************************************************************************
 * LINK                                                                                    *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CLink              							     		      |
 | Sınıfı Kullanırken      :	$this->clink->     	     								      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CLink extends ComponentHtmlCommon
 {

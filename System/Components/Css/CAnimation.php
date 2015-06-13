@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * ANIMATION                                                                               *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CAnimation     							                      |
 | Sınıfı Kullanırken      :	$this->canimation->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class CAnimation
 {

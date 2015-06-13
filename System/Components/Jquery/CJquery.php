@@ -17,10 +17,9 @@ use Jquery\ComponentJqueryCommon;
 /******************************************************************************************
 * JQUERY                                                                                  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CJquery     							     			      |
 | Sınıfı Kullanırken      :	$this->cjquery->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CJquery extends ComponentJqueryCommon
 {

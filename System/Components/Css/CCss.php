@@ -16,10 +16,9 @@ use File;
 /******************************************************************************************
 * CSS                                                                                     *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CCss   		     							                  |
 | Sınıfı Kullanırken      :	$this->ccss->       									  	  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CCss
 {

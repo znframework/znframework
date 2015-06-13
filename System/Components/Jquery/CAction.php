@@ -17,10 +17,9 @@ use Jquery\ComponentJqueryCommon;
 /******************************************************************************************
 * ACTION                                                                                  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CAction     							     			  	  |
 | Sınıfı Kullanırken      :	$this->caction->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CAction extends ComponentJqueryCommon
 {

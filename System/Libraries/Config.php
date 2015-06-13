@@ -12,7 +12,6 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CONFIG CLASS                                                                            *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
 | Sınıfı Kullanırken      :	config::, $this->config, zn::$use->config, this()->config     |
 | 																						  |
 | Genel Kullanım:																          |

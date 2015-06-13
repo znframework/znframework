@@ -20,10 +20,9 @@ config::iniSet(config::get('Upload','settings'));
 /******************************************************************************************
 * UPLOAD                                                                                  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CUpload            							     		      |
 | Sınıfı Kullanırken      :	$this->cupload->     									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CUpload
 {

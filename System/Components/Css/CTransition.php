@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * TRANSITION                                                                              *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CTransition   		     							          |
 | Sınıfı Kullanırken      :	$this->ctransition->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CTransition
 {

@@ -20,8 +20,7 @@ if( ! isset($_SESSION) ) session_start();
 /******************************************************************************************
 * SESSION                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Session   							                          |
-| Sınıfı Kullanırken      :	session::   											          |
+| Sınıfı Kullanırken      :	session:: , $this->session , uselib('session')			      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/

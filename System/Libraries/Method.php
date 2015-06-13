@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * METHOD                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Method   							                          |
-| Sınıfı Kullanırken      :	method::   									     		      |
+| Sınıfı Kullanırken      :	method:: , $this->method , uselib('method') , zn::$use->method|
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Method
 {

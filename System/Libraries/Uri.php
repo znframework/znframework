@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * URI                                                                                	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Dahil Etmeye Gerek Yoktur.   								  |
-| Sınıfı Kullanırken      : uri::, $this->uri, zn::$use->uri, this()->uri		   		  |
+| Sınıfı Kullanırken      : uri::, $this->uri, zn::$use->uri, uselib('uri')		   		  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Uri
 {

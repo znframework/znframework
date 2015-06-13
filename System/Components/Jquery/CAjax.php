@@ -17,10 +17,9 @@ use Jquery\ComponentJqueryCommon;
 /******************************************************************************************
 * AJAX                                                                                    *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CAjax     							     			          |
-| Sınıfı Kullanırken      :	$this->ajax->       									      |
+| Sınıfı Kullanırken      :	$this->cajax->       									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CAjax extends ComponentJqueryCommon
 {

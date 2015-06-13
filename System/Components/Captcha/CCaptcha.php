@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * CAPTCHA                                                                                 *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CCaptcha            							     		  |
 | Sınıfı Kullanırken      :	$this->ccaptcha->     									      |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CCaptcha
 {

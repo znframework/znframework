@@ -15,10 +15,9 @@ use Config;
 /******************************************************************************************
 * Db		                                                                           	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Db  							                              |
 | Sınıfı Kullanırken      :	$this->db->													  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
 class Db
 {

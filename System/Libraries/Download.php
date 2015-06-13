@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * DOWNLOAD                                                                            	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Download   							                          |
-| Sınıfı Kullanırken      :	download::   											      |
+| Sınıfı Kullanırken      :	download:: , $this->download , zn::$use->download             |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Download
 {

@@ -17,10 +17,9 @@ use Jquery\ComponentJqueryCommon;
 /******************************************************************************************
 * ANIMATE                                                                                 *
 *******************************************************************************************
-| Dahil(Import) Edilirken : CAnimate     							     			 	  |
 | Sınıfı Kullanırken      :	$this->canimate->       									  |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class CAnimate extends ComponentJqueryCommon
 {

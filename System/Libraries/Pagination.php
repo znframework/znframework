@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * PAGINATION                                                                           	  *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Pagination   							                      |
-| Sınıfı Kullanırken      :	pagination::   											          |
+| Sınıfı Kullanırken      :	pagination:: , $this->pagination , uselib('pagination')->     |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Pagination
 {

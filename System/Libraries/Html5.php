@@ -12,10 +12,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * HTML5                                                                            	      *
 *******************************************************************************************
-| Dahil(Import) Edilirken : Html5   							                          |
-| Sınıfı Kullanırken      :	html5::   						     					      |
+| Sınıfı Kullanırken      :	html5:: , $this->html5 , uselib('html5') , zn::$use->html5    |
 | 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
+| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
 class Html5
 {
