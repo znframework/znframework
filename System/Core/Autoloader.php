@@ -51,7 +51,7 @@ class Autoloader
 		}
 		else
 		{
-			report('ClassNotFound', "file:$file, class:$class is not found", 'ClassNotFound');
+			return false;
 		}
 	} 
 }
