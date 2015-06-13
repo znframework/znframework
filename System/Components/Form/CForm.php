@@ -567,7 +567,7 @@ class CForm extends ComponentFormValidation
 		return '</form>'."\n";
 	}
 	
-	public function validate_error($output = 'array')
+	public function validateError($output = 'array')
 	{
 		if( $output === 'array' )
 		{

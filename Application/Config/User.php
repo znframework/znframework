@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Kullanımı: Zorunludur.																  |
 | Örnek: = $config['User']['table_name'] = 'kullanicilar';			  					  |						
 ******************************************************************************************/
-$config['User']['table_name'] 		= '';		
+$config['User']['table_name'] 		= 'user';		
 
 /******************************************************************************************
 * USERNAME COLUMN                                                                         *
@@ -33,7 +33,7 @@ $config['User']['table_name'] 		= '';
 | Sütun Veri Türü: Varchar															      |
 | Örnek: = $config['User']['username_column'] = 'kullanici_adi';			  			  |						
 ******************************************************************************************/
-$config['User']['username_column'] 	= '';
+$config['User']['username_column'] 	= 'username';
 
 /******************************************************************************************
 * PASSWORD COLUMN                                                                         *
@@ -45,7 +45,7 @@ $config['User']['username_column'] 	= '';
 | Veri Uzunluğu: En az 32 karakter.														  |
 | Örnek: = $config['User']['username_column'] = 'sifre';			  			          |						
 ******************************************************************************************/
-$config['User']['password_column']  = '';
+$config['User']['password_column']  = 'password';
 
 /******************************************************************************************
 * EMAIL COLUMN                                                                            *
@@ -57,7 +57,7 @@ $config['User']['password_column']  = '';
 | Sütun Veri Türü: Varchar																  |
 | Örnek: = $config['User']['email_column'] = 'eposta';		  			          		  |						
 ******************************************************************************************/
-$config['User']['email_column']  = '';
+$config['User']['email_column']  = 'email';
 
 /******************************************************************************************
 * EMAIL COLUMN                                                                            *

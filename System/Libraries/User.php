@@ -370,10 +370,12 @@ class User
 		{
 			return false;
 		}
+		
 		if( ! is_string($pw) ) 
 		{
 			return false;
 		}
+		
 		if( ! isValue($remember_me) ) 
 		{
 			$remember_me = false;
@@ -592,28 +594,22 @@ class User
 		if( self::isLogin() )
 		{
 			// Parametreler kontrol ediliyor.--------------------------------------------------
-			if( ! is_string($old) ) 
+			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
 			{
 				return false;
 			}
-			if( ! is_string($new) ) 
+				
+			if( empty($old) || empty($new) || empty($data) ) 
 			{
-				return false;	
+				return false;
 			}
+	
 			if( ! is_string($new_again) ) 
 			{
 				$new_again = '';
 			}
-			if( ! is_array($data) ) 
-			{
-				return false;
-			}
 			// --------------------------------------------------------------------------------
 			
-			if( ! ( empty($old) || empty($new) || empty($data) ) ) 
-			{
-				return false;
-			}
 				
 			// Şifre tekrar parametresi boş ise
 			// Şifre tekrar parametresini doğru kabul et.
