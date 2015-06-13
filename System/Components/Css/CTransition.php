@@ -71,7 +71,7 @@ class CTransition
 	******************************************************************************************/
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector) )
+		if( ! isChar($selector) )
 		{
 			return $this;	
 		}
@@ -126,12 +126,12 @@ class CTransition
 	******************************************************************************************/
 	public function property($property = '')
 	{
-		if( ! is_value($property))
+		if( ! isValue($property))
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-property:$property;".ln());
+		$this->transitions .= $this->_transitions("transition-property:$property;".eof());
 		
 		return $this;
 	}
@@ -149,7 +149,7 @@ class CTransition
 	******************************************************************************************/
 	public function duration($duration = '')
 	{
-		if( ! is_value($duration))
+		if( ! isValue($duration))
 		{
 			return $this;	
 		}
@@ -159,7 +159,7 @@ class CTransition
 			$duration = $duration."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-duration:$duration;".ln());
+		$this->transitions .= $this->_transitions("transition-duration:$duration;".eof());
 		
 		return $this;
 	}
@@ -177,7 +177,7 @@ class CTransition
 	******************************************************************************************/
 	public function delay($delay = '')
 	{
-		if( ! is_value($delay) )
+		if( ! isValue($delay) )
 		{
 			return $this;	
 		}
@@ -187,7 +187,7 @@ class CTransition
 			$delay = $delay."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-delay:$delay;".ln());
+		$this->transitions .= $this->_transitions("transition-delay:$delay;".eof());
 		
 		return $this;
 	}
@@ -205,12 +205,12 @@ class CTransition
 	******************************************************************************************/
 	public function easing($easing = '')
 	{
-		if( ! is_value($easing))
+		if( ! isValue($easing))
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-timing-function:$easing;".ln());
+		$this->transitions .= $this->_transitions("transition-timing-function:$easing;".eof());
 		
 		return $this;
 	}
@@ -224,7 +224,7 @@ class CTransition
 			$transitions .= "$val$data";
 		}
 		
-		return ln().$transitions;
+		return eof().$transitions;
 	}
 	
 	/******************************************************************************************
@@ -255,8 +255,8 @@ class CTransition
 	{
 		$combine_transitions = func_get_args();
 		
-		$str  = $this->selector."{".ln();	
-		$str .= $this->attr.ln();
+		$str  = $this->selector."{".eof();	
+		$str .= $this->attr.eof();
 		$str .= $this->complete();
 		
 		if( ! empty($combine_transitions) )foreach($combine_transitions as $transition)
@@ -264,7 +264,7 @@ class CTransition
 			$str .= $transition;
 		}
 	
-		$str .= "}".ln();
+		$str .= "}".eof();
 		
 		return $str;
 	}

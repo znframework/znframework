@@ -71,7 +71,7 @@ class CAnimation
 	******************************************************************************************/
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector) )
+		if( ! isChar($selector) )
 		{
 			return $this;	
 		}
@@ -126,12 +126,12 @@ class CAnimation
 	******************************************************************************************/
 	public function name($name = '')
 	{
-		if( ! is_value($name) )
+		if( ! isValue($name) )
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-name:$name;".ln());
+		$this->transitions .= $this->_transitions("animation-name:$name;".eof());
 		
 		return $this;
 	}
@@ -149,12 +149,12 @@ class CAnimation
 	******************************************************************************************/
 	public function direction($direction = 'reverse')
 	{
-		if( ! is_value($direction) )
+		if( ! isValue($direction) )
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-direction:$direction;".ln());
+		$this->transitions .= $this->_transitions("animation-direction:$direction;".eof());
 		
 		return $this;
 	}
@@ -172,12 +172,12 @@ class CAnimation
 	******************************************************************************************/
 	public function status($status = '')
 	{
-		if( ! is_value($status) )
+		if( ! isValue($status) )
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-play-state:$status;".ln());
+		$this->transitions .= $this->_transitions("animation-play-state:$status;".eof());
 		
 		return $this;
 	}
@@ -195,12 +195,12 @@ class CAnimation
 	******************************************************************************************/
 	public function fill($fill = '')
 	{
-		if( ! is_value($fill) )
+		if( ! isValue($fill) )
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".ln());
+		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".eof());
 		
 		return $this;
 	}
@@ -218,12 +218,12 @@ class CAnimation
 	******************************************************************************************/
 	public function repeat($repeat = '')
 	{
-		if( ! is_value($repeat) )
+		if( ! isValue($repeat) )
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".ln());
+		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".eof());
 		
 		return $this;
 	}
@@ -241,7 +241,7 @@ class CAnimation
 	******************************************************************************************/
 	public function duration($duration = '')
 	{
-		if( ! is_value($duration) )
+		if( ! isValue($duration) )
 		{
 			return $this;	
 		}
@@ -251,7 +251,7 @@ class CAnimation
 			$duration = $duration."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-duration:$duration;".ln());
+		$this->transitions .= $this->_transitions("animation-duration:$duration;".eof());
 		
 		return $this;
 	}
@@ -269,7 +269,7 @@ class CAnimation
 	******************************************************************************************/
 	public function delay($delay = '')
 	{
-		if( ! is_value($delay) )
+		if( ! isValue($delay) )
 		{
 			return $this;	
 		}
@@ -279,7 +279,7 @@ class CAnimation
 			$delay = $delay."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-delay:$delay;".ln());
+		$this->transitions .= $this->_transitions("animation-delay:$delay;".eof());
 		
 		return $this;
 	}
@@ -297,12 +297,12 @@ class CAnimation
 	******************************************************************************************/
 	public function easing($easing = '')
 	{
-		if( ! is_value($easing) )
+		if( ! isValue($easing) )
 		{
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".ln());
+		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".eof());
 		
 		return $this;
 	}
@@ -316,7 +316,7 @@ class CAnimation
 			$transitions .= "$val$data";
 		}
 		
-		return ln().$transitions;
+		return eof().$transitions;
 	}
 	
 	/******************************************************************************************
@@ -347,8 +347,8 @@ class CAnimation
 	{
 		$combine_transitions = func_get_args();
 		
-		$str  = $this->selector."{".ln();	
-		$str .= $this->attr.ln();
+		$str  = $this->selector."{".eof();	
+		$str .= $this->attr.eof();
 		$str .= $this->complete();
 		
 		if( ! empty($combine_transitions) )foreach($combine_transitions as $transition)
@@ -356,7 +356,7 @@ class CAnimation
 			$str .= $transition;
 		}
 	
-		$str .= "}".ln();
+		$str .= "}".eof();
 		
 		return $str;
 	}

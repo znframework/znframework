@@ -30,10 +30,10 @@ class DateTime
 	|																						  |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|																						  |
-	| Örnek Kullanım: standart_time() // 12.01.2015 09:02:41								  |
+	| Örnek Kullanım: standartTime() // 12.01.2015 09:02:41								  |
 	|       																				  |
 	******************************************************************************************/
-	public static function standart_time()
+	public static function standartTime()
 	{	
 		// Config/DateTime.php dosyasından
 		// Tarih saat ayarları alınıyor.
@@ -56,10 +56,10 @@ class DateTime
 	|																						  |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|																						  |
-	| Örnek Kullanım: current_time() // 09:02:41							                  |
+	| Örnek Kullanım: currentTime() // 09:02:41							                  |
 	|       																				  |
 	******************************************************************************************/
-	public static function current_time( $clock = '%H:%M:%S' )
+	public static function currentTime( $clock = '%H:%M:%S' )
 	{
 		if( ! is_string($clock) ) 
 		{
@@ -81,12 +81,12 @@ class DateTime
 	|																						  |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|																						  |
-	| Örnek Kullanım: current_date() // 01.01.2006							                  |
+	| Örnek Kullanım: currentDate() // 01.01.2006							                  |
 	|       																				  |
 	******************************************************************************************/
-	public static function current_date()
+	public static function currentDate()
 	{		
-		return self::set_date("<daynum0>.<monnum0>.<year>");
+		return self::setDate("<daynum0>.<monnum0>.<year>");
 	}
 
 
@@ -102,7 +102,7 @@ class DateTime
 	******************************************************************************************/
 	public static function current()
 	{		
-		return self::set_date("<daynum0>.<monnum0>.<year> <hour024>:<minute>:<second>");
+		return self::setDate("<daynum0>.<monnum0>.<year> <hour024>:<minute>:<second>");
 	}
 
 
@@ -119,10 +119,10 @@ class DateTime
 	| Config/DateTime.php dosyasınki set_time_format_chars parametreli listeye bakınız.		  |
 	|																						  |
 	| Örnek Kullanım:  																	      |
-	| echo set_time('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
+	| echo setTime('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
 	|       																				  |
 	******************************************************************************************/
-	public static function set_time($exp = '')
+	public static function setTime($exp = '')
 	{	
 		if( ! is_string($exp) ) 
 		{
@@ -157,10 +157,10 @@ class DateTime
 	| Config/DateTime.php dosyasınki set_date_format_chars parametreli listeye bakınız.		  |
 	|																						  |
 	| Örnek Kullanım:  																	      |
-	| echo set_date('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
+	| echo setDate('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
 	|       																				  |
 	******************************************************************************************/
-	public static function set_date($exp = 'h:i:s')
+	public static function setDate($exp = 'h:i:s')
 	{
 		if( ! is_string($exp) ) 
 		{

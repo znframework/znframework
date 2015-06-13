@@ -107,7 +107,7 @@ class User
 		
 		$username_control = $db->where($username_column.' =',$login_username)
 							   ->get($table_name)
-							   ->total_rows();
+							   ->totalRows();
 		
 		// Daha önce böyle bir kullanıcı
 		// yoksa kullanıcı kaydetme işlemini başlat.
@@ -122,7 +122,7 @@ class User
 				
 				if( ! empty($activation_column) )
 				{
-					if( ! is_email($login_username) )
+					if( ! isEmail($login_username) )
 					{
 						$email = $data[$email_column];
 					}
@@ -162,11 +162,11 @@ class User
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: activation_complete(); 									              |
+	| Örnek Kullanım: activationComplete(); 									              |
 	| NOT: Aktivasyon dönüş linkinin belirtiği sayfada kullanılmalıdır                        |
 	|          																				  |
 	******************************************************************************************/
-	public static function activation_complete()
+	public static function activationComplete()
 	{
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
@@ -218,9 +218,9 @@ class User
 	// Aktivasyon işlemi için
 	private static function _activation($user = "", $pass = "", $activation_return_link = '', $email = '')
 	{
-		if( ! is_url($activation_return_link) )
+		if( ! isUrl($activation_return_link) )
 		{
-			$url = base_url(suffix($activation_return_link));
+			$url = baseUrl(suffix($activation_return_link));
 		}
 		else
 		{
@@ -258,10 +258,10 @@ class User
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: total_active_users(); 									              |
+	| Örnek Kullanım: totalActiveUsers(); 									              |
 	|          																				  |
 	******************************************************************************************/
-	public static function total_active_users()
+	public static function totalActiveUsers()
 	{
 		$active_column 	= config::get("User","active_column");	
 		$table_name 	= config::get("User","table_name");
@@ -272,7 +272,7 @@ class User
 			
 			$total_rows = $db->where($active_column.' =', 1)
 							 ->get($table_name)
-							 ->total_rows();
+							 ->totalRows();
 			
 			if( ! empty($total_rows) )
 			{
@@ -294,10 +294,10 @@ class User
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: total_banned_users(); 									              |
+	| Örnek Kullanım: totalBannedUsers(); 									              |
 	|          																				  |
 	******************************************************************************************/
-	public static function total_banned_users()
+	public static function totalBannedUsers()
 	{
 		$banned_column 	= config::get("User","banned_column");	
 		$table_name 	= config::get("User","table_name");
@@ -308,7 +308,7 @@ class User
 			
 			$total_rows = $db->where($banned_column.' =', 1)
 							 ->get($table_name)
-						 	 ->total_rows();
+						 	 ->totalRows();
 			
 			if( ! empty($total_rows) )
 			{
@@ -330,16 +330,16 @@ class User
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: total_banned_users(); 									              |
+	| Örnek Kullanım: totalBannedUsers(); 									              |
 	|          																				  |
 	******************************************************************************************/
-	public static function total_users()
+	public static function totalUsers()
 	{
 		$table_name = config::get("User","table_name");
 		
 		$db = uselib('Database\Db');
 		
-		$total_rows = $db->get($table_name)->total_rows();
+		$total_rows = $db->get($table_name)->totalRows();
 		
 		if( ! empty($total_rows) )
 		{
@@ -374,7 +374,7 @@ class User
 		{
 			return false;
 		}
-		if( ! is_value($remember_me) ) 
+		if( ! isValue($remember_me) ) 
 		{
 			$remember_me = false;
 		}
@@ -474,10 +474,10 @@ class User
 	| 1. string var @email => Kullanıcı e-posta adresi veya kullanıcı adı.					  |
 	| 2. string var @return_link_path => e-postaya gönderilen linkin dönüş sayfası.			  |
 	|          																				  |
-	| Örnek Kullanım: forgot_password('bilgi@zntr.net', 'kullanici/giris');       		      |
+	| Örnek Kullanım: forgotPassword('bilgi@zntr.net', 'kullanici/giris');       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function forgot_password($email = "", $return_link_path = "")
+	public static function forgotPassword($email = "", $return_link_path = "")
 	{
 		if( ! is_string($email) ) 
 		{
@@ -518,9 +518,9 @@ class User
 		if( isset($row->$username_column) ) 
 		{
 			
-			if( ! is_url($return_link_path) ) 
+			if( ! isUrl($return_link_path) ) 
 			{
-				$return_link_path = site_url($return_link_path);
+				$return_link_path = siteUrl($return_link_path);
 			}
 			
 			$new_password    = encode::create(10);
@@ -589,7 +589,7 @@ class User
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
-		if( self::is_login() )
+		if( self::isLogin() )
 		{
 			// Parametreler kontrol ediliyor.--------------------------------------------------
 			if( ! is_string($old) ) 
@@ -681,10 +681,10 @@ class User
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: is_login();      														  |
+	| Örnek Kullanım: isLogin();      														  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function is_login()
+	public static function isLogin()
 	{
 		$c_username = cookie::select(md5(config::get("User","username_column")));
 		$c_password = cookie::select(md5(config::get("User","password_column")));
@@ -697,7 +697,7 @@ class User
 			$result = $db->where(config::get("User","username_column").' =',$c_username, 'and')
 						 ->where(config::get("User","password_column").' =',$c_password)
 						 ->get(config::get("User","table_name"))
-						 ->total_rows();
+						 ->totalRows();
 		}
 		
 		$username = config::get("User","username_column");

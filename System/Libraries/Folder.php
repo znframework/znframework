@@ -56,7 +56,7 @@ class Folder
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'already_file_error', $name);
+			self::$error =  getMessage('Folder', 'already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 		}
 	}
@@ -85,7 +85,7 @@ class Folder
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'already_file_error', $name);
+			self::$error =  getMessage('Folder', 'already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;
 		}
@@ -120,7 +120,7 @@ class Folder
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'already_file_error', $name);
+			self::$error =  getMessage('Folder', 'already_file_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;
 		}
@@ -134,23 +134,23 @@ class Folder
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @name => Silinecek boş dizinin adı veya yolu.							  |
 	|          											  									  |
-	| Örnek Kullanım: $veri = delete_empty('dizin/yeniDizin');        					      |
+	| Örnek Kullanım: $veri = deleteEmpty('dizin/yeniDizin');        					      |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_empty($name = '')
+	public static function deleteEmpty($name = '')
 	{
 		if( ! is_string($name) ) 
 		{
 			$name = '';
 		}
 		
-		if( is_dir_exists($name) ) 
+		if( isDirExists($name) ) 
 		{
 			rmdir($name);
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'not_found_error', $name);
+			self::$error = getMessage('Folder', 'not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 		}
 	}
@@ -181,7 +181,7 @@ class Folder
 		
 		if( ! file_exists($source) )
 		{
-			self::$error = get_message('Folder', 'not_found_error', $source);
+			self::$error = getMessage('Folder', 'not_found_error', $source);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}
@@ -240,7 +240,7 @@ class Folder
 		}
 		if( ! file_exists($name) )
 		{
-			self::$error = get_message('Folder', 'not_found_error', $name);
+			self::$error = getMessage('Folder', 'not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}
@@ -260,7 +260,7 @@ class Folder
 			if( ! self::files($name) )
 			{
 				// Boş dizini sil
-				self::delete_empty($name);
+				self::deleteEmpty($name);
 			}	
 			else
 			{			
@@ -275,7 +275,7 @@ class Folder
 			}
 			
 			// İçeriği silinmiş olan hedef dizinide sil.
-			self::delete_empty($name);
+			self::deleteEmpty($name);
 		}
 	}
 	
@@ -307,7 +307,7 @@ class Folder
 		}		
 		if( is_file($path) )
 		{
-			self::$error = get_message('Folder', 'parameter_error', $path);
+			self::$error = getMessage('Folder', 'parameter_error', $path);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;		
 		}
@@ -372,7 +372,7 @@ class Folder
 	| kullanılır.																			  |
 	|															                              |
 	******************************************************************************************/
-	public static function file_info($dir = '', $extension = '')
+	public static function fileInfo($dir = '', $extension = '')
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($dir) ) 
@@ -395,7 +395,7 @@ class Folder
 			
 			foreach($files as $file)
 			{
-				$files_info[$file]['basename'] 	 = path_info($dir.$file, 'basename');
+				$files_info[$file]['basename'] 	 = pathInfos($dir.$file, 'basename');
 				$files_info[$file]['size'] 		 = filesize($dir.$file);
 				$files_info[$file]['date'] 		 = filemtime($dir.$file);
 				$files_info[$file]['readable'] 	 = is_readable($dir.$file);
@@ -426,10 +426,10 @@ class Folder
 	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @pattern => Listesi alınacak dizinin adı veya yolu.	Varsayılan:*		  |
 	|          											  									  |
-	| Örnek Kullanım: $veri = all_files('dizin/'); // tüm dosya ve dizinleri listeler.        |
+	| Örnek Kullanım: $veri = allFiles('dizin/'); // tüm dosya ve dizinleri listeler.        |
 	|          																				  |
 	******************************************************************************************/
-	public static function all_files($pattern = "*")
+	public static function allFiles($pattern = "*")
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($pattern) ) 
@@ -481,7 +481,7 @@ class Folder
 		
 		if( ! file_exists($name))
 		{
-			self::$error = get_message('Folder', 'not_found_error', $name);
+			self::$error = getMessage('Folder', 'not_found_error', $name);
 			report('Error', self::$error, 'FolderLibrary');
 			return false;	
 		}

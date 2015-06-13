@@ -22,7 +22,7 @@ class Repair
 	{
 		// Eğer ip tadilat ipsi olarak ayarlanmış ise 
 		// bu ip'li bilgisayar tamir modundan etkilenmez.
-		if( is_repmac() ) 
+		if( isRepmac() ) 
 		{
 			return false;
 		}
@@ -42,7 +42,7 @@ class Repair
 		{
 			if( $repair_pages === "all" )
 			{
-				if( current_path() !== config::get("Repair","route_page") ) 
+				if( currentPath() !== config::get("Repair","route_page") ) 
 				{
 					redirect(config::get("Repair","route_page"));
 				}
@@ -57,7 +57,7 @@ class Repair
 			// tüm sayfalar için tadilat modu uygulanıyor demektir.
 			if( $repair_pages[0] === "all" )
 			{
-				if( current_path() !== config::get("Repair","route_page") ) 
+				if( currentPath() !== config::get("Repair","route_page") ) 
 				{
 					redirect(config::get("Repair","route_page"));
 				}
@@ -66,13 +66,13 @@ class Repair
 			foreach($repair_pages as $rp)
 			{
 				// Gelen sayfa o anki url içinde geçip geçmediğini kontrol ediliyor.
-				$page_pos = strstr(current_path(), $rp);	
+				$page_pos = strstr(currentPath(), $rp);	
 				
 				// Eğer gelen sayfa o anki url içinde geçiyorsa yani sonuc -1 den büyükse 
 				// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
 				if( ! empty($page_pos) )
 				{
-					if( current_path() !== config::get("Repair","route_page") )
+					if( currentPath() !== config::get("Repair","route_page") )
 					{
 						redirect(config::get("Repair","route_page"));
 					}

@@ -13,7 +13,7 @@ namespace Session;
 
 use Config;
 
-config::iniset(config::get('Session','settings'));
+config::iniSet(config::get('Session','settings'));
 
 if(!isset($_SESSION)) session_start();
 /******************************************************************************************
@@ -34,7 +34,7 @@ class CSession
 	
 	public function name($name = '')
 	{
-		if( ! is_char($name))
+		if( ! isChar($name))
 		{
 			return $this;		
 		}
@@ -46,7 +46,7 @@ class CSession
 	
 	public function encode($name = '', $value = '')
 	{
-		if( ! ( is_hash($name) || is_hash($value) ))
+		if( ! ( isHash($name) || isHash($value) ))
 		{
 			return $this;		
 		}
@@ -59,7 +59,7 @@ class CSession
 	
 	public function decode($hash = '')
 	{
-		if( ! is_hash($hash))
+		if( ! isHash($hash))
 		{
 			return $this;	
 		}
@@ -92,7 +92,7 @@ class CSession
 	{
 		if( ! empty($name)) 
 		{
-			if( ! is_char($name))
+			if( ! isChar($name))
 			{
 				return false;
 			}
@@ -109,7 +109,7 @@ class CSession
 		{
 			if(isset($this->encode['name']))
 			{
-				if(is_hash($this->encode['name']))
+				if(isHash($this->encode['name']))
 				{
 					$this->name = hash($this->encode['name'], $this->name);		
 				}		
@@ -117,7 +117,7 @@ class CSession
 			
 			if(isset($this->encode['value']))
 			{
-				if(is_hash($this->encode['value']))
+				if(isHash($this->encode['value']))
 				{
 					$this->value = hash($this->encode['value'], $this->value);	
 				}
@@ -155,7 +155,7 @@ class CSession
 	
 	public function select($name = '')
 	{
-		if( ! is_value($name))
+		if( ! isValue($name))
 		{
 			return false;	
 		}
@@ -173,7 +173,7 @@ class CSession
 		
 		if(isset($this->encode['name']))
 		{
-			if(is_hash($this->encode['name']))
+			if(isHash($this->encode['name']))
 			{
 				$name = hash($this->encode['name'], $name);		
 				$this->encode = array();	
@@ -199,7 +199,7 @@ class CSession
 	
 	public function delete($name = '')
 	{
-		if( ! is_value($name))
+		if( ! isValue($name))
 		{
 			return false;	
 		}
@@ -222,7 +222,7 @@ class CSession
 		
 		if(isset($this->encode['name']))
 		{
-			if(is_hash($this->encode['name']))
+			if(isHash($this->encode['name']))
 			{
 				$name = hash($this->encode['name'], $name);	
 				$this->encode = array();	

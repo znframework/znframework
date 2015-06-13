@@ -61,11 +61,11 @@ class CScript
 	{		
 		$script = "";
 		$script .= import::script('Jquery', true);
-		$script .= "<script type=\"$this->type\">".ln();
+		$script .= "<script type=\"$this->type\">".eof();
 		
 		if($this->ready)
 		{
-			$script .= "$(document).ready(function()".ln()."{".ln();
+			$script .= "$(document).ready(function()".eof()."{".eof();
 		}
 		return $script;
 	}
@@ -76,9 +76,9 @@ class CScript
 		if($this->ready)
 		{
 			$this->ready = true;
-			$script .= ln().'});'.ln();
+			$script .= eof().'});'.eof();
 		}
-		$script .=  '</script>'.ln();
+		$script .=  '</script>'.eof();
 		return $script;
 	}	
 }

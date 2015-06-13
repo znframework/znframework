@@ -22,23 +22,23 @@ use Security;
 ******************************************************************************************/
 class ComponentFormSecurity
 {
-	protected function xss_encode($value)
+	protected function xssEncode($value)
 	{
-		return security::xss_encode($value);
+		return security::xssEncode($value);
 	}
 	
-	protected function nc_encode($value)
+	protected function ncEncode($value)
 	{
-		return security::nc_encode($value);
+		return security::ncEncode($value);
 	}
 	
-	protected function injection_encode($value)
+	protected function injectionEncode($value)
 	{
-		return security::injection_encode($value);
+		return security::injectionEncode($value);
 	}
 	
-	protected function html_encode($value)
+	protected function htmlEncode($value)
 	{
-		return security::html_encode($value);
+		return security::htmlEncode($value);
 	}
 }

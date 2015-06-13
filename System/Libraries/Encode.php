@@ -90,12 +90,12 @@ class Encode
 	******************************************************************************************/
 	public static function golden($data = '', $additional = 'default')
 	{
-		if( ! is_value($data) ) 
+		if( ! isValue($data) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_value($additional) )
+		if( ! isValue($additional) )
 		{
 			$additional = 'default';
 		}
@@ -107,7 +107,7 @@ class Encode
 		
 		$algo = config::get('Encode', 'type');
 		
-		if( ! is_hash($algo) )
+		if( ! isHash($algo) )
 		{
 			$algo = 'md5';	
 		}
@@ -141,7 +141,7 @@ class Encode
 	******************************************************************************************/
 	public static function super($data = '')
 	{
-		if( ! is_value($data) ) 
+		if( ! isValue($data) ) 
 		{
 			return false;
 		}
@@ -155,7 +155,7 @@ class Encode
 		
 		$algo = config::get('Encode', 'type');
 		
-		if( ! is_hash($algo) )
+		if( ! isHash($algo) )
 		{
 			$algo = 'md5';	
 		}
@@ -196,7 +196,7 @@ class Encode
 	******************************************************************************************/
 	public static function type($data = '', $type = 'md5')
 	{
-		if( ! is_value($data) ) 
+		if( ! isValue($data) ) 
 		{
 			return false;
 		}

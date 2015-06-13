@@ -34,7 +34,7 @@ class FileDriver
 	{
 		$this->path = APP_DIR.'Cache/';
 		
-		if( ! is_dir_exists($this->path) )
+		if( ! isDirExists($this->path) )
 		{
 			library('Folder', 'create', array($this->path, 0777));	
 		}	
@@ -197,7 +197,7 @@ class FileDriver
 	******************************************************************************************/
 	public function info($type = NULL)
 	{
-		return folder::file_info($this->path);
+		return folder::fileInfo($this->path);
  	}
 	
 	/******************************************************************************************

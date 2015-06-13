@@ -34,7 +34,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_fetch') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		$success = false;
@@ -69,7 +69,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_store') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		$time = (int)$time;
@@ -97,7 +97,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_delete') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		return apc_delete($key);
@@ -119,7 +119,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_inc') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		return apc_inc($key, $increment);
@@ -141,7 +141,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_dec') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		return apc_dec($key, $decrement);
@@ -157,7 +157,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_clear_cache') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		return apc_clear_cache('user');
@@ -178,7 +178,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_cache_info') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		return apc_cache_info($type);
@@ -199,7 +199,7 @@ class ApcDriver
 	{
 		if( ! function_exists('apc_fetch') )
 		{
-			return get_message('Cache', 'unsupported', 'Apc');
+			return getMessage('Cache', 'unsupported', 'Apc');
 		}
 		
 		$success = false;
@@ -231,7 +231,7 @@ class ApcDriver
 	{
 		if ( ! extension_loaded('apc') OR ! ini_get('apc.enabled') )
 		{
-			$report = get_message('Cache', 'unsupported', 'Apc');
+			$report = getMessage('Cache', 'unsupported', 'Apc');
 			report('CacheUnsupported', $report, 'CacheLibary');
 			return false;
 		}

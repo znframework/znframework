@@ -52,7 +52,7 @@ class CTemplate
 	
 	public function header($header = '', $styles = array())
 	{
-		if( ! is_value($header) )
+		if( ! isValue($header) )
 		{
 			return $this;	
 		}
@@ -68,7 +68,7 @@ class CTemplate
 	
 	public function footer($footer = '', $styles = array())
 	{
-		if( ! is_value($footer) )
+		if( ! isValue($footer) )
 		{
 			return $this;	
 		}
@@ -82,9 +82,9 @@ class CTemplate
 		return $this;
 	}
 	
-	public function leftside($leftside = '', $styles = array())
+	public function leftSide($leftside = '', $styles = array())
 	{
-		if( ! is_value($leftside) )
+		if( ! isValue($leftside) )
 		{
 			return $this;	
 		}
@@ -98,9 +98,9 @@ class CTemplate
 		return $this;
 	}
 	
-	public function rightside($rightside = '', $styles = array())
+	public function rightSide($rightside = '', $styles = array())
 	{
-		if( ! is_value($rightside) )
+		if( ! isValue($rightside) )
 		{
 			return $this;	
 		}
@@ -116,7 +116,7 @@ class CTemplate
 	
 	public function content($content = '', $styles = array())
 	{
-		if( ! is_value($content) )
+		if( ! isValue($content) )
 		{
 			return $this;	
 		}
@@ -132,7 +132,7 @@ class CTemplate
 	
 	public function bottom($content = '', $styles = array())
 	{
-		if( ! is_value($content) )
+		if( ! isValue($content) )
 		{
 			return $this;	
 		}
@@ -141,14 +141,14 @@ class CTemplate
 		? $style = $this->_style($styles)
 		: $style = "";
 			
-		$this->bottom = "<div section=\"bottom\" style=\"$style\">$content</div>".ln();
+		$this->bottom = "<div section=\"bottom\" style=\"$style\">$content</div>".eof();
 		
 		return $this;
 	}
 	
 	public function top($content = '', $styles = array())
 	{
-		if( ! is_value($content) )
+		if( ! isValue($content) )
 		{
 			return $this;	
 		}
@@ -157,7 +157,7 @@ class CTemplate
 		? $style = $this->_style($styles)
 		: $style = "";
 			
-		$this->top = "<div section=\"top\" style=\"$style\">$content</div>".ln();
+		$this->top = "<div section=\"top\" style=\"$style\">$content</div>".eof();
 		
 		return $this;
 	}
@@ -165,7 +165,7 @@ class CTemplate
 	public function body($name = 'body', $styles = array())
 	{
 		
-		if( ! is_value($name))
+		if( ! isValue($name))
 		{
 			return $this;	
 		}
@@ -224,7 +224,7 @@ class CTemplate
 	
 	public function width($width = '1000')
 	{
-		if( ! is_value($width) )
+		if( ! isValue($width) )
 		{
 			return $this;	
 		}
@@ -256,22 +256,22 @@ class CTemplate
 			$template .= $this->top;
 		}
 		
-		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">".ln();
-		$template .= "\t$this->header".ln();	
-		$template .= "\t<div section=\"middle\"$this->middle>".ln();
-		$template .= "\t\t$this->leftside".ln();
-		$template .= "\t\t$this->content".ln();
-		$template .= "\t\t$this->rightside".ln();
-		$template .= "\t\t<div style=\"clear:both\"></div>".ln();
-		$template .= "\t</div>".ln();	
-		$template .= "\t$this->footer".ln();
-		$template .= "</div>".ln();
+		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">".eof();
+		$template .= "\t$this->header".eof();	
+		$template .= "\t<div section=\"middle\"$this->middle>".eof();
+		$template .= "\t\t$this->leftside".eof();
+		$template .= "\t\t$this->content".eof();
+		$template .= "\t\t$this->rightside".eof();
+		$template .= "\t\t<div style=\"clear:both\"></div>".eof();
+		$template .= "\t</div>".eof();	
+		$template .= "\t$this->footer".eof();
+		$template .= "</div>".eof();
 		
 		if( ! empty($this->bottom) ) 
 		{
 			if( ! empty($this->body['float']) )
 			{
-				$template .= "<div style=\"clear:both\"></div>".ln();
+				$template .= "<div style=\"clear:both\"></div>".eof();
 			}
 			
 			$template .= $this->bottom;

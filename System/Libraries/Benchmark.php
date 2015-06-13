@@ -54,7 +54,7 @@ class Benchmark
 	| 1. string var @test => Başlatılacak testin isim bilgisini tutar.					      |
 	|          																				  |
 	******************************************************************************************/
-	public static function test_start($test = '')
+	public static function testStart($test = '')
 	{
 		if( ! is_string($test)) 
 		{
@@ -89,7 +89,7 @@ class Benchmark
 	| 1. string var @test => Sonlandırılacak testin isim bilgisini tutar.					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function test_end($test = '')
+	public static function testEnd($test = '')
 	{
 		if( ! is_string($test) ) 
 		{
@@ -114,7 +114,7 @@ class Benchmark
 	| kaç karakter olacağı bilgisidir. Varsayılan: 4					  					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function elapsed_time($result = '', $decimal = 4)
+	public static function elapsedTime($result = '', $decimal = 4)
 	{   
 		if( ! is_string($result) ) 
 		{
@@ -147,7 +147,7 @@ class Benchmark
 	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
 	|															                              |
 	******************************************************************************************/
-	public static function memory_usage($real_memory = false)
+	public static function memoryUsage($real_memory = false)
 	{
 		if( ! is_bool($real_memory) ) 
 		{
@@ -166,7 +166,7 @@ class Benchmark
 	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
 	|															                              |
 	******************************************************************************************/
-	public static function max_memory_usage($real_memory = false)
+	public static function maxMemoryUsage($real_memory = false)
 	{
 		if( ! is_bool($real_memory) ) 
 		{
@@ -185,7 +185,7 @@ class Benchmark
 	| 1. string var @result => Sonucu öğrenilmek istenen testin isim bilgisi.		          |
 	|															                              |
 	******************************************************************************************/
-	public static function calculated_memory($result = '')
+	public static function calculatedMemory($result = '')
 	{
 		if( ! is_string($result) ) 
 		{

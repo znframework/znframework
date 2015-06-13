@@ -160,10 +160,10 @@ class Ftp
 	| 1. string var @name => Oluşturulacak dizinin adı veya yolu.							  |
 	| 2. string var @permission => Oluşturulacak dizinin yetki kodu							  |
 	|          											  									  |
-	| Örnek Kullanım: create_folder('dizin/yeniDizin');        						          |
+	| Örnek Kullanım: createFolder('dizin/yeniDizin');        						          |
 	|          																				  |
 	******************************************************************************************/
-	public static function create_folder($path = '')
+	public static function createFolder($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
@@ -181,7 +181,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error =  get_message('Folder', 'already_file_error', $path);
+			self::$error =  getMessage('Folder', 'already_file_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false; 
 		}
@@ -195,10 +195,10 @@ class Ftp
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @name => Silinecek boş dizinin adı veya yolu.							  |
 	|          											  									  |
-	| Örnek Kullanım: delete_folder('dizin/yeniDizin');        					              |
+	| Örnek Kullanım: deleteFolder('dizin/yeniDizin');        					              |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_folder($path = '')
+	public static function deleteFolder($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
@@ -216,7 +216,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'not_found_error', $path);
+			self::$error = getMessage('Folder', 'not_found_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -231,10 +231,10 @@ class Ftp
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @name => Değiştirilecek çalışma dizininin adı veya yolu.				  |
 	|          											  									  |
-	| Örnek Kullanım: change_folder('dizin/yeniDizin');        				         	      |
+	| Örnek Kullanım: changeFolder('dizin/yeniDizin');        				         	      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function change_folder($path = '')
+	public static function changeFolder($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
@@ -249,7 +249,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'change_folder_error', $path);
+			self::$error = getMessage('Folder', 'change_folder_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -285,7 +285,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('Folder', 'change_folder_name_error', $oldname);
+			self::$error = getMessage('Folder', 'change_folder_name_error', $oldname);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -299,10 +299,10 @@ class Ftp
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @name => Silinecek dosyanın adı veya yolu.							      |
 	|          											  									  |
-	| Örnek Kullanım: delete_file('dizin/yeniDosya.txt');        			     	          |
+	| Örnek Kullanım: deleteFile('dizin/yeniDosya.txt');        			     	          |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_file($path = '')
+	public static function deleteFile($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
@@ -320,7 +320,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('File', 'not_found_error', $path);
+			self::$error = getMessage('File', 'not_found_error', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -371,7 +371,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('File', 'remote_upload_error', $local_path);
+			self::$error = getMessage('File', 'remote_upload_error', $local_path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -422,7 +422,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = get_message('File', 'remote_download_error', $local_path);
+			self::$error = getMessage('File', 'remote_download_error', $local_path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -545,7 +545,7 @@ class Ftp
 	| 1. string var @file => Boyutu öğrenilecek dosyanın yolu.			  		              |
 	| 2. string var @type => Boyutun ne şekilde gösterileceğidir.         	                  |
 	|          																				  |
-	| Örnek Kullanım: file_size('dizin/dosya.txt', 'b');        						      |
+	| Örnek Kullanım: fileSize('dizin/dosya.txt', 'b');        						      |
 	|          																				  |
 	| Type parametresi için kullanılabilir değerler        									  |
 	| 1. b => byte cinsinden         														  |
@@ -554,7 +554,7 @@ class Ftp
 	| 4. gb => giga byte cinsinden değer döndürür.          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function file_size($path = '', $type = 'b', $decimal = 2)
+	public static function fileSize($path = '', $type = 'b', $decimal = 2)
 	{
 		if( ! is_string($path) ) 
 		{

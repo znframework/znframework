@@ -42,7 +42,7 @@ class CImg extends ComponentHtmlCommon
 			return $this;	
 		}
 		
-		if( ! is_email($url) )
+		if( ! isEmail($url) )
 		{ 
 			return $this;
 		}
@@ -65,7 +65,7 @@ class CImg extends ComponentHtmlCommon
 	******************************************************************************************/
 	public function title($title = '')
 	{
-		if( ! is_value($title) )
+		if( ! isValue($title) )
 		{
 			return $this;	
 		}

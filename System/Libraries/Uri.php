@@ -22,18 +22,18 @@ class Uri
 	// Uri işlemleri için oluşturulmuştur.
 	private static function clean_path()
 	{
-		$path_info = clean_injection(request_uri());
+		$path_info = cleanInjection(requestUri());
 		
 		// ----------------------------------------------------------------------
 		
 		// URL YÖNLENDİRİLİYOR...
 		
-		$path_info = route_uri($path_info);
+		$path_info = routeUri($path_info);
 		
 		
-		if(  strstr($path_info, get_lang()) )
+		if(  strstr($path_info, getLang()) )
 		{
-			$path_info = str_replace(get_lang().'/', '', $path_info);
+			$path_info = str_replace(getLang().'/', '', $path_info);
 		}
 		
 		return $path_info;
@@ -69,18 +69,18 @@ class Uri
 		{
 			return false;
 		}
-		if( ! is_char($index) ) 
+		if( ! isChar($index) ) 
 		{
 			$index = 1;		
 		}
-		if( ! is_value($while) ) 
+		if( ! isValue($while) ) 
 		{
 			$while = false;
 		}
 		// ------------------------------------------------------------------------------------
 		
 		$seg_ind = '';
-		$seg_arr = self::segment_array();
+		$seg_arr = self::segmentArray();
 		$seg_val = '';
 		
 		if( in_array($get, $seg_arr) )
@@ -165,10 +165,10 @@ class Uri
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|    																					  |
 	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segment_array(); // array('test', 'zntr', 'yerli', 'framework')         |
+	| Örnek Kullanım: segmentArray(); // array('test', 'zntr', 'yerli', 'framework')         |
 	|          																				  |
 	******************************************************************************************/
-	public static function segment_array()
+	public static function segmentArray()
 	{
 		$segment_ex = explode("/", self::clean_path());
 		return $segment_ex;	
@@ -182,10 +182,10 @@ class Uri
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|    																					  |
 	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: total_segments(); // 4                                                  |
+	| Örnek Kullanım: totalSegments(); // 4                                                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function total_segments()
+	public static function totalSegments()
 	{
 		$segment_ex     = explode("/", self::clean_path());	
 		$segment_ex     = array_diff($segment_ex, array(""," "));
@@ -257,7 +257,7 @@ class Uri
 			$negative += 1; 
 		}
 		
-		if( strstr($request_uri, get_lang()) ) 
+		if( strstr($request_uri, getLang()) ) 
 		{ 
 			$seg      += 1; 
 			$negative += 1; 
@@ -283,7 +283,7 @@ class Uri
 		
 		if( isset( $part[$seg]) ) 
 		{
-			return clean_injection($part[$seg]); 
+			return cleanInjection($part[$seg]); 
 		}
 		else 
 		{
@@ -299,10 +299,10 @@ class Uri
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|    																					  |
 	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: current_segment(); // framework                                         |
+	| Örnek Kullanım: currentSegment(); // framework                                         |
 	|          																				  |
 	******************************************************************************************/
-	public static function current_segment()
+	public static function currentSegment()
 	{	
 		$str = substr(server('current_path'), 1, strlen(server('current_path')) - 1);
 		
@@ -310,9 +310,9 @@ class Uri
 	
 		if( count($str) > 1 ) 
 		{
-			return clean_injection($str[count($str) - 1]);	
+			return cleanInjection($str[count($str) - 1]);	
 		}
 		
-		return clean_injection($str[0]);	
+		return cleanInjection($str[0]);	
 	}
 }

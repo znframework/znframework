@@ -62,7 +62,7 @@ class Image
 	
 		self::$thumb_path = suffix(self::$thumb_path);	
 		
-		self::$thumb_path = str_replace(base_url(), "", self::$thumb_path);
+		self::$thumb_path = str_replace(baseUrl(), "", self::$thumb_path);
 	}
 	
 	// Uzantı kontrolü yapıyor.
@@ -200,16 +200,16 @@ class Image
 		
 		// Yol bilgis url eki içeriyorsa 
 		// bu ekin temizlenmesi sağlanıyor.
-		if( strstr($file_path, base_url()) ) 
+		if( strstr($file_path, baseUrl()) ) 
 		{
-			$file_path = str_replace(base_url(), '', $file_path);
+			$file_path = str_replace(baseUrl(), '', $file_path);
 		}
 		
 		// Geçersiz yol bilgisi girilmiş ise
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($file_path) )
 		{
-			self::$error = get_message('Image', 'not_found_error', $file_path);
+			self::$error = getMessage('Image', 'not_found_error', $file_path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
@@ -218,7 +218,7 @@ class Image
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! self::is_image_file($file_path) )
 		{
-			self::$error = get_message('Image', 'not_image_file_error', $file_path);
+			self::$error = getMessage('Image', 'not_image_file_error', $file_path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
@@ -332,7 +332,7 @@ class Image
 		// kadar devam ediyor.
 		if( file_exists(self::$thumb_path.$new_file) ) 
 		{
-			return base_url(self::$thumb_path.$new_file);
+			return baseUrl(self::$thumb_path.$new_file);
 		}
 		
 		$r_file   = self::from_file_type($file_path);
@@ -363,7 +363,7 @@ class Image
 		
 		imagedestroy($r_file); imagedestroy($n_file);	
 		
-		return base_url(self::$thumb_path.$new_file);
+		return baseUrl(self::$thumb_path.$new_file);
 		
 	}
 	
@@ -383,7 +383,7 @@ class Image
 	| Not: Genişlik veya yükseklik parametrelerinden sadece bir tanesi kullanılmalıdır.       |
 	|          																				  |
 	******************************************************************************************/	
-	public static function get_prosize($path = '', $width = 0, $height = 0)
+	public static function getProsize($path = '', $width = 0, $height = 0)
 	{
 		// Parametre kontrolleri yapılıyor. ------------------------------------------
 		if( ! is_string($path) ) 
@@ -400,7 +400,7 @@ class Image
 		}
 		if( empty($path) )
 		{
-			self::$error = get_message('Image', 'not_found_error', $path);
+			self::$error = getMessage('Image', 'not_found_error', $path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}
@@ -412,7 +412,7 @@ class Image
 		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			self::$error = get_message('Image', 'not_found_error', $path);
+			self::$error = getMessage('Image', 'not_found_error', $path);
 			report('Error', self::$error, 'ImageLibrary');
 			return false;	
 		}

@@ -119,7 +119,7 @@ class Form
 			$_attributes['method'] = 'post';
 		}
 		
-		return '<form name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.ln();
+		return '<form name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.eof();
 	}
 
 	/******************************************************************************************
@@ -135,7 +135,7 @@ class Form
 	******************************************************************************************/	
 	public static function close()
 	{
-		return '</form>'.ln();
+		return '</form>'.eof();
 	}
 
 	/******************************************************************************************
@@ -158,7 +158,7 @@ class Form
 	******************************************************************************************/	
 	public static function hidden($name = '', $value = '')
 	{
-		if( ! is_value($value) ) 
+		if( ! isValue($value) ) 
 		{
 			$value = '';
 		}
@@ -172,11 +172,11 @@ class Form
 		// 1. parametre dizi ise
 		if( is_array($name) )foreach($name as $key => $val)
 		{
-			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.ln();	
+			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.eof();	
 		}
 		else
 		{
-			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.ln();
+			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.eof();
 		}
 		
 		return $hiddens;
@@ -190,7 +190,7 @@ class Form
 			$name = '';
 		}
 		
-		if( ! is_value($value) ) 
+		if( ! isValue($value) ) 
 		{
 			$value = '';		
 		}
@@ -211,7 +211,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.ln();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eof();
 	}
 	
 	/******************************************************************************************
@@ -262,18 +262,18 @@ class Form
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: textarea('nesne', 'Değer', array('style' => 'color:red'));        	  |
+	| Örnek Kullanım: textArea('nesne', 'Değer', array('style' => 'color:red'));        	  |
 	| // <textarea name="nesne" style="color:red">Değer</textarea>				       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function textarea($name = "", $value = "", $_attributes = '')
+	public static function textArea($name = "", $value = "", $_attributes = '')
 	{
 		if( ! is_string($name) ) 
 		{
 			$name = '';
 		}
 		
-		if( ! is_value($value) ) 
+		if( ! isValue($value) ) 
 		{
 			$value = '';		
 		}
@@ -290,7 +290,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 		
-		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'.ln();
+		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'.eof();
 	}
 
 	/******************************************************************************************
@@ -336,7 +336,7 @@ class Form
 		{
 			$name = '';
 		}
-		if( ! is_value($selected) )
+		if( ! isValue($selected) )
 		{
 			$selected = '';
 		}
@@ -377,10 +377,10 @@ class Form
 			{
 				$select = "";
 			}
-			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.ln();
+			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.eof();
 		}
 		
-		$selectbox .= '</select>'.ln();	
+		$selectbox .= '</select>'.eof();	
 		
 		return $selectbox;
 	}
@@ -418,11 +418,11 @@ class Form
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: checkbox('nesne', 'Değer', array('style' => 'color:red'));        	  |
+	| Örnek Kullanım: checkBox('nesne', 'Değer', array('style' => 'color:red'));        	  |
 	| // <input type="checkbox" name="nesne" value="Değer" style="color:red">       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function checkbox($name = "", $value = "", $_attributes = '')
+	public static function checkBox($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'checkbox');
 	}

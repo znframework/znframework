@@ -86,9 +86,7 @@ class Round
 				$edit = substr($numbers[1], 0, $count);
 				
 				return (float)$numbers[0].".".($edit + 1);
-			}
-			
-		}
-			
+			}	
+		}		
 	}
 }

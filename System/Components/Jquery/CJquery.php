@@ -65,7 +65,7 @@ class CJquery extends ComponentJqueryCommon
 	 */
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector))
+		if( ! isChar($selector))
 		{
 			return $this;	
 		}
@@ -146,7 +146,7 @@ class CJquery extends ComponentJqueryCommon
 	{
 		$combine_function = func_get_args();
 		
-		$complete  = ln()."\t$($this->selector)";
+		$complete  = eof()."\t$($this->selector)";
 		
 		$complete .= $this->complete();
 		

@@ -51,10 +51,10 @@ class Strings
 	| Parametreler: Tek parametresi vardır.                                              	  |
 	| 1. string var @str => Başındaki ve sonundaki / taksim işaretleri temizlenecek olan veri.|
 	|          																				  |
-	| Örnek Kullanım: trim_slashes('/abc bcd/'); // abc bcd         						  |
+	| Örnek Kullanım: trimSlashes('/abc bcd/'); // abc bcd         						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function trim_slashes($str = '')
+	public static function trimSlashes($str = '')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -75,12 +75,12 @@ class Strings
 	| 1. string var @str => Büyük harfe çevirelecek metin.								      |
 	| 2. string var @encoding => Kodlama Türü.		    								      |
 	|          																				  |
-	| Örnek Kullanım: uppercase('zntr.net'); // ZNTR.NET         						      |
+	| Örnek Kullanım: upperCase('zntr.net'); // ZNTR.NET         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function uppercase($str = '', $encoding = 'utf-8')
+	public static function upperCase($str = '', $encoding = 'utf-8')
 	{
-		if( ! is_string($str) || ! is_charset($encoding) ) 
+		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
 			return false;
 		}
@@ -99,12 +99,12 @@ class Strings
 	| 1. string var @str => Küçük harfe çevirelecek metin.								      |
 	| 2. string var @encoding => Kodlama Türü.		    								      |
 	|          																				  |
-	| Örnek Kullanım: uppercase('ZNTR.NET'); // zntr.net         						      |
+	| Örnek Kullanım: upperCase('ZNTR.NET'); // zntr.net         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function lowercase($str = '', $encoding = 'utf-8')
+	public static function lowerCase($str = '', $encoding = 'utf-8')
 	{
-		if( ! is_string($str) || ! is_charset($encoding) ) 
+		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
 			return false;
 		}
@@ -123,12 +123,12 @@ class Strings
 	| 1. string var @str => Küçük harfe çevirelecek metin.								      |
 	| 2. string var @encoding => Kodlama Türü.		    								      |
 	|          																				  |
-	| Örnek Kullanım: titlecase('ZNTR.NET'); // Zntr.net         						      |
+	| Örnek Kullanım: titleCase('ZNTR.NET'); // Zntr.net         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function titlecase($str = '', $encoding = 'utf-8')
+	public static function titleCase($str = '', $encoding = 'utf-8')
 	{
-		if( ! is_string($str) || ! is_charset($encoding) ) 
+		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
 			return false;
 		}
@@ -136,7 +136,47 @@ class Strings
 		$str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
 		
 		return $str;
+	}
+	
+	/******************************************************************************************
+	*  CAMELCASE                                                                 			  *
+	*******************************************************************************************
+	| Genel Kullanım: camelCase tipinde yazı elde etmek için kullanılır.		     		  |
+	|																						  |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @str => Küçük harfe çevirelecek metin.								      |
+	| 2. string var @encoding => Kodlama Türü.		    								      |
+	|          																				  |
+	| Örnek Kullanım: camelCase('ZNTR NET'); // zntrNet         						      |
+	|          																				  |
+	******************************************************************************************/
+	public static function camelCase($str = '')
+	{
+		$string = self::titleCase($str);
+		
+		$string[0] = self::lowerCase($string);
+		
+		return self::mtrim($string);
 	}	
+	
+	/******************************************************************************************
+	*  PASCAL CASE                                                                 			  *
+	*******************************************************************************************
+	| Genel Kullanım: PascalCase tipinde yazı elde etmek için kullanılır.		     		  |
+	|																						  |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @str => Küçük harfe çevirelecek metin.								      |
+	| 2. string var @encoding => Kodlama Türü.		    								      |
+	|          																				  |
+	| Örnek Kullanım: pascalCase('ZNTR NET'); // zntrNet         						      |
+	|          																				  |
+	******************************************************************************************/
+	public static function pascalCase($str = '')
+	{
+		$string = self::titleCase($str);
+		
+		return self::mtrim($string);
+	}
 
 	/******************************************************************************************
 	*  SUBSTRING                                                                 			  *
@@ -156,22 +196,22 @@ class Strings
 	| 	3.2- all: Kalan bütün karakterler..		    						                  |
 	| 4. string var @encoding => Kodlama Türü.		    								      |
 	|          																				  |
-	| Örnek Kullanım: substring('ZNTR.NET', 0, 4); // ZNTR         						      |
+	| Örnek Kullanım: subString('ZNTR.NET', 0, 4); // ZNTR         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function substring($str = '', $starting = 0, $count = 0, $encoding = "utf-8")
+	public static function subString($str = '', $starting = 0, $count = 0, $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_char($starting) ) 
+		if( ! isChar($starting) ) 
 		{
 			$starting = 0;
 		}
 		
-		if( ! is_char($count) ) 
+		if( ! isChar($count) ) 
 		{
 			$count = 0;
 		}
@@ -265,12 +305,12 @@ class Strings
 			return false;
 		}
 		
-		if( ! is_value($shuffle) || empty($shuffle) ) 
+		if( ! isValue($shuffle) || empty($shuffle) ) 
 		{
 			return $str;
 		}
 		
-		if( ! is_value($reshuffle) ) 
+		if( ! isValue($reshuffle) ) 
 		{
 			return $str;
 		}
@@ -298,17 +338,17 @@ class Strings
 	| 2. string var @shuffle => Kaç kez tekrar ettiği hesaplanmak istenen karakter veya 	  |
 	| karakterler.	  																		  |
 	|          																				  |
-	| Örnek Kullanım: string_recurrent_count('ZNTR.NET', 'N'); // 2               			  |
+	| Örnek Kullanım: string_recurrentCount('ZNTR.NET', 'N'); // 2               			  |
 	|          																				  |
 	******************************************************************************************/
-	public static function recurrent_count($str = '', $char = '')
+	public static function recurrentCount($str = '', $char = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_value($char) ) 
+		if( ! isValue($char) ) 
 		{
 			return $str;
 		}
@@ -328,7 +368,7 @@ class Strings
 	| 3. array var @array => Değiştirilmek istenen karakterler yerine sırasıyla hangi 
 	| karakterlerin geleceği.	  		  													  |
 	|          																				  |
-	| Örnek Kullanım: string_recurrent_count('ZNTR.NET', 'N', array('+', '-')); // Z+TR.-ET   |
+	| Örnek Kullanım: string_recurrentCount('ZNTR.NET', 'N', array('+', '-')); // Z+TR.-ET   |
 	|          																				  |
 	******************************************************************************************/
 	public static function placement($str = '', $delimiter = '?', $array = array())

@@ -143,7 +143,7 @@ class Pagination
 		// ---------------------------------------------------------------------------------------
 		if( isset($config['total_rows']) )	self::$total_rows 	= $config['total_rows'];
 		if( isset($config['limit']) )		self::$limit 		= $config['limit'];
-		if( isset($config['url']) )			self::$url 			= suffix(site_url($config['url']));	
+		if( isset($config['url']) )			self::$url 			= suffix(siteUrl($config['url']));	
 		if( isset($config['count_links']) )	self::$count_links 	= $config['count_links'];
 		if( isset($config['class']) )		self::$class 		= $config['class'];
 		if( isset($config['style']) )		self::$style 		= $config['style'];

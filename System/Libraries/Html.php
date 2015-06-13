@@ -52,12 +52,12 @@ class Html
 	// Dönen Değer: <strong id="12>veri</strong>
 	public static function element($element = '', $str = '', $attributes = "")
 	{
-		if( ! is_value($element) ) 
+		if( ! isValue($element) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -65,15 +65,15 @@ class Html
 		return '<'.$element.self::attributes($attributes).'>'.$str.'</'.$element.'>';
 	}	
 
-	// Function: multi_attr()
+	// Function: multiAttr()
 	// İşlev: Bir veriye birden fazla html etiketi uygulamak için kullanılır.
 	// Parametreler
 	// @str = Özelliklerin uygulanacağı metin.
 	// @array = Uygulanacak html etikeleri. array("b", "i" => array("id" => 2))
 	// Dönen Değer: Etiketlerin uygulanmış hali.
-	public static function multi_attr($str = '', $array = array())
+	public static function multiAttr($str = '', $array = array())
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -125,7 +125,7 @@ class Html
 	// Dönen Değer: Etiketin uygulanmış hali.
 	public static function heading($str = '', $type = 3, $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -146,7 +146,7 @@ class Html
 	// Dönen Değer: Etiketin uygulanmış hali.
 	public static function font($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -162,7 +162,7 @@ class Html
 	// Dönen Değer: Etiketin uygulanmış hali.
 	public static function parag($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -177,7 +177,7 @@ class Html
 	// Dönen Değer: Etiketin uygulanmış hali.
 	public static function bold($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -193,7 +193,7 @@ class Html
 	// Dönen Değer: Etiketin uygulanmış hali.
 	public static function strong($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -209,7 +209,7 @@ class Html
 	// Dönen Değer: Etiketin uygulanmış hali.
 	public static function italic($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -217,15 +217,15 @@ class Html
 		return '<em'.self::attributes($attributes).'>'.$str.'</em>';
 	}
 
-	// Function: underline()
+	// Function: underLine()
 	// İşlev: Html <u> etiketini uygulamak için kullanılır
 	// Parametreler
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public static function underline($str = '', $attributes = "")
+	public static function underLine($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -233,15 +233,15 @@ class Html
 		return '<u'.self::attributes($attributes).'>'.$str.'</u>';
 	}
 
-	// Function: overline()
+	// Function: overLine()
 	// İşlev: Html <del> etiketini uygulamak için kullanılır
 	// Parametreler
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public static function overline($str = '', $attributes = "")
+	public static function overLine($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -249,15 +249,15 @@ class Html
 		return '<del'.self::attributes($attributes).'>'.$str.'</del>';
 	}
 
-	// Function: overtext()
+	// Function: overText()
 	// İşlev: Html <sup> etiketini uygulamak için kullanılır
 	// Parametreler
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public static function overtext($str = '', $attributes = "")
+	public static function overText($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -265,15 +265,15 @@ class Html
 		return '<sup'.self::attributes($attributes).'>'.$str.'</sup>';
 	}
 
-	// Function: undertext()
+	// Function: underText()
 	// İşlev: Html <sub> etiketini uygulamak için kullanılır
 	// Parametreler
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public static function undertext($str = '', $attributes = "")
+	public static function underText($str = '', $attributes = "")
 	{
-		if( ! is_value($str) ) 
+		if( ! isValue($str) ) 
 		{
 			return false;
 		}
@@ -309,14 +309,14 @@ class Html
 			return false;
 		}
 		
-		if( ! is_value($value) ) 
+		if( ! isValue($value) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_url($url) && ! strstr($url, '#'))
+		if( ! isUrl($url) && ! strstr($url, '#'))
 		{ 
-			$url = site_url($url);
+			$url = siteUrl($url);
 		}
 		
 		if( empty($value) )
@@ -327,20 +327,20 @@ class Html
 		return '<a'.self::attributes($_attributes).' href="'.$url.'">'.$value.'</a>';	
 	}
 
-	// Function: mailto()
+	// Function: mailTo()
 	// İşlev: Html <a> etiketini uygulamak için kullanılır.
 	// Parametreler
 	// @mail = E-posta adresi.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public static function mailto($mail = '', $_attributes = '')
+	public static function mailTo($mail = '', $_attributes = '')
 	{
 		if( ! is_string($mail) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_email($mail) ) 
+		if( ! isEmail($mail) ) 
 		{
 			return false;
 		}
@@ -361,9 +361,9 @@ class Html
 			return false;
 		}
 		
-		if( ! is_url($src) ) 
+		if( ! isUrl($src) ) 
 		{
-			$src = base_url($src);
+			$src = baseUrl($src);
 		}
 		
 		if( ! isset($_attributes["title"]) )
@@ -415,7 +415,7 @@ class Html
 			$type = 'name';
 		}
 		
-		if( ! is_value($content) ) 
+		if( ! isValue($content) ) 
 		{
 			$content = '';
 		}

@@ -171,7 +171,7 @@ class CCaptcha
 	| Örnek Kullanım: ->border_color('255|10|180')            								  |
 	|          																				  |
 	******************************************************************************************/
-	public function border_color($color = '')
+	public function borderColor($color = '')
 	{
 		if( ! is_string($color) )
 		{
@@ -195,10 +195,10 @@ class CCaptcha
 	| 1. string var @color => Arkaplan rengi belirtilir. RGB standartına uygun renk değerleri |
 	| yazılır. Örnek 255|10|180 gibi renkler yazılırken aralarına dik çizgi(|) ilave edilir.  |
 	|          																				  |
-	| Örnek Kullanım: ->bgcolor('255|10|180')            								      |
+	| Örnek Kullanım: ->bgColor('255|10|180')            								      |
 	|          																				  |
 	******************************************************************************************/
-	public function bgcolor($color = '')
+	public function bgColor($color = '')
 	{
 		if( ! is_string($color) )
 		{
@@ -223,10 +223,10 @@ class CCaptcha
 	| resim eklenecekse string türde parametre girilebilir. Ancak çoklu resim eklenmesi       |
 	| isteniyorsa bu durumda dizi türünde parametre girilir.  								  |
 	|          																				  |
-	| Örnek Kullanım: ->bgcolor('255|10|180')            								      |
+	| Örnek Kullanım: ->bgImage('255|10|180')            								      |
 	|          																				  |
 	******************************************************************************************/
-	public function bgimage($image = array())
+	public function bgImage($image = array())
 	{
 		if( ! empty($image) )
 		{
@@ -263,11 +263,11 @@ class CCaptcha
 	{
 		if( is_string($background) && ! is_file($background) )
 		{
-			$this->bgcolor($background);
+			$this->bgColor($background);
 		}
 		else
 		{
-			$this->bgimage($background);	
+			$this->bgImage($background);	
 		}
 		
 		return $this;
@@ -281,10 +281,10 @@ class CCaptcha
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @size => Metnin boyutudur.  								  			  |
 	|          																				  |
-	| Örnek Kullanım: ->text_size(5)            								      		  |
+	| Örnek Kullanım: ->textSize(5)            								      			  |
 	|          																				  |
 	******************************************************************************************/
-	public function text_size($size = 0)
+	public function textSize($size = 0)
 	{
 		if( ! is_numeric($size) )
 		{
@@ -308,10 +308,10 @@ class CCaptcha
 	| 1. numeric var @x => Metnin yatay düzlemdeki değeri.  								  |
 	| 2. numeric var @y => Metnin dikey düzlemdeki değeri.  								  |
 	|          																				  |
-	| Örnek Kullanım: ->text_coordinate(60, 10)            								      |
+	| Örnek Kullanım: ->textCoordinate(60, 10)            								      |
 	|          																				  |
 	******************************************************************************************/
-	public function text_coordinate($x = 0, $y)
+	public function textCoordinate($x = 0, $y)
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
@@ -339,10 +339,10 @@ class CCaptcha
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @color => Yazının rengi belirtilir. RGB standartına uygun renk değerleri  |
 	| yazılır. Örnek 255|10|180 gibi renkler yazılırken aralarına dik çizgi(|) ilave edilir.  |
-	| Örnek Kullanım: ->text_color('90|10|30')            								      |
+	| Örnek Kullanım: ->textColor('90|10|30')            								      |
 	|          																				  |
 	******************************************************************************************/
-	public function text_color($color = '')
+	public function textColor($color = '')
 	{
 		if( ! is_string($color) )
 		{
@@ -380,17 +380,17 @@ class CCaptcha
 		
 		if( ! empty($size) )
 		{
-			$this->text_size($size);
+			$this->textSize($size);
 		}
 		
 		if( ! empty($x) && ! empty($y) )
 		{
-			$this->text_coordinate($x, $y);
+			$this->textCoordinate($x, $y);
 		}
 		
 		if( ! empty($color) )
 		{
-			$this->text_color($color);
+			$this->textColor($color);
 		}
 		
 		return $this;
@@ -436,10 +436,10 @@ class CCaptcha
 	| 2. string var @color => Izgara rengi belirtilir. RGB standartına uygun renk değerleri   |
 	| yazılır. Örnek 255|10|180 gibi renkler yazılırken aralarına dik çizgi(|) ilave edilir.  |
 	|          																				  |
-	| Örnek Kullanım: ->grid_color('255|10|180')            								  |
+	| Örnek Kullanım: ->gridColor('255|10|180')            								  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function grid_color($color = '')
+	public function gridColor($color = '')
 	{
 		if( ! is_string($color) )
 		{
@@ -463,10 +463,10 @@ class CCaptcha
 	| 1. numeric var @x => Izgaranın yatay düzlemdeki sayısı.  								  |
 	| 2. numeric var @y => Izgaranın dikey düzlemdeki sayısı.  								  |
 	|          																				  |
-	| Örnek Kullanım: ->grid_space(4, 12)	            								      |
+	| Örnek Kullanım: ->gridSpace(4, 12)	            								      |
 	|          																				  |
 	******************************************************************************************/
-	public function grid_space($x = 0, $y = 0)
+	public function gridSpace($x = 0, $y = 0)
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
@@ -650,11 +650,11 @@ class CCaptcha
 			
 			if( $img === true )
 			{	
-				$captcha = '<img src="'.base_url($file_path).'">';
+				$captcha = '<img src="'.baseUrl($file_path).'">';
 			}
 			else
 			{
-				$captcha = base_url($file_path);
+				$captcha = baseUrl($file_path);
 			}
 			
 			imagedestroy($file);
@@ -670,10 +670,10 @@ class CCaptcha
 	*******************************************************************************************
 	| Genel Kullanım: Oluşturulan güvenlik kodunu öğrenmek için kullanılır.		 		      |															       
 	|          																				  |
-	| Örnek Kullanım: ->get_code();	//f923f5            								      |
+	| Örnek Kullanım: ->getCode();	//f923f5            								      |
 	|          																				  |
 	******************************************************************************************/
-	public function get_code()
+	public function getCode()
 	{
 		if( ! isset($_SESSION) ) 
 		{

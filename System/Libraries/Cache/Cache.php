@@ -50,7 +50,7 @@ class Cache
 				$driver = $config['driver'];
 			}
 		
-			die(get_message('Cache', 'invalid_driver', $driver));	
+			die(getMessage('Cache', 'invalid_driver', $driver));	
 		}
 	}
 	
@@ -177,7 +177,7 @@ class Cache
 	| Örnek Kullanım: ->get_metadata('nesne');			        		     				  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_metadata($key = '')
+	public function getMetaData($key = '')
 	{
 		return $this->cache->get_metadata($key);
 	}
@@ -188,7 +188,7 @@ class Cache
 	| Genel Kullanım: Sürücünün desteklenip desklenmediğini öğrenmek için kullanılır.         |
 	|          																				  |
 	******************************************************************************************/
-	public function is_supported()
+	public function isSupported()
 	{
 		return $this->cache->is_supported();
 	}

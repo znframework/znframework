@@ -47,7 +47,7 @@ class Convert
 	******************************************************************************************/
 	public static function char($string = '', $type = 'char', $change_type = 'html')
 	{
-		if( ! is_value($string) ) 
+		if( ! isValue($string) ) 
 		{
 			return false;
 		}
@@ -125,7 +125,7 @@ class Convert
 	| echo url_word_converter('Zn Kod Çatısına Hoş', '/'); //  zn/kod/catisina/hos			  |
 	|       																				  |
 	******************************************************************************************/
-	public static function url_word($str = '', $splitword = '-')
+	public static function urlWord($str = '', $splitword = '-')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -227,7 +227,7 @@ class Convert
 			return false;
 		}
 		
-		if( ! is_charset($from_charset) || ! is_charset($to_charset) ) 
+		if( ! isCharset($from_charset) || ! isCharset($to_charset) ) 
 		{
 			return false;
 		}
@@ -244,7 +244,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toint($var = NULL)
+	public static function toInt($var = NULL)
 	{
 		return (int)$var;	
 	}
@@ -258,7 +258,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function tointeger($var = NULL)
+	public static function toInteger($var = NULL)
 	{
 		return (integer)$var;	
 	}
@@ -272,7 +272,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function tobool($var = NULL)
+	public static function toBool($var = NULL)
 	{
 		return (bool)$var;	
 	}
@@ -286,7 +286,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toboolean($var = NULL)
+	public static function toBoolean($var = NULL)
 	{
 		return (boolean)$var;	
 	}
@@ -300,7 +300,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function tostring($var = NULL)
+	public static function toString($var = NULL)
 	{
 		if( is_array($var) || is_object($var) ) 
 		{
@@ -319,7 +319,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function tofloat($var = NULL)
+	public static function toFloat($var = NULL)
 	{
 		return (float)$var;	
 	}	
@@ -333,7 +333,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toreal($var = NULL)
+	public static function toReal($var = NULL)
 	{
 		return (real)$var;	
 	}	
@@ -347,7 +347,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function todouble($var = NULL)
+	public static function toDouble($var = NULL)
 	{
 		return (double)$var;	
 	}
@@ -361,7 +361,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toobject($var = NULL)
+	public static function toObject($var = NULL)
 	{
 		return (object)$var;	
 	}
@@ -375,7 +375,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toarray($var = NULL)
+	public static function toArray($var = NULL)
 	{
 		return (array)$var;	
 	}
@@ -389,7 +389,7 @@ class Convert
 	| 1. var var @var => Silinecek değişken.				                         	  	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function tounset($var = NULL)
+	public static function toUnset($var = NULL)
 	{
 		return (unset)$var;	
 	}
@@ -406,7 +406,7 @@ class Convert
 	| echo case_converter('Zn Kod Çatısına Hoş', 'latin5', 'urtf-8');                         |
 	|       																				  |
 	******************************************************************************************/
-	public static function vartype($var = '', $type = 'int')
+	public static function varType($var = '', $type = 'int')
 	{
 		if( ! is_string($type) ) 
 		{

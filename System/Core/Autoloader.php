@@ -33,19 +33,19 @@ class Autoloader
 		$components 	= COMPONENTS_DIR.$file;
 		$model 			= MODELS_DIR.$file;
 		
-		if( is_file_exists($library) )
+		if( isFileExists($library) )
 		{		
 			require_once($library);	
 		}
-		elseif( is_file_exists($system_library) )
+		elseif( isFileExists($system_library) )
 		{		
 			require_once($system_library);
 		}
-		elseif( is_file_exists($components) )
+		elseif( isFileExists($components) )
 		{		
 			require_once($components);
 		}
-		elseif( is_file_exists($model) )
+		elseif( isFileExists($model) )
 		{		
 			require_once($model);
 		}

@@ -43,7 +43,7 @@ class Clean
 
 		if( ! is_array($search_data) )
 		{	
-			if( ! is_value($clean_word) ) 
+			if( ! isValue($clean_word) ) 
 			{
 				$clean_word = '';
 			}

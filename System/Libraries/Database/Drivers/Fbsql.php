@@ -58,7 +58,7 @@ class FbsqlDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 		
 		fbsql_select_db($this->config['database'], $this->connect);
@@ -93,7 +93,7 @@ class FbsqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki autocommit özelliğinin kullanımıdır.  		  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		if( fbsql_autocommit($this->connect) )
 		{
@@ -109,7 +109,7 @@ class FbsqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  		  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		fbsql_rollback($this->connect);
 		
@@ -127,7 +127,7 @@ class FbsqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki autocommits özelliğinin kullanımıdır.        |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		fbsql_commit($this->connect);
 		
@@ -250,7 +250,7 @@ class FbsqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -262,7 +262,7 @@ class FbsqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -274,7 +274,7 @@ class FbsqlDriver
 	| Genel Kullanım: Bu sürücü için rename column yönteminin kullanımıdır.   				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{ 
 		return 'RENAME COLUMN ';
 	}
@@ -285,7 +285,7 @@ class FbsqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		return false; 
 	}

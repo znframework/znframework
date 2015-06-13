@@ -250,7 +250,7 @@ class Email {
 	/******************************************************************************************
 	* ADD REPLY TO                                                                            *
 	******************************************************************************************/
-	public static function add_reply_to($email = '', $name = '')
+	public static function addReplyTo($email = '', $name = '')
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -279,7 +279,7 @@ class Email {
 	/******************************************************************************************
 	* ADD CC                                                                                  *
 	******************************************************************************************/
-	public static function add_cc($email = '', $name = '')
+	public static function addCc($email = '', $name = '')
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -309,7 +309,7 @@ class Email {
 	/******************************************************************************************
 	* ADD BCC                                                                                 *
 	******************************************************************************************/
-	public static function add_bcc($email = '', $name = '')
+	public static function addBcc($email = '', $name = '')
 	{
 		if( empty(self::$mail) )
 		{
@@ -387,7 +387,7 @@ class Email {
 	/******************************************************************************************
 	* IS MAIL                                                                                 *
 	******************************************************************************************/
-	public static function is_mail()
+	public static function isMail()
 	{
 		if( empty(self::$mail) )
 		{
@@ -399,7 +399,7 @@ class Email {
 	/******************************************************************************************
 	* IS SEND MAIL                                                                            *
 	******************************************************************************************/
-	public static function is_send_mail()
+	public static function isSendMail()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -411,7 +411,7 @@ class Email {
 	/******************************************************************************************
 	* IS Q MAIL                                                                               *
 	******************************************************************************************/
-	public static function is_q_mail()
+	public static function isQMail()
 	{
 		if( empty(self::$mail) )
 		{
@@ -423,7 +423,7 @@ class Email {
 	/******************************************************************************************
 	* VALIDATE ADDRESS                                                                        *
 	******************************************************************************************/
-	public static function validate_address()
+	public static function validateAddress()
 	{
 		return self::$mail->ValidateAddress();
 	}
@@ -431,7 +431,7 @@ class Email {
 	/******************************************************************************************
 	* PRE SEND                                                                                *
 	******************************************************************************************/
-	public static function pre_send()
+	public static function preSend()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -443,7 +443,7 @@ class Email {
 	/******************************************************************************************
 	* POST SENT                                                                               *
 	******************************************************************************************/
-	public static function post_send()
+	public static function postSend()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -455,7 +455,7 @@ class Email {
 	/******************************************************************************************
 	* SMTP CONNECT                                                                            *
 	******************************************************************************************/
-	public static function smtp_connect()
+	public static function smtpConnect()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -467,7 +467,7 @@ class Email {
 	/******************************************************************************************
 	* SMPT CLOSE                                                                              *
 	******************************************************************************************/
-	public static function smpt_close()
+	public static function smptClose()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -479,7 +479,7 @@ class Email {
 	/******************************************************************************************
 	* ADDR APPEND                                                                             *
 	******************************************************************************************/
-	public static function addr_append($type = '', $addr = '')
+	public static function addrAppend($type = '', $addr = '')
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -502,7 +502,7 @@ class Email {
 	/******************************************************************************************
 	* ADDR FORMAT                                                                             *
 	******************************************************************************************/
-	public static function addr_format($addr = '')
+	public static function addrFormat($addr = '')
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -520,7 +520,7 @@ class Email {
 	/******************************************************************************************
 	* WRAP TEXT                                                                               *
 	******************************************************************************************/
-	public static function wrap_text($message = '', $length = 0, $qp_mode = false)
+	public static function wrapText($message = '', $length = 0, $qp_mode = false)
 	{
 		if( empty(self::$mail) || ! is_string($message) ) 
 		{
@@ -543,7 +543,7 @@ class Email {
 	/******************************************************************************************
 	* UTF8 CHAR BOUNDARY                                                                      *
 	******************************************************************************************/
-	public static function utf8_char_boundary($encode_text = '', $max_length = 0)
+	public static function utf8CharBoundary($encode_text = '', $max_length = 0)
 	{
 		if( empty(self::$mail) || ! is_string($encode_text) ) 
 		{
@@ -561,7 +561,7 @@ class Email {
 	/******************************************************************************************
 	* SET WORD WRAP                                                                           *
 	******************************************************************************************/
-	public static function set_word_wrap()
+	public static function setWordWrap()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -573,7 +573,7 @@ class Email {
 	/******************************************************************************************
 	* CREATE HEADER                                                                           *
 	******************************************************************************************/
-	public static function create_header()
+	public static function createHeader()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -585,7 +585,7 @@ class Email {
 	/******************************************************************************************
 	* GET MAIL MIME                                                                           *
 	******************************************************************************************/
-	public static function get_mail_mime()
+	public static function getMailMime()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -597,7 +597,7 @@ class Email {
 	/******************************************************************************************
 	* GET SENT MIME MESSAGE                                                                   *
 	******************************************************************************************/
-	public static function get_sent_mime_message()
+	public static function getSentMimeMessage()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -609,7 +609,7 @@ class Email {
 	/******************************************************************************************
 	* CREATE BODY                                                                             *
 	******************************************************************************************/
-	public static function create_body()
+	public static function createBody()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -621,7 +621,7 @@ class Email {
 	/******************************************************************************************
 	* HEADER LINE                                                                             *
 	******************************************************************************************/
-	public static function heder_line($name = '', $value = '')
+	public static function hederLine($name = '', $value = '')
 	{
 		if( empty(self::$mail) || ! is_string($name) ) 
 		{
@@ -639,7 +639,7 @@ class Email {
 	/******************************************************************************************
 	* TEXT LINE                                                                               *
 	******************************************************************************************/
-	public static function text_line($value = '')
+	public static function textLine($value = '')
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -657,7 +657,7 @@ class Email {
 	/******************************************************************************************
 	* GET ATTACHMENTS                                                                         *
 	******************************************************************************************/
-	public static function get_attachments()
+	public static function getAttachments()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -669,7 +669,7 @@ class Email {
 	/******************************************************************************************
 	* ENCODE STRING                                                                           *
 	******************************************************************************************/
-	public static function encode_string($str = '', $encoding = 'base64')
+	public static function encodeString($str = '', $encoding = 'base64')
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -687,7 +687,7 @@ class Email {
 	/******************************************************************************************
 	* ENCODE HEADER                                                                           *
 	******************************************************************************************/
-	public static function encode_header($str = '', $position = 'text')
+	public static function encodeHeader($str = '', $position = 'text')
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -705,7 +705,7 @@ class Email {
 	/******************************************************************************************
 	* HAS MULTI BYTES                                                                         *
 	******************************************************************************************/
-	public static function has_multi_bytes($str = '')
+	public static function hasMultiBytes($str = '')
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -718,7 +718,7 @@ class Email {
 	/******************************************************************************************
 	* BASE64 ENCODE WRAP MB                                                                   *
 	******************************************************************************************/
-	public static function base64_encode_wrap_mb($str = '', $lf = NULL)
+	public static function base64EncodeWrapMb($str = '', $lf = NULL)
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -736,7 +736,7 @@ class Email {
 	/******************************************************************************************
 	* ENCODE QP PHP                                                                           *
 	******************************************************************************************/
-	public static function encode_qp_php($input = '', $line_max = 76, $space_conv = false)
+	public static function encodeQpPhp($input = '', $line_max = 76, $space_conv = false)
 	{
 		if( empty(self::$mail) || ! is_string($input) ) 
 		{
@@ -759,7 +759,7 @@ class Email {
 	/******************************************************************************************
 	* ENCODE QP                                                                               *
 	******************************************************************************************/
-	public static function encode_qp($string = '', $line_max = 76, $space_conv = false)
+	public static function encodeQp($string = '', $line_max = 76, $space_conv = false)
 	{
 		if( empty(self::$mail) || ! is_string($string) ) 
 		{
@@ -782,7 +782,7 @@ class Email {
 	/******************************************************************************************
 	* ENCODE Q                                                                                *
 	******************************************************************************************/
-	public static function encode_q($str = '', $position = 'text')
+	public static function encodeQ($str = '', $position = 'text')
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -800,7 +800,7 @@ class Email {
 	/******************************************************************************************
 	* ADD STRING ATTACHMENT                                                                   *
 	******************************************************************************************/
-	public static function add_string_attachment($string = '', $filename = '', $encoding = 'base64', $type = 'application/octet-stream')
+	public static function addStringAttachment($string = '', $filename = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
 		if( empty(self::$mail) || ! is_string($string) ) 
 		{
@@ -828,7 +828,7 @@ class Email {
 	/******************************************************************************************
 	* ADD EMBEDDED IMAGE                                                                      *
 	******************************************************************************************/
-	public static function add_embedded_image($path = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
+	public static function addEmbeddedImage($path = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
 		if( empty(self::$mail) || ! is_string($path) ) 
 		{
@@ -861,7 +861,7 @@ class Email {
 	/******************************************************************************************
 	* ADD STRING EMBEDDED IMAGE                                                               *
 	******************************************************************************************/
-	public static function add_string_embedded_image($string = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
+	public static function addStringEmbeddedImage($string = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
 		if( empty(self::$mail) || ! is_string($string) ) 
 		{
@@ -894,7 +894,7 @@ class Email {
 	/******************************************************************************************
 	* INLINE IMAGE EXISTS                                                                     *
 	******************************************************************************************/
-	public static function inline_image_exists()
+	public static function inlineImageExists()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -906,7 +906,7 @@ class Email {
 	/******************************************************************************************
 	* ATTACHMENT EXISTS                                                                       *
 	******************************************************************************************/
-	public static function attachment_exists()
+	public static function attachmentExists()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -918,7 +918,7 @@ class Email {
 	/******************************************************************************************
 	* ALTERNATIVE EXISTS                                                                      *
 	******************************************************************************************/
-	public static function alternative_exists()
+	public static function alternativeExists()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -930,7 +930,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR ADDRESS                                                                           *
 	******************************************************************************************/
-	public static function clear_address()
+	public static function clearAddress()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -942,7 +942,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR CC                                                                                *
 	******************************************************************************************/
-	public static function clear_cc()
+	public static function clearCc()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -954,7 +954,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR BCC                                                                               *
 	******************************************************************************************/
-	public static function clear_bcc()
+	public static function clearBcc()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -966,7 +966,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR REPLY TO                                                                          *
 	******************************************************************************************/
-	public static function clear_reply_to()
+	public static function clearReplyTo()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -978,7 +978,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR ALL RECIPIENTS                                                                    *
 	******************************************************************************************/
-	public static function clear_all_recipients()
+	public static function clearAllRecipients()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -990,7 +990,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR ATTACHMENTS                                                                       *
 	******************************************************************************************/
-	public static function clear_attachments()
+	public static function clearAttachments()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -1002,7 +1002,7 @@ class Email {
 	/******************************************************************************************
 	* CLEAR CUSTOM HEADERS                                                                    *
 	******************************************************************************************/
-	public static function clear_custom_headers()
+	public static function clearCustomHeaders()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -1014,7 +1014,7 @@ class Email {
 	/******************************************************************************************
 	* RFC DATE                                                                                *
 	******************************************************************************************/
-	public static function rfc_date()
+	public static function rfcDate()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -1026,7 +1026,7 @@ class Email {
 	/******************************************************************************************
 	* IS ERROR                                                                                *
 	******************************************************************************************/
-	public static function is_error()
+	public static function isError()
 	{
 		if( empty(self::$mail) ) 
 		{
@@ -1038,7 +1038,7 @@ class Email {
 	/******************************************************************************************
 	* FIX EOL                                                                                 *
 	******************************************************************************************/
-	public static function fix_eol($str = '')
+	public static function fixEol($str = '')
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -1050,7 +1050,7 @@ class Email {
 	/******************************************************************************************
 	* ADD CUSTOM HEADER                                                                       *
 	******************************************************************************************/
-	public static function add_custom_header($name = '', $value = NULL)
+	public static function addCustomHeader($name = '', $value = NULL)
 	{
 		if( empty(self::$mail) || ! is_string($name) ) 
 		{
@@ -1068,7 +1068,7 @@ class Email {
 	/******************************************************************************************
 	* MSG HTML                                                                                *
 	******************************************************************************************/
-	public static function msg_html($message = '', $basedir = '')
+	public static function msgHtml($message = '', $basedir = '')
 	{
 		if( empty(self::$mail) || ! is_string($message) ) 
 		{
@@ -1104,7 +1104,7 @@ class Email {
 	/******************************************************************************************
 	* SECURE HEADER                                                                           *
 	******************************************************************************************/
-	public static function secure_header($str = '')
+	public static function secureHeader($str = '')
 	{
 		if( empty(self::$mail) || ! is_string($str) ) 
 		{
@@ -1135,7 +1135,7 @@ class Email {
 	/******************************************************************************************
 	* DKIM QP                                                                                 *
 	******************************************************************************************/
-	public static function dkim_qp($txt = '')
+	public static function dkimQp($txt = '')
 	{
 		if( empty(self::$mail) || ! is_string($txt) ) 
 		{
@@ -1147,7 +1147,7 @@ class Email {
 	/******************************************************************************************
 	* DKIM SIGN                                                                               *
 	******************************************************************************************/
-	public static function dkim_sign($s = '')
+	public static function dkimSign($s = '')
 	{
 		if( empty(self::$mail) || ! is_string($s) ) 
 		{
@@ -1159,7 +1159,7 @@ class Email {
 	/******************************************************************************************
 	* DIKIM HEADER C                                                                          *
 	******************************************************************************************/
-	public static function dkim_header_c($s = '')
+	public static function dkimHeaderC($s = '')
 	{
 		if( empty(self::$mail) || ! is_string($s) ) 
 		{
@@ -1171,7 +1171,7 @@ class Email {
 	/******************************************************************************************
 	* DKIM BODY C                                                                             *
 	******************************************************************************************/
-	public static function dkim_body_c($body = '')
+	public static function dkimBodyC($body = '')
 	{
 		if( empty(self::$mail) || ! is_string($body) ) 
 		{
@@ -1183,7 +1183,7 @@ class Email {
 	/******************************************************************************************
 	* DKIM ADD                                                                                *
 	******************************************************************************************/
-	public static function dkim_add($headers_line = '', $subject = '', $body = '')
+	public static function dkimAdd($headers_line = '', $subject = '', $body = '')
 	{
 		if( empty(self::$mail) || ! (is_string($headers_line) || is_numeric($headers_line)) ) 
 		{
@@ -1206,7 +1206,7 @@ class Email {
 	/******************************************************************************************
 	* ADD ATTACHMENT                                                                          *
 	******************************************************************************************/
-	public static function add_attachment($add_attachment = '', $add_attachment_file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
+	public static function addAttachment($add_attachment = '', $add_attachment_file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
 		if( empty(self::$mail) )
 		{
@@ -1764,12 +1764,12 @@ class Email {
 	| Parametreler: 4 parametresi vardır.                                                     |  
 	| @to, @subject, @message, @extra													      |
 	|          																				  |
-	| Örnek Kullanım: email::basic_send('o@w.c', 'Konu', 'Mesaj')         					  |
+	| Örnek Kullanım: email::basicSend('o@w.c', 'Konu', 'Mesaj')         					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function basic_send($to = '', $subject = '', $message = '', $extra = '')
+	public static function basicSend($to = '', $subject = '', $message = '', $extra = '')
 	{
-		if( ! is_string($to) || ! is_email($to) ) 
+		if( ! is_string($to) || ! isEmail($to) ) 
 		{
 			return false;
 		}
@@ -1779,7 +1779,7 @@ class Email {
 			$subject = '';
 		}
 		
-		if( ! is_value($message) ) 
+		if( ! isValue($message) ) 
 		{
 			$message = '';
 		}

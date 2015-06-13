@@ -66,7 +66,7 @@ class Search
 	|          																				  |
 	| ÇOKLU FİLTRELEME         																  |
 	| [VE] bağlacı ile yapılmak isteniyorsa filter() yöntemini kullanılır.        			  |
-	| [VEYA] bağlacı ile yapılmak isteniyorsa or_filter() yöntemini kullanılır.        		  |
+	| [VEYA] bağlacı ile yapılmak isteniyorsa orFilter() yöntemini kullanılır.        		  |
 	|          																				  |
 	******************************************************************************************/	
 	public static function filter($column = '', $value = '')
@@ -84,11 +84,11 @@ class Search
 	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
 	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
 	|          																				  |
-	| Örnek Kullanım: or_filter('yas >', 15);        	  			  						  |
+	| Örnek Kullanım: orFilter('yas >', 15);        	  			  						  |
 	| // or where yas > 15         														      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function or_filter($column = '', $value = '')
+	public static function orFilter($column = '', $value = '')
 	{
 		self::_filter($column, $value, 'or');
 	}
@@ -230,7 +230,7 @@ class Search
 		
 		if( ! is_array($search_data) )
 		{	
-			if( ! is_value($search_word) ) 
+			if( ! isValue($search_word) ) 
 			{
 				return false;
 			}

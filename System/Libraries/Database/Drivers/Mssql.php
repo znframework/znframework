@@ -63,7 +63,7 @@ class MssqlDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 		
 		mssql_select_db($this->config['database'], $this->connect);
@@ -99,7 +99,7 @@ class MssqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki begin tran özelliğinin kullanımıdır.  		  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		return $this->query('BEGIN TRAN');
 	}
@@ -110,7 +110,7 @@ class MssqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback tran özelliğinin kullanımıdır.  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		return $this->query('ROLLBACK TRAN');
 	}
@@ -121,7 +121,7 @@ class MssqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki commit tran özelliğinin kullanımıdır.        |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		return $this->query('COMMIT TRAN');
 	}
@@ -232,7 +232,7 @@ class MssqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{
 		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
@@ -244,7 +244,7 @@ class MssqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -256,7 +256,7 @@ class MssqlDriver
 	| Genel Kullanım: Bu sürücü için rename column yönteminin kullanımıdır.   				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{ 
 		return 'ALTER COLUMN '; 
 	}
@@ -267,7 +267,7 @@ class MssqlDriver
 	| Genel Kullanım: Bu sürücü için alter column yönteminin kullanımıdır.     				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		return 'ALTER COLUMN '; 
 	}

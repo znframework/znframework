@@ -58,7 +58,7 @@ class ComponentHtmlCommon
 	******************************************************************************************/
 	public function content($content = '')
 	{
-		if( ! is_value($content) )
+		if( ! isValue($content) )
 		{
 			return $this;	
 		}

@@ -12,14 +12,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 //------------------------------------SYSTEM AND USER FUNCTIONS START-----------------------------------------------------------------
 
-// Function: is_phpversion()
+// Function: isPhpVersion()
 // İşlev: Parametrenin geçerli php sürümü olup olmadığını kontrol eder.
 // Parametreler: $version => Geçerliliği kontrol edilecek veri.
 // Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
 
-function is_phpversion($version = '5.2.4')
+function isPhpVersion($version = '5.2.4')
 {
-	if( ! is_value($version) )
+	if( ! isValue($version) )
 	{
 		return false;
 	}
@@ -53,12 +53,12 @@ function undefined($str = NULL)
 	}
 }
 
-// Function: is_defined()
+// Function: isDefined()
 // İşlev: Parametrenin değer alıp almadığını kontrol eder.
 // Parametreler: $str = Herhangi bir değer.
 // Dönen Değerler: değer almışsa true almamış ise false  değeri döner.
 
-function is_defined($str = NULL)
+function isDefined($str = NULL)
 {
 	if( isset($str) )
 	{
@@ -70,12 +70,12 @@ function is_defined($str = NULL)
 	}
 }
 
-// Function: is_import()
+// Function: isImport()
 // İşlev: Bir dosyanın daha önce dahil edilip edilmediğini kontrol eder.
 // Parametreler: $path = Kontrol edilecek dosya yolu.
 // Dönen Değerler: Daha önce dahil edilmişse true edilmemiş ise false değeri döner.
 
-function is_import($path = '')
+function isImport($path = '')
 {	
 	if( ! is_string($path) )
 	{
@@ -92,21 +92,21 @@ function is_import($path = '')
 	}
 }
 
-// Function: is_file_exists()
+// Function: isFileExists()
 // İşlev: Parametre olarak girilen değerin dosya olup olmadığını dosya ise var olup olmadığını kontrol eder.
 // Parametreler: $file = Kontrol edilecek dosya yolu.
 // Dönen Değerler: Parametre dosya yolunu ifade ediyor ve böyle bir dosya var ise true bu şartlara uymuyorsa false değeri döner.
 
-function is_file_exists($file = '')
+function isFileExists($file = '')
 {
 	if( ! is_string($file) ) 
 	{
 		return false;
 	}
 	
-	if( is_url($file) )
+	if( isUrl($file) )
 	{
-		$file = trim(str_replace(base_url(), '', $file));
+		$file = trim(str_replace(baseUrl(), '', $file));
 	}
 	
 	if( ! is_file($file) )
@@ -124,21 +124,21 @@ function is_file_exists($file = '')
 	}
 }
 
-// Function: is_dir_exists()
+// Function: isDirExists()
 // İşlev: Parametre olarak girilen değerin dizin olup olmadığını dizin ise var olup olmadığını kontrol eder.
 // Parametreler: $dir = Kontrol edilecek dosya yolu.
 // Dönen Değerler: Parametre dizin yolunu ifade ediyor ve böyle bir dizin var ise true bu şartlara uymuyorsa false değeri döner.
 
-function is_dir_exists($dir = '')
+function isDirExists($dir = '')
 {
 	if( ! is_string($dir) ) 
 	{
 		return false;
 	}
 	
-	if( is_url($dir) )
+	if( isUrl($dir) )
 	{
-		$dir = trim(str_replace(base_url(), '', $dir));
+		$dir = trim(str_replace(baseUrl(), '', $dir));
 	}
 	
 	if( ! is_dir($dir) )
@@ -156,12 +156,12 @@ function is_dir_exists($dir = '')
 	}
 }
 
-// Function: is_url()
+// Function: isUrl()
 // İşlev: Parametre olarak girilen değerin url adresi olup olmadığını kontrol eder.
 // Parametreler: $url = Kontrol edilecek url adresi.
 // Dönen Değerler: Parametre url adresini ifade ediyorsa true etmiyorsa false değeri döner.
 
-function is_url($url = '')
+function isUrl($url = '')
 {
 	if( ! is_string($url) ) 
 	{
@@ -178,12 +178,12 @@ function is_url($url = '')
 	}
 }
 
-// Function: is_email()
+// Function: isEmail()
 // İşlev: Parametre olarak girilen değerin e-posta adresi olup olmadığını kontrol eder.
 // Parametreler: $email = Kontrol edilecek e-posta adresi.
 // Dönen Değerler: Parametre e-posta adresini ifade ediyorsa true etmiyorsa false değeri döner.
 
-function is_email($email = '')
+function isEmail($email = '')
 {
 	if( ! is_string($email) ) 
 	{
@@ -200,14 +200,14 @@ function is_email($email = '')
 	}
 }
 
-// Function: is_repmac()
+// Function: isRepmac()
 // İşlev: Config/Repear.php dosyasında yer alan machines = array() dizisi içerisinde ip numarası veya
 // numaralarının o anki modeminizin ip'si ile eşleşip eşleşmediğini kontrol eder. Böylece site içi
 // tadilat yapılan bilgisayar ile diğer kullanıcı bilgisayarlarının ayırt edilmesi sağlanır.
 // Parametreler: Yok.
 // Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
 
-function is_repmac()
+function isRepmac()
 {
 	if( is_array(config::get('Repair','machines')) )
 	{
@@ -225,12 +225,12 @@ function is_repmac()
 	return $result;
 }
 
-// Function: is_value()
+// Function: isValue()
 // İşlev: Parametrenin metinsel, sayılsal veya boolean türde veri içerip içermediğini kontrol eder.
 // Parametreler: Herhangi bir değer.
 // Dönen Değerler: Parametre metinsel, sayısal veya bollean türde ise true, değilse false değeri döner.
 
-function is_value($str = NULL)
+function isValue($str = NULL)
 {
 	if( is_string($str) || is_numeric($str) || is_bool($str) )
 	{
@@ -242,12 +242,12 @@ function is_value($str = NULL)
 	}
 }	
 
-// Function: is_char()
+// Function: isChar()
 // İşlev: Parametrenin metinsel veya sayılsal türde veri içerip içermediğini kontrol eder.
 // Parametreler: Herhangi bir değer.
 // Dönen Değerler: Parametre metinsel veya sayısal türde ise true, değilse false değeri döner.
 
-function is_char($str = NULL)
+function isChar($str = NULL)
 {
 	if( is_string($str) || is_numeric($str) )
 	{
@@ -265,7 +265,7 @@ function is_char($str = NULL)
 | Genel Kullanım: Bir sınıfın tanımlanıp tanımlanmadığını kontrol etmek için kullanılır.  | 
 |          																				  |
 ******************************************************************************************/
-function is_declared_class($class = '')
+function isDeclaredClass($class = '')
 {
 	if( ! is_string($class) )
 	{
@@ -282,11 +282,11 @@ function is_declared_class($class = '')
 	}
 }
 
-// Function: is_hash()
+// Function: isHash()
 // İşlev: Parametrenin geçerli şifreleme algoritmalarından biri olup olmadığını kontrol eder.
 // Parametreler: Herhangi bir değer.
 // Dönen Değerler: Parametre geçerli algoritmalardan biri ise true, değilse false değeri döner.
-function is_hash($type = '')
+function isHash($type = '')
 {
 	if( ! is_string($type) )
 	{
@@ -303,12 +303,12 @@ function is_hash($type = '')
 	}
 }
 
-// Function: is_charset()
+// Function: isCharset()
 // İşlev: Parametrenin geçerli karakter seti olup olmadığını kontrol eder.
 // Parametreler: Geçerli karakter seti.
 // Dönen Değerler: Parametre geçerli karakter seti ise true, değilse false değeri döner.
 
-function is_charset($charset = '')
+function isCharset($charset = '')
 {
 	if( ! is_string($charset) )
 	{
@@ -334,11 +334,11 @@ function is_charset($charset = '')
 	}
 }
 
-// Function: charset_list()
+// Function: charsetList()
 // İşlev: Geçerli karakter seli listesini verir.
 // Dönen Değerler: Karakter setlerini listeler.
 
-function charset_list()
+function charsetList()
 {
 	return mb_list_encodings();	
 }
@@ -463,7 +463,7 @@ function _output($data = '', $tab = '', $start = 0)
 ******************************************************************************************/
 function write($data = '', $vars = array())
 {
-	if( ! is_value($data) )
+	if( ! isValue($data) )
 	{
 		echo 'Not String!'; 
 		return false;
@@ -495,11 +495,11 @@ function write($data = '', $vars = array())
 | 2. array var @vars => Yazdırılacak veri içine değişken değeri göndermek için kullanılır.|
 | 3. numeric var @br_count => Kaç adet alt satır bırakılacağı. Varsayılan:1				  |
 |          																				  |
-| Örnek Kullanım: writeln('Merhaba {0}', array('Dünya')); // Merhaba Dünya       		  |
-| Örnek Kullanım: writeln('Merhaba {x}', array('x' => 'Dünya')); // Merhaba Dünya         |
+| Örnek Kullanım: writeLine('Merhaba {0}', array('Dünya')); // Merhaba Dünya       		  |
+| Örnek Kullanım: writeLine('Merhaba {x}', array('x' => 'Dünya')); // Merhaba Dünya         |
 |          																				  |
 ******************************************************************************************/
-function writeln($data = '', $vars = array(), $br_count = 1)
+function writeLine($data = '', $vars = array(), $br_count = 1)
 {
 	echo write($data, $vars).str_repeat("<br>", $br_count);
 }
@@ -510,7 +510,7 @@ function writeln($data = '', $vars = array(), $br_count = 1)
 // Dönen Değerler: Karşılaştırma sağlanıyorsa true sağlanmıyorsa false değeri döner.
 function compare($p1 = '', $operator = '=', $p2 = '')
 {
-	if( ! ( is_value($p1) || is_value($p2) ) )
+	if( ! ( isValue($p1) || isValue($p2) ) )
 	{
 		return false;
 	}
@@ -523,11 +523,11 @@ function compare($p1 = '', $operator = '=', $p2 = '')
 	return version_compare($p1, $p2, $operator);
 }
 
-// Function: ln()
+// Function: eof()
 // İşlev: Farklı işletim sistemlerine göre satır sonunu ifade eder.
 // Dönen Değerler: \n\r, \r veya \n.
 
-function ln($repeat = 1)
+function eof($repeat = 1)
 {
 	if ( strtoupper(substr(PHP_OS,0,3)) === 'WIN' ) 
 	{
@@ -545,12 +545,12 @@ function ln($repeat = 1)
 	return str_repeat($ln, $repeat);
 }
 
-// Function: get_lang()
+// Function: getLang()
 // İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir.
 // Parametreler: Yok.
 // Dönen Değerler: Herhangi bir dil set edilmişse o dilin değeri edilmemişse varsayılan tr değeri döner.
 
-function get_lang()
+function getLang()
 {
 	if( ! isset($_SESSION) ) 
 	{
@@ -567,12 +567,12 @@ function get_lang()
 	}
 }
 
-// Function: set_lang()
+// Function: setLang()
 // İşlev: Sitenin aktif dilini ayarlamak için kullanılır.
 // Parametreler: $l = değiştirilecek dilin kısaltması. Varsayılan tr değeridir.
 // Dönen Değerler: Herhangi bir değer döndürmez set edilen değeri öğrenmek için gel_lang() yöntemi kullanılır.
 
-function set_lang($l = "tr")
+function setLang($l = "tr")
 {
 	if( ! is_string($l) )
 	{
@@ -607,18 +607,18 @@ function lang($file = '', $str = '', $changed = '')
 	}
 	
 	
-	$key 		= remove_extension($file, 'php');
-	$file 		= config::get('Language', get_lang()).'/'.suffix($file, '.php');
+	$key 		= removeExtension($file, 'php');
+	$file 		= config::get('Language', getLang()).'/'.suffix($file, '.php');
 	$langdir    = LANGUAGES_DIR.$file ;
 	$syslangdir = SYSTEM_LANGUAGES_DIR.$file;
 	
 	global $lang;
 	
-	if( is_file_exists($langdir) ) 
+	if( isFileExists($langdir) ) 
 	{
 		require_once($langdir);	
 	}
-	elseif( is_file_exists($syslangdir) )
+	elseif( isFileExists($syslangdir) )
 	{
 		require_once($syslangdir);	
 	}
@@ -678,14 +678,14 @@ function lang($file = '', $str = '', $changed = '')
 	}
 }
 
-// Function: current_lang()
-// İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir get_lang() yönteminden farkı
+// Function: currentLang()
+// İşlev: Sitenin aktif dilinin ne olduğu bilgisini verir getLang() yönteminden farkı
 // Config/Uri.php dosyasından lang = true olarak ayarlanmamışsa herhangi bir sonuç vermez.
 // Parametreler: Yok..
 // Dönen Değerler: Config/Uri.php dosyasından lang = true olarak ayarlı ise sitenin aktif dilini çevirir.
 // herhangi bir set edilme gerçekleşmemişse varsayılan tr değerini döndürür.
 
-function current_lang()
+function currentLang()
 {
 	if( ! isset($_SESSION) ) 
 	{
@@ -800,24 +800,24 @@ function prefix($string = '',$fix = '/')
 	}
 }
 
-// Function: current_url()
+// Function: currentUrl()
 // İşlev: Açık olan sayfanın o anki url adresini döndürür.
 // Parametreler: Yok.
 // Dönen Değerler: Sayfanın aktif url adresini döndürür.
 
-function current_url()
+function currentUrl()
 {
-	return ssl_status().host().clean_injection(server('request_uri'));
+	return sslStatus().host().cleanInjection(server('request_uri'));
 }
 
-// Function: site_url()
-// İşlev: Sitenin url adresini döndürür base_url() den farkı bazı Config ayarları
+// Function: siteUrl()
+// İşlev: Sitenin url adresini döndürür baseUrl() den farkı bazı Config ayarları
 // ile eklenen dil, ssl ve index.php gibi ekleride url adresinde barındırır.
 // Parametreler: $uri = Site url adresine uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin url adresini verir.
 // Dönen Değerler: Sitenin url adresini verir. http://www.example.com/index.php/
 
-function site_url($uri = '', $index = 0)
+function siteUrl($uri = '', $index = 0)
 {
 	if( ! is_string($uri) ) 
 	{
@@ -852,16 +852,16 @@ function site_url($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return ssl_status().$host.$new_base_dir.index_status().suffix(current_lang()).clean_injection($uri);
+	return sslStatus().$host.$new_base_dir.indexStatus().suffix(currentLang()).cleanInjection($uri);
 }
 
-// Function: base_url()
+// Function: baseUrl()
 // İşlev: Sitenin kök url adresini döndürür. Configten eklenen dil veya index.php gibi ekler ilave edilmez.
 // Parametreler: $uri = Site kök url adresine uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin kök url adresini verir.
 // Dönen Değerler: Sitenin kök url adresini verir. http://www.example.com/
 
-function base_url($uri = '', $index = 0)
+function baseUrl($uri = '', $index = 0)
 {
 	if( ! is_string($uri) ) 
 	{
@@ -896,40 +896,40 @@ function base_url($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return ssl_status().$host.$new_base_dir.clean_injection($uri);
+	return sslStatus().$host.$new_base_dir.cleanInjection($uri);
 }	
 	
-// Function: prev_url()
+// Function: prevUrl()
 // İşlev: Bir önceki gelinen sayfanın url adresini verir.
 // Parametreler: Yok.
 // Dönen Değerler: Bir önceki gelinen sayfanın url adresini döndürür.
 	
-function prev_url()
+function prevUrl()
 {
- $str = str_replace(ssl_status().host().BASE_DIR.index_status(), "",server("referer"));
+ $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "",server("referer"));
 	
-	if( current_lang() )
+	if( currentLang() )
 	{
 		$str_ex = explode("/",$str);
 		$str    = str_replace($str_ex[0]."/", "", $str);	
 	}
 	
-	return site_url(clean_injection($str));	
+	return siteUrl(cleanInjection($str));	
 }
 
-// Function: hostname()
+// Function: hostName()
 // İşlev: Sitenin bulunduğu sunucunun adresini verir.
 // Parametreler: $uri = Sunucu adresine eklenecek uri eki.
 // Dönen Değerler: Bir önceki gelinen sayfanın url adresini döndürür. http://sunucuadi/
 	
-function hostname($uri = "")
+function hostName($uri = "")
 {	
 	if( ! is_string($uri) ) 
 	{
 		return false;
 	}
 	
-	return ssl_status().suffix(host()).clean_injection($uri);
+	return sslStatus().suffix(host()).cleanInjection($uri);
 }
 
 // Function: host()
@@ -970,20 +970,20 @@ function host()
 	return trim($host);
 }
 
-// Function: current_path()
+// Function: currentPath()
 // İşlev: Açık olan sayfanın o anki yolunu verir.
 // Parametreler: $is_path = true olması durumunda aktif yolun tamamını verir
 // false olması durumunda ise sadece son segmentin bilgisini verir. 
 // Dönen Değerler: Sayfanın o anki yolunu verir.  is_path = true: home/example is_path = false: example
 
-function current_path($is_path = true)
+function currentPath($is_path = true)
 {
 	if( ! is_bool($is_path) ) 
 	{
 		$is_path = true;
 	}
 	
-	$current_page_path = str_replace("/".get_lang()."/", "", server('current_path'));
+	$current_page_path = str_replace("/".getLang()."/", "", server('current_path'));
 	
 	if ($current_page_path[0] === "/" )
 	{
@@ -1006,13 +1006,13 @@ function current_path($is_path = true)
 	}
 }
 
-// Function: base_url()
+// Function: baseUrl()
 // İşlev: Sitenin kök yolunu döndürür. Configten eklenen dil veya index.php gibi ekler ilave edilmez.
 // Parametreler: $uri = Site kök yoluna uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin kök yolunu verir.
 // Dönen Değerler: Sitenin kök yolunu verir. znframework/
 
-function base_path($uri = '', $index = 0)
+function basePath($uri = '', $index = 0)
 {
 	if( ! is_string($uri) ) 
 	{
@@ -1045,24 +1045,24 @@ function base_path($uri = '', $index = 0)
 		$new_base_dir = "";
 	}
 	
-	return clean_injection($new_base_dir.$uri);
+	return cleanInjection($new_base_dir.$uri);
 }
 
-// Function: prev_path()
+// Function: prevPath()
 // İşlev: Bir önceki gelinen sayfanın yolunu verir.
 // Parametreler: $is_path = true olması durumunda gelinen yolun tamamını verir
 // Dönen Değerler: Bir önceki gelinen sayfanın yolunu döndürür.
 	
-function prev_path($is_path = true)
+function prevPath($is_path = true)
 {
 	if( ! is_bool($is_path) ) 
 	{
 		$is_path = true;
 	}
 	
-	$str = str_replace(ssl_status().host().BASE_DIR.index_status(), '', server("referer"));
+	$str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), '', server("referer"));
 	
-	if( current_lang() )
+	if( currentLang() )
 	{
 		$str = explode("/",$str); return $str[1]; 
 	}
@@ -1083,13 +1083,13 @@ function prev_path($is_path = true)
 	}
 }
 
-// Function: file_path()
+// Function: filePath()
 // İşlev: Parametre olarak girilen yol url bilgisi içeriyorsa bu bilgiyi ayıklar
 // ve dosyanın yolunu verir.
 // Parametreler: $file = dosya adı, $remove_url = ayıklanacak url adresi
 // Dönen Değerler: Dosyanın yolunu verir.
 
-function file_path($file = "", $remove_url = "")
+function filePath($file = "", $remove_url = "")
 {
 	if( ! is_string($file) ) 
 	{
@@ -1101,11 +1101,11 @@ function file_path($file = "", $remove_url = "")
 		$remove_url = "";
 	}
 	
-	if( is_url($file) )
+	if( isUrl($file) )
 	{
-		if( ! is_url($remove_url) )
+		if( ! isUrl($remove_url) )
 		{
-			$remove_url = base_url();
+			$remove_url = baseUrl();
 		}
 		
 		$file = trim(str_replace($remove_url, '', $file));
@@ -1115,12 +1115,11 @@ function file_path($file = "", $remove_url = "")
 }
 
 
-// Function: path_info()
+// Function: pathInfos()
 // İşlev: Dosya hakkında uzantı dizin adı dosya adı gibi ayrıntılar hakkında bilgi verir.
 // Parametreler: $file = dosya yolu, $info = basename, dirname, filename, extension
 // Dönen Değerler: Dosya hakkında bilgi.
-
-function path_info($file = "", $info = "basename")
+function pathInfos($file = "", $info = "basename")
 {
 	if( ! is_string($file) ) 
 	{
@@ -1177,14 +1176,14 @@ function extension($file = '', $dote = false)
 		$dote = '';
 	}
 	
-	return $dote.strtolower(path_info($file, "extension"));
+	return $dote.strtolower(pathInfos($file, "extension"));
 }
 
-// Function: remove_extension()
+// Function: removeExtension()
 // İşlev: Metinsel dosya isimlerinde yer alan uzantıları kaldırmak için kullanılır.
 // Dönen Değerler: Uzantısı kaldırılmış dosya adı.
 
-function remove_extension($file = '')
+function removeExtension($file = '')
 {
 	if( ! is_string($file) ) 
 	{
@@ -1211,7 +1210,7 @@ function divide($str = '', $seperator = "|", $index = 0)
 		$seperator = "|";
 	}
 	
-	if( ! is_value($index)) 
+	if( ! isValue($index)) 
 	{
 		$index = 0;
 	}
@@ -1368,9 +1367,9 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 		$exit = true;
 	}
 	
-	if ( ! is_url($url) )
+	if ( ! isUrl($url) )
 	{
-		$url = site_url($url);
+		$url = siteUrl($url);
 	}
 	
 	if( ! empty($data) )
@@ -1403,12 +1402,12 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 	}
 }
 
-// Function: redirect_data()
+// Function: redirectData()
 // İşlev: Yönlendirme ile gönderilen datayı okumak için kullanıloır.
 // Parametreler: $k = Gönderilen bilginin anahtar kelimesi.
 // Dönen Değerler: Anahtar ifadenin değeri.
 
-function redirect_data($k = '')
+function redirectData($k = '')
 {
 	if( ! is_string($k) ) 
 	{
@@ -1468,7 +1467,7 @@ function library($class = NULL, $function = NULL, $parameters = array())
 ******************************************************************************************/
 function uselib($class = '')
 {
-	$shortname = ns_short_name($class);
+	$shortname = nsShortName($class);
 
 	if( ! empty($shortname['namespace']) )
 	{
@@ -1504,18 +1503,18 @@ function uselib($class = '')
 	}
 }
 
-// Function: get_message()
+// Function: getMessage()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function get_message($lang_file, $error_msg, $ex = '')
+function getMessage($lang_file, $error_msg, $ex = '')
 {
 	return lang($lang_file, $error_msg, $ex);
 }
 
-// Function: error_report()
+// Function: errorReport()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function error_report($type = NULL)
+function errorReport($type = NULL)
 {	
 	$result = error_get_last();
 	
@@ -1541,10 +1540,10 @@ function error_report($type = NULL)
 
 //------------------------------------SYSTEM FUNCTIONS START--------------------------------------------------------------------------
 
-// Function: current_uri()
+// Function: currentUri()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function current_uri()
+function currentUri()
 {
 	if( BASE_DIR !== '/' )
 	{
@@ -1555,7 +1554,7 @@ function current_uri()
 		$cu = substr(server('request_uri'), 1);
 	}
 	
-	if( index_status() ) 
+	if( indexStatus() ) 
 	{
 		$cu = str_replace('index.php/', '', $cu);
 	}
@@ -1563,33 +1562,33 @@ function current_uri()
 	return $cu;
 }
 
-// Function: request_uri()
+// Function: requestUri()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function request_uri()
+function requestUri()
 {
 	$request_uri = ( server('current_path') ) 
 	               ? substr(server('current_path'), 1) 
-				   : current_uri();
+				   : currentUri();
 	
 	if( @$request_uri[strlen($request_uri) - 1] === "/" )
 	{
 			$request_uri = substr($request_uri, 0, -1);
 	}
 	
-	$request_uri = route_uri($request_uri);
+	$request_uri = routeUri($request_uri);
 	
-	return str_replace(suffix(get_lang()), '', clean_injection($request_uri));
+	return str_replace(suffix(getLang()), '', cleanInjection($request_uri));
 }
 
-// Function: route_uri()
+// Function: routeUri()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function route_uri($request_uri = '')
+function routeUri($request_uri = '')
 {
 	if( config::get("Route","open_page") )
 	{
-			if( $request_uri === 'index.php' || empty($request_uri) || $request_uri === get_lang() ) 
+			if( $request_uri === 'index.php' || empty($request_uri) || $request_uri === getLang() ) 
 			{
 				$request_uri = config::get("Route","open_page");
 			}
@@ -1608,10 +1607,10 @@ function route_uri($request_uri = '')
 	return $request_uri;
 }
 
-// Function: clean_injection()
+// Function: cleanInjection()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function clean_injection($string = "")
+function cleanInjection($string = "")
 {
 	$url_injection_change_chars = config::get("Security", "url_change_chars");
 
@@ -1656,7 +1655,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 			$time = config::get('Log', 'file_time');
 		}
 		
-		$create_date = file::create_date($log_dir.suffix($destination,$extension), 'd.m.Y');
+		$create_date = file::createDate($log_dir.suffix($destination,$extension), 'd.m.Y');
 		
 		$end_date = strtotime("$time",strtotime($create_date));
 		
@@ -1668,14 +1667,14 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		}
 	}
 
-	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.ln();
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.eof();
 	error_log($message, 3, $log_dir.suffix($destination,$extension));
 }
 
-// Function: create_htaccess_file()
+// Function: createHtaccessFile()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function create_htaccess_file()
+function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = config::get('Cache');
@@ -1694,7 +1693,7 @@ mod_gzip_item_include mime ^text/.*
 mod_gzip_item_include mime ^application/x-javascript.*
 mod_gzip_item_exclude mime ^image/.*
 mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>'.ln(2);
+</ifModule>'.eof(2);
 	}
 	else
 	{
@@ -1710,14 +1709,14 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 		$exp = '';
 		foreach($config['mod_expires']['file_type_time'] as $type => $value)
 		{
-			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.ln();
+			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eof();
 		}
 		
 		$mod_expires = '<ifModule mod_expires.c>
 ExpiresActive On
 ExpiresDefault "access plus '.$config['mod_expires']['default_time'].' seconds"
 '.$exp.'
-</ifModule>'.ln(2);
+</ifModule>'.eof(2);
 	}
 	else
 	{
@@ -1735,13 +1734,13 @@ ExpiresDefault "access plus '.$config['mod_expires']['default_time'].' seconds"
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
-</filesMatch>'.ln();
+</filesMatch>'.eof();
 		}
 		
 		$mod_headers = '<ifModule mod_headers.c>
 '.$fmatch.'
 </ifModule>
-'.ln(2);
+'.eof(2);
 	}
 	else
 	{
@@ -1754,14 +1753,14 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	
 	if( ! empty($headerset['set_htaccess_file']) )
 	{
-		$headers_iniset  = "<ifModule mod_expires.c>".ln();	
+		$headers_iniset  = "<ifModule mod_expires.c>".eof();	
 		
 		foreach($headerset['iniset'] as $val)
 		{
-			$headers_iniset .= "$val".ln();
+			$headers_iniset .= "$val".eof();
 		}
 		
-		$headers_iniset .= "</ifModule>".ln(2);
+		$headers_iniset .= "</ifModule>".eof(2);
 	}
 	else
 	{
@@ -1778,7 +1777,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		
 		foreach($htaccess_settings['settings'] as $key => $val)
 		{
-			$htaccess_settings_str .= "<$key>".ln();
+			$htaccess_settings_str .= "<$key>".eof();
 			
 			foreach($val as $v)
 			{
@@ -1786,7 +1785,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 			}
 			
 			$keyex = explode(" ", $key);
-			$htaccess_settings_str .= ln()."</$keyex[0]>".ln(2);
+			$htaccess_settings_str .= eof()."</$keyex[0]>".eof(2);
 		}	
 	}
 	else
@@ -1801,12 +1800,12 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! config::get('Uri','index.php') )
 	{
-		$htaccess .= "<IfModule mod_rewrite.c>".ln();
-		$htaccess .= "RewriteEngine On".ln();
-		$htaccess .= "RewriteBase /".ln();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".ln();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".ln();
-		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').config::get("Uri","index_suffix").'/$1 [L]'.ln();
+		$htaccess .= "<IfModule mod_rewrite.c>".eof();
+		$htaccess .= "RewriteEngine On".eof();
+		$htaccess .= "RewriteBase /".eof();
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eof();
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eof();
+		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').config::get("Uri","index_suffix").'/$1 [L]'.eof();
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
@@ -1860,13 +1859,13 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( $v !== '' )
 			{
-				$sets .= "php_value $k $v".ln();		 
+				$sets .= "php_value $k $v".eof();		 
 			}			
 		}
 		
 		if( ! empty($sets) )
 		{
-			$htaccess .= ln()."<IfModule mod_php5.c>".ln();
+			$htaccess .= eof()."<IfModule mod_php5.c>".eof();
 			$htaccess .= $sets;
 			$htaccess .= "</IfModule>";
 		}
@@ -1922,10 +1921,10 @@ function headers($header = '')
 	}
 }
 
-// Function: ssl_status()
+// Function: sslStatus()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function ssl_status()
+function sslStatus()
 {
 	if( config::get('Uri','ssl') )
 	{ 
@@ -1937,10 +1936,10 @@ function ssl_status()
 	}
 }
 
-// Function: index_status()
+// Function: indexStatus()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function index_status()
+function indexStatus()
 {
 	if( config::get('Uri','index.php') ) 
 	{
@@ -1958,7 +1957,7 @@ function index_status()
 | Genel Kullanım: İsim alanı kısaltması kontrolünü sağlaması için oluşturulmuştur.		  |
 |          																				  |
 ******************************************************************************************/
-function ns_short_name($class = '')
+function nsShortName($class = '')
 {
 	$namespaces = config::get('Namespace', 'short_name');
 	

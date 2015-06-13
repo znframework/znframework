@@ -105,7 +105,7 @@ class PdoDriver
 		
 		if( ! in_array($this->select_driver, $this->pdo_subdrivers) )
 		{
-			die(get_message('Database', 'driver_error', $this->select_driver));		
+			die(getMessage('Database', 'driver_error', $this->select_driver));		
 		}
 		
 		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	
@@ -158,7 +158,7 @@ class PdoDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki strat transaction özelliğinin kullanımıdır.  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		return $this->connect->beginTransaction();
 	}
@@ -169,7 +169,7 @@ class PdoDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		return $this->connect->rollBack(); 
 	}
@@ -180,7 +180,7 @@ class PdoDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki commit özelliğinin kullanımıdır.        	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		return $this->connect->commit();
 	}
@@ -290,7 +290,7 @@ class PdoDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{
 		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
@@ -302,7 +302,7 @@ class PdoDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -314,7 +314,7 @@ class PdoDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{
 		// Ön tanımlı sorgu kullanıyor. 
 		return false; 
@@ -326,7 +326,7 @@ class PdoDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		return false; 
 	}
@@ -607,7 +607,7 @@ class PdoDriver
 		}
 		catch(PDOException $e)
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 	}
 }

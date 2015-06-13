@@ -72,7 +72,7 @@ class CAction extends ComponentJqueryCommon
 	 */
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector))
+		if( ! isChar($selector))
 		{
 			return $this;	
 		}
@@ -96,7 +96,7 @@ class CAction extends ComponentJqueryCommon
 	 */
 	public function speed($data = '')
 	{
-		if( ! is_value($data))
+		if( ! isValue($data))
 		{
 			return $this;	
 		}
@@ -121,7 +121,7 @@ class CAction extends ComponentJqueryCommon
 	 */
 	public function duration($data = '')
 	{
-		if( ! is_value($data))
+		if( ! isValue($data))
 		{
 			return $this;	
 		}
@@ -146,7 +146,7 @@ class CAction extends ComponentJqueryCommon
 	 */
 	public function easing($data = '')
 	{
-		if( ! is_value($data))
+		if( ! isValue($data))
 		{
 			return $this;	
 		}
@@ -209,42 +209,42 @@ class CAction extends ComponentJqueryCommon
 		return $this;
 	}
 	
-	public function fadein($selector = '', $callback = '')
+	public function fadeIn($selector = '', $callback = '')
 	{
 		$this->_effect('fadeIn', $selector, $callback);
 		
 		return $this;
 	}
 	
-	public function fadeout($selector = '', $callback = '')
+	public function fadeOut($selector = '', $callback = '')
 	{
 		$this->_effect('fadeOut', $selector, $callback);
 		
 		return $this;
 	}
 	
-	public function fadeto($selector = '', $callback = '')
+	public function fadeTo($selector = '', $callback = '')
 	{
 		$this->_effect('fadeTo', $selector, $callback);
 		
 		return $this;
 	}
 	
-	public function slideup($selector = '', $callback = '')
+	public function slideUp($selector = '', $callback = '')
 	{
 		$this->_effect('slideUp', $selector, $callback);
 		
 		return $this;
 	}
 	
-	public function slidedown($selector = '', $callback = '')
+	public function slideDown($selector = '', $callback = '')
 	{
 		$this->_effect('slideDown', $selector, $callback);
 		
 		return $this;
 	}
 	
-	public function slidetoggle($selector = '', $callback = '')
+	public function slideToggle($selector = '', $callback = '')
 	{
 		$this->_effect('slideToggle', $selector, $callback);
 		
@@ -258,7 +258,7 @@ class CAction extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = ", function($params)".ln()."{".ln()."\t$callback".ln()."}";
+		$this->callback = ", function($params)".eof()."{".eof()."\t$callback".eof()."}";
 		
 		return $this;
 	}
@@ -270,7 +270,7 @@ class CAction extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = ", function($params)".ln()."{".ln()."\t$callback".ln()."}";
+		$this->callback = ", function($params)".eof()."{".eof()."\t$callback".eof()."}";
 		
 		return $this;
 	}
@@ -293,7 +293,7 @@ class CAction extends ComponentJqueryCommon
 	{
 		$combine_effect = func_get_args();
 		
-		$event  = ln()."$($this->selector)";
+		$event  = eof()."$($this->selector)";
 		$event .= $this->complete();
 		
 		if( ! empty($combine_effect))foreach($combine_effect as $effect)

@@ -54,12 +54,12 @@ class Cart
 	| isimlendirmeler keyfidir. Yani isteğe bağlıdır.        								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function insert_item($product = array())
+	public static function insertItem($product = array())
 	{
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			self::$error = get_message('Cart', 'insert_parameter_empty_error');
+			self::$error = getMessage('Cart', 'insert_parameter_empty_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -67,7 +67,7 @@ class Cart
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			self::$error = get_message('Cart', 'array_parameter_error');
+			self::$error = getMessage('Cart', 'array_parameter_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -103,7 +103,7 @@ class Cart
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public static function select_items()
+	public static function selectItems()
 	{
 		if(isset($_SESSION[md5('cart')]))
 		{
@@ -112,7 +112,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = get_message('Cart', 'no_data_error');
+			self::$error = getMessage('Cart', 'no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -137,7 +137,7 @@ class Cart
 	| Örnek: array('id' => 'id değeri').                                                      |
 	|          																				  |
 	******************************************************************************************/
-	public static function select_item($code = '')
+	public static function selectItem($code = '')
 	{
 		if( empty($code) ) 
 		{
@@ -184,7 +184,7 @@ class Cart
 	| Bu nedenle quantity dışında ürün adeti için farklı bir parametre kullanmayınız.         |
 	|        																				  |
 	******************************************************************************************/
-	public static function total_items()
+	public static function totalItems()
 	{
 		if( isset($_SESSION[md5('cart')]) )
 		{
@@ -199,7 +199,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = get_message('Cart', 'no_data_error');
+			self::$error = getMessage('Cart', 'no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return 0;	
 		}
@@ -217,7 +217,7 @@ class Cart
 	| parametre kullanmayınız.      														  |
 	|     														  |
 	******************************************************************************************/
-	public static function total_prices()
+	public static function totalPrices()
 	{
 		self::$items = ( isset($_SESSION[md5('cart')]) ) 
 				       ? $_SESSION[md5('cart')] 
@@ -225,7 +225,7 @@ class Cart
 		
 		if( empty(self::$items) )
 		{
-			self::$error = get_message('Cart', 'no_data_error');
+			self::$error = getMessage('Cart', 'no_data_error');
 			report('Error', self::$error, 'CartLibrary');
 			return 0;	
 		}
@@ -259,30 +259,30 @@ class Cart
 	| belirtilir.    																		  |
 	| Örnek: array('id' => 'id değeri').                                                      |
 	|          																				  |
-	| Örnek Kullanım: update_item(array('id' => 10), array('price' => 5, 'name' => 'Urun1'))  |
+	| Örnek Kullanım: updateItem(array('id' => 10), array('price' => 5, 'name' => 'Urun1'))  |
 	| Yukarıda yapılan id'si 10 olan ürünün fiyatını 5 ve isminide Urun1                      |
 	| olarak güncelle işlemidir.         												      |
 	|          																				  |
 	******************************************************************************************/
-	public static function update_item($code = '', $data = array())
+	public static function updateItem($code = '', $data = array())
 	{	
 		if( empty($code) )
 		{
-			self::$error = get_message('Cart', 'update_code_error');
+			self::$error = getMessage('Cart', 'update_code_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( empty($data) )
 		{
-			self::$error = get_message('Cart', 'update_parameter_empty_error');
+			self::$error = getMessage('Cart', 'update_parameter_empty_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( ! is_array($data) )
 		{
-			self::$error = get_message('Cart', 'update_array_parameter_error');
+			self::$error = getMessage('Cart', 'update_array_parameter_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}	
@@ -351,11 +351,11 @@ class Cart
 	| Örnek: array('id' => 'id değeri').                                                      |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_item($code = '')
+	public static function deleteItem($code = '')
 	{		
 		if( empty($code) )
 		{
-			self::$error = get_message('Cart', 'delete_code_error');
+			self::$error = getMessage('Cart', 'delete_code_error');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -402,7 +402,7 @@ class Cart
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function delete_items()
+	public static function deleteItems()
 	{
 		if( isset($_SESSION[md5('cart')]) )
 		{
@@ -421,11 +421,11 @@ class Cart
 	| 1. numeric var @money => Para biçimine çevrilmek istenen sayılsal veri.				  |
 	| 2. string var @type => Sayısal verinin sonunda görüntülenmesi istenilen para birimidir. |
 	|     														                              |
-	| Örnek Kullanım: money_format(1200, '₺');  // Çıktı: 1.200,00 ₺     					  |
-	| Örnek Kullanım: money_format(1000, '€');  // Çıktı: 1.000,00 €     					  |
+	| Örnek Kullanım: moneyFormat(1200, '₺');  // Çıktı: 1.200,00 ₺     					  |
+	| Örnek Kullanım: moneyFormat(1000, '€');  // Çıktı: 1.000,00 €     					  |
 	|     														                              |
 	******************************************************************************************/
-	public static function money_format($money = 0, $type = '')
+	public static function moneyFormat($money = 0, $type = '')
 	{
 		if( ! is_numeric($money)) 
 		{

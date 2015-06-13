@@ -557,10 +557,10 @@ class Db
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @query  => SQL SORGULARI yazılır.							              |
 	|          																				  |
-	| Örnek Kullanım: $this->db->exec_query('DROP TABLE OrnekTablo');        			      |
+	| Örnek Kullanım: $this->db->execQuery('DROP TABLE OrnekTablo');        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function exec_query($query = '')
+	public function execQuery($query = '')
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
@@ -579,12 +579,12 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: $this->db->trans_start();        			                              |
+	| Örnek Kullanım: $this->db->transStart();        			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
-		$this->trans_start = $this->db->trans_start();
+		$this->trans_start = $this->db->transStart();
 	}
 	
 	/******************************************************************************************
@@ -594,18 +594,18 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: $this->db->trans_end();        			                              |
+	| Örnek Kullanım: $this->db->transEnd();        			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_end()
+	public function transEnd()
 	{
 		if( ! empty($this->trans_error) )
 		{
-			$this->db->trans_rollback();
+			$this->db->transRollback();
 		}
 		else
 		{
-			$this->db->trans_commit();
+			$this->db->transCommit();
 		}
 		
 		$this->trans_start = NULL;	
@@ -619,10 +619,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->total_rows();        			                                      |
+	| Örnek Kullanım: ->totalRows();        			                                      |
 	|          																				  |
 	******************************************************************************************/
-	public function total_rows()
+	public function totalRows()
 	{ 
 		return $this->db->num_rows(); 
 	}
@@ -634,10 +634,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->total_columns();      			                              		  |
+	| Örnek Kullanım: ->totalColumns();      			                              		  |
 	|          																				  |
 	******************************************************************************************/
-	public function total_columns()
+	public function totalColumns()
 	{
 		return $this->db->num_fields(); 
 	}
@@ -679,10 +679,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->result();                			                                  |
+	| Örnek Kullanım: ->resultArray();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function result_array()
+	public function resultArray()
 	{ 
 		return $this->db->result_array(); 
 	}
@@ -694,10 +694,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->fetch_array();                			                              |
+	| Örnek Kullanım: ->fetchArray();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function fetch_array()
+	public function fetchArray()
 	{ 
 		return $this->db->fetch_array(); 
 	}
@@ -709,10 +709,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->fetch_assoc();                			                              |
+	| Örnek Kullanım: ->fetchAssoc();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function fetch_assoc()
+	public function fetchAssoc()
 	{ 
 		return $this->db->fetch_assoc(); 
 	}
@@ -724,10 +724,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->fetch_row();                			                              |
+	| Örnek Kullanım: ->fetchRow();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function fetch_row()
+	public function fetchRow()
 	{ 
 		return $this->db->fetch_row(); 
 	}
@@ -754,10 +754,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->affected_rows();                			                          |
+	| Örnek Kullanım: ->affectedRows();                			                          |
 	|          																				  |
 	******************************************************************************************/
-	public function affected_rows()
+	public function affectedRows()
 	{ 
 		return $this->db->affected_rows();
 	}
@@ -769,10 +769,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->insert_id();                			                              |
+	| Örnek Kullanım: ->insertId();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function insert_id()
+	public function insertId()
 	{ 
 		return $this->db->insert_id(); 
 	}
@@ -784,10 +784,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->column_data();                			                              |
+	| Örnek Kullanım: ->columnData();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function column_data()
+	public function columnData()
 	{ 
 		return $this->db->column_data(); 
 	}
@@ -861,10 +861,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->distinctrow();                     			                          |
+	| Örnek Kullanım: ->distinctRow();                     			                          |
 	|          																				  |
 	******************************************************************************************/
-	public function distinctrow()
+	public function distinctRow()
 	{ 
 		$this->distinctrow = ' DISTINCTROW '; 
 		return $this; 
@@ -877,10 +877,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->straight_join();                     	                              |
+	| Örnek Kullanım: ->straightJoin();                     	                              |
 	|          																				  |
 	******************************************************************************************/
-	public function straight_join()
+	public function straightJoin()
 	{ 
 		$this->straight_join = ' STRAIGHT_JOIN '; 
 		return $this; 
@@ -893,10 +893,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->high_priority();                     	                              |
+	| Örnek Kullanım: ->highPriority();                     	                              |
 	|          																				  |
 	******************************************************************************************/
-	public function high_priority()
+	public function highPriority()
 	{ 
 		$this->high_priority = ' HIGH_PRIORITY '; 
 		return $this; 
@@ -909,10 +909,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->small_result();                     	                              |
+	| Örnek Kullanım: ->smallResult();                     	                              |
 	|          																				  |
 	******************************************************************************************/
-	public function small_result()
+	public function smallResult()
 	{ 
 		$this->small_result = ' SQL_SMALL_RESULT '; 
 		return $this; 
@@ -925,10 +925,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->big_result();                        	                              |
+	| Örnek Kullanım: ->bigResult();                        	                              |
 	|          																				  |
 	******************************************************************************************/
-	public function big_result()
+	public function bigResult()
 	{ 
 		$this->big_result = ' SQL_BIG_RESULT '; 
 		return $this; 
@@ -941,10 +941,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->buffer_result();                        	                          |
+	| Örnek Kullanım: ->bufferResult();                        	                          |
 	|          																				  |
 	******************************************************************************************/
-	public function buffer_result()
+	public function bufferResult()
 	{ 
 		$this->buffer_result = ' SQL_BUFFER_RESULT '; 
 		return $this; 
@@ -973,10 +973,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->no_cache();                        	                                  |
+	| Örnek Kullanım: ->noCache();                        	                                  |
 	|          																				  |
 	******************************************************************************************/
-	public function no_cache()
+	public function noCache()
 	{ 
 		$this->no_cache = ' SQL_NO_CACHE '; 
 		return $this; 
@@ -989,10 +989,10 @@ class Db
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: ->calc_found_rows();                        	                          |
+	| Örnek Kullanım: ->calcFoundRows();                        	                          |
 	|          																				  |
 	******************************************************************************************/
-	public function calc_found_rows()
+	public function calcFoundRows()
 	{ 
 		$this->calc_found_rows = ' SQL_CALC_FOUND_ROWS '; 
 		return $this; 
@@ -1058,10 +1058,10 @@ class Db
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @condition => Kümelemeyi oluşturacak veri parametresi.                    |
 	|          																				  |
-	| Örnek Kullanım: ->group_by('id')  // GROUP BY id								          |
+	| Örnek Kullanım: ->groupBy('id')  // GROUP BY id								          |
 	|          																				  |
 	******************************************************************************************/
-	public function group_by($condition = '')
+	public function groupBy($condition = '')
 	{ 
 		if( ! is_string($condition) ) 
 		{
@@ -1082,10 +1082,10 @@ class Db
 	| 1. string var @condition => Kümelemeyi oluşturacak veri parametresi.                    |
 	| 1. string var @type => Sıralama türü.                    								  |
 	|          																				  |
-	| Örnek Kullanım: ->order_by('id', 'desc')  // ORDER BY id DESC							  |
+	| Örnek Kullanım: ->orderBy('id', 'desc')  // ORDER BY id DESC							  |
 	|          																				  |
 	******************************************************************************************/
-	public function order_by($condition = '', $type = '')
+	public function orderBy($condition = '', $type = '')
 	{ 
 		if( ! ( is_string($condition) || is_string($type)) ) 
 		{
@@ -1419,7 +1419,7 @@ class Db
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function different_connection($connect_name = '')
+	public function differentConnection($connect_name = '')
 	{
 		if( ! is_string($connect_name) ) 
 		{

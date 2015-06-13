@@ -102,7 +102,7 @@ class CXml
 	******************************************************************************************/
 	public function content($content = '')
 	{
-		if( is_value($content) )
+		if( isValue($content) )
 		{
 			$this->objects['content'] = $content;
 		}	
@@ -155,7 +155,7 @@ class CXml
 	******************************************************************************************/	
 	public function charset($charset = '1.0')
 	{
-		if( is_charset($charset) )
+		if( isCharset($charset) )
 		{
 			$this->objects['charset'] = $charset;
 		}	
@@ -180,11 +180,11 @@ class CXml
 			$str = '';
 		}
 		
-		$str .= ln().
+		$str .= eof().
 				'<'.$this->objects['element'].$this->_attributes($this->objects['attribute']).'>'.
 				$this->objects['content'].
 				'</'.$this->objects['element'].'>'.
-				ln();
+				eof();
 		
 		// Varsayılan dizi ayarları
 		$this->objects = array

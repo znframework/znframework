@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * Config/Session.php dosyasından Ini ayarlarını yapılandır.                               *
 ******************************************************************************************/
-config::iniset(config::get('Session','settings'));
+config::iniSet(config::get('Session','settings'));
 /******************************************************************************************
 * Herhangi bir oturum başlatılmamışsa oturumu başlat.                                     *
 ******************************************************************************************/
@@ -54,7 +54,7 @@ class Session
 		{
 			foreach($name as $key => $value)
 			{
-				if( is_hash($sess_config['encode']) )
+				if( isHash($sess_config['encode']) )
 				{
 					$_SESSION[hash($sess_config['encode'], $key)] = $value;
 				}
@@ -66,7 +66,7 @@ class Session
 		}
 		else
 		{
-			if( is_hash($sess_config['encode']) )
+			if( isHash($sess_config['encode']) )
 			{
 				$_SESSION[hash($sess_config['encode'], $name)] = $values;
 			}
@@ -106,7 +106,7 @@ class Session
 		{
 			foreach($name as $key)
 			{
-				if( is_hash($sess_config) )
+				if( isHash($sess_config) )
 				{
 					$session[$key] = $_SESSION[hash($sess_config, $key)];
 				}
@@ -119,7 +119,7 @@ class Session
 		}
 		else
 		{
-			if( is_hash($sess_config) )
+			if( isHash($sess_config) )
 			{
 				if( isset($_SESSION[hash($sess_config, $name)]) ) 
 				{
@@ -152,10 +152,10 @@ class Session
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: select_all();       										              |
+	| Örnek Kullanım: selectAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function select_all()
+	public static function selectAll()
 	{
 		return $_SESSION;	
 	}
@@ -186,7 +186,7 @@ class Session
 			{
 				$val = $value;
 				
-				if( is_hash($sess_config) )
+				if( isHash($sess_config) )
 				{
 					if( isset($_SESSION[hash($sess_config, $val)]) ) 
 					{
@@ -206,7 +206,7 @@ class Session
 		{
 			$val = $name;
 		}
-		if( is_hash($sess_config) )
+		if( isHash($sess_config) )
 		{
 			if( isset($_SESSION[hash($sess_config, $val)]) )
 			{
@@ -229,10 +229,10 @@ class Session
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: delete_all();       										              |
+	| Örnek Kullanım: deleteAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_all()
+	public static function deleteAll()
 	{
 		session_destroy();
 	}

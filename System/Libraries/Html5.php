@@ -68,7 +68,7 @@ class Html5
 	| 3. text 		 	=> text/plain      											          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function form_open($name = '', $_attributes = '')
+	public static function formOpen($name = '', $_attributes = '')
 	{
 		return form::open($name, $_attributes);
 	}
@@ -84,7 +84,7 @@ class Html5
 	| // </form>         											  						  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function form_close()
+	public static function formClose()
 	{
 		return form::close();
 	}
@@ -97,7 +97,7 @@ class Html5
 			$name = '';
 		}
 		
-		if( ! is_value($value) ) 
+		if( ! isValue($value) ) 
 		{
 			$value = '';		
 		}
@@ -118,7 +118,7 @@ class Html5
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.ln();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eof();
 	}
 	
 	/******************************************************************************************
@@ -131,11 +131,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: email_object('nesne', 'Değer', array('style' => 'color:red'));          |
+	| Örnek Kullanım: emailObject('nesne', 'Değer', array('style' => 'color:red'));          |
 	| // <input type="email" name="nesne" value="Değer" style="color:red">       			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function email_object($name = '', $value = '', $_attributes = '')
+	public static function emailObject($name = '', $value = '', $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'email');
 	}
@@ -150,11 +150,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: url_object('nesne', 'Değer', array('style' => 'color:red'));            |
+	| Örnek Kullanım: urlObject('nesne', 'Değer', array('style' => 'color:red'));            |
 	| // <input type="url" name="nesne" value="Değer" style="color:red">       			      | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function url_object($name = "", $value = "", $_attributes = '')
+	public static function urlObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'url');
 	}
@@ -169,11 +169,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: number_object('nesne', 'Değer', array('style' => 'color:red'));         |
+	| Örnek Kullanım: numberObject('nesne', 'Değer', array('style' => 'color:red'));         |
 	| // <input type="url" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function number_object($name = "", $value = "", $_attributes = '')
+	public static function numberObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'number');
 	}
@@ -188,11 +188,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: search_object('nesne', 'Değer', array('style' => 'color:red'));         |
+	| Örnek Kullanım: searchObject('nesne', 'Değer', array('style' => 'color:red'));         |
 	| // <input type="search" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function search_object($name = "", $value = "", $_attributes = '')
+	public static function searchObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'search');
 	}
@@ -207,11 +207,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: tel_object('nesne', 'Değer', array('style' => 'color:red'));            |
+	| Örnek Kullanım: telObject('nesne', 'Değer', array('style' => 'color:red'));            |
 	| // <input type="tel" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function tel_object($name = "", $value = "", $_attributes = '')
+	public static function telObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'tel');
 	}
@@ -226,11 +226,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: color_object('nesne', 'Değer', array('style' => 'color:red'));          |
+	| Örnek Kullanım: colorObject('nesne', 'Değer', array('style' => 'color:red'));          |
 	| // <input type="color" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function color_object($name = "", $value = "", $_attributes = '')
+	public static function colorObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'color');
 	}
@@ -245,11 +245,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: date_object('nesne', 'Değer', array('style' => 'color:red'));           |
+	| Örnek Kullanım: dateObject('nesne', 'Değer', array('style' => 'color:red'));           |
 	| // <input type="date" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function date_object($name = "", $value = "", $_attributes = '')
+	public static function dateObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'date');
 	}
@@ -264,11 +264,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: datetime_object('nesne', 'Değer', array('style' => 'color:red'));       |
+	| Örnek Kullanım: datetimeObject('nesne', 'Değer', array('style' => 'color:red'));       |
 	| // <input type="datetime" name="nesne" value="Değer" style="color:red">       		  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function datetime_object($name = "", $value = "", $_attributes = '')
+	public static function datetimeObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'datetime');
 	}
@@ -283,11 +283,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: datetime_local_object('nesne', 'Değer', array('style' => 'color:red')); |
+	| Örnek Kullanım: datetimeLocalObject('nesne', 'Değer', array('style' => 'color:red')); |
 	| // <input type="datetime-local" name="nesne" value="Değer" style="color:red">       	  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function datetime_local_object($name = "", $value = "", $_attributes = '')
+	public static function datetimeLocalObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'datetime-local');
 	}
@@ -302,11 +302,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: time_object('nesne', 'Değer', array('style' => 'color:red'));           |
+	| Örnek Kullanım: timeObject('nesne', 'Değer', array('style' => 'color:red'));           |
 	| // <input type="time" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function time_object($name = "", $value = "", $_attributes = '')
+	public static function timeObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'time');
 	}
@@ -321,11 +321,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: week_object('nesne', 'Değer', array('style' => 'color:red'));           |
+	| Örnek Kullanım: weekObject('nesne', 'Değer', array('style' => 'color:red'));           |
 	| // <input type="week" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function week_object($name = "", $value = "", $_attributes = '')
+	public static function weekObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'week');
 	}
@@ -340,11 +340,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: month_object('nesne', 'Değer', array('style' => 'color:red'));          |
+	| Örnek Kullanım: monthObject('nesne', 'Değer', array('style' => 'color:red'));          |
 	| // <input type="month" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function month_object($name = "", $value = "", $_attributes = '')
+	public static function monthObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'month');
 	}
@@ -359,11 +359,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: range_object('nesne', 'Değer', array('style' => 'color:red'));          |
+	| Örnek Kullanım: rangeObject('nesne', 'Değer', array('style' => 'color:red'));          |
 	| // <input type="range" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function range_object($name = "", $value = "", $_attributes = '')
+	public static function rangeObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'range');
 	}
@@ -378,11 +378,11 @@ class Html5
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: image_object('nesne', 'Değer', array('style' => 'color:red'));          |
+	| Örnek Kullanım: imageObject('nesne', 'Değer', array('style' => 'color:red'));          |
 	| // <input type="image" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function image_object($name = "", $value = "", $_attributes = '')
+	public static function imageObject($name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, 'image');
 	}
@@ -398,11 +398,11 @@ class Html5
 	| 3. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 4. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
-	| Örnek Kullanım: input_object('text', 'nesne', 'Değer', array('style' => 'color:red'));  |
+	| Örnek Kullanım: inputObject('text', 'nesne', 'Değer', array('style' => 'color:red'));  |
 	| // <input type="text" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function input_object($type = "", $name = "", $value = "", $_attributes = '')
+	public static function inputObject($type = "", $name = "", $value = "", $_attributes = '')
 	{
 		return self::_input($name, $value, $_attributes, $type);
 	}
@@ -540,12 +540,12 @@ class Html5
 	// içerik ve özellik eklenebilir HTML5 nesneleri için
 	protected static function _content_attribute($content, $_attributes, $type)
 	{
-		if( ! is_value($content) )  
+		if( ! isValue($content) )  
 		{
 			$content = '';
 		}
 		
-		return '<'.$type.self::attributes($_attributes).'>'.$content."</$type>".ln();
+		return '<'.$type.self::attributes($_attributes).'>'.$content."</$type>".eof();
 	}
 	
 	/******************************************************************************************
@@ -575,11 +575,11 @@ class Html5
 	| 1. string var @html => HTML nesnesinin içeriği belirtilir.	  				          |
 	| 2. array var @attributes => HTML nesnesinin özellik ve değerleri.	  				      |
 	|          																				  |
-	| Örnek Kullanım: datalist('İçerik', array('name' => 'nesne'));          				  |
+	| Örnek Kullanım: dataList('İçerik', array('name' => 'nesne'));          				  |
 	| // <datalist name="nesne">İçerik</datalist>											  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function datalist($content = "", $_attributes = '')
+	public static function dataList($content = "", $_attributes = '')
 	{
 		return self::_content_attribute($content, $_attributes, 'datalist');
 	}
@@ -665,11 +665,11 @@ class Html5
 	| 1. string var @html => HTML nesnesinin içeriği belirtilir.	  				          |
 	| 2. array var @attributes => HTML nesnesinin özellik ve değerleri.	  				      |
 	|          																				  |
-	| Örnek Kullanım: figcaption('İçerik', array('name' => 'nesne'));          				  |
+	| Örnek Kullanım: figCaption('İçerik', array('name' => 'nesne'));          				  |
 	| // <figcaption name="nesne">İçerik</figcaption>										  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function figcaption($content = "", $_attributes = '')
+	public static function figCaption($content = "", $_attributes = '')
 	{
 		return self::_content_attribute($content, $_attributes, 'figcaption');
 	}
@@ -796,7 +796,7 @@ class Html5
 	******************************************************************************************/ 
 	public static function keygen($_attributes = '')
 	{
-		return '<keygen'.self::attributes($_attributes).'>'.ln();
+		return '<keygen'.self::attributes($_attributes).'>'.eof();
 	}
 	
 	// HTML5 medya nesneleri için
@@ -807,7 +807,7 @@ class Html5
 			$src = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.ln();
+		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.eof();
 	}
 	
 	/******************************************************************************************
@@ -854,12 +854,12 @@ class Html5
 			$src = '';
 		}
 		
-		if( ! is_value($content) )  
+		if( ! isValue($content) )  
 		{
 			$content = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.$content."</$type>".ln();
+		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.$content."</$type>".eof();
 	}
 	
 	/******************************************************************************************

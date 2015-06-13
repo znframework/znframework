@@ -27,7 +27,7 @@ class Filter
 	// Dönen Değer: Filtrelenmiş veri.
 	public static function word($string = '', $badwords = '', $changechar = '[badwords]')
 	{
-		if( ! is_value($string) ) 
+		if( ! isValue($string) ) 
 		{
 			return false;
 		}

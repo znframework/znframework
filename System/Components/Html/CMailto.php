@@ -42,7 +42,7 @@ class CMailto extends ComponentHtmlCommon
 			return $this;	
 		}
 		
-		if( ! is_email($url) )
+		if( ! isEmail($url) )
 		{ 
 			return $this;
 		}

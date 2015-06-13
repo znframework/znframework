@@ -64,7 +64,7 @@ class CEvent extends ComponentJqueryCommon
 	 */
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector))
+		if( ! isChar($selector))
 		{
 			return $this;	
 		}
@@ -150,7 +150,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'dblclick', 'function(e){alert("example");}'
 	 */
-	public function dblclick($selector = '', $callback = '')
+	public function dblClick($selector = '', $callback = '')
 	{
 		$this->_event('dblclick', $selector, $callback);
 		
@@ -248,7 +248,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'focusin', 'function(e){alert("example");}'
 	 */
-	public function focusin($selector = '', $callback = '')
+	public function focusIn($selector = '', $callback = '')
 	{
 		$this->_event('focusin', $selector, $callback);
 		
@@ -262,7 +262,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'focusout', 'function(e){alert("example");}'
 	 */
-	public function focusout($selector = '', $callback = '')
+	public function focusOut($selector = '', $callback = '')
 	{
 		$this->_event('focusout', $selector, $callback);
 		
@@ -304,7 +304,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'keydown', 'function(e){alert("example");}'
 	 */
-	public function keydown($selector = '', $callback = '')
+	public function keyDown($selector = '', $callback = '')
 	{
 		$this->_event('keydown', $selector, $callback);
 		
@@ -318,7 +318,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'keypress', 'function(e){alert("example");}'
 	 */
-	public function keypress($selector = '', $callback = '')
+	public function keyPress($selector = '', $callback = '')
 	{
 		$this->_event('keypress', $selector, $callback);
 		
@@ -332,7 +332,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'keyup', 'function(e){alert("example");}'
 	 */
-	public function keyup($selector = '', $callback = '')
+	public function keyUp($selector = '', $callback = '')
 	{
 		$this->_event('keyup', $selector, $callback);
 		
@@ -360,7 +360,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mousedown', 'function(e){alert("example");}'
 	 */
-	public function mousedown($selector = '', $callback = '')
+	public function mouseDown($selector = '', $callback = '')
 	{
 		$this->_event('mousedown', $selector, $callback);
 		
@@ -374,7 +374,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mouseenter', 'function(e){alert("example");}'
 	 */
-	public function mouseenter($selector = '', $callback = '')
+	public function mouseEnter($selector = '', $callback = '')
 	{
 		$this->_event('mouseenter', $selector, $callback);
 		
@@ -388,7 +388,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mouseleave', 'function(e){alert("example");}'
 	 */
-	public function mouseleave($selector = '', $callback = '')
+	public function mouseLeave($selector = '', $callback = '')
 	{
 		$this->_event('mouseleave', $selector, $callback);
 		
@@ -402,7 +402,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mousemove', 'function(e){alert("example");}'
 	 */
-	public function mousemove($selector = '', $callback = '')
+	public function mouseMove($selector = '', $callback = '')
 	{
 		$this->_event('mousemove', $selector, $callback);
 		
@@ -416,7 +416,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mouseout', 'function(e){alert("example");}'
 	 */
-	public function mouseout($selector = '', $callback = '')
+	public function mouseOut($selector = '', $callback = '')
 	{
 		$this->_event('mouseout', $selector, $callback);
 		
@@ -430,7 +430,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mouseover', 'function(e){alert("example");}'
 	 */
-	public function mouseover($selector = '', $callback = '')
+	public function mouseOver($selector = '', $callback = '')
 	{
 		$this->_event('mouseover', $selector, $callback);
 		
@@ -444,7 +444,7 @@ class CEvent extends ComponentJqueryCommon
 	 * 
 	 * 'mouseup', 'function(e){alert("example");}'
 	 */
-	public function mouseup($selector = '', $callback = '')
+	public function mouseUp($selector = '', $callback = '')
 	{
 		$this->_event('mouseup', $selector, $callback);
 		
@@ -595,7 +595,7 @@ class CEvent extends ComponentJqueryCommon
 	 *
 	 * .triggerHandler('click', '', '') 
 	 */
-	public function trigger_handler()
+	public function triggerHandler()
 	{
 		$arguments = func_get_args();
 		
@@ -742,7 +742,7 @@ class CEvent extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = "function($params)".ln()."{".ln()."\t$callback".ln()."}";
+		$this->callback = "function($params)".eof()."{".eof()."\t$callback".eof()."}";
 		
 		return $this;
 	}
@@ -763,7 +763,7 @@ class CEvent extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = "function($params)".ln()."{".ln()."\t$callback".ln()."}";
+		$this->callback = "function($params)".eof()."{".eof()."\t$callback".eof()."}";
 		
 		return $this;
 	}
@@ -797,7 +797,7 @@ class CEvent extends ComponentJqueryCommon
 	{
 		$combine_event = func_get_args();
 		
-		$event  = ln()."$($this->selector)";
+		$event  = eof()."$($this->selector)";
 		$event .= $this->complete();
 		if( ! empty($combine_event))foreach($combine_event as $e)
 		{			

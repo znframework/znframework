@@ -57,7 +57,7 @@ class CTransform
 	******************************************************************************************/
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector) ) 
+		if( ! isChar($selector) ) 
 		{
 			return $this;	
 		}
@@ -95,14 +95,14 @@ class CTransform
 	protected function _transform($data)
 	{
 		$str  = '';
-		$str .= $this->selector."{".ln();	
+		$str .= $this->selector."{".eof();	
 		
 		foreach($this->browsers as $val)
 		{
-			$str .= $val."transform:$data;".ln();
+			$str .= $val."transform:$data;".eof();
 		}
 		
-		$str .= "}".ln();
+		$str .= "}".eof();
 		
 		return $str;
 	}
@@ -145,7 +145,7 @@ class CTransform
 	******************************************************************************************/
 	public function rotate($argument = '')
 	{
-		if( ! is_value($argument) )
+		if( ! isValue($argument) )
 		{
 			return $this;
 		}
@@ -195,10 +195,10 @@ class CTransform
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @x => X parametresidir.												  |	 
 	|          																				  |
-	| Örnek Kullanım: ->scalex(10)			     						 		 		      |
+	| Örnek Kullanım: ->scaleX(10)			     						 		 		      |
 	|          																				  |
 	******************************************************************************************/
-	public function scalex($x = 0)
+	public function scaleX($x = 0)
 	{	
 		if( ! is_numeric($x) )
 		{
@@ -218,10 +218,10 @@ class CTransform
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @y => Y parametresidir.												  |	 
 	|          																				  |
-	| Örnek Kullanım: ->scaley(10)			     						 		 		      |
+	| Örnek Kullanım: ->scaleY(10)			     						 		 		      |
 	|          																				  |
 	******************************************************************************************/
-	public function scaley($y = 0)
+	public function scaleY($y = 0)
 	{
 		if( ! is_numeric($y) )
 		{
@@ -247,7 +247,7 @@ class CTransform
 	******************************************************************************************/
 	public function skew($x = '', $y = '')
 	{
-		if( ! ( is_value($x) || is_value($y) ) )
+		if( ! ( isValue($x) || isValue($y) ) )
 		{
 			return $this;
 		}
@@ -277,9 +277,9 @@ class CTransform
 	| Örnek Kullanım: ->skewx(10)			     						 		 		      |
 	|          																				  |
 	******************************************************************************************/
-	public function skewx($x = '')
+	public function skewX($x = '')
 	{
-		if( ! is_value($x) )
+		if( ! isValue($x) )
 		{
 			return $this;
 		}
@@ -305,9 +305,9 @@ class CTransform
 	| Örnek Kullanım: ->skewy(10)			     						 		 		      |
 	|          																				  |
 	******************************************************************************************/
-	public function skewy($y = '')
+	public function skewY($y = '')
 	{
-		if( ! is_value($y) )
+		if( ! isValue($y) )
 		{
 			return $this;
 		}
@@ -336,7 +336,7 @@ class CTransform
 	******************************************************************************************/
 	public function translate($x = 0, $y = 0)
 	{
-		if( ! ( is_value($x) || is_value($y) ) )
+		if( ! ( isValue($x) || isValue($y) ) )
 		{
 			return $this;
 		}
@@ -376,9 +376,9 @@ class CTransform
 	| Örnek Kullanım: ->translatex(10)			     						 		 		  |
 	|          																				  |
 	******************************************************************************************/
-	public function translatex($x = 0)
+	public function translateX($x = 0)
 	{
-		if( ! is_value($x) )
+		if( ! isValue($x) )
 		{
 			return $this;
 		}
@@ -404,9 +404,9 @@ class CTransform
 	| Örnek Kullanım: ->translatey(10)			     						 		 		  |
 	|          																				  |
 	******************************************************************************************/
-	public function translatey($y = 0)
+	public function translateY($y = 0)
 	{
-		if( ! is_value($y) )
+		if( ! isValue($y) )
 		{
 			return $this;
 		}

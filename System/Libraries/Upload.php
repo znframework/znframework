@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * Config/Upload.php dosyasından Ini ayarlarını yapılandır.                                *
 ******************************************************************************************/
-config::iniset(config::get('Upload','settings'));
+config::iniSet(config::get('Upload','settings'));
 /******************************************************************************************
 * UPLOAD                                                                            	  *
 *******************************************************************************************
@@ -407,10 +407,10 @@ class Upload
 	| Parametreler: Tek parametresi vardır.                                              	  |
 	| 1. string var @sql_file => Sql dosyasının sunucudaki yolu.			  			      |
 	|          																				  |
-	| Örnek Kullanım: sql_file('Database/file.sql');         						  		  |
+	| Örnek Kullanım: sqlFile('Database/file.sql');         						  		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function sql_file($sql_file = '')
+	public static function sqlFile($sql_file = '')
 	{
 		if( ! is_string($sql_file) || empty($sql_file) ) 
 		{
@@ -432,7 +432,7 @@ class Upload
 		{
 			if( $query !== '' )
 			{
-				$db->exec_query(trim($query));
+				$db->execQuery(trim($query));
 			}
 		}
     }

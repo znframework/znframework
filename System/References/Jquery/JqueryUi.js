@@ -868,7 +868,7 @@ var widget = $.widget;
 
 
 var mouseHandled = false;
-$( document ).mouseup( function() {
+$( document ).mouseUp( function() {
 	mouseHandled = false;
 });
 
@@ -3275,7 +3275,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 		this._handles = $(".ui-resizable-handle", this.element)
 			.disableSelection();
 
-		this._handles.mouseover(function() {
+		this._handles.mouseOver(function() {
 			if (!that.resizing) {
 				if (this.className) {
 					axis = this.className.match(/ui-resizable-(se|sw|ne|nw|n|e|s|w)/i);
@@ -3288,14 +3288,14 @@ $.widget("ui.resizable", $.ui.mouse, {
 			this._handles.hide();
 			$(this.element)
 				.addClass("ui-resizable-autohide")
-				.mouseenter(function() {
+				.mouseEnter(function() {
 					if (o.disabled) {
 						return;
 					}
 					$(this).removeClass("ui-resizable-autohide");
 					that._handles.show();
 				})
-				.mouseleave(function() {
+				.mouseLeave(function() {
 					if (o.disabled) {
 						return;
 					}
@@ -7769,7 +7769,7 @@ $.widget( "ui.button", {
 				});
 
 			if ( this.buttonElement.is("a") ) {
-				this.buttonElement.keyup(function(event) {
+				this.buttonElement.keyUp(function(event) {
 					if ( event.keyCode === $.ui.keyCode.SPACE ) {
 						// TODO pass through original event correctly (just as 2nd argument doesn't work)
 						$( this ).click();
@@ -8188,8 +8188,8 @@ $.extend(Datepicker.prototype, {
 			return;
 		}
 		this._attachments(input, inst);
-		input.addClass(this.markerClassName).keydown(this._doKeyDown).
-			keypress(this._doKeyPress).keyup(this._doKeyUp);
+		input.addClass(this.markerClassName).keyDown(this._doKeyDown).
+			keyPress(this._doKeyPress).keyUp(this._doKeyUp);
 		this._autoSize(inst);
 		$.data(target, "datepicker", inst);
 		//If disabled option is true, disable the datepicker once it has been attached to the input (see ticket #5665)
@@ -8313,7 +8313,7 @@ $.extend(Datepicker.prototype, {
 			id = "dp" + this.uuid;
 			this._dialogInput = $("<input type='text' id='" + id +
 				"' style='position: absolute; top: -100px; width: 0px;'/>");
-			this._dialogInput.keydown(this._doKeyDown);
+			this._dialogInput.keyDown(this._doKeyDown);
 			$("body").append(this._dialogInput);
 			inst = this._dialogInst = this._newInst(this._dialogInput, false);
 			inst.settings = {};
@@ -9126,7 +9126,7 @@ $.extend(Datepicker.prototype, {
 					(match === "y" && isDoubled ? 4 : (match === "o" ? 3 : 2)))),
 					minSize = (match === "y" ? size : 1),
 					digits = new RegExp("^\\d{" + minSize + "," + size + "}"),
-					num = value.substring(iValue).match(digits);
+					num = value.subString(iValue).match(digits);
 				if (!num) {
 					throw "Missing number at position " + iValue;
 				}
@@ -9824,7 +9824,7 @@ $.extend(Datepicker.prototype, {
 				years = this._get(inst, "yearRange").split(":");
 				thisYear = new Date().getFullYear();
 				determineYear = function(value) {
-					var year = (value.match(/c[+\-].*/) ? drawYear + parseInt(value.substring(1), 10) :
+					var year = (value.match(/c[+\-].*/) ? drawYear + parseInt(value.subString(1), 10) :
 						(value.match(/[+\-].*/) ? thisYear + parseInt(value, 10) :
 						parseInt(value, 10)));
 					return (isNaN(year) ? thisYear : year);
@@ -10026,7 +10026,7 @@ $.fn.datepicker = function(options){
 
 	/* Initialise the date picker. */
 	if (!$.datepicker.initialized) {
-		$(document).mousedown($.datepicker._checkExternalClick);
+		$(document).mouseDown($.datepicker._checkExternalClick);
 		$.datepicker.initialized = true;
 	}
 
@@ -12434,7 +12434,7 @@ var spinner = $.widget( "ui.spinner", {
 
 	_events: {
 		keydown: function( event ) {
-			if ( this._start( event ) && this._keydown( event ) ) {
+			if ( this._start( event ) && this._keyDown( event ) ) {
 				event.preventDefault();
 			}
 		},
@@ -12939,7 +12939,7 @@ var tabs = $.widget( "ui.tabs", {
 	_initialActive: function() {
 		var active = this.options.active,
 			collapsible = this.options.collapsible,
-			locationHash = location.hash.substring( 1 );
+			locationHash = location.hash.subString( 1 );
 
 		if ( active === null ) {
 			// check the fragment identifier in the URL
@@ -13259,7 +13259,7 @@ var tabs = $.widget( "ui.tabs", {
 			// inline tab
 			if ( that._isLocal( anchor ) ) {
 				selector = anchor.hash;
-				panelId = selector.substring( 1 );
+				panelId = selector.subString( 1 );
 				panel = that.element.find( that._sanitizeSelector( selector ) );
 			// remote tab
 			} else {

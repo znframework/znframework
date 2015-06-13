@@ -16,7 +16,7 @@ use Import;
 /******************************************************************************************
 * Config/Upload.php dosyasından Ini ayarlarını yapılandır.                                *
 ******************************************************************************************/
-config::iniset(config::get('Upload','settings'));
+config::iniSet(config::get('Upload','settings'));
 /******************************************************************************************
 * UPLOAD                                                                                  *
 *******************************************************************************************
@@ -112,7 +112,7 @@ class CUpload
 	******************************************************************************************/
 	public function encode($hash = 'md5')
 	{
-		if( is_hash($hash) )
+		if( isHash($hash) )
 		{
 			$this->settings['encryption'] = $hash;	
 		}
@@ -137,7 +137,7 @@ class CUpload
 	******************************************************************************************/
 	public function prefix($prefix = 'md5')
 	{
-		if( is_char($prefix) )
+		if( isChar($prefix) )
 		{
 			$this->settings['prefix'] = $prefix;	
 		}

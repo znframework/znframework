@@ -51,7 +51,7 @@ class Cookie
 		/************************************************************************************************/
 		// Parametrelerin geçerlilik kontrolü yapılıyor.
 		/************************************************************************************************/
-		if( ! is_value($name) ) 
+		if( ! isValue($name) ) 
 		{
 			return false;
 		}
@@ -77,13 +77,13 @@ class Cookie
 		}
 		if( empty($name) )
 		{			
-			self::$error = get_message('Cookie', 'name_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
 		if( empty($value) )
 		{
-			self::$error = get_message('Cookie', 'value_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'value_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -116,7 +116,7 @@ class Cookie
 		}
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if(is_hash($cookie_config["encode"]))
+		if(isHash($cookie_config["encode"]))
 		{
 			$name = hash($cookie_config["encode"], $name);
 		}
@@ -134,7 +134,7 @@ class Cookie
 		}
 		else
 		{
-			self::$error = get_message('Cookie', 'set_error');
+			self::$error = getMessage('Cookie', 'set_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -154,14 +154,14 @@ class Cookie
 	******************************************************************************************/
 	public static function select($name = '')
 	{
-		if( ! is_value($name) ) 
+		if( ! isValue($name) ) 
 		{
 			return false;
 		}
 
 		if( empty($name) )
 		{
-			self::$error = get_message('Cookie', 'name_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -170,7 +170,7 @@ class Cookie
 		
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if( is_hash($cookie_config["encode"]) )
+		if( isHash($cookie_config["encode"]) )
 		{
 			$name = hash($cookie_config["encode"], $name);
 		}
@@ -181,7 +181,7 @@ class Cookie
 		}
 		else 
 		{
-			self::$error = get_message('Cookie', 'not_select_error');
+			self::$error = getMessage('Cookie', 'not_select_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;	
 		}
@@ -201,7 +201,7 @@ class Cookie
 	******************************************************************************************/
 	public static function delete($name = '', $path = '')
 	{
-		if( ! is_value($name)) 
+		if( ! isValue($name)) 
 		{
 			return false;
 		}
@@ -212,7 +212,7 @@ class Cookie
 		
 		if( empty($name) )
 		{
-			self::$error = get_message('Cookie', 'name_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'name_parameter_empty_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -225,7 +225,7 @@ class Cookie
 		}
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if( is_hash($cookie_config["encode"]) )
+		if( isHash($cookie_config["encode"]) )
 		{
 			$name = hash($cookie_config["encode"], $name);
 		}
@@ -236,7 +236,7 @@ class Cookie
 		}
 		else
 		{ 
-			self::$error = get_message('Cookie', 'not_delete_error');
+			self::$error = getMessage('Cookie', 'not_delete_error');
 			report('Error',self::$error,'CookieLibrary');
 			return false;		
 		}
@@ -249,10 +249,10 @@ class Cookie
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: select_all();       										              |
+	| Örnek Kullanım: selectAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function select_all()
+	public static function selectAll()
 	{
 		if( ! empty($_COOKIE) ) 
 		{
@@ -271,10 +271,10 @@ class Cookie
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: delete_all();       										              |
+	| Örnek Kullanım: deleteAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_all()
+	public static function deleteAll()
 	{	
 		$path = config::get('Cookie', 'path');
 		

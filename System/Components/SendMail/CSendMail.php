@@ -141,7 +141,7 @@ class CSendMail
 	| Örnek Kullanım: ->smtp_auth(true)                                  		  	      	  |
 	|          																				  |
 	******************************************************************************************/
-	public function smtp_auth($smtp_auth = '')
+	public function smtpAuth($smtp_auth = '')
 	{
 		if( ! empty($smtp_auth) )
 		{
@@ -162,7 +162,7 @@ class CSendMail
 	| Örnek Kullanım: ->smtp_debug(2)                                  		  	      	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function smtp_debug($smtp_debug = '')
+	public function smtpDebug($smtp_debug = '')
 	{
 		if( ! empty($smtp_debug) )
 		{
@@ -344,7 +344,7 @@ class CSendMail
 	| Örnek Kullanım: ->is_html(false)                                  		  			  |
 	|          																				  |
 	******************************************************************************************/
-	public function is_html($html = true)
+	public function isHtml($html = true)
 	{
 		if( ! empty($html) )
 		{
@@ -365,7 +365,7 @@ class CSendMail
 	| Örnek Kullanım: ->smtp_secure('tsl')                                  	 			  |
 	|          																				  |
 	******************************************************************************************/
-	public function smtp_secure($secure = 'tsl')
+	public function smtpSecure($secure = 'tsl')
 	{
 		if( ! empty($secure) )
 		{
@@ -386,7 +386,7 @@ class CSendMail
 	| Örnek Kullanım: ->is_smtp(true)                                  	 			  		  |
 	|          																				  |
 	******************************************************************************************/
-	public function is_smtp($smtp = true)
+	public function isSmtp($smtp = true)
 	{
 		if( ! empty($smtp) )
 		{
@@ -441,7 +441,7 @@ class CSendMail
 	******************************************************************************************/
 	public function attachment($attach = '', $file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		email::add_attachment($attach, $file_name, $encoding, $type);
+		email::addAttachment($attach, $file_name, $encoding, $type);
 		
 		return $this;
 	}

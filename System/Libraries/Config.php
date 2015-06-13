@@ -59,7 +59,7 @@ class Config
 			return false;
 		}
 		
-		if( ! is_import($path) ) 
+		if( ! isImport($path) ) 
 		{
 			require_once $path;
 			
@@ -156,7 +156,7 @@ class Config
 	 * 2. parametre dizi olarak belirtilir. Bu durumda 2. parametre kullanılmaz.
 	 * array(key1 => val1, key2 => val2 ...) kullanılır.
 	 */
-	public static function iniset($key = '', $val = '')
+	public static function iniSet($key = '', $val = '')
 	{
 		
 		if( empty($key) ) 
@@ -200,7 +200,7 @@ class Config
 	 * 2. parametre dizi olarak belirtilir.
 	 * array(key1, key2 ...) kullanılır.
 	 */
-	public static function iniget($key = '')
+	public static function iniGet($key = '')
 	{
 		if( empty($key) ) 
 		{
@@ -228,7 +228,7 @@ class Config
 	 *
 	 * Tüm yapılandırılmış ini ayarlarını almak için kullanılır.
 	 */
-	public static function iniget_all($extension = '', $details = true)
+	public static function iniGetAll($extension = '', $details = true)
 	{
 		if( empty($extension) ) 
 		{
@@ -244,7 +244,7 @@ class Config
 	 *
 	 * Tüm yapılandırılmış ini ayarlarını sıfırlamak için kullanılır.
 	 */
-	public static function inirestore($str = '')
+	public static function iniRestore($str = '')
 	{
 		return ini_restore($str);	
 	}

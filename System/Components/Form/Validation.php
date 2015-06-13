@@ -63,7 +63,7 @@ class ComponentFormValidation extends ComponentFormSecurity
 	{
 		$data_match = lang('Validation', 'data_match', $object);
 		
-		if( ! (is_value($data1) || is_value($data2)) )
+		if( ! (isValue($data1) || isValue($data2)) )
 		{
 			$this->valid_error[$object][] = $data_match;
 			return false;	
@@ -99,7 +99,7 @@ class ComponentFormValidation extends ComponentFormSecurity
 		}
 	}
 	
-	protected function specialchar($object = '', $value = '')
+	protected function specialChar($object = '', $value = '')
 	{
 		$nospecial_char = lang('Validation', 'nospecial_char', $object);
 		

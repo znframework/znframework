@@ -71,7 +71,7 @@ class Structure
 		 * Ziyaretçi URL adresini
 		 * tutması için oluşturulmuştur.
 		 */
-		$request_uri 	= request_uri();
+		$request_uri 	= requestUri();
 		
 		
 		// -------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ class Structure
 			{
 				if( ! config::get('Route', 'show_404') )
 				{
-					$error = get_message('System', 'call_user_func_class_error');
+					$error = getMessage('System', 'call_user_func_class_error');
 					
 					// Sayfa bilgisine erişilemezse hata bildir.
 					echo $error;
@@ -221,7 +221,7 @@ class Structure
 				// Sayfa bilgisine erişilemezse hata bildir.
 				if( ! config::get('Route', 'show_404') )
 				{
-					$error = get_message('System', 'call_user_func_array_error');
+					$error = getMessage('System', 'call_user_func_array_error');
 					
 					// Hatayı ekrana yazdır.
 					echo $error;
@@ -247,7 +247,7 @@ class Structure
 			}
 			else
 			{
-				$error = get_message('System', 'not_is_file_error');
+				$error = getMessage('System', 'not_is_file_error');
 				
 				// Hatayı ekrana yazdır.
 				echo $error;

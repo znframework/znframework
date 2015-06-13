@@ -36,9 +36,9 @@ class CPagination
 	
 	public function url($url = '')
 	{
-		if( ! is_url($url) )
+		if( ! isUrl($url) )
 		{
-			$url = site_url($url);	
+			$url = siteUrl($url);	
 		}
 		
 		$this->url = $url;
@@ -70,7 +70,7 @@ class CPagination
 		return $this;
 	}
 	
-	public function total_rows($total_rows = 0)
+	public function totalRows($total_rows = 0)
 	{
 		if( ! is_numeric($total_rows) )
 		{
@@ -82,7 +82,7 @@ class CPagination
 		return $this;
 	}
 	
-	public function count_links($count_links = 10)
+	public function countLinks($count_links = 10)
 	{
 		if( ! is_numeric($count_links) )
 		{
@@ -94,7 +94,7 @@ class CPagination
 		return $this;
 	}
 	
-	public function link_names($prev = '[prev]', $next = '[next]', $first = '[first]', $last = '[last]')
+	public function linkNames($prev = '[prev]', $next = '[next]', $first = '[first]', $last = '[last]')
 	{
 		if( ! ( is_string($day) && is_string($month) ) )	
 		{

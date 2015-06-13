@@ -60,10 +60,10 @@ class DbForge
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @dbname => Oluşturulacak veritabanı ismi.                                 |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->create_database('OrnekVeritabani')        			  |
+	| Örnek Kullanım: $this->dbforge->createDatabase('OrnekVeritabani')        			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function create_database($dbname = '')
+	public function createDatabase($dbname = '')
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
@@ -81,10 +81,10 @@ class DbForge
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @dbname => Kaldırılacak veritabanı ismi.                                  |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->drop_database('OrnekVeritabani')        			      |
+	| Örnek Kullanım: $this->dbforge->dropDatabase('OrnekVeritabani')        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function drop_database($dbname = '')
+	public function dropDatabase($dbname = '')
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
@@ -103,10 +103,10 @@ class DbForge
 	| 1. string var @table => Oluşturulacak tablo ismi.                                  	  |
 	| 2. array var @condition => Sütun isimler ve özellikleri bilgisini içerir.               |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->create_table('OrnekTablo', array('id' => 'int(11)'));   |
+	| Örnek Kullanım: $this->dbforge->createTable('OrnekTablo', array('id' => 'int(11)'));   |
 	|          																				  |
 	******************************************************************************************/
-	public function create_table($table = '', $condition = array())
+	public function createTable($table = '', $condition = array())
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
@@ -137,10 +137,10 @@ class DbForge
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @table => Kaldırılacak tablo ismi.                                  	  |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->drop_table('OrnekTablo');   							  |
+	| Örnek Kullanım: $this->dbforge->dropTable('OrnekTablo');   							  |
 	|          																				  |
 	******************************************************************************************/
-	public function drop_table($table = '')
+	public function dropTable($table = '')
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
@@ -159,32 +159,32 @@ class DbForge
 	| 1. string var @table => Düzenlenecek tablo ismi.                                  	  |
 	| 2. array var @condition => Sütun isimler ve özellikleri bilgisini içerir.               |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->alter_table('OrnekTablo', array('işlemler'));   		  |
+	| Örnek Kullanım: $this->dbforge->alterTable('OrnekTablo', array('işlemler'));   		  |
 	|          																				  |
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function alter_table($table = '', $condition = array())
+	public function alterTable($table = '', $condition = array())
 	{
 		if( key($condition) === 'rename_table' ) 			
 		{
-			return $this->rename_table($table, $condition['rename_table']);
+			return $this->renameTable($table, $condition['rename_table']);
 		}
 		elseif( key($condition) === 'add_column' ) 		
 		{
-			return $this->add_column($table, $condition['add_column']);
+			return $this->addColumn($table, $condition['add_column']);
 		}
 		elseif( key($condition) === 'drop_column' ) 		
 		{
-			return $this->drop_column($table, $condition['drop_column']);	
+			return $this->dropColumn($table, $condition['drop_column']);	
 		}
 		elseif( key($condition) === 'modify_column' ) 	
 		{
-			return $this->modify_column($table, $condition['modify_column']);
+			return $this->modifyColumn($table, $condition['modify_column']);
 		}
 		elseif( key($condition) === 'rename_column' ) 	
 		{
-			return $this->rename_column($table, $condition['rename_column']);
+			return $this->renameColumn($table, $condition['rename_column']);
 		}
 	}
 	
@@ -198,10 +198,10 @@ class DbForge
 	| 1. string var @name => Eski tablo ismi.                                  	  		      |
 	| 1. string var @new_name => Yeni tablo ismi.                                  	  		  |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->rename_table('OrnekTablo', 'YeniTablo');   		      |
+	| Örnek Kullanım: $this->dbforge->renameTable('OrnekTablo', 'YeniTablo');   		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function rename_table($name = '', $new_name = '')
+	public function renameTable($name = '', $new_name = '')
 	{
 		if( ! is_string($name) || ! is_string($new_name) ) 
 		{
@@ -226,12 +226,12 @@ class DbForge
 	| 1. string var @table => Sütun eklenecek tablo ismi.                                     |
 	| 1. array var @condition => Sütun ismi ve özellikleri.                                   |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->add_column('OrnekTablo', array('sütun işlemleri'));     |
+	| Örnek Kullanım: $this->dbforge->addColumn('OrnekTablo', array('sütun işlemleri'));     |
 	|          																				  |
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/	
-	public function add_column($table = '', $condition = array())
+	public function addColumn($table = '', $condition = array())
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
@@ -243,9 +243,9 @@ class DbForge
 			return false;
 		}
 		
-		if( $this->db->add_column() !== false )
+		if( $this->db->addColumn() !== false )
 		{
-			$add_column = $this->db->add_column();
+			$add_column = $this->db->addColumn();
 		}
 		else
 		{
@@ -288,12 +288,12 @@ class DbForge
 	| 1. string var @table => Sütun kaldırılacak tablo ismi.                                  |
 	| 1. string/array var @column => Sütun ismi.                                              |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->drop_column('OrnekTablo', 'col1');   			          |
+	| Örnek Kullanım: $this->dbforge->dropColumn('OrnekTablo', 'col1');   			          |
 	|          																				  |
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/	
-	public function drop_column($table = '', $column = '')
+	public function dropColumn($table = '', $column = '')
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
@@ -305,9 +305,9 @@ class DbForge
 			return false;
 		}
 		
-		if( $this->db->drop_column() !== false )
+		if( $this->db->dropColumn() !== false )
 		{
-			$drop_column = $this->db->drop_column();
+			$drop_column = $this->db->dropColumn();
 		}
 		else
 		{
@@ -337,12 +337,12 @@ class DbForge
 	| 1. string var @table => Sütun kaldırılacak tablo ismi.                                  |
 	| 1. string/array var @condition => Sütun ismi ve özellikleri.                            |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->modify_column('OrnekTablo', array('sütun işlemleri'));  |
+	| Örnek Kullanım: $this->dbforge->modifyColumn('OrnekTablo', array('sütun işlemleri'));  |
 	|          																				  |
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/	
-	public function modify_column($table = '', $condition = array())
+	public function modifyColumn($table = '', $condition = array())
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
@@ -354,9 +354,9 @@ class DbForge
 			return false;
 		}
 		
-		if( $this->db->modify_column() !== false )
+		if( $this->db->modifyColumn() !== false )
 		{
-			$modify_column = $this->db->modify_column();
+			$modify_column = $this->db->modifyColumn();
 		}
 		else
 		{
@@ -399,12 +399,12 @@ class DbForge
 	| 1. string var @table => Sütun kaldırılacak tablo ismi.                                  |
 	| 1. string/array var @condition => Sütun ismi ve özellikleri.                            |
 	|          																				  |
-	| Örnek Kullanım: $this->dbforge->rename_column('OrnekTablo', array('sütun işlemleri'));  |
+	| Örnek Kullanım: $this->dbforge->renameColumn('OrnekTablo', array('sütun işlemleri'));  |
 	|          																				  |
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column($table = '', $condition = array())
+	public function renameColumn($table = '', $condition = array())
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
@@ -416,9 +416,9 @@ class DbForge
 			return false;
 		}
 		
-		if( $this->db->rename_column() !== false )
+		if( $this->db->renameColumn() !== false )
 		{
-			$rename_column = $this->db->rename_column();
+			$rename_column = $this->db->renameColumn();
 		}
 		else
 		{
@@ -494,7 +494,7 @@ class DbForge
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function different_connection($connect_name = '')
+	public function differentConnection($connect_name = '')
 	{
 		if( ! is_string($connect_name) ) 
 		{

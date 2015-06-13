@@ -18,7 +18,7 @@ namespace Lister;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
-class CLister
+class CList
 {
 	/* Attr Değişkeni
 	 *  
@@ -206,7 +206,7 @@ class CLister
 		
 		foreach($elements as $k => $values)
 		{	
-			$list .= "\t".'<li>'.$values.'</li>'.ln();
+			$list .= "\t".'<li>'.$values.'</li>'.eof();
 			$i++;
 		}
 				
@@ -226,9 +226,9 @@ class CLister
 	******************************************************************************************/
 	public function create($type = 'ul')
 	{	
-		$list  = '<'.$type.$this->_attributes($this->attr).'>'.ln();
+		$list  = '<'.$type.$this->_attributes($this->attr).'>'.eof();
 		$list .= $this->lists;	
-		$list .= '</'.$type.'>'.ln();
+		$list .= '</'.$type.'>'.eof();
 		
 		// **********************************************************
 		// Nesneler varsayılan ayarlara getiriliyor.

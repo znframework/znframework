@@ -49,7 +49,7 @@ class CTable
 		return $this;
 	}
 	
-	public function cell_spacing($spacing = 0)
+	public function cellSpacing($spacing = 0)
 	{
 		if( ! is_numeric($spacing) )
 		{
@@ -61,7 +61,7 @@ class CTable
 		return $this;
 	}
 	
-	public function cell_padding($padding = 0)
+	public function cellPadding($padding = 0)
 	{
 		if( ! is_numeric($padding) )
 		{
@@ -91,7 +91,7 @@ class CTable
 		return $this;
 	}
 	
-	public function border_size($border = 0)
+	public function borderSize($border = 0)
 	{
 		if( ! is_numeric($border) )
 		{
@@ -108,7 +108,7 @@ class CTable
 		return $this;
 	}
 	
-	public function border_color($color = '')
+	public function borderColor($color = '')
 	{
 		if( ! is_string($color) )
 		{
@@ -134,7 +134,7 @@ class CTable
 	
 	public function width($width = '')
 	{
-		if( ! is_value($width) )
+		if( ! isValue($width) )
 		{
 			return $this;	
 		}
@@ -146,7 +146,7 @@ class CTable
 	
 	public function height($height = '')
 	{
-		if( ! is_value($height) )
+		if( ! isValue($height) )
 		{
 			return $this;	
 		}
@@ -158,7 +158,7 @@ class CTable
 	
 	public function size($width = '', $height = '')
 	{
-		if( ! ( is_value($height) || is_value($width) ) )
+		if( ! ( isValue($height) || isValue($width) ) )
 		{
 			return $this;	
 		}
@@ -215,7 +215,7 @@ class CTable
 		return $this;
 	}
 	
-	public function bgcolor($bgcolor = '')
+	public function bgColor($bgcolor = '')
 	{
 		if( ! is_string($bgcolor) )
 		{
@@ -253,7 +253,7 @@ class CTable
 		
 		foreach($elements as $key => $element)
 		{
-			$table .= ln()."\t".'<tr>'.ln();
+			$table .= eof()."\t".'<tr>'.eof();
 			
 			if(is_array($element))foreach($element as $k => $v)
 			{
@@ -266,11 +266,11 @@ class CTable
 					$val = $k;
 				}
 			
-				$table .= "\t\t".'<td'.$attr.'>'.$val."\t\t".'</td>'.ln();	
+				$table .= "\t\t".'<td'.$attr.'>'.$val."\t\t".'</td>'.eof();	
 				$colno++;
 			}
 		
-			$table .= "\t".'</tr>'.ln();
+			$table .= "\t".'</tr>'.eof();
 			$rowno++;
 		}
 		

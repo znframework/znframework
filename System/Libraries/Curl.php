@@ -164,7 +164,7 @@ class Curl
 	******************************************************************************************/
 	public static function info($data = '')
 	{
-		if( ! is_value($data) )
+		if( ! isValue($data) )
 		{
 			$data = '';
 		}

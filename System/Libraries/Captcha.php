@@ -179,11 +179,11 @@ class Captcha
 			
 			if( $img === true )
 			{	
-				$captcha = '<img src="'.base_url($file_path).'">';
+				$captcha = '<img src="'.baseUrl($file_path).'">';
 			}
 			else
 			{
-				$captcha = base_url($file_path);
+				$captcha = baseUrl($file_path);
 			}
 			
 			imagedestroy($file);
@@ -203,7 +203,7 @@ class Captcha
 	| echo get_captcha_code(); // Çıktı: 1A4D31 											  |
 	|																						  |
 	******************************************************************************************/	
-	public static function get_code()
+	public static function getCode()
 	{
 		if( ! isset($_SESSION) ) 
 		{

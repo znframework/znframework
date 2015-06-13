@@ -90,7 +90,7 @@ class Regex
 	/******************************************************************************************
 	* MATCH ALL                                                                               *
 	*******************************************************************************************
-	| Genel Kullanım: preg_match_all() yönteminin işlevini üstlensede bu yöntemden farklı     |
+	| Genel Kullanım: preg_matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
 	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
 	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
 	|															                              |
@@ -103,13 +103,13 @@ class Regex
 	| NOT: Düzenli ifadelerde kullanılan karakterlerde yapılan değişiklik Config/Regex.php    |
 	| dosyasında yer almaktadır. İnceleyiniz.                                                 |
 	|          																				  |
-	| Örnek Kullanım: match_all('<numeric>', 'a12', '<insesn>');        	  			      |
-	| // preg_match_all('/\d/i', 'a12')        												  |
+	| Örnek Kullanım: matchAll('<numeric>', 'a12', '<insesn>');        	  			      |
+	| // preg_matchAll('/\d/i', 'a12')        												  |
 	|          																				  |
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function match_all($pattern = '', $str = '', $ex = '', $delimiter = '/')
+	public static function matchAll($pattern = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) ) 
@@ -150,7 +150,7 @@ class Regex
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
 		
-		preg_match_all($pattern, $str , $return);	
+		preg_matchAll($pattern, $str , $return);	
 		
 		return $return;
 	}
@@ -158,7 +158,7 @@ class Regex
 	/******************************************************************************************
 	* REPLACE                                                                                 *
 	*******************************************************************************************
-	| Genel Kullanım: preg_match_all() yönteminin işlevini üstlensede bu yöntemden farklı     |
+	| Genel Kullanım: preg_matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
 	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
 	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
 	|															                              |

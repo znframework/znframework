@@ -99,9 +99,9 @@ class CCalendar
 	******************************************************************************************/
 	public function url($url = '')
 	{
-		if( ! is_url($url) )
+		if( ! isUrl($url) )
 		{
-			$url = site_url($url);	
+			$url = siteUrl($url);	
 		}
 		
 		$this->url = $url;
@@ -126,7 +126,7 @@ class CCalendar
 	| Örnek Kullanım: ->name_type('short', 'short')  // Çar, Oca							  |
 	|          																				  |
 	******************************************************************************************/
-	public function name_type($day = 'short', $month = 'long')
+	public function nameType($day = 'short', $month = 'long')
 	{
 		if( ! ( is_string($day) && is_string($month) ) )	
 		{
@@ -210,10 +210,10 @@ class CCalendar
 	| 1. string var @prev => Önceki linkinin ismi. Varsayılan:<<						      |
 	| 2. string var @next => Sonraki linkinin ismi. Varsayılan:>>						      |
 	|          																				  |
-	| Örnek Kullanım: ->link_names('Önceki', 'Sonraki') 									  |
+	| Örnek Kullanım: ->linkNames('Önceki', 'Sonraki') 									  |
 	|          																				  |
 	******************************************************************************************/
-	public function link_names($prev = '<<', $next = '>>')
+	public function linkNames($prev = '<<', $next = '>>')
 	{
 		if( ! ( is_string($prev) && is_string($next) ) )	
 		{
@@ -307,19 +307,19 @@ class CCalendar
 		
 		if( $this->month_names === 'long' )
 		{
-			$month_names = array_keys($this->config['month_names'][get_lang()]);
+			$month_names = array_keys($this->config['month_names'][getLang()]);
 		}
 		else
 		{
-			$month_names = array_values($this->config['month_names'][get_lang()]);
+			$month_names = array_values($this->config['month_names'][getLang()]);
 		}
 		
 		$monthname = $month_names[$month - 1];
 		// Gün ismini sitenin aktif
 		// diline göre ayarlar.
 		$daynames  = ( $this->day_names === 'long' )
-					 ? array_keys($this->config['day_names'][get_lang()])
-					 : array_values($this->config['day_names'][get_lang()]);
+					 ? array_keys($this->config['day_names'][getLang()])
+					 : array_values($this->config['day_names'][getLang()]);
 		
 		// Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
 		$first_day = getdate( mktime(0, 0, 0, $month, 1, $year) );
@@ -372,18 +372,18 @@ class CCalendar
 		$next = "<a href='". suffix($this->url) . $year. "/". ( $month + 1 ) ."' {$button_class}{$button_style}>$this->next</a>";
 		
 		/************************************************************ CALENDAR *******************************************************************/			 
-		$str  = "<table{$table_class}{$table_style}>".ln();
+		$str  = "<table{$table_class}{$table_style}>".eof();
 		// Ay - Tarih Satırı
-		$str .= "\t<tr>".ln()."\t\t<th{$month_row_class}{$month_row_style} colspan=\"7\">{$prev} {$monthname} - {$year} {$next}</th></tr>".ln();
-		$str .= "\t<tr>".ln();
+		$str .= "\t<tr>".eof()."\t\t<th{$month_row_class}{$month_row_style} colspan=\"7\">{$prev} {$monthname} - {$year} {$next}</th></tr>".eof();
+		$str .= "\t<tr>".eof();
 		
 		// Gün İsimleri Satırı
 		foreach($daynames as $day)
 		{
-			$str .= "\t\t<td{$day_row_class}{$day_row_style}>$day</td>".ln();
+			$str .= "\t\t<td{$day_row_class}{$day_row_style}>$day</td>".eof();
 		}
 		
-		$str .= "\t<tr>".ln();
+		$str .= "\t<tr>".eof();
 		
 		if( $first_day['wday'] == 0 ) 
 		{
@@ -393,7 +393,7 @@ class CCalendar
 		// Günler Satırı
 		for($i=1; $i<$first_day['wday']; $i++)
 		{
-			$str .= "\t\t<td{$rows_class}{$rows_style}>&nbsp;</td>".ln();
+			$str .= "\t\t<td{$rows_class}{$rows_style}>&nbsp;</td>".eof();
 		}
 		
 		$active_day = 0;
@@ -424,9 +424,9 @@ class CCalendar
 						 : '';
 			}
 			
-			$str .= "\t\t<td{$class}{$style}>$active_day</td>".ln();
+			$str .= "\t\t<td{$class}{$style}>$active_day</td>".eof();
 		}
-		$str .= "\t</tr>".ln();
+		$str .= "\t</tr>".eof();
 		
 
 		$week_count = floor(($last_day ['mday'] - $active_day) / 7);
@@ -459,15 +459,15 @@ class CCalendar
 							 ? ' style="'.$this->style['days'].'"'
 							 : '';
 				}
-				$str .= "\t\t<td{$class}{$style}>$active_day</td>".ln();
+				$str .= "\t\t<td{$class}{$style}>$active_day</td>".eof();
 			}
-			$str .= "\t</tr>".ln();
+			$str .= "\t</tr>".eof();
 		}
 		
 	
 		if( $active_day < $last_day['mday'] )
 		{
-			$str .= "\t<tr>".ln();
+			$str .= "\t<tr>".eof();
 			
 			for ($i=0; $i<7; $i++)
 			{
@@ -496,14 +496,14 @@ class CCalendar
 				
 				if( $active_day <= $last_day ['mday'] )
 				{
-					$str .= "\t\t<td{$class}{$style}>$active_day</td>".ln();
+					$str .= "\t\t<td{$class}{$style}>$active_day</td>".eof();
 				}
 				else 
 				{
-					$str .= "\t\t<td{$class}{$style}>&nbsp;</td>".ln();
+					$str .= "\t\t<td{$class}{$style}>&nbsp;</td>".eof();
 				}
 			}			
-			$str .= "\t</tr>".ln();
+			$str .= "\t</tr>".eof();
 		}
 		
 		$str .= "</table>";

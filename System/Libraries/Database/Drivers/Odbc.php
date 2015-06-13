@@ -64,7 +64,7 @@ class OdbcDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 	}
 	
@@ -98,7 +98,7 @@ class OdbcDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki autocommit özelliğinin kullanımıdır.  		  |		
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		return odbc_autocommit($this->connect, false);
 	}
@@ -109,7 +109,7 @@ class OdbcDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		$rollback = odbc_rollback($this->connect);
 		odbc_autocommit($this->connect, true);
@@ -122,7 +122,7 @@ class OdbcDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki commit özelliğinin kullanımıdır.        	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		$commit = odbc_commit($this->connect);
 		odbc_autocommit($this->connect, true);
@@ -219,7 +219,7 @@ class OdbcDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -231,7 +231,7 @@ class OdbcDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -243,7 +243,7 @@ class OdbcDriver
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş rename column yöntemidir.      | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column(){ return 'RENAME COLUMN '; }
+	public function renameColumn(){ return 'RENAME COLUMN '; }
 	
 	/******************************************************************************************
 	* MODIFY COLUMN                                                                           *
@@ -251,7 +251,7 @@ class OdbcDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 

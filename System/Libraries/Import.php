@@ -57,7 +57,7 @@ class Import
 		
 		if( $ob_get_contents === false )
 		{
-			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
+			if( ! isFileExists(PAGES_DIR.suffix($page,".php")) ) 
 			{
 				return false;
 			}
@@ -66,7 +66,7 @@ class Import
 		
 		if( $ob_get_contents === true )
 		{
-			if( ! is_file_exists(PAGES_DIR.suffix($page,".php")) ) 
+			if( ! isFileExists(PAGES_DIR.suffix($page,".php")) ) 
 			{
 				return false;
 			}
@@ -156,26 +156,26 @@ class Import
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header  = config::get('Doctype', $masterpageset['doctype']).ln();
-		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.ln();
+		$header  = config::get('Doctype', $masterpageset['doctype']).eof();
+		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eof();
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header .= '<head>'.ln();
+		$header .= '<head>'.eof();
 		
 		if( is_array($masterpageset["content_charset"]) )
 		{
 			foreach($masterpageset["content_charset"] as $v)
 			{
-				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".ln();	
+				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eof();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'">'.ln();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'">'.eof();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'">'.ln();
+		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'">'.eof();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -193,7 +193,7 @@ class Import
 		
 		if( ! empty($title) ) 			
 		{
-			$header .= '<title>'.$title.'</title>'.ln();	
+			$header .= '<title>'.$title.'</title>'.eof();	
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -225,13 +225,13 @@ class Import
 							  
 				if( ! is_array($content) )
 				{			  
-					$header .= "<meta $httporname=\"$name\" content=\"$content\">".ln();
+					$header .= "<meta $httporname=\"$name\" content=\"$content\">".eof();
 				}
 				else
 				{
 					foreach($content as $key => $val)
 					{
-						$header .= "<meta $httporname=\"$name\" content=\"$val\">".ln();	
+						$header .= "<meta $httporname=\"$name\" content=\"$val\">".eof();	
 					}	
 				}
 			}
@@ -290,12 +290,12 @@ class Import
 		
 		if( ! empty($masterpageset['browser_icon']) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.base_url($masterpageset['browser_icon']).'" />'.ln();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser_icon']).'" />'.eof();
 		}
 		
 		if( ! empty($head['page_image']) ) 
 		{
-			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'.ln();	
+			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'.eof();	
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -310,13 +310,13 @@ class Import
 		{ 
 			if( ! is_array($datas) )
 			{ 
-				$header .= $datas.ln(); 
+				$header .= $datas.eof(); 
 			}
 			else
 			{
 				foreach($datas as $v)
 				{
-					$header .= $v.ln();	
+					$header .= $v.eof();	
 				}	
 			}
 		}
@@ -337,13 +337,13 @@ class Import
 			 
 			ob_end_clean(); 
 			
-			$header .= $content.ln() ; 	
+			$header .= $content.eof() ; 	
 		}
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		$header .= '</head>'.ln();
+		$header .= '</head>'.eof();
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -353,7 +353,7 @@ class Import
 		//------------------------------------------------------------------------------------
 		if( $masterpageset["bg_image"] ) 
 		{
-			$bg_image = " background='".base_url($masterpageset["bg_image"])."' bgproperties='fixed'"; 
+			$bg_image = " background='".baseUrl($masterpageset["bg_image"])."' bgproperties='fixed'"; 
 		}
 		else 
 		{
@@ -363,7 +363,7 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		$header .= '<body'.$bg_image.'>'.ln();
+		$header .= '<body'.$bg_image.'>'.eof();
 	
 		echo $header;
 		
@@ -377,7 +377,7 @@ class Import
 			require($page);	
 		}
 		
-		$footer  = ln().'</body>'.ln();
+		$footer  = eof().'</body>'.eof();
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$footer .= '</html>';
@@ -427,24 +427,24 @@ class Import
 			
 			$f = divide($font, "/", -1);
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
-			if( is_file_exists(FONTS_DIR.$font.".svg") )
+			if( isFileExists(FONTS_DIR.$font.".svg") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".svg").'") format("truetype")}'.ln();				
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".svg").'") format("truetype")}'.eof();				
 			}
-			if( is_file_exists(FONTS_DIR.$font.".woff") )
+			if( isFileExists(FONTS_DIR.$font.".woff") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".woff").'") format("truetype")}'.ln();		
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".woff").'") format("truetype")}'.eof();		
 			}
 			// OTF IE VE CHROME DESTEKLEMIYOR
-			if( is_file_exists(FONTS_DIR.$font.".otf") )
+			if( isFileExists(FONTS_DIR.$font.".otf") )
 			{
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".otf").'") format("truetype")}'.ln();			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".otf").'") format("truetype")}'.eof();			
 			}
 			
 			// TTF IE DESTEKLEMIYOR
-			if( is_file_exists(FONTS_DIR.$font.".ttf") )
+			if( isFileExists(FONTS_DIR.$font.".ttf") )
 			{		
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".ttf").'") format("truetype")}'.ln();			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".ttf").'") format("truetype")}'.eof();			
 			}
 			
 			// FARKLI FONTLAR
@@ -454,24 +454,24 @@ class Import
 			{			
 				foreach($differentset as $of)
 				{
-					if( is_file_exists(FONTS_DIR.$font.prefix($of, '.')) )
+					if( isFileExists(FONTS_DIR.$font.prefix($of, '.')) )
 					{		
-						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'.ln();			
+						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'.eof();			
 					}
 				}	
 			}
 			
 			// EOT IE DESTEKLIYOR
-			if( is_file_exists(FONTS_DIR.$font.".eot") )
+			if( isFileExists(FONTS_DIR.$font.".eot") )
 			{
 				$str .= '<!--[if IE]>';
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.base_url(FONTS_DIR.$font.".eot").'") format("truetype")}';
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".eot").'") format("truetype")}';
 				$str .= '<![endif]-->';
-				$str .= ln();
+				$str .= eof();
 			}		
 		}
 		
-		$str .= '</style>'.ln();
+		$str .= '</style>'.eof();
 		
 		if( ! empty($str) ) 
 		{
@@ -525,9 +525,9 @@ class Import
 		
 			if( ! in_array("style_".$style, self::$is_import) )
 			{
-				if( is_file_exists(STYLES_DIR.suffix($style,".css")) )
+				if( isFileExists(STYLES_DIR.suffix($style,".css")) )
 				{
-					$str .= '<link href="'.base_url().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.ln();
+					$str .= '<link href="'.baseUrl().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.eof();
 				}
 				self::$is_import[] = "style_".$style;
 			}
@@ -586,14 +586,14 @@ class Import
 			
 			if( ! in_array("script_".$script, self::$is_import) )
 			{
-				if( is_file_exists(SCRIPTS_DIR.suffix($script,".js")) )
+				if( isFileExists(SCRIPTS_DIR.suffix($script,".js")) )
 				{
-					$str .= '<script type="text/javascript" src="'.base_url().SCRIPTS_DIR.suffix($script,".js").'"></script>'.ln();
+					$str .= '<script type="text/javascript" src="'.baseUrl().SCRIPTS_DIR.suffix($script,".js").'"></script>'.eof();
 				}
 				
 				if( $script === 'Jquery' || $script === 'JqueryUi' )
 				{
-					$str .= '<script type="text/javascript" src="'.base_url().REFERENCES_DIR.'Jquery/'.suffix($script,".js").'"></script>'.ln();
+					$str .= '<script type="text/javascript" src="'.baseUrl().REFERENCES_DIR.'Jquery/'.suffix($script,".js").'"></script>'.eof();
 				}
 				
 				self::$is_import[] = "script_".$script;
@@ -641,19 +641,19 @@ class Import
 
 		if( extension($page) === 'js' )
 		{
-			if( ! is_file_exists($page) ) 
+			if( ! isFileExists($page) ) 
 			{
 				return false;
 			}
-			echo '<script type="text/javascript" src="'.base_url().$page.'"></script>'.ln();
+			echo '<script type="text/javascript" src="'.baseUrl().$page.'"></script>'.eof();
 		}
 		elseif( extension($page) === 'css' )	
 		{
-			if( ! is_file_exists($page) ) 
+			if( ! isFileExists($page) ) 
 			{
 				return false;
 			}
-			echo '<link href="'.base_url().$page.'" rel="stylesheet" type="text/css" />'.ln();
+			echo '<link href="'.baseUrl().$page.'" rel="stylesheet" type="text/css" />'.eof();
 		}
 		else
 		{
@@ -670,7 +670,7 @@ class Import
 			
 			if( $ob_get_contents === false )
 			{
-				if( ! is_file_exists($page) ) 
+				if( ! isFileExists($page) ) 
 				{
 					return false;
 				}
@@ -680,7 +680,7 @@ class Import
 			
 			if( $ob_get_contents === true )
 			{
-				if( ! is_file_exists($page) ) 
+				if( ! isFileExists($page) ) 
 				{
 					return false;
 				}
@@ -708,7 +708,7 @@ class Import
 	******************************************************************************************/
 	public static function package($packages = "", $different_extension = array() )
 	{
-		if( ! ( is_string($packages) || is_dir_exists($packages) || is_array($different_extension) ) ) 
+		if( ! ( is_string($packages) || isDirExists($packages) || is_array($different_extension) ) ) 
 		{
 			return false;
 		}
@@ -723,11 +723,11 @@ class Import
 				}
 				elseif( extension($val) === "js" )
 				{
-					echo '<script type="text/javascript" src="'.base_url().suffix($packages).$val.'"></script>'.ln();
+					echo '<script type="text/javascript" src="'.baseUrl().suffix($packages).$val.'"></script>'.eof();
 				}
 				elseif( extension($val) === "css" )
 				{
-					echo '<link href="'.base_url().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.ln();
+					echo '<link href="'.baseUrl().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.eof();
 				}
 				else
 				{

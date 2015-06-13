@@ -40,7 +40,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 		
 		return ( $success ) 
@@ -70,7 +70,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 	}
 		
@@ -93,7 +93,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 	}
 	
@@ -119,7 +119,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 		
 		return ( $success === true ) 
@@ -149,7 +149,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 		
 		return ( $success === true ) 
@@ -171,7 +171,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 	}
 	
@@ -189,7 +189,7 @@ class WincacheDriver
 		}
 		else
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
  	}
 	
@@ -208,7 +208,7 @@ class WincacheDriver
 	{
 		if( ! function_exists('wincache_ucache_info') )
 		{
-			return get_message('Cache', 'unsupported', 'Wincache');
+			return getMessage('Cache', 'unsupported', 'Wincache');
 		}
 		
 		if( $stored = wincache_ucache_info(false, $key) )
@@ -238,7 +238,7 @@ class WincacheDriver
 	{
 		if ( ! extension_loaded('wincache') || ! ini_get('wincache.ucenabled') )
 		{
-			$report = get_message('Cache', 'unsupported', 'Wincache');
+			$report = getMessage('Cache', 'unsupported', 'Wincache');
 			report('CacheUnsupported', $report, 'CacheLibary');
 			return false;
 		}

@@ -48,7 +48,7 @@ function dbcommon()
 		}
 		else
 		{
-			die(get_message('Database', 'driver_error', $driver));
+			die(getMessage('Database', 'driver_error', $driver));
 		}
 		
 		$driver = $driver.'Driver';

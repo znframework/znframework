@@ -17,7 +17,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * NC ENCODE                                                                               *
 *******************************************************************************************
-| Genel Kullanımı: Security sınıfında kullanılan nc_encode() yönteminin temizlemesi 	  |
+| Genel Kullanımı: Security sınıfında kullanılan ncEncode() yönteminin temizlemesi 	  |
 | istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.			      |						
 ******************************************************************************************/
 $config['Security']['nc_encode'] = array 

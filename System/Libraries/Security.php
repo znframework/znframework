@@ -32,7 +32,7 @@ class Security
 	| 2. ve 3. Parametreler kullanılmaz ise varsayılan olarak Config/Security.php dosyasında  |
 	| yer alan nc_encode => change chars karakterleri ayarlı olacaktır. 					  |
 	******************************************************************************************/
-	public static function nc_encode($string = '', $badwords = '', $changechar = '[badchars]')
+	public static function ncEncode($string = '', $badwords = '', $changechar = '[badchars]')
 	{
 		if( ! is_string($string)) 
 		{
@@ -83,7 +83,7 @@ class Security
 	|																						  |                                                   
 	| 1. string var @string => Temizleme yapılacak metin.                                     |
 	******************************************************************************************/	
-	public static function injection_encode($string = '')
+	public static function injectionEncode($string = '')
 	{
 		if( ! is_string($string)) 
 		{
@@ -120,7 +120,7 @@ class Security
 	|																						  |	
 	| 1. string var @string => Temizleme yapılacak metin. 									  |								       
 	******************************************************************************************/	
-	public static function injection_decode($string = '')
+	public static function injectionDecode($string = '')
 	{
 		if( ! is_string($string))
 		{ 
@@ -139,7 +139,7 @@ class Security
 	|																						  |
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	******************************************************************************************/	
-	public static function xss_encode($string = '')
+	public static function xssEncode($string = '')
 	{
 		if( ! is_string($string)) 
 		{
@@ -177,7 +177,7 @@ class Security
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	| 2. string var @type => Tırnak işaretleri.           					                  |
 	******************************************************************************************/	
-	public static function html_encode($string, $type = 'quotes')
+	public static function htmlEncode($string, $type = 'quotes')
 	{
 		if( ! is_string($string)) 
 		{
@@ -215,7 +215,7 @@ class Security
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	| 2. string var @type => Tırnak işaretleri.           					                  |
 	******************************************************************************************/	
-	public static function html_decode($string, $type = 'quotes')
+	public static function htmlDecode($string, $type = 'quotes')
 	{
 		if( ! is_string($string))
 		{
@@ -243,12 +243,12 @@ class Security
 		return htmlspecialchars_decode(trim($string), $tp);
 	}
 	
-	// Function: php_tag_encode()
+	// Function: phpTagEncode()
 	// İşlev: Php taglarını numerik koda çevirir.
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function php_tag_encode($str = '')
+	public static function phpTagEncode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -264,12 +264,12 @@ class Security
 		return str_replace(array_keys($php_tag_chars), array_values($php_tag_chars), $str);
 	}
 	
-	// Function: php_tag_decode()
+	// Function: phpTagDecode()
 	// İşlev: Php taglarını numerik koda çevirir.
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function php_tag_decode($str = '')
+	public static function phpTagDecode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -285,12 +285,12 @@ class Security
 		return str_replace(array_values($php_tag_chars), array_keys($php_tag_chars), $str);
 	}
 	
-	// Function: nail_encode()
+	// Function: nailEncode()
 	// İşlev: Tırnak işaretlerini numerik koda dönüştürmek çevirir.
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function nail_encode($str = '')
+	public static function nailEncode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -308,12 +308,12 @@ class Security
 		return $str;
 	}
 	
-	// Function: nail_decode()
+	// Function: nailDecode()
 	// İşlev: Tırnak işaretlerini numerik koda dönüştürmek çevirir.
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function nail_decode($str = '')
+	public static function nailDecode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -331,12 +331,12 @@ class Security
 		return $str;
 	}
 	
-	// Function: foreign_char_encode()
+	// Function: foreignCharEncode()
 	// İşlev: Farklı dillerdeki yabancı karakterleri numerik koda çevirir.
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function foreign_char_encode($str = '')
+	public static function foreignCharEncode($str = '')
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -348,12 +348,12 @@ class Security
 		return str_replace(array_keys($chars), array_values($chars), $str);
 	}	
 	
-	// Function: foreign_char_decode()
+	// Function: foreignCharDecode()
 	// İşlev: Farklı dillerdeki yabancı karakterleri numerik koda çevirir.
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function foreign_char_decode($str = '')
+	public static function foreignCharDecode($str = '')
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{

@@ -58,7 +58,7 @@ class MysqlDriver
 							
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 		
 		mysql_select_db($this->config['database'], $this->connect);
@@ -106,7 +106,7 @@ class MysqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki strat transaction özelliğinin kullanımıdır.  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		$this->query('SET AUTOCOMMIT=0');
 		$this->query('START TRANSACTION');
@@ -119,7 +119,7 @@ class MysqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		$this->query('ROLLBACK');
 		$this->query('SET AUTOCOMMIT=1');
@@ -132,7 +132,7 @@ class MysqlDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki commit özelliğinin kullanımıdır.        	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		$this->query('COMMIT');
 		$this->query('SET AUTOCOMMIT=1');
@@ -238,7 +238,7 @@ class MysqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -250,7 +250,7 @@ class MysqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -262,7 +262,7 @@ class MysqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir. 				  				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{ 
 		// Desteklenmiyor.
 		return false; 
@@ -274,7 +274,7 @@ class MysqlDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		// Desteklenmiyor
 		return false; 

@@ -83,7 +83,7 @@ class CStyle
 	******************************************************************************************/
 	public function open()
 	{		
-		$script = "<style type=\"$this->type\">".ln();
+		$script = "<style type=\"$this->type\">".eof();
 		
 		return $script;
 	}
@@ -98,7 +98,7 @@ class CStyle
 	******************************************************************************************/
 	public function close()
 	{	
-		$script =  '</style>'.ln();
+		$script =  '</style>'.eof();
 		return $script;
 	}	
 }

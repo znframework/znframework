@@ -27,7 +27,7 @@ $config['DateTime']['timezone'] = 'Europe/Istanbul';
 * SETLOCALE                                                                         	  *
 *******************************************************************************************
 | Genel Kullanım: Türkçe içerikli karakterleri desteklemesi amacıyla kullanılır.   		  |	
-| set_date() yöntemi haric diğer yöntemler için kullanılır.							      |					
+| setDate() yöntemi haric diğer yöntemler için kullanılır.							      |					
 ******************************************************************************************/
 $config['DateTime']['setlocale'] = array(
 
@@ -38,7 +38,7 @@ $config['DateTime']['setlocale'] = array(
 /******************************************************************************************
 * SET TIME FORMAT CHARS                                                                   *
 *******************************************************************************************
-| Genel Kullanım: set_time() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
+| Genel Kullanım: setTime() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
 | aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  |
 | Örnek: %a yerine <short_day> ifadesi kullanılabilir.									  |
 | ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  |
@@ -80,7 +80,7 @@ $config['DateTime']['set_time_format_chars'] = array
 /******************************************************************************************
 * SET DATE FORMAT CHARS                                                                   *
 *******************************************************************************************
-| Genel Kullanım: set_date() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
+| Genel Kullanım: setDate() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
 | aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  |
 | Örnek: D yerine <short_day> ifadesi kullanılabilir.									  |
 | ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  |

@@ -178,10 +178,10 @@ class Validation
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @data => Kontrol edilecek metin bilgisi.                                 |
 	|          																				  |
-	| Örnek Kullanım: specialchar('zntr.net'); // Çıktı: true veya false      		      	  |
+	| Örnek Kullanım: specialChar('zntr.net'); // Çıktı: true veya false      		      	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function specialchar($data = '')
+	public static function specialChar($data = '')
 	{
 		if( ! is_string($data) ) 
 		{
@@ -348,25 +348,25 @@ class Validation
 		if( in_array('nc_encode',$config) )
 		{
 			$secnc = config::get("Security", "nc_encode");
-			$edit  = security::nc_encode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
+			$edit  = security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
 		if( in_array('html_encode',$config) )
 		{
-			$edit = security::html_encode($edit);		
+			$edit = security::htmlEncode($edit);		
 		}
 		
 		// nail_clean tırnak işaretlerini temizlemek için kullanılır.
 		if( in_array('xss_encode',$config) )
 		{
-			$edit = security::xss_encode($edit);	
+			$edit = security::xssEncode($edit);	
 		}
 		
 		// tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
 		if( in_array('injection_encode',$config) )
 		{
-			$edit = security::injection_encode($edit);
+			$edit = security::injectionEncode($edit);
 		}
 		
 		self::$nval[$name] = $edit;
@@ -483,7 +483,7 @@ class Validation
 		// no special char, özel karakterlerin kullanımını engeller.
 		if( in_array('specialchar',$config) )
 		{
-			if( self::specialchar($edit) )
+			if( self::specialChar($edit) )
 			{ 
 				$nospecial_char 	= lang('Validation', 'nospecial_char',$view_name);
 				$messages[$i] 		= $nospecial_char.'<br>';  $i++;
@@ -620,7 +620,7 @@ class Validation
 	// bu fonksiyon aracılığı ile sayfa yenilendiğin ya da formun gönderilmesi srıasında
 	
 	// hata oluştuğunda ekrana girilen bilgileri yansıtır.
-	public static function post_back($name = '', $met = "post")
+	public static function postBack($name = '', $met = "post")
 	{
 		if( empty($name) )
 		{

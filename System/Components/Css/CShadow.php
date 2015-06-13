@@ -71,7 +71,7 @@ class CShadow
 	******************************************************************************************/
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector) )
+		if( ! isChar($selector) )
 		{
 			return $this;	
 		}
@@ -126,7 +126,7 @@ class CShadow
 	******************************************************************************************/
 	public function x($val = '')
 	{
-		if( ! is_value($val) )
+		if( ! isValue($val) )
 		{
 			return $this;	
 		}
@@ -172,7 +172,7 @@ class CShadow
 	******************************************************************************************/
 	public function y($val = '')
 	{
-		if( ! is_value($val) )
+		if( ! isValue($val) )
 		{
 			return $this;	
 		}
@@ -218,7 +218,7 @@ class CShadow
 	******************************************************************************************/
 	public function blur($val = '')
 	{
-		if( ! is_value($val) )
+		if( ! isValue($val) )
 		{
 			return $this;	
 		}
@@ -246,7 +246,7 @@ class CShadow
 	******************************************************************************************/
 	public function diffusion($val = '')
 	{
-		if( ! is_value($val) )
+		if( ! isValue($val) )
 		{
 			return $this;	
 		}
@@ -293,7 +293,7 @@ class CShadow
 	******************************************************************************************/
 	public function color($val = '')
 	{
-		if( ! is_value($val))
+		if( ! isValue($val))
 		{
 			return $this;	
 		}
@@ -318,8 +318,8 @@ class CShadow
 	******************************************************************************************/	
 	public function create()
 	{
-		$str  = $this->selector."{".ln();	
-		$str .= $this->attr.ln();
+		$str  = $this->selector."{".eof();	
+		$str .= $this->attr.eof();
 		
 		$shadow = 	"box-shadow:".
 					$this->params['horizontal']." ".
@@ -331,9 +331,9 @@ class CShadow
 				
 		foreach($this->browsers as $val)
 		{
-			$str .= $val.$shadow.ln();
+			$str .= $val.$shadow.eof();
 		}
-		$str .= "}".ln();
+		$str .= "}".eof();
 		
 		return $str;
 	}

@@ -29,14 +29,14 @@ class Starting
 		
 		if( ! empty($iniset) ) 
 		{
-			config::iniset($iniset);
+			config::iniSet($iniset);
 		}
 		// ----------------------------------------------------------------------
 					
 		// HTACCESS DOSYASI OLUŞTURULUYOR... 	
 		if( config::get('Htaccess','create_file') === true ) 
 		{
-			create_htaccess_file();
+			createHtaccessFile();
 		}	
 		// ----------------------------------------------------------------------
 		

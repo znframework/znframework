@@ -73,7 +73,7 @@ class CThumbnail
 	
 		$this->thumb_path = suffix($this->thumb_path);	
 		
-		$this->thumb_path = str_replace(base_url(), "", $this->thumb_path);
+		$this->thumb_path = str_replace(baseUrl(), "", $this->thumb_path);
 	}
 	
 	// Uzantı kontrolü yapıyor.
@@ -373,16 +373,16 @@ class CThumbnail
 		
 		// Yol bilgisi url eki içeriyorsa 
 		// bu ekin temizlenmesi sağlanıyor.
-		if( strstr($file_path, base_url()) ) 
+		if( strstr($file_path, baseUrl()) ) 
 		{
-			$file_path = str_replace(base_url(), '', $file_path);
+			$file_path = str_replace(baseUrl(), '', $file_path);
 		}
 		
 		// Geçersiz yol bilgisi girilmiş ise
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($file_path) )
 		{
-			$this->error = get_message('Image', 'not_found_error', $file_path);
+			$this->error = getMessage('Image', 'not_found_error', $file_path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
@@ -391,7 +391,7 @@ class CThumbnail
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! $this->is_image_file($file_path) )
 		{
-			$this->error = get_message('Image', 'not_image_file_error', $file_path);
+			$this->error = getMessage('Image', 'not_image_file_error', $file_path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
@@ -505,7 +505,7 @@ class CThumbnail
 		// kadar devam ediyor.
 		if( file_exists($this->thumb_path.$new_file) ) 
 		{
-			return base_url($this->thumb_path.$new_file);
+			return baseUrl($this->thumb_path.$new_file);
 		}
 		
 		$r_file   = $this->from_file_type($file_path);
@@ -538,7 +538,7 @@ class CThumbnail
 		
 		$this->sets = NULL;
 		
-		return base_url($this->thumb_path.$new_file);
+		return baseUrl($this->thumb_path.$new_file);
 		
 	}
 	
@@ -558,7 +558,7 @@ class CThumbnail
 	| Not: Genişlik veya yükseklik parametrelerinden sadece bir tanesi kullanılmalıdır.       |
 	|          																				  |
 	******************************************************************************************/	
-	public function get_prosize($width = 0, $height = 0)
+	public function getProsize($width = 0, $height = 0)
 	{
 		// Parametre kontrolleri yapılıyor. ------------------------------------------
 	
@@ -584,7 +584,7 @@ class CThumbnail
 				 
 		if( empty($path) )
 		{
-			$this->error = get_message('Image', 'not_found_error', $path);
+			$this->error = getMessage('Image', 'not_found_error', $path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
@@ -596,7 +596,7 @@ class CThumbnail
 		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			$this->error = get_message('Image', 'not_found_error', $path);
+			$this->error = getMessage('Image', 'not_found_error', $path);
 			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}

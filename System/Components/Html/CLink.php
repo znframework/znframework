@@ -42,9 +42,9 @@ class CLink extends ComponentHtmlCommon
 			return $this;	
 		}
 		
-		if( ! is_url($url) && ! strstr($url, '#'))
+		if( ! isUrl($url) && ! strstr($url, '#'))
 		{ 
-			$url = site_url($url);
+			$url = siteUrl($url);
 		}
 		
 		$this->link['url'] = $url;

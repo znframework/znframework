@@ -374,7 +374,7 @@ class CForm extends ComponentFormValidation
 		
 		if( in_array('specialchar', $this->validate) )
 		{
-			$this->specialchar($this->_name, $this->value);
+			$this->specialChar($this->_name, $this->value);
 		}
 		
 		if( ! empty($this->limit) )
@@ -392,22 +392,22 @@ class CForm extends ComponentFormValidation
 	{
 		if( in_array('xss', $this->secure) )
 		{
-			$this->value = $this->xss_encode($this->value);	
+			$this->value = $this->xssEncode($this->value);	
 		}
 		
 		if( in_array('injection', $this->secure) )
 		{
-			$this->value = $this->injection_encode($this->value);	
+			$this->value = $this->injectionEncode($this->value);	
 		}
 		
 		if( in_array('nc', $this->secure) )
 		{
-			$this->value = $this->nc_encode($this->value);	
+			$this->value = $this->ncEncode($this->value);	
 		}
 		
 		if( in_array('html', $this->secure) )
 		{
-			$this->value = $this->html_encode($this->value);
+			$this->value = $this->htmlEncode($this->value);
 		}
 	}
 	

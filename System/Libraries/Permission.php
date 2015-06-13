@@ -60,11 +60,11 @@ class Permission
 		{
 			return false;
 		}
-		if( ! is_value($process) ) 
+		if( ! isValue($process) ) 
 		{
 			$process = '';
 		}
-		if( ! is_value($object) ) 
+		if( ! isValue($object) ) 
 		{
 			$object = '';
 		}

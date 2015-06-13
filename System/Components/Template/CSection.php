@@ -113,7 +113,7 @@ class CSection
 	******************************************************************************************/
 	public function id($id = '')
 	{
-		if( ! is_value($id))
+		if( ! isValue($id))
 		{
 			return $this;	
 		}
@@ -136,7 +136,7 @@ class CSection
 	******************************************************************************************/
 	public function name($name = '')
 	{
-		if( ! is_value($name))
+		if( ! isValue($name))
 		{
 			return $this;	
 		}
@@ -182,7 +182,7 @@ class CSection
 	******************************************************************************************/
 	public function width($width = '')
 	{
-		if( ! is_value($width) )
+		if( ! isValue($width) )
 		{
 			return $this;	
 		}
@@ -210,7 +210,7 @@ class CSection
 	******************************************************************************************/
 	public function height($height = '')
 	{
-		if( ! is_value($height) )
+		if( ! isValue($height) )
 		{
 			return $this;	
 		}
@@ -238,7 +238,7 @@ class CSection
 	******************************************************************************************/
 	public function border($border = 'solid 1px #000')
 	{
-		if( ! is_value($border) )
+		if( ! isValue($border) )
 		{
 			return $this;	
 		}
@@ -256,12 +256,12 @@ class CSection
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @border => Özellik değeri.									  	  		  |
 	|          																				  |
-	| Örnek Kullanım: ->border_type('dashed')					  		  			  	      |
+	| Örnek Kullanım: ->borderType('dashed')					  		  			  	      |
 	|          																				  |
 	******************************************************************************************/
-	public function border_type($border = 'solid')
+	public function borderType($border = 'solid')
 	{
-		if( ! is_value($border) )
+		if( ! isValue($border) )
 		{
 			return $this;	
 		}
@@ -285,9 +285,9 @@ class CSection
 	| Örnek Kullanım: ->border_color('000') // #000					  		  			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function border_color($border_color = '')
+	public function borderColor($border_color = '')
 	{
-		if( ! is_value($border_color) )
+		if( ! isValue($border_color) )
 		{
 			return $this;	
 		}
@@ -313,12 +313,12 @@ class CSection
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @border_size => Özellik değeri.									  	  |
 	|          																				  |
-	| Örnek Kullanım: ->border_size(5) // 5px						  		  			  	  |
+	| Örnek Kullanım: ->borderSize(5) // 5px						  		  			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function border_size($border_size = '')
+	public function borderSize($border_size = '')
 	{
-		if( ! is_value($border_size) )
+		if( ! isValue($border_size) )
 		{
 			return $this;	
 		}
@@ -346,7 +346,7 @@ class CSection
 	******************************************************************************************/
 	public function color($color = '')
 	{
-		if( ! is_value($color) )
+		if( ! isValue($color) )
 		{
 			return $this;	
 		}
@@ -375,7 +375,7 @@ class CSection
 	| Örnek Kullanım: ->font_color('000') // #000					  		  			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function font_color($color = '')
+	public function fontColor($color = '')
 	{
 		$this->color($color);
 		
@@ -390,12 +390,12 @@ class CSection
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. numeric var @font_size => Özellik değeri.									  	      |
 	|          																				  |
-	| Örnek Kullanım: ->font_size(5) // 5px						  		  			  	      |
+	| Örnek Kullanım: ->fontSize(5) // 5px						  		  			  	      |
 	|          																				  |
 	******************************************************************************************/
-	public function font_size($font_size = '')
+	public function fontSize($font_size = '')
 	{
-		if( ! is_value($font_size) )
+		if( ! isValue($font_size) )
 		{
 			return $this;	
 		}
@@ -418,12 +418,12 @@ class CSection
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @family => Özellik değeri.									  	  		  |
 	|          																				  |
-	| Örnek Kullanım: ->font_type('Arial')					  		  			  	     	  |
+	| Örnek Kullanım: ->fontType('Arial')					  		  			  	     	  |
 	|          																				  |
 	******************************************************************************************/
-	public function font_type($family = 'Tahoma')
+	public function fontType($family = 'Tahoma')
 	{
-		if( ! is_value($family) )
+		if( ! isValue($family) )
 		{
 			return $this;	
 		}
@@ -447,9 +447,9 @@ class CSection
 	| Örnek Kullanım: ->font_family('Arial')					  		  			  	      |
 	|          																				  |
 	******************************************************************************************/
-	public function font_family($family = 'Tahoma')
+	public function fontFamily($family = 'Tahoma')
 	{
-		if( ! is_value($family) )
+		if( ! isValue($family) )
 		{
 			return $this;	
 		}
@@ -473,9 +473,9 @@ class CSection
 	| Örnek Kullanım: ->bgcolor('000') // #000					  		  			  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function bgcolor($bgcolor = '')
+	public function bgColor($bgcolor = '')
 	{
-		if( ! is_value($bgcolor) )
+		if( ! isValue($bgcolor) )
 		{
 			return $this;	
 		}
@@ -490,9 +490,9 @@ class CSection
 		return $this;
 	}
 	
-	public function bgurl($bgurl = '')
+	public function bgUrl($bgurl = '')
 	{
-		if( ! is_value($bgurl) )
+		if( ! isValue($bgurl) )
 		{
 			return $this;	
 		}
@@ -502,9 +502,9 @@ class CSection
 		return $this;
 	}
 	
-	public function bgimage($bgimage = '')
+	public function bgImage($bgimage = '')
 	{
-		if( ! is_value($bgimage) )
+		if( ! isValue($bgimage) )
 		{
 			return $this;	
 		}
@@ -516,7 +516,7 @@ class CSection
 	
 	public function background($background = '')
 	{
-		if( ! is_value($background) )
+		if( ! isValue($background) )
 		{
 			return $this;	
 		}
@@ -535,7 +535,7 @@ class CSection
 	
 	public function zindex($zindex = '')
 	{
-		if( ! is_value($zindex) )
+		if( ! isValue($zindex) )
 		{
 			return $this;	
 		}
@@ -548,7 +548,7 @@ class CSection
 	
 	public function size($width = '', $height = '')
 	{
-		if( ! ( is_value($height) || is_value($width) ) )
+		if( ! ( isValue($height) || isValue($width) ) )
 		{
 			return $this;	
 		}
@@ -571,7 +571,7 @@ class CSection
 	
 	public function position($position = '')
 	{
-		if( ! is_value($position) )
+		if( ! isValue($position) )
 		{
 			return $this;	
 		}
@@ -583,7 +583,7 @@ class CSection
 	
 	public function align($align = '')
 	{
-		if( ! is_value($align) )
+		if( ! isValue($align) )
 		{
 			return $this;	
 		}
@@ -593,9 +593,9 @@ class CSection
 		return $this;
 	}
 	
-	public function text_align($align = 'center')
+	public function textAlign($align = 'center')
 	{
-		if( ! is_value($align) )
+		if( ! isValue($align) )
 		{
 			return $this;	
 		}
@@ -607,7 +607,7 @@ class CSection
 	
 	public function valign($align = 'middle')
 	{
-		if( ! is_value($align) )
+		if( ! isValue($align) )
 		{
 			return $this;	
 		}
@@ -622,14 +622,14 @@ class CSection
 
 		$style = ' style="clear:'.$clear.';" ';
 		
-		$section  = ln().'<div '.$style.'></div>'.ln();
+		$section  = eof().'<div '.$style.'></div>'.eof();
 		
 		return $section;
 	}
 
 	public function clear($clear = 'both')
 	{
-		if( ! is_value($clear) )
+		if( ! isValue($clear) )
 		{
 			return $this;	
 		}
@@ -641,7 +641,7 @@ class CSection
 	
 	public function float($align = '')
 	{
-		if( ! is_value($align) )
+		if( ! isValue($align) )
 		{
 			return $this;	
 		}
@@ -656,7 +656,7 @@ class CSection
 	
 	public function margin($margin = '')
 	{
-		if( ! is_value($margin) )
+		if( ! isValue($margin) )
 		{
 			return $this;	
 		}
@@ -671,7 +671,7 @@ class CSection
 	
 	public function coordinate($x = '', $y = '')
 	{
-		if( ! ( is_value($x) || is_value() ) )
+		if( ! ( isValue($x) || isValue() ) )
 		{
 			return $this;	
 		}
@@ -708,7 +708,7 @@ class CSection
 
 	public function padding($padding = '')
 	{
-		if( ! is_value($padding) )
+		if( ! isValue($padding) )
 		{
 			return $this;	
 		}
@@ -745,7 +745,7 @@ class CSection
 
 	public function content($content = '')
 	{
-		if( ! is_value($content) )
+		if( ! isValue($content) )
 		{
 			return $this;
 		}
@@ -774,14 +774,14 @@ class CSection
 			$this->content = $content;	
 		}	
 		
-		$section  = ln().'<div'.$this->_attributes($attr).'>';
+		$section  = eof().'<div'.$this->_attributes($attr).'>';
 		
 		if( ! empty($this->content) ) 
 		{
-			$section .= ln()."$this->content";
+			$section .= eof()."$this->content";
 		}
 		
-		$section .= ln()."</div>".ln()."$clear";	
+		$section .= eof()."</div>".eof()."$clear";	
 		
 		if( ! empty($this->clear) )   $this->clear = NULL;
 		if( ! empty($this->style) ) 	$this->style = '';

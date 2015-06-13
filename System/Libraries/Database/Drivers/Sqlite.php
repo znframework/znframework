@@ -58,7 +58,7 @@ class SqliteDriver
 		
 		if( ! empty($error) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 	}
 	
@@ -91,7 +91,7 @@ class SqliteDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki begin transaction özelliğinin kullanımıdır.  |		
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		$this->query('BEGIN TRANSACTION');
 		return true;
@@ -103,7 +103,7 @@ class SqliteDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		$this->query('ROLLBACK');
 		return true;
@@ -115,7 +115,7 @@ class SqliteDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki commit özelliğinin kullanımıdır.        	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		$this->query('COMMIT');
 		return true;
@@ -218,7 +218,7 @@ class SqliteDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -230,7 +230,7 @@ class SqliteDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -242,7 +242,7 @@ class SqliteDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir. 				  				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -254,7 +254,7 @@ class SqliteDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 

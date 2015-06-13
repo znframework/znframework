@@ -75,8 +75,8 @@ class Ajax
 		if( isset($methods['url']) )
 		{
 			// url kontrolü yapıldı. 
-			$methods['url']  = ( ! is_url($methods['url'])) 
-			                   ? site_url($methods['url']) 
+			$methods['url']  = ( ! isUrl($methods['url'])) 
+			                   ? siteUrl($methods['url']) 
 							   : $methods['url']; 
 		}
 		
@@ -104,13 +104,13 @@ class Ajax
 			// bu değer dönüş fonksiyonu olarak değerlendirilecektir.
 			if( ! in_array($key, self::$callback_functions) )
 			{
-				$method .= "\t\t".$key.':'.$value.','.ln();
+				$method .= "\t\t".$key.':'.$value.','.eof();
 			}
 		}
 		
 		$method = substr($method,0,-2);
 		
-		$ajax = "\t".'$.ajax'.ln()."\t".'({'.ln().$method.ln()."\t".'})';
+		$ajax = "\t".'$.ajax'.eof()."\t".'({'.eof().$method.eof()."\t".'})';
 		
 		
 		// Dönüş Yöntemleri
@@ -125,14 +125,14 @@ class Ajax
 		{
 			if( isset($methods[$callfunc]) )
 			{
-				$ajax .= '.'.$callfunc.'(function(data){'.ln()."\t\t".$methods[$callfunc].ln()."\t".'});'.ln();
+				$ajax .= '.'.$callfunc.'(function(data){'.eof()."\t\t".$methods[$callfunc].eof()."\t".'});'.eof();
 				$is_callback = true;
 			}
 		}
 	
 		if($is_callback === false)
 		{
-			$ajax .= ";".ln();
+			$ajax .= ";".eof();
 		}
 		
 		return $ajax;
@@ -176,7 +176,7 @@ class Ajax
 	| 1. array var @data => Gönderilecek olan dizi.							  				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function json_send_back($data = array())
+	public static function jsonSendBack($data = array())
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
@@ -195,7 +195,7 @@ class Ajax
 	| 1. mixed var @data => Çıktı oluşturulacak veri.							  		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function send_back($data = '')
+	public static function sendBack($data = '')
 	{
 		if( is_array($data) )
 		{ 
@@ -336,7 +336,7 @@ class Ajax
 		
 		$next = $start + $limit;
 		
-		$links  = ln()."<div ajax='pagination'>".ln();
+		$links  = eof()."<div ajax='pagination'>".eof();
 		
 		// Başlangıç değerinin pozitif olma durumuna göre gerekli kontrol sağlanıyor.------------
 		if($start > 0) 
@@ -367,7 +367,7 @@ class Ajax
 			{
 				$attr = "";	
 			}
-			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>".ln();
+			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>".eof();
 			// ----------------------------------------------------------------------------------
 		}
 		// --------------------------------------------------------------------------------------
@@ -375,11 +375,11 @@ class Ajax
 		// Sonraki butonunun durumu kontrol ediliyor...------------------------------------------
 		if( $next < $total_rows ) 
 		{
-			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>".ln();
+			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>".eof();
 		}
 		// --------------------------------------------------------------------------------------
 		
-		$links .= "</div>".ln();
+		$links .= "</div>".eof();
 		
 		// Toplam satırın limit miktarına göre durumu kontrol ediliyor...------------------------
 		if( $total_rows > $limit )

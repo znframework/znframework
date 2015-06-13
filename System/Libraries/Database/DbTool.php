@@ -59,10 +59,10 @@ class DbTool
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: $this->dbtool->list_databases();        		 						  |
+	| Örnek Kullanım: $this->dbtool->listDatabases();        		 						  |
 	|          																				  |
 	******************************************************************************************/
-	public function list_databases()
+	public function listDatabases()
 	{
 		if( $this->db->list_databases() !== false )
 		{
@@ -96,10 +96,10 @@ class DbTool
 	|															                              |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
-	| Örnek Kullanım: $this->dbtool->list_tables();        		 							  |
+	| Örnek Kullanım: $this->dbtool->listTables();        		 							  |
 	|          																				  |
 	******************************************************************************************/
-	public function list_tables()
+	public function listTables()
 	{
 		if( $this->db->list_tables() !== false )
 		{
@@ -180,7 +180,7 @@ class DbTool
 			$return.= 'DROP TABLE '.$table.';';
 			$this->db->query('SHOW CREATE TABLE '.$table);
 			$row2 = $this->db->fetch_row();
-			$return.= ln(2).$row2[1].";".ln(2);
+			$return.= eof(2).$row2[1].";".eof(2);
 		
 			for ($i = 0; $i < $num_fields; $i++) 
 			{
@@ -208,10 +208,10 @@ class DbTool
 							$return.= ','; 
 						}
 					}
-					$return.= ");".ln();
+					$return.= ");".eof();
 				}
 			}
-			$return .= ln(3);
+			$return .= eof(3);
 		}
 		
 		if( empty($filename) ) 
@@ -223,7 +223,7 @@ class DbTool
 		fwrite($handle,$return);
 		fclose($handle);
 		
-		return get_message('Database', 'backup_tables_success');
+		return getMessage('Database', 'backup_tables_success');
 	}
 	
 	/******************************************************************************************
@@ -234,10 +234,10 @@ class DbTool
     | Parametreler: Tek parametresi vardır.                                              	  |
 	| 1. string/array var @table => Optimize edilmesi istenilen tablo listesi. Varsayılan:*   |
 	|          																				  |
-	| Örnek Kullanım: $this->dbtool->optimize_tables("tbl1, tbl2"); 					      |
+	| Örnek Kullanım: $this->dbtool->optimizeTables("tbl1, tbl2"); 					      |
 	|          																				  |
 	******************************************************************************************/
-	public function optimize_tables($table = '*')
+	public function optimizeTables($table = '*')
 	{
 		$this->db->query("SHOW TABLES");
 		
@@ -273,7 +273,7 @@ class DbTool
 			}
 		}
 	
-		return get_message('Database', 'optimize_tables_success');
+		return getMessage('Database', 'optimize_tables_success');
 	}
 	
 	/******************************************************************************************
@@ -284,10 +284,10 @@ class DbTool
     | Parametreler: Tek parametresi vardır.                                              	  |
 	| 1. string/array var @table => Onarılması istenilen tablo listesi. Varsayılan:*          |
 	|          																				  |
-	| Örnek Kullanım: $this->dbtool->repair_tables("tbl1, tbl2");        		 			  |
+	| Örnek Kullanım: $this->dbtool->repairTables("tbl1, tbl2");        		 			  |
 	|          																				  |
 	******************************************************************************************/
-	public function repair_tables($table = '*')
+	public function repairTables($table = '*')
 	{
 		$this->db->query("SHOW TABLES");
 		
@@ -323,7 +323,7 @@ class DbTool
 			}
 		}
 				
-		return get_message('Database', 'repair_tables_success');
+		return getMessage('Database', 'repair_tables_success');
 	}
 	
 	/******************************************************************************************
@@ -337,7 +337,7 @@ class DbTool
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function different_connection($connect_name = '')
+	public function differentConnection($connect_name = '')
 	{
 		if( ! is_string($connect_name) ) 
 		{

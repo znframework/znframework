@@ -98,21 +98,21 @@ class Jquery
 		// True ise Jquery kütüphanesini dahil et.
 		if( $jquery_library === true )
 		{
-			$script  .= '<script type="'.self::$type.'" src="'.base_url(self::$j_path).'"></script>'.ln();
+			$script  .= '<script type="'.self::$type.'" src="'.baseUrl(self::$j_path).'"></script>'.eof();
 		}
 		
 		// True ise JqueryUi kütüphanesini dahil et.
 		if( $jquery_ui_library === true )
 		{
-			$script  .= '<script type="'.self::$type.'" src="'.base_url(self::$jui_path).'"></script>'.ln();
+			$script  .= '<script type="'.self::$type.'" src="'.baseUrl(self::$jui_path).'"></script>'.eof();
 		}
 		
-		$script .= '<script type="'.self::$type.'">'.ln();
+		$script .= '<script type="'.self::$type.'">'.eof();
 		
 		// True ise $(document).ready({ }) kodunu dahil et.
 		if( $ready === true )
 		{
-			$script .= '$(document).ready(function()'.ln().'{'.ln();
+			$script .= '$(document).ready(function()'.eof().'{'.eof();
 		}
 		
 		return $script;
@@ -137,10 +137,10 @@ class Jquery
 		if( self::$ready === true )
 		{
 			self::$ready = NULL;
-			$script .= ln().'});'.ln();
+			$script .= eof().'});'.eof();
 		}
 		
-		$script .=  '</script>'.ln();
+		$script .=  '</script>'.eof();
 		
 		return $script;
 	}
@@ -165,7 +165,7 @@ class Jquery
 			return false;
 		}
 		
-		$ready = '$(document).ready(function()'.ln().'{'.ln().$codes.ln().'});'.ln();
+		$ready = '$(document).ready(function()'.eof().'{'.eof().$codes.eof().'});'.eof();
 		
 		return $ready;
 	}
@@ -203,7 +203,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$event = '$('.$element.').bind("'.$event_type.'", function(e)'.ln().'{'.ln().$callback.ln().'});'.ln();
+		$event = '$('.$element.').bind("'.$event_type.'", function(e)'.eof().'{'.eof().$callback.eof().'});'.eof();
 		
 		return $event;
 	}	
@@ -231,14 +231,14 @@ class Jquery
 		
 		if( ! empty($callback2))
 		{
-			$callback2 = ", function(e)".ln()."{".ln().$callback2.ln()."}";
+			$callback2 = ", function(e)".eof()."{".eof().$callback2.eof()."}";
 		}
 		
 		$element = ( in_array($element, self::$keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
-		$event = '$('.$element.').'.$type.'(function(e)'.ln().'{'.ln().$callback.ln().'}'.$callback2.');'.ln();
+		$event = '$('.$element.').'.$type.'(function(e)'.eof().'{'.eof().$callback.eof().'}'.$callback2.');'.eof();
 		
 		return $event;
 	}	
@@ -306,7 +306,7 @@ class Jquery
 	| Örnek Kullanım: dblclick('#nesne', 'alert(1);');        	     						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function dblclick($element = 'this', $callback = '')
+	public static function dblClick($element = 'this', $callback = '')
 	{
 		return self::_event('dblclick', $element, $callback);
 	}
@@ -405,10 +405,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: focusin('#nesne', 'alert(1);');                     	     			  |
+	| Örnek Kullanım: focusIn('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function focusin($element = 'this', $callback = '')
+	public static function focusIn($element = 'this', $callback = '')
 	{
 		return self::_event('focusin', $element, $callback);
 	}
@@ -422,10 +422,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: focusout('#nesne', 'alert(1);');                     	     			  |
+	| Örnek Kullanım: focusOut('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function focusout($element = 'this', $callback = '')
+	public static function focusOut($element = 'this', $callback = '')
 	{
 		return self::_event('focusout', $element, $callback);
 	}
@@ -473,10 +473,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: keydown('#nesne', 'alert(1);');                     	     			  |
+	| Örnek Kullanım: keyDown('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function keydown($element = 'this', $callback = '')
+	public static function keyDown($element = 'this', $callback = '')
 	{
 		return self::_event('keydown', $element, $callback);
 	}
@@ -490,10 +490,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: keypress('#nesne', 'alert(1);');                     	     			  |
+	| Örnek Kullanım: keyPress('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function keypress($element = 'this', $callback = '')
+	public static function keyPress($element = 'this', $callback = '')
 	{
 		return self::_event('keypress', $element, $callback);
 	}
@@ -507,10 +507,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: keyup('#nesne', 'alert(1);');                     	     			  |
+	| Örnek Kullanım: keyUp('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function keyup($element = 'this', $callback = '')
+	public static function keyUp($element = 'this', $callback = '')
 	{
 		return self::_event('keyup', $element, $callback);
 	}
@@ -541,10 +541,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mousedown('#nesne', 'alert(1);');                     	     	      |
+	| Örnek Kullanım: mouseDown('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mousedown($element = 'this', $callback = '')
+	public static function mouseDown($element = 'this', $callback = '')
 	{
 		return self::_event('mousedown', $element, $callback);
 	}
@@ -558,10 +558,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mouseenter('#nesne', 'alert(1);');                     	     	      |
+	| Örnek Kullanım: mouseEnter('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseenter($element = 'this', $callback = '')
+	public static function mouseEnter($element = 'this', $callback = '')
 	{
 		return self::_event('mouseenter', $element, $callback);
 	}
@@ -575,10 +575,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mouseleave('#nesne', 'alert(1);');                     	     	      |
+	| Örnek Kullanım: mouseLeave('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseleave($element = 'this', $callback = '')
+	public static function mouseLeave($element = 'this', $callback = '')
 	{
 		return self::_event('mouseleave', $element, $callback);
 	}
@@ -592,10 +592,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mousemove('#nesne', 'alert(1);');                     	     	      |
+	| Örnek Kullanım: mouseMove('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mousemove($element = 'this', $callback = '')
+	public static function mouseMove($element = 'this', $callback = '')
 	{
 		return self::_event('mousemove', $element, $callback);
 	}
@@ -609,10 +609,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mouseout('#nesne', 'alert(1);');                     	     	          |
+	| Örnek Kullanım: mouseOut('#nesne', 'alert(1);');                     	     	          |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseout($element = 'this', $callback = '')
+	public static function mouseOut($element = 'this', $callback = '')
 	{
 		return self::_event('mouseout', $element, $callback);
 	}
@@ -626,10 +626,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mouseover('#nesne', 'alert(1);');                     	     	      |
+	| Örnek Kullanım: mouseOver('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseover($element = 'this', $callback = '')
+	public static function mouseOver($element = 'this', $callback = '')
 	{
 		return self::_event('mouseover', $element, $callback);
 	}
@@ -643,10 +643,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: mouseup('#nesne', 'alert(1);');                     	     	          |
+	| Örnek Kullanım: mouseUp('#nesne', 'alert(1);');                     	     	          |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseup($element = 'this', $callback = '')
+	public static function mouseUp($element = 'this', $callback = '')
 	{
 		return self::_event('mouseup', $element, $callback);
 	}
@@ -660,10 +660,10 @@ class Jquery
 	| 1. string var @element => Olayın uygulanacağı seçici nesnesidir. Örnek: this, '.nesne'  |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: tglclick('#nesne', 'alert(1);');                     	     	          |
+	| Örnek Kullanım: tglClick('#nesne', 'alert(1);');                     	     	          |
 	|															                              |
 	******************************************************************************************/	
-	public static function tglclick($element = 'this', $callback = '', $callback2 = '')
+	public static function tglClick($element = 'this', $callback = '', $callback2 = '')
 	{
 		return self::_event('toggle', $element, $callback, $callback2);
 	}
@@ -676,7 +676,7 @@ class Jquery
 			$element = 'this';
 		}
 		
-		if( ! is_char($speed) ) 
+		if( ! isChar($speed) ) 
 		{
 			$speed = '';
 		}
@@ -688,7 +688,7 @@ class Jquery
 		
 		if( ! empty($callback) )
 		{
-			$callback = ", function(){".ln().$callback.ln()."}";
+			$callback = ", function(){".eof().$callback.eof()."}";
 		}
 		if( ! empty($easing)) 
 		{
@@ -703,7 +703,7 @@ class Jquery
 				 ? $speed
 				 : "\"$speed\"";
 		
-		$str  = "$($element).$type({$speed}{$easing}{$callback});".ln();
+		$str  = "$($element).$type({$speed}{$easing}{$callback});".eof();
 		
 		return $str;
 	}
@@ -718,11 +718,11 @@ class Jquery
 	| 2. mixed var @speed => Animasyonun hızı. Örnek: slow, fast, 1000 				          |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: fadein('#nesne', 1000, 'alert(1);');        	  				          |
+	| Örnek Kullanım: fadeIn('#nesne', 1000, 'alert(1);');        	  				          |
 	| $('#nesne').fadeIn(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function fadein($element = 'this', $speed = '', $callback = '')
+	public static function fadeIn($element = 'this', $speed = '', $callback = '')
 	{
 		return self::_object('fadeIn', $element, $speed, NULL, $callback);
 	}
@@ -737,11 +737,11 @@ class Jquery
 	| 2. mixed var @speed => Animasyonun hızı. Örnek: slow, fast, 1000 				          |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: fadeout('#nesne', 1000, 'alert(1);');        	  				          |
+	| Örnek Kullanım: fadeOut('#nesne', 1000, 'alert(1);');        	  				          |
 	| $('#nesne').fadeOut(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function fadeout($element = 'this', $speed = '', $callback = '')
+	public static function fadeOut($element = 'this', $speed = '', $callback = '')
 	{
 		return self::_object('fadeOut', $element, $speed, NULL, $callback);
 	}
@@ -756,11 +756,11 @@ class Jquery
 	| 2. mixed var @speed => Animasyonun hızı. Örnek: slow, fast, 1000 				          |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: slideup('#nesne', 1000, 'alert(1);');        	  				          |
+	| Örnek Kullanım: slideUp('#nesne', 1000, 'alert(1);');        	  				          |
 	| $('#nesne').slideUp(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function slideup($element = 'this', $speed = '', $callback = '')
+	public static function slideUp($element = 'this', $speed = '', $callback = '')
 	{
 		return self::_object('slideUp', $element, $speed, NULL, $callback);
 	}
@@ -775,11 +775,11 @@ class Jquery
 	| 2. mixed var @speed => Animasyonun hızı. Örnek: slow, fast, 1000 				          |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: slidedown('#nesne', 1000, 'alert(1);');        	  				      |
+	| Örnek Kullanım: slideDown('#nesne', 1000, 'alert(1);');        	  				      |
 	| $('#nesne').slideDown(1000, function(e){ alert(1); });         						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function slidedown($element = 'this', $speed = '', $callback = '')
+	public static function slideDown($element = 'this', $speed = '', $callback = '')
 	{
 		return self::_object('slideDown', $element, $speed, NULL, $callback);
 	}
@@ -794,11 +794,11 @@ class Jquery
 	| 2. mixed var @speed => Animasyonun hızı. Örnek: slow, fast, 1000 				          |
 	| 3. string var @callback => Olay sonunda çalıştırılması istenen kodlar.                  |
 	|          																				  |
-	| Örnek Kullanım: slidetoggle('#nesne', 1000, 'alert(1);');        	  				      |
+	| Örnek Kullanım: slideToggle('#nesne', 1000, 'alert(1);');        	  				      |
 	| $('#nesne').slideToggle(1000, function(e){ alert(1); });         						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function slidetoggle($element = 'this', $speed = '', $callback = '')
+	public static function slideToggle($element = 'this', $speed = '', $callback = '')
 	{
 		return self::_object('slideToggle', $element, $speed, NULL, $callback);
 	}
@@ -906,7 +906,7 @@ class Jquery
 			$params = array();
 		}
 		
-		if( ! is_char($speed))  
+		if( ! isChar($speed))  
 		{
 			$speed = '';
 		}
@@ -922,42 +922,42 @@ class Jquery
 		
 		if( ! empty($params) )
 		{
-			$animate .= self::object_data($params);
+			$animate .= self::objectData($params);
 		}
 		
 		if( ! empty($speed) )
 		{
 			if( is_numeric($speed ) )    
 			{
-				$speed = ",".ln()."\t\t$speed";
+				$speed = ",".eof()."\t\t$speed";
 			}
 			else
 			{
-				$speed = ",".ln()."\t\t'".$speed."'";
+				$speed = ",".eof()."\t\t'".$speed."'";
 			}
 		}
 	
 		if( is_array($easing) )
 		{
-			$ease = ",".ln()."\t\t".self::object_data($easing);			
+			$ease = ",".eof()."\t\t".self::objectData($easing);			
 			$easing = $ease;
 	
 		}
 		else if( ! empty($easing) ) 
 		{
-			$easing   = ",".ln()."\t\t'".$easing."'";
+			$easing   = ",".eof()."\t\t'".$easing."'";
 		}
 		
 		if( ! empty($complete) )
 		{
-			$complete = ",".ln()."\t\tfunction(){".$complete."}";
+			$complete = ",".eof()."\t\tfunction(){".$complete."}";
 		}
 		
 		$element = ( in_array($element, self::$keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
-		$js_animate = "\t$($element).animate(".ln().$animate.$speed.$easing.$complete.ln()."\t);".ln();
+		$js_animate = "\t$($element).animate(".eof().$animate.$speed.$easing.$complete.eof()."\t);".eof();
 		
 		return $js_animate;
 		
@@ -1001,7 +1001,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$str  = "\t$($element).$classType(\"$class\");".ln();
+		$str  = "\t$($element).$classType(\"$class\");".eof();
 		
 		return $str;
 	}
@@ -1015,11 +1015,11 @@ class Jquery
 	| 1. string var @element => Kodun uygulanacağı seçici nesnesidir. Örnek: this             |
 	| 3. string var @class => Eklenecek css sınıfları.                                        |
 	|          																				  |
-	| Örnek Kullanım: addclass('#nesne', 'red-color, bold');        	  				      |
+	| Örnek Kullanım: addClass('#nesne', 'red-color, bold');        	  				      |
 	| $('#nesne').addClass('red-color, bold');         						                  |
 	|															                              |
 	******************************************************************************************/	
-	public static function addclass($element = '', $class = '')
+	public static function addClass($element = '', $class = '')
 	{
 		return self::_class('addClass', $element, $class);
 	}
@@ -1033,11 +1033,11 @@ class Jquery
 	| 1. string var @element => Kodun uygulanacağı seçici nesnesidir. Örnek: this             |
 	| 3. string var @class => Kaldırılacak css sınıfları.                                     |
 	|          																				  |
-	| Örnek Kullanım: removeclass('#nesne', 'red-color, bold');        	  				      |
+	| Örnek Kullanım: removeClass('#nesne', 'red-color, bold');        	  				      |
 	| $('#nesne').removeClass('red-color, bold');         						              |
 	|															                              |
 	******************************************************************************************/	
-	public static function removeclass($element = '', $class = '')
+	public static function removeClass($element = '', $class = '')
 	{
 		return self::_class('removeClass', $element, $class);
 	}
@@ -1051,11 +1051,11 @@ class Jquery
 	| 1. string var @element => Kodun uygulanacağı seçici nesnesidir. Örnek: this             |
 	| 3. string var @class => Kaldırılacak css sınıfları.                                     |
 	|          																				  |
-	| Örnek Kullanım: toggleclass('#nesne', 'red-color, bold');        	  				      |
+	| Örnek Kullanım: toggleClass('#nesne', 'red-color, bold');        	  				      |
 	| $('#nesne').toggleClass('red-color, bold');         						              |
 	|															                              |
 	******************************************************************************************/	
-	public static function toggleclass($element = '', $class = '')
+	public static function toggleClass($element = '', $class = '')
 	{
 		return self::_class('toggleClass', $element, $class);
 	}
@@ -1077,7 +1077,7 @@ class Jquery
 		
 		if( is_array($attrs) )
 		{
-			$attr .= self::object_data($attrs);
+			$attr .= self::objectData($attrs);
 		}
 		else
 		{
@@ -1095,7 +1095,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$str  = "\t$($element).$type($attr);".ln();
+		$str  = "\t$($element).$type($attr);".eof();
 		
 		return $str;
 	}
@@ -1134,14 +1134,14 @@ class Jquery
 	| Tek bir özellik kaldırılacaksa string tipte parametre girilebilir ancak birden          |
 	|  fazla özellik kaldırılacaksa parametreye dizi tipi veri girilmelidir.                  |
 	|          																				  |
-	| Örnek Kullanım: removeattr('#nesne', 'name');        	  				                  |
+	| Örnek Kullanım: removeAttr('#nesne', 'name');        	  				                  |
 	| $('#nesne').removeAttr("name");         						                          |
 	|															                              |
-	| Örnek Kullanım: removeattr('#nesne', array('name', 'id'));        	  	              |
+	| Örnek Kullanım: removeAttr('#nesne', array('name', 'id'));        	  	              |
 	| $('#nesne').removeAttr({"name", "id"});         	                                      |
 	|															                              |
 	******************************************************************************************/	
-	public static function removeattr($element = '', $attr = '')
+	public static function removeAttr($element = '', $attr = '')
 	{
 		return self::_attr('removeAttr', $element, $attr);
 	}
@@ -1183,7 +1183,7 @@ class Jquery
 		{
 			$func = "\t".$property.":";	
 		}
-		$func .= 'function('.$params.'){'.ln()."\t\t".$code.ln()."\t".'}'.ln();
+		$func .= 'function('.$params.'){'.eof()."\t\t".$code.eof()."\t".'}'.eof();
 		
 		return $func;
 	}
@@ -1215,13 +1215,13 @@ class Jquery
 	| Parametreler: Tek parametresi vardır.                                              	  |
 	| 1. array var @data => Object türe çevrilecek dizi bilgisi.                              |
 	|          																				  |
-	| Örnek Kullanım: object_data(array(1 => 'a', 2 => 'b'));        	  				      |  
+	| Örnek Kullanım: objectData(array(1 => 'a', 2 => 'b'));        	  				      |  
 	| {1:'a', 2:'b'}        						                                          |
 	|															                              |
 	******************************************************************************************/	
-	public static function object_data($data = array())
+	public static function objectData($data = array())
 	{
-		return arrays::object_data($data);
+		return arrays::objectData($data);
 	}
 	
 	/******************************************************************************************
@@ -1254,9 +1254,8 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$code = "$($element).$property($code);".ln();
+		$code = "$($element).$property($code);".eof();
 		
 		return $code;
 	}
-	
 }

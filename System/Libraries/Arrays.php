@@ -31,18 +31,18 @@ class Arrays
 	|          																				  |
 	| Örnek Kullanım:         																  |
 	| $dizi = array("a", "b", "c", "d", "e");												  |
-	| var_dump(array_pos_change($dizi, 0, 4));  // Çıktı: b c d e a 				          |
+	| var_dump(array_posChange($dizi, 0, 4));  // Çıktı: b c d e a 				          |
 	|          																				  |
 	| Dizideki eleman isimlerini kullanarak yer değiştirmek.								  |	
-	| var_dump(array_pos_change($dizi, "a", "c"));  // Çıktı: b c a d e 					  |
-	| var_dump(array_pos_change($dizi, "b", "e"));  // Çıktı: a c d e b    					  |
+	| var_dump(array_posChange($dizi, "a", "c"));  // Çıktı: b c a d e 					  |
+	| var_dump(array_posChange($dizi, "b", "e"));  // Çıktı: a c d e b    					  |
 	| 																						  |
 	| Dizideki eleman numarası ve ismini kullanarak yer değiştirmek.					      |	
-	| var_dump(array_pos_change($dizi, 1, "c"));  // Çıktı: a c b d e 						  |
-	| var_dump(array_pos_change($dizi, "b", 4));  // Çıktı: a c d e b						  |
+	| var_dump(array_posChange($dizi, 1, "c"));  // Çıktı: a c b d e 						  |
+	| var_dump(array_posChange($dizi, "b", 4));  // Çıktı: a c d e b						  |
 	|																						  |
 	******************************************************************************************/	
-	public static function pos_change($array = '', $poss = '', $changePos = '')
+	public static function posChange($array = '', $poss = '', $changePos = '')
 	{
 		if( ! is_array($array) ) 
 		{
@@ -108,19 +108,19 @@ class Arrays
 	|          																				  |
 	| Örnek Kullanım:         																  |
 	| $dizi = array("a", "b", "c", "d", "e");												  |
-	| var_dump(array_pos_reverse($dizi, 0, 4));  // Çıktı: e b c d a 						  |
-	| var_dump(array_pos_reverse($dizi, 1, 3));  // Çıktı: a d c b e  						  |
+	| var_dump(array_posReverse($dizi, 0, 4));  // Çıktı: e b c d a 						  |
+	| var_dump(array_posReverse($dizi, 1, 3));  // Çıktı: a d c b e  						  |
 	|																						  |
 	| Dizideki eleman isimlerini kullanarak yer değiştirmek.								  |
-	| var_dump(array_pos_reverse($dizi, "a", "c"));  // Çıktı: c b a d e 					  |
-	| var_dump(array_pos_reverse($dizi, "b", "e"));  // Çıktı: a e c d b    				  |
+	| var_dump(array_posReverse($dizi, "a", "c"));  // Çıktı: c b a d e 					  |
+	| var_dump(array_posReverse($dizi, "b", "e"));  // Çıktı: a e c d b    				  |
 	|																						  |
 	| Dizideki eleman numarası ve ismini kullanarak yer değiştirmek.						  |
-	| var_dump(array_pos_reverse($dizi, 1, "c"));  // Çıktı: a c b d e 						  |
-	| var_dump(array_pos_reverse($dizi, "b", 4));  // Çıktı: a e c d b    					  |
+	| var_dump(array_posReverse($dizi, 1, "c"));  // Çıktı: a c b d e 						  |
+	| var_dump(array_posReverse($dizi, "b", 4));  // Çıktı: a e c d b    					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function pos_reverse($array = '', $poss = '', $changePos = '')
+	public static function posReverse($array = '', $poss = '', $changePos = '')
 	{
 		if( ! is_array($array) ) 
 		{
@@ -181,19 +181,19 @@ class Arrays
 	|          																				  |
 	| Örnek Kullanım:         																  |
 	| $dizi = array("a", "b", "c", "d", "e");												  |
-	| var_dump(array_delete_element($dizi, 1));  // Çıktı: a c d e  						  |
-	| var_dump(array_delete_element($dizi, 3));  // Çıktı: a b c e  						  |
+	| var_dump(array_deleteElement($dizi, 1));  // Çıktı: a c d e  						  |
+	| var_dump(array_deleteElement($dizi, 3));  // Çıktı: a b c e  						  |
 	|																						  |		
 	| Dizideki eleman isimlerini kullanarak silmek.										      |
-	| var_dump(array_delete_element($dizi, "a"));  // Çıktı: b c d e						  |
-	| var_dump(array_delete_element($dizi, "c"));  // Çıktı: a b d e						  |
+	| var_dump(array_deleteElement($dizi, "a"));  // Çıktı: b c d e						  |
+	| var_dump(array_deleteElement($dizi, "c"));  // Çıktı: a b d e						  |
 	|																						  |
 	| Dizideki elemanları toplu olarak silmek.												  |
-	| var_dump(array_delete_element($dizi, array("a", "c")));  // Çıktı: b d e 				  |
-	| var_dump(array_delete_element($dizi, array(1, 2)));  // Çıktı: a d e  				  |
+	| var_dump(array_deleteElement($dizi, array("a", "c")));  // Çıktı: b d e 				  |
+	| var_dump(array_deleteElement($dizi, array(1, 2)));  // Çıktı: a d e  				  |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete_element($array = array(), $object = "")
+	public static function deleteElement($array = array(), $object = "")
 	{
 		if( ! is_array($array) ) 
 		{
@@ -355,11 +355,11 @@ class Arrays
 	| Parametreler: 2 parametresi vardır.                                              		  |
 	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
 	|																						  |
-	| Örnek Kullanım: object_data(array(1 => true, 2 => false))  							  |
+	| Örnek Kullanım: objectData(array(1 => true, 2 => false))  							  |
 	| // {1:true, 2:false} 																	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function object_data($data = array())
+	public static function objectData($data = array())
 	{
 		if( ! is_array($data) )
 		{

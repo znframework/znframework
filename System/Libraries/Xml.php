@@ -160,11 +160,11 @@ class Xml
 	| 2. [ object var @to ] => Bu elamanın içerisine eklenecek nesne.                         |
 	|          																				  |	         																				
 	| Örnek Kullanım:															              |
-	| $medya = xml::add_element('medya');  // medya isminde kök element oluşturuluyor.        |
-    | $vidyo = xml::add_element('vidyo', $medya);  // 										  |
+	| $medya = xml::addElement('medya');  // medya isminde kök element oluşturuluyor.        |
+    | $vidyo = xml::addElement('vidyo', $medya);  // 										  |
 	|          																				  |
 	******************************************************************************************/
-	public static function add_element($add = '', $to = '')
+	public static function addElement($add = '', $to = '')
 	{
 		if( ! is_string($add) || empty($add) ) 
 		{
@@ -202,15 +202,15 @@ class Xml
 	| 2. array/object var @to  => Bu elamanın içerisinden silinecek nesne veya nesneler.      |
 	|          																				  |	         																				
 	| Örnek Kullanım:															              |
-	| $medya = xml::add_element('medya');													  |
-	| $muzik = xml::add_element('muzik', $medya);										      |
-	| $resim = xml::add_element('resim', $medya);											  |
+	| $medya = xml::addElement('medya');													  |
+	| $muzik = xml::addElement('muzik', $medya);										      |
+	| $resim = xml::addElement('resim', $medya);											  |
     |																						  |
-	| xml::remove_element($medya, $muzik); // Tek nesne silmek için.						  |
-	| xml::remove_element($medya, array($muzik, $resim)); // Çoklu nesne silmek için.		  |
+	| xml::removeElement($medya, $muzik); // Tek nesne silmek için.						  |
+	| xml::removeElement($medya, array($muzik, $resim)); // Çoklu nesne silmek için.		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function remove_element($add = '', $to = '')
+	public static function removeElement($add = '', $to = '')
 	{
 		if( ! is_object($add) || empty($add) )
 		{
@@ -255,17 +255,17 @@ class Xml
 	| 1. object var @to => İçerik eklenecek eleman.                            				  |
 	| 2. string var @text => Bu elamanın içerisine eklenecek veri.                            |
 	|          																				  |	         																				
-	| Örnek Kullanım: add_content($vidyo, "Burası vidyo bölümüdür.");						  |
+	| Örnek Kullanım: addContent($vidyo, "Burası vidyo bölümüdür.");						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function add_content($to = "", $text = "")
+	public static function addContent($to = "", $text = "")
 	{
 		if( ! is_object($to) )
 		{
 			return false;
 		}
 		
-		if( ! is_char($text) ) 
+		if( ! isChar($text) ) 
 		{
 			$text = '';
 		}
@@ -291,11 +291,11 @@ class Xml
 	| 3. string var @value => Bu elamanın içerisine eklenecek ozellik.                        |
 	|          																				  |	         																				
 	| Örnek Kullanım: 																		  |
-	| add_attr($vidyo, 'id', 'vidyo'); // Tek bir özellik eklenecekse		                  |
-	| add_attr($vidyo, array('id' => 'vidyo', 'name' => 'vidyo')); // Çoklu özellik ekleme	  |
+	| addAttr($vidyo, 'id', 'vidyo'); // Tek bir özellik eklenecekse		                  |
+	| addAttr($vidyo, array('id' => 'vidyo', 'name' => 'vidyo')); // Çoklu özellik ekleme	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function add_attr($element = '', $name = '', $value = '')
+	public static function addAttr($element = '', $name = '', $value = '')
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
@@ -330,18 +330,18 @@ class Xml
 	| 2. string/array var @name => Bu elamanın içerisinden silinecek ozellik.                 |
 	|          																				  |	         																				
 	| Örnek Kullanım: 																		  |
-	| remove_attr($vidyo, 'id'); // Tek bir özellik eklenecekse		                          | 
-	| remove_attr($vidyo, array('id', 'name')); // Çoklu özellik silme  					  |
+	| removeAttr($vidyo, 'id'); // Tek bir özellik eklenecekse		                          | 
+	| removeAttr($vidyo, array('id', 'name')); // Çoklu özellik silme  					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function remove_attr($element = '', $name = '')
+	public static function removeAttr($element = '', $name = '')
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_char($name) )
+		if( ! isChar($name) )
 		{
 			$name = '';
 		}
@@ -369,11 +369,11 @@ class Xml
 	| 2. string/array var @name => Öğrenilmek istenen elemana ait özellikler.                 |
 	|          																				  |	         																				
 	| Örnek Kullanım: 																		  |
-	| get_attr($vidyo, 'id'); // Tek bir özellik 		                                      | 
-	| get_attr($vidyo, array('id', 'name')); // Çoklu özellik   					          |
+	| getAttr($vidyo, 'id'); // Tek bir özellik 		                                      | 
+	| getAttr($vidyo, array('id', 'name')); // Çoklu özellik   					          |
 	|          																				  |
 	******************************************************************************************/
-	public static function get_attr($element = '', $name = '')
+	public static function getAttr($element = '', $name = '')
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
@@ -411,10 +411,10 @@ class Xml
 	| 1. string var @name => İçeriği istenen elemanın ismi.                            		  |
 	|          																				  |	         																				
 	| Örnek Kullanım: 																		  |
-	| get_contents_by_name('vidyo'); // Burası vidyo bölümdür.	                              | 
+	| getContentsByName('vidyo'); // Burası vidyo bölümdür.	                              | 
 	|          																				  |
 	******************************************************************************************/
-	public static function get_contents_by_name($name = '')
+	public static function getContentsByName($name = '')
 	{
 		if( ! is_string($name) || empty($name) ) 
 		{
@@ -442,10 +442,10 @@ class Xml
 	| 1. string var @name => İçeriği istenen elemanın id bilgisi.                             |
 	|          																				  |	         																				
 	| Örnek Kullanım: 																		  |
-	| get_content_by_id('vidyo'); // Burası vidyo bölümdür.	                                  | 
+	| getContentById('vidyo'); // Burası vidyo bölümdür.	                                  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function get_content_by_id($id = '')
+	public static function getContentById($id = '')
 	{
 		if( ! is_string($id) || empty($id) ) 
 		{
@@ -466,10 +466,10 @@ class Xml
 	| 1. object var @name => İçeriği istenen eleman.                            			  |
 	|          																				  |	         																				
 	| Örnek Kullanım: 																		  |
-	| get_content_by_id($vidyo); // Burası vidyo bölümdür.	                                  | 
+	| getContentById($vidyo); // Burası vidyo bölümdür.	                                  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function get_content($name = '')
+	public static function getContent($name = '')
 	{
 		if( ! is_object($name) || empty($name) ) 
 		{

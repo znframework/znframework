@@ -105,7 +105,7 @@ class CCookie
 	******************************************************************************************/
 	public function name($name = '')
 	{
-		if( ! is_char($name))
+		if( ! isChar($name))
 		{
 			return $this;
 		}
@@ -154,7 +154,7 @@ class CCookie
 	******************************************************************************************/
 	public function encode($name = '', $value = '')
 	{
-		if( ! ( is_hash($name) || is_hash($value) ))
+		if( ! ( isHash($name) || isHash($value) ))
 		{
 			return $this;	
 		}
@@ -181,7 +181,7 @@ class CCookie
 	******************************************************************************************/
 	public function decode($hash = '')
 	{
-		if( ! is_hash($hash))
+		if( ! isHash($hash))
 		{
 			return $this;	
 		}
@@ -346,7 +346,7 @@ class CCookie
 	{
 		if( ! empty($name) ) 
 		{
-			if( ! is_char($name) )
+			if( ! isChar($name) )
 			{
 				return false;
 			}
@@ -363,7 +363,7 @@ class CCookie
 		{
 			if(isset($this->encode['name']) )
 			{
-				if(is_hash($this->encode['name']) )
+				if(isHash($this->encode['name']) )
 				{
 					$this->name = hash($this->encode['name'], $this->name);		
 				}		
@@ -371,7 +371,7 @@ class CCookie
 			
 			if( isset($this->encode['value']) )
 			{
-				if( is_hash($this->encode['value']) )
+				if( isHash($this->encode['value']) )
 				{
 					$this->value = hash($this->encode['value'], $this->value);	
 				}
@@ -407,7 +407,7 @@ class CCookie
 		}
 		else
 		{
-			$this->error = get_message('Cookie', 'set_error');
+			$this->error = getMessage('Cookie', 'set_error');
 			report('Error', $this->error, 'CookieComponent');
 			return false;
 		}
@@ -427,7 +427,7 @@ class CCookie
 	******************************************************************************************/
 	public function select($name = '')
 	{
-		if( ! is_value($name) )
+		if( ! isValue($name) )
 		{
 			return false;	
 		}
@@ -445,7 +445,7 @@ class CCookie
 		
 		if( isset($this->encode['name']) )
 		{
-			if(is_hash($this->encode['name']))
+			if(isHash($this->encode['name']))
 			{
 				$name = hash($this->encode['name'], $name);		
 				$this->encode = array();	
@@ -488,7 +488,7 @@ class CCookie
 	******************************************************************************************/
 	public function delete($name = '')
 	{
-		if( ! is_value($name) )
+		if( ! isValue($name) )
 		{
 			return false;	
 		}
@@ -516,7 +516,7 @@ class CCookie
 		
 		if( isset($this->encode['name']) )
 		{
-			if( is_hash($this->encode['name']) )
+			if( isHash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);	
 				$this->encode = array();	

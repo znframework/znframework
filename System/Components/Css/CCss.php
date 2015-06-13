@@ -59,7 +59,7 @@ class CCss
 	 */
 	public function selector($selector = '')
 	{
-		if( ! is_char($selector))
+		if( ! isChar($selector))
 		{
 			return $this;	
 		}
@@ -107,9 +107,9 @@ class CCss
 			return false;	
 		}
 
-		$str  = $this->selector."{".ln();	
-		$str .= $this->_attr($attr).ln();
-		$str .= "}".ln();
+		$str  = $this->selector."{".eof();	
+		$str .= $this->_attr($attr).eof();
+		$str .= "}".eof();
 		
 		$this->_default_variable();
 		
@@ -174,10 +174,10 @@ class CCss
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @selector => Seçici bilgisi.					  						  |
 	|          																				  |
-	| Örnek Kullanım: ->get_selector('.test');			 		         					  |
+	| Örnek Kullanım: ->getSelector('.test');			 		         					  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_selector($selector = '')
+	public function getSelector($selector = '')
 	{
 		if( ! is_string($selector) )
 		{
@@ -204,10 +204,10 @@ class CCss
 	| 1. string var @selector => Seçici bilgisi.					  						  |
 	| 1. array var @attr => Yeni değerler.					  						  		  |
 	|          																				  |
-	| Örnek Kullanım: ->set_selector('.test', array('color' => 'red'));			 		      |
+	| Örnek Kullanım: ->setSelector('.test', array('color' => 'red'));			 		      |
 	|          																				  |
 	******************************************************************************************/
-	public function set_selector($selector = '', $attr = array())
+	public function setSelector($selector = '', $attr = array())
 	{
 		if( ! is_string($selector) || ! is_array($attr) )
 		{

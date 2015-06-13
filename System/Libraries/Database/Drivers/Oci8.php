@@ -96,7 +96,7 @@ class Oci8Driver
 		
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 	}
 	
@@ -134,7 +134,7 @@ class Oci8Driver
 	| Genel Kullanım: Veritabanı sürücülerindeki autocommit özelliğinin kullanımıdır.  		  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		$commit_mode = ( phpversion() > '5.3.2' ) 
 					   ? OCI_NO_AUTO_COMMIT 
@@ -150,7 +150,7 @@ class Oci8Driver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  		  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		oci_rollback($this->connect);
 		$commit_mode = OCI_COMMIT_ON_SUCCESS;
@@ -163,7 +163,7 @@ class Oci8Driver
 	| Genel Kullanım: Veritabanı sürücülerindeki autocommits özelliğinin kullanımıdır.        |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		oci_commit($this->connect);
 		$commit_mode = OCI_COMMIT_ON_SUCCESS;
@@ -263,7 +263,7 @@ class Oci8Driver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{ 
 		return false; 
 	}
@@ -274,7 +274,7 @@ class Oci8Driver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{
 		// Desteklenmiyor. 
 		return false; 
@@ -286,7 +286,7 @@ class Oci8Driver
 	| Genel Kullanım: Bu sürücü için rename column yönteminin kullanımıdır.   				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{ 
 		return 'RENAME COLUMN '; 
 	}
@@ -297,7 +297,7 @@ class Oci8Driver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		return false; 
 	}

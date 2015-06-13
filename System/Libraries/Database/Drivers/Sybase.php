@@ -58,7 +58,7 @@ class SybaseDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(get_message('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysql_connect_error'));
 		}
 		
 		sybase_select_db($this->config['database'], $this->connect);
@@ -93,7 +93,7 @@ class SybaseDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki begin transaction özelliğinin kullanımıdır.  |		
 	|          																				  |
 	******************************************************************************************/
-	public function trans_start()
+	public function transStart()
 	{
 		sybase_query($this->connect, 'BEGIN TRANSACTION');
 		return true;
@@ -105,7 +105,7 @@ class SybaseDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_rollback()
+	public function transRollback()
 	{
 		return sybase_query($this->connect, 'ROLLBACK TRANSACTION');	 
 	}
@@ -116,7 +116,7 @@ class SybaseDriver
 	| Genel Kullanım: Veritabanı sürücülerindeki commit özelliğinin kullanımıdır.        	  |
 	|          																				  |
 	******************************************************************************************/
-	public function trans_commit()
+	public function transCommit()
 	{
 		return sybase_query($this->connect, 'COMMIT TRANSACTION');
 	}
@@ -215,7 +215,7 @@ class SybaseDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function add_column()
+	public function addColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -227,7 +227,7 @@ class SybaseDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function drop_column()
+	public function dropColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -239,7 +239,7 @@ class SybaseDriver
 	| Genel Kullanım: Bu sürücü için rename column kullanımıdır. 				  			  | 
 	|          																				  |
 	******************************************************************************************/
-	public function rename_column()
+	public function renameColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 
@@ -251,7 +251,7 @@ class SybaseDriver
 	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function modify_column()
+	public function modifyColumn()
 	{ 
 		// Ön tanımlı sorgu kullanıyor.
 		return false; 

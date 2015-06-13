@@ -59,7 +59,7 @@ class File
 		else
 		{
 			// Dosya mevcut değilse hata raporu oluştur.
-			self::$error = get_message('File', 'not_found_error', $file);
+			self::$error = getMessage('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;		
 		}
@@ -86,7 +86,7 @@ class File
 		}
 		
 		// Parametre kontrolü yapılıyor.
-		if( ! is_value($data) ) 
+		if( ! isValue($data) ) 
 		{
 			$data = '';
 		}
@@ -118,7 +118,7 @@ class File
 		
 		if( ! file_exists($path) )
 		{
-			self::$error = get_message('File', 'not_found_error', $path);
+			self::$error = getMessage('File', 'not_found_error', $path);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -148,13 +148,13 @@ class File
 		{
 			return false;
 		}
-		if( ! is_value($data) ) 
+		if( ! isValue($data) ) 
 		{
 			$data = '';
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'not_found_error', $file);
+			self::$error = getMessage('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -200,7 +200,7 @@ class File
 		else
 		{
 			// Dosya mevcutsa hatayı rapor et.
-			self::$error = get_message('File', 'already_file_error', $name);
+			self::$error = getMessage('File', 'already_file_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -225,7 +225,7 @@ class File
 		}
 		if( ! file_exists($name)) 
 		{
-			self::$error = get_message('File', 'not_found_error', $name);
+			self::$error = getMessage('File', 'not_found_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;	
 		}
@@ -255,7 +255,7 @@ class File
 		{
 			return false;
 		}
-		if( ! is_value($data) )
+		if( ! isValue($data) )
 		{
 			$data = '';
 		}
@@ -293,7 +293,7 @@ class File
 		}
 		if( ! file_exists($name) )
 		{
-			self::$error = get_message('File', 'not_found_error', $name);
+			self::$error = getMessage('File', 'not_found_error', $name);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -313,10 +313,10 @@ class File
 	| 1. string var @file => Oluşturma bilgisi öğrenilecek dosyanın yolu.			  		  |
 	| 2. string var @type => Oluşturulma tarihinin ne şekilde gösterileceğidir.         	  |
 	|          																				  |
-	| Örnek Kullanım: create_date('dizin/dosya.txt', 'd.m.Y');        						  |
+	| Örnek Kullanım: createDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function create_date($file = '', $type = "d.m.Y G:i:s")
+	public static function createDate($file = '', $type = "d.m.Y G:i:s")
 	{
 		if( ! is_string($file) ) 
 		{
@@ -328,7 +328,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'not_found_error', $file);
+			self::$error = getMessage('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -348,10 +348,10 @@ class File
 	| 1. string var @file => Değiştirme bilgisi öğrenilecek dosyanın yolu.			  		  |
 	| 2. string var @type => Değiştirilme tarihinin ne şekilde gösterileceğidir.         	  |
 	|          																				  |
-	| Örnek Kullanım: change_date('dizin/dosya.txt', 'd.m.Y');        						  |
+	| Örnek Kullanım: changeDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function change_date($file = '', $type = "d.m.Y G:i:s")
+	public static function changeDate($file = '', $type = "d.m.Y G:i:s")
 	{
 		if( ! is_string($file) ) 
 		{
@@ -363,7 +363,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'not_found_error', $file);
+			self::$error = getMessage('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -396,7 +396,7 @@ class File
 		
 		$file_info = array
 		(
-			'basename' 	 => path_info($file, 'basename'),
+			'basename' 	 => pathInfos($file, 'basename'),
 			'size'		 => filesize($file),
 			'date' 		 => filemtime($file),
 			'readable' 	 => is_readable($file),
@@ -439,7 +439,7 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = get_message('File', 'not_found_error', $file);
+			self::$error = getMessage('File', 'not_found_error', $file);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
@@ -508,7 +508,7 @@ class File
 	| Örnek Kullanım: source('kaynak/dosya.zip', 'hedef/dizin');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public static function zip_extract($source = '', $target = '')
+	public static function zipExtract($source = '', $target = '')
 	{
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($source) ) 
@@ -521,7 +521,7 @@ class File
 		}
 		if( ! file_exists($source) )
 		{
-			self::$error = get_message('File', 'not_found_error', $source);
+			self::$error = getMessage('File', 'not_found_error', $source);
 			report('Error', self::$error, 'FileLibrary');
 			return false;
 		}
