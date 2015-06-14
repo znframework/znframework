@@ -67,6 +67,30 @@ class Validation
 		}	
 	}
 	
+	/* PROTECTED Method New Value Fonksiyonu
+	 *  
+	 * Kontrol edilen yeni değeri bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected static function _method_nval($name = '', $val = '', $met = '')
+	{
+		if( $met === "post" ) 		
+		{
+			return method::post($name, $val);
+		}
+		
+		if( $met === "get" ) 		
+		{
+			return method::get($name, $val);
+		}
+		
+		if( $met === "request" ) 	
+		{
+			return method::request($name, $val);
+		}	
+	}
+	
 	
 	/******************************************************************************************
 	* IDENDITY                                                                                *
@@ -368,7 +392,11 @@ class Validation
 			$edit = security::injectionEncode($edit);
 		}
 		
+		// Süzgeç sonrası validation::nval() yönteminin yeni değeri
 		self::$nval[$name] = $edit;
+		
+		// Süzgeç sonrası yeni değer
+		self::_method_nval($name, $edit, $met);
 		
 		// required boş geçilemez yapar.
 		if( in_array('required',$config) )
