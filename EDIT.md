@@ -1,4 +1,4 @@
-<h4>DbForge Template Bileşeni - 14/06/2015 16:31</h4>
+<h4>Template Bileşeni - 14/06/2015 16:31</h4>
 <p>CBlade bileşeni eklendi.</p>
 
 <h4>Import Kütüphanesi - 14/06/2015 16:31</h4>
