@@ -96,6 +96,44 @@ class Import
 	}
 	
 	/******************************************************************************************
+	* BLADEPAGE                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyasında manipüle edilmiş blade dosyasını dahil etmek için 	  |
+	| kullanılır.						      												  |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public static function bladepage($page = '', $data = '', $ob_get_contents = false)
+	{
+		return uselib('Template\CBlade')->view($page, $data, $ob_get_contents);
+	}
+	
+	/******************************************************************************************
+	* PARSERPAGE                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyasında manipüle edilmiş PARSER dosyasını dahil etmek için 	  |
+	| kullanılır.						      												  |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public static function parserpage($page = '', $data = '', $ob_get_contents = false)
+	{
+		return uselib('Template\CParser')->view($page, $data, $ob_get_contents);
+	}
+	
+	/******************************************************************************************
 	* MASTERPAGE                                                                              *
 	*******************************************************************************************
 	| Genel Kullanım: Views/Pages/ dizini içinde yer alan herhangi bir sayfayı masterpage     |

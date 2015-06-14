@@ -52,7 +52,7 @@ class CParser
 	******************************************************************************************/
 	public function view($page = '', $data = array(), $output = false)
 	{
-		$string_data = import::page($page, NULL, true);
+		$string_data = import::page($page, $data, true);
 		
 		$return = $this->data($string_data, $data);
 		

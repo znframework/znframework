@@ -56,6 +56,7 @@ $config['Namespace']['short_name'] = array
 	'CTable'		=> 'Table\CTable',
 	'CTemplate'		=> 'Template\CTemplate',
 	'CParser'		=> 'Template\CParser',
+	'CBlade'		=> 'Template\CBlade',
 	'CSection'		=> 'Template\CSection',
 	'CThumbnail'	=> 'Thumbnail\CThumbnail',
 	'CUpload'		=> 'Upload\CUpload',
