@@ -26,7 +26,7 @@ class Autoloader
 	*/
 	public static function run($class)
 	{
-		$file  = str_replace('\\', '/', $class).'.php'; 
+		$file  = str_replace('\\', '/', ucfirst($class)).'.php'; 
 		
 		$library 		= LIBRARIES_DIR.$file;	
 		$system_library = SYSTEM_LIBRARIES_DIR.$file;
