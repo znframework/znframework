@@ -103,7 +103,7 @@ class Time
 		
 		$chars = arrays::multikey($chars);
 		
-		$setExp = str_replace(array_keys($chars), array_values($chars), $exp);
+		$setExp = str_ireplace(array_keys($chars), array_values($chars), $exp);
 		
 		$setlocale = $config['setlocale'];
 		

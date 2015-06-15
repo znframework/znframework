@@ -81,7 +81,7 @@ class Date
 		
 		$chars = arrays::multikey($chars);
 		
-		$newClock = str_replace(array_keys($chars), array_values($chars), $exp);
+		$newClock = str_ireplace(array_keys($chars), array_values($chars), $exp);
 		
 		return date($newClock);
 	}

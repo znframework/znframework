@@ -63,7 +63,7 @@ class Regex
 		
 		$special_chars = config::get('Regex','special_chars');
 		
-		$pattern = str_replace(array_keys($special_chars ), array_values($special_chars), $pattern);
+		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
@@ -72,11 +72,11 @@ class Regex
 		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
-		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
+		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
 		
 		if( ! empty($ex) ) 
 		{
-			$ex = str_replace(array_keys($setting_chars), array_values($setting_chars), $ex);
+			$ex = str_ireplace(array_keys($setting_chars), array_values($setting_chars), $ex);
 		}
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
@@ -131,7 +131,7 @@ class Regex
 		
 		$special_chars = config::get('Regex','special_chars');
 		
-		$pattern = str_replace(array_keys($special_chars ), array_values($special_chars), $pattern);
+		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
@@ -140,11 +140,11 @@ class Regex
 		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
-		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
+		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
 		
 		if( ! empty($ex) ) 
 		{
-			$ex = str_replace(array_keys($setting_chars), array_values($setting_chars), $ex);
+			$ex = str_ireplace(array_keys($setting_chars), array_values($setting_chars), $ex);
 		}
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
@@ -204,7 +204,7 @@ class Regex
 		
 		$special_chars = config::get('Regex','special_chars');
 		
-		$pattern = str_replace(array_keys($special_chars ), array_values($special_chars), $pattern);
+		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
@@ -213,11 +213,11 @@ class Regex
 		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
-		$pattern = str_replace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
+		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
 		
 		if( ! empty($ex) ) 
 		{
-			$ex = str_replace(array_keys($setting_chars), array_values($setting_chars), $ex);
+			$ex = str_ireplace(array_keys($setting_chars), array_values($setting_chars), $ex);
 		}
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
