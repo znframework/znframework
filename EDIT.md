@@ -1,3 +1,6 @@
+<h4>Regex ve PHPMailer Sınıfları - 15/06/2015 13:29</h4>
+<p>preg_matchAll() -> preg_match_all() olarak düzeltildi.</p>
+
 <h4>Template/CBlade Bileşeni - 15/06/2015 13:12</h4>
 <p>Bileşen içeriği güncellendi.</p>
 
