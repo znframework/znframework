@@ -1,3 +1,11 @@
+<h4>DateTime Sınıfı - 15/06/2015 20:33</h4>
+<p>DateTime Sınıfı Date ve Time olmak üzere iki sınıfa ayrıldı yöntemleri güncellendi.<br>
+Config/DateTime.php dosyasında yer alan karakter isimlendirmeleri güncellendi.</p>
+
+<h4>Regex ve Filter Sınıfları - 15/06/2015 20:33</h4>
+<p>Küçük bir düzenleme yapıldı.<br>
+Config/Regex.php dosyasında yer alan karakter isimlendirmeleri güncellendi.</p>
+
 <h4>Regex ve PHPMailer Sınıfları - 15/06/2015 13:29</h4>
 <p>preg_matchAll() -> preg_match_all() olarak düzeltildi.</p>
 
