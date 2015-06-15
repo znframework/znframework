@@ -89,7 +89,7 @@ class Regex
 	/******************************************************************************************
 	* MATCH ALL                                                                               *
 	*******************************************************************************************
-	| Genel Kullanım: preg_matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
+	| Genel Kullanım: matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
 	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
 	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
 	|															                              |
@@ -103,7 +103,7 @@ class Regex
 	| dosyasında yer almaktadır. İnceleyiniz.                                                 |
 	|          																				  |
 	| Örnek Kullanım: matchAll('<numeric>', 'a12', '<insesn>');        	  			      |
-	| // preg_matchAll('/\d/i', 'a12')        												  |
+	| // matchAll('/\d/i', 'a12')        												  |
 	|          																				  |
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
@@ -149,7 +149,7 @@ class Regex
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
 		
-		preg_matchAll($pattern, $str , $return);	
+		preg_match_all($pattern, $str , $return);	
 		
 		return $return;
 	}
@@ -157,7 +157,7 @@ class Regex
 	/******************************************************************************************
 	* REPLACE                                                                                 *
 	*******************************************************************************************
-	| Genel Kullanım: preg_matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
+	| Genel Kullanım: matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
 	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
 	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
 	|															                              |

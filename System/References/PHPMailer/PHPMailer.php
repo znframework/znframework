@@ -1932,14 +1932,14 @@ class PHPMailer {
             return ("\"$encoded\"");
           }
         }
-        $x = preg_matchAll('/[^\040\041\043-\133\135-\176]/', $str, $matches);
+        $x = preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
         break;
       case 'comment':
-        $x = preg_matchAll('/[()"]/', $str, $matches);
+        $x = preg_match_all('/[()"]/', $str, $matches);
         // Fall-through
       case 'text':
       default:
-        $x += preg_matchAll('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
+        $x += preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
         break;
     }
 
@@ -2145,7 +2145,7 @@ class PHPMailer {
         break;
     }
     
-    if (preg_matchAll("/[{$pattern}]/", $encoded, $matches)) {
+    if (preg_match_all("/[{$pattern}]/", $encoded, $matches)) {
       foreach (array_unique($matches[0]) as $char) {
         $encoded = str_replace($char, '=' . sprintf('%02X', ord($char)), $encoded);
       }
@@ -2478,7 +2478,7 @@ class PHPMailer {
    * @return string $message
    */
   public function MsgHTML($message, $basedir = '') {
-    preg_matchAll("/(src|background)=[\"'](.*)[\"']/Ui", $message, $images);
+    preg_match_all("/(src|background)=[\"'](.*)[\"']/Ui", $message, $images);
     if(isset($images[2])) {
       foreach($images[2] as $i => $url) {
         // do not change urls for absolute images (thanks to corvuscorax)
