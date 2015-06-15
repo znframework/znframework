@@ -19,50 +19,68 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/	
 class Autoloader
 {
+	/* AUTOLOADER FILE NAME INSENSITIVE *
+	*
+	* 
+	* Dosya isimleri kontrol ediliyor...
+	*/
+	protected static function fileNameInsensitive($fileName = '')
+	{
+		if( file_exists($fileName) )
+		{
+			return $fileName;	
+		}
+		
+		$dirName 		  = dirname($fileName);
+		$fileNames 	      = glob($dirName . '/*.php', GLOB_NOSORT);
+		$fileNameToLower  = strtolower($fileName);		
+		
+		if( is_array($fileNames) )
+		{
+			$fileNamesToLower = array_map('strtolower', $fileNames);
+		}
+		else
+		{
+			$fileNamesToLower = array();	
+		}
+		
+		$result = array_search($fileNameToLower, $fileNamesToLower);
+
+		if( ! empty($fileNames[$result]) ) 
+		{
+			return $fileNames[$result];
+		}
+		
+		return false;
+	}
+	
 	/* AUTOLOADER RUN *
 	*
 	* 
 	* Otomatik Yükleme Çalıştırılıyor...
 	*/
-	
-	protected static function fileNameInsensitive($fileName = '')
-	{
-		$dirName 		 = dirname($fileName);
-		$fileNames 	     = glob($dirName . '/*', GLOB_NOSORT);
-		$fileNameToLower = strtolower($fileName);
-		
-		foreach($fileNames as $file) 
-		{
-			if( strtolower($file) === $fileNameToLower ) 
-			{
-				return $file;
-			}
-		}
-		return false;	
-	}
-	
 	public static function run($class)
 	{
-		$file  = str_replace('\\', '/', $class).'.php'; 
+		$file  = str_replace('\\', '/', ucfirst($class)).'.php'; 
 		
 		$library 		= self::fileNameInsensitive(LIBRARIES_DIR.$file);	
 		$system_library = self::fileNameInsensitive(SYSTEM_LIBRARIES_DIR.$file);
 		$components 	= self::fileNameInsensitive(COMPONENTS_DIR.$file);
 		$model 			= self::fileNameInsensitive(MODELS_DIR.$file);
 		
-		if( isFileExists($library) )
+		if( ! empty($library) )
 		{		
 			require_once($library);	
 		}
-		elseif( isFileExists($system_library) )
+		elseif( ! empty($system_library) )
 		{		
 			require_once($system_library);
 		}
-		elseif( isFileExists($components) )
+		elseif( ! empty($components) )
 		{		
 			require_once($components);
 		}
-		elseif( isFileExists($model) )
+		elseif( ! empty($model) )
 		{		
 			require_once($model);
 		}
