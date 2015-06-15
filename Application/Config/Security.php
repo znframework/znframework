@@ -29,7 +29,7 @@ $config['Security']['nc_encode'] = array
 			'<?',
 			'?>',
 			'<', 
-			'>',
+			'>'
 		), // string veya array
 		
 		'change_bad_chars' => '[badchars]' // string veya array

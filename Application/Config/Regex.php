@@ -22,24 +22,28 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 $config['Regex']['regex_chars'] = array
 (
-	'<non-numeric>' 	=> '\D',
-	'<numeric>' 		=> '\d',
-	'<schar>' 			=> '\W',
-	'<non-schar>' 		=> '\w',
-	'<char>' 			=> '.',
-	'<non-space>' 		=> '\S',
-	'<space>'			=> '\s',
-	'<starting>'		=> '^',
-	'<ending>'			=> '$',
-	'<repeat-z>'		=> '*',
-	'<repeat>'			=> '+',
-	'<whether>'			=> '?',
-	'<or>'				=> '|',
-	'<perline-r>'		=> '\r',
-	'<perline>'			=> '\n',
-	'<tab>'				=> '\t',
-	'<esc>'				=> '\e',
-	'<hex>'				=> '\x'
+	'{nonWord}' 		=> '\B',
+	'{word}' 			=> '\b',
+	'{numeric}' 		=> '\d',
+	'{nonNumeric}' 		=> '\D',
+	'{numeric}' 		=> '\d',
+	'{schar}' 			=> '\W',
+	'{nonSchar}' 		=> '\w',
+	'{char}' 			=> '.',
+	'{nonSpace}' 		=> '\S',
+	'{space}'			=> '\s',
+	'{starting}'		=> '^',
+	'{ending}'			=> '$',
+	'{repeatZ}'			=> '*',
+	'{repeat}'			=> '+',
+	'{whether}'			=> '?',
+	'{or}'				=> '|',
+	'{eolR}'			=> '\r',
+	'{eolN}'			=> '\n',
+	'{eol}'				=> '\r\n',
+	'{tab}'				=> '\t',
+	'{esc}'				=> '\e',
+	'{hex}'				=> '\x'
 );
 
 /******************************************************************************************
@@ -50,11 +54,11 @@ $config['Regex']['regex_chars'] = array
 ******************************************************************************************/
 $config['Regex']['setting_chars'] = array
 (
-	'<insens>' 			=> 'i',
-	'<generic>' 		=> 'g',
-	'<each>' 			=> 's',
-	'<multiline>'		=> 'm', 
-	'<inspace>' 		=> 'x'
+	'{insens}' 			=> 'i',
+	'{generic}' 		=> 'g',
+	'{each}' 			=> 's',
+	'{multiline}'		=> 'm', 
+	'{inspace>}' 		=> 'x'
 );
 
 /******************************************************************************************

@@ -46,7 +46,7 @@ class Security
 			$badwords = $secnc['bad_chars'];
 			$changechar = $secnc['change_bad_chars'];
 		}
-		if( ! is_array($badwords)) return  $string = regex::replace($badwords, $changechar, $string, '<inspace><insens>');
+		if( ! is_array($badwords)) return  $string = regex::replace($badwords, $changechar, $string, 'xi');
 		
 		$ch = '';
 		$i = 0;	
@@ -66,7 +66,7 @@ class Security
 				}
 			}
 			
-			$string = regex::replace($value, $ch, $string, '<inspace><insens>');
+			$string = regex::replace($value, $ch, $string, 'xi');
 		}
 	
 		return $string;
