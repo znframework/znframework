@@ -1,3 +1,6 @@
+<h4>Template/CBlade Bileşeni - 15/06/2015 13:12</h4>
+<p>Bileşen içeriği güncellendi.</p>
+
 <h4>Import Kütüphanesi - 15/06/2015 12:42</h4>
 <p>Kütüphane içeriği güncellendi.</p>
 
