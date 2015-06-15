@@ -24,14 +24,31 @@ class Autoloader
 	* 
 	* Otomatik Yükleme Çalıştırılıyor...
 	*/
+	
+	protected static function fileNameInsensitive($fileName = '')
+	{
+		$dirName 		 = dirname($fileName);
+		$fileNames 	     = glob($dirName . '/*', GLOB_NOSORT);
+		$fileNameToLower = strtolower($fileName);
+		
+		foreach($fileNames as $file) 
+		{
+			if( strtolower($file) === $fileNameToLower ) 
+			{
+				return $file;
+			}
+		}
+		return false;	
+	}
+	
 	public static function run($class)
 	{
-		$file  = str_replace('\\', '/', ucfirst($class)).'.php'; 
+		$file  = str_replace('\\', '/', $class).'.php'; 
 		
-		$library 		= LIBRARIES_DIR.$file;	
-		$system_library = SYSTEM_LIBRARIES_DIR.$file;
-		$components 	= COMPONENTS_DIR.$file;
-		$model 			= MODELS_DIR.$file;
+		$library 		= self::fileNameInsensitive(LIBRARIES_DIR.$file);	
+		$system_library = self::fileNameInsensitive(SYSTEM_LIBRARIES_DIR.$file);
+		$components 	= self::fileNameInsensitive(COMPONENTS_DIR.$file);
+		$model 			= self::fileNameInsensitive(MODELS_DIR.$file);
 		
 		if( isFileExists($library) )
 		{		
