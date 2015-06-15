@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /************************************************************/
 /*                    COMPONENT  ACTION                   	*/
 /************************************************************/
@@ -216,6 +216,7 @@ class CAction extends ComponentJqueryCommon
 	}
 	
 	public function fadeOut($selector = '', $callback = '')
+
 	{
 		$this->_effect('fadeOut', $selector, $callback);
 		
