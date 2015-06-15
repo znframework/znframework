@@ -39,42 +39,44 @@ class Import
 	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function page($page = '', $data = '', $ob_get_contents = false)
+	public static function page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
 	{
-		if( ! is_string($page) )
+		if( ! is_string($randomPageVariable) )
 		{
 			return false;
 		}
 		
-		if( is_array($data) )
+		if( is_array($randomDataVariable) )
 		{
-			extract($data, EXTR_OVERWRITE, 'extract');
+			extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
 		}
 		
-		if( $ob_get_contents === false )
+		if( $randomObGetContentsVariable === false )
 		{
-			if( ! isFileExists(PAGES_DIR.suffix($page,".php")) ) 
+			if( ! isFileExists(PAGES_DIR.suffix($randomPageVariable,".php")) ) 
 			{
 				return false;
 			}
-			require(PAGES_DIR.suffix($page,".php")); 
+			require(PAGES_DIR.suffix($randomPageVariable,".php")); 
 		}
-		
-		if( $ob_get_contents === true )
+		elseif( $randomObGetContentsVariable === true )
 		{
-			if( ! isFileExists(PAGES_DIR.suffix($page,".php")) ) 
+			if( ! isFileExists(PAGES_DIR.suffix($randomPageVariable,".php")) ) 
 			{
 				return false;
 			}
 			
 			ob_start(); 
-			require(PAGES_DIR.suffix($page,".php")); 
-			$content = ob_get_contents(); 
+			require(PAGES_DIR.suffix($randomPageVariable,".php")); 
+			$randomContentVariable = ob_get_contents(); 
 			ob_end_clean(); 
 			
-			return $content ; 
+			return $randomContentVariable ; 
 		}
-	
+		else
+		{
+			return false;	
+		}
 	}
 	
 	/******************************************************************************************
@@ -149,7 +151,7 @@ class Import
 	| kullanılır.	        															      |
 	|          																				  |
 	******************************************************************************************/
-	public static function masterpage($data = array(), $head = array())
+	public static function masterpage($randomDataVariable = array(), $head = array())
 	{	
 		//------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -159,9 +161,9 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		$page = 		( isset($head['body_page']) ) 
-					    ? $head['body_page'] 
-						: $masterpageset['body_page'];
+		$randomPageVariable = ( isset($head['body_page']) ) 
+					          ? $head['body_page'] 
+						      : $masterpageset['body_page'];
 		
 		$head_page = 	( isset($head['head_page']) ) 
 					    ? $head['head_page'] 
@@ -170,13 +172,13 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 	
-		if( ! is_file(PAGES_DIR.suffix($page,".php")) )
+		if( ! is_file(PAGES_DIR.suffix($randomPageVariable,".php")) )
 		{ 
-			$page = ''; 
+			$randomPageVariable = ''; 
 		}
 		else
 		{ 
-			$page = PAGES_DIR.suffix($page,".php");
+			$randomPageVariable = PAGES_DIR.suffix($randomPageVariable,".php");
 		}
 		
 		if( ! is_file(PAGES_DIR.suffix($head_page,".php")) ) 
@@ -401,26 +403,26 @@ class Import
 	
 		echo $header;
 		
-		if( is_array($data) ) 
+		if( is_array($randomDataVariable) ) 
 		{
-			extract($data, EXTR_OVERWRITE, 'extract');
+			extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
 		}
 		
-		if( ! empty($page) ) 
+		if( ! empty($randomPageVariable) ) 
 		{
-			require($page);	
+			require($randomPageVariable);	
 		}
 		
-		$footer  = eof().'</body>'.eof();
+		$randomFooterVariable  = eof().'</body>'.eof();
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$footer .= '</html>';
+		$randomFooterVariable .= '</html>';
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		//------------------------------------------------------------------------------------
 		// Masterpage oluşturuluyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		echo $footer;	
+		echo $randomFooterVariable;	
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -666,65 +668,65 @@ class Import
 	| Örnek Kullanım: import::something('Application/Views/Style/Stil.js');        	          |
 	|          																				  |
 	******************************************************************************************/
-	public static function something($page = '', $data = '', $ob_get_contents = false)
+	public static function something($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
 	{
-		if( ! is_string($page) ) 
+		if( ! is_string($randomPageVariable) ) 
 		{
 			return false;
 		}
 
-		if( extension($page) === 'js' )
+		if( extension($randomPageVariable) === 'js' )
 		{
-			if( ! isFileExists($page) ) 
+			if( ! isFileExists($randomPageVariable) ) 
 			{
 				return false;
 			}
-			echo '<script type="text/javascript" src="'.baseUrl().$page.'"></script>'.eof();
+			echo '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eof();
 		}
-		elseif( extension($page) === 'css' )	
+		elseif( extension($randomPageVariable) === 'css' )	
 		{
-			if( ! isFileExists($page) ) 
+			if( ! isFileExists($randomPageVariable) ) 
 			{
 				return false;
 			}
-			echo '<link href="'.baseUrl().$page.'" rel="stylesheet" type="text/css" />'.eof();
+			echo '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eof();
 		}
 		else
 		{
-			if( is_array($data) )
-			{
-				extract($data, EXTR_OVERWRITE, 'extract');
-			}
-			
-			$extension = ! extension($page)
+			$extension = ! extension($randomPageVariable)
 						 ? '.php'
 						 : '';
 			
-			$page .= $extension;
+			$randomPageVariable .= $extension;
 			
-			if( $ob_get_contents === false )
+			if( is_array($randomDataVariable) )
 			{
-				if( ! isFileExists($page) ) 
+				extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
+			}
+			
+			if( $randomObGetContentsVariable === false )
+			{
+				if( ! isFileExists($randomPageVariable) ) 
 				{
 					return false;
 				}
 				
-				require($page); 
+				require($randomPageVariable); 
 			}
 			
-			if( $ob_get_contents === true )
+			if( $randomObGetContentsVariable === true )
 			{
-				if( ! isFileExists($page) ) 
+				if( ! isFileExists($randomPageVariable) ) 
 				{
 					return false;
 				}
 				
 				ob_start(); 
-				require($page); 
-				$content = ob_get_contents(); 
+				require($randomPageVariable); 
+				$randomContentVariable = ob_get_contents(); 
 				ob_end_clean();
 				
-				return $content ; 
+				return $randomContentVariable; 
 			}
 		}
 	}
