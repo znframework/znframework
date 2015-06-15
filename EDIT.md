@@ -1,3 +1,6 @@
+<h4>Core/Autoload.php Dosyası - 15/06/2015 22:40</h4>
+<p>Dosya içeriği güncellendi.</p>
+
 <h4>DateTime Sınıfı - 15/06/2015 20:33</h4>
 <p>DateTime Sınıfı Date ve Time olmak üzere iki sınıfa ayrıldı yöntemleri güncellendi.<br>
 Config/DateTime.php dosyasında yer alan karakter isimlendirmeleri güncellendi.</p>
