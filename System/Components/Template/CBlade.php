@@ -119,7 +119,7 @@ class CBlade
 		}
 		
 		ob_start(); 
-		eval("?>$newdata<?php");
+		eval("?>$newdata");
 		$content = ob_get_contents(); 
 		ob_end_clean(); 
 		
