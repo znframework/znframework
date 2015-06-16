@@ -1,3 +1,6 @@
+<h4>Config Dosyaları - 17/06/2015 00:27</h4>
+<p>Ayar isimleri güncellendi.</p>
+
 <h4>Core/Autoloader.php Dosyası - 16/06/2015 13:40</h4>
 <p>Dosya içeriği güncellendi.</p>
 
