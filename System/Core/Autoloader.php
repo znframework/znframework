@@ -63,24 +63,19 @@ class Autoloader
 	{
 		$file  = str_replace('\\', '/', ucfirst($class)).'.php'; 
 		
-		$library 		= self::fileNameInsensitive(LIBRARIES_DIR.$file);	
-		$system_library = self::fileNameInsensitive(SYSTEM_LIBRARIES_DIR.$file);
-		$components 	= self::fileNameInsensitive(COMPONENTS_DIR.$file);
-		$model 			= self::fileNameInsensitive(MODELS_DIR.$file);
-		
-		if( ! empty($library) )
+		if( $library = self::fileNameInsensitive(LIBRARIES_DIR.$file) )
 		{		
 			require_once($library);	
 		}
-		elseif( ! empty($system_library) )
-		{		
+		elseif( $system_library = self::fileNameInsensitive(SYSTEM_LIBRARIES_DIR.$file) )
+		{	
 			require_once($system_library);
 		}
-		elseif( ! empty($components) )
+		elseif( $components =  self::fileNameInsensitive(COMPONENTS_DIR.$file) )
 		{		
 			require_once($components);
 		}
-		elseif( ! empty($model) )
+		elseif( $model = self::fileNameInsensitive(MODELS_DIR.$file) )
 		{		
 			require_once($model);
 		}
