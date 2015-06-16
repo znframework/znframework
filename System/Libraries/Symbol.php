@@ -30,7 +30,7 @@ class Symbol
 	| Örnek Kullanım: symbol('daimon');         											  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function name($symbol_name = 'turkish_lira')
+	public static function name($symbol_name = 'turkishLira')
 	{
 		if( ! is_string($symbol_name) ) 
 		{

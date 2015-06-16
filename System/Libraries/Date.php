@@ -77,7 +77,7 @@ class Date
 			return false;
 		}
 
-		$chars = Config::get('DateTime', 'set_date_format_chars');
+		$chars = Config::get('DateTime', 'set-date-format-chars');
 		
 		$chars = Arrays::multikey($chars);
 		

@@ -49,7 +49,7 @@ $config['Curl']['options'] = array( // Array
 	'crlf' 						=> CURLOPT_CRLF,
 	'dns_use_global_cache' 		=> CURLOPT_DNS_USE_GLOBAL_CACHE,
 	'fail_on_error' 			=> CURLOPT_FAILONERROR,
-	'file_time' 				=> CURLOPT_FILETIME,
+	'file-time' 				=> CURLOPT_FILETIME,
 	'forbid_reuse' 				=> CURLOPT_FORBID_REUSE,
 	'fresh_connect' 			=> CURLOPT_FRESH_CONNECT,
 	'ftp_use_eprt' 				=> CURLOPT_FTP_USE_EPRT,
@@ -132,12 +132,12 @@ $config['Curl']['options'] = array( // Array
 | kısaltmak için kullanılır. Parametre:Anahtar değer içeren bir dizi bilgisi içerir. 	  |
 | Örnek: array('speed_download' => CURLINFO_SPEED_DOWNLOAD);							  |
 ******************************************************************************************/
-$config['Curl']['info'] = array(
+$config['Curl']['infos'] = array(
 
 	'speed_download' 			=> CURLINFO_SPEED_DOWNLOAD,
 	'effective_url' 			=> CURLINFO_EFFECTIVE_URL,
 	'http_code' 				=> CURLINFO_HTTP_CODE,
-	'file_time' 				=> CURLINFO_FILETIME,
+	'file-time' 				=> CURLINFO_FILETIME,
 	'total_time' 				=> CURLINFO_TOTAL_TIME,
 	'name_lookup_time' 			=> CURLINFO_NAMELOOKUP_TIME,
 	'connect_time' 				=> CURLINFO_CONNECT_TIME,

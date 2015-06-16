@@ -49,7 +49,7 @@ class RedisDriver
 			return getMessage('Cache', 'unsupported', 'Redis');
 		}
 		
-		$config = Config::get('Cache', 'driver_settings');
+		$config = Config::get('Cache', 'driver-settings');
 		
 		$config = ! empty($settings)
 				  ? $settings
@@ -59,7 +59,7 @@ class RedisDriver
 		
 		try
 		{
-			if( $config['socket_type'] === 'unix' )
+			if( $config['socket-type'] === 'unix' )
 			{
 				$success = $this->redis->connect($config['socket']);
 			}

@@ -144,7 +144,7 @@ class CSendMail
 	{
 		if( ! empty($smtp_auth) )
 		{
-			$this->settings['smtp_auth'] = $smtp_auth;	
+			$this->settings['smtp-auth'] = $smtp_auth;	
 		}
 		
 		return $this;
@@ -165,7 +165,7 @@ class CSendMail
 	{
 		if( ! empty($smtp_debug) )
 		{
-			$this->settings['smtp_debug'] = $smtp_debug;	
+			$this->settings['smtp-debug'] = $smtp_debug;	
 		}
 		
 		return $this;
@@ -213,7 +213,7 @@ class CSendMail
 	
 		if( $type === 'html' )
 		{
-			$this->settings['is_html'] = true;	
+			$this->settings['is-html'] = true;	
 		}
 		
 		return $this;
@@ -347,7 +347,7 @@ class CSendMail
 	{
 		if( ! empty($html) )
 		{
-			$this->settings['is_html'] = $html;	
+			$this->settings['is-html'] = $html;	
 		}
 		
 		return $this;
@@ -368,7 +368,7 @@ class CSendMail
 	{
 		if( ! empty($secure) )
 		{
-			$this->settings['smtp_secure'] = $secure;	
+			$this->settings['smtp-secure'] = $secure;	
 		}
 		
 		return $this;
@@ -389,7 +389,7 @@ class CSendMail
 	{
 		if( ! empty($smtp) )
 		{
-			$this->settings['is_smtp'] = $smtp;	
+			$this->settings['is-smtp'] = $smtp;	
 		}
 		
 		return $this;

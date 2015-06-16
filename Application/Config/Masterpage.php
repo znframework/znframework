@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Parametre:Metinsel türde Views/Pages/ dizininden tüm sayfalar için geçerli olacak bir   |
 | head sayfası belirlenir. Örnek: "head";  												  |  
 ******************************************************************************************/
-$config['Masterpage']['head_page'] = '';
+$config['Masterpage']['head-page'] = '';
 
 /******************************************************************************************
 * BODY PAGE                                                                   		  	  *
@@ -31,28 +31,28 @@ $config['Masterpage']['head_page'] = '';
 | Parametre:Metinsel türde Views/Pages/ dizininden masterpage olarak düşünülen sayfa 	  |
 | adı bilgisi girilir. Örnek: "body";											  		  |  
 ******************************************************************************************/
-$config['Masterpage']['body_page'] = '';
+$config['Masterpage']['body-page'] = '';
 
 /******************************************************************************************
 * DOCTYPE                                                                   		  	  *
 *******************************************************************************************
 | Genel Kullanım: Sayfanın döküman türü varsayılan:xhtml1-trans.			  			  | 
 ******************************************************************************************/
-$config['Masterpage']['doctype'] = 'xhtml1_transitional';
+$config['Masterpage']['doctype'] = 'xhtml1-transitional';
 
 /******************************************************************************************
 * CONTENT CHARSET                                                             		  	  *
 *******************************************************************************************
 | Genel Kullanım: Sayfanın dil kodlaması varsayılarn:utf-8.			  			 	      | 
 ******************************************************************************************/
-$config['Masterpage']['content_charset'] = array('utf-8');
+$config['Masterpage']['content-charset'] = array('utf-8');
 
 /******************************************************************************************
 * CONTENT LANGUAGE                                                             		  	  *
 *******************************************************************************************
 | Genel Kullanım: Sayfanın dil içeriği varsayılan:tr.			  			 	          | 
 ******************************************************************************************/
-$config['Masterpage']['content_language'] = 'tr';
+$config['Masterpage']['content-language'] = 'tr';
 
 /******************************************************************************************
 * BROWSER/SHORTCUT ICON                                                             	  *
@@ -60,14 +60,14 @@ $config['Masterpage']['content_language'] = 'tr';
 | Genel Kullanım: Web sitesinin tarayıcıda görünen ikon eklemek için ikonun 			  |
 | yolunu yazınız.										  		  			 	          | 
 ******************************************************************************************/
-$config['Masterpage']['browser_icon'] = '';
+$config['Masterpage']['browser-icon'] = '';
 
 /******************************************************************************************
 * BACKGROUND IMAGE                                                		  	  			  *
 *******************************************************************************************
 | Genel Kullanım: Web sitesinin arkaplan resmi.								  			  |
 ******************************************************************************************/
-$config['Masterpage']['bg_image'] = '';
+$config['Masterpage']['background-image'] = '';
 
 /******************************************************************************************
 * FONT			                                                		  	  			  *

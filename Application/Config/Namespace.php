@@ -23,7 +23,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Anahtar: Kısa İsim,   Değer: İsim alanı adı											  |
 |																						  |
 ******************************************************************************************/
-$config['Namespace']['short_name'] = array
+$config['Namespace']['short-name'] = array
 (
 	'Db' 			=> 'Database\Db',
 	'DbForge' 		=> 'Database\DbForge',

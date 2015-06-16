@@ -222,25 +222,25 @@ class DbForge
 			$this->table = NULL;
 		}
 		
-		if( key($condition) === 'rename_table' ) 			
+		if( key($condition) === 'renameTable' ) 			
 		{
-			return $this->renameTable($table, $condition['rename_table']);
+			return $this->renameTable($table, $condition['renameTable']);
 		}
-		elseif( key($condition) === 'add_column' ) 		
+		elseif( key($condition) === 'addColumn' ) 		
 		{
-			return $this->addColumn($table, $condition['add_column']);
+			return $this->addColumn($table, $condition['addColumn']);
 		}
-		elseif( key($condition) === 'drop_column' ) 		
+		elseif( key($condition) === 'dropColumn' ) 		
 		{
-			return $this->dropColumn($table, $condition['drop_column']);	
+			return $this->dropColumn($table, $condition['dropColumn']);	
 		}
-		elseif( key($condition) === 'modify_column' ) 	
+		elseif( key($condition) === 'modifyColumn' ) 	
 		{
-			return $this->modifyColumn($table, $condition['modify_column']);
+			return $this->modifyColumn($table, $condition['modifyColumn']);
 		}
-		elseif( key($condition) === 'rename_column' ) 	
+		elseif( key($condition) === 'renameColumn' ) 	
 		{
-			return $this->renameColumn($table, $condition['rename_column']);
+			return $this->renameColumn($table, $condition['renameColumn']);
 		}
 	}
 	
@@ -319,11 +319,11 @@ class DbForge
 		
 		if( $this->db->addColumn() !== false )
 		{
-			$add_column = $this->db->addColumn();
+			$addColumn = $this->db->addColumn();
 		}
 		else
 		{
-			$add_column = 'ADD ';
+			$addColumn = 'ADD ';
 		}
 		
 		$con = NULL;
@@ -344,7 +344,7 @@ class DbForge
 				$colvals .= ' '.$values;
 			}
 			
-			$con .= $add_column.$column.$colvals.',';
+			$con .= $addColumn.$column.$colvals.',';
 		}		
 			
 		$con = substr($con, 0 , -1);
@@ -611,7 +611,7 @@ class DbForge
 		}
 		
 		$config = Config::get('Database');
-		$config_different = $config['different_connection'];
+		$config_different = $config['different-connection'];
 		
 		if( ! isset($config_different[$connect_name]) ) 
 		{
@@ -620,7 +620,7 @@ class DbForge
 		
 		foreach($config as $key => $val)
 		{
-			if( $key !== 'different_connection' )
+			if( $key !== 'different-connection' )
 			{
 				if( ! isset($config_different[$connect_name][$key]) )
 				{

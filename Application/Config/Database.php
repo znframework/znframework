@@ -234,4 +234,4 @@ $config['Database']['collation'] 	= 'utf8_general_ci'; // String
 |	  'ornek2VT' => array('database' => 'ornek2')										  |
 | )     	    										              		  			  |		
 ******************************************************************************************/
-$config['Database']['different_connection'] = array(); // String
+$config['Database']['different-connection'] = array(); // String

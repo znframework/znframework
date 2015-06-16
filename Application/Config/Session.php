@@ -39,7 +39,7 @@ $config['Session']['regenerate'] = true;
 | true olması durumunda alttaki ayarlar .htaccess  dosyasına eklenir.				      |
 | false olması durumunda alttaki ayarlar ini_set() yöntemi ile set edilmeye çalışılır.	  |						
 ******************************************************************************************/
-$config['Session']['set_htaccess_file'] = false; 
+$config['Session']['set-htaccess-file'] = false; 
 
 /******************************************************************************************
 * SETTINGS                                                                                *

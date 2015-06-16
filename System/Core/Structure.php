@@ -77,12 +77,12 @@ class Structure
 		// -------------------------------------------------------------------------------
 		//  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
 		// -------------------------------------------------------------------------------
-		$url 			= explode("?", $request_uri);
+		$url 			= explode('?', $request_uri);
 		
 		// -------------------------------------------------------------------------------
 		//  Temel URL adresi / karakteri ile bölümlere ayrılıyor.
 		// -------------------------------------------------------------------------------
-		$url_explode 	= explode("/", $url[0]);
+		$url_explode 	= explode('/', $url[0]);
 		
 		// -------------------------------------------------------------------------------
 		//  Bölümlere ayrılan URL yeniden yapılandırılıyor.
@@ -92,7 +92,7 @@ class Structure
 			$url_join .= $url_explode[$i];
 			
 			// URL için geçerli bir sayfa bilgisi elde edilirse...
-			if( is_file( CONTROLLERS_DIR.suffix($url_join, ".php") ) )
+			if( is_file( CONTROLLERS_DIR.suffix($url_join, '.php') ) )
 			{
 				// -------------------------------------------------------------------------------
 				//  1. Bölüm:Dosya ve Sınıf ismini oluşturur.
@@ -115,11 +115,11 @@ class Structure
 				// -------------------------------------------------------------------------------
 				$url_parameters = $i + 2;
 				$last_join 		= $url_join;		
-				$is_file 		= CONTROLLERS_DIR.suffix($last_join, ".php");
+				$is_file 		= CONTROLLERS_DIR.suffix($last_join, '.php');
 			}
 			else
 			{
-				$url_join .= "/";	
+				$url_join .= '/';	
 			}
 		
 			// -------------------------------------------------------------------------------
@@ -136,9 +136,9 @@ class Structure
 		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
-		if( Config::get("Cache","ob_gzhandler") && substr_count(server('accept_encoding'), 'gzip') ) 
+		if( Config::get('Cache','ob-gzhandler') && substr_count(server('accept_encoding'), 'gzip') ) 
 		{
-			ob_start('ob_gzhandler');
+			ob_start('ob-gzhandler');
 		}
 		else
 		{
@@ -162,7 +162,7 @@ class Structure
 			// -------------------------------------------------------------------------------
 			//  Tadilat modu açıksa bu ayarlar geçerli olacaktır.
 			// -------------------------------------------------------------------------------
-			if( Config::get("Repair","mode") ) 
+			if( Config::get('Repair', 'mode') ) 
 			{
 				Repair::mode();
 			}
@@ -185,7 +185,7 @@ class Structure
 			// -------------------------------------------------------------------------------
 			if( empty($page) ) 
 			{
-				if( ! Config::get('Route', 'show_404') )
+				if( ! Config::get('Route', 'show-404') )
 				{
 					$error = getMessage('System', 'call_user_func_class_error');
 					
@@ -200,7 +200,7 @@ class Structure
 				}
 				else
 				{
-					redirect(Config::get('Route', 'show_404'));
+					redirect(Config::get('Route', 'show-404'));
 				}
 			}
 				
@@ -219,7 +219,7 @@ class Structure
 			else
 			{
 				// Sayfa bilgisine erişilemezse hata bildir.
-				if( ! Config::get('Route', 'show_404') )
+				if( ! Config::get('Route', 'show-404') )
 				{
 					$error = getMessage('System', 'call_user_func_array_error');
 					
@@ -234,16 +234,16 @@ class Structure
 				}
 				else
 				{
-					redirect(Config::get('Route', 'show_404'));
+					redirect(Config::get('Route', 'show-404'));
 				}
 			}
 		}
 		else
 		{	
 			// Sayfa bilgisine erişilemezse hata bildir.
-			if( Config::get('Route','show_404') ) 
+			if( Config::get('Route','show-404') ) 
 			{				
-				redirect(Config::get('Route','show_404'));		
+				redirect(Config::get('Route','show-404'));		
 			}
 			else
 			{

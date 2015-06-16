@@ -121,7 +121,7 @@ class CCaptcha
 		
 		if( ! empty($param) )
 		{
-			$this->sets['char_count'] = $param;
+			$this->sets['char-count'] = $param;
 		}
 		
 		return $this;
@@ -152,7 +152,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['border_color'] = $color;
+			$this->sets['border-color'] = $color;
 		}
 		
 		return $this;
@@ -179,7 +179,7 @@ class CCaptcha
 
 		if( ! empty($color) )
 		{
-			$this->sets['border_color'] = $color;
+			$this->sets['border-color'] = $color;
 		}
 		
 		return $this;
@@ -206,7 +206,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['bg_color'] = $color;
+			$this->sets['bg-color'] = $color;
 		}
 		
 		return $this;
@@ -292,7 +292,7 @@ class CCaptcha
 		
 		if( ! empty($size) )
 		{
-			$this->sets['image_string']['size'] = $size;
+			$this->sets['image-string']['size'] = $size;
 		}
 		
 		return $this;
@@ -319,12 +319,12 @@ class CCaptcha
 
 		if( ! empty($x) ) 
 		{
-			$this->sets['image_string']['x'] = $x;
+			$this->sets['image-string']['x'] = $x;
 		}
 		
 		if( ! empty($y) )
 		{ 
-		 	$this->sets['image_string']['y'] = $y;
+		 	$this->sets['image-string']['y'] = $y;
 		}
 		
 		return $this;
@@ -350,7 +350,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['font_color'] = $color;
+			$this->sets['font-color'] = $color;
 		}
 		
 		return $this;
@@ -420,7 +420,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['grid_color'] = $color;
+			$this->sets['grid-color'] = $color;
 		}
 		
 		return $this;
@@ -447,7 +447,7 @@ class CCaptcha
 
 		if( ! empty($color) )
 		{		
-			$this->sets['grid_color'] = $color;
+			$this->sets['grid-color'] = $color;
 		}
 		
 		return $this;
@@ -474,12 +474,12 @@ class CCaptcha
 
 		if( ! empty($x) ) 
 		{
-			$this->sets['grid_space']['x'] = $x;
+			$this->sets['grid-space']['x'] = $x;
 		}
 		
 		if( ! empty($y) )
 		{ 
-		 	$this->sets['grid_space']['y'] = $y;
+		 	$this->sets['grid-space']['y'] = $y;
 		}
 		
 		return $this;
@@ -506,25 +506,25 @@ class CCaptcha
 		
 		$set = Config::get("Captcha");
 		
-		if( isset($this->sets["char_count"])) $set["char_count"] = $this->sets["char_count"];
+		if( isset($this->sets['char-count'])) $set['char-count'] = $this->sets['char-count'];
 		
-		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set["char_count"]));	
+		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set['char-count']));	
 		
 		if( isset($_SESSION[md5('captcha_code')]) )
 		{
 			if( isset($this->sets["width"])) $set["width"] 									= $this->sets["width"];
 			if( isset($this->sets["height"])) $set["height"] 								= $this->sets["height"];		
-			if( isset($this->sets["font_color"])) $set["font_color"] 						= $this->sets["font_color"];
-			if( isset($this->sets["bg_color"])) $set["bg_color"] 							= $this->sets["bg_color"];
+			if( isset($this->sets['font-color'])) $set['font-color'] 						= $this->sets['font-color'];
+			if( isset($this->sets['bg-color'])) $set['bg-color'] 							= $this->sets['bg-color'];
 			if( isset($this->sets["border"]))$set["border"] 								= $this->sets["border"];
-			if( isset($this->sets["border_color"])) $set["border_color"] 					= $this->sets["border_color"];
-			if( isset($this->sets["image_string"]["size"]))$set["image_string"]["size"] 	= $this->sets["image_string"]["size"];
-			if( isset($this->sets["image_string"]["x"]))$set["image_string"]["x"] 			= $this->sets["image_string"]["x"];
-			if( isset($this->sets["image_string"]["y"]))$set["image_string"]["y"] 			= $this->sets["image_string"]["y"];
+			if( isset($this->sets['border-color'])) $set['border-color'] 					= $this->sets['border-color'];
+			if( isset($this->sets['image-string']["size"]))$set['image-string']["size"] 	= $this->sets['image-string']["size"];
+			if( isset($this->sets['image-string']["x"]))$set['image-string']["x"] 			= $this->sets['image-string']["x"];
+			if( isset($this->sets['image-string']["y"]))$set['image-string']["y"] 			= $this->sets['image-string']["y"];
 			if( isset($this->sets["grid"]))$set["grid"] 									= $this->sets["grid"]; 
-			if( isset($this->sets["grid_space"]["x"]))$set["grid_space"]["x"] 				= $this->sets["grid_space"]["x"]; 
-			if( isset($this->sets["grid_space"]["y"]))$set["grid_space"]["y"] 				= $this->sets["grid_space"]["y"]; 
-			if( isset($this->sets["grid_color"]))$set["grid_color"]						    = $this->sets["grid_color"];
+			if( isset($this->sets['grid-space']["x"]))$set['grid-space']["x"] 				= $this->sets['grid-space']["x"]; 
+			if( isset($this->sets['grid-space']["y"]))$set['grid-space']["y"] 				= $this->sets['grid-space']["y"]; 
+			if( isset($this->sets['grid-color']))$set['grid-color']						    = $this->sets['grid-color'];
 			if( isset($this->sets["background"]))$set["background"]						    = $this->sets["background"];
 			
 			// 0-255 arasında değer alacak renk kodları için
@@ -532,16 +532,16 @@ class CCaptcha
 			// explode ile ayırma işlemleri yapılmaktadır.
 			
 			// SET FONT COLOR
-			$set_font_color = explode("|",$set["font_color"]);
+			$set_font_color = explode("|",$set['font-color']);
 			
 			// SET BG COLOR
-			$set_bg_color	= explode("|",$set["bg_color"]);
+			$set_bg_color	= explode("|",$set['bg-color']);
 			
 			// SET BORDER COLOR
-			$set_border_color	= explode("|",$set["border_color"]);
+			$set_border_color	= explode("|",$set['border-color']);
 			
 			// SET GRID COLOR
-			$set_grid_color	= explode("|",$set["grid_color"]);
+			$set_grid_color	= explode("|",$set['grid-color']);
 			
 			
 			$file = @imagecreatetruecolor($set["width"], $set["height"]);	  
@@ -584,21 +584,21 @@ class CCaptcha
 			//-----------------------------------------------------------------------------------------------------
 			
 			// Resim üzerinde görüntülenecek kod bilgisi.
-			@imagestring($file, $set["image_string"]["size"], $set["image_string"]["x"], $set["image_string"]["y"],  $_SESSION[md5('captcha_code')], $font_color);
+			@imagestring($file, $set['image-string']["size"], $set['image-string']["x"], $set['image-string']["y"],  $_SESSION[md5('captcha_code')], $font_color);
 			
 			// GRID --------------------------------------------------------------------------------------
 			if( $set["grid"] === true )
 			{
-				$grid_interval_x  = $set["width"] / $set["grid_space"]["x"];
+				$grid_interval_x  = $set["width"] / $set['grid-space']["x"];
 				
-				if( ! isset($set["grid_space"]["y"]) )
+				if( ! isset($set['grid-space']["y"]) )
 				{
-					$grid_interval_y  = (($set["height"] / $set["grid_space"]["x"]) * $grid_interval_x / 2);
+					$grid_interval_y  = (($set["height"] / $set['grid-space']["x"]) * $grid_interval_x / 2);
 					
 				} 
 				else 
 				{
-					$grid_interval_y  = $set["height"] / $set["grid_space"]["y"];
+					$grid_interval_y  = $set["height"] / $set['grid-space']["y"];
 				}
 				
 				$grid_color 	= @imagecolorallocate($file, $set_grid_color[0], $set_grid_color[1], $set_grid_color[2]);

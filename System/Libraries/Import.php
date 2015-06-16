@@ -161,13 +161,13 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		$randomPageVariable = ( isset($head['body_page']) ) 
-					          ? $head['body_page'] 
-						      : $masterpageset['body_page'];
+		$randomPageVariable = ( isset($head['body-page']) ) 
+					          ? $head['body-page'] 
+						      : $masterpageset['body-page'];
 		
-		$head_page = 	( isset($head['head_page']) ) 
-					    ? $head['head_page'] 
-						: $masterpageset['head_page'];
+		$head_page = 	( isset($head['head-page']) ) 
+					    ? $head['head-page'] 
+						: $masterpageset['head-page'];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -208,10 +208,10 @@ class Import
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'">'.eof();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content-charset'].'">'.eof();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.Config::get('Masterpage','content_language').'">'.eof();
+		$header .= '<meta http-equiv="Content-Language" content="'.Config::get('Masterpage','content-language').'">'.eof();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -324,9 +324,9 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		if( ! empty($masterpageset['browser_icon']) ) 
+		if( ! empty($masterpageset['browser-icon']) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser_icon']).'" />'.eof();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser-icon']).'" />'.eof();
 		}
 		
 		if( ! empty($head['page_image']) ) 
@@ -387,9 +387,9 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( $masterpageset["bg_image"] ) 
+		if( $masterpageset['background-image'] ) 
 		{
-			$bg_image = " background='".baseUrl($masterpageset["bg_image"])."' bgproperties='fixed'"; 
+			$bg_image = " background='".baseUrl($masterpageset['background-image'])."' bgproperties='fixed'"; 
 		}
 		else 
 		{
@@ -484,7 +484,7 @@ class Import
 			}
 			
 			// FARKLI FONTLAR
-			$differentset = Config::get('Font', 'different_font_extensions');
+			$differentset = Config::get('Font', 'different-font-extensions');
 			
 			if( ! empty($differentset) )
 			{			

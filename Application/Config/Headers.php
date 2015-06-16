@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 |  Parametreler: true veya false.													      |
 | Varsayılan: false          															  |
 ******************************************************************************************/
-$config['Headers']['set_htaccess_file'] = false;
+$config['Headers']['set-htaccess-file'] = false;
 
 /******************************************************************************************
 * INISET			                                                                      *

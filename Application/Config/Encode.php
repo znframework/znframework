@@ -31,4 +31,4 @@ $config['Encode']['type'] = 'md5';
 | amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını 		  |
 | sağlayarak şifre güvenliğini sağlamaktır.					     						  |
 ******************************************************************************************/
-$config['Encode']['project_key'] = 'default project';
+$config['Encode']['project-key'] = 'default project';

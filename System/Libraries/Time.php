@@ -99,7 +99,7 @@ class Time
 
 		$config = Config::get('DateTime'); 
 		
-		$chars = $config['set_time_format_chars'];
+		$chars = $config['set-time-format-chars'];
 		
 		$chars = Arrays::multikey($chars);
 		

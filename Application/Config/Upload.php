@@ -21,7 +21,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | true olması durumunda alttaki ayarlar .htaccess  dosyasına eklenir.					  |
 | false olması durumunda alttaki ayarlar ini_set() yöntemi ile set edilmeye çalışılır.    |						
 ******************************************************************************************/
-$config['Upload']['set_htaccess_file'] = false;
+$config['Upload']['set-htaccess-file'] = false;
 
 /******************************************************************************************
 * SETTINGS                                                                                *

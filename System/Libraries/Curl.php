@@ -174,7 +174,7 @@ class Curl
 		// belirlenen ayar parametrelerini kullanabilirsiniz. 
 		if( ! is_int($data) )
 		{	
-			$infos = Config::get('Curl','info');
+			$infos = Config::get('Curl','infos');
 			
 			if( isset($infos[$data]) ) 
 			{

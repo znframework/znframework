@@ -42,7 +42,7 @@ class Security
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
 		if( empty($badwords) )
 		{
-			$secnc = Config::get("Security", "nc_encode");
+			$secnc = Config::get("Security", 'nc-encode');
 			$badwords = $secnc['bad_chars'];
 			$changechar = $secnc['change_bad_chars'];
 		}
@@ -90,7 +90,7 @@ class Security
 			return false;
 		}
 		
-		$sec_bac_chars = Config::get("Security", "injection_bad_chars");
+		$sec_bac_chars = Config::get("Security", 'injection-bad-chars');
 		
 		if( ! empty($sec_bac_chars)) 
 		{
@@ -146,7 +146,7 @@ class Security
 			return false;
 		}
 		
-		$sec_bac_chars = Config::get("Security", "script_bad_chars");
+		$sec_bac_chars = Config::get("Security", 'script-bad-chars');
 		
 		if( ! empty($sec_bac_chars)) 
 		{
@@ -343,7 +343,7 @@ class Security
 			return false;
 		}
 		
-		$chars = Config::get('ForeignChars', 'numerical_codes');
+		$chars = Config::get('ForeignChars', 'numerical-codes');
 		
 		return str_replace(array_keys($chars), array_values($chars), $str);
 	}	
@@ -360,7 +360,7 @@ class Security
 			return false;
 		}
 		
-		$chars = Config::get('ForeignChars', 'numerical_codes');
+		$chars = Config::get('ForeignChars', 'numerical-codes');
 		
 		return str_replace(array_values($chars), array_keys($chars), $str);
 	}	

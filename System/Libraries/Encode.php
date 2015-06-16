@@ -150,7 +150,7 @@ class Encode
 			return false;
 		}
 		
-		$project_key = Config::get('Encode','project_key');
+		$project_key = Config::get('Encode','project-key');
 		
 		$algo = Config::get('Encode', 'type');
 		

@@ -42,23 +42,23 @@ class Captcha
 		
 		$set = Config::get("Captcha");
 		
-		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set["char_count"]));	
+		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set['char-count']));	
 		
 		if( isset($_SESSION[md5('captcha_code')]) )
 		{
 			if( ! isset($set["width"])) $set["width"] 									= 100;
 			if( ! isset($set["height"])) $set["height"] 								= 30;
-			if( ! isset($set["font_color"])) $set["font_color"] 						= "0|0|0";
-			if( ! isset($set["bg_color"])) $set["bg_color"] 							= "255|255|255";
+			if( ! isset($set['font-color'])) $set['font-color'] 						= "0|0|0";
+			if( ! isset($set['bg-color'])) $set['bg-color'] 							= "255|255|255";
 			if( ! isset($set["border"]))$set["border"] 									= true;
-			if( ! isset($set["border_color"])) $set["border_color"] 					= "200|200|200";
-			if( ! isset($set["image_string"]["size"]))$set["image_string"]["size"] 		= "5";
-			if( ! isset($set["image_string"]["x"]))$set["image_string"]["x"] 			= "23";
-			if( ! isset($set["image_string"]["y"]))$set["image_string"]["y"] 			= "9";
+			if( ! isset($set['border-color'])) $set['border-color'] 					= "200|200|200";
+			if( ! isset($set['image-string']["size"]))$set['image-string']["size"] 		= "5";
+			if( ! isset($set['image-string']["x"]))$set['image-string']["x"] 			= "23";
+			if( ! isset($set['image-string']["y"]))$set['image-string']["y"] 			= "9";
 			if( ! isset($set["grid"]))$set["grid"] 										= false; 
-			if( ! isset($set["grid_space"]["x"]))$set["grid_space"]["x"] 				= 12; 
-			if( ! isset($set["grid_space"]["y"]))$set["grid_space"]["y"] 				= 4; 
-			if( ! isset($set["grid_color"]))$set["grid_color"]							= "240|240|240";
+			if( ! isset($set['grid-space']["x"]))$set['grid-space']["x"] 				= 12; 
+			if( ! isset($set['grid-space']["y"]))$set['grid-space']["y"] 				= 4; 
+			if( ! isset($set['grid-color']))$set['grid-color']							= "240|240|240";
 			if( ! isset($set["background"]))$set["background"]							= array();
 			
 			// 0-255 arasında değer alacak renk kodları için
@@ -66,16 +66,16 @@ class Captcha
 			// explode ile ayırma işlemleri yapılmaktadır.
 			
 			// SET FONT COLOR
-			$set_font_color = explode("|",$set["font_color"]);
+			$set_font_color = explode("|",$set['font-color']);
 			
 			// SET BG COLOR
-			$set_bg_color	= explode("|",$set["bg_color"]);
+			$set_bg_color	= explode("|",$set['bg-color']);
 			
 			// SET BORDER COLOR
-			$set_border_color	= explode("|",$set["border_color"]);
+			$set_border_color	= explode("|",$set['border-color']);
 			
 			// SET GRID COLOR
-			$set_grid_color	= explode("|",$set["grid_color"]);
+			$set_grid_color	= explode("|",$set['grid-color']);
 			
 			
 			$file = @imagecreatetruecolor($set["width"], $set["height"]);	  
@@ -118,18 +118,18 @@ class Captcha
 			//-----------------------------------------------------------------------------------------------------
 			
 			// Resim üzerinde görüntülenecek kod bilgisi.
-			@imagestring($file, $set["image_string"]["size"], $set["image_string"]["x"], $set["image_string"]["y"],  $_SESSION[md5('captcha_code')], $font_color);
+			@imagestring($file, $set['image-string']["size"], $set['image-string']["x"], $set['image-string']["y"],  $_SESSION[md5('captcha_code')], $font_color);
 			
 			// GRID --------------------------------------------------------------------------------------
 			if( $set["grid"] === true )
 			{
-				$grid_interval_x  = $set["width"] / $set["grid_space"]["x"];
+				$grid_interval_x  = $set["width"] / $set['grid-space']["x"];
 				
-				if( ! isset($set["grid_space"]["y"]))
+				if( ! isset($set['grid-space']["y"]))
 				{
-					$grid_interval_y  = (($set["height"] / $set["grid_space"]["x"]) * $grid_interval_x / 2);
+					$grid_interval_y  = (($set["height"] / $set['grid-space']["x"]) * $grid_interval_x / 2);
 					
-				} else $grid_interval_y  = $set["height"] / $set["grid_space"]["y"];
+				} else $grid_interval_y  = $set["height"] / $set['grid-space']["y"];
 				
 				$grid_color 	= @imagecolorallocate($file, $set_grid_color[0], $set_grid_color[1], $set_grid_color[2]);
 				

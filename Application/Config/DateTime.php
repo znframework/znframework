@@ -46,7 +46,7 @@ $config['DateTime']['setlocale'] = array(
 | Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  |
 | hepsini karşılığı %a özel ifadesidir.						      						  |					
 ******************************************************************************************/
-$config['DateTime']['set_time_format_chars'] = array
+$config['DateTime']['set-time-format-chars'] = array
 (
 	'{shortDayName}|{shortDay}|{SD}' 							=> '%a',
 	'{dayName}|{day}|{D}' 										=> '%A',
@@ -88,7 +88,7 @@ $config['DateTime']['set_time_format_chars'] = array
 | Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  |
 | hepsini karşılığı D özel ifadesidir.						      						  |					
 ******************************************************************************************/
-$config['DateTime']['set_date_format_chars'] = array
+$config['DateTime']['set-date-format-chars'] = array
 (
 	'{shortDayName}|{shortDay}|{SD}' 							=> 'D',
 	'{dayName}|{day}|{D}' 										=> 'l',

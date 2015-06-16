@@ -104,44 +104,44 @@ class Email {
 		'password'					=> '', // Kullanıcı Şifresi
 		'port'						=> '', // Port Numarası
 		'host'						=> '', // mail.alanadi.xxx
-		'is_html'					=> '', 
-		'is_smtp'					=> '', 
-		'smtp_auth'					=> '',
-		'smtp_debug' 				=> '', // false
-		'smtp_secure'				=> '', // 'ssl', 'tsl', ''
-		'smtp_keep_alive'			=> '',
+		'is-html'					=> '', 
+		'is-smtp'					=> '', 
+		'smtp-auth'					=> '',
+		'smtp-debug' 				=> '', // false
+		'smtp-secure'				=> '', // 'ssl', 'tsl', ''
+		'smtp-keep-alive'			=> '',
 		'charset'					=> '',	
-		'alt_body'					=> '',
+		'alt-body'					=> '',
 		'priority'					=> '', // 3
 		'content'					=> '', // text/plain
 		'encoding'					=> '', // 8bit
-		'word_wrap'					=> '',
-		'send_mail'					=> '', // /usr/sbin/sendmail
+		'word-wrap'					=> '',
+		'send-mail'					=> '', // /usr/sbin/sendmail
 		'mailer'					=> '', // mail
 		'sender'					=> '',
-		'return_path'				=> '',
-		'use_send_mail_options' 	=> '', // true
+		'return-path'				=> '',
+		'use-send-mail-options' 	=> '', // true
 		'lugin_dir' 				=> '',
-		'confirm_reading_to' 		=> '',
-		'host_name' 				=> '',
-		'message_id' 				=> '',
-		'message_date' 				=> '',
+		'confirm-reading-to' 		=> '',
+		'hostname' 				=> '',
+		'message-id' 				=> '',
+		'message-date' 				=> '',
 		'helo'	 					=> '',
-		'auth_type'	 				=> '',
-		'plugin_dir'				=> '',
+		'auth-type'	 				=> '',
+		'plugin-dir'				=> '',
 		'realm'		 				=> '',
-		'work_station'				=> '',
+		'work-station'				=> '',
 		'timeout'		 			=> '',
-		'debug_output'				=> '',
-		'single_to'					=> '',
-		'single_to_array'			=> array(),
+		'debug-output'				=> '',
+		'single-to'					=> '',
+		'single-to-array'			=> array(),
 		'le'						=> '',
-		'dkim_selector'				=> '',
-		'dkim_identity'				=> '',
-		'dkim_pass_phrase'			=> '',
-		'dkim_domain'				=> '',
-		'dkim_private'				=> '',
-		'action_function'			=> '',
+		'dkim-selector'				=> '',
+		'dkim-identity'				=> '',
+		'dkim-pass-phrase'			=> '',
+		'dkim-domain'				=> '',
+		'dkim-private'				=> '',
+		'action-function'			=> '',
 		'version'					=> '', // 5.2.4
 		'xmailer'					=> ''
 	);
@@ -1292,16 +1292,16 @@ class Email {
 		//------------------------------------------------------------------
 		//  E-posta içeriğinin html içerikli olup olmayacağı bilgisi
 		//------------------------------------------------------------------			  
-		$is_html	= ( self::$settings['is_html'] ) 	
-					  ? self::$settings['is_html'] 	
-					  : $genset['is_html'];
+		$is_html	= ( self::$settings['is-html'] ) 	
+					  ? self::$settings['is-html'] 	
+					  : $genset['is-html'];
 		
 		//------------------------------------------------------------------
 		//  Gönderim için SMTP'nin kullanılıp kullanılmayacağı bilgisi
 		//------------------------------------------------------------------			  
-		$is_smtp	= ( self::$settings['is_smtp'] )  
-		              ? self::$settings['is_smtp']	
-					  : $genset['is_smtp'];
+		$is_smtp	= ( self::$settings['is-smtp'] )  
+		              ? self::$settings['is-smtp']	
+					  : $genset['is-smtp'];
 		
 		//------------------------------------------------------------------
 		//  SMTP Durumu
@@ -1332,11 +1332,11 @@ class Email {
 		//------------------------------------------------------------------
 		//  Smtp Auth Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['smtp_auth'] || $genset['smtp_auth'] ) 
+		if( self::$settings['smtp-auth'] || $genset['smtp-auth'] ) 
 		{
-			self::$mail->SMTPAuth 	= ( self::$settings['smtp_auth'] ) 	
-								      ? self::$settings['smtp_auth'] 		
-									  : $genset['smtp_auth'];
+			self::$mail->SMTPAuth 	= ( self::$settings['smtp-auth'] ) 	
+								      ? self::$settings['smtp-auth'] 		
+									  : $genset['smtp-auth'];
 		}
 		
 		//------------------------------------------------------------------
@@ -1392,11 +1392,11 @@ class Email {
 		//------------------------------------------------------------------
 		//  Smtp Secure Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['smtp_secure'] || $genset['smtp_secure'] )
+		if( self::$settings['smtp-secure'] || $genset['smtp-secure'] )
 		{
-			self::$mail->SMTPSecure = ( self::$settings['smtp_secure'] ) 	
-			                          ? self::$settings['smtp_secure'] 	
-									  : $genset['smtp_secure'];
+			self::$mail->SMTPSecure = ( self::$settings['smtp-secure'] ) 	
+			                          ? self::$settings['smtp-secure'] 	
+									  : $genset['smtp-secure'];
 		}
 		
 		//------------------------------------------------------------------
@@ -1442,31 +1442,31 @@ class Email {
 		//------------------------------------------------------------------
 		//  Return Path Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['return_path'] || $genset['return_path'] )
+		if( self::$settings['return-path'] || $genset['return-path'] )
 		{
-			self::$mail->ReturnPath	= ( self::$settings['return_path'] )	
-			                          ? self::$settings['return_path']	
-									  : $genset['return_path'];
+			self::$mail->ReturnPath	= ( self::$settings['return-path'] )	
+			                          ? self::$settings['return-path']	
+									  : $genset['return-path'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Alt Body Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['alt_body'] || $genset['alt_body'] )
+		if( self::$settings['alt-body'] || $genset['alt-body'] )
 		{
-			self::$mail->AltBody	= ( self::$settings['alt_body'] ) 	
-			                          ? self::$settings['alt_body']		
-									  : $genset['alt_body'];
+			self::$mail->AltBody	= ( self::$settings['alt-body'] ) 	
+			                          ? self::$settings['alt-body']		
+									  : $genset['alt-body'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Word Wrap Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['word_wrap'] || $genset['word_wrap'] )
+		if( self::$settings['word-wrap'] || $genset['word-wrap'] )
 		{
-			self::$mail->WordWrap 	= ( self::$settings['word_wrap'] ) 	
-								      ? self::$settings['word_wrap']		
-									  : $genset['word_wrap'];		
+			self::$mail->WordWrap 	= ( self::$settings['word-wrap'] ) 	
+								      ? self::$settings['word-wrap']		
+									  : $genset['word-wrap'];		
 		}
 		
 		//------------------------------------------------------------------
@@ -1482,61 +1482,61 @@ class Email {
 		//------------------------------------------------------------------
 		//  Send Mail Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['send_mail'] || $genset['send_mail'] )
+		if( self::$settings['send-mail'] || $genset['send-mail'] )
 		{
-			self::$mail->Sendmail	= ( self::$settings['send_mail'] )  	
-									  ? self::$settings['send_mail']		
-									  : $genset['send_mail'];
+			self::$mail->Sendmail	= ( self::$settings['send-mail'] )  	
+									  ? self::$settings['send-mail']		
+									  : $genset['send-mail'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Use Send Mail Options Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['use_send_mail_options'] || $genset['use_send_mail_options'] )
+		if( self::$settings['use-send-mail-options'] || $genset['use-send-mail-options'] )
 		{
-			self::$mail->UseSendmailOptions = ( self::$settings['use_send_mail_options'] ) 
-											  ? self::$settings['use_send_mail_options'] 
-											  : $genset['use_send_mail_options'];
+			self::$mail->UseSendmailOptions = ( self::$settings['use-send-mail-options'] ) 
+											  ? self::$settings['use-send-mail-options'] 
+											  : $genset['use-send-mail-options'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Plugin Dir Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['plugin_dir'] || $genset['plugin_dir'] )
+		if( self::$settings['plugin-dir'] || $genset['plugin-dir'] )
 		{
-			self::$mail->PluginDir 	= ( self::$settings['plugin_dir'] ) 	
-									  ? self::$settings['plugin_dir']		
-									  : $genset['plugin_dir'];
+			self::$mail->PluginDir 	= ( self::$settings['plugin-dir'] ) 	
+									  ? self::$settings['plugin-dir']		
+									  : $genset['plugin-dir'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Confirm Reading To Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['confirm_reading_to'] || $genset['confirm_reading_to'] )
+		if( self::$settings['confirm-reading-to'] || $genset['confirm-reading-to'] )
 		{
-			self::$mail->ConfirmReadingTo = ( self::$settings['confirm_reading_to'] ) 
-											? self::$settings['confirm_reading_to'] 
-											: $genset['confirm_reading_to'];
+			self::$mail->ConfirmReadingTo = ( self::$settings['confirm-reading-to'] ) 
+											? self::$settings['confirm-reading-to'] 
+											: $genset['confirm-reading-to'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Message Id Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['message_id'] || $genset['message_id'] )
+		if( self::$settings['message-id'] || $genset['message-id'] )
 		{
-			self::$mail->MessageID 	= ( self::$settings['message_id'] ) 	
-									  ? self::$settings['message_id']		
-									  : $genset['message_id'];
+			self::$mail->MessageID 	= ( self::$settings['message-id'] ) 	
+									  ? self::$settings['message-id']		
+									  : $genset['message-id'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Message Date Ayarı
 		//------------------------------------------------------------------
-		if (self::$settings['message_date'] || $genset['message_date'] )
+		if (self::$settings['message-date'] || $genset['message-date'] )
 		{
-			self::$mail->MessageDate = ( self::$settings['message_date'] ) 
-									   ? self::$settings['message_date']	
-									   : $genset['message_date'];
+			self::$mail->MessageDate = ( self::$settings['message-date'] ) 
+									   ? self::$settings['message-date']	
+									   : $genset['message-date'];
 		}
 		
 		//------------------------------------------------------------------
@@ -1562,11 +1562,11 @@ class Email {
 		//------------------------------------------------------------------
 		//  Work Station Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['work_station'] || $genset['work_station'] )
+		if( self::$settings['work-station'] || $genset['work-station'] )
 		{
-			self::$mail->Workstation = ( self::$settings['work_station'] ) 
-									   ? self::$settings['work_station']	
-									   : $genset['work_station'];
+			self::$mail->Workstation = ( self::$settings['work-station'] ) 
+									   ? self::$settings['work-station']	
+									   : $genset['work-station'];
 		}
 		
 		//------------------------------------------------------------------
@@ -1582,51 +1582,51 @@ class Email {
 		//------------------------------------------------------------------
 		//  Smtp Debug Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['smtp_debug'] || $genset['smtp_debug'] )
+		if( self::$settings['smtp-debug'] || $genset['smtp-debug'] )
 		{
-			self::$mail->SMTPDebug	= ( self::$settings['smtp_debug'] ) 	
-									  ? self::$settings['smtp_debug']		
-									  : $genset['smtp_debug'];
+			self::$mail->SMTPDebug	= ( self::$settings['smtp-debug'] ) 	
+									  ? self::$settings['smtp-debug']		
+									  : $genset['smtp-debug'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Debug Output Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['debug_output'] || $genset['debug_output'] )
+		if( self::$settings['debug-output'] || $genset['debug-output'] )
 		{
-			self::$mail->Debugoutput = ( self::$settings['debug_output'] ) 
-									   ? self::$settings['debug_output'] 	
-									   : $genset['debug_output'];
+			self::$mail->Debugoutput = ( self::$settings['debug-output'] ) 
+									   ? self::$settings['debug-output'] 	
+									   : $genset['debug-output'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Smtp Keep Alive Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['smtp_keep_alive'] || $genset['smtp_keep_alive'] )
+		if( self::$settings['smtp-keep-alive'] || $genset['smtp-keep-alive'] )
 		{
-			self::$mail->SMTPKeepAlive = ( self::$settings['smtp_keep_alive'] ) 
-										 ? self::$settings['smtp_keep_alive'] 
-										 : $genset['smtp_keep_alive'];
+			self::$mail->SMTPKeepAlive = ( self::$settings['smtp-keep-alive'] ) 
+										 ? self::$settings['smtp-keep-alive'] 
+										 : $genset['smtp-keep-alive'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Single To Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['single_to'] || $genset['single_to'] )
+		if( self::$settings['single-to'] || $genset['single-to'] )
 		{
-			self::$mail->SingleTo	= ( self::$settings['single_to'] ) 	
-									  ? self::$settings['single_to']		
-									  : $genset['single_to'];
+			self::$mail->SingleTo	= ( self::$settings['single-to'] ) 	
+									  ? self::$settings['single-to']		
+									  : $genset['single-to'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Single To Array Ayarı
 		//------------------------------------------------------------------
-		if( ! empty(self::$settings['single_to_array']) || ! empty($genset['single_to_array']) )
+		if( ! empty(self::$settings['single-to-array']) || ! empty($genset['single-to-array']) )
 		{
-			self::$mail->SingleToArray = ( ! empty(self::$settings['single_to_array']) ) 
-										 ? self::$settings['single_to_array'] 
-										 : $genset['single_to_array'];
+			self::$mail->SingleToArray = ( ! empty(self::$settings['single-to-array']) ) 
+										 ? self::$settings['single-to-array'] 
+										 : $genset['single-to-array'];
 		}
 		
 		//------------------------------------------------------------------
@@ -1642,61 +1642,61 @@ class Email {
 		//------------------------------------------------------------------
 		//  Dkim Selector Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['dkim_selector'] || $genset['dkim_selector'] )
+		if( self::$settings['dkim-selector'] || $genset['dkim-selector'] )
 		{
-			self::$mail->DKIM_selector = ( self::$settings['dkim_selector'] ) 
-									     ? self::$settings['dkim_selector']
-										 : $genset['dkim_selector'];
+			self::$mail->DKIM_selector = ( self::$settings['dkim-selector'] ) 
+									     ? self::$settings['dkim-selector']
+										 : $genset['dkim-selector'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Dkim Identity Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['dkim_identity'] || $genset['dkim_identity'] )
+		if( self::$settings['dkim-identity'] || $genset['dkim-identity'] )
 		{
-			self::$mail->DKIM_identity = ( self::$settings['dkim_identity'] ) 
-										 ? self::$settings['dkim_identity']
-										 : $genset['dkim_identity'];
+			self::$mail->DKIM_identity = ( self::$settings['dkim-identity'] ) 
+										 ? self::$settings['dkim-identity']
+										 : $genset['dkim-identity'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Dkim Pass Phrase Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['dkim_pass_phrase'] || $genset['dkim_pass_phrase'] )
+		if( self::$settings['dkim-pass-phrase'] || $genset['dkim-pass-phrase'] )
 		{
-			self::$mail->DKIM_passphrase = ( self::$settings['dkim_pass_phrase'] ) 
-										   ? self::$settings['dkim_pass_phrase'] 
-										   : $genset['dkim_pass_phrase'];
+			self::$mail->DKIM_passphrase = ( self::$settings['dkim-pass-phrase'] ) 
+										   ? self::$settings['dkim-pass-phrase'] 
+										   : $genset['dkim-pass-phrase'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Dkim Domain Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['dkim_domain'] || $genset['dkim_domain'])
+		if( self::$settings['dkim-domain'] || $genset['dkim-domain'])
 		{
-			self::$mail->DKIM_domain	= ( self::$settings['dkim_domain'] )	
-										  ? self::$settings['dkim_domain']	
-										  : $genset['dkim_domain'];
+			self::$mail->DKIM_domain	= ( self::$settings['dkim-domain'] )	
+										  ? self::$settings['dkim-domain']	
+										  : $genset['dkim-domain'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Dkim Private Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['dkim_private'] || $genset['dkim_private'] )
+		if( self::$settings['dkim-private'] || $genset['dkim-private'] )
 		{
-			self::$mail->DKIM_private = ( self::$settings['dkim_private'] ) 
-										? self::$settings['dkim_private']	
-										: $genset['dkim_private'];
+			self::$mail->DKIM_private = ( self::$settings['dkim-private'] ) 
+										? self::$settings['dkim-private']	
+										: $genset['dkim-private'];
 		}
 		
 		//------------------------------------------------------------------
 		//  Action Function Ayarı
 		//------------------------------------------------------------------
-		if( self::$settings['action_function'] || $genset['action_function'] )
+		if( self::$settings['action-function'] || $genset['action-function'] )
 		{
-			self::$mail->action_function = ( self::$settings['action_function'] ) 
-									       ? self::$settings['action_function'] 
-										   : $genset['action_function'];
+			self::$mail->action_function = ( self::$settings['action-function'] ) 
+									       ? self::$settings['action-function'] 
+										   : $genset['action-function'];
 		}
 		
 		//------------------------------------------------------------------

@@ -20,7 +20,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Genel Kullanım: ini_set() yöntemiyle yapamadığınız ayarlamaları buradan yapabilirsiniz. |
 | .htaccess dosyasında ini ayarları yapılabilsin mi?   									  |
 ******************************************************************************************/
-$config['Ini']['set_htaccess_file'] = false;
+$config['Ini']['set-htaccess-file'] = false;
 
 /******************************************************************************************
 * SETTINGS                                                                                *
