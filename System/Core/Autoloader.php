@@ -33,7 +33,9 @@ class Autoloader
 		
 		$lowerFile = strtolower($file);
 		
-		foreach( glob(dirname($file) . '/*.php')  as $file )
+		$files =  glob(dirname($file) . '/*.php');
+		
+		if( ! empty($files) ) foreach( $files  as $file )
 		{
 			if( strtolower($file) === $lowerFile )
 			{
