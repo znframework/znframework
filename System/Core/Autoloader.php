@@ -19,28 +19,53 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/	
 class Autoloader
 {
+	/* AUTOLOADER FILE NAME INSENSITIVE *
+	*
+	* 
+	* Dosya isimleri kontrol ediliyor...
+	*/
+	protected static function inSensitiveFileName($file) 
+	{
+		if( file_exists($file) )
+		{
+			return $file;
+		}
+		
+		$lowerFile = strtolower($file);
+		
+		foreach( glob(dirname($file) . '/*.php')  as $file )
+		{
+			if( strtolower($file) === $lowerFile )
+			{
+				return $file;
+			}
+		}
+		
+		return false;
+	}
+	
 	/* AUTOLOADER RUN *
 	*
 	* 
 	* Otomatik Yükleme Çalıştırılıyor...
-	*/
+	*/	
 	public static function run($class)
 	{
-		$file  = str_replace('\\', '/', ucfirst($class)).'.php'; 
+		$file  = str_replace('\\', '/', $class).'.php'; 
 		
-		if( file_exists( $library = LIBRARIES_DIR.$file) )
-		{			
+		if( file_exists( $library = self::inSensitiveFileName(LIBRARIES_DIR.$file)) )
+		{	
 			require_once($library);	
 		}
-		elseif( file_exists( $system_library = SYSTEM_LIBRARIES_DIR.$file) )
+		elseif( file_exists( $system_library = self::inSensitiveFileName(SYSTEM_LIBRARIES_DIR.$file)) )
 		{	
 			require_once($system_library);
 		}
-		elseif( file_exists($components = COMPONENTS_DIR.$file) )
+		elseif( file_exists($components = self::inSensitiveFileName(COMPONENTS_DIR.$file)) )
 		{		
 			require_once($components);
 		}
-		elseif( file_exists( $model = MODELS_DIR.$file) )
+		elseif( file_exists( $model = self::inSensitiveFileName(MODELS_DIR.$file)) )
 		{		
 			require_once($model);
 		}

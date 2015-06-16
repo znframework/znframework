@@ -190,7 +190,7 @@ class Folder
 		if( is_dir($source) )
 		{
 			// Dizinin içinde mevcut dosya varsa
-			if( ! Folder::files($source) )
+			if( ! self::files($source) )
 			{
 				@copy($source, $target);
 			}
