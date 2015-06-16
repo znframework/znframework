@@ -47,7 +47,7 @@ class CCss
 	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct()
 	{
-		$this->browsers = config::get('Css3', 'browsers');	
+		$this->browsers = Config::get('Css3', 'browsers');	
 	}
 	
 	/* Selector Function
@@ -131,7 +131,7 @@ class CCss
 		if( is_string($file) )
 		{
 			$this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
-			$this->manipulation['file'] = file::contents($this->manipulation['filename']);
+			$this->manipulation['file'] = File::contents($this->manipulation['filename']);
 		}
 		
 		return $this;	
@@ -221,7 +221,7 @@ class CCss
 		
 		$output = str_replace($output, $value , $file);
 		
-		file::write($this->manipulation['filename'], $output);
+		File::write($this->manipulation['filename'], $output);
 	}
 	
 	// Değişkenler varsayılan ayarlarına getiriliyor.

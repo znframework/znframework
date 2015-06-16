@@ -315,7 +315,7 @@ class Image
 		// yoksa oluşturuluyor.
 		if( ! is_dir(self::$thumb_path) ) 
 		{ 
-			folder::create(self::$thumb_path);		
+			Folder::create(self::$thumb_path);		
 		}
 		
 		// Dosya uzantısı temizleniyor.

@@ -40,7 +40,7 @@ class CTransform
 	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct()
 	{
-		$this->browsers = config::get('Css3', 'browsers');	
+		$this->browsers = Config::get('Css3', 'browsers');	
 	}
 	
 	/******************************************************************************************

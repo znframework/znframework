@@ -136,7 +136,7 @@ class Structure
 		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
-		if( config::get("Cache","ob_gzhandler") && substr_count(server('accept_encoding'), 'gzip') ) 
+		if( Config::get("Cache","ob_gzhandler") && substr_count(server('accept_encoding'), 'gzip') ) 
 		{
 			ob_start('ob_gzhandler');
 		}
@@ -149,7 +149,7 @@ class Structure
 
 		// BAŞLIK BİLGİLERİ DÜZENLENİYOR...
 		
-		headers(config::get('Headers', 'settings'));
+		headers(Config::get('Headers', 'settings'));
 		
 		// ----------------------------------------------------------------------
 	
@@ -162,9 +162,9 @@ class Structure
 			// -------------------------------------------------------------------------------
 			//  Tadilat modu açıksa bu ayarlar geçerli olacaktır.
 			// -------------------------------------------------------------------------------
-			if( config::get("Repair","mode") ) 
+			if( Config::get("Repair","mode") ) 
 			{
-				repair::mode();
+				Repair::mode();
 			}
 			
 			// -------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ class Structure
 			// -------------------------------------------------------------------------------
 			if( empty($page) ) 
 			{
-				if( ! config::get('Route', 'show_404') )
+				if( ! Config::get('Route', 'show_404') )
 				{
 					$error = getMessage('System', 'call_user_func_class_error');
 					
@@ -200,7 +200,7 @@ class Structure
 				}
 				else
 				{
-					redirect(config::get('Route', 'show_404'));
+					redirect(Config::get('Route', 'show_404'));
 				}
 			}
 				
@@ -219,7 +219,7 @@ class Structure
 			else
 			{
 				// Sayfa bilgisine erişilemezse hata bildir.
-				if( ! config::get('Route', 'show_404') )
+				if( ! Config::get('Route', 'show_404') )
 				{
 					$error = getMessage('System', 'call_user_func_array_error');
 					
@@ -234,16 +234,16 @@ class Structure
 				}
 				else
 				{
-					redirect(config::get('Route', 'show_404'));
+					redirect(Config::get('Route', 'show_404'));
 				}
 			}
 		}
 		else
 		{	
 			// Sayfa bilgisine erişilemezse hata bildir.
-			if( config::get('Route','show_404') ) 
+			if( Config::get('Route','show_404') ) 
 			{				
-				redirect(config::get('Route','show_404'));		
+				redirect(Config::get('Route','show_404'));		
 			}
 			else
 			{

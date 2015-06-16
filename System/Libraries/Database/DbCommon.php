@@ -21,7 +21,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 function dbcommon()
 {	
-	$config = config::get('Database');
+	$config = Config::get('Database');
 	
 	if( isset($config['driver']) ) 
 	{	

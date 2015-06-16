@@ -13,7 +13,7 @@ namespace Session;
 
 use Config;
 
-config::iniSet(config::get('Session','settings'));
+Config::iniSet(Config::get('Session','settings'));
 
 if(!isset($_SESSION)) session_start();
 /******************************************************************************************
@@ -123,7 +123,7 @@ class CSession
 			}
 		}
 		
-		$session_config = config::get("Session");
+		$session_config = Config::get("Session");
 	
 		if( ! isset($this->encode['name']))
 		{
@@ -180,7 +180,7 @@ class CSession
 		}
 		else
 		{
-			if(config::get("Session", "encode") === true)
+			if(Config::get("Session", "encode") === true)
 			{
 				$name = md5($name);
 			}
@@ -217,7 +217,7 @@ class CSession
 			}
 		}	
 		
-		$session_config = config::get("Session");
+		$session_config = Config::get("Session");
 		
 		if(isset($this->encode['name']))
 		{

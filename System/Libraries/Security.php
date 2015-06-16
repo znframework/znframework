@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * SECURITY                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	security:: , $this->security , zn::$use->security   		  |
+| Sınıfı Kullanırken      :	Security:: , $this->security , zn::$use->security   		  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
@@ -42,11 +42,11 @@ class Security
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
 		if( empty($badwords) )
 		{
-			$secnc = config::get("Security", "nc_encode");
+			$secnc = Config::get("Security", "nc_encode");
 			$badwords = $secnc['bad_chars'];
 			$changechar = $secnc['change_bad_chars'];
 		}
-		if( ! is_array($badwords)) return  $string = regex::replace($badwords, $changechar, $string, 'xi');
+		if( ! is_array($badwords)) return  $string = Regex::replace($badwords, $changechar, $string, 'xi');
 		
 		$ch = '';
 		$i = 0;	
@@ -66,7 +66,7 @@ class Security
 				}
 			}
 			
-			$string = regex::replace($value, $ch, $string, 'xi');
+			$string = Regex::replace($value, $ch, $string, 'xi');
 		}
 	
 		return $string;
@@ -90,7 +90,7 @@ class Security
 			return false;
 		}
 		
-		$sec_bac_chars = config::get("Security", "injection_bad_chars");
+		$sec_bac_chars = Config::get("Security", "injection_bad_chars");
 		
 		if( ! empty($sec_bac_chars)) 
 		{
@@ -146,7 +146,7 @@ class Security
 			return false;
 		}
 		
-		$sec_bac_chars = config::get("Security", "script_bad_chars");
+		$sec_bac_chars = Config::get("Security", "script_bad_chars");
 		
 		if( ! empty($sec_bac_chars)) 
 		{
@@ -343,7 +343,7 @@ class Security
 			return false;
 		}
 		
-		$chars = config::get('ForeignChars', 'numerical_codes');
+		$chars = Config::get('ForeignChars', 'numerical_codes');
 		
 		return str_replace(array_keys($chars), array_values($chars), $str);
 	}	
@@ -360,7 +360,7 @@ class Security
 			return false;
 		}
 		
-		$chars = config::get('ForeignChars', 'numerical_codes');
+		$chars = Config::get('ForeignChars', 'numerical_codes');
 		
 		return str_replace(array_values($chars), array_keys($chars), $str);
 	}	

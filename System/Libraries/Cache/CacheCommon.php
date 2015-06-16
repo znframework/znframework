@@ -21,12 +21,12 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 function cachecommon($driver = '')
 {	
-	$config = config::get('Cache');
+	$config = Config::get('Cache');
 	
 	if( isset($config['driver']) ) 
 	{	
 		// Geçerli sürücüler
-		$drivers = folder::files(SYSTEM_LIBRARIES_DIR.'Cache/Drivers/', 'php');	
+		$drivers = Folder::files(SYSTEM_LIBRARIES_DIR.'Cache/Drivers/', 'php');	
 		
 		if( empty($driver) )
 		{

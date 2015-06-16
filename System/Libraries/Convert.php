@@ -104,9 +104,9 @@ class Convert
 		
 		// Config/ForeignChars.php dosyasından
 		// kullanılacak karakter listesini al.
-		$accent = config::get('ForeignChars', 'accent_chars');
+		$accent = Config::get('ForeignChars', 'accent_chars');
 		
-		$accent = arrays::multikey($accent);
+		$accent = Arrays::multikey($accent);
 		
 		return str_replace(array_keys($accent), array_values($accent), $str); 
 	} 
@@ -137,11 +137,11 @@ class Convert
 			$splitword = "-";
 		}	
 		
-		$accent = config::get('ForeignChars', 'accent_chars');
+		$accent = Config::get('ForeignChars', 'accent_chars');
 		
-		$accent = arrays::multikey($accent);
+		$accent = Arrays::multikey($accent);
 		
-		$badchars = config::get('Security', 'url_bad_chars');
+		$badchars = Config::get('Security', 'url_bad_chars');
 		
 		$str = str_replace(array_keys($accent), array_values($accent), $str); 
 		

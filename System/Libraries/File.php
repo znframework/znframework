@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FILE                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	file:: , $this->file , uselib('file') , zn::$use->file        |
+| Sınıfı Kullanırken      :	File:: , $this->file , uselib('file') , zn::$use->file        |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
@@ -381,7 +381,7 @@ class File
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @file => Bilgileri öğrenilecek dosyanın yolu.			  		          |
 	|          																				  |
-	| Örnek Kullanım: file::info('dizin/dosya.txt');        						          |
+	| Örnek Kullanım: File::info('dizin/dosya.txt');        						          |
 	|          																				  |
 	| Dönen Değerler: basename, size, date, readable, writable, executable, permission        |
 	|          																				  |
@@ -456,12 +456,12 @@ class File
 		else
 		{
 			// Dizin içerisinde dosyalar mevcut ise 
-			if( folder::files($file) )
+			if( Folder::files($file) )
 			{
 				// Hesaplanan boyuta dosya boyutlarını ilave et
-				foreach(folder::files($file) as $val)
+				foreach(Folder::files($file) as $val)
 				{	
-					$size += file::size($file."/".$val);	
+					$size += self::size($file."/".$val);	
 				}
 				$size += filesize($file);
 			}

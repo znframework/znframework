@@ -183,7 +183,7 @@ class Pagination
 		{	
 			// Eğer son segmen sayısal bir veri değilse
 			// Başlangıç değerini 0 olarak ayarla.
-			if( ! is_numeric(uri::segment(-1)) )
+			if( ! is_numeric(Uri::segment(-1)) )
 			{ 
 				$start_page = 0; 
 			}
@@ -191,7 +191,7 @@ class Pagination
 			{ 
 				// Son segment sayısal veri ise
 				// başlangıç değeri olarak ayarla
-				$start_page = uri::segment(-1);
+				$start_page = Uri::segment(-1);
 			}
 		}
 		else 

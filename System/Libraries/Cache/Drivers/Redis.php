@@ -49,7 +49,7 @@ class RedisDriver
 			return getMessage('Cache', 'unsupported', 'Redis');
 		}
 		
-		$config = config::get('Cache', 'driver_settings');
+		$config = Config::get('Cache', 'driver_settings');
 		
 		$config = ! empty($settings)
 				  ? $settings

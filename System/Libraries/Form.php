@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FORM                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	form:: , $this->form , zn::$use->form , uselib('form')->      |
+| Sınıfı Kullanırken      :	Form:: , $this->form , zn::$use->form , uselib('form')->      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

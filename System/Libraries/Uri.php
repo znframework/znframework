@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * URI                                                                                	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      : uri::, $this->uri, zn::$use->uri, uselib('uri')		   		  |
+| Sınıfı Kullanırken      : Uri::, $this->uri, zn::$use->uri, uselib('uri')		   		  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

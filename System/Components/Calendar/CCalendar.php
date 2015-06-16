@@ -82,7 +82,7 @@ class CCalendar
 	// varsayılan olarak aşağıdaki ayarları kullan.
 	public function __construct()
 	{
-		$this->config = config::get('Calendar');
+		$this->config = Config::get('Calendar');
 	}
 	
 	/******************************************************************************************
@@ -241,7 +241,7 @@ class CCalendar
 	| 1. numeric var @year => Yıl bilgisi:						     						  |
 	| 2. numeric var @month => Ayın indeks bilgisi. 					      				  |
 	|          																				  |
-	| Örnek Kullanım: ->create( uri::get('date'), uri::get('date', 2) ); 					  |
+	| Örnek Kullanım: ->create( Uri::get('date'), Uri::get('date', 2) ); 					  |
 	|          																				  |
 	******************************************************************************************/
 	public function create($year = NULL, $month = NULL)
@@ -257,22 +257,22 @@ class CCalendar
 		// yıl bilgisini tutmaktadır.
 		if( $month === NULL && $year === NULL) 
 		{
-			if( ! is_numeric(uri::segment(-1)) )
+			if( ! is_numeric(Uri::segment(-1)) )
 			{ 
 				$month = $today['mon']; 
 			}
 			else
 			{ 
-				$month = uri::segment(-1);
+				$month = Uri::segment(-1);
 			}
 			
-			if( ! is_numeric(uri::segment(-2)) )
+			if( ! is_numeric(Uri::segment(-2)) )
 			{ 
 				$year = $today['year']; 
 			}
 			else
 			{ 
-				$year = uri::segment(-2);
+				$year = Uri::segment(-2);
 			}
 		}
 		else 

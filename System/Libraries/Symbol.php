@@ -37,7 +37,7 @@ class Symbol
 			return false;
 		}
 		
-		$symbol = config::get('Symbols',$symbol_name);
+		$symbol = Config::get('Symbols',$symbol_name);
 		
 		if( ! empty($symbol) )
 		{ 

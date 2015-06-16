@@ -51,7 +51,7 @@ class CScript
 	public function library()
 	{
 		$arguments = array_unique(func_get_args());
-		import::script($arguments);
+		Import::script($arguments);
 		
 		return $this;
 	}
@@ -59,7 +59,7 @@ class CScript
 	public function open()
 	{		
 		$script = "";
-		$script .= import::script('Jquery', true);
+		$script .= Import::script('Jquery', true);
 		$script .= "<script type=\"$this->type\">".eof();
 		
 		if($this->ready)

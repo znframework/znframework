@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * REGEX                                                                              	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	regex:: , $this->regex , zn::$use->regex , uselib('regex')    |
+| Sınıfı Kullanırken      :	Regex:: , $this->regex , zn::$use->regex , uselib('regex')    |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
@@ -61,15 +61,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = config::get('Regex','special_chars');
+		$special_chars = Config::get('Regex','special_chars');
 		
 		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = arrays::multikey(config::get('Regex','regex_chars'));
+		$regex_chars   = Arrays::multikey(Config::get('Regex','regex_chars'));
 		
-		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
+		$setting_chars = Arrays::multikey(Config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
@@ -129,15 +129,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = config::get('Regex','special_chars');
+		$special_chars = Config::get('Regex','special_chars');
 		
 		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = arrays::multikey(config::get('Regex','regex_chars'));
+		$regex_chars   = Arrays::multikey(Config::get('Regex','regex_chars'));
 		
-		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
+		$setting_chars = Arrays::multikey(Config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
@@ -202,15 +202,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = config::get('Regex','special_chars');
+		$special_chars = Config::get('Regex','special_chars');
 		
 		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = arrays::multikey(config::get('Regex','regex_chars'));
+		$regex_chars   = Arrays::multikey(Config::get('Regex','regex_chars'));
 		
-		$setting_chars = arrays::multikey(config::get('Regex','setting_chars'));
+		$setting_chars = Arrays::multikey(Config::get('Regex','setting_chars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	

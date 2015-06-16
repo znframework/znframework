@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * Config/Upload.php dosyasından Ini ayarlarını yapılandır.                                *
 ******************************************************************************************/
-config::iniSet(config::get('Upload','settings'));
+Config::iniSet(Config::get('Upload','settings'));
 /******************************************************************************************
 * UPLOAD                                                                            	  *
 *******************************************************************************************
@@ -416,7 +416,7 @@ class Upload
 			return false;
 		}
 
-		$file_contents = file::contents(suffix($sql_file,".sql"));
+		$file_contents = File::contents(suffix($sql_file,".sql"));
 		
 		$file_contents = preg_replace("/SET (.*?);/","",$file_contents);
 		$file_contents = preg_replace("/\/\*(.*?)\*\//","",$file_contents);

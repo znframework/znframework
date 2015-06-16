@@ -40,7 +40,7 @@ class Captcha
 			session_start();
 		}
 		
-		$set = config::get("Captcha");
+		$set = Config::get("Captcha");
 		
 		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set["char_count"]));	
 		

@@ -36,7 +36,7 @@ class CBlade
 	******************************************************************************************/
 	public function page($page = '', $data = '', $ob_get_contents = false)
 	{
-		$page_content = import::page($page, $data, true);
+		$page_content = Import::page($page, $data, true);
 		
 		$page_content = $this->data($page_content, $data);
 		

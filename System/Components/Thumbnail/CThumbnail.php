@@ -488,7 +488,7 @@ class CThumbnail
 		// yoksa oluşturuluyor.
 		if( ! is_dir($this->thumb_path) ) 
 		{ 
-			folder::create($this->thumb_path);		
+			Folder::create($this->thumb_path);		
 		}
 		
 		// Dosya uzantısı temizleniyor.

@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * METHOD                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	method:: , $this->method , uselib('method') , zn::$use->method|
+| Sınıfı Kullanırken      :	Method:: , $this->method , uselib('method') , zn::$use->method|
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/

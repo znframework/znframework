@@ -504,7 +504,7 @@ class CCaptcha
 			session_start();
 		}
 		
-		$set = config::get("Captcha");
+		$set = Config::get("Captcha");
 		
 		if( isset($this->sets["char_count"])) $set["char_count"] = $this->sets["char_count"];
 		

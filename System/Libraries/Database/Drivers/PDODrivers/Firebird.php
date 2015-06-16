@@ -32,7 +32,7 @@ class PDOFirebirdDriver
 	******************************************************************************************/
 	public function __construct()
 	{
-		$this->config = config::get('Database');	
+		$this->config = Config::get('Database');	
 	}
 	
 	/******************************************************************************************

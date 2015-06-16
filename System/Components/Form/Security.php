@@ -24,21 +24,21 @@ class ComponentFormSecurity
 {
 	protected function xssEncode($value)
 	{
-		return security::xssEncode($value);
+		return Security::xssEncode($value);
 	}
 	
 	protected function ncEncode($value)
 	{
-		return security::ncEncode($value);
+		return Security::ncEncode($value);
 	}
 	
 	protected function injectionEncode($value)
 	{
-		return security::injectionEncode($value);
+		return Security::injectionEncode($value);
 	}
 	
 	protected function htmlEncode($value)
 	{
-		return security::htmlEncode($value);
+		return Security::htmlEncode($value);
 	}
 }

@@ -38,9 +38,9 @@ class CSendMail
 	******************************************************************************************/
 	public function __construct()
 	{
-		$this->settings = config::get('Email');
+		$this->settings = Config::get('Email');
 			
-		email::open();
+		Email::open();
 	}
 	
 	/******************************************************************************************
@@ -209,7 +209,7 @@ class CSendMail
 	******************************************************************************************/
 	public function content($message = '', $type = 'html')
 	{
-		email::message($message);	
+		Email::message($message);	
 	
 		if( $type === 'html' )
 		{
@@ -251,7 +251,7 @@ class CSendMail
 	******************************************************************************************/
 	public function subject($subject = '')
 	{
-		email::subject($subject);
+		Email::subject($subject);
 		
 		return $this;
 	}
@@ -270,7 +270,7 @@ class CSendMail
 	******************************************************************************************/
 	public function sender($email = '', $name = '')
 	{
-		email::sender($email, $name);
+		Email::sender($email, $name);
 		
 		return $this;
 	}
@@ -308,7 +308,7 @@ class CSendMail
 	******************************************************************************************/
 	public function receiver($email = '', $name = '')
 	{
-		email::receiver($email, $name);
+		Email::receiver($email, $name);
 		
 		return $this;
 	}
@@ -408,7 +408,7 @@ class CSendMail
 	******************************************************************************************/
 	public function error()
 	{
-		return email::error();
+		return Email::error();
 	}
 	
 	/******************************************************************************************
@@ -440,7 +440,7 @@ class CSendMail
 	******************************************************************************************/
 	public function attachment($attach = '', $file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
 	{
-		email::addAttachment($attach, $file_name, $encoding, $type);
+		Email::addAttachment($attach, $file_name, $encoding, $type);
 		
 		return $this;
 	}
@@ -460,12 +460,12 @@ class CSendMail
 	{
 		if( ! empty($this->settings) )
 		{
-			email::settings($this->settings);
+			Email::settings($this->settings);
 		}
 		
 		$this->settings = NULL;
 		
-		return email::send($subject, $message);
+		return Email::send($subject, $message);
 	}
 	
 	/******************************************************************************************
@@ -476,6 +476,6 @@ class CSendMail
 	******************************************************************************************/
 	public function __destruct()
 	{
-		email::close();	
+		Email::close();	
 	}
 }

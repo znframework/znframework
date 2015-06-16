@@ -45,7 +45,7 @@ class Cache
 		{
 			if( empty($driver) )
 			{
-				$config = config::get('Cache');
+				$config = Config::get('Cache');
 				$driver = $config['driver'];
 			}
 		

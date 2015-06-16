@@ -24,7 +24,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * EMAIL                                                                             	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	email:: , $this->email , zn::$use->email , uselib('email')    |
+| Sınıfı Kullanırken      :	Email:: , $this->email , zn::$use->email , uselib('email')    |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
@@ -379,7 +379,7 @@ class Email {
 	******************************************************************************************/
 	public static function open()
 	{
-		import::package(REFERENCES_DIR.'PHPMailer');	
+		Import::package(REFERENCES_DIR.'PHPMailer');	
 		self::$mail = new PHPMailer();
 	}
 	
@@ -1270,7 +1270,7 @@ class Email {
 		//------------------------------------------------------------------
 		//  Config/Email.php dosyasında yer alan e-posta ayarları alınıyor.
 		//------------------------------------------------------------------
-		$genset = config::get('Email');	
+		$genset = Config::get('Email');	
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
@@ -1763,7 +1763,7 @@ class Email {
 	| Parametreler: 4 parametresi vardır.                                                     |  
 	| @to, @subject, @message, @extra													      |
 	|          																				  |
-	| Örnek Kullanım: email::basicSend('o@w.c', 'Konu', 'Mesaj')         					  |
+	| Örnek Kullanım: Email::basicSend('o@w.c', 'Konu', 'Mesaj')         					  |
 	|          																				  |
 	******************************************************************************************/
 	public static function basicSend($to = '', $subject = '', $message = '', $extra = '')

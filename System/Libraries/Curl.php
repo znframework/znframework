@@ -78,7 +78,7 @@ class Curl
 			return false;
 		}
 		
-		$options = config::get('Curl','options');
+		$options = Config::get('Curl','options');
 		
 		// settings parametresinin dizi olma veya string olma durumuna göre işleniyor.
 		if( is_array($settings) )
@@ -174,7 +174,7 @@ class Curl
 		// belirlenen ayar parametrelerini kullanabilirsiniz. 
 		if( ! is_int($data) )
 		{	
-			$infos = config::get('Curl','info');
+			$infos = Config::get('Curl','info');
 			
 			if( isset($infos[$data]) ) 
 			{
@@ -250,7 +250,7 @@ class Curl
 			return false;
 		}
 		
-		$errors = config::get('Curl','errors');
+		$errors = Config::get('Curl','errors');
 		$errno  = curl_errno(self::$init);
 		
 		if( isset($errno) ) 

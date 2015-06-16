@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * AJAX                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	ajax::, $this->ajax, zn::$use->ajax, uselib('ajax')			  |
+| Sınıfı Kullanırken      :	Ajax::, $this->ajax, zn::$use->ajax, uselib('ajax')			  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	

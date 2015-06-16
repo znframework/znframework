@@ -200,13 +200,13 @@ class CPagination
 		
 		if( $start === NULL ) 
 		{	
-			if( ! is_numeric(uri::segment(-1)) )
+			if( ! is_numeric(Uri::segment(-1)) )
 			{ 
 				$start_page = 0; 
 			}
 			else
 			{ 
-				$start_page = uri::segment(-1);
+				$start_page = Uri::segment(-1);
 			}
 		}
 		else 

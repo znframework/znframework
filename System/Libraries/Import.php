@@ -13,7 +13,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CONTROLLER CLASS                                                                        *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	import::, $this->import, zn::$use->import, uselib('import')   |
+| Sınıfı Kullanırken      :	Import::, $this->import, zn::$use->import, uselib('import')   |
 |																						  |
 ******************************************************************************************/	
 class Import
@@ -36,7 +36,7 @@ class Import
 	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
 	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
 	|          																				  |
-	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
 	public static function page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
@@ -89,7 +89,7 @@ class Import
 	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
 	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
 	|          																				  |
-	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
 	public static function view($page = '', $data = '', $ob_get_contents = false)
@@ -108,7 +108,7 @@ class Import
 	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
 	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
 	|          																				  |
-	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
 	public static function bladepage($page = '', $data = '', $ob_get_contents = false)
@@ -127,7 +127,7 @@ class Import
 	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
 	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
 	|          																				  |
-	| Örnek Kullanım: import::page('OrnekSayfa');        	  								  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
 	public static function parserpage($page = '', $data = '', $ob_get_contents = false)
@@ -145,7 +145,7 @@ class Import
 	| 1. array var @data => Sayfanın body bölümüne veri göndermek için kullanılır. 		      |
 	| 2. array var @head => Sayfanın head bölümüne veri göndermek için kullanılır. 			  |
 	|          																				  |
-	| Örnek Kullanım: import::masterpage();        						  					  |
+	| Örnek Kullanım: Import::masterpage();        						  					  |
 	|          																				  |
 	| NOT: Bir sayfayı masterpage olarak ayarlamak için Config/Masterpage.php dosyası		  |
 	| kullanılır.	        															      |
@@ -156,7 +156,7 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		$masterpageset = config::get('Masterpage');
+		$masterpageset = Config::get('Masterpage');
 		
 		//------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -192,7 +192,7 @@ class Import
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header  = config::get('Doctype', $masterpageset['doctype']).eof();
+		$header  = Config::get('Doctype', $masterpageset['doctype']).eof();
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eof();
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -211,7 +211,7 @@ class Import
 			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content_charset'].'">'.eof();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.config::get('Masterpage','content_language').'">'.eof();
+		$header .= '<meta http-equiv="Content-Language" content="'.Config::get('Masterpage','content_language').'">'.eof();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -438,8 +438,8 @@ class Import
 	| 1. array/args var @fonts => Parametre olarak sıralı font dosyalarını veya dizi içinde   |
 	| eleman olarak kullanılan font dosyalarını dahil etmek için kullanılır.			      |
 	|          																				  |
-	| Örnek Kullanım: import::font('f1', 'f2' ... 'fN');        						      |
-	| Örnek Kullanım: import::font(array('f1', 'f2' ... 'fN'));        				          |
+	| Örnek Kullanım: Import::font('f1', 'f2' ... 'fN');        						      |
+	| Örnek Kullanım: Import::font(array('f1', 'f2' ... 'fN'));        				          |
 	|          																				  |
 	******************************************************************************************/
 	public static function font()
@@ -484,7 +484,7 @@ class Import
 			}
 			
 			// FARKLI FONTLAR
-			$differentset = config::get('Font', 'different_font_extensions');
+			$differentset = Config::get('Font', 'different_font_extensions');
 			
 			if( ! empty($differentset) )
 			{			
@@ -536,8 +536,8 @@ class Import
 	| 1. array/args var @styles => Parametre olarak sıralı stil dosyalarını veya dizi içinde  |
 	| eleman olarak kullanılan stil dosyalarını dahil etmek için kullanılır.			      |
 	|          																				  |
-	| Örnek Kullanım: import::style('s1', 's2' ... 'sN');        						      |
-	| Örnek Kullanım: import::style(array('s1', 's2' ... 'sN'));        				      |
+	| Örnek Kullanım: Import::style('s1', 's2' ... 'sN');        						      |
+	| Örnek Kullanım: Import::style(array('s1', 's2' ... 'sN'));        				      |
 	|          																				  |
 	******************************************************************************************/
 	public static function style()
@@ -597,8 +597,8 @@ class Import
 	| 1. array/args var @scripts => Parametre olarak sıralı js dosyalarını veya dizi içinde   |
 	| eleman olarak kullanılan js dosyalarını dahil etmek için kullanılır.			     	  |
 	|          																				  |
-	| Örnek Kullanım: import::script('s1', 's2' ... 'sN');        						      |
-	| Örnek Kullanım: import::script(script('s1', 's2' ... 'sN'));        				      |
+	| Örnek Kullanım: Import::script('s1', 's2' ... 'sN');        						      |
+	| Örnek Kullanım: Import::script(script('s1', 's2' ... 'sN'));        				      |
 	|          																				  |
 	******************************************************************************************/
 	public static function script()
@@ -664,8 +664,8 @@ class Import
 	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
 	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
 	|          																				  |
-	| Örnek Kullanım: import::something('Application/Views/Pages/OrnekSayfa.php');        	  |
-	| Örnek Kullanım: import::something('Application/Views/Style/Stil.js');        	          |
+	| Örnek Kullanım: Import::something('Application/Views/Pages/OrnekSayfa.php');        	  |
+	| Örnek Kullanım: Import::something('Application/Views/Style/Stil.js');        	          |
 	|          																				  |
 	******************************************************************************************/
 	public static function something($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
@@ -739,7 +739,7 @@ class Import
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @packages => Dahil edilecek dosyaların bulunduğu dizin.					  |
 	|          																				  |
-	| Örnek Kullanım: import::something('Application/Views/Pages/');        	              |
+	| Örnek Kullanım: Import::something('Application/Views/Pages/');        	              |
 	|          																				  |
 	******************************************************************************************/
 	public static function package($packages = "", $different_extension = array() )
@@ -749,9 +749,9 @@ class Import
 			return false;
 		}
 	
-		if( folder::files($packages) ) 
+		if( Folder::files($packages) ) 
 		{
-			foreach(folder::files($packages) as $val)
+			foreach(Folder::files($packages) as $val)
 			{				
 				if( extension($val) === "php" )
 				{

@@ -69,7 +69,7 @@ class Html5
 	******************************************************************************************/	
 	public static function formOpen($name = '', $_attributes = '')
 	{
-		return form::open($name, $_attributes);
+		return Form::open($name, $_attributes);
 	}
 
 	/******************************************************************************************
@@ -85,7 +85,7 @@ class Html5
 	******************************************************************************************/	
 	public static function formClose()
 	{
-		return form::close();
+		return Form::close();
 	}
 	
 	// Form Input Nesneleri

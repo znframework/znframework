@@ -68,7 +68,7 @@ class Permission
 			$object = '';
 		}
 		
-		self::$permission = config::get('Permission','process');
+		self::$permission = Config::get('Permission','process');
 		
 		if( isset(self::$permission[$role_id]) ) 
 		{
@@ -188,7 +188,7 @@ class Permission
 			return false;
 		}
 		
-		self::$permission = config::get('Permission','page');
+		self::$permission = Config::get('Permission','page');
 		
 		if( isset(self::$permission[$role_id]) )
 		{ 

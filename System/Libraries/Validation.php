@@ -53,17 +53,17 @@ class Validation
 	{
 		if( $met === "post" ) 		
 		{
-			return method::post($name);
+			return Method::post($name);
 		}
 		
 		if( $met === "get" ) 		
 		{
-			return method::get($name);
+			return Method::get($name);
 		}
 		
 		if( $met === "request" ) 	
 		{
-			return method::request($name);
+			return Method::request($name);
 		}	
 	}
 	
@@ -77,17 +77,17 @@ class Validation
 	{
 		if( $met === "post" ) 		
 		{
-			return method::post($name, $val);
+			return Method::post($name, $val);
 		}
 		
 		if( $met === "get" ) 		
 		{
-			return method::get($name, $val);
+			return Method::get($name, $val);
 		}
 		
 		if( $met === "request" ) 	
 		{
-			return method::request($name, $val);
+			return Method::request($name, $val);
 		}	
 	}
 	
@@ -370,26 +370,26 @@ class Validation
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
 		if( in_array('nc_encode',$config) )
 		{
-			$secnc = config::get("Security", "nc_encode");
-			$edit  = security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
+			$secnc = Config::get("Security", "nc_encode");
+			$edit  = Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
 		if( in_array('html_encode',$config) )
 		{
-			$edit = security::htmlEncode($edit);		
+			$edit = Security::htmlEncode($edit);		
 		}
 		
 		// nail_clean tırnak işaretlerini temizlemek için kullanılır.
 		if( in_array('xss_encode',$config) )
 		{
-			$edit = security::xssEncode($edit);	
+			$edit = Security::xssEncode($edit);	
 		}
 		
 		// tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
 		if( in_array('injection_encode',$config) )
 		{
-			$edit = security::injectionEncode($edit);
+			$edit = Security::injectionEncode($edit);
 		}
 		
 		// Süzgeç sonrası validation::nval() yönteminin yeni değeri
@@ -457,7 +457,7 @@ class Validation
 			$pm = "";
 			$pm = $config['old_password'];
 	
-			if( encode::super($edit) != $pm )
+			if( Encode::super($edit) != $pm )
 			{ 
 				$old_password_match = lang('Validation', 'old_password_match',$view_name);
 				$messages[$i] 		= $old_password_match.'<br>'; $i++;

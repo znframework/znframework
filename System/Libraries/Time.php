@@ -13,7 +13,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * Tarih-Saat bölgesi ayarlanıyor. Bu ayarı değiştirmek için Config/DateTime.php bakınız.  *
 ******************************************************************************************/
-date_default_timezone_set(config::get('DateTime', 'timezone'));
+date_default_timezone_set(Config::get('DateTime', 'timezone'));
 /******************************************************************************************
 * TIME                                                                               	  *
 *******************************************************************************************
@@ -37,7 +37,7 @@ class Time
 	{	
 		// Config/DateTime.php dosyasından
 		// Tarih saat ayarları alınıyor.
-		$config = config::get('DateTime');
+		$config = Config::get('DateTime');
 		
 		$setlocale = $config['setlocale'];
 		
@@ -66,7 +66,7 @@ class Time
 			return false;
 		}
 		
-		$setlocale = config::get('DateTime', 'setlocale');
+		$setlocale = Config::get('DateTime', 'setlocale');
 		
 		// Dil biçimi ayarlanıyor.
 		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
@@ -97,11 +97,11 @@ class Time
 			return false;
 		}
 
-		$config = config::get('DateTime'); 
+		$config = Config::get('DateTime'); 
 		
 		$chars = $config['set_time_format_chars'];
 		
-		$chars = arrays::multikey($chars);
+		$chars = Arrays::multikey($chars);
 		
 		$setExp = str_ireplace(array_keys($chars), array_values($chars), $exp);
 		

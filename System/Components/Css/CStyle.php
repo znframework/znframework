@@ -67,7 +67,7 @@ class CStyle
 	{
 		$arguments = array_unique(func_get_args());
 		
-		import::style($arguments);
+		Import::style($arguments);
 		
 		return $this;
 	}

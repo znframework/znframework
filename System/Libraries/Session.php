@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * Config/Session.php dosyasından Ini ayarlarını yapılandır.                               *
 ******************************************************************************************/
-config::iniSet(config::get('Session','settings'));
+Config::iniSet(Config::get('Session','settings'));
 /******************************************************************************************
 * Herhangi bir oturum başlatılmamışsa oturumu başlat.                                     *
 ******************************************************************************************/
@@ -20,7 +20,7 @@ if( ! isset($_SESSION) ) session_start();
 /******************************************************************************************
 * SESSION                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	session:: , $this->session , uselib('session')			      |
+| Sınıfı Kullanırken      :	Session:: , $this->session , uselib('session')			      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
 ******************************************************************************************/
@@ -47,7 +47,7 @@ class Session
 			return false;
 		}
 		
-		$sess_config = config::get('Session');
+		$sess_config = Config::get('Session');
 		
 		if( is_array($name) )
 		{
@@ -99,7 +99,7 @@ class Session
 			return false;
 		}
 		
-		$sess_config = config::get('Session','encode');
+		$sess_config = Config::get('Session','encode');
 		
 		if( is_array($name) )
 		{
@@ -177,7 +177,7 @@ class Session
 			return false;
 		}
 		
-		$sess_config = config::get('Session','encode');
+		$sess_config = Config::get('Session','encode');
 		
 		if( is_array($name) )
 		{

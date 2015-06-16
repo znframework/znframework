@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FOLDER                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	folder:: , $this->folder , uselib('folder') , zn::$use->folder|
+| Sınıfı Kullanırken      :	Folder:: , $this->folder , uselib('folder') , zn::$use->folder|
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
@@ -190,7 +190,7 @@ class Folder
 		if( is_dir($source) )
 		{
 			// Dizinin içinde mevcut dosya varsa
-			if( ! folder::files($source) )
+			if( ! Folder::files($source) )
 			{
 				@copy($source, $target);
 			}
@@ -199,14 +199,14 @@ class Folder
 				// Kopyalanacak dizin mevcut değilse oluştur.
 				if( ! is_dir($target) && ! file_exists($target) )
 				{
-					folder::create($target);
+					self::create($target);
 				}
 				
 				// Kopyalama işlemini başlat.
-				if( is_array(folder::files($source)) )foreach(folder::files($source) as $val)
+				if( is_array(self::files($source)) )foreach(self::files($source) as $val)
 				{
 					@copy($source."/".$val, $target."/".$val);
-					folder::copy($source."/".$val, $target."/".$val);
+					self::copy($source."/".$val, $target."/".$val);
 				}							
 			}		
 		}
@@ -249,7 +249,7 @@ class Folder
 		if( is_file($name) )
 		{
 			// dosyayı sil
-			file::delete($name);	
+			File::delete($name);	
 		}
 		else
 		{
@@ -268,7 +268,7 @@ class Folder
 				{
 					foreach(self::files($name) as $val)
 					{					
-						folder::delete($name."/".$val);
+						self::delete($name."/".$val);
 					}
 				}
 			}
@@ -407,7 +407,7 @@ class Folder
 		}
 		elseif( is_file($dir) )
 		{
-			$fileinfo = file::info($dir);
+			$fileinfo = File::info($dir);
 			return (array)$fileinfo;
 		}
 		else

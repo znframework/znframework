@@ -209,11 +209,11 @@ function isEmail($email = '')
 
 function isRepmac()
 {
-	if( is_array(config::get('Repair','machines')) )
+	if( is_array(Config::get('Repair','machines')) )
 	{
-		$result = in_array(ipv4(), config::get('Repair','machines'));
+		$result = in_array(ipv4(), Config::get('Repair','machines'));
 	}
-	elseif( ipv4() == config::get('Repair','machines') )
+	elseif( ipv4() == Config::get('Repair','machines') )
 	{
 		$result = true;
 	}
@@ -608,7 +608,7 @@ function lang($file = '', $str = '', $changed = '')
 	
 	
 	$key 		= removeExtension($file, 'php');
-	$file 		= config::get('Language', getLang()).'/'.suffix($file, '.php');
+	$file 		= Config::get('Language', getLang()).'/'.suffix($file, '.php');
 	$langdir    = LANGUAGES_DIR.$file ;
 	$syslangdir = SYSTEM_LANGUAGES_DIR.$file;
 	
@@ -692,7 +692,7 @@ function currentLang()
 		session_start();
 	}
 	
-	if( ! config::get("Uri","lang") ) 
+	if( ! Config::get("Uri","lang") ) 
 	{
 		return false;
 	}
@@ -1586,15 +1586,15 @@ function requestUri()
 // Dönen Değerler: Sistem kullanıyor.
 function routeUri($request_uri = '')
 {
-	if( config::get("Route","open_page") )
+	if( Config::get("Route","open_page") )
 	{
 			if( $request_uri === 'index.php' || empty($request_uri) || $request_uri === getLang() ) 
 			{
-				$request_uri = config::get("Route","open_page");
+				$request_uri = Config::get("Route","open_page");
 			}
 	}
 			
-	$uri_change = config::get('Route','change_uri');
+	$uri_change = Config::get('Route','change_uri');
 		
 	if( ! empty($uri_change) )
 	{
@@ -1612,7 +1612,7 @@ function routeUri($request_uri = '')
 // Dönen Değerler: Sistem kullanıyor.
 function cleanInjection($string = "")
 {
-	$url_injection_change_chars = config::get("Security", "url_change_chars");
+	$url_injection_change_chars = Config::get("Security", "url_change_chars");
 
 	if( empty($url_injection_change_chars) ) 
 	{
@@ -1635,7 +1635,7 @@ function cleanInjection($string = "")
 // Dönen Değerler: Sistem kullanıyor.
 function report($subject = 'unknown', $message = '', $destination = 'message', $time = '')
 {
-	if( ! config::get('Log', 'create_file')) 
+	if( ! Config::get('Log', 'create_file')) 
 	{
 		return false;
 	}
@@ -1645,17 +1645,17 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 	
 	if( ! is_dir($log_dir) )
 	{
-		folder::create($log_dir, 0777);	
+		Folder::create($log_dir, 0777);	
 	}
 	
 	if( is_file($log_dir.suffix($destination,$extension)) )
 	{
 		if( empty($time) ) 
 		{
-			$time = config::get('Log', 'file_time');
+			$time = Config::get('Log', 'file_time');
 		}
 		
-		$create_date = file::createDate($log_dir.suffix($destination,$extension), 'd.m.Y');
+		$create_date = File::createDate($log_dir.suffix($destination,$extension), 'd.m.Y');
 		
 		$end_date = strtotime("$time",strtotime($create_date));
 		
@@ -1663,7 +1663,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		
 		if( date('Y.m.d')  >  $end_date )
 		{
-			file::delete($log_dir.suffix($destination,$extension));
+			File::delete($log_dir.suffix($destination,$extension));
 		}
 	}
 
@@ -1677,7 +1677,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
-	$config = config::get('Cache');
+	$config = Config::get('Cache');
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
@@ -1749,7 +1749,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADERS----------------------------------------------------------
 	
 	//-----------------------HEADER SET-------------------------------------------------------
-	$headerset = config::get("Headers");
+	$headerset = Config::get("Headers");
 	
 	if( ! empty($headerset['set_htaccess_file']) )
 	{
@@ -1769,7 +1769,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADER SET-------------------------------------------------------
 	
 	//-----------------------HTACCESS SET-----------------------------------------------------	
-	$htaccess_settings = config::get("Htaccess");
+	$htaccess_settings = Config::get("Htaccess");
 	
 	if( ! empty($htaccess_settings['set_file']) )
 	{
@@ -1798,20 +1798,20 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	$htaccess = $mod_gzip.$mod_expires.$mod_headers.$headers_iniset.$htaccess_settings_str;
 	
 	//-----------------------URI INDEX PHP----------------------------------------------------	
-	if( ! config::get('Uri','index.php') )
+	if( ! Config::get('Uri','index.php') )
 	{
 		$htaccess .= "<IfModule mod_rewrite.c>".eof();
 		$htaccess .= "RewriteEngine On".eof();
 		$htaccess .= "RewriteBase /".eof();
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eof();
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eof();
-		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').config::get("Uri","index_suffix").'/$1 [L]'.eof();
+		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').Config::get("Uri","index_suffix").'/$1 [L]'.eof();
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
-	$uploadset = config::get('Upload');		
+	$uploadset = Config::get('Upload');		
 	
 	if( ! empty($uploadset['set_htaccess_file']) )
 	{
@@ -1824,7 +1824,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
 	//-----------------------SESSION SETTINGS-------------------------------------------------
-	$sessionset = config::get('Session');	
+	$sessionset = Config::get('Session');	
 			
 	if( ! empty($sessionset['set_htaccess_file']) )
 	{
@@ -1837,7 +1837,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------SESSION SETTINGS-------------------------------------------------
 	
 	//-----------------------INI SETTINGS-----------------------------------------------------	
-	$iniset = config::get('Ini');	
+	$iniset = Config::get('Ini');	
 		
 	if( ! empty($iniset['set_htaccess_file']) )
 	{
@@ -1926,7 +1926,7 @@ function headers($header = '')
 // Dönen Değerler: Sistem kullanıyor.
 function sslStatus()
 {
-	if( config::get('Uri','ssl') )
+	if( Config::get('Uri','ssl') )
 	{ 
 		return 'https://'; 
 	}
@@ -1941,7 +1941,7 @@ function sslStatus()
 // Dönen Değerler: Sistem kullanıyor.
 function indexStatus()
 {
-	if( config::get('Uri','index.php') ) 
+	if( Config::get('Uri','index.php') ) 
 	{
 		return 'index.php/'; 
 	}
@@ -1959,7 +1959,7 @@ function indexStatus()
 ******************************************************************************************/
 function nsShortName($class = '')
 {
-	$namespaces = config::get('Namespace', 'short_name');
+	$namespaces = Config::get('Namespace', 'short_name');
 	
 	$longns  = array_values($namespaces);
 	$shortns = array_map('strtolower', array_keys($namespaces));	

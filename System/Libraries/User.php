@@ -82,7 +82,7 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= config::get("User");		
+		$user_config		= Config::get("User");		
 		$username_column  	= $user_config["username_column"];
 		$password_column  	= $user_config["password_column"];
 		$email_column  	    = $user_config["email_column"];
@@ -100,7 +100,7 @@ class User
 		
 		$login_username  = $data[$username_column];
 		$login_password  = $data[$password_column];	
-		$encode_password = encode::super($login_password);	
+		$encode_password = Encode::super($login_password);	
 		
 		$db = uselib('Database\Db');
 		
@@ -171,7 +171,7 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= config::get("User");	
+		$user_config		= Config::get("User");	
 		$table_name 		= $user_config["table_name"];
 		$username_column  	= $user_config["username_column"];
 		$password_column  	= $user_config["password_column"];
@@ -179,8 +179,8 @@ class User
 		// ------------------------------------------------------------------------------
 		
 		// Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
-		$user = uri::get('user');
-		$pass = uri::get('pass');
+		$user = Uri::get('user');
+		$pass = Uri::get('pass');
 		// ------------------------------------------------------------------------------
 		
 		if( ! empty($user) && ! empty($pass) )	
@@ -232,10 +232,10 @@ class User
 				? $email 
 				: $user;
 		
-		email::open();
-		email::receiver($user, $user);
+		Email::open();
+		Email::receiver($user, $user);
 		
-		if( email::send(lang('User', 'activation_process'), $message) )
+		if( Email::send(lang('User', 'activation_process'), $message) )
 		{
 			self::$success = lang('User', 'activation_email');
 			return true;
@@ -247,7 +247,7 @@ class User
 			return false;
 		}
 		
-		email::close();	
+		Email::close();	
 	}
 	
 	/******************************************************************************************
@@ -262,8 +262,8 @@ class User
 	******************************************************************************************/
 	public static function totalActiveUsers()
 	{
-		$active_column 	= config::get("User","active_column");	
-		$table_name 	= config::get("User","table_name");
+		$active_column 	= Config::get("User","active_column");	
+		$table_name 	= Config::get("User","table_name");
 		
 		if( ! empty($active_column) )
 		{
@@ -298,8 +298,8 @@ class User
 	******************************************************************************************/
 	public static function totalBannedUsers()
 	{
-		$banned_column 	= config::get("User","banned_column");	
-		$table_name 	= config::get("User","table_name");
+		$banned_column 	= Config::get("User","banned_column");	
+		$table_name 	= Config::get("User","table_name");
 		
 		if( ! empty($banned_column) )
 		{	
@@ -334,7 +334,7 @@ class User
 	******************************************************************************************/
 	public static function totalUsers()
 	{
-		$table_name = config::get("User","table_name");
+		$table_name = Config::get("User","table_name");
 		
 		$db = uselib('Database\Db');
 		
@@ -381,13 +381,13 @@ class User
 		}
 
 		$username = $un;
-		$password = encode::super($pw);
+		$password = Encode::super($pw);
 		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= config::get("User");	
+		$user_config		= Config::get("User");	
 		$password_column  	= $user_config["password_column"];
 		$username_column  	= $user_config["username_column"];
 		$email_column  		= $user_config["email_column"];
@@ -441,12 +441,12 @@ class User
 			
 			session_regenerate_id();
 			
-			if( method::post($remember_me) || ! empty($remember_me) )
+			if( Method::post($remember_me) || ! empty($remember_me) )
 			{
-				if( cookie::select(md5($username_column)) != $username )
+				if( Cookie::select(md5($username_column)) != $username )
 				{					
-					cookie::insert(md5($username_column),$username);
-					cookie::insert(md5($password_column),$password);
+					Cookie::insert(md5($username_column),$username);
+					Cookie::insert(md5($password_column),$password);
 				}
 			}
 			
@@ -494,7 +494,7 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= config::get("User");	
+		$user_config		= Config::get("User");	
 		$username_column  	= $user_config["username_column"];
 		$password_column  	= $user_config["password_column"];				
 		$email_column  		= $user_config["email_column"];		
@@ -524,8 +524,8 @@ class User
 				$return_link_path = siteUrl($return_link_path);
 			}
 			
-			$new_password    = encode::create(10);
-			$encode_password = encode::super($new_password);
+			$new_password    = Encode::create(10);
+			$encode_password = Encode::super($new_password);
 			$message = "
 			<pre>
 				".lang('User', 'username').": ".$row->$username_column."
@@ -536,10 +536,10 @@ class User
 			</pre>
 			";
 			
-			email::open();
-			email::receiver($email, $email);
+			Email::open();
+			Email::receiver($email, $email);
 			
-			if( email::send(lang('User', 'new_your_password'), $message) )
+			if( Email::send(lang('User', 'new_your_password'), $message) )
 			{
 				if( ! empty($email_column) )
 				{
@@ -562,7 +562,7 @@ class User
 				self::$error = lang('User', 'email_error');
 				return false;
 			}
-			email::close();
+			Email::close();
 		}
 		else
 		{
@@ -617,14 +617,14 @@ class User
 				$new_again = $new;
 			}
 	
-			$user_config = config::get("User");	
+			$user_config = Config::get("User");	
 			$pc = $user_config["password_column"];
 			$uc = $user_config["username_column"];	
 			$tn = $user_config["table_name"];
 			
-			$old_password = encode::super($old);
-			$new_password = encode::super($new);
-			$new_password_again = encode::super($new_again);
+			$old_password = Encode::super($old);
+			$new_password = Encode::super($new);
+			$new_password_again = Encode::super($new_again);
 			
 			$username 	  = user::data()->$uc;
 			$password 	  = user::data()->$pc;
@@ -681,21 +681,21 @@ class User
 	******************************************************************************************/	
 	public static function isLogin()
 	{
-		$c_username = cookie::select(md5(config::get("User","username_column")));
-		$c_password = cookie::select(md5(config::get("User","password_column")));
+		$c_username = Cookie::select(md5(Config::get("User","username_column")));
+		$c_password = Cookie::select(md5(Config::get("User","password_column")));
 		
 		$result = '';
 		
 		if( ! empty($c_username) && ! empty($c_password) )
 		{
 			$db = uselib('Database\Db');
-			$result = $db->where(config::get("User","username_column").' =',$c_username, 'and')
-						 ->where(config::get("User","password_column").' =',$c_password)
-						 ->get(config::get("User","table_name"))
+			$result = $db->where(Config::get("User","username_column").' =',$c_username, 'and')
+						 ->where(Config::get("User","password_column").' =',$c_password)
+						 ->get(Config::get("User","table_name"))
 						 ->totalRows();
 		}
 		
-		$username = config::get("User","username_column");
+		$username = Config::get("User","username_column");
 		
 		if( isset(self::data()->$username) )
 		{
@@ -708,7 +708,7 @@ class User
 				session_start();
 			}
 			
-			$_SESSION[md5(config::get("User","username_column"))] = $c_username;
+			$_SESSION[md5(Config::get("User","username_column"))] = $c_username;
 			$is_login = true;	
 		}
 		else
@@ -739,15 +739,15 @@ class User
 			session_start();
 		}
 
-		if( isset($_SESSION[md5(config::get("User","username_column"))]) )
+		if( isset($_SESSION[md5(Config::get("User","username_column"))]) )
 		{
 			$data = array();
-			self::$username = $_SESSION[md5(config::get("User","username_column"))];
+			self::$username = $_SESSION[md5(Config::get("User","username_column"))];
 			
 			$db = uselib('Database\Db');
 			
-			$r = $db->where(config::get("User","username_column").' =',self::$username)
-				    ->get(config::get("User","table_name"))
+			$r = $db->where(Config::get("User","username_column").' =',self::$username)
+				    ->get(Config::get("User","table_name"))
 					->row();
 			
 			return (object)$r;
@@ -779,7 +779,7 @@ class User
 			$time = 0;
 		}
 
-		$username = config::get("User","username_column");
+		$username = Config::get("User","username_column");
 		
 		if( isset(self::data()->$username) )
 		{
@@ -788,20 +788,20 @@ class User
 				session_start();
 			}
 			
-			if( config::get("User","active_column") )
+			if( Config::get("User","active_column") )
 			{	
 				$db = uselib('Database\Db');
 				
-				$db->where(config::get("User","username_column").' =', self::data()->$username)
-				   ->update(config::get("User","table_name"), array(config::get("User","active_column") => 0));
+				$db->where(Config::get("User","username_column").' =', self::data()->$username)
+				   ->update(Config::get("User","table_name"), array(Config::get("User","active_column") => 0));
 			}
 			
-			cookie::delete(md5(config::get("User","username_column")));
-			cookie::delete(md5(config::get("User","password_column")));	
+			Cookie::delete(md5(Config::get("User","username_column")));
+			Cookie::delete(md5(Config::get("User","password_column")));	
 			
-			if( isset($_SESSION[md5(config::get("User","username_column"))]) ) 
+			if( isset($_SESSION[md5(Config::get("User","username_column"))]) ) 
 			{
-				unset($_SESSION[md5(config::get("User","username_column"))]);
+				unset($_SESSION[md5(Config::get("User","username_column"))]);
 			}
 			
 			redirect($redirect_url, $time);

@@ -34,7 +34,7 @@ class Filter
 		
 		if( ! is_array($badwords) ) 
 		{
-			return  $string = regex::replace($badwords, $changechar, $string, 'xi');
+			return  $string = Regex::replace($badwords, $changechar, $string, 'xi');
 		}
 		
 		$ch = '';
@@ -55,7 +55,7 @@ class Filter
 				}
 			}
 			
-			$string = regex::replace($value, $ch, $string, 'xi');
+			$string = Regex::replace($value, $ch, $string, 'xi');
 		}
 
 		return $string;

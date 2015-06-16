@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * ARRAYS                                                                             	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	arrays::, $this->arrays, zn::$use->arrays, uselib('arrays')   |
+| Sınıfı Kullanırken      :	Arrays::, $this->arrays, zn::$use->arrays, uselib('arrays')   |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	

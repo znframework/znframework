@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * ENCODE                                                                            	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	encode:: , $this->encode , zn::$use->encode , uselib('encode')|
+| Sınıfı Kullanırken      :	Encode:: , $this->encode , zn::$use->encode , uselib('encode')|
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
@@ -104,7 +104,7 @@ class Encode
 			return false;
 		}
 		
-		$algo = config::get('Encode', 'type');
+		$algo = Config::get('Encode', 'type');
 		
 		if( ! isHash($algo) )
 		{
@@ -150,9 +150,9 @@ class Encode
 			return false;
 		}
 		
-		$project_key = config::get('Encode','project_key');
+		$project_key = Config::get('Encode','project_key');
 		
-		$algo = config::get('Encode', 'type');
+		$algo = Config::get('Encode', 'type');
 		
 		if( ! isHash($algo) )
 		{

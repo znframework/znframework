@@ -975,7 +975,7 @@ class Jquery
 	******************************************************************************************/	
 	public static function ajax($methods = array())
 	{
-		return ajax::send($methods);
+		return Ajax::send($methods);
 	}
 	
 	// Jquery css class yapısı eklemek için.
@@ -1220,7 +1220,7 @@ class Jquery
 	******************************************************************************************/	
 	public static function objectData($data = array())
 	{
-		return arrays::objectData($data);
+		return Arrays::objectData($data);
 	}
 	
 	/******************************************************************************************

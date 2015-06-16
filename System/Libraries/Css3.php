@@ -78,7 +78,7 @@ class Css3
 		$str .= $element."{".eof();
 		
 		// Config dosyasındaki desteklenen tarayıcıların listesi alınıyor.
-		$browsers = config::get('Css3', 'browsers');	
+		$browsers = Config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{
@@ -141,7 +141,7 @@ class Css3
 			$str .= "$k:$v;".eof();	
 		}
 		
-		$browsers = config::get('Css3', 'browsers');	
+		$browsers = Config::get('Css3', 'browsers');	
 		
 		if( is_array($param) )
 		{
@@ -241,7 +241,7 @@ class Css3
 		$str  = "";
 		$str .= $element."{".eof();
 		
-		$browsers = config::get('Css3', 'browsers');	
+		$browsers = Config::get('Css3', 'browsers');	
 		
 		// Farklı css kodları kullanmanız gerektiğinde 
 		// bu parametre kullanılır.
@@ -378,7 +378,7 @@ class Css3
 		$str  = "";
 		$str .= $element."{".eof();
 		
-		$browsers = config::get('Css3', 'browsers');	
+		$browsers = Config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{
@@ -422,7 +422,7 @@ class Css3
 		$str  = "";
 		$str .= $element."{".eof();
 		
-		$browsers = config::get('Css3', 'browsers');	
+		$browsers = Config::get('Css3', 'browsers');	
 		
 		if(isset($param["radius"]))
 		{
@@ -499,7 +499,7 @@ class Css3
 		$str  = "";
 		$str .= $element."{".eof();
 		
-		$browsers = config::get('Css3', 'browsers');	
+		$browsers = Config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{

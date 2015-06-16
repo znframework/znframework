@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CONFIG CLASS                                                                            *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	config::, $this->config, zn::$use->config, this()->config     |
+| Sınıfı Kullanırken      :	Config::, $this->config, zn::$use->config, this()->config     |
 | 																						  |
 | Genel Kullanım:																          |
 | Config/ dizininde yer alan config dosyalarındaki ayarları kullanmak					  |

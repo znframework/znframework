@@ -49,11 +49,11 @@ class DbForge
 		
 		$this->db = dbcommon();
 		
-		$this->prefix = config::get('Database', 'prefix');
+		$this->prefix = Config::get('Database', 'prefix');
 			
 		if( empty($config) ) 
 		{
-			$config = config::get('Database');
+			$config = Config::get('Database');
 		}
 		
 		$this->db->connect($config);
@@ -610,7 +610,7 @@ class DbForge
 			return false;
 		}
 		
-		$config = config::get('Database');
+		$config = Config::get('Database');
 		$config_different = $config['different_connection'];
 		
 		if( ! isset($config_different[$connect_name]) ) 

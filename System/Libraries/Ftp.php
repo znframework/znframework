@@ -71,7 +71,7 @@ class Ftp
 		}
 		
 		// Config/Ftp.php dosyasından ftp ayarları alınıyor.
-		$config = config::get('Ftp');
+		$config = Config::get('Ftp');
 		
 		// ----------------------------------------------------------------------------
 		// FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR

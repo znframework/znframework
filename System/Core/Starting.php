@@ -25,16 +25,16 @@ class Starting
 	public static function run()
 	{	
 		// INI AYARLAR YAPILANDIRILIYOR...
-		$iniset = config::get('Ini', 'settings');
+		$iniset = Config::get('Ini', 'settings');
 		
 		if( ! empty($iniset) ) 
 		{
-			config::iniSet($iniset);
+			Config::iniSet($iniset);
 		}
 		// ----------------------------------------------------------------------
 					
 		// HTACCESS DOSYASI OLUŞTURULUYOR... 	
-		if( config::get('Htaccess','create_file') === true ) 
+		if( Config::get('Htaccess','create_file') === true ) 
 		{
 			createHtaccessFile();
 		}	
@@ -43,7 +43,7 @@ class Starting
 		// ----------------------------------------------------------------------
 		
 		// COMPOSER AUTOLOAD	
-		$composer = config::get('Composer', 'autoload');
+		$composer = Config::get('Composer', 'autoload');
 		
 		if( $composer === true )
 		{

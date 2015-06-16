@@ -377,7 +377,7 @@ class CCookie
 			}
 		}
 		
-		$cookie_config = config::get("Cookie");
+		$cookie_config = Config::get("Cookie");
 		
 		if( empty($this->time) ) 		$this->time 	= $cookie_config["time"];
 		if( empty($this->path) ) 		$this->path 	= $cookie_config["path"];
@@ -452,7 +452,7 @@ class CCookie
 		}
 		else
 		{
-			if(config::get("Cookie", "encode") === true)
+			if(Config::get("Cookie", "encode") === true)
 			{
 				$name = md5($name);
 			}
@@ -498,7 +498,7 @@ class CCookie
 			$this->name = NULL;	
 		}
 		
-		$cookie_config = config::get("Cookie");
+		$cookie_config = Config::get("Cookie");
 		
 		if( empty($this->path) )
 		{	

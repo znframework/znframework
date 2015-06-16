@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * COOKIE                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	cookie:: , $this->cookie , uselib('cookie') , zn::$use->cookie|
+| Sınıfı Kullanırken      :	Cookie:: , $this->cookie , uselib('cookie') , zn::$use->cookie|
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
@@ -89,7 +89,7 @@ class Cookie
 		}
 		/************************************************************************************************/
 		
-		$cookie_config = config::get("Cookie");
+		$cookie_config = Config::get("Cookie");
 		
 		/************************************************************************************************/
 		// Parametreler değer almamışsa gereken değerleri config dosyasından alınması sağlanıyor.
@@ -166,7 +166,7 @@ class Cookie
 			return false;
 		}
 		
-		$cookie_config = config::get("Cookie");
+		$cookie_config = Config::get("Cookie");
 		
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
@@ -217,7 +217,7 @@ class Cookie
 			return false;
 		}
 		
-		$cookie_config = config::get("Cookie");
+		$cookie_config = Config::get("Cookie");
 		
 		if( empty($path) )
 		{
@@ -276,7 +276,7 @@ class Cookie
 	******************************************************************************************/
 	public static function deleteAll()
 	{	
-		$path = config::get('Cookie', 'path');
+		$path = Config::get('Cookie', 'path');
 		
 		if( ! empty($_COOKIE) ) foreach ($_COOKIE as $key => $val)
 		{			

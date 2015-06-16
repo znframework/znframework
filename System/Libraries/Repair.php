@@ -33,7 +33,8 @@ class Repair
 		
 		// Config/Repair.php dosyasında tadilata alınacak sayfalar belirtilir.
 		// Burada ayarlarda belirtilen sayfa isimleri bilgisi alınıyor.
-		$repair_pages = config::get("Repair","pages");
+		$repair_config = Config::get('Repair');
+		$repair_pages = $repair_config['pages'];
 		
 		// Eğer Config/Repair.php dosyasında pages = "all" olarrak alınmış ise 
 		// tüm sayfalar için tadilat modu uygulanıyor demektir.
@@ -41,9 +42,9 @@ class Repair
 		{
 			if( $repair_pages === "all" )
 			{
-				if( currentPath() !== config::get("Repair","route_page") ) 
+				if( currentPath() !== $repair_config['route_page'] ) 
 				{
-					redirect(config::get("Repair","route_page"));
+					redirect($repair_config['route_page']);
 				}
 			}
 		}
@@ -56,9 +57,9 @@ class Repair
 			// tüm sayfalar için tadilat modu uygulanıyor demektir.
 			if( $repair_pages[0] === "all" )
 			{
-				if( currentPath() !== config::get("Repair","route_page") ) 
+				if( currentPath() !== $repair_config['route_page'] ) 
 				{
-					redirect(config::get("Repair","route_page"));
+					redirect($repair_config['route_page']);
 				}
 			}
 			
@@ -71,9 +72,9 @@ class Repair
 				// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
 				if( ! empty($page_pos) )
 				{
-					if( currentPath() !== config::get("Repair","route_page") )
+					if( currentPath() !== $repair_config['route_page'] )
 					{
-						redirect(config::get("Repair","route_page"));
+						redirect($repair_config['route_page']);
 					}
 				}	
 			}

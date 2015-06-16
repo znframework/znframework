@@ -82,7 +82,7 @@ class FileDriver
 			'data'	=> $var
 		);
 		
-		if( file::write($this->path.$key, serialize($datas)) )
+		if( File::write($this->path.$key, serialize($datas)) )
 		{
 			chmod($this->path.$key, 0640);
 			return true;
@@ -181,7 +181,7 @@ class FileDriver
 	******************************************************************************************/
 	public function clean()
 	{
-		return folder::delete($this->path);
+		return Folder::delete($this->path);
 	}
 	
 	/******************************************************************************************
@@ -197,7 +197,7 @@ class FileDriver
 	******************************************************************************************/
 	public function info($type = NULL)
 	{
-		return folder::fileInfo($this->path);
+		return Folder::fileInfo($this->path);
  	}
 	
 	/******************************************************************************************
