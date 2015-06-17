@@ -1155,22 +1155,31 @@ class Db
 	/******************************************************************************************
 	* PROTECTED INCREMENT VE DECREMENT                                                        *
 	******************************************************************************************/
-	protected function _incdec($table = '', $columns = array(), $incdec = 0)
+	protected function _incdec($table = '', $columns = array(), $incdec = 0, $type = '')
 	{
 		if( ! empty($this->table) ) 
 		{
 			// Table yöntemi tanımlanmış ise
 			// 1. parametre, 2. parametre olarak kullanılsın
+			$columns = $type === 'inc'	
+					 ? abs($columns)
+					 : -abs($columns);
+			
+			$incdec  = $columns;
 			$columns = $table;
-			$table = $this->table; 
+			$table   = $this->table; 
 			$this->table = NULL;
 		}
 		
-		if( ! is_string($table) || empty($columns) )
+		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
 			return false;
 		}
-
+		
+		$incdec = $type === 'inc'	
+				 ? abs($incdec)
+				 : -abs($incdec);
+		
 		if( is_array($columns) ) foreach($columns as $v)
 		{
 			$newcolumns[$v] = "$v + $incdec";	
@@ -1212,30 +1221,32 @@ class Db
 	| Parametreler: 2 dizi parametresi vardır.                                                |
 	| 1. string var @table => Tablo Adı.					 			                      |
 	| 2. string/array var @columns => Bir bir artırılacak sütun veya sütunlar.                |
+	| 3. numeric var @increment => Artış miktarı.               							  |
 	|          																				  |
 	| Örnek Kullanım: ->increment('OrnekTablo', 'Hit')				  				          |
 	|          																				  |
 	******************************************************************************************/
-	public function increment($table = '', $columns = array())
+	public function increment($table = '', $columns = array(), $increment = 1)
 	{
-		return $this->_incdec($table, $columns, 1);
+		return $this->_incdec($table, $columns, $increment, 'inc');
 	}
 	
 	/******************************************************************************************
 	* DECREMENT                                                                               *
 	*******************************************************************************************
-	| Genel Kullanım: Belirtilen sütunların değerini 1 azaltır.	  							  |
+	| Genel Kullanım: Belirtilen sütunların değerini istenilen miktarda azaltır.	  		  |
 	|															                              |
 	| Parametreler: 2 dizi parametresi vardır.                                                |
 	| 1. string var @table => Tablo Adı.					 			                      |
 	| 2. string/array var @columns => Bir bir azaltılacak sütun veya sütunlar.                |
+	| 3. numeric var @decrement => Azalış miktarı.               							  |
 	|          																				  |
 	| Örnek Kullanım: ->decrement('OrnekTablo', 'Hit')				  				          |
 	|          																				  |
 	******************************************************************************************/
-	public function decrement($table = '', $columns = array())
+	public function decrement($table = '', $columns = array(), $decrement = 1)
 	{
-		return $this->_incdec($table, $columns, -1);
+		return $this->_incdec($table, $columns, $decrement, 'dec');
 	}
 	
 	/******************************************************************************************
