@@ -1,5 +1,5 @@
 <h4>Db Kütüphanesi - 17/06/2015 19:24</h4>
-<p>increment() ve decrement() yöntemlerine 3. parametre eklendi</p>
+<p>increment() ve decrement() yöntemlerine artış veya azılış miktarlarını ayarlayabilen 3. parametre eklendi.</p>
 
 <h4>Config Dosyaları - 17/06/2015 00:27</h4>
 <p>Ayar isimleri güncellendi.</p>
