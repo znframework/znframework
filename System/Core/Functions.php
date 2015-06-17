@@ -82,7 +82,7 @@ function isImport($path = '')
 		return false;
 	}
 	
-	if( in_array( realpath(suffix($path,".php")), get_required_files() ) ) 
+	if( in_array( realpath(suffix($path, '.php')), get_required_files() ) ) 
 	{
 		return true;
 	}
@@ -1571,7 +1571,7 @@ function requestUri()
 	               ? substr(server('current_path'), 1) 
 				   : currentUri();
 	
-	if( @$request_uri[strlen($request_uri) - 1] === "/" )
+	if( @$request_uri[strlen($request_uri) - 1] === '/' )
 	{
 			$request_uri = substr($request_uri, 0, -1);
 	}
@@ -1586,11 +1586,11 @@ function requestUri()
 // Dönen Değerler: Sistem kullanıyor.
 function routeUri($request_uri = '')
 {
-	if( Config::get("Route",'open-page') )
+	if( Config::get('Route','open-page') )
 	{
 			if( $request_uri === 'index.php' || empty($request_uri) || $request_uri === getLang() ) 
 			{
-				$request_uri = Config::get("Route",'open-page');
+				$request_uri = Config::get('Route','open-page');
 			}
 	}
 			

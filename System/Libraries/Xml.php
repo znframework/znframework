@@ -57,7 +57,7 @@ class Xml
 	| Örnek Kullanım: load('dizin/xml.xml');                                                  |
 	|          																				  |
 	******************************************************************************************/
-	static function load($path = '', $type = 'file')
+	public static function load($path = '', $type = 'file')
 	{
 		if( ! is_string($path) ) 
 		{
