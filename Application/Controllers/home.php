@@ -43,7 +43,7 @@ class Home extends Controller
 		$data["title"] 			 = "ZN FRAMEWORK";
 		$data["style"] 			 = $this->import->style("style", true);
 		$data["font"]			 = $this->import->font("textfont", true);
-		$data["welcome_message"] = "ZN KOD ÇATISINA HOŞ GELDİNİZ";
+		$data["welcome_message"] = "PHP Web Framework <b>Made In Turkey</b>";
 		
 		/******************************************************************************************
 		* Dahil Edilen Welcome.php Görünüm Sayfası                                                *

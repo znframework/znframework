@@ -8,20 +8,10 @@
 </head>
 
 <body>
-    <div id="header">
-    	<div class="font white-color">ZNTR.NET</div>
+    <div id="logo" class="font">
+    	<div id="logo-img"><img src="<?php echo baseUrl(FILES_DIR.'logo.png'); ?>" /></div>
+    	<div id="logo-text"><?php echo $welcome_message; ?></div>
     </div>
-    <div id="title" class="border font"><?php echo $welcome_message; // Controllers/home.php sayfasından gönderilen mesaj bilgisi ?></div>
-    <div id="content" class="font black-color">
-    	<p>Merhaba, ZN kod çatısı açılış sayfasına hoş geldiniz. Bu sayfa bilgi amaçlı oluşturulmuştur.</p>
-        <p>Bu sayfanın kontrolü, <strong>Controllers/</strong> dizininde yer alan <strong>home.php</strong> sayfası tarafından yapılmaktadır.</p>
-        <p>Açılış sayfası varsayılan olarak <strong>Views/pages</strong> dizininde yer alan <strong>welcome.php</strong> sayfasıdır. Açılış sayfasının belirlenmesi, <b class="red-color">Config/Route.php</b> dosyasında yer alan <strong>open_page</strong> ayarı ile yapılmaktadır.</p>
-        <p>Daha iyi kullanım için <a target="_blank" href="<?php echo baseUrl("Documentation/index.html")?>" class="bold">kullanma kılavuzundan</a> yararlanabilirsiniz</p>
-    </div>
-    <div id="footer">
-    	<div class="font white-color">(c) copyright 2015 - Tüm hakları saklıdır. www.zntr.net </div>
-    </div>
-    <div id="logo"><img width="500" height="417" src="<?php echo baseUrl(FILES_DIR.'znlogo.png');?>" /></div>
 </body>
 
 </html>
