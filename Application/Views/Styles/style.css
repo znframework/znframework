@@ -1,5 +1,5 @@
 body{ padding:0px; margin:0px;}
-#logo{ position:absolute; width:717px; height:99px; left:50%; margin-left:-363px; margin-top:-50px; top:50%; }
+#logo{ position:absolute; width:717px; height:99px; left:50%; margin-left:-363px; margin-top:-90px; top:50%; }
 #logo-img{  display:table-cell; vertical-align:middle;}
 #logo-text{ margin-right:10px; text-align:right}
 .font{ font-family:textfont; font-size:20px; color:#333;}
