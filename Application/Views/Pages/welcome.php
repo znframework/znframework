@@ -9,8 +9,8 @@
 
 <body>
     <div id="logo" class="font">
-    	<div id="logo-img"><img src="<?php echo baseUrl(FILES_DIR.'logo.png'); ?>" /></div>
-    	<div id="logo-text"><?php echo $welcome_message; ?></div>
+    	<div id="logo-text" class="text-shadow"><?php echo $title; ?></div>
+    	<div id="logo-sub-text"><?php echo $welcome_message; ?></div>
     </div>
 </body>
 
