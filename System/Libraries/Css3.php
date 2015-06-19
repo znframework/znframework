@@ -345,6 +345,46 @@ class Css3
 		return $str;
 	}
 	
+	protected static function _shadow($element = '', $type = 'box', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
+	{
+		if( ! is_string($element) || empty($element) ) 
+		{
+			return false;
+		}
+		if( ! is_array($param) ) 
+		{
+			$param = array();
+		}
+		
+		$str  = "";
+		$str .= $element."{".eof();
+		
+		$browsers = Config::get('Css3', 'browsers');	
+		
+		$x 			= ! isset($param['x']) ? 0 : $param['x'];	
+		$y 			= ! isset($param['y']) ? 0 : $param['y'];	
+		$blur 		= ! isset($param['blur']) ? 0 : $param['blur'];
+		$diffusion 	= ! isset($param['diffusion']) ? 0 : $param['diffusion'];	
+		$color 		= ! isset($param['color']) ? 0 : $param['color'];
+		
+		if( $type === 'box' )
+		{ 
+			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eof();
+		}
+		else
+		{
+			$shadow = "$type-shadow:$x $y $blur $color;".eof();	
+		}
+		
+		foreach($browsers as $val)
+		{
+			$str .= $val.$shadow;
+		}
+				
+		$str .= "}".eof();
+		return $str;
+	}
+	
 	/******************************************************************************************
 	* BOX SHADOW                                                                              *
 	*******************************************************************************************
@@ -366,28 +406,31 @@ class Css3
 	******************************************************************************************/
 	public static function boxShadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
 	{
-		if( ! is_string($element) || empty($element) ) 
-		{
-			return false;
-		}
-		if( ! is_array($param) ) 
-		{
-			$param = array();
-		}
-		
-		$str  = "";
-		$str .= $element."{".eof();
-		
-		$browsers = Config::get('Css3', 'browsers');	
-		
-		foreach($browsers as $val)
-		{
-			$str .= $val."box-shadow:".$param["x"]." ".$param["y"]." ".$param["blur"]." ".$param["diffusion"]." ".$param["color"].";".eof();
-		}
-				
-		$str .= "}".eof();
-		return $str;
+		return self::_shadow($element, $type = 'box', $param);
 	} 
+	
+	/******************************************************************************************
+	* TEXT SHADOW                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Css3 ile birlikte gelen text-shadow nesnesini kullanmak için oluşturldu.|
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @element => seçici nesnesinin adıdır. Örnek: .element, #nesne 			  |
+	| 2. array var @propery => hangi text shadow nesneleri uygulanacaksa onlar belirtirlir.   |
+	| 																					      |
+	| Örnek Kullanım: boxShadow('#text', array(shadow nesneleri))	 					      |
+	| 																					      |
+	| Box Shadow Nesneleri																	  |
+	| 1-x         																		  	  |
+	| 2-y																  			  		  |
+	| 3-blur																 				  |
+	| 4-color									 								              |
+	| 																					      |
+	******************************************************************************************/
+	public static function textShadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "color" => "#000"))
+	{
+		return self::_shadow($element, $type = 'text', $param);
+	}
 	
 	/******************************************************************************************
 	* BORDER RADIUS                                                                           *

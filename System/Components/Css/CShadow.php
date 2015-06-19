@@ -308,24 +308,61 @@ class CShadow
 	}
 	
 	/******************************************************************************************
+	* TYPE                                                                     			      *
+	*******************************************************************************************
+	| Genel Kullanım: Gölgenin rengini belirlemek için kullanılır.					          |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string/numeric var @val => Renk kodu veya adı.  		  							  |
+	|          																				  |
+	| Örnek Kullanım: ->type('box')	// box veya text		  								  |
+	|          																				  |
+	******************************************************************************************/
+	public function type($val = 'box')
+	{
+		if( ! is_string($val))
+		{
+			return $this;	
+		}
+		
+		$this->params['type'] = $val;
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
 	* CREATE                                                                     			  *
 	*******************************************************************************************
 	| Genel Kullanım: Efekti tamamlamak için kullanılan zincirin son halkasıdır.			  |
 	|															                              |
-	| Örnek Kullanım: ->create()					  										  |
+	| Örnek Kullanım: ->create('box') // box veya text					  					  |
 	|          																				  |
 	******************************************************************************************/	
-	public function create()
+	public function create($type = 'box')
 	{
 		$str  = $this->selector."{".eof();	
 		$str .= $this->attr.eof();
 		
-		$shadow = 	"box-shadow:".
-					$this->params['horizontal']." ".
-					$this->params['vertical']." ".
-					$this->params['blur']." ".
-					$this->params['spread']." ".
-					$this->params['color'].";".
+		if( isset($this->params['type']) )
+		{
+			$type = $this->params['type'];
+		}
+		
+		$x 			= ! isset($this->params['horizontal']) ? 0 : $this->params['horizontal'];	
+		$y 			= ! isset($this->params['vertical']) ? 0 : $this->params['vertical'];	
+		$blur 		= ! isset($this->params['blur']) ? 0 : $this->params['blur'];
+		$diffusion 	= ! isset($this->params['spread']) ? 0 : $this->params['spread'];	
+		$color 		= ! isset($this->params['color']) ? 0 : $this->params['color'];
+		
+		if( $type === 'box' )
+		{ 
+			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eof();
+		}
+		else
+		{
+			$shadow = "$type-shadow:$x $y $blur $color;".eof();	
+		}
+		
 		$browser = '';	
 				
 		foreach($this->browsers as $val)
