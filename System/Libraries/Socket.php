@@ -92,7 +92,7 @@ class Socket
 	******************************************************************************************/
 	public static function connect($address = '', $port = 0, $socket = NULL)
 	{
-		if( ! is_string($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -121,7 +121,7 @@ class Socket
 	******************************************************************************************/
 	public static function write($data = '', $length = 0, $socket = NULL)
 	{
-		if( ! is_string($data) || ! is_numeric($length) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($data) || ! is_numeric($length) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -157,7 +157,7 @@ class Socket
 	******************************************************************************************/
 	public static function read($length = 0, $type = PHP_BINARY_READ, $socket = NULL)
 	{
-		if( ! is_numeric($type) || ! is_numeric($length) || ! is_resource(self::$socketCreate) )
+		if( ! is_numeric($type) || ! isValue($length) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -183,7 +183,7 @@ class Socket
 	| Parametreler: 3 parametresi vardır.                                                     |
 	| 1. string var @address => Soket, AF_INET türündeyse noktalı dördül gösterimle           |
 	| (127.0.0.1 gibi) geçerli bir IPv4 adresi, AF_INET6 türündeyse ve IPv6 desteği varsa     |
-	| geçerli bir IPv6 adresi (::1 gibi) olmalıdır..           							      |
+	| geçerli bir IPv6 adresi (::1 gibi) olmalıdır.          							      |
 	| 2. numeric var @port => Bu değiştirge sadece ve zorunlu olarak bir AF_INET veya AF_INET6|
 	| sokete bağlanırken gerekir ve bağlantının yapılacağı uzak konak üzerinde bir port 	  |
 	| belirtir. 																	  		  |
@@ -194,7 +194,7 @@ class Socket
 	******************************************************************************************/
 	public static function bind($address = '', $port = 0, $socket = NULL)
 	{
-		if( ! is_string($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -219,7 +219,7 @@ class Socket
 	| yok sayılır.          																  |
 	| 2. [resource var @socket] => Farklı bir socket kullanılacaksa bu parametre kullanılır.  |
 	|          																				  |
-	| Örnek Kullanım: Socket::listen(SOMAXCONN )	        	  							  |
+	| Örnek Kullanım: Socket::listen(SOMAXCONN)	        	  							      |
 	|          																				  |
 	******************************************************************************************/
 	public static function listen($backlog = 0, $socket = NULL)
@@ -331,15 +331,15 @@ class Socket
 	| 1. string var @address => Belirtilen soket AF_INET veya AF_INET6 türündeyse  			  |
 	| socket_getsockname() işlevi, bu değiştirgede bir IP adresi (127.0.0.1 veya fe80::1 gibi)| 
 	| ve port değiştirgesinde de belirtilmişse ilgili port numarasını döndürür.               |
-	| 2. numeric var @port => Belirtilmişse ilgili port değeri bu değiştirgeye konur..  	  |
+	| 2. numeric var @port => Belirtilmişse ilgili port değeri bu değiştirgeye konur.    	  |
 	| 3. [resource var @socket] => Farklı bir socket kullanılacaksa bu parametre kullanılır.  |
 	|          																				  |
-	| Örnek Kullanım: Socket::getPeerName('127.0.0."', 80)	        	  		  			  |
+	| Örnek Kullanım: Socket::getPeerName('127.0.0.1', 80)	        	  		  			  |
 	|          																				  |
 	******************************************************************************************/
 	public static function getPeerName($address = '', $port = 0, $socket = NULL)
 	{
-		if( ! is_string($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -355,7 +355,7 @@ class Socket
 		(
 			'address'  => $address,
 			'port'	   => $port,
-			'peerName' => $name
+			'return'   => $name
 		);
 	}
 	
@@ -372,12 +372,12 @@ class Socket
 	| 2. numeric var @port => Belirtilmişse ilgili port değeri bu değiştirgeye konur.    	  |
 	| 3. [resource var @socket] => Farklı bir socket kullanılacaksa bu parametre kullanılır.  |
 	|          																				  |
-	| Örnek Kullanım: Socket::getSocketName('127.0.0."', 80)	        	  		  		  |
+	| Örnek Kullanım: Socket::getName('127.0.0.1', 80)	        	  		  		  		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function getSocketName($address = '', $port = 0, $socket = NULL)
+	public static function getName($address = '', $port = 0, $socket = NULL)
 	{
-		if( ! is_string($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($address) || ! is_numeric($port) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -393,7 +393,7 @@ class Socket
 		(
 			'address' 	 => $address,
 			'port'	  	 => $port,
-			'socketName' => $name
+			'return' 	 => $name
 		);
 	}
 	
@@ -419,7 +419,7 @@ class Socket
 	******************************************************************************************/
 	public static function receive($buffer = '', $length = 0, $options = 0, $socket = NULL)
 	{
-		if( ! is_string($buffer) || ! is_numeric($length) || ! is_numeric($options) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($buffer) || ! is_numeric($length) || ! is_numeric($options) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -433,8 +433,8 @@ class Socket
 		
 		return array
 		(
-			'receives' => $receives,
-			'buffer'   => $buffer
+			'return' => $receives,
+			'buffer' => $buffer
 		);
 	}
 	
@@ -453,7 +453,7 @@ class Socket
 	| 	3.4 MSG_DONTROUTE       															  |
 	| 	3.5 MSG_WAITALL       															  	  |
 	| 4. string var @name => Soket AF_UNIX türündeyse dosya yolu, bağlantısız soketse uzak 	  |
-	| konağın IP adresi, bağlantı yönelimli bir soketse NULL'dur	 						  |
+	| konağın IP adresi, bağlantı yönelimli bir soketse NULL'dur.	 						  |
 	| 5. numeric var @port => Sadece AF_INET ve AF_INET6 soketlere uygulanır ve verinin 	  |
 	| alındığı uzak portu belirtir. Soket bağlantı yönelimli ise port NULL olacaktır.	 	  |
 	| 6. [resource var @socket] => Farklı bir socket kullanılacaksa bu parametre kullanılır.  |
@@ -463,7 +463,7 @@ class Socket
 	******************************************************************************************/
 	public static function receiveFrom($buffer = '', $length = 0, $options = 0, $name = '', $port = 0, $socket = NULL)
 	{
-		if( ! is_string($buffer) || ! is_numeric($length) || ! is_numeric($options) || ! is_resource(self::$socketCreate) )
+		if( ! isValue($buffer) || ! is_numeric($length) || ! is_numeric($options) || ! is_resource(self::$socketCreate) )
 		{
 			return false;
 		}
@@ -477,10 +477,10 @@ class Socket
 		
 		return array
 		(
-			'receives' => $receives,
-			'buffer'   => $buffer,
-			'name'	   => $name,
-			'port'	   => $port
+			'return' => $receives,
+			'buffer' => $buffer,
+			'name'	 => $name,
+			'port'	 => $port
 		);
 	}
 	
@@ -496,8 +496,8 @@ class Socket
 	| 2. is_array var @write => Yazmanın engellenmediği görülene kadar 						  |
 	| (soket yazmaya hazır hale gelene kadar) dinlenecek soket özkaynakları dizisi. 	 	  |
 	| 3. is_array var @except => Bu dizideki soketler olağan dışı durumlara göre denetlenir.  |
-	| 4. is_numeric var @secondTimeout => Saniye cinsinden zaman aşımı. tv_sec ve tv_usec 	  |
-	| birlikte select() sistem çağrısının zamanaşımı değiştirgesini oluşturur.	 			  |
+	| 4. is_numeric var @secondTimeout => Saniye cinsinden zaman aşımı. select() sistem 	  |
+	| çağrısının zamanaşımı değiştirgesini oluşturur.	 			  						  |
 	| 5. numeric var @microSecondTimeout => Mikrosaniye cinsinden zaman aşımı. 	 	          |
 	|          																				  |
 	| Örnek Kullanım: Socket::select()	        	  		  								  |
@@ -514,7 +514,7 @@ class Socket
 		
 		return array
 		(
-			'select' => $receives,
+			'return' => $select,
 			'read'   => $read,
 			'write'	 => $write,
 			'except' => $except
@@ -542,7 +542,7 @@ class Socket
 	******************************************************************************************/
 	public static function send($buffer = '', $length = 0, $options = 0, $socket = NULL)
 	{
-		if( ! is_resource(self::$socketCreate) || ! is_string($buffer) || ! is_numeric($length) || ! is_numeric($options) )
+		if( ! is_resource(self::$socketCreate) || ! isValue($buffer) || ! is_numeric($length) || ! is_numeric($options) )
 		{
 			return false;
 		}
@@ -578,7 +578,7 @@ class Socket
 	******************************************************************************************/
 	public static function sendTo($buffer = '', $length = 0, $options = 0, $address = '', $port = 0, $socket = NULL)
 	{
-		if( ! is_resource(self::$socketCreate) || ! is_string($buffer) || ! is_numeric($length) || ! is_numeric($options) || ! is_string($address) )
+		if( ! is_resource(self::$socketCreate) || ! isValue($buffer) || ! is_numeric($length) || ! is_numeric($options) || ! isValue($address) )
 		{
 			return false;
 		}
