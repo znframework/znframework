@@ -1,3 +1,6 @@
+<h4>Import Kütüphanesi - 20/06/2015 17:02</h4>
+<p>Import::masterpage() content_charset, ayarı content-charset olarak düzenlendi.</p>
+
 <h4>Db Kütüphanesi - 17/06/2015 19:24</h4>
 <p>increment() ve decrement() yöntemlerine artış veya azılış miktarlarını ayarlayabilen 3. parametre eklendi.</p>
 
