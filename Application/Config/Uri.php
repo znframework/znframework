@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Parametreler: true, false.															  |
 | Varsayılan: true				                 										  |						
 ******************************************************************************************/
-$config['Uri']['index.php'] 	= false;
+$config['Uri']['index.php'] 	= true;
 
 /******************************************************************************************
 * INDEX SUFFIX                                                                            *
