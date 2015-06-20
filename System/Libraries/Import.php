@@ -199,9 +199,9 @@ class Import
 		
 		$header .= '<head>'.eof();
 		
-		if( is_array($masterpageset["content_charset"]) )
+		if( is_array($masterpageset['content-charset']) )
 		{
-			foreach($masterpageset["content_charset"] as $v)
+			foreach($masterpageset['content-charset'] as $v)
 			{
 				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eof();	
 			}
@@ -329,9 +329,9 @@ class Import
 			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser-icon']).'" />'.eof();
 		}
 		
-		if( ! empty($head['page_image']) ) 
+		if( ! empty($head['browser-icon']) ) 
 		{
-			$header .= '<link rel="image_src" href="'.$head['page_image'].'" />'.eof();	
+			$header .= '<link rel="image_src" href="'.$head['browser-icon'].'" />'.eof();	
 		}
 		
 		//------------------------------------------------------------------------------------

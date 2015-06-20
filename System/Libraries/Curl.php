@@ -49,6 +49,8 @@ class Curl
 	public static function open($url = NULL)
 	{
 		self::$init = curl_init($url);
+		
+		return selff::$init;
 	}
 	
 	/******************************************************************************************
@@ -308,7 +310,7 @@ class Curl
 	{
 		if( isset(self::$init) ) 
 		{
-			curl_close(self::$init);
+			return curl_close(self::$init);
 		}
 		else
 		{
