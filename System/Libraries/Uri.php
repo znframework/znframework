@@ -232,7 +232,7 @@ class Uri
 		
 		$negative = 0;
 		
-		$request_uri = server('request_uri');
+		$request_uri = server('requestUri');
 		
 		$base_dir    = substr(BASE_DIR,1,-1);
 		
@@ -303,7 +303,7 @@ class Uri
 	******************************************************************************************/
 	public static function currentSegment()
 	{	
-		$str = substr(server('current_path'), 1, strlen(server('current_path')) - 1);
+		$str = substr(server('currentPath'), 1, strlen(server('currentPath')) - 1);
 		
 		$str = explode("/", $str);
 	
