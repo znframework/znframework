@@ -211,7 +211,7 @@ class Import
 			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content-charset'].'">'.eof();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.Config::get('Masterpage','content-language').'">'.eof();
+		$header .= '<meta http-equiv="Content-Language" content="'.$masterpageset['content-language'].'">'.eof();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -327,11 +327,6 @@ class Import
 		if( ! empty($masterpageset['browser-icon']) ) 
 		{
 			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser-icon']).'" />'.eof();
-		}
-		
-		if( ! empty($head['browser-icon']) ) 
-		{
-			$header .= '<link rel="image_src" href="'.$head['browser-icon'].'" />'.eof();	
 		}
 		
 		//------------------------------------------------------------------------------------
