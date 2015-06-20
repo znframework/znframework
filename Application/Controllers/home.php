@@ -55,4 +55,9 @@ class Home extends Controller
 		******************************************************************************************/
 		$this->import->view("welcome", $data);
 	}
+	
+	function ex()
+	{
+		output( server('script_name') );
+	}
 }

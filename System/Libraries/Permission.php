@@ -199,7 +199,7 @@ class Permission
 			return false;
 		}
 		
-		$current_url = server('currentPath');
+		$current_url = server('current_path');
 		
 		switch( $rules )
 		{
