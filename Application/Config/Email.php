@@ -9,22 +9,10 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 /******************************************************************************************
-* PHP MAILER SINIFI REFERANS ALINARAK OLUŞTURULMUŞTUR.                                    *
+* EMAIL SETTINGS                                    									  *
 *******************************************************************************************
-| Bu sınıfın oluşturulmasında PHPMailer sınıfı referans alınmıştır.                       |
+| E-posta ile ilgili ayarlar yer almaktadır.					                          |
 |          																				  |
-| Camel standartlarında yazılan PHPmailer yöntemleri PHP yazım standartına çevrilmiştir.  |
-|          																				  |
-| Bu nedenle bu sınıfın kullanımında yer alan bir çok yöntemin nasıl kullanıldığı ile     |
-| ilgili detaylı bilgiyi PHPMailer dökümantasyonundan yararlanarak öğrenebilirsiniz.	  |
-| biz temel olarak kullanılması gereken ve önemli gördüğümüz yöntemleri anlattık.     	  |
-|          																				  |
-******************************************************************************************/
-
-/******************************************************************************************
-* USERNAME                                                                        	      *
-*******************************************************************************************
-| Genel Kullanım: Kullanıcı e-posta adresi.							 					  |					
 ******************************************************************************************/
 $config['Email']['settings'] = array
 (
@@ -34,7 +22,7 @@ $config['Email']['settings'] = array
 	'smtpPort'			=> 587,
 	'smtpKeepAlive'		=> false,
 	'smtpTimeout'		=> 10,
-	'smtpEncode'		=> 'tls',
+	'smtpEncode'		=> 'tls',	// tls, ssl
 	'senderMail'		=> '',
 	'senderName'		=> '',
 	'wordWrap'			=> true,
@@ -42,11 +30,11 @@ $config['Email']['settings'] = array
 	'validate'			=> true,
 	'eol'				=> "\n",
 	'dsn'				=> false,
-	'priority'	   		=> 3,
-	'protocolType' 		=> 'mail',
-	'contentType'		=> 'text',
+	'priority'	   		=> 3,		// 1, 2, 3, 4, 5
+	'protocolType' 		=> 'mail',  // mail, sendmail, smtp
+	'contentType'		=> 'text',  // text, html
 	'charset'			=> 'utf-8',
-	'multiPart'			=> 'mixed',
+	'multiPart'			=> 'mixed', // mixed, related
 	'sendMultiPart'		=> true,
 	'mailPath'			=> '/usr/sbin/sendmail',
 	'bccStackMode'		=> false,
