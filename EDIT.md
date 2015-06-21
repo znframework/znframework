@@ -1,3 +1,6 @@
+<h4>CSendMail Bileşeni - 21/06/2015 20:48</h4>
+<p>CSendMail Bileşeni kaldırılmıştır.</p>
+
 <h4>Email Kütüphanesi - 21/06/2015 20:42</h4>
 <p>E-posta kütüphanesi güncellenmiştir. Buna bağlı olarak User.php kütüphanesi de güncellenmiştir.</p>
 
