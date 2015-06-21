@@ -630,7 +630,7 @@ function lang($file = '', $str = '', $changed = '')
 	{
 		$langstr = $lang[$key][$str];	
 	}
-	elseif(isset($lang[$key]))
+	elseif(isset($lang[$key]) && empty($str) )
 	{
 		return $lang[$key];	
 	}

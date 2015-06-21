@@ -231,11 +231,14 @@ class User
 		$user = ( ! empty($email) ) 
 				? $email 
 				: $user;
+				
+		$sendEmail = uselib('Email');
 		
-		Email::open();
-		Email::receiver($user, $user);
+		$sendEmail->receiver($user, $user);
+		$sendEmail->subject(lang('User', 'activation_process'));
+		$sendEmail->content($message);
 		
-		if( Email::send(lang('User', 'activation_process'), $message) )
+		if( $sendEmail->send() )
 		{
 			self::$success = lang('User', 'activation_email');
 			return true;
@@ -246,8 +249,6 @@ class User
 			self::$error = lang('User', 'email_error');
 			return false;
 		}
-		
-		Email::close();	
 	}
 	
 	/******************************************************************************************
@@ -536,10 +537,13 @@ class User
 			</pre>
 			";
 			
-			Email::open();
-			Email::receiver($email, $email);
+			$sendEmail = uselib('Email');
 			
-			if( Email::send(lang('User', 'new_your_password'), $message) )
+			$sendEmail->receiver($email, $email);
+			$sendEmail->subject(lang('User', 'new_your_password'));
+			$sendEmail->content($message);
+			
+			if( $sendEmail->send() )
 			{
 				if( ! empty($email_column) )
 				{
@@ -562,7 +566,6 @@ class User
 				self::$error = lang('User', 'email_error');
 				return false;
 			}
-			Email::close();
 		}
 		else
 		{

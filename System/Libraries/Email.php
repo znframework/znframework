@@ -1,6 +1,6 @@
 <?php
 /************************************************************/
-/*                       CLASS  EMAIL                       */
+/*                     CLASS  EMAIL                         */
 /************************************************************/
 /*
 
@@ -10,1793 +10,2193 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 /******************************************************************************************
-* PHP MAILER SINIFI REFERANS ALINARAK OLUŞTURULMUŞTUR.                                    *
+* EMAIL                                                                              	  *
 *******************************************************************************************
-| Bu sınıfın oluşturulmasında PHPMailer sınıfı referans alınmıştır.                       |
-|          																				  |
-| Camel standartlarında yazılan PHPmailer yöntemleri PHP yazım standartına çevrilmiştir.  |
-|          																				  |
-| Bu nedenle bu sınıfın kullanımında yer alan bir çok yöntemin nasıl kullanıldığı ile     |
-| ilgili detaylı bilgiyi PHPMailer dökümantasyonundan yararlanarak öğrenebilirsiniz.	  |
-| biz temel olarak kullanılması gereken ve önemli gördüğümüz yöntemleri anlattık.     	  |
-|          																				  |
-******************************************************************************************/
-/******************************************************************************************
-* EMAIL                                                                             	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	Email:: , $this->email , zn::$use->email , uselib('email')    |
+| Sınıfı Kullanırken      :	$this->Email , zn::$use->Email , uselib('Email')              |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class Email {
-	
-	/* Mail Değişkeni
+class Email
+{
+	/* Priority Değişkeni
 	 *  
-	 * E-posta gönderilecek adresini
+	 * Başlık değer bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $mail			= '';
+	protected $priority		  	= 3;
 	
-	/* From Mail Değişkeni
+	/* Protocol Type Değişkeni
 	 *  
-	 * E-posta gönderen adresini
+	 * Hangi yöntemle gönder işlemi yapılacağı bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 'mail', 'smtp' veya 'sendmail'
+	 */
+	protected $protocolType     = 'mail'; 
+	
+	/* Content Type Değişkeni
+	 *  
+	 * E-posta içeği bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 'html', veya 'text'
+	 */
+	protected $contentType		= 'html'; 
+	
+	/* Charset Değişkeni
+	 *  
+	 * E-posta içeğinin dil bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 'utf-8'
+	 */
+	protected $charset			= 'utf-8';
+	
+	/* Multi Part Değişkeni
+	 *  
+	 * Çoklu bölüm bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 'mixed' veya 'related'
+	 */
+	protected $multiPart		= 'mixed';
+	
+	/* Send Multi Part Değişkeni
+	 *  
+	 * Çoklu bölümlü gönderim bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * true
+	 */
+	protected $sendMultiPart	= true;
+	
+	/* X MAILER Değişkeni
+	 *  
+	 * X-Mailer bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 'ZN'
+	 */
+	protected $xMailer = 'ZN';
+	
+	/* Mail Path Değişkeni
+	 *  
+	 * E-posta gönderim yolu bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * '/usr/sbin/sendmail'
+	 */
+	protected $mailPath	      	= '/usr/sbin/sendmail';
+	
+	/* SMTP Connect Değişkeni
+	 *  
+	 * SMTP Bağlantı soketi bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $from_email		= '';
+	protected $smtpConnect		= '';
 	
-	/* From Name Değişkeni
+	/* SMTP Connect Değişkeni
 	 *  
-	 * E-posta gönderen isim bilgisini
+	 * SMTP Bağlantı soketi bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $from_name		= '';
+	protected $smtpHost		  	= ''; 
+	
+	/* SMTP Host Değişkeni
+	 *  
+	 * SMTP sunucu bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $smtpUser		  	= '';
+	
+	/* SMTP Password Değişkeni
+	 *  
+	 * SMTP kullanıcı şifre bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $smtpPassword     = '';
+	
+	/* SMTP Port Değişkeni
+	 *  
+	 * SMTP port bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 587
+	 */
+	protected $smtpPort	     	= 587;
+	
+	/* SMTP Keep Alive Değişkeni
+	 *  
+	 * SMTP kalıcı bağlantı bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * false
+	 */
+	protected $smtpKeepAlive	= false;
+	
+	/* SMTP Timeout Değişkeni
+	 *  
+	 * SMTP bağlantısı zaman aşım bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 10
+	 */
+	protected $smtpTimeout		= 10; 
+	
+	/* SMTP Encode Değişkeni
+	 *  
+	 * SMTP şifreleme bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 'tls' veya 'ssl'
+	 */
+	protected $smtpEncode       = 'tls';
+	
+	/* SMTP Auth Değişkeni
+	 *  
+	 * SMTP kullanıcı bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * false
+	 */ 
+	protected $smtpAuth		  	= false;
+	
+	/* Sender Mail Değişkeni
+	 *  
+	 * Varsayılan gönderici bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */ 
+	protected $senderMail		= '';
+	
+	/* Sender Name Değişkeni
+	 *  
+	 * Varsayılan gönderici isim bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */ 
+	protected $senderName		= '';
+	
+	/* Word Wrap Değişkeni
+	 *  
+	 * Kelime kaydırma bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * true
+	 */ 
+	protected $wordWrap	      	= true;
+	
+	/* Char Wrap Değişkeni
+	 *  
+	 * Karakter kaydırma bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 80
+	 */ 
+	protected $charWrap		  	= 80;
+	
+	/* Alternative Content Değişkeni
+	 *  
+	 * Alternatif mesaj bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * Sadece html içerikli göndrimde kullanılabilir.
+	 */ 
+	protected $altContent		= ''; 
+	
+	/* Validate Değişkeni
+	 *  
+	 * E-posta adresleri doğrulama bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * true
+	 */ 
+	protected $validate	      	= true;
+	
+	/* EOL Değişkeni
+	 *  
+	 * Satır sonu karakter bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * "\n"
+	 */ 
+	protected $eol				= "\n"; 
+	
+	/* DSN Değişkeni
+	 *  
+	 * Teslim durum bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * false
+	 */ 
+	protected $dsn				= false;
+	
+	/* Bcc Stack Mode Değişkeni
+	 *  
+	 * Gruplar halinde bcc gönderim bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * false
+	 */ 
+	protected $bccStackMode	  	= false;
+	
+	/* Bcc Stack Size Değişkeni
+	 *  
+	 * Gruplar halinde bcc gönderim maksimum gönderim sayısı bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * 200
+	 */ 
+	protected $bccStackSize	  	= 200;
+	
+	/* Safe Mode Değişkeni
+	 *  
+	 * Güvenli mod bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * false
+	 */ 
+	protected $safeMode    	  	= false;
 	
 	/* Subject Değişkeni
 	 *  
-	 * E-posta konu bilgisini
+	 * Konu bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 */
-	private static $subject			= '';
+	 */ 
+	protected $subject			= '';
 	
-	/* Message Değişkeni
+	/* Body Değişkeni
 	 *  
-	 * E-posta mesaj bilgisini
+	 * Mesaj bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 */
-	private static $message			= '';
+	 */ 
+	protected $body			  	= '';
 	
-	/* Error Değişkeni
+	/* Last Body Değişkeni
 	 *  
-	 * E-posta işlemlerinde oluşan hata bilgilerini
+	 * Son ileti bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 */
-	private static $error			= '';
+	 */ 
+	protected $lastBody		  	= '';
 	
-	/* Detail Değişkeni
+	/* Alternative Limit Değişkeni
 	 *  
-	 * E-posta işlemleri ile ilgili detaylı bilgiyi
+	 * alternatif gönderim sınır bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 */
-	private static $detail			= '';
+	 */ 
+	protected $altLimit		    = '';
 	
-	/* Settins Dizi Değişkeni
+	/* Attachment Limit Değişkeni
 	 *  
-	 * E-posta işlemleri ile ilgili ayarları
+	 * Ek sayısı sınır bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 * Ayarlarda herhangi bir değişiklik yapılmamışsa
-	 * varsayılan olarak ayarlı verileri kullanır.
-	 * Bu nedenler ayarların '' işaretleri içinde olması
-	 * bu ayarların yapılmadığı anlamına gelmez.
+	 */ 
+	protected $attachLimit      = '';
+	
+	/* Header String Değişkeni
+	 *  
+	 * Song başlıklar gönderim bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */ 
+	protected $headerString	  	= '';
+	
+	/* Encode Değişkeni
+	 *  
+	 * E-posta şifreleme bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * '8bit'
+	 */
+	protected $encode		    = '8bit';
+	
+	/* Reply To Flag Değişkeni
+	 *  
+	 * Yanıt üst bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 * false
+	 */
+	protected $replyToFlag		= false; 
+	
+	/* MB Enabled Değişkeni
+	 *
+	 * true
+	 */
+	protected $mbEnabled 		= true;
+	
+	/* Iconv Enabled Değişkeni
+	 *
+	 * true
+	 */
+	protected $iconvEnabled 	= true;
+	
+	/* Debug Message Değişkeni
+	 *  
+	 * E-posta gönderiminde oluşan hatalar bilgisini
+	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $settings 		= array
-	(
-		'username'					=> '', // kullanici@site.xxx
-		'fromname'					=> '', // Kullanici İsmi
-		'password'					=> '', // Kullanıcı Şifresi
-		'port'						=> '', // Port Numarası
-		'host'						=> '', // mail.alanadi.xxx
-		'is-html'					=> '', 
-		'is-smtp'					=> '', 
-		'smtp-auth'					=> '',
-		'smtp-debug' 				=> '', // false
-		'smtp-secure'				=> '', // 'ssl', 'tsl', ''
-		'smtp-keep-alive'			=> '',
-		'charset'					=> '',	
-		'alt-body'					=> '',
-		'priority'					=> '', // 3
-		'content'					=> '', // text/plain
-		'encoding'					=> '', // 8bit
-		'word-wrap'					=> '',
-		'send-mail'					=> '', // /usr/sbin/sendmail
-		'mailer'					=> '', // mail
-		'sender'					=> '',
-		'return-path'				=> '',
-		'use-send-mail-options' 	=> '', // true
-		'lugin_dir' 				=> '',
-		'confirm-reading-to' 		=> '',
-		'hostname' 				=> '',
-		'message-id' 				=> '',
-		'message-date' 				=> '',
-		'helo'	 					=> '',
-		'auth-type'	 				=> '',
-		'plugin-dir'				=> '',
-		'realm'		 				=> '',
-		'work-station'				=> '',
-		'timeout'		 			=> '',
-		'debug-output'				=> '',
-		'single-to'					=> '',
-		'single-to-array'			=> array(),
-		'le'						=> '',
-		'dkim-selector'				=> '',
-		'dkim-identity'				=> '',
-		'dkim-pass-phrase'			=> '',
-		'dkim-domain'				=> '',
-		'dkim-private'				=> '',
-		'action-function'			=> '',
-		'version'					=> '', // 5.2.4
-		'xmailer'					=> ''
-	);
+	protected $debugMessage		= array();
+	
+	/* Receivers Değişkeni
+	 *  
+	 * Alıcılar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $receivers		= array();
+	
+	/* CC Receivers Değişkeni
+	 *  
+	 * CC Alıcılar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $ccReceivers		= array();
+	
+	/* BCC Receivers Değişkeni
+	 *  
+	 * BCC Alıcılar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $bccReceivers     = array();
+	
+	/* Header Değişkeni
+	 *  
+	 * Gönderilecek başlık bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $headers			= array();
+	
+	/* Attachmetns Değişkeni
+	 *  
+	 * Gönderilecek ek bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $attachments		= array();
+	
+	/* Protokol Types Değişkeni
+	 *  
+	 * Gönderim tipleri bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $protocolTypes	= array('mail', 'sendmail', 'smtp');
+	
+	/* Charset Types Değişkeni
+	 *  
+	 * Karakter setleri bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $charsetTypes	    = array('us-ascii', 'iso-2022-');
+	
+	/* Encode Types Değişkeni
+	 *  
+	 * Şifreleme tipleri bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $encodeTypes		= array('7bit', '8bit');
+	
+	/* Priority Types Değişkeni
+	 *  
+	 * Öncelik bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $priorityTypes	= array(1 => '1 (Highest)', 2 => '2 (High)', 3 => '3 (Normal)', 4 => '4 (Low)',5 => '5 (Lowest)');
+	
+	/* Config Değişkeni
+	 *  
+	 * Config/Email.php ayar bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config			= array();	
+	
+	/******************************************************************************************
+	* CONSTRUCT                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: E-posta ayarları çalıştırılıyor.				     					  |
+	|          																				  |
+	******************************************************************************************/
+	public function __construct($config = array())
+	{
+		$this->config  = Config::get('Email', 'settings');
+		
+		$this->charset = $this->config['charset'];
+		
+		if( empty($config) )
+		{
+			$this->settings($this->config);	
+		}
+		else
+		{
+			$this->settings($config);
+		}
+		
+		$this->safeMode = ( ! isPhpVersion('5.4') && ini_get('safe_mode') );
+		
+		$this->charset = strtoupper($this->charset);
+	}
 	
 	/******************************************************************************************
 	* SETTINGS                                                                                *
 	*******************************************************************************************
-	| Genel Kullanım: E-posta gönderimi için yapılması gereken ayarları yapmak içindir.		  |
+	| Genel Kullanım: E-posta ayarlarını yapılandırmak için kullanılır.						  |
 	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array var @settings => E-posta gönderimi için yapılacak gerekli ayarlar.			  |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. array var @config => Yapılandırılacak ayarlar.		  								  |
 	|          																				  |
-	| Örnek Kullanım: settings(array('username' => 'xx', 'password' => '12345'))         	  |
-	| Geçerli kullanılabilir ayarlar yukarıdaki listede mevcuttur. Genel bir ayarmalama       |
-	| için ise Config/Email.php dosyası kullanılabilir.					  					  |
+	| Örnek Kullanım: settings(array('wordWrap' => true));       							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function settings($settings = array())
+	public function settings($config = array())
 	{
-		if( is_array($settings) ) 
+		if( ! is_array($config) )
 		{
-			foreach($settings as $k => $v)
+			return false;	
+		}
+
+		foreach( $config as $key => $val )
+		{
+			if ( isset($this->$key) )
 			{
-				self::$settings[$k] = $v;
+				$this->$key = $val;
 			}
 		}
+
+		$this->smtpAuth = ! ( $this->smtpUser === '' && $this->smtpPassword === '' );
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
-	* RECEIVER                                                                                *
+	* FROM                                                                                    *
 	*******************************************************************************************
-	| Genel Kullanım: E-posta alıcısının e-posta bilgisini belirlemek içindir.		  		  |
+	| Genel Kullanım: Gönderici e-posta adresini ve gönderen ismini belirlemek içindir.		  |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @from => Gönderici e-posta adresi.		  								  |
+	| 2. string var @name => Gönderici ismi.		  						  				  |
+	| 3. string var @returnPath => İsteğe bağlı e-posta adresi ile teslim edilmemiş e-posta	  |
+	| bilgisini yönlendirmek için kullanılır.		  						  				  |
+	|          																				  |
+	| Örnek Kullanım: from('bilgi@zntr.net', 'ZNTR', 'donus@example.com');		       		  |
+	|          																				  |
+	******************************************************************************************/
+	public function from($from = '', $name = '', $returnPath = NULL)
+	{
+		$this->sender($from, $name, $returnPath);
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SENDER / FROM                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: from() yöntemi ile aynı işlevi yerine getirir.						  |
+	|          																				  |
+	******************************************************************************************/
+	public function sender($from = '', $name = '', $returnPath = NULL)
+	{
+		if( preg_match('/\<(.*)\>/', $from, $match) )
+		{
+			$from = $match[1];
+		}
+		
+		if( $this->validate )
+		{
+			$this->validateEmail($this->_strToArray($from));
+			
+			if( ! empty($returnPath) )
+			{
+				$this->validateEmail($this->_strToArray($returnPath));
+			}
+		}
+		
+		if( $name !== '' )
+		{
+			if( ! preg_match('/[\200-\377]/', $name) )
+			{
+				$name = '"'.addcslashes($name, "\0..\37\177'\"\\").'"';
+			}
+			else
+			{
+				$name = $this->_prepQEncoding($name);
+			}
+		}
+		
+		$this->setHeader('From', $name.' <'.$from.'>');
+		
+		isset( $returnPath ) || $returnPath = $from;
+		
+		$this->setHeader('Return-Path', '<'.$returnPath.'>');
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* FROM                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Gelen e-postaya cevap vermek için kullanılır.							  |
 	|															                              |
 	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string/array var @email => Alıcı e-posta adresidir. Çoklu e-posta gönderimi için     |
-	| bu parametrenin dizi olarak ayarlanması gerekmetedir. Bu parametre dizi olarak		  |
-	| ayarlanırsa 2. parametrenin kullanımına gerek yoktur.  								  |
-	| 2. string var @name => Alıcının isim bilgisini tutar. 1. parametre dizi ise kullanımına |
-	| gerek yoktur.         																  |
+	| 1. string var @replyTo => Alıcı e-posta adresi.		  								  |
+	| 2. string var @name => Alıcı ismi.		  							  				  |
 	|          																				  |
-	| Örnek Kullanım: receiver('bilgi@zntr.net', 'ZNTR')        	  						  |
-	| Örnek Kullanım: receiver(array('bilgi@zntr.net' => 'ZNTR', '2.eposta' => '2. isim' ...))|
+	| Örnek Kullanım: replyTo('bilgi@zntr.net', 'ZNTR');		       						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function receiver($email = '', $name = '')
+	public function replyTo($replyTo = '', $name = '')
 	{
-		if( empty(self::$mail) )
+		if( preg_match('/\<(.*)\>/', $replyTo, $match) )
 		{
-			return false;
+			$replyTo = $match[1];
 		}
 		
-		if( ! is_string($name) )
+		if( $this->validate )
 		{
-			$name = '';
+			$this->validateEmail($this->_strToArray($replyTo));
 		}
 		
-		if( isset($email) )
+		if( $name === '' )
 		{
-			if( ! is_array($email) ) 
-			{
-				self::$mail->AddAddress($email, $name);
-			}
-			else
-			{ 
-				foreach($email as $e => $n)
-				{ 
-					self::$mail->AddAddress($e, $n);
-				}
-			}
-		}	
+			$name = $replyTo;
+		}
+		
+		if (strpos($name, '"') !== 0)
+		{
+			$name = '"'.$name.'"';
+		}
+		
+		$this->setHeader('Reply-To', $name.' <'.$replyTo.'>');
+		
+		$this->replyToFlag = true;
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
-	* SENDER                                                                                  *
+	* TO                                                                                      *
 	*******************************************************************************************
-	| Genel Kullanım: E-posta göndericisinin e-posta bilgisini belirlemek içindir.		      |
+	| Genel Kullanım: E-posta gönderilecek kişinin e-posta adresi.							  |
 	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @email => Gönderici e-posta adresidir.       							  |
-	| 2. string var @name => Göndericinin isim bilgisini tutar.      					      |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @to => Alıcı e-posta adresi.		  								      |
 	|          																				  |
-	| Örnek Kullanım: sender('bilgi@zntr.net', 'ZNTR')        	  						      |
+	| Örnek Kullanım: to('bilgi@zntr.net');		 				      						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function sender($email = '', $name = '')
+	public function to($to = '')
 	{
-		if( empty(self::$mail) )
-		{
-			return false;
-		}
+		$this->receiver($to);
 		
-		if( ! is_string($email) ) 
-		{
-			return false;
-		}
-		if( ! is_string($name) )
-		{
-			$name = '';
-		}
-		
-		self::$from_email = $email;
-		self::$from_name  = $name;	
+		return $this;	
 	}
 	
 	/******************************************************************************************
-	* ADD REPLY TO                                                                            *
+	* RECEIVER / TO                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: to() yönteminin kullanımı ile aynı işleve sahiptir.					  |
+	|          																				  |
 	******************************************************************************************/
-	public static function addReplyTo($email = '', $name = '')
+	public function receiver($to = '')
 	{
-		if( empty(self::$mail) ) 
+		$to = $this->_strToArray($to);
+		
+		$to = $this->cleanEmail($to);
+		
+		if( $this->validate )
 		{
-			return false;
-		}
-		if( ! is_string($name) ) 
-		{
-			$name = '';
-		}
-		if( isset($email) )
-		{
-			if( ! is_array($email) )
-			{ 
-				self::$mail->AddReplyTo($email, $name);
-			}
-			else
-			{ 
-				foreach($email as $e => $n)
-				{
-					self::$mail->AddReplyTo($e, $n);
-				}
-			}
-		}
-	}
-	
-	/******************************************************************************************
-	* ADD CC                                                                                  *
-	******************************************************************************************/
-	public static function addCc($email = '', $name = '')
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
+			$this->validateEmail($to);
 		}
 		
-		if( ! is_string($name) )
+		if( $this->_getProtocolType() !== 'mail' )
 		{
-			$name = '';
+			$this->setHeader('To', implode(', ', $to));
 		}
-		if( isset(self::$email) )
-		{
-			if( ! is_array($email) )
-			{ 
-				self::$mail->AddCC($email, $name);
-			}
-			else 
-			{
-				foreach($email as $e => $n)
-				{
-					self::$mail->AddCC($e, $n);
-				}
-			}
-		}
-	}
-	
-	/******************************************************************************************
-	* ADD BCC                                                                                 *
-	******************************************************************************************/
-	public static function addBcc($email = '', $name = '')
-	{
-		if( empty(self::$mail) )
-		{
-			return false;
-		}
-		if( ! is_string($name) )
-		{
-			$name = '';
-		}
-		if( isset($email) )
-		{
-			if( ! is_array($email) )
-			{ 
-				self::$mail->AddBCC($email, $name);
-			}
-			else
-			{ 
-				foreach($email as $e => $n) 
-				{
-					self::$mail->AddBCC($e, $n);
-				}
-			}
-		}
+		
+		$this->receivers = $to;
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
 	* SUBJECT                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: E-posta adresinin konusu.					 							  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @subject => Konu.  		     		  								      |
+	|          																				  |
+	| Örnek Kullanım: subject('Konu');		 				      						  	  |
+	|          																				  |
 	******************************************************************************************/
-	public static function subject($subject = '')
+	public function subject($subject = '')
 	{
-		if( ! is_string($subject) )
-		{
-			return false;
-		}
-		self::$subject = $subject;
+		$subject = $this->_prepQEncoding($subject);
+		
+		$this->setHeader('Subject', $subject);
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
 	* MESSAGE                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: E-posta adresinin içeriği.					 						  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @body => İçerik.  		     		  								      |
+	|          																				  |
+	| Örnek Kullanım: message('İçerik');		 				      						  |
+	|          																				  |
 	******************************************************************************************/
-	public static function message($message = '')
+	public function message($body = '')
 	{
-		if( ! is_string($message) )
+		$this->content($body);
+		
+		return $this;	
+	}
+	
+	/******************************************************************************************
+	* CONTENT                                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: message() yöntemi ile aynı kullanıma sahiptir.					  	  |
+	|          																				  |
+	******************************************************************************************/
+	public function content($body = '')
+	{
+		$this->body = rtrim(str_replace("\r", '', $body));
+		
+		if( ! isPhpVersion('5.4') && get_magic_quotes_gpc() )
 		{
-			return false;
+			$this->body = stripslashes($this->body);
 		}
-		self::$message = $message;
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
-	* ERROR                                                                                   *
+	* ATTACHMENT                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: E-post gönderiminde gönderiye eklenecek ekler.					 	  |
+	|															                              |
+	| Parametreler: 4 parametresi vardır.                                                     |
+	| 1. string var @file => Dosyanın yerel yolu.  		     		  						  |
+	| 2. string var @disposition => Eğilim yolu.  		     		  						  |
+	| 3. string var @newName => Dosyanın görünecek adı.  		     		  				  |
+	| 4. string var @mime => Dosyanın içerik tipi.		  		     		  				  |
+	|          																				  |
+	| Örnek Kullanım: attachment('resimler/dosya.jpg', '', 'resim');		 				  |
+	|          																				  |
 	******************************************************************************************/
-	public static function error()
+	public function attachment($file = '', $disposition = '', $newName = NULL, $mime = 'application/octet-stream')
 	{
-		return self::$error;
-	}
-	
-	/******************************************************************************************
-	* DETAIL                                                                                  *
-	******************************************************************************************/
-	public static function detail()
-	{
-		return self::$detail;
-	}
-	
-	/******************************************************************************************
-	* OPEN                                                                                    *
-	******************************************************************************************/
-	public static function open()
-	{
-		Import::package(REFERENCES_DIR.'PHPMailer');	
-		self::$mail = new PHPMailer();
-	}
-	
-	/******************************************************************************************
-	* IS MAIL                                                                                 *
-	******************************************************************************************/
-	public static function isMail()
-	{
-		if( empty(self::$mail) )
+		$mimeTypes = Config::get('MimeTypes');
+		
+		$mime = ! empty($mimeTypes[$mime])
+				? $mimeTypes[$mime]
+				: 'application/octet-stream';
+		
+		if( is_array($mime) )
 		{
-			return false;
+			$mime = $mime[0];	
+		} 
+		
+		if( $mime === '' )
+		{
+			if( strpos($file, '://') === false && ! file_exists($file) )
+			{
+				$this->_setErrorMessage('attachment_missing', $file);
+				return false;
+			}
+			
+			if( ! $fp = @fopen($file, 'rb') )
+			{
+				$this->_setErrorMessage('attachment_unreadable', $file);
+				return false;
+			}
+			
+			$fileContent = stream_get_contents($fp);
+			
+			fclose($fp);
 		}
-		self::$mail->IsMail();
-	}
-	
-	/******************************************************************************************
-	* IS SEND MAIL                                                                            *
-	******************************************************************************************/
-	public static function isSendMail()
-	{
-		if( empty(self::$mail) ) 
+		else
 		{
-			return false;
+			$fileContent =& $file;
 		}
-		self::$mail->IsSendmail();
+		
+		$this->attachments[] = array
+		(
+			'name'			=> array($file, $newName),
+			'disposition'	=> empty($disposition) ? 'attachment' : $disposition,
+			'type'			=> $mime,
+			'content'		=> chunk_split(base64_encode($fileContent))
+		);
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
-	* IS Q MAIL                                                                               *
+	* ATTACHMENT CONTENT ID                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Ekin içerik id bilgisini verir.					 	  				  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @filename => Dosyanın yerel yolu.  		     		  					  |
+	|          																				  |
+	| Örnek Kullanım: attachattachmentContentIdment('resimler/dosya.jpg');		 			  |
+	|          																				  |
 	******************************************************************************************/
-	public static function isQMail()
+	public function attachmentContentId($filename = '')
 	{
-		if( empty(self::$mail) )
+		if( $this->multiPart !== 'related' )
 		{
-			return false;
+			$this->multiPart = 'related'; 
 		}
-		self::$mail->IsQmail();
-	}
-	
-	/******************************************************************************************
-	* VALIDATE ADDRESS                                                                        *
-	******************************************************************************************/
-	public static function validateAddress()
-	{
-		return self::$mail->ValidateAddress();
-	}
-	
-	/******************************************************************************************
-	* PRE SEND                                                                                *
-	******************************************************************************************/
-	public static function preSend()
-	{
-		if( empty(self::$mail) ) 
+		
+		for( $i = 0, $c = count($this->attachments); $i < $c; $i++ )
 		{
-			return false;
+			if( $this->attachments[$i]['name'][0] === $filename )
+			{
+				$this->attachments[$i]['cid'] = uniqid(basename($this->attachments[$i]['name'][0]).'@');
+				
+				return $this->attachments[$i]['cid'];
+			}
 		}
-		return self::$mail->PreSend();
+		
+		return false;
 	}
 	
 	/******************************************************************************************
-	* POST SENT                                                                               *
+	* CC				                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: CC Alıcılarını belirtmek için kullanılır.					 	  		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @cc => CC alıcısı.  		     		  					  			  |
+	|          																				  |
+	| Örnek Kullanım: cc('bilgi@zntr.net');		 			 							      |
+	|          																				  |
 	******************************************************************************************/
-	public static function postSend()
+	public function cc($cc = '')
 	{
-		if( empty(self::$mail) ) 
+		$cc = $this->cleanEmail($this->_strToArray($cc));
+		
+		if( $this->validate )
 		{
-			return false;
+			$this->validateEmail($cc);
 		}
-		return self::$mail->PostSend();
-	}
-	
-	/******************************************************************************************
-	* SMTP CONNECT                                                                            *
-	******************************************************************************************/
-	public static function smtpConnect()
-	{
-		if( empty(self::$mail) ) 
+		
+		$this->setHeader('Cc', implode(', ', $cc));
+		
+		if ($this->_getProtocolType() === 'smtp')
 		{
-			return false;
+			$this->ccReceivers = $cc;
 		}
-		return self::$mail->SmtpConnect();
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
-	* SMPT CLOSE                                                                              *
+	* BCC				                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: BCC Alıcılarını belirtmek için kullanılır.					 	  	  |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @bcc => BCC alıcısı.  		     		  					  			  |
+	| 2. numeric var @limit => BCC alıcısı limiti.  		     		  					  |
+	|          																				  |
+	| Örnek Kullanım: bcc('bilgi@zntr.net', 10);			 							      |
+	|          																				  |
 	******************************************************************************************/
-	public static function smptClose()
+	public function bcc($bcc = '', $limit = '')
 	{
-		if( empty(self::$mail) ) 
+		if( $limit !== '' && is_numeric($limit) )
 		{
-			return false;
+			$this->bccStackMode = true;
+			$this->bccStackSize = $limit;
 		}
-		self::$mail->SmtpClose();
+		
+		$bcc = $this->cleanEmail($this->_strToArray($bcc));
+		
+		if( $this->validate )
+		{
+			$this->validateEmail($bcc);
+		}
+		
+		if( $this->_getProtocolType() === 'smtp' || ($this->bccStackMode && count($bcc) > $this->bccStackSize) )
+		{
+			$this->bccReceivers = $bcc;
+		}
+		else
+		{
+			$this->setHeader('Bcc', implode(', ', $bcc));
+		}
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
-	* ADDR APPEND                                                                             *
+	* SMPT HOST			                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT Host ayarını yapmak için kullanılır.					 	  	      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @host => SMTP Sunucu adı.	     		  					  			  |
+	|          																				  |
+	| Örnek Kullanım: smtpHost('mail.zntr.net');			 							      |
+	|          																				  |
 	******************************************************************************************/
-	public static function addrAppend($type = '', $addr = '')
+	public function smtpHost($host = '')
 	{
-		if( empty(self::$mail) ) 
+		if( isValue($host) )
 		{
+			$this->smtpHost = $host;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SMPT USER			                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT kullanıcı ayarını yapmak için kullanılır.					 	  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @user => SMTP kullanıcı adı.	     		  					  		  |
+	|          																				  |
+	| Örnek Kullanım: smtpUser('bilgi@zntr.net');			 							      |
+	|          																				  |
+	******************************************************************************************/
+	public function smtpUser($user = '')
+	{
+		if( isValue($user) )
+		{
+			$this->smtpUser = $user;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SMPT PASSWORD		                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT kullanıcı şifre ayarını yapmak için kullanılır.					  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @pass => SMTP kullanıcı şifresi.	     		  					  	  |
+	|          																				  |
+	| Örnek Kullanım: smtpPassword('zntr1234');			 							  		  |
+	|          																				  |
+	******************************************************************************************/
+	public function smtpPassword($pass = '')
+	{
+		if( isValue($pass) )
+		{
+			$this->smtpPassword = $pass;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SMPT PORT  		                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT port ayarını yapmak için kullanılır.								  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @port => SMTP port numarası.		     		  					  	  |
+	|          																				  |
+	| Örnek Kullanım: smtpPort(587);					 							  		  |
+	|          																				  |
+	******************************************************************************************/
+	public function smtpPort($port = '')
+	{
+		if( is_numeric($port) )
+		{
+			$this->smtpPort = $port;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SMPT TIMEOUT		                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT bağlantı zaman aşımı ayarını yapmak için kullanılır.				  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @timeout => SMTP zaman aşımı süresi.     		  					  	  |
+	|          																				  |
+	| Örnek Kullanım: smtpTimeout(10);	// 10 Saniye	 							  		  |
+	|          																				  |
+	******************************************************************************************/
+	public function smtpTimeout($timeout = '')
+	{
+		if( is_numeric($timeout) )
+		{
+			$this->smtpTimeout = $timeout;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SMPT KEEP ALIVE	                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT bağlantısını açık tutulup tutulmayacağını ayarlamak için kullanılır|
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @keepAlive => Bağlantı durumu.		     		  					  	  |
+	|          																				  |
+	| Örnek Kullanım: smtpKeepAlive(true);				 							  		  |
+	|          																				  |
+	******************************************************************************************/
+	public function smtpKeepAlive($keepAlive = true)
+	{
+		if( is_bool($keepAlive) )
+		{
+			$this->smtpKeepAlive = $keepAlive;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* SMPT ENCODE 		                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: SMPT tls veya ssl güvenlik ayarlarından birini kullanmak içindir.		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @encode => Şifreleme türü.		     			  					  	  |
+	|          																				  |
+	| Örnek Kullanım: smtpKeepAlive('tls'); // tls veya ssl							  		  |
+	|          																				  |
+	******************************************************************************************/
+	public function smtpEncode($encode = '')
+	{
+		if( is_string($encode) )
+		{
+			$this->smtpEncode = $encode;	
+		}
+		
+		return $this;
+	}
+	
+	public function mailPath($path = 'usr/sbin/sendmail')
+	{
+		if( is_string($path) )
+		{
+			$this->mailPath = prefix($path);	
+		}
+		
+		return $this;
+	}
+	
+	public function validate($valid = true)
+	{
+		if( is_bool($valid) )
+		{
+			$this->validate = $valid;	
+		}
+		
+		return $this;
+	}
+	
+	public function dsn($dsn = true)
+	{
+		if( is_bool($dsn) )
+		{
+			$this->dsn = $dsn;	
+		}
+		
+		return $this;
+	}
+	
+	public function charset($charset = 'utf-8')
+	{
+		if( isCharset($charset) )
+		{
+			$this->charset = $charset;	
+		}
+		
+		return $this;
+	}
+	
+	public function multiPart($multiPart = 'mixed')
+	{
+		if( is_string($multiPart) )
+		{
+			$multiPart = ( $multiPart === 'mixed' )
+						 ? 'mixed'
+						 : 'related';
+						 
+			$this->multiPart = $multiPart;	
+		}
+		
+		return $this;
+	}
+	
+	public function sendMultiPart($multi = true)
+	{
+		if( is_bool($multi) )
+		{
+			$this->sendMultiPart = $multi;	
+		}
+		
+		return $this;
+	}
+	
+	public function wrap($word = true, $char = 80)
+	{
+		if( is_bool($word) )
+		{
+			$this->wordWrap = $word;	
+		}
+		
+		if( is_numeric($char) )
+		{
+			$this->charWrap = $char;	
+		}
+		
+		return $this;
+	}
+	
+	public function bccStack($mode = true, $size = 200)
+	{
+		if( is_bool($mode) )
+		{
+			$this->bccStackMode = $mode;	
+		}
+		
+		if( is_numeric($size) )
+		{
+			$this->bccStackSize = $size;	
+		}
+		
+		return $this;
+	}
+	
+	public function setHeader($header = '', $value = '')
+	{
+		$this->headers[$header] = str_replace(array("\n", "\r"), '', $value);
+	}
+	
+	public function altMessage($str = '')
+	{
+		$this->altContent($str);
+		
+		return $this;
+	}
+	
+	public function altContent($str = '')
+	{
+		$this->altContent = (string)$str;
+		
+		return $this;
+	}
+	
+	public function contentType($type = 'text')
+	{
+		$this->contentType = ( $type === 'html' ) 
+							 ? 'html' 
+							 : 'text';
+		return $this;
+	}
+	
+	public function protocolType($type = 'mail')
+	{
+		$this->protocolType = in_array($type, $this->protocolTypes, TRUE) ? strtolower($type) : 'mail';
+		
+		return $this;
+	}
+	
+	public function priority($count = 3)
+	{
+		$this->priority = preg_match('/^[1-5]$/', $count) 
+						? (int)$count 
+						: 3;
+						
+		return $this;
+	}
+	
+	public function eol($eol = "\n")
+	{
+		$this->eol = in_array($eol, array("\n", "\r\n", "\r")) 
+				   ? $eol 
+				   : "\n";
+				   
+		return $this;
+	}
+	
+	public function validateEmail($email = '')
+	{
+		if ( ! is_array($email))
+		{
+			$this->_setErrorMessage('must_be_array');
 			return false;
 		}
 		
-		if( ! is_string($type) ) 
+		foreach( $email as $val )
 		{
-			$type = '';
+			if ( ! isEmail($val) )
+			{
+				$this->_setErrorMessage('invalid_address', $val);
+				
+				return false;
+			}
 		}
 		
-		if( ! is_string($addr) )
-		{
-			$addr = '';
-		}
-		
-		return self::$mail->AddrAppend($type, $addr);
+		return true;
 	}
 	
-	/******************************************************************************************
-	* ADDR FORMAT                                                                             *
-	******************************************************************************************/
-	public static function addrFormat($addr = '')
+	public function cleanEmail($email = '')
 	{
-		if( empty(self::$mail) ) 
+		if ( ! is_array($email) )
 		{
-			return false;
+			return preg_match('/\<(.*)\>/', $email, $match) ? $match[1] : $email;
 		}
 		
-		if( ! is_string($addr) ) 
+		$cleanEmail = array();
+		
+		foreach( $email as $addy )
 		{
-			$addr = '';
+			$cleanEmail[] = preg_match('/\<(.*)\>/', $addy, $match) ? $match[1] : $addy;
 		}
 		
-		return self::$mail->AddrFormat($addr);
+		return $cleanEmail;
+	}
+	
+	public function wordWrap($str, $charLimit = NULL)
+	{
+		if( empty($charLimit) )
+		{
+			$charLimit = empty($this->charWrap) 
+					   ? 80 
+					   : $this->charWrap;
+		}
+	
+		if( strpos($str, "\r") !== false )
+		{
+			$str = str_replace(array("\r\n", "\r"), "\n", $str);
+		}
+		
+		$str = preg_replace('| +\n|', "\n", $str);
+		
+		$unwrap = array();
+		
+		if( preg_match_all('|\{unwrap\}(.+?)\{/unwrap\}|s', $str, $matches) )
+		{
+			for ($i = 0, $c = count($matches[0]); $i < $c; $i++)
+			{
+				$unwrap[] = $matches[1][$i];
+				$str = str_replace($matches[0][$i], '{{unwrapped'.$i.'}}', $str);
+			}
+		}
+		
+		$str = wordwrap($str, $charLimit, "\n", FALSE);
+		
+		$output = '';
+		
+		foreach( explode("\n", $str) as $line )
+		{
+			if( mb_strlen($line) <= $charLimit )
+			{
+				$output .= $line.$this->eol;
+				continue;
+			}
+			
+			$temp = '';
+			
+			do
+			{
+				if( preg_match('!\[url.+\]|://|www\.!', $line) )
+				{
+					break;
+				}
+				
+				$temp .= mb_substr($line, 0, $charLimit - 1);
+				$line  = mb_substr($line, $charLimit - 1);
+			}
+			
+			while( mb_strlen($line) > $charLimit );
+
+			if( $temp !== '' )
+			{
+				$output .= $temp.$this->eol;
+			}
+			$output .= $line.$this->eol;
+		}
+	
+		if( count($unwrap) > 0 )
+		{
+			foreach ($unwrap as $key => $val)
+			{
+				$output = str_replace('{{unwrapped'.$key.'}}', $val, $output);
+			}
+		}
+		
+		return $output;
 	}
 
-	/******************************************************************************************
-	* WRAP TEXT                                                                               *
-	******************************************************************************************/
-	public static function wrapText($message = '', $length = 0, $qp_mode = false)
+	public function send()
 	{
-		if( empty(self::$mail) || ! is_string($message) ) 
-		{
-			return false;
-		}
-	
-		if( ! is_numeric($length) ) 
-		{
-			$length = 0;
-		}
-		
-		if( ! is_bool($qp_mode) ) 
-		{
-			$qp_mode = false;
-		}
-		
-		return self::$mail->WrapText($message, $length, $qp_mode);
-	}
-	
-	/******************************************************************************************
-	* UTF8 CHAR BOUNDARY                                                                      *
-	******************************************************************************************/
-	public static function utf8CharBoundary($encode_text = '', $max_length = 0)
-	{
-		if( empty(self::$mail) || ! is_string($encode_text) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_numeric($max_length) ) 
-		{
-			$max_length = 0;
-		}
-		
-		return self::$mail->UTF8CharBoundary($encode_text, $max_length);
-	}
-	
-	/******************************************************************************************
-	* SET WORD WRAP                                                                           *
-	******************************************************************************************/
-	public static function setWordWrap()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->SetWordWrap();
-	}
-	
-	/******************************************************************************************
-	* CREATE HEADER                                                                           *
-	******************************************************************************************/
-	public static function createHeader()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->CreateHeader();
-	}
-	
-	/******************************************************************************************
-	* GET MAIL MIME                                                                           *
-	******************************************************************************************/
-	public static function getMailMime()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->GetMailMIME();
-	}
-	
-	/******************************************************************************************
-	* GET SENT MIME MESSAGE                                                                   *
-	******************************************************************************************/
-	public static function getSentMimeMessage()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->GetSentMIMEMessage();
-	}
-	
-	/******************************************************************************************
-	* CREATE BODY                                                                             *
-	******************************************************************************************/
-	public static function createBody()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->CreateBody();
-	}
-	
-	/******************************************************************************************
-	* HEADER LINE                                                                             *
-	******************************************************************************************/
-	public static function hederLine($name = '', $value = '')
-	{
-		if( empty(self::$mail) || ! is_string($name) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($value) ) 
-		{
-			$value = '';
-		}
-		
-		return self::$mail->HeaderLine($name, $value);
-	}
-	
-	/******************************************************************************************
-	* TEXT LINE                                                                               *
-	******************************************************************************************/
-	public static function textLine($value = '')
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		
-		if( ! (is_string($value) || is_numeric($value)) ) 
-		{
-			return false;
-		}
-		
-		return self::$mail->TextLine($value);
-	}
-	
-	/******************************************************************************************
-	* GET ATTACHMENTS                                                                         *
-	******************************************************************************************/
-	public static function getAttachments()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->GetAttachments();
-	}
-	
-	/******************************************************************************************
-	* ENCODE STRING                                                                           *
-	******************************************************************************************/
-	public static function encodeString($str = '', $encoding = 'base64')
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-	
-		if( ! is_string($encoding) ) 
-		{
-			$encoding = 'base64';
-		}
-		
-		return self::$mail->EncodeString($str, $encoding);
-	}
-	
-	/******************************************************************************************
-	* ENCODE HEADER                                                                           *
-	******************************************************************************************/
-	public static function encodeHeader($str = '', $position = 'text')
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-	
-		if( ! is_string($position) ) 
-		{
-			$position = 'text';
-		}
-		
-		return self::$mail->EncodeHeader($str, $position);
-	}
-	
-	/******************************************************************************************
-	* HAS MULTI BYTES                                                                         *
-	******************************************************************************************/
-	public static function hasMultiBytes($str = '')
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-		
-		return self::$mail->HasMultiBytes($str);
-	}
-	
-	/******************************************************************************************
-	* BASE64 ENCODE WRAP MB                                                                   *
-	******************************************************************************************/
-	public static function base64EncodeWrapMb($str = '', $lf = NULL)
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($lf) ) 
-		{
-			$lf = NULL;
-		}
-		
-		return self::$mail->Base64EncodeWrapMB($str, $lf);
-	}
-	
-	/******************************************************************************************
-	* ENCODE QP PHP                                                                           *
-	******************************************************************************************/
-	public static function encodeQpPhp($input = '', $line_max = 76, $space_conv = false)
-	{
-		if( empty(self::$mail) || ! is_string($input) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_numeric($line_max) ) 
-		{
-			$line_max = 76;
-		}
-		
-		if( ! is_bool($space_conv) ) 
-		{
-			$space_conv = false;
-		}
-		
-		return self::$mail->EncodeQPphp($input, $line_max, $space_conv);
-	}
-
-	/******************************************************************************************
-	* ENCODE QP                                                                               *
-	******************************************************************************************/
-	public static function encodeQp($string = '', $line_max = 76, $space_conv = false)
-	{
-		if( empty(self::$mail) || ! is_string($string) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_numeric($line_max) ) 
-		{
-			$line_max = 76;
-		}
-		
-		if( ! is_bool($space_conv) ) 
-		{
-			$space_conv = false;
-		}
-		
-		return self::$mail->EncodeQP($string, $line_max, $space_conv);
-	}
-
-	/******************************************************************************************
-	* ENCODE Q                                                                                *
-	******************************************************************************************/
-	public static function encodeQ($str = '', $position = 'text')
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($position) ) 
-		{
-			$position = 'text';
-		}
-		
-		return self::$mail->EncodeQ($str, $position);
-	}	
-
-	/******************************************************************************************
-	* ADD STRING ATTACHMENT                                                                   *
-	******************************************************************************************/
-	public static function addStringAttachment($string = '', $filename = '', $encoding = 'base64', $type = 'application/octet-stream')
-	{
-		if( empty(self::$mail) || ! is_string($string) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($filename) ) 
-		{
-			$filename = '';
-		}
-		
-		if( ! is_string($encoding) ) 
-		{
-			$encoding = 'base64';
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'application/octet-stream';
-		}
-		
-		return self::$mail->AddStringAttachment($string, $filename, $encoding, $type);
-	}
-
-	/******************************************************************************************
-	* ADD EMBEDDED IMAGE                                                                      *
-	******************************************************************************************/
-	public static function addEmbeddedImage($path = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
-	{
-		if( empty(self::$mail) || ! is_string($path) ) 
-		{
-			return false;
-		}
-		
-		if( ! (is_string($cid) || is_numeric($cid)) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($name) ) 
-		{
-			$name = '';
-		}
-		
-		if( ! is_string($encoding) ) 
-		{
-			$encoding = 'base64';
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'application/octet-stream';
-		}
-		
-		return self::$mail->AddEmbeddedImage($path, $cid, $name, $encoding, $type);
-	}
-
-	/******************************************************************************************
-	* ADD STRING EMBEDDED IMAGE                                                               *
-	******************************************************************************************/
-	public static function addStringEmbeddedImage($string = '', $cid = '', $name = '', $encoding = 'base64', $type = 'application/octet-stream')
-	{
-		if( empty(self::$mail) || ! is_string($string) ) 
-		{
-			return false;
-		}
-		
-		if( ! (is_string($cid) || is_numeric($cid)) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($name) ) 
-		{
-			$name = '';
-		}
-		
-		if( ! is_string($encoding) ) 
-		{
-			$encoding = 'base64';
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'application/octet-stream';
-		}
-		
-		return self::$mail->AddStringEmbeddedImage($string, $cid, $name, $encoding, $type);
-	}
-	
-	/******************************************************************************************
-	* INLINE IMAGE EXISTS                                                                     *
-	******************************************************************************************/
-	public static function inlineImageExists()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->InlineImageExists();
-	}
-	
-	/******************************************************************************************
-	* ATTACHMENT EXISTS                                                                       *
-	******************************************************************************************/
-	public static function attachmentExists()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->AttachmentExists();
-	}
-	
-	/******************************************************************************************
-	* ALTERNATIVE EXISTS                                                                      *
-	******************************************************************************************/
-	public static function alternativeExists()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->AlternativeExists();
-	}
-	
-	/******************************************************************************************
-	* CLEAR ADDRESS                                                                           *
-	******************************************************************************************/
-	public static function clearAddress()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearAddresses();
-	}
-	
-	/******************************************************************************************
-	* CLEAR CC                                                                                *
-	******************************************************************************************/
-	public static function clearCc()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearCCs();
-	}
-	
-	/******************************************************************************************
-	* CLEAR BCC                                                                               *
-	******************************************************************************************/
-	public static function clearBcc()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearBCCs();
-	}
-	
-	/******************************************************************************************
-	* CLEAR REPLY TO                                                                          *
-	******************************************************************************************/
-	public static function clearReplyTo()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearReplyTos();
-	}
-	
-	/******************************************************************************************
-	* CLEAR ALL RECIPIENTS                                                                    *
-	******************************************************************************************/
-	public static function clearAllRecipients()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearAllRecipients();
-	}
-	
-	/******************************************************************************************
-	* CLEAR ATTACHMENTS                                                                       *
-	******************************************************************************************/
-	public static function clearAttachments()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearAttachments();
-	}
-	
-	/******************************************************************************************
-	* CLEAR CUSTOM HEADERS                                                                    *
-	******************************************************************************************/
-	public static function clearCustomHeaders()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		self::$mail->ClearCustomHeaders();
-	}
-	
-	/******************************************************************************************
-	* RFC DATE                                                                                *
-	******************************************************************************************/
-	public static function rfcDate()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->RFCDate();
-	}
-	
-	/******************************************************************************************
-	* IS ERROR                                                                                *
-	******************************************************************************************/
-	public static function isError()
-	{
-		if( empty(self::$mail) ) 
-		{
-			return false;
-		}
-		return self::$mail->IsError();
-	}
-	
-	/******************************************************************************************
-	* FIX EOL                                                                                 *
-	******************************************************************************************/
-	public static function fixEol($str = '')
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-		return self::$mail->FixEOL($str);
-	}
-	
-	/******************************************************************************************
-	* ADD CUSTOM HEADER                                                                       *
-	******************************************************************************************/
-	public static function addCustomHeader($name = '', $value = NULL)
-	{
-		if( empty(self::$mail) || ! is_string($name) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($value) ) 
-		{
-			$value = NULL;
-		}
-		
-		return self::$mail->AddCustomHeader($name = '', $value = '');
-	}
-	
-	/******************************************************************************************
-	* MSG HTML                                                                                *
-	******************************************************************************************/
-	public static function msgHtml($message = '', $basedir = '')
-	{
-		if( empty(self::$mail) || ! is_string($message) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($basedir) ) 
-		{
-			$basedir = '';
-		}
-		
-		return self::$mail->MsgHTML($message, $basedir);
-	}
-	
-	/******************************************************************************************
-	* SET                                                                                     *
-	******************************************************************************************/
-	public static function set($name = '', $value = '')
-	{
-		if( empty(self::$mail) || ! is_string($name) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($value) ) 
-		{
-			$value = '';
-		}
-		
-		return self::$mail->set($name, $value);
-	}
-	
-	/******************************************************************************************
-	* SECURE HEADER                                                                           *
-	******************************************************************************************/
-	public static function secureHeader($str = '')
-	{
-		if( empty(self::$mail) || ! is_string($str) ) 
-		{
-			return false;
-		}
-		
-		return self::$mail->SecureHeader($str);
-	}
-	
-	/******************************************************************************************
-	* SIGN                                                                                    *
-	******************************************************************************************/
-	public static function sign($cert_filename = '', $key_filename = '', $key_pass = '')
-	{
-		if( empty(self::$mail) || ! is_string($cert_filename) || ! is_string($key_filename) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($key_pass) ) 
-		{
-			$key_pass = '';
-		}
-		
-		return self::$mail->Sign($cert_filename, $key_filename, $key_pass);
-	}
-	
-	/******************************************************************************************
-	* DKIM QP                                                                                 *
-	******************************************************************************************/
-	public static function dkimQp($txt = '')
-	{
-		if( empty(self::$mail) || ! is_string($txt) ) 
-		{
-			return false;
-		}
-		return self::$mail->DKIM_QP($txt);
-	}
-	
-	/******************************************************************************************
-	* DKIM SIGN                                                                               *
-	******************************************************************************************/
-	public static function dkimSign($s = '')
-	{
-		if( empty(self::$mail) || ! is_string($s) ) 
-		{
-			return false;
-		}
-		return self::$mail->DKIM_Sign($s);
-	}
-	
-	/******************************************************************************************
-	* DIKIM HEADER C                                                                          *
-	******************************************************************************************/
-	public static function dkimHeaderC($s = '')
-	{
-		if( empty(self::$mail) || ! is_string($s) ) 
-		{
-			return false;
-		}
-		return self::$mail->DKIM_HeaderC($s);
-	}
-	
-	/******************************************************************************************
-	* DKIM BODY C                                                                             *
-	******************************************************************************************/
-	public static function dkimBodyC($body = '')
-	{
-		if( empty(self::$mail) || ! is_string($body) ) 
-		{
-			return false;
-		}
-		return self::$mail->DKIM_BodyC($body);
-	}
-	
-	/******************************************************************************************
-	* DKIM ADD                                                                                *
-	******************************************************************************************/
-	public static function dkimAdd($headers_line = '', $subject = '', $body = '')
-	{
-		if( empty(self::$mail) || ! (is_string($headers_line) || is_numeric($headers_line)) ) 
-		{
-			return false;
-		}
-		
-		if( ! is_string($subject) ) 
-		{
-			$subject = '';
-		}
-		
-		if( ! is_string($body) ) 
-		{
-			$body = '';
-		}
-		
-		return self::$mail->DKIM_Add($headers_line, $subject, $body);
-	}
-	
-	/******************************************************************************************
-	* ADD ATTACHMENT                                                                          *
-	******************************************************************************************/
-	public static function addAttachment($add_attachment = '', $add_attachment_file_name = '', $encoding = 'base64', $type = 'application/octet-stream')
-	{
-		if( empty(self::$mail) )
-		{
-			return false;
-		}
-		
-		if( ! is_string($add_attachment_file_name) ) 
-		{
-			$add_attachment_file_name = '';
-		}
-		
-		if( ! is_string($encoding) )
-		{
-			$encoding = 'base64';
-		}
-		
-		if( ! is_string($type ))
-		{
-			$type = 'application/octet-stream';
-		}
-		
-		if( isset($add_attachment) )
-		{
-			if( ! is_array($add_attachment) )
-			{ 
-				self::$mail->AddAttachment($add_attachment, $add_attachment_file_name, $encoding, $type);
+		if( ! isset($this->headers['From']) )
+		{
+			if( ! empty($this->senderMail) )
+			{
+				$this->sender($this->senderMail, $this->senderName);
 			}
 			else
-			{ 
-				foreach($add_attachment as $k => $v)
-				{ 
-					self::$mail->AddAttachment($k, $v);
+			{
+				$this->_setErrorMessage('no_from');
+			
+				return false;	
+			}
+		}
+		
+		if ($this->replyToFlag === false)
+		{
+			$this->replyTo($this->headers['From']);
+		}
+		
+		if( ! isset($this->receivers) && ! isset($this->headers['To']) && ! isset($this->bccReceivers) && ! isset($this->headers['Bcc']) && ! isset($this->headers['Cc']) )
+		{
+			$this->_setErrorMessage('no_recipients');
+			
+			return false;
+		}
+		
+		$this->_buildHeaders();
+		
+		if( $this->bccStackMode && count($this->bccReceivers) > $this->bccStackSize )
+		{
+			$result = $this->stackBccSend(); 
+			
+			if( ! empty($result) )
+			{
+				$this->defaultVariables();
+			}
+			
+			return $result;
+		}
+		
+		if( $this->_buildContent() === false )
+		{
+			return false;
+		}
+		
+		$result = $this->_spoolEmail();
+		
+		if( ! empty($result) )
+		{
+			$this->defaultVariables();
+		}
+		
+		return $result;
+	}
+	
+	public function stackBccSend() // batch_bcc_send
+	{
+		$float = $this->bccStackSize - 1;
+		$set = '';
+		$chunk = array();
+		
+		for( $i = 0, $c = count($this->bccReceivers); $i < $c; $i++ )
+		{
+			if( isset($this->bccReceivers[$i]) )
+			{
+				$set .= ', '.$this->bccReceivers[$i];
+			}
+			
+			if( $i === $float )
+			{
+				$chunk[] = substr($set, 1);
+				$float += $this->bccStackSize;
+				$set = '';
+			}
+			
+			if( $i === $c - 1 )
+			{
+				$chunk[] = substr($set, 1);
+			}
+		}
+		
+		for( $i = 0, $c = count($chunk); $i < $c; $i++ )
+		{
+			unset($this->headers['Bcc']);
+			
+			$bcc = $this->cleanEmail($this->_strToArray($chunk[$i]));
+			
+			if ($this->protocolType !== 'smtp')
+			{
+				$this->setHeader('Bcc', implode(', ', $bcc));
+			}
+			else
+			{
+				$this->bccReceivers = $bcc;
+			}
+			if ($this->_buildContent() === FALSE)
+			{
+				return FALSE;
+			}
+			$this->_spoolEmail();
+		}
+	}
+	
+	public function error($include = array('headers', 'subject', 'body'))
+	{
+		$msg = '';
+		if( count($this->debugMessage) > 0 )
+		{
+			foreach( $this->debugMessage as $val )
+			{
+				$msg .= $val;
+			}
+		}
+		
+		$raw_data = '';
+		
+		is_array($include) || $include = array($include);
+		
+		if( in_array('headers', $include, true) )
+		{
+			$raw_data = htmlspecialchars($this->headerString)."\n";
+		}
+		if( in_array('subject', $include, true) )
+		{
+			$raw_data .= htmlspecialchars($this->subject)."\n";
+		}
+		if( in_array('body', $include, true) )
+		{
+			$raw_data .= htmlspecialchars($this->lastBody);
+		}
+		
+		return $msg.( $raw_data === '' ? '' : '<pre>'.$raw_data.'</pre>' );
+	}
+	
+	public function success()
+	{
+		if( empty($this->debugMessage) )
+		{
+			return lang('Email', 'sent');
+		}
+		else
+		{
+			return false;	
+		}	
+	}
+	
+	protected function defaultVariables()
+	{
+		$this->subject		= '';
+		$this->body			= '';
+		$this->lastBody		= '';
+		$this->headerString	= '';
+		$this->replyToFlag	= false;
+		$this->receivers	= array();
+		$this->ccReceivers	= array();
+		$this->bccReceivers	= array();
+		$this->headers		= array();
+		$this->debugMessage = array();
+		$this->setHeader('User-Agent', $this->xMailer);
+		$this->setHeader('Date', $this->_setDate());
+		$this->attachments = array();
+	}
+	
+	protected function _strToArray($email)
+	{
+		if( ! is_array($email) )
+		{
+			return ( strpos($email, ',') !== false )
+				   ? preg_split('/[\s,]/', $email, -1, PREG_SPLIT_NO_EMPTY)
+				   :(array)trim($email);
+		}
+		
+		return $email;
+	}
+	
+	protected function _setLimit()
+	{
+		$this->altLimit    = 'B_ALT_'.uniqid(''); 
+		$this->attachLimit = 'B_ATC_'.uniqid('');
+	}
+	
+	protected function _getMessageId()
+	{
+		$from = str_replace(array('>', '<'), '', $this->headers['Return-Path']);
+		
+		return '<'.uniqid('').strstr($from, '@').'>';
+	}
+	
+	protected function _getProtocolType($return = true)
+	{
+		$this->protocolType = strtolower($this->protocolType);
+		
+		in_array($this->protocolType, $this->protocolTypes, true) || $this->protocolType = 'mail';
+		
+		if( $return === true )
+		{
+			return $this->protocolType;
+		}
+	}
+	
+	protected function _getEncode($return = true)
+	{
+		in_array($this->encode, $this->encodeTypes) || $this->encode = '8bit';
+		
+		foreach( $this->charsetTypes as $charset )
+		{
+			if( strpos($charset, $this->charset) === 0 )
+			{
+				$this->encode = '7bit';
+			}
+		}
+		if( $return === true )
+		{
+			return $this->encode;
+		}
+	}
+	
+	protected function _getContentType()
+	{
+		if( $this->contentType === 'html' )
+		{
+			return ( count($this->attachments) === 0) 
+				   ? 'html' 
+				   : 'html-attach';
+		}
+		elseif( $this->contentType === 'text' && count($this->attachments) > 0 )
+		{
+			return 'plain-attach';
+		}
+		else
+		{
+			return 'plain';
+		}
+	}
+	
+	protected function _setDate()
+	{
+		$timezone = date('Z');
+		$operator = ( $timezone[0] === '-' ) ? '-' : '+';
+		$timezone = abs($timezone);
+		$timezone = floor($timezone/3600) * 100 + ($timezone % 3600) / 60;
+		
+		return sprintf('%s %s%04d', date('D, j M Y H:i:s'), $operator, $timezone);
+	}
+	
+	protected function _getMimeMessage()
+	{
+		return 'This is a multi-part message in MIME format.'.$this->eol.'Your email application may not support this format.';
+	}
+	
+	protected function _getAltContent()
+	{
+		if( ! empty($this->altContent) )
+		{
+			return ($this->wordWrap)
+				? $this->wordWrap($this->altContent, 80)
+				: $this->altContent;
+		}
+		
+		$body = preg_match('/\<body.*?\>(.*)\<\/body\>/si', $this->body, $match) 
+			  ? $match[1] 
+			  : $this->body;
+		
+		$body = str_replace("\t", '', preg_replace('#<!--(.*)--\>#', '', trim(strip_tags($body))));
+		
+		for( $i = 20; $i >= 3; $i-- )
+		{
+			$body = str_replace(str_repeat("\n", $i), "\n\n", $body);
+		}
+		
+		$body = preg_replace('| +|', ' ', $body);
+		
+		return ( $this->wordWrap )
+			   ? $this->wordWrap($body, 76)
+			   : $body;
+	}
+	
+	protected function _buildContent()
+	{
+		if( $this->wordWrap === true && $this->contentType !== 'html')
+		{
+			$this->body = $this->wordWrap($this->body);
+		}
+		
+		$this->_setLimit();
+		
+		$this->_writeHeaders();
+		
+		$hdr = ($this->_getProtocolType() === 'mail') ? $this->eol : '';
+		
+		$body = '';
+		
+		switch( $this->_getContentType() )
+		{
+			case 'plain' :
+				$hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->eol.
+					    'Content-Transfer-Encoding: '.$this->_getEncode();
+						
+				if( $this->_getProtocolType() === 'mail' )
+				{
+					$this->headerString .= $hdr;
+					$this->lastBody = $this->body;
+				}
+				else
+				{
+					$this->lastBody = $hdr.$this->eol.$this->eol.$this->body;
+				}
+				return;
+				
+			case 'html' :
+				if( $this->sendMultiPart === FALSE )
+				{
+					$hdr .= 'Content-Type: text/html; charset='.$this->charset.$this->eol.
+						    'Content-Transfer-Encoding: quoted-printable';
+				}
+				else
+				{
+					$hdr  .= 'Content-Type: multipart/alternative; boundary="'.$this->altLimit.'"';
+					$body .= $this->_getMimeMessage().$this->eol.$this->eol.
+						     '--'.$this->altLimit.$this->eol.
+						     'Content-Type: text/plain; charset='.$this->charset.$this->eol.
+						     'Content-Transfer-Encoding: '.$this->_getEncode().$this->eol.$this->eol.
+						     $this->_getAltContent().$this->eol.$this->eol.'--'.$this->altLimit.$this->eol.
+						     'Content-Type: text/html; charset='.$this->charset.$this->eol.
+						     'Content-Transfer-Encoding: quoted-printable'.$this->eol.$this->eol;
+				}
+				
+				$this->lastBody = $body.$this->_prepQuotedPrintable($this->body).$this->eol.$this->eol;
+				
+				if( $this->_getProtocolType() === 'mail' )
+				{
+					$this->headerString .= $hdr;
+				}
+				else
+				{
+					$this->lastBody = $hdr.$this->eol.$this->eol.$this->lastBody;
+				}
+				
+				if( $this->sendMultiPart !== false )
+				{
+					$this->lastBody .= '--'.$this->altLimit.'--';
+				}
+				return;
+				
+			case 'plain-attach' :
+				$hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->attachLimit.'"';
+				
+				if( $this->_getProtocolType() === 'mail' )
+				{
+					$this->headerString .= $hdr;
+				}
+				
+				$body .= $this->_getMimeMessage().$this->eol.
+					     $this->eol.
+					     '--'.$this->attachLimit.$this->eol.
+					     'Content-Type: text/plain; charset='.$this->charset.$this->eol.
+					     'Content-Transfer-Encoding: '.$this->_getEncode().$this->eol.
+					     $this->eol.
+					     $this->body.$this->eol.$this->eol;
+			break;
+			
+			case 'html-attach' :
+				$hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->attachLimit.'"';
+				
+				if( $this->_getProtocolType() === 'mail' )
+				{
+					$this->headerString .= $hdr;
+				}
+				
+				$body .= $this->_getMimeMessage().$this->eol.$this->eol.
+					     '--'.$this->attachLimit.$this->eol.
+					     'Content-Type: multipart/alternative; boundary="'.$this->altLimit.'"'.$this->eol.$this->eol.
+					     '--'.$this->altLimit.$this->eol.
+					     'Content-Type: text/plain; charset='.$this->charset.$this->eol.
+					     'Content-Transfer-Encoding: '.$this->_getEncode().$this->eol.$this->eol.
+					     $this->_getAltContent().$this->eol.$this->eol.'--'.$this->altLimit.$this->eol.
+					     'Content-Type: text/html; charset='.$this->charset.$this->eol.
+					     'Content-Transfer-Encoding: quoted-printable'.$this->eol.$this->eol.
+					     $this->_prepQuotedPrintable($this->body).$this->eol.$this->eol.
+					     '--'.$this->altLimit.'--'.$this->eol.$this->eol;
+			break;
+		}
+		
+		$attachment = array();
+		
+		for( $i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++ )
+		{
+			$filename = $this->attachments[$i]['name'][0];
+			$basename = ( $this->attachments[$i]['name'][1] === NULL )
+				        ? basename($filename) 
+						: $this->attachments[$i]['name'][1];
+						
+			$attachment[$z++] = '--'.$this->attachLimit.$this->eol.
+				                'Content-type: '.$this->attachments[$i]['type'].'; '.
+				                'name="'.$basename.'"'.$this->eol.
+				                'Content-Disposition: '.$this->attachments[$i]['disposition'].';'.$this->eol.
+				                'Content-Transfer-Encoding: base64'.$this->eol.
+				                ( empty($this->attachments[$i]['cid'] ) 
+								? '' 
+								: 'Content-ID: <'.$this->attachments[$i]['cid'].'>'.$this->eol);
+								
+			$attachment[$z++] = $this->attachments[$i]['content'];
+		}
+		
+		$body .= implode($this->eol, $attachment).$this->eol.'--'.$this->attachLimit.'--';
+		
+		$this->lastBody = ( $this->_getProtocolType() === 'mail' )
+			              ? $body
+			              : $hdr.$this->eol.$this->eol.$body;
+		return true;
+	}
+	
+	protected function _prepQEncoding($str)
+	{
+		$str = str_replace(array("\r", "\n"), '', $str);
+		
+		if( $this->charset === 'UTF-8' )
+		{
+			if( $this->mbEnabled === true )
+			{
+				return mb_encode_mimeheader($str, $this->charset, 'Q', $this->eol);
+			}
+			elseif( $this->iconvEnabled === true )
+			{
+				$output = @iconv_mime_encode('', $str,	
+					array
+					(
+						'scheme' => 'Q',
+						'line-length' => 76,
+						'input-charset' => $this->charset,
+						'output-charset' => $this->charset,
+						'line-break-chars' => $this->eol
+					)
+				);
+				
+				if( $output !== false )
+				{
+					return substr($output, 2);
+				}
+				
+				$chars = iconv_strlen($str, 'UTF-8');
+			}
+		}
+		
+		isset($chars) || $chars = strlen($str);
+		
+		$output = '=?'.$this->charset.'?Q?';
+		
+		for( $i = 0, $length = strlen($output); $i < $chars; $i++ )
+		{
+			$chr = ( $this->charset === 'UTF-8' && ICONV_ENABLED === true )
+				   ? '='.implode('=', str_split(strtoupper(bin2hex(iconv_substr($str, $i, 1, $this->charset))), 2))
+				   : '='.strtoupper(bin2hex($str[$i]));
+			
+			if ($length + ($l = strlen($chr)) > 74)
+			{
+				$output .= '?='.$this->eol .
+					       ' =?'.$this->charset.'?Q?'.$chr;
+						   
+				$length  = 6 + strlen($this->charset) + $l; 
+			}
+			else
+			{
+				$output .= $chr;
+				$length += $l;
+			}
+		}
+		
+		return $output.'?=';
+	}
+	
+	protected function _buildHeaders()
+	{
+		$this->setHeader('X-Sender', $this->cleanEmail($this->headers['From']));
+		$this->setHeader('X-Mailer', $this->xMailer);
+		$this->setHeader('X-Priority', $this->priorityTypes[$this->priority]);
+		$this->setHeader('Message-ID', $this->_getMessageId());
+		$this->setHeader('Mime-Version', '1.0');
+	}
+	
+	protected function _writeHeaders()
+	{
+		if( $this->protocolType === 'mail' )
+		{
+			if( isset($this->headers['Subject']) )
+			{
+				$this->subject = $this->headers['Subject'];
+				
+				unset($this->headers['Subject']);
+			}
+		}
+		
+		reset($this->headers);
+		
+		$this->headerString = '';
+		
+		foreach( $this->headers as $key => $val )
+		{
+			$val = trim($val);
+			if( $val !== '' )
+			{
+				$this->headerString .= $key.': '.$val.$this->eol;
+			}
+		}
+		if( $this->_getProtocolType() === 'mail' )
+		{
+			$this->headerString = rtrim($this->headerString);
+		}
+	}
+	
+	protected function _unwrapSpecials()
+	{
+		$this->lastBody = preg_replace_callback('/\{unwrap\}(.*?)\{\/unwrap\}/si', array($this, '_removeNlCallback'), $this->lastBody);
+	}
+	
+	protected function _removeNlCallback($matches)
+	{
+		if( strpos($matches[1], "\r") !== false || strpos($matches[1], "\n") !== false )
+		{
+			$matches[1] = str_replace(array("\r\n", "\r", "\n"), '', $matches[1]);
+		}
+		
+		return $matches[1];
+	}
+	
+	protected function _prepQuotedPrintable($str)
+	{
+		$str = str_replace(array('{unwrap}', '{/unwrap}'), '', $str);
+	
+		if( $this->eol === "\r\n" )
+		{
+			if( isPhpVersion('5.3') )
+			{
+				return quoted_printable_encode($str);
+			}
+			elseif( function_exists('imap_8bit') )
+			{
+				return imap_8bit($str);
+			}
+		}
+		
+		$str = preg_replace(array('| +|', '/\x00+/'), array(' ', ''), $str);
+		
+		if( strpos($str, "\r") !== false )
+		{
+			$str = str_replace(array("\r\n", "\r"), "\n", $str);
+		}
+		
+		$escape = '=';
+		$output = '';
+		
+		foreach( explode("\n", $str) as $line )
+		{
+			$length = strlen($line);
+			$temp   = '';
+			
+			for( $i = 0; $i < $length; $i++ )
+			{
+				$char = $line[$i];
+				$ascii = ord($char);
+				
+				if( $i === ($length - 1) && ($ascii === 32 || $ascii === 9) )
+				{
+					$char = $escape.sprintf('%02s', dechex($ascii));
+				}
+				elseif( $ascii === 61 ) 
+				{
+					$char = $escape.strtoupper(sprintf('%02s', dechex($ascii)));
+				}
+				
+				if( (strlen($temp) + strlen($char)) >= 80 )
+				{
+					$output .= $temp.$escape.$this->eol;
+					$temp    = '';
+				}
+				
+				$temp .= $char;
+			}
+			
+			$output .= $temp.$this->eol;
+		}
+		
+		return substr($output, 0, strlen($this->eol) * -1);
+	}
+	
+	protected function _spoolEmail()
+	{
+		$this->_unwrapSpecials();
+		
+		$method = '_sendWith'.$this->_getProtocolType();
+		
+		if ( ! $this->$method())
+		{
+			$protocolType = $this->_getProtocolType() === 'mail' 
+			 			  ? 'phpmail' 
+						  : $this->_getProtocolType();
+		
+			$this->_setErrorMessage('send_failure_'.$protocolType);
+
+			return false;
+		}
+		
+		$this->_setErrorMessage('sent', $this->_getProtocolType());
+		
+		return true;
+	}
+	
+	protected function _sendWithMail()
+	{
+		if (is_array($this->receivers))
+		{
+			$this->receivers = implode(', ', $this->receivers);
+		}
+		if( $this->safeMode === true )
+		{
+			return mb_send_mail($this->receivers, $this->subject, $this->lastBody, $this->headerString);
+		}
+		else
+		{
+			return mb_send_mail($this->receivers, $this->subject, $this->lastBody, $this->headerString, '-f '.$this->cleanEmail($this->headers['Return-Path']));
+		}
+	}
+	
+	protected function _sendWithSendMail()
+	{
+		if( false === 
+			(
+				$fp = @popen
+				(
+					$this->mailPath.' -oi -f '.$this->cleanEmail($this->headers['From'])
+					.' -t -r '.$this->cleanEmail($this->headers['Return-Path'])
+					, 'w'
+				)
+			)
+		)
+		{
+			return false;
+		}
+		
+		@fputs($fp, $this->headerString);
+		@fputs($fp, $this->lastBody);
+		$status = @pclose($fp);
+		
+		if( $status !== 0 )
+		{
+			$this->_setErrorMessage('exit_status', $status);
+			$this->_setErrorMessage('no_socket');
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	
+	protected function _smtpConnect()
+	{
+		if( is_resource($this->smtpConnect) )
+		{
+			return true;
+		}
+		$ssl = ($this->smtpEncode === 'ssl') ? 'ssl://' : '';
+		$this->smtpConnect = fsockopen
+							 (
+								 $ssl.$this->smtpHost,
+								 $this->smtpPort,
+								 $errno,
+								 $errstr,
+								 $this->smtpTimeout
+						     );
+							 
+		if( ! is_resource($this->smtpConnect) )
+		{
+			$this->_setErrorMessage('smtp_error', $errno.' '.$errstr);
+			
+			return false;
+		}
+		
+		stream_set_timeout($this->smtpConnect, $this->smtpTimeout);
+		
+		$this->_setErrorMessage($this->_getSmtpData());
+		
+		if( $this->smtpEncode === 'tls' )
+		{
+			$this->_sendCommand('hello');
+			$this->_sendCommand('starttls');
+			
+			$crypto = stream_socket_enable_crypto($this->smtpConnect, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+			
+			if( $crypto !== true )
+			{
+				$this->_setErrorMessage('smtp_error', $this->_getSmtpData());
+				return false;
+			}
+		}
+		
+		return $this->_sendCommand('hello');
+	}
+	
+	protected function _sendCommand($cmd, $data = '')
+	{
+		switch( $cmd )
+		{
+			case 'hello' :
+						if( $this->smtpAuth || $this->_getEncode() === '8bit' )
+						{
+							$this->_sendData('EHLO '.$this->_getHostName() );
+						}
+						else
+						{
+							$this->_sendData('HELO '.$this->_getHostName());
+						}
+						$resp = 250;
+			break;
+			case 'starttls'	:
+						$this->_sendData('STARTTLS');
+						$resp = 220;
+			break;
+			case 'from' :
+						$this->_sendData('MAIL FROM:<'.$data.'>');
+						$resp = 250;
+			break;
+			case 'to' :
+						if( $this->dsn )
+						{
+							$this->_sendData('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
+						}
+						else
+						{
+							$this->_sendData('RCPT TO:<'.$data.'>');
+						}
+						$resp = 250;
+			break;
+			case 'data'	:
+						$this->_sendData('DATA');
+						$resp = 354;
+			break;
+			case 'reset':
+						$this->_sendData('RSET');
+						$resp = 250;
+			break;
+			case 'quit'	:
+						$this->_sendData('QUIT');
+						$resp = 221;
+			break;
+		}
+		
+		$reply 				  = $this->_getSmtpData();
+		$this->debugMessage[] = '<pre>'.$cmd.': '.$reply.'</pre>';
+		
+		if( (int)substr($reply, 0, 3) !== $resp )
+		{
+			$this->_setErrorMessage('smtp_error', $reply);
+			
+			return false;
+		}
+		
+		if( $cmd === 'quit' )
+		{
+			fclose($this->smtpConnect);
+		}
+		
+		return true;
+	}
+	
+	protected function _sendWithSmtp()
+	{
+		if( $this->smtpHost === '' )
+		{
+			$this->_setErrorMessage('no_hostname');
+			
+			return false;
+		}
+		if( ! $this->_smtpConnect() || ! $this->_smtpAuthenticate())
+		{
+			return false;
+		}
+		
+		$this->_sendCommand('from', $this->cleanEmail($this->headers['From']));
+		
+		foreach ($this->receivers as $val)
+		{
+			$this->_sendCommand('to', $val);
+		}
+		if (count($this->ccReceivers) > 0)
+		{
+			foreach( $this->ccReceivers as $val )
+			{
+				if( $val !== '' )
+				{
+					$this->_sendCommand('to', $val);
 				}
 			}
 		}
-	}
-	
-	/******************************************************************************************
-	* SEND                                                                                    *
-	******************************************************************************************/
-	public static function send($subject = '', $message = '')
-	{	
-		//------------------------------------------------------------------
-		//  Parametre konrolleri
-		//------------------------------------------------------------------
-		if( empty(self::$mail) ) 
+		if( count($this->bccReceivers) > 0 )
 		{
-			return false;
-		}
-		
-		if( ! is_string($subject) ) 
-		{
-			$subject = '';
-		}
-		
-		if( ! is_string($message) ) 
-		{
-			$message = '';
-		}
-		//------------------------------------------------------------------
-		
-		//------------------------------------------------------------------
-		//  Config/Email.php dosyasında yer alan e-posta ayarları alınıyor.
-		//------------------------------------------------------------------
-		$genset = Config::get('Email');	
-		//------------------------------------------------------------------
-		//------------------------------------------------------------------
-		//------------------------------------------------------------------
-		
-		//------------------------------------------------------------------
-		//  Alıcı e-posta bilgisi
-		//------------------------------------------------------------------
-		$from_email = ( self::$from_email ) 			
-					  ? self::$from_email 			
-					  : $genset['username'];
-		
-		//------------------------------------------------------------------
-		//  Alıcı isim bilgisi
-		//------------------------------------------------------------------			  
-		$from_name  = ( self::$from_name )  			
-					  ? self::$from_name  			
-					  : $genset['fromname'];
-		
-		//------------------------------------------------------------------
-		//  E-posta içeriğinin html içerikli olup olmayacağı bilgisi
-		//------------------------------------------------------------------			  
-		$is_html	= ( self::$settings['is-html'] ) 	
-					  ? self::$settings['is-html'] 	
-					  : $genset['is-html'];
-		
-		//------------------------------------------------------------------
-		//  Gönderim için SMTP'nin kullanılıp kullanılmayacağı bilgisi
-		//------------------------------------------------------------------			  
-		$is_smtp	= ( self::$settings['is-smtp'] )  
-		              ? self::$settings['is-smtp']	
-					  : $genset['is-smtp'];
-		
-		//------------------------------------------------------------------
-		//  SMTP Durumu
-		//------------------------------------------------------------------		
-		if( ! empty($is_smtp) ) 
-		{
-			self::$mail->IsSMTP();  
-		}
-		
-		self::$mail->IsHTML($is_html);
-		
-		self::$mail->SetFrom($from_email, $from_name); 
-		
-		//------------------------------------------------------------------
-		//  Parametre olarak konu bilgisin girilip girilmediği
-		//------------------------------------------------------------------                      		
-		self::$mail->Subject = ( $subject === '' ) 
-							   ? self::$subject 
-							   : $subject;
-		
-		//------------------------------------------------------------------
-		//  Parametre olarak mesaj bilgisinin girilip girilmediği
-		//------------------------------------------------------------------					   
-		self::$mail->Body 	 = ( $message === '' ) 
-							   ? self::$message 
-							   : $message;;
-		
-		//------------------------------------------------------------------
-		//  Smtp Auth Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['smtp-auth'] || $genset['smtp-auth'] ) 
-		{
-			self::$mail->SMTPAuth 	= ( self::$settings['smtp-auth'] ) 	
-								      ? self::$settings['smtp-auth'] 		
-									  : $genset['smtp-auth'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Charset Ayarı
-		//------------------------------------------------------------------
-		if (self::$settings['charset'] || $genset['charset'] )
-		{
-			self::$mail->CharSet  	= ( self::$settings['charset'] ) 		
-									  ? self::$settings['charset'] 		
-									  : $genset['charset'];	
-		}
-		
-		//------------------------------------------------------------------
-		//  Host Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['host'] || $genset['host'] )
-		{
-			self::$mail->Host     	= ( self::$settings['host'] ) 		
-									  ? self::$settings['host'] 			
-									  : $genset['host'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Port Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['port'] || $genset['port'] )
-		{
-			self::$mail->Port 		= ( self::$settings['port'] ) 		
-			                          ? self::$settings['port'] 			
-									  : $genset['port']; 
-		}
-		
-		//------------------------------------------------------------------
-		//  Username Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['username'] || $genset['username'] )
-		{
-			self::$mail->Username 	= ( self::$settings['username'] ) 	
-			                          ? self::$settings['username'] 		
-									  : $genset['username'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Password Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['password'] || $genset['password'] )
-		{
-			self::$mail->Password 	= ( self::$settings['password'] ) 	
-			                          ? self::$settings['password'] 		
-									  : $genset['password'];	
-		}
-		
-		//------------------------------------------------------------------
-		//  Smtp Secure Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['smtp-secure'] || $genset['smtp-secure'] )
-		{
-			self::$mail->SMTPSecure = ( self::$settings['smtp-secure'] ) 	
-			                          ? self::$settings['smtp-secure'] 	
-									  : $genset['smtp-secure'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Priority Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['priority'] || $genset['priority'] )
-		{
-			self::$mail->Priority	= ( self::$settings['priority'] ) 		
-			                          ? self::$settings['priority']		
-									  : $genset['priority'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Content Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['content'] || $genset['content'] )
-		{
-			self::$mail->ContentType = ( self::$settings['content'] ) 		
-			                           ? self::$settings['content'] 		
-									   : $genset['content'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Encoding Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['encoding'] || $genset['encoding'] )
-		{
-			self::$mail->Encoding 	= ( self::$settings['encoding'] ) 	
-			                          ? self::$settings['encoding']		
-									  : $genset['encoding'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Sender Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['sender'] || $genset['sender'] )
-		{
-			self::$mail->Sender		= ( self::$settings['sender'] ) 		
-									  ? self::$settings['sender']			
-									  : $genset['sender'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Return Path Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['return-path'] || $genset['return-path'] )
-		{
-			self::$mail->ReturnPath	= ( self::$settings['return-path'] )	
-			                          ? self::$settings['return-path']	
-									  : $genset['return-path'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Alt Body Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['alt-body'] || $genset['alt-body'] )
-		{
-			self::$mail->AltBody	= ( self::$settings['alt-body'] ) 	
-			                          ? self::$settings['alt-body']		
-									  : $genset['alt-body'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Word Wrap Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['word-wrap'] || $genset['word-wrap'] )
-		{
-			self::$mail->WordWrap 	= ( self::$settings['word-wrap'] ) 	
-								      ? self::$settings['word-wrap']		
-									  : $genset['word-wrap'];		
-		}
-		
-		//------------------------------------------------------------------
-		//  Mailer Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['mailer'] || $genset['mailer'] )
-		{
-			self::$mail->Mailer		= ( self::$settings['mailer'] )	 	
-									  ? self::$settings['mailer']			
-									  : $genset['mailer'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Send Mail Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['send-mail'] || $genset['send-mail'] )
-		{
-			self::$mail->Sendmail	= ( self::$settings['send-mail'] )  	
-									  ? self::$settings['send-mail']		
-									  : $genset['send-mail'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Use Send Mail Options Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['use-send-mail-options'] || $genset['use-send-mail-options'] )
-		{
-			self::$mail->UseSendmailOptions = ( self::$settings['use-send-mail-options'] ) 
-											  ? self::$settings['use-send-mail-options'] 
-											  : $genset['use-send-mail-options'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Plugin Dir Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['plugin-dir'] || $genset['plugin-dir'] )
-		{
-			self::$mail->PluginDir 	= ( self::$settings['plugin-dir'] ) 	
-									  ? self::$settings['plugin-dir']		
-									  : $genset['plugin-dir'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Confirm Reading To Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['confirm-reading-to'] || $genset['confirm-reading-to'] )
-		{
-			self::$mail->ConfirmReadingTo = ( self::$settings['confirm-reading-to'] ) 
-											? self::$settings['confirm-reading-to'] 
-											: $genset['confirm-reading-to'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Message Id Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['message-id'] || $genset['message-id'] )
-		{
-			self::$mail->MessageID 	= ( self::$settings['message-id'] ) 	
-									  ? self::$settings['message-id']		
-									  : $genset['message-id'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Message Date Ayarı
-		//------------------------------------------------------------------
-		if (self::$settings['message-date'] || $genset['message-date'] )
-		{
-			self::$mail->MessageDate = ( self::$settings['message-date'] ) 
-									   ? self::$settings['message-date']	
-									   : $genset['message-date'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Helo Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['helo'] || $genset['helo'] )
-		{
-			self::$mail->Helo		= ( self::$settings['helo'] ) 		
-									  ? self::$settings['helo']			
-									  : $genset['helo'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Realm Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['realm'] || $genset['realm'] )
-		{
-			self::$mail->Realm		= ( self::$settings['realm'] )		
-			                          ? self::$settings['realm']			
-									  : $genset['realm'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Work Station Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['work-station'] || $genset['work-station'] )
-		{
-			self::$mail->Workstation = ( self::$settings['work-station'] ) 
-									   ? self::$settings['work-station']	
-									   : $genset['work-station'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Timeout Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['timeout'] || $genset['timeout'] )
-		{
-			self::$mail->Timeout	= ( self::$settings['timeout'] ) 		
-									  ? self::$settings['timeout']		
-									  : $genset['timeout'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Smtp Debug Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['smtp-debug'] || $genset['smtp-debug'] )
-		{
-			self::$mail->SMTPDebug	= ( self::$settings['smtp-debug'] ) 	
-									  ? self::$settings['smtp-debug']		
-									  : $genset['smtp-debug'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Debug Output Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['debug-output'] || $genset['debug-output'] )
-		{
-			self::$mail->Debugoutput = ( self::$settings['debug-output'] ) 
-									   ? self::$settings['debug-output'] 	
-									   : $genset['debug-output'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Smtp Keep Alive Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['smtp-keep-alive'] || $genset['smtp-keep-alive'] )
-		{
-			self::$mail->SMTPKeepAlive = ( self::$settings['smtp-keep-alive'] ) 
-										 ? self::$settings['smtp-keep-alive'] 
-										 : $genset['smtp-keep-alive'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Single To Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['single-to'] || $genset['single-to'] )
-		{
-			self::$mail->SingleTo	= ( self::$settings['single-to'] ) 	
-									  ? self::$settings['single-to']		
-									  : $genset['single-to'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Single To Array Ayarı
-		//------------------------------------------------------------------
-		if( ! empty(self::$settings['single-to-array']) || ! empty($genset['single-to-array']) )
-		{
-			self::$mail->SingleToArray = ( ! empty(self::$settings['single-to-array']) ) 
-										 ? self::$settings['single-to-array'] 
-										 : $genset['single-to-array'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Le Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['le'] || $genset['le'] )
-		{
-			self::$mail->LE	= ( self::$settings['le'] ) 
-							  ? self::$settings['le'] 	
-							  : $genset['le'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Dkim Selector Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['dkim-selector'] || $genset['dkim-selector'] )
-		{
-			self::$mail->DKIM_selector = ( self::$settings['dkim-selector'] ) 
-									     ? self::$settings['dkim-selector']
-										 : $genset['dkim-selector'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Dkim Identity Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['dkim-identity'] || $genset['dkim-identity'] )
-		{
-			self::$mail->DKIM_identity = ( self::$settings['dkim-identity'] ) 
-										 ? self::$settings['dkim-identity']
-										 : $genset['dkim-identity'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Dkim Pass Phrase Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['dkim-pass-phrase'] || $genset['dkim-pass-phrase'] )
-		{
-			self::$mail->DKIM_passphrase = ( self::$settings['dkim-pass-phrase'] ) 
-										   ? self::$settings['dkim-pass-phrase'] 
-										   : $genset['dkim-pass-phrase'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Dkim Domain Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['dkim-domain'] || $genset['dkim-domain'])
-		{
-			self::$mail->DKIM_domain	= ( self::$settings['dkim-domain'] )	
-										  ? self::$settings['dkim-domain']	
-										  : $genset['dkim-domain'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Dkim Private Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['dkim-private'] || $genset['dkim-private'] )
-		{
-			self::$mail->DKIM_private = ( self::$settings['dkim-private'] ) 
-										? self::$settings['dkim-private']	
-										: $genset['dkim-private'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Action Function Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['action-function'] || $genset['action-function'] )
-		{
-			self::$mail->action_function = ( self::$settings['action-function'] ) 
-									       ? self::$settings['action-function'] 
-										   : $genset['action-function'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Version Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['version'] || $genset['version'] )
-		{
-			self::$mail->Version		= ( self::$settings['version'] )		
-									      ? self::$settings['version']		
-										  : $genset['version'];
-		}
-		
-		//------------------------------------------------------------------
-		//  Xmailer Ayarı
-		//------------------------------------------------------------------
-		if( self::$settings['xmailer'] || $genset['xmailer'])
-		{
-			self::$mail->XMailer 		= ( self::$settings['xmailer'] ) 		
-										  ? self::$settings['xmailer']		
-										  : $genset['xmailer'];
-		}
-		
-		self::$detail = self::$mail;
-		
-		//------------------------------------------------------------------
-		//  Mail Gönderiliyor...
-		//------------------------------------------------------------------
-		if( self::$mail->Send() )
-		{
-			return true;
-		}
-		
-		else
-		{ 
-			//------------------------------------------------------------------
-			//  Gönderim Başarısız...
-			//------------------------------------------------------------------
-			if( self::$mail->ErrorInfo )
+			foreach( $this->bccReceivers as $val )
 			{
-				self::$error = lang('Email', self::$mail->ErrorInfo);
+				if( $val !== '' )
+				{
+					$this->_sendCommand('to', $val);
+				}
 			}
-			return false;
 		}
-	}
-	
-	//------------------------------------------------------------------
-	//  Değişkenler Sıfırlanıyor
-	//------------------------------------------------------------------
-	public static function close()
-	{
-		if( isset(self::$mail) )  		self::$mail = NULL;
-		if( isset(self::$from_mail) ) 	self::$from_mail = NULL;
-		if( isset(self::$from_name) ) 	self::$from_name = NULL;
-		if( isset(self::$subject) ) 	self::$subject = NULL;
-		if( isset(self::$message) ) 	self::$message = NULL;
-		if( isset(self::$detail) ) 		self::$detail = NULL;	
-	}
-	
-	/******************************************************************************************
-	* BASIC SEND                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Basit e-posta göndermek için kullanılır.							      |
-	|															                              |
-	| Parametreler: 4 parametresi vardır.                                                     |  
-	| @to, @subject, @message, @extra													      |
-	|          																				  |
-	| Örnek Kullanım: Email::basicSend('o@w.c', 'Konu', 'Mesaj')         					  |
-	|          																				  |
-	******************************************************************************************/
-	public static function basicSend($to = '', $subject = '', $message = '', $extra = '')
-	{
-		if( ! is_string($to) || ! isEmail($to) ) 
-		{
-			return false;
-		}
+		$this->_sendCommand('data');
 		
-		if( ! is_string($subject) ) 
-		{
-			$subject = '';
-		}
+		$this->_sendData($this->headerString.preg_replace('/^\./m', '..$1', $this->lastBody));
+		$this->_sendData('.');
+		$reply = $this->_getSmtpData();
+		$this->_setErrorMessage($reply);
 		
-		if( ! isValue($message) ) 
+		if( strpos($reply, '250') !== 0 )
 		{
-			$message = '';
-		}
-		
-		if( ! is_string($extra) ) 
-		{
-			$extra = '';
-		}
-		
-		$result = mb_send_mail($to, $subject, $message, $extra);
+			$this->_setErrorMessage('smtp_error', $reply);
 			
-		if( empty($result) ) 
-		{
 			return false;
+		}
+		if ($this->smtpKeepAlive)
+		{
+			$this->_sendCommand('reset');
 		}
 		else
 		{
+			$this->_sendCommand('quit');
+		}
+		
+		return true;
+	}
+	
+	protected function _smtpAuthenticate()
+	{
+		if( ! $this->smtpAuth )
+		{
 			return true;
+		}
+		
+		if( $this->smtpUser === '' && $this->smtpPassword === '' )
+		{
+			$this->_setErrorMessage('no_smtp_unpw');
+			
+			return false;
+		}
+		
+		$this->_sendData('AUTH LOGIN');
+		$reply = $this->_getSmtpData();
+		
+		if( strpos($reply, '503') === 0 )
+		{
+			return true;
+		}
+		elseif( strpos($reply, '334') !== 0 )
+		{
+			$this->_setErrorMessage('failed_smtp_login', $reply);
+			
+			return false;
+		}
+		
+		$this->_sendData(base64_encode($this->smtpUser));	
+		$reply = $this->_getSmtpData();
+		
+		if( strpos($reply, '334') !== 0 )
+		{
+			$this->_setErrorMessage('smtp_auth_un', $reply);
+			
+			return false;
+		}
+		
+		$this->_sendData(base64_encode($this->smtpPassword));
+		$reply = $this->_getSmtpData();
+		
+		if( strpos($reply, '235') !== 0 )
+		{
+			$this->_setErrorMessage('smtp_auth_pw', $reply);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	protected function _sendData($data)
+	{
+		$data .= $this->eol;
+		
+		for( $written = 0, $length = strlen($data); $written < $length; $written += $result )
+		{
+			if( ($result = fwrite($this->smtpConnect, substr($data, $written))) === false )
+			{
+				break;
+			}
+		}
+		if( $result === false )
+		{
+			$this->_setErrorMessage('smtp_data_failure', $data);
+			
+			return false;
+		}
+		return true;
+	}
+	
+	protected function _getSmtpData()
+	{
+		$data = '';
+		
+		while( $str = fgets($this->smtpConnect, 512) )
+		{
+			$data .= $str;
+			
+			if( $str[3] === ' ' )
+			{
+				break;
+			}
+		}
+		
+		return $data;
+	}
+	
+	protected function _getHostName()
+	{
+		if( isset($_SERVER['SERVER_NAME']) )
+		{
+			return $_SERVER['SERVER_NAME'];
+		}
+		
+		return isset($_SERVER['SERVER_ADDR']) 
+			   ? '['.$_SERVER['SERVER_ADDR'].']' 
+			   : '[127.0.0.1]';
+	}
+	
+	protected function _setErrorMessage($msg, $val = '')
+	{
+		$this->debugMessage[] = getMessage('Email', $msg, $val).'<br />';
+	}
+	
+	public function __destruct()
+	{
+		if( is_resource($this->smtpConnect) )
+		{
+			$this->_sendCommand('quit');
 		}
 	}
 }

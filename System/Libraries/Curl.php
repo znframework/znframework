@@ -39,7 +39,7 @@ class Curl
 	*******************************************************************************************
 	| Genel Kullanım: Curl oturumunu başlatmak için kullanılır.								  |
 	|															                              |
-	| Parametreler: 7 parametresi vardır.                                                     |
+	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @url => Oturumun bağlantı kurucağı url bilgisi. İsteğe bağlıdır.		  |
 	|          																				  |
 	| Örnek Kullanım: open('http://www.example.xxx/');       							      |
