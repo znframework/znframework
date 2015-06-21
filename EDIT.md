@@ -1,3 +1,6 @@
+<h4>Email Kütüphanesi - 21/06/2015 20:42</h4>
+<p>E-posta kütüphanesi güncellenmiştir. Buna bağlı olarak User.php kütüphanesi de güncellenmiştir.</p>
+
 <h4>Import Kütüphanesi - 20/06/2015 17:02</h4>
 <p>Import::masterpage() content_charset, ayarı content-charset olarak düzenlendi.</p>
 
