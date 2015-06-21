@@ -437,7 +437,7 @@ class Email
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		$this->config  = Config::get('Email', 'settings');
+		$this->config  = Config::get('Email');
 		
 		$this->charset = $this->config['charset'];
 		

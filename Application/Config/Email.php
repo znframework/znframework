@@ -14,7 +14,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | E-posta ile ilgili ayarlar yer almaktadır.					                          |
 |          																				  |
 ******************************************************************************************/
-$config['Email']['settings'] = array
+$config['Email'] = array
 (
 	'smtpHost'			=> '',
 	'smtpUser'			=> '',
