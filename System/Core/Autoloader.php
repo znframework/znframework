@@ -55,11 +55,7 @@ class Autoloader
 	{
 		$file  = str_replace('\\', '/', $class).'.php'; 
 		
-		if( file_exists( $library = self::inSensitiveFileName(LIBRARIES_DIR.$file)) )
-		{	
-			require_once($library);	
-		}
-		elseif( file_exists( $system_library = self::inSensitiveFileName(SYSTEM_LIBRARIES_DIR.$file)) )
+		if( file_exists( $system_library = self::inSensitiveFileName(SYSTEM_LIBRARIES_DIR.$file)) )
 		{	
 			require_once($system_library);
 		}
@@ -70,6 +66,10 @@ class Autoloader
 		elseif( file_exists( $model = self::inSensitiveFileName(MODELS_DIR.$file)) )
 		{		
 			require_once($model);
+		}
+		elseif( file_exists( $library = self::inSensitiveFileName(LIBRARIES_DIR.$file)) )
+		{	
+			require_once($library);	
 		}
 		else
 		{

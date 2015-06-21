@@ -136,7 +136,7 @@ class Structure
 		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
-		if( Config::get('Cache','ob-gzhandler') && substr_count(server('accept_encoding'), 'gzip') ) 
+		if( Config::get('Cache','ob-gzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 
 		{
 			ob_start('ob-gzhandler');
 		}

@@ -807,7 +807,7 @@ function prefix($string = '',$fix = '/')
 
 function currentUrl()
 {
-	return sslStatus().host().cleanInjection(server('request_uri'));
+	return sslStatus().host().cleanInjection(server('requestUri'));
 }
 
 // Function: siteUrl()
@@ -983,7 +983,7 @@ function currentPath($is_path = true)
 		$is_path = true;
 	}
 	
-	$current_page_path = str_replace("/".getLang()."/", "", server('current_path'));
+	$current_page_path = str_replace("/".getLang()."/", "", server('currentPath'));
 	
 	if ($current_page_path[0] === "/" )
 	{
@@ -1256,17 +1256,17 @@ function divide($str = '', $seperator = "|", $index = 0)
 
 function ipv4()
 {
-	if( server('client_ip') )   //paylaşımlı bir bağlantı mı kullanıyor?
+	if( server('clientIp') )   //paylaşımlı bir bağlantı mı kullanıyor?
 	{
-		$ip = server('client_ip');
+		$ip = server('clientIp');
 	}
-	elseif( server('x_forwarded_for') )   //ip adresi proxy'den mi geliyor?
+	elseif( server('xForwardedFor') )   //ip adresi proxy'den mi geliyor?
 	{
-		$ip = server('x_forwarded_for');
+		$ip = server('xForwardedFor');
 	}
 	else
 	{
-	  	$ip = server('remote_addr');
+	  	$ip = server('remoteAddr');
 	}
  
 	return $ip;
@@ -1292,49 +1292,49 @@ function server($type = '')
 		'protocol'					 => (isset($_SERVER['SERVER_PROTOCOL'])) 		? $_SERVER['SERVER_PROTOCOL'] 		: false,
 		'signature'			 	     => (isset($_SERVER['SERVER_SIGNATURE'])) 		? $_SERVER['SERVER_SIGNATURE'] 		: false,
 		'software'					 => (isset($_SERVER['SERVER_SOFTWARE'])) 		? $_SERVER['SERVER_SOFTWARE'] 		: false,		
-		'remote_addr'				 => (isset($_SERVER['REMOTE_ADDR'])) 			? $_SERVER['REMOTE_ADDR'] 			: false,
-		'remote_port'				 => (isset($_SERVER['REMOTE_PORT'])) 			? $_SERVER['REMOTE_PORT'] 			: false,	
-		'request_method'			 => (isset($_SERVER['REQUEST_METHOD'] )) 		? $_SERVER['REQUEST_METHOD'] 		: false,
-		'request_uri'				 => (isset($_SERVER['REQUEST_URI'])) 			? $_SERVER['REQUEST_URI'] 			: false,
-		'request_scheme'			 => (isset($_SERVER['REQUEST_SCHEME'])) 		? $_SERVER['REQUEST_SCHEME'] 		: false,
-		'request_time'				 => (isset($_SERVER['REQUEST_TIME'])) 			? $_SERVER['REQUEST_TIME'] 			: false,
-		'request_time_float'		 => (isset($_SERVER['REQUEST_TIME_FLOAT'])) 	? $_SERVER['REQUEST_TIME_FLOAT'] 	: false,
+		'remoteAddr'				 => (isset($_SERVER['REMOTE_ADDR'])) 			? $_SERVER['REMOTE_ADDR'] 			: false,
+		'remotePort'				 => (isset($_SERVER['REMOTE_PORT'])) 			? $_SERVER['REMOTE_PORT'] 			: false,	
+		'requestMethod'			 	 => (isset($_SERVER['REQUEST_METHOD'] )) 		? $_SERVER['REQUEST_METHOD'] 		: false,
+		'requestUri'				 => (isset($_SERVER['REQUEST_URI'])) 			? $_SERVER['REQUEST_URI'] 			: false,
+		'requestScheme'			 	 => (isset($_SERVER['REQUEST_SCHEME'])) 		? $_SERVER['REQUEST_SCHEME'] 		: false,
+		'requestTime'				 => (isset($_SERVER['REQUEST_TIME'])) 			? $_SERVER['REQUEST_TIME'] 			: false,
+		'requestTimeFloat'		 	 => (isset($_SERVER['REQUEST_TIME_FLOAT'])) 	? $_SERVER['REQUEST_TIME_FLOAT'] 	: false,
 		'accept'					 => (isset($_SERVER['HTTP_ACCEPT'])) 			? $_SERVER['HTTP_ACCEPT'] 			: false,
-		'accept_charset'			 => (isset($_SERVER['HTTP_ACCEPT_CHARSET'])) 	? $_SERVER['HTTP_ACCEPT_CHARSET'] 	: false,
-		'accept_encoding'			 => (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) 	? $_SERVER['HTTP_ACCEPT_ENCODING'] 	: false,
-		'accept_language'			 => (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) 	? $_SERVER['HTTP_ACCEPT_LANGUAGE'] 	: false,
-		'client_ip'			 		 => (isset($_SERVER['HTTP_CLIENT_IP'])) 		? $_SERVER['HTTP_CLIENT_IP'] 		: false,
-		'x_forwarded_for'			 => (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) 	? $_SERVER['HTTP_X_FORWARDED_FOR'] 	: false,
+		'acceptCharset'			 	 => (isset($_SERVER['HTTP_ACCEPT_CHARSET'])) 	? $_SERVER['HTTP_ACCEPT_CHARSET'] 	: false,
+		'acceptEncoding'			 => (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) 	? $_SERVER['HTTP_ACCEPT_ENCODING'] 	: false,
+		'acceptLanguage'			 => (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) 	? $_SERVER['HTTP_ACCEPT_LANGUAGE'] 	: false,
+		'clientIp'			 		 => (isset($_SERVER['HTTP_CLIENT_IP'])) 		? $_SERVER['HTTP_CLIENT_IP'] 		: false,
+		'xForwardedFor'				 => (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) 	? $_SERVER['HTTP_X_FORWARDED_FOR'] 	: false,
 		'connection'				 => (isset($_SERVER['HTTP_CONNECTION'])) 		? $_SERVER['HTTP_CONNECTION'] 		: false,
 		'host'						 => (isset($_SERVER['HTTP_HOST'])) 				? $_SERVER['HTTP_HOST'] 			: false,
 		'referer'					 => (isset($_SERVER['HTTP_REFERER'])) 			? $_SERVER['HTTP_REFERER'] 			: false,
-		'user_agent'				 => (isset($_SERVER['HTTP_USER_AGENT'])) 		? $_SERVER['HTTP_USER_AGENT'] 		: false,
+		'userAgent'				 	 => (isset($_SERVER['HTTP_USER_AGENT'])) 		? $_SERVER['HTTP_USER_AGENT'] 		: false,
 		'cookie'					 => (isset($_SERVER['HTTP_COOKIE'])) 			? $_SERVER['HTTP_COOKIE'] 			: false,
-		'cache_control'				 => (isset($_SERVER['HTTP_CACHE_CONTROL'])) 	? $_SERVER['HTTP_CACHE_CONTROL'] 	: false,
+		'cacheControl'				 => (isset($_SERVER['HTTP_CACHE_CONTROL'])) 	? $_SERVER['HTTP_CACHE_CONTROL'] 	: false,
 		'https'					 	 => (isset($_SERVER['HTTPS'])) 					? $_SERVER['HTTPS'] 				: false,
-		'script_filename'			 => (isset($_SERVER['SCRIPT_FILENAME'])) 		? $_SERVER['SCRIPT_FILENAME'] 		: false,
-		'script_name'				 => (isset($_SERVER['SCRIPT_NAME'])) 			? $_SERVER['SCRIPT_NAME'] 			: false,
+		'scriptFileName'			 => (isset($_SERVER['SCRIPT_FILENAME'])) 		? $_SERVER['SCRIPT_FILENAME'] 		: false,
+		'scriptName'				 => (isset($_SERVER['SCRIPT_NAME'])) 			? $_SERVER['SCRIPT_NAME'] 			: false,
 		'path'						 => (isset($_SERVER['PATH'])) 					? $_SERVER['PATH'] 					: false,
-		'path_info'					 => (isset($_SERVER['PATH_INFO'])) 				? $_SERVER['PATH_INFO'] 			: false,
-		'current_path'				 => (isset($_SERVER['PATH_INFO'])) 				? $_SERVER['PATH_INFO'] 			: $_SERVER['QUERY_STRING'],
-		'path_translated'			 => (isset($_SERVER['PATH_TRANSLATED'])) 		? $_SERVER['PATH_TRANSLATED'] 		: false,
+		'pathInfo'					 => (isset($_SERVER['PATH_INFO'])) 				? $_SERVER['PATH_INFO'] 			: false,
+		'currentPath'				 => (isset($_SERVER['PATH_INFO'])) 				? $_SERVER['PATH_INFO'] 			: $_SERVER['QUERY_STRING'],
+		'pathTranslated'			 => (isset($_SERVER['PATH_TRANSLATED'])) 		? $_SERVER['PATH_TRANSLATED'] 		: false,
 		'pathext'					 => (isset($_SERVER['PATHEXT'])) 				? $_SERVER['PATHEXT'] 				: false,
-		'redirect_query_string'		 => (isset($_SERVER['REDIRECT_QUERY_STRING'])) 	? $_SERVER['REDIRECT_QUERY_STRING'] : false,
-		'redirect_url'				 => (isset($_SERVER['REDIRECT_URL'])) 			? $_SERVER['REDIRECT_URL'] 			: false,
-		'redirect_status'			 => (isset($_SERVER['REDIRECT_STATUS'])) 		? $_SERVER['REDIRECT_STATUS'] 		: false,
-		'php_self'					 => (isset($_SERVER['PHP_SELF'])) 				? $_SERVER['PHP_SELF'] 				: false,
-		'query_string'				 => (isset($_SERVER['QUERY_STRING'])) 			? $_SERVER['QUERY_STRING'] 			: false,	
-		'original_url'		 		 => (isset($_SERVER['HTTP_X_ORIGINAL_URL'])) 	? $_SERVER['HTTP_X_ORIGINAL_URL'] 	: false,
-		'document_root' 			 => (isset($_SERVER['DOCUMENT_ROOT'])) 			? $_SERVER['DOCUMENT_ROOT'] 		: false,							
+		'redirectQueryString'		 => (isset($_SERVER['REDIRECT_QUERY_STRING'])) 	? $_SERVER['REDIRECT_QUERY_STRING'] : false,
+		'redirectUrl'				 => (isset($_SERVER['REDIRECT_URL'])) 			? $_SERVER['REDIRECT_URL'] 			: false,
+		'redirectStatus'			 => (isset($_SERVER['REDIRECT_STATUS'])) 		? $_SERVER['REDIRECT_STATUS'] 		: false,
+		'phpSelf'					 => (isset($_SERVER['PHP_SELF'])) 				? $_SERVER['PHP_SELF'] 				: false,
+		'queryString'				 => (isset($_SERVER['QUERY_STRING'])) 			? $_SERVER['QUERY_STRING'] 			: false,	
+		'originalUrl'		 		 => (isset($_SERVER['HTTP_X_ORIGINAL_URL'])) 	? $_SERVER['HTTP_X_ORIGINAL_URL'] 	: false,
+		'documentRoot' 			 	 => (isset($_SERVER['DOCUMENT_ROOT'])) 			? $_SERVER['DOCUMENT_ROOT'] 		: false,							
 		'windir'					 => (isset($_SERVER['WINDIR'])) 				? $_SERVER['WINDIR'] 				: false,
 		'comspec'					 => (isset($_SERVER['COMSPEC'])) 				? $_SERVER['COMSPEC'] 				: false,
-		'system_root'				 => (isset($_SERVER['SystemRoot'])) 			? $_SERVER['SystemRoot'] 			: false,
-		'gateway_interface'			 => (isset($_SERVER['GATEWAY_INTERFACE'])) 		? $_SERVER['GATEWAY_INTERFACE'] 	: false			
+		'systemRoot'				 => (isset($_SERVER['SystemRoot'])) 			? $_SERVER['SystemRoot'] 			: false,
+		'gatewayInterface'			 => (isset($_SERVER['GATEWAY_INTERFACE'])) 		? $_SERVER['GATEWAY_INTERFACE'] 	: false			
 	);	
 	
-	if( isset($server[strtolower($type)]) )
+	if( isset($server[$type]) )
 	{
-		return $server[strtolower($type)];
+		return $server[$type];
 	}
 	else
 	{
@@ -1547,11 +1547,11 @@ function currentUri()
 {
 	if( BASE_DIR !== '/' )
 	{
-		$cu = str_replace(BASE_DIR, '', server('request_uri'));
+		$cu = str_replace(BASE_DIR, '', server('requestUri'));
 	}
 	else
 	{
-		$cu = substr(server('request_uri'), 1);
+		$cu = substr(server('requestUri'), 1);
 	}
 	
 	if( indexStatus() ) 
@@ -1567,8 +1567,8 @@ function currentUri()
 // Dönen Değerler: Sistem kullanıyor.
 function requestUri()
 {
-	$request_uri = ( server('current_path') ) 
-	               ? substr(server('current_path'), 1) 
+	$request_uri = ( server('currentPath') ) 
+	               ? substr(server('currentPath'), 1) 
 				   : currentUri();
 	
 	if( @$request_uri[strlen($request_uri) - 1] === '/' )
@@ -1805,7 +1805,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= "RewriteBase /".eol();
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eol();
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eol();
-		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').Config::get('Uri','index-suffix').'/$1 [L]'.eol();
+		$htaccess .= 'RewriteRule ^(.*)$  '.server('scriptName').Config::get('Uri','index-suffix').'/$1 [L]'.eol();
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
