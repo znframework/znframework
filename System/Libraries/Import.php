@@ -192,26 +192,26 @@ class Import
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header  = Config::get('Doctype', $masterpageset['doctype']).eof();
-		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eof();
+		$header  = Config::get('Doctype', $masterpageset['doctype']).eol();
+		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eol();
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header .= '<head>'.eof();
+		$header .= '<head>'.eol();
 		
 		if( is_array($masterpageset['content-charset']) )
 		{
 			foreach($masterpageset['content-charset'] as $v)
 			{
-				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eof();	
+				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eol();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content-charset'].'">'.eof();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content-charset'].'">'.eol();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.$masterpageset['content-language'].'">'.eof();
+		$header .= '<meta http-equiv="Content-Language" content="'.$masterpageset['content-language'].'">'.eol();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -229,7 +229,7 @@ class Import
 		
 		if( ! empty($title) ) 			
 		{
-			$header .= '<title>'.$title.'</title>'.eof();	
+			$header .= '<title>'.$title.'</title>'.eol();	
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -261,13 +261,13 @@ class Import
 							  
 				if( ! is_array($content) )
 				{			  
-					$header .= "<meta $httporname=\"$name\" content=\"$content\">".eof();
+					$header .= "<meta $httporname=\"$name\" content=\"$content\">".eol();
 				}
 				else
 				{
 					foreach($content as $key => $val)
 					{
-						$header .= "<meta $httporname=\"$name\" content=\"$val\">".eof();	
+						$header .= "<meta $httporname=\"$name\" content=\"$val\">".eol();	
 					}	
 				}
 			}
@@ -326,7 +326,7 @@ class Import
 		
 		if( ! empty($masterpageset['browser-icon']) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser-icon']).'" />'.eof();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser-icon']).'" />'.eol();
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -341,13 +341,13 @@ class Import
 		{ 
 			if( ! is_array($datas) )
 			{ 
-				$header .= $datas.eof(); 
+				$header .= $datas.eol(); 
 			}
 			else
 			{
 				foreach($datas as $v)
 				{
-					$header .= $v.eof();	
+					$header .= $v.eol();	
 				}	
 			}
 		}
@@ -368,13 +368,13 @@ class Import
 			 
 			ob_end_clean(); 
 			
-			$header .= $content.eof() ; 	
+			$header .= $content.eol() ; 	
 		}
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		$header .= '</head>'.eof();
+		$header .= '</head>'.eol();
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -394,7 +394,7 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		$header .= '<body'.$bg_image.'>'.eof();
+		$header .= '<body'.$bg_image.'>'.eol();
 	
 		echo $header;
 		
@@ -408,7 +408,7 @@ class Import
 			require($randomPageVariable);	
 		}
 		
-		$randomFooterVariable  = eof().'</body>'.eof();
+		$randomFooterVariable  = eol().'</body>'.eol();
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$randomFooterVariable .= '</html>';
@@ -460,22 +460,22 @@ class Import
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
 			if( isFileExists(FONTS_DIR.$font.".svg") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".svg").'") format("truetype")}'.eof();				
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".svg").'") format("truetype")}'.eol();				
 			}
 			if( isFileExists(FONTS_DIR.$font.".woff") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".woff").'") format("truetype")}'.eof();		
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".woff").'") format("truetype")}'.eol();		
 			}
 			// OTF IE VE CHROME DESTEKLEMIYOR
 			if( isFileExists(FONTS_DIR.$font.".otf") )
 			{
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".otf").'") format("truetype")}'.eof();			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".otf").'") format("truetype")}'.eol();			
 			}
 			
 			// TTF IE DESTEKLEMIYOR
 			if( isFileExists(FONTS_DIR.$font.".ttf") )
 			{		
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".ttf").'") format("truetype")}'.eof();			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".ttf").'") format("truetype")}'.eol();			
 			}
 			
 			// FARKLI FONTLAR
@@ -487,7 +487,7 @@ class Import
 				{
 					if( isFileExists(FONTS_DIR.$font.prefix($of, '.')) )
 					{		
-						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'.eof();			
+						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.prefix($of, '.')).'") format("truetype")}'.eol();			
 					}
 				}	
 			}
@@ -498,11 +498,11 @@ class Import
 				$str .= '<!--[if IE]>';
 				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl(FONTS_DIR.$font.".eot").'") format("truetype")}';
 				$str .= '<![endif]-->';
-				$str .= eof();
+				$str .= eol();
 			}		
 		}
 		
-		$str .= '</style>'.eof();
+		$str .= '</style>'.eol();
 		
 		if( ! empty($str) ) 
 		{
@@ -558,7 +558,7 @@ class Import
 			{
 				if( isFileExists(STYLES_DIR.suffix($style,".css")) )
 				{
-					$str .= '<link href="'.baseUrl().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.eof();
+					$str .= '<link href="'.baseUrl().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.eol();
 				}
 				self::$is_import[] = "style_".$style;
 			}
@@ -619,12 +619,7 @@ class Import
 			{
 				if( isFileExists(SCRIPTS_DIR.suffix($script,".js")) )
 				{
-					$str .= '<script type="text/javascript" src="'.baseUrl().SCRIPTS_DIR.suffix($script,".js").'"></script>'.eof();
-				}
-				
-				if( $script === 'Jquery' || $script === 'JqueryUi' )
-				{
-					$str .= '<script type="text/javascript" src="'.baseUrl().REFERENCES_DIR.'Jquery/'.suffix($script,".js").'"></script>'.eof();
+					$str .= '<script type="text/javascript" src="'.baseUrl().SCRIPTS_DIR.suffix($script,".js").'"></script>'.eol();
 				}
 				
 				self::$is_import[] = "script_".$script;
@@ -676,7 +671,7 @@ class Import
 			{
 				return false;
 			}
-			echo '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eof();
+			echo '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eol();
 		}
 		elseif( extension($randomPageVariable) === 'css' )	
 		{
@@ -684,7 +679,7 @@ class Import
 			{
 				return false;
 			}
-			echo '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eof();
+			echo '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eol();
 		}
 		else
 		{
@@ -754,11 +749,11 @@ class Import
 				}
 				elseif( extension($val) === "js" )
 				{
-					echo '<script type="text/javascript" src="'.baseUrl().suffix($packages).$val.'"></script>'.eof();
+					echo '<script type="text/javascript" src="'.baseUrl().suffix($packages).$val.'"></script>'.eol();
 				}
 				elseif( extension($val) === "css" )
 				{
-					echo '<link href="'.baseUrl().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.eof();
+					echo '<link href="'.baseUrl().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.eol();
 				}
 				else
 				{

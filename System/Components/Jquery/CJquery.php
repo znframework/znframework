@@ -145,7 +145,7 @@ class CJquery extends ComponentJqueryCommon
 	{
 		$combine_function = func_get_args();
 		
-		$complete  = eof()."\t$($this->selector)";
+		$complete  = eol()."\t$($this->selector)";
 		
 		$complete .= $this->complete();
 		

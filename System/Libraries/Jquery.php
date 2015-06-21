@@ -18,31 +18,6 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 class Jquery
 {	
-
-	/* Type Değişkeni
-	 *  
-	 * Text tipi bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private static $type      = 'text/javascript';
-	
-	/* Jquery Path Değişkeni
-	 *  
-	 * Jquery kütüphanesinin yol bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private static $j_path    = 'System/References/Jquery/Jquery.js';
-	
-	/* JqueryUi Path Değişkeni
-	 *  
-	 * JqueryUi kütüphanesinin yol bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private static $jui_path  = 'System/References/Jquery/JqueryUi.js';
-	
 	/* Ready Değişkeni
 	 *  
 	 * $(document).ready({ }) eklenip eklenmeyeceğinin
@@ -97,21 +72,21 @@ class Jquery
 		// True ise Jquery kütüphanesini dahil et.
 		if( $jquery_library === true )
 		{
-			$script  .= '<script type="'.self::$type.'" src="'.baseUrl(self::$j_path).'"></script>'.eof();
+			$script  .= Import::script('Jquery', true);
 		}
 		
 		// True ise JqueryUi kütüphanesini dahil et.
 		if( $jquery_ui_library === true )
 		{
-			$script  .= '<script type="'.self::$type.'" src="'.baseUrl(self::$jui_path).'"></script>'.eof();
+			$script  .= Import::script('JqueryUi', true);
 		}
 		
-		$script .= '<script type="'.self::$type.'">'.eof();
+		$script .= '<script type="text/javascript">'.eol();
 		
 		// True ise $(document).ready({ }) kodunu dahil et.
 		if( $ready === true )
 		{
-			$script .= '$(document).ready(function()'.eof().'{'.eof();
+			$script .= '$(document).ready(function()'.eol().'{'.eol();
 		}
 		
 		return $script;
@@ -136,10 +111,10 @@ class Jquery
 		if( self::$ready === true )
 		{
 			self::$ready = NULL;
-			$script .= eof().'});'.eof();
+			$script .= eol().'});'.eol();
 		}
 		
-		$script .=  '</script>'.eof();
+		$script .=  '</script>'.eol();
 		
 		return $script;
 	}
@@ -164,7 +139,7 @@ class Jquery
 			return false;
 		}
 		
-		$ready = '$(document).ready(function()'.eof().'{'.eof().$codes.eof().'});'.eof();
+		$ready = '$(document).ready(function()'.eol().'{'.eol().$codes.eol().'});'.eol();
 		
 		return $ready;
 	}
@@ -202,7 +177,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$event = '$('.$element.').bind("'.$event_type.'", function(e)'.eof().'{'.eof().$callback.eof().'});'.eof();
+		$event = '$('.$element.').bind("'.$event_type.'", function(e)'.eol().'{'.eol().$callback.eol().'});'.eol();
 		
 		return $event;
 	}	
@@ -230,14 +205,14 @@ class Jquery
 		
 		if( ! empty($callback2))
 		{
-			$callback2 = ", function(e)".eof()."{".eof().$callback2.eof()."}";
+			$callback2 = ", function(e)".eol()."{".eol().$callback2.eol()."}";
 		}
 		
 		$element = ( in_array($element, self::$keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
-		$event = '$('.$element.').'.$type.'(function(e)'.eof().'{'.eof().$callback.eof().'}'.$callback2.');'.eof();
+		$event = '$('.$element.').'.$type.'(function(e)'.eol().'{'.eol().$callback.eol().'}'.$callback2.');'.eol();
 		
 		return $event;
 	}	
@@ -687,7 +662,7 @@ class Jquery
 		
 		if( ! empty($callback) )
 		{
-			$callback = ", function(){".eof().$callback.eof()."}";
+			$callback = ", function(){".eol().$callback.eol()."}";
 		}
 		if( ! empty($easing)) 
 		{
@@ -702,7 +677,7 @@ class Jquery
 				 ? $speed
 				 : "\"$speed\"";
 		
-		$str  = "$($element).$type({$speed}{$easing}{$callback});".eof();
+		$str  = "$($element).$type({$speed}{$easing}{$callback});".eol();
 		
 		return $str;
 	}
@@ -928,35 +903,35 @@ class Jquery
 		{
 			if( is_numeric($speed ) )    
 			{
-				$speed = ",".eof()."\t\t$speed";
+				$speed = ",".eol()."\t\t$speed";
 			}
 			else
 			{
-				$speed = ",".eof()."\t\t'".$speed."'";
+				$speed = ",".eol()."\t\t'".$speed."'";
 			}
 		}
 	
 		if( is_array($easing) )
 		{
-			$ease = ",".eof()."\t\t".self::objectData($easing);			
+			$ease = ",".eol()."\t\t".self::objectData($easing);			
 			$easing = $ease;
 	
 		}
 		else if( ! empty($easing) ) 
 		{
-			$easing   = ",".eof()."\t\t'".$easing."'";
+			$easing   = ",".eol()."\t\t'".$easing."'";
 		}
 		
 		if( ! empty($complete) )
 		{
-			$complete = ",".eof()."\t\tfunction(){".$complete."}";
+			$complete = ",".eol()."\t\tfunction(){".$complete."}";
 		}
 		
 		$element = ( in_array($element, self::$keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
-		$js_animate = "\t$($element).animate(".eof().$animate.$speed.$easing.$complete.eof()."\t);".eof();
+		$js_animate = "\t$($element).animate(".eol().$animate.$speed.$easing.$complete.eol()."\t);".eol();
 		
 		return $js_animate;
 		
@@ -1000,7 +975,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$str  = "\t$($element).$classType(\"$class\");".eof();
+		$str  = "\t$($element).$classType(\"$class\");".eol();
 		
 		return $str;
 	}
@@ -1094,7 +1069,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$str  = "\t$($element).$type($attr);".eof();
+		$str  = "\t$($element).$type($attr);".eol();
 		
 		return $str;
 	}
@@ -1182,7 +1157,7 @@ class Jquery
 		{
 			$func = "\t".$property.":";	
 		}
-		$func .= 'function('.$params.'){'.eof()."\t\t".$code.eof()."\t".'}'.eof();
+		$func .= 'function('.$params.'){'.eol()."\t\t".$code.eol()."\t".'}'.eol();
 		
 		return $func;
 	}
@@ -1253,7 +1228,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$code = "$($element).$property($code);".eof();
+		$code = "$($element).$property($code);".eol();
 		
 		return $code;
 	}

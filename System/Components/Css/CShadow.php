@@ -340,8 +340,8 @@ class CShadow
 	******************************************************************************************/	
 	public function create($type = 'box')
 	{
-		$str  = $this->selector."{".eof();	
-		$str .= $this->attr.eof();
+		$str  = $this->selector."{".eol();	
+		$str .= $this->attr.eol();
 		
 		if( isset($this->params['type']) )
 		{
@@ -356,20 +356,20 @@ class CShadow
 		
 		if( $type === 'box' )
 		{ 
-			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eof();
+			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eol();
 		}
 		else
 		{
-			$shadow = "$type-shadow:$x $y $blur $color;".eof();	
+			$shadow = "$type-shadow:$x $y $blur $color;".eol();	
 		}
 		
 		$browser = '';	
 				
 		foreach($this->browsers as $val)
 		{
-			$str .= $val.$shadow.eof();
+			$str .= $val.$shadow.eol();
 		}
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 	}

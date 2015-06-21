@@ -741,7 +741,7 @@ class CEvent extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = "function($params)".eof()."{".eof()."\t$callback".eof()."}";
+		$this->callback = "function($params)".eol()."{".eol()."\t$callback".eol()."}";
 		
 		return $this;
 	}
@@ -762,7 +762,7 @@ class CEvent extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = "function($params)".eof()."{".eof()."\t$callback".eof()."}";
+		$this->callback = "function($params)".eol()."{".eol()."\t$callback".eol()."}";
 		
 		return $this;
 	}
@@ -796,7 +796,7 @@ class CEvent extends ComponentJqueryCommon
 	{
 		$combine_event = func_get_args();
 		
-		$event  = eof()."$($this->selector)";
+		$event  = eol()."$($this->selector)";
 		$event .= $this->complete();
 		if( ! empty($combine_event))foreach($combine_event as $e)
 		{			

@@ -140,7 +140,7 @@ class CTemplate
 		? $style = $this->_style($styles)
 		: $style = "";
 			
-		$this->bottom = "<div section=\"bottom\" style=\"$style\">$content</div>".eof();
+		$this->bottom = "<div section=\"bottom\" style=\"$style\">$content</div>".eol();
 		
 		return $this;
 	}
@@ -156,7 +156,7 @@ class CTemplate
 		? $style = $this->_style($styles)
 		: $style = "";
 			
-		$this->top = "<div section=\"top\" style=\"$style\">$content</div>".eof();
+		$this->top = "<div section=\"top\" style=\"$style\">$content</div>".eol();
 		
 		return $this;
 	}
@@ -255,22 +255,22 @@ class CTemplate
 			$template .= $this->top;
 		}
 		
-		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">".eof();
-		$template .= "\t$this->header".eof();	
-		$template .= "\t<div section=\"middle\"$this->middle>".eof();
-		$template .= "\t\t$this->leftside".eof();
-		$template .= "\t\t$this->content".eof();
-		$template .= "\t\t$this->rightside".eof();
-		$template .= "\t\t<div style=\"clear:both\"></div>".eof();
-		$template .= "\t</div>".eof();	
-		$template .= "\t$this->footer".eof();
-		$template .= "</div>".eof();
+		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">".eol();
+		$template .= "\t$this->header".eol();	
+		$template .= "\t<div section=\"middle\"$this->middle>".eol();
+		$template .= "\t\t$this->leftside".eol();
+		$template .= "\t\t$this->content".eol();
+		$template .= "\t\t$this->rightside".eol();
+		$template .= "\t\t<div style=\"clear:both\"></div>".eol();
+		$template .= "\t</div>".eol();	
+		$template .= "\t$this->footer".eol();
+		$template .= "</div>".eol();
 		
 		if( ! empty($this->bottom) ) 
 		{
 			if( ! empty($this->body['float']) )
 			{
-				$template .= "<div style=\"clear:both\"></div>".eof();
+				$template .= "<div style=\"clear:both\"></div>".eol();
 			}
 			
 			$template .= $this->bottom;

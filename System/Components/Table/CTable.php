@@ -252,7 +252,7 @@ class CTable
 		
 		foreach($elements as $key => $element)
 		{
-			$table .= eof()."\t".'<tr>'.eof();
+			$table .= eol()."\t".'<tr>'.eol();
 			
 			if(is_array($element))foreach($element as $k => $v)
 			{
@@ -265,11 +265,11 @@ class CTable
 					$val = $k;
 				}
 			
-				$table .= "\t\t".'<td'.$attr.'>'.$val."\t\t".'</td>'.eof();	
+				$table .= "\t\t".'<td'.$attr.'>'.$val."\t\t".'</td>'.eol();	
 				$colno++;
 			}
 		
-			$table .= "\t".'</tr>'.eof();
+			$table .= "\t".'</tr>'.eol();
 			$rowno++;
 		}
 		

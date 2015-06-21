@@ -142,7 +142,7 @@ class CParser
 									$newresult = preg_replace('/'.$kstart.'/', '', $res);
 									$newresult = preg_replace('/'.$kend.'/', '', $newresult);	
 									
-									$allstring .= $this->data($newresult, $item).eof();
+									$allstring .= $this->data($newresult, $item).eol();
 								}
 								
 								$string = str_replace($res, $allstring, $string);

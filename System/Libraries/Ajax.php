@@ -104,13 +104,13 @@ class Ajax
 			// bu değer dönüş fonksiyonu olarak değerlendirilecektir.
 			if( ! in_array($key, self::$callback_functions) )
 			{
-				$method .= "\t\t".$key.':'.$value.','.eof();
+				$method .= "\t\t".$key.':'.$value.','.eol();
 			}
 		}
 		
 		$method = substr($method,0,-2);
 		
-		$ajax = "\t".'$.ajax'.eof()."\t".'({'.eof().$method.eof()."\t".'})';
+		$ajax = "\t".'$.ajax'.eol()."\t".'({'.eol().$method.eol()."\t".'})';
 		
 		
 		// Dönüş Yöntemleri
@@ -125,14 +125,14 @@ class Ajax
 		{
 			if( isset($methods[$callfunc]) )
 			{
-				$ajax .= '.'.$callfunc.'(function(data){'.eof()."\t\t".$methods[$callfunc].eof()."\t".'});'.eof();
+				$ajax .= '.'.$callfunc.'(function(data){'.eol()."\t\t".$methods[$callfunc].eol()."\t".'});'.eol();
 				$is_callback = true;
 			}
 		}
 	
 		if($is_callback === false)
 		{
-			$ajax .= ";".eof();
+			$ajax .= ";".eol();
 		}
 		
 		return $ajax;
@@ -336,7 +336,7 @@ class Ajax
 		
 		$next = $start + $limit;
 		
-		$links  = eof()."<div ajax='pagination'>".eof();
+		$links  = eol()."<div ajax='pagination'>".eol();
 		
 		// Başlangıç değerinin pozitif olma durumuna göre gerekli kontrol sağlanıyor.------------
 		if($start > 0) 
@@ -367,7 +367,7 @@ class Ajax
 			{
 				$attr = "";	
 			}
-			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>".eof();
+			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>".eol();
 			// ----------------------------------------------------------------------------------
 		}
 		// --------------------------------------------------------------------------------------
@@ -375,11 +375,11 @@ class Ajax
 		// Sonraki butonunun durumu kontrol ediliyor...------------------------------------------
 		if( $next < $total_rows ) 
 		{
-			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>".eof();
+			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>".eol();
 		}
 		// --------------------------------------------------------------------------------------
 		
-		$links .= "</div>".eof();
+		$links .= "</div>".eol();
 		
 		// Toplam satırın limit miktarına göre durumu kontrol ediliyor...------------------------
 		if( $total_rows > $limit )

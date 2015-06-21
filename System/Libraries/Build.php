@@ -106,7 +106,7 @@ class Build
 			$str = '';
 		}
 		
-		$str .= eof().'<'.$elements.self::attributes($attribute).'>'.$content.'</'.$elements.'>'.eof();
+		$str .= eol().'<'.$elements.self::attributes($attribute).'>'.$content.'</'.$elements.'>'.eol();
 		
 		return $str;
 	}	
@@ -137,17 +137,17 @@ class Build
 			$type = 'ul';
 		}
 		
-		$list = '<'.$type.self::attributes($attributes).'>'.eof();
+		$list = '<'.$type.self::attributes($attributes).'>'.eol();
 		
 		$i = 0;
 		
 		foreach($elements as $k => $values)
 		{
-			$list .= "\t".'<li>'.$values.'</li>'.eof();
+			$list .= "\t".'<li>'.$values.'</li>'.eol();
 			$i++;
 		}
 		
-		$list .= '</'.$type.'>'.eof();
+		$list .= '</'.$type.'>'.eol();
 		
 		return $list;
 	}
@@ -189,7 +189,7 @@ class Build
 		
 		foreach($elements as $key => $element)
 		{
-			$table .= eof()."\t".'<tr>'.eof();
+			$table .= eol()."\t".'<tr>'.eol();
 			
 			if( is_array($element) ) foreach($element as $k => $v)
 			{
@@ -202,11 +202,11 @@ class Build
 					$val = $k;
 				}
 			
-				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.eof();	
+				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.eol();	
 				$colno++;
 			}
 		
-			$table .= "\t".'</tr>'.eof();
+			$table .= "\t".'</tr>'.eol();
 			$rowno++;
 		}
 		$table .= '</table>';

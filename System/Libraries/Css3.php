@@ -28,7 +28,7 @@ class Css3
 	******************************************************************************************/
 	public static function open()
 	{
-		$str  = "<style type='text/css'>".eof();
+		$str  = "<style type='text/css'>".eol();
 		return $str;	
 	}
 	
@@ -43,7 +43,7 @@ class Css3
 	******************************************************************************************/
 	public static function close()
 	{
-		$str = "</style>".eof();	
+		$str = "</style>".eol();	
 		return $str;
 	}
 
@@ -75,7 +75,7 @@ class Css3
 		}
 		
 		$str  = '';
-		$str .= $element."{".eof();
+		$str .= $element."{".eol();
 		
 		// Config dosyasındaki desteklenen tarayıcıların listesi alınıyor.
 		$browsers = Config::get('Css3', 'browsers');	
@@ -84,7 +84,7 @@ class Css3
 		{
 			if( ! is_array($property) )
 			{
-				$str .= $val."transform:".$property.";".eof();
+				$str .= $val."transform:".$property.";".eol();
 			}
 			else
 			{
@@ -94,11 +94,11 @@ class Css3
 					$str .= $k."(".$v.") ";	
 				}
 				$str = substr($str, 0, -1);
-				$str .= ";".eof();
+				$str .= ";".eol();
 			}
 		}
 		
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 		
@@ -132,13 +132,13 @@ class Css3
 		}
 	
 		$str  = "";
-		$str .= $element."{".eof();
+		$str .= $element."{".eol();
 		
 		// Farklı css kodları kullanmanız gerektiğinde 
 		// bu parametre kullanılır.
 		if( is_array($attr) && ! empty($attr) ) foreach($attr as $k => $v)
 		{
-			$str .= "$k:$v;".eof();	
+			$str .= "$k:$v;".eol();	
 		}
 		
 		$browsers = Config::get('Css3', 'browsers');	
@@ -151,11 +151,11 @@ class Css3
 				$property_ex = explode(":",$param["property"]);
 				$property = $property_ex[0];
 				
-				$str .= $param["property"].";".eof();
+				$str .= $param["property"].";".eol();
 				
 				foreach($browsers as $val)
 				{
-					$str .= $val."transition-property:$property;".eof();
+					$str .= $val."transition-property:$property;".eol();
 				}
 			}
 			
@@ -164,7 +164,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."transition-duration:".$param["duration"].";".eof();
+					$str .= $val."transition-duration:".$param["duration"].";".eol();
 				}
 			}
 			
@@ -173,7 +173,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."transition-delay:".$param["delay"].";".eof();
+					$str .= $val."transition-delay:".$param["delay"].";".eol();
 				}
 			}
 			
@@ -182,7 +182,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."transition-timing-function:".$param["animation"].";".eof();
+					$str .= $val."transition-timing-function:".$param["animation"].";".eol();
 				}
 			}			
 			elseif( isset($param["easing"]) )
@@ -190,7 +190,7 @@ class Css3
 				// Geçiş efekti belirleniyor. animation parametresinin alternatifidir.
 				foreach($browsers as $val)
 				{
-					$str .= $val."transition-timing-function:".$param["easing"].";".eof();
+					$str .= $val."transition-timing-function:".$param["easing"].";".eol();
 				}
 			}
 		}
@@ -198,11 +198,11 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."transition:$param;".eof();
+				$str .= $val."transition:$param;".eol();
 			}
 		}
 		
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 	}
@@ -239,7 +239,7 @@ class Css3
 		}
 		
 		$str  = "";
-		$str .= $element."{".eof();
+		$str .= $element."{".eol();
 		
 		$browsers = Config::get('Css3', 'browsers');	
 		
@@ -247,7 +247,7 @@ class Css3
 		// bu parametre kullanılır.
 		if( is_array($attr) && ! empty($attr) ) foreach($attr as $k => $v)
 		{
-			$str .= "$k:$v;".eof();	
+			$str .= "$k:$v;".eol();	
 		}
 		
 		if( is_array($param) )
@@ -257,7 +257,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-name:".$param["name"].";".eof();
+					$str .= $val."animation-name:".$param["name"].";".eol();
 				}
 			}
 			
@@ -266,7 +266,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-duration:".$param["duration"].";".eof();
+					$str .= $val."animation-duration:".$param["duration"].";".eol();
 				}
 			}
 			
@@ -275,7 +275,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-delay:".$param["delay"].";".eof();
+					$str .= $val."animation-delay:".$param["delay"].";".eol();
 				}
 			}
 			
@@ -284,7 +284,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-timing-function:".$param["easing"].";".eof();
+					$str .= $val."animation-timing-function:".$param["easing"].";".eol();
 				}
 			}
 			elseif( isset($param["animation"]) )
@@ -292,7 +292,7 @@ class Css3
 				// Animasyon efekti. esasing nesnesinin alternatifidir.
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-timing-function:".$param["animation"].";".eof();
+					$str .= $val."animation-timing-function:".$param["animation"].";".eol();
 				}
 			}
 			
@@ -301,7 +301,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-direction:".$param["direction"].";".eof();
+					$str .= $val."animation-direction:".$param["direction"].";".eol();
 				}
 			}
 			
@@ -310,7 +310,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-play-state:".$param["status"].";".eof();
+					$str .= $val."animation-play-state:".$param["status"].";".eol();
 				}
 			}
 			
@@ -319,7 +319,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-fill-mode:".$param["fill"].";".eof();
+					$str .= $val."animation-fill-mode:".$param["fill"].";".eol();
 				}
 			}
 			
@@ -328,7 +328,7 @@ class Css3
 			{
 				foreach($browsers as $val)
 				{
-					$str .= $val."animation-iteration-count:".$param["repeat"].";".eof();
+					$str .= $val."animation-iteration-count:".$param["repeat"].";".eol();
 				}
 			}
 		}
@@ -336,11 +336,11 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."animation:$param;".eof();
+				$str .= $val."animation:$param;".eol();
 			}
 		}
 		
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 	}
@@ -357,7 +357,7 @@ class Css3
 		}
 		
 		$str  = "";
-		$str .= $element."{".eof();
+		$str .= $element."{".eol();
 		
 		$browsers = Config::get('Css3', 'browsers');	
 		
@@ -369,11 +369,11 @@ class Css3
 		
 		if( $type === 'box' )
 		{ 
-			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eof();
+			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eol();
 		}
 		else
 		{
-			$shadow = "$type-shadow:$x $y $blur $color;".eof();	
+			$shadow = "$type-shadow:$x $y $blur $color;".eol();	
 		}
 		
 		foreach($browsers as $val)
@@ -381,7 +381,7 @@ class Css3
 			$str .= $val.$shadow;
 		}
 				
-		$str .= "}".eof();
+		$str .= "}".eol();
 		return $str;
 	}
 	
@@ -463,7 +463,7 @@ class Css3
 		}
 		
 		$str  = "";
-		$str .= $element."{".eof();
+		$str .= $element."{".eol();
 		
 		$browsers = Config::get('Css3', 'browsers');	
 		
@@ -471,7 +471,7 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-radius:".$param["radius"].";".eof();
+				$str .= $val."border-radius:".$param["radius"].";".eol();
 			}
 			
 		}
@@ -479,14 +479,14 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-top-left-radius:".$param["top-left-radius"].";".eof();
+				$str .= $val."border-top-left-radius:".$param["top-left-radius"].";".eol();
 			}
 		}
 		if(isset($param["top-right-radius"]))
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-top-right-radius:".$param["top-right-radius"].";".eof();
+				$str .= $val."border-top-right-radius:".$param["top-right-radius"].";".eol();
 			}
 
 		}
@@ -494,7 +494,7 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-bottom-left-radius:".$param["bottom-left-radius"].";".eof();
+				$str .= $val."border-bottom-left-radius:".$param["bottom-left-radius"].";".eol();
 			}
 		}
 		
@@ -502,12 +502,12 @@ class Css3
 		{
 			foreach($browsers as $val)
 			{
-				$str .= $val."border-bottom-right-radius:".$param["bottom-right-radius"].";".eof();
+				$str .= $val."border-bottom-right-radius:".$param["bottom-right-radius"].";".eol();
 			}
 		
 		}
 		
-		$str .= "}".eof();
+		$str .= "}".eol();
 	
 		return $str;
 	}
@@ -540,16 +540,16 @@ class Css3
 		}
 		
 		$str  = "";
-		$str .= $element."{".eof();
+		$str .= $element."{".eol();
 		
 		$browsers = Config::get('Css3', 'browsers');	
 		
 		foreach($browsers as $val)
 		{
-			$str .= $val.$code.":".$property.";".eof();
+			$str .= $val.$code.":".$property.";".eol();
 		}
 		
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 	}

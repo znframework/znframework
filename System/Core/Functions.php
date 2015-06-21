@@ -523,11 +523,11 @@ function compare($p1 = '', $operator = '=', $p2 = '')
 	return version_compare($p1, $p2, $operator);
 }
 
-// Function: eof()
+// Function: eol()
 // İşlev: Farklı işletim sistemlerine göre satır sonunu ifade eder.
 // Dönen Değerler: \n\r, \r veya \n.
 
-function eof($repeat = 1)
+function eol($repeat = 1)
 {
 	if ( strtoupper(substr(PHP_OS,0,3)) === 'WIN' ) 
 	{
@@ -1667,7 +1667,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		}
 	}
 
-	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.eof();
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.eol();
 	error_log($message, 3, $log_dir.suffix($destination,$extension));
 }
 
@@ -1693,7 +1693,7 @@ mod_gzip_item_include mime ^text/.*
 mod_gzip_item_include mime ^application/x-javascript.*
 mod_gzip_item_exclude mime ^image/.*
 mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>'.eof(2);
+</ifModule>'.eol(2);
 	}
 	else
 	{
@@ -1709,14 +1709,14 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 		$exp = '';
 		foreach($config['mod-expires']['file-type-time'] as $type => $value)
 		{
-			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eof();
+			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eol();
 		}
 		
 		$mod_expires = '<ifModule mod_expires.c>
 ExpiresActive On
 ExpiresDefault "access plus '.$config['mod-expires']['default-time'].' seconds"
 '.$exp.'
-</ifModule>'.eof(2);
+</ifModule>'.eol(2);
 	}
 	else
 	{
@@ -1734,13 +1734,13 @@ ExpiresDefault "access plus '.$config['mod-expires']['default-time'].' seconds"
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
-</filesMatch>'.eof();
+</filesMatch>'.eol();
 		}
 		
 		$mod_headers = '<ifModule mod_headers.c>
 '.$fmatch.'
 </ifModule>
-'.eof(2);
+'.eol(2);
 	}
 	else
 	{
@@ -1753,14 +1753,14 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	
 	if( ! empty($headerset['set-htaccess-file']) )
 	{
-		$headers_iniset  = "<ifModule mod_expires.c>".eof();	
+		$headers_iniset  = "<ifModule mod_expires.c>".eol();	
 		
 		foreach($headerset['iniset'] as $val)
 		{
-			$headers_iniset .= "$val".eof();
+			$headers_iniset .= "$val".eol();
 		}
 		
-		$headers_iniset .= "</ifModule>".eof(2);
+		$headers_iniset .= "</ifModule>".eol(2);
 	}
 	else
 	{
@@ -1777,7 +1777,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		
 		foreach($htaccess_settings['settings'] as $key => $val)
 		{
-			$htaccess_settings_str .= "<$key>".eof();
+			$htaccess_settings_str .= "<$key>".eol();
 			
 			foreach($val as $v)
 			{
@@ -1785,7 +1785,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 			}
 			
 			$keyex = explode(" ", $key);
-			$htaccess_settings_str .= eof()."</$keyex[0]>".eof(2);
+			$htaccess_settings_str .= eol()."</$keyex[0]>".eol(2);
 		}	
 	}
 	else
@@ -1800,12 +1800,12 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! Config::get('Uri','index.php') )
 	{
-		$htaccess .= "<IfModule mod_rewrite.c>".eof();
-		$htaccess .= "RewriteEngine On".eof();
-		$htaccess .= "RewriteBase /".eof();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eof();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eof();
-		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').Config::get('Uri','index-suffix').'/$1 [L]'.eof();
+		$htaccess .= "<IfModule mod_rewrite.c>".eol();
+		$htaccess .= "RewriteEngine On".eol();
+		$htaccess .= "RewriteBase /".eol();
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eol();
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eol();
+		$htaccess .= 'RewriteRule ^(.*)$  '.server('script_name').Config::get('Uri','index-suffix').'/$1 [L]'.eol();
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
@@ -1859,13 +1859,13 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( $v !== '' )
 			{
-				$sets .= "php_value $k $v".eof();		 
+				$sets .= "php_value $k $v".eol();		 
 			}			
 		}
 		
 		if( ! empty($sets) )
 		{
-			$htaccess .= eof()."<IfModule mod_php5.c>".eof();
+			$htaccess .= eol()."<IfModule mod_php5.c>".eol();
 			$htaccess .= $sets;
 			$htaccess .= "</IfModule>";
 		}

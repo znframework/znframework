@@ -146,7 +146,7 @@ class CAnimate extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = ",".eof()."\t\tfunction($params){".$callback."}";
+		$this->callback = ",".eol()."\t\tfunction($params){".$callback."}";
 		
 		return $this;
 	}
@@ -158,7 +158,7 @@ class CAnimate extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = ",".eof()."\t\tfunction($params){".$callback."}";
+		$this->callback = ",".eol()."\t\tfunction($params){".$callback."}";
 		
 		return $this;
 	}
@@ -199,13 +199,13 @@ class CAnimate extends ComponentJqueryCommon
 	public function complete()
 	{
 		$animatemid = '';
-		$animate  = ".animate".eof()."\t(";
-		if( ! empty($this->attr))     $animatemid .= eof()."\t".$this->attr;
+		$animate  = ".animate".eol()."\t(";
+		if( ! empty($this->attr))     $animatemid .= eol()."\t".$this->attr;
 		if( ! empty($this->speed))    $animatemid .= $this->speed;
-		if( ! empty($this->easing))	  $animatemid .= ",".eof()."\t".$this->_object($this->easing);
+		if( ! empty($this->easing))	  $animatemid .= ",".eol()."\t".$this->_object($this->easing);
 		if( ! empty($this->callback)) $animatemid .= $this->callback;
 		$animate .= trim($animatemid, ',');
-		$animate .= eof()."\t)";
+		$animate .= eol()."\t)";
 		
 		$this->_default_variable();
 		
@@ -216,7 +216,7 @@ class CAnimate extends ComponentJqueryCommon
 	{
 		$combine_animation = func_get_args();
 		
-		$animate  = eof()."\t$($this->selector)";
+		$animate  = eol()."\t$($this->selector)";
 		
 		$animate .= $this->complete();
 		
@@ -225,7 +225,7 @@ class CAnimate extends ComponentJqueryCommon
 			$animate .= $animation;
 		}
 	
-		$animate .= ";".eof();
+		$animate .= ";".eol();
 			
 		return $animate;
 	}

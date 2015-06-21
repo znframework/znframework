@@ -205,7 +205,7 @@ class CLister
 		
 		foreach($elements as $k => $values)
 		{	
-			$list .= "\t".'<li>'.$values.'</li>'.eof();
+			$list .= "\t".'<li>'.$values.'</li>'.eol();
 			$i++;
 		}
 				
@@ -225,9 +225,9 @@ class CLister
 	******************************************************************************************/
 	public function create($type = 'ul')
 	{	
-		$list  = '<'.$type.$this->_attributes($this->attr).'>'.eof();
+		$list  = '<'.$type.$this->_attributes($this->attr).'>'.eol();
 		$list .= $this->lists;	
-		$list .= '</'.$type.'>'.eof();
+		$list .= '</'.$type.'>'.eol();
 		
 		// **********************************************************
 		// Nesneler varsayılan ayarlara getiriliyor.

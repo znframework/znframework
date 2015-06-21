@@ -94,14 +94,14 @@ class CTransform
 	protected function _transform($data)
 	{
 		$str  = '';
-		$str .= $this->selector."{".eof();	
+		$str .= $this->selector."{".eol();	
 		
 		foreach($this->browsers as $val)
 		{
-			$str .= $val."transform:$data;".eof();
+			$str .= $val."transform:$data;".eol();
 		}
 		
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 	}

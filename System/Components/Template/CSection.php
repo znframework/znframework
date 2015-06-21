@@ -621,7 +621,7 @@ class CSection
 
 		$style = ' style="clear:'.$clear.';" ';
 		
-		$section  = eof().'<div '.$style.'></div>'.eof();
+		$section  = eol().'<div '.$style.'></div>'.eol();
 		
 		return $section;
 	}
@@ -773,14 +773,14 @@ class CSection
 			$this->content = $content;	
 		}	
 		
-		$section  = eof().'<div'.$this->_attributes($attr).'>';
+		$section  = eol().'<div'.$this->_attributes($attr).'>';
 		
 		if( ! empty($this->content) ) 
 		{
-			$section .= eof()."$this->content";
+			$section .= eol()."$this->content";
 		}
 		
-		$section .= eof()."</div>".eof()."$clear";	
+		$section .= eol()."</div>".eol()."$clear";	
 		
 		if( ! empty($this->clear) )   $this->clear = NULL;
 		if( ! empty($this->style) ) 	$this->style = '';

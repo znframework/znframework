@@ -179,7 +179,7 @@ class DbTool
 			$return.= 'DROP TABLE '.$table.';';
 			$this->db->query('SHOW CREATE TABLE '.$table);
 			$row2 = $this->db->fetch_row();
-			$return.= eof(2).$row2[1].";".eof(2);
+			$return.= eol(2).$row2[1].";".eol(2);
 		
 			for ($i = 0; $i < $num_fields; $i++) 
 			{
@@ -207,10 +207,10 @@ class DbTool
 							$return.= ','; 
 						}
 					}
-					$return.= ");".eof();
+					$return.= ");".eol();
 				}
 			}
-			$return .= eof(3);
+			$return .= eol(3);
 		}
 		
 		if( empty($filename) ) 

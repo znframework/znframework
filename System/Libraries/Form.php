@@ -118,7 +118,7 @@ class Form
 			$_attributes['method'] = 'post';
 		}
 		
-		return '<form name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.eof();
+		return '<form name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.eol();
 	}
 
 	/******************************************************************************************
@@ -134,7 +134,7 @@ class Form
 	******************************************************************************************/	
 	public static function close()
 	{
-		return '</form>'.eof();
+		return '</form>'.eol();
 	}
 
 	/******************************************************************************************
@@ -171,11 +171,11 @@ class Form
 		// 1. parametre dizi ise
 		if( is_array($name) )foreach($name as $key => $val)
 		{
-			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.eof();	
+			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.eol();	
 		}
 		else
 		{
-			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.eof();
+			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.eol();
 		}
 		
 		return $hiddens;
@@ -210,7 +210,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eof();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -289,7 +289,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 		
-		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'.eof();
+		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'.eol();
 	}
 
 	/******************************************************************************************
@@ -376,10 +376,10 @@ class Form
 			{
 				$select = "";
 			}
-			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.eof();
+			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.eol();
 		}
 		
-		$selectbox .= '</select>'.eof();	
+		$selectbox .= '</select>'.eol();	
 		
 		return $selectbox;
 	}

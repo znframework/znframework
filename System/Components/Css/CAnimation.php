@@ -130,7 +130,7 @@ class CAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-name:$name;".eof());
+		$this->transitions .= $this->_transitions("animation-name:$name;".eol());
 		
 		return $this;
 	}
@@ -153,7 +153,7 @@ class CAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-direction:$direction;".eof());
+		$this->transitions .= $this->_transitions("animation-direction:$direction;".eol());
 		
 		return $this;
 	}
@@ -176,7 +176,7 @@ class CAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-play-state:$status;".eof());
+		$this->transitions .= $this->_transitions("animation-play-state:$status;".eol());
 		
 		return $this;
 	}
@@ -199,7 +199,7 @@ class CAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".eof());
+		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".eol());
 		
 		return $this;
 	}
@@ -222,7 +222,7 @@ class CAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".eof());
+		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".eol());
 		
 		return $this;
 	}
@@ -250,7 +250,7 @@ class CAnimation
 			$duration = $duration."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-duration:$duration;".eof());
+		$this->transitions .= $this->_transitions("animation-duration:$duration;".eol());
 		
 		return $this;
 	}
@@ -278,7 +278,7 @@ class CAnimation
 			$delay = $delay."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-delay:$delay;".eof());
+		$this->transitions .= $this->_transitions("animation-delay:$delay;".eol());
 		
 		return $this;
 	}
@@ -301,7 +301,7 @@ class CAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".eof());
+		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".eol());
 		
 		return $this;
 	}
@@ -315,7 +315,7 @@ class CAnimation
 			$transitions .= "$val$data";
 		}
 		
-		return eof().$transitions;
+		return eol().$transitions;
 	}
 	
 	/******************************************************************************************
@@ -346,8 +346,8 @@ class CAnimation
 	{
 		$combine_transitions = func_get_args();
 		
-		$str  = $this->selector."{".eof();	
-		$str .= $this->attr.eof();
+		$str  = $this->selector."{".eol();	
+		$str .= $this->attr.eol();
 		$str .= $this->complete();
 		
 		if( ! empty($combine_transitions) )foreach($combine_transitions as $transition)
@@ -355,7 +355,7 @@ class CAnimation
 			$str .= $transition;
 		}
 	
-		$str .= "}".eof();
+		$str .= "}".eol();
 		
 		return $str;
 	}

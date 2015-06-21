@@ -60,7 +60,7 @@ class CAjax extends ComponentJqueryCommon
 			$url = siteUrl($url);	
 		}
 		
-		$this->sets['url'] = "\turl:\"$url\",".eof();
+		$this->sets['url'] = "\turl:\"$url\",".eol();
 		
 		return $this;	
 	}
@@ -75,7 +75,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['data'] = "\tdata:$data,".eof();
+		$this->sets['data'] = "\tdata:$data,".eol();
 		
 		return $this;	
 	}
@@ -90,7 +90,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['headers'] = "\theaders:$headers,".eof();
+		$this->sets['headers'] = "\theaders:$headers,".eol();
 		
 		return $this;	
 	}
@@ -105,7 +105,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$if_modified = $this->_booltostr($if_modified);
-		$this->sets['if_modified'] = "\tifModified:$if_modified,".eof();
+		$this->sets['if_modified'] = "\tifModified:$if_modified,".eol();
 		
 		return $this;	
 	}
@@ -120,7 +120,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$is_local = $this->_booltostr($is_local);
-		$this->sets['is_local'] = "\tisLocal:$is_local,".eof();
+		$this->sets['is_local'] = "\tisLocal:$is_local,".eol();
 		
 		return $this;	
 	}
@@ -136,7 +136,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$mime_type = $this->_booltostr($mime_type);
-		$this->sets['mime_type'] = "\tmimeType:$mime_type,".eof();
+		$this->sets['mime_type'] = "\tmimeType:$mime_type,".eol();
 		
 		return $this;	
 	}
@@ -161,7 +161,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;
 		}
 		
-		$this->sets['jsonp'] = "\tjsonp:$jsonp,".eof();
+		$this->sets['jsonp'] = "\tjsonp:$jsonp,".eol();
 		
 		return $this;	
 	}
@@ -183,7 +183,7 @@ class CAjax extends ComponentJqueryCommon
 			$jsonp_callback = "\"$jsonp_callback\"";
 		}
 		
-		$this->sets['jsonp_callback'] = "\tjsonpCallback:$jsonp_callback,".eof();
+		$this->sets['jsonp_callback'] = "\tjsonpCallback:$jsonp_callback,".eol();
 		
 		return $this;	
 	}
@@ -198,7 +198,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['type'] = "\tdataType:\"$type\",".eof();
+		$this->sets['type'] = "\tdataType:\"$type\",".eol();
 		
 		return $this;
 	}
@@ -213,7 +213,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['password'] = "\tpassword:\"$password\",".eof();
+		$this->sets['password'] = "\tpassword:\"$password\",".eol();
 		
 		return $this;
 	}
@@ -228,7 +228,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['username'] = "\tusername:\"$username\",".eof();
+		$this->sets['username'] = "\tusername:\"$username\",".eol();
 		
 		return $this;
 	}
@@ -244,7 +244,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['method'] = "\ttype:\"$method\",".eof();
+		$this->sets['method'] = "\ttype:\"$method\",".eol();
 		
 		return $this;
 	}
@@ -260,7 +260,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['method'] = "\ttype:\"$method\",".eof();
+		$this->sets['method'] = "\ttype:\"$method\",".eol();
 		
 		return $this;
 	}
@@ -275,7 +275,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['script_charset'] = "\tscriptCharset:\"$script_charset\",".eof();
+		$this->sets['script_charset'] = "\tscriptCharset:\"$script_charset\",".eol();
 		
 		return $this;
 	}
@@ -290,7 +290,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$traditional = $this->_booltostr($traditional);
-		$this->sets['traditional'] = "\ttraditional:$traditional,".eof();
+		$this->sets['traditional'] = "\ttraditional:$traditional,".eol();
 		
 		return $this;
 	}
@@ -305,7 +305,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$process_data = $this->_booltostr($process_data);
-		$this->sets['process_data'] = "\tprocessData:$process_data,".eof();
+		$this->sets['process_data'] = "\tprocessData:$process_data,".eol();
 		
 		return $this;
 	}
@@ -320,7 +320,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$cache = $this->_booltostr($cache);
-		$this->sets['cache'] = "\tcache:$cache,".eof();
+		$this->sets['cache'] = "\tcache:$cache,".eol();
 		
 		return $this;
 	}
@@ -335,7 +335,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['xhr_fields'] = "\txhrFields:$xhr_fields,".eof();
+		$this->sets['xhr_fields'] = "\txhrFields:$xhr_fields,".eol();
 		
 		return $this;
 	}
@@ -350,7 +350,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['context'] = "\tcontext:$context,".eof();
+		$this->sets['context'] = "\tcontext:$context,".eol();
 		
 		return $this;
 	}
@@ -365,7 +365,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['accepts'] = "\taccepts:$accepts,".eof();
+		$this->sets['accepts'] = "\taccepts:$accepts,".eol();
 		
 		return $this;
 	}
@@ -380,7 +380,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['contents'] = "\tcontents:$contents,".eof();
+		$this->sets['contents'] = "\tcontents:$contents,".eol();
 		
 		return $this;
 	}
@@ -395,7 +395,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$async = $this->_booltostr($async);
-		$this->sets['async'] = "\tasync:$async,".eof();
+		$this->sets['async'] = "\tasync:$async,".eol();
 		
 		return $this;
 	}
@@ -410,7 +410,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$cross_domain = $this->_booltostr($cross_domain);
-		$this->sets['cross_domain'] = "\tcrossDomain:$cross_domain,".eof();
+		$this->sets['cross_domain'] = "\tcrossDomain:$cross_domain,".eol();
 		
 		return $this;
 	}
@@ -425,7 +425,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['timeout'] = "\ttimeout:$timeout,".eof();
+		$this->sets['timeout'] = "\ttimeout:$timeout,".eol();
 		
 		return $this;
 	}
@@ -441,7 +441,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		$globals = $this->_booltostr($globals);
-		$this->sets['globals'] = "\tglobal:$globals,".eof();
+		$this->sets['globals'] = "\tglobal:$globals,".eol();
 		
 		return $this;
 	}
@@ -467,7 +467,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->sets['content_type'] = "\tcontentType:$content_type,".eof();
+		$this->sets['content_type'] = "\tcontentType:$content_type,".eol();
 		
 		return $this;
 	}
@@ -479,7 +479,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;	
 		}	
 		
-		$status_code = eof()."\t$name:".eof()."\t{";
+		$status_code = eol()."\t$name:".eol()."\t{";
 		
 		if( ! empty($codes))
 		{
@@ -493,13 +493,13 @@ class CAjax extends ComponentJqueryCommon
 					$value = $params[1];
 				}
 				
-				$status_code .= eof()."\t\t$code:function($param)".eof()."\t\t{".eof()."\t\t\t$value".eof()."\t\t},".eof();
+				$status_code .= eol()."\t\t$code:function($param)".eol()."\t\t{".eol()."\t\t\t$value".eol()."\t\t},".eol();
 			}
-			$status_code = trim(trim($status_code), ',').eof();
+			$status_code = trim(trim($status_code), ',').eol();
 		}
 		$status_code .= "\t}";
 		
-		$this->functions[$name] = eof()."\t".$status_code;
+		$this->functions[$name] = eol()."\t".$status_code;
 	}
 	
 	// STATUS CODE Property -------------------------------------------------------
@@ -537,7 +537,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;
 		}
 		
-		$this->functions[$name] = eof()."\t$name:function($params)".eof()."\t{".eof()."\t\t$codes".eof()."\t}";
+		$this->functions[$name] = eol()."\t$name:function($params)".eol()."\t{".eol()."\t\t$codes".eol()."\t}";
 	}
 	
 	// SUCCESS FUNCTION Property -------------------------------------------------------
@@ -607,7 +607,7 @@ class CAjax extends ComponentJqueryCommon
 			return $this;
 		}
 		
-		$this->callbacks[$name] = eof().".$name(function($params)".eof()."{".eof()."\t$codes".eof()."})";
+		$this->callbacks[$name] = eol().".$name(function($params)".eol()."{".eol()."\t$codes".eol()."})";
 	}	
 	
 	// DONE CALLBACK FUNCTION Property -------------------------------------------------------
@@ -694,7 +694,7 @@ class CAjax extends ComponentJqueryCommon
 		
 		$ajax = substr($ajax,0,-1);
 		
-		$ajax .= eof();
+		$ajax .= eol();
 		
 		if( ! empty($this->functions))foreach($this->functions as $val)
 		{
@@ -710,14 +710,14 @@ class CAjax extends ComponentJqueryCommon
 			{
 				$callbacks .= $val;	
 			}
-			$callbacks .= ";".eof();
+			$callbacks .= ";".eol();
 		}
 		else
 		{
-			$callbacks = ";".eof();
+			$callbacks = ";".eol();
 		}
 		
-		$ajax = eof()."$.ajax".eof()."({".eof()."$ajax".eof()."})$callbacks";
+		$ajax = eol()."$.ajax".eol()."({".eol()."$ajax".eol()."})$callbacks";
 		
 		$this->_default_variable();
 		

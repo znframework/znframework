@@ -179,11 +179,11 @@ class CXml
 			$str = '';
 		}
 		
-		$str .= eof().
+		$str .= eol().
 				'<'.$this->objects['element'].$this->_attributes($this->objects['attribute']).'>'.
 				$this->objects['content'].
 				'</'.$this->objects['element'].'>'.
-				eof();
+				eol();
 		
 		// Varsayılan dizi ayarları
 		$this->objects = array

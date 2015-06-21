@@ -117,7 +117,7 @@ class Html5
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eof();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -544,7 +544,7 @@ class Html5
 			$content = '';
 		}
 		
-		return '<'.$type.self::attributes($_attributes).'>'.$content."</$type>".eof();
+		return '<'.$type.self::attributes($_attributes).'>'.$content."</$type>".eol();
 	}
 	
 	/******************************************************************************************
@@ -795,7 +795,7 @@ class Html5
 	******************************************************************************************/ 
 	public static function keygen($_attributes = '')
 	{
-		return '<keygen'.self::attributes($_attributes).'>'.eof();
+		return '<keygen'.self::attributes($_attributes).'>'.eol();
 	}
 	
 	// HTML5 medya nesneleri için
@@ -806,7 +806,7 @@ class Html5
 			$src = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.eof();
+		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -858,7 +858,7 @@ class Html5
 			$content = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.$content."</$type>".eof();
+		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.$content."</$type>".eol();
 	}
 	
 	/******************************************************************************************

@@ -258,7 +258,7 @@ class CAction extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = ", function($params)".eof()."{".eof()."\t$callback".eof()."}";
+		$this->callback = ", function($params)".eol()."{".eol()."\t$callback".eol()."}";
 		
 		return $this;
 	}
@@ -270,7 +270,7 @@ class CAction extends ComponentJqueryCommon
 			return $this;	
 		}
 		
-		$this->callback = ", function($params)".eof()."{".eof()."\t$callback".eof()."}";
+		$this->callback = ", function($params)".eol()."{".eol()."\t$callback".eol()."}";
 		
 		return $this;
 	}
@@ -293,7 +293,7 @@ class CAction extends ComponentJqueryCommon
 	{
 		$combine_effect = func_get_args();
 		
-		$event  = eof()."$($this->selector)";
+		$event  = eol()."$($this->selector)";
 		$event .= $this->complete();
 		
 		if( ! empty($combine_effect))foreach($combine_effect as $effect)

@@ -106,9 +106,9 @@ class CCss
 			return false;	
 		}
 
-		$str  = $this->selector."{".eof();	
-		$str .= $this->_attr($attr).eof();
-		$str .= "}".eof();
+		$str  = $this->selector."{".eol();	
+		$str .= $this->_attr($attr).eol();
+		$str .= "}".eol();
 		
 		$this->_default_variable();
 		

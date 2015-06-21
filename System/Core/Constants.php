@@ -36,11 +36,6 @@ define('CONFIG_DIR', APP_DIR.'Config/');
 define('CORE_DIR', SYSTEM_DIR.'Core/'); 		
 
 /******************************************************************************************
-* REFERENCES_DIR: System/References/                                                      *
-******************************************************************************************/
-define('REFERENCES_DIR', SYSTEM_DIR.'References/'); 
-
-/******************************************************************************************
 * SYSTEM_LANGUAGES_DIR: System/Languages/                                                 *
 ******************************************************************************************/
 define('SYSTEM_LANGUAGES_DIR', SYSTEM_DIR.'Languages/');

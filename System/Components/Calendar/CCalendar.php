@@ -371,18 +371,18 @@ class CCalendar
 		$next = "<a href='". suffix($this->url) . $year. "/". ( $month + 1 ) ."' {$button_class}{$button_style}>$this->next</a>";
 		
 		/************************************************************ CALENDAR *******************************************************************/			 
-		$str  = "<table{$table_class}{$table_style}>".eof();
+		$str  = "<table{$table_class}{$table_style}>".eol();
 		// Ay - Tarih Satırı
-		$str .= "\t<tr>".eof()."\t\t<th{$month_row_class}{$month_row_style} colspan=\"7\">{$prev} {$monthname} - {$year} {$next}</th></tr>".eof();
-		$str .= "\t<tr>".eof();
+		$str .= "\t<tr>".eol()."\t\t<th{$month_row_class}{$month_row_style} colspan=\"7\">{$prev} {$monthname} - {$year} {$next}</th></tr>".eol();
+		$str .= "\t<tr>".eol();
 		
 		// Gün İsimleri Satırı
 		foreach($daynames as $day)
 		{
-			$str .= "\t\t<td{$day_row_class}{$day_row_style}>$day</td>".eof();
+			$str .= "\t\t<td{$day_row_class}{$day_row_style}>$day</td>".eol();
 		}
 		
-		$str .= "\t<tr>".eof();
+		$str .= "\t<tr>".eol();
 		
 		if( $first_day['wday'] == 0 ) 
 		{
@@ -392,7 +392,7 @@ class CCalendar
 		// Günler Satırı
 		for($i=1; $i<$first_day['wday']; $i++)
 		{
-			$str .= "\t\t<td{$rows_class}{$rows_style}>&nbsp;</td>".eof();
+			$str .= "\t\t<td{$rows_class}{$rows_style}>&nbsp;</td>".eol();
 		}
 		
 		$active_day = 0;
@@ -423,9 +423,9 @@ class CCalendar
 						 : '';
 			}
 			
-			$str .= "\t\t<td{$class}{$style}>$active_day</td>".eof();
+			$str .= "\t\t<td{$class}{$style}>$active_day</td>".eol();
 		}
-		$str .= "\t</tr>".eof();
+		$str .= "\t</tr>".eol();
 		
 
 		$week_count = floor(($last_day ['mday'] - $active_day) / 7);
@@ -458,15 +458,15 @@ class CCalendar
 							 ? ' style="'.$this->style['days'].'"'
 							 : '';
 				}
-				$str .= "\t\t<td{$class}{$style}>$active_day</td>".eof();
+				$str .= "\t\t<td{$class}{$style}>$active_day</td>".eol();
 			}
-			$str .= "\t</tr>".eof();
+			$str .= "\t</tr>".eol();
 		}
 		
 	
 		if( $active_day < $last_day['mday'] )
 		{
-			$str .= "\t<tr>".eof();
+			$str .= "\t<tr>".eol();
 			
 			for ($i=0; $i<7; $i++)
 			{
@@ -495,14 +495,14 @@ class CCalendar
 				
 				if( $active_day <= $last_day ['mday'] )
 				{
-					$str .= "\t\t<td{$class}{$style}>$active_day</td>".eof();
+					$str .= "\t\t<td{$class}{$style}>$active_day</td>".eol();
 				}
 				else 
 				{
-					$str .= "\t\t<td{$class}{$style}>&nbsp;</td>".eof();
+					$str .= "\t\t<td{$class}{$style}>&nbsp;</td>".eol();
 				}
 			}			
-			$str .= "\t</tr>".eof();
+			$str .= "\t</tr>".eol();
 		}
 		
 		$str .= "</table>";

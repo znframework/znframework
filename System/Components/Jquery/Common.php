@@ -110,7 +110,7 @@ class ComponentJqueryCommon
 		}
 		else
 		{
-			$object = eof()."\t\t\"$array\"";	
+			$object = eol()."\t\t\"$array\"";	
 		}
 		
 		return $object;
