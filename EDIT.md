@@ -1,3 +1,9 @@
+<h4>References Dizini - 21/06/2015 23:45</h4>
+<p>Sistemde yer alan references dizini kaldırılmıştır. İçerisinde yer alan Jquery sınıfları Scripts dizini içine taşınmıştır.</p>
+
+<h4>eof() Yöntemi - 21/06/2015 23:40</h4>
+<p>eof() yöntemi eol() olarak değiştirilmiştir.</p>
+
 <h4>CSendMail Bileşeni - 21/06/2015 20:48</h4>
 <p>CSendMail Bileşeni kaldırılmıştır.</p>
 
