@@ -1,3 +1,6 @@
+<h4>MimeTypes Ayar Dosyası - 20/06/2015 20:51</h4>
+<p>Config/MimeTypes.php dosyası eklenmiştir.</p>
+
 <h4>Socket Kütüphanesi - 20/06/2015 18:42</h4>
 <p>Socket Kütüphanesi eklendi.</p>
 
