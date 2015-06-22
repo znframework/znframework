@@ -1,3 +1,6 @@
+<h4>User Kütüphanesi - 22/06/2015 15:30</h4>
+<p>User::register() yöntemine yeni parametre eklendi.</p>
+
 <h4>References Dizini - 21/06/2015 23:45</h4>
 <p>Sistemde yer alan references dizini kaldırılmıştır. İçerisinde yer alan Jquery sınıfları Scripts dizini içine taşınmıştır.</p>
 
