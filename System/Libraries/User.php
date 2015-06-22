@@ -60,14 +60,18 @@ class User
 	| 1. array var @data => Kaydedilecek üye bilgileri anahtar değer çifti içeren bir dizi    |
 	| içeriği ile kaydedilir. Dizideki anahtar ifadeler sütun isimlerini değer ifadeleri ise  |
 	| bu sütuna kaydedilecek veriyi belirtir.											 	  |
-	| 2. [ string var @activation_return_link ] => Aktivasyon yapılacaksa kayıt yapılırken    |
+	| 2. string/boolean var @autoLogin => Kayıttan sonra otomatik giriş olsun mu?		      |
+	| True: Otomatik giriş olsun															  |
+	| False: Otomatik giriş olmasın															  |
+	| String Yol: Otomatik giriş olmasın ve belirtilen yola yönlendirilsin.					  |
+	| 3. [ string var @activation_return_link ] => Aktivasyon yapılacaksa kayıt yapılırken    |
 	| kullanıcıya gönderilen aktivasyon mailinin içerisindeki linke tıkladığında gidilecek	  |
 	| sayfa belirtilir. Bu parametre isteğe bağlıdır.                                         |
 	|          																				  |
 	| Örnek Kullanım: register(array('user' => 'zntr', 'pass' => '1234'));       		      |
 	|          																				  |
 	******************************************************************************************/
-	public static function register($data = array(), $activation_return_link = '')
+	public static function register($data = array(), $autoLogin = false, $activation_return_link = '')
 	{
 		if( ! is_array($data) ) 
 		{
@@ -134,7 +138,14 @@ class User
 				}
 				else
 				{
-					self::login($login_username, $login_password);
+					if( $autoLogin === true )
+					{
+						self::login($login_username, $login_password);
+					}
+					elseif( is_string($autoLogin) )
+					{
+						redirect($autoLogin);	
+					}
 				}
 				
 				return true;

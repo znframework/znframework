@@ -337,7 +337,6 @@ function isCharset($charset = '')
 // Function: charsetList()
 // İşlev: Geçerli karakter seli listesini verir.
 // Dönen Değerler: Karakter setlerini listeler.
-
 function charsetList()
 {
 	return mb_list_encodings();	

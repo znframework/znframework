@@ -37,10 +37,10 @@ class File
 	| Örnek Kullanım: read('dizin/dosya.txt');        									      |
 	|          																				  |
 	******************************************************************************************/
-	public static function read($file = '')
+	public static function read($file = '', $mode = 'r')
 	{
 		// Parametre kontrolü yapılıyor.
-		if( ! is_string($file) )
+		if( ! is_string($file) || ! is_string($mode) )
 		{
 			return false;
 		}
@@ -49,7 +49,7 @@ class File
 		if( file_exists($file) )
 		{
 			// Dosyadaki veriyi oku.
-			$file_open = fopen($file, 'r');	
+			$file_open = fopen($file, $mode);	
 			$file_read = fread($file_open, filesize($file));
 			fclose($file_open);
 			
@@ -76,10 +76,10 @@ class File
 	| Örnek Kullanım: write('dizin/dosya.txt', 'a');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function write($file = '', $data = '')
+	public static function write($file = '', $data = '', $mode = 'w')
 	{
 		// Parametre kontrolü yapılıyor.
-		if( ! is_string($file) ) 
+		if( ! is_string($file) || ! is_string($mode) ) 
 		{
 			return false;
 		}
@@ -90,7 +90,7 @@ class File
 			$data = '';
 		}
 		
-		$file_open 	= fopen($file, 'w');
+		$file_open 	= fopen($file, $mode);
 		
 		$file_write = fwrite($file_open, $data);
 		
@@ -247,10 +247,10 @@ class File
 	| Örnek Kullanım: append('dizin/dosya.txt', 'b');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function append($file = '', $data = '')
+	public static function append($file = '', $data = '', $mode = 'a')
 	{
 		// Parametre kontrolleri yapılıyor.
-		if( ! is_string($file) ) 
+		if( ! is_string($file) || ! is_string($mode) ) 
 		{
 			return false;
 		}
@@ -260,7 +260,7 @@ class File
 		}
 	
 		// Dosyaya veriyi yaz.
-		$file_open 	= fopen($file, 'a');
+		$file_open 	= fopen($file, $mode);
 		
 		$file_write = fwrite($file_open, $data);
 		
@@ -549,6 +549,154 @@ class File
 				@mkdir(suffix($target).$zip_file);
 			}
 		}
+	}
+	
+	/******************************************************************************************
+	* LIMIT                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Dosyayı boyutlandırmak için kullanılır.		     				      |											
+	|          																				  |
+	******************************************************************************************/
+	public static function limit($file = '', $limit = 0, $mode = 'r+')
+	{
+		// Parametre kontrolü yapılıyor.
+		if( ! is_string($file) || ! is_numeric($limit) || ! is_string($mode) ) 
+		{
+			return false;
+		}
+		
+		if( ! file_exists($file) )
+		{
+			self::$error = getMessage('File', 'not_found_error', $file);
+			report('Error', self::$error, 'FileLibrary');
+			return false;
+		}
+	
+		$file_open 	= fopen($file, $mode);
+		
+		$file_write = ftruncate($file_open, $limit);
+		
+		fclose($file_open);
+	}
+	
+	/******************************************************************************************
+	* RENAME                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Dosyanın ismini değiştirmek için kullanılır.	     				      |											
+	|          																				  |
+	******************************************************************************************/
+	public static function rename($oldName = '', $newName = 0)
+	{
+		// Parametre kontrolü yapılıyor.
+		if( ! isValue($oldName) || ! isValue($newName)  ) 
+		{
+			return false;
+		}
+		
+		if( ! file_exists($oldName) )
+		{
+			self::$error = getMessage('File', 'not_found_error', $file);
+			report('Error', self::$error, 'FileLibrary');
+			return false;
+		}
+	
+		return rename($oldName, $newName);
+	}	
+	
+	/******************************************************************************************
+	* FILE OWNER                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım:  Dosya sahibini döndürür.		  										  |
+	|     														                              |
+	******************************************************************************************/
+	public static function owner($file = '')
+	{
+		if( ! is_string($file))
+		{
+			return false;	
+		}
+		
+		if( function_exists('posix_getpwuid') )
+		{
+			return posix_getpwuid(fileowner($file));
+		}
+		else
+		{
+			return fileowner($file);
+		}
+	}
+	
+	/******************************************************************************************
+	* FILE GROUP                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım:  Dosya sahib grubunu döndürür.		  								  |
+	|     														                              |
+	******************************************************************************************/
+	public static function group($file = '')
+	{
+		if( ! is_string($file))
+		{
+			return false;	
+		}
+		
+		if( function_exists('posix_getgrgid') )
+		{
+			return posix_getgrgid(filegroup($file));
+		}
+		else
+		{
+			return filegroup($file);
+		}
+	}
+	
+	/******************************************************************************************
+	* PASS THRU                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Belirtilen dosya tanıtıcısını geçerli konumdan dosya sonuna kadar okur  |
+	| ve sonucu çıktı tamponuna yazar.		 		  										  |
+	|     														                              |
+	******************************************************************************************/
+	public static function open($file = '', $mode = '', $includePath = false)
+	{
+		if( ! is_string($file) || ! is_string($mode) || ! is_bool($includePath) )
+		{
+			return false;	
+		}
+		
+		return fopen($file, $mode, $includePath);
+	}
+	
+	/******************************************************************************************
+	* PASS THRU                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Belirtilen dosya tanıtıcısını geçerli konumdan dosya sonuna kadar okur  |
+	| ve sonucu çıktı tamponuna yazar.		 		  										  |
+	|     														                              |
+	******************************************************************************************/
+	public static function passThru($source = '')
+	{
+		if( ! is_resource($source) )
+		{
+			return false;	
+		}
+		
+		return fpassthru($source);
+	}
+	
+	/******************************************************************************************
+	* CLOSE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Açılan bir dosyanın kapatılması gerekirse bu yöntem kullanılır.		  |
+	|     														                              |
+	******************************************************************************************/
+	public static function close($source = '')
+	{
+		if( ! is_resource($source) )
+		{
+			return false;	
+		}
+		
+		return fclose($source);
 	}
 	
 	/******************************************************************************************

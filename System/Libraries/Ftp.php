@@ -12,7 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FTP                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	ftp:: , $this->ftp , zn::$use->ftp , uselib('ftp')->          |
+| Sınıfı Kullanırken      :	Ftp:: , $this->Ftp , zn::$use->Ftp , uselib('Ftp')->          |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
