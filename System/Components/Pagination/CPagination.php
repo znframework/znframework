@@ -138,12 +138,12 @@ class CPagination
 		if(isset($attr['url']))			$this->url 			= $attr['url'];
 		if(isset($attr['start']))		$this->start 		= $attr['start'];
 		if(isset($attr['limit']))		$this->limit 		= $attr['limit'];
-		if(isset($attr['total_rows']))	$this->total_rows 	= $attr['total_rows'];
-		if(isset($attr['count_links']))	$this->count_links 	= $attr['count_links'];
-		if(isset($attr['prev_name']))	$this->first_tag 	= $attr['prev_name'];
-		if(isset($attr['next_name']))	$this->last_tag 	= $attr['next_name'];
-		if(isset($attr['first_name']))	$this->firstest_tag = $attr['first_name'];
-		if(isset($attr['last_name']))	$this->lastest_tag 	= $attr['last_name'];
+		if(isset($attr['totalRows']))	$this->total_rows 	= $attr['totalRows'];
+		if(isset($attr['countLinks']))	$this->count_links 	= $attr['countLinks'];
+		if(isset($attr['prevName']))	$this->first_tag 	= $attr['prevName'];
+		if(isset($attr['nextName']))	$this->last_tag 	= $attr['nextName'];
+		if(isset($attr['firstName']))	$this->firstest_tag = $attr['firstName'];
+		if(isset($attr['lastName']))	$this->lastest_tag 	= $attr['lastName'];
 		
 		$this->attr = $attr;
 		

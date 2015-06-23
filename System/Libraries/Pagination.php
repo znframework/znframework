@@ -140,16 +140,16 @@ class Pagination
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
-		if( isset($config['total_rows']) )	self::$total_rows 	= $config['total_rows'];
+		if( isset($config['totalRows']) )	self::$total_rows 	= $config['totalRows'];
 		if( isset($config['limit']) )		self::$limit 		= $config['limit'];
 		if( isset($config['url']) )			self::$url 			= suffix(siteUrl($config['url']));	
-		if( isset($config['count_links']) )	self::$count_links 	= $config['count_links'];
+		if( isset($config['countLinks']) )	self::$count_links 	= $config['countLinks'];
 		if( isset($config['class']) )		self::$class 		= $config['class'];
 		if( isset($config['style']) )		self::$style 		= $config['style'];
-		if( isset($config['prev_name']) )	self::$first_tag 	= $config['prev_name'];
-		if( isset($config['next_name']) )	self::$last_tag 	= $config['next_name'];
-		if( isset($config['first_name']) )	self::$firstest_tag = $config['first_name'];
-		if( isset($config['last_name']) )	self::$lastest_tag 	= $config['last_name'];
+		if( isset($config['prevName']) )	self::$first_tag 	= $config['prevName'];
+		if( isset($config['nextName']) )	self::$last_tag 	= $config['nextName'];
+		if( isset($config['firstName']) )	self::$firstest_tag = $config['firstName'];
+		if( isset($config['lastName']) )	self::$lastest_tag 	= $config['lastName'];
 		// ---------------------------------------------------------------------------------------	
 	}
 	

@@ -292,11 +292,11 @@ class Upload
 	| $info->type -> dosyanın tipi        													  |
 	| $info->size -> dosyanın boyutu      													  |
 	| $info->error -> dosya yükleme sırasında hata var ise 1 değeri alır.        			  |
-	| $info->tmp_name -> dosyanın tmp dizinindeki ismi.        								  |
-	| $info->encode_name -> şifrelenen ismi.      											  |
+	| $info->tmpName -> dosyanın tmp dizinindeki ismi.        								  |
+	| $info->encodeName -> şifrelenen ismi.      											  |
 	|          																				  |
 	******************************************************************************************/
-	public static function info()
+	public static function info($info = '')
 	{
 		if( ! empty($_FILES[self::$file]) )
 		{
@@ -305,9 +305,9 @@ class Upload
 				'name' 		=> $_FILES[self::$file]['name'],
 				'type' 		=> $_FILES[self::$file]['type'],
 				'size' 		=> $_FILES[self::$file]['size'],
-				'tmp_name' 	=> $_FILES[self::$file]['tmp_name'],
+				'tmpName' 	=> $_FILES[self::$file]['tmp_name'],
 				'error' 	=> $_FILES[self::$file]['error'],
-				'encode_name' => self::$encode_name
+				'encodeName' => self::$encode_name
 			);
 		
 			$values = array();
@@ -333,6 +333,11 @@ class Upload
 		else
 		{
 			return false;	
+		}
+		
+		if( ! empty($values[$info]) )
+		{
+			return $values[$info];	
 		}
 		
 		return (object)$values;	

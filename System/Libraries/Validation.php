@@ -368,26 +368,26 @@ class Validation
 		}
 		
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
-		if( in_array('nc-encode',$config) )
+		if( in_array('nc', $config) )
 		{
 			$secnc = Config::get("Security", 'nc-encode');
 			$edit  = Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
-		if( in_array('html_encode',$config) )
+		if( in_array('html' ,$config) )
 		{
 			$edit = Security::htmlEncode($edit);		
 		}
 		
 		// nail_clean tırnak işaretlerini temizlemek için kullanılır.
-		if( in_array('xss_encode',$config) )
+		if( in_array('xss', $config) )
 		{
 			$edit = Security::xssEncode($edit);	
 		}
 		
 		// tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
-		if( in_array('injection_encode',$config) )
+		if( in_array('injection', $config) )
 		{
 			$edit = Security::injectionEncode($edit);
 		}
@@ -399,7 +399,7 @@ class Validation
 		self::_method_nval($name, $edit, $met);
 		
 		// required boş geçilemez yapar.
-		if( in_array('required',$config) )
+		if( in_array('required', $config) )
 		{ 
 			if( empty($edit) )
 			{ 		
@@ -412,7 +412,7 @@ class Validation
 		// security_code güvenlik kodunun uygulanması için kullanılır, bu saydece güvenlik kodu ile 
 		// bu kural eşleşirse işleve devam edilecektir.
 		
-		if( in_array('captcha_code',$config) )
+		if( in_array('captcha', $config) )
 		{ 
 			if( ! isset($_SESSION) ) 
 			{
@@ -428,9 +428,9 @@ class Validation
 		}
 		
 		// register işlemlerinde iki şifre kutusunun eşleştirilmesi için kullanılmaktadır.
-		if( isset($config['match_password']) )
+		if( isset($config['matchPassword']) )
 		{ 
-			$pm = self::_method_type($config['match_password'], $met);
+			$pm = self::_method_type($config['matchPassword'], $met);
 			
 			if( $edit != $pm )
 			{ 
@@ -452,10 +452,10 @@ class Validation
 			} 
 		}
 		
-		if( isset($config['old_password']) )
+		if( isset($config['oldPassword']) )
 		{ 
 			$pm = "";
-			$pm = $config['old_password'];
+			$pm = $config['oldPassword'];
 	
 			if( Encode::super($edit) != $pm )
 			{ 
@@ -466,7 +466,7 @@ class Validation
 		}
 		
 		// numeric form aracının sayısal değer olması gerektiğini belirtir.
-		if( in_array('numeric',$config) )
+		if( in_array('numeric', $config) )
 		{ 
 			if( ! is_numeric($edit) )
 			{ 
@@ -477,7 +477,7 @@ class Validation
 		}
 		
 		// email form aracının email olması gerektiğini belirtir.
-		if( in_array('email',$config) )
+		if( in_array('email', $config) )
 		{ 
 			if( ! self::email($edit) )
 			{ 
@@ -487,7 +487,7 @@ class Validation
 			} 
 		}
 		
-		if( in_array('url',$config) )
+		if( in_array('url' ,$config) )
 		{ 
 			if( ! self::url($edit) )
 			{ 
@@ -497,7 +497,7 @@ class Validation
 			} 
 		}
 		
-		if( in_array('identity',$config) )
+		if( in_array('identity', $config) )
 		{ 
 			if( ! self::identity($edit) )
 			{ 
@@ -508,7 +508,7 @@ class Validation
 		}
 		
 		// no special char, özel karakterlerin kullanımını engeller.
-		if( in_array('specialchar',$config) )
+		if( in_array('specialChar', $config) )
 		{
 			if( self::specialChar($edit) )
 			{ 

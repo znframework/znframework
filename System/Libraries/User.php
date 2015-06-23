@@ -71,7 +71,7 @@ class User
 	| Örnek Kullanım: register(array('user' => 'zntr', 'pass' => '1234'));       		      |
 	|          																				  |
 	******************************************************************************************/
-	public static function register($data = array(), $autoLogin = false, $activation_return_link = '')
+	public static function register($data = array(), $auto_login = false, $activation_return_link = '')
 	{
 		if( ! is_array($data) ) 
 		{
@@ -138,13 +138,13 @@ class User
 				}
 				else
 				{
-					if( $autoLogin === true )
+					if( $auto_login === true )
 					{
 						self::login($login_username, $login_password);
 					}
-					elseif( is_string($autoLogin) )
+					elseif( is_string($auto_login) )
 					{
-						redirect($autoLogin);	
+						redirect($auto_login);	
 					}
 				}
 				
