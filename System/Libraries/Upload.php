@@ -186,7 +186,7 @@ class Upload
 			self::$settings['encryption'] = true;
 		}
 		
-			$encryption = '';
+		$encryption = '';
 		
 		if( isset(self::$settings['prefix']) ) 
 		{
@@ -202,7 +202,9 @@ class Upload
 		{
 			$extensions = explode("|", self::$settings['extensions']);
 		}
-	
+		
+		$source = $_FILES[$filename]['tmp_name'];
+		
 		// Çoklu yükleme yapılıyorsa.
 		if( is_array($name) )
 		{
@@ -214,7 +216,7 @@ class Upload
 			
 			for($index = 0; $index < count($name); $index++)
 			{	
-				$source = $_FILES[$filename]['tmp_name'][$index];
+				$src = $source[$index];
 				
 				if( self::$settings['encryption'] === true ) 
 				{
@@ -230,7 +232,7 @@ class Upload
 				{
 					self::$extension_control = lang('Upload', 'extension_error');	
 				}
-				elseif( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($source) )
+				elseif( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($src) )
 				{
 					self::$manuel_error = 10;
 				}
@@ -238,7 +240,7 @@ class Upload
 				{
 					if( ! is_file($rootdir) ) 
 					{
-						move_uploaded_file($source, $target); 
+						move_uploaded_file($src, $target); 
 					}
 					else 
 					{
@@ -263,17 +265,10 @@ class Upload
 				return false;
 			}
 			
-			$source = $_FILES[$filename]['tmp_name'];
-			
 			if( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($source) )
 			{
 				self::$manuel_error = 10; 
 				return false;
-			}
-			
-			if( isset(self::$settings["prefix"]) ) 
-			{ 
-				$encryption = self::$settings["prefix"];
 			}
 			
 			$target = $root.'/'.$encryption.$name;
@@ -288,7 +283,7 @@ class Upload
 			{	
 				if( ! is_file($rootdir) ) 
 				{
-					move_uploaded_file($source,$target); 
+					move_uploaded_file($source, $target); 
 				}
 				else 
 				{
@@ -321,11 +316,11 @@ class Upload
 		{
 			$datas = array
 			(
-				'name' 		=> $_FILES[self::$file]['name'],
-				'type' 		=> $_FILES[self::$file]['type'],
-				'size' 		=> $_FILES[self::$file]['size'],
-				'tmpName' 	=> $_FILES[self::$file]['tmp_name'],
-				'error' 	=> $_FILES[self::$file]['error'],
+				'name' 		 => $_FILES[self::$file]['name'],
+				'type' 		 => $_FILES[self::$file]['type'],
+				'size' 		 => $_FILES[self::$file]['size'],
+				'tmpName' 	 => $_FILES[self::$file]['tmp_name'],
+				'error' 	 => $_FILES[self::$file]['error'],
 				'encodeName' => self::$encode_name
 			);
 		
