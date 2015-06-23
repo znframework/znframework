@@ -319,9 +319,7 @@ class Image
 		}
 		
 		// Dosya uzantısı temizleniyor.
-		$exten_clean = str_replace(extension(self::$file, true), '', self::$file);
-		
-		$new_file = $exten_clean.$prefix.extension(self::$file, true);
+		$new_file = removeExtension(self::$file).$prefix.extension(self::$file, true);
 		
 		// Yeni oluşturulan dosya varsa yeni dosyanın 
 		// yol ve isim bilgisi oluşturuluyor.
@@ -333,7 +331,7 @@ class Image
 		{
 			return baseUrl(self::$thumb_path.$new_file);
 		}
-		
+				
 		$r_file   = self::from_file_type($file_path);
 		
 		$n_file   = imagecreatetruecolor($width, $height);

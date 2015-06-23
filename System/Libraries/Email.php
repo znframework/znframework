@@ -1185,7 +1185,7 @@ class Email
 		return $cleanEmail;
 	}
 	
-	public function wordWrap($str, $charLimit = NULL)
+	public function wordWrap($str = '', $charLimit = NULL)
 	{
 		if( empty($charLimit) )
 		{
