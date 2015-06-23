@@ -130,6 +130,12 @@ class Upload
 		{
 			self::$settings['maxsize'] 		= $set['maxsize'];
 		}
+		
+		// 5-encodeLength -> Şifrenin karakter uzunluğu
+		if( isset($set['encodeLength']) ) 		
+		{
+			self::$settings['encodeLength'] 	= $set['encodeLength'];
+		}
 	}
 	
 	/******************************************************************************************
@@ -180,38 +186,43 @@ class Upload
 			self::$settings['encryption'] = true;
 		}
 		
-		if( self::$settings['encryption'] === true ) 
-		{
-			$encryption = substr(md5(uniqid(rand())),0,8).'-';
-		}
-		else 
-		{
 			$encryption = '';
+		
+		if( isset(self::$settings['prefix']) ) 
+		{
+			$encryption = self::$settings['prefix']; 
+		}
+		
+		if( ! isset(self::$settings['encodeLength']) )
+		{
+			self::$settings['encodeLength'] = 8;	
 		}
 		
 		if( isset(self::$settings['extensions']) ) 
 		{
-			$extensions = explode("|",self::$settings['extensions']);
+			$extensions = explode("|", self::$settings['extensions']);
 		}
-		
+	
 		// Çoklu yükleme yapılıyorsa.
 		if( is_array($name) )
 		{
-
 			if( empty($name[0]) ) 
 			{
 				self::$manuel_error = 4; 
 				return false; 
 			}
 			
-			if( isset(self::$settings['prefix']) ) 
-			{
-				$encryption = self::$settings['prefix']; 
-			}
-			
 			for($index = 0; $index < count($name); $index++)
 			{	
 				$source = $_FILES[$filename]['tmp_name'][$index];
+				
+				if( self::$settings['encryption'] === true ) 
+				{
+					if( ! isset(self::$settings['prefix']) )
+					{
+						$encryption = substr(sha1(uniqid(rand())), 0, self::$settings['encodeLength']).'-';
+					}
+				}
 				
 				$target = $root.'/'.$encryption.$name[$index];
 
@@ -238,6 +249,14 @@ class Upload
 		}	
 		else
 		{	
+			if( self::$settings['encryption'] === true ) 
+			{
+				if( ! isset(self::$settings['prefix']) )
+				{
+					$encryption = substr(sha1(uniqid(rand())), 0, self::$settings['encodeLength']).'-';
+				}
+			}
+			
 			if( empty($_FILES[$filename]['name']) ) 
 			{ 
 				self::$manuel_error = 4; 
