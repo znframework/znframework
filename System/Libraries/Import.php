@@ -671,7 +671,17 @@ class Import
 			{
 				return false;
 			}
-			echo '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eol();
+			
+			$return = '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eol();
+			
+			if($randomObGetContentsVariable === false)
+			{
+				echo $return;
+			}
+			else
+			{
+				return $return;	
+			}
 		}
 		elseif( extension($randomPageVariable) === 'css' )	
 		{
@@ -679,7 +689,17 @@ class Import
 			{
 				return false;
 			}
-			echo '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eol();
+			
+			$return = '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eol();
+			
+			if($randomObGetContentsVariable === false)
+			{
+				echo $return;
+			}
+			else
+			{
+				return $return;	
+			}
 		}
 		else
 		{
