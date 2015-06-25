@@ -144,6 +144,7 @@ class CPagination
 	public function create($start = NULL, $limit = NULL, $total_rows = NULL, $url = NULL)
 	{
 		Pagination::settings($this->settings);
-		Pagination::create($start);
+		
+		return Pagination::create($start);
 	}
 }
