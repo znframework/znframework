@@ -33,11 +33,16 @@ class Captcha
 	| echo '<img src="'.$kod.'" />'; 														  |
 	|																						  |
 	******************************************************************************************/	
-	public static function create($img = false)
+	public static function create($img = false, $configs = array())
 	{
 		if( ! isset($_SESSION) ) 
 		{
 			session_start();
+		}
+		
+		if( ! empty($configs) )
+		{
+			Config::set('Captcha', $configs);
 		}
 		
 		$set = Config::get("Captcha");
