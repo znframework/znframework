@@ -500,7 +500,7 @@ class CCaptcha
 	******************************************************************************************/
 	public function create($img = false, $configs = array())
 	{
-		return Captcha::create($img);
+		return Captcha::create($img, $configs);
 	}
 	
 	/******************************************************************************************
