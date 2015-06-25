@@ -214,7 +214,8 @@ class CUpload
 		}
 		
 		Upload::settings($this->settings);
-		Upload::start($filename, $rootdir);
+	
+		return Upload::start($filename, $rootdir);
 	}
 	
 	/******************************************************************************************
