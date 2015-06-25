@@ -228,13 +228,20 @@ class CUpload
 		{
 			$filename = $this->settings['source'];
 		}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> origin/master
 		if( isset($this->settings['target']) )
 		{
 			$rootdir = $this->settings['target'];
 		}
+<<<<<<< HEAD
 	
 		output($this->settings);
+=======
+>>>>>>> origin/master
 		
 		Upload::settings($this->settings);
 	

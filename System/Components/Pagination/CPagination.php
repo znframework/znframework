@@ -29,7 +29,13 @@ class CPagination
 		{
 			$this->settings['url'] = $url;
 		}
+<<<<<<< HEAD
 
+=======
+		
+		$this->settings['url'] = $url;
+		
+>>>>>>> origin/master
 		return $this;
 	}
 	
