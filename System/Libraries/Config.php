@@ -138,7 +138,6 @@ class Config
 		self::_config($file);
 		
 		if( ! is_array($configs) )
-<<<<<<< HEAD
 		{
 			self::$set_configs[$file][$configs] = $set;
 		}
@@ -148,17 +147,6 @@ class Config
 			{
 				self::$set_configs[$file][$k] = $v;
 			}	
-=======
-		{
-			self::$set_configs[$file][$configs] = $set;		
-		}
-		else
-		{
-			foreach($config as $k => $v)
-			{
-				self::$set_configs[$file][$k] = $v;
-			}
->>>>>>> origin/master
 		}
 		
 		return self::$set_configs;
