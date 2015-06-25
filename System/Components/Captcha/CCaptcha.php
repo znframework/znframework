@@ -12,6 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 namespace Captcha;
 
 use Config;
+use Captcha;
 /******************************************************************************************
 * CAPTCHA                                                                                 *
 *******************************************************************************************
@@ -499,169 +500,7 @@ class CCaptcha
 	******************************************************************************************/
 	public function create($img = false)
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
-		$set = Config::get("Captcha");
-		
-		if( isset($this->sets['char-count'])) $set['char-count'] = $this->sets['char-count'];
-		
-		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set['char-count']));	
-		
-		if( isset($_SESSION[md5('captcha_code')]) )
-		{
-			if( isset($this->sets["width"])) $set["width"] 									= $this->sets["width"];
-			if( isset($this->sets["height"])) $set["height"] 								= $this->sets["height"];		
-			if( isset($this->sets['font-color'])) $set['font-color'] 						= $this->sets['font-color'];
-			if( isset($this->sets['bg-color'])) $set['bg-color'] 							= $this->sets['bg-color'];
-			if( isset($this->sets["border"]))$set["border"] 								= $this->sets["border"];
-			if( isset($this->sets['border-color'])) $set['border-color'] 					= $this->sets['border-color'];
-			if( isset($this->sets['image-string']["size"]))$set['image-string']["size"] 	= $this->sets['image-string']["size"];
-			if( isset($this->sets['image-string']["x"]))$set['image-string']["x"] 			= $this->sets['image-string']["x"];
-			if( isset($this->sets['image-string']["y"]))$set['image-string']["y"] 			= $this->sets['image-string']["y"];
-			if( isset($this->sets["grid"]))$set["grid"] 									= $this->sets["grid"]; 
-			if( isset($this->sets['grid-space']["x"]))$set['grid-space']["x"] 				= $this->sets['grid-space']["x"]; 
-			if( isset($this->sets['grid-space']["y"]))$set['grid-space']["y"] 				= $this->sets['grid-space']["y"]; 
-			if( isset($this->sets['grid-color']))$set['grid-color']						    = $this->sets['grid-color'];
-			if( isset($this->sets["background"]))$set["background"]						    = $this->sets["background"];
-			
-			// 0-255 arasında değer alacak renk kodları için
-			// 0|20|155 gibi bir kullanım için aşağıda
-			// explode ile ayırma işlemleri yapılmaktadır.
-			
-			// SET FONT COLOR
-			$set_font_color = explode("|",$set['font-color']);
-			
-			// SET BG COLOR
-			$set_bg_color	= explode("|",$set['bg-color']);
-			
-			// SET BORDER COLOR
-			$set_border_color	= explode("|",$set['border-color']);
-			
-			// SET GRID COLOR
-			$set_grid_color	= explode("|",$set['grid-color']);
-			
-			
-			$file = @imagecreatetruecolor($set["width"], $set["height"]);	  
-				  
-			$font_color 	= @imagecolorallocate($file, $set_font_color[0], $set_font_color[1], $set_font_color[2]);
-			$color 			= @imagecolorallocate($file, $set_bg_color[0], $set_bg_color[1], $set_bg_color[2]);
-			
-			// ARKAPLAN RESMI--------------------------------------------------------------------------------------
-			if( ! empty($set["background"]) )
-			{
-				if( is_array($set["background"]) )
-				{
-					$set["background"] = $set["background"][rand(0, count($set["background"]) - 1)];
-				}
-				/***************************************************************************/
-				// Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
-				/***************************************************************************/	
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'png' )
-				{
-					$file = imagecreatefrompng($set["background"]);
-				}
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpeg' )
-				{	
-					$file = imagecreatefromjpeg($set["background"]);
-				}
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpg' )
-				{	
-					$file = imagecreatefromjpeg($set["background"]);
-				}
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'gif' )
-				{	
-					$file = imagecreatefromgif($set["background"]);
-				}
-			}
-			else
-			{
-				// Arkaplan olarak resim belirtilmemiş ise arkaplan rengini ayarlar.
-				@imagefill($file, 0, 0, $color);
-			}
-			//-----------------------------------------------------------------------------------------------------
-			
-			// Resim üzerinde görüntülenecek kod bilgisi.
-			@imagestring($file, $set['image-string']["size"], $set['image-string']["x"], $set['image-string']["y"],  $_SESSION[md5('captcha_code')], $font_color);
-			
-			// GRID --------------------------------------------------------------------------------------
-			if( $set["grid"] === true )
-			{
-				$grid_interval_x  = $set["width"] / $set['grid-space']["x"];
-				
-				if( ! isset($set['grid-space']["y"]) )
-				{
-					$grid_interval_y  = (($set["height"] / $set['grid-space']["x"]) * $grid_interval_x / 2);
-					
-				} 
-				else 
-				{
-					$grid_interval_y  = $set["height"] / $set['grid-space']["y"];
-				}
-				
-				$grid_color 	= @imagecolorallocate($file, $set_grid_color[0], $set_grid_color[1], $set_grid_color[2]);
-				
-				for($x = 0 ; $x <= $set["width"] ; $x += $grid_interval_x)
-				{
-					@imageline($file,$x,0,$x,$set["height"] - 1,$grid_color);
-				}
-				
-				for($y = 0 ; $y <= $set["width"] ; $y += $grid_interval_y)
-				{
-					@imageline($file,0,$y,$set["width"],$y,$grid_color);
-				}
-				
-			}
-			// ---------------------------------------------------------------------------------------------	
-			
-			// BORDER --------------------------------------------------------------------------------------
-			if( $set["border"] === true )
-			{
-				$border_color 	= @imagecolorallocate($file, $set_border_color[0], $set_border_color[1], $set_border_color[2]);
-				
-				@imageline($file, 0, 0, $set["width"], 0, $border_color); // UST
-				@imageline($file, $set["width"] - 1, 0, $set["width"] - 1, $set["height"], $border_color); // SAG
-				@imageline($file, 0, $set["height"] - 1, $set["width"], $set["height"] - 1, $border_color); // ALT
-				@imageline($file, 0, 0, 0, $set["height"] - 1, $border_color); // SOL
-			}
-			// ---------------------------------------------------------------------------------------------
-			
-			$file_path = FILES_DIR.'capcha';
-			
-			if( function_exists('imagepng') )
-			{
-				$extension = '.png';
-				imagepng($file, $file_path.$extension);
-			}
-			elseif( function_exists('imagejpg'))
-			{
-				$extension = '.jpg';
-				imagepng($file, $file_path.$extension);		
-			}
-			else
-			{
-				return false;
-			}
-			
-			$file_path .= $extension;
-			
-			if( $img === true )
-			{	
-				$captcha = '<img src="'.baseUrl($file_path).'">';
-			}
-			else
-			{
-				$captcha = baseUrl($file_path);
-			}
-			
-			imagedestroy($file);
-			
-			$this->sets = NULL;
-			
-			return $captcha;
-		}		
+		return Captcha::create($img, $this->sets);
 	}
 	
 	/******************************************************************************************
@@ -674,11 +513,6 @@ class CCaptcha
 	******************************************************************************************/
 	public function getCode()
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
-		return $_SESSION[md5('captcha_code')];	
+		return Captcha::getCode();
 	}
 }

@@ -84,13 +84,16 @@ class Config
 		
 		self::_config($file);
 		
+		if( isset(self::$set_configs[$file]) )
+		{
+			if( ! empty(self::$set_configs[$file]) ) foreach(self::$set_configs[$file] as $k => $v)
+			{
+				self::$config[$file][$k] = self::$set_configs[$file][$k];
+			}
+		}
+		
 		if( empty($configs) )  
 		{
-			if( isset( self::$set_configs[$file] ) )
-			{
-				self::$config[$file][key(self::$set_configs[$file])] = current(self::$set_configs[$file]);
-			}
-			
 			if( isset(self::$config[$file]) ) 
 			{
 				return self::$config[$file]; 
@@ -134,12 +137,19 @@ class Config
 		
 		self::_config($file);
 		
-		self::$set_configs[$file][$configs] = $set;
-		
-		if( isset(self::$config[$file][$configs]) ) 
+		if( ! is_array($configs) )
 		{
-			return self::$config[$file][$configs] = $set;	
+			self::$set_configs[$file][$configs] = $set;
 		}
+		else
+		{
+			foreach($configs as $k => $v)
+			{
+				self::$set_configs[$file][$k] = $v;
+			}	
+		}
+		
+		return self::$set_configs;
 	}
 	
 	/* INISET FUNCTION

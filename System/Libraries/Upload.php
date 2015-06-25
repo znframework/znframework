@@ -106,7 +106,7 @@ class Upload
 		{
 			$set = array();
 		}
-		
+
 		self::$setting_status = true;
 		
 		// 1-extensions -> Dosyanın uzantısı
@@ -114,11 +114,17 @@ class Upload
 		{
 			self::$settings['extensions'] 	= $set['extensions'];
 		}
+		
 		// 2-encode -> Dosyanın şifrelenmesi
 		if( isset($set['encode']) ) 		
 		{
 			self::$settings['encryption'] 	= $set['encode'];
 		}
+		else
+		{
+			self::$settings['encryption'] = 'md5';	
+		}
+		
 		// 3-prefix -> Yüklenen dosyaların önüne ön ek koymak
 		if( isset($set['prefix']) ) 		
 		{
@@ -135,6 +141,20 @@ class Upload
 		if( isset($set['encodeLength']) ) 		
 		{
 			self::$settings['encodeLength'] 	= $set['encodeLength'];
+		}
+		else
+		{
+			self::$settings['encodeLength'] = 8;		
+		}
+		
+		// 4-mazsize -> Yükselenecebilecek maksimum dosya boyutu
+		if( isset($set['convertName']) ) 		
+		{
+			self::$settings['convertName'] = $set['convertName'];
+		}
+		else
+		{
+			self::$settings['convertName'] = true;
 		}
 	}
 	
@@ -181,21 +201,11 @@ class Upload
 		
 		$name = $_FILES[$filename]['name'];		
 		
-		if( ! isset(self::$settings['encryption']) ) 
-		{
-			self::$settings['encryption'] = true;
-		}
-		
 		$encryption = '';
 		
 		if( isset(self::$settings['prefix']) ) 
 		{
 			$encryption = self::$settings['prefix']; 
-		}
-		
-		if( ! isset(self::$settings['encodeLength']) )
-		{
-			self::$settings['encodeLength'] = 8;	
 		}
 		
 		if( isset(self::$settings['extensions']) ) 
@@ -218,17 +228,24 @@ class Upload
 			{	
 				$src = $source[$index];
 				
-				if( self::$settings['encryption'] === true ) 
+				$nm = $name[$index];
+				
+				if( self::$settings['encryption'] ) 
 				{
 					if( ! isset(self::$settings['prefix']) )
 					{
-						$encryption = substr(sha1(uniqid(rand())), 0, self::$settings['encodeLength']).'-';
+						$encryption = substr(Encode::type(uniqid(rand()), self::$settings['encryption']), 0, self::$settings['encodeLength']).'-';
 					}
 				}
 				
-				$target = $root.'/'.$encryption.$name[$index];
+				if( self::$settings['convertName'] === true )
+				{
+					 $nm = Convert::urlWord($nm);	
+				}
+				
+				$target = $root.'/'.$encryption.$nm;
 
-				if( isset(self::$settings['extensions']) && ! in_array(extension($name[$index]), $extensions) )
+				if( isset(self::$settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
 					self::$extension_control = lang('Upload', 'extension_error');	
 				}
@@ -251,12 +268,17 @@ class Upload
 		}	
 		else
 		{	
-			if( self::$settings['encryption'] === true ) 
+			if( self::$settings['encryption'] ) 
 			{
 				if( ! isset(self::$settings['prefix']) )
 				{
-					$encryption = substr(sha1(uniqid(rand())), 0, self::$settings['encodeLength']).'-';
+					$encryption = substr(Encode::type(uniqid(rand()), self::$settings['encryption']), 0, self::$settings['encodeLength']).'-';
 				}
+			}
+			
+			if( self::$settings['convertName'] === true )
+			{
+				 $name = Convert::urlWord($name);	
 			}
 			
 			if( empty($_FILES[$filename]['name']) ) 
@@ -270,7 +292,7 @@ class Upload
 				self::$manuel_error = 10; 
 				return false;
 			}
-			
+
 			$target = $root.'/'.$encryption.$name;
 			
 			self::$encode_name = $encryption.$name;
