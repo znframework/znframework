@@ -18,6 +18,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 class Terminal
 {
+	/******************************************************************************************
+	* PROTECTED CLEAR COMMAND                                                                 *
+	*******************************************************************************************
+	| Genel Kullanım: Oturum verilerini sıfılar.			  	                  		 	  |
+	******************************************************************************************/
 	protected static function clearCommand()
 	{	
 		unset($_SESSION['persistCommands']);
@@ -25,6 +30,18 @@ class Terminal
 		unset($_SESSION['commands']);
 	}
 	
+	/******************************************************************************************
+	* RUN                                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Terminali çalıştırır.					 	 						      |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @terminalType => php , cmd.											      |
+	| 2. array var @settings => Terminal ayarları.						 				      |
+	|          																				  |
+	| Örnek Kullanım: Terminal::run('cmd');        	  										  |
+	|          																				  |
+	******************************************************************************************/
 	public static function run($terminalType = 'php', $settings = array())
 	{
 		error_reporting(0);
@@ -36,9 +53,7 @@ class Terminal
 		$settings['textColor'] 	=  isset($settings['textColor'])  ? $settings['textColor']  : '#ccc';
 		$settings['textType'] 	=  isset($settings['textType'])   ? $settings['textType']   : 'monospace';
 		$settings['textSize'] 	=  isset($settings['textSize'])   ? $settings['textSize']   : '12px';
-		
-		$password = '1';
-		
+
 		if( isset($_POST['clear']) && $_POST['clear'] === 'clear' ) 
 		{
 			self::clearCommand();

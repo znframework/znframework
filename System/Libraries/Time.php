@@ -30,7 +30,7 @@ class Time
 	|																						  |
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|																						  |
-	| Örnek Kullanım: standartTime() // 12.01.2015 09:02:41								  |
+	| Örnek Kullanım: standartTime() // 12.01.2015 09:02:41								  	  |
 	|       																				  |
 	******************************************************************************************/
 	public static function standart()
