@@ -161,13 +161,13 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		$randomPageVariable = ( isset($head['body-page']) ) 
-					          ? $head['body-page'] 
-						      : $masterpageset['body-page'];
+		$randomPageVariable = ( isset($head['bodyPage']) ) 
+					          ? $head['bodyPage'] 
+						      : $masterpageset['bodyPage'];
 		
-		$head_page = 	( isset($head['head-page']) ) 
-					    ? $head['head-page'] 
-						: $masterpageset['head-page'];
+		$head_page = 	( isset($head['headPage']) ) 
+					    ? $head['headPage'] 
+						: $masterpageset['headPage'];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -192,26 +192,26 @@ class Import
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header  = Config::get('Doctype', $masterpageset['doctype']).eol();
+		$header  = Config::get('Doctype', $masterpageset['docType']).eol();
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eol();
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$header .= '<head>'.eol();
 		
-		if( is_array($masterpageset['content-charset']) )
+		if( is_array($masterpageset['contentCharset']) )
 		{
-			foreach($masterpageset['content-charset'] as $v)
+			foreach($masterpageset['contentCharset'] as $v)
 			{
 				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eol();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['content-charset'].'">'.eol();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['contentCharset'].'">'.eol();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.$masterpageset['content-language'].'">'.eol();
+		$header .= '<meta http-equiv="Content-Language" content="'.$masterpageset['contentLanguage'].'">'.eol();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -324,9 +324,9 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		if( ! empty($masterpageset['browser-icon']) ) 
+		if( ! empty($masterpageset['browserIcon']) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browser-icon']).'" />'.eol();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browserIcon']).'" />'.eol();
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -382,9 +382,9 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( $masterpageset['background-image'] ) 
+		if( $masterpageset['backgroundImage'] ) 
 		{
-			$bg_image = " background='".baseUrl($masterpageset['background-image'])."' bgproperties='fixed'"; 
+			$bg_image = " background='".baseUrl($masterpageset['backgroundImage'])."' bgproperties='fixed'"; 
 		}
 		else 
 		{
@@ -479,7 +479,7 @@ class Import
 			}
 			
 			// FARKLI FONTLAR
-			$differentset = Config::get('Font', 'different-font-extensions');
+			$differentset = Config::get('Font', 'differentFontExtensions');
 			
 			if( ! empty($differentset) )
 			{			

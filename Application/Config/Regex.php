@@ -20,7 +20,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki 		  |
 | değişiklikler yapılmıştır.					  										  |
 ******************************************************************************************/
-$config['Regex']['regex-chars'] = array
+$config['Regex']['regexChars'] = array
 (
 	'{nonWord}' 		=> '\B',
 	'{word}' 			=> '\b',
@@ -52,7 +52,7 @@ $config['Regex']['regex-chars'] = array
 | Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle 	  |
 | ilgili aşağıdaki değişiklikler yapılmıştır 											  |
 ******************************************************************************************/
-$config['Regex']['setting-chars'] = array
+$config['Regex']['settingChars'] = array
 (
 	'{insens}' 			=> 'i',
 	'{generic}' 		=> 'g',
@@ -67,7 +67,7 @@ $config['Regex']['setting-chars'] = array
 | Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi  |
 | kullanmak için aşağıdaki değişiklikler yapılmıştır.									  |
 ******************************************************************************************/
-$config['Regex']['special-chars'] = array
+$config['Regex']['specialChars'] = array
 (
 	'.' 				=> '\.',
 	'^' 				=> '\^',

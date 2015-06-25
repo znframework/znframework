@@ -56,4 +56,4 @@ $config['Ftp']['port'] = 21;
 | 																						  |
 | Not: Bu kullanım sürümlere göre desteklenmeyebilir.				         			  |
 ******************************************************************************************/
-$config['Ftp']['ssl-connect'] = false;
+$config['Ftp']['sslConnect'] = false;

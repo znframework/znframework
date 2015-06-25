@@ -30,7 +30,7 @@ $config['Cache']['driver'] = 'file';
 | Parametre: Sürücüler.									  							      |
 | Drivers: apc, memcache, wincache								 	 					  |			
 ******************************************************************************************/
-$config['Cache']['driver-settings'] = array
+$config['Cache']['driverSettings'] = array
 (
 	'memcache' => array
 	(
@@ -42,7 +42,7 @@ $config['Cache']['driver-settings'] = array
 	'redis' => array
 	(
 		'password' 	  => NULL,
-		'socket-type' => 'tcp',
+		'socketType' => 'tcp',
 		'host' 		  => '127.0.0.1',	
 		'port' 		  => 6379,
 		'timeout' 	  => 0
@@ -56,7 +56,7 @@ $config['Cache']['driver-settings'] = array
 | Parametre: Gzip modu açık(true), gzip modu kapalı(false).  							  |
 | Örnek: true veya false.														          |
 ******************************************************************************************/
-$config['Cache']['ob-gzhandler'] = false;
+$config['Cache']['obGzhandler'] = false;
 
 /******************************************************************************************
 * MOD GZIP                                                                            	  *
@@ -65,14 +65,14 @@ $config['Cache']['ob-gzhandler'] = false;
 | Parametreler																			  |
 | 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.   				  |
 | 2-included_file_extension: Hangi uzantılı dosyaların ön belleklemeye dahil edileceğidir.|
-| Örnek: array('status' => true, 'included-file-extension' => 'txt|css')	              |
+| Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')	              |
 ******************************************************************************************/
-$config['Cache']['mod-gzip'] = array
+$config['Cache']['modGzip'] = array
 (
 	// Ön bellekleme durumu.
 	'status' => false,
 	// Ön belleğe alınacak dahil edilebilir dosya uzantıları.
-	'included-file-extension' => 'html?|txt|css|js|php|pl'
+	'includedFileExtension' => 'html?|txt|css|js|php|pl'
 ); 
 
 /******************************************************************************************
@@ -83,14 +83,14 @@ $config['Cache']['mod-gzip'] = array
 | 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  |
 | 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.  |
 | 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi. |
-| Örnek: array('status' => true, 'file-type-time' => array('text/html' => 20))	          |
+| Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))	          |
 ******************************************************************************************/
-$config['Cache']['mod-expires'] = array
+$config['Cache']['modExpires'] = array
 (
 	// Ön bellekleme durumu.
 	'status' => false,
 	// Ön belleğe alınacak dahil edilebilir dosya uzantıları.
-	'file-type-time' => array
+	'fileTypeTime' => array
 	(
 		'text/html' 				=> 1,		// 1 Saniye
 		'image/gif' 				=> 2592000,	// 1 Ay
@@ -100,7 +100,7 @@ $config['Cache']['mod-expires'] = array
 		'text/javascript' 			=> 216000, 	// 2.5 Gün
 		'application/x-javascript' 	=> 216000	// 2.5 Gün
 	),
-	'default-time' => 1 // 1 Saniye
+	'defaultTime' => 1 // 1 Saniye
 ); 
 
 /******************************************************************************************
@@ -112,11 +112,11 @@ $config['Cache']['mod-expires'] = array
 | 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi      |
 | erişim yöntemi ile belleğe alınacağı belirtilir.  									  |
 ******************************************************************************************/
-$config['Cache']['mod-headers'] = array
+$config['Cache']['modHeaders'] = array
 (
 	// Ön bellekleme durumu.
 	'status' => false,
-	'file-extension-time-access' => array
+	'fileExtensionTimeAccess' => array
 	(
 		// Ön belleğe alınacak uzantılar    => Ön bellekleme süresi   , Erişim yöntemi
 		'ico|pdf|flv|jpg|jpeg|png|gif|swf' 	=> array('time' => 2592000, 'access' => 'public'),

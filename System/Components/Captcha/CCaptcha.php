@@ -121,7 +121,7 @@ class CCaptcha
 		
 		if( ! empty($param) )
 		{
-			$this->sets['char-count'] = $param;
+			$this->sets['charLength'] = $param;
 		}
 		
 		return $this;
@@ -152,7 +152,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['border-color'] = $color;
+			$this->sets['borderColor'] = $color;
 		}
 		
 		return $this;
@@ -179,7 +179,7 @@ class CCaptcha
 
 		if( ! empty($color) )
 		{
-			$this->sets['border-color'] = $color;
+			$this->sets['borderColor'] = $color;
 		}
 		
 		return $this;
@@ -206,7 +206,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['bg-color'] = $color;
+			$this->sets['bgColor'] = $color;
 		}
 		
 		return $this;
@@ -292,7 +292,7 @@ class CCaptcha
 		
 		if( ! empty($size) )
 		{
-			$this->sets['image-string']['size'] = $size;
+			$this->sets['imageString']['size'] = $size;
 		}
 		
 		return $this;
@@ -319,12 +319,12 @@ class CCaptcha
 
 		if( ! empty($x) ) 
 		{
-			$this->sets['image-string']['x'] = $x;
+			$this->sets['imageString']['x'] = $x;
 		}
 		
 		if( ! empty($y) )
 		{ 
-		 	$this->sets['image-string']['y'] = $y;
+		 	$this->sets['imageString']['y'] = $y;
 		}
 		
 		return $this;
@@ -350,7 +350,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['font-color'] = $color;
+			$this->sets['textColor'] = $color;
 		}
 		
 		return $this;
@@ -420,7 +420,7 @@ class CCaptcha
 		
 		if( ! empty($color) )
 		{
-			$this->sets['grid-color'] = $color;
+			$this->sets['gridColor'] = $color;
 		}
 		
 		return $this;
@@ -447,7 +447,7 @@ class CCaptcha
 
 		if( ! empty($color) )
 		{		
-			$this->sets['grid-color'] = $color;
+			$this->sets['gridColor'] = $color;
 		}
 		
 		return $this;
@@ -474,12 +474,12 @@ class CCaptcha
 
 		if( ! empty($x) ) 
 		{
-			$this->sets['grid-space']['x'] = $x;
+			$this->sets['gridSpace']['x'] = $x;
 		}
 		
 		if( ! empty($y) )
 		{ 
-		 	$this->sets['grid-space']['y'] = $y;
+		 	$this->sets['gridSpace']['y'] = $y;
 		}
 		
 		return $this;

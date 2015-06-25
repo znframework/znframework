@@ -54,4 +54,4 @@ $config['Repair']['pages'] = array();
 | Genel Kullanımı: Onarıma alınan sayfa ziyaret edildiğinde kullanıcıların hangi sayfaya  |
 | yönlenmesi isteniyorsa o sayfanın yolu belirtilir.						  	 		  |	
 ******************************************************************************************/
-$config['Repair']['route-page'] = ''; 
+$config['Repair']['routePage'] = ''; 

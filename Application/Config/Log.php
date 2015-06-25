@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Varsayılan: false																		  |
 | Kayıtlar Logs/ dizini içerisinde kayıt altına alınmaktadır.	     					  |
 ******************************************************************************************/
-$config['Log']['create-file'] = false;
+$config['Log']['createFile'] = false;
 
 /******************************************************************************************
 * FILE TIME                                                                      		  *
@@ -34,4 +34,4 @@ $config['Log']['create-file'] = false;
 | silinir ve yeni hata kaydı eklenir. Böylece Log dosyalarının şismesinin				  |
 | önüne geçilmiş olur.	     					  										  |					
 ******************************************************************************************/
-$config['Log']['file-time'] = '30 day';
+$config['Log']['fileTime'] = '30 day';

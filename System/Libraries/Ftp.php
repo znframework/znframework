@@ -103,9 +103,9 @@ class Ftp
 					: $config['password'];
 		
 		// Ssl Connect Ayarları			
-		$ssl = 		( isset($con['ssl-connect']) ) 
-					? $con['ssl-connect'] 
-					: $config['ssl-connect'];
+		$ssl = 		( isset($con['sslConnect']) ) 
+					? $con['sslConnect'] 
+					: $config['sslConnect'];
 		
 		// ----------------------------------------------------------------------------
 	

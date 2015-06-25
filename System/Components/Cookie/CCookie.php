@@ -313,10 +313,10 @@ class CCookie
 	| 1. boolean var @httponly => True olarak ayarlanması durumunda sadece http protokülü	  |
 	| için geçerli olacaktır. Varsayılan:true                    							  |
 	|          																				  |
-	| Örnek Kullanım: ->httponly(true)										 				  |
+	| Örnek Kullanım: ->httpOnly(true)										 				  |
 	|          																				  |
 	******************************************************************************************/
-	public function httponly($httponly = true)
+	public function httpOnly($httponly = true)
 	{
 		if( ! is_bool($httponly))
 		{
@@ -379,11 +379,11 @@ class CCookie
 		
 		$cookie_config = Config::get("Cookie");
 		
-		if( empty($this->time) ) 		$this->time 	= $cookie_config["time"];
-		if( empty($this->path) ) 		$this->path 	= $cookie_config["path"];
-		if( empty($this->domain) ) 		$this->domain 	= $cookie_config["domain"];
-		if( empty($this->secure) ) 		$this->secure 	= $cookie_config["secure"];
-		if( empty($this->httponly) ) 	$this->httponly = $cookie_config["httponly"];
+		if( empty($this->time) ) 		$this->time 	= $cookie_config['time'];
+		if( empty($this->path) ) 		$this->path 	= $cookie_config['path'];
+		if( empty($this->domain) ) 		$this->domain 	= $cookie_config['domain'];
+		if( empty($this->secure) ) 		$this->secure 	= $cookie_config['secure'];
+		if( empty($this->httponly) ) 	$this->httponly = $cookie_config['httpOnly'];
 		
 		if( ! isset($this->encode['name']) )
 		{

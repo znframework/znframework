@@ -21,7 +21,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Bulunduğunu bölgeye göre ayarlayabilirsiniz.											  | 
 | Varsayılan olarak Europe/Istanbul seçilmiştir.      									  |	
 ******************************************************************************************/
-$config['DateTime']['timezone'] = 'Europe/Istanbul';
+$config['DateTime']['timeZone'] = 'Europe/Istanbul';
 
 /******************************************************************************************
 * SETLOCALE                                                                         	  *
@@ -29,7 +29,7 @@ $config['DateTime']['timezone'] = 'Europe/Istanbul';
 | Genel Kullanım: Türkçe içerikli karakterleri desteklemesi amacıyla kullanılır.   		  |	
 | setDate() yöntemi haric diğer yöntemler için kullanılır.							      |					
 ******************************************************************************************/
-$config['DateTime']['setlocale'] = array(
+$config['DateTime']['setLocale'] = array(
 
 	'charset'  => 'tr_TR.UTF-8',
 	'language' => 'turkish',	
@@ -46,7 +46,7 @@ $config['DateTime']['setlocale'] = array(
 | Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  |
 | hepsini karşılığı %a özel ifadesidir.						      						  |					
 ******************************************************************************************/
-$config['DateTime']['set-time-format-chars'] = array
+$config['DateTime']['setTimeFormatChars'] = array
 (
 	'{shortDayName}|{shortDay}|{SD}' 							=> '%a',
 	'{dayName}|{day}|{D}' 										=> '%A',
@@ -88,7 +88,7 @@ $config['DateTime']['set-time-format-chars'] = array
 | Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  |
 | hepsini karşılığı D özel ifadesidir.						      						  |					
 ******************************************************************************************/
-$config['DateTime']['set-date-format-chars'] = array
+$config['DateTime']['setDateFormatChars'] = array
 (
 	'{shortDayName}|{shortDay}|{SD}' 							=> 'D',
 	'{dayName}|{day}|{D}' 										=> 'l',

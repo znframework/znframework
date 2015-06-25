@@ -42,9 +42,9 @@ class Repair
 		{
 			if( $repair_pages === "all" )
 			{
-				if( currentPath() !== $repair_config['route-page'] ) 
+				if( currentPath() !== $repair_config['routePage'] ) 
 				{
-					redirect($repair_config['route-page']);
+					redirect($repair_config['routePage']);
 				}
 			}
 		}
@@ -57,9 +57,9 @@ class Repair
 			// tüm sayfalar için tadilat modu uygulanıyor demektir.
 			if( $repair_pages[0] === "all" )
 			{
-				if( currentPath() !== $repair_config['route-page'] ) 
+				if( currentPath() !== $repair_config['routePage'] ) 
 				{
-					redirect($repair_config['route-page']);
+					redirect($repair_config['routePage']);
 				}
 			}
 			
@@ -72,9 +72,9 @@ class Repair
 				// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
 				if( ! empty($page_pos) )
 				{
-					if( currentPath() !== $repair_config['route-page'] )
+					if( currentPath() !== $repair_config['routePage'] )
 					{
-						redirect($repair_config['route-page']);
+						redirect($repair_config['routePage']);
 					}
 				}	
 			}

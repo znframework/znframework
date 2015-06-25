@@ -19,7 +19,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Dillere göre ay bilgilerini tutan dizidir.                			  |
 ******************************************************************************************/
-$config['Calendar']['month-names'] = array
+$config['Calendar']['monthNames'] = array
 (
 	'tr' => array
 			(
@@ -59,7 +59,7 @@ $config['Calendar']['month-names'] = array
 *******************************************************************************************
 | Genel Kullanım: Dillere göre gün bilgilerini tutan dizidir.                			  |
 ******************************************************************************************/
-$config['Calendar']['day-names'] = array
+$config['Calendar']['dayNames'] = array
 (
 	'tr' => array
 			(

@@ -70,4 +70,4 @@ $config['Cookie']['secure'] = false; // Boolean
 | olacaktır. Yani çerez, JavaScript gibi betik dilleri tarafından erişilebilir 			  |
 | olmayacaktır.   								             							  |		      															 						
 ******************************************************************************************/
-$config['Cookie']['httponly'] = true; // Boolean
+$config['Cookie']['httpOnly'] = true; // Boolean

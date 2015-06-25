@@ -87,12 +87,12 @@ class User
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
 		$user_config		= Config::get("User");		
-		$username_column  	= $user_config['username-column'];
-		$password_column  	= $user_config['password-column'];
-		$email_column  	    = $user_config['email-column'];
-		$table_name 		= $user_config['table-name'];
-		$active_column 		= $user_config['active-column'];
-		$activation_column 	= $user_config['activation-column'];
+		$username_column  	= $user_config['usernameColumn'];
+		$password_column  	= $user_config['passwordColumn'];
+		$email_column  	    = $user_config['emailColumn'];
+		$table_name 		= $user_config['tableName'];
+		$active_column 		= $user_config['activeColumn'];
+		$activation_column 	= $user_config['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
 		// Kullanıcı adı veya şifre sütunu belirtilmemişse 
@@ -183,10 +183,10 @@ class User
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
 		$user_config		= Config::get("User");	
-		$table_name 		= $user_config['table-name'];
-		$username_column  	= $user_config['username-column'];
-		$password_column  	= $user_config['password-column'];
-		$activation_column 	= $user_config['activation-column'];
+		$table_name 		= $user_config['tableName'];
+		$username_column  	= $user_config['usernameColumn'];
+		$password_column  	= $user_config['passwordColumn'];
+		$activation_column 	= $user_config['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
 		// Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
@@ -274,8 +274,8 @@ class User
 	******************************************************************************************/
 	public static function totalActiveUsers()
 	{
-		$active_column 	= Config::get("User",'active-column');	
-		$table_name 	= Config::get("User",'table-name');
+		$active_column 	= Config::get("User",'activeColumn');	
+		$table_name 	= Config::get("User",'tableName');
 		
 		if( ! empty($active_column) )
 		{
@@ -310,8 +310,8 @@ class User
 	******************************************************************************************/
 	public static function totalBannedUsers()
 	{
-		$banned_column 	= Config::get("User",'banned-column');	
-		$table_name 	= Config::get("User",'table-name');
+		$banned_column 	= Config::get("User",'bannedColumn');	
+		$table_name 	= Config::get("User",'tableName');
 		
 		if( ! empty($banned_column) )
 		{	
@@ -346,7 +346,7 @@ class User
 	******************************************************************************************/
 	public static function totalUsers()
 	{
-		$table_name = Config::get("User",'table-name');
+		$table_name = Config::get("User",'tableName');
 		
 		$db = uselib('Database\Db');
 		
@@ -400,13 +400,13 @@ class User
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
 		$user_config		= Config::get("User");	
-		$password_column  	= $user_config['password-column'];
-		$username_column  	= $user_config['username-column'];
-		$email_column  		= $user_config['email-column'];
-		$table_name 		= $user_config['table-name'];
-		$banned_column 		= $user_config['banned-column'];
-		$active_column 		= $user_config['active-column'];
-		$activation_column 	= $user_config['activation-column'];
+		$password_column  	= $user_config['passwordColumn'];
+		$username_column  	= $user_config['usernameColumn'];
+		$email_column  		= $user_config['emailColumn'];
+		$table_name 		= $user_config['tableName'];
+		$banned_column 		= $user_config['bannedColumn'];
+		$active_column 		= $user_config['activeColumn'];
+		$activation_column 	= $user_config['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
 		$db = uselib('Database\Db');
@@ -507,10 +507,10 @@ class User
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
 		$user_config		= Config::get("User");	
-		$username_column  	= $user_config['username-column'];
-		$password_column  	= $user_config['password-column'];				
-		$email_column  		= $user_config['email-column'];		
-		$table_name 		= $user_config['table-name'];	
+		$username_column  	= $user_config['usernameColumn'];
+		$password_column  	= $user_config['passwordColumn'];				
+		$email_column  		= $user_config['emailColumn'];		
+		$table_name 		= $user_config['tableName'];	
 		// ------------------------------------------------------------------------------
 		
 		$db = uselib('Database\Db');
@@ -632,9 +632,9 @@ class User
 			}
 	
 			$user_config = Config::get("User");	
-			$pc = $user_config['password-column'];
-			$uc = $user_config['username-column'];	
-			$tn = $user_config['table-name'];
+			$pc = $user_config['passwordColumn'];
+			$uc = $user_config['usernameColumn'];	
+			$tn = $user_config['tableName'];
 			
 			$old_password = Encode::super($old);
 			$new_password = Encode::super($new);
@@ -695,21 +695,21 @@ class User
 	******************************************************************************************/	
 	public static function isLogin()
 	{
-		$c_username = Cookie::select(md5(Config::get("User",'username-column')));
-		$c_password = Cookie::select(md5(Config::get("User",'password-column')));
+		$c_username = Cookie::select(md5(Config::get("User",'usernameColumn')));
+		$c_password = Cookie::select(md5(Config::get("User",'passwordColumn')));
 		
 		$result = '';
 		
 		if( ! empty($c_username) && ! empty($c_password) )
 		{
 			$db = uselib('Database\Db');
-			$result = $db->where(Config::get("User",'username-column').' =',$c_username, 'and')
-						 ->where(Config::get("User",'password-column').' =',$c_password)
-						 ->get(Config::get("User",'table-name'))
+			$result = $db->where(Config::get("User",'usernameColumn').' =',$c_username, 'and')
+						 ->where(Config::get("User",'passwordColumn').' =',$c_password)
+						 ->get(Config::get("User",'tableName'))
 						 ->totalRows();
 		}
 		
-		$username = Config::get("User",'username-column');
+		$username = Config::get("User",'usernameColumn');
 		
 		if( isset(self::data()->$username) )
 		{
@@ -722,7 +722,7 @@ class User
 				session_start();
 			}
 			
-			$_SESSION[md5(Config::get("User",'username-column'))] = $c_username;
+			$_SESSION[md5(Config::get("User",'usernameColumn'))] = $c_username;
 			$is_login = true;	
 		}
 		else
@@ -753,15 +753,15 @@ class User
 			session_start();
 		}
 
-		if( isset($_SESSION[md5(Config::get("User",'username-column'))]) )
+		if( isset($_SESSION[md5(Config::get("User",'usernameColumn'))]) )
 		{
 			$data = array();
-			self::$username = $_SESSION[md5(Config::get("User",'username-column'))];
+			self::$username = $_SESSION[md5(Config::get("User",'usernameColumn'))];
 			
 			$db = uselib('Database\Db');
 			
-			$r = $db->where(Config::get("User",'username-column').' =',self::$username)
-				    ->get(Config::get("User",'table-name'))
+			$r = $db->where(Config::get("User",'usernameColumn').' =',self::$username)
+				    ->get(Config::get("User",'tableName'))
 					->row();
 			
 			return (object)$r;
@@ -793,7 +793,7 @@ class User
 			$time = 0;
 		}
 
-		$username = Config::get("User",'username-column');
+		$username = Config::get("User",'usernameColumn');
 		
 		if( isset(self::data()->$username) )
 		{
@@ -802,20 +802,20 @@ class User
 				session_start();
 			}
 			
-			if( Config::get("User",'active-column') )
+			if( Config::get("User",'activeColumn') )
 			{	
 				$db = uselib('Database\Db');
 				
-				$db->where(Config::get("User",'username-column').' =', self::data()->$username)
-				   ->update(Config::get("User",'table-name'), array(Config::get("User",'active-column') => 0));
+				$db->where(Config::get("User",'usernameColumn').' =', self::data()->$username)
+				   ->update(Config::get("User",'tableName'), array(Config::get("User",'activeColumn') => 0));
 			}
 			
-			Cookie::delete(md5(Config::get("User",'username-column')));
-			Cookie::delete(md5(Config::get("User",'password-column')));	
+			Cookie::delete(md5(Config::get("User",'usernameColumn')));
+			Cookie::delete(md5(Config::get("User",'passwordColumn')));	
 			
-			if( isset($_SESSION[md5(Config::get("User",'username-column'))]) ) 
+			if( isset($_SESSION[md5(Config::get("User",'usernameColumn'))]) ) 
 			{
-				unset($_SESSION[md5(Config::get("User",'username-column'))]);
+				unset($_SESSION[md5(Config::get("User",'usernameColumn'))]);
 			}
 			
 			redirect($redirect_url, $time);

@@ -61,15 +61,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = Config::get('Regex','special-chars');
+		$special_chars = Config::get('Regex','specialChars');
 		
 		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = Arrays::multikey(Config::get('Regex','regex-chars'));
+		$regex_chars   = Arrays::multikey(Config::get('Regex','regexChars'));
 		
-		$setting_chars = Arrays::multikey(Config::get('Regex','setting-chars'));
+		$setting_chars = Arrays::multikey(Config::get('Regex','settingChars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
@@ -129,15 +129,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = Config::get('Regex','special-chars');
+		$special_chars = Config::get('Regex','specialChars');
 		
 		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = Arrays::multikey(Config::get('Regex','regex-chars'));
+		$regex_chars   = Arrays::multikey(Config::get('Regex','regexChars'));
 		
-		$setting_chars = Arrays::multikey(Config::get('Regex','setting-chars'));
+		$setting_chars = Arrays::multikey(Config::get('Regex','settingChars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
@@ -202,15 +202,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = Config::get('Regex','special-chars');
+		$special_chars = Config::get('Regex','specialChars');
 		
 		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = Arrays::multikey(Config::get('Regex','regex-chars'));
+		$regex_chars   = Arrays::multikey(Config::get('Regex','regexChars'));
 		
-		$setting_chars = Arrays::multikey(Config::get('Regex','setting-chars'));
+		$setting_chars = Arrays::multikey(Config::get('Regex','settingChars'));
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	

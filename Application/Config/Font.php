@@ -22,4 +22,4 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | karakteri kullanmanıza gerek yoktur. Örnek array('ufo', 'fon') şeklinde yazmanız        |
 | yeterlidir.	 												     					  |
 ******************************************************************************************/
-$config['Font']['different-font-extensions'] = array();
+$config['Font']['differentFontExtensions'] = array();

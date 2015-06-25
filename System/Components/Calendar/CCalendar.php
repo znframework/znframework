@@ -306,19 +306,19 @@ class CCalendar
 		
 		if( $this->month_names === 'long' )
 		{
-			$month_names = array_keys($this->config['month-names'][getLang()]);
+			$month_names = array_keys($this->config['monthNames'][getLang()]);
 		}
 		else
 		{
-			$month_names = array_values($this->config['month-names'][getLang()]);
+			$month_names = array_values($this->config['monthNames'][getLang()]);
 		}
 		
 		$monthname = $month_names[$month - 1];
 		// Gün ismini sitenin aktif
 		// diline göre ayarlar.
 		$daynames  = ( $this->day_names === 'long' )
-					 ? array_keys($this->config['day-names'][getLang()])
-					 : array_values($this->config['day-names'][getLang()]);
+					 ? array_keys($this->config['dayNames'][getLang()])
+					 : array_values($this->config['dayNames'][getLang()]);
 		
 		// Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
 		$first_day = getdate( mktime(0, 0, 0, $month, 1, $year) );

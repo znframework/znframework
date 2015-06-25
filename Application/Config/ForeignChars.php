@@ -23,7 +23,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 |																						  |
 | Not: Daha çok accent_converter() yöntemi ile birlikte kullanılmaktadır.				  |
 ******************************************************************************************/
-$config['ForeignChars']['accent-chars'] = array
+$config['ForeignChars']['accentChars'] = array
 (
 	'ä|æ|ǽ' 														=> 'ae',
 	'ö|œ' 															=> 'oe',
@@ -125,7 +125,7 @@ $config['ForeignChars']['accent-chars'] = array
 |																						  |
 | Not: Daha çok Converter.php aracı ile birlikte kullanılmaktadır.				          |
 ******************************************************************************************/
-$config['ForeignChars']['numerical-codes'] = array
+$config['ForeignChars']['numericalCodes'] = array
 (
 	'À'	=> '&#192;',
 	'Ā'	=> '&#256;',

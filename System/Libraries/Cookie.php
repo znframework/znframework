@@ -112,7 +112,7 @@ class Cookie
 		}
 		if(empty($httponly))
 		{
-			$httponly = $cookie_config["httponly"];
+			$httponly = $cookie_config['httpOnly'];
 		}
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.

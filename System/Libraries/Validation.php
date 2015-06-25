@@ -370,7 +370,7 @@ class Validation
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
 		if( in_array('nc', $config) )
 		{
-			$secnc = Config::get("Security", 'nc-encode');
+			$secnc = Config::get("Security", 'ncEncode');
 			$edit  = Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		

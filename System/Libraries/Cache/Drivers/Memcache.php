@@ -32,7 +32,7 @@ class MemcacheDriver
 			return getMessage('Cache', 'unsupported', 'Memcache');
 		}
 		
-		$config = Config::get('Cache', 'driver-settings');
+		$config = Config::get('Cache', 'driverSettings');
 		
 		$config = ! empty($settings)
 				  ? $settings

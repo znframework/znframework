@@ -25,7 +25,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Bu işlem dışında Config/Uri.php dosyasındaki index.php ayarını false 					  |
 | durumuna getirmeyi unutmayın.      												      |
 ******************************************************************************************/
-$config['Htaccess']['create-file'] = true;
+$config['Htaccess']['createFile'] = true;
 
 /******************************************************************************************
 * SET FILE                                                                                *
@@ -33,7 +33,7 @@ $config['Htaccess']['create-file'] = true;
 | Genel Kullanım: .ini_set() yöntemiyle yapamadığınız ayarlamaları buradan yapabilirsiniz.|
 | .htaccess dosyasında ini ayarları yapılabilsin mi?   									  |
 ******************************************************************************************/
-$config['Htaccess']['set-file'] = false;
+$config['Htaccess']['setFile'] = false;
 
 /******************************************************************************************
 * SETTINGS                                                                                *

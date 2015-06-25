@@ -136,9 +136,9 @@ class Structure
 		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
-		if( Config::get('Cache','ob-gzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 
+		if( Config::get('Cache','obGzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 
 		{
-			ob_start('ob-gzhandler');
+			ob_start('obGzhandler');
 		}
 		else
 		{
@@ -185,7 +185,7 @@ class Structure
 			// -------------------------------------------------------------------------------
 			if( empty($page) ) 
 			{
-				if( ! Config::get('Route', 'show-404') )
+				if( ! Config::get('Route', 'show404') )
 				{
 					$error = getMessage('System', 'call_user_func_class_error');
 					
@@ -200,7 +200,7 @@ class Structure
 				}
 				else
 				{
-					redirect(Config::get('Route', 'show-404'));
+					redirect(Config::get('Route', 'show404'));
 				}
 			}
 				
@@ -219,7 +219,7 @@ class Structure
 			else
 			{
 				// Sayfa bilgisine erişilemezse hata bildir.
-				if( ! Config::get('Route', 'show-404') )
+				if( ! Config::get('Route', 'show404') )
 				{
 					$error = getMessage('System', 'call_user_func_array_error');
 					
@@ -234,16 +234,16 @@ class Structure
 				}
 				else
 				{
-					redirect(Config::get('Route', 'show-404'));
+					redirect(Config::get('Route', 'show404'));
 				}
 			}
 		}
 		else
 		{	
 			// Sayfa bilgisine erişilemezse hata bildir.
-			if( Config::get('Route','show-404') ) 
+			if( Config::get('Route','show404') ) 
 			{				
-				redirect(Config::get('Route','show-404'));		
+				redirect(Config::get('Route','show404'));		
 			}
 			else
 			{

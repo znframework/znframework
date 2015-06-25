@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 |  Parametreler: true veya false.													      |
 | Varsayılan: false          															  |
 ******************************************************************************************/
-$config['Headers']['set-htaccess-file'] = false;
+$config['Headers']['setHtaccessFile'] = false;
 
 /******************************************************************************************
 * INISET			                                                                      *
@@ -32,7 +32,7 @@ $config['Headers']['set-htaccess-file'] = false;
 | Parametreler: array() dizi değerler alır.									              |
 | Varsayılan: array()      															      |
 ******************************************************************************************/
-$config['Headers']['iniset'] = array
+$config['Headers']['iniSet'] = array
 (
 	'Header set Connection keep-alive'
 );

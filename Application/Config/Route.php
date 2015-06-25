@@ -22,14 +22,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Dikkat edilirse açılış sayfası welcome.php'dir ancak bu işlemi yapan home.php	          |
 | Controller dosyasıdır.																  |						
 ******************************************************************************************/
-$config['Route']['open-page'] 	= 'home';
+$config['Route']['openPage'] 	= 'home';
 
 /******************************************************************************************
 * OPEN PAGE                                                                               *
 *******************************************************************************************
 | Genel Kullanımı: Geçersiz URI adresi girildiğinde yönlendirilmek istenen URI yoludur.   |						
 ******************************************************************************************/
-$config['Route']['show-404'] 	= '';
+$config['Route']['show404'] 	= '';
 
 /******************************************************************************************
 * CHANGE URI                                                                              *
@@ -47,4 +47,4 @@ $config['Route']['show-404'] 	= '';
 | );																				      |
 | Yukarıdaki kullanımda home/index için 2 farklı yönlendirme sağlamış olduk.		      |							
 ******************************************************************************************/
-$config['Route']['change-uri'] 	= array();
+$config['Route']['changeUri'] 	= array();

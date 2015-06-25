@@ -1585,15 +1585,15 @@ function requestUri()
 // Dönen Değerler: Sistem kullanıyor.
 function routeUri($request_uri = '')
 {
-	if( Config::get('Route','open-page') )
+	if( Config::get('Route','openPage') )
 	{
 			if( $request_uri === 'index.php' || empty($request_uri) || $request_uri === getLang() ) 
 			{
-				$request_uri = Config::get('Route','open-page');
+				$request_uri = Config::get('Route','openPage');
 			}
 	}
 			
-	$uri_change = Config::get('Route','change-uri');
+	$uri_change = Config::get('Route','changeUri');
 		
 	if( ! empty($uri_change) )
 	{
@@ -1611,7 +1611,7 @@ function routeUri($request_uri = '')
 // Dönen Değerler: Sistem kullanıyor.
 function cleanInjection($string = "")
 {
-	$url_injection_change_chars = Config::get("Security", 'url-change-chars');
+	$url_injection_change_chars = Config::get("Security", 'urlChangeChars');
 
 	if( empty($url_injection_change_chars) ) 
 	{
@@ -1634,7 +1634,7 @@ function cleanInjection($string = "")
 // Dönen Değerler: Sistem kullanıyor.
 function report($subject = 'unknown', $message = '', $destination = 'message', $time = '')
 {
-	if( ! Config::get('Log', 'create-file')) 
+	if( ! Config::get('Log', 'createFile')) 
 	{
 		return false;
 	}
@@ -1651,7 +1651,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 	{
 		if( empty($time) ) 
 		{
-			$time = Config::get('Log', 'file-time');
+			$time = Config::get('Log', 'fileTime');
 		}
 		
 		$create_date = File::createDate($log_dir.suffix($destination,$extension), 'd.m.Y');
@@ -1681,12 +1681,12 @@ function createHtaccessFile()
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
 	// Gzip ile ön bellekleme başlatılmış olur.
-	if( $config['mod-gzip']['status'] === true ) 
+	if( $config['modGzip']['status'] === true ) 
 	{
 		$mod_gzip = '<ifModule mod_gzip.c>
 mod_gzip_on Yes
 mod_gzip_dechunk Yes
-mod_gzip_item_include file .('.$config['mod-gzip']['included-file-extension'].')$
+mod_gzip_item_include file .('.$config['modGzip']['includedFileExtension'].')$
 mod_gzip_item_include handler ^cgi-script$
 mod_gzip_item_include mime ^text/.*
 mod_gzip_item_include mime ^application/x-javascript.*
@@ -1703,17 +1703,17 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 	//-----------------------EXPIRES----------------------------------------------------------
 	// mod_expires = true ayarı yapılmışsa aşağıdaki kodları ekler.
 	// Tarayıcı ile ön bellekleme başlatılmış olur.
-	if( $config['mod-expires']['status'] === true ) 
+	if( $config['modExpires']['status'] === true ) 
 	{
 		$exp = '';
-		foreach($config['mod-expires']['file-type-time'] as $type => $value)
+		foreach($config['modExpires']['fileTypeTime'] as $type => $value)
 		{
 			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eol();
 		}
 		
 		$mod_expires = '<ifModule mod_expires.c>
 ExpiresActive On
-ExpiresDefault "access plus '.$config['mod-expires']['default-time'].' seconds"
+ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 '.$exp.'
 </ifModule>'.eol(2);
 	}
@@ -1726,10 +1726,10 @@ ExpiresDefault "access plus '.$config['mod-expires']['default-time'].' seconds"
 	//-----------------------HEADERS----------------------------------------------------------
 	// mod_headers = true ayarı yapılmışsa aşağıdaki kodları ekler.
 	// Header ile ön bellekleme başlatılmış olur.
-	if( $config['mod-headers']['status'] === true ) 
+	if( $config['modHeaders']['status'] === true ) 
 	{
 		$fmatch = '';
-		foreach($config['mod-headers']['file-extension-time-access'] as $type => $value)
+		foreach($config['modHeaders']['fileExtensionTimeAccess'] as $type => $value)
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
@@ -1750,11 +1750,11 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADER SET-------------------------------------------------------
 	$headerset = Config::get("Headers");
 	
-	if( ! empty($headerset['set-htaccess-file']) )
+	if( ! empty($headerset['setHtaccessFile']) )
 	{
 		$headers_iniset  = "<ifModule mod_expires.c>".eol();	
 		
-		foreach($headerset['iniset'] as $val)
+		foreach($headerset['iniSet'] as $val)
 		{
 			$headers_iniset .= "$val".eol();
 		}
@@ -1770,7 +1770,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HTACCESS SET-----------------------------------------------------	
 	$htaccess_settings = Config::get("Htaccess");
 	
-	if( ! empty($htaccess_settings['set-file']) )
+	if( ! empty($htaccess_settings['setFile']) )
 	{
 		$htaccess_settings_str = '';
 		
@@ -1804,7 +1804,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= "RewriteBase /".eol();
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eol();
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eol();
-		$htaccess .= 'RewriteRule ^(.*)$  '.server('scriptName').Config::get('Uri','index-suffix').'/$1 [L]'.eol();
+		$htaccess .= 'RewriteRule ^(.*)$  '.server('scriptName').Config::get('Uri','indexSuffix').'/$1 [L]'.eol();
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
@@ -1812,7 +1812,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	$uploadset = Config::get('Upload');		
 	
-	if( ! empty($uploadset['set-htaccess-file']) )
+	if( ! empty($uploadset['setHtaccessFile']) )
 	{
 		$upload_settings = $uploadset['settings'];
 	}
@@ -1825,7 +1825,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------SESSION SETTINGS-------------------------------------------------
 	$sessionset = Config::get('Session');	
 			
-	if( ! empty($sessionset['set-htaccess-file']) )
+	if( ! empty($sessionset['setHtaccessFile']) )
 	{
 		$session_settings = $sessionset['settings'];
 	}
@@ -1838,7 +1838,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------INI SETTINGS-----------------------------------------------------	
 	$iniset = Config::get('Ini');	
 		
-	if( ! empty($iniset['set-htaccess-file']) )
+	if( ! empty($iniset['setHtaccessFile']) )
 	{
 		$ini_settings = $iniset['settings'];
 	}
@@ -1958,7 +1958,7 @@ function indexStatus()
 ******************************************************************************************/
 function nsShortName($class = '')
 {
-	$namespaces = Config::get('Namespace', 'short-name');
+	$namespaces = Config::get('Namespace', 'shortName');
 	
 	$longns  = array_values($namespaces);
 	$shortns = array_map('strtolower', array_keys($namespaces));	

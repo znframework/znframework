@@ -1437,7 +1437,7 @@ class Db
 		}
 		
 		$config = Config::get('Database');
-		$config_different = $config['different-connection'];
+		$config_different = $config['differentConnection'];
 		
 		if( ! isset($config_different[$connect_name]) ) 
 		{
@@ -1446,7 +1446,7 @@ class Db
 		
 		foreach($config as $key => $val)
 		{
-			if( $key !== 'different-connection' )
+			if( $key !== 'differentConnection' )
 			{
 				if( ! isset($config_different[$connect_name][$key]) )
 				{

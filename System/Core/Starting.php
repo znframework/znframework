@@ -34,7 +34,7 @@ class Starting
 		// ----------------------------------------------------------------------
 					
 		// HTACCESS DOSYASI OLUŞTURULUYOR... 	
-		if( Config::get('Htaccess','create-file') === true ) 
+		if( Config::get('Htaccess','createFile') === true ) 
 		{
 			createHtaccessFile();
 		}	
