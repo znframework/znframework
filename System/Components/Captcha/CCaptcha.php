@@ -11,7 +11,6 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 */
 namespace Captcha;
 
-use Config;
 use Captcha;
 /******************************************************************************************
 * CAPTCHA                                                                                 *
