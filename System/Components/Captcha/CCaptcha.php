@@ -498,9 +498,9 @@ class CCaptcha
 	| Örnek Kullanım: ->create();	            								     		  |
 	|          																				  |
 	******************************************************************************************/
-	public function create($img = false, $configs = array())
+	public function create($img = false)
 	{
-		return Captcha::create($img, $configs);
+		return Captcha::create($img, $this->sets);
 	}
 	
 	/******************************************************************************************
