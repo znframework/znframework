@@ -134,11 +134,16 @@ class Config
 		
 		self::_config($file);
 		
-		self::$set_configs[$file][$configs] = $set;
-		
-		if( isset(self::$config[$file][$configs]) ) 
+		if( ! is_array($configs) )
 		{
-			return self::$config[$file][$configs] = $set;	
+			self::$set_configs[$file][$configs] = $set;		
+		}
+		else
+		{
+			foreach($config as $k => $v)
+			{
+				self::$set_configs[$file][$k] = $v;
+			}
 		}
 	}
 	
