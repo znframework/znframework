@@ -34,46 +34,7 @@ class CUpload
 	 */
 	private $settings = array();
 	
-	/* File Değişkeni
-	 *  
-	 * Yüklenecek dosyanın yol bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $file;
-	
-	/* Extension Control Değişkeni
-	 *  
-	 * Yüklenecek dosyanın uzantı bilgisini
-	 * kontrol etmesi için oluşturulmuştur.
-	 *
-	 */
-	private $extension_control;	
-	
-	/* Errors Değişkeni
-	 *  
-	 * Yükleme işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $errors;
-	
-	/* Manuel Error Değişkeni
-	 *  
-	 * Elle oluşturulan hata bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $manuel_error;
-	
-	/* Encode Name Değişkeni
-	 *  
-	 * Şifrelenmiş dosya isim bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $encode_name;
-	
+
 	/******************************************************************************************
 	* EXTENSIONS                                                                      		  *
 	*******************************************************************************************
@@ -166,6 +127,27 @@ class CUpload
 	}
 	
 	/******************************************************************************************
+	* ENCODE LENGTH                                                               		  *
+	*******************************************************************************************
+	| Genel Kullanım: Şifrelenmiş ön ekin karakter uzunluğunu ayarlamak için kullanılır.      |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. numeric var @encodeLength => Karakter uzunluğu.			         		  	  |
+	|          																				  |
+	| Örnek Kullanım: ->encodeLength(20)	            						      |    
+	|          																				  |
+	******************************************************************************************/
+	public function encodeLength($encodeLength = 8)
+	{
+		if( is_numeric($encodeLength) )
+		{
+			$this->settings['encodeLength'] = $encodeLength;	
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
 	* TARGET                                                                         		  *
 	*******************************************************************************************
 	| Genel Kullanım: Dosyanın nereye yükleneceğini belirtmek için kullanılır.		          |
@@ -221,130 +203,18 @@ class CUpload
 	******************************************************************************************/
 	public  function start($filename = 'upload', $rootdir = UPLOADS_DIR)
 	{	
-		if( isset($this->settings['source']) ) 
+		if( isset($this->settings['source']) )
 		{
 			$filename = $this->settings['source'];
 		}
 		
-		if( isset($this->settings['target']) ) 
+		if( isset($this->settings['target']) )
 		{
 			$rootdir = $this->settings['target'];
 		}
 		
-		$this->file = $filename;
-
-		$root = $rootdir;
-		
-		if( ! isset($_FILES[$filename]['name']) ) 
-		{ 
-			$this->manuel_error = 4; 
-			return false; 
-		}
-		
-		$name = $_FILES[$filename]['name'];		
-		
-		if( ! isset($this->settings['encryption']) ) 
-		{
-			$this->settings['encryption'] = true;
-		}
-		
-		if( $this->settings['encryption'] ) 
-		{
-			$encryption = substr( hash( $this->settings['encryption'], uniqid(rand()) ), 0, 8 ).'-';
-		}
-		else 
-		{
-			$encryption = '';
-		}
-		
-		if( isset($this->settings['extensions']) ) 
-		{
-			$extensions = $this->settings['extensions'];
-		}
-		
-		// Çoklu yükleme yapılıyorsa.
-		if( is_array($name) )
-		{
-
-			if( empty($name[0]) ) 
-			{
-				$this->manuel_error = 4; 
-				return false; 
-			}
-			
-			if( isset($this->settings['prefix']) ) 
-			{
-				$encryption = $this->settings['prefix']; 
-			}
-			
-			for($index = 0; $index < count($name); $index++)
-			{	
-				$source = $_FILES[$filename]['tmp_name'][$index];
-				
-				$target = $root.'/'.$encryption.$name[$index];
-
-				if( isset($this->settings['extensions']) && ! in_array(extension($name[$index]), $extensions) )
-				{
-					$this->extension_control = lang('Upload', 'extension_error');	
-				}
-				elseif( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($source) )
-				{
-					$this->manuel_error = 10;
-				}
-				else
-				{
-					if( ! is_file($rootdir) ) 
-					{
-						move_uploaded_file($source, $target); 
-					}
-					else 
-					{
-						$this->manuel_error = 9;
-					}
-				}
-			}
-		}	
-		else
-		{	
-			if( empty($_FILES[$filename]['name']) ) 
-			{ 
-				$this->manuel_error = 4; 
-				return false;
-			}
-			
-			$source = $_FILES[$filename]['tmp_name'];
-			
-			if( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($source) )
-			{
-				$this->manuel_error = 10; 
-				return false;
-			}
-			
-			if( isset($this->settings["prefix"]) ) 
-			{ 
-				$encryption = $this->settings["prefix"];
-			}
-			
-			$target = $root.'/'.$encryption.$name;
-			
-			$this->encode_name = $encryption.$name;
-			
-			if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
-			{
-				$this->extension_control = lang('Upload', 'extension_error');	
-			}
-			else
-			{	
-				if( ! is_file($rootdir) ) 
-				{
-					move_uploaded_file($source,$target); 
-				}
-				else 
-				{
-					$this->manuel_error = 9;
-				}				
-			}
-		}
+		Upload::settings($this->settings);
+		Upload::start($filename, $rootdir);
 	}
 	
 	/******************************************************************************************
@@ -364,46 +234,9 @@ class CUpload
 	| $info->encode_name -> şifrelenen ismi.      											  |
 	|          																				  |
 	******************************************************************************************/
-	public function info()
+	public function info($info = '')
 	{
-		if( ! empty($_FILES[$this->file]) )
-		{
-			$datas = array
-			(
-				'name' 		=> $_FILES[$this->file]['name'],
-				'type' 		=> $_FILES[$this->file]['type'],
-				'size' 		=> $_FILES[$this->file]['size'],
-				'tmp_name' 	=> $_FILES[$this->file]['tmp_name'],
-				'error' 	=> $_FILES[$this->file]['error'],
-				'encode_name' => $this->encode_name
-			);
-		
-			$values = array();
-			
-			if( ! is_array($_FILES[$this->file]['name']) )foreach($datas as $key => $val)
-			{
-				$values[$key] = $val;
-			}
-			else
-			{
-				foreach($datas as $key => $val)
-				{
-					if( ! empty($datas[$key]) )
-					{
-						foreach($datas[$key] as $v)
-						{
-							$values[$key][] = $v;
-						}
-					}
-				}
-			}	
-		}
-		else
-		{
-			return false;	
-		}
-		
-		return (object)$values;	
+		return Upload::info($info);
 	}
 	
 	/******************************************************************************************
@@ -416,52 +249,6 @@ class CUpload
 	******************************************************************************************/
 	public function error()
 	{
-		if( ! isset($_FILES[$this->file]['error']) ) 
-		{
-			return lang('Upload', 'unknown_error');
-		}
-		
-		$error_no = $_FILES[$this->file]['error'];
-		//$error_no = $this->manuel_error;
-		
-		$this->errors = array
-		(
-			'0'  => "scc", 			  // Dosya başarı ile yüklendi. 
-			'1'  => lang('Upload', '1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
-			'2'  => lang('Upload', '2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
-			'3'  => lang('Upload', '3'), // Dosya yükleme işlemi tamamlanmadı. 
-			'4'  => lang('Upload', '4'), // Yüklenecek dosya yok. 
-			'6'  => lang('Upload', '6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
-			'7'  => lang('Upload', '7'), // Dosya dik üzerine yazılamadı. 
-			'8'  => lang('Upload', '8'), // Dosya yükleme uzantı desteği yok. 
-			'9'  => lang('Upload', '9'), // Dosya yükleme yolu geçerli değil.
-			'10' => lang('Upload', '10') // Belirlenen maksimum dosya boyutu aşıldı!
-		);
-		// Manuel belirlenen hata oluşmuşsa
-		if( ! empty($this->manuel_error) )
-		{
-			return $this->errors[$this->manuel_error];
-		}
-		// Uzantıdan kaynaklı hata oluşmussa
-		elseif( ! empty($this->extension_control) ) 
-		{
-			return $this->extension_control;
-		}
-		// Hata numarasına göre hata bildir.
-		elseif( ! empty($this->errors[$error_no]) ) 
-		{
-			if( $this->errors[$error_no] === "scc" ) 
-			{
-				return false;
-			}
-			// 0 Dışında herhangi bir hata numarası oluşmussa
-			return $this->errors[$error_no];
-		}
-		// Bu kontroller dışında hata oluşmussa bilinmeyen
-		// hata uyarısı ver.	
-		else 
-		{
-			return lang('Upload', 'unknown_error');
-		}
+		return Upload::error();
 	}
 }
