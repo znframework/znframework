@@ -221,13 +221,13 @@ class Terminal
 					<?php echo 'ZN Framework Terminal Application '; ?>
 				</div>
                 
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="commands" id="commands">
+				<form action="<?php echo currentUrl(); ?>" method="post" class="commands" id="commands">
                     
 					<?php if( ! empty($_SESSION['commands'])): ?>
 					<div>
 						<?php foreach ($_SESSION['commands'] as $index => $command): ?>
 						
-						<pre><?php echo 'php > ', $command, "\n"; ?></pre>
+						<pre><?php echo $terminalType.' > ', $command, "\n"; ?></pre>
                         
 							<?php foreach ($_SESSION['commandResponses'][$index] as $value):?>
                                 		<pre><?php echo htmlentities($value), "\n"; ?></pre>
@@ -236,7 +236,7 @@ class Terminal
 						<?php endforeach; ?>
 					</div>
 					<?php endif; ?>
-					php >  
+					<?php echo $terminalType.' > ';?>  
 					<input type="text" name="command" id="command" autocomplete="off" onkeydown="return commandKeyedDown(event);" />
 					
 				</form>
