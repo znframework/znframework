@@ -354,9 +354,21 @@ function charsetList()
 | Örnek Kullanım: output(array(1,2,3));        							  	  			  |
 |          																				  |
 ******************************************************************************************/
-function output($data = '', $display = true)
+function output($data = '', $settings = array(), $display = true)
 {
-	$globalstyle  = ' style="font-family:monospace, Tahoma, Arial; font-size:12px;"';
+	if( ! is_array($settings) )
+	{
+		return false;	
+	}
+	
+	// ----------------------------------------------------------------------------------------------
+	// AYARLAR
+	// ----------------------------------------------------------------------------------------------
+	$textType 		= isset($settings['textType'])      ? $settings['textType']     : 'monospace, Tahoma, Arial';
+	$textSize 		= isset($settings['textSize'])      ? $settings['textSize']     : '12px';	
+	// ----------------------------------------------------------------------------------------------
+	
+	$globalstyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 	
 	$output  = "<span$globalstyle>";
 	$output .= "<pre>";
@@ -364,7 +376,7 @@ function output($data = '', $display = true)
 	$output .= '* DATA OUTPUT                                          *<br>';
 	$output .= '********************************************************';
 	$output .= "</pre>";
-	$output .= _output($data);
+	$output .= _output($data, '', 0, $settings);
 	$output .= "<br>";
 	$output .= '********************************************************';
 	$output .= "</span>";
@@ -378,17 +390,23 @@ function output($data = '', $display = true)
 		return $output;	
 	}
 }	
-function _output($data = '', $tab = '', $start = 0)
+function _output($data = '', $tab = '', $start = 0, $settings = array())
 {
 	static $start;
+	
+	$lengthColor 	= isset($settings['lengthColor'])  	? $settings['lengthColor']  : 'grey';
+	$keyColor 		= isset($settings['keyColor']) 		? $settings['keyColor']		: '#000';
+	$typeColor 		= isset($settings['typeColor']) 	? $settings['typeColor']	: '#8C2300';
+	$stringColor 	= isset($settings['stringColor']) 	? $settings['stringColor']	: 'red';
+	$numericColor 	= isset($settings['numericColor']) 	? $settings['numericColor']	: 'green';
 	
 	$output = '';
 	$eof 	= '<br>';
 	$tab 	= str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
 	
-	$lengthstyle = ' style="color:grey"';
-	$keystyle 	 = ' style="color:#000"';
-	$typestyle   = ' style="color:#8C2300"';
+	$lengthstyle = ' style="color:'.$lengthColor.'"';
+	$keystyle 	 = ' style="color:'.$keyColor.'"';
+	$typestyle   = ' style="color:'.$typeColor.'"';
 	
 	$vartype = 'array';
 	
@@ -414,14 +432,14 @@ function _output($data = '', $tab = '', $start = 0)
 			
 			if( ! is_array($v) )
 			{	
-				$valstyle  = ' style="color:green;"';	
+				$valstyle  = ' style="color:'.$numericColor.';"';	
 				
 				$type = gettype($v);
 				
 				if( $type === 'string' )
 				{
 					$v = "'".$v."'";	
-					$valstyle = ' style="color:red;"';
+					$valstyle = ' style="color:'.$stringColor.';"';
 					
 					$type = 'string';
 				}

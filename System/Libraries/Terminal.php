@@ -44,8 +44,6 @@ class Terminal
 	******************************************************************************************/
 	public static function run($terminalType = 'php', $settings = array())
 	{
-		error_reporting(0);
-		
 		$settings['width'] 		=  isset($settings['width']) 	  ? $settings['width']      : '800px';
 		$settings['height'] 	=  isset($settings['height']) 	  ? $settings['height']     : '350px';
 		$settings['bgColor'] 	=  isset($settings['bgColor'])    ? $settings['bgColor']    : '#000';
@@ -53,7 +51,7 @@ class Terminal
 		$settings['textColor'] 	=  isset($settings['textColor'])  ? $settings['textColor']  : '#ccc';
 		$settings['textType'] 	=  isset($settings['textType'])   ? $settings['textType']   : 'monospace';
 		$settings['textSize'] 	=  isset($settings['textSize'])   ? $settings['textSize']   : '12px';
-
+		
 		if( isset($_POST['clear']) && $_POST['clear'] === 'clear' ) 
 		{
 			self::clearCommand();
@@ -77,16 +75,12 @@ class Terminal
 			{
 				$togglingCurrentPersistCommand = true;
 			} 
-			else 
-			{
-				$_SESSION['persistCommands'][$persistCommandId] = ! $_SESSION['persistCommands'][$persistCommandId];
-			}
 		}
 		
 		$previousCommands = '';
 		$response = array();
 		
-		foreach( $_SESSION['persistCommands'] as $index => $persist ) 
+		if( ! empty($_SESSION['persistCommands']) ) foreach( $_SESSION['persistCommands'] as $index => $persist ) 
 		{
 			if( ! empty($persist) ) 
 			{
@@ -130,7 +124,8 @@ class Terminal
 					}
 					else
 					{
-						exec($previousCommands.$command.' 2>&1', $response, $errorCode);
+						$terminalType = 'cmd';
+						exec($previousCommands.$command.' 2>&1', $response);
 					}
 				}
 			} 
@@ -162,12 +157,14 @@ class Terminal
 		}
 	?>
 		<style type="text/css">
-			* {
+			* 
+			{
 				margin: 0;
 				padding: 0;
 			}
 			
-			input, textarea {
+			input 
+			{
 				color: inherit;
 				font-family: inherit;
 				font-size: inherit;
@@ -175,7 +172,8 @@ class Terminal
 				background-color: inherit;
 				border: inherit;
 			}
-			.content {
+			.content 
+			{
 				width: <?php echo $settings['width']; ?>;
 				min-width: 400px;
 				margin: 0px auto;
@@ -187,14 +185,16 @@ class Terminal
 				font-weight: bold;
 				font-size: <?php echo $settings['textSize']; ?>;
 			}
-			.terminal {
+			.terminal 
+			{
 				border: 1px solid #CCC;
 				height: <?php echo $settings['height']; ?>;
 				position: relative;
 				overflow: auto;
 				padding-bottom: 20px;
 			}
-			.terminal .bar {
+			.terminal .bar 
+			{
 				background:<?php echo $settings['barBgColor']; ?>;;
 				height:23px;
 				padding: 2px;
@@ -204,11 +204,13 @@ class Terminal
 				text-align:center;
 				padding-top:12px;
 			}
-			.terminal .commands {
+			.terminal .commands 
+			{
 				padding: 2px;
 				padding-right: 0;
 			}
-			.terminal #command {
+			.terminal #command 
+			{
 				width: 90%;
 				outline:none;
 				border:none;

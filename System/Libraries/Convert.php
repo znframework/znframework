@@ -244,12 +244,12 @@ class Convert
 	| 1. string var @string => Dönüştürülecek metin.				                          |
 	| 2. [ array var @settings ] => Renk ve yazı ayarları.									  |
 	|																						  |
-	| Örnek Kullanım: codeColoring('echo 1;');  											  |
+	| Örnek Kullanım: highLight('echo 1;');  											  	  |
 	|       																				  |
 	******************************************************************************************/
 	public static function highLight($str = '', $settings = array())
 	{
-		if( ! is_string($str))
+		if( ! is_string($str) || ! is_array($settings) )
 		{
 			return false;	
 		}
