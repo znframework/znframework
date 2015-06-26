@@ -236,6 +236,135 @@ class Convert
 	}
 	
 	/******************************************************************************************
+	* HIGH LIGHT                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Girilen metinsel kodun yazı biçimini ve renkleri ayarlamak içindir.	  |
+	|																						  |
+	| Parametreler: 2 parametresi vardır.                                              	      |
+	| 1. string var @string => Dönüştürülecek metin.				                          |
+	| 2. [ array var @settings ] => Renk ve yazı ayarları.									  |
+	|																						  |
+	| Örnek Kullanım: codeColoring('echo 1;');  											  |
+	|       																				  |
+	******************************************************************************************/
+	public static function highLight($str = '', $settings = array())
+	{
+		if( ! is_string($str))
+		{
+			return false;	
+		}
+		
+		// ----------------------------------------------------------------------------------------------
+		// AYARLAR
+		// ----------------------------------------------------------------------------------------------
+		$textSize 		= isset($settings['textSize'])      ? $settings['textSize']     : '14px';	
+		$color 			= isset($settings['color']) 		? $settings['color'] 		: '#000';
+		$keywordColor 	= isset($settings['keywordColor'])  ? $settings['keywordColor'] : '#060';
+		$variableColor 	= isset($settings['variableColor']) ? $settings['variableColor']: '#06F';
+		$commentColor	= isset($settings['commentColor'])  ? $settings['commentColor'] : '#999';
+		$constantColor	= isset($settings['constantColor']) ? $settings['constantColor']: '#933';
+		$functionColor	= isset($settings['functionColor']) ? $settings['functionColor']: '#00F';
+		$tagColor		= isset($settings['tagColor']) 	    ? $settings['tagColor'] 	: 'red';
+		// ----------------------------------------------------------------------------------------------
+		
+		// ----------------------------------------------------------------------------------------------
+		// HIGHLIGHT
+		// ----------------------------------------------------------------------------------------------
+		$string = highlight_string($str, true);
+		// ----------------------------------------------------------------------------------------------
+		
+		// ----------------------------------------------------------------------------------------------
+		// FONKSIYONLAR
+		// ----------------------------------------------------------------------------------------------	
+		$definedFunctions   = get_defined_functions();
+		$definedFunctions   = $definedFunctions['internal'];	
+		$functionMatch   	= array();
+		
+		foreach($definedFunctions as $v)
+		{
+			$functionMatch['<span style="color: #0000BB">'.$v] = '<span style="color: '.$functionColor.'">'.$v;	
+		}
+		
+		$string = str_replace(array_keys($functionMatch), array_values($functionMatch), $string);
+		// ----------------------------------------------------------------------------------------------
+		
+		// ----------------------------------------------------------------------------------------------
+		// ANAHTAR KELİMELER
+		// ----------------------------------------------------------------------------------------------	
+		$keywordsLower = array
+		(
+			'__halt_compiler', 'abstract', 'and', 'array', 'as', 'break', 'callable', 'case', 'catch', 'class', 'clone', 'const', 
+			'continue', 'declare', 'default', 'die', 'do', 'echo', 'else', 'elseif', 'empty', 'enddeclare', 'endfor', 'endforeach', 
+			'endif', 'endswitch', 'endwhile', 'eval', 'exit', 'extends', 'final', 'for', 'foreach', 'function', 'global', 'goto', 
+			'if', 'implements', 'include', 'include_once', 'instanceof', 'insteadof', 'interface', 'isset', 'list', 'namespace', 
+			'new', 'or', 'print', 'private', 'protected', 'public', 'require', 'require_once', 'return', 'static', 'switch', 'throw', 
+			'trait', 'try', 'unset', 'use', 'var', 'while', 'xor', 'true', 'false', 'null'
+		);
+		
+		$keywordsUpper = array_map('strtoupper', $keywordsLower);
+		
+		$keywords = array_merge($keywordsLower, $keywordsUpper);
+		
+		$keywordsMatch = array();
+		
+		foreach($keywords as $v)
+		{
+			$keywordsMatch['<span style="color: #0000BB">'.$v] = '<span style="color: '.$keywordColor.'">'.$v;	
+		}
+		
+		$string = str_replace(array_keys($keywordsMatch), array_values($keywordsMatch), $string);
+		// ----------------------------------------------------------------------------------------------
+		
+		// ----------------------------------------------------------------------------------------------
+		// SİHİRLİ SABİTLER
+		// ----------------------------------------------------------------------------------------------	
+		$magicConstants = array('__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__');
+		
+		$constantsMatch = array();
+		
+		foreach($magicConstants as $v)
+		{
+			$constantsMatch['<span style="color: '.$functionColor.'">'.$v] = '<span style="color: '.$constantColor.'">'.$v;	
+		}
+		
+		$string = str_replace(array_keys($constantsMatch), array_values($constantsMatch), $string);
+		// ----------------------------------------------------------------------------------------------
+		
+		// ----------------------------------------------------------------------------------------------
+		// DEĞİŞKENLER
+		// ----------------------------------------------------------------------------------------------		
+		preg_match_all('/\$\w+/', $string, $match);
+
+		$variableMatch = array();
+		
+		foreach(array_unique($match[0]) as $v)
+		{
+			$variableMatch[$v] = '<span style="color: '.$variableColor.'">'.$v;	
+		}
+		
+		$string = str_replace(array_keys($variableMatch), array_values($variableMatch), $string);
+		// ----------------------------------------------------------------------------------------------
+		
+		$change = array
+		(
+			// Yorum Satırı
+			'#FF8000' => $commentColor,
+			
+			// Düz Yazı
+			'#0000BB' => $color,
+			
+			// PHP Tag Renkleri
+			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php',
+			'<span style="color: '.$color.'">?&gt;'	  => '<span style="color: '.$tagColor.'">?&gt;',
+			
+			// Keywords
+			'#007700' => $keywordColor,
+		);
+		
+		return '<span style="font-size:'.$textSize.';">'.str_replace(array_keys($change), array_values($change), $string).'</span>';
+    }
+	
+	/******************************************************************************************
 	* TO INT			                                                                      *
 	*******************************************************************************************
 	| Genel Kullanım: Değişkenin veri türünü int türüne çevirmek için kullanılır.			  |	
