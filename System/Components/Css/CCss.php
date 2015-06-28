@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Css;
+namespace CSS;
 
 use Config;
 use File;
@@ -20,7 +20,7 @@ use File;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CCss
+class CCSS
 {
 	/* Easing Değişkeni
 	 *  

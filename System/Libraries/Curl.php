@@ -12,11 +12,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * CURL                                                                                	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	curl:: , $this->curl , uselib('curl') , zn::$use->curl        |
+| Sınıfı Kullanırken      :	CURL:: , $this->CURL , uselib('CURL') , zn::$use->CURL        |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class Curl
+class CURL
 {
 	/* Inıt Değişkeni
 	 *  

@@ -41,10 +41,10 @@ class Home extends Controller
 		| 4. welcome_message => ZN KOD ÇATISINA HOŞ GELDİNİZ				          			  |
 		******************************************************************************************/
 		$data["title"] 			 = "ZN FRAMEWORK";
-		$data["style"] 			 = $this->import->style("style", true);
-		$data["font"]			 = $this->import->font("textfont", true);
+		$data["style"] 			 = Import::style("style", true);
+		$data["font"]			 = Import::font("textfont", true);
 		$data["welcome_message"] = "PHP Web Framework <b>Made In Turkey</b>";
-		
+
 		/******************************************************************************************
 		* Dahil Edilen Welcome.php Görünüm Sayfası                                                *
 		*******************************************************************************************
@@ -53,6 +53,6 @@ class Home extends Controller
 		| 3. false => Sayfa doğrudan görüntüleniyor.				          			  		  |
 		| NOT: Bu işlem için view() ya da page() yöntemlerinden her ikiside kullanılabilir.		  |
 		******************************************************************************************/
-		$this->import->view("welcome", $data);
+		Import::view("welcome", $data);
 	}
 }

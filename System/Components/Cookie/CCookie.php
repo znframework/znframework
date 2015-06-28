@@ -406,7 +406,7 @@ class CCookie
 		}
 		else
 		{
-			$this->error = getMessage('Cookie', 'set_error');
+			$this->error = getMessage('Cookie', 'setError');
 			report('Error', $this->error, 'CookieComponent');
 			return false;
 		}

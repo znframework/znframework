@@ -106,7 +106,7 @@ class User
 		$login_password  = $data[$password_column];	
 		$encode_password = Encode::super($login_password);	
 		
-		$db = uselib('Database\Db');
+		$db = uselib('Database\DB');
 		
 		$username_control = $db->where($username_column.' =',$login_username)
 							   ->get($table_name)
@@ -121,7 +121,7 @@ class User
 			if( $db->insert($table_name , $data) )
 			{
 				self::$error = false;
-				self::$success = lang('User', 'register_success');
+				self::$success = lang('User', 'registerSuccess');
 				
 				if( ! empty($activation_column) )
 				{
@@ -152,13 +152,13 @@ class User
 			}
 			else
 			{
-				self::$error = lang('User', 'register_unknown_error');	
+				self::$error = lang('User', 'registerUnknownError');	
 				return false;
 			}
 		}
 		else
 		{
-			self::$error = lang('User', 'register_error');
+			self::$error = lang('User', 'registerError');
 			return false;
 		}
 		
@@ -196,7 +196,7 @@ class User
 		
 		if( ! empty($user) && ! empty($pass) )	
 		{
-			$db = uselib('Database\Db');
+			$db = uselib('Database\DB');
 			
 			$row = $db->where($username_column.' =', $user, 'and')
 			          ->where($password_column.' =', $pass)		
@@ -208,19 +208,19 @@ class User
 				$db->where($username_column.' =', $user)
 				   ->update($table_name, array($activation_column => '1'));
 				
-				self::$success = lang('User', 'activation_complete');
+				self::$success = lang('User', 'activationComplete');
 				
 				return true;
 			}	
 			else
 			{
-				self::$error = lang('User', 'activation_complete_error');
+				self::$error = lang('User', 'activationCompleteError');
 				return false;
 			}				
 		}
 		else
 		{
-			self::$error = lang('User', 'activation_complete_error');
+			self::$error = lang('User', 'activationCompleteError');
 			return false;
 		}
 	}
@@ -246,18 +246,18 @@ class User
 		$sendEmail = uselib('Email');
 		
 		$sendEmail->receiver($user, $user);
-		$sendEmail->subject(lang('User', 'activation_process'));
+		$sendEmail->subject(lang('User', 'activationProcess'));
 		$sendEmail->content($message);
 		
 		if( $sendEmail->send() )
 		{
-			self::$success = lang('User', 'activation_email');
+			self::$success = lang('User', 'activationEmail');
 			return true;
 		}
 		else
 		{	
 			self::$success = false;
-			self::$error = lang('User', 'email_error');
+			self::$error = lang('User', 'emailError');
 			return false;
 		}
 	}
@@ -279,7 +279,7 @@ class User
 		
 		if( ! empty($active_column) )
 		{
-			$db = uselib('Database\Db');
+			$db = uselib('Database\DB');
 			
 			$total_rows = $db->where($active_column.' =', 1)
 							 ->get($table_name)
@@ -315,7 +315,7 @@ class User
 		
 		if( ! empty($banned_column) )
 		{	
-			$db = uselib('Database\Db');
+			$db = uselib('Database\DB');
 			
 			$total_rows = $db->where($banned_column.' =', 1)
 							 ->get($table_name)
@@ -348,7 +348,7 @@ class User
 	{
 		$table_name = Config::get("User",'tableName');
 		
-		$db = uselib('Database\Db');
+		$db = uselib('Database\DB');
 		
 		$total_rows = $db->get($table_name)->totalRows();
 		
@@ -375,7 +375,7 @@ class User
 	| Örnek Kullanım: login('zntr', '1234', true);       		                              |
 	|          																				  |
 	******************************************************************************************/	
-	public static function login($un = "username", $pw = "password", $remember_me = false)
+	public static function login($un = 'username', $pw = 'password', $remember_me = false)
 	{
 		if( ! is_string($un) ) 
 		{
@@ -409,7 +409,7 @@ class User
 		$activation_column 	= $user_config['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
-		$db = uselib('Database\Db');
+		$db = uselib('Database\DB');
 		
 		$r = $db->where($username_column.' =',$username)
 			    ->get($table_name)
@@ -434,13 +434,13 @@ class User
 		{
 			if( ! empty($banned_column) && ! empty($banned_control) )
 			{
-				self::$error = lang('User', 'user_banned_error');	
+				self::$error = lang('User', 'bannedError');	
 				return false;
 			}
 			
 			if( ! empty($activation_column) && empty($activation_control) )
 			{
-				self::$error = lang('User', 'activation_error');	
+				self::$error = lang('User', 'activationError');	
 				return false;
 			}
 			
@@ -468,12 +468,12 @@ class User
 			}
 			
 			self::$error = false;
-			self::$success = lang('User', 'login_success');
+			self::$success = lang('User', 'loginSuccess');
 			return true;
 		}
 		else
 		{
-			self::$error = lang('User', 'login_error');	
+			self::$error = lang('User', 'loginError');	
 			return false;
 		}
 	}
@@ -513,7 +513,7 @@ class User
 		$table_name 		= $user_config['tableName'];	
 		// ------------------------------------------------------------------------------
 		
-		$db = uselib('Database\Db');
+		$db = uselib('Database\DB');
 		
 		if( ! empty($email_column) )
 		{
@@ -544,14 +544,14 @@ class User
 
 				".lang('User', 'password').": ".$new_password."
 				
-				<a href='".$return_link_path."'>".lang('User', 'learn_new_password')."</a>
+				<a href='".$return_link_path."'>".lang('User', 'learnNewPassword')."</a>
 			</pre>
 			";
 			
 			$sendEmail = uselib('Email');
 			
 			$sendEmail->receiver($email, $email);
-			$sendEmail->subject(lang('User', 'new_your_password'));
+			$sendEmail->subject(lang('User', 'newYourPassword'));
 			$sendEmail->content($message);
 			
 			if( $sendEmail->send() )
@@ -568,20 +568,20 @@ class User
 				$db->update($table_name, array($password_column => $encode_password));
 
 				self::$error = true;	
-				self::$success = lang('User', 'forgot_password_success');
+				self::$success = lang('User', 'forgotPasswordSuccess');
 				return false;
 			}
 			else
 			{	
 				self::$success = false;
-				self::$error = lang('User', 'email_error');
+				self::$error = lang('User', 'emailError');
 				return false;
 			}
 		}
 		else
 		{
 			self::$success = false;
-			self::$error = lang('User', 'forgot_password_error');	
+			self::$error = lang('User', 'forgotPasswordError');	
 			return false;
 		}
 	}
@@ -646,12 +646,12 @@ class User
 					
 			if( $old_password != $password )
 			{
-				self::$error = lang('User', 'old_password_error');
+				self::$error = lang('User', 'oldPasswordError');
 				return false;	
 			}
 			elseif( $new_password != $new_password_again )
 			{
-				self::$error = lang('User', 'password_not_match_error');
+				self::$error = lang('User', 'passwordNotMatchError');
 				return false;
 			}
 			else
@@ -659,19 +659,19 @@ class User
 				$data[$pc] = $new_password;
 				$data[$uc] = $username;
 				
-				$db = uselib('Database\Db');
+				$db = uselib('Database\DB');
 				
 				$db->where($uc.' =', $username);
 				
 				if( $db->update($tn, $data) )
 				{
 					self::$error = false;
-					self::$success = lang('User', 'update_process_success');
+					self::$success = lang('User', 'updateProcessSuccess');
 					return true;
 				}
 				else
 				{
-					self::$error = lang('User', 'register_unknown_error');	
+					self::$error = lang('User', 'registerUnknownError');	
 					return false;
 				}		
 			}
@@ -702,7 +702,7 @@ class User
 		
 		if( ! empty($c_username) && ! empty($c_password) )
 		{
-			$db = uselib('Database\Db');
+			$db = uselib('Database\DB');
 			$result = $db->where(Config::get("User",'usernameColumn').' =',$c_username, 'and')
 						 ->where(Config::get("User",'passwordColumn').' =',$c_password)
 						 ->get(Config::get("User",'tableName'))
@@ -758,7 +758,7 @@ class User
 			$data = array();
 			self::$username = $_SESSION[md5(Config::get("User",'usernameColumn'))];
 			
-			$db = uselib('Database\Db');
+			$db = uselib('Database\DB');
 			
 			$r = $db->where(Config::get("User",'usernameColumn').' =',self::$username)
 				    ->get(Config::get("User",'tableName'))
@@ -804,7 +804,7 @@ class User
 			
 			if( Config::get("User",'activeColumn') )
 			{	
-				$db = uselib('Database\Db');
+				$db = uselib('Database\DB');
 				
 				$db->where(Config::get("User",'usernameColumn').' =', self::data()->$username)
 				   ->update(Config::get("User",'tableName'), array(Config::get("User",'activeColumn') => 0));

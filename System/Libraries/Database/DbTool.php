@@ -19,7 +19,7 @@ use Config;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
-class DbTool
+class DBTool
 {		
 	/* Prefix Değişkeni
 	 *  
@@ -37,9 +37,9 @@ class DbTool
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		require_once(SYSTEM_LIBRARIES_DIR.'Database/DbCommon.php');
+		require_once(SYSTEM_LIBRARIES_DIR.'Database/DBCommon.php');
 		
-		$this->db = dbcommon();
+		$this->db = DBCommon();
 		
 		$this->prefix = Config::get('Database', 'prefix');
 		
@@ -222,7 +222,7 @@ class DbTool
 		fwrite($handle,$return);
 		fclose($handle);
 		
-		return getMessage('Database', 'backup_tables_success');
+		return getMessage('Database', 'backupTablesSuccess');
 	}
 	
 	/******************************************************************************************
@@ -272,7 +272,7 @@ class DbTool
 			}
 		}
 	
-		return getMessage('Database', 'optimize_tables_success');
+		return getMessage('Database', 'optimizeTablesSuccess');
 	}
 	
 	/******************************************************************************************
@@ -322,7 +322,7 @@ class DbTool
 			}
 		}
 				
-		return getMessage('Database', 'repair_tables_success');
+		return getMessage('Database', 'repairTablesSuccess');
 	}
 	
 	/******************************************************************************************

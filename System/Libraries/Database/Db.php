@@ -19,7 +19,7 @@ use Config;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
-class Db
+class DB
 {
 	/* Select Değişkeni
 	 *  
@@ -237,9 +237,9 @@ class Db
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		require_once(SYSTEM_LIBRARIES_DIR.'Database/DbCommon.php');
+		require_once(SYSTEM_LIBRARIES_DIR.'Database/DBCommon.php');
 		
-		$this->db = dbcommon();
+		$this->db = DBCommon();
 		
 		$this->prefix = Config::get('Database', 'prefix');
 		

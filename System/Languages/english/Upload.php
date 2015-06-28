@@ -9,8 +9,8 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-$lang['Upload']['extension_error'] = 'Invalid file extension!';
-$lang['Upload']['unknown_error'] = 'Unknown error or file is too large!';
+$lang['Upload']['extensionError'] = 'Invalid file extension!';
+$lang['Upload']['unknownError'] = 'Unknown error or file is too large!';
 $lang['Upload']['0'] = 'The file was uploaded successfully.';
 $lang['Upload']['1'] = 'Maximum file size exceeded your php.ini file!';
 $lang['Upload']['2'] = 'Form max_file_size directive file size limit has been exceeded!';

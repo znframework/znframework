@@ -69,23 +69,23 @@ class RedisDriver
 			}
 			if ( empty($success) )
 			{
-				die(getMessage('Cache', 'connection_refused', 'Connection'));
+				die(getMessage('Cache', 'connectionRefused', 'Connection'));
 			}
 		}
 		catch( RedisException $e )
 		{
-			die(getMessage('Cache', 'connection_refused', $e->getMessage()));
+			die(getMessage('Cache', 'connectionRefused', $e->getMessage()));
 		}
 		
 		if( isset($config['password']) )
 		{
 			if ( ! $this->redis->auth($config['password']))
 			{
-				die(getMessage('Cache', 'authentication_failed'));
+				die(getMessage('Cache', 'authenticationFailed'));
 			}
 		}
 
-		$serialized = $this->redis->sMembers('redis_serialized');
+		$serialized = $this->redis->sMembers('ZNRedisSerialized');
 		
 		if ( ! empty($serialized) )
 		{
@@ -145,7 +145,7 @@ class RedisDriver
 		
 		if( is_array($data) OR is_object($data) )
 		{
-			if( ! $this->redis->sIsMember('redis_serialized', $key) && ! $this->redis->sAdd('redis_serialized', $key) )
+			if( ! $this->redis->sIsMember('ZNRedisSerialized', $key) && ! $this->redis->sAdd('ZNRedisSerialized', $key) )
 			{
 				return false;
 			}
@@ -161,7 +161,7 @@ class RedisDriver
 		{
 			$this->serialized[$key] = NULL;
 			
-			$this->redis->sRemove('redis_serialized', $key);
+			$this->redis->sRemove('ZNRedisSerialized', $key);
 		}
 		return $this->redis->set($key, $data, $time);
 	}
@@ -192,7 +192,7 @@ class RedisDriver
 		{
 			$this->serialized[$key] = NULL;
 			
-			$this->redis->sRemove('redis_serialized', $key);
+			$this->redis->sRemove('ZNRedisSerialized', $key);
 		}
 		return TRUE;
 	}

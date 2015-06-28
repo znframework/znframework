@@ -421,7 +421,7 @@ class Validation
 			
 			if( $edit != $_SESSION[md5('captcha_code')] )
 			{ 
-				$security_code 		= lang('Validation', 'security_code',$view_name);
+				$security_code 		= lang('Validation', 'captchaCode',$view_name);
 				$messages[$i] 		= $security_code.'<br>'; $i++;
 				self::$error[$name] = $security_code;
 			} 
@@ -434,7 +434,7 @@ class Validation
 			
 			if( $edit != $pm )
 			{ 
-				$password_match 	= lang('Validation', 'password_match',$view_name);
+				$password_match 	= lang('Validation', 'passwordMatch',$view_name);
 				$messages[$i] 		= $password_match.'<br>'; $i++;
 				self::$error[$name] = $password_match;
 			} 
@@ -446,7 +446,7 @@ class Validation
 			
 			if( $edit != $pm )
 			{ 
-				$password_match 	= lang('Validation', 'data_match',$view_name);
+				$password_match 	= lang('Validation', 'dataMatch',$view_name);
 				$messages[$i] 		= $password_match.'<br>'; $i++;
 				self::$error[$name] = $password_match;
 			} 
@@ -459,7 +459,7 @@ class Validation
 	
 			if( Encode::super($edit) != $pm )
 			{ 
-				$old_password_match = lang('Validation', 'old_password_match',$view_name);
+				$old_password_match = lang('Validation', 'oldPasswordMatch',$view_name);
 				$messages[$i] 		= $old_password_match.'<br>'; $i++;
 				self::$error[$name] = $old_password_match;
 			} 
@@ -512,7 +512,7 @@ class Validation
 		{
 			if( self::specialChar($edit) )
 			{ 
-				$nospecial_char 	= lang('Validation', 'nospecial_char',$view_name);
+				$nospecial_char 	= lang('Validation', 'noSpecialChar',$view_name);
 				$messages[$i] 		= $nospecial_char.'<br>';  $i++;
 				self::$error[$name] = $nospecial_char;
 			} 

@@ -19,7 +19,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Parametreler: Herhangi bir parametresi yoktur.                                          |
 |          																				  |
 ******************************************************************************************/
-function dbcommon()
+function DBCommon()
 {	
 	$config = Config::get('Database');
 	
@@ -48,7 +48,7 @@ function dbcommon()
 		}
 		else
 		{
-			die(getMessage('Database', 'driver_error', $driver));
+			die(getMessage('Database', 'driverError', $driver));
 		}
 		
 		$driver = $driver.'Driver';

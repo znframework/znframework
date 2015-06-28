@@ -77,13 +77,13 @@ class Cookie
 		}
 		if( empty($name) )
 		{			
-			self::$error = getMessage('Cookie', 'name_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'nameParameterEmptyError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
 		if( empty($value) )
 		{
-			self::$error = getMessage('Cookie', 'value_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'valueParameterEmptyError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -134,7 +134,7 @@ class Cookie
 		}
 		else
 		{
-			self::$error = getMessage('Cookie', 'set_error');
+			self::$error = getMessage('Cookie', 'setError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -161,7 +161,7 @@ class Cookie
 
 		if( empty($name) )
 		{
-			self::$error = getMessage('Cookie', 'name_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'nameParameterEmptyError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -181,7 +181,7 @@ class Cookie
 		}
 		else 
 		{
-			self::$error = getMessage('Cookie', 'not_select_error');
+			self::$error = getMessage('Cookie', 'notSelectError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;	
 		}
@@ -212,7 +212,7 @@ class Cookie
 		
 		if( empty($name) )
 		{
-			self::$error = getMessage('Cookie', 'name_parameter_empty_error');
+			self::$error = getMessage('Cookie', 'nameParameterEmptyError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;
 		}
@@ -236,7 +236,7 @@ class Cookie
 		}
 		else
 		{ 
-			self::$error = getMessage('Cookie', 'not_delete_error');
+			self::$error = getMessage('Cookie', 'notDeleteError');
 			report('Error',self::$error,'CookieLibrary');
 			return false;		
 		}

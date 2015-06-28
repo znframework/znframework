@@ -10,8 +10,8 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 // ERROR ------------------------------------------------------------------------------------------------------------------
-$lang['Cache']['driver_error'] = '`%` sürücüsü bulunamadı!';
+$lang['Cache']['driverError'] = '`%` sürücüsü bulunamadı!';
 $lang['Cache']['unsupported'] = '`%` sürücünü kullanmak için yüklenmesi gerekmektedir!';
-$lang['Cache']['invalid_driver'] = '`%` sürücüsü geçersizdir!';
-$lang['Cache']['connection_refused'] = 'Bağlantı sağlanamadı! Hata:`%`';
-$lang['Cache']['authentication_failed'] = 'Geçersiz giriş!';
+$lang['Cache']['invalidDriver'] = '`%` sürücüsü geçersizdir!';
+$lang['Cache']['connectionRefused'] = 'Bağlantı sağlanamadı! Hata:`%`';
+$lang['Cache']['authenticationFailed'] = 'Geçersiz giriş!';

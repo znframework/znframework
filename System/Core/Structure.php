@@ -187,7 +187,7 @@ class Structure
 			{
 				if( ! Config::get('Route', 'show404') )
 				{
-					$error = getMessage('System', 'call_user_func_class_error');
+					$error = getMessage('System', 'callUserFuncClassError');
 					
 					// Sayfa bilgisine erişilemezse hata bildir.
 					echo $error;
@@ -221,7 +221,7 @@ class Structure
 				// Sayfa bilgisine erişilemezse hata bildir.
 				if( ! Config::get('Route', 'show404') )
 				{
-					$error = getMessage('System', 'call_user_func_array_error');
+					$error = getMessage('System', 'callUserFuncArrayError');
 					
 					// Hatayı ekrana yazdır.
 					echo $error;
@@ -247,7 +247,7 @@ class Structure
 			}
 			else
 			{
-				$error = getMessage('System', 'not_is_file_error');
+				$error = getMessage('System', 'notIsFileError');
 				
 				// Hatayı ekrana yazdır.
 				echo $error;

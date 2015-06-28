@@ -354,7 +354,7 @@ class Convert
 			'#0000BB' => $color,
 			
 			// PHP Tag Renkleri
-			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php',
+			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php</span>',
 			'<span style="color: '.$color.'">?&gt;'	  => '<span style="color: '.$tagColor.'">?&gt;',
 			
 			// Keywords

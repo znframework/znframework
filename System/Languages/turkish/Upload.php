@@ -9,8 +9,8 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-$lang['Upload']['extension_error'] = 'Geçersiz dosya uzantısı!';
-$lang['Upload']['unknown_error'] = 'Bilinmeyen hata veya çok büyük boyutlu dosya!';
+$lang['Upload']['extensionError'] = 'Geçersiz dosya uzantısı!';
+$lang['Upload']['unknownError'] = 'Bilinmeyen hata veya çok büyük boyutlu dosya!';
 $lang['Upload']['0'] = 'Dosya başarı ile yüklendi.';
 $lang['Upload']['1'] = 'Php.ini dosyasındaki maximum dosya boyutu aşıldı!';
 $lang['Upload']['2'] = 'Formdaki max_file_size direktifindeki dosya boyutu limiti aşıldı!';

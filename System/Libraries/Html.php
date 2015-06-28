@@ -12,11 +12,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * HTML                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken : html::, $this->html, zn::$use->html, uselib('html')	  	  	      |
+| Sınıfı Kullanırken : HTML::, $this->HTML, zn::$use->HTML, uselib('HTML')	  	  	      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/	
-class Html
+class HTML
 {
 	// Function: self::attributes()
 	// İşlev: Girilen dizi bilgisini html etiketlerinin özellik değer biglisi türüne dönüştürür.

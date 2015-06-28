@@ -22,6 +22,6 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 $config['Language'] = array
 (
-	'tr' => 'turkish',
-	'en' => 'english'
+	'tr' => 'Turkish',
+	'en' => 'English'
 );

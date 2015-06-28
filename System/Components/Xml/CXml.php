@@ -9,7 +9,7 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Xml;
+namespace XML;
 /******************************************************************************************
 * XML                                                                                     *
 *******************************************************************************************
@@ -17,7 +17,7 @@ namespace Xml;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CXml
+class CXML
 {
 	protected $objects = array
 	(

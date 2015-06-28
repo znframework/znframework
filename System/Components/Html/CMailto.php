@@ -9,11 +9,11 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Html;
+namespace HTML;
 
 require_once(COMPONENTS_DIR.'Html/Common.php');
 
-use Html\ComponentHtmlCommon;
+use HTML\ComponentHtmlCommon;
 /******************************************************************************************
 * MAILTO                                                                                  *
 *******************************************************************************************

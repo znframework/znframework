@@ -235,7 +235,7 @@ class Form
 	/******************************************************************************************
 	* PASSWORD                                                                                *
 	*******************************************************************************************
-	| Genel Kullanım: Html <input type="password"> tagının kullanımıdır.    				  |
+	| Genel Kullanım: Html <input type='password'> tagının kullanımıdır.    				  |
 	|															                              |
 	| Parametreler: 3 parametresi vardır.		                                              |
 	| 1. string var @name => Form nesnesinin ismi belirtilir.	  				              |
@@ -243,7 +243,7 @@ class Form
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
 	|          																				  |
 	| Örnek Kullanım: password('nesne', 'Değer', array('style' => 'color:red'));        	  |
-	| // <input type="password" name="nesne" value="Değer" style="color:red">       		  |
+	| // <input type='password' name="nesne" value="Değer" style="color:red">       		  |
 	|          																				  |
 	******************************************************************************************/	
 	public static function password($name = "", $value = "", $_attributes = '')

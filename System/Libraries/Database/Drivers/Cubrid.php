@@ -71,7 +71,7 @@ class CubridDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(getMessage('Database', 'mysql_connect_error'));
+			die(getMessage('Database', 'mysqlConnectError'));
 		}
 	}
 	

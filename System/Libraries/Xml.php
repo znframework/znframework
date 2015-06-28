@@ -12,11 +12,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * XML                                                                                	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	Xml::   												      |
+| Sınıfı Kullanırken      :	XML::   												      |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class Xml
+class XML
 {
 	/* Xpath Değişkeni
 	 *  

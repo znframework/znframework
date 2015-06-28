@@ -9,5 +9,5 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-$lang['Download']['empty_parameter_error'] = 'İndirme işlemi gerçekleştirilecek dosya bulunamadı!';
-$lang['Download']['string_parameter_error'] = 'Dosya yolu parametresi metinsel veri türü içermelidir!';
+$lang['Download']['emptyParameterError'] = 'İndirme işlemi gerçekleştirilecek dosya bulunamadı!';
+$lang['Download']['stringParameterError'] = 'Dosya yolu parametresi metinsel veri türü içermelidir!';

@@ -49,7 +49,7 @@ class Cache
 				$driver = $config['driver'];
 			}
 		
-			die(getMessage('Cache', 'invalid_driver', $driver));	
+			die(getMessage('Cache', 'invalidDriver', $driver));	
 		}
 	}
 	

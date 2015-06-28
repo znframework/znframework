@@ -9,11 +9,11 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Html;
+namespace HTML;
 
 require_once(COMPONENTS_DIR.'Html/Common.php');
 
-use Html\ComponentHtmlCommon;
+use HTML\ComponentHtmlCommon;
 /******************************************************************************************
 * HTML                                                                                    *
 *******************************************************************************************
@@ -21,7 +21,7 @@ use Html\ComponentHtmlCommon;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CHtml extends ComponentHtmlCommon
+class CHTML extends ComponentHtmlCommon
 {
 	/******************************************************************************************
 	* ELEMENT                                                                                 *

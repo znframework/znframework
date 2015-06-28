@@ -59,7 +59,7 @@ class Cart
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			self::$error = getMessage('Cart', 'insert_parameter_empty_error');
+			self::$error = getMessage('Cart', 'insertParameterEmptyError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -67,7 +67,7 @@ class Cart
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			self::$error = getMessage('Cart', 'array_parameter_error');
+			self::$error = getMessage('Cart', 'arrayParameterError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -112,7 +112,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = getMessage('Cart', 'no_data_error');
+			self::$error = getMessage('Cart', 'noDataError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
@@ -199,7 +199,7 @@ class Cart
 		}
 		else
 		{
-			self::$error = getMessage('Cart', 'no_data_error');
+			self::$error = getMessage('Cart', 'noDataError');
 			report('Error', self::$error, 'CartLibrary');
 			return 0;	
 		}
@@ -225,7 +225,7 @@ class Cart
 		
 		if( empty(self::$items) )
 		{
-			self::$error = getMessage('Cart', 'no_data_error');
+			self::$error = getMessage('Cart', 'noDataError');
 			report('Error', self::$error, 'CartLibrary');
 			return 0;	
 		}
@@ -268,21 +268,21 @@ class Cart
 	{	
 		if( empty($code) )
 		{
-			self::$error = getMessage('Cart', 'update_code_error');
+			self::$error = getMessage('Cart', 'updateCodeError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( empty($data) )
 		{
-			self::$error = getMessage('Cart', 'update_parameter_empty_error');
+			self::$error = getMessage('Cart', 'updateParameterEmptyError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}
 		
 		if( ! is_array($data) )
 		{
-			self::$error = getMessage('Cart', 'update_array_parameter_error');
+			self::$error = getMessage('Cart', 'updateArrayParameterError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}	
@@ -355,7 +355,7 @@ class Cart
 	{		
 		if( empty($code) )
 		{
-			self::$error = getMessage('Cart', 'delete_code_error');
+			self::$error = getMessage('Cart', 'deleteCodeError');
 			report('Error', self::$error, 'CartLibrary');
 			return false;	
 		}

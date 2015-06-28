@@ -12,11 +12,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * URI                                                                                	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      : Uri::, $this->uri, zn::$use->uri, uselib('uri')		   		  |
+| Sınıfı Kullanırken      : URI::, $this->URI, zn::$use->URI, uselib('URI')		   		  |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class Uri
+class URI
 {
 	// Uri işlemleri için oluşturulmuştur.
 	private static function clean_path()

@@ -159,7 +159,7 @@ class Search
 		}
 		// ------------------------------------------------------------------------
 		
-		$db = uselib('Database\Db');
+		$db = uselib('Database\DB');
 		
 		foreach($conditions as $key => $values)
 		{

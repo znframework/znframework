@@ -12,11 +12,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * FTP                                                                               	  *
 *******************************************************************************************
-| Sınıfı Kullanırken      :	Ftp:: , $this->Ftp , zn::$use->Ftp , uselib('Ftp')->          |
+| Sınıfı Kullanırken      :	FTP:: , $this->FTP , zn::$use->FTP , uselib('FTP')->          |
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class Ftp
+class FTP
 {
 	/* Connect Değişkeni
 	 *  
@@ -180,7 +180,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error =  getMessage('Folder', 'already_file_error', $path);
+			self::$error =  getMessage('Folder', 'alreadyFileError', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false; 
 		}
@@ -215,7 +215,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'not_found_error', $path);
+			self::$error = getMessage('Folder', 'notFoundError', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -248,7 +248,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'change_folder_error', $path);
+			self::$error = getMessage('Folder', 'changeFolderError', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -284,7 +284,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'change_folder_name_error', $oldname);
+			self::$error = getMessage('Folder', 'changeFolderNameError', $oldname);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -319,7 +319,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = getMessage('File', 'not_found_error', $path);
+			self::$error = getMessage('File', 'notFoundError', $path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -370,7 +370,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = getMessage('File', 'remote_upload_error', $local_path);
+			self::$error = getMessage('File', 'remoteUploadError', $local_path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -421,7 +421,7 @@ class Ftp
 		}
 		else
 		{
-			self::$error = getMessage('File', 'remote_download_error', $local_path);
+			self::$error = getMessage('File', 'remoteDownloadError', $local_path);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}

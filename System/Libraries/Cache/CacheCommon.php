@@ -56,7 +56,7 @@ function cachecommon($driver = '')
 		}
 		else
 		{
-			die(getMessage('Cache', 'driver_error', $driver));
+			die(getMessage('Cache', 'driverError', $driver));
 		}
 		
 		$driver = $driver.'Driver';

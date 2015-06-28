@@ -724,13 +724,13 @@ class Email
 		{
 			if( strpos($file, '://') === false && ! file_exists($file) )
 			{
-				$this->_setErrorMessage('attachment_missing', $file);
+				$this->_setErrorMessage('attachmentMissing', $file);
 				return false;
 			}
 			
 			if( ! $fp = @fopen($file, 'rb') )
 			{
-				$this->_setErrorMessage('attachment_unreadable', $file);
+				$this->_setErrorMessage('attachmentUnreadable', $file);
 				return false;
 			}
 			
@@ -1151,7 +1151,7 @@ class Email
 	{
 		if ( ! is_array($email))
 		{
-			$this->_setErrorMessage('must_be_array');
+			$this->_setErrorMessage('mustBeArray');
 			return false;
 		}
 		
@@ -1159,7 +1159,7 @@ class Email
 		{
 			if ( ! isEmail($val) )
 			{
-				$this->_setErrorMessage('invalid_address', $val);
+				$this->_setErrorMessage('invalidAddress', $val);
 				
 				return false;
 			}
@@ -1267,7 +1267,7 @@ class Email
 			}
 			else
 			{
-				$this->_setErrorMessage('no_from');
+				$this->_setErrorMessage('noFrom');
 			
 				return false;	
 			}
@@ -1280,7 +1280,7 @@ class Email
 		
 		if( ! isset($this->receivers) && ! isset($this->headers['To']) && ! isset($this->bccReceivers) && ! isset($this->headers['Bcc']) && ! isset($this->headers['Cc']) )
 		{
-			$this->_setErrorMessage('no_recipients');
+			$this->_setErrorMessage('noReceivers');
 			
 			return false;
 		}
@@ -1856,7 +1856,7 @@ class Email
 			 			  ? 'phpmail' 
 						  : $this->_getProtocolType();
 		
-			$this->_setErrorMessage('send_failure_'.$protocolType);
+			$this->_setErrorMessage('sendFailure'.ucfirst($protocolType));
 
 			return false;
 		}
@@ -1904,8 +1904,8 @@ class Email
 		
 		if( $status !== 0 )
 		{
-			$this->_setErrorMessage('exit_status', $status);
-			$this->_setErrorMessage('no_socket');
+			$this->_setErrorMessage('exitStatus', $status);
+			$this->_setErrorMessage('noSocket');
 			return false;
 		}
 		
@@ -1932,7 +1932,7 @@ class Email
 							 
 		if( ! is_resource($this->smtpConnect) )
 		{
-			$this->_setErrorMessage('smtp_error', $errno.' '.$errstr);
+			$this->_setErrorMessage('smtpError', $errno.' '.$errstr);
 			
 			return false;
 		}
@@ -1950,7 +1950,7 @@ class Email
 			
 			if( $crypto !== true )
 			{
-				$this->_setErrorMessage('smtp_error', $this->_getSmtpData());
+				$this->_setErrorMessage('smtpError', $this->_getSmtpData());
 				return false;
 			}
 		}
@@ -2011,7 +2011,7 @@ class Email
 		
 		if( (int)substr($reply, 0, 3) !== $resp )
 		{
-			$this->_setErrorMessage('smtp_error', $reply);
+			$this->_setErrorMessage('smtpError', $reply);
 			
 			return false;
 		}
@@ -2028,7 +2028,7 @@ class Email
 	{
 		if( $this->smtpHost === '' )
 		{
-			$this->_setErrorMessage('no_hostname');
+			$this->_setErrorMessage('noHostName');
 			
 			return false;
 		}
@@ -2072,7 +2072,7 @@ class Email
 		
 		if( strpos($reply, '250') !== 0 )
 		{
-			$this->_setErrorMessage('smtp_error', $reply);
+			$this->_setErrorMessage('smtpError', $reply);
 			
 			return false;
 		}
@@ -2097,7 +2097,7 @@ class Email
 		
 		if( $this->smtpUser === '' && $this->smtpPassword === '' )
 		{
-			$this->_setErrorMessage('no_smtp_unpw');
+			$this->_setErrorMessage('noSmtpUnpassword');
 			
 			return false;
 		}
@@ -2111,7 +2111,7 @@ class Email
 		}
 		elseif( strpos($reply, '334') !== 0 )
 		{
-			$this->_setErrorMessage('failed_smtp_login', $reply);
+			$this->_setErrorMessage('failedSmtpLogin', $reply);
 			
 			return false;
 		}
@@ -2121,7 +2121,7 @@ class Email
 		
 		if( strpos($reply, '334') !== 0 )
 		{
-			$this->_setErrorMessage('smtp_auth_un', $reply);
+			$this->_setErrorMessage('smtpAuthUserName', $reply);
 			
 			return false;
 		}
@@ -2131,7 +2131,7 @@ class Email
 		
 		if( strpos($reply, '235') !== 0 )
 		{
-			$this->_setErrorMessage('smtp_auth_pw', $reply);
+			$this->_setErrorMessage('smtpAuthPassword', $reply);
 			return false;
 		}
 		
@@ -2151,7 +2151,7 @@ class Email
 		}
 		if( $result === false )
 		{
-			$this->_setErrorMessage('smtp_data_failure', $data);
+			$this->_setErrorMessage('smtpDataFailure', $data);
 			
 			return false;
 		}

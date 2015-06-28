@@ -247,7 +247,7 @@ class Upload
 
 				if( isset(self::$settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
-					self::$extension_control = lang('Upload', 'extension_error');	
+					self::$extension_control = lang('Upload', 'extensionError');	
 				}
 				elseif( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($src) )
 				{
@@ -299,7 +299,7 @@ class Upload
 			
 			if( isset(self::$settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				self::$extension_control = lang('Upload', 'extension_error');	
+				self::$extension_control = lang('Upload', 'extensionError');	
 			}
 			else
 			{	
@@ -391,7 +391,7 @@ class Upload
 	{
 		if( ! isset($_FILES[self::$file]['error']) ) 
 		{
-			return lang('Upload', 'unknown_error');
+			return lang('Upload', 'unknownError');
 		}
 		
 		$error_no = $_FILES[self::$file]['error'];
@@ -434,7 +434,7 @@ class Upload
 		// hata uyarısı ver.	
 		else 
 		{
-			return lang('Upload', 'unknown_error');
+			return lang('Upload', 'unknownError');
 		}
 	}
 	
@@ -466,7 +466,7 @@ class Upload
 		
 		$queries = explode(";\n", $file_contents);
 		
-		$db = uselib('Database\Db');
+		$db = uselib('Database\DB');
 		
 		foreach($queries as $query)
 		{
