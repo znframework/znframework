@@ -595,9 +595,9 @@ class PdoDriver
 	// Alt sürücüler nesne oluşturulma işlemi.
 	private function _sub_drivers($usr, $pass)
 	{
-		$driver = 'PDO'.ucwords($this->select_driver).'Driver';
+		$driver = 'PDO'.ucfirst($this->select_driver).'Driver';
 		
-		require_once(SYSTEM_LIBRARIES_DIR.'Database/Drivers/PDODrivers/'.suffix($this->select_driver, '.php'));
+		require_once(SYSTEM_LIBRARIES_DIR.'Database/Drivers/PDODrivers/'.suffix(ucfirst($this->select_driver), '.php'));
 		
 		$this->sub_driver = new $driver;
 		

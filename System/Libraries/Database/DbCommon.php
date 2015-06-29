@@ -28,13 +28,13 @@ function DBCommon()
 		// Drivere ayarına girilen verinin
 		// ilk harfini büyük yapması isteniyor.
 		// pdo => Pdo		
-		$driver = ucwords($config['driver']);
-		
+		$driver = ucfirst($config['driver']);
+	
 		// Sub driver kullanılırken driver->subdriver
 		// kullanımı için böyle bir kontrol yapılmaktadır.
-		if( strpos($config['driver'], '->') )
+		if( strpos($driver, '->') )
 		{
-			$subdrivers = explode('->', $config['driver']);
+			$subdrivers = explode('->', $driver);
 			$driver  = $subdrivers[0];
 		}
 		
