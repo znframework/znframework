@@ -70,11 +70,11 @@ class OB
 		
 		if( ! empty($params) )
 		{
-			return call_user_func_array($func, $params);
+			echo call_user_func_array($func, $params);
 		}
 		else
 		{
-			return $func();
+			echo $func();
 		}
 		
 		$contents = ob_get_contents();
