@@ -54,20 +54,28 @@ class OB
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @func => Tampona alınacak yöntem ismi veya içeriği.		  				  |
+	| 2. array var @params => Yöntemin parametrelerini belirtmek içindir.		  			  |
 	|          																				  |
 	| Örnek Kullanım: takeFuncBuffer(function(){echo 1;});		 							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function takeFuncBuffer($func = '')
+	public static function takeFuncBuffer($func = '', $params = array())
 	{
-		if( ! is_callable($func))
+		if( ! is_callable($func) || ! is_array($params) )
 		{
 			return false;	
 		}
 		
 		ob_start();
 		
-		$func();
+		if( ! empty($params) )
+		{
+			return call_user_func_array($func, $params);
+		}
+		else
+		{
+			return $func();
+		}
 		
 		$contents = ob_get_contents();
 		
@@ -84,20 +92,21 @@ class OB
 	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @name => Veri ismi.		  				  								  |
 	| 2. string var @func => Tampona alınacak yöntem ismi veya içeriği.		  				  |
+	| 3. array var @params => Yöntemin parametrelerini belirtmek içindir.		  			  |
 	|          																				  |
 	| Örnek Kullanım: insert('veri', 'dosya/index.html');		 							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function insert($name = '', $data = '')
+	public static function insert($name = '', $data = '', $params = array())
 	{
-		if( ! isValue($name) )
+		if( ! isValue($name) || ! is_array($params) )
 		{
 			return false;	
 		}
 		
 		if( is_callable($data) )
 		{
-			return Session::insert('OB_DATAS_'.$name, self::takeFuncBuffer($data));	
+			return Session::insert('OB_DATAS_'.$name, self::takeFuncBuffer($data, $params));	
 		}
 		elseif( file_exists($data) )
 		{
