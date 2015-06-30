@@ -9,7 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-
 /******************************************************************************************
 * DB COMMON                                                                               *
 *******************************************************************************************
@@ -38,23 +37,23 @@ function DBCommon()
 			$driver  = $subdrivers[0];
 		}
 		
-		$driver_path = SYSTEM_LIBRARIES_DIR.'Database/Drivers/'.$driver.'.php';
+		$drv = $driver.'Driver';
+		
+		$driver_path = SYSTEM_LIBRARIES_DIR.'Database/Drivers/'.$drv.'.php';
 		
 		// Hangi sürücü kullanılacaksa
 		// o sürüyü dahil ediyor.
-		if( is_file($driver_path) )	
+		if( ! is_file($driver_path) )	
 		{		
-			require_once($driver_path);
+			die(getMessage('Database', 'driverError', $driver));
 		}
 		else
 		{
-			die(getMessage('Database', 'driverError', $driver));
+			require_once($driver_path);	
 		}
 		
-		$driver = $driver.'Driver';
-		
 		// Sürüden bir nesne oluşturuluyor.
-		$db = new $driver;
+		$db = new $drv;
 		
 		return $db;
 	}	

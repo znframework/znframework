@@ -25,11 +25,11 @@ class Starting
 	public static function run()
 	{	
 		// INI AYARLAR YAPILANDIRILIYOR...
-		$iniset = Config::get('Ini', 'settings');
+		$iniSet = Config::get('Ini', 'settings');
 		
-		if( ! empty($iniset) ) 
+		if( ! empty($iniSet) ) 
 		{
-			Config::iniSet($iniset);
+			Config::iniSet($iniSet);
 		}
 		// ----------------------------------------------------------------------
 					
@@ -40,9 +40,14 @@ class Starting
 		}	
 		// ----------------------------------------------------------------------
 		
+		// SINIF HARİTASI OLUŞTURULUYOR... 	
+		if( Config::get('Autoloader','create') === true ) 
+		{
+			Autoloader::createClassMap();
+		}	
 		// ----------------------------------------------------------------------
 		
-		// COMPOSER AUTOLOAD	
+		// COMPOSER DOSYASI OLUŞTURULUYOR...	
 		$composer = Config::get('Composer', 'autoload');
 		
 		if( $composer === true )

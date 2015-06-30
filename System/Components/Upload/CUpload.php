@@ -9,10 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Upload;
-
-use Config;
-use Upload;
 /******************************************************************************************
 * Config/Upload.php dosyasından Ini ayarlarını yapılandır.                                *
 ******************************************************************************************/

@@ -9,12 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Form;
-
-require_once(COMPONENTS_DIR.'Form/Validation.php');
-
-use Import;
-use Form\ComponentFormValidation;
 /******************************************************************************************
 * FORM                                                                                    *
 *******************************************************************************************
@@ -22,7 +16,7 @@ use Form\ComponentFormValidation;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CForm extends ComponentFormValidation
+class CForm extends CFormValidation
 {
 	/* Name Değişkeni
 	 *  

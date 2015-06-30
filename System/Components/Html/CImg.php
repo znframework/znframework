@@ -9,11 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace HTML;
-
-require_once(COMPONENTS_DIR.'Html/Common.php');
-
-use HTML\ComponentHtmlCommon;
 /******************************************************************************************
 * IMG                                                                                     *
 *******************************************************************************************
@@ -21,7 +16,7 @@ use HTML\ComponentHtmlCommon;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CImg extends ComponentHtmlCommon
+class CImg extends CHtmlCommon
 {
 	/******************************************************************************************
 	* SRC                                                                                     *

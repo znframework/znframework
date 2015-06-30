@@ -597,8 +597,6 @@ class PdoDriver
 	{
 		$driver = 'PDO'.ucfirst($this->select_driver).'Driver';
 		
-		require_once(SYSTEM_LIBRARIES_DIR.'Database/Drivers/PDODrivers/'.suffix(ucfirst($this->select_driver), '.php'));
-		
 		$this->sub_driver = new $driver;
 		
 		try

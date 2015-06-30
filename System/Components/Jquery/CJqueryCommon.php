@@ -9,7 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Jquery;
 /******************************************************************************************
 * PROTECTED COMMON                                                                        *
 *******************************************************************************************
@@ -18,7 +17,7 @@ namespace Jquery;
 | 																						  |
 | NOT: Yardımcı sınıftır.     															  |
 ******************************************************************************************/
-class ComponentJqueryCommon
+class CJqueryCommon
 {
 	protected function _booltostr($bool = true)
 	{

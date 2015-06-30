@@ -466,7 +466,7 @@ class Upload
 		
 		$queries = explode(";\n", $file_contents);
 		
-		$db = uselib('Database\DB');
+		$db = uselib('DB');
 		
 		foreach($queries as $query)
 		{

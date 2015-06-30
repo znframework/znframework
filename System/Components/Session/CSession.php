@@ -9,10 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Session;
-
-use Config;
-
 Config::iniSet(Config::get('Session','settings'));
 
 if(!isset($_SESSION)) session_start();

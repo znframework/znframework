@@ -113,7 +113,7 @@ class Import
 	******************************************************************************************/
 	public static function bladepage($page = '', $data = '', $ob_get_contents = false)
 	{
-		return uselib('Template\CBlade')->view($page, $data, $ob_get_contents);
+		return uselib('CBlade')->view($page, $data, $ob_get_contents);
 	}
 	
 	/******************************************************************************************
@@ -132,7 +132,7 @@ class Import
 	******************************************************************************************/
 	public static function parserpage($page = '', $data = '', $ob_get_contents = false)
 	{
-		return uselib('Template\CParser')->view($page, $data, $ob_get_contents);
+		return uselib('CParser')->view($page, $data, $ob_get_contents);
 	}
 	
 	/******************************************************************************************

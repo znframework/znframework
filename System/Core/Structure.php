@@ -43,21 +43,21 @@ class Structure
 		 * Url parlarını birleştirmek
 		 * için oluşturulmuştur.
 		 */
-		$url_join 		= ''; 	
+		$urlJoin 		= ''; 	
 		
 		/* Url Parameters Değişkeni
 		 *
 		 * Url adresinin parametre bölümlerini
 		 * tutması için oluşturulmuştur.
 		 */
-		$url_parameters = '';	
+		$urlParameters  = '';	
 		
 		/* Is Fıle Değişkeni
 		 *
 		 * Girilen Url adresinin geçerli bir.
 		 * sayfa olma durumun kontrol etmesi için oluşturulmuştur.
 		 */  
-		$is_file 		= ''; 
+		$isFile 		= ''; 
 		
 		/* Parameters Dizi Değişkeni
 		 *
@@ -71,64 +71,64 @@ class Structure
 		 * Ziyaretçi URL adresini
 		 * tutması için oluşturulmuştur.
 		 */
-		$request_uri 	= requestUri();
+		$requestUri 	= requestUri();
 		
 		
 		// -------------------------------------------------------------------------------
 		//  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
 		// -------------------------------------------------------------------------------
-		$url 			= explode('?', $request_uri);
+		$url 			= explode('?', $requestUri);
 		
 		// -------------------------------------------------------------------------------
 		//  Temel URL adresi / karakteri ile bölümlere ayrılıyor.
 		// -------------------------------------------------------------------------------
-		$url_explode 	= explode('/', $url[0]);
+		$urlExplode 	= explode('/', $url[0]);
 		
 		// -------------------------------------------------------------------------------
 		//  Bölümlere ayrılan URL yeniden yapılandırılıyor.
 		// -------------------------------------------------------------------------------
-		for($i=0; $i < count($url_explode); $i++)
+		for($i=0; $i < count($urlExplode); $i++)
 		{
-			$url_join .= $url_explode[$i];
+			$urlJoin .= $urlExplode[$i];
 			
 			// URL için geçerli bir sayfa bilgisi elde edilirse...
-			if( is_file( CONTROLLERS_DIR.suffix($url_join, '.php') ) )
+			if( is_file( CONTROLLERS_DIR.suffix($urlJoin, '.php') ) )
 			{
 				// -------------------------------------------------------------------------------
 				//  1. Bölüm:Dosya ve Sınıf ismini oluşturur.
 				// -------------------------------------------------------------------------------
-				if( isset($url_explode[$i]) )
+				if( isset($urlExplode[$i]) )
 				{
-					$page = $url_explode[$i];
+					$page = $urlExplode[$i];
 				}
 				
 				// -------------------------------------------------------------------------------
 				//  2. Bölüm:Fonksiyon veya Yöntem ismini oluşturur.
 				// -------------------------------------------------------------------------------
-				if( isset($url_explode[$i + 1]) )	
+				if( isset($urlExplode[$i + 1]) )	
 				{
-					$function = $url_explode[$i + 1];
+					$function = $urlExplode[$i + 1];
 				}
 				
 				// -------------------------------------------------------------------------------
 				//  3. Bölüm ve Sonraki Bölümler:Parametreleri oluşturur.
 				// -------------------------------------------------------------------------------
-				$url_parameters = $i + 2;
-				$last_join 		= $url_join;		
-				$is_file 		= CONTROLLERS_DIR.suffix($last_join, '.php');
+				$urlParameters = $i + 2;
+				$lastJoin 		= $urlJoin;		
+				$isFile 		= CONTROLLERS_DIR.suffix($lastJoin, '.php');
 			}
 			else
 			{
-				$url_join .= '/';	
+				$urlJoin .= '/';	
 			}
 		
 			// -------------------------------------------------------------------------------
 			//  Parametreleri birleştir.
 			// -------------------------------------------------------------------------------
-			if( isset($url_explode[$url_parameters]) )
+			if( isset($urlExplode[$urlParameters]) )
 			{
-				 array_push( $parameters, $url_explode[$url_parameters] ); 		 
-				 $url_parameters++;
+				 array_push( $parameters, $urlExplode[$urlParameters] ); 		 
+				 $urlParameters++;
 			}
 		}
 		
@@ -157,7 +157,7 @@ class Structure
 		// -------------------------------------------------------------------------------
 		//  Sayfa bilgisine erişilmişse sayfa dahil edilir.
 		// -------------------------------------------------------------------------------
-		if( ! empty($is_file) )
+		if( ! empty($isFile) )
 		{
 			// -------------------------------------------------------------------------------
 			//  Tadilat modu açıksa bu ayarlar geçerli olacaktır.
@@ -170,7 +170,7 @@ class Structure
 			// -------------------------------------------------------------------------------
 			//  Sayfa dahil ediliyor.
 			// -------------------------------------------------------------------------------
-			require_once $is_file;
+			require_once $isFile;
 				
 			// -------------------------------------------------------------------------------
 			//  URL fonksiyon bilgisi içermiyorsa varsayılan olarak index ayarlansın.

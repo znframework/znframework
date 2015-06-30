@@ -9,7 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace HTML;
 /******************************************************************************************
 * PROTECTED COMMON                                                                        *
 *******************************************************************************************
@@ -18,7 +17,7 @@ namespace HTML;
 | 																						  |
 | NOT: Yardımcı sınıftır.     															  |
 ******************************************************************************************/
-class ComponentHtmlCommon
+class CHtmlCommon
 {
 	protected $link;
 	

@@ -11,9 +11,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * COMPOSER AUTOLOAD                                                                       *
 *******************************************************************************************
-| Genel Kullanım: Composer autoload dosyasının yüklenip yüklenilmeyeceğine karar verir.   |
+| Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.   |
 | Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının       |
-| yüklenmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir. 				  |
+| dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir. 			  |
 | Örnek: example/vendor/autoload.php													  |
 | Örnek: true veya false														          |
 ******************************************************************************************/	

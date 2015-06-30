@@ -19,7 +19,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Parametreler: Herhangi bir parametresi yoktur.                                          |
 |          																				  |
 ******************************************************************************************/
-function cachecommon($driver = '')
+function cacheCommon($driver = '')
 {	
 	$config = Config::get('Cache');
 	

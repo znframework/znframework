@@ -9,9 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Cache;
-
-use Config;
 /******************************************************************************************
 * CACHE	WITH VERSION 1.3	                                                              *
 *******************************************************************************************
@@ -39,7 +36,7 @@ class Cache
 	{
 		require_once(SYSTEM_LIBRARIES_DIR.'Cache/CacheCommon.php');
 		
-		$this->cache = cachecommon($driver);
+		$this->cache = cacheCommon($driver);
 		
 		if( $this->cache === false )
 		{

@@ -12,11 +12,11 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * BASE_DIR: Sistem kök dizini.                                                            *
 ******************************************************************************************/	
-$base_dir = explode("index.php", $_SERVER['SCRIPT_NAME']);
+$baseDir = explode("index.php", $_SERVER['SCRIPT_NAME']);
 
-if( isset($base_dir[0]) )
+if( isset($baseDir[0]) )
 {
-	define('BASE_DIR', $base_dir[0]);
+	define('BASE_DIR', $baseDir[0]);
 }
 /*****************************************************************************************/
 

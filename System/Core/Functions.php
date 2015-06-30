@@ -316,15 +316,15 @@ function isCharset($charset = '')
 	}
 	
 	$charsets    = mb_list_encodings();
-	$newcharsets = array();
+	$newCharsets = array();
 	$charset     = strtolower($charset);
 	
 	foreach($charsets as $ch)
 	{
-		$newcharsets[] = strtolower($ch);
+		$newCharsets[] = strtolower($ch);
 	}
 	
-	if( array_search($charset, $newcharsets, true) )
+	if( array_search($charset, $newCharsets, true) )
 	{
 		return true;
 	}
@@ -368,9 +368,9 @@ function output($data = '', $settings = array(), $display = true)
 	$textSize 		= isset($settings['textSize'])      ? $settings['textSize']     : '12px';	
 	// ----------------------------------------------------------------------------------------------
 	
-	$globalstyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
+	$globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 	
-	$output  = "<span$globalstyle>";
+	$output  = "<span$globalStyle>";
 	$output .= "<pre>";
 	$output .= '********************************************************<br>';
 	$output .= '* DATA OUTPUT                                          *<br>';
@@ -488,14 +488,14 @@ function write($data = '', $vars = array())
 
 	if( ! empty($data) && is_array($vars) )
 	{
-		$vars_array = array();
+		$varsArray = array();
 		
 		foreach($vars as $k => $v)
 		{
-			$vars_array['{'.$k.'}']	= $v;
+			$varsArray['{'.$k.'}']	= $v;
 		}
 		
-		$data = str_replace(array_keys($vars_array), array_values($vars_array), $data);
+		$data = str_replace(array_keys($varsArray), array_values($varsArray), $data);
 	}
 	
 	echo $data;
@@ -516,9 +516,9 @@ function write($data = '', $vars = array())
 | Örnek Kullanım: writeLine('Merhaba {x}', array('x' => 'Dünya')); // Merhaba Dünya         |
 |          																				  |
 ******************************************************************************************/
-function writeLine($data = '', $vars = array(), $br_count = 1)
+function writeLine($data = '', $vars = array(), $brCount = 1)
 {
-	echo write($data, $vars).str_repeat("<br>", $br_count);
+	echo write($data, $vars).str_repeat("<br>", $brCount);
 }
 
 // Function: compare()
@@ -548,18 +548,18 @@ function eol($repeat = 1)
 {
 	if ( strtoupper(substr(PHP_OS,0,3)) === 'WIN' ) 
 	{
-        $ln = "\r\n";        
+        $eol = "\r\n";        
     }
     elseif ( strtoupper(substr(PHP_OS,0,3)) === 'MAC')
 	{
-        $ln = "\r";
+        $eol = "\r";
 	}
 	else
 	{
-        $ln = "\n";
+        $eol = "\n";
 	}
 	
-	return str_repeat($ln, $repeat);
+	return str_repeat($eol, $repeat);
 }
 
 // Function: getLang()
@@ -626,18 +626,18 @@ function lang($file = '', $str = '', $changed = '')
 	
 	$key 		= removeExtension($file, 'php');
 	$file 		= Config::get('Language', getLang()).'/'.suffix($file, '.php');
-	$langdir    = LANGUAGES_DIR.$file ;
-	$syslangdir = SYSTEM_LANGUAGES_DIR.$file;
+	$langDir    = LANGUAGES_DIR.$file ;
+	$sysLangDir = SYSTEM_LANGUAGES_DIR.$file;
 	
 	global $lang;
 	
-	if( isFileExists($langdir) ) 
+	if( isFileExists($langDir) ) 
 	{
-		require_once($langdir);	
+		require_once($langDir);	
 	}
-	elseif( isFileExists($syslangdir) )
+	elseif( isFileExists($sysLangDir) )
 	{
-		require_once($syslangdir);	
+		require_once($sysLangDir);	
 	}
 	
 	// Belirtilen anahtar dahil edilen
@@ -853,23 +853,23 @@ function siteUrl($uri = '', $index = 0)
 	
 	if( BASE_DIR !== "/" )
 	{
-		$base_dir = substr(BASE_DIR,1,-1);
-		$base_dir = explode("/", $base_dir);
-		$new_base_dir = "/";
+		$baseDir = substr(BASE_DIR,1,-1);
+		$baseDir = explode("/", $baseDir);
+		$newBaseDir = "/";
 		
-		for($i = 0; $i < count($base_dir) + $index; $i++)
+		for($i = 0; $i < count($baseDir) + $index; $i++)
 		{
-			$new_base_dir .= suffix($base_dir[$i]);
+			$newBaseDir .= suffix($baseDir[$i]);
 		}
 	}
 	else
 	{
-		$new_base_dir = BASE_DIR;
+		$newBaseDir = BASE_DIR;
 	}
 	
 	$host = host();
 	
-	return sslStatus().$host.$new_base_dir.indexStatus().suffix(currentLang()).cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).cleanInjection($uri);
 }
 
 // Function: baseUrl()
@@ -897,23 +897,23 @@ function baseUrl($uri = '', $index = 0)
 	
 	if( BASE_DIR !== "/" )
 	{
-		$base_dir = substr(BASE_DIR,1,-1);
-		$base_dir = explode("/", $base_dir);
-		$new_base_dir = "/";
+		$baseDir = substr(BASE_DIR,1,-1);
+		$baseDir = explode("/", $baseDir);
+		$newBaseDir = "/";
 		
-		for($i = 0; $i < count($base_dir) + $index; $i++)
+		for($i = 0; $i < count($baseDir) + $index; $i++)
 		{
-			$new_base_dir .= suffix($base_dir[$i]);
+			$newBaseDir .= suffix($baseDir[$i]);
 		}
 	}
 	else
 	{
-		$new_base_dir = BASE_DIR;
+		$newBaseDir = BASE_DIR;
 	}
 	
 	$host = host();
 	
-	return sslStatus().$host.$new_base_dir.cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.cleanInjection($uri);
 }	
 	
 // Function: prevUrl()
@@ -927,8 +927,8 @@ function prevUrl()
 	
 	if( currentLang() )
 	{
-		$str_ex = explode("/",$str);
-		$str    = str_replace($str_ex[0]."/", "", $str);	
+		$strEx = explode("/",$str);
+		$str    = str_replace($strEx[0]."/", "", $str);	
 	}
 	
 	return siteUrl(cleanInjection($str));	
@@ -989,31 +989,31 @@ function host()
 
 // Function: currentPath()
 // İşlev: Açık olan sayfanın o anki yolunu verir.
-// Parametreler: $is_path = true olması durumunda aktif yolun tamamını verir
+// Parametreler: $isPath = true olması durumunda aktif yolun tamamını verir
 // false olması durumunda ise sadece son segmentin bilgisini verir. 
 // Dönen Değerler: Sayfanın o anki yolunu verir.  is_path = true: home/example is_path = false: example
 
-function currentPath($is_path = true)
+function currentPath($isPath = true)
 {
-	if( ! is_bool($is_path) ) 
+	if( ! is_bool($isPath) ) 
 	{
-		$is_path = true;
+		$isPath = true;
 	}
 	
-	$current_page_path = str_replace("/".getLang()."/", "", server('currentPath'));
+	$currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
 	
-	if ($current_page_path[0] === "/" )
+	if ($currentPagePath[0] === "/" )
 	{
-		$current_page_path = substr($current_page_path, 1, strlen($current_page_path)-1);
+		$currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath)-1);
 	}
 	
-	if( $is_path === true )
+	if( $isPath === true )
 	{	
-		return $current_page_path;
+		return $currentPagePath;
 	}
 	else
 	{
-		$str = explode("/", $current_page_path);
+		$str = explode("/", $currentPagePath);
 	
 		if( count($str) > 1 ) 
 		{
@@ -1048,33 +1048,33 @@ function basePath($uri = '', $index = 0)
 	
 	if( BASE_DIR !== "/" )
 	{
-		$base_dir = substr(BASE_DIR, 1, -1);
-		$base_dir = explode("/", $base_dir);
-		$new_base_dir = "";
+		$baseDir = substr(BASE_DIR, 1, -1);
+		$baseDir = explode("/", $baseDir);
+		$newBaseDir = "";
 		
-		for($i = 0; $i < count($base_dir) + $index; $i++)
+		for($i = 0; $i < count($baseDir) + $index; $i++)
 		{
-			$new_base_dir .= suffix($base_dir[$i]);
+			$newBaseDir .= suffix($baseDir[$i]);
 		}
 	}
 	else
 	{
-		$new_base_dir = "";
+		$newBaseDir = "";
 	}
 	
-	return cleanInjection($new_base_dir.$uri);
+	return cleanInjection($newBaseDir.$uri);
 }
 
 // Function: prevPath()
 // İşlev: Bir önceki gelinen sayfanın yolunu verir.
-// Parametreler: $is_path = true olması durumunda gelinen yolun tamamını verir
+// Parametreler: $isPath = true olması durumunda gelinen yolun tamamını verir
 // Dönen Değerler: Bir önceki gelinen sayfanın yolunu döndürür.
 	
-function prevPath($is_path = true)
+function prevPath($isPath = true)
 {
-	if( ! is_bool($is_path) ) 
+	if( ! is_bool($isPath) ) 
 	{
-		$is_path = true;
+		$isPath = true;
 	}
 	
 	$str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), '', server("referer"));
@@ -1084,7 +1084,7 @@ function prevPath($is_path = true)
 		$str = explode("/",$str); return $str[1]; 
 	}
 	
-	if( $is_path === true )
+	if( $isPath === true )
 	{
 		return $str;	
 	}
@@ -1103,29 +1103,29 @@ function prevPath($is_path = true)
 // Function: filePath()
 // İşlev: Parametre olarak girilen yol url bilgisi içeriyorsa bu bilgiyi ayıklar
 // ve dosyanın yolunu verir.
-// Parametreler: $file = dosya adı, $remove_url = ayıklanacak url adresi
+// Parametreler: $file = dosya adı, $removeUrl = ayıklanacak url adresi
 // Dönen Değerler: Dosyanın yolunu verir.
 
-function filePath($file = "", $remove_url = "")
+function filePath($file = "", $removeUrl = "")
 {
 	if( ! is_string($file) ) 
 	{
 		return false;
 	}
 	
-	if( ! is_string($remove_url) ) 
+	if( ! is_string($removeUrl) ) 
 	{
-		$remove_url = "";
+		$removeUrl = "";
 	}
 	
 	if( isUrl($file) )
 	{
-		if( ! isUrl($remove_url) )
+		if( ! isUrl($removeUrl) )
 		{
-			$remove_url = baseUrl();
+			$removeUrl = baseUrl();
 		}
 		
-		$file = trim(str_replace($remove_url, '', $file));
+		$file = trim(str_replace($removeUrl, '', $file));
 	}
 	
 	return $file;
@@ -1150,11 +1150,11 @@ function pathInfos($file = "", $info = "basename")
 	
 	if( ! empty($file) )
 	{
-		$pathinfo = pathinfo($file);
+		$pathInfo = pathinfo($file);
 		
-		if( isset($pathinfo[$info]) )
+		if( isset($pathInfo[$info]) )
 		{
-			return $pathinfo[$info];
+			return $pathInfo[$info];
 		}
 		else
 		{ 
@@ -1184,7 +1184,7 @@ function extension($file = '', $dote = false)
 		$dote = false;
 	}
 	
-	if($dote === true) 
+	if( $dote === true ) 
 	{
 		$dote = '.'; 
 	}
@@ -1237,15 +1237,15 @@ function divide($str = '', $seperator = "|", $index = 0)
 		$seperator = "|";
 	}
 	
-	$array_ex = explode($seperator, $str);
+	$arrayEx = explode($seperator, $str);
 	
 	if( $index < 0 )
 	{
- 		$ind = (count($array_ex)+($index));
+ 		$ind = (count($arrayEx)+($index));
 	}
 	elseif( $index === 'last' )
 	{
-		$ind = (count($array_ex) - 1);
+		$ind = (count($arrayEx) - 1);
 	}
 	elseif( $index === 'first' )
 	{
@@ -1256,9 +1256,9 @@ function divide($str = '', $seperator = "|", $index = 0)
 		$ind = $index;
 	}
 	
-	if( isset($array_ex[$ind]) )
+	if( isset($arrayEx[$ind]) )
 	{
-		return $array_ex[$ind];
+		return $arrayEx[$ind];
 	}
 	else
 	{
@@ -1484,17 +1484,7 @@ function library($class = NULL, $function = NULL, $parameters = array())
 ******************************************************************************************/
 function uselib($class = '')
 {
-	$shortname = nsShortName($class);
-
-	if( ! empty($shortname['namespace']) )
-	{
-		$class = $shortname['namespace'];
-	}
-	
-	if( strstr($class, '/') )
-	{
-		$class = str_replace('/', '\\', $class);
-	}
+	$class = classMap($class);
 	
 	if( class_exists($class) )
 	{
@@ -1523,9 +1513,9 @@ function uselib($class = '')
 // Function: getMessage()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function getMessage($lang_file, $error_msg, $ex = '')
+function getMessage($langFile, $errorMsg, $ex = '')
 {
-	return lang($lang_file, $error_msg, $ex);
+	return lang($langFile, $errorMsg, $ex);
 }
 
 // Function: errorReport()
@@ -1584,44 +1574,44 @@ function currentUri()
 // Dönen Değerler: Sistem kullanıyor.
 function requestUri()
 {
-	$request_uri = ( server('currentPath') ) 
+	$requestUri = ( server('currentPath') ) 
 	               ? substr(server('currentPath'), 1) 
 				   : currentUri();
 	
-	if( @$request_uri[strlen($request_uri) - 1] === '/' )
+	if( @$requestUri[strlen($requestUri) - 1] === '/' )
 	{
-			$request_uri = substr($request_uri, 0, -1);
+			$requestUri = substr($requestUri, 0, -1);
 	}
 	
-	$request_uri = routeUri($request_uri);
+	$requestUri = routeUri($requestUri);
 	
-	return str_replace(suffix(getLang()), '', cleanInjection($request_uri));
+	return str_replace(suffix(getLang()), '', cleanInjection($requestUri));
 }
 
 // Function: routeUri()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function routeUri($request_uri = '')
+function routeUri($requestUri = '')
 {
 	if( Config::get('Route','openPage') )
 	{
-			if( $request_uri === 'index.php' || empty($request_uri) || $request_uri === getLang() ) 
+			if( $requestUri === 'index.php' || empty($requestUri) || $requestUri === getLang() ) 
 			{
-				$request_uri = Config::get('Route','openPage');
+				$requestUri = Config::get('Route','openPage');
 			}
 	}
 			
-	$uri_change = Config::get('Route','changeUri');
+	$uriChange = Config::get('Route','changeUri');
 		
-	if( ! empty($uri_change) )
+	if( ! empty($uriChange) )
 	{
-		foreach($uri_change as $key => $val)
+		foreach($uriChange as $key => $val)
 		{		
-			$request_uri = preg_replace('/'.$key.'/xi', $val, $request_uri);
+			$requestUri = preg_replace('/'.$key.'/xi', $val, $requestUri);
 		}
 	}
 	
-	return $request_uri;
+	return $requestUri;
 }
 
 // Function: cleanInjection()
@@ -1629,14 +1619,14 @@ function routeUri($request_uri = '')
 // Dönen Değerler: Sistem kullanıyor.
 function cleanInjection($string = "")
 {
-	$url_injection_change_chars = Config::get("Security", 'urlChangeChars');
+	$urlInjectionChangeChars = Config::get("Security", 'urlChangeChars');
 
-	if( empty($url_injection_change_chars) ) 
+	if( empty($urlInjectionChangeChars) ) 
 	{
 		return $string;
 	}
 	
-	$badwords = $url_injection_change_chars;
+	$badwords = $urlInjectionChangeChars;
 	
 	foreach($badwords as $key => $val)
 	{		
@@ -1657,35 +1647,35 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		return false;
 	}
 	
-	$log_dir = APP_DIR.'Logs/';
+	$logDir = APP_DIR.'Logs/';
 	$extension = '.log';
 	
-	if( ! is_dir($log_dir) )
+	if( ! is_dir($logDir) )
 	{
-		Folder::create($log_dir, 0777);	
+		Folder::create($logDir, 0777);	
 	}
 	
-	if( is_file($log_dir.suffix($destination,$extension)) )
+	if( is_file($logDir.suffix($destination, $extension)) )
 	{
 		if( empty($time) ) 
 		{
 			$time = Config::get('Log', 'fileTime');
 		}
 		
-		$create_date = File::createDate($log_dir.suffix($destination,$extension), 'd.m.Y');
+		$createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
 		
-		$end_date = strtotime("$time",strtotime($create_date));
+		$endDate = strtotime("$time",strtotime($createDate));
 		
-		$end_date = date('Y.m.d' ,$end_date );
+		$endDate = date('Y.m.d' ,$endDate );
 		
-		if( date('Y.m.d')  >  $end_date )
+		if( date('Y.m.d')  >  $endDate )
 		{
-			File::delete($log_dir.suffix($destination,$extension));
+			File::delete($logDir.suffix($destination, $extension));
 		}
 	}
 
 	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.eol();
-	error_log($message, 3, $log_dir.suffix($destination,$extension));
+	error_log($message, 3, $logDir.suffix($destination, $extension));
 }
 
 // Function: createHtaccessFile()
@@ -1701,7 +1691,7 @@ function createHtaccessFile()
 	// Gzip ile ön bellekleme başlatılmış olur.
 	if( $config['modGzip']['status'] === true ) 
 	{
-		$mod_gzip = '<ifModule mod_gzip.c>
+		$modGzip = '<ifModule mod_gzip.c>
 mod_gzip_on Yes
 mod_gzip_dechunk Yes
 mod_gzip_item_include file .('.$config['modGzip']['includedFileExtension'].')$
@@ -1714,7 +1704,7 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 	}
 	else
 	{
-		$mod_gzip = '';
+		$modGzip = '';
 	}
 	//-----------------------GZIP-------------------------------------------------------------
 	
@@ -1729,7 +1719,7 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eol();
 		}
 		
-		$mod_expires = '<ifModule mod_expires.c>
+		$modExpires = '<ifModule mod_expires.c>
 ExpiresActive On
 ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 '.$exp.'
@@ -1737,7 +1727,7 @@ ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 	}
 	else
 	{
-		$mod_expires = '';
+		$modExpires = '';
 	}
 	//-----------------------EXPIRES----------------------------------------------------------
 	
@@ -1754,65 +1744,65 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 </filesMatch>'.eol();
 		}
 		
-		$mod_headers = '<ifModule mod_headers.c>
+		$modHeaders = '<ifModule mod_headers.c>
 '.$fmatch.'
 </ifModule>
 '.eol(2);
 	}
 	else
 	{
-		$mod_headers = '';
+		$modHeaders = '';
 	}
 	//-----------------------HEADERS----------------------------------------------------------
 	
 	//-----------------------HEADER SET-------------------------------------------------------
-	$headerset = Config::get("Headers");
+	$headerSet = Config::get("Headers");
 	
-	if( ! empty($headerset['setHtaccessFile']) )
+	if( ! empty($headerSet['setHtaccessFile']) )
 	{
-		$headers_iniset  = "<ifModule mod_expires.c>".eol();	
+		$headersIniSet  = "<ifModule mod_expires.c>".eol();	
 		
-		foreach($headerset['iniSet'] as $val)
+		foreach($headerSet['iniSet'] as $val)
 		{
-			$headers_iniset .= "$val".eol();
+			$headersIniSet .= "$val".eol();
 		}
 		
-		$headers_iniset .= "</ifModule>".eol(2);
+		$headersIniSet .= "</ifModule>".eol(2);
 	}
 	else
 	{
-		$headers_iniset = '';
+		$headersIniSet = '';
 	}
 	//-----------------------HEADER SET-------------------------------------------------------
 	
 	//-----------------------HTACCESS SET-----------------------------------------------------	
-	$htaccess_settings = Config::get("Htaccess");
+	$htaccessSettings = Config::get("Htaccess");
 	
-	if( ! empty($htaccess_settings['setFile']) )
+	if( ! empty($htaccessSettings['setFile']) )
 	{
-		$htaccess_settings_str = '';
+		$htaccessSettingsStr = '';
 		
-		foreach($htaccess_settings['settings'] as $key => $val)
+		foreach($htaccessSettings['settings'] as $key => $val)
 		{
-			$htaccess_settings_str .= "<$key>".eol();
+			$htaccessSettingsStr .= "<$key>".eol();
 			
 			foreach($val as $v)
 			{
-				$htaccess_settings_str .= $v;
+				$htaccessSettingsStr .= $v;
 			}
 			
 			$keyex = explode(" ", $key);
-			$htaccess_settings_str .= eol()."</$keyex[0]>".eol(2);
+			$htaccessSettingsStr .= eol()."</$keyex[0]>".eol(2);
 		}	
 	}
 	else
 	{
-		$htaccess_settings_str = '';	
+		$htaccessSettingsStr = '';	
 	}
 	//-----------------------HTACCESS SET-----------------------------------------------------	
 	
 	// Htaccess dosyasına eklenecek veriler birleştiriliyor...
-	$htaccess = $mod_gzip.$mod_expires.$mod_headers.$headers_iniset.$htaccess_settings_str;
+	$htaccess = $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 	
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! Config::get('Uri','index.php') )
@@ -1828,51 +1818,51 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
-	$uploadset = Config::get('Upload');		
+	$uploadSet = Config::get('Upload');		
 	
-	if( ! empty($uploadset['setHtaccessFile']) )
+	if( ! empty($uploadSet['setHtaccessFile']) )
 	{
-		$upload_settings = $uploadset['settings'];
+		$uploadSettings = $uploadSet['settings'];
 	}
 	else
 	{
-		$upload_settings = array();
+		$uploadSettings = array();
 	}
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
 	//-----------------------SESSION SETTINGS-------------------------------------------------
-	$sessionset = Config::get('Session');	
+	$sessionSet = Config::get('Session');	
 			
-	if( ! empty($sessionset['setHtaccessFile']) )
+	if( ! empty($sessionSet['setHtaccessFile']) )
 	{
-		$session_settings = $sessionset['settings'];
+		$sessionSettings = $sessionSet['settings'];
 	}
 	else
 	{
-		$session_settings = array();
+		$sessionSettings = array();
 	}
 	//-----------------------SESSION SETTINGS-------------------------------------------------
 	
 	//-----------------------INI SETTINGS-----------------------------------------------------	
-	$iniset = Config::get('Ini');	
+	$iniSet = Config::get('Ini');	
 		
-	if( ! empty($iniset['setHtaccessFile']) )
+	if( ! empty($iniSet['setHtaccessFile']) )
 	{
-		$ini_settings = $iniset['settings'];
+		$iniSettings = $iniSet['settings'];
 	}
 	else
 	{
-		$ini_settings = array();
+		$iniSettings = array();
 	}
 	//-----------------------INI SETTINGS-----------------------------------------------------	
 	
 	// Ayarlar birleştiriliyor.	
-	$all_settings = array_merge($ini_settings, $upload_settings, $session_settings);	
+	$allSettings = array_merge($iniSettings, $uploadSettings, $sessionSettings);	
 	
-	if( ! empty($all_settings) )
+	if( ! empty($allSettings) )
 	{
 		$sets = '';
-		foreach($all_settings as $k => $v)
+		foreach($allSettings as $k => $v)
 		{
 			if( $v !== '' )
 			{
@@ -1891,24 +1881,24 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	// .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
 	if( file_exists('.htaccess') )
 	{
-		$get_contents = file_get_contents('.htaccess');
+		$getContents = file_get_contents('.htaccess');
 	}
 	else
 	{
-		$get_contents = '';
+		$getContents = '';
 	}
 	// $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
-	if( trim($htaccess) === trim($get_contents) ) 
+	if( trim($htaccess) === trim($getContents) ) 
 	{
 		return false;
 	}
 	
-	//echo $get_contents."<br>";
+	//echo $getContents."<br>";
 	//echo $htaccess;
 	// .htaccess dosyasını oluştur.
-	$file_open 	= fopen('.htaccess', 'w');
-	$file_write = fwrite($file_open, trim($htaccess));
-	fclose($file_open);
+	$fileOpen  = fopen('.htaccess', 'w');
+	$fileWrite = fwrite($fileOpen, trim($htaccess));
+	fclose($fileOpen);
 	
 	// $htaccess değişkenini kaldır.
 	unset( $htaccess );	
@@ -1969,23 +1959,33 @@ function indexStatus()
 }
 
 /******************************************************************************************
-* NS SHORT NAME - DAHİL EDİLDİĞİ SÜRÜM:1.5                                                *
+* CLASS MAP - DAHİL EDİLDİĞİ SÜRÜM:2                                                      *
 *******************************************************************************************
 | Genel Kullanım: İsim alanı kısaltması kontrolünü sağlaması için oluşturulmuştur.		  |
 |          																				  |
 ******************************************************************************************/
-function nsShortName($class = '')
+function classMap($class = '')
 {
-	$namespaces = Config::get('Namespace', 'shortName');
+	$path = CONFIG_DIR.'ClassMap.php';	
 	
-	$longns  = array_values($namespaces);
-	$shortns = array_map('strtolower', array_keys($namespaces));	
-	$number  = array_search(strtolower($class), $shortns);
+	if( ! file_exists($path ) ) 
+	{
+		return false;
+	}
 	
-	$namespace = $number > -1
-			   ? $longns[$number]
-			   : $namespace = '';	
+	$classmap = Config::get('ClassMap');
 	
-	return array('classname' => $class, 'namespace' => $namespace);
+	$classes = array_values($classmap);
+	
+	$classesToLower = array_map('strtolower', $classes);
+	
+	$index = array_search(strtolower($class), $classesToLower);
+	
+	if( $index > -1 )
+	{
+		$class = $classes[$index];
+	}
+	
+	return $class;
 }
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------

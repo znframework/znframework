@@ -9,11 +9,6 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
-namespace Jquery;
-
-require_once(COMPONENTS_DIR.'Jquery/Common.php');
-
-use Jquery\ComponentJqueryCommon;
 /******************************************************************************************
 * EVENT                                                                                   *
 *******************************************************************************************
@@ -21,7 +16,7 @@ use Jquery\ComponentJqueryCommon;
 | 																						  |
 | Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
 ******************************************************************************************/
-class CEvent extends ComponentJqueryCommon
+class CEvent extends CJqueryCommon
 {
 	/* Selector Variables
 	 * Selector 
