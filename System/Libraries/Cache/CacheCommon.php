@@ -40,13 +40,15 @@ function cacheCommon($driver = '')
 			$driver = ucwords($driver);	
 		}
 		
+		$drv = $driver.'Driver';
+		
 		// Sürücünün geçerliliği kontrol ediliyor. 
-		if( ! in_array(suffix($driver, '.php'), $drivers) )
+		if( ! in_array(suffix($drv, '.php'), $drivers) )
 		{
 			return false;	
 		}
 		
-		$driver_path = SYSTEM_LIBRARIES_DIR.'Cache/Drivers/'.$driver.'.php';
+		$driver_path = SYSTEM_LIBRARIES_DIR.'Cache/Drivers/'.$drv.'.php';
 		
 		// Hangi sürücü kullanılacaksa
 		// o sürüyü dahil ediyor.
@@ -59,10 +61,9 @@ function cacheCommon($driver = '')
 			die(getMessage('Cache', 'driverError', $driver));
 		}
 		
-		$driver = $driver.'Driver';
 		
 		// Sürüden bir nesne oluşturuluyor.
-		$cache = new $driver;
+		$cache = new $drv;
 		
 		return $cache;
 	}	
