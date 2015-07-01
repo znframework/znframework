@@ -1484,8 +1484,6 @@ function library($class = NULL, $function = NULL, $parameters = array())
 ******************************************************************************************/
 function uselib($class = '')
 {
-	$class = classMap($class);
-	
 	if( class_exists($class) )
 	{
 		if( ! isset(zn::$use->$class) )
@@ -1956,36 +1954,5 @@ function indexStatus()
 	{ 
 		return '';	
 	}
-}
-
-/******************************************************************************************
-* CLASS MAP - DAHİL EDİLDİĞİ SÜRÜM:2                                                      *
-*******************************************************************************************
-| Genel Kullanım: İsim alanı kısaltması kontrolünü sağlaması için oluşturulmuştur.		  |
-|          																				  |
-******************************************************************************************/
-function classMap($class = '')
-{
-	$path = CONFIG_DIR.'ClassMap.php';	
-	
-	if( ! file_exists($path ) ) 
-	{
-		return false;
-	}
-	
-	$classmap = Config::get('ClassMap');
-	
-	$classes = array_values($classmap);
-	
-	$classesToLower = array_map('strtolower', $classes);
-	
-	$index = array_search(strtolower($class), $classesToLower);
-	
-	if( $index > -1 )
-	{
-		$class = $classes[$index];
-	}
-	
-	return $class;
 }
 //------------------------------------SYSTEM FUNCTIONS END----------------------------------------------------------------------------

@@ -27,18 +27,6 @@ class Autoloader
 	******************************************************************************************/
 	public static function run($class)
 	{
-		// ----------------------------------------------------------------------------------------
-		// NAMESPACE bilgisinün kontrolü yapılıyor.	
-		// $class değişkeninin tuttuğu veri için \ sembolü varsa
-		// bu bilgi namespace bilgisi olarak kabul edilir.
-		// ----------------------------------------------------------------------------------------
-		if( strstr($class, '\\') )
-		{
-			$classEx = explode('\\', $class);
-			
-			$class = end($classEx);	
-		}
-		
 		$path = CONFIG_DIR.'ClassMap.php';	
 		
 		// ----------------------------------------------------------------------------------------
@@ -56,18 +44,31 @@ class Autoloader
 		
 		$classMap = $config['ClassMap'];
 		
-		$classes = array_values($classMap);
-
-		$classesToLower = array_map('strtolower', $classes);
-		
-		$index = array_search(strtolower($class), array_values($classesToLower));
-		
-		if( $index > -1 )
+		// ----------------------------------------------------------------------------------------
+		// NAMESPACE bilgisinün kontrolü yapılıyor.	
+		// $class değişkeninin tuttuğu veri için \ sembolü varsa
+		// bu bilgi namespace bilgisi olarak kabul edilir.
+		// ----------------------------------------------------------------------------------------
+		if( strstr($class, '\\') )
 		{
-			$arrayKeys = array_keys($classMap);
-			
-			$file = $arrayKeys[$index];
-			
+			if( isset($classMap[$class]) )
+			{
+				return require_once $classMap[$class];
+			}
+			else
+			{
+				die($class.' is not found!');
+			}
+		}
+	
+		$clasMapCaseLower = array_change_key_case($classMap, CASE_LOWER);
+		
+		$file = isset($clasMapCaseLower[strtolower($class)])
+			  ? $clasMapCaseLower[strtolower($class)]
+			  : '';
+	
+		if( ! empty($file) )
+		{	
 			if( file_exists($file) )
 			{
 				require_once($file);
@@ -149,7 +150,7 @@ class Autoloader
 	{
 		static $classes;
 		
-		$directory = suffix($directory);
+		$directory = suffix($directory); 
 		
 		$files = glob($directory.'*');
 	
@@ -158,7 +159,12 @@ class Autoloader
 			if( is_file($v) && extension($v) === 'php' )
 			{
 				$classEx = explode('/', $v);
-				$classes[$v] = removeExtension(end($classEx));	
+				
+				// Sınıf isimleri ve yolları oluşturuluyor...
+				$classes[removeExtension(end($classEx))] = $v;
+				
+				// Sınıf namespace(isim alanları) ve yolları oluşturuluyor.	
+				$classes[str_replace('/', '\\', str_replace($classEx[0].'/'.$classEx[1].'/', '', removeExtension($v)))] = $v;	
 			}
 			elseif( is_dir($v) )
 			{
