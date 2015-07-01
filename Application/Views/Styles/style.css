@@ -1,0 +1,6 @@
+body{ padding:0px; margin:0px;}
+#logo{ position:absolute; width:717px; height:106px; left:50%; margin-left:-363px; margin-top:-90px; top:50%; }
+#logo-text{ font-size:91px; color:#3F3F3F;}
+#logo-sub-text{ margin-right:44px; text-align:right; font-size:20px; color:#333;}
+.text-shadow{ text-shadow:0px 0px 12px #0059B2; -moz-text-shadow:0px 0px 12px #0059B2; -o-text-shadow:0px 0px 12px #0059B2; -webkit-text-shadow:0px 0px 12px #0059B2;}
+.font{ font-family:textfont, Caviar Dreams;}
