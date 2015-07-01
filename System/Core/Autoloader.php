@@ -61,10 +61,11 @@ class Autoloader
 			}
 		}
 	
-		$clasMapCaseLower = array_change_key_case($classMap, CASE_LOWER);
+		$clasMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
+		$classCaseLower   = strtolower($class);
 		
-		$file = isset($clasMapCaseLower[strtolower($class)])
-			  ? $clasMapCaseLower[strtolower($class)]
+		$file = isset($clasMapCaseLower[$classCaseLower])
+			  ? $clasMapCaseLower[$classCaseLower]
 			  : '';
 	
 		if( ! empty($file) )
