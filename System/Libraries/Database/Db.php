@@ -342,7 +342,7 @@ class DB
 			return false;
 		}
 		
-		$value = "'".$this->db->real_escape_string($value)."'";
+		$value = $this->db->real_escape_string($value);
 		
 		$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
 		
@@ -372,7 +372,7 @@ class DB
 			return false;
 		}
 		
-		$value = "'".$this->db->real_escape_string($value)."'";
+		$value = $this->db->real_escape_string($value);
 
 		$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
 		
@@ -1352,9 +1352,10 @@ class DB
 		$set = ' SET '.substr($data,0,-1);
 		
 		$update_query = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
-		
+	
 		$this->where = NULL;
 		$secure = $this->secure;
+		
 		return $this->db->query($this->_query_security($update_query), $secure);	
 	}
 	
