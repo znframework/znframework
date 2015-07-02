@@ -158,7 +158,7 @@ class Convert
 	}
 
 	/******************************************************************************************
-	* CASING CONVERTER                                                                        *
+	* ARRAY CASE -> V2 - TEMMUZ GÜNCELLEMESİ                                                                        *
 	*******************************************************************************************
 	| Genel Kullanım: Küçük büyük harf dönüştürmeleri yapmak için kullanılır.			  	  |
 	|																						  |
@@ -175,7 +175,7 @@ class Convert
 	| echo case_converter('Zn Kod Çatısına Hoş', 'title'); // Çıktı: Zn Kod Çatısına Hoş	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function casing($str = '', $type = 'lower', $encoding = "utf-8")
+	public static function stringCase($str = '', $type = 'lower', $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{
@@ -205,7 +205,60 @@ class Convert
 		
 		return mb_convert_case($str, $type, $encoding);	
 	}	
-
+	
+	/******************************************************************************************
+	* ARRAY CASE -> V2 - TEMMUZ GÜNCELLEMESİ                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Dizinnin . 	                          								  |
+	|																						  |
+	******************************************************************************************/
+	public static function arrayCase($array = array(), $type = 'lower', $keyval = 'all')
+	{
+		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
+		{
+			return false;	
+		}
+		
+		if( $type === 'lower' )
+		{
+			$caseType = 'Strings::lowerCase';	
+		}
+		elseif( $type === 'upper' )
+		{
+			$caseType = 'Strings::upperCase';		
+		}
+		elseif( $type === 'title' )
+		{
+			$caseType = 'Strings::titleCase';	
+		}
+		
+		$arrayVals = array_values($array);
+		$arrayKeys = array_keys($array);
+		
+		if( $keyval === 'key' )
+		{
+			$arrayKeys = array_map($caseType, $arrayKeys);
+		}
+		elseif( $keyval === 'val' || $keyval === 'value' )
+		{
+			$arrayVals = array_map($caseType, $arrayVals);
+		}
+		else
+		{
+			$arrayKeys = array_map($caseType, $arrayKeys);
+			$arrayVals = array_map($caseType, $arrayVals);		
+		}
+		
+		$newArray = array();
+		
+		for($i = 0; $i < count($array); $i++)
+		{
+			$newArray[$arrayKeys[$i]] = $arrayVals[$i];
+		}
+		
+		return $newArray;
+	}
+	
 	/******************************************************************************************
 	* CHARSET CONVERTER                                                                       *
 	*******************************************************************************************

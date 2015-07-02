@@ -65,6 +65,29 @@ class Strings
 		
 		return $str;
 	}	
+	
+	/******************************************************************************************
+	* CASING CONVERTER                                                                        *
+	*******************************************************************************************
+	| Genel Kullanım: Küçük büyük harf dönüştürmeleri yapmak için kullanılır.			  	  |
+	|																						  |
+	| Parametreler: 3 parametresi vardır.                                              	      |
+	| 1. string var @string => Dönüştürülecek metin.				                          |
+	| 2. [ string var @type ] => Dönüşümün tipi. Varsayılan:lower					     	  |
+	| 3. [ string var @encoding ] => Dönüşümün karakter seti. Varsayılan:utf-8				  |
+	|       																				  |
+	| Kullanılabilir Dönüşüm Tipleri: lower, upper, title   								  |
+	|																						  |
+	| Örnek Kullanım:  																	      |
+	| echo casing('Zn Kod Çatısına Hoş'); // Çıktı: zn kod çatısına hoş				  |
+	| echo casing('Zn Kod Çatısına Hoş', 'upper'); // Çıktı: ZN KOD ÇATISINA HOŞ	  |
+	| echo casing('Zn Kod Çatısına Hoş', 'title'); // Çıktı: Zn Kod Çatısına Hoş	  |
+	|       																				  |
+	******************************************************************************************/
+	public static function casing($str = '', $type = 'lower', $encoding = "utf-8")
+	{
+		return Covert::stringCase($str, $type, $encoding);
+	}
 
 	/******************************************************************************************
 	*  UPPERCASE                                                                 			  *
@@ -85,7 +108,7 @@ class Strings
 			return false;
 		}
 		
-		$str = mb_strtoupper($str, $encoding);
+		$str = mb_convert_case($str, MB_CASE_UPPER, $encoding);
 		
 		return $str;
 	}	
@@ -109,7 +132,7 @@ class Strings
 			return false;
 		}
 		
-		$str = mb_strtolower($str, $encoding);
+		$str = mb_convert_case($str, MB_CASE_LOWER, $encoding);
 		
 		return $str;
 	}	

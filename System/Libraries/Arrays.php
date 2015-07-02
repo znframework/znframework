@@ -171,6 +171,17 @@ class Arrays
 	}
 	
 	/******************************************************************************************
+	* ARRAY CASE -> V2 - TEMMUZ GÜNCELLEMESİ                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Dizinnin . 	                          |
+	|																						  |
+	******************************************************************************************/
+	public static function casing($array = array(), $type = 'lower', $keyval = 'all')
+	{
+		return Convert::arrayCase($array, $type, $keyval);
+	}
+	
+	/******************************************************************************************
 	* ARRAY DELETE ELEMENT                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Diziden istenilen eleman veya elamanları silmek için kullanılır. 	      |
@@ -316,7 +327,6 @@ class Arrays
 	| 4-keys // Diziye ait tüm anahtarlar elde edilir.        								  |
 	|          																				  |
 	******************************************************************************************/
-	
 	public static function keyval($array = array(), $keyval = "val")
 	{
 		if( ! is_array($array) ) 
