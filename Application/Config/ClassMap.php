@@ -1,5 +1,5 @@
 <?php
-$config['ClassMap'] = array
+$config['ClassMap']['path'] = array
 (
 	'Ajax' => 'System/Libraries/Ajax.php',
 	'Arrays' => 'System/Libraries/Arrays.php',
@@ -24,7 +24,6 @@ $config['ClassMap'] = array
 	'Captcha' => 'System/Libraries/Captcha.php',
 	'Cart' => 'System/Libraries/Cart.php',
 	'Clean' => 'System/Libraries/Clean.php',
-	'Config' => 'System/Libraries/Config.php',
 	'Controller' => 'System/Libraries/Controller.php',
 	'Convert' => 'System/Libraries/Convert.php',
 	'Cookie' => 'System/Libraries/Cookie.php',

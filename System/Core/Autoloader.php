@@ -27,22 +27,18 @@ class Autoloader
 	******************************************************************************************/
 	public static function run($class)
 	{
-		$path = CONFIG_DIR.'ClassMap.php';	
-		
 		// ----------------------------------------------------------------------------------------
 		// ClassMap oluşturulmamış ise oluştur.
 		// Sistemin çalışması için gerekli bir kontroldür.
 		// ----------------------------------------------------------------------------------------
+		$path = CONFIG_DIR.'ClassMap.php';
+		
 		if( ! file_exists($path) )
 		{
 			Autoloader::createClassMap();
 		}
-	
-		global $config;
 			
-		require_once $path;
-		
-		$classMap = $config['ClassMap'];
+		$classMap = Config::get('ClassMap', 'path');
 		
 		// ----------------------------------------------------------------------------------------
 		// NAMESPACE bilgisinün kontrolü yapılıyor.	
@@ -94,11 +90,7 @@ class Autoloader
 	******************************************************************************************/
 	public static function createClassMap()
 	{
-		global $config;
-			
-		require_once CONFIG_DIR.'Autoloader.php';
-		
-		$classMap = $config['Autoloader']['classMap'];
+		$classMap = Config::get('Autoloader', 'classMap');
 		
 		if( ! empty($classMap) ) foreach($classMap as $directory)
 		{
@@ -109,7 +101,7 @@ class Autoloader
 		// ClassMap dosyasının metinsel bölümü oluşturuluyor.
 		// ----------------------------------------------------------------------------------------
 		$classMapPage  = '<?php'.eol();
-		$classMapPage .= '$config[\'ClassMap\'] = array'.eol().'('.eol();
+		$classMapPage .= '$config[\'ClassMap\'][\'path\'] = array'.eol().'('.eol();
 		
 		if( ! empty($classMaps) ) foreach($classMaps as $k => $v)
 		{
