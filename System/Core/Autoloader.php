@@ -102,7 +102,7 @@ class Autoloader
 		
 		if( ! empty($classMap) ) foreach($classMap as $directory)
 		{
-			$classes = self::searchClassMap($directory);
+			$classMaps = self::searchClassMap($directory);
 		}
 		
 		// ----------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ class Autoloader
 		$classMapPage  = '<?php'.eol();
 		$classMapPage .= '$config[\'ClassMap\'] = array'.eol().'('.eol();
 		
-		if( ! empty($classes) ) foreach($classes as $k => $v)
+		if( ! empty($classMaps) ) foreach($classMaps as $k => $v)
 		{
 			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
 		}

@@ -48,20 +48,6 @@ function cacheCommon($driver = '')
 			return false;	
 		}
 		
-		$driver_path = SYSTEM_LIBRARIES_DIR.'Cache/Drivers/'.$drv.'.php';
-		
-		// Hangi sürücü kullanılacaksa
-		// o sürüyü dahil ediyor.
-		if( is_file($driver_path) )	
-		{		
-			require_once($driver_path);
-		}
-		else
-		{
-			die(getMessage('Cache', 'driverError', $driver));
-		}
-		
-		
 		// Sürüden bir nesne oluşturuluyor.
 		$cache = new $drv;
 		

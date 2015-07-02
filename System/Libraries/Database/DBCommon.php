@@ -39,19 +39,6 @@ function DBCommon()
 		
 		$drv = $driver.'Driver';
 		
-		$driver_path = SYSTEM_LIBRARIES_DIR.'Database/Drivers/'.$drv.'.php';
-		
-		// Hangi sürücü kullanılacaksa
-		// o sürüyü dahil ediyor.
-		if( ! is_file($driver_path) )	
-		{		
-			die(getMessage('Database', 'driverError', $driver));
-		}
-		else
-		{
-			require_once($driver_path);	
-		}
-		
 		// Sürüden bir nesne oluşturuluyor.
 		$db = new $drv;
 		

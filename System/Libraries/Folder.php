@@ -428,12 +428,37 @@ class Folder
 	| Örnek Kullanım: $veri = allFiles('dizin/'); // tüm dosya ve dizinleri listeler.        |
 	|          																				  |
 	******************************************************************************************/
-	public static function allFiles($pattern = "*")
+	public static function allFiles($pattern = "*", $allFiles = false)
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($pattern) ) 
 		{
 			return false;	
+		}
+		
+		if( $allFiles === true )
+		{
+			static $classes;
+		
+			$directory = suffix($pattern); 
+			
+			$files = glob($directory.'*');
+		
+			if( ! empty($files) ) foreach($files as $v)
+			{
+				if( is_file($v) )
+				{
+					$classEx = explode('/', $v);
+
+					$classes[] = $v;
+				}
+				elseif( is_dir($v) )
+				{
+					self::allFiles($v, $allFiles);
+				}
+			}	
+			
+			return $classes;
 		}
 		
 		// Parametrede / eki var ve yıldız yoksa /* formuna dönüştür.
