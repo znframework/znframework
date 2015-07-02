@@ -15,6 +15,94 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 $config['MimeTypes'] = array
 (
+	'dms'	=>	'application/octet-stream',
+	'lha'	=>	'application/octet-stream',
+	'lzh'	=>	'application/octet-stream',
+	'cpt'	=>	'application/mac-compactpro',
+	'class'	=>	'application/octet-stream',
+	'so'	=>	'application/octet-stream',
+	'sea'	=>	'application/octet-stream',
+	'dll'	=>	'application/octet-stream',
+	'oda'	=>	'application/oda',
+	'au'    =>	'audio/x-au',
+	'ac3'   =>	'audio/ac3',
+	'flac'  =>	'audio/x-flac',
+	'ogg'   =>	'audio/ogg',
+	'ics'	=>	'text/calendar',
+	'ical'	=>	'text/calendar',
+	'zsh'	=>	'text/x-scriptzsh',
+	'vcf'	=>	'text/x-vcard',
+	'mp4'   =>	'video/mp4',
+	'm4a'   =>	'audio/x-m4a',
+	'f4v'   =>	'video/mp4',
+	'webm'	=>	'video/webm',
+	'aac'   =>	'audio/x-acc',
+	'm4u'   =>	'application/vnd.mpegurl',
+	'm3u'   =>	'text/plain',
+	'xspf'  =>	'application/xspf+xml',
+	'vlc'   =>	'application/videolan',
+	'eps'	=>	'application/postscript',
+	'ps'	=>	'application/postscript',
+	'smi'	=>	'application/smil',
+	'smil'	=>	'application/smil',
+	'mif'	=>	'application/vnd.mif',
+	'mid'	=>	'audio/midi',
+	'midi'	=>	'audio/midi',
+	'mpga'	=>	'audio/mpeg',
+	'mp2'	=>	'audio/mpeg',
+	'z'		=>	'application/x-compress',
+	'xhtml'	=>	'application/xhtml+xml',
+	'xht'	=>	'application/xhtml+xml',
+	'swf'	=>	'application/x-shockwave-flash',
+	'sit'	=>	'application/x-stuffit',
+	'tar'	=>	'application/x-tar',
+	'php4'	=>	'application/x-httpd-php',
+	'php3'	=>	'application/x-httpd-php',
+	'phtml'	=>	'application/x-httpd-php',
+	'phps'	=>	'application/x-httpd-php-source',
+	'wbxml'	=>	'application/wbxml',
+	'wmlc'	=>	'application/wmlc',
+	'dcr'	=>	'application/x-director',
+	'dir'	=>	'application/x-director',
+	'dxr'	=>	'application/x-director',
+	'dvi'	=>	'application/x-dvi',
+	'gtar'	=>	'application/x-gtar',
+	'gz'	=>	'application/x-gzip',
+	'gzip'  =>	'application/x-gzip',
+	'aifc'	=>	'audio/x-aiff',
+	'ram'	=>	'audio/x-pn-realaudio',
+	'rm'	=>	'audio/x-pn-realaudio',
+	'rpm'	=>	'audio/x-pn-realaudio-plugin',
+	'ra'	=>	'audio/x-realaudio',
+	'rv'	=>	'video/vnd.rn-realvideo',
+	'gif'	=>	'image/gif',
+	'tiff'	=>	'image/tiff',
+	'tif'	=>	'image/tiff',
+	'p7r'   =>	'application/x-pkcs7-certreqresp',
+	'p7s'   =>	'application/pkcs7-signature',
+	'p12'   =>	'application/x-pkcs12',
+	'p7a'   =>	'application/x-pkcs7-signature',
+	'der'   =>	'application/x-x509-ca-cert',
+	'kdb'   =>	'application/octet-stream',
+	'pgp'   =>	'application/pgp',
+	'gpg'   =>	'application/gpg-keys',
+	'sst'   =>	'application/octet-stream',
+	'csr'   =>	'application/octet-stream',
+	'rsa'   =>	'application/x-pkcs7',
+	'3g2'   =>	'video/3gpp2',
+	'xl'	=>	'application/excel',
+	'eml'	=>	'message/rfc822',
+	'ico'	=>	'image/x-icon',
+	'rtx'	=>	'text/richtext',
+	'rtf'	=>	'text/rtf',
+	'txt'	=>	'text/plain',
+	'text'	=>	'text/plain',
+	'mpeg'	=>	'video/mpeg',
+	'mpg'	=>	'video/mpeg',
+	'mpe'	=>	'video/mpeg',
+	'qt'	=>	'video/quicktime',
+	'mov'	=>	'video/quicktime',
+	'movie'	=>	'video/x-sgi-movie',
 	'hqx'	=>	array
 				(
 					'application/mac-binhex40', 
@@ -22,7 +110,7 @@ $config['MimeTypes'] = array
 					'application/x-binhex40', 
 					'application/x-mac-binhex40'
 				),
-	'cpt'	=>	'application/mac-compactpro',
+	
 	'csv'	=>	array
 				(
 					'text/x-comma-separated-values', 
@@ -45,24 +133,18 @@ $config['MimeTypes'] = array
 					'application/x-binary', 
 					'application/x-macbinary'
 				),
-	'dms'	=>	'application/octet-stream',
-	'lha'	=>	'application/octet-stream',
-	'lzh'	=>	'application/octet-stream',
+	
 	'exe'	=>	array
 				(
 					'application/octet-stream', 
 					'application/x-msdownload'
 				),
-	'class'	=>	'application/octet-stream',
 	'psd'	=>	array
 				(
 					'application/x-photoshop', 
 					'image/vnd.adobe.photoshop'
 				),
-	'so'	=>	'application/octet-stream',
-	'sea'	=>	'application/octet-stream',
-	'dll'	=>	'application/octet-stream',
-	'oda'	=>	'application/oda',
+	
 	'pdf'	=>	array
 				(
 					'application/pdf', 
@@ -75,11 +157,6 @@ $config['MimeTypes'] = array
 					'application/pdf', 
 					'application/postscript'
 				),
-	'eps'	=>	'application/postscript',
-	'ps'	=>	'application/postscript',
-	'smi'	=>	'application/smil',
-	'smil'	=>	'application/smil',
-	'mif'	=>	'application/vnd.mif',
 	'xls'	=>	array
 				(
 					'application/vnd.ms-excel', 
@@ -107,16 +184,7 @@ $config['MimeTypes'] = array
 					'application/vnd.openxmlformats-officedocument.presentationml.presentation', 
 					'application/x-zip', 
 					'application/zip'
-				),
-	'wbxml'	=>	'application/wbxml',
-	'wmlc'	=>	'application/wmlc',
-	'dcr'	=>	'application/x-director',
-	'dir'	=>	'application/x-director',
-	'dxr'	=>	'application/x-director',
-	'dvi'	=>	'application/x-dvi',
-	'gtar'	=>	'application/x-gtar',
-	'gz'	=>	'application/x-gzip',
-	'gzip'  =>	'application/x-gzip',
+				),	
 	'php'	=>	array
 				(
 					'application/x-httpd-php', 
@@ -125,26 +193,16 @@ $config['MimeTypes'] = array
 					'text/php', 'text/x-php',
 					'application/x-httpd-php-source'
 				),
-	'php4'	=>	'application/x-httpd-php',
-	'php3'	=>	'application/x-httpd-php',
-	'phtml'	=>	'application/x-httpd-php',
-	'phps'	=>	'application/x-httpd-php-source',
 	'js'	=>	array
 				(
 					'application/x-javascript', 
 					'text/plain'
-				),
-	'swf'	=>	'application/x-shockwave-flash',
-	'sit'	=>	'application/x-stuffit',
-	'tar'	=>	'application/x-tar',
+				),	
 	'tgz'	=>	array
 				(
 					'application/x-tar', 
 					'application/x-gzip-compressed'
 				),
-	'z'		=>	'application/x-compress',
-	'xhtml'	=>	'application/xhtml+xml',
-	'xht'	=>	'application/xhtml+xml',
 	'zip'	=>	array
 				(
 					'application/x-zip', 
@@ -159,10 +217,6 @@ $config['MimeTypes'] = array
 					'application/rar', 
 					'application/x-rar-compressed'
 				),
-	'mid'	=>	'audio/midi',
-	'midi'	=>	'audio/midi',
-	'mpga'	=>	'audio/mpeg',
-	'mp2'	=>	'audio/mpeg',
 	'mp3'	=>	array
 				(
 					'audio/mpeg', 
@@ -180,12 +234,6 @@ $config['MimeTypes'] = array
 					'audio/x-aiff', 
 					'audio/aiff'
 				),
-	'aifc'	=>	'audio/x-aiff',
-	'ram'	=>	'audio/x-pn-realaudio',
-	'rm'	=>	'audio/x-pn-realaudio',
-	'rpm'	=>	'audio/x-pn-realaudio-plugin',
-	'ra'	=>	'audio/x-realaudio',
-	'rv'	=>	'video/vnd.rn-realvideo',
 	'wav'	=>	array
 				(
 					'audio/x-wav', 
@@ -206,7 +254,6 @@ $config['MimeTypes'] = array
 					'application/x-bmp', 
 					'application/x-win-bitmap'
 				),
-	'gif'	=>	'image/gif',
 	'jpeg'	=>	array
 				(
 					'image/jpeg', 
@@ -227,8 +274,6 @@ $config['MimeTypes'] = array
 					'image/png',  
 					'image/x-png'
 				),
-	'tiff'	=>	'image/tiff',
-	'tif'	=>	'image/tiff',
 	'css'	=>	array
 				(
 					'text/css', 
@@ -249,15 +294,11 @@ $config['MimeTypes'] = array
 					'text/html', 
 					'text/plain'
 				),
-	'txt'	=>	'text/plain',
-	'text'	=>	'text/plain',
 	'log'	=>	array
 				(
 					'text/plain', 
 					'text/x-log'
 				),
-	'rtx'	=>	'text/richtext',
-	'rtf'	=>	'text/rtf',
 	'xml'	=>	array
 				(
 					'application/xml', 
@@ -270,11 +311,6 @@ $config['MimeTypes'] = array
 					'text/xsl', 
 					'text/xml'
 				),
-	'mpeg'	=>	'video/mpeg',
-	'mpg'	=>	'video/mpeg',
-	'mpe'	=>	'video/mpeg',
-	'qt'	=>	'video/quicktime',
-	'mov'	=>	'video/quicktime',
 	'avi'	=>	array
 				(
 					'video/x-msvideo', 
@@ -282,7 +318,6 @@ $config['MimeTypes'] = array
 					'video/avi', 
 					'application/x-troff-msvideo'
 				),
-	'movie'	=>	'video/x-sgi-movie',
 	'doc'	=>	array
 				(
 					'application/msword', 
@@ -319,8 +354,6 @@ $config['MimeTypes'] = array
 					'application/msword', 
 					'application/octet-stream'
 				),
-	'xl'	=>	'application/excel',
-	'eml'	=>	'message/rfc822',
 	'json'  =>	array
 				(
 					'application/json', 
@@ -337,8 +370,6 @@ $config['MimeTypes'] = array
 					'application/x-pkcs10', 
 					'application/pkcs10'
 				),
-	'p12'   =>	'application/x-pkcs12',
-	'p7a'   =>	'application/x-pkcs7-signature',
 	'p7c'   =>	array
 				(
 					'application/pkcs7-mime', 
@@ -349,8 +380,6 @@ $config['MimeTypes'] = array
 					'application/pkcs7-mime', 
 					'application/x-pkcs7-mime'
 				),
-	'p7r'   =>	'application/x-pkcs7-certreqresp',
-	'p7s'   =>	'application/pkcs7-signature',
 	'crt'   =>	array
 				(
 					'application/x-x509-ca-cert', 
@@ -362,42 +391,21 @@ $config['MimeTypes'] = array
 					'application/pkix-crl', 
 					'application/pkcs-crl'
 				),
-	'der'   =>	'application/x-x509-ca-cert',
-	'kdb'   =>	'application/octet-stream',
-	'pgp'   =>	'application/pgp',
-	'gpg'   =>	'application/gpg-keys',
-	'sst'   =>	'application/octet-stream',
-	'csr'   =>	'application/octet-stream',
-	'rsa'   =>	'application/x-pkcs7',
 	'cer'   =>	array
 				(
 					'application/pkix-cert', 
 					'application/x-x509-ca-cert'
 				),
-	'3g2'   =>	'video/3gpp2',
 	'3gp'   =>	array
 				(
 					'video/3gp', 
 					'video/3gpp'
 				),
-	'mp4'   =>	'video/mp4',
-	'm4a'   =>	'audio/x-m4a',
-	'f4v'   =>	'video/mp4',
-	'webm'	=>	'video/webm',
-	'aac'   =>	'audio/x-acc',
-	'm4u'   =>	'application/vnd.mpegurl',
-	'm3u'   =>	'text/plain',
-	'xspf'  =>	'application/xspf+xml',
-	'vlc'   =>	'application/videolan',
 	'wmv'   =>	array
 				(
 					'video/x-ms-wmv', 
 					'video/x-ms-asf'
 				),
-	'au'    =>	'audio/x-au',
-	'ac3'   =>	'audio/ac3',
-	'flac'  =>	'audio/x-flac',
-	'ogg'   =>	'audio/ogg',
 	'kmz'	=>	array
 				(
 					'application/vnd.google-earth.kmz', 
@@ -410,9 +418,6 @@ $config['MimeTypes'] = array
 					'application/xml', 
 					'text/xml'
 				),
-	'ics'	=>	'text/calendar',
-	'ical'	=>	'text/calendar',
-	'zsh'	=>	'text/x-scriptzsh',
 	'7zip'	=>	array
 				(
 					'application/x-compressed', 
@@ -448,7 +453,6 @@ $config['MimeTypes'] = array
 					'application/xml', 
 					'text/xml'
 				),
-	'vcf'	=>	'text/x-vcard',
 	'srt'	=>	array
 				(
 					'text/srt', 

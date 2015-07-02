@@ -102,7 +102,7 @@ class Autoloader
 		
 		if( ! empty($classMap) ) foreach($classMap as $directory)
 		{
-			$classMaps = self::searchClassMap($directory);
+			$classMaps = self::searchClassMap($directory, $directory);
 		}
 		
 		// ----------------------------------------------------------------------------------------
@@ -147,11 +147,12 @@ class Autoloader
 	| yol bilgisi oluşturulur. createClassMap() yöntemi için oluşturulmuştur.    			  |
 	|          																				  |
 	******************************************************************************************/
-	private static function searchClassMap($directory = '')
+	private static function searchClassMap($directory = '', $baseDirectory = '' )
 	{
 		static $classes;
 		
-		$directory = suffix($directory); 
+		$directory 	   = suffix($directory); 
+		$baseDirectory = suffix($baseDirectory); 
 		
 		$files = glob($directory.'*');
 	
@@ -165,11 +166,11 @@ class Autoloader
 				$classes[removeExtension(end($classEx))] = $v;
 				
 				// Sınıf namespace(isim alanları) ve yolları oluşturuluyor.	
-				$classes[str_replace('/', '\\', str_replace($classEx[0].'/'.$classEx[1].'/', '', removeExtension($v)))] = $v;	
+				$classes[str_replace('/', '\\', str_replace($baseDirectory, '', removeExtension($v)))] = $v;	
 			}
 			elseif( is_dir($v) )
 			{
-				self::searchClassMap($v);
+				self::searchClassMap($v, $baseDirectory);
 			}
 		}	
 		
