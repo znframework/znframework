@@ -96,7 +96,7 @@ class Oci8Driver
 		
 		if( empty($this->connect) ) 
 		{
-			die(getMessage('Database', 'mysqlConnectError'));
+			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
 	}
 	

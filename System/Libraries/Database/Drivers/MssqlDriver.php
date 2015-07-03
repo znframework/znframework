@@ -63,7 +63,7 @@ class MssqlDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(getMessage('Database', 'mysqlConnectError'));
+			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
 		
 		mssql_select_db($this->config['database'], $this->connect);

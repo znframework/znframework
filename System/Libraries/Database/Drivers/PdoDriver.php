@@ -605,7 +605,7 @@ class PdoDriver
 		}
 		catch(PDOException $e)
 		{
-			die(getMessage('Database', 'mysqlConnectError'));
+			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
 	}
 }

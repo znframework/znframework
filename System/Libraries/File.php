@@ -89,12 +89,12 @@ class File
 		{
 			$data = '';
 		}
+
+		$file_open 	= @fopen($file, $mode);
 		
-		$file_open 	= fopen($file, $mode);
+		$file_write = @fwrite($file_open, $data);
 		
-		$file_write = fwrite($file_open, $data);
-		
-		fclose($file_open);
+		@fclose($file_open);
 	}	
 	
 	/******************************************************************************************
@@ -122,7 +122,7 @@ class File
 			return false;	
 		}
 		// Dosya içeriğini getir.
-		return file_get_contents($path);
+		return @file_get_contents($path);
 	}
 	
 	/******************************************************************************************
@@ -159,7 +159,7 @@ class File
 		}
 		
 		// Dosyadan gereli veriyi çek.
-		$index = strpos(file_get_contents($file), $data);
+		$index = strpos(@file_get_contents($file), $data);
 		
 		$contents = self::contents($file);
 	
@@ -260,11 +260,11 @@ class File
 		}
 	
 		// Dosyaya veriyi yaz.
-		$file_open 	= fopen($file, $mode);
+		$file_open 	= @fopen($file, $mode);
 		
-		$file_write = fwrite($file_open, $data);
+		$file_write = @fwrite($file_open, $data);
 		
-		fclose($file_open);
+		@fclose($file_open);
 
 	}	
 

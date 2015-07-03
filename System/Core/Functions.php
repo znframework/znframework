@@ -1516,6 +1516,26 @@ function getMessage($langFile, $errorMsg, $ex = '')
 	return lang($langFile, $errorMsg, $ex);
 }
 
+// Function: getErrorMessage()
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+function getErrorMessage($langFile, $errorMsg, $ex = '')
+{
+	$style = '
+		border:solid 1px #E1E4E5;
+		background:#F3F6F6;
+		padding:20px 20px 20px 20px;
+		font-family:monospace, Tahoma, Arial;
+		color:#333;
+	';
+	
+	$str  = "<div style=\"$style\">";
+	$str .= lang($langFile, $errorMsg, $ex);
+	$str .= '</div>';
+	
+	return $str;
+}
+
 // Function: errorReport()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.

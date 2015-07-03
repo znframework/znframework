@@ -58,7 +58,7 @@ class FbsqlDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(getMessage('Database', 'mysqlConnectError'));
+			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
 		
 		fbsql_select_db($this->config['database'], $this->connect);

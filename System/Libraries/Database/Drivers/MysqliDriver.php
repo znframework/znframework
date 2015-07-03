@@ -57,7 +57,7 @@ class MysqliDriver
 		
 		if( empty($this->connect) ) 
 		{
-			die(getMessage('Database', 'mysqlConnectError'));
+			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
 		
 		if( ! empty($this->config['charset']) )  

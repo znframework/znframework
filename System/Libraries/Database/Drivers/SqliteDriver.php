@@ -58,7 +58,7 @@ class SqliteDriver
 		
 		if( ! empty($error) ) 
 		{
-			die(getMessage('Database', 'mysqlConnectError'));
+			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
 	}
 	

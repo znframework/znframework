@@ -53,7 +53,7 @@ class Autoloader
 			}
 			else
 			{
-				die(getMessage('File', 'notFoundError', $class));
+				die(getErrorMessage('File', 'notFoundError', $class));
 			}
 		}
 	
@@ -72,12 +72,12 @@ class Autoloader
 			}
 			else
 			{
-				die(getMessage('File', 'notFoundError', $file));	
+				die(getErrorMessage('File', 'notFoundError', $file));	
 			}
 		}
 		else
 		{
-			die(getMessage('File', 'notFoundError', $class));
+			die(getErrorMessage('File', 'notFoundError', $class));
 		}
 	} 
 	

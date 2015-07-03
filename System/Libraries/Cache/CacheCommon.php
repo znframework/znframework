@@ -23,34 +23,20 @@ function cacheCommon($driver = '')
 {	
 	$config = Config::get('Cache');
 	
-	if( isset($config['driver']) ) 
+	$driver = ! empty($driver)
+			  ? $driver
+			  : $config['driver'];
+	
+	if( ! empty($driver) ) 
 	{	
-		// Geçerli sürücüler
-		$drivers = Folder::files(SYSTEM_LIBRARIES_DIR.'Cache/Drivers/', 'php');	
+		$drv = ucwords($driver).'Driver';
 		
-		if( empty($driver) )
-		{
-			// Drirver ayarına girilen verinin
-			// ilk harfini büyük yapması isteniyor.
-			// memcache => Memcache		
-			$driver = ucwords($config['driver']);
-		}
-		else
-		{
-			$driver = ucwords($driver);	
-		}
-		
-		$drv = $driver.'Driver';
-		
-		// Sürücünün geçerliliği kontrol ediliyor. 
-		if( ! in_array(suffix($drv, '.php'), $drivers) )
-		{
-			return false;	
-		}
-		
-		// Sürüden bir nesne oluşturuluyor.
 		$cache = new $drv;
 		
 		return $cache;
 	}	
+	else
+	{
+		die(getErrorMessage('Cache', 'driverError', $driver));	
+	}
 }
