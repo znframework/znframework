@@ -150,7 +150,7 @@ class Encode
 			return false;
 		}
 		
-		$project_key = Config::get('Encode','projectKey');
+		$projectKey = Config::get('Encode','projectKey');
 		
 		$algo = Config::get('Encode', 'type');
 		
@@ -162,13 +162,13 @@ class Encode
 		// Proje Anahatarı belirtizme bu veri yerine
 		// Proje anahtarı olarak sitenin host adresi
 		// eklenecek ek veri kabul edilir.
-		if( empty($project_key) ) 
+		if( empty($projectKey) ) 
 		{
 			$additional = hash($algo, host()); 
 		}
 		else 
 		{
-			$additional = hash($algo, $project_key);
+			$additional = hash($algo, $projectKey);
 		}
 		
 		// Veri şifreleniyor.

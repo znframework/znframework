@@ -30,14 +30,14 @@ class Symbol
 	| Örnek Kullanım: symbol('daimon');         											  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function name($symbol_name = 'turkishLira')
+	public static function name($symbolName = 'turkishLira')
 	{
-		if( ! is_string($symbol_name) ) 
+		if( ! is_string($symbolName) ) 
 		{
 			return false;
 		}
 		
-		$symbol = Config::get('Symbols',$symbol_name);
+		$symbol = Config::get('Symbols', $symbolName);
 		
 		if( ! empty($symbol) )
 		{ 

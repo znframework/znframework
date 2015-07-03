@@ -32,7 +32,7 @@ class Security
 	| 2. ve 3. Parametreler kullanılmaz ise varsayılan olarak Config/Security.php dosyasında  |
 	| yer alan nc_encode => change chars karakterleri ayarlı olacaktır. 					  |
 	******************************************************************************************/
-	public static function ncEncode($string = '', $badwords = '', $changechar = '[badchars]')
+	public static function ncEncode($string = '', $badWords = '', $changeChar = '[badchars]')
 	{
 		if( ! is_string($string)) 
 		{
@@ -40,28 +40,28 @@ class Security
 		}
 	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
-		if( empty($badwords) )
+		if( empty($badWords) )
 		{
 			$secnc = Config::get("Security", 'ncEncode');
-			$badwords = $secnc['bad_chars'];
-			$changechar = $secnc['change_bad_chars'];
+			$badWords = $secnc['bad_chars'];
+			$changeChar = $secnc['change_bad_chars'];
 		}
-		if( ! is_array($badwords)) return  $string = Regex::replace($badwords, $changechar, $string, 'xi');
+		if( ! is_array($badWords)) return  $string = Regex::replace($badWords, $changeChar, $string, 'xi');
 		
 		$ch = '';
 		$i = 0;	
 		
-		foreach($badwords as $value)
+		foreach($badWords as $value)
 		{		
-			if( ! is_array($changechar) )
+			if( ! is_array($changeChar) )
 			{
-				$ch = $changechar;
+				$ch = $changeChar;
 			}
 			else
 			{
-				if( isset($changechar[$i]) )
+				if( isset($changeChar[$i]) )
 				{
-					$ch = $changechar[$i];	
+					$ch = $changeChar[$i];	
 					$i++;
 				}
 			}
@@ -90,21 +90,21 @@ class Security
 			return false;
 		}
 		
-		$sec_bac_chars = Config::get("Security", 'injectionBadChars');
+		$secBadChars = Config::get("Security", 'injectionBadChars');
 		
-		if( ! empty($sec_bac_chars)) 
+		if( ! empty($secBadChars)) 
 		{
-			foreach($sec_bac_chars as $bad_char => $change_char)
+			foreach($secBadChars as $badChar => $changeChar)
 			{
-				if(is_numeric($bad_char))
+				if(is_numeric($badChar))
 				{
-					$bad_char = $change_char;
-					$change_char = '';
+					$badChar = $changeChar;
+					$changeChar = '';
 				}
 				
-				$bad_char = trim($bad_char, '/');
+				$badChar = trim($badChar, '/');
 				
-				$string = preg_replace('/'.$bad_char.'/xi', $change_char, $string);
+				$string = preg_replace('/'.$badChar.'/xi', $changeChar, $string);
 			}
 		}
 		
@@ -146,21 +146,21 @@ class Security
 			return false;
 		}
 		
-		$sec_bac_chars = Config::get("Security", 'scriptBadChars');
+		$secBadChars = Config::get("Security", 'scriptBadChars');
 		
-		if( ! empty($sec_bac_chars)) 
+		if( ! empty($secBadChars)) 
 		{
-			foreach($sec_bac_chars as $bad_char => $change_char)
+			foreach($secBadChars as $badChar => $changeChar)
 			{
-				if(is_numeric($bad_char))
+				if(is_numeric($badChar))
 				{
-					$bad_char = $change_char;
-					$change_char = '';
+					$badChar = $changeChar;
+					$changeChar = '';
 				}
 				
-				$bad_char = trim($bad_char, '/');
+				$badChar = trim($badChar, '/');
 				
-				$string = preg_replace('/'.$bad_char.'/xi', $change_char, $string);
+				$string = preg_replace('/'.$badChar.'/xi', $changeChar, $string);
 			}
 		}
 		
@@ -255,13 +255,13 @@ class Security
 			return false;
 		}
 		
-		$php_tag_chars = array
+		$phpTagChars = array
 		(
 			'<?' => '&#60;&#63;',
 			'?>' => '&#63;&#62;'
 		);
 		
-		return str_replace(array_keys($php_tag_chars), array_values($php_tag_chars), $str);
+		return str_replace(array_keys($phpTagChars), array_values($phpTagChars), $str);
 	}
 	
 	// Function: phpTagDecode()
@@ -276,13 +276,13 @@ class Security
 			return false;
 		}
 		
-		$php_tag_chars = array
+		$phpTagChars = array
 		(
 			'<?' => '&#60;&#63;',
 			'?>' => '&#63;&#62;'
 		);
 		
-		return str_replace(array_values($php_tag_chars), array_keys($php_tag_chars), $str);
+		return str_replace(array_values($phpTagChars), array_keys($phpTagChars), $str);
 	}
 	
 	// Function: nailEncode()
@@ -297,13 +297,13 @@ class Security
 			return false;
 		}
 		
-		$nail_chars = array
+		$nailChars = array
 		(
 			"'" => "&#145;",
 			'"' => "&#147;"
 		);
 		
-		$str = str_replace(array_keys($nail_chars), array_values($nail_chars), $str);
+		$str = str_replace(array_keys($nailChars), array_values($nailChars), $str);
 		
 		return $str;
 	}
@@ -320,13 +320,13 @@ class Security
 			return false;
 		}
 		
-		$nail_chars = array
+		$nailChars = array
 		(
 			"'" => "&#145;",
 			'"' => "&#147;"
 		);
 		
-		$str = str_replace(array_values($nail_chars), array_keys($nail_chars), $str);
+		$str = str_replace(array_values($nailChars), array_keys($nailChars), $str);
 		
 		return $str;
 	}

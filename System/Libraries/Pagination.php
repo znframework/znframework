@@ -24,7 +24,7 @@ class Pagination
 	 * tutması için oluşturulmuştur.
 	 * Varsayılan:0
 	 */
-	private static $total_rows 		= 0;
+	private static $totalRows 		= 0;
 	
 	/* Limit Değişkeni
 	 *  
@@ -40,7 +40,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:10
 	 */
-	private static $count_links 	= 10;
+	private static $countLinks 	= 10;
 	
 	/* Class Dizi Değişkeni
 	 *  
@@ -64,7 +64,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[prev]
 	 */
-	private static $first_tag 		= '[prev]';
+	private static $prevTag 		= '[prev]';
 	
 	/* Last Tag Değişkeni
 	 *  
@@ -72,7 +72,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[next]
 	 */
-	private static $last_tag 		= '[next]';
+	private static $nextTag 		= '[next]';
 	
 	/* Firstest Tag Değişkeni
 	 *  
@@ -80,7 +80,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[first]
 	 */
-	private static $firstest_tag 	= '[first]';
+	private static $firstTag 	= '[first]';
 	
 	/* Lastest Tag Değişkeni
 	 *  
@@ -88,7 +88,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[last]
 	 */
-	private static $lastest_tag 	= '[last]';
+	private static $lastTag 	= '[last]';
 	
 	/* Url Tag Değişkeni
 	 *  
@@ -140,16 +140,16 @@ class Pagination
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
-		if( isset($config['totalRows']) )	self::$total_rows 	= $config['totalRows'];
+		if( isset($config['totalRows']) )	self::$totalRows 	= $config['totalRows'];
 		if( isset($config['limit']) )		self::$limit 		= $config['limit'];
 		if( isset($config['url']) )			self::$url 			= suffix(siteUrl($config['url']));	
-		if( isset($config['countLinks']) )	self::$count_links 	= $config['countLinks'];
+		if( isset($config['countLinks']) )	self::$countLinks 	= $config['countLinks'];
 		if( isset($config['class']) )		self::$class 		= $config['class'];
 		if( isset($config['style']) )		self::$style 		= $config['style'];
-		if( isset($config['prevName']) )	self::$first_tag 	= $config['prevName'];
-		if( isset($config['nextName']) )	self::$last_tag 	= $config['nextName'];
-		if( isset($config['firstName']) )	self::$firstest_tag = $config['firstName'];
-		if( isset($config['lastName']) )	self::$lastest_tag 	= $config['lastName'];
+		if( isset($config['prevName']) )	self::$prevTag 		= $config['prevName'];
+		if( isset($config['nextName']) )	self::$nextTag 		= $config['nextName'];
+		if( isset($config['firstName']) )	self::$firstTag 	= $config['firstName'];
+		if( isset($config['lastName']) )	self::$lastTag 		= $config['lastName'];
 		// ---------------------------------------------------------------------------------------	
 	}
 	
@@ -171,8 +171,13 @@ class Pagination
 	| Örnek Kullanım: create();        	  					                                  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function create($start = '')
+	public static function create($start = '', $settings = array())
 	{
+		if( ! empty($settings) )
+		{
+			self::settings($settings);	
+		}
+		
 		$page  = '';
 		$links = '';
 		
@@ -185,13 +190,13 @@ class Pagination
 			// Başlangıç değerini 0 olarak ayarla.
 			if( ! is_numeric(Uri::segment(-1)) )
 			{ 
-				$start_page = 0; 
+				$startPage = 0; 
 			}
 			else
 			{ 
 				// Son segment sayısal veri ise
 				// başlangıç değeri olarak ayarla
-				$start_page = Uri::segment(-1);
+				$startPage = Uri::segment(-1);
 			}
 		}
 		else 
@@ -207,65 +212,65 @@ class Pagination
 			
 			// @start prametresi sayılsal bir değerse
 			// bu değeri başlangıç değeri olarak ayarla.
-			$start_page = $start;
+			$startPage = $start;
 		}
 		
 		// Kaç adet sayfa oluşacağı belirleniyor
 		// Sayfa Sayısı = Toplam Satır / Limit
-		$per_page = @ceil(self::$total_rows / self::$limit);
+		$perPage = @ceil(self::$totalRows / self::$limit);
 		
 		// Toplam link sayısı sayfa sayısından büyükse
-		if( self::$count_links > $per_page )
+		if( self::$countLinks > $perPage )
 		{	
 			// lINKS Sayfalamada yer alacak linkler oluşturuluyor.
 			// LINKS -------------------------------------------------------------------	
-			for($i = 1; $i <= $per_page; $i++)
+			for($i = 1; $i <= $perPage; $i++)
 			{
 				$page = ($i - 1) * self::$limit;
 				
 				// Kontrolere göre varsa stil veya sınıf verileri ekleniyor.
 				
-				if( $i - 1 == $start_page / self::$limit )
+				if( $i - 1 == $startPage / self::$limit )
 				{
-					$current_link = ( isset(self::$class['current']) ) 
-									? 'class="'.self::$class['current'].'"' 
-									: "";
+					$currentLink = ( isset(self::$class['current']) ) 
+								 ? 'class="'.self::$class['current'].'"' 
+								 : "";
 					
-					$current_link_style = ( isset(self::$style['current']) ) 
-					                      ? 'style="'.self::$style['current'].'"' 
-										  : "";
+					$currentLinkStyle = ( isset(self::$style['current']) ) 
+					                  ? 'style="'.self::$style['current'].'"' 
+								      : "";
 				}
 				else
 				{
-					$current_link = '';	
-					$current_link_style = '';	
+					$currentLink = '';	
+					$currentLinkStyle = '';	
 				}
 				
-				$class_links = ( isset(self::$class['links']) ) 
-							   ? 'class="'.self::$class['links'].'"' 
-							   : "";
+				$classLinks = ( isset(self::$class['links']) ) 
+							  ? 'class="'.self::$class['links'].'"' 
+							  : "";
 							   
-				$style_links = ( isset(self::$style['links']) ) 
-							   ? 'style="'.self::$style['links'].'"' 
-							   : "";
+				$styleLinks = ( isset(self::$style['links']) ) 
+							  ? 'style="'.self::$style['links'].'"' 
+							  : "";
 							   
-				$links .= '<a href="'.self::$url.$page.'" '.$class_links.' '.$style_links.'><span '.$current_link.' '.$current_link_style.'> '.$i.'</span></a>';
+				$links .= '<a href="'.self::$url.$page.'" '.$classLinks.' '.$styleLinks.'><span '.$currentLink.' '.$currentLinkStyle.'> '.$i.'</span></a>';
 			}
 			// LINKS -------------------------------------------------------------------
 			
 			// PREV Sonraki butonu ile ilgili kontrol yapılıyor.
 			// PREV TAG ---------------------------------------------------------------	
-			if( $start_page != 0 )
+			if( $startPage != 0 )
 			{
-				$class_prev = ( isset(self::$class['prev']) ) 
-							  ? 'class="'.self::$class['prev'].'"' 
-							  : "";
+				$classPrev = ( isset(self::$class['prev']) ) 
+							 ? 'class="'.self::$class['prev'].'"' 
+							 : "";
 				
-				$style_prev = ( isset(self::$style['prev']) ) 
-							  ? 'style="'.self::$style['prev'].'"' 
-							  : "";
+				$stylePrev = ( isset(self::$style['prev']) ) 
+							 ? 'style="'.self::$style['prev'].'"' 
+							 : "";
 							  
-				$first = '<a href="'.self::$url.($start_page - self::$limit ).'" '.$class_prev .' '.$style_prev.'>'.self::$first_tag.'</a>';
+				$first = '<a href="'.self::$url.($startPage - self::$limit ).'" '.$classPrev .' '.$stylePrev.'>'.self::$prevTag.'</a>';
 			}
 			else
 			{
@@ -275,20 +280,20 @@ class Pagination
 			
 			// NEXT Sonraki butonu ile ilgili kontrol yapılıyor.
 			// NEXT TAG ---------------------------------------------------------------			
-			if( $start_page != $page )
+			if( $startPage != $page )
 			{
-				$class_next = ( isset(self::$class['next']) ) 
-							  ? 'class="'.self::$class['next'].'"' 
-							  : "";
+				$classNext = ( isset(self::$class['next']) ) 
+							 ? 'class="'.self::$class['next'].'"' 
+							 : "";
 
-				$style_next = ( isset(self::$style['next']) ) 
-							  ? 'style="'.self::$style['next'].'"' 
-							  : "";
+				$styleNext = ( isset(self::$style['next']) ) 
+							 ? 'style="'.self::$style['next'].'"' 
+							 : "";
 				
-				$last_url   = self::$url.($start_page + self::$limit);
-				$last_stcl  = $class_next.' '.$style_next;
+				$lastUrl   = self::$url.($startPage + self::$limit);
+				$lastStcl  = $classNext.' '.$styleNext;
 							  
-				$last = '<a href="'.$last_url.'" '.$last_stcl.'>'.self::$last_tag.'</a>';
+				$last = '<a href="'.$lastUrl.'" '.$lastStcl.'>'.self::$nextTag.'</a>';
 			}
 			else
 			{
@@ -296,7 +301,7 @@ class Pagination
 			}
 			// NEXT TAG ---------------------------------------------------------------	
 			
-			if( self::$total_rows > self::$limit ) 
+			if( self::$totalRows > self::$limit ) 
 			{
 				return $first.' '.$links.' '.$last;
 			}
@@ -304,100 +309,100 @@ class Pagination
 		else
 		{
 			
-			$per_page = self::$count_links;
+			$perPage = self::$countLinks;
 			
 			// Linkler için class kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastest_tag_class = ( isset(self::$class['last']) ) 
-								 ? ' class="'.self::$class['last'].'" ' 
-								 : '';
+			$lastTagClass = ( isset(self::$class['last']) ) 
+							? ' class="'.self::$class['last'].'" ' 
+							: '';
 			
 			// FIRST LINK
-			$firstest_tag_class = ( isset(self::$class['first']) ) 
-								  ? ' class="'.self::$class['first'].'" ' 
-								  : '';
+			$firstTagClass = ( isset(self::$class['first']) ) 
+						     ? ' class="'.self::$class['first'].'" ' 
+							 : '';
 			
 			// NEXT LINK
-			$last_tag_class = ( isset(self::$class['next']) ) 
-							  ? ' class="'.self::$class['next'].'" ' 
-							  : '';
+			$nextTagClass = ( isset(self::$class['next']) ) 
+							? ' class="'.self::$class['next'].'" ' 
+							: '';
 			
 			// CURRENT LINK 
-			$current_link_class = ( isset(self::$class['current']) ) 
-								  ? ' class="'.self::$class['current'].'" ' 
-								  : '';
+			$currentLinkClass = ( isset(self::$class['current']) ) 
+								? ' class="'.self::$class['current'].'" ' 
+								: '';
 			
 			// LINKS 					  
-			$links_class = ( isset(self::$class['links']) ) 
-						   ? ' class="'.self::$class['links'].'" ' 
-						   : '';
+			$linksClass = ( isset(self::$class['links']) ) 
+						  ? ' class="'.self::$class['links'].'" ' 
+						  : '';
 			
 			// PREV 					  
-			$first_tag_class = ( isset(self::$class['prev']) ) 
-							   ? ' class="'.self::$class['prev'].'" ' 
-							   : '';					 
+			$prevTagClass = ( isset(self::$class['prev']) ) 
+							? ' class="'.self::$class['prev'].'" ' 
+							: '';					 
 			// -------------------------------------------------------------------------
 			
 			// Linkler için style kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastest_tag_style = ( isset(self::$style['last']) ) 
-							   ? ' style="'.self::$style['last'].'" ' 
-							   : '';
+			$lastTagStyle = ( isset(self::$style['last']) ) 
+							? ' style="'.self::$style['last'].'" ' 
+							: '';
 			
 			// FIRST LINK
-			$firstest_tag_style = ( isset(self::$style['first']) ) 
-							   ? ' style="'.self::$style['first'].'" ' 
-							   : '';	
+			$firstTagStyle = ( isset(self::$style['first']) ) 
+							 ? ' style="'.self::$style['first'].'" ' 
+							 : '';	
 			
 			// NEXT LINK
-			$last_tag_style = ( isset(self::$style['next']) ) 
-							   ? ' style="'.self::$style['next'].'" ' 
-							   : '';				   
+			$nextTagStyle = ( isset(self::$style['next']) ) 
+							? ' style="'.self::$style['next'].'" ' 
+							: '';				   
 			
 			// CURRENT LINK 
-			$current_link_style = ( isset(self::$style['current']) ) 
-							   ? ' style="'.self::$style['current'].'" ' 
-							   : '';
+			$currentLinkStyle = ( isset(self::$style['current']) ) 
+							    ? ' style="'.self::$style['current'].'" ' 
+							    : '';
 			
 			// LINKS 
-			$links_style = ( isset(self::$style['links']) ) 
-							   ? ' style="'.self::$style['links'].'" ' 
-							   : '';
+			$linksStyle = ( isset(self::$style['links']) ) 
+						  ? ' style="'.self::$style['links'].'" ' 
+						  : '';
 			
 			// PREV
-			$first_tag_style = ( isset(self::$style['prev']) ) 
-							   ? ' style="'.self::$style['prev'].'" ' 
-							   : '';				   
+			$prevTagStyle = ( isset(self::$style['prev']) ) 
+							? ' style="'.self::$style['prev'].'" ' 
+							: '';				   
 			// -------------------------------------------------------------------------
 			
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
-			$lastest_tag_num         = self::$url.(self::$total_rows - (self::$total_rows % self::$limit) - 1);
-			$lastest_tag_style_class = $lastest_tag_class.$lastest_tag_style;
+			$lastTagNum        = self::$url.(self::$totalRows - (self::$totalRows % self::$limit) - 1);
+			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			
-			$lastest_tag = '<a href="'.$lastest_tag_num.'"'.$lastest_tag_style_class.'>'.self::$lastest_tag.'</a>';
+			$lastTag = '<a href="'.$lastTagNum.'"'.$lastTagStyleClass.'>'.self::$lastTag.'</a>';
 			// -------------------------------------------------------------------------
 						
 			// -------------------------------------------------------------------------
 			// FIRST TAG 
 			// -------------------------------------------------------------------------
-			$firstest_tag_style_class = $firstest_tag_class.$firstest_tag_style;
+			$firstTagStyle_class = $firstTagClass.$firstTagStyle;
 			
-			$firstest_tag = '<a href="'.self::$url.'0"'.$firstest_tag_style_class.'>'.self::$firstest_tag.'</a>';
+			$firstTag = '<a href="'.self::$url.'0"'.$firstTagStyle_class.'>'.self::$firstTag.'</a>';
 			// -------------------------------------------------------------------------
 			
-			if( $start_page > 0 )
+			if( $startPage > 0 )
 			{
 				// -------------------------------------------------------------------------
 				// PREV TAG 
 				// -------------------------------------------------------------------------
-				$first_num = self::$url.($start_page - self::$limit );
-				$fisrt_style_class = $first_tag_class.$first_tag_style;
+				$firstNum = self::$url.($startPage - self::$limit );
+				$fisrtStyleClass = $prevTagClass.$prevTagStyle;
 				
-				$first = '<a href="'.$first_num.'"'.$fisrt_style_class.'>'.self::$first_tag.'</a>';				
+				$first = '<a href="'.$firstNum.'"'.$fisrtStyleClass.'>'.self::$prevTag.'</a>';				
 				// -------------------------------------------------------------------------
 			}
 			else
@@ -405,75 +410,75 @@ class Pagination
 				$first = '';	
 			}
 			
-			if( ($start_page / self::$limit) == 0 ) 
+			if( ($startPage / self::$limit) == 0 ) 
 			{
-				$pag_index = 1; 
+				$pagIndex = 1; 
 			}
 			else 
 			{
-				$pag_index = @ceil( $start_page / self::$limit + 1);
+				$pagIndex = @ceil( $startPage / self::$limit + 1);
 			}
 			
-			if( $start_page < self::$total_rows - self::$limit )
+			if( $startPage < self::$totalRows - self::$limit )
 			{
 				// -------------------------------------------------------------------------
 				// NEXT TAG 
 				// -------------------------------------------------------------------------
-				$last_num = self::$url.($start_page + self::$limit);
-				$last_style_class = $last_tag_class.$last_tag_style;
+				$lastNum = self::$url.($startPage + self::$limit);
+				$lastStyleClass = $nextTagClass.$nextTagStyle;
 				
-				$last = '<a href="'.$last_num.'"'.$last_style_class.'>'.self::$last_tag.'</a>';	
+				$last = '<a href="'.$lastNum.'"'.$lastStyleClass.'>'.self::$nextTag.'</a>';	
 				// -------------------------------------------------------------------------				
 			}
 			else
 			{
 				$last        = '';
-				$lastest_tag = '';
-				$pag_index   = @ceil(self::$total_rows / self::$limit) - self::$count_links + 1;
+				$lastTag = '';
+				$pagIndex   = @ceil(self::$totalRows / self::$limit) - self::$countLinks + 1;
 			}
 			
-			if( $pag_index < 1 || $start_page == 0 ) 
+			if( $pagIndex < 1 || $startPage == 0 ) 
 			{
-				$firstest_tag = '';
+				$firstTag = '';
 			}
 			
-			$n_per_page = $per_page + $pag_index - 1;
+			$nPerPage = $perPage + $pagIndex - 1;
 			
-			if( $n_per_page >= @ceil(self::$total_rows / self::$limit) ) 
+			if( $nPerPage >= @ceil(self::$totalRows / self::$limit) ) 
 			{
-				$n_per_page  = @ceil(self::$total_rows / self::$limit);
-				$lastest_tag = '';
+				$nPerPage  = @ceil(self::$totalRows / self::$limit);
+				$lastTag = '';
 				$last        = '';
 			}
 			
 			$links = '';
 			
-			for($i = $pag_index; $i <= $n_per_page; $i++)
+			for($i = $pagIndex; $i <= $nPerPage; $i++)
 			{
 				$page = ($i - 1) * self::$limit;
 				
 				// Aktif sayfa linki kontrol ediliyor.		
-				if( $i - 1 == $start_page / self::$limit )
+				if( $i - 1 == $startPage / self::$limit )
 				{
-					$current_link = $current_link_class.$current_link_style;
+					$currentLink = $currentLinkClass.$currentLinkStyle;
 				}
 				else
 				{
-					$current_link = '';	
+					$currentLink = '';	
 				}
 				
 				// -------------------------------------------------------------------------
 				// LINKS 
 				// -------------------------------------------------------------------------
-				$links_style_class = $links_class.$links_style;
+				$linksStyleClass = $linksClass.$linksStyle;
 				
-				$links .= '<a href="'.self::$url.$page.'"'.$links_style_class.'><span '.$current_link.'> '.$i.'</span></a>';
+				$links .= '<a href="'.self::$url.$page.'"'.$linksStyleClass.'><span '.$currentLink.'> '.$i.'</span></a>';
 				// -------------------------------------------------------------------------
 			}
 	
-			if( self::$total_rows > self::$limit ) 
+			if( self::$totalRows > self::$limit ) 
 			{
-				return $firstest_tag.' '.$first.' '.$links.' '.$last.' '.$lastest_tag;
+				return $firstTag.' '.$first.' '.$links.' '.$last.' '.$lastTag;
 			}
 		}
 	}

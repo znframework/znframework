@@ -19,23 +19,23 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 class URI
 {
 	// Uri işlemleri için oluşturulmuştur.
-	private static function clean_path()
+	private static function cleanPath()
 	{
-		$path_info = cleanInjection(requestUri());
+		$pathInfo = cleanInjection(requestUri());
 		
 		// ----------------------------------------------------------------------
 		
 		// URL YÖNLENDİRİLİYOR...
 		
-		$path_info = routeUri($path_info);
+		$pathInfo = routeUri($pathInfo);
 		
 		
-		if(  strstr($path_info, getLang()) )
+		if(  strstr($pathInfo, getLang()) )
 		{
-			$path_info = str_replace(getLang().'/', '', $path_info);
+			$pathInfo = str_replace(getLang().'/', '', $pathInfo);
 		}
 		
-		return $path_info;
+		return $pathInfo;
 	}
 	
 	/******************************************************************************************
@@ -78,28 +78,27 @@ class URI
 		}
 		// ------------------------------------------------------------------------------------
 		
-		$seg_ind = '';
-		$seg_arr = self::segmentArray();
-		$seg_val = '';
+		$segArr = self::segmentArray();
+		$segVal = '';
 		
-		if( in_array($get, $seg_arr) )
+		if( in_array($get, $segArr) )
 		{ 
-			$seg_val = array_search($get, $seg_arr); 
+			$segVal = array_search($get, $segArr); 
 			
 			// 3. parametrenin boş olmama durumu ve
 			// 2. parametrenin sayısal olmama durumu
 			if( ! empty($while) && ! is_numeric($index) )
 			{
-				$get_val   = array_search($get, $seg_arr);
-				$index_val = array_search($index, $seg_arr);
-				$return    = '';
+				$getVal   = array_search($get, $segArr);
+				$indexVal = array_search($index, $segArr);
+				$return   = '';
 		
-				for($i = $get_val; $i <= $index_val; $i++)
+				for($i = $getVal; $i <= $indexVal; $i++)
 				{
-					$return .= htmlentities($seg_arr[$i])."/";
+					$return .= htmlentities($segArr[$i])."/";
 				}
 				
-				return substr($return,0,-1);
+				return substr($return, 0, -1);
 			}
 			
 			// 2. parametrenin all olma durumu
@@ -109,9 +108,9 @@ class URI
 			{
 				$return = '';
 				
-				for($i=1; $i < count($seg_arr) - $seg_val; $i++)
+				for($i=1; $i < count($segArr) - $segVal; $i++)
 				{
-					$return .= htmlentities($seg_arr[$seg_val + $i])."/";
+					$return .= htmlentities($segArr[$segVal + $i])."/";
 				}
 				$return = substr($return,0,-1);
 				
@@ -125,7 +124,7 @@ class URI
 				
 				for($i= 1; $i <= $index; $i++)
 				{
-					$return .= htmlentities($seg_arr[$seg_val + $i])."/";
+					$return .= htmlentities($segArr[$segVal + $i])."/";
 				}
 				
 				$return = substr($return,0,-1);
@@ -138,12 +137,12 @@ class URI
 			// itibaren kalan bölüm sayısını verir.
 			if( $index === "count" )
 			{
-				return count($seg_arr) - 1 - $seg_val;
+				return count($segArr) - 1 - $segVal;
 			}
 			
-			if( isset($seg_arr[$seg_val + $index]) ) 
+			if( isset($segArr[$segVal + $index]) ) 
 			{
-				return htmlentities($seg_arr[$seg_val + $index]); 
+				return htmlentities($segArr[$segVal + $index]); 
 			}		
 			else 
 			{
@@ -169,8 +168,8 @@ class URI
 	******************************************************************************************/
 	public static function segmentArray()
 	{
-		$segment_ex = explode("/", self::clean_path());
-		return $segment_ex;	
+		$segmentEx = explode("/", self::cleanPath());
+		return $segmentEx;	
 	}
 	
 	/******************************************************************************************
@@ -186,11 +185,11 @@ class URI
 	******************************************************************************************/
 	public static function totalSegments()
 	{
-		$segment_ex     = explode("/", self::clean_path());	
-		$segment_ex     = array_diff($segment_ex, array(""," "));
-		$total_segments = count($segment_ex);
+		$segmentEx     = explode("/", self::cleanPath());	
+		$segmentEx     = array_diff($segmentEx, array(""," "));
+		$totalSegments = count($segmentEx);
 		
-		return $total_segments;
+		return $totalSegments;
 	}
 	
 	/******************************************************************************************
@@ -232,17 +231,17 @@ class URI
 		
 		$negative = 0;
 		
-		$request_uri = server('requestUri');
+		$requestUri = server('requestUri');
 		
-		$base_dir    = substr(BASE_DIR,1,-1);
+		$baseDir    = substr(BASE_DIR,1,-1);
 		
-		if( ! empty($base_dir) ) 
+		if( ! empty($baseDir) ) 
 		{
-			$base_dir_ex = explode("/",$base_dir);
+			$baseDirEx = explode("/", $baseDir);
 			
-			$seg  += count($base_dir_ex) + 1;
+			$seg  += count($baseDirEx) + 1;
 			
-			$negative += count($base_dir_ex) + 1;
+			$negative += count($baseDirEx) + 1;
 		}
 		else
 		{
@@ -250,25 +249,25 @@ class URI
 			$negative += 1; 
 		}
 		
-		if( strstr($request_uri, 'index.php') ) 
+		if( strstr($requestUri, 'index.php') ) 
 		{ 
 			$seg      += 1; 
 			$negative += 1; 
 		}
 		
-		if( strstr($request_uri, getLang()) ) 
+		if( strstr($requestUri, getLang()) ) 
 		{ 
 			$seg      += 1; 
 			$negative += 1; 
 		}
 	
-		$part = explode('/', $request_uri);
+		$part = explode('/', $requestUri);
 		
-		$count_part = count($part);
+		$countPart = count($part);
 		
 		if( $segment < 0 )
 		{
-			$seg = $count_part + ($segment);
+			$seg = $countPart + ($segment);
 		}
 		if( $negative == $seg ) 
 		{

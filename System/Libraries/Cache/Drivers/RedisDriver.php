@@ -289,7 +289,7 @@ class RedisDriver
 	| Örnek Kullanım: ->get_metadata('nesne');			        		     				  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_metadata($key)
+	public function getMetaData($key)
 	{
 		if( $this->is_supported() === false )
 		{
@@ -316,7 +316,7 @@ class RedisDriver
 	| Genel Kullanım: Sürücünün desteklenip desklenmediğini öğrenmek için kullanılır.         |
 	|          																				  |
 	******************************************************************************************/
-	public function is_supported()
+	public function isSupported()
 	{
 		if( ! extension_loaded('redis') )
 		{

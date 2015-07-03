@@ -211,7 +211,7 @@ class FileDriver
 	| Örnek Kullanım: ->get_metadata('nesne');			        		     				  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_metadata($key)
+	public function getMetaData($key)
 	{
 		if( ! file_exists($this->path.$key) )
 		{
@@ -245,7 +245,7 @@ class FileDriver
 	| Genel Kullanım: Sürücünün desteklenip desklenmediğini öğrenmek için kullanılır.         |
 	|          																				  |
 	******************************************************************************************/
-	public function is_supported()
+	public function isSupported()
 	{
 		return is_writable($this->path);
 	}

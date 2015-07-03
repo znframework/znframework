@@ -41,7 +41,7 @@ class Benchmark
 	 * için oluşturulmuştur.
 	 *
 	 */
-	private static $test_count = 0;
+	private static $testCount = 0;
 	
 	/******************************************************************************************
 	* TEST START                                                                              *
@@ -62,11 +62,11 @@ class Benchmark
 		
 		// Kaç test kullanıldığını hesaplamak için
 		// test count değişkeni birer birer artırılıyor.
-		self::$test_count++;
+		self::$testCount++;
 		
 		// Yöntem içinden tanımlanan kodlardan kaynaklı
 		// fazlalık hesaplanıyor.
-		$legancy = ( self::$test_count === 1 ) 
+		$legancy = ( self::$testCount === 1 ) 
 				   ? $legancy = 136 
 				   : 56;
 	
@@ -146,14 +146,14 @@ class Benchmark
 	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
 	|															                              |
 	******************************************************************************************/
-	public static function memoryUsage($real_memory = false)
+	public static function memoryUsage($realMemory = false)
 	{
-		if( ! is_bool($real_memory) ) 
+		if( ! is_bool($realMemory) ) 
 		{
-			$real_memory = false;
+			$realMemory = false;
 		}
 		
-		return  memory_get_usage($real_memory);
+		return  memory_get_usage($realMemory);
 	}
 	
 	/******************************************************************************************
@@ -165,14 +165,14 @@ class Benchmark
 	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
 	|															                              |
 	******************************************************************************************/
-	public static function maxMemoryUsage($real_memory = false)
+	public static function maxMemoryUsage($realMemory = false)
 	{
-		if( ! is_bool($real_memory) ) 
+		if( ! is_bool($realMemory) ) 
 		{
-			$real_memory = false;
+			$realMemory = false;
 		}
 		
-		return  memory_get_peak_usage($real_memory);
+		return  memory_get_peak_usage($realMemory);
 	}
 	
 	/******************************************************************************************

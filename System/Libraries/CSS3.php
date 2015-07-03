@@ -148,8 +148,8 @@ class CSS3
 			// Geçiş verilecek özellik belirleniyor.
 			if( isset($param["property"]) )
 			{
-				$property_ex = explode(":",$param["property"]);
-				$property = $property_ex[0];
+				$propertyEx = explode(":",$param["property"]);
+				$property = $propertyEx[0];
 				
 				$str .= $param["property"].";".eol();
 				

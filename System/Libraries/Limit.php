@@ -26,7 +26,7 @@ class Limit
 	// @endchar = Metnin kelime sayısı sınırlanan sayıdan fazla ise devamı olduğunu gösteren ve metnin sonuna eklenen karakter.
 	// @striptags = Metindeki html tagları numerik koda dönüştürülsün mü?. true veya false.
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function word($str = '', $limit = 100, $endchar = '...', $striptags = true)
+	public static function word($str = '', $limit = 100, $endChar = '...', $stripTags = true)
 	{
 		if( ! is_string($str) ) 
 		{
@@ -38,14 +38,14 @@ class Limit
 			$limit = 100;
 		}
 		
-		if( ! is_string($endchar) ) 
+		if( ! is_string($endChar) ) 
 		{
-			$endchar = '...';
+			$endChar = '...';
 		}
 		
-		if( ! is_bool($striptags) ) 
+		if( ! is_bool($stripTags) ) 
 		{
-			$striptags = true;
+			$stripTags = true;
 		}
 		
 		$str = trim($str);
@@ -56,7 +56,7 @@ class Limit
 		}
 		
 	
-		if( $striptags === true ) 
+		if( $stripTags === true ) 
 		{
 			$str = strip_tags($str);
 		}
@@ -67,10 +67,10 @@ class Limit
 	
 		if( strlen($str) === strlen($matches[0]) )
 		{
-			$endchar = '';
+			$endChar = '';
 		}
 	
-		return rtrim($matches[0]).$endchar;
+		return rtrim($matches[0]).$endChar;
 	}
 
 	// Function: char_limiter()
@@ -81,7 +81,7 @@ class Limit
 	// @endchar = Metnin kelime sayısı sınırlanan sayıdan fazla ise devamı olduğunu gösteren ve metnin sonuna eklenen karakter.
 	// @striptags = Metindeki html tagları numerik koda dönüştürülsün mü?. true veya false.
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function char($str = '', $limit = 500, $endchar = '...',  $striptags = false, $encoding = "utf-8")
+	public static function char($str = '', $limit = 500, $endChar = '...',  $stripTags = false, $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{
@@ -93,14 +93,14 @@ class Limit
 			$limit = 500;
 		}
 		
-		if( ! is_string($endchar) ) 
+		if( ! is_string($endChar) ) 
 		{
-			$endchar = '...';
+			$endChar = '...';
 		}
 		
-		if( ! is_bool($striptags) ) 
+		if( ! is_bool($stripTags) ) 
 		{
-			$striptags = true;
+			$stripTags = true;
 		}
 		
 		$str = trim($str);
@@ -110,7 +110,7 @@ class Limit
 			return $str;
 		}
 		
-		if( $striptags === true ) 
+		if( $stripTags === true ) 
 		{
 			$str = strip_tags($str);
 		}
@@ -123,7 +123,7 @@ class Limit
 		}
 		else
 		{
-			return mb_substr($str, 0, $limit, $encoding).$endchar;	
+			return mb_substr($str, 0, $limit, $encoding).$endChar;	
 		}
 	}	
 }

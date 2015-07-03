@@ -45,7 +45,7 @@ class Convert
 	| echo char_converter($html, 'html', 'dec'); // Çıktı: 77 101 116 105 110                 |	
 	|       																				  |																					  |
 	******************************************************************************************/
-	public static function char($string = '', $type = 'char', $change_type = 'html')
+	public static function char($string = '', $type = 'char', $changeType = 'html')
 	{
 		if( ! isValue($string) ) 
 		{
@@ -55,16 +55,16 @@ class Convert
 		{
 			$type = 'char';
 		}
-		if( ! is_string($change_type) ) 
+		if( ! is_string($changeType) ) 
 		{
-			$change_type = 'html';
+			$changeType = 'html';
 		}
 		
 		for($i=32; $i<=255; $i++)
 		{
-			$hex_remaining = ($i%16);
-			$hex_remaining = str_replace(array(10,11,12,13,14,15),array('A','B','C','D','E','F'),$hex_remaining);
-			$hex = ( floor($i/16) ).$hex_remaining;
+			$hexRemaining = ($i%16);
+			$hexRemaining = str_replace(array(10,11,12,13,14,15),array('A','B','C','D','E','F'), $hexRemaining);
+			$hex = ( floor($i/16) ).$hexRemaining;
 			
 			if( $hex[0] == '0' ) 
 			{
@@ -80,7 +80,7 @@ class Convert
 			}		
 		}	
 		
-		return str_replace($chars[strtolower($type)], $chars[strtolower($change_type)], $string);
+		return str_replace($chars[strtolower($type)], $chars[strtolower($changeType)], $string);
 	}
 
 	/******************************************************************************************
@@ -125,33 +125,33 @@ class Convert
 	| echo url_word_converter('Zn Kod Çatısına Hoş', '/'); //  zn/kod/catisina/hos			  |
 	|       																				  |
 	******************************************************************************************/
-	public static function urlWord($str = '', $splitword = '-')
+	public static function urlWord($str = '', $splitWord = '-')
 	{
 		if( ! is_string($str) ) 
 		{
 			return false;
 		}
 	
-		if( ! is_string($splitword) ) 
+		if( ! is_string($splitWord) ) 
 		{
-			$splitword = "-";
+			$splitWord = "-";
 		}	
 		
 		$accent = Config::get('ForeignChars', 'accentChars');
 		
 		$accent = Arrays::multikey($accent);
 		
-		$badchars = Config::get('Security', 'urlBadChars');
+		$badChars = Config::get('Security', 'urlBadChars');
 		
 		$str = str_replace(array_keys($accent), array_values($accent), $str); 
 		
-		$str = str_replace($badchars, '', $str);
+		$str = str_replace($badChars, '', $str);
 		
 		$str = preg_replace("/\s+/", ' ', $str);
 		
 		$str = str_replace("&nbsp;", '', $str);
 		
-		$str = str_replace(' ', $splitword, trim(strtolower($str)));
+		$str = str_replace(' ', $splitWord, trim(strtolower($str)));
 		
 		return $str;
 		
@@ -273,19 +273,19 @@ class Convert
 	| echo case_converter('Zn Kod Çatısına Hoş', 'latin5', 'urtf-8');                         |
 	|       																				  |
 	******************************************************************************************/
-	public static function charset($str = '', $from_charset = 'utf-8', $to_charset = 'utf-8')
+	public static function charset($str = '', $fromCharset = 'utf-8', $toCharset = 'utf-8')
 	{
 		if( ! is_string($str) ) 
 		{
 			return false;
 		}
 		
-		if( ! isCharset($from_charset) || ! isCharset($to_charset) ) 
+		if( ! isCharset($fromCharset) || ! isCharset($toCharset) ) 
 		{
 			return false;
 		}
 		
-		return mb_convert_encoding($str, $from_charset, $to_charset);	
+		return mb_convert_encoding($str, $fromCharset, $toCharset);	
 	}
 	
 	/******************************************************************************************

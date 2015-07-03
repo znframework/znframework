@@ -143,7 +143,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
 	|          																				  |
 	******************************************************************************************/
-	public function list_databases()
+	public function listDatabases()
 	{
 		// Ön tanımlı sorgu kullanıyor.
 		return false;
@@ -155,7 +155,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
 	|          																				  |
 	******************************************************************************************/
-	public function list_tables()
+	public function listTables()
 	{
 		// Ön tanımlı sorgu kullanıyor.
 		return false;
@@ -167,7 +167,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için insert id kullanımıdır.                 		          |
 	|          																				  |
 	******************************************************************************************/
-	public function insert_id()
+	public function insertId()
 	{
 		$this->query('SELECT @@IDENTITY AS insert_id');
 		$row = $query->row();
@@ -180,7 +180,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function column_data()
+	public function columnData()
 	{
 		if( empty($this->query) ) 
 		{
@@ -277,7 +277,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için toplam kayıt sayısı bilgisini verir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function num_rows()
+	public function numRows()
 	{
 		if( ! empty($this->query) )
 		{
@@ -319,7 +319,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için toplam sütun sayısı bilgisini verir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function num_fields()
+	public function numFields()
 	{
 		if( ! empty($this->query) )
 		{
@@ -360,7 +360,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
 	|          																				  |
 	******************************************************************************************/
-	public function result_array()
+	public function resultArray()
 	{
 		if( empty($this->query) ) 
 		{
@@ -402,7 +402,7 @@ class SqlsrvDriver
 	| yararlanılmıştır.												 			              | 
 	|          																				  |
 	******************************************************************************************/
-	public function real_escape_string($data = '')
+	public function realEscapeString($data = '')
 	{
 		return str_replace(array("'",'"'), array("\'", '\"'), $data);
 	}
@@ -432,7 +432,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için fetch_array yönteminin kullanımıdır. 		              | 
 	|          																				  |
 	******************************************************************************************/
-	public function fetch_array()
+	public function fetchArray()
 	{
 		if( ! empty($this->query) )
 		{
@@ -450,7 +450,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için fetch_array yönteminin kullanımıdır. 		              | 
 	|          																				  |
 	******************************************************************************************/
-	public function fetch_assoc()
+	public function fetchAssoc()
 	{
 		if( ! empty($this->query) )
 		{
@@ -468,7 +468,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için fetch_row yönteminin kullanımıdır. 		              | 
 	|          																				  |
 	******************************************************************************************/
-	public function fetch_row()
+	public function fetchRow()
 	{
 		if( ! empty($this->query) )
 		{
@@ -486,7 +486,7 @@ class SqlsrvDriver
 	| Genel Kullanım: Bu sürücü için affected_rows yönteminin kullanımıdır. 		          | 
 	|          																				  |
 	******************************************************************************************/
-	public function affected_rows()
+	public function affectedRows()
 	{
 		if( ! empty($this->connect) )
 		{

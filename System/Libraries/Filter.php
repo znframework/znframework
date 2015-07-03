@@ -25,32 +25,32 @@ class Filter
 	// @badwords = Filtrelenmesi istenen kelime veya kelimeler. string veya array veri türü.
 	// @changechar = Kötü içerikli kelimelerin yerini alacak yeni kelime veya kelimeler. string veya array veri türü.
 	// Dönen Değer: Filtrelenmiş veri.
-	public static function word($string = '', $badwords = '', $changechar = '[badwords]')
+	public static function word($string = '', $badWords = '', $changeChar = '[badwords]')
 	{
 		if( ! isValue($string) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_array($badwords) ) 
+		if( ! is_array($badWords) ) 
 		{
-			return  $string = Regex::replace($badwords, $changechar, $string, 'xi');
+			return  $string = Regex::replace($badWords, $changeChar, $string, 'xi');
 		}
 		
 		$ch = '';
 		$i = 0;	
 		
-		foreach($badwords as $value)
+		foreach($badWords as $value)
 		{
-			if( ! is_array($changechar) )
+			if( ! is_array($changeChar) )
 			{
-				$ch = $changechar;
+				$ch = $changeChar;
 			}
 			else
 			{
-				if( isset($changechar[$i]) )
+				if( isset($changeChar[$i]) )
 				{
-					$ch = $changechar[$i];	
+					$ch = $changeChar[$i];	
 					$i++;
 				}
 			}

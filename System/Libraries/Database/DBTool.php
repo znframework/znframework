@@ -60,9 +60,9 @@ class DBTool
 	******************************************************************************************/
 	public function listDatabases()
 	{
-		if( $this->db->list_databases() !== false )
+		if( $this->db->listDatabases() !== false )
 		{
-			return $this->db->list_databases();
+			return $this->db->listDatabases();
 		}
 		
 		$this->db->query('SHOW DATABASES');
@@ -72,17 +72,17 @@ class DBTool
 			return false;
 		}
 		
-		$newdatabases = array();
+		$newDatabases = array();
 		
 		foreach($this->db->result() as $databases)
 		{
 			foreach ($databases as $db => $database)
 			{
-				$newdatabases[] = $database;
+				$newDatabases[] = $database;
 			}
 		}
 		
-		return $newdatabases;
+		return $newDatabases;
 	}
 	
 	/******************************************************************************************
@@ -97,9 +97,9 @@ class DBTool
 	******************************************************************************************/
 	public function listTables()
 	{
-		if( $this->db->list_tables() !== false )
+		if( $this->db->listTables() !== false )
 		{
-			return $this->db->list_tables();
+			return $this->db->listTables();
 		}
 		
 		$this->db->query('SHOW TABLES');
@@ -109,17 +109,17 @@ class DBTool
 			return false;
 		}
 		
-		$newtables = array();
+		$newTables = array();
 		
 		foreach($this->db->result() as $tables)
 		{
 			foreach ($tables as $tb => $table)
 			{
-				$newtables[] = $table;
+				$newTables[] = $table;
 			}
 		}
 		
-		return $newtables;
+		return $newTables;
 	}
 	
 	/******************************************************************************************
@@ -135,11 +135,11 @@ class DBTool
 	| Örnek Kullanım: $this->dbtool->backup('*', 'backup');        		 					  |
 	|          																				  |
 	******************************************************************************************/
-	public function backup($tables = '*', $filename = '', $path = FILES_DIR)
+	public function backup($tables = '*', $fileName = '', $path = FILES_DIR)
 	{		
-		if( $this->db->backup($filename) !== false )
+		if( $this->db->backup($fileName) !== false )
 		{
-			return $this->db->backup($filename);
+			return $this->db->backup($fileName);
 		}
 		
 		if( $tables === '*' )
@@ -148,7 +148,7 @@ class DBTool
 			
 			$this->db->query('SHOW TABLES');
 			
-			while($row = $this->db->fetch_row())
+			while($row = $this->db->fetchRow())
 			{
 				$tables[] = $row[0];
 			}
@@ -171,21 +171,21 @@ class DBTool
 			
 		    $this->db->query('SELECT * FROM '.$table);
 			
-			$num_fields = $this->db->num_fields();
+			$numFields = $this->db->numFields();
 
 			$return.= 'DROP TABLE '.$table.';';
 			$this->db->query('SHOW CREATE TABLE '.$table);
-			$row2 = $this->db->fetch_row();
+			$row2 = $this->db->fetchRow();
 			$return.= eol(2).$row2[1].";".eol(2);
 		
-			for ($i = 0; $i < $num_fields; $i++) 
+			for ($i = 0; $i < $numFields; $i++) 
 			{
 				
-				while($row = $this->db->fetch_row())
+				while($row = $this->db->fetchRow())
 				{
 					$return.= 'INSERT INTO '.$table.' VALUES(';
 					
-					for($j=0; $j<$num_fields; $j++) 
+					for($j=0; $j<$numFields; $j++) 
 					{
 						$row[$j] = addslashes($row[$j]);
 						$row[$j] = preg_replace("/\n/","\\n",$row[$j]);
@@ -199,7 +199,7 @@ class DBTool
 							$return.= '""'; 
 						}
 						
-						if ( $j<($num_fields-1) ) 
+						if ( $j<($numFields-1) ) 
 						{ 
 							$return.= ','; 
 						}
@@ -210,13 +210,13 @@ class DBTool
 			$return .= eol(3);
 		}
 		
-		if( empty($filename) ) 
+		if( empty($fileName) ) 
 		{ 
-			$filename = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
+			$fileName = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
 		}
 		
-		$handle = fopen($path.$filename,'w+');
-		fwrite($handle,$return);
+		$handle = fopen($path.$fileName, 'w+');
+		fwrite($handle, $return);
 		fclose($handle);
 		
 		return getMessage('Database', 'backupTablesSuccess');
@@ -241,9 +241,9 @@ class DBTool
 		{
 			foreach($this->db->result() as $tables)
 			{
-				foreach ($tables as $db => $tablename)
+				foreach ($tables as $db => $tableName)
 				{
-					$this->db->query("OPTIMIZE TABLE ".$tablename);
+					$this->db->query("OPTIMIZE TABLE ".$tableName);
 				}
 			}
 			
@@ -258,9 +258,9 @@ class DBTool
 					  ? $table
 					  : explode(',',$table);
 			
-			foreach ($tables as $tablename)
+			foreach ($tables as $tableName)
 			{
-				$this->db->query("OPTIMIZE TABLE ".$this->prefix.$tablename);
+				$this->db->query("OPTIMIZE TABLE ".$this->prefix.$tableName);
 			}
 				
 			if( $this->db->error() ) 
@@ -291,9 +291,9 @@ class DBTool
 		{
 			foreach($this->db->result() as $tables)
 			{
-				foreach ($tables as $db => $tablename)
+				foreach ($tables as $db => $tableName)
 				{
-					$this->db->query("REPAIR TABLE ".$tablename);
+					$this->db->query("REPAIR TABLE ".$tableName);
 				}
 			}
 			
@@ -308,9 +308,9 @@ class DBTool
 					  ? $table
 					  : explode(',',$table);
 			
-			foreach ($tables as $tablename)
+			foreach ($tables as $tableName)
 			{
-				$this->db->query("REPAIR TABLE  ".$this->prefix.$tablename);
+				$this->db->query("REPAIR TABLE  ".$this->prefix.$tableName);
 			}
 			
 			if( $this->db->error() ) 
@@ -333,17 +333,17 @@ class DBTool
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function differentConnection($connect_name = '')
+	public function differentConnection($connectName = '')
 	{
-		if( ! is_string($connect_name) ) 
+		if( ! is_string($connectName) ) 
 		{
 			return false;
 		}
 		
 		$config = Config::get('Database');
-		$config_different = $config['differentConnection'];
+		$configDifferent = $config['differentConnection'];
 		
-		if( ! isset($config_different[$connect_name]) ) 
+		if( ! isset($configDifferent[$connectName]) ) 
 		{
 			return false;
 		}
@@ -352,14 +352,14 @@ class DBTool
 		{
 			if( $key !== 'differentConnection' )
 			{
-				if( ! isset($config_different[$connect_name][$key]) )
+				if( ! isset($configDifferent[$connectName][$key]) )
 				{
-					$config_different[$connect_name][$key] = $val;
+					$configDifferent[$connectName][$key] = $val;
 				}
 			}
 		}
 		
-		return new DbTool($config_different[$connect_name]);
+		return new DbTool($configDifferent[$connectName]);
 	}
 	
 	/******************************************************************************************

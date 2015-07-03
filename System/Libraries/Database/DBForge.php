@@ -254,28 +254,28 @@ class DBForge
 	| Örnek Kullanım: $this->dbforge->renameTable('OrnekTablo', 'YeniTablo');   		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function renameTable($name = '', $new_name = '')
+	public function renameTable($name = '', $newName = '')
 	{
 		if( ! empty($this->table) ) 
 		{
 			// Table yöntemi tanımlanmış ise
 			// 1. parametre, 2. parametre olarak kullanılsın
-			$new_name = $name;
+			$newName = $name;
 			$name = $this->table; 
 			$this->table = NULL;
 		}
 		
-		if( ! is_string($name) || ! is_string($new_name) ) 
+		if( ! is_string($name) || ! is_string($newName) ) 
 		{
 			return false;
 		}
 		
-		if( empty($name) || empty($new_name) ) 
+		if( empty($name) || empty($newName) ) 
 		{
 			return false;
 		}
 		
-		return $this->db->exec('ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$new_name);
+		return $this->db->exec('ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$newName);
 	}
 	
 	/******************************************************************************************
@@ -387,22 +387,22 @@ class DBForge
 		
 		if( $this->db->dropColumn() !== false )
 		{
-			$drop_column = $this->db->dropColumn();
+			$dropColumn = $this->db->dropColumn();
 		}
 		else
 		{
-			$drop_column = 'DROP ';
+			$dropColumn = 'DROP ';
 		}
 		
 		if( ! is_array($column) )
 		{
-			return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$drop_column.$column.';');		
+			return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$column.';');		
 		}
 		else
 		{
 			foreach($column as $col)
 			{
-				$this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$drop_column.$col.';');
+				$this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$col.';');
 			}
 		}
 	}
@@ -445,11 +445,11 @@ class DBForge
 		
 		if( $this->db->modifyColumn() !== false )
 		{
-			$modify_column = $this->db->modifyColumn();
+			$modifyColumn = $this->db->modifyColumn();
 		}
 		else
 		{
-			$modify_column = 'MODIFY ';
+			$modifyColumn = 'MODIFY ';
 		}
 		
 		$con = NULL;
@@ -470,7 +470,7 @@ class DBForge
 				$colvals .= ' '.$values;
 			}
 			
-			$con .= $modify_column.$column.$colvals.',';
+			$con .= $modifyColumn.$column.$colvals.',';
 		}		
 		
 		$con = substr($con, 0 , -1);
@@ -516,11 +516,11 @@ class DBForge
 		
 		if( $this->db->renameColumn() !== false )
 		{
-			$rename_column = $this->db->renameColumn();
+			$renameColumn = $this->db->renameColumn();
 		}
 		else
 		{
-			$rename_column = 'CHANGE COLUMN ';
+			$renameColumn = 'CHANGE COLUMN ';
 		}
 		
 		$con = NULL;
@@ -541,7 +541,7 @@ class DBForge
 				$colvals .= ' '.$values;
 			}
 			
-			$con .= $rename_column.$column.$colvals.',';
+			$con .= $renameColumn.$column.$colvals.',';
 		}		
 		
 		$con = substr($con, 0 , -1);
@@ -600,17 +600,17 @@ class DBForge
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function differentConnection($connect_name = '')
+	public function differentConnection($connectName = '')
 	{
-		if( ! is_string($connect_name) ) 
+		if( ! is_string($connectName) ) 
 		{
 			return false;
 		}
 		
 		$config = Config::get('Database');
-		$config_different = $config['differentConnection'];
+		$configDifferent = $config['differentConnection'];
 		
-		if( ! isset($config_different[$connect_name]) ) 
+		if( ! isset($configDifferent[$connectName]) ) 
 		{
 			return false;
 		}
@@ -619,14 +619,14 @@ class DBForge
 		{
 			if( $key !== 'differentConnection' )
 			{
-				if( ! isset($config_different[$connect_name][$key]) )
+				if( ! isset($configDifferent[$connectName][$key]) )
 				{
-					$config_different[$connect_name][$key] = $val;
+					$configDifferent[$connectName][$key] = $val;
 				}
 			}
 		}
 		
-		return new DbForge($config_different[$connect_name]);
+		return new DbForge($configDifferent[$connectName]);
 	}
 	
 	public function error(){ return $this->db->error(); }

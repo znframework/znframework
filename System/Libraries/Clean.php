@@ -38,30 +38,30 @@ class Clean
 	| var_dump( cleaner(array('a', 'b', 'c'), array('b', 'c')) ); // Çıktı: a 				  |
 	|																						  |
 	******************************************************************************************/	
-	public static function data($search_data = '', $clean_word = '')
+	public static function data($searchData = '', $cleanWord = '')
 	{
 
-		if( ! is_array($search_data) )
+		if( ! is_array($searchData) )
 		{	
-			if( ! isValue($clean_word) ) 
+			if( ! isValue($cleanWord) ) 
 			{
-				$clean_word = '';
+				$cleanWord = '';
 			}
 			
-			$result = str_replace($clean_word, '', $search_data);
+			$result = str_replace($cleanWord, '', $searchData);
 		}
 		else
 		{
-			if( ! is_array($clean_word) ) 
+			if( ! is_array($cleanWord) ) 
 			{
-				$clean_word_array[] = $clean_word;
+				$cleanWordArray[] = $cleanWord;
 			}
 			else
 			{
-				$clean_word_array = $clean_word;
+				$cleanWordArray = $cleanWord;
 			}
 			
-			$result = array_diff($search_data, $clean_word_array);	
+			$result = array_diff($searchData, $cleanWordArray);	
 		}
 		
 		return $result;

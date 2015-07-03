@@ -44,7 +44,7 @@ class Upload
 	 * kontrol etmesi için oluşturulmuştur.
 	 *
 	 */
-	private static $extension_control;
+	private static $extensionControl;
 	
 	/* Setting Status Değişkeni
 	 *  
@@ -52,7 +52,7 @@ class Upload
 	 * kontrol etmesi için oluşturulmuştur.
 	 *
 	 */
-	private static $setting_status = false;
+	private static $settingStatus = false;
 	
 	/* Errors Değişkeni
 	 *  
@@ -68,7 +68,7 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $manuel_error;
+	private static $manuelError;
 	
 	/* Encode Name Değişkeni
 	 *  
@@ -76,7 +76,7 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $encode_name;
+	private static $encodeName;
 	
 	/******************************************************************************************
 	* SETTINGS                                                                                *
@@ -107,7 +107,7 @@ class Upload
 			$set = array();
 		}
 
-		self::$setting_status = true;
+		self::$settingStatus = true;
 		
 		// 1-extensions -> Dosyanın uzantısı
 		if( isset($set['extensions']) ) 	
@@ -170,36 +170,36 @@ class Upload
 	| Örnek Kullanım: start('fileupload', 'Aplication/Uploads');       		                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function start($filename = 'upload', $rootdir = UPLOADS_DIR)
+	public static function start($fileName = 'upload', $rootDir = UPLOADS_DIR)
 	{	
-		if( ! is_string($filename) ) 
+		if( ! is_string($fileName) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_string($rootdir) ) 
+		if( ! is_string($rootDir) ) 
 		{
-			$rootdir = UPLOADS_DIR;
+			$rootDir = UPLOADS_DIR;
 		}
 		
 		// Dosya yükleme ayarları yapılmamışsa
 		// Varsayılan ayarları kullanması için.
-		if( self::$setting_status === false ) 
+		if( self::$settingStatus === false ) 
 		{
 			self::settings();
 		}
 		
-		self::$file = $filename;
+		self::$file = $fileName;
 
-		$root = $rootdir;
+		$root = $rootDir;
 		
-		if( ! isset($_FILES[$filename]['name']) ) 
+		if( ! isset($_FILES[$fileName]['name']) ) 
 		{ 
-			self::$manuel_error = 4; 
+			self::$manuelError = 4; 
 			return false; 
 		}
 		
-		$name = $_FILES[$filename]['name'];		
+		$name = $_FILES[$fileName]['name'];		
 		
 		$encryption = '';
 		
@@ -213,14 +213,14 @@ class Upload
 			$extensions = explode("|", self::$settings['extensions']);
 		}
 		
-		$source = $_FILES[$filename]['tmp_name'];
+		$source = $_FILES[$fileName]['tmp_name'];
 		
 		// Çoklu yükleme yapılıyorsa.
 		if( is_array($name) )
 		{
 			if( empty($name[0]) ) 
 			{
-				self::$manuel_error = 4; 
+				self::$manuelError = 4; 
 				return false; 
 			}
 			
@@ -247,21 +247,21 @@ class Upload
 
 				if( isset(self::$settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
-					self::$extension_control = lang('Upload', 'extensionError');	
+					self::$extensionControl = lang('Upload', 'extensionError');	
 				}
 				elseif( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($src) )
 				{
-					self::$manuel_error = 10;
+					self::$manuelError = 10;
 				}
 				else
 				{
-					if( ! is_file($rootdir) ) 
+					if( ! is_file($rootDir) ) 
 					{
 						move_uploaded_file($src, $target); 
 					}
 					else 
 					{
-						self::$manuel_error = 9;
+						self::$manuelError = 9;
 					}
 				}
 			}
@@ -281,35 +281,35 @@ class Upload
 				 $name = Convert::urlWord($name);	
 			}
 			
-			if( empty($_FILES[$filename]['name']) ) 
+			if( empty($_FILES[$fileName]['name']) ) 
 			{ 
-				self::$manuel_error = 4; 
+				self::$manuelError = 4; 
 				return false;
 			}
 			
 			if( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($source) )
 			{
-				self::$manuel_error = 10; 
+				self::$manuelError = 10; 
 				return false;
 			}
 
 			$target = $root.'/'.$encryption.$name;
 			
-			self::$encode_name = $encryption.$name;
+			self::$encodeName = $encryption.$name;
 			
 			if( isset(self::$settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				self::$extension_control = lang('Upload', 'extensionError');	
+				self::$extensionControl = lang('Upload', 'extensionError');	
 			}
 			else
 			{	
-				if( ! is_file($rootdir) ) 
+				if( ! is_file($rootDir) ) 
 				{
 					move_uploaded_file($source, $target); 
 				}
 				else 
 				{
-					self::$manuel_error = 9;
+					self::$manuelError = 9;
 				}				
 			}
 		}
@@ -343,7 +343,7 @@ class Upload
 				'size' 		 => $_FILES[self::$file]['size'],
 				'tmpName' 	 => $_FILES[self::$file]['tmp_name'],
 				'error' 	 => $_FILES[self::$file]['error'],
-				'encodeName' => self::$encode_name
+				'encodeName' => self::$encodeName
 			);
 		
 			$values = array();
@@ -394,8 +394,8 @@ class Upload
 			return lang('Upload', 'unknownError');
 		}
 		
-		$error_no = $_FILES[self::$file]['error'];
-		//$error_no = self::$manuel_error;
+		$errorNo = $_FILES[self::$file]['error'];
+		//$errorNo = self::$manuelError;
 		
 		self::$errors = array
 		(
@@ -411,24 +411,24 @@ class Upload
 			'10' => lang('Upload', '10') // Belirlenen maksimum dosya boyutu aşıldı!
 		);
 		// Manuel belirlenen hata oluşmuşsa
-		if( ! empty(self::$manuel_error) )
+		if( ! empty(self::$manuelError) )
 		{
-			return self::$errors[self::$manuel_error];
+			return self::$errors[self::$manuelError];
 		}
 		// Uzantıdan kaynaklı hata oluşmussa
-		elseif( ! empty(self::$extension_control) ) 
+		elseif( ! empty(self::$extensionControl) ) 
 		{
-			return self::$extension_control;
+			return self::$extensionControl;
 		}
 		// Hata numarasına göre hata bildir.
-		elseif( ! empty(self::$errors[$error_no]) ) 
+		elseif( ! empty(self::$errors[$errorNo]) ) 
 		{
-			if( self::$errors[$error_no] === "scc" ) 
+			if( self::$errors[$errorNo] === "scc" ) 
 			{
 				return false;
 			}
 			// 0 Dışında herhangi bir hata numarası oluşmussa
-			return self::$errors[$error_no];
+			return self::$errors[$errorNo];
 		}
 		// Bu kontroller dışında hata oluşmussa bilinmeyen
 		// hata uyarısı ver.	
@@ -450,21 +450,21 @@ class Upload
 	| Örnek Kullanım: sqlFile('Database/file.sql');         						  		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function sqlFile($sql_file = '')
+	public static function sqlFile($sqlFile = '')
 	{
-		if( ! is_string($sql_file) || empty($sql_file) ) 
+		if( ! is_string($sqlFile) || empty($sqlFile) ) 
 		{
 			return false;
 		}
 
-		$file_contents = File::contents(suffix($sql_file,".sql"));
+		$fileContents = File::contents(suffix($sqlFile,".sql"));
 		
-		$file_contents = preg_replace("/SET (.*?);/","",$file_contents);
-		$file_contents = preg_replace("/\/\*(.*?)\*\//","",$file_contents);
-		$file_contents = preg_replace("/--(.*?)\n/","",$file_contents);
-		$file_contents = preg_replace("/\/\*!40101/","",$file_contents);
+		$fileContents = preg_replace("/SET (.*?);/", "", $fileContents);
+		$fileContents = preg_replace("/\/\*(.*?)\*\//", "", $fileContents);
+		$fileContents = preg_replace("/--(.*?)\n/", "", $fileContents);
+		$fileContents = preg_replace("/\/\*!40101/", "", $fileContents);
 		
-		$queries = explode(";\n", $file_contents);
+		$queries = explode(";\n", $fileContents);
 		
 		$db = uselib('DB');
 		

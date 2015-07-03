@@ -47,15 +47,15 @@ class Session
 			return false;
 		}
 		
-		$sess_config = Config::get('Session');
+		$sessConfig = Config::get('Session');
 		
 		if( is_array($name) )
 		{
 			foreach($name as $key => $value)
 			{
-				if( isHash($sess_config['encode']) )
+				if( isHash($sessConfig['encode']) )
 				{
-					$_SESSION[hash($sess_config['encode'], $key)] = $value;
+					$_SESSION[hash($sessConfig['encode'], $key)] = $value;
 				}
 				else
 				{
@@ -65,9 +65,9 @@ class Session
 		}
 		else
 		{
-			if( isHash($sess_config['encode']) )
+			if( isHash($sessConfig['encode']) )
 			{
-				$_SESSION[hash($sess_config['encode'], $name)] = $values;
+				$_SESSION[hash($sessConfig['encode'], $name)] = $values;
 			}
 			else
 			{
@@ -75,7 +75,7 @@ class Session
 			}
 		}
 		
-		if( $sess_config['regenerate'] === true )
+		if( $sessConfig['regenerate'] === true )
 		{
 			session_regenerate_id();
 		}
@@ -99,15 +99,15 @@ class Session
 			return false;
 		}
 		
-		$sess_config = Config::get('Session','encode');
+		$sessConfig = Config::get('Session','encode');
 		
 		if( is_array($name) )
 		{
 			foreach($name as $key)
 			{
-				if( isHash($sess_config) )
+				if( isHash($sessConfig) )
 				{
-					$session[$key] = $_SESSION[hash($sess_config, $key)];
+					$session[$key] = $_SESSION[hash($sessConfig, $key)];
 				}
 				else
 				{
@@ -118,11 +118,11 @@ class Session
 		}
 		else
 		{
-			if( isHash($sess_config) )
+			if( isHash($sessConfig) )
 			{
-				if( isset($_SESSION[hash($sess_config, $name)]) ) 
+				if( isset($_SESSION[hash($sessConfig, $name)]) ) 
 				{
-					return $_SESSION[hash($sess_config, $name)]; 
+					return $_SESSION[hash($sessConfig, $name)]; 
 				}
 				else 
 				{
@@ -177,7 +177,7 @@ class Session
 			return false;
 		}
 		
-		$sess_config = Config::get('Session','encode');
+		$sessConfig = Config::get('Session','encode');
 		
 		if( is_array($name) )
 		{
@@ -185,11 +185,11 @@ class Session
 			{
 				$val = $value;
 				
-				if( isHash($sess_config) )
+				if( isHash($sessConfig) )
 				{
-					if( isset($_SESSION[hash($sess_config, $val)]) ) 
+					if( isset($_SESSION[hash($sessConfig, $val)]) ) 
 					{
-						unset($_SESSION[hash($sess_config, $val)]);
+						unset($_SESSION[hash($sessConfig, $val)]);
 					}
 				}
 				else
@@ -205,11 +205,11 @@ class Session
 		{
 			$val = $name;
 		}
-		if( isHash($sess_config) )
+		if( isHash($sessConfig) )
 		{
-			if( isset($_SESSION[hash($sess_config, $val)]) )
+			if( isset($_SESSION[hash($sessConfig, $val)]) )
 			{
-				unset($_SESSION[hash($sess_config, $val)]);
+				unset($_SESSION[hash($sessConfig, $val)]);
 			}
 		}
 		else

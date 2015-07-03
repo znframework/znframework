@@ -195,7 +195,7 @@ class ApcDriver
 	| Örnek Kullanım: ->get_metadata('nesne');			        		     				  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_metadata($key)
+	public function getMetaData($key)
 	{
 		if( ! function_exists('apc_fetch') )
 		{
@@ -206,7 +206,7 @@ class ApcDriver
 		
 		$stored = apc_fetch($key, $success);
 		
-		if( $success === false OR count($stored) !== 3 )
+		if( $success === false || count($stored) !== 3 )
 		{
 			return false;
 		}
@@ -227,9 +227,9 @@ class ApcDriver
 	| Genel Kullanım: Sürücünün desteklenip desklenmediğini öğrenmek için kullanılır.         |
 	|          																				  |
 	******************************************************************************************/
-	public function is_supported()
+	public function isSupported()
 	{
-		if ( ! extension_loaded('apc') OR ! ini_get('apc.enabled') )
+		if ( ! extension_loaded('apc') || ! ini_get('apc.enabled') )
 		{
 			$report = getMessage('Cache', 'unsupported', 'Apc');
 			report('CacheUnsupported', $report, 'CacheLibary');

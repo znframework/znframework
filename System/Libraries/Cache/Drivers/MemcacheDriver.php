@@ -227,7 +227,7 @@ class MemcacheDriver
 	| Örnek Kullanım: ->get_metadata('nesne');			        		     				  |
 	|          																				  |
 	******************************************************************************************/
-	public function get_metadata($key)
+	public function getMetaData($key)
 	{
 		if( ! function_exists('memcache_get') )
 		{
@@ -257,7 +257,7 @@ class MemcacheDriver
 	| Genel Kullanım: Sürücünün desteklenip desklenmediğini öğrenmek için kullanılır.         |
 	|          																				  |
 	******************************************************************************************/
-	public function is_supported()
+	public function isSupported()
 	{
 		if ( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
 		{

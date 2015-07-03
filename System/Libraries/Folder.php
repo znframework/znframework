@@ -102,20 +102,20 @@ class Folder
 	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public static function rename($oldname = '', $newname = '')
+	public static function rename($oldName = '', $newName = '')
 	{		
-		if( ! is_string($oldname) ) 
+		if( ! is_string($oldName) ) 
 		{
-			$oldname = '';
+			$oldName = '';
 		}
-		if( ! is_string($newname) ) 
+		if( ! is_string($newName) ) 
 		{
-			$newname = '';
+			$newName = '';
 		}
 		
-		if( file_exists($oldname) )
+		if( file_exists($oldName) )
 		{
-			rename($oldname, $newname);
+			rename($oldName, $newName);
 		}
 		else
 		{
@@ -390,20 +390,20 @@ class Folder
 			
 			$dir = suffix($dir);
 			
-			$files_info = array();
+			$filesInfo = array();
 			
 			foreach($files as $file)
 			{
-				$files_info[$file]['basename'] 	 = pathInfos($dir.$file, 'basename');
-				$files_info[$file]['size'] 		 = filesize($dir.$file);
-				$files_info[$file]['date'] 		 = filemtime($dir.$file);
-				$files_info[$file]['readable'] 	 = is_readable($dir.$file);
-				$files_info[$file]['writable'] 	 = is_writable($dir.$file);
-				$files_info[$file]['executable'] = is_executable($dir.$file);
-				$files_info[$file]['permission'] = fileperms($dir.$file);
+				$filesInfo[$file]['basename'] 	= pathInfos($dir.$file, 'basename');
+				$filesInfo[$file]['size'] 		= filesize($dir.$file);
+				$filesInfo[$file]['date'] 		= filemtime($dir.$file);
+				$filesInfo[$file]['readable'] 	= is_readable($dir.$file);
+				$filesInfo[$file]['writable'] 	= is_writable($dir.$file);
+				$filesInfo[$file]['executable'] = is_executable($dir.$file);
+				$filesInfo[$file]['permission'] = fileperms($dir.$file);
 			}
 			
-			return $files_info;
+			return $filesInfo;
 		}
 		elseif( is_file($dir) )
 		{

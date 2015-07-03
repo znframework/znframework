@@ -32,7 +32,7 @@ class XML
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $xml_url;
+	private static $xmlUrl;
 	
 	/* Dom Değişkeni
 	 *  
@@ -72,7 +72,7 @@ class XML
 		if( $type === 'file' )
 		{
 			self::$xpath = simplexml_load_file(suffix($path, '.xml'));
-			self::$xml_url = $path;
+			self::$xmlUrl = $path;
 		}
 		else
 		{
@@ -142,7 +142,7 @@ class XML
 			$output = true;
 		}
 		
-		self::$dom = new DOMDocument($version,$charset);
+		self::$dom = new DOMDocument($version, $charset);
 		
 		self::$dom->formatOutput = $output;
 		
@@ -495,7 +495,7 @@ class XML
 		$dom = self::$dom;
 		
 		if( isset(self::$dom) ) 		self::$dom = NULL;
-		if( isset(self::$xml_url) )	 	self::$xml_url = NULL;
+		if( isset(self::$xmlUrl) )	 	self::$xmlUrl = NULL;
 		if( isset(self::$xpath) ) 		self::$xpath = NULL;
 		
 		return $dom->saveXML();

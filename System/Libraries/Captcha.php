@@ -47,46 +47,46 @@ class Captcha
 		
 		$set = Config::get("Captcha");
 		
-		$_SESSION[md5('captcha_code')] = substr(md5(rand(0,999999999999999)),-($set['charLength']));	
+		$_SESSION[md5('captchaCode')] = substr(md5(rand(0,999999999999999)),-($set['charLength']));	
 		
-		if( isset($_SESSION[md5('captcha_code')]) )
+		if( isset($_SESSION[md5('captchaCode')]) )
 		{
-			if( ! isset($set["width"])) $set["width"] 								= 100;
-			if( ! isset($set["height"])) $set["height"] 							= 30;
-			if( ! isset($set['textColor'])) $set['textColor'] 						= "0|0|0";
-			if( ! isset($set['bgColor'])) $set['bgColor'] 							= "255|255|255";
-			if( ! isset($set["border"]))$set["border"] 								= true;
-			if( ! isset($set['borderColor'])) $set['borderColor'] 					= "200|200|200";
-			if( ! isset($set['imageString']["size"]))$set['imageString']["size"] 	= "5";
-			if( ! isset($set['imageString']["x"]))$set['imageString']["x"] 			= "23";
-			if( ! isset($set['imageString']["y"]))$set['imageString']["y"] 			= "9";
-			if( ! isset($set["grid"]))$set["grid"] 									= false; 
-			if( ! isset($set['gridSpace']["x"]))$set['gridSpace']["x"] 				= 12; 
-			if( ! isset($set['gridSpace']["y"]))$set['gridSpace']["y"] 				= 4; 
-			if( ! isset($set['gridColor']))$set['gridColor']						= "240|240|240";
-			if( ! isset($set["background"]))$set["background"]						= array();
+			if( ! isset($set["width"]) ) $set["width"] 								= 100;
+			if( ! isset($set["height"]) ) $set["height"] 							= 30;
+			if( ! isset($set['textColor']) ) $set['textColor'] 						= "0|0|0";
+			if( ! isset($set['bgColor']) ) $set['bgColor'] 							= "255|255|255";
+			if( ! isset($set["border"]) ) $set["border"] 							= true;
+			if( ! isset($set['borderColor']) ) $set['borderColor'] 					= "200|200|200";
+			if( ! isset($set['imageString']["size"]) ) $set['imageString']["size"] 	= "5";
+			if( ! isset($set['imageString']["x"]) ) $set['imageString']["x"] 		= "23";
+			if( ! isset($set['imageString']["y"]) ) $set['imageString']["y"] 		= "9";
+			if( ! isset($set["grid"]) ) $set["grid"] 								= false; 
+			if( ! isset($set['gridSpace']["x"]) ) $set['gridSpace']["x"] 			= 12; 
+			if( ! isset($set['gridSpace']["y"]) ) $set['gridSpace']["y"] 			= 4; 
+			if( ! isset($set['gridColor']) ) $set['gridColor']						= "240|240|240";
+			if( ! isset($set["background"]) ) $set["background"]					= array();
 			
 			// 0-255 arasında değer alacak renk kodları için
 			// 0|20|155 gibi bir kullanım için aşağıda
 			// explode ile ayırma işlemleri yapılmaktadır.
 			
 			// SET FONT COLOR
-			$set_font_color = explode("|",$set['textColor']);
+			$setFontColor   = explode("|",$set['textColor']);
 			
 			// SET BG COLOR
-			$set_bg_color	= explode("|",$set['bgColor']);
+			$setBgColor	    = explode("|",$set['bgColor']);
 			
 			// SET BORDER COLOR
-			$set_border_color	= explode("|",$set['borderColor']);
+			$setBorderColor	= explode("|",$set['borderColor']);
 			
 			// SET GRID COLOR
-			$set_grid_color	= explode("|",$set['gridColor']);
+			$setGridColor	= explode("|",$set['gridColor']);
 			
 			
 			$file = @imagecreatetruecolor($set["width"], $set["height"]);	  
 				  
-			$font_color 	= @imagecolorallocate($file, $set_font_color[0], $set_font_color[1], $set_font_color[2]);
-			$color 			= @imagecolorallocate($file, $set_bg_color[0], $set_bg_color[1], $set_bg_color[2]);
+			$fontColor 	= @imagecolorallocate($file, $setFontColor[0], $setFontColor[1], $setFontColor[2]);
+			$color 		= @imagecolorallocate($file, $setBgColor[0], $setBgColor[1], $setBgColor[2]);
 			
 			// ARKAPLAN RESMI--------------------------------------------------------------------------------------
 			if( ! empty($set["background"]) )
@@ -123,29 +123,29 @@ class Captcha
 			//-----------------------------------------------------------------------------------------------------
 			
 			// Resim üzerinde görüntülenecek kod bilgisi.
-			@imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"],  $_SESSION[md5('captcha_code')], $font_color);
+			@imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"],  $_SESSION[md5('captchaCode')], $fontColor);
 			
 			// GRID --------------------------------------------------------------------------------------
 			if( $set["grid"] === true )
 			{
-				$grid_interval_x  = $set["width"] / $set['gridSpace']["x"];
+				$gridIntervalX  = $set["width"] / $set['gridSpace']["x"];
 				
 				if( ! isset($set['gridSpace']["y"]))
 				{
-					$grid_interval_y  = (($set["height"] / $set['gridSpace']["x"]) * $grid_interval_x / 2);
+					$gridIntervalY  = (($set["height"] / $set['gridSpace']["x"]) * $gridIntervalX / 2);
 					
-				} else $grid_interval_y  = $set["height"] / $set['gridSpace']["y"];
+				} else $gridIntervalY  = $set["height"] / $set['gridSpace']["y"];
 				
-				$grid_color 	= @imagecolorallocate($file, $set_grid_color[0], $set_grid_color[1], $set_grid_color[2]);
+				$gridColor 	= @imagecolorallocate($file, $setGridColor[0], $setGridColor[1], $setGridColor[2]);
 				
-				for($x = 0 ; $x <= $set["width"] ; $x += $grid_interval_x)
+				for($x = 0 ; $x <= $set["width"] ; $x += $gridIntervalX)
 				{
-					@imageline($file,$x,0,$x,$set["height"] - 1,$grid_color);
+					@imageline($file,$x,0,$x,$set["height"] - 1,$gridColor);
 				}
 				
-				for($y = 0 ; $y <= $set["width"] ; $y += $grid_interval_y)
+				for($y = 0 ; $y <= $set["width"] ; $y += $gridIntervalY)
 				{
-					@imageline($file,0,$y,$set["width"],$y,$grid_color);
+					@imageline($file,0,$y,$set["width"],$y,$gridColor);
 				}
 				
 			}
@@ -154,41 +154,41 @@ class Captcha
 			// BORDER --------------------------------------------------------------------------------------
 			if( $set["border"] === true )
 			{
-				$border_color 	= @imagecolorallocate($file, $set_border_color[0], $set_border_color[1], $set_border_color[2]);
+				$borderColor 	= @imagecolorallocate($file, $setBorderColor[0], $setBorderColor[1], $setBorderColor[2]);
 				
-				@imageline($file, 0, 0, $set["width"], 0, $border_color); // UST
-				@imageline($file, $set["width"] - 1, 0, $set["width"] - 1, $set["height"], $border_color); // SAG
-				@imageline($file, 0, $set["height"] - 1, $set["width"], $set["height"] - 1, $border_color); // ALT
-				@imageline($file, 0, 0, 0, $set["height"] - 1, $border_color); // SOL
+				@imageline($file, 0, 0, $set["width"], 0, $borderColor); // UST
+				@imageline($file, $set["width"] - 1, 0, $set["width"] - 1, $set["height"], $borderColor); // SAG
+				@imageline($file, 0, $set["height"] - 1, $set["width"], $set["height"] - 1, $borderColor); // ALT
+				@imageline($file, 0, 0, 0, $set["height"] - 1, $borderColor); // SOL
 			}
 			// ---------------------------------------------------------------------------------------------
 			
-			$file_path = FILES_DIR.'capcha';
+			$filePath = FILES_DIR.'capcha';
 			
 			if( function_exists('imagepng') )
 			{
 				$extension = '.png';
-				imagepng($file, $file_path.$extension);
+				imagepng($file, $filePath.$extension);
 			}
 			elseif( function_exists('imagejpg'))
 			{
 				$extension = '.jpg';
-				imagepng($file, $file_path.$extension);		
+				imagepng($file, $filePath.$extension);		
 			}
 			else
 			{
 				return false;
 			}
 			
-			$file_path .= $extension;
+			$filePath .= $extension;
 			
 			if( $img === true )
 			{	
-				$captcha = '<img src="'.baseUrl($file_path).'">';
+				$captcha = '<img src="'.baseUrl($filePath).'">';
 			}
 			else
 			{
-				$captcha = baseUrl($file_path);
+				$captcha = baseUrl($filePath);
 			}
 			
 			imagedestroy($file);
@@ -215,6 +215,6 @@ class Captcha
 			session_start();
 		}
 		
-		return $_SESSION[md5('captcha_code')];
+		return $_SESSION[md5('captchaCode')];
 	}	
 }

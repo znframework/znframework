@@ -47,17 +47,17 @@ class Jquery
 	| Örnek Kullanım: open();        	  					                                  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function open($jquery_library = true, $jquery_ui_library = false, $ready = true)
+	public static function open($jqueryLibrary = true, $jqueryUiLibrary = false, $ready = true)
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
-		if( ! is_bool($jquery_library) ) 
+		if( ! is_bool($jqueryLibrary) ) 
 		{
-			$jquery_library = true;
+			$jqueryLibrary = true;
 		}
 		
-		if( ! is_bool($jquery_ui_library) ) 
+		if( ! is_bool($jqueryUiLibrary) ) 
 		{
-			$jquery_ui_library = false;
+			$jqueryUiLibrary = false;
 		}
 		if( ! is_bool($ready) )
 		{
@@ -70,13 +70,13 @@ class Jquery
 		$script = '';
 		
 		// True ise Jquery kütüphanesini dahil et.
-		if( $jquery_library === true )
+		if( $jqueryLibrary === true )
 		{
 			$script  .= Import::script('Jquery', true);
 		}
 		
 		// True ise JqueryUi kütüphanesini dahil et.
-		if( $jquery_ui_library === true )
+		if( $jqueryUiLibrary === true )
 		{
 			$script  .= Import::script('JqueryUi', true);
 		}
@@ -158,15 +158,15 @@ class Jquery
 	| $('#nesne').bind('mouseover', function(e){ alert(1); });         						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function event($element = 'this', $event_type = 'click', $callback = '')
+	public static function event($element = 'this', $eventType = 'click', $callback = '')
 	{	
 		if( ! is_string($element) )
 		{
 			$element = 'this';
 		}
-		if( ! is_string($event_type) ) 
+		if( ! is_string($eventType) ) 
 		{
-			$event_type = 'click';
+			$eventType = 'click';
 		}
 		if( ! is_string($callback) ) 
 		{
@@ -177,7 +177,7 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$event = '$('.$element.').bind("'.$event_type.'", function(e)'.eol().'{'.eol().$callback.eol().'});'.eol();
+		$event = '$('.$element.').bind("'.$eventType.'", function(e)'.eol().'{'.eol().$callback.eol().'});'.eol();
 		
 		return $event;
 	}	
@@ -890,7 +890,7 @@ class Jquery
 			$complete = '';
 		}
 		
-		$js_animate = '';
+		$jsAnimate = '';
 		
 		$animate = "\t\t";
 		
@@ -931,9 +931,9 @@ class Jquery
 				   ? $element
 				   : "\"$element\"";
 		
-		$js_animate = "\t$($element).animate(".eol().$animate.$speed.$easing.$complete.eol()."\t);".eol();
+		$jsAnimate = "\t$($element).animate(".eol().$animate.$speed.$easing.$complete.eol()."\t);".eol();
 		
-		return $js_animate;
+		return $jsAnimate;
 		
 	}
 	
@@ -1055,13 +1055,13 @@ class Jquery
 		}
 		else
 		{
-			$attrex = explode(",", $attrs);
+			$attrEx = explode(",", $attrs);
 	
-			$attr = "\"$attrex[0]\"";	
+			$attr = "\"$attrEx[0]\"";	
 			
-			if( isset($attrex[1]) )
+			if( isset($attrEx[1]) )
 			{
-				$attr .= ', "'.trim($attrex[1]).'"';	
+				$attr .= ', "'.trim($attrEx[1]).'"';	
 			}
 		}
 			

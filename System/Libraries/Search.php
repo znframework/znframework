@@ -220,31 +220,31 @@ class Search
 	// 1- bool/boolean sonucun bulunuduğunu yada bulunmadığını gösteren true veya false değeri döndürür.
 	// 2- pos/position sonuc bulunmuş ise bulunan bilginin başlangıç indeks numarasını bulunmamış ise -1 değerini döndürür.
 	// Dönen Değer: Arama sonucu.
-	public static function data($search_data = '', $search_word = '', $output = 'bool')
+	public static function data($searchData = '', $searchWord = '', $output = 'bool')
 	{
 		if( ! is_string($output) ) 
 		{
 			$output = 'bool';
 		}
 		
-		if( ! is_array($search_data) )
+		if( ! is_array($searchData) )
 		{	
-			if( ! isValue($search_word) ) 
+			if( ! isValue($searchWord) ) 
 			{
 				return false;
 			}
 			
 			if( $output === 'str' || $output === 'string' ) 
 			{
-				return strstr($search_data, $search_word);
+				return strstr($searchData, $searchWord);
 			}
 			elseif( $output === 'pos' || $output === 'position' ) 
 			{
-				return strpos($search_data, $search_word);
+				return strpos($searchData, $searchWord);
 			}
 			elseif( $output === 'bool' || $output === 'boolean' ) 
 			{
-				$result = strpos($search_data, $search_word);
+				$result = strpos($searchData, $searchWord);
 				
 				if( $result > -1 )
 				{ 
@@ -262,7 +262,7 @@ class Search
 		}
 		else
 		{			
-			$result = array_search($search_word, $search_data);	
+			$result = array_search($searchWord, $searchData);	
 			
 			if( $output === 'pos' || $output === 'position' )
 			{
@@ -290,7 +290,7 @@ class Search
 			{
 				if( ! empty($result) )
 				{
-					return $search_word;
+					return $searchWord;
 				}
 				else
 				{

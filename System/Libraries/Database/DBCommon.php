@@ -33,8 +33,8 @@ function DBCommon()
 		// kullanımı için böyle bir kontrol yapılmaktadır.
 		if( strpos($driver, '->') )
 		{
-			$subdrivers = explode('->', $driver);
-			$driver  = $subdrivers[0];
+			$subDrivers = explode('->', $driver);
+			$driver  = $subDrivers[0];
 		}
 		
 		$drv = $driver.'Driver';

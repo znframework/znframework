@@ -286,15 +286,15 @@ class CURL
 			$info = '';
 		}
 		
-		$version_info = curl_version();
+		$versionInfo = curl_version();
 		
 		if( ! empty($info) )
 		{
-			return $version_info[$info];
+			return $versionInfo[$info];
 		}	
 		else
 		{
-			return $version_info;
+			return $versionInfo;
 		}
 	}
 	

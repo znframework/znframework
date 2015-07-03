@@ -33,48 +33,48 @@ class Repair
 		
 		// Config/Repair.php dosyasında tadilata alınacak sayfalar belirtilir.
 		// Burada ayarlarda belirtilen sayfa isimleri bilgisi alınıyor.
-		$repair_config = Config::get('Repair');
-		$repair_pages = $repair_config['pages'];
+		$repairConfig = Config::get('Repair');
+		$repairPages  = $repairConfig['pages'];
 		
 		// Eğer Config/Repair.php dosyasında pages = "all" olarrak alınmış ise 
 		// tüm sayfalar için tadilat modu uygulanıyor demektir.
-		if( is_string($repair_pages) )
+		if( is_string($repairPages) )
 		{
-			if( $repair_pages === "all" )
+			if( $repairPages === "all" )
 			{
-				if( currentPath() !== $repair_config['routePage'] ) 
+				if( currentPath() !== $repairConfig['routePage'] ) 
 				{
-					redirect($repair_config['routePage']);
+					redirect($repairConfig['routePage']);
 				}
 			}
 		}
 		
 		
 		// Sayfalar tek tek çağrılıyor..
-		if( is_array($repair_pages) )
+		if( is_array($repairPages) )
 		{
 			// Eğer Config/Repair.php dosyasında pages = array("all") olarrak alınmış ise 
 			// tüm sayfalar için tadilat modu uygulanıyor demektir.
-			if( $repair_pages[0] === "all" )
+			if( $repairPages[0] === "all" )
 			{
-				if( currentPath() !== $repair_config['routePage'] ) 
+				if( currentPath() !== $repairConfig['routePage'] ) 
 				{
-					redirect($repair_config['routePage']);
+					redirect($repairConfig['routePage']);
 				}
 			}
 			
-			foreach($repair_pages as $rp)
+			foreach($repairPages as $rp)
 			{
 				// Gelen sayfa o anki url içinde geçip geçmediğini kontrol ediliyor.
-				$page_pos = strstr(currentPath(), $rp);	
+				$pagePos = strstr(currentPath(), $rp);	
 				
 				// Eğer gelen sayfa o anki url içinde geçiyorsa yani sonuc -1 den büyükse 
 				// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
-				if( ! empty($page_pos) )
+				if( ! empty($pagePos) )
 				{
-					if( currentPath() !== $repair_config['routePage'] )
+					if( currentPath() !== $repairConfig['routePage'] )
 					{
-						redirect($repair_config['routePage']);
+						redirect($repairConfig['routePage']);
 					}
 				}	
 			}

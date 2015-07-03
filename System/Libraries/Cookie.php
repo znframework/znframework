@@ -46,7 +46,7 @@ class Cookie
 	| Not: Application/Config/Cookie.php dosyası üzerinden ayarlarını yapılandırabilirsiniz.  |
 	|          																				  |
 	******************************************************************************************/
-	public static function insert($name = '', $value = '', $time = '', $path = '', $domain = '', $secure = false, $httponly = true) // varsayılan süre 1 hafta
+	public static function insert($name = '', $value = '', $time = '', $path = '', $domain = '', $secure = false, $httpOnly = true) // varsayılan süre 1 hafta
 	{	
 		/************************************************************************************************/
 		// Parametrelerin geçerlilik kontrolü yapılıyor.
@@ -71,9 +71,9 @@ class Cookie
 		{
 			$secure = false;
 		}
-		if( ! is_bool($httponly))
+		if( ! is_bool($httpOnly))
 		{
-			$httponly = false;
+			$httpOnly = false;
 		}
 		if( empty($name) )
 		{			
@@ -89,44 +89,44 @@ class Cookie
 		}
 		/************************************************************************************************/
 		
-		$cookie_config = Config::get("Cookie");
+		$cookieConfig = Config::get("Cookie");
 		
 		/************************************************************************************************/
 		// Parametreler değer almamışsa gereken değerleri config dosyasından alınması sağlanıyor.
 		/************************************************************************************************/
 		if( empty($time) ) 
 		{
-			$time = $cookie_config["time"];
+			$time = $cookieConfig["time"];
 		}
 		if( empty($path) )
 		{
-			$path = $cookie_config["path"];
+			$path = $cookieConfig["path"];
 		}
 		if( empty($domain) ) 
 		{
-			$domain = $cookie_config["domain"];
+			$domain = $cookieConfig["domain"];
 		}
 		if( empty($secure) ) 
 		{
-			$secure = $cookie_config["secure"];
+			$secure = $cookieConfig["secure"];
 		}
-		if(empty($httponly))
+		if(empty($httpOnly))
 		{
-			$httponly = $cookie_config['httpOnly'];
+			$httpOnly = $cookieConfig['httpOnly'];
 		}
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if(isHash($cookie_config["encode"]))
+		if(isHash($cookieConfig["encode"]))
 		{
-			$name = hash($cookie_config["encode"], $name);
+			$name = hash($cookieConfig["encode"], $name);
 		}
 		/************************************************************************************************/
 		
 		// Çerez dosyası oluşturuluyor ve session id yeniden biçimlendiriyor.
 		// Çerez oluşturulması sırasında hata olursa hata loglanıyor.
-		if( setcookie($name, $value, time() + $time, $path, $domain, $secure, $httponly) )
+		if( setcookie($name, $value, time() + $time, $path, $domain, $secure, $httpOnly) )
 		{
-			if($cookie_config['regenerate'] === true)
+			if($cookieConfig['regenerate'] === true)
 			{
 				session_regenerate_id();
 			}
@@ -166,13 +166,13 @@ class Cookie
 			return false;
 		}
 		
-		$cookie_config = Config::get("Cookie");
+		$cookieConfig = Config::get("Cookie");
 		
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if( isHash($cookie_config["encode"]) )
+		if( isHash($cookieConfig["encode"]) )
 		{
-			$name = hash($cookie_config["encode"], $name);
+			$name = hash($cookieConfig["encode"], $name);
 		}
 
 	    if( isset($_COOKIE[$name]) )
@@ -217,17 +217,17 @@ class Cookie
 			return false;
 		}
 		
-		$cookie_config = Config::get("Cookie");
+		$cookieConfig = Config::get("Cookie");
 		
 		if( empty($path) )
 		{
-			$path =  $cookie_config["path"];	
+			$path =  $cookieConfig["path"];	
 		}
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if( isHash($cookie_config["encode"]) )
+		if( isHash($cookieConfig["encode"]) )
 		{
-			$name = hash($cookie_config["encode"], $name);
+			$name = hash($cookieConfig["encode"], $name);
 		}
 		
 		if( isset($_COOKIE[$name]) ) 

@@ -71,80 +71,80 @@ class User
 	| Örnek Kullanım: register(array('user' => 'zntr', 'pass' => '1234'));       		      |
 	|          																				  |
 	******************************************************************************************/
-	public static function register($data = array(), $auto_login = false, $activation_return_link = '')
+	public static function register($data = array(), $autoLogin = false, $activationReturnLink = '')
 	{
 		if( ! is_array($data) ) 
 		{
 			return false;
 		}
-		if( ! is_string($activation_return_link) ) 
+		if( ! is_string($activationReturnLink) ) 
 		{
-			$activation_return_link = '';
+			$activationReturnLink = '';
 		}
 		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= Config::get("User");		
-		$username_column  	= $user_config['usernameColumn'];
-		$password_column  	= $user_config['passwordColumn'];
-		$email_column  	    = $user_config['emailColumn'];
-		$table_name 		= $user_config['tableName'];
-		$active_column 		= $user_config['activeColumn'];
-		$activation_column 	= $user_config['activationColumn'];
+		$userConfig		= Config::get("User");		
+		$usernameColumn  	= $userConfig['usernameColumn'];
+		$passwordColumn  	= $userConfig['passwordColumn'];
+		$emailColumn  	    = $userConfig['emailColumn'];
+		$tableName 			= $userConfig['tableName'];
+		$activeColumn 		= $userConfig['activeColumn'];
+		$activationColumn 	= $userConfig['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
 		// Kullanıcı adı veya şifre sütunu belirtilmemişse 
 		// İşlemleri sonlandır.
-		if( ! isset($data[$username_column]) ||  ! isset($data[$password_column]) ) 
+		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
 			return false;
 		}
 		
-		$login_username  = $data[$username_column];
-		$login_password  = $data[$password_column];	
-		$encode_password = Encode::super($login_password);	
+		$loginUsername  = $data[$usernameColumn];
+		$loginPassword  = $data[$passwordColumn];	
+		$encodePassword = Encode::super($loginPassword);	
 		
 		$db = uselib('DB');
 		
-		$username_control = $db->where($username_column.' =',$login_username)
-							   ->get($table_name)
-							   ->totalRows();
+		$usernameControl = $db->where($usernameColumn.' =',$loginUsername)
+							  ->get($tableName)
+							  ->totalRows();
 		
 		// Daha önce böyle bir kullanıcı
 		// yoksa kullanıcı kaydetme işlemini başlat.
-		if( empty($username_control) )
+		if( empty($usernameControl) )
 		{
-			$data[$password_column] = $encode_password;
+			$data[$passwordColumn] = $encodePassword;
 			
-			if( $db->insert($table_name , $data) )
+			if( $db->insert($tableName , $data) )
 			{
 				self::$error = false;
 				self::$success = lang('User', 'registerSuccess');
 				
-				if( ! empty($activation_column) )
+				if( ! empty($activationColumn) )
 				{
-					if( ! isEmail($login_username) )
+					if( ! isEmail($loginUsername) )
 					{
-						$email = $data[$email_column];
+						$email = $data[$emailColumn];
 					}
 					else
 					{ 
 						$email = '';
 					}
 					
-					self::_activation($login_username, $encode_password, $activation_return_link, $email);				
+					self::_activation($loginUsername, $encodePassword, $activationReturnLink, $email);				
 				}
 				else
 				{
-					if( $auto_login === true )
+					if( $autoLogin === true )
 					{
-						self::login($login_username, $login_password);
+						self::login($loginUsername, $loginPassword);
 					}
-					elseif( is_string($auto_login) )
+					elseif( is_string($autoLogin) )
 					{
-						redirect($auto_login);	
+						redirect($autoLogin);	
 					}
 				}
 				
@@ -182,11 +182,11 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= Config::get("User");	
-		$table_name 		= $user_config['tableName'];
-		$username_column  	= $user_config['usernameColumn'];
-		$password_column  	= $user_config['passwordColumn'];
-		$activation_column 	= $user_config['activationColumn'];
+		$userConfig			= Config::get("User");	
+		$tableName 			= $userConfig['tableName'];
+		$usernameColumn  	= $userConfig['usernameColumn'];
+		$passwordColumn  	= $userConfig['passwordColumn'];
+		$activationColumn 	= $userConfig['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
 		// Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
@@ -198,15 +198,15 @@ class User
 		{
 			$db = uselib('DB');
 			
-			$row = $db->where($username_column.' =', $user, 'and')
-			          ->where($password_column.' =', $pass)		
-			          ->get($table_name)
+			$row = $db->where($usernameColumn.' =', $user, 'and')
+			          ->where($passwordColumn.' =', $pass)		
+			          ->get($tableName)
 					  ->row();	
 				
 			if( ! empty($row) )
 			{
-				$db->where($username_column.' =', $user)
-				   ->update($table_name, array($activation_column => '1'));
+				$db->where($usernameColumn.' =', $user)
+				   ->update($tableName, array($activationColumn => '1'));
 				
 				self::$success = lang('User', 'activationComplete');
 				
@@ -226,15 +226,15 @@ class User
 	}
 	
 	// Aktivasyon işlemi için
-	private static function _activation($user = "", $pass = "", $activation_return_link = '', $email = '')
+	private static function _activation($user = "", $pass = "", $activationReturnLink = '', $email = '')
 	{
-		if( ! isUrl($activation_return_link) )
+		if( ! isUrl($activationReturnLink) )
 		{
-			$url = baseUrl(suffix($activation_return_link));
+			$url = baseUrl(suffix($activationReturnLink));
 		}
 		else
 		{
-			$url = suffix($activation_return_link);
+			$url = suffix($activationReturnLink);
 		}
 		
 		$message = "<a href='".$url."user/".$user."/pass/".$pass."'>".lang('User', 'activation')."</a>";	
@@ -274,20 +274,20 @@ class User
 	******************************************************************************************/
 	public static function totalActiveUsers()
 	{
-		$active_column 	= Config::get("User",'activeColumn');	
-		$table_name 	= Config::get("User",'tableName');
+		$activeColumn 	= Config::get("User",'activeColumn');	
+		$tableName 		= Config::get("User",'tableName');
 		
-		if( ! empty($active_column) )
+		if( ! empty($activeColumn) )
 		{
 			$db = uselib('DB');
 			
-			$total_rows = $db->where($active_column.' =', 1)
-							 ->get($table_name)
+			$totalRows = $db->where($activeColumn.' =', 1)
+							 ->get($tableName)
 							 ->totalRows();
 			
-			if( ! empty($total_rows) )
+			if( ! empty($totalRows) )
 			{
-				return $total_rows;
+				return $totalRows;
 			}
 			else
 			{
@@ -310,20 +310,20 @@ class User
 	******************************************************************************************/
 	public static function totalBannedUsers()
 	{
-		$banned_column 	= Config::get("User",'bannedColumn');	
-		$table_name 	= Config::get("User",'tableName');
+		$bannedColumn 	= Config::get("User",'bannedColumn');	
+		$tableName 	= Config::get("User",'tableName');
 		
-		if( ! empty($banned_column) )
+		if( ! empty($bannedColumn) )
 		{	
 			$db = uselib('DB');
 			
-			$total_rows = $db->where($banned_column.' =', 1)
-							 ->get($table_name)
+			$totalRows = $db->where($bannedColumn.' =', 1)
+							 ->get($tableName)
 						 	 ->totalRows();
 			
-			if( ! empty($total_rows) )
+			if( ! empty($totalRows) )
 			{
-				return $total_rows;
+				return $totalRows;
 			}
 			else
 			{
@@ -346,15 +346,15 @@ class User
 	******************************************************************************************/
 	public static function totalUsers()
 	{
-		$table_name = Config::get("User",'tableName');
+		$tableName = Config::get("User",'tableName');
 		
 		$db = uselib('DB');
 		
-		$total_rows = $db->get($table_name)->totalRows();
+		$totalRows = $db->get($tableName)->totalRows();
 		
-		if( ! empty($total_rows) )
+		if( ! empty($totalRows) )
 		{
-			return $total_rows;
+			return $totalRows;
 		}
 		else
 		{
@@ -375,7 +375,7 @@ class User
 	| Örnek Kullanım: login('zntr', '1234', true);       		                              |
 	|          																				  |
 	******************************************************************************************/	
-	public static function login($un = 'username', $pw = 'password', $remember_me = false)
+	public static function login($un = 'username', $pw = 'password', $rememberMe = false)
 	{
 		if( ! is_string($un) ) 
 		{
@@ -387,9 +387,9 @@ class User
 			return false;
 		}
 		
-		if( ! isValue($remember_me) ) 
+		if( ! isValue($rememberMe) ) 
 		{
-			$remember_me = false;
+			$rememberMe = false;
 		}
 
 		$username = $un;
@@ -399,46 +399,46 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= Config::get("User");	
-		$password_column  	= $user_config['passwordColumn'];
-		$username_column  	= $user_config['usernameColumn'];
-		$email_column  		= $user_config['emailColumn'];
-		$table_name 		= $user_config['tableName'];
-		$banned_column 		= $user_config['bannedColumn'];
-		$active_column 		= $user_config['activeColumn'];
-		$activation_column 	= $user_config['activationColumn'];
+		$userConfig			= Config::get("User");	
+		$passwordColumn  	= $userConfig['passwordColumn'];
+		$usernameColumn  	= $userConfig['usernameColumn'];
+		$emailColumn  		= $userConfig['emailColumn'];
+		$tableName 			= $userConfig['tableName'];
+		$bannedColumn 		= $userConfig['bannedColumn'];
+		$activeColumn 		= $userConfig['activeColumn'];
+		$activationColumn 	= $userConfig['activationColumn'];
 		// ------------------------------------------------------------------------------
 		
 		$db = uselib('DB');
 		
-		$r = $db->where($username_column.' =',$username)
-			    ->get($table_name)
+		$r = $db->where($usernameColumn.' =',$username)
+			    ->get($tableName)
 				->row();
 			
-		$password_control   = $r->$password_column;
-		$banned_control     = '';
-		$activation_control = '';
+		$passwordControl   = $r->$passwordColumn;
+		$bannedControl     = '';
+		$activationControl = '';
 		
-		if( ! empty($banned_column) )
+		if( ! empty($bannedColumn) )
 		{
-			$banned = $banned_column ;
-			$banned_control = $r->$banned ;
+			$banned = $bannedColumn ;
+			$bannedControl = $r->$banned ;
 		}
 		
-		if( ! empty($activation_column) )
+		if( ! empty($activationColumn) )
 		{
-			$activation_control = $r->$activation_column ;			
+			$activationControl = $r->$activationColumn ;			
 		}
 		
-		if( ! empty($r->$username_column) && $password_control == $password )
+		if( ! empty($r->$usernameColumn) && $passwordControl == $password )
 		{
-			if( ! empty($banned_column) && ! empty($banned_control) )
+			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
 				self::$error = lang('User', 'bannedError');	
 				return false;
 			}
 			
-			if( ! empty($activation_column) && empty($activation_control) )
+			if( ! empty($activationColumn) && empty($activationControl) )
 			{
 				self::$error = lang('User', 'activationError');	
 				return false;
@@ -449,22 +449,22 @@ class User
 				session_start();
 			}
 			
-			$_SESSION[md5($username_column)] = $username; 
+			$_SESSION[md5($usernameColumn)] = $username; 
 			
 			session_regenerate_id();
 			
-			if( Method::post($remember_me) || ! empty($remember_me) )
+			if( Method::post($rememberMe) || ! empty($rememberMe) )
 			{
-				if( Cookie::select(md5($username_column)) != $username )
+				if( Cookie::select(md5($usernameColumn)) != $username )
 				{					
-					Cookie::insert(md5($username_column),$username);
-					Cookie::insert(md5($password_column),$password);
+					Cookie::insert(md5($usernameColumn), $username);
+					Cookie::insert(md5($passwordColumn), $password);
 				}
 			}
 			
-			if( ! empty($active_column) )
+			if( ! empty($activeColumn) )
 			{		
-				$db->where($username_column.' =', $username)->update($table_name, array($active_column  => 1));
+				$db->where($usernameColumn.' =', $username)->update($tableName, array($activeColumn  => 1));
 			}
 			
 			self::$error = false;
@@ -490,61 +490,61 @@ class User
 	| Örnek Kullanım: forgotPassword('bilgi@zntr.net', 'kullanici/giris');       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function forgotPassword($email = "", $return_link_path = "")
+	public static function forgotPassword($email = "", $returnLinkPath = "")
 	{
 		if( ! is_string($email) ) 
 		{
 			return false;
 		}
 		
-		if( ! is_string($return_link_path) ) 
+		if( ! is_string($returnLinkPath) ) 
 		{
-			$return_link_path = '';
+			$returnLinkPath = '';
 		}
 
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$user_config		= Config::get("User");	
-		$username_column  	= $user_config['usernameColumn'];
-		$password_column  	= $user_config['passwordColumn'];				
-		$email_column  		= $user_config['emailColumn'];		
-		$table_name 		= $user_config['tableName'];	
+		$userConfig		= Config::get("User");	
+		$usernameColumn = $userConfig['usernameColumn'];
+		$passwordColumn = $userConfig['passwordColumn'];				
+		$emailColumn  	= $userConfig['emailColumn'];		
+		$tableName 		= $userConfig['tableName'];	
 		// ------------------------------------------------------------------------------
 		
 		$db = uselib('DB');
 		
-		if( ! empty($email_column) )
+		if( ! empty($emailColumn) )
 		{
-			$db->where($email_column.' =', $email);
+			$db->where($emailColumn.' =', $email);
 		}
 		else
 		{
-			$db->where($username_column.' =', $email);
+			$db->where($usernameColumn.' =', $email);
 		}
 		
-		$row = $db->get($table_name)->row();
+		$row = $db->get($tableName)->row();
 		
 		$result = "";
 		
-		if( isset($row->$username_column) ) 
+		if( isset($row->$usernameColumn) ) 
 		{
 			
-			if( ! isUrl($return_link_path) ) 
+			if( ! isUrl($returnLinkPath) ) 
 			{
-				$return_link_path = siteUrl($return_link_path);
+				$returnLinkPath = siteUrl($returnLinkPath);
 			}
 			
-			$new_password    = Encode::create(10);
-			$encode_password = Encode::super($new_password);
+			$newPassword    = Encode::create(10);
+			$encodePassword = Encode::super($newPassword);
 			$message = "
 			<pre>
-				".lang('User', 'username').": ".$row->$username_column."
+				".lang('User', 'username').": ".$row->$usernameColumn."
 
-				".lang('User', 'password').": ".$new_password."
+				".lang('User', 'password').": ".$newPassword."
 				
-				<a href='".$return_link_path."'>".lang('User', 'learnNewPassword')."</a>
+				<a href='".$returnLinkPath."'>".lang('User', 'learnNewPassword')."</a>
 			</pre>
 			";
 			
@@ -556,16 +556,16 @@ class User
 			
 			if( $sendEmail->send() )
 			{
-				if( ! empty($email_column) )
+				if( ! empty($emailColumn) )
 				{
-					$db->where($email_column.' =', $email);
+					$db->where($emailColumn.' =', $email);
 				}
 				else
 				{
-					$db->where($username_column.' =', $email);
+					$db->where($usernameColumn.' =', $email);
 				}
 				
-				$db->update($table_name, array($password_column => $encode_password));
+				$db->update($tableName, array($passwordColumn => $encodePassword));
 
 				self::$error = true;	
 				self::$success = lang('User', 'forgotPasswordSuccess');
@@ -600,7 +600,7 @@ class User
 	| Örnek Kullanım: update('eski1234', 'yeni1234', NULL, array('telefon' => 'xxxxx'));      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function update($old = '', $new = '', $new_again = '', $data = array())
+	public static function update($old = '', $new = '', $newAgain = '', $data = array())
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
@@ -617,46 +617,46 @@ class User
 				return false;
 			}
 	
-			if( ! is_string($new_again) ) 
+			if( ! is_string($newAgain) ) 
 			{
-				$new_again = '';
+				$newAgain = '';
 			}
 			// --------------------------------------------------------------------------------
 			
 				
 			// Şifre tekrar parametresi boş ise
 			// Şifre tekrar parametresini doğru kabul et.
-			if( empty($new_again) ) 
+			if( empty($newAgain) ) 
 			{
-				$new_again = $new;
+				$newAgain = $new;
 			}
 	
-			$user_config = Config::get("User");	
-			$pc = $user_config['passwordColumn'];
-			$uc = $user_config['usernameColumn'];	
-			$tn = $user_config['tableName'];
+			$userConfig = Config::get("User");	
+			$pc = $userConfig['passwordColumn'];
+			$uc = $userConfig['usernameColumn'];	
+			$tn = $userConfig['tableName'];
 			
-			$old_password = Encode::super($old);
-			$new_password = Encode::super($new);
-			$new_password_again = Encode::super($new_again);
+			$oldPassword = Encode::super($old);
+			$newPassword = Encode::super($new);
+			$newPasswordAgain = Encode::super($newAgain);
 			
 			$username 	  = user::data()->$uc;
 			$password 	  = user::data()->$pc;
 			$row = "";
 					
-			if( $old_password != $password )
+			if( $oldPassword != $password )
 			{
 				self::$error = lang('User', 'oldPasswordError');
 				return false;	
 			}
-			elseif( $new_password != $new_password_again )
+			elseif( $newPassword != $newPasswordAgain )
 			{
 				self::$error = lang('User', 'passwordNotMatchError');
 				return false;
 			}
 			else
 			{
-				$data[$pc] = $new_password;
+				$data[$pc] = $newPassword;
 				$data[$uc] = $username;
 				
 				$db = uselib('DB');
@@ -695,16 +695,16 @@ class User
 	******************************************************************************************/	
 	public static function isLogin()
 	{
-		$c_username = Cookie::select(md5(Config::get("User",'usernameColumn')));
-		$c_password = Cookie::select(md5(Config::get("User",'passwordColumn')));
+		$cUsername = Cookie::select(md5(Config::get("User",'usernameColumn')));
+		$cPassword = Cookie::select(md5(Config::get("User",'passwordColumn')));
 		
 		$result = '';
 		
-		if( ! empty($c_username) && ! empty($c_password) )
+		if( ! empty($cUsername) && ! empty($cPassword) )
 		{
 			$db = uselib('DB');
-			$result = $db->where(Config::get("User",'usernameColumn').' =',$c_username, 'and')
-						 ->where(Config::get("User",'passwordColumn').' =',$c_password)
+			$result = $db->where(Config::get("User",'usernameColumn').' =', $cUsername, 'and')
+						 ->where(Config::get("User",'passwordColumn').' =', $cPassword)
 						 ->get(Config::get("User",'tableName'))
 						 ->totalRows();
 		}
@@ -713,7 +713,7 @@ class User
 		
 		if( isset(self::data()->$username) )
 		{
-			$is_login = true;
+			$isLogin = true;
 		}
 		elseif( ! empty($result) )
 		{
@@ -722,15 +722,15 @@ class User
 				session_start();
 			}
 			
-			$_SESSION[md5(Config::get("User",'usernameColumn'))] = $c_username;
-			$is_login = true;	
+			$_SESSION[md5(Config::get("User",'usernameColumn'))] = $cUsername;
+			$isLogin = true;	
 		}
 		else
 		{
-			$is_login = false;	
+			$isLogin = false;	
 		}
 				
-		return $is_login;
+		return $isLogin;
 	}
 	
 	/******************************************************************************************
@@ -781,11 +781,11 @@ class User
 	| Örnek Kullanım: logout('kullanici/giris');      									      |
 	|          																				  |
 	******************************************************************************************/
-	public static function logout($redirect_url = '', $time = 0)
+	public static function logout($redirectUrl = '', $time = 0)
 	{	
-		if( ! is_string($redirect_url) ) 
+		if( ! is_string($redirectUrl) ) 
 		{
-			$redirect_url = '';
+			$redirectUrl = '';
 		}
 		
 		if( ! is_numeric($time) ) 
@@ -818,7 +818,7 @@ class User
 				unset($_SESSION[md5(Config::get("User",'usernameColumn'))]);
 			}
 			
-			redirect($redirect_url, $time);
+			redirect($redirectUrl, $time);
 		}
 		
 	}

@@ -61,22 +61,22 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = Config::get('Regex','specialChars');
+		$specialChars = Config::get('Regex','specialChars');
 		
-		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
+		$pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = Arrays::multikey(Config::get('Regex','regexChars'));
+		$regexChars   = Arrays::multikey(Config::get('Regex','regexChars'));
 		
-		$setting_chars = Arrays::multikey(Config::get('Regex','settingChars'));
+		$settingChars = Arrays::multikey(Config::get('Regex','settingChars'));
 		// --------------------------------------------------------------------------------------------
 		
-		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
+		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	
 		
 		if( ! empty($ex) ) 
 		{
-			$ex = str_ireplace(array_keys($setting_chars), array_values($setting_chars), $ex);
+			$ex = str_ireplace(array_keys($settingChars), array_values($settingChars), $ex);
 		}
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
@@ -129,22 +129,22 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = Config::get('Regex','specialChars');
+		$specialChars = Config::get('Regex','specialChars');
 		
-		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
+		$pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = Arrays::multikey(Config::get('Regex','regexChars'));
+		$regexChars   = Arrays::multikey(Config::get('Regex','regexChars'));
 		
-		$setting_chars = Arrays::multikey(Config::get('Regex','settingChars'));
+		$settingChars = Arrays::multikey(Config::get('Regex','settingChars'));
 		// --------------------------------------------------------------------------------------------
 		
-		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
+		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	
 		
 		if( ! empty($ex) ) 
 		{
-			$ex = str_ireplace(array_keys($setting_chars), array_values($setting_chars), $ex);
+			$ex = str_ireplace(array_keys($settingChars), array_values($settingChars), $ex);
 		}
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
@@ -202,22 +202,22 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$special_chars = Config::get('Regex','specialChars');
+		$specialChars = Config::get('Regex','specialChars');
 		
-		$pattern = str_ireplace(array_keys($special_chars ), array_values($special_chars), $pattern);
+		$pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regex_chars   = Arrays::multikey(Config::get('Regex','regexChars'));
+		$regexChars   = Arrays::multikey(Config::get('Regex','regexChars'));
 		
-		$setting_chars = Arrays::multikey(Config::get('Regex','settingChars'));
+		$settingChars = Arrays::multikey(Config::get('Regex','settingChars'));
 		// --------------------------------------------------------------------------------------------
 		
-		$pattern = str_ireplace(array_keys($regex_chars), array_values($regex_chars), $pattern);	
+		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	
 		
 		if( ! empty($ex) ) 
 		{
-			$ex = str_ireplace(array_keys($setting_chars), array_values($setting_chars), $ex);
+			$ex = str_ireplace(array_keys($settingChars), array_values($settingChars), $ex);
 		}
 		
 		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	

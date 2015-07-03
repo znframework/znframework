@@ -49,7 +49,7 @@ class Validation
 	 * için oluşturulmuştur.
 	 *
 	 */
-	protected static function _method_type($name = '', $met = '')
+	protected static function _methodType($name = '', $met = '')
 	{
 		if( $met === "post" ) 		
 		{
@@ -73,7 +73,7 @@ class Validation
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected static function _method_nval($name = '', $val = '', $met = '')
+	protected static function _methodNval($name = '', $val = '', $met = '')
 	{
 		if( $met === "post" ) 		
 		{
@@ -315,7 +315,7 @@ class Validation
 	| .																						  |
 	|  >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı bilgi için ZNTR.NET<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   |    																				  |
 	******************************************************************************************/
-	public static function rules($name = '', $config = array(), $view_name = '', $met = 'post')
+	public static function rules($name = '', $config = array(), $viewName = '', $met = 'post')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -327,7 +327,7 @@ class Validation
 		}
 		if( ! is_string($name) ) 
 		{
-			$view_name = '';
+			$viewName = '';
 		}
 		if( ! is_string($met) ) 
 		{
@@ -346,13 +346,13 @@ class Validation
 		
 		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
 
-		$view_name = ( empty($view_name) ) 
+		$viewName = ( empty($viewName) ) 
 					 ? $name 
-					 : $view_name;
+					 : $viewName;
 
 		$messages = array();
 		
-		$edit = self::_method_type($name, $met);
+		$edit = self::_methodType($name, $met);
 		
 		if( ! isset($edit) ) 
 		{
@@ -396,14 +396,14 @@ class Validation
 		self::$nval[$name] = $edit;
 		
 		// Süzgeç sonrası yeni değer
-		self::_method_nval($name, $edit, $met);
+		self::_methodNval($name, $edit, $met);
 		
 		// required boş geçilemez yapar.
 		if( in_array('required', $config) )
 		{ 
 			if( empty($edit) )
 			{ 		
-				$required 			= lang('Validation', 'required',$view_name);
+				$required 			= lang('Validation', 'required',$viewName);
 				$messages[$i] 		= $required.'<br>'; $i++;
 				self::$error[$name] = $required;
 			} 
@@ -419,36 +419,36 @@ class Validation
 				session_start();
 			}
 			
-			if( $edit != $_SESSION[md5('captcha_code')] )
+			if( $edit != $_SESSION[md5('captchaCode')] )
 			{ 
-				$security_code 		= lang('Validation', 'captchaCode',$view_name);
-				$messages[$i] 		= $security_code.'<br>'; $i++;
-				self::$error[$name] = $security_code;
+				$securityCode 		= lang('Validation', 'captchaCode',$viewName);
+				$messages[$i] 		= $securityCode.'<br>'; $i++;
+				self::$error[$name] = $securityCode;
 			} 
 		}
 		
 		// register işlemlerinde iki şifre kutusunun eşleştirilmesi için kullanılmaktadır.
 		if( isset($config['matchPassword']) )
 		{ 
-			$pm = self::_method_type($config['matchPassword'], $met);
+			$pm = self::_methodType($config['matchPassword'], $met);
 			
 			if( $edit != $pm )
 			{ 
-				$password_match 	= lang('Validation', 'passwordMatch',$view_name);
-				$messages[$i] 		= $password_match.'<br>'; $i++;
-				self::$error[$name] = $password_match;
+				$passwordMatch 	= lang('Validation', 'passwordMatch',$viewName);
+				$messages[$i] 		= $passwordMatch.'<br>'; $i++;
+				self::$error[$name] = $passwordMatch;
 			} 
 		}
 		
 		if( isset($config['match']) )
 		{ 
-			$pm = self::_method_type($config['match'], $met);
+			$pm = self::_methodType($config['match'], $met);
 			
 			if( $edit != $pm )
 			{ 
-				$password_match 	= lang('Validation', 'dataMatch',$view_name);
-				$messages[$i] 		= $password_match.'<br>'; $i++;
-				self::$error[$name] = $password_match;
+				$passwordMatch 	= lang('Validation', 'dataMatch',$viewName);
+				$messages[$i] 		= $passwordMatch.'<br>'; $i++;
+				self::$error[$name] = $passwordMatch;
 			} 
 		}
 		
@@ -459,9 +459,9 @@ class Validation
 	
 			if( Encode::super($edit) != $pm )
 			{ 
-				$old_password_match = lang('Validation', 'oldPasswordMatch',$view_name);
-				$messages[$i] 		= $old_password_match.'<br>'; $i++;
-				self::$error[$name] = $old_password_match;
+				$oldPasswordMatch = lang('Validation', 'oldPasswordMatch',$viewName);
+				$messages[$i] 		= $oldPasswordMatch.'<br>'; $i++;
+				self::$error[$name] = $oldPasswordMatch;
 			} 
 		}
 		
@@ -470,7 +470,7 @@ class Validation
 		{ 
 			if( ! is_numeric($edit) )
 			{ 
-				$numeric 			= lang('Validation', 'numeric',$view_name);
+				$numeric 			= lang('Validation', 'numeric',$viewName);
 				$messages[$i] 		= $numeric.'<br>'; $i++;
 				self::$error[$name] = $numeric;
 			} 
@@ -481,7 +481,7 @@ class Validation
 		{ 
 			if( ! self::email($edit) )
 			{ 
-				$email 				= lang('Validation', 'email',$view_name);
+				$email 				= lang('Validation', 'email',$viewName);
 				$messages[$i] 		= $email.'<br>';  $i++;
 				self::$error[$name] = $email;
 			} 
@@ -491,7 +491,7 @@ class Validation
 		{ 
 			if( ! self::url($edit) )
 			{ 
-				$url 				= lang('Validation', 'url',$view_name);
+				$url 				= lang('Validation', 'url',$viewName);
 				$messages[$i] 		= $url.'<br>';  $i++;
 				self::$error[$name] = $url;
 			} 
@@ -501,7 +501,7 @@ class Validation
 		{ 
 			if( ! self::identity($edit) )
 			{ 
-				$identity 			= lang('Validation', 'identity',$view_name);
+				$identity 			= lang('Validation', 'identity',$viewName);
 				$messages[$i] 		= $identity.'<br>';  $i++;
 				self::$error[$name] = $identity;
 			} 
@@ -512,9 +512,9 @@ class Validation
 		{
 			if( self::specialChar($edit) )
 			{ 
-				$nospecial_char 	= lang('Validation', 'noSpecialChar',$view_name);
-				$messages[$i] 		= $nospecial_char.'<br>';  $i++;
-				self::$error[$name] = $nospecial_char;
+				$noSpecialChar 	= lang('Validation', 'noSpecialChar',$viewName);
+				$messages[$i] 		= $noSpecialChar.'<br>';  $i++;
+				self::$error[$name] = $noSpecialChar;
 			} 
 		}
 		
@@ -523,7 +523,7 @@ class Validation
 		{ 
 			if( ! self::maxchar($edit, $config['maxchar']) )
 			{ 
-				$maxchar 			= lang('Validation', 'maxchar',array("%"=>$view_name, "#" => $config['maxchar']));
+				$maxchar 			= lang('Validation', 'maxchar',array("%"=>$viewName, "#" => $config['maxchar']));
 				$messages[$i] 		= $maxchar.'<br>';  $i++;
 				self::$error[$name] = $maxchar;
 			} 
@@ -534,14 +534,14 @@ class Validation
 		{	
 			if( ! self::minchar($edit, $config['minchar']) )
 			{ 
-				$minchar 			= lang('Validation', 'minchar',array("%"=>$view_name, "#" => $config['minchar']));
+				$minchar 			= lang('Validation', 'minchar',array("%"=>$viewName, "#" => $config['minchar']));
 				$messages[$i] 		= $minchar.'<br>'; $i++;
 				self::$error[$name] = $minchar;
 			} 
 		}
 		
 		// kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
-		array_push(self::$errors,$messages);
+		array_push(self::$errors, $messages);
 		
 	}	
 	
@@ -604,14 +604,14 @@ class Validation
 			if( count(self::$errors) > 0 )
 			{
 				$result = '';
-				$result_array = array();
+				$resultArray = array();
 				
 				foreach(self::$errors as $key => $value)
 				{
 					if( is_array($value) )foreach($value as $k => $val)
 					{
 						$result .= $val;
-						$result_array[] = str_replace("<br>", '', $val);
+						$resultArray[] = str_replace("<br>", '', $val);
 					}
 				}
 				
@@ -622,7 +622,7 @@ class Validation
 				
 				if( $name === "array") 
 				{
-					return $result_array;
+					return $resultArray;
 				}
 			}
 			else 
@@ -664,7 +664,7 @@ class Validation
 			$met = "post";
 		}	
 		
-		$method = self::_method_type($name, $met);
+		$method = self::_methodType($name, $met);
 		
 		if( ! isset($method) ) 
 		{

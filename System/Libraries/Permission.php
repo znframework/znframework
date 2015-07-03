@@ -52,10 +52,10 @@ class Permission
 	| görüntülenmeyecektir.         														  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function process($role_id = '', $process = '', $object = '')
+	public static function process($roleId = '', $process = '', $object = '')
 	{
 		// Parametrelerin kontrolleri yapılıyor.
-		if( ! is_numeric($role_id) ) 
+		if( ! is_numeric($roleId) ) 
 		{
 			return false;
 		}
@@ -70,16 +70,16 @@ class Permission
 		
 		self::$permission = Config::get('Permission','process');
 		
-		if( isset(self::$permission[$role_id]) ) 
+		if( isset(self::$permission[$roleId]) ) 
 		{
-			$rules = self::$permission[$role_id]; 
+			$rules = self::$permission[$roleId]; 
 		}
 		else
 		{
 			return false;
 		}
 		
-		$current_url = $process;
+		$currentUrl = $process;
 		
 		switch( $rules )
 		{
@@ -111,7 +111,7 @@ class Permission
 				
 				if( $pages[0] === "perm->" )
 				{
-					if( strpos($current_url, $rule) > -1 )
+					if( strpos($currentUrl, $rule) > -1 )
 					{
 						 return $object;
 					}
@@ -123,7 +123,7 @@ class Permission
 				else
 				{
 					
-					if( strpos($current_url, $rule) > -1 )
+					if( strpos($currentUrl, $rule) > -1 )
 					{					
 						 return false;
 					}
@@ -149,7 +149,7 @@ class Permission
 				$page = trim($rules);
 			}
 			
-			if( strpos($current_url, $page) > -1 )
+			if( strpos($currentUrl, $page) > -1 )
 			{
 				if( $rules[0] !== "!" ) 
 				{
@@ -181,25 +181,25 @@ class Permission
 	| Örnek Kullanım: page(4);        	  			  									      |
 	|          																				  |
 	******************************************************************************************/
-	public static function page($role_id = '6')
+	public static function page($roleId = '6')
 	{
-		if( ! is_numeric($role_id) ) 
+		if( ! is_numeric($roleId) ) 
 		{
 			return false;
 		}
 		
 		self::$permission = Config::get('Permission','page');
 		
-		if( isset(self::$permission[$role_id]) )
+		if( isset(self::$permission[$roleId]) )
 		{ 
-			$rules = self::$permission[$role_id]; 
+			$rules = self::$permission[$roleId]; 
 		}
 		else
 		{
 			return false;
 		}
 		
-		$current_url = server('currentPath');
+		$currentUrl = server('currentPath');
 		
 		switch( $rules )
 		{
@@ -231,7 +231,7 @@ class Permission
 				
 				if( $pages[0] === "perm->" )
 				{
-					if( strpos($current_url, $rule) > -1 )
+					if( strpos($currentUrl, $rule) > -1 )
 					{
 						 return true;
 					}
@@ -243,7 +243,7 @@ class Permission
 				else
 				{
 					
-					if( @strpos($current_url, $rule) > -1 )
+					if( @strpos($currentUrl, $rule) > -1 )
 					{					
 						 return false;
 					}
@@ -267,7 +267,7 @@ class Permission
 				$page = trim($rules);
 			}
 			
-			if( strpos($current_url, $page) > -1 )
+			if( strpos($currentUrl, $page) > -1 )
 			{
 				if( $rules[0] !== "!" ) 
 				{

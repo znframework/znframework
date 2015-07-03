@@ -97,8 +97,8 @@ class Build
 
 		if( strstr($elements, "node") )
 		{
-			$elements_ex = explode("=", $elements);
-			$elements = trim($elements_ex[1]);
+			$elementsEx = explode("=", $elements);
+			$elements = trim($elementsEx[1]);
 			$str = '<?xml version="'.$version.'" encoding="'.$encoding.'"?>';
 		}		
 		else

@@ -139,11 +139,11 @@ class Format
 		
 		$money = round($money, 2);
 		
-		$str_ex = explode(".",$money);
+		$strEx = explode(".",$money);
 		
 		$join = array();
 		
-		$str = strrev($str_ex[0]);
+		$str = strrev($strEx[0]);
 		
 		for($i=0; $i<strlen($str); $i++)
 		{
@@ -163,8 +163,8 @@ class Format
 			    ? ' '.$type 
 				: '';
 		
-		$remaining = ( isset($str_ex[1]) ) 
-					 ? $str_ex[1] 
+		$remaining = ( isset($strEx[1]) ) 
+					 ? $strEx[1] 
 					 : '00';
 		
 		if( strlen($remaining) === 1 ) 

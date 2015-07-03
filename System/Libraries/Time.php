@@ -39,10 +39,10 @@ class Time
 		// Tarih saat ayarları alınıyor.
 		$config = Config::get('DateTime');
 		
-		$setlocale = $config['setLocale'];
+		$setLocale = $config['setLocale'];
 		
 		// Dil biçimi ayarlanıyor.
-		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
+		setlocale(LC_ALL, $setLocale['charset'], $setLocale['language']);
 		
 		// Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
 		// Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
@@ -66,10 +66,10 @@ class Time
 			return false;
 		}
 		
-		$setlocale = Config::get('DateTime', 'setLocale');
+		$setLocale = Config::get('DateTime', 'setLocale');
 		
 		// Dil biçimi ayarlanıyor.
-		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
+		setlocale(LC_ALL, $setLocale['charset'], $setLocale['language']);
 		
 		return strftime($clock);	
 	}
@@ -105,9 +105,9 @@ class Time
 		
 		$setExp = str_ireplace(array_keys($chars), array_values($chars), $exp);
 		
-		$setlocale = $config['setLocale'];
+		$setLocale = $config['setLocale'];
 		
-		setlocale(LC_ALL, $setlocale['charset'], $setlocale['language']);
+		setlocale(LC_ALL, $setLocale['charset'], $setLocale['language']);
 		
 		return strftime($setExp);
 	}

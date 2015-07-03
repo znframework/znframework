@@ -55,19 +55,19 @@ class Download
 		
 		// İndirilecek dosyanın yolu ile adını ayırmak için 
 		// explode ile ayırma işlemi yapılmaktadır.
-		$file_ex   = explode("/", $file);
+		$fileEx   = explode("/", $file);
 		
 		// Parçalan yolun son elemanı dosya adını tuttmaktadır.
-		$filename = $file_ex[count($file_ex)-1];
+		$fileName = $fileEx[count($fileEx)-1];
 		
 		// Parçalanan dosya yolunu yeniden oluşturulmuştur.
-		$filepath = trim($file, $filename);
+		$filePath = trim($file, $fileName);
 		
 		// İndirme işlemi için gerekli header verileri oluşturulmuştur.	
 		header("Content-type: application/x-download");
-		header("Content-Disposition: attachment; filename=".$filename);
+		header("Content-Disposition: attachment; filename=".$fileName);
 		
-		readfile($filepath.$filename);
+		readfile($filePath.$fileName);
 	}	
 	
 	/******************************************************************************************

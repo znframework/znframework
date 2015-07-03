@@ -266,9 +266,9 @@ class FTP
 	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public static function rename($oldname = '', $newname = '')
+	public static function rename($oldName = '', $newName = '')
 	{
-		if( ! ( is_string($oldname) || is_string($newname) ) ) 
+		if( ! ( is_string($oldName) || is_string($newName) ) ) 
 		{
 			return false;	
 		}
@@ -278,13 +278,13 @@ class FTP
 			self::connect();
 		}
 		
-		if( @ftp_rename(self::$connect, $oldname, $newname) )
+		if( @ftp_rename(self::$connect, $oldName, $newName) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'changeFolderNameError', $oldname);
+			self::$error = getMessage('Folder', 'changeFolderNameError', $oldName);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -338,9 +338,9 @@ class FTP
 	| Örnek Kullanım: upload('yerel/yeniDosya.txt', 'sunucu/dizin', 'binary');                |
 	|          																				  |
 	******************************************************************************************/
-	public static function upload($local_path = '', $remote_path = '', $type = 'ascii')
+	public static function upload($localPath = '', $remotePath = '', $type = 'ascii')
 	{
-		if( ! (is_string($local_path) || is_string($remote_path)) ) 
+		if( ! (is_string($localPath) || is_string($remotePath)) ) 
 		{
 			return false;
 		}
@@ -364,13 +364,13 @@ class FTP
 			$mode = FTP_BINARY;
 		}
 		
-		if( @ftp_put(self::$connect, $local_path, $remote_path, $mode) )
+		if( @ftp_put(self::$connect, $localPath, $remotePath, $mode) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('File', 'remoteUploadError', $local_path);
+			self::$error = getMessage('File', 'remoteUploadError', $localPath);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}
@@ -389,9 +389,9 @@ class FTP
 	| Örnek Kullanım: download('sunucu/yeniDosya.txt', 'yerel/dizin', 'binary');              |
 	|          																				  |
 	******************************************************************************************/
-	public static function download($remote_path = '', $local_path = '', $type = 'ascii')
+	public static function download($remotePath = '', $localPath = '', $type = 'ascii')
 	{
-		if( ! (is_string($local_path) || is_string($remote_path)) ) 
+		if( ! (is_string($localPath) || is_string($remotePath)) ) 
 		{
 			return false;
 		}
@@ -415,13 +415,13 @@ class FTP
 			$mode = FTP_BINARY;
 		}
 		
-		if( @ftp_get(self::$connect, $local_path, $remote_path, $mode) )
+		if( @ftp_get(self::$connect, $localPath, $remotePath, $mode) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('File', 'remoteDownloadError', $local_path);
+			self::$error = getMessage('File', 'remoteDownloadError', $localPath);
 			report('Error', self::$error, 'FtpLibrary');
 			return false;	
 		}

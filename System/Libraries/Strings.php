@@ -338,11 +338,11 @@ class Strings
 			return $str;
 		}
 		
-		$shuffleex = explode($shuffle, $str);
+		$shuffleEx = explode($shuffle, $str);
 		
 		$newstr = '';
 		
-		foreach($shuffleex as $v)
+		foreach($shuffleEx as $v)
 		{
 			$newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;	
 		} 

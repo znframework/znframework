@@ -537,7 +537,7 @@ class HTML5
 	}
 	
 	// içerik ve özellik eklenebilir HTML5 nesneleri için
-	protected static function _content_attribute($content, $_attributes, $type)
+	protected static function _contentAttribute($content, $_attributes, $type)
 	{
 		if( ! isValue($content) )  
 		{
@@ -562,7 +562,7 @@ class HTML5
 	******************************************************************************************/
 	public static function canvas($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'canvas');
+		return self::_contentAttribute($content, $_attributes, 'canvas');
 	}
 	
 	/******************************************************************************************
@@ -580,7 +580,7 @@ class HTML5
 	******************************************************************************************/
 	public static function dataList($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'datalist');
+		return self::_contentAttribute($content, $_attributes, 'datalist');
 	}
 	
 	/******************************************************************************************
@@ -598,7 +598,7 @@ class HTML5
 	******************************************************************************************/
 	public static function output($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'output');
+		return self::_contentAttribute($content, $_attributes, 'output');
 	}	
 	
 	/******************************************************************************************
@@ -616,7 +616,7 @@ class HTML5
 	******************************************************************************************/
 	public static function details($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'details');
+		return self::_contentAttribute($content, $_attributes, 'details');
 	}
 	
 	/******************************************************************************************
@@ -634,7 +634,7 @@ class HTML5
 	******************************************************************************************/
 	public static function summary($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'summary');
+		return self::_contentAttribute($content, $_attributes, 'summary');
 	}
 	
 	/******************************************************************************************
@@ -652,7 +652,7 @@ class HTML5
 	******************************************************************************************/
 	public static function figure($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'figure');
+		return self::_contentAttribute($content, $_attributes, 'figure');
 	}
 	
 	/******************************************************************************************
@@ -670,7 +670,7 @@ class HTML5
 	******************************************************************************************/
 	public static function figCaption($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'figcaption');
+		return self::_contentAttribute($content, $_attributes, 'figcaption');
 	}
 	
 	/******************************************************************************************
@@ -688,7 +688,7 @@ class HTML5
 	******************************************************************************************/
 	public static function mark($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'mark');
+		return self::_contentAttribute($content, $_attributes, 'mark');
 	}
 	
 	/******************************************************************************************
@@ -706,7 +706,7 @@ class HTML5
 	******************************************************************************************/ 
 	public static function time($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'time');
+		return self::_contentAttribute($content, $_attributes, 'time');
 	}
 
 	/******************************************************************************************
@@ -724,7 +724,7 @@ class HTML5
 	******************************************************************************************/ 
 	public static function dialog($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'dialog');
+		return self::_contentAttribute($content, $_attributes, 'dialog');
 	}
 	
 	/******************************************************************************************
@@ -742,7 +742,7 @@ class HTML5
 	******************************************************************************************/ 
 	public static function command($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'command');
+		return self::_contentAttribute($content, $_attributes, 'command');
 	}
 	
 	/******************************************************************************************
@@ -760,7 +760,7 @@ class HTML5
 	******************************************************************************************/ 
 	public static function meter($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'meter');
+		return self::_contentAttribute($content, $_attributes, 'meter');
 	}
 	
 	/******************************************************************************************
@@ -778,7 +778,7 @@ class HTML5
 	******************************************************************************************/ 
 	public static function progress($content = "", $_attributes = '')
 	{
-		return self::_content_attribute($content, $_attributes, 'progress');
+		return self::_contentAttribute($content, $_attributes, 'progress');
 	}
 	
 	/******************************************************************************************
@@ -846,7 +846,7 @@ class HTML5
 	}
 	
 	// HTML5 içerik eklenebilir medya nesneleri için.
-	protected static function _media_content($src, $content, $_attributes, $type)
+	protected static function _mediaContent($src, $content, $_attributes, $type)
 	{
 		if( ! is_string($src) )  
 		{
@@ -877,7 +877,7 @@ class HTML5
 	******************************************************************************************/
 	public static function video($src = "", $content = "", $attributes = array())
 	{
-		return self::_media_content($src, $content, $_attributes, 'video');
+		return self::_mediaContent($src, $content, $_attributes, 'video');
 	}
 	
 	/******************************************************************************************
@@ -896,6 +896,6 @@ class HTML5
 	******************************************************************************************/
 	public static function audio($src = "", $content = "", $attributes = array(""))
 	{
-		return self::_media_content($src, $content, $_attributes, 'audio');
+		return self::_mediaContent($src, $content, $_attributes, 'audio');
 	}
 }

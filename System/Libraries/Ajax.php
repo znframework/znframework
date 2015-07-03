@@ -39,7 +39,7 @@ class Ajax
 	 * için oluşturulmuştur.
 	 *
 	 */
-	protected static $callback_functions = array
+	protected static $callbackFunctions = array
 	(
 		'done', 
 		'always', 
@@ -102,7 +102,7 @@ class Ajax
 			
 			// Anahtar olarak gönderilen verilerden herhangi biri aşağıdaki koşulu sağlarsa
 			// bu değer dönüş fonksiyonu olarak değerlendirilecektir.
-			if( ! in_array($key, self::$callback_functions) )
+			if( ! in_array($key, self::$callbackFunctions) )
 			{
 				$method .= "\t\t".$key.':'.$value.','.eol();
 			}
@@ -119,18 +119,18 @@ class Ajax
 		// fail
 		// always
 		
-		$is_callback = false;
+		$isCallback = false;
 		
-		foreach(self::$callback_functions as $callfunc)
+		foreach(self::$callbackFunctions as $callfunc)
 		{
 			if( isset($methods[$callfunc]) )
 			{
 				$ajax .= '.'.$callfunc.'(function(data){'.eol()."\t\t".$methods[$callfunc].eol()."\t".'});'.eol();
-				$is_callback = true;
+				$isCallback = true;
 			}
 		}
 	
-		if($is_callback === false)
+		if($isCallback === false)
 		{
 			$ajax .= ";".eol();
 		}
@@ -271,7 +271,7 @@ class Ajax
 	| @methods parametresinin alabileceği değerler:											  |
 	| type, url, dataType, error, success, complete, beforeSend, done ve diğer özellikler	  |
 	******************************************************************************************/
-	public static function pagination($start = 0, $limit = 5, $total_rows = 20, $set = array())
+	public static function pagination($start = 0, $limit = 5, $totalRows = 20, $set = array())
 	{
 		// Parametrelerin kontrolleri yapılıyor. -----------------------------------------------
 		if( ! is_numeric($start) ) 
@@ -282,9 +282,9 @@ class Ajax
 		{
 			$limit = 5;
 		}
-		if( ! is_numeric($total_rows) ) 
+		if( ! is_numeric($totalRows) ) 
 		{
-			$total_rows = 20;
+			$totalRows = 20;
 		}
 		if( ! is_array($set) ) 
 		{
@@ -293,35 +293,35 @@ class Ajax
 		// --------------------------------------------------------------------------------------
 		
 		// Önceki ve sonraki butonunun isimlendirmeleri
-		$next_tag = ( isset($set['next_name']) ) 
-				    ? $set['next_name'] 
-					: 'Sonraki';
+		$nextTag = ( isset($set['nextName']) ) 
+				   ? $set['nextName'] 
+				   : 'Sonraki';
 					
-		$prev_tag = ( isset($set['prev_name']) ) 
-		            ? $set['prev_name'] 
-					: 'Önceki';
+		$prevTag = ( isset($set['prevName']) ) 
+		           ? $set['prevName'] 
+				   : 'Önceki';
 		// --------------------------------------------------------------------------------------
 		
 		// Önceki ve sonraki butonununa ait css ve stil kullanımı -------------------------------
-		$next_class = ( isset($set['class']['next']) ) 
-		              ? ' class="'.$set['class']['next'].'"' 
-					  : '';
+		$nextClass = ( isset($set['class']['next']) ) 
+		             ? ' class="'.$set['class']['next'].'"' 
+					 : '';
 		
-		$next_style = ( isset($set['style']['next']) ) 
-		              ? ' style="'.$set['style']['next'].'"' 
-					  : '';
+		$nextStyle = ( isset($set['style']['next']) ) 
+		             ? ' style="'.$set['style']['next'].'"' 
+					 : '';
 		
-		$prev_class = ( isset($set['class']['prev']) ) 
-		              ? ' class="'.$set['class']['prev'].'"' 
-					  : '';
+		$prevClass = ( isset($set['class']['prev']) ) 
+		             ? ' class="'.$set['class']['prev'].'"' 
+					 : '';
 		
-		$prev_style = ( isset($set['style']['prev']) ) 
-		              ? ' style="'.$set['style']['prev'].'"' 
-					  : '';
+		$prevStyle = ( isset($set['style']['prev']) ) 
+		             ? ' style="'.$set['style']['prev'].'"' 
+					 : '';
 		// --------------------------------------------------------------------------------------
 		
 		$attr = "";
-		$link_count = ceil(($total_rows ) / $limit);
+		$linkCount = ceil(($totalRows) / $limit);
 		
 		// Başlangıç ve limit farkının negatif değer alma durumunun kontrolü yapılmaktadır.------
 		if( $start - $limit < 0 )
@@ -341,12 +341,12 @@ class Ajax
 		// Başlangıç değerinin pozitif olma durumuna göre gerekli kontrol sağlanıyor.------------
 		if($start > 0) 
 		{
-			$links .= "\t<input$prev_class$prev_style type='button' page='".$prev."' value='".$prev_tag."'>";
+			$links .= "\t<input$prevClass$prevStyle type='button' page='".$prev."' value='".$prevTag."'>";
 		}
 		// --------------------------------------------------------------------------------------
 		
 		// Sayfalama Linkleri Oluşturuluyor...---------------------------------------------------
-		for($i = 1; $i <= $link_count; $i++)
+		for($i = 1; $i <= $linkCount; $i++)
 		{
 			$current = (($i * $limit) - 1) - $limit;
 			if( $current < 0 ) $current = 0;
@@ -373,16 +373,16 @@ class Ajax
 		// --------------------------------------------------------------------------------------
 		
 		// Sonraki butonunun durumu kontrol ediliyor...------------------------------------------
-		if( $next < $total_rows ) 
+		if( $next < $totalRows ) 
 		{
-			$links .= "\t<input$next_class$next_style type='button' page='".$next."' value='".$next_tag."'>".eol();
+			$links .= "\t<input$nextClass$nextStyle type='button' page='".$next."' value='".$nextTag."'>".eol();
 		}
 		// --------------------------------------------------------------------------------------
 		
 		$links .= "</div>".eol();
 		
 		// Toplam satırın limit miktarına göre durumu kontrol ediliyor...------------------------
-		if( $total_rows > $limit )
+		if( $totalRows > $limit )
 		{ 
 			return $links; 
 		}

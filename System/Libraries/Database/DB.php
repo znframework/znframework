@@ -32,7 +32,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $select_column;
+	private $selectColumn;
 	
 	/* From Değişkeni
 	 *  
@@ -80,7 +80,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $distinctrow;
+	private $distinctRow;
 	
 	/* High Priority Değişkeni
 	 *  
@@ -88,7 +88,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $high_priority;
+	private $highPriority;
 	
 	/* Straight Join Değişkeni
 	 *  
@@ -96,7 +96,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $straight_join;
+	private $straightJoin;
 	
 	/* Small Result Değişkeni
 	 *  
@@ -104,7 +104,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $small_result;	
+	private $smallResult;	
 	
 	/* Big Result Değişkeni
 	 *  
@@ -112,7 +112,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */	
-	private $big_result;
+	private $bigResult;
 	
 	/* Buffer Result Değişkeni
 	 *  
@@ -120,7 +120,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */			
-	private $buffer_result;	
+	private $bufferResult;	
 	
 	/* Cache Değişkeni
 	 *  
@@ -136,7 +136,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */	
-	private $no_cache;
+	private $noCache;
 	
 	/* Calc Found Rows Değişkeni
 	 *  
@@ -144,7 +144,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */	
-	private $calc_found_rows;	
+	private $calcFoundRows;	
 	
 	/* Math Değişkeni
 	 *  
@@ -160,7 +160,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $group_by;
+	private $groupBy;
 	
 	/* Having Değişkeni
 	 *  
@@ -176,7 +176,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $order_by;
+	private $orderBy;
 	
 	/* Limit Değişkeni
 	 *  
@@ -208,7 +208,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $trans_start;
+	private $transStart;
 	
 	/* Trans Error Değişkeni
 	 *  
@@ -216,7 +216,7 @@ class DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $trans_error;
+	private $transError;
 	
 	/* Prefix Değişkeni
 	 *  
@@ -276,7 +276,7 @@ class DB
 			$condition = '*';
 		}
 		
-		$this->select_column = ' '.$condition.' ';
+		$this->selectColumn = ' '.$condition.' ';
 		$this->select = 'SELECT';
 		
 		return $this;
@@ -352,7 +352,7 @@ class DB
 			return false;
 		}
 		
-		$value = $this->db->real_escape_string($value);
+		$value = $this->db->realEscapeString($value);
 		
 		$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
 		
@@ -382,7 +382,7 @@ class DB
 			return false;
 		}
 		
-		$value = $this->db->real_escape_string($value);
+		$value = $this->db->realEscapeString($value);
 
 		$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
 		
@@ -435,7 +435,7 @@ class DB
 		
 		if( empty($this->select) )
 		{ 
-			$this->select = 'SELECT'; $this->select_column = ' * ';
+			$this->select = 'SELECT'; $this->selectColumn = ' * ';
 		}
 				
 		if( ! empty($table) ) 
@@ -490,33 +490,33 @@ class DB
 		}
 		
 		// Sorgu yöntemlerinden gelen değeler birleştiriliyor.
-		$query_builder = $this->select.
+		$queryBuilder = $this->select.
 						 $this->all.
 						 $this->distinct.
-						 $this->distinctrow.
-						 $this->high_priority.
-						 $this->straight_join.
-						 $this->small_result.
-						 $this->big_result.
-						 $this->buffer_result.
+						 $this->distinctRow.
+						 $this->highPriority.
+						 $this->straightJoin.
+						 $this->smallResult.
+						 $this->bigResult.
+						 $this->bufferResult.
 						 $this->cache.
-						 $this->no_cache.
-						 $this->calc_found_rows.					 
-						 $this->select_column.
+						 $this->noCache.
+						 $this->calcFoundRows.					 
+						 $this->selectColumn.
 						 $this->math.
 						 $this->from.
 						 $this->join.
 						 $where.$this->where.
-						 $this->group_by.
+						 $this->groupBy.
 						 $having.$this->having.
-						 $this->order_by.
+						 $this->orderBy.
 						 $this->limit;	
 		
-		$this->_reset_query();
+		$this->_resetQuery();
 		
 		$secure = $this->secure;
 		
-		$this->db->query($this->_query_security($query_builder), $secure);
+		$this->db->query($this->_querySecurity($queryBuilder), $secure);
 		
 		return $this;
 	}
@@ -541,14 +541,14 @@ class DB
 		
 		$secure = $this->secure;
 
-		$this->db->query($this->_query_security($query), $secure);
+		$this->db->query($this->_querySecurity($query), $secure);
 		
-		if( ! empty($this->trans_start) ) 
+		if( ! empty($this->transStart) ) 
 		{
-			$trans_error = $this->db->error();
-			if( ! empty($trans_error) ) 
+			$transError = $this->db->error();
+			if( ! empty($transError) ) 
 			{
-				$this->trans_error = $trans_error; 
+				$this->transError = $transError; 
 			}
 		}
 		
@@ -575,7 +575,7 @@ class DB
 		
 		$secure = $this->secure;
 		
-		return $this->db->exec($this->_query_security($query), $secure);
+		return $this->db->exec($this->_querySecurity($query), $secure);
 	}
 	
 	/******************************************************************************************
@@ -590,7 +590,7 @@ class DB
 	******************************************************************************************/
 	public function transStart()
 	{
-		$this->trans_start = $this->db->transStart();
+		$this->transStart = $this->db->transStart();
 	}
 	
 	/******************************************************************************************
@@ -605,7 +605,7 @@ class DB
 	******************************************************************************************/
 	public function transEnd()
 	{
-		if( ! empty($this->trans_error) )
+		if( ! empty($this->transError) )
 		{
 			$this->db->transRollback();
 		}
@@ -614,8 +614,8 @@ class DB
 			$this->db->transCommit();
 		}
 		
-		$this->trans_start = NULL;	
-		$this->trans_error = NULL;
+		$this->transStart = NULL;	
+		$this->transError = NULL;
 	}
 	
 	/******************************************************************************************
@@ -630,7 +630,7 @@ class DB
 	******************************************************************************************/
 	public function totalRows()
 	{ 
-		return $this->db->num_rows(); 
+		return $this->db->numRows(); 
 	}
 	
 	/******************************************************************************************
@@ -645,7 +645,7 @@ class DB
 	******************************************************************************************/
 	public function totalColumns()
 	{
-		return $this->db->num_fields(); 
+		return $this->db->numFields(); 
 	}
 	
 	/******************************************************************************************
@@ -690,7 +690,7 @@ class DB
 	******************************************************************************************/
 	public function resultArray()
 	{ 
-		return $this->db->result_array(); 
+		return $this->db->resultArray(); 
 	}
 	
 	/******************************************************************************************
@@ -705,7 +705,7 @@ class DB
 	******************************************************************************************/
 	public function fetchArray()
 	{ 
-		return $this->db->fetch_array(); 
+		return $this->db->fetchArray(); 
 	}
 	
 	/******************************************************************************************
@@ -720,7 +720,7 @@ class DB
 	******************************************************************************************/
 	public function fetchAssoc()
 	{ 
-		return $this->db->fetch_assoc(); 
+		return $this->db->fetchAssoc(); 
 	}
 	
 	/******************************************************************************************
@@ -735,7 +735,7 @@ class DB
 	******************************************************************************************/
 	public function fetchRow()
 	{ 
-		return $this->db->fetch_row(); 
+		return $this->db->fetchRow(); 
 	}
 	
 	/******************************************************************************************
@@ -765,7 +765,7 @@ class DB
 	******************************************************************************************/
 	public function affectedRows()
 	{ 
-		return $this->db->affected_rows();
+		return $this->db->affectedRows();
 	}
 	
 	/******************************************************************************************
@@ -780,7 +780,7 @@ class DB
 	******************************************************************************************/
 	public function insertId()
 	{ 
-		return $this->db->insert_id(); 
+		return $this->db->insertId(); 
 	}
 	
 	/******************************************************************************************
@@ -795,7 +795,7 @@ class DB
 	******************************************************************************************/
 	public function columnData()
 	{ 
-		return $this->db->column_data(); 
+		return $this->db->columnData(); 
 	}
 	
 	/******************************************************************************************
@@ -872,7 +872,7 @@ class DB
 	******************************************************************************************/
 	public function distinctRow()
 	{ 
-		$this->distinctrow = ' DISTINCTROW '; 
+		$this->distinctRow = ' DISTINCTROW '; 
 		return $this; 
 	}
 	
@@ -888,7 +888,7 @@ class DB
 	******************************************************************************************/
 	public function straightJoin()
 	{ 
-		$this->straight_join = ' STRAIGHT_JOIN '; 
+		$this->straightJoin = ' STRAIGHT_JOIN '; 
 		return $this; 
 	}	
 		
@@ -904,7 +904,7 @@ class DB
 	******************************************************************************************/
 	public function highPriority()
 	{ 
-		$this->high_priority = ' HIGH_PRIORITY '; 
+		$this->highPriority = ' HIGH_PRIORITY '; 
 		return $this; 
 	}
 	
@@ -920,7 +920,7 @@ class DB
 	******************************************************************************************/
 	public function smallResult()
 	{ 
-		$this->small_result = ' SQL_SMALL_RESULT '; 
+		$this->smallResult = ' SQL_SMALL_RESULT '; 
 		return $this; 
 	}
 	
@@ -936,7 +936,7 @@ class DB
 	******************************************************************************************/
 	public function bigResult()
 	{ 
-		$this->big_result = ' SQL_BIG_RESULT '; 
+		$this->bigResult = ' SQL_BIG_RESULT '; 
 		return $this; 
 	}
 	
@@ -952,7 +952,7 @@ class DB
 	******************************************************************************************/
 	public function bufferResult()
 	{ 
-		$this->buffer_result = ' SQL_BUFFER_RESULT '; 
+		$this->bufferResult = ' SQL_BUFFER_RESULT '; 
 		return $this; 
 	}
 	
@@ -984,7 +984,7 @@ class DB
 	******************************************************************************************/
 	public function noCache()
 	{ 
-		$this->no_cache = ' SQL_NO_CACHE '; 
+		$this->noCache = ' SQL_NO_CACHE '; 
 		return $this; 
 	}
 	
@@ -1000,7 +1000,7 @@ class DB
 	******************************************************************************************/
 	public function calcFoundRows()
 	{ 
-		$this->calc_found_rows = ' SQL_CALC_FOUND_ROWS '; 
+		$this->calcFoundRows = ' SQL_CALC_FOUND_ROWS '; 
 		return $this; 
 	}
 	
@@ -1074,7 +1074,7 @@ class DB
 			return false; 
 		}
 		
-		$this->group_by = ' GROUP BY '.$condition.' ' ;
+		$this->groupBy = ' GROUP BY '.$condition.' ' ;
 		
 		return $this;
 	}
@@ -1098,7 +1098,7 @@ class DB
 			return false; 
 		}
 		
-		$this->order_by = ' ORDER BY '.$condition.' '.$type.' ';  
+		$this->orderBy = ' ORDER BY '.$condition.' '.$type.' ';  
 		
 		return $this; 
 	}
@@ -1166,7 +1166,7 @@ class DB
 		
 		$secure = $this->secure;
 		
-		$this->db->query($this->_query_security($query), $secure);
+		$this->db->query($this->_querySecurity($query), $secure);
 		
 		return $this;
 	}
@@ -1224,11 +1224,11 @@ class DB
 		
 		if( is_array($columns) ) foreach($columns as $v)
 		{
-			$newcolumns[$v] = "$v + $incdec";	
+			$newColumns[$v] = "$v + $incdec";	
 		}
 		else
 		{
-			$newcolumns = array($columns => "$columns + $incdec");	
+			$newColumns = array($columns => "$columns + $incdec");	
 		}
 
 		if( ! empty($this->where) ) 
@@ -1242,17 +1242,17 @@ class DB
 		
 		$data = '';
 		
-		foreach($newcolumns as $key => $value)
+		foreach($newColumns as $key => $value)
 		{
 			$data .= $key.'='.$value.',';
 		}
 		$set = ' SET '.substr($data,0,-1);
 		
-		$update_query = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
+		$updateQuery = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
 		
 		$this->where = NULL;
 		
-		return $this->db->query($update_query);
+		return $this->db->query($updateQuery);
 	}
 	
 	/******************************************************************************************
@@ -1339,11 +1339,11 @@ class DB
 			}
 		}
 			
-		$insert_query = 'INSERT INTO '.$this->prefix.$table.' ('.substr($data,0,-1).') VALUES ('.substr($values,0,-1).')';
+		$insertQuery = 'INSERT INTO '.$this->prefix.$table.' ('.substr($data,0,-1).') VALUES ('.substr($values,0,-1).')';
 		
 		$secure = $this->secure;
 		
-		return $this->db->query($this->_query_security($insert_query), $secure);
+		return $this->db->query($this->_querySecurity($insertQuery), $secure);
 	}
 	
 	/******************************************************************************************
@@ -1396,12 +1396,12 @@ class DB
 		}
 		$set = ' SET '.substr($data,0,-1);
 		
-		$update_query = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
+		$updateQuery = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
 	
 		$this->where = NULL;
 		$secure = $this->secure;
 		
-		return $this->db->query($this->_query_security($update_query), $secure);	
+		return $this->db->query($this->_querySecurity($updateQuery), $secure);	
 	}
 	
 	/******************************************************************************************
@@ -1437,13 +1437,13 @@ class DB
 			$this->table = NULL;
 		}
 		
-		$delete_query = 'DELETE FROM '.$this->prefix.$table.$where.$this->where;
+		$deleteQuery = 'DELETE FROM '.$this->prefix.$table.$where.$this->where;
 		
 		$this->where = NULL;
 			
 		$secure = $this->secure;
 		
-		return $this->db->query($this->_query_security($delete_query), $secure);
+		return $this->db->query($this->_querySecurity($deleteQuery), $secure);
 	}
 	
 	/******************************************************************************************
@@ -1472,17 +1472,17 @@ class DB
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function differentConnection($connect_name = '')
+	public function differentConnection($connectName = '')
 	{
-		if( ! is_string($connect_name) ) 
+		if( ! is_string($connectName) ) 
 		{
 			return false;
 		}
 		
 		$config = $this->config;
-		$config_different = $config['differentConnection'];
+		$configDifferent = $config['differentConnection'];
 		
-		if( ! isset($config_different[$connect_name]) ) 
+		if( ! isset($configDifferent[$connectName]) ) 
 		{
 			return false;
 		}
@@ -1491,14 +1491,14 @@ class DB
 		{
 			if( $key !== 'differentConnection' )
 			{
-				if( ! isset($config_different[$connect_name][$key]) )
+				if( ! isset($configDifferent[$connectName][$key]) )
 				{
-					$config_different[$connect_name][$key] = $val;
+					$configDifferent[$connectName][$key] = $val;
 				}
 			}
 		}
 		
-		return new Db($config_different[$connect_name]);
+		return new Db($configDifferent[$connectName]);
 	}
 	
 	/******************************************************************************************
@@ -1506,13 +1506,13 @@ class DB
 	// Sorgu güvenliği için oluşturulmuş 													  *
 	// Sınıf içi güvenlik yeöntemi.                                                           *
 	******************************************************************************************/	
-	private function _query_security($query = '')
+	private function _querySecurity($query = '')
 	{	
 		
 		if( isset($this->secure) ) 
 		{
 			$secure = $this->secure;
-			$secure_params = array();
+			$secureParams = array();
 			
 			if( is_numeric(key($secure)) )
 			{	
@@ -1525,7 +1525,7 @@ class DB
 							  ? $secure[$i]
 							  : NULL;
 							  
-					$newstr .= $strex[$i].$this->db->real_escape_string($sec);
+					$newstr .= $strex[$i].$this->db->realEscapeString($sec);
 				}
 
 				$query = $newstr;
@@ -1534,11 +1534,11 @@ class DB
 			{
 				foreach($this->secure as $k => $v)
 				{
-					$secure_params[$k] = $this->db->real_escape_string($v);
+					$secureParams[$k] = $this->db->realEscapeString($v);
 				}
 			}
 			
-			$query = str_replace(array_keys($secure_params), array_values($secure_params), $query);
+			$query = str_replace(array_keys($secureParams), array_values($secureParams), $query);
 		}
 		
 		$this->secure = NULL;
@@ -1549,28 +1549,28 @@ class DB
 	/******************************************************************************************
 	* DEĞİŞKENLERİ SIFIRLA                                                                    *
 	******************************************************************************************/
-	private function _reset_query()
+	private function _resetQuery()
 	{
 		$this->all = NULL;
 		$this->distinct = NULL;
-		$this->distinctrow = NULL;
-		$this->high_priority = NULL;
-		$this->straight_join = NULL;
-		$this->small_result = NULL;
-		$this->big_result = NULL;
-		$this->buffer_result = NULL;
+		$this->distinctRow = NULL;
+		$this->highPriority = NULL;
+		$this->straightJoin = NULL;
+		$this->smallResult = NULL;
+		$this->bigResult = NULL;
+		$this->bufferResult = NULL;
 		$this->cache = NULL;
-		$this->no_cache = NULL;
-		$this->calc_found_rows = NULL;
+		$this->noCache = NULL;
+		$this->calcFoundRows = NULL;
 		$this->select = NULL;
-		$this->select_column = NULL;
+		$this->selectColumn = NULL;
 		$this->math = NULL;
 		$this->from = NULL;
 		$this->table = NULL;
 		$this->where = NULL;
-		$this->group_by = NULL;
+		$this->groupBy = NULL;
 		$this->having = NULL;
-		$this->order_by = NULL;
+		$this->orderBy = NULL;
 		$this->limit = NULL;
 		$this->config = array();
 	}

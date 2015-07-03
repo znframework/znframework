@@ -211,7 +211,7 @@ class Arrays
 			return false;
 		}
 		
-		$new_array = array();
+		$newArray = array();
 		
 		if( ! is_array($object) )
 		{
@@ -221,10 +221,10 @@ class Arrays
 				{
 					if( $k !== $object )
 					{
-						$new_array[$k] = $v;
+						$newArray[$k] = $v;
 					}	
 				}			
-				return $new_array;	
+				return $newArray;	
 			}
 			else
 			{
@@ -234,10 +234,10 @@ class Arrays
 					{
 						if($i !== $object)
 						{
-							$new_array[] = $array[$i];		
+							$newArray[] = $array[$i];		
 						}	
 					}				
-					return $new_array;
+					return $newArray;
 				}
 				else
 				{
@@ -245,10 +245,10 @@ class Arrays
 					{			
 						if($v !== $object)
 						{
-							$new_array[] = $array[$k];		
+							$newArray[] = $array[$k];		
 						}	
 					}	
-					return $new_array;
+					return $newArray;
 				} 	
 			}
 		}
@@ -258,10 +258,10 @@ class Arrays
 			{			
 				if( ! in_array($k, $object) && ! in_array($v, $object) )
 				{
-					$new_array[] = $v;	
+					$newArray[] = $v;	
 				}			
 			}	
-			return $new_array;
+			return $newArray;
 		}
 	}
 	
@@ -288,23 +288,23 @@ class Arrays
 	| 'd' => string 'deger' (length=5)     													  |
 	|          																				  |
 	******************************************************************************************/
-	public static function multikey($array = array(), $key_split = "|")
+	public static function multikey($array = array(), $keySplit = "|")
 	{
-		$new_array = array();
+		$newArray = array();
 		
 		if( is_array($array) ) 
 		{
 			foreach($array as $k => $v)
 			{
-				$keys = explode($key_split, $k);
+				$keys = explode($keySplit, $k);
 				
 				foreach($keys as $val)
 				{
-					$new_array[$val] = $v;	
+					$newArray[$val] = $v;	
 				}		
 			}
 			
-			return $new_array;
+			return $newArray;
 		}
 		else return false;
 	}

@@ -49,11 +49,11 @@ class File
 		if( file_exists($file) )
 		{
 			// Dosyadaki veriyi oku.
-			$file_open = fopen($file, $mode);	
-			$file_read = fread($file_open, filesize($file));
-			fclose($file_open);
+			$fileOpen = fopen($file, $mode);	
+			$fileRead = fread($fileOpen, filesize($file));
+			fclose($fileOpen);
 			
-			return $file_read;
+			return $fileRead;
 		}
 		else
 		{
@@ -79,7 +79,7 @@ class File
 	public static function write($file = '', $data = '', $mode = 'w')
 	{
 		// Parametre kontrolü yapılıyor.
-		if( ! is_string($file) || ! is_string($mode) ) 
+		if( ! is_string($file) || is_dir($file) || ! is_string($mode) ) 
 		{
 			return false;
 		}
@@ -90,11 +90,11 @@ class File
 			$data = '';
 		}
 
-		$file_open 	= @fopen($file, $mode);
+		$fileOpen 	= fopen($file, $mode);
 		
-		$file_write = @fwrite($file_open, $data);
+		$fileWrite = fwrite($fileOpen, $data);
 		
-		@fclose($file_open);
+		fclose($fileOpen);
 	}	
 	
 	/******************************************************************************************
@@ -110,7 +110,7 @@ class File
 	******************************************************************************************/
 	public static function contents($path = '')
 	{
-		if( ! is_string($path) ) 
+		if( ! is_string($path) || ! isFileExists($path) ) 
 		{
 			return false;
 		}
@@ -122,7 +122,7 @@ class File
 			return false;	
 		}
 		// Dosya içeriğini getir.
-		return @file_get_contents($path);
+		return file_get_contents($path);
 	}
 	
 	/******************************************************************************************
@@ -143,7 +143,7 @@ class File
 	******************************************************************************************/
 	public static function find($file = '', $data = '')
 	{
-		if( ! is_string($file) || empty($data) ) 
+		if( ! is_string($file) || empty($data) || ! isFileExists($file) ) 
 		{
 			return false;
 		}
@@ -159,7 +159,7 @@ class File
 		}
 		
 		// Dosyadan gereli veriyi çek.
-		$index = strpos(@file_get_contents($file), $data);
+		$index = strpos(file_get_contents($file), $data);
 		
 		$contents = self::contents($file);
 	
@@ -186,7 +186,7 @@ class File
 	public static function create($name = '')
 	{
 		// Parametre kontrolü yapılıyor.
-		if( ! is_string($name) ) 
+		if( ! is_string($name) || is_dir($name) ) 
 		{
 			return false;
 		}
@@ -194,7 +194,7 @@ class File
 		if( ! file_exists($name) )
 		{ 
 			// Dosyayı oluştur.
-			touch($name);
+			@touch($name);
 		}
 		else
 		{
@@ -222,7 +222,8 @@ class File
 		{
 			return false;
 		}
-		if( ! file_exists($name)) 
+		
+		if( ! isFileExists($name)) 
 		{
 			self::$error = getMessage('File', 'notFoundError', $name);
 			report('Error', self::$error, 'FileLibrary');
@@ -250,7 +251,7 @@ class File
 	public static function append($file = '', $data = '', $mode = 'a')
 	{
 		// Parametre kontrolleri yapılıyor.
-		if( ! is_string($file) || ! is_string($mode) ) 
+		if( ! is_string($file) || ! is_string($mode) || is_dir($file) ) 
 		{
 			return false;
 		}
@@ -260,11 +261,11 @@ class File
 		}
 	
 		// Dosyaya veriyi yaz.
-		$file_open 	= @fopen($file, $mode);
+		$fileOpen 	= @fopen($file, $mode);
 		
-		$file_write = @fwrite($file_open, $data);
+		$fileWrite = @fwrite($fileOpen, $data);
 		
-		@fclose($file_open);
+		@fclose($fileOpen);
 
 	}	
 
@@ -393,7 +394,7 @@ class File
 			return false;
 		}
 		
-		$file_info = array
+		$fileInfo = array
 		(
 			'basename' 	 => pathInfos($file, 'basename'),
 			'size'		 => filesize($file),
@@ -404,7 +405,7 @@ class File
 			'permission' => fileperms($file)	
 		);
 		
-		return (object)$file_info;
+		return (object)$fileInfo;
 	}
 	
 	/******************************************************************************************
@@ -530,23 +531,23 @@ class File
 		$zip = zip_open($source);
 		
 		// Zip dosyası okunuyor.
-		while($zip_content = zip_read($zip))
+		while($zipContent = zip_read($zip))
 		{
-			$zip_file = zip_entry_name($zip_content);
+			$zipFile = zip_entry_name($zipContent);
 			
-			if( strpos($zip_file, '.') )
+			if( strpos($zipFile, '.') )
 			{
-				$target_path = suffix($target).$zip_file;
+				$targetPath = suffix($target).$zipFile;
 				
-				touch($target_path);
+				touch($targetPath);
 				
-				$new_file = fopen($target_path, 'w+');
-				fwrite($new_file, zip_entry_read($zip_content));
-				fclose($new_file);
+				$newFile = fopen($targetPath, 'w+');
+				fwrite($newFile, zip_entry_read($zipContent));
+				fclose($newFile);
 			}
 			else
 			{
-				@mkdir(suffix($target).$zip_file);
+				@mkdir(suffix($target).$zipFile);
 			}
 		}
 	}
@@ -560,7 +561,7 @@ class File
 	public static function limit($file = '', $limit = 0, $mode = 'r+')
 	{
 		// Parametre kontrolü yapılıyor.
-		if( ! is_string($file) || ! is_numeric($limit) || ! is_string($mode) ) 
+		if( ! is_string($file) || is_dir($file) || ! is_numeric($limit) || ! is_string($mode) ) 
 		{
 			return false;
 		}
@@ -572,11 +573,11 @@ class File
 			return false;
 		}
 	
-		$file_open 	= fopen($file, $mode);
+		$fileOpen 	= fopen($file, $mode);
 		
-		$file_write = ftruncate($file_open, $limit);
+		$fileWrite = ftruncate($fileOpen, $limit);
 		
-		fclose($file_open);
+		fclose($fileOpen);
 	}
 	
 	/******************************************************************************************

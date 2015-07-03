@@ -24,7 +24,7 @@ class Import
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $is_import = array();
+	private static $isImport = array();
 	
 	/******************************************************************************************
 	* PAGE                                                                                    *
@@ -92,9 +92,9 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function view($page = '', $data = '', $ob_get_contents = false)
+	public static function view($page = '', $data = '', $obGetContents = false)
 	{
-		return self::page($page, $data, $ob_get_contents);
+		return self::page($page, $data, $obGetContents);
 	}
 	
 	/******************************************************************************************
@@ -111,9 +111,9 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function bladepage($page = '', $data = '', $ob_get_contents = false)
+	public static function bladepage($page = '', $data = '', $obGetContents = false)
 	{
-		return uselib('CBlade')->view($page, $data, $ob_get_contents);
+		return uselib('CBlade')->view($page, $data, $obGetContents);
 	}
 	
 	/******************************************************************************************
@@ -130,9 +130,9 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function parserpage($page = '', $data = '', $ob_get_contents = false)
+	public static function parserpage($page = '', $data = '', $obGetContents = false)
 	{
-		return uselib('CParser')->view($page, $data, $ob_get_contents);
+		return uselib('CParser')->view($page, $data, $obGetContents);
 	}
 	
 	/******************************************************************************************
@@ -156,18 +156,18 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		$masterpageset = Config::get('Masterpage');
+		$masterPageSet = Config::get('Masterpage');
 		
 		//------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
 		$randomPageVariable = ( isset($head['bodyPage']) ) 
 					          ? $head['bodyPage'] 
-						      : $masterpageset['bodyPage'];
+						      : $masterPageSet['bodyPage'];
 		
-		$head_page = 	( isset($head['headPage']) ) 
+		$headPage = 	( isset($head['headPage']) ) 
 					    ? $head['headPage'] 
-						: $masterpageset['headPage'];
+						: $masterPageSet['headPage'];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -181,48 +181,48 @@ class Import
 			$randomPageVariable = PAGES_DIR.suffix($randomPageVariable,".php");
 		}
 		
-		if( ! is_file(PAGES_DIR.suffix($head_page,".php")) ) 
+		if( ! is_file(PAGES_DIR.suffix($headPage,".php")) ) 
 		{
-			$head_page = ''; 
+			$headPage = ''; 
 		}
 		else
 		{ 
-			$head_page = PAGES_DIR.suffix($head_page,".php");
+			$headPage = PAGES_DIR.suffix($headPage,".php");
 		}
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header  = Config::get('Doctype', $masterpageset['docType']).eol();
+		$header  = Config::get('Doctype', $masterPageSet['docType']).eol();
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eol();
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$header .= '<head>'.eol();
 		
-		if( is_array($masterpageset['contentCharset']) )
+		if( is_array($masterPageSet['contentCharset']) )
 		{
-			foreach($masterpageset['contentCharset'] as $v)
+			foreach($masterPageSet['contentCharset'] as $v)
 			{
 				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eol();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterpageset['contentCharset'].'">'.eol();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterPageSet['contentCharset'].'">'.eol();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.$masterpageset['contentLanguage'].'">'.eol();
+		$header .= '<meta http-equiv="Content-Language" content="'.$masterPageSet['contentLanguage'].'">'.eol();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------					
-		$datas 		= $masterpageset['data'];
+		$datas 		= $masterPageSet['data'];
 						
-		$metas 		= $masterpageset['meta'];
+		$metas 		= $masterPageSet['meta'];
 						
 		$title 		= ( isset($head['title']) ) 			
 					  ? $head['title'] 		
-					  : $masterpageset["title"];
+					  : $masterPageSet["title"];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -249,25 +249,25 @@ class Import
 			
 			if( ! empty($content) )
 			{
-				$nameex = explode("->", $name);
+				$nameEx = explode("->", $name);
 				
-				$httporname = ( $nameex[0] === 'http' )
+				$httpOrName = ( $nameEx[0] === 'http' )
 							  ? 'http-equiv'
 							  : 'name';
 				
-				$name 		= ( isset($nameex[1]) )
-							  ? $nameex[1]
-							  : $nameex[0];
+				$name 		= ( isset($nameEx[1]) )
+							  ? $nameEx[1]
+							  : $nameEx[0];
 							  
 				if( ! is_array($content) )
 				{			  
-					$header .= "<meta $httporname=\"$name\" content=\"$content\">".eol();
+					$header .= "<meta $httpOrName=\"$name\" content=\"$content\">".eol();
 				}
 				else
 				{
 					foreach($content as $key => $val)
 					{
-						$header .= "<meta $httporname=\"$name\" content=\"$val\">".eol();	
+						$header .= "<meta $httpOrName=\"$name\" content=\"$val\">".eol();	
 					}	
 				}
 			}
@@ -279,9 +279,9 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Fontlar dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( ! empty($masterpageset["font"]) )
+		if( ! empty($masterPageSet["font"]) )
 		{					
-			$header .= self::font($masterpageset["font"], true);
+			$header .= self::font($masterPageSet["font"], true);
 		}
 		
 		if( isset($head['font']) )
@@ -295,9 +295,9 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Javascript kodları dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( is_array($masterpageset['script']) )
+		if( is_array($masterPageSet['script']) )
 		{
-			$header .= self::script($masterpageset['script'], true);
+			$header .= self::script($masterPageSet['script'], true);
 		}
 		
 		if( isset($head['script']) )
@@ -311,9 +311,9 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Stiller dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( is_array($masterpageset['style']) )
+		if( is_array($masterPageSet['style']) )
 		{
-			$header .= self::style($masterpageset['style'], true);
+			$header .= self::style($masterPageSet['style'], true);
 		}
 		
 		if( isset($head['style']) )
@@ -324,9 +324,9 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		if( ! empty($masterpageset['browserIcon']) ) 
+		if( ! empty($masterPageSet['browserIcon']) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterpageset['browserIcon']).'" />'.eol();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterPageSet['browserIcon']).'" />'.eol();
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -358,11 +358,11 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Başlık sayfası dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( ! empty($head_page) )
+		if( ! empty($headPage) )
 		{
 			ob_start(); 
 			
-			require_once($head_page); 
+			require_once($headPage); 
 			
 			$content = ob_get_contents();
 			 
@@ -382,19 +382,19 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( $masterpageset['backgroundImage'] ) 
+		if( $masterPageSet['backgroundImage'] ) 
 		{
-			$bg_image = " background='".baseUrl($masterpageset['backgroundImage'])."' bgproperties='fixed'"; 
+			$bgImage = " background='".baseUrl($masterPageSet['backgroundImage'])."' bgproperties='fixed'"; 
 		}
 		else 
 		{
-			$bg_image = "";
+			$bgImage = "";
 		}
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		$header .= '<body'.$bg_image.'>'.eol();
+		$header .= '<body'.$bgImage.'>'.eol();
 	
 		echo $header;
 		
@@ -479,11 +479,11 @@ class Import
 			}
 			
 			// FARKLI FONTLAR
-			$differentset = Config::get('Font', 'differentFontExtensions');
+			$differentSet = Config::get('Font', 'differentFontExtensions');
 			
-			if( ! empty($differentset) )
+			if( ! empty($differentSet) )
 			{			
-				foreach($differentset as $of)
+				foreach($differentSet as $of)
 				{
 					if( isFileExists(FONTS_DIR.$font.prefix($of, '.')) )
 					{		
@@ -554,13 +554,13 @@ class Import
 				$style = '';
 			}	
 		
-			if( ! in_array("style_".$style, self::$is_import) )
+			if( ! in_array("style_".$style, self::$isImport) )
 			{
 				if( isFileExists(STYLES_DIR.suffix($style,".css")) )
 				{
 					$str .= '<link href="'.baseUrl().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.eol();
 				}
-				self::$is_import[] = "style_".$style;
+				self::$isImport[] = "style_".$style;
 			}
 		}
 		
@@ -615,14 +615,14 @@ class Import
 				$script = '';
 			}
 			
-			if( ! in_array("script_".$script, self::$is_import) )
+			if( ! in_array("script_".$script, self::$isImport) )
 			{
 				if( isFileExists(SCRIPTS_DIR.suffix($script,".js")) )
 				{
 					$str .= '<script type="text/javascript" src="'.baseUrl().SCRIPTS_DIR.suffix($script,".js").'"></script>'.eol();
 				}
 				
-				self::$is_import[] = "script_".$script;
+				self::$isImport[] = "script_".$script;
 			}
 		}
 		
@@ -752,9 +752,9 @@ class Import
 	| Örnek Kullanım: Import::something('Application/Views/Pages/');        	              |
 	|          																				  |
 	******************************************************************************************/
-	public static function package($packages = "", $different_extension = array() )
+	public static function package($packages = "", $differentExtension = array() )
 	{
-		if( ! ( is_string($packages) || isDirExists($packages) || is_array($different_extension) ) ) 
+		if( ! ( is_string($packages) || isDirExists($packages) || is_array($differentExtension) ) ) 
 		{
 			return false;
 		}
@@ -777,9 +777,9 @@ class Import
 				}
 				else
 				{
-					if( ! empty($different_extension) )
+					if( ! empty($differentExtension) )
 					{
-						if( in_array(extension($val), $different_extension) )
+						if( in_array(extension($val), $differentExtension) )
 						{
 							require_once(suffix($packages).$val);	
 						}
