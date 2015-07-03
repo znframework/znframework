@@ -259,15 +259,8 @@ class FileDriver
 		{
 			return false;
 		}
-		
-		$path = @file_get_contents($this->path.$key);
-		
-		if( isFileExists($path) )
-		{
-			return false;
-		}
-		
-		$data = unserialize($path);
+
+		$data = unserialize(@file_get_contents($this->path.$key));
 		
 		if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
 		{
