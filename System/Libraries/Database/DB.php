@@ -226,6 +226,14 @@ class DB
 	 */
 	private $prefix;
 	
+	/* Config Değişkeni
+	 *  
+	 * Tablo ayar bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $config;
+	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
 	*******************************************************************************************
@@ -238,11 +246,13 @@ class DB
 		
 		$this->db = DBCommon();
 		
-		$this->prefix = Config::get('Database', 'prefix');
+		$this->config = Config::get('Database');
+		
+		$this->prefix = $this->config['prefix'];
 		
 		if( empty($config) ) 
 		{
-			$config = Config::get('Database');
+			$config = $this->config;
 		}
 		
 		$this->db->connect($config);
@@ -1127,6 +1137,41 @@ class DB
 	}
 	
 	/******************************************************************************************
+	* STATUS                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Tablo hakkında bilgi almak için kullanılır.					  		  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @table => Verilerin alınacağı tablo ismi.                                 |
+	|          																				  |
+	| Örnek Kullanım: $this->db->status('OrnekTablo');  									  |
+	|          																				  |
+	******************************************************************************************/
+	public function status($table = '')
+	{
+		if( ! empty($this->table) ) 
+		{
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+
+		if( ! is_string($table) || empty($table) ) 
+		{
+			return false;
+		}
+		
+		$table = "'".$this->prefix.trim($table)."'";
+
+		$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
+		
+		$secure = $this->secure;
+		
+		$this->db->query($this->_query_security($query), $secure);
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
 	* SECURE                                                                                  *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde veri güvenliğini sağlaması için oluşturulmuştur.	  |
@@ -1434,7 +1479,7 @@ class DB
 			return false;
 		}
 		
-		$config = Config::get('Database');
+		$config = $this->config;
 		$config_different = $config['differentConnection'];
 		
 		if( ! isset($config_different[$connect_name]) ) 
@@ -1527,6 +1572,7 @@ class DB
 		$this->having = NULL;
 		$this->order_by = NULL;
 		$this->limit = NULL;
+		$this->config = array();
 	}
 	
 	/******************************************************************************************
