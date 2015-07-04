@@ -76,7 +76,7 @@ class Autoloader
 		
 		if( ! empty($classMaps) ) foreach($classMaps as $k => $v)
 		{
-			$classMapPage .= "\t".'\''.trim($k).'\' => \''.trim($v).'\','.eol();
+			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
 		}
 		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
@@ -129,7 +129,7 @@ class Autoloader
 		$className  = array_keys($classMap);
 		$classIndex = array_search($classCaseLower, array_keys($clasMapCaseLower));	
 		$namespace  = $className[$classIndex + 1];
-		
+	
 		if( $classMap[$namespace] !== $file )
 		{
 			$namespace = $class;	
