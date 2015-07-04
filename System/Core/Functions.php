@@ -1484,27 +1484,32 @@ function library($class = NULL, $function = NULL, $parameters = array())
 ******************************************************************************************/
 function uselib($class = '')
 {
-	if( class_exists($class) )
+	if( ! class_exists($class) )
 	{
-		if( ! isset(zn::$use->$class) )
+		$classInfo = Autoloader::getClassFileInfo($class);
+		
+		$class = $classInfo['namespace'];
+		
+		if( ! class_exists($class) )
 		{
-			if( ! is_object(zn::$use) )
-			{
-				zn::$use = new stdClass();	
-			}
-			
-			zn::$use->$class = new $class;
-			
-			return zn::$use->$class;
+			die(getErrorMessage('Error', 'classError', $class));	
 		}
-		else
+	}
+
+	if( ! isset(zn::$use->$class) )
+	{
+		if( ! is_object(zn::$use) )
 		{
-			return zn::$use->$class;	
+			zn::$use = new stdClass();	
 		}
+		
+		zn::$use->$class = new $class;
+		
+		return zn::$use->$class;
 	}
 	else
 	{
-		return $class;	
+		return zn::$use->$class;	
 	}
 }
 

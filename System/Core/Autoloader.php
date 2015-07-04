@@ -35,34 +35,12 @@ class Autoloader
 		
 		if( ! file_exists($path) )
 		{
-			Autoloader::createClassMap();
+			self::createClassMap();
 		}
-			
-		$classMap = Config::get('ClassMap', 'path');
-		
-		// ----------------------------------------------------------------------------------------
-		// NAMESPACE bilgisinün kontrolü yapılıyor.	
-		// $class değişkeninin tuttuğu veri için \ sembolü varsa
-		// bu bilgi namespace bilgisi olarak kabul edilir.
-		// ----------------------------------------------------------------------------------------
-		if( strstr($class, '\\') )
-		{
-			if( isset($classMap[$class]) )
-			{
-				return require_once $classMap[$class];
-			}
-			else
-			{
-				die(getErrorMessage('Error', 'classError', $class));
-			}
-		}
+
+		$classInfo = self::getClassFileInfo($class);
 	
-		$clasMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
-		$classCaseLower   = strtolower($class);
-		
-		$file = isset($clasMapCaseLower[$classCaseLower])
-			  ? $clasMapCaseLower[$classCaseLower]
-			  : '';
+		$file = $classInfo['path'];
 	
 		if( ! empty($file) || file_exists($file) )
 		{	
@@ -101,8 +79,7 @@ class Autoloader
 			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
 		}
 		
-		$classMapPage = rtrim($classMapPage, ','.eol());
-		
+		$classMapPage  = rtrim($classMapPage, ','.eol());	
 		$classMapPage .= eol().');';
 		
 		$path = CONFIG_DIR.'ClassMap.php';
@@ -118,11 +95,53 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
 		// ----------------------------------------------------------------------------------------
-		$fileOpen  = fopen($path, 'w');
-		
+		$fileOpen  = fopen($path, 'w');		
 		$fileWrite = fwrite($fileOpen, $classMapPage);
 		
 		fclose($fileOpen);
+	}
+	
+	/******************************************************************************************
+	* GET CLASS FILE INFO                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Çağrılan sınıfın sınıf, yol ve namespace bilgilerini almak için 		  |
+	| oluşturulmuştur.								  										  |
+	|          																				  |
+	******************************************************************************************/
+	public static function getClassFileInfo($class = '')
+	{
+		$classMap = Config::get('ClassMap', 'path');
+			
+		$clasMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
+		$classCaseLower   = strtolower($class);
+		
+		// ----------------------------------------------------------------------------------------
+		// DOSYA bilgisi oluşturuluyor...
+		// ----------------------------------------------------------------------------------------
+		$file = isset($clasMapCaseLower[$classCaseLower])
+			  ? $clasMapCaseLower[$classCaseLower]
+			  : '';
+		// ----------------------------------------------------------------------------------------
+		
+		// ----------------------------------------------------------------------------------------
+		// NAMESPACE bilgisi oluşturuluyor...
+		// ----------------------------------------------------------------------------------------	  
+		$className  = array_keys($classMap);
+		$classIndex = array_search(strtolower($class), $clasMapCaseLower);	
+		$namespace  = $className[$classIndex + 1];
+		
+		if( $classMap[$namespace] !== $file )
+		{
+			$namespace = $class;	
+		}
+		// ----------------------------------------------------------------------------------------
+		
+		return array
+		(
+			'path' 		=> $file,
+			'class'	   	=> $class,
+			'namespace'	=> $namespace
+		);
 	}
 	
 	/******************************************************************************************
