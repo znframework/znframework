@@ -76,7 +76,7 @@ class Autoloader
 		
 		if( ! empty($classMaps) ) foreach($classMaps as $k => $v)
 		{
-			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
+			$classMapPage .= "\t".'\''.trim($k).'\' => \''.trim($v).'\','.eol();
 		}
 		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
@@ -127,7 +127,7 @@ class Autoloader
 		// NAMESPACE bilgisi oluşturuluyor...
 		// ----------------------------------------------------------------------------------------	  
 		$className  = array_keys($classMap);
-		$classIndex = array_search($classCaseLower, $clasMapCaseLower);	
+		$classIndex = array_search($classCaseLower, array_keys($clasMapCaseLower));	
 		$namespace  = $className[$classIndex + 1];
 		
 		if( $classMap[$namespace] !== $file )
