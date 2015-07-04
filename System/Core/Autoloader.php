@@ -127,7 +127,7 @@ class Autoloader
 		// NAMESPACE bilgisi oluşturuluyor...
 		// ----------------------------------------------------------------------------------------	  
 		$className  = array_keys($classMap);
-		$classIndex = array_search(strtolower($class), $clasMapCaseLower);	
+		$classIndex = array_search($classCaseLower, $clasMapCaseLower);	
 		$namespace  = $className[$classIndex + 1];
 		
 		if( $classMap[$namespace] !== $file )
