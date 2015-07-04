@@ -53,7 +53,7 @@ class Autoloader
 			}
 			else
 			{
-				die(getErrorMessage('File', 'notFoundError', $class));
+				die(getErrorMessage('Error', 'classError', $class));
 			}
 		}
 	
@@ -64,20 +64,13 @@ class Autoloader
 			  ? $clasMapCaseLower[$classCaseLower]
 			  : '';
 	
-		if( ! empty($file) )
+		if( ! empty($file) || file_exists($file) )
 		{	
-			if( file_exists($file) )
-			{
-				require_once($file);
-			}
-			else
-			{
-				die(getErrorMessage('File', 'notFoundError', $file));	
-			}
+			require_once($file);
 		}
 		else
 		{
-			die(getErrorMessage('File', 'notFoundError', $class));
+			die(getErrorMessage('Error', 'classError', $class));
 		}
 	} 
 	

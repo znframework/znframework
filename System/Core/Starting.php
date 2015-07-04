@@ -52,9 +52,17 @@ class Starting
 		
 		if( $composer === true )
 		{
-			( file_exists('vendor/autoload.php') )
-			? require_once('vendor/autoload.php')
-			: report('Error','vendor/autoload.php was not found.','AutoloadComposer');
+			$path = 'vendor/autoload.php';
+			if( file_exists($path) )
+			{
+				require_once($path);
+			}
+			else
+			{
+				report('Error', getMessage('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+				
+				die(getErrorMessage('Error', 'fileNotFound', $path));
+			}
 		}
 		elseif( file_exists($composer) )
 		{
@@ -62,7 +70,9 @@ class Starting
 		}
 		elseif( ! empty($composer) )
 		{
-			report('Error', $composer.' was not found.','AutoloadComposer');
+			report('Error', getMessage('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
+			
+			die(getErrorMessage('Error', 'fileNotFound', $composer));
 		}
 		// ----------------------------------------------------------------------	
 	}

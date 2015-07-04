@@ -188,10 +188,10 @@ class Structure
 				if( ! Config::get('Route', 'show404') )
 				{
 					// Sayfa bilgisine erişilemezse hata bildir.
-					echo getErrorMessage('System', 'callUserFuncClassError');
+					echo getErrorMessage('Error', 'callUserFuncClassError');
 					
 					// Hatayı rapor et.
-					report('Error', getMessage('System', 'callUserFuncClassError'), 'SystemCallUserFuncClassError');
+					report('Error', getMessage('Error', 'callUserFuncClassError'), 'SystemCallUserFuncClassError');
 					
 					// Çalışmayı durdur.
 					return false;
@@ -220,10 +220,10 @@ class Structure
 				if( ! Config::get('Route', 'show404') )
 				{				
 					// Hatayı ekrana yazdır.
-					echo getErrorMessage('System', 'callUserFuncArrayError');
+					echo getErrorMessage('Error', 'callUserFuncArrayError');
 					
 					// Hatayı rapor et.
-					report('Error', getMessage('System', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
+					report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
 					
 					// Çalışmayı durdur.
 					return false;
@@ -244,10 +244,10 @@ class Structure
 			else
 			{
 				// Hatayı ekrana yazdır.
-				echo getErrorMessage('System', 'notIsFileError');
+				echo getErrorMessage('Error', 'notIsFileError');
 				
 				// Hatayı rapor et.
-				report('Error', getMessage('System', 'notIsFileError'), 'SystemNotIsFileError');
+				report('Error', getMessage('Error', 'notIsFileError'), 'SystemNotIsFileError');
 				
 				// Çalışmayı durdur.
 				return false;

@@ -389,9 +389,9 @@ class Pagination
 			// -------------------------------------------------------------------------
 			// FIRST TAG 
 			// -------------------------------------------------------------------------
-			$firstTagStyle_class = $firstTagClass.$firstTagStyle;
+			$firstTagStyleClass = $firstTagClass.$firstTagStyle;
 			
-			$firstTag = '<a href="'.self::$url.'0"'.$firstTagStyle_class.'>'.self::$firstTag.'</a>';
+			$firstTag = '<a href="'.self::$url.'0"'.$firstTagStyleClass.'>'.self::$firstTag.'</a>';
 			// -------------------------------------------------------------------------
 			
 			if( $startPage > 0 )
