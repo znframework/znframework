@@ -42,7 +42,7 @@ class Autoloader
 	
 		$file = $classInfo['path'];
 	
-		if( ! empty($file) || file_exists($file) )
+		if( file_exists($file) )
 		{	
 			require_once($file);
 		}
