@@ -68,6 +68,18 @@ class Autoloader
 			$classMaps = self::searchClassMap($directory, $directory);
 		}
 		
+		$path = CONFIG_DIR.'ClassMap.php';
+		
+		if( file_exists($path) )
+		{
+			$classMapCount = Config::get('ClassMap', 'count');
+			
+			if( $classMapCount === count($classMaps) )
+			{
+				return false;	
+			}
+		}
+		
 		// ----------------------------------------------------------------------------------------
 		// ClassMap dosyasının metinsel bölümü oluşturuluyor.
 		// ----------------------------------------------------------------------------------------
@@ -80,17 +92,8 @@ class Autoloader
 		}
 		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
-		$classMapPage .= eol().');';
-		
-		$path = CONFIG_DIR.'ClassMap.php';
-		
-		if( file_exists($path) )
-		{
-			if( trim($classMapPage ) === trim(file_get_contents($path)) )
-			{
-				return false;	
-			}
-		}
+		$classMapPage .= eol().');'.eol(2);
+		$classMapPage .= '$config[\'ClassMap\'][\'count\'] = '.count($classMaps).';';
 		
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.

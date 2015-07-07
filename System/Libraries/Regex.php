@@ -43,18 +43,16 @@ class Regex
 	public static function match($pattern = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
-		if( ! is_string($pattern) ) 
+		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
 			return false;
 		}	
-		if( ! is_string($str) ) 
-		{
-			return false;
-		}
+
 		if( ! is_string($ex) ) 
 		{
 			$ex = '';
 		}
+		
 		if( ! is_string($delimiter) ) 
 		{
 			$delimiter = '/';
@@ -111,14 +109,10 @@ class Regex
 	public static function matchAll($pattern = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
-		if( ! is_string($pattern) ) 
+		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
 			return false;
 		}	
-		if( ! is_string($str) ) 
-		{
-			return false;
-		}
 		if( ! is_string($ex) ) 
 		{
 			$ex = '';
@@ -180,22 +174,21 @@ class Regex
 	public static function replace($pattern = '', $rep = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
-		if( ! is_string($pattern) ) 
+		if
+		( 
+			! is_string($pattern) ||
+			! is_string($rep) ||
+			! is_string($str)   
+		) 
 		{
 			return false;
 		}
-		if( ! is_string($rep) ) 
-		{
-			return false;
-		}
-		if( ! is_string($str) )
-		{
-			return false;
-		}
+		
 		if( ! is_string($ex) ) 
 		{
 			$ex = '';
 		}
+		
 		if( ! is_string($delimiter) ) 
 		{
 			$delimiter = '/';
