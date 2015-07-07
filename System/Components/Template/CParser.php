@@ -49,9 +49,9 @@ class CParser
 	******************************************************************************************/
 	public function view($page = '', $data = array(), $output = false)
 	{
-		$string_data = Import::page($page, $data, true);
+		$stringData = Import::page($page, $data, true);
 		
-		$return = $this->data($string_data, $data);
+		$return = $this->data($stringData, $data);
 		
 		if( $output === true )
 		{
@@ -116,8 +116,8 @@ class CParser
 				}
 				else
 				{
-					$allstring = '';
-					$newresult = '';
+					$allString = '';
+					$newResult = '';
 					
 					if( ! empty($val) )
 					{
@@ -136,13 +136,13 @@ class CParser
 								// Değiştirme işlemlerini gerçekleştir.
 								foreach($data[$key] as $item)
 								{
-									$newresult = preg_replace('/'.$kstart.'/', '', $res);
-									$newresult = preg_replace('/'.$kend.'/', '', $newresult);	
+									$newResult = preg_replace('/'.$kstart.'/', '', $res);
+									$newResult = preg_replace('/'.$kend.'/', '', $newResult);	
 									
-									$allstring .= $this->data($newresult, $item).eol();
+									$allString .= $this->data($newResult, $item).eol();
 								}
 								
-								$string = str_replace($res, $allstring, $string);
+								$string = str_replace($res, $allString, $string);
 							}
 						}
 					}

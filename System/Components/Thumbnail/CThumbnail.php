@@ -46,7 +46,7 @@ class CThumbnail
 	
 		if( ! empty($file) )
 		{
-			$this->sets['filepath'] = $file;
+			$this->sets['filePath'] = $file;
 		}
 		
 		return $this;
@@ -220,9 +220,9 @@ class CThumbnail
 	******************************************************************************************/	
 	public function create($fpath = '')
 	{
-		if( isset($this->sets['filepath']) )
+		if( isset($this->sets['filePath']) )
 		{
-			$path = $this->sets['filepath'];	
+			$path = $this->sets['filePath'];	
 		}
 		
 		return Image::thumb($path, $this->sets);

@@ -112,14 +112,14 @@ class Autoloader
 	{
 		$classMap = Config::get('ClassMap', 'path');
 			
-		$clasMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
+		$classMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
 		$classCaseLower   = strtolower($class);
 		
 		// ----------------------------------------------------------------------------------------
 		// DOSYA bilgisi oluşturuluyor...
 		// ----------------------------------------------------------------------------------------
-		$file = isset($clasMapCaseLower[$classCaseLower])
-			  ? $clasMapCaseLower[$classCaseLower]
+		$file = isset($classMapCaseLower[$classCaseLower])
+			  ? $classMapCaseLower[$classCaseLower]
 			  : '';
 		// ----------------------------------------------------------------------------------------
 		
@@ -127,7 +127,7 @@ class Autoloader
 		// NAMESPACE bilgisi oluşturuluyor...
 		// ----------------------------------------------------------------------------------------	  
 		$className  = array_keys($classMap);
-		$classIndex = array_search($classCaseLower, array_keys($clasMapCaseLower));	
+		$classIndex = array_search($classCaseLower, array_keys($classMapCaseLower));	
 		$namespace  = $className[$classIndex + 1];
 	
 		if( $classMap[$namespace] !== $file )

@@ -283,21 +283,21 @@ class CSection
 	| Örnek Kullanım: ->border_color('000') // #000					  		  			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function borderColor($border_color = '')
+	public function borderColor($borderColor = '')
 	{
-		if( ! isValue($border_color) )
+		if( ! isValue($borderColor) )
 		{
 			return $this;	
 		}
 		
-		if( is_numeric($border_color) )
+		if( is_numeric($borderColor) )
 		{
-			$border_color = '#'.$border_color;	
+			$borderColor = '#'.$borderColor;	
 		}
 		
-		if( ! empty($border_color) ) 
+		if( ! empty($borderColor) ) 
 		{
-			$this->style .= ' border-color:'.$border_color.';';
+			$this->style .= ' border-color:'.$borderColor.';';
 		}
 		
 		return $this;
@@ -314,19 +314,19 @@ class CSection
 	| Örnek Kullanım: ->borderSize(5) // 5px						  		  			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function borderSize($border_size = '')
+	public function borderSize($borderSize = '')
 	{
-		if( ! isValue($border_size) )
+		if( ! isValue($borderSize) )
 		{
 			return $this;	
 		}
 		
-		if( is_numeric($border_size) )
+		if( is_numeric($borderSize) )
 		{
-			$border_size = $border_size.'px';	
+			$borderSize = $borderSize.'px';	
 		}
 		
-		if( ! empty($border_size)) $this->style .= ' border-width:'.$border_size.';';
+		if( ! empty($borderSize)) $this->style .= ' border-width:'.$borderSize.';';
 			
 		return $this;
 	}
@@ -391,19 +391,19 @@ class CSection
 	| Örnek Kullanım: ->fontSize(5) // 5px						  		  			  	      |
 	|          																				  |
 	******************************************************************************************/
-	public function fontSize($font_size = '')
+	public function fontSize($fontSize = '')
 	{
-		if( ! isValue($font_size) )
+		if( ! isValue($fontSize) )
 		{
 			return $this;	
 		}
 		
-		if( is_numeric($font_size) )
+		if( is_numeric($fontSize) )
 		{
-			$font_size = $font_size.'px';	
+			$fontSize = $fontSize.'px';	
 		}
 		
-		if( ! empty($font_size)) $this->style .= ' font-size:'.$font_size.';';
+		if( ! empty($fontSize)) $this->style .= ' font-size:'.$fontSize.';';
 		
 		return $this;
 	}
@@ -471,43 +471,43 @@ class CSection
 	| Örnek Kullanım: ->bgcolor('000') // #000					  		  			  	  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function bgColor($bgcolor = '')
+	public function bgColor($bgColor = '')
 	{
-		if( ! isValue($bgcolor) )
+		if( ! isValue($bgColor) )
 		{
 			return $this;	
 		}
 		
-		if( is_numeric($bgcolor) )
+		if( is_numeric($bgColor) )
 		{
-			$bgcolor = '#'.$bgcolor;	
+			$bgColor = '#'.$bgColor;	
 		}
 		
-		if( ! empty($bgcolor)) $this->style .= ' background-color:'.$bgcolor.';';
+		if( ! empty($bgColor)) $this->style .= ' background-color:'.$bgColor.';';
 		
 		return $this;
 	}
 	
-	public function bgUrl($bgurl = '')
+	public function bgUrl($bgUrl = '')
 	{
-		if( ! isValue($bgurl) )
+		if( ! isValue($bgUrl) )
 		{
 			return $this;	
 		}
 		
-		if( ! empty($bgurl)) $this->style .= ' background:url('.$bgurl.');';
+		if( ! empty($bgUrl)) $this->style .= ' background:url('.$bgUrl.');';
 		
 		return $this;
 	}
 	
-	public function bgImage($bgimage = '')
+	public function bgImage($bgImage = '')
 	{
-		if( ! isValue($bgimage) )
+		if( ! isValue($bgImage) )
 		{
 			return $this;	
 		}
 		
-		if( ! empty($bgimage)) $this->style .= ' background-image:'.$bgimage.';';
+		if( ! empty($bgImage)) $this->style .= ' background-image:'.$bgImage.';';
 		
 		return $this;
 	}
@@ -785,6 +785,7 @@ class CSection
 		if( ! empty($this->style) ) 	$this->style = '';
 		if( ! empty($this->content) ) $this->content = '';
 		if( ! empty($this->attr) )    $this->attr = array();
+		
 		return $section;
 	}
 }

@@ -31,18 +31,18 @@ class CBlade
 	| Örnek Kullanım: ->page('test', array('test' => 'deneme'))         					  |
 	|          																				  |
 	******************************************************************************************/
-	public function page($page = '', $data = '', $ob_get_contents = false)
+	public function page($page = '', $data = '', $obGetContents = false)
 	{
-		$page_content = Import::page($page, $data, true);
+		$pageContent = Import::page($page, $data, true);
 		
-		$page_content = $this->data($page_content, $data);
+		$pageContent = $this->data($pageContent, $data);
 		
-		if( $ob_get_contents === true )
+		if( $obGetContents === true )
 		{
-			return $page_content;
+			return $pageContent;
 		}
 		
-		echo $page_content;
+		echo $pageContent;
 	}
 	
 	/******************************************************************************************
@@ -82,7 +82,7 @@ class CBlade
 			return false;	
 		}
 		
-		$bladechars = array
+		$bladeChars = array
 		(	
 			'{{{'	=> '<?php echo "',
 			'}}}'	=> '" ?>',
@@ -92,23 +92,21 @@ class CBlade
 			'}}' 	=> ' ?>',	
 		);
 
-		$newdata = str_replace(array_keys($bladechars), array_values($bladechars), $str);
+		$newData = str_replace(array_keys($bladeChars), array_values($bladeChars), $str);
 		
-		$newdatas = array();
+		$newDatas = array();
 
-		preg_match_all('/\B@.+\B/', $newdata, $matchdata);
-		
-		$newval = '';
-		
-		if( ! empty($matchdata[0]) )foreach($matchdata[0] as $val)
+		preg_match_all('/\B@.+\B/', $newData, $matchData);
+
+		if( ! empty($matchData[0]) )foreach($matchData[0] as $val)
 		{
 			$new = str_replace('@', '??', $val);
-			$newdatas[$val] = $new.' ?>';
+			$newDatas[$val] = $new.' ?>';
 		}
 	
-		$newdata = str_replace(array_keys($newdatas), array_values($newdatas), $newdata);
+		$newData = str_replace(array_keys($newDatas), array_values($newDatas), $newData);
 		
-		$newdata = preg_replace('/\?\?/', '<?php ', $newdata);
+		$newData = preg_replace('/\?\?/', '<?php ', $newData);
 		
 		if( is_array($data) )
 		{
@@ -116,7 +114,7 @@ class CBlade
 		}
 		
 		ob_start(); 
-		eval("?>$newdata");
+		eval("?>$newData");
 		$content = ob_get_contents(); 
 		ob_end_clean(); 
 		

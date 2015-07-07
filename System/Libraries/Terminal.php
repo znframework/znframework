@@ -44,6 +44,11 @@ class Terminal
 	******************************************************************************************/
 	public static function run($terminalType = 'php', $settings = array())
 	{
+		if( ! is_array($settings) )
+		{
+			return false;	
+		}
+		
 		$settings['width'] 		=  isset($settings['width']) 	  ? $settings['width']      : '800px';
 		$settings['height'] 	=  isset($settings['height']) 	  ? $settings['height']     : '350px';
 		$settings['bgColor'] 	=  isset($settings['bgColor'])    ? $settings['bgColor']    : '#000';

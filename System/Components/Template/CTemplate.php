@@ -22,8 +22,8 @@ class CTemplate
 	protected $footer;
 	protected $top;
 	protected $bottom;
-	protected $leftside;
-	protected $rightside;
+	protected $leftSide;
+	protected $rightSide;
 	protected $content;
 	protected $body = array();
 	protected $middle;
@@ -80,9 +80,9 @@ class CTemplate
 		return $this;
 	}
 	
-	public function leftSide($leftside = '', $styles = array())
+	public function leftSide($leftSide = '', $styles = array())
 	{
-		if( ! isValue($leftside) )
+		if( ! isValue($leftSide) )
 		{
 			return $this;	
 		}
@@ -91,14 +91,14 @@ class CTemplate
 		? $style = $this->_style($styles)
 		: $style = "";
 			
-		$this->leftside = "<div section=\"leftside\" style=\"float:left;$style\">$leftside</div>";
+		$this->leftSide = "<div section=\"leftside\" style=\"float:left;$style\">$leftSide</div>";
 		
 		return $this;
 	}
 	
-	public function rightSide($rightside = '', $styles = array())
+	public function rightSide($rightSide = '', $styles = array())
 	{
-		if( ! isValue($rightside) )
+		if( ! isValue($rightSide) )
 		{
 			return $this;	
 		}
@@ -107,7 +107,7 @@ class CTemplate
 		? $style = $this->_style($styles)
 		: $style = "";
 			
-		$this->rightside = "<div section=\"rightside\" style=\"float:left;$style\">$rightside</div>";
+		$this->rightSide = "<div section=\"rightside\" style=\"float:left;$style\">$rightSide</div>";
 		
 		return $this;
 	}
@@ -257,9 +257,9 @@ class CTemplate
 		$template .= "<div section=\"$this->name\" style=\"".$this->_style($this->body)."\">".eol();
 		$template .= "\t$this->header".eol();	
 		$template .= "\t<div section=\"middle\"$this->middle>".eol();
-		$template .= "\t\t$this->leftside".eol();
+		$template .= "\t\t$this->leftSide".eol();
 		$template .= "\t\t$this->content".eol();
-		$template .= "\t\t$this->rightside".eol();
+		$template .= "\t\t$this->rightSide".eol();
 		$template .= "\t\t<div style=\"clear:both\"></div>".eol();
 		$template .= "\t</div>".eol();	
 		$template .= "\t$this->footer".eol();
@@ -275,19 +275,19 @@ class CTemplate
 			$template .= $this->bottom;
 		}
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $template;
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->header)) 	$this->header 		= NULL;
 		if( ! empty($this->footer))  	$this->footer 		= NULL;
 		if( ! empty($this->top))  		$this->top 			= NULL;
 		if( ! empty($this->bottom))  	$this->bottom 		= NULL;
-		if( ! empty($this->leftside))  	$this->leftside 	= NULL;
-		if( ! empty($this->rightside))  $this->rightside 	= NULL;
+		if( ! empty($this->leftSide))  	$this->leftSide 	= NULL;
+		if( ! empty($this->rightSide))  $this->rightSide 	= NULL;
 		if( ! empty($this->content))  	$this->content 		= NULL;
 		if( ! empty($this->body))  		$this->body 		= array();
 		if( ! empty($this->middle))  	$this->middle 		= NULL;

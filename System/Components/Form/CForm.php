@@ -51,7 +51,7 @@ class CForm extends CFormValidation
 	 * Kontrol nesnesi isim bilgisini tutması 
 	 * için oluşturulumuştur. 
 	 */
-	protected $validate_object_name;
+	protected $validateObjectName;
 	
 	/* Attibutes Değişkeni
 	 *  
@@ -151,19 +151,12 @@ class CForm extends CFormValidation
 	 */
 	protected $options;
 	
-	/* Validate Error Değişkeni
-	 *  
-	 * Kontrol hata bilgilerini tutması 
-	 * için oluşturulumuştur. 
-	 */
-	protected $validate_error;
-	
 	// CONSTRUCT yapıcısı ile kütüphane ve
 	// dil dosyası dahil ediliyor.
 	
-	public function name($name = '', $object_name = '')
+	public function name($name = '', $objectName = '')
 	{
-		$this->validate_object_name = $object_name;
+		$this->validateObjectName = $objectName;
 		$this->_name = $name;
 		
 		$_name = ( ! empty($name) ) 
@@ -193,8 +186,8 @@ class CForm extends CFormValidation
 	public function css($css = '')
 	{
 		$css = ( ! empty($css) ) 
-				 ? ' class="'.$css.'" '
-				 : '';	
+			   ? ' class="'.$css.'" '
+			   : '';	
 				 
 		$this->css = $css;
 		
@@ -203,9 +196,9 @@ class CForm extends CFormValidation
 	
 	public function id($id = '')
 	{
-		$id =  ( ! empty($id) ) 
-				 ? ' id="'.$id.'" '
-				 : '';	
+		$id = ( ! empty($id) ) 
+			  ? ' id="'.$id.'" '
+		      : '';	
 				 
 		$this->id = $id;
 		
@@ -268,18 +261,18 @@ class CForm extends CFormValidation
 	{
 		if( $type === 'textarea' )
 		{
-			$form_object = 'textarea';
+			$formObject = 'textarea';
 		}
 		elseif( $type === 'select' )
 		{
-			$form_object = 'select';
+			$formObject = 'select';
 		}
 		else
 		{
-			$form_object = 'input type="'.$type.'" ';
+			$formObject = 'input type="'.$type.'" ';
 		}
 		
-		$this->type = $form_object;
+		$this->type = $formObject;
 		
 		return $this;
 	}
@@ -328,16 +321,16 @@ class CForm extends CFormValidation
 		return $this;
 	}
 	
-	protected function _validate_control()
+	protected function _validateControl()
 	{	
 		if( empty($this->value) )
 		{
 			$this->value = '';
 		}
 		
-		if( ! empty($this->validate_object_name) )
+		if( ! empty($this->validateObjectName) )
 		{
-			$this->_name = $this->validate_object_name;
+			$this->_name = $this->validateObjectName;
 		}
 		
 		if( in_array('required', $this->validate) )
@@ -381,7 +374,7 @@ class CForm extends CFormValidation
 		}
 	}
 	
-	protected function _secure_control()
+	protected function _secureControl()
 	{
 		if( in_array('xss', $this->secure) )
 		{
@@ -411,7 +404,7 @@ class CForm extends CFormValidation
 			$this->type($type);
 		}
 		
-		$this->_secure_control();
+		$this->_secureControl();
 		
 		if( ! empty($this->_method) )
 		{
@@ -437,7 +430,7 @@ class CForm extends CFormValidation
 							
 		if( $this->type === 'select' )
 		{
-			$create_object  = 	'<'.
+			$createObject  = 	'<'.
 								$this->type.
 								$this->name.
 								$this->id.
@@ -452,7 +445,7 @@ class CForm extends CFormValidation
 		}
 		elseif( $this->type === 'textarea' )
 		{
-			$create_object  = 	'<'.
+			$createObject  = 	'<'.
 								$this->type.
 								$this->name.
 								$this->id.
@@ -466,7 +459,7 @@ class CForm extends CFormValidation
 		}
 		else
 		{
-			$create_object  = 	'<'.
+			$createObject  = 	'<'.
 								$this->type.
 								$this->name.
 								$this->id.
@@ -478,11 +471,11 @@ class CForm extends CFormValidation
 								"\n";	
 		}
 		
-		$this->_validate_control();
+		$this->_validateControl();
 		
-		$this->create = $create_object;
+		$this->create = $createObject;
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $this->create;
 	}
@@ -556,7 +549,7 @@ class CForm extends CFormValidation
 
 	public function close()
 	{
-		$this->_form_default_variable();
+		$this->_formDefaultVariable();
 		return '</form>'."\n";
 	}
 	
@@ -564,13 +557,13 @@ class CForm extends CFormValidation
 	{
 		if( $output === 'array' )
 		{
-			return $this->valid_error;
+			return $this->validError;
 		}
 		elseif( $output === 'echo' || $output === 'string' )
 		{	
 			$out = '';
 			
-			if( ! empty($this->valid_error) ) foreach($this->valid_error as $error)
+			if( ! empty($this->validError) ) foreach($this->validError as $error)
 			{
 				if( is_array($error) )
 				{
@@ -584,21 +577,21 @@ class CForm extends CFormValidation
 		}
 		else
 		{
-			if( isset($this->valid_error[$output]) )
+			if( isset($this->validError[$output]) )
 			{
-				return $this->valid_error[$output];
+				return $this->validError[$output];
 			}
 		}
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->name) ) $this->name = NULL;
 		if( ! empty($this->id) ) $this->id = NULL;
 		if( ! empty($this->_name) ) $this->_name = NULL;
 		if( ! empty($this->match) ) $this->match = NULL;
 		if( ! empty($this->value) ) $this->value = NULL;
-		if( ! empty($this->validate_object_name) ) $this->validate_object_name = NULL;
+		if( ! empty($this->validateObjectName) ) $this->validateObjectName = NULL;
 		if( ! empty($this->attr) ) $this->attr = NULL;
 		if( ! empty($this->style) ) $this->style = NULL;
 		if( ! empty($this->css) ) $this->css = NULL;
@@ -609,7 +602,7 @@ class CForm extends CFormValidation
 		if( ! empty($this->options) ) $this->options = NULL;
 	}
 	
-	protected function _form_default_variable()
+	protected function _formDefaultVariable()
 	{
 		if( ! empty($this->name) ) $this->name = NULL;
 		if( ! empty($this->id) ) $this->id = NULL;

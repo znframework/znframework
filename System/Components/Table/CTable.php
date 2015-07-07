@@ -213,14 +213,14 @@ class CTable
 		return $this;
 	}
 	
-	public function bgColor($bgcolor = '')
+	public function bgColor($bgColor = '')
 	{
-		if( ! is_string($bgcolor) )
+		if( ! is_string($bgColor) )
 		{
 			return $this;	
 		}
 		
-		if( ! empty($bgcolor)) $this->attr['bgcolor'] = $bgcolor;
+		if( ! empty($bgColor)) $this->attr['bgcolor'] = $bgColor;
 		
 		return $this;
 	}
@@ -243,8 +243,8 @@ class CTable
 	
 	public function content()
 	{	
-		$colno = 1;
-		$rowno = 1;
+		$colNo = 1;
+		$rowNo = 1;
 		$table = '';
 		
 		$elements = func_get_args();
@@ -265,11 +265,11 @@ class CTable
 				}
 			
 				$table .= "\t\t".'<td'.$attr.'>'.$val."\t\t".'</td>'.eol();	
-				$colno++;
+				$colNo++;
 			}
 		
 			$table .= "\t".'</tr>'.eol();
-			$rowno++;
+			$rowNo++;
 		}
 		
 		$this->table = $table;

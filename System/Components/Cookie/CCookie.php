@@ -79,7 +79,7 @@ class CCookie
 	 * Çerez kullanım yeri bilgisini tutması
 	 * için oluşturulumuştur.
 	 */
-	protected $httponly;
+	protected $httpOnly;
 	
 	/* Error Değişkeni
 	 *  
@@ -313,14 +313,14 @@ class CCookie
 	| Örnek Kullanım: ->httpOnly(true)										 				  |
 	|          																				  |
 	******************************************************************************************/
-	public function httpOnly($httponly = true)
+	public function httpOnly($httpOnly = true)
 	{
-		if( ! is_bool($httponly))
+		if( ! is_bool($httpOnly))
 		{
 			return $this;	
 		}
 		
-		$this->httponly = $httponly;
+		$this->httpOnly = $httpOnly;
 		
 		return $this;
 	}
@@ -374,30 +374,30 @@ class CCookie
 			}
 		}
 		
-		$cookie_config = Config::get("Cookie");
+		$cookieConfig = Config::get("Cookie");
 		
-		if( empty($this->time) ) 		$this->time 	= $cookie_config['time'];
-		if( empty($this->path) ) 		$this->path 	= $cookie_config['path'];
-		if( empty($this->domain) ) 		$this->domain 	= $cookie_config['domain'];
-		if( empty($this->secure) ) 		$this->secure 	= $cookie_config['secure'];
-		if( empty($this->httponly) ) 	$this->httponly = $cookie_config['httpOnly'];
+		if( empty($this->time) ) 		$this->time 	= $cookieConfig['time'];
+		if( empty($this->path) ) 		$this->path 	= $cookieConfig['path'];
+		if( empty($this->domain) ) 		$this->domain 	= $cookieConfig['domain'];
+		if( empty($this->secure) ) 		$this->secure 	= $cookieConfig['secure'];
+		if( empty($this->httpOnly) ) 	$this->httpOnly = $cookieConfig['httpOnly'];
 		
 		if( ! isset($this->encode['name']) )
 		{
-			if( $cookie_config["encode"] === true )
+			if( $cookieConfig["encode"] === true )
 			{
 				$this->name = md5($this->name);
 			}
 		}
 		
-		if( setcookie($this->name, $this->value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httponly) )
+		if( setcookie($this->name, $this->value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
 		{
 			if( $this->regenerate === true )
 			{
 				session_regenerate_id();	
 			}
 			
-			$this->_default_variable();
+			$this->_defaultVariable();
 			
 			return true;	
 		}
@@ -495,11 +495,11 @@ class CCookie
 			$this->name = NULL;	
 		}
 		
-		$cookie_config = Config::get("Cookie");
+		$cookieConfig = Config::get("Cookie");
 		
 		if( empty($this->path) )
 		{	
-			$this->path = $cookie_config["path"];
+			$this->path = $cookieConfig["path"];
 		}
 		
 		if( empty($name) ) 
@@ -520,7 +520,7 @@ class CCookie
 		}
 		else
 		{
-			if( $cookie_config["encode"] === true )
+			if( $cookieConfig["encode"] === true )
 			{
 				$name = md5($name);
 			}
@@ -542,7 +542,7 @@ class CCookie
 		return $this->error;
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->name)) 	  $this->name 	  = NULL;
 		if( ! empty($this->value)) 	  $this->value 	  = NULL;
@@ -551,7 +551,7 @@ class CCookie
 		if( ! empty($this->domain))   $this->domain   = NULL;
 		if( ! empty($this->secure))   $this->secure   = NULL;
 		if( ! empty($this->encode))   $this->encode   = array();
-		if( ! empty($this->httponly)) $this->httponly = NULL;
+		if( ! empty($this->httpOnly)) $this->httpOnly = NULL;
 		if($this->regenerate !== true)$this->regenerate  = true;
 	}
 }

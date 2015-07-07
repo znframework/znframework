@@ -27,7 +27,7 @@ class Config
 	 * array @set_configs
 	 *
 	 */
-	private static $set_configs = array();
+	private static $setConfigs = array();
 	
 	/*
 	 * Ayarları tutacak dizi değişken
@@ -36,14 +36,6 @@ class Config
 	 *
 	 */
 	private static $config = array();
-	
-	/*
-	 * Ayarın daha önce yüklenip yüklenilmediğinin kontrolü.
-	 *
-	 * boolean @load_control
-	 *
-	 */
-	private static $load_control = false;
 	
 	// config() yöntemi için oluşturulmuştur.
 	// Parametreye göre ayar dosyasını yükler.
@@ -84,11 +76,11 @@ class Config
 		
 		self::_config($file);
 		
-		if( isset(self::$set_configs[$file]) )
+		if( isset(self::$setConfigs[$file]) )
 		{
-			if( ! empty(self::$set_configs[$file]) ) foreach(self::$set_configs[$file] as $k => $v)
+			if( ! empty(self::$setConfigs[$file]) ) foreach(self::$setConfigs[$file] as $k => $v)
 			{
-				self::$config[$file][$k] = self::$set_configs[$file][$k];
+				self::$config[$file][$k] = self::$setConfigs[$file][$k];
 			}
 		}
 		
@@ -139,17 +131,17 @@ class Config
 		
 		if( ! is_array($configs) )
 		{
-			self::$set_configs[$file][$configs] = $set;
+			self::$setConfigs[$file][$configs] = $set;
 		}
 		else
 		{
 			foreach($configs as $k => $v)
 			{
-				self::$set_configs[$file][$k] = $v;
+				self::$setConfigs[$file][$k] = $v;
 			}	
 		}
 		
-		return self::$set_configs;
+		return self::$setConfigs;
 	}
 	
 	/* INISET FUNCTION

@@ -119,11 +119,11 @@ class CSession
 			}
 		}
 		
-		$session_config = Config::get("Session");
+		$sessionConfig = Config::get("Session");
 	
 		if( ! isset($this->encode['name']))
 		{
-			if($session_config["encode"] === true)
+			if($sessionConfig["encode"] === true)
 			{
 				$this->name = md5($this->name);
 			}
@@ -138,7 +138,7 @@ class CSession
 				session_regenerate_id();	
 			}
 			
-			$this->_default_variable();
+			$this->_defaultVariable();
 			
 			return true;	
 		}
@@ -213,7 +213,7 @@ class CSession
 			}
 		}	
 		
-		$session_config = Config::get("Session");
+		$sessionConfig = Config::get("Session");
 		
 		if(isset($this->encode['name']))
 		{
@@ -225,7 +225,7 @@ class CSession
 		}
 		else
 		{
-			if($session_config["encode"] === true)
+			if($sessionConfig["encode"] === true)
 			{
 				$name = md5($name);
 			}
@@ -246,11 +246,11 @@ class CSession
 		return $this->error;
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->name)) 	  $this->name 	  	= NULL;
 		if( ! empty($this->value)) 	  $this->value 	  	= NULL;
-		if($this->regenerate !== true)$this->regenerate  = true;
 		if( ! empty($this->encode))   $this->encode   	= array();
+		if($this->regenerate !== true)$this->regenerate  = true;
 	}
 }

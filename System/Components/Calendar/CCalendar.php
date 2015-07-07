@@ -37,14 +37,14 @@ class CCalendar
 	 * Ay isimleri bilgisini tutması
 	 * için oluşturulumuştur.
 	 */
-	protected $month_names = 'long';
+	protected $monthNames = 'long';
 	
 	/* Day Names Değişkeni
 	 *  
 	 * Gün isimleri bilgisini tutması
 	 * için oluşturulumuştur.
 	 */
-	protected $day_names = 'short';
+	protected $dayNames = 'short';
 	
 	/* Prev Değişkeni
 	 *  
@@ -118,7 +118,7 @@ class CCalendar
 	|          																				  |
 	| Parametreler 2 değer alır: short, long         										  |
 	|          																				  |
-	| Örnek Kullanım: ->name_type('short', 'short')  // Çar, Oca							  |
+	| Örnek Kullanım: ->nameType('short', 'short')  // Çar, Oca								  |
 	|          																				  |
 	******************************************************************************************/
 	public function nameType($day = 'short', $month = 'long')
@@ -128,9 +128,9 @@ class CCalendar
 			return $this;	
 		}
 		
-		$this->day_names   = $day;	
+		$this->dayNames   = $day;	
 
-		$this->month_names = $month;	
+		$this->monthNames = $month;	
 	
 		return $this;
 	}
@@ -148,8 +148,8 @@ class CCalendar
 	| Class Uygulanabilecek Eleman İsimleri 												  |
 	| 1-current: Aktif gün için         													  |
 	| 2-days: Günlerin sıralandığı hücreler için         									  |
-	| 3-month_name: Ayın ve Tarihin yer aldığı hücreler için         						  |
-	| 4-day_name: Gün isimlerinin yer aldığı hücreler için  								  |
+	| 3-monthName: Ayın ve Tarihin yer aldığı hücreler için         						  |
+	| 4-dayName: Gün isimlerinin yer aldığı hücreler için  									  |
 	| 5-links: İleri ve geri butonu için         											  |
 	|          																				  |
 	******************************************************************************************/
@@ -178,8 +178,8 @@ class CCalendar
 	| Stil Uygulanabilecek Eleman İsimleri 												  	  |
 	| 1-current: Aktif gün için         													  |
 	| 2-days: Günlerin sıralandığı hücreler için         									  |
-	| 3-month_name: Ayın ve Tarihin yer aldığı hücreler için         						  |
-	| 4-day_name: Gün isimlerinin yer aldığı hücreler için  								  |
+	| 3-monthName: Ayın ve Tarihin yer aldığı hücreler için         						  |
+	| 4-dayName: Gün isimlerinin yer aldığı hücreler için  									  |
 	| 5-links: İleri ve geri butonu için         											  |
 	|          																				  |
 	******************************************************************************************/
@@ -251,7 +251,7 @@ class CCalendar
 		// Son segment ay bilgisini
 		// Sondan bir önceki segmen 
 		// yıl bilgisini tutmaktadır.
-		if( $month === NULL && $year === NULL) 
+		if( $month === NULL && $year === NULL ) 
 		{
 			if( ! is_numeric(Uri::segment(-1)) )
 			{ 
@@ -300,105 +300,105 @@ class CCalendar
 		// diline göre ayarlar. 
 		
 		
-		if( $this->month_names === 'long' )
+		if( $this->monthNames === 'long' )
 		{
-			$month_names = array_keys($this->config['monthNames'][getLang()]);
+			$monthNames = array_keys($this->config['monthNames'][getLang()]);
 		}
 		else
 		{
-			$month_names = array_values($this->config['monthNames'][getLang()]);
+			$monthNames = array_values($this->config['monthNames'][getLang()]);
 		}
 		
-		$monthname = $month_names[$month - 1];
+		$monthName = $monthNames[$month - 1];
 		// Gün ismini sitenin aktif
 		// diline göre ayarlar.
-		$daynames  = ( $this->day_names === 'long' )
+		$dayNames  = ( $this->dayNames === 'long' )
 					 ? array_keys($this->config['dayNames'][getLang()])
 					 : array_values($this->config['dayNames'][getLang()]);
 		
 		// Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
-		$first_day = getdate( mktime(0, 0, 0, $month, 1, $year) );
-		$last_day  = getdate( mktime(0, 0, 0, $month + 1, 0, $year));
+		$firstDay = getdate( mktime(0, 0, 0, $month, 1, $year) );
+		$lastDay  = getdate( mktime(0, 0, 0, $month + 1, 0, $year));
 		
 		// TABLO İÇİN CSS
-		$table_class = ( isset($this->css['table']) )
-					   ? ' class="'.$this->css['table'].'"'
-					   : '';
+		$tableClass = ( isset($this->css['table']) )
+					  ? ' class="'.$this->css['table'].'"'
+					  : '';
 		// TABLO İÇİN STYLE	
-		$table_style = ( isset($this->style['table']) )
-					   ? ' style="'.$this->style['table'].'"'
-					   : '';
+		$tableStyle = ( isset($this->style['table']) )
+					  ? ' style="'.$this->style['table'].'"'
+					  : '';
 		// AY VE TARİH SÜTUNU İÇİN	CSS	   
-		$month_row_class =   ( isset($this->css['month_name']) )
-					     ? ' class="'.$this->css['month_name'].'"'
+		$monthRowClass = ( isset($this->css['monthName']) )
+					     ? ' class="'.$this->css['monthName'].'"'
 					     : '';
 		// AY VE TARİH SÜTUNU İÇİN	STYLE			
-		$month_row_style =   ( isset($this->style['month_name']) )
-					     ? ' style="'.$this->style['month_name'].'"'
+		$monthRowStyle = ( isset($this->style['monthName']) )
+					     ? ' style="'.$this->style['monthName'].'"'
 					     : '';
 		// GÜN SÜTUNU İÇİN	CSS	
-		$day_row_class =   ( isset($this->css['day_name']) )
-					     ? ' class="'.$this->css['day_name'].'"'
-					     : '';
+		$dayRowClass = ( isset($this->css['dayName']) )
+					   ? ' class="'.$this->css['dayName'].'"'
+					   : '';
 		// GÜN SÜTUNU İÇİN	STYLE			
-		$day_row_style = ( isset($this->style['day_name']) )
-					     ? ' style="'.$this->style['day_name'].'"'
-					     : '';
+		$dayRowStyle = ( isset($this->style['dayName']) )
+					   ? ' style="'.$this->style['dayName'].'"'
+					   : '';
 		// GÜN SAYILARI SÜTUNLARI İÇİN	CSS	
-		$rows_class =   ( isset($this->css['days']) )
-					     ? ' class="'.$this->css['days'].'"'
-					     : '';
+		$rowsClass = ( isset($this->css['days']) )
+					 ? ' class="'.$this->css['days'].'"'
+					 : '';
 		// GÜN SAYILARI SÜTUNLARI İÇİN	STYLE			
-		$rows_style = ( isset($this->style['days']) )
-					     ? ' style="'.$this->style['days'].'"'
-					     : '';
+		$rowsStyle = ( isset($this->style['days']) )
+					 ? ' style="'.$this->style['days'].'"'
+					 : '';
 		// ÖNCEKİ VE SONRAKİ LİNKLERİ İÇİN	CSS					 
-		$button_class = ( isset($this->css['links']) )
-					  ? ' class="'.$this->css['links'].'"'
-					  : '';
+		$buttonClass = ( isset($this->css['links']) )
+					   ? ' class="'.$this->css['links'].'"'
+					   : '';
 		// ÖNCEKİ VE SONRAKİ LİNKLERİ İÇİN	STYLE		
-		$button_style = ( isset($this->style['links']) )
-					  ? ' style="'.$this->style['links'].'"'
-					  : '';
+		$buttonStyle = ( isset($this->style['links']) )
+					   ? ' style="'.$this->style['links'].'"'
+					   : '';
 		
 		// Önceki linki oluşturuluyor.
-		$prev = "<a href='". suffix($this->url) . $year. "/". ( $month - 1 ) ."' {$button_class}{$button_style}>$this->prev</a>";
+		$prev = "<a href='". suffix($this->url) . $year. "/". ( $month - 1 ) ."' {$buttonClass}{$buttonStyle}>$this->prev</a>";
 		// Sonraki linki oluşturuluyor.
-		$next = "<a href='". suffix($this->url) . $year. "/". ( $month + 1 ) ."' {$button_class}{$button_style}>$this->next</a>";
+		$next = "<a href='". suffix($this->url) . $year. "/". ( $month + 1 ) ."' {$buttonClass}{$buttonStyle}>$this->next</a>";
 		
 		/************************************************************ CALENDAR *******************************************************************/			 
-		$str  = "<table{$table_class}{$table_style}>".eol();
+		$str  = "<table{$tableClass}{$tableStyle}>".eol();
 		// Ay - Tarih Satırı
-		$str .= "\t<tr>".eol()."\t\t<th{$month_row_class}{$month_row_style} colspan=\"7\">{$prev} {$monthname} - {$year} {$next}</th></tr>".eol();
+		$str .= "\t<tr>".eol()."\t\t<th{$monthRowClass}{$monthRowStyle} colspan=\"7\">{$prev} {$monthName} - {$year} {$next}</th></tr>".eol();
 		$str .= "\t<tr>".eol();
 		
 		// Gün İsimleri Satırı
-		foreach($daynames as $day)
+		foreach( $dayNames as $day )
 		{
-			$str .= "\t\t<td{$day_row_class}{$day_row_style}>$day</td>".eol();
+			$str .= "\t\t<td{$dayRowClass}{$dayRowStyle}>$day</td>".eol();
 		}
 		
 		$str .= "\t<tr>".eol();
 		
-		if( $first_day['wday'] == 0 ) 
+		if( $firstDay['wday'] == 0 ) 
 		{
-			$first_day['wday'] = 7;
+			$firstDay['wday'] = 7;
 		}
 		
 		// Günler Satırı
-		for($i=1; $i<$first_day['wday']; $i++)
+		for( $i=1; $i<$firstDay['wday']; $i++ )
 		{
-			$str .= "\t\t<td{$rows_class}{$rows_style}>&nbsp;</td>".eol();
+			$str .= "\t\t<td{$rowsClass}{$rowsStyle}>&nbsp;</td>".eol();
 		}
 		
-		$active_day = 0;
+		$activeDay = 0;
 		
-		for($i = $first_day['wday']; $i<=7; $i++)
+		for( $i = $firstDay['wday']; $i<=7; $i++ )
 		{
-			$active_day++;
+			$activeDay++;
 			
 			// Aktif gün için stil ve css kullanımı.
-			if( $active_day == $today['mday'] ) 
+			if( $activeDay == $today['mday'] ) 
 			{
 				$class = ( isset($this->css['current']) )
 						 ? ' class="'.$this->css['current'].'"'
@@ -419,22 +419,22 @@ class CCalendar
 						 : '';
 			}
 			
-			$str .= "\t\t<td{$class}{$style}>$active_day</td>".eol();
+			$str .= "\t\t<td{$class}{$style}>$activeDay</td>".eol();
 		}
+		
 		$str .= "\t</tr>".eol();
 		
-
-		$week_count = floor(($last_day ['mday'] - $active_day) / 7);
+		$weekCount = floor(($lastDay ['mday'] - $activeDay) / 7);
 		
-		for ($i=0; $i<$week_count; $i++)
+		for( $i = 0; $i < $weekCount; $i++ )
 		{
 			$str .= "\t<tr>";
 			
-			for($j=0; $j<7; $j++)
+			for( $j = 0; $j < 7; $j++ )
 			{
-				$active_day++;
+				$activeDay++;
 				// Aktif gün için stil ve css kullanımı.
-				if ( $active_day == $today['mday'] ) 
+				if ( $activeDay == $today['mday'] ) 
 				{
 					$class = ( isset($this->css['current']) )
 							 ? ' class="'.$this->css['current'].'"'
@@ -454,21 +454,23 @@ class CCalendar
 							 ? ' style="'.$this->style['days'].'"'
 							 : '';
 				}
-				$str .= "\t\t<td{$class}{$style}>$active_day</td>".eol();
+				
+				$str .= "\t\t<td{$class}{$style}>$activeDay</td>".eol();
 			}
+			
 			$str .= "\t</tr>".eol();
 		}
 		
 	
-		if( $active_day < $last_day['mday'] )
+		if( $activeDay < $lastDay['mday'] )
 		{
 			$str .= "\t<tr>".eol();
 			
-			for ($i=0; $i<7; $i++)
+			for( $i = 0; $i < 7; $i++ )
 			{
-				$active_day++;
+				$activeDay++;
 				// Aktif gün için stil ve css kullanımı.
-				if( $active_day == $today['mday'] ) 
+				if( $activeDay == $today['mday'] ) 
 				{
 					$class = ( isset($this->css['current']) )
 							 ? ' class="'.$this->css['current'].'"'
@@ -489,9 +491,9 @@ class CCalendar
 							 : '';
 				}
 				
-				if( $active_day <= $last_day ['mday'] )
+				if( $activeDay <= $lastDay ['mday'] )
 				{
-					$str .= "\t\t<td{$class}{$style}>$active_day</td>".eol();
+					$str .= "\t\t<td{$class}{$style}>$activeDay</td>".eol();
 				}
 				else 
 				{
@@ -503,22 +505,23 @@ class CCalendar
 		
 		$str .= "</table>";
 		
-		$this->_default_variables();
+		$this->_defaultVariables();
 		/************************************************************ CALENDAR *******************************************************************/	
 		
 		return $str;
 	}
 	
 	// Değişkenler default ayarlarına getiriliyor.
-	protected function _default_variables()
+	protected function _defaultVariables()
 	{
 		if( ! empty($this->css) ) 			$this->css = NULL;
 		if( ! empty($this->style) ) 		$this->style = NULL;
-		if( ! empty($this->month_names) ) 	$this->month_names = NULL;
-		if( ! empty($this->day_names) ) 	$this->day_names = NULL;
-		if( $this->prev !== '<<' ) 			$this->prev = '<<';
-		if( $this->next !== '>>' ) 			$this->next = '>>';
+		if( ! empty($this->monthNames) ) 	$this->monthNames = NULL;
+		if( ! empty($this->dayNames) ) 		$this->dayNames = NULL;
 		if( ! empty($this->url) ) 			$this->url = NULL;
 		if( ! empty($this->config) ) 		$this->config = NULL;
+		if( $this->prev !== '<<' ) 			$this->prev = '<<';
+		if( $this->next !== '>>' ) 			$this->next = '>>';
+		
 	}
 }

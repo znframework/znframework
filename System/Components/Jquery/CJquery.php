@@ -59,12 +59,12 @@ class CJquery extends CJqueryCommon
 	 */
 	public function selector($selector = '')
 	{
-		if( ! isChar($selector))
+		if( ! isChar($selector) )
 		{
 			return $this;	
 		}
 		
-		if($this->_is_key_selector($selector))
+		if( $this->_isKeySelector($selector) )
 		{
 			$this->selector = $selector;	
 		}
@@ -83,14 +83,14 @@ class CJquery extends CJqueryCommon
 	 */
 	public function property($property = '', $attr = array())
 	{
-		if( ! is_string($property))
+		if( ! is_string($property) )
 		{
 			return $this;	
 		}
 		
 		$this->property = $property;
 		
-		if( ! empty($attr)) 
+		if( ! empty($attr) ) 
 		{
 			$this->attr = $this->_params($attr);
 		}
@@ -125,26 +125,26 @@ class CJquery extends CJqueryCommon
 	public function complete()
 	{
 		$complete = '';
-		if( ! empty($this->property)) $complete .= ".".$this->property;
+		if( ! empty($this->property) ) $complete .= ".".$this->property;
 		$complete .= "(";
-		if( ! empty($this->attr)) { $complete .= $this->attr; $comma = ', ';} else { $comma = ''; }
-		if( ! empty($this->func)) $complete .= $comma.$this->func;
+		if( ! empty($this->attr) ) { $complete .= $this->attr; $comma = ', ';} else { $comma = ''; }
+		if( ! empty($this->func) ) $complete .= $comma.$this->func;
 		$complete .= ")";
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $complete;
 	}
 	
 	public function create()
 	{
-		$combine_function = func_get_args();
+		$combineFunction = func_get_args();
 		
 		$complete  = eol()."\t$($this->selector)";
 		
 		$complete .= $this->complete();
 		
-		if( ! empty($combine_function))foreach($combine_function as $function)
+		if( ! empty($combineFunction))foreach($combineFunction as $function)
 		{			
 			$complete .= $function;
 		}
@@ -154,7 +154,7 @@ class CJquery extends CJqueryCommon
 		return $complete;	
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if($this->selector !== 'this') 	$this->selector = 'this';
 		if($this->property !== '')  	$this->property = '';

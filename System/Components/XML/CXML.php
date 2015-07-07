@@ -197,5 +197,4 @@ class CXML
 		
 		return $str;
 	}	
-
 }

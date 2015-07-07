@@ -63,7 +63,7 @@ class CEvent extends CJqueryCommon
 			return $this;	
 		}
 		
-		if($this->_is_key_selector($selector))
+		if($this->_isKeySelector($selector))
 		{
 			$this->selector = $selector;	
 		}
@@ -769,15 +769,15 @@ class CEvent extends CJqueryCommon
 	 */
 	public function complete()
 	{
-		$eventmid = '';
+		$eventMid = '';
 		$event  = ".$this->property";
 		$event .= "(";
-		if( ! empty($this->type)) $eventmid .= $this->type;
-		if( ! empty($this->callback)) $eventmid .= ", $this->callback";
-		$event .= trim($eventmid, ',');
+		if( ! empty($this->type)) $eventMid .= $this->type;
+		if( ! empty($this->callback)) $eventMid .= ", $this->callback";
+		$event .= trim($eventMid, ',');
 		$event .= ")";
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $event;
 	}
@@ -789,11 +789,11 @@ class CEvent extends CJqueryCommon
 	 */
 	public function create()
 	{
-		$combine_event = func_get_args();
+		$combineEvent = func_get_args();
 		
 		$event  = eol()."$($this->selector)";
 		$event .= $this->complete();
-		if( ! empty($combine_event))foreach($combine_event as $e)
+		if( ! empty($combineEvent))foreach($combineEvent as $e)
 		{			
 			$event .= $e;
 		}
@@ -808,7 +808,7 @@ class CEvent extends CJqueryCommon
 	 * 
 	 *
 	 */
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if($this->selector !== 'this') 	$this->selector = 'this';
 		if($this->type !== '')  		$this->type		= '';

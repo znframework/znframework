@@ -368,6 +368,8 @@ class CShadow
 		}
 		$str .= "}".eol();
 		
+		$this->_defaultVariable();
+		
 		return $str;
 	}
 	
@@ -375,7 +377,7 @@ class CShadow
 	// Efekt tamamlandığında değişkenler
 	// varsayılan ayarlarına getirmek için
 	// kullanılmaktadır.
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->attr) ) 			$this->attr = NULL;
 		if( ! empty($this->params) )		$this->params = array();

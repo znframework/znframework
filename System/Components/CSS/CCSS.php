@@ -106,7 +106,7 @@ class CCSS
 		$str .= $this->_attr($attr).eol();
 		$str .= "}".eol();
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $str;
 	}
@@ -221,9 +221,9 @@ class CCSS
 	}
 	
 	// Değişkenler varsayılan ayarlarına getiriliyor.
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
-		if( ! empty($this->attr) ) 		$this->attr = NULL;
-		if( $this->selector !== 'this' )  $this->selector = 'this';
+		if( ! empty($this->attr) ) 		 $this->attr = NULL;
+		if( $this->selector !== 'this' ) $this->selector = 'this';
 	}
 }

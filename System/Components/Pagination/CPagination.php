@@ -54,26 +54,26 @@ class CPagination
 		return $this;
 	}
 	
-	public function totalRows($total_rows = 0)
+	public function totalRows($totalRows = 0)
 	{
-		if( ! is_numeric($total_rows) )
+		if( ! is_numeric($totalRows) )
 		{
 			return $this;
 		}
 		
-		$this->settings['totalRows'] = $total_rows;
+		$this->settings['totalRows'] = $totalRows;
 		
 		return $this;
 	}
 	
-	public function countLinks($count_links = 10)
+	public function countLinks($countLinks = 10)
 	{
-		if( ! is_numeric($count_links) )
+		if( ! is_numeric($countLinks) )
 		{
 			return $this;
 		}
 		
-		$this->settings['countLinks'] = $count_links;
+		$this->settings['countLinks'] = $countLinks;
 		
 		return $this;
 	}
@@ -131,7 +131,7 @@ class CPagination
 		return $this;
 	}
 	
-	public function create($start = NULL, $limit = NULL, $total_rows = NULL, $url = NULL)
+	public function create($start = NULL, $limit = NULL, $totalRows = NULL, $url = NULL)
 	{
 		Pagination::settings($this->settings);
 		

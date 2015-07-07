@@ -19,13 +19,13 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 class CJqueryCommon
 {
-	protected function _booltostr($bool = true)
+	protected function _boolToStr($bool = true)
 	{
-		if($bool === true)
+		if( $bool === true )
 		{
 			return 'true';
 		}
-		elseif($bool === false)
+		elseif( $bool === false )
 		{
 			return 'false';
 		}
@@ -35,11 +35,11 @@ class CJqueryCommon
 		}
 	}
 	
-	protected function _is_key_selector($data)
+	protected function _isKeySelector($data)
 	{
 		$keyword  = array('document', 'this', 'window');
 		
-		if(in_array($data, $keyword))
+		if( in_array($data, $keyword) )
 		{
 			return true;	
 		}
@@ -49,10 +49,11 @@ class CJqueryCommon
 		}
 	}
 	
-	protected function _is_bool($data)
+	protected function _isBool($data)
 	{
 		$data = strtolower($data);
-		if($data === "true" || $data === "false")
+		
+		if( $data === "true" || $data === "false" )
 		{
 			return true;	
 		}
@@ -62,9 +63,9 @@ class CJqueryCommon
 		}
 	}
 	
-	protected function _is_json($data)
+	protected function _isJson($data)
 	{
-		if(preg_match('/\{.+\:.+\}/', $data))
+		if( preg_match('/\{.+\:.+\}/', $data) )
 		{
 			return true;	
 		}
@@ -74,9 +75,9 @@ class CJqueryCommon
 		}
 	}
 	
-	protected function _is_func($data)
+	protected function _isFunc($data)
 	{
-		if(preg_match('/function.*\(.*\)/', $data))
+		if( preg_match('/function.*\(.*\)/', $data) )
 		{
 			return true;	
 		}
@@ -93,9 +94,10 @@ class CJqueryCommon
 		{	
 			$object  = '';	
 			$object .= "\t{";
-			if( ! empty($array)) foreach($array as $k => $v)
+			
+			if( ! empty($array) ) foreach($array as $k => $v)
 			{
-				if( is_numeric($v) || $this->_is_bool($v) || $this->_is_json($v) || $this->_is_func($v)) 
+				if( is_numeric($v) || $this->_isBool($v) || $this->_isJson($v) || $this->_isFunc($v) ) 
 				{
 					$object .= $k.":$v, ";
 				}
@@ -104,6 +106,7 @@ class CJqueryCommon
 					$object .= $k.":\"$v\", ";
 				}
 			}
+			
 			$object  = substr($object, 0, -2);
 			$object .= "}";
 		}
@@ -118,9 +121,10 @@ class CJqueryCommon
 	protected function _params($array = array())
 	{
 		$implode = '';
-		if( ! empty($array))foreach($array as $v)
+		
+		if( ! empty($array) ) foreach( $array as $v )
 		{
-			if( is_numeric($v) || $this->_is_bool($v) || $this->_is_json($v) || $this->_is_func($v)) 
+			if( is_numeric($v) || $this->_isBool($v) || $this->_isJson($v) || $this->_isFunc($v) ) 
 			{
 				$implode .= "$v,";
 			}
@@ -129,7 +133,9 @@ class CJqueryCommon
 				$implode .= "\"$v\",";
 			}	
 		}
+		
 		$implode = substr($implode, 0, -1);	
+		
 		return $implode;
 	}
 }

@@ -23,7 +23,7 @@ class CScript
 	
 	public function type($type = 'text/javascript')
 	{
-		if( ! is_string($type))
+		if( ! is_string($type) )
 		{
 			return $this;	
 		}
@@ -35,7 +35,7 @@ class CScript
 	
 	public function ready($type = true)
 	{
-		if( ! is_bool($type))
+		if( ! is_bool($type) )
 		{
 			return $this;	
 		}
@@ -59,22 +59,26 @@ class CScript
 		$script .= Import::script('Jquery', true);
 		$script .= "<script type=\"$this->type\">".eol();
 		
-		if($this->ready)
+		if( $this->ready )
 		{
 			$script .= "$(document).ready(function()".eol()."{".eol();
 		}
+		
 		return $script;
 	}
 	
 	public function close()
 	{	
 		$script = "";
-		if($this->ready)
+		
+		if( $this->ready )
 		{
 			$this->ready = true;
 			$script .= eol().'});'.eol();
 		}
+		
 		$script .=  '</script>'.eol();
+		
 		return $script;
 	}	
 }

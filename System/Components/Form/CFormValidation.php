@@ -20,7 +20,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 class CFormValidation extends CFormSecurity
 {
 	protected $required;
-	protected $valid_error = array();
+	protected $validError = array();
 
 	protected function required($object = '', $value = '')
 	{
@@ -30,7 +30,7 @@ class CFormValidation extends CFormSecurity
 		}
 		else
 		{
-			$this->valid_error[$object][] = lang('Validation', 'required', $object);
+			$this->validError[$object][] = lang('Validation', 'required', $object);
 		}
 	}
 	
@@ -40,13 +40,13 @@ class CFormValidation extends CFormSecurity
 		
 		if( ! is_string($value) ) 
 		{
-			$this->valid_error[$object][] = $email;
+			$this->validError[$object][] = $email;
 			return false;
 		}
 		
 		if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $value) ) 
 		{
-			$this->valid_error[$object][] = $email; 
+			$this->validError[$object][] = $email; 
 		}
 		else 
 		{
@@ -56,11 +56,11 @@ class CFormValidation extends CFormSecurity
 	
 	protected function _match($object = '', $data1 = '', $data2 = '')
 	{
-		$data_match = lang('Validation', 'dataMatch', $object);
+		$dataMatch = lang('Validation', 'dataMatch', $object);
 		
 		if( ! (isValue($data1) || isValue($data2)) )
 		{
-			$this->valid_error[$object][] = $data_match;
+			$this->validError[$object][] = $dataMatch;
 			return false;	
 		}
 		
@@ -70,7 +70,7 @@ class CFormValidation extends CFormSecurity
 		}
 		else
 		{
-			$this->valid_error[$object][] = $data_match;
+			$this->validError[$object][] = $dataMatch;
 		}
 	}
 	
@@ -80,13 +80,13 @@ class CFormValidation extends CFormSecurity
 		
 		if( ! is_string($value) )
 		{ 
-			$this->valid_error[$object][] = $url;
+			$this->validError[$object][] = $url;
 			return false;
 		}
 		
 		if( ! preg_match('#^(\w+:)?//#i', $value) ) 
 		{
-			$this->valid_error[$object][] = $url; 
+			$this->validError[$object][] = $url; 
 		}
 		else
 		{ 
@@ -96,16 +96,16 @@ class CFormValidation extends CFormSecurity
 	
 	protected function specialChar($object = '', $value = '')
 	{
-		$nospecial_char = lang('Validation', 'noSpecialChar', $object);
+		$nospecialChar = lang('Validation', 'noSpecialChar', $object);
 		
 		if( ! is_string($value) )
 		{
-			$this->valid_error[$object][] = $nospecial_char;
+			$this->validError[$object][] = $nospecialChar;
 			return false;
 		}
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $value) ) 
 		{
-			$this->valid_error[$object][] = $nospecial_char; 
+			$this->validError[$object][] = $nospecialChar; 
 		}
 		else
 		{ 
@@ -117,7 +117,7 @@ class CFormValidation extends CFormSecurity
 	{
 		if( ! is_numeric($value) )
 		{ 
-			$this->valid_error[$object][] = lang('Validation', 'numeric',$object);
+			$this->validError[$object][] = lang('Validation', 'numeric',$object);
 		} 
 		else
 		{
@@ -140,12 +140,12 @@ class CFormValidation extends CFormSecurity
 		
 		if( $minchar > strlen($value) )   
 		{	
-			$this->valid_error[$object][] = lang('Validation', 'minchar', array('%' => $object, '#' => $minchar));
+			$this->validError[$object][] = lang('Validation', 'minchar', array('%' => $object, '#' => $minchar));
 		}
 		
 		if( $maxchar < strlen($value) ) 
 		{
-			$this->valid_error[$object][] = lang('Validation', 'maxchar', array('%' => $object, '#' => $maxchar));
+			$this->validError[$object][] = lang('Validation', 'maxchar', array('%' => $object, '#' => $maxchar));
 		}
 	}
 	
@@ -155,16 +155,16 @@ class CFormValidation extends CFormSecurity
 		
 		if( ! is_numeric($value) || strlen($value) != 11 )
 		{
-			$this->valid_error[$object][] = $identity;
+			$this->validError[$object][] = $identity;
 			return false;
 		}
 		
-		$numone 	= ($value[0] + $value[2] + $value[4] + $value[6]  + $value[8]) * 7;
+		$numone 	= ( $value[0] + $value[2] + $value[4] + $value[6]  + $value[8] ) * 7;
 		$numtwo 	= $value[1] + $value[3] + $value[5] + $value[7];
 		$result 	= $numone - $numtwo;
-		$tenth  	= $result%10;
-		$total  	= ($value[0] + $value[1] + $value[2] + $value[3] + $value[4] + $value[5] + $value[6] + $value[7] + $value[8] + $value[9]);
-		$elewenth 	= $total%10;
+		$tenth  	= $result % 10;
+		$total  	= ( $value[0] + $value[1] + $value[2] + $value[3] + $value[4] + $value[5] + $value[6] + $value[7] + $value[8] + $value[9] );
+		$elewenth 	= $total % 10;
 		
 		if( $value[0] == 0 )
 		{
@@ -185,7 +185,7 @@ class CFormValidation extends CFormSecurity
 		
 		if( $err === false )
 		{
-			$this->valid_error[$object][] = $identity;
+			$this->validError[$object][] = $identity;
 		}
 		else 
 		{

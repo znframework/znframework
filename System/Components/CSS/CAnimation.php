@@ -327,7 +327,7 @@ class CAnimation
 	public function complete()
 	{
 		$trans = $this->transitions;	
-		$this->_default_variable();
+		$this->_defaultVariable();
 		return $trans;
 	}	
 	
@@ -341,13 +341,13 @@ class CAnimation
 	******************************************************************************************/
 	public function create()
 	{
-		$combine_transitions = func_get_args();
+		$combineTransitions = func_get_args();
 		
 		$str  = $this->selector."{".eol();	
 		$str .= $this->attr.eol();
 		$str .= $this->complete();
 		
-		if( ! empty($combine_transitions) )foreach($combine_transitions as $transition)
+		if( ! empty($combineTransitions) )foreach($combineTransitions as $transition)
 		{			
 			$str .= $transition;
 		}
@@ -358,7 +358,7 @@ class CAnimation
 	}
 	
 	// Değişkenler default ayarlarına getiriliyor.
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->attr)) 		$this->attr = NULL;
 		if( ! empty($this->transitions))$this->transitions = '';

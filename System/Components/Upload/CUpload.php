@@ -218,23 +218,23 @@ class CUpload
 	| Örnek Kullanım: start('fileupload', 'Aplication/Uploads');       		                  |
 	|          																				  |
 	******************************************************************************************/
-	public  function start($filename = 'upload', $rootdir = UPLOADS_DIR)
+	public  function start($fileName = 'upload', $rootDir = UPLOADS_DIR)
 	{	
 		if( isset($this->settings['source']) )
 		{
-			$filename = $this->settings['source'];
+			$fileName = $this->settings['source'];
 		}
 
 		if( isset($this->settings['target']) )
 		{
-			$rootdir = $this->settings['target'];
+			$rootDir = $this->settings['target'];
 		}
 	
 		output($this->settings);
 		
 		Upload::settings($this->settings);
 	
-		return Upload::start($filename, $rootdir);
+		return Upload::start($fileName, $rootDir);
 	}
 	
 	/******************************************************************************************

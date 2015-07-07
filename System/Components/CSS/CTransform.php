@@ -434,13 +434,13 @@ class CTransform
 		
 		$transforms = $this->_transform($transforms);
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $transforms;
 	}
 	
 	// Değişkenler varsayılan ayarlarına getiriliyor.
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( $this->selector !== 'this' )  $this->selector = 'this';
 		if( ! empty($this->transforms) )  $this->transforms = array();

@@ -71,7 +71,7 @@ class CAction extends CJqueryCommon
 			return $this;	
 		}
 		
-		if($this->_is_key_selector($selector))
+		if($this->_isKeySelector($selector))
 		{
 			$this->selector = $selector;	
 		}
@@ -272,26 +272,26 @@ class CAction extends CJqueryCommon
 	
 	public function complete()
 	{
-		$eventmid = '';
+		$eventMid = '';
 		$event  = ".$this->type(";
 		
-		if( ! empty($this->speed))  	$eventmid .= $this->speed;
-		if( ! empty($this->easing)) 	$eventmid .= $this->easing;
-		if( ! empty($this->callback)) 	$eventmid .= $this->callback;
-		$event .= trim($eventmid, ',');
+		if( ! empty($this->speed))  	$eventMid .= $this->speed;
+		if( ! empty($this->easing)) 	$eventMid .= $this->easing;
+		if( ! empty($this->callback)) 	$eventMid .= $this->callback;
+		$event .= trim($eventMid, ',');
 		$event .= ")";
-		$this->_default_variable();
+		$this->_defaultVariable();
 		return $event;
 	}
 	
 	public function create()
 	{
-		$combine_effect = func_get_args();
+		$combineEffect = func_get_args();
 		
 		$event  = eol()."$($this->selector)";
 		$event .= $this->complete();
 		
-		if( ! empty($combine_effect))foreach($combine_effect as $effect)
+		if( ! empty($combineEffect) ) foreach($combineEffect as $effect)
 		{			
 			$event .= $effect;
 		}
@@ -301,7 +301,7 @@ class CAction extends CJqueryCommon
 		return $event;
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if($this->selector !== 'this') 	$this->selector = 'this';
 		if($this->type !== 'show')  	$this->type		= 'show';

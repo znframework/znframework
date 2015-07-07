@@ -45,12 +45,12 @@ class CAjax extends CJqueryCommon
 	// Ajax URL = 'http://www.example/example/ex' : "http://www.example/example/ex"
 	public function url($url = '')
 	{
-		if( ! is_string($url))
+		if( ! is_string($url) )
 		{
 			return $this;	
 		}
 		
-		if( ! isUrl($url))
+		if( ! isUrl($url) )
 		{
 			$url = siteUrl($url);	
 		}
@@ -65,7 +65,7 @@ class CAjax extends CJqueryCommon
 	// data:'example=1&data=2'
 	public function data($data = '')
 	{
-		if( ! isValue($data))
+		if( ! isValue($data) )
 		{
 			return $this;	
 		}
@@ -80,7 +80,7 @@ class CAjax extends CJqueryCommon
 	// headers:{ h1, h2}
 	public function headers($headers = '')
 	{
-		if( ! isValue($headers))
+		if( ! isValue($headers) )
 		{
 			return $this;	
 		}
@@ -93,14 +93,15 @@ class CAjax extends CJqueryCommon
 	// IF MODIFIED Property -------------------------------------------------------
 	// ifModified data
 	// ifModified:true or false
-	public function ifModified($if_modified = true)
+	public function ifModified($ifModified = true)
 	{
-		if( ! isValue($if_modified))
+		if( ! isValue($ifModified) )
 		{
 			return $this;	
 		}
-		$if_modified = $this->_booltostr($if_modified);
-		$this->sets['if_modified'] = "\tifModified:$if_modified,".eol();
+		
+		$ifModified = $this->_boolToStr($ifModified);
+		$this->sets['ifModified'] = "\tifModified:$ifModified,".eol();
 		
 		return $this;	
 	}
@@ -108,14 +109,15 @@ class CAjax extends CJqueryCommon
 	// IS LOCAL Property ---------------------------------------------------------
 	// isLocal data
 	// isLocal:true or false
-	public function isLocal($is_local = true)
+	public function isLocal($isLocal = true)
 	{
-		if( ! isValue($is_local))
+		if( ! isValue($isLocal) )
 		{
 			return $this;	
 		}
-		$is_local = $this->_booltostr($is_local);
-		$this->sets['is_local'] = "\tisLocal:$is_local,".eol();
+		
+		$isLocal = $this->_boolToStr($isLocal);
+		$this->sets['isLocal'] = "\tisLocal:$isLocal,".eol();
 		
 		return $this;	
 	}
@@ -124,14 +126,15 @@ class CAjax extends CJqueryCommon
 	// MIME TYPE Property -------------------------------------------------------
 	// mimeType data
 	// mimeType:true or false
-	public function mimeType($mime_type = true)
+	public function mimeType($mimeType = true)
 	{
-		if( ! isValue($mime_type))
+		if( ! isValue($mimeType) )
 		{
 			return $this;	
 		}
-		$mime_type = $this->_booltostr($mime_type);
-		$this->sets['mime_type'] = "\tmimeType:$mime_type,".eol();
+		
+		$mimeType = $this->_boolToStr($mimeType);
+		$this->sets['mimeType'] = "\tmimeType:$mimeType,".eol();
 		
 		return $this;	
 	}
@@ -143,11 +146,11 @@ class CAjax extends CJqueryCommon
 	// is bool	 : true
 	public function jsonp($jsonp = '')
 	{
-		if(is_bool($jsonp))
+		if( is_bool($jsonp) )
 		{
-			$jsonp = $this->_booltostr($jsonp);	
+			$jsonp = $this->_boolToStr($jsonp);	
 		}
-		elseif(is_string($jsonp))
+		elseif( is_string($jsonp) )
 		{
 			$jsonp = "\"$jsonp\"";
 		}
@@ -166,19 +169,19 @@ class CAjax extends CJqueryCommon
 	// jsonpCallback:string or function
 	// is string 	 : "example data"
 	// is function	 : function(){}
-	public function jsonpCallback($jsonp_callback = '')
+	public function jsonpCallback($jsonpCallback = '')
 	{
-		if( ! isValue($jsonp_callback))
+		if( ! isValue($jsonpCallback) )
 		{
 			return $this;	
 		}
 		
-		if($this->_is_func($jsonp_callback) === false)
+		if( $this->_isFunc($jsonpCallback) === false )
 		{
-			$jsonp_callback = "\"$jsonp_callback\"";
+			$jsonpCallback = "\"$jsonpCallback\"";
 		}
 		
-		$this->sets['jsonp_callback'] = "\tjsonpCallback:$jsonp_callback,".eol();
+		$this->sets['jsonpCallback'] = "\tjsonpCallback:$jsonpCallback,".eol();
 		
 		return $this;	
 	}
@@ -188,7 +191,7 @@ class CAjax extends CJqueryCommon
 	// dataType:string : json, script, html ...
 	public function dataType($type = '')
 	{
-		if( ! is_string($type))
+		if( ! is_string($type) )
 		{
 			return $this;	
 		}
@@ -203,7 +206,7 @@ class CAjax extends CJqueryCommon
 	// password:string
 	public function password($password = '')
 	{
-		if( ! is_string($password))
+		if( ! is_string($password) )
 		{
 			return $this;	
 		}
@@ -218,7 +221,7 @@ class CAjax extends CJqueryCommon
 	// username:string
 	public function username($username = '')
 	{
-		if( ! is_string($username))
+		if( ! is_string($username) )
 		{
 			return $this;	
 		}
@@ -234,7 +237,7 @@ class CAjax extends CJqueryCommon
 	// type:string : post, get ...
 	public function method($method = 'post')
 	{
-		if( ! is_string($method))
+		if( ! is_string($method) )
 		{
 			return $this;	
 		}
@@ -250,7 +253,7 @@ class CAjax extends CJqueryCommon
 	// type:string : post, get ...
 	public function type($method = 'post')
 	{
-		if( ! is_string($method))
+		if( ! is_string($method) )
 		{
 			return $this;	
 		}
@@ -263,14 +266,14 @@ class CAjax extends CJqueryCommon
 	// SCRIPT CHARSET Property -------------------------------------------------------
 	// scriptCharset data
 	// scriptCharset:string
-	public function scriptCharset($script_charset = 'utf-8')
+	public function scriptCharset($scriptCharset = 'utf-8')
 	{
-		if( ! is_string($script_charset))
+		if( ! is_string($scriptCharset) )
 		{
 			return $this;	
 		}
 		
-		$this->sets['script_charset'] = "\tscriptCharset:\"$script_charset\",".eol();
+		$this->sets['scriptCharset'] = "\tscriptCharset:\"$scriptCharset\",".eol();
 		
 		return $this;
 	}
@@ -280,11 +283,12 @@ class CAjax extends CJqueryCommon
 	// traditional:bool: true or false
 	public function traditional($traditional = true)
 	{
-		if( ! is_string($traditional))
+		if( ! is_string($traditional) )
 		{
 			return $this;	
 		}
-		$traditional = $this->_booltostr($traditional);
+		
+		$traditional = $this->_boolToStr($traditional);
 		$this->sets['traditional'] = "\ttraditional:$traditional,".eol();
 		
 		return $this;
@@ -293,14 +297,15 @@ class CAjax extends CJqueryCommon
 	// PROCESS DATA Property -------------------------------------------------------
 	// processData data
 	// processData:bool: true or false
-	public function processData($process_data = true)
+	public function processData($processData = true)
 	{
-		if( ! isValue($process_data))
+		if( ! isValue($processData) )
 		{
 			return $this;	
 		}
-		$process_data = $this->_booltostr($process_data);
-		$this->sets['process_data'] = "\tprocessData:$process_data,".eol();
+		
+		$processData = $this->_boolToStr($processData);
+		$this->sets['processData'] = "\tprocessData:$processData,".eol();
 		
 		return $this;
 	}
@@ -310,11 +315,12 @@ class CAjax extends CJqueryCommon
 	// cache:bool: true or false
 	public function cache($cache = true)
 	{
-		if( ! isValue($cache))
+		if( ! isValue($cache) )
 		{
 			return $this;	
 		}
-		$cache = $this->_booltostr($cache);
+		
+		$cache = $this->_boolToStr($cache);
 		$this->sets['cache'] = "\tcache:$cache,".eol();
 		
 		return $this;
@@ -323,14 +329,14 @@ class CAjax extends CJqueryCommon
 	// XHR FIELDS Property -------------------------------------------------------
 	// xhrFields data
 	// xhrFields:string
-	public function xhrFields($xhr_fields = '')
+	public function xhrFields($xhrFields = '')
 	{
-		if( ! is_string($xhr_fields))
+		if( ! is_string($xhrFields) )
 		{
 			return $this;	
 		}
 		
-		$this->sets['xhr_fields'] = "\txhrFields:$xhr_fields,".eol();
+		$this->sets['xhrFields'] = "\txhrFields:$xhrFields,".eol();
 		
 		return $this;
 	}
@@ -340,7 +346,7 @@ class CAjax extends CJqueryCommon
 	// context:plain object
 	public function context($context = '')
 	{
-		if( ! isValue($context))
+		if( ! isValue($context) )
 		{
 			return $this;	
 		}
@@ -355,7 +361,7 @@ class CAjax extends CJqueryCommon
 	// accepts:plain object
 	public function accepts($accepts = '')
 	{
-		if( ! is_string($accepts))
+		if( ! is_string($accepts) )
 		{
 			return $this;	
 		}
@@ -370,7 +376,7 @@ class CAjax extends CJqueryCommon
 	// contents:plain object
 	public function contents($contents = '')
 	{
-		if( ! is_string($contents))
+		if( ! is_string($contents) )
 		{
 			return $this;	
 		}
@@ -385,11 +391,12 @@ class CAjax extends CJqueryCommon
 	// async:bool: true or false
 	public function async($async = true)
 	{
-		if( ! isValue($async))
+		if( ! isValue($async) )
 		{
 			return $this;	
 		}
-		$async = $this->_booltostr($async);
+		
+		$async = $this->_boolToStr($async);
 		$this->sets['async'] = "\tasync:$async,".eol();
 		
 		return $this;
@@ -398,14 +405,15 @@ class CAjax extends CJqueryCommon
 	// CROSS DOMAIN Property -------------------------------------------------------
 	// crossDomain data
 	// crossDomain:bool: true or false
-	public function crossDomain($cross_domain = true)
+	public function crossDomain($crossDomain = true)
 	{
-		if( ! isValue($cross_domain))
+		if( ! isValue($crossDomain) )
 		{
 			return $this;	
 		}
-		$cross_domain = $this->_booltostr($cross_domain);
-		$this->sets['cross_domain'] = "\tcrossDomain:$cross_domain,".eol();
+		
+		$crossDomain = $this->_boolToStr($crossDomain);
+		$this->sets['crossDomain'] = "\tcrossDomain:$crossDomain,".eol();
 		
 		return $this;
 	}
@@ -415,7 +423,7 @@ class CAjax extends CJqueryCommon
 	// timeout:numeric
 	public function timeout($timeout = '')
 	{
-		if( ! isValue($timeout))
+		if( ! isValue($timeout) )
 		{
 			return $this;	
 		}
@@ -431,11 +439,12 @@ class CAjax extends CJqueryCommon
 	// global is keywords so global is name globals
 	public function globals($globals = true)
 	{
-		if( ! isValue($globals))
+		if( ! isValue($globals) )
 		{
 			return $this;	
 		}
-		$globals = $this->_booltostr($globals);
+		
+		$globals = $this->_boolToStr($globals);
 		$this->sets['globals'] = "\tglobal:$globals,".eol();
 		
 		return $this;
@@ -446,39 +455,38 @@ class CAjax extends CJqueryCommon
 	// contentType:bool or string
 	// is bool  : true or false
 	// is_string: 'application/x-www-form-urlencoded; charset=UTF-8'
-	public function contentType($content_type = 'application/x-www-form-urlencoded; charset=UTF-8')
+	public function contentType($contentType = 'application/x-www-form-urlencoded; charset=UTF-8')
 	{
-	
-		if(is_bool($content_type))
+		if( is_bool($contentType) )
 		{
-			$content_type = $this->_booltostr($content_type);		
+			$contentType = $this->_boolToStr($contentType);		
 		}
-		elseif(is_string($content_type))
+		elseif( is_string($contentType) )
 		{
-			$content_type = "\"$content_type\"";
+			$contentType = "\"$contentType\"";
 		}
 		else
 		{
 			return $this;	
 		}
 		
-		$this->sets['content_type'] = "\tcontentType:$content_type,".eol();
+		$this->sets['contentType'] = "\tcontentType:$contentType,".eol();
 		
 		return $this;
 	}
 	
 	protected function _object($name, $codes = array())
 	{
-		if( ! is_array($codes))
+		if( ! is_array($codes) )
 		{
 			return $this;	
 		}	
 		
-		$status_code = eol()."\t$name:".eol()."\t{";
+		$statusCode = eol()."\t$name:".eol()."\t{";
 		
-		if( ! empty($codes))
+		if( ! empty($codes) )
 		{
-			foreach($codes as $code => $value)
+			foreach( $codes as $code => $value )
 			{
 				$param = '';
 				if(strstr($value, '->'))
@@ -488,13 +496,15 @@ class CAjax extends CJqueryCommon
 					$value = $params[1];
 				}
 				
-				$status_code .= eol()."\t\t$code:function($param)".eol()."\t\t{".eol()."\t\t\t$value".eol()."\t\t},".eol();
+				$statusCode .= eol()."\t\t$code:function($param)".eol()."\t\t{".eol()."\t\t\t$value".eol()."\t\t},".eol();
 			}
-			$status_code = trim(trim($status_code), ',').eol();
+			
+			$statusCode = trim(trim($statusCode), ',').eol();
 		}
-		$status_code .= "\t}";
 		
-		$this->functions[$name] = eol()."\t".$status_code;
+		$statusCode .= "\t}";
+		
+		$this->functions[$name] = eol()."\t".$statusCode;
 	}
 	
 	// STATUS CODE Property -------------------------------------------------------
@@ -576,9 +586,9 @@ class CAjax extends CJqueryCommon
 	// beforeSend: 2 Parameters
 	// string @params       : 'param1, param2'
 	// string @before_send  : 'alert("example")'
-	public function beforeSend($params = 'e', $before_send = '')
+	public function beforeSend($params = 'e', $beforeSend = '')
 	{
-		$this->_functions('beforeSend', $params, $before_send);
+		$this->_functions('beforeSend', $params, $beforeSend);
 		
 		return $this;
 	}	
@@ -588,9 +598,9 @@ class CAjax extends CJqueryCommon
 	// dataFilter: 2 Parameters
 	// string @params       : 'param1, param2'
 	// string @data_filter  : 'alert("example")'
-	public function dataFilter($params = 'e', $data_filter = '')
+	public function dataFilter($params = 'e', $dataFilter = '')
 	{
-		$this->_functions('dataFilter', $params, $data_filter);
+		$this->_functions('dataFilter', $params, $dataFilter);
 		
 		return $this;
 	}
@@ -665,24 +675,24 @@ class CAjax extends CJqueryCommon
 			$data = '';	
 		}
 		
-		if( ! empty($url))
+		if( ! empty($url) )
 		{
 			$this->url($url);	
 		}
 		
-		if( ! empty($data))
+		if( ! empty($data) )
 		{
 			$this->data($data);	
 		}
 		
-		if( ! isset($this->sets['method']))
+		if( ! isset($this->sets['method']) )
 		{
 			$this->method('post');
 		} 
 		
 		$ajax = '';
 		
-		if( ! empty($this->sets))foreach($this->sets as $val)
+		if( ! empty($this->sets) ) foreach( $this->sets as $val )
 		{
 			$ajax .= $val;
 		}
@@ -691,7 +701,7 @@ class CAjax extends CJqueryCommon
 		
 		$ajax .= eol();
 		
-		if( ! empty($this->functions))foreach($this->functions as $val)
+		if( ! empty($this->functions) ) foreach( $this->functions as $val )
 		{
 			$ajax .= "\t$val,";
 		}
@@ -699,12 +709,14 @@ class CAjax extends CJqueryCommon
 		$ajax = substr($ajax,0,-1);
 		
 		$callbacks = '';
-		if( ! empty($this->callbacks))
+		
+		if( ! empty($this->callbacks) )
 		{
-			foreach($this->callbacks as $val)
+			foreach( $this->callbacks as $val )
 			{
 				$callbacks .= $val;	
 			}
+			
 			$callbacks .= ";".eol();
 		}
 		else
@@ -714,7 +726,7 @@ class CAjax extends CJqueryCommon
 		
 		$ajax = eol()."$.ajax".eol()."({".eol()."$ajax".eol()."})$callbacks";
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $ajax;
 	}
@@ -725,7 +737,7 @@ class CAjax extends CJqueryCommon
 	}
 	
 	// DEFAULT VARIABLES
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->functions)) $this->functions = array();
 		if( ! empty($this->sets)) $this->sets = array();

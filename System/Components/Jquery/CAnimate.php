@@ -58,12 +58,12 @@ class CAnimate extends CJqueryCommon
 	 */
 	public function selector($selector = '')
 	{
-		if( ! isChar($selector))
+		if( ! isChar($selector) )
 		{
 			return $this;	
 		}
 		
-		if($this->_is_key_selector($selector))
+		if($this->_isKeySelector($selector))
 		{
 			$this->selector = $selector;	
 		}
@@ -82,7 +82,7 @@ class CAnimate extends CJqueryCommon
 	 */
 	public function speed($duration = '')
 	{
-		if(isValue($duration))
+		if( isValue($duration) )
 		{
 			$this->easing['duration'] = $duration;
 		}
@@ -102,7 +102,7 @@ class CAnimate extends CJqueryCommon
 	 */
 	public function duration($duration = '')
 	{
-		if(isValue($duration))
+		if( isValue($duration) )
 		{
 			$this->easing['duration'] = $duration;
 		}
@@ -116,11 +116,11 @@ class CAnimate extends CJqueryCommon
 	
 	public function queue($queue = true)
 	{
-		if(is_bool($queue))
+		if( is_bool($queue) )
 		{
-			$queue = $this->_booltostr($queue);	
+			$queue = $this->_boolToStr($queue);	
 		}
-		elseif(is_string($queue))
+		elseif( is_string($queue) )
 		{
 			$queue = $queue;
 		}
@@ -136,7 +136,7 @@ class CAnimate extends CJqueryCommon
 	
 	public function callback($params = '', $callback = '')
 	{
-		if( ! is_string($callback))
+		if( ! is_string($callback) )
 		{
 			return $this;	
 		}
@@ -148,7 +148,7 @@ class CAnimate extends CJqueryCommon
 	
 	public function func($params = '', $callback = '')
 	{
-		if( ! is_string($callback))
+		if( ! is_string($callback) )
 		{
 			return $this;	
 		}
@@ -160,7 +160,7 @@ class CAnimate extends CJqueryCommon
 	
 	public function attr($attr = '')
 	{
-		if( ! is_array($attr))
+		if( ! is_array($attr) )
 		{
 			return $this;	
 		}
@@ -177,9 +177,9 @@ class CAnimate extends CJqueryCommon
 		return $this;
 	}
 	
-	public function specialEasing($special_easing = '')
+	public function specialEasing($specialEasing = '')
 	{	
-		$this->easing['specialEasing'] = $this->_object($special_easing);	
+		$this->easing['specialEasing'] = $this->_object($specialEasing);	
 		
 		return $this;
 	}
@@ -193,29 +193,29 @@ class CAnimate extends CJqueryCommon
 	
 	public function complete()
 	{
-		$animatemid = '';
+		$animateMid = '';
 		$animate  = ".animate".eol()."\t(";
-		if( ! empty($this->attr))     $animatemid .= eol()."\t".$this->attr;
-		if( ! empty($this->speed))    $animatemid .= $this->speed;
-		if( ! empty($this->easing))	  $animatemid .= ",".eol()."\t".$this->_object($this->easing);
-		if( ! empty($this->callback)) $animatemid .= $this->callback;
-		$animate .= trim($animatemid, ',');
+		if( ! empty($this->attr ))     $animateMid .= eol()."\t".$this->attr;
+		if( ! empty($this->speed) )    $animateMid .= $this->speed;
+		if( ! empty($this->easing) )   $animateMid .= ",".eol()."\t".$this->_object($this->easing);
+		if( ! empty($this->callback) ) $animateMid .= $this->callback;
+		$animate .= trim($animateMid, ',');
 		$animate .= eol()."\t)";
 		
-		$this->_default_variable();
+		$this->_defaultVariable();
 		
 		return $animate;
 	}
 	
 	public function create()
 	{
-		$combine_animation = func_get_args();
+		$combineAnimation = func_get_args();
 		
 		$animate  = eol()."\t$($this->selector)";
 		
 		$animate .= $this->complete();
 		
-		if( ! empty($combine_animation))foreach($combine_animation as $animation)
+		if( ! empty($combineAnimation) ) foreach($combineAnimation as $animation)
 		{			
 			$animate .= $animation;
 		}
@@ -225,7 +225,7 @@ class CAnimate extends CJqueryCommon
 		return $animate;
 	}
 	
-	protected function _default_variable()
+	protected function _defaultVariable()
 	{
 		if( ! empty($this->easing)) 	$this->easing = array();
 		if( ! empty($this->callback))  	$this->callback = '';
