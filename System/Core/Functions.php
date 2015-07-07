@@ -576,7 +576,7 @@ function getLang()
 	
 	if( ! isset($_SESSION[md5("lang")]) ) 
 	{
-		return $_SESSION[md5("lang")] = "tr";
+		return $_SESSION[md5("lang")] = Config::get('Language', 'default');
 	}
 	else
 	{ 
@@ -589,11 +589,16 @@ function getLang()
 // Parametreler: $l = değiştirilecek dilin kısaltması. Varsayılan tr değeridir.
 // Dönen Değerler: Herhangi bir değer döndürmez set edilen değeri öğrenmek için gel_lang() yöntemi kullanılır.
 
-function setLang($l = "tr")
+function setLang($l = '')
 {
 	if( ! is_string($l) )
 	{
 		return false;
+	}
+	
+	if( empty($l) )
+	{
+		$l = Config::get('Language', 'default');	
 	}
 	
 	if( ! isset($_SESSION) ) 
@@ -622,7 +627,6 @@ function lang($file = '', $str = '', $changed = '')
 	{
 		return false;
 	}
-	
 	
 	$key 		= removeExtension($file, 'php');
 	$file 		= Config::get('Language', getLang()).'/'.suffix($file, '.php');
