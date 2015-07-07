@@ -195,3 +195,5 @@ $config['ClassMap']['path'] = array
 	'CXML' => 'System/Components/XML/CXML.php',
 	'XML\CXML' => 'System/Components/XML/CXML.php'
 );
+
+$config['ClassMap']['count'] = 193;
