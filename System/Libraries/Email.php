@@ -1532,7 +1532,7 @@ class Email
 		$body = preg_replace('| +|', ' ', $body);
 		
 		return ( $this->wordWrap )
-			   ? $this->wordWrap($body, 76)
+			   ? $this->wordWrap($body, 80)
 			   : $body;
 	}
 	
@@ -1687,7 +1687,7 @@ class Email
 					array
 					(
 						'scheme' => 'Q',
-						'line-length' => 76,
+						'line-length' => 80,
 						'input-charset' => $this->charset,
 						'output-charset' => $this->charset,
 						'line-break-chars' => $this->eol
@@ -1965,7 +1965,7 @@ class Email
 			case 'hello' :
 						if( $this->smtpAuth || $this->_getEncode() === '8bit' )
 						{
-							$this->_sendData('EHLO '.$this->_getHostName() );
+							$this->_sendData('HELO '.$this->_getHostName() );
 						}
 						else
 						{

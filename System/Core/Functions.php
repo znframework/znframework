@@ -1538,6 +1538,24 @@ function getErrorMessage($langFile, $errorMsg, $ex = '')
 		color:#333;
 	';
 	
+	$exStyle = 'color:#900;';
+	
+	if( ! is_array($ex) )
+	{
+		$ex = '<span style="'.$exStyle .'">'.$ex.'</span>';
+	}
+	else
+	{
+		$newArray = array();
+		
+		if( ! empty($ex) ) foreach( $ex as $k => $v )
+		{
+			$newArray[$k] = '<span style="'.$exStyle .'">'.$v.'</span>';
+		}
+		
+		$ex = $newArray;
+	}
+	
 	$str  = "<div style=\"$style\">";
 	$str .= lang($langFile, $errorMsg, $ex);
 	$str .= '</div>';
