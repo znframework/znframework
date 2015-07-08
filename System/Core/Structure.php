@@ -125,7 +125,7 @@ class Structure
 		
 		if( Config::get('Cache','obGzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 
 		{
-			ob_start('obGzhandler');
+			ob_start('ob_gzhandler');
 		}
 		else
 		{
