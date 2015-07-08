@@ -50,7 +50,7 @@ class Structure
 		 * Page/Function bilgisini
 		 * tutaması için oluşturulmuştur.
 		 */
-		$function 		= ''; 	
+		$function 		= 'index'; 	
 		
 		/* Parameters Dizi Değişkeni
 		 *
@@ -88,7 +88,7 @@ class Structure
 		// -------------------------------------------------------------------------------
 		//  Temel URL adresi / karakteri ile bölümlere ayrılıyor.
 		// -------------------------------------------------------------------------------
-		$segments 	= explode('/', $url[0]);
+		$segments 		= explode('/', $url[0]);
 		
 		// -------------------------------------------------------------------------------
 		//  Controller/Sayfa: Controller/ dizini içinde çalıştırılacak dosya adı.
@@ -158,36 +158,6 @@ class Structure
 			//  Sayfa dahil ediliyor.
 			// -------------------------------------------------------------------------------
 			require_once $isFile;
-				
-			// -------------------------------------------------------------------------------
-			//  URL fonksiyon bilgisi içermiyorsa varsayılan olarak index ayarlansın.
-			// -------------------------------------------------------------------------------
-			if( empty($function) ) 
-			{
-				$function = 'index';	
-			}
-			
-			// -------------------------------------------------------------------------------
-			//  Sayfa bilgisi boş ise ya da geçersiz URL bilgisi girilmişse bildir.
-			// -------------------------------------------------------------------------------
-			if( empty($page) ) 
-			{
-				if( ! Config::get('Route', 'show404') )
-				{
-					// Sayfa bilgisine erişilemezse hata bildir.
-					echo getErrorMessage('Error', 'callUserFuncClassError');
-					
-					// Hatayı rapor et.
-					report('Error', getMessage('Error', 'callUserFuncClassError'), 'SystemCallUserFuncClassError');
-					
-					// Çalışmayı durdur.
-					return false;
-				}
-				else
-				{
-					redirect(Config::get('Route', 'show404'));
-				}
-			}
 				
 			// -------------------------------------------------------------------------------
 			// Sayfaya ait controller nesnesi oluşturuluyor.
