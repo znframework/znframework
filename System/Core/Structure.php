@@ -38,26 +38,19 @@ class Structure
 	
 	public static function run()
 	{
-		/* Url Join Değişkeni
+		/* Page Değişkeni
 		 *
-		 * Url parlarını birleştirmek
-		 * için oluşturulmuştur.
+		 * Controller/page.php bilgisini
+		 * tutması çin oluşturulmuştur.
 		 */
-		$urlJoin 		= ''; 	
+		$page 			= ''; 
 		
-		/* Url Parameters Değişkeni
+		/* Function Değişkeni
 		 *
-		 * Url adresinin parametre bölümlerini
-		 * tutması için oluşturulmuştur.
+		 * Page/Function bilgisini
+		 * tutaması için oluşturulmuştur.
 		 */
-		$urlParameters  = '';	
-		
-		/* Is Fıle Değişkeni
-		 *
-		 * Girilen Url adresinin geçerli bir.
-		 * sayfa olma durumun kontrol etmesi için oluşturulmuştur.
-		 */  
-		$isFile 		= ''; 
+		$function 		= ''; 	
 		
 		/* Parameters Dizi Değişkeni
 		 *
@@ -66,13 +59,26 @@ class Structure
 		 */  	
 		$parameters 	= array();
 		
+		/* Segments Değişkeni
+		 *
+		 * Url adresinin parametre bölümlerini
+		 * tutması için oluşturulmuştur.
+		 */
+		$segments  		= '';	
+		
+		/* Is Fıle Değişkeni
+		 *
+		 * Girilen Url adresinin geçerli bir.
+		 * sayfa olma durumun kontrol etmesi için oluşturulmuştur.
+		 */  
+		$isFile 		= ''; 
+		
 		/* Request Uri Değişkeni
 		 *
 		 * Ziyaretçi URL adresini
 		 * tutması için oluşturulmuştur.
 		 */
 		$requestUri 	= requestUri();
-		
 		
 		// -------------------------------------------------------------------------------
 		//  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
@@ -82,56 +88,37 @@ class Structure
 		// -------------------------------------------------------------------------------
 		//  Temel URL adresi / karakteri ile bölümlere ayrılıyor.
 		// -------------------------------------------------------------------------------
-		$urlExplode 	= explode('/', $url[0]);
+		$segments 	= explode('/', $url[0]);
 		
 		// -------------------------------------------------------------------------------
-		//  Bölümlere ayrılan URL yeniden yapılandırılıyor.
+		//  Controller/Sayfa: Controller/ dizini içinde çalıştırılacak dosya adı.
 		// -------------------------------------------------------------------------------
-		for($i=0; $i < count($urlExplode); $i++)
+		if( isset($segments[0]) )
 		{
-			$urlJoin .= $urlExplode[$i];
+			$page   = $segments[0];
+			$isFile = CONTROLLERS_DIR.suffix($page, '.php');
 			
-			// URL için geçerli bir sayfa bilgisi elde edilirse...
-			if( is_file( CONTROLLERS_DIR.suffix($urlJoin, '.php') ) )
-			{
-				// -------------------------------------------------------------------------------
-				//  1. Bölüm:Dosya ve Sınıf ismini oluşturur.
-				// -------------------------------------------------------------------------------
-				if( isset($urlExplode[$i]) )
-				{
-					$page = $urlExplode[$i];
-				}
-				
-				// -------------------------------------------------------------------------------
-				//  2. Bölüm:Fonksiyon veya Yöntem ismini oluşturur.
-				// -------------------------------------------------------------------------------
-				if( isset($urlExplode[$i + 1]) )	
-				{
-					$function = $urlExplode[$i + 1];
-				}
-				
-				// -------------------------------------------------------------------------------
-				//  3. Bölüm ve Sonraki Bölümler:Parametreleri oluşturur.
-				// -------------------------------------------------------------------------------
-				$urlParameters = $i + 2;
-				$lastJoin 		= $urlJoin;		
-				$isFile 		= CONTROLLERS_DIR.suffix($lastJoin, '.php');
-			}
-			else
-			{
-				$urlJoin .= '/';	
-			}
-		
-			// -------------------------------------------------------------------------------
-			//  Parametreleri birleştir.
-			// -------------------------------------------------------------------------------
-			if( isset($urlExplode[$urlParameters]) )
-			{
-				 array_push( $parameters, $urlExplode[$urlParameters] ); 		 
-				 $urlParameters++;
-			}
+			unset($segments[0]);
 		}
 		
+		// -------------------------------------------------------------------------------
+		//  Fonksiyon: Çalıştırılacak dosyaya ait yöntem adı.
+		// -------------------------------------------------------------------------------
+		if( isset($segments[1]) )
+		{
+			$function = $segments[1];
+			
+			unset($segments[1]);
+		}
+		
+		// -------------------------------------------------------------------------------
+		//  Parametreler: Çalıştırılacak yönteme gönderilecek parametreler.
+		// -------------------------------------------------------------------------------
+		if( isset($segments[2]) )
+		{
+			$parameters = $segments;
+		}
+	
 		// ----------------------------------------------------------------------
 		
 		// TAMPONLAMA BAŞLATILIYOR...
@@ -157,7 +144,7 @@ class Structure
 		// -------------------------------------------------------------------------------
 		//  Sayfa bilgisine erişilmişse sayfa dahil edilir.
 		// -------------------------------------------------------------------------------
-		if( ! empty($isFile) )
+		if( file_exists($isFile) )
 		{
 			// -------------------------------------------------------------------------------
 			//  Tadilat modu açıksa bu ayarlar geçerli olacaktır.
@@ -175,9 +162,9 @@ class Structure
 			// -------------------------------------------------------------------------------
 			//  URL fonksiyon bilgisi içermiyorsa varsayılan olarak index ayarlansın.
 			// -------------------------------------------------------------------------------
-			if( ! isset($function) ) 
+			if( empty($function) ) 
 			{
-				$function = 'index';		
+				$function = 'index';	
 			}
 			
 			// -------------------------------------------------------------------------------
