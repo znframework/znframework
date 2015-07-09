@@ -2,21 +2,21 @@
 	"repositories": 
 	[
         {
-	    	"description": "The ZN Framework.",
-            	"type": "package",
-	    	"license": "MIT",
-            	"package": 
-		{
-                	"name": "znframework/znframework",
-                	"version": "2.0.0",
-                	"dist": 
+			"description": "The ZN Framework.",
+            "type": "package",
+			"license": "MIT",
+            "package": 
 			{
-                    		"url": "https://github.com/znframework/znframework.git",
-                    		"type": "git"
-                	}
-            	}
+                "name": "znframework/znframework",
+                "version": "2.0.0",
+                "dist": 
+				{
+                    "url": "https://github.com/znframework/znframework.git",
+                    "type": "git"
+                }
+            }
         }
-    	],
+    ],
 	
 	"require" : 
 	{
