@@ -31,7 +31,7 @@ class Email
 	 * Hangi yöntemle gönder işlemi yapılacağı bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 * 'mail', 'smtp' veya 'sendmail'
+	 * 'mail' veya 'smtp'
 	 */
 	protected $protocolType     = 'mail'; 
 	
@@ -395,7 +395,7 @@ class Email
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $protocolTypes	= array('mail', 'sendmail', 'smtp');
+	protected $protocolTypes	= array('mail', 'smtp');
 	
 	/* Charset Types Değişkeni
 	 *  
@@ -1124,7 +1124,7 @@ class Email
 	
 	public function protocolType($type = 'mail')
 	{
-		$this->protocolType = in_array($type, $this->protocolTypes, TRUE) ? strtolower($type) : 'mail';
+		$this->protocolType = in_array($type, $this->protocolTypes, true) ? strtolower($type) : 'mail';
 		
 		return $this;
 	}
@@ -1354,6 +1354,7 @@ class Email
 			{
 				$this->bccReceivers = $bcc;
 			}
+			
 			if ($this->_buildContent() === FALSE)
 			{
 				return FALSE;
@@ -1872,13 +1873,28 @@ class Email
 		{
 			$this->receivers = implode(', ', $this->receivers);
 		}
+		
 		if( $this->safeMode === true )
 		{
-			return mb_send_mail($this->receivers, $this->subject, $this->lastBody, $this->headerString);
+			if( function_exists('mail') )
+			{
+				return mail($this->receivers, $this->subject, $this->lastBody, $this->headerString);
+			}
+			else
+			{
+				return mb_send_mail($this->receivers, $this->subject, $this->lastBody, $this->headerString);
+			}
 		}
 		else
 		{
-			return mb_send_mail($this->receivers, $this->subject, $this->lastBody, $this->headerString, '-f '.$this->cleanEmail($this->headers['Return-Path']));
+			if( function_exists('mail') )
+			{
+				return mail($this->receivers, $this->subject, $this->lastBody, $this->headerString, '-f '.$this->cleanEmail($this->headers['Return-Path']));
+			}
+			else
+			{
+				return mb_send_mail($this->receivers, $this->subject, $this->lastBody, $this->headerString, '-f '.$this->cleanEmail($this->headers['Return-Path']));
+			}
 		}
 	}
 	
