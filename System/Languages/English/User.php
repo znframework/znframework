@@ -12,6 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 $lang['User']['registerSuccess'] = 'Your registration was completed successfully.';
 $lang['User']['registerError'] = 'You have already registered with the system for the transaction could not be performed!';
 $lang['User']['registerEmailError'] = 'Your process because the system could not be performed previously registered e-mail!';
+$lang['User']['registerUsernameError'] = "The data should include the user name and password!";
 $lang['User']['loginError'] = 'Login failed. The user name or password is incorrect!';
 $lang['User']['bannedError'] = 'You can not login because you have been banned from the system!';
 $lang['User']['loginSuccess'] = 'You have logged in successfully. Redirecting .. Please wait.';

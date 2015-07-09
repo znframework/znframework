@@ -22,7 +22,33 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Kullanımı: Zorunludur.																  |
 | Örnek: = $config['User']['tableName'] = 'kullanicilar';			  					  |						
 ******************************************************************************************/
-$config['User']['tableName'] 		= '';		
+$config['User']['tableName'] = '';	
+
+/******************************************************************************************
+* JOIN COLUMN                                                                             *
+*******************************************************************************************
+| Genel Kullanımı: Birleştirmenin yapılmak istendiği sütun bilgisi. Genellikle ID sütünu  |
+| kullanılır.																			  |
+| Veri: string.																			  |
+| Kullanımı: Zorunlu değildir.															  |
+| Sütun Veri Türü: mixed															      |
+| Örnek: = $config['User']['joinColumn'] = 'id';					     			      |						
+******************************************************************************************/
+$config['User']['joinColumn'] = '';
+
+/******************************************************************************************
+* JOIN TABLES                                                                             *
+*******************************************************************************************
+| Genel Kullanımı: Kullanıcılarla ilgili birden fazla tablo varsa bu tabloları 			  |
+| birleştirmek için kullanılır.															  |
+| Kullanımı: Zorunlu değildir.															  |
+| Örnek: array																			  |
+|		 ( 																				  |
+|			'tablo2' => 'birlestirilecekSutun2',									      |
+|			'tablo3' => 'birlestirilecekSutun3'									          |
+|		 )			  					  												  |						
+******************************************************************************************/
+$config['User']['joinTables'] = array();	
 
 /******************************************************************************************
 * USERNAME COLUMN                                                                         *
@@ -33,7 +59,7 @@ $config['User']['tableName'] 		= '';
 | Sütun Veri Türü: Varchar															      |
 | Örnek: = $config['User']['usernameColumn'] = 'kullanici_adi';			  			  |						
 ******************************************************************************************/
-$config['User']['usernameColumn'] 	= '';
+$config['User']['usernameColumn'] = '';
 
 /******************************************************************************************
 * PASSWORD COLUMN                                                                         *
@@ -45,7 +71,7 @@ $config['User']['usernameColumn'] 	= '';
 | Veri Uzunluğu: En az 32 karakter.														  |
 | Örnek: = $config['User']['usernameColumn'] = 'sifre';			  			          |						
 ******************************************************************************************/
-$config['User']['passwordColumn']  = '';
+$config['User']['passwordColumn'] = '';
 
 /******************************************************************************************
 * EMAIL COLUMN                                                                            *
@@ -57,7 +83,7 @@ $config['User']['passwordColumn']  = '';
 | Sütun Veri Türü: Varchar																  |
 | Örnek: = $config['User']['emailColumn'] = 'eposta';		  			          		  |						
 ******************************************************************************************/
-$config['User']['emailColumn']  = '';
+$config['User']['emailColumn'] = '';
 
 /******************************************************************************************
 * EMAIL COLUMN                                                                            *

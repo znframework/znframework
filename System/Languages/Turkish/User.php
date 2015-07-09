@@ -12,6 +12,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 $lang['User']['registerSuccess'] = 'Kaydınızı başarı ile tamamlandı.';
 $lang['User']['registerError'] = 'Sisteme daha önceden kayıt olduğunuz için işleminiz gerçekleştirilemedi!';
 $lang['User']['registerEmailError'] = 'Sisteme daha önceden kayıtlı e-posta olduğu için işleminiz gerçekleştirilemedi!';
+$lang['User']['registerUsernameError'] = "Veri, kullanıcı adı ve şifre bilgisini içermelidir!";
 $lang['User']['loginError'] = 'Giriş başarısız. Kullanıcı adı veya şifre yanlış!';
 $lang['User']['bannedError'] = 'Sistemden banlamış olduğunuz için giriş  yapamazsınız!';
 $lang['User']['loginSuccess'] = 'Başarı ile giriş yaptınız. Yönlendiriliyorsunuz.. Lütfen bekleyin.';

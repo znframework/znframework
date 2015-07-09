@@ -86,7 +86,9 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$userConfig		= Config::get("User");		
+		$userConfig			= Config::get("User");	
+		$joinTables  		= $userConfig['joinTables'];
+		$joinColumn  		= $userConfig['joinColumn'];	
 		$usernameColumn  	= $userConfig['usernameColumn'];
 		$passwordColumn  	= $userConfig['passwordColumn'];
 		$emailColumn  	    = $userConfig['emailColumn'];
@@ -97,8 +99,17 @@ class User
 		
 		// Kullanıcı adı veya şifre sütunu belirtilmemişse 
 		// İşlemleri sonlandır.
+		if( ! empty($joinTables) )
+		{
+			$joinData = $data;
+			$data 	  = isset($data[$tableName])
+				  	  ? $data[$tableName]
+			      	  : array($tableName);
+		}
+		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
+			self::$error = lang('User', 'registerUsernameError');	
 			return false;
 		}
 		
@@ -108,7 +119,7 @@ class User
 		
 		$db = uselib('DB');
 		
-		$usernameControl = $db->where($usernameColumn.' =',$loginUsername)
+		$usernameControl = $db->where($usernameColumn.' =', $loginUsername)
 							  ->get($tableName)
 							  ->totalRows();
 		
@@ -118,50 +129,175 @@ class User
 		{
 			$data[$passwordColumn] = $encodePassword;
 			
-			if( $db->insert($tableName , $data) )
-			{
-				self::$error = false;
-				self::$success = lang('User', 'registerSuccess');
-				
-				if( ! empty($activationColumn) )
-				{
-					if( ! isEmail($loginUsername) )
-					{
-						$email = $data[$emailColumn];
-					}
-					else
-					{ 
-						$email = '';
-					}
-					
-					self::_activation($loginUsername, $encodePassword, $activationReturnLink, $email);				
-				}
-				else
-				{
-					if( $autoLogin === true )
-					{
-						self::login($loginUsername, $loginPassword);
-					}
-					elseif( is_string($autoLogin) )
-					{
-						redirect($autoLogin);	
-					}
-				}
-				
-				return true;
-			}
-			else
+			if( ! $db->insert($tableName , $data) )
 			{
 				self::$error = lang('User', 'registerUnknownError');	
 				return false;
+			}	
+
+			if( ! empty($joinTables) )
+			{	
+				$joinCol = $db->where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
+				
+				foreach( $joinTables as $table => $joinColumn )
+				{
+					$joinData[$table][$joinTables[$table]] = $joinCol;
+					
+					$db->insert($table, $joinData[$table]);	
+				}	
 			}
+		
+			self::$error   = false;
+			self::$success = lang('User', 'registerSuccess');
+			
+			if( ! empty($activationColumn) )
+			{
+				if( ! isEmail($loginUsername) )
+				{
+					$email = $data[$emailColumn];
+				}
+				else
+				{ 
+					$email = '';
+				}
+				
+				self::_activation($loginUsername, $encodePassword, $activationReturnLink, $email);				
+			}
+			else
+			{
+				if( $autoLogin === true )
+				{
+					self::login($loginUsername, $loginPassword);
+				}
+				elseif( is_string($autoLogin) )
+				{
+					redirect($autoLogin);	
+				}
+			}
+			
+			return true;
 		}
 		else
 		{
 			self::$error = lang('User', 'registerError');
 			return false;
 		}
+	}
+	
+	/******************************************************************************************
+	* UPDATE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Kullanıcı bilgilerinin güncellenmesi için kullanılır.		        	  |
+	|															                              |
+	| Parametreler: 4 parametresi vardır.                                                     |
+	| 1. string var @old => Kullanıcının eski şifresi.                   					  |
+	| 2. string var @new => Kullanıcının yeni şifresi.                   					  |
+	| 3. [ string var @new_again ] => Kullanıcının eski şifresi tekrar. Zorunlu değildir.     |
+	| 4. array var @data => Kullanıcının güncellenecek bilgileri.                             |
+	|          																				  |
+	| Örnek Kullanım: update('eski1234', 'yeni1234', NULL, array('telefon' => 'xxxxx'));      |
+	|          																				  |
+	******************************************************************************************/	
+	public static function update($old = '', $new = '', $newAgain = '', $data = array())
+	{
+		// Bu işlem için kullanıcının
+		// oturum açmıl olması gerelidir.
+		if( self::isLogin() )
+		{
+			// Parametreler kontrol ediliyor.--------------------------------------------------
+			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
+			{
+				return false;
+			}
+				
+			if( empty($old) || empty($new) || empty($data) ) 
+			{
+				return false;
+			}
+	
+			if( ! is_string($newAgain) ) 
+			{
+				$newAgain = '';
+			}
+			// --------------------------------------------------------------------------------
 		
+			// Şifre tekrar parametresi boş ise
+			// Şifre tekrar parametresini doğru kabul et.
+			if( empty($newAgain) ) 
+			{
+				$newAgain = $new;
+			}
+					
+			$userConfig = Config::get("User");	
+			$joinTables = $userConfig['joinTables'];
+			$jc 		= $userConfig['joinColumn'];
+			$pc 		= $userConfig['passwordColumn'];
+			$uc 		= $userConfig['usernameColumn'];	
+			$tn 		= $userConfig['tableName'];
+			
+			$oldPassword = Encode::super($old);
+			$newPassword = Encode::super($new);
+			$newPasswordAgain = Encode::super($newAgain);
+			
+			if( ! empty($joinTables) )
+			{
+				$joinData = $data;
+				$data     = isset($data[$tn])
+					      ? $data[$tn]
+					      : array($tn);	
+			}
+		
+			$username = self::data($tn)->$uc;
+			$password = self::data($tn)->$pc;
+		
+			$row 	  = "";
+		
+			if( $oldPassword != $password )
+			{
+				self::$error = lang('User', 'oldPasswordError');
+				return false;	
+			}
+			elseif( $newPassword != $newPasswordAgain )
+			{
+				self::$error = lang('User', 'passwordNotMatchError');
+				return false;
+			}
+			else
+			{
+				$data[$pc] = $newPassword;
+				$data[$uc] = $username;
+				
+				$db = uselib('DB');
+				
+				if( ! empty($joinTables) )
+				{
+					$joinCol = $db->where($uc.' =', $username)->get($tn)->row()->$jc;
+					
+					foreach( $joinTables as $table => $joinColumn )
+					{
+						if( isset($joinData[$table]) )
+						{
+							$db->where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);	
+						}
+					}	
+				}
+				else
+				{
+					if( ! $db->where($uc.' =', $username)->update($tn, $data) )
+					{
+						self::$error = lang('User', 'registerUnknownError');	
+						return false;
+					}	
+				}
+				
+				self::$success = lang('User', 'updateProcessSuccess');	
+				return false;	
+			}
+		}
+		else 
+		{
+			return false;		
+		}
 	}
 	
 	/******************************************************************************************
@@ -411,10 +547,22 @@ class User
 		
 		$db = uselib('DB');
 		
-		$r = $db->where($usernameColumn.' =',$username)
+		$r = $db->where($usernameColumn.' =', $username)
 			    ->get($tableName)
 				->row();
-			
+		
+		if( empty($r) )
+		{
+			self::$error = lang('User', 'loginError');	
+			return false;
+		}
+		
+		if( ! isset($r->$passwordColumn) )
+		{
+			self::$error = lang('User', 'loginError');	
+			return false;
+		}
+				
 		$passwordControl   = $r->$passwordColumn;
 		$bannedControl     = '';
 		$activationControl = '';
@@ -587,103 +735,6 @@ class User
 	}
 	
 	/******************************************************************************************
-	* UPDATE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Kullanıcı bilgilerinin güncellenmesi için kullanılır.		        	  |
-	|															                              |
-	| Parametreler: 4 parametresi vardır.                                                     |
-	| 1. string var @old => Kullanıcının eski şifresi.                   					  |
-	| 2. string var @new => Kullanıcının yeni şifresi.                   					  |
-	| 3. [ string var @new_again ] => Kullanıcının eski şifresi tekrar. Zorunlu değildir.     |
-	| 4. array var @data => Kullanıcının güncellenecek bilgileri.                             |
-	|          																				  |
-	| Örnek Kullanım: update('eski1234', 'yeni1234', NULL, array('telefon' => 'xxxxx'));      |
-	|          																				  |
-	******************************************************************************************/	
-	public static function update($old = '', $new = '', $newAgain = '', $data = array())
-	{
-		// Bu işlem için kullanıcının
-		// oturum açmıl olması gerelidir.
-		if( self::isLogin() )
-		{
-			// Parametreler kontrol ediliyor.--------------------------------------------------
-			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
-			{
-				return false;
-			}
-				
-			if( empty($old) || empty($new) || empty($data) ) 
-			{
-				return false;
-			}
-	
-			if( ! is_string($newAgain) ) 
-			{
-				$newAgain = '';
-			}
-			// --------------------------------------------------------------------------------
-			
-				
-			// Şifre tekrar parametresi boş ise
-			// Şifre tekrar parametresini doğru kabul et.
-			if( empty($newAgain) ) 
-			{
-				$newAgain = $new;
-			}
-	
-			$userConfig = Config::get("User");	
-			$pc = $userConfig['passwordColumn'];
-			$uc = $userConfig['usernameColumn'];	
-			$tn = $userConfig['tableName'];
-			
-			$oldPassword = Encode::super($old);
-			$newPassword = Encode::super($new);
-			$newPasswordAgain = Encode::super($newAgain);
-			
-			$username 	  = user::data()->$uc;
-			$password 	  = user::data()->$pc;
-			$row = "";
-					
-			if( $oldPassword != $password )
-			{
-				self::$error = lang('User', 'oldPasswordError');
-				return false;	
-			}
-			elseif( $newPassword != $newPasswordAgain )
-			{
-				self::$error = lang('User', 'passwordNotMatchError');
-				return false;
-			}
-			else
-			{
-				$data[$pc] = $newPassword;
-				$data[$uc] = $username;
-				
-				$db = uselib('DB');
-				
-				$db->where($uc.' =', $username);
-				
-				if( $db->update($tn, $data) )
-				{
-					self::$error = false;
-					self::$success = lang('User', 'updateProcessSuccess');
-					return true;
-				}
-				else
-				{
-					self::$error = lang('User', 'registerUnknownError');	
-					return false;
-				}		
-			}
-			
-		}
-		else 
-		{
-			return false;		
-		}
-	}
-	
-	/******************************************************************************************
 	* IS LOGIN                                                                                *
 	*******************************************************************************************
 	| Genel Kullanım: Kullanıcının oturum açıp açmadığını kontrol etmek için kullanılır.	  |
@@ -695,23 +746,28 @@ class User
 	******************************************************************************************/	
 	public static function isLogin()
 	{
-		$cUsername = Cookie::select(md5(Config::get("User",'usernameColumn')));
-		$cPassword = Cookie::select(md5(Config::get("User",'passwordColumn')));
+		$config    = Config::get('User');
+		$username  = $config['usernameColumn'];
+		$tableName = $config['tableName'];
+		$password  = $config['passwordColumn']; 
+		
+		$cUsername = Cookie::select(md5($username));
+		$cPassword = Cookie::select(md5($password));
 		
 		$result = '';
 		
 		if( ! empty($cUsername) && ! empty($cPassword) )
 		{
 			$db = uselib('DB');
-			$result = $db->where(Config::get("User",'usernameColumn').' =', $cUsername, 'and')
-						 ->where(Config::get("User",'passwordColumn').' =', $cPassword)
-						 ->get(Config::get("User",'tableName'))
+			
+			$result = $db->where($username.' =', $cUsername, 'and')
+						 ->where($password.' =', $cPassword)
+						 ->get($tableName)
 						 ->totalRows();
 		}
 		
-		$username = Config::get("User",'usernameColumn');
 		
-		if( isset(self::data()->$username) )
+		if( isset(self::data($tableName)->$username) )
 		{
 			$isLogin = true;
 		}
@@ -722,7 +778,8 @@ class User
 				session_start();
 			}
 			
-			$_SESSION[md5(Config::get("User",'usernameColumn'))] = $cUsername;
+			$_SESSION[md5($username)] = $cUsername;
+			
 			$isLogin = true;	
 		}
 		else
@@ -746,27 +803,66 @@ class User
 	| $data->sutun_adi          															  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function data()
+	public static function data($tbl = '')
 	{
 		if( ! isset($_SESSION) ) 
 		{
 			session_start();
 		}
-
-		if( isset($_SESSION[md5(Config::get("User",'usernameColumn'))]) )
+		
+		$config 		= Config::get('User');
+		$usernameColumn = $config['usernameColumn'];
+		
+		if( isset($_SESSION[md5($usernameColumn)]) )
 		{
-			$data = array();
-			self::$username = $_SESSION[md5(Config::get("User",'usernameColumn'))];
+			$joinTables		= $config['joinTables'];
+			$usernameColumn = $config['usernameColumn'];
+			$joinColumn 	= $config['joinColumn'];
+			$tableName 		= $config['tableName'];
+			
+			self::$username = $_SESSION[md5($usernameColumn)];
 			
 			$db = uselib('DB');
-			
-			$r = $db->where(Config::get("User",'usernameColumn').' =',self::$username)
-				    ->get(Config::get("User",'tableName'))
+		
+			$r[$tbl] = $db->where($usernameColumn.' =',self::$username)
+					->get($tableName)
 					->row();
+	
+			if( ! empty($joinTables) )
+			{
+				$joinCol = $db->where($usernameColumn.' =',self::$username)
+							  ->get($tableName)
+							  ->row()
+							  ->$joinColumn;
 			
-			return (object)$r;
+				foreach( $joinTables as $table => $joinColumn )	
+				{
+					$r[$table] = $db->where($joinColumn.' =', $joinCol)
+									->get($table)
+									->row();
+				}
+			}
+			
+			if( empty($joinTables) )
+			{
+				return (object)$r[$tbl];
+			}
+			else
+			{
+				if( ! empty($tbl) )
+				{
+					return (object)$r[$tbl];
+				}
+				else
+				{
+					return (object)$r;
+				}
+			}
 		}
-		else return false;
+		else 
+		{
+			return false;
+		}
 	}
 	
 	/******************************************************************************************
@@ -793,29 +889,31 @@ class User
 			$time = 0;
 		}
 
-		$username = Config::get("User",'usernameColumn');
+		$config    = Config::get('User');
+		$username  = $config['usernameColumn'];
+		$tableName = $config['tableName'];
 		
-		if( isset(self::data()->$username) )
+		if( isset(self::data($tableName)->$username) )
 		{
 			if( ! isset($_SESSION) ) 
 			{
 				session_start();
 			}
 			
-			if( Config::get("User",'activeColumn') )
+			if( $config['activeColumn'] )
 			{	
 				$db = uselib('DB');
 				
-				$db->where(Config::get("User",'usernameColumn').' =', self::data()->$username)
-				   ->update(Config::get("User",'tableName'), array(Config::get("User",'activeColumn') => 0));
+				$db->where($config['usernameColumn'].' =', self::data($tableName)->$username)
+				   ->update($config['tableName'], array($config['activeColumn'] => 0));
 			}
 			
-			Cookie::delete(md5(Config::get("User",'usernameColumn')));
-			Cookie::delete(md5(Config::get("User",'passwordColumn')));	
+			Cookie::delete(md5($config['usernameColumn']));
+			Cookie::delete(md5($config['passwordColumn']));	
 			
-			if( isset($_SESSION[md5(Config::get("User",'usernameColumn'))]) ) 
+			if( isset($_SESSION[md5($config['usernameColumn'])]) ) 
 			{
-				unset($_SESSION[md5(Config::get("User",'usernameColumn'))]);
+				unset($_SESSION[md5($config['usernameColumn'])]);
 			}
 			
 			redirect($redirectUrl, $time);
