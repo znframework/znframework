@@ -39,7 +39,7 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
+	public static function page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false , $randomPageDir = PAGES_DIR)
 	{
 		if( ! is_string($randomPageVariable) )
 		{
@@ -51,23 +51,31 @@ class Import
 			extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
 		}
 		
+		if( ! extension($randomPageVariable) )
+		{
+			$randomPageVariable = suffix($randomPageVariable,".php");
+		}
+		
+		$randomPagePath = $randomPageDir.$randomPageVariable;
+		
 		if( $randomObGetContentsVariable === false )
 		{
-			if( ! isFileExists(PAGES_DIR.suffix($randomPageVariable,".php")) ) 
+			if( ! isFileExists($randomPagePath) ) 
 			{
 				return false;
 			}
-			require(PAGES_DIR.suffix($randomPageVariable,".php")); 
+			
+			require($randomPagePath); 
 		}
 		elseif( $randomObGetContentsVariable === true )
 		{
-			if( ! isFileExists(PAGES_DIR.suffix($randomPageVariable,".php")) ) 
+			if( ! isFileExists($randomPagePath) ) 
 			{
 				return false;
 			}
 			
 			ob_start(); 
-			require(PAGES_DIR.suffix($randomPageVariable,".php")); 
+			require($randomPagePath); 
 			$randomContentVariable = ob_get_contents(); 
 			ob_end_clean(); 
 			
@@ -133,6 +141,24 @@ class Import
 	public static function parserpage($page = '', $data = '', $obGetContents = false)
 	{
 		return uselib('CParser')->view($page, $data, $obGetContents);
+	}
+	
+	/******************************************************************************************
+	* VIEW                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public static function template($page = '', $data = '', $obGetContents = false)
+	{
+		return self::page($page, $data, $obGetContents, TEMPLATES_DIR);
 	}
 	
 	/******************************************************************************************

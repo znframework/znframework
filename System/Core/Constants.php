@@ -88,7 +88,7 @@ define('STYLES_DIR', VIEWS_DIR.'Styles/');
 /******************************************************************************************
 * TRINKETS_DIR: Application/Views/Trinkets/    	                                      	  * 
 ******************************************************************************************/	
-define('TRINKETS_DIR', VIEWS_DIR.'Trinkets/');				
+define('TRINKETS_DIR', VIEWS_DIR.'Trinkets/');		
 
 /******************************************************************************************
 * FONTS_DIR: Application/Views/Fonts/    	                                      	  	  * 
@@ -99,6 +99,11 @@ define('FONTS_DIR', VIEWS_DIR.'Fonts/');
 * FILES_DIR: Application/Views/Trinkets/Files/    	                                      * 
 ******************************************************************************************/	
 define('FILES_DIR', TRINKETS_DIR.'Files/');					
+
+/******************************************************************************************
+* TEMPLATES_DIR: Application/Views/Trinkets/Templates/    	                              * 
+******************************************************************************************/	
+define('TEMPLATES_DIR', TRINKETS_DIR.'Templates/');		
 
 /******************************************************************************************
 * UPLOADS_DIR: Application/Views/Trinkets/Uploads/    	                                  * 
