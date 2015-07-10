@@ -1528,7 +1528,7 @@ function getMessage($langFile, $errorMsg, $ex = '')
 // Function: getErrorMessage()
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-function getErrorMessage($langFile, $errorMsg, $ex = '')
+function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 {
 	$style = '
 		border:solid 1px #E1E4E5;

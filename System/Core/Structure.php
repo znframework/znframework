@@ -211,6 +211,13 @@ class Structure
 			}		
 		}
 		
+		// Local modda hataları özel bir 
+		// çerçeve ile gösterilmesini sağlar.
+		if( APP_TYPE === 'local' )
+		{
+			echo ZNException::getLastError();	
+		}
+		
 		// ----------------------------------------------------------------------
 		
 		// TAMPONLAMA KAPATILIYOR...

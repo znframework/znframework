@@ -27,7 +27,7 @@
  * 
  * Sistem çalıştırılıyor...
  */
-System::run('development');
+System::run('local'); // local, development veya publication.
 
 /* SYSTEM SINIFI *
  *
@@ -57,14 +57,27 @@ class System
 		{ 
 			//------------------------------------------------------------------
 			// Publication Yayın Modu
+			// Tüm hatalar kapalıdır.
+			// Projenin tamamlanmasından sonra bu modun kullanılması önerilir.
 			//------------------------------------------------------------------
 			case 'publication' :
 				error_reporting(0); 
 			break;
 			//------------------------------------------------------------------
+			
+			//------------------------------------------------------------------
+			// Local Yerel Mod
+			// Standart PHP hata çıktısı kapatılır. Bunun yerine
+			// hatalar özel bir çıktı ile gösterilir.
+			//------------------------------------------------------------------
+			case 'local' :
+				error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE ^ E_DEPRECATED); 
+			break;
+			//------------------------------------------------------------------
 		
 			//------------------------------------------------------------------
 			// Development Geliştirme Modu
+			// Tüm hatalar açıktır.
 			//------------------------------------------------------------------
 			case 'development' : 
 				error_reporting(-1);
@@ -74,7 +87,7 @@ class System
 			//------------------------------------------------------------------
 			// Farklı bir kullanım hatası
 			//------------------------------------------------------------------
-			default: echo 'Invalid Application Environment! Available Options: development or publication'; exit;
+			default: echo 'Invalid Application Environment! Available Options: local, development or publication'; exit;
 			//------------------------------------------------------------------
 		}	
 		//------------------------------------------------------------------
@@ -125,51 +138,64 @@ class System
 			//------------------------------------------------------------------
 			//  System Elapsed Time Calculating
 			//------------------------------------------------------------------
-			$elapsed_time     = round($finish - $start, 4);
+			$elapsedTime     = $finish - $start;
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Sistemin Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
-			$memory_usage 	  = memory_get_usage();
+			$memoryUsage 	  = memory_get_usage();
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Sistemin Maksimum Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
-			$max_memory_usage = memory_get_peak_usage();
+			$maxMemoryUsage = memory_get_peak_usage();
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Benchmark Performans Sonuç Tablosu
 			//------------------------------------------------------------------
-			$bench_result     = "
-			<pre>
-			/******************************************************************\
-			|                                                                  | 
-			|                <b>BENCHMARK PERFORMANCE TEST RESULT</b>                 |
-			|                                                                  |
-			|------------------------------------------------------------------|
-			|                                                                  |
-			|  System Elapsed Time     : <b>$elapsed_time</b> Second                  	   |                               
-			|  System Memory Usage     : <b>$memory_usage</b> Bytes                   	   |                                
-			|  System Max Memory Usage : <b>$max_memory_usage</b> Bytes              	           |	 	                 
-			|                                                                  |
-			\******************************************************************/
-			</pre>
+			$style = '
+				top:50%;
+				left:50%;
+				margin-left:-250px;
+				margin-top:-70px;
+				border:solid 1px #E1E4E5;
+				background:#F3F6F6;
+				padding:20px 20px 20px 20px;
+				font-family:monospace, Tahoma, Arial;
+				color:#333;
+				width:500px;
+				text-align:center;
+				position:absolute;
+			';
+			
+			$exStyle = 'color:#900;';
+		
+			$benchResult     = "
+			<div style='$style'>
+			<div style='$exStyle'>".lang('Benchmark', 'resultTable')."</div>
+			<p></p>
+			<div>
+			".lang('Benchmark', 'elapsedTime', "<b>$elapsedTime</b>")."<br>                       
+			".lang('Benchmark', 'memoryUsage', "<b>$memoryUsage</b>")."<br>                     
+			".lang('Benchmark', 'maxMemoryUsage', "<b>$maxMemoryUsage</b>")."<br>       
+			<div>
+			</div>
 			";
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Benchmark Performans Sonuç Tablosu Yazdırılıyor
 			//------------------------------------------------------------------
-			echo $bench_result;
+			echo $benchResult;
 			//------------------------------------------------------------------
 					
 			//------------------------------------------------------------------
 			//  Sistem benchmark performans test sonuçlarını raporla.
 			//------------------------------------------------------------------
-			report('BenchmarkTestResults', $bench_result, 'BenchmarkTestResults');
+			report('BenchmarkTestResults', $benchResult, 'BenchmarkTestResults');
 			//------------------------------------------------------------------
 		}
 	}

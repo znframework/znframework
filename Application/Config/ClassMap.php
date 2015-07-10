@@ -124,6 +124,7 @@ $config['ClassMap']['path'] = array
 	'User' => 'System/Libraries/User.php',
 	'Validation' => 'System/Libraries/Validation.php',
 	'XML' => 'System/Libraries/XML.php',
+	'ZNException' => 'System/Libraries/ZNException.php',
 	'CAnimation' => 'System/Components/CSS/CAnimation.php',
 	'CSS\CAnimation' => 'System/Components/CSS/CAnimation.php',
 	'CCSS' => 'System/Components/CSS/CCSS.php',
@@ -196,4 +197,4 @@ $config['ClassMap']['path'] = array
 	'XML\CXML' => 'System/Components/XML/CXML.php'
 );
 
-$config['ClassMap']['count'] = 193;
+$config['ClassMap']['count'] = 194;
