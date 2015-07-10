@@ -169,7 +169,17 @@ class Structure
 			// -------------------------------------------------------------------------------	
 			if( is_callable(array($var, $function)) )
 			{
+				if( APP_TYPE === 'local' )
+				{
+					set_error_handler('ZNException::getLastError');	
+				}
+				
 				call_user_func_array( array($var, $function), $parameters);
+				
+				if( APP_TYPE === 'local' )
+				{
+					restore_error_handler();
+				}
 			}
 			else
 			{
@@ -209,13 +219,6 @@ class Structure
 				// Çalışmayı durdur.
 				return false;
 			}		
-		}
-		
-		// Local modda hataları özel bir 
-		// çerçeve ile gösterilmesini sağlar.
-		if( APP_TYPE === 'local' )
-		{
-			echo ZNException::getLastError();	
 		}
 		
 		// ----------------------------------------------------------------------

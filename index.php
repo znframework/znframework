@@ -71,10 +71,6 @@ class System
 			// hatalar özel bir çıktı ile gösterilir.
 			//------------------------------------------------------------------
 			case 'local' :
-				error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE ^ E_DEPRECATED); 
-			break;
-			//------------------------------------------------------------------
-		
 			//------------------------------------------------------------------
 			// Development Geliştirme Modu
 			// Tüm hatalar açıktır.

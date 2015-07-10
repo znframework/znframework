@@ -1558,7 +1558,7 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	
 	$str  = "<div style=\"$style\">";
 	$str .= lang($langFile, $errorMsg, $ex);
-	$str .= '</div>';
+	$str .= '</div><br>';
 	
 	return $str;
 }

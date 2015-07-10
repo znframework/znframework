@@ -52,7 +52,7 @@ class ZNException extends Exception
 		$str .= lang('Error', 'message', $msg)."<br>";
 		$str .= lang('Error', 'file', $file)."<br>";
 		$str .= lang('Error', 'line', $line);
-		$str .= '</div>';
+		$str .= '</div><br>';
 		
 		return $str;
 	}
@@ -63,16 +63,9 @@ class ZNException extends Exception
 	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getLastError()
+	public static function getLastError($no, $msg, $file, $line)
 	{
-		$errors = error_get_last();
-		
-		if( empty($errors) )
-		{
-			return false;	
-		}
-		
-		return self::_template($errors['message'], $errors['file'], $errors['line']);  
+		echo self::_template($msg, $file, $line);  
 	}
 	
 	/******************************************************************************************
