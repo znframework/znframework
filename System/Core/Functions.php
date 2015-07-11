@@ -741,7 +741,7 @@ function currentLang()
 
 function suffix($string = '', $fix = '/')
 {
-	if( ! is_string($string) ) 
+	if( ! is_string($string) || empty($string) || empty($fix)  ) 
 	{
 		return false;
 	}
@@ -750,31 +750,22 @@ function suffix($string = '', $fix = '/')
 	{
 		$fix = '/';
 	}
-	
-	$prefix = '';
-	
-	if( empty($string) )
+
+	if( strlen($fix) <= strlen($string) )
 	{
-		return false;
-	}
-	
-	if( strlen($fix) < strlen($string) )
-	{
-		for($i=0;$i<strlen($fix);$i++) $prefix .= $string[strlen($string) - strlen($fix) + $i]; 
+		$suffix = substr($string, -strlen($fix));
+		
+		if( $suffix !== $fix)
+		{
+			$string = $string.$fix;
+		}
 	}
 	else
 	{
-		return $string.$fix;	
+		$string = $string.$fix;	
 	}
 	
-	if($prefix === $fix) 
-	{
-		return $string; 
-	}
-	else 
-	{
-		return $string.$fix;
-	}
+	return $string;
 }
 
 // Function: prefix()
@@ -783,10 +774,9 @@ function suffix($string = '', $fix = '/')
 // Dönen Değerler: $string parametresi boş ise false değeri boş değil ise metinsel ifade
 // başına ön ek eklenmiş yeni değeri döner eğer metinsel ifadenin başındaki karakter ile
 // ön ek eklenecek karakter aynı ise yeniden herhangi bir ekleme işlemi gerçekleşmez.
-
-function prefix($string = '',$fix = '/')
+function prefix($string = '', $fix = '/')
 {
-	if( ! is_string($string) )
+	if( ! is_string($string) ||  empty($string) || empty($fix) )
 	{
 		return false;
 	}
@@ -796,29 +786,32 @@ function prefix($string = '',$fix = '/')
 		$fix = '/';
 	}
 	
-	$prefix = '';
+	if( strlen($fix) <= strlen($string) )
+	{	
+		$prefix = substr($string, 0, strlen($fix));
 	
-	if( empty($string) )
-	{
-		return false;
-	}
-	
-	if( strlen($fix) < strlen($string) )
-	{
-		for($i=0;$i<strlen($fix);$i++) $prefix .= $string[$i]; 
+		if( $prefix !== $fix )
+		{
+			$string = $fix.$string;
+		}
 	}
 	else
 	{
-		return $fix.$string;	
+		$string = $fix.$string;	
 	}
-	if($prefix === $fix)
-	{
-		return $string; 
-	}
-	else 
-	{
-		return $fix.$string;
-	}
+	
+	return $string;
+}
+
+/******************************************************************************************
+* PRESUFFIX -> V2.0.0 TEMMUZ V022 GÜNCELLEMESİ İLE EKLENMİŞTİR                            *
+*******************************************************************************************
+| Genel Kullanım: Metnin başına ve sonuna ek koymak için oluşturulmuştur.				  |
+|          																				  |
+******************************************************************************************/
+function presuffix($string = '', $fix = '/')
+{
+	return suffix(prefix($string, $fix), $fix);
 }
 
 // Function: currentUrl()

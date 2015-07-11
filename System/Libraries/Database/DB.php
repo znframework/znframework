@@ -352,7 +352,7 @@ class DB
 			return false;
 		}
 		
-		$value = prefix(suffix($this->db->realEscapeString($value), '\''), '\'');
+		$value = presuffix($this->db->realEscapeString($value), "'");
 		
 		$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
 		
@@ -382,7 +382,7 @@ class DB
 			return false;
 		}
 		
-		$value = prefix(suffix($this->db->realEscapeString($value), '\''), '\'');
+		$value = presuffix($this->db->realEscapeString($value), "'");
 
 		$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
 		
