@@ -390,9 +390,9 @@ class Convert
 
 		$variableMatch = array();
 		
-		foreach(array_unique($match[0]) as $v)
+		foreach( array_unique($match[0]) as $v )
 		{
-			$variableMatch[$v] = '<span style="color: '.$variableColor.'">'.$v;	
+			$variableMatch[$v] = '<span style="color: '.$variableColor.'">'.$v.'</span>';	
 		}
 		
 		$string = str_replace(array_keys($variableMatch), array_values($variableMatch), $string);
@@ -407,7 +407,7 @@ class Convert
 			'#0000BB' => $color,
 			
 			// PHP Tag Renkleri
-			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php</span>',
+			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php',
 			'<span style="color: '.$color.'">?&gt;'	  => '<span style="color: '.$tagColor.'">?&gt;',
 			
 			// Keywords

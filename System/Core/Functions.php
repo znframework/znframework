@@ -26,7 +26,7 @@ function isPhpVersion($version = '5.2.4')
 	
 	$version = (string)$version;
 	
-	if(version_compare(PHP_VERSION, $version, '>='))
+	if( version_compare(PHP_VERSION, $version, '>=') )
 	{
 		return true;
 	}
@@ -315,16 +315,7 @@ function isCharset($charset = '')
 		return false;
 	}
 	
-	$charsets    = mb_list_encodings();
-	$newCharsets = array();
-	$charset     = strtolower($charset);
-	
-	foreach($charsets as $ch)
-	{
-		$newCharsets[] = strtolower($ch);
-	}
-	
-	if( array_search($charset, $newCharsets, true) )
+	if( array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true) )
 	{
 		return true;
 	}
@@ -490,7 +481,7 @@ function write($data = '', $vars = array())
 	{
 		$varsArray = array();
 		
-		foreach($vars as $k => $v)
+		foreach( $vars as $k => $v )
 		{
 			$varsArray['{'.$k.'}']	= $v;
 		}
@@ -527,14 +518,9 @@ function writeLine($data = '', $vars = array(), $brCount = 1)
 // Dönen Değerler: Karşılaştırma sağlanıyorsa true sağlanmıyorsa false değeri döner.
 function compare($p1 = '', $operator = '=', $p2 = '')
 {
-	if( ! ( isValue($p1) || isValue($p2) ) )
+	if( ! ( isValue($p1) || isValue($p2) || is_string($operator) ) )
 	{
 		return false;
-	}
-	
-	if( ! is_string($operator) )
-	{
-		return false;	
 	}
 	
 	return version_compare($p1, $p2, $operator);
@@ -719,14 +705,7 @@ function currentLang()
 	}
 	else
 	{ 	
-		if( isset($_SESSION[md5("lang")]) )
-		{
-			return $_SESSION[md5("lang")];
-		}
-		else
-		{
-			return $_SESSION[md5("lang")] = 'tr';
-		}
+		return getLang();
 	}
 }
 
@@ -843,25 +822,22 @@ function siteUrl($uri = '', $index = 0)
 		$index = 0;
 	}
 	
-	if( $index > 0 )
-	{
-		$index = 0;
-	}
+	$newBaseDir = BASE_DIR;	
 	
 	if( BASE_DIR !== "/" )
 	{
-		$baseDir = substr(BASE_DIR,1,-1);
-		$baseDir = explode("/", $baseDir);
-		$newBaseDir = "/";
+		$baseDir = substr(BASE_DIR, 1, -1);
 		
-		for($i = 0; $i < count($baseDir) + $index; $i++)
+		if( $index < 0 )
 		{
-			$newBaseDir .= suffix($baseDir[$i]);
+			$baseDir    = explode("/", $baseDir);
+			$newBaseDir = "/";
+		
+			for( $i = 0; $i < count($baseDir) + $index; $i++ )
+			{
+				$newBaseDir .= suffix($baseDir[$i]);
+			}
 		}
-	}
-	else
-	{
-		$newBaseDir = BASE_DIR;
 	}
 	
 	$host = host();
@@ -887,25 +863,22 @@ function baseUrl($uri = '', $index = 0)
 		$index = 0;
 	}
 	
-	if( $index > 0 ) 
-	{
-		$index = 0;
-	}
+	$newBaseDir = BASE_DIR;
 	
 	if( BASE_DIR !== "/" )
 	{
-		$baseDir = substr(BASE_DIR,1,-1);
-		$baseDir = explode("/", $baseDir);
-		$newBaseDir = "/";
+		$baseDir = substr(BASE_DIR, 1, -1);
 		
-		for($i = 0; $i < count($baseDir) + $index; $i++)
+		if( $index < 0 )
 		{
-			$newBaseDir .= suffix($baseDir[$i]);
+			$baseDir    = explode("/", $baseDir);
+			$newBaseDir = "/";
+			
+			for($i = 0; $i < count($baseDir) + $index; $i++)
+			{
+				$newBaseDir .= suffix($baseDir[$i]);
+			}
 		}
-	}
-	else
-	{
-		$newBaseDir = BASE_DIR;
 	}
 	
 	$host = host();
@@ -920,12 +893,12 @@ function baseUrl($uri = '', $index = 0)
 	
 function prevUrl()
 {
- $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "", server("referer"));
+ 	$str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "", server("referer"));
 	
 	if( currentLang() )
 	{
-		$strEx = explode("/",$str);
-		$str    = str_replace($strEx[0]."/", "", $str);	
+		$strEx = explode("/", $str);
+		$str   = str_replace($strEx[0]."/", "", $str);	
 	}
 	
 	return siteUrl(cleanInjection($str));	
@@ -999,7 +972,7 @@ function currentPath($isPath = true)
 	
 	$currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
 	
-	if ($currentPagePath[0] === "/" )
+	if( $currentPagePath[0] === "/" )
 	{
 		$currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath)-1);
 	}
@@ -1016,6 +989,7 @@ function currentPath($isPath = true)
 		{
 			return $str[count($str) - 1];	
 		}
+		
 		return $str[0];
 	}
 }
@@ -1038,25 +1012,23 @@ function basePath($uri = '', $index = 0)
 		$index = 0;
 	}
 	
-	if( $index > 0 ) 
-	{
-		$index = 0;
-	}
+	$newBaseDir = substr(BASE_DIR, 1);
 	
 	if( BASE_DIR !== "/" )
 	{
-		$baseDir = substr(BASE_DIR, 1, -1);
-		$baseDir = explode("/", $baseDir);
-		$newBaseDir = "";
-		
-		for($i = 0; $i < count($baseDir) + $index; $i++)
+		if( $index < 0 )
 		{
-			$newBaseDir .= suffix($baseDir[$i]);
+			$baseDir = substr(BASE_DIR, 1, -1);
+			
+			$baseDir = explode("/", $baseDir);
+			
+			$newBaseDir = '';
+			
+			for($i = 0; $i < count($baseDir) + $index; $i++)
+			{
+				$newBaseDir .= suffix($baseDir[$i]);
+			}
 		}
-	}
-	else
-	{
-		$newBaseDir = "";
 	}
 	
 	return cleanInjection($newBaseDir.$uri);
@@ -1089,10 +1061,13 @@ function prevPath($isPath = true)
 	{
 		$str = explode("/", $str);
 		
-		if( count($str) > 1 ) 
+		$count = count($str);
+		
+		if( $count > 1 ) 
 		{
-			return $str[count($str) - 1];	
+			return $str[$count - 1];	
 		}
+		
 		return $str[0];
 	}
 }
@@ -1181,14 +1156,9 @@ function extension($file = '', $dote = false)
 		$dote = false;
 	}
 	
-	if( $dote === true ) 
-	{
-		$dote = '.'; 
-	}
-	else 
-	{
-		$dote = '';
-	}
+	$dote = $dote === true 
+		  ? '.'
+		  : '';
 	
 	return $dote.strtolower(pathInfos($file, "extension"));
 }
@@ -1219,7 +1189,7 @@ function divide($str = '', $seperator = "|", $index = 0)
 	{
 		return false;
 	}
-	if( ! is_string($seperator) ) 
+	if( ! is_string($seperator) || empty($seperator) ) 
 	{
 		$seperator = "|";
 	}
@@ -1227,11 +1197,6 @@ function divide($str = '', $seperator = "|", $index = 0)
 	if( ! isValue($index)) 
 	{
 		$index = 0;
-	}
-	
-	if( empty($seperator) ) 
-	{
-		$seperator = "|";
 	}
 	
 	$arrayEx = explode($seperator, $str);
@@ -1364,24 +1329,22 @@ function server($type = '')
 
 function redirect($url = '', $time = 0, $data = array(), $exit = true)
 {	
-	if( ! is_string($url) ) 
+	if( ! is_string($url) || empty($url) ) 
 	{
 		return false;
 	}
-	if( empty($url) ) 
-	{
-		return false;
-	}
+
 	if( ! is_numeric($time) )
 	{
 		$time = '0';
 	}
+	
 	if( ! is_bool($exit) ) 
 	{
 		$exit = true;
 	}
 	
-	if ( ! isUrl($url) )
+	if( ! isUrl($url) )
 	{
 		$url = siteUrl($url);
 	}
@@ -1393,7 +1356,7 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 			session_start();
 		}
 		
-		foreach($data as $k => $v)
+		foreach( $data as $k => $v )
 		{
 			$_SESSION[md5('redirect:'.$k)] = $v;	
 		}		
@@ -1644,12 +1607,9 @@ function routeUri($requestUri = '')
 			
 	$uriChange = Config::get('Route','changeUri');
 		
-	if( ! empty($uriChange) )
-	{
-		foreach($uriChange as $key => $val)
-		{		
-			$requestUri = preg_replace('/'.$key.'/xi', $val, $requestUri);
-		}
+	if( ! empty($uriChange) ) foreach( $uriChange as $key => $val )
+	{	
+		$requestUri = preg_replace('/'.$key.'/xi', $val, $requestUri);
 	}
 	
 	return $requestUri;
@@ -1662,14 +1622,7 @@ function cleanInjection($string = "")
 {
 	$urlInjectionChangeChars = Config::get("Security", 'urlChangeChars');
 
-	if( empty($urlInjectionChangeChars) ) 
-	{
-		return $string;
-	}
-	
-	$badwords = $urlInjectionChangeChars;
-	
-	foreach($badwords as $key => $val)
+	if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
 	{		
 		$string = preg_replace('/'.$key.'/xi', $val, $string);
 	}
@@ -1688,7 +1641,7 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		return false;
 	}
 	
-	$logDir = APP_DIR.'Logs/';
+	$logDir    = APP_DIR.'Logs/';
 	$extension = '.log';
 	
 	if( ! is_dir($logDir) )
@@ -1704,10 +1657,8 @@ function report($subject = 'unknown', $message = '', $destination = 'message', $
 		}
 		
 		$createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
-		
-		$endDate = strtotime("$time",strtotime($createDate));
-		
-		$endDate = date('Y.m.d' ,$endDate );
+		$endDate    = strtotime("$time", strtotime($createDate));
+		$endDate    = date('Y.m.d', $endDate);
 		
 		if( date('Y.m.d')  >  $endDate )
 		{
@@ -1778,7 +1729,7 @@ ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 	if( $config['modHeaders']['status'] === true ) 
 	{
 		$fmatch = '';
-		foreach($config['modHeaders']['fileExtensionTimeAccess'] as $type => $value)
+		foreach( $config['modHeaders']['fileExtensionTimeAccess'] as $type => $value )
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
@@ -1803,7 +1754,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	{
 		$headersIniSet  = "<ifModule mod_expires.c>".eol();	
 		
-		foreach($headerSet['iniSet'] as $val)
+		foreach( $headerSet['iniSet'] as $val )
 		{
 			$headersIniSet .= "$val".eol();
 		}
@@ -1823,11 +1774,11 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	{
 		$htaccessSettingsStr = '';
 		
-		foreach($htaccessSettings['settings'] as $key => $val)
+		foreach( $htaccessSettings['settings'] as $key => $val )
 		{
 			$htaccessSettingsStr .= "<$key>".eol();
 			
-			foreach($val as $v)
+			foreach( $val as $v )
 			{
 				$htaccessSettingsStr .= $v;
 			}
@@ -1903,7 +1854,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	if( ! empty($allSettings) )
 	{
 		$sets = '';
-		foreach($allSettings as $k => $v)
+		foreach( $allSettings as $k => $v )
 		{
 			if( $v !== '' )
 			{

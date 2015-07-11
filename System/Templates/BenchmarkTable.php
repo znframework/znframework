@@ -19,9 +19,10 @@
 	.keywordColorBenchmarkTable{ color:#090; }
 </style>
 
+<?php $lang = lang('Benchmark'); ?>
+
 <div class="generalBenchmarkTable">
 <table>
-	<?php $lang = lang('Benchmark'); ?>
     <tr><td colspan='2' class="importantColorBenchmarkTable"><?php echo $lang['resultTable']; ?></td></tr>
     <tr><td><?php echo $lang['elapsedTime']; ?></td><td>: <b><?php echo $elapsedTime." ".$lang['second']; ?></b></td></tr>
     <tr><td><?php echo $lang['memoryUsage']; ?></td><td>: <b><?php echo $memoryUsage." ".$lang['byte']; ?></b></td></tr>
