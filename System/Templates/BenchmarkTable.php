@@ -1,0 +1,43 @@
+<style type="text/css">
+	.generalBenchmarkTable
+	{
+		top:50%;
+		left:50%;
+		margin-left:-400px;
+		margin-top:-200px;
+		border:solid 1px #E1E4E5;
+		background:#F3F6F6;
+		padding:10px;
+		font-family:"Courier New", Courier, monospace, Tahoma, Arial;
+		color:#333;
+		width:800px;
+		font-size:16px;
+		position:absolute;
+	}
+	
+	.importantColorBenchmarkTable{ color:#900; }
+	.keywordColorBenchmarkTable{ color:#090; }
+</style>
+
+<div class="generalBenchmarkTable">
+<table>
+	<?php $lang = lang('Benchmark'); ?>
+    <tr><td colspan='2' class="importantColorBenchmarkTable"><?php echo $lang['resultTable']; ?></td></tr>
+    <tr><td><?php echo $lang['elapsedTime']; ?></td><td>: <b><?php echo $elapsedTime." ".$lang['second']; ?></b></td></tr>
+    <tr><td><?php echo $lang['memoryUsage']; ?></td><td>: <b><?php echo $memoryUsage." ".$lang['byte']; ?></b></td></tr>
+    <tr><td><?php echo $lang['maxMemoryUsage']; ?></td><td>: <b><?php echo $maxMemoryUsage." ".$lang['byte']; ?></b></td></tr>
+    <tr><td colspan='2'></td></tr><tr><td colspan='2'></td></tr><tr><td colspan='2'></td></tr>
+    <tr><td colspan='2' class="importantColorBenchmarkTable"><?php echo $lang['performanceTips']; ?></td></tr>
+    <tr><td colspan='2'><?php echo $lang['laterProcess']; ?></td></tr>
+    <tr>
+        <td><?php echo $lang['configAutoloader']; ?></td>
+        <td>: 
+            <strong>$config[<span class="importantColorBenchmarkTable">'Autoloader'</span>][<span class="importantColorBenchmarkTable">'create'</span>] = <span class="keywordColorBenchmarkTable">false</span>;</strong>
+        </td>
+    </tr>
+    <tr>
+        <td><?php echo $lang['configHtaccess']; ?></td>
+        <td>: <strong>$config[<span class="importantColorBenchmarkTable">'Htaccess'</span>][<span class="importantColorBenchmarkTable">'createFile'</span>] = <span class="keywordColorBenchmarkTable">false</span>;</strong>
+        </td>
+    </tr>
+</table>

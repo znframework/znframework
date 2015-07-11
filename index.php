@@ -152,34 +152,14 @@ class System
 			//------------------------------------------------------------------
 			//  Benchmark Performans Sonuç Tablosu
 			//------------------------------------------------------------------
-			$style = '
-				top:50%;
-				left:50%;
-				margin-left:-250px;
-				margin-top:-70px;
-				border:solid 1px #E1E4E5;
-				background:#F3F6F6;
-				padding:20px 20px 20px 20px;
-				font-family:monospace, Tahoma, Arial;
-				color:#333;
-				width:500px;
-				text-align:center;
-				position:absolute;
-			';
+			$benchmarkData = array
+			(
+				'elapsedTime'	 => $elapsedTime,
+				'memoryUsage'	 => $memoryUsage,
+				'maxMemoryUsage' => $maxMemoryUsage
+			);	
 			
-			$exStyle = 'color:#900;';
-		
-			$benchResult     = "
-			<div style='$style'>
-			<div style='$exStyle'>".lang('Benchmark', 'resultTable')."</div>
-			<p></p>
-			<div>
-			".lang('Benchmark', 'elapsedTime', "<b>$elapsedTime</b>")."<br>                       
-			".lang('Benchmark', 'memoryUsage', "<b>$memoryUsage</b>")."<br>                     
-			".lang('Benchmark', 'maxMemoryUsage', "<b>$maxMemoryUsage</b>")."<br>       
-			<div>
-			</div>
-			";
+			$benchResult = Import::something(SYSTEM_TEMPLATES_DIR.'BenchmarkTable', $benchmarkData, true);
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------

@@ -38,23 +38,14 @@ class ZNException extends Exception
 	******************************************************************************************/	
 	private static function _template($msg, $file, $line)
 	{
-		$style = '
-			border:solid 1px #E1E4E5;
-			background:#F3F6F6;
-			padding:20px 20px 20px 20px;
-			font-family:monospace, Tahoma, Arial;
-			color:#333;
-		';
+		$exceptionData = array
+		(
+			'message' => $msg,
+			'file'	  => $file,
+			'line'    => $line
+		);
 		
-		$exStyle = 'color:#900;';
-		
-		$str  = "<div style=\"$style\">";
-		$str .= lang('Error', 'message', $msg)."<br>";
-		$str .= lang('Error', 'file', $file)."<br>";
-		$str .= lang('Error', 'line', $line);
-		$str .= '</div><br>';
-		
-		return $str;
+		return Import::something(SYSTEM_TEMPLATES_DIR.'ExceptionTable', $exceptionData, true);
 	}
 	
 	/******************************************************************************************

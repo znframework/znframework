@@ -106,6 +106,11 @@ define('FILES_DIR', TRINKETS_DIR.'Files/');
 define('TEMPLATES_DIR', TRINKETS_DIR.'Templates/');		
 
 /******************************************************************************************
+* SYSTEM_TEMPLATES_DIR: System/Templates/               	                              * 
+******************************************************************************************/	
+define('SYSTEM_TEMPLATES_DIR', SYSTEM_DIR.'Templates/');	
+
+/******************************************************************************************
 * UPLOADS_DIR: Application/Views/Trinkets/Uploads/    	                                  * 
 ******************************************************************************************/
 define('UPLOADS_DIR', TRINKETS_DIR.'Uploads/');						

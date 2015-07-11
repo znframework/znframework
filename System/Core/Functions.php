@@ -1526,9 +1526,12 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	$style = '
 		border:solid 1px #E1E4E5;
 		background:#F3F6F6;
-		padding:20px 20px 20px 20px;
-		font-family:monospace, Tahoma, Arial;
+		padding:10px;
+		margin:10px;
+		font-family:Courier New, Courier, monospace, Tahoma, Arial;
 		color:#333;
+		text-align:left;
+		font-size:16px;
 	';
 	
 	$exStyle = 'color:#900;';
