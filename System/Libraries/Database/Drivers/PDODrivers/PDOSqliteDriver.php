@@ -1,24 +1,22 @@
 <?php
-/************************************************************/
-/*                PDO SQLITE DRIVER LIBRARY                 */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* PDO SQLITE DRIVER		     	                                                          *
-*******************************************************************************************
-| Dahil(Import) Edilirken : Dahil Edilemez.  							                  |
-| Sınıfı Kullanırken      :	Kullanılamaz.												  |
-| 																						  |
-| NOT: Veritabanı kütüphaneler için oluşturulmuş yardımcı sınıftır.                       |
-******************************************************************************************/
 class PDOSqliteDriver
 {
+	/***********************************************************************************/
+	/* PDO SQLITE DRIVER LIBRARY    			                   	                   */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: PDOSqliteDriver
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: PDO sürücüsü tarafından kullanılmaktadır.
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Config Değişkeni
 	 *  
 	 * Veritabanı ayarlar bilgisini

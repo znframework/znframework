@@ -1,23 +1,22 @@
 <?php 
-/************************************************************/
-/*                       CLASS PAGINATION                   */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* PAGINATION                                                                           	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	pagination:: , $this->pagination , uselib('pagination')->     |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class Pagination
 {
+	/***********************************************************************************/
+	/* PAGINATION LIBRARY	     			                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Pagination
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: pagination::, $this->pagnation, zn::$use->pagination, uselib('pagnation')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Total Rows Değişkeni
 	 *  
 	 * Toplam satır sayısı bilgisini

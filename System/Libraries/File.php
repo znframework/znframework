@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     CLASS  FILE                          */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* FILE                                                                               	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	File:: , $this->file , uselib('file') , zn::$use->file        |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class File
 {
+	/***********************************************************************************/
+	/* FILE LIBRARY	    					                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: File
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: file::, $this->file, zn::$use->file, uselib('file')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Error Değişkeni
 	 *  
 	 * Dosya işlemlerinde oluşan hata bilgilerini

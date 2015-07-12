@@ -14,7 +14,6 @@
 		font-size:16px;
 		position:absolute;
 	}
-	
 	.importantColorBenchmarkTable{ color:#900; }
 	.keywordColorBenchmarkTable{ color:#090; }
 </style>

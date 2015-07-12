@@ -1,24 +1,23 @@
 <?php 
-/************************************************************/
-/*                        CLASS  CART                       */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-if( ! isset($_SESSION) ) session_start();
-/******************************************************************************************
-* CART                                                                               	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : cart::, $this->cart, zn::$use->cart, uselib('cart')	  			  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
+if( ! isset($_SESSION) ) session_start(); 
 class Cart
 {
+	/***********************************************************************************/
+	/* CART LIBRARY	     					                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Cart
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: cart::, $this->cart, zn::$use->cart, uselib('cart')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Items Dizi Değişkeni
 	 *  
 	 * Sepetteki güncel veri bilgisini tutuması

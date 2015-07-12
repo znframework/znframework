@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                   LBIRARY LIMIT                          */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* LIMIT                                                                               	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : limit::, $this->limit, zn::$use->limit, uselib('limit')	  	  	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class Limit
 {
+	/***********************************************************************************/
+	/* LIMIT LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Limit
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: limit::, $this->limit, zn::$use->limit, uselib('limit')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	// Function: word_limiter()
 	// İşlev: Bir metinin kaç kelime ile sınırlanacağını belirler.
 	// Parametreler

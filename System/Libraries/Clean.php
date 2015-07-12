@@ -1,41 +1,40 @@
 <?php
-/************************************************************/
-/*                    LIBRARY CLEAN                         */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CLEAN                                                                              	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	clean:: , $this->clean , uselib('clean') , zn::$use->clean    |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class Clean
 {
+	/***********************************************************************************/
+	/* CLEAN LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Clean
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: captcha::, $this->clean, zn::$use->clean, uselib('clean')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/******************************************************************************************
-	* CLEANER                                                                                 *
+	* DATA                                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Dizi ya da metinsel ifadelerden veri silmek için kullanılır. 			  |
 	|																						  |
 	| Parametreler: 2 parametresi vardır.                                              	      |
-	| 1. string/array var @search_data => Aranacak metin veya dizi elamanları.				  |
-	| 2. string/array var @clean_word => Silinecek metin veya dizi elamanları.				  |
+	| 1. string/array var @searchData => Aranacak metin veya dizi elamanları.				  |
+	| 2. string/array var @cleanWord => Silinecek metin veya dizi elamanları.				  |
 	|          																				  |
 	| Örnek Kullanım:  																	      |
 	|																				          |
 	| Metinsel ifadelerde temizleme işlemi       											  |
-	| echo cleaner('bilgi@zntr.net', 'bilgi'); // Çıktı: @zntr.net 							  |
-	| echo cleaner('bilgi@zntr.net', array('bilgi', '.net')); // Çıktı: @zntr 				  |
+	| echo data('bilgi@zntr.net', 'bilgi'); // Çıktı: @zntr.net 							  |
+	| echo data('bilgi@zntr.net', array('bilgi', '.net')); // Çıktı: @zntr 				      |
 	|																				          |
 	| Dizi İçerikli ifadelerde temizleme işlemi												  |
-	| var_dump( cleaner(array('a', 'b', 'c'), 'b') ); // Çıktı: a c 						  |
-	| var_dump( cleaner(array('a', 'b', 'c'), array('b', 'c')) ); // Çıktı: a 				  |
+	| var_dump( data(array('a', 'b', 'c'), 'b') ); // Çıktı: a c 						      |
+	| var_dump( data(array('a', 'b', 'c'), array('b', 'c')) ); // Çıktı: a 				      |
 	|																						  |
 	******************************************************************************************/	
 	public static function data($searchData = '', $cleanWord = '')

@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     LIBRARY CAPTCHA                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CAPTCHA                                                                             	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : captcha::, $this->captcha, zn::$use->captcha, uselib('captcha')	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class Captcha
 {
+	/***********************************************************************************/
+	/* CAPTCHA LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Captcha
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: captcha::, $this->captcha, zn::$use->captcha, uselib('captcha')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/******************************************************************************************
 	* CREATE CAPTCHA                                                                          *
 	*******************************************************************************************

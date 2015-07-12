@@ -1,23 +1,22 @@
-<?php 
-/************************************************************/
-/*                      CACHE LIBRARY                       */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CACHE	WITH VERSION 1.3	                                                              *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cache->												  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
+<?php
 class Cache
 {
+	/***********************************************************************************/
+	/* CACHE LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Cache
+	/* Versiyon: 2.0
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cache, zn::$use->cache, uselib('cache')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Cache Değişkeni
 	 *  
 	 * Cache sürücüsünü

@@ -3,11 +3,10 @@
 /*                   	 STRUCTURE URL                      */
 /************************************************************/
 /*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
+/* Yazar: Ozan UYKUN
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 */
 /* 
 	ZN FRAMEWOK URL SİSTEMİ
@@ -171,7 +170,7 @@ class Structure
 			{
 				if( APP_TYPE === 'local' )
 				{
-					set_error_handler('ZNException::getLastError');	
+					set_error_handler('ZNException::getErrorHandler');	
 				}
 				
 				call_user_func_array( array($var, $function), $parameters);

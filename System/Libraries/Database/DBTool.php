@@ -1,23 +1,22 @@
-<?php
-/************************************************************/
-/*                     DB TOOL LIBRARY                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* DbTool		                                                                          *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->dbtool->												  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
+<?php	
 class DBTool
-{		
+{	
+	/***********************************************************************************/
+	/* DB TOOL LIBRARY		    		                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: DBTool
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->dbtool, zn::$use->dbtool, uselib('dbtool')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+		
 	/* Prefix Değişkeni
 	 *  
 	 * Tablo ön eki bilgisini

@@ -1,31 +1,28 @@
-<?php
-/************************************************************/
-/*                  REDIS DRIVER LIBRARY                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* REDIS DRIVER		                                                                      *
-*******************************************************************************************
-| Dahil(Import) Edilirken : Dahil Edilemez.  							                  |
-| Sınıfı Kullanırken      :	Kullanılamaz.												  |
-| 																						  |
-| NOT: Ön bellekleme kütüphanesi için oluşturulmuş yardımcı sınıftır.                     |
-******************************************************************************************/	
+<?php	
 class RedisDriver
 {
+	/***********************************************************************************/
+	/* REDIS DRIVER LIBRARY						                   	                   */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: RedisDriver
+	/* Versiyon: 2.0
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: Cache kütüphanesi tarafından kullanılmaktadır.
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Redis Değişkeni
 	 *  
 	 * Redis sınıfı bilgisini
 	 * barındırmak için oluşturulmuştur.
 	 *
 	 */
-	 
 	protected $redis;
 	
 	/* Serialized Değişkeni

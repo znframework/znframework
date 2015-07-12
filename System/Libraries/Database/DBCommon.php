@@ -2,12 +2,10 @@
 /************************************************************/
 /*                        DB COMMON                         */
 /************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
+/* Yazar: Ozan UYKUN
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 */
 /******************************************************************************************
 * DB COMMON                                                                               *

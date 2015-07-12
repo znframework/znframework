@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     LIBRARY FORMAT                       */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* FORMAT                                                                             	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : format::, $this->format, zn::$use->format, uselib('format')	  	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class Format
 {
+	/***********************************************************************************/
+	/* FORMAT LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Format
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: format::, $this->format, zn::$use->format, uselib('format')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	// Function: byte_formatter()
 	// İşlev: Girilen sayısal veriyi bayt biçimine çevirir.
 	// Parametreler

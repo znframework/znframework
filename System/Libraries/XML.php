@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                       CLASS XML                          */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* XML                                                                                	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	XML::   												      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class XML
 {
+	/***********************************************************************************/
+	/* XML LIBRARY		     				                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: XML
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: xml::, $this->xml, zn::$use->xml, uselib('xml')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Xpath Değişkeni
 	 *  
 	 * Xml belgesinin yol bilgisini

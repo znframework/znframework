@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     LIBRARY FILTER                       */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* FILTER                                                                            	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	filter:: , $this->filter , uselib('filter') , zn::$use->filter|
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class Filter
 {
+	/***********************************************************************************/
+	/* FILTER LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Filter
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: filter::, $this->filter, zn::$use->filter, uselib('filter')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	// Function: word_filter()
 	// İşlev: Metin içinde istenilmeyen kelimelerin izole edilmesi için kullanılır.
 	// Parametreler

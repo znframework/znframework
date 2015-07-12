@@ -3,11 +3,10 @@
 /*                   CLASS  AUTOLOADER                      */
 /************************************************************/
 /*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
+/* Yazar: Ozan UYKUN
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 */
 /******************************************************************************************
 * AUTOLOADER                                                                           	  *
@@ -135,11 +134,11 @@ class Autoloader
 	public static function getClassFileInfo($class = '')
 	{
 		$classMap = ! empty(self::$classes) 
-			      ? self::$classes
-				  : Config::get('ClassMap', 'path');
+			        ? self::$classes
+				    : Config::get('ClassMap', 'path');
 			
 		$classMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
-		$classCaseLower   = strtolower($class);
+		$classCaseLower    = strtolower($class);
 		
 		// ----------------------------------------------------------------------------------------
 		// DOSYA bilgisi oluşturuluyor...

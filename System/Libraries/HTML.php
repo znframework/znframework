@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     LIBRARY HTML                         */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* HTML                                                                               	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : HTML::, $this->HTML, zn::$use->HTML, uselib('HTML')	  	  	      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class HTML
 {
+	/***********************************************************************************/
+	/* HTML LIBRARY						                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: HTML
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: html::, $this->html, zn::$use->html, uselib('html')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+
 	// Function: self::attributes()
 	// İşlev: Girilen dizi bilgisini html etiketlerinin özellik değer biglisi türüne dönüştürür.
 	// Parametreler

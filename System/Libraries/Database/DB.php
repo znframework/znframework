@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                       DB LIBRARY                         */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* Db		                                                                           	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->db->													  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class DB
-{
+{	
+	/***********************************************************************************/
+	/* DB LIBRARY						                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: DB
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->db, zn::$use->db, uselib('db')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Select Değişkeni
 	 *  
 	 * SELECT bilgisini

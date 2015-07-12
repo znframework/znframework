@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     LIBRARY ROUND                        */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* ROUND                                                                               	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : round::, $this->round, zn::$use->round, uselib('round')	  	  	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class Round
 {
+	/***********************************************************************************/
+	/* ROUND LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Round
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: round::, $this->round, zn::$use->round, uselib('round')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	// Function: data()
 	// İşlev: Sayıları yuvarlamak için kullanılır.
 	// Parametreler

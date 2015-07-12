@@ -3,11 +3,10 @@
 /*                   	SYSTEM FUNCTIONS                    */
 /************************************************************/
 /*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
+/* Yazar: Ozan UYKUN
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 */
 
 //------------------------------------SYSTEM AND USER FUNCTIONS START-----------------------------------------------------------------
@@ -1490,7 +1489,7 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 		border:solid 1px #E1E4E5;
 		background:#F3F6F6;
 		padding:10px;
-		margin:10px;
+		margin-bottom:10px;
 		font-family:Courier New, Courier, monospace, Tahoma, Arial;
 		color:#333;
 		text-align:left;

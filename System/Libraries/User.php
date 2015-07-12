@@ -1,23 +1,21 @@
 <?php
-/************************************************************/
-/*                        CLASS  USER                       */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* USER                                                                              	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	user:: , $this->user , zn::$use->user , uselib('user')-> 	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Libraries.php bakınız.     |
-******************************************************************************************/
 class User
 {
+	/***********************************************************************************/
+	/* USER LIBRARY	     					                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: User
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: user::, $this->user, zn::$use->user, uselib('user')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
 	
 	/* Username Değişkeni
 	 *  

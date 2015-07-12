@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     CLASS  EMAIL                         */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* EMAIL                                                                              	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->Email , zn::$use->Email , uselib('Email')              |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class Email
 {
+	/***********************************************************************************/
+	/* EMAIL LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Email
+	/* Versiyon: 2.0
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->email, zn::$use->email, uselib('email')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Priority Değişkeni
 	 *  
 	 * Başlık değer bilgisini

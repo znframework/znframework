@@ -47,6 +47,6 @@ $config['Captcha']['width']			= '180';
 $config['Captcha']['height'] 		= '40'; 
 $config['Captcha']['imageString'] 	= array('size' => '5', 'x' => '65', 'y' => '13');
 $config['Captcha']['grid']			= true; 
-$config['Captcha']['gridSpace']	= array('x' => 12, 'y' => 4);
+$config['Captcha']['gridSpace']		= array('x' => 12, 'y' => 4);
 $config['Captcha']['gridColor'] 	= '50|50|50'; 
 //--------------------------------------------------------------------------------------------------------------------------

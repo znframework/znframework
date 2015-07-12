@@ -1,25 +1,24 @@
 <?php
-/************************************************************/
-/*                     LIBRARY CONVERT                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CONVERT                                                                             	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : convert::, $this->convert, zn::$use->convert, uselib('convert')	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class Convert
 {
+	/***********************************************************************************/
+	/* CONVERT LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Convert
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: convert::, $this->convert, zn::$use->convert, uselib('convert')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/******************************************************************************************
-	* CHAR CONVERTER                                                                          *
+	* CHAR                                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Karakterleri bir türden diğer türe dönüştürmek için kullanılır. 		  |
 	|																						  |
@@ -31,19 +30,19 @@ class Convert
 	| Dönüştürülebilecek türler => char, html, dex, hex										  |
 	|       																				  |
 	| Örnek Kullanım:  																	      |
-	| echo char_converter('Metin'); // Kaynak Kod Çıktı: &#77;&#101;&#116;&#105;&#110; 		  |
-	| echo char_converter('Metin', 'char', 'dec'); // Çıktı: 77 101 116 105 110 			  |
-	| echo char_converter('Metin', 'char', 'hex'); // Çıktı: 4D 65 74 69 6E 				  |
+	| echo char('Metin'); // Kaynak Kod Çıktı: &#77;&#101;&#116;&#105;&#110; 		  		  |
+	| echo char('Metin', 'char', 'dec'); // Çıktı: 77 101 116 105 110 			  			  |
+	| echo char('Metin', 'char', 'hex'); // Çıktı: 4D 65 74 69 6E 				  			  |
 	|																						  |
 	| Kendi Aralarında Dönüştürme														      |
-	| $html = char_converter('Metin');														  |
-	| $dec = char_converter('Metin', 'char', 'dec');										  |
-	| $hex = char_converter('Metin', 'char', 'hex');										  |
+	| $html = char('Metin');														  		  |
+	| $dec = char('Metin', 'char', 'dec');										  			  |
+	| $hex = char('Metin', 'char', 'hex');										  			  |
 	|																						  |
-	| echo char_converter($hex, 'hex', 'char'); // Çıktı: Metin								  |
-	| echo char_converter($dec, 'dec', 'hex'); // Çıktı: 4D 65 74 69 6E					      |
-	| echo char_converter($html, 'html', 'dec'); // Çıktı: 77 101 116 105 110                 |	
-	|       																				  |																					  |
+	| echo char($hex, 'hex', 'char'); // Çıktı: Metin								  		  |
+	| echo char($dec, 'dec', 'hex'); // Çıktı: 4D 65 74 69 6E					     	 	  |
+	| echo char($html, 'html', 'dec'); // Çıktı: 77 101 116 105 110                 		  |	
+	|       																				  |
 	******************************************************************************************/
 	public static function char($string = '', $type = 'char', $changeType = 'html')
 	{

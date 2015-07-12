@@ -1,39 +1,24 @@
 <?php
 /******************************************************************\
-|                                                                  | 
 |                          ZN FRAMEWORK                            |
-|                                                                  |
-*******************************************************************/
+\******************************************************************/
 
-/*
-	YAZAR: OZAN UYKUN
-	
-	1-COPYRIGHT(C) OZAN UYKUN
-	2-TÜM HAKLARI SAKLIDIR.
-	3-EMEGE SAYGI
-*/
+/* Yazar: Ozan UYKUN
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 
 /* 
-	SİSTEM ÇALIŞTIRMA MODLARI
-	
-	1-development
-	2-publication 
-	
-	Varsayılan: development
+Sistem Uygulama Seçenekleri
+
+1-local
+2-development
+3-publication 
+
+Varsayılan: local
 */
+System::run('local');
 
-/* SYSTEM RUN *
- *
- * 
- * Sistem çalıştırılıyor...
- */
-System::run('local'); // local, development veya publication.
-
-/* SYSTEM SINIFI *
- *
- * 
- * 
- */
 class System
 {
 	public static function run($apptype)

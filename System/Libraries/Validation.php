@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     CLASS  VALIDATION                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* VALIDATION                                                                          	  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	validation::, $this->validation, uselib('validation')   	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class Validation
 {
+	/***********************************************************************************/
+	/* VALIDATION LIBRARY    				                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Validation
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: validation::, $this->validation, zn::$use->validation, uselib('validation')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Errors Değişkeni
 	 *  
 	 * Validasyon işlemlerinde oluşan hata bilgilerini

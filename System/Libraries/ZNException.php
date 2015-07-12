@@ -1,24 +1,22 @@
 <?php
-/************************************************************/
-/*                     LIBRARY BUILDER                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* BUILDER                                                                             	  *
-*******************************************************************************************
-| Sınıfı Kullanırken : ZNException::, $this->ZNException, zn::$use->ZNException,		  | 
-| uselib('ZNException')															  	  	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class ZNException extends Exception
-{	
+{
+	/***********************************************************************************/
+	/* ZN EXCEPTION LIBRARY	     			                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: ZNException
+	/* Versiyon: 1.4
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: znexception::, $this->znexception, zn::$use->znexception, uselib('znexception')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+		
 	/******************************************************************************************
 	* EXCEPTION REFERENCES                                                                    *
 	*******************************************************************************************
@@ -49,12 +47,12 @@ class ZNException extends Exception
 	}
 	
 	/******************************************************************************************
-	* GET LAST ERROR	                                                                      *
+	* GET ERROR HANDLER	                                                                      *
 	*******************************************************************************************
 	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getLastError($no, $msg, $file, $line)
+	public static function getErrorHandler($no, $msg, $file, $line)
 	{
 		echo self::_template($msg, $file, $line);  
 	}

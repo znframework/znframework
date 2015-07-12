@@ -1,27 +1,22 @@
 <?php
-/************************************************************/
-/*                   CODER CONTROLLERS                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CONTROLLER CLASS                                                                        *
-*******************************************************************************************
-| Dahil(Import) Edilirken : Dahil edilmeye ihtiyaç duymaz.     							  |
-| Sınıfı Kullanırken      :	Direk erişim sağlamak istediğiniz sınıflara extends edilir.   |
-| 																						  |
-| Genel Kullanım:																          |
-| Kütüphane, araç ve bileşenlere $this nesnesi ile erişim sağlayabilmek için 			  |
-| oluşturulmuştur. Çalışılan sayfaya extends edilerek kullanabilirsiniz.				  |
-|																						  |
-******************************************************************************************/	
 class Controller
 {
+	/***********************************************************************************/
+	/* CONTROLLER LIBRARY	     			                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Controller
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: Controllers/ sınıflarına extends edilerek kullanılır
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
 	*******************************************************************************************

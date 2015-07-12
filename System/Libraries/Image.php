@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     CLASS IMAGE                          */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* IMAGE                                                                            	      *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	image:: , $this->image , uselib('image')-> , zn::$use->image  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class Image
 {
+	/***********************************************************************************/
+	/* IMAGE LIBRARY						                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: Image
+	/* Versiyon: 1.0
+	/* Tanımlanma: Statik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: image::, $this->image, zn::$use->image, uselib('image')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Dir Name Değişkeni
 	 *  
 	 * Oluşturulan yeni resmin kaydedileceği dizin bilgisini
