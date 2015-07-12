@@ -31,12 +31,6 @@
     <tr><td colspan='2' class="importantColorBenchmarkTable"><?php echo $lang['performanceTips']; ?></td></tr>
     <tr><td colspan='2'><?php echo $lang['laterProcess']; ?></td></tr>
     <tr>
-        <td><?php echo $lang['configAutoloader']; ?></td>
-        <td>: 
-            <strong>$config[<span class="importantColorBenchmarkTable">'Autoloader'</span>][<span class="importantColorBenchmarkTable">'create'</span>] = <span class="keywordColorBenchmarkTable">false</span>;</strong>
-        </td>
-    </tr>
-    <tr>
         <td><?php echo $lang['configHtaccess']; ?></td>
         <td>: <strong>$config[<span class="importantColorBenchmarkTable">'Htaccess'</span>][<span class="importantColorBenchmarkTable">'createFile'</span>] = <span class="keywordColorBenchmarkTable">false</span>;</strong>
         </td>

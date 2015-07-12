@@ -40,13 +40,6 @@ class Starting
 		}	
 		// ----------------------------------------------------------------------
 		
-		// SINIF HARİTASI OLUŞTURULUYOR... 	
-		if( Config::get('Autoloader','create') === true ) 
-		{
-			Autoloader::createClassMap();
-		}	
-		// ----------------------------------------------------------------------
-		
 		// COMPOSER DOSYASI OLUŞTURULUYOR...	
 		$composer = Config::get('Composer', 'autoload');
 		

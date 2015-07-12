@@ -19,6 +19,14 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/	
 class Autoloader
 {	
+	/* Classes Değişkeni
+	 *
+	 *
+	 * ClassMap bilgisini tutması
+	 * için oluşturulmuştur.
+	 */
+	private static $classes;
+	
 	/******************************************************************************************
 	* RUN                                                                                     *
 	*******************************************************************************************
@@ -33,22 +41,44 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		$path = CONFIG_DIR.'ClassMap.php';
 		
+		// ClassMap daha önce oluşturulmamış ise oluturuluyor...
 		if( ! file_exists($path) )
 		{
 			self::createClassMap();
 		}
 
+		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
 	
+		// Sınıfın yolu alınıyor...
 		$file = $classInfo['path'];
 	
+		// Böyle bir sınıf varsa dahil ediliyor...
 		if( file_exists($file) )
 		{	
 			require_once($file);
 		}
 		else
 		{
-			die(getErrorMessage('Error', 'classError', $class));
+			// Böyle bir sınıf yoksa classmap yeniden oluşturuluyor...
+			self::createClassMap();
+			
+			// Sınıfın bilgileri yeniden alınıyor...
+			$classInfo = self::getClassFileInfo($class);
+			
+			// Sınıfın yolu yeniden isteniyor...
+			$file = $classInfo['path'];
+			
+			// Böyle bir sınıf varsa dahil ediliyor...
+			if( file_exists($file) )
+			{	
+				require_once($file);
+			}
+			else
+			{
+				// Böyle bir sınıf yoksa hata mesajı oluşturuluyor...
+				die(getErrorMessage('Error', 'classError', $class));
+			}
 		}
 	} 
 	
@@ -68,17 +98,9 @@ class Autoloader
 			$classMaps = self::searchClassMap($directory, $directory);
 		}
 		
-		$path = CONFIG_DIR.'ClassMap.php';
+		self::$classes = $classMaps;
 		
-		if( file_exists($path) )
-		{
-			$classMapCount = Config::get('ClassMap', 'count');
-			
-			if( $classMapCount === count($classMaps) )
-			{
-				return false;	
-			}
-		}
+		$path = CONFIG_DIR.'ClassMap.php';
 		
 		// ----------------------------------------------------------------------------------------
 		// ClassMap dosyasının metinsel bölümü oluşturuluyor.
@@ -92,8 +114,7 @@ class Autoloader
 		}
 		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
-		$classMapPage .= eol().');'.eol(2);
-		$classMapPage .= '$config[\'ClassMap\'][\'count\'] = '.count($classMaps).';';
+		$classMapPage .= eol().');';
 		
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
@@ -113,7 +134,9 @@ class Autoloader
 	******************************************************************************************/
 	public static function getClassFileInfo($class = '')
 	{
-		$classMap = Config::get('ClassMap', 'path');
+		$classMap = ! empty(self::$classes) 
+			      ? self::$classes
+				  : Config::get('ClassMap', 'path');
 			
 		$classMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
 		$classCaseLower   = strtolower($class);
@@ -148,6 +171,41 @@ class Autoloader
 	}
 	
 	/******************************************************************************************
+	* TOKEN CLASS FILE INFO                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Yolu belirtilen sınıfın sınıf ve namespace bilgilerini almak için       |
+	| oluşturulmuştur.								  										  |
+	|          																				  |
+	******************************************************************************************/
+	public static function tokenClassFileInfo($fileName = '')
+	{
+		$tokens = token_get_all(file_get_contents($fileName));
+		
+		$classInfo = array();
+		
+		$i = 0;
+		
+		foreach( $tokens as $token )
+		{
+			if( $token[0] === T_NAMESPACE )
+			{
+				$classInfo['namespace'] = $tokens[$i + 2][1];
+			}
+			
+			if( $token[0] === T_CLASS )
+			{
+				$classInfo['class'] = $tokens[$i + 2][1];
+				
+				break;
+			}
+			
+			$i++;
+		}	
+		
+		return $classInfo;
+	}
+	
+	/******************************************************************************************
 	* PRIVATE SEARCH CLASS MAP                                                                *
 	*******************************************************************************************
 	| Genel Kullanım: Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.   |
@@ -170,10 +228,17 @@ class Autoloader
 				$classEx = explode('/', $v);
 				
 				// Sınıf isimleri ve yolları oluşturuluyor...
-				$classes[removeExtension(end($classEx))] = $v;
+				$classInfo = Autoloader::tokenClassFileInfo($v);
 				
-				// Sınıf namespace(isim alanları) ve yolları oluşturuluyor.	
-				$classes[str_replace('/', '\\', str_replace($baseDirectory, '', removeExtension($v)))] = $v;	
+				if( isset($classInfo['class']) )
+				{
+					$classes[$classInfo['class']] = $v;	
+				}
+				
+				if( isset($classInfo['namespace']) )
+				{
+					$classes[$classInfo['namespace'].'\\'.$classInfo['class']] = $v;	
+				}
 			}
 			elseif( is_dir($v) )
 			{
