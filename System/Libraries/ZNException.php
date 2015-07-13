@@ -43,7 +43,7 @@ class ZNException extends Exception
 			'line'    => $line
 		);
 		
-		return Import::something(SYSTEM_TEMPLATES_DIR.'ExceptionTable', $exceptionData, true);
+		return Import::template('ExceptionTable', $exceptionData, true);
 	}
 	
 	/******************************************************************************************

@@ -186,7 +186,7 @@ class Structure
 				if( ! Config::get('Route', 'show404') )
 				{				
 					// Hatayı ekrana yazdır.
-					echo getErrorMessage('Error', 'callUserFuncArrayError', $function);
+					echo ZNException::getErrorMessage('Error', 'callUserFuncArrayError', $function);
 					
 					// Hatayı rapor et.
 					report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
@@ -210,7 +210,7 @@ class Structure
 			else
 			{
 				// Hatayı ekrana yazdır.
-				echo getErrorMessage('Error', 'notIsFileError', $isFile);
+				echo ZNException::getErrorMessage('Error', 'notIsFileError', $isFile);
 				
 				// Hatayı rapor et.
 				report('Error', getMessage('Error', 'notIsFileError'), 'SystemNotIsFileError');

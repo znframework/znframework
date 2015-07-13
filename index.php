@@ -144,7 +144,7 @@ class System
 				'maxMemoryUsage' => $maxMemoryUsage
 			);	
 			
-			$benchResult = Import::something(SYSTEM_TEMPLATES_DIR.'BenchmarkTable', $benchmarkData, true);
+			$benchResult = Import::template('BenchmarkTable', $benchmarkData, true);
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------

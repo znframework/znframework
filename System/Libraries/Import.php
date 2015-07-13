@@ -45,40 +45,33 @@ class Import
 			return false;
 		}
 		
-		if( is_array($randomDataVariable) )
-		{
-			extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
-		}
-		
 		if( ! extension($randomPageVariable) )
 		{
-			$randomPageVariable = suffix($randomPageVariable,".php");
+			$randomPageVariable = suffix($randomPageVariable, '.php');
 		}
 		
 		$randomPagePath = $randomPageDir.$randomPageVariable;
 		
-		if( $randomObGetContentsVariable === false )
+		if( isFileExists($randomPagePath) ) 
 		{
-			if( ! isFileExists($randomPagePath) ) 
+			if( is_array($randomDataVariable) )
 			{
-				return false;
+				extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
 			}
-			
-			require($randomPagePath); 
-		}
-		elseif( $randomObGetContentsVariable === true )
-		{
-			if( ! isFileExists($randomPagePath) ) 
+		
+			if( $randomObGetContentsVariable === false )
+			{	
+				require($randomPagePath); 
+			}
+			else
 			{
-				return false;
+				ob_start(); 
+				require($randomPagePath); 
+				$randomContentVariable = ob_get_contents(); 
+				ob_end_clean(); 
+				
+				return $randomContentVariable ; 
 			}
-			
-			ob_start(); 
-			require($randomPagePath); 
-			$randomContentVariable = ob_get_contents(); 
-			ob_end_clean(); 
-			
-			return $randomContentVariable ; 
 		}
 		else
 		{
@@ -118,7 +111,7 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function bladepage($page = '', $data = '', $obGetContents = false)
+	public static function bladepPage($page = '', $data = '', $obGetContents = false)
 	{
 		return uselib('CBlade')->view($page, $data, $obGetContents);
 	}
@@ -137,7 +130,7 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function parserpage($page = '', $data = '', $obGetContents = false)
+	public static function parserPage($page = '', $data = '', $obGetContents = false)
 	{
 		return uselib('CParser')->view($page, $data, $obGetContents);
 	}
@@ -157,7 +150,18 @@ class Import
 	******************************************************************************************/
 	public static function template($page = '', $data = '', $obGetContents = false)
 	{
-		return self::page($page, $data, $obGetContents, TEMPLATES_DIR);
+		if( $return = self::page($page, $data, $obGetContents, SYSTEM_TEMPLATES_DIR) ) 
+		{
+			return $return;
+		}
+		elseif( $return = self::page($page, $data, $obGetContents, TEMPLATES_DIR) ) 
+		{
+			return $return;
+		}
+		else
+		{
+			return false;	
+		}
 	}
 	
 	/******************************************************************************************
@@ -176,7 +180,7 @@ class Import
 	| kullanılır.	        															      |
 	|          																				  |
 	******************************************************************************************/
-	public static function masterpage($randomDataVariable = array(), $head = array())
+	public static function masterPage($randomDataVariable = array(), $head = array())
 	{	
 		//------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
