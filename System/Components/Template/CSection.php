@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     SECTION COMPONENT                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* SECTION                                                                                 *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->csection->       									  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CSection
 {
+	/***********************************************************************************/
+	/* SECTION COMPONENT     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CSection
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->csection, zn::$use->csection, uselib('csection')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Attr Değişkeni
 	 *  
 	 * Özellik değer bilgilerini

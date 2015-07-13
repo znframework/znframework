@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     COOKIE COMPONENT                     */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* COOOKIE                                                                                 *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->ccookie->       										  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class CCookie
 {
+	/***********************************************************************************/
+	/* COOKIE COMPONENT		     		                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CCokkie
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->ccookie, zn::$use->ccookie, uselib('ccookie')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Name Değişkeni
 	 *  
 	 * Çerez adı bilgisini tutması

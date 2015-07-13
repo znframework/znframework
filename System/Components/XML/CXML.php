@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     XML COMPONENT                        */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* XML                                                                                     *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cxml->     	     								      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CXML
 {
+	/***********************************************************************************/
+	/* XML COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CXML
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cxml, zn::$use->cxml, uselib('cxml')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	protected $objects = array
 	(
 		'charset' 	=> 'utf-8', 

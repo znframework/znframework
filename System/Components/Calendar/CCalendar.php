@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    CALENDAR COMPONENT                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CALENDAR                                                                                *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->ccalendar->     					   				      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CCalendar
 {
+	/***********************************************************************************/
+	/* CALENDAR COMPONENT		     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CCalendar
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->ccalendar, zn::$use->ccalendar, uselib('ccalendar')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Css Değişkeni
 	 *  
 	 * Css sınıf bilgisini tutması

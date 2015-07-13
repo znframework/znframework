@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    COMPONENT  STYLE                   	*/
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* STYLE                                                                                   *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cstyle->       									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CStyle
 {
+	/***********************************************************************************/
+	/* STYLE COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CStyle
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cstyle, zn::$use->cstyle, uselib('cstyle')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Type Değişkeni
 	 *  
 	 * Metin türü bilgisini tutması 

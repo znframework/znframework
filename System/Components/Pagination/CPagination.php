@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                  PAGINATION COMPONENT                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* PAGINATION                                                                              *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cpagination->       									  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CPagination
 {
+	/***********************************************************************************/
+	/* PAGINATION COMPONENT	  	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CPagination
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cpagination, zn::$use->cpagination, uselib('cpagination')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	protected $settings = array();
 	
 	public function url($url = '')

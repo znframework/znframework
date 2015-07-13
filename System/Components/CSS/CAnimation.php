@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    ANIMATION COMPONENT                   */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* ANIMATION                                                                               *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->canimation->       									  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/	
 class CAnimation
 {
+	/***********************************************************************************/
+	/* ANIMATION COMPONENT		   		                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CAnimation
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->canimation, zn::$use->canimation, uselib('canimation')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Easing Değişkeni
 	 *  
 	 * Easing animasyon bilgisini tutması 

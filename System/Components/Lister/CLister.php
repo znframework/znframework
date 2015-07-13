@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                       LIST COMPONENT                     */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* LIST                                                                                    *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->clister->       									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CLister
 {
+	/***********************************************************************************/
+	/* LISTER COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CLister
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->clister, zn::$use->clister, uselib('clister')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Attr Değişkeni
 	 *  
 	 * Liste nesnesine eklenecek özellik değer  

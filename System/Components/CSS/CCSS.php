@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    TRANSLATE COMPONENT                   */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CSS                                                                                     *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->ccss->       									  	  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CCSS
 {
+	/***********************************************************************************/
+	/* CSS COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CCSS
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->ccss, zn::$use->ccss, uselib('ccss')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Easing Değişkeni
 	 *  
 	 * Easing animasyon bilgisini tutması 

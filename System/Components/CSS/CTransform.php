@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    TRANSLATE COMPONENT                   */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* TRANSFORM                                                                               *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->ctransform->       									  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CTransform
 {
+	/***********************************************************************************/
+	/* TRANSFORM COMPONENT	  	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CTransform
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->ctransform, zn::$use->ctransform, uselib('ctransform')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Selector Değişkeni
 	 *  
 	 * Seçici bilgisini tutması için

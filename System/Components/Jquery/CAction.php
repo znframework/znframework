@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    COMPONENT  ACTION                   	*/
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* ACTION                                                                                  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->caction->       									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CAction extends CJqueryCommon
 {
+	/***********************************************************************************/
+	/* ACTION COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CAction
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->caction, zn::$use->caction, uselib('caction')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Selector Variables
 	 * Selector 
 	 * this, #custom, .example

@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                     COMPONENT  AJAX                   	*/
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* AJAX                                                                                    *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cajax->       									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CAjax extends CJqueryCommon
 {
+	/***********************************************************************************/
+	/* AJAX COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CAjax
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cajax, zn::$use->cajax, uselib('cajax')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Function Variables
 	 * success, error, complete...
 	 *

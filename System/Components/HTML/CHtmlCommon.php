@@ -1,24 +1,22 @@
 <?php
-/************************************************************/
-/*                    COMPONENT  COMMON                   	*/
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* PROTECTED COMMON                                                                        *
-*******************************************************************************************
-| Dahil(Import) Edilirken : Dahil Edilemez.     							     		  |
-| Sınıfı Kullanırken      :	Kullanılamaz.       									      |
-| 																						  |
-| NOT: Yardımcı sınıftır.     															  |
-******************************************************************************************/
 class CHtmlCommon
 {
+	/***********************************************************************************/
+	/* HTML COMMON COMPONENT	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CHtmlCommon
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: HTML bileşenleri kullanmaktadır.
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	protected $link;
 	
 	// Protected attributes() yöntemi

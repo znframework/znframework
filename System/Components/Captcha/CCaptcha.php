@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    CAPTCHA COMPONENT                     */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* CAPTCHA                                                                                 *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->ccaptcha->     									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CCaptcha
 {
+	/***********************************************************************************/
+	/* CAPTCHA COMPONENT         		                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CCaptcha
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->ccaptcha, zn::$use->ccaptcha, uselib('ccaptcha')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Settings Değişkeni
 	 *  
 	 * Güvenlik kodu nesnesine ait

@@ -97,7 +97,6 @@ $config['ClassMap']['path'] = array
 	'CCaptcha' => 'System/Components/Captcha/CCaptcha.php',
 	'CCookie' => 'System/Components/Cookie/CCookie.php',
 	'CForm' => 'System/Components/Form/CForm.php',
-	'ComponentFormSecurity' => 'System/Components/Form/CFormSecurity.php',
 	'CFormValidation' => 'System/Components/Form/CFormValidation.php',
 	'CHTML' => 'System/Components/HTML/CHTML.php',
 	'CHtmlCommon' => 'System/Components/HTML/CHtmlCommon.php',

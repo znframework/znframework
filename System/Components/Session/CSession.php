@@ -1,26 +1,24 @@
 <?php
-/************************************************************/
-/*                    SESSION COMPONENT                     */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
 Config::iniSet(Config::get('Session','settings'));
-
 if(!isset($_SESSION)) session_start();
-/******************************************************************************************
-* SESSION                                                                                 *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->csession->       									  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CSession
 {
+	/***********************************************************************************/
+	/* SESSION COMPONENT	   	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CSession
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->csession, zn::$use->csession, uselib('csession')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	protected $name;
 	protected $value;
 	protected $regenerate = true;

@@ -1,27 +1,23 @@
 <?php
-/************************************************************/
-/*                    UPLOAD COMPONENT                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* Config/Upload.php dosyasından Ini ayarlarını yapılandır.                                *
-******************************************************************************************/
 Config::iniSet(Config::get('Upload','settings'));
-/******************************************************************************************
-* UPLOAD                                                                                  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cupload->     									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CUpload
 {
+	/***********************************************************************************/
+	/* UPLOAD COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CUpload
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cupload, zn::$use->cupload, uselib('cupload')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Settings Değişkeni
 	 *  
 	 * Yükleme ayar bilgilerini

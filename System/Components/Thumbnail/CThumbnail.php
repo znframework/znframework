@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                   THUMBNAIL COMPONENT                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* THUMBNAIL                                                                               *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cthumbnail->     					     			  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CThumbnail
 {
+	/***********************************************************************************/
+	/* THUMBNAIL COMPONENT    	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CThumbnail
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cthumbnail, zn::$use->cthumbnail, uselib('cthumbnail')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Setingss Değişkeni
 	 *  
 	 * Resim işlemeleri ayar bilgilerini

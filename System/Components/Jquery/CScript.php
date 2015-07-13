@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                    COMPONENT  SCRIPT                   	*/
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* SCRIPT                                                                                  *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cscript->       									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CScript
 {
+	/***********************************************************************************/
+	/* SCRIPT COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CScript
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cscript, zn::$use->cscript, uselib('cscript')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	protected $ready    = true;
 	protected $type 	= 'text/javascript';
 	

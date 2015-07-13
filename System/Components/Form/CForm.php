@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                      FORM COMPONENT                      */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* FORM                                                                                    *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->cform->       									      |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CForm extends CFormValidation
 {
+	/***********************************************************************************/
+	/* FORM COMPONENT	     	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CForm
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->cform, zn::$use->cform, uselib('cform')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Name Değişkeni
 	 *  
 	 * name="" bilgisini tutması 
@@ -378,22 +377,22 @@ class CForm extends CFormValidation
 	{
 		if( in_array('xss', $this->secure) )
 		{
-			$this->value = $this->xssEncode($this->value);	
+			$this->value = Security::xssEncode($this->value);	
 		}
 		
 		if( in_array('injection', $this->secure) )
 		{
-			$this->value = $this->injectionEncode($this->value);	
+			$this->value = Security::injectionEncode($this->value);	
 		}
 		
 		if( in_array('nc', $this->secure) )
 		{
-			$this->value = $this->ncEncode($this->value);	
+			$this->value = Security::ncEncode($this->value);	
 		}
 		
 		if( in_array('html', $this->secure) )
 		{
-			$this->value = $this->htmlEncode($this->value);
+			$this->value = Security::htmlEncode($this->value);
 		}
 	}
 	

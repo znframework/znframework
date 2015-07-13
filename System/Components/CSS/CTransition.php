@@ -1,23 +1,22 @@
 <?php
-/************************************************************/
-/*                   TRANSITION COMPONENT                   */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-/******************************************************************************************
-* TRANSITION                                                                              *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	$this->ctransition->       									  |
-| 																						  |
-| Kütüphanelerin kısa isimlendirmelerle kullanımı için. Config/Namespace.php bakınız.     |
-******************************************************************************************/
 class CTransition
 {
+	/***********************************************************************************/
+	/* TRANSITION COMPONENT	  	     		                   	                       */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: CTransition
+	/* Versiyon: 1.2
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: $this->ctransition, zn::$use->ctransition, uselib('ctransition')
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
+	
 	/* Easing Değişkeni
 	 *  
 	 * Easing animasyon bilgisini tutması 
