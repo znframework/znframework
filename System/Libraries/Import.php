@@ -111,7 +111,7 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function bladepPage($page = '', $data = '', $obGetContents = false)
+	public static function bladePage($page = '', $data = '', $obGetContents = false)
 	{
 		return uselib('CBlade')->view($page, $data, $obGetContents);
 	}
