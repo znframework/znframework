@@ -81,7 +81,6 @@ $config['ClassMap']['path'] = array
 	'DBForge' => 'System/Libraries/StaticAccess/Libraries/Database/DBForge.php',
 	'DBTool' => 'System/Libraries/StaticAccess/Libraries/Database/DBTool.php',
 	'Email' => 'System/Libraries/StaticAccess/Libraries/Email.php',
-	'Access' => 'System/Libraries/StaticAccess/Libraries/StaticAccess/Access.php',
 	'StaticAccess' => 'System/Libraries/StaticAccess/StaticAccess.php',
 	'Stream' => 'System/Libraries/Stream.php',
 	'Strings' => 'System/Libraries/Strings.php',
