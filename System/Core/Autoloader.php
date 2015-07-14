@@ -53,7 +53,7 @@ class Autoloader
 		{
 			self::createClassMap();
 		}
-
+		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
 	
@@ -65,7 +65,16 @@ class Autoloader
 		{	
 			require_once($file);
 		
-			self::$class = $classInfo['class'];
+			$classInfo = Autoloader::tokenClassFileInfo($file);
+			
+			if( ! empty($classInfo['namespace']) )
+			{
+				self::$class = $classInfo['namespace'].'\\'.$classInfo['class'];
+			}
+			else
+			{
+				self::$class = $classInfo['class'];
+			}
 			
 			if( ! class_exists(self::$class) )
 			{
@@ -101,11 +110,6 @@ class Autoloader
 				require_once($file);
 				
 				self::$class = $classInfo['class'];
-				
-				if( ! class_exists(self::$class) )
-				{
-					self::createClassMap();	
-				}
 			}
 			else
 			{
@@ -272,16 +276,16 @@ class Autoloader
 					// sınıf adına Static ön eki getirilerek
 					// bu sınıfların statik kullanımlarının oluşturulması
 					// sağlanabilir.			
-					if( strstr(strtolower($classInfo['class']), strtolower('Static')) &&  $classInfo['class'] !== 'StaticAccess' )
+					if( strstr(strtolower($classInfo['class']), strtolower('Static')) )
 					{
 						// Yeni yollar oluşturuluyor...
 						$newClassName = str_ireplace('Static', '', $classInfo['class']);
 						$newPath      = str_replace(array($classInfo['class'].'.php', $baseDirectory), array($newClassName.'.php', ''), $v);	
 						$newDir       = str_replace($newClassName.'.php', '', $newPath);
 						
-						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/Libraries/';
+						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
 						$newDir = $dir.$newDir;
-						
+
 						// Oluşturulacak dizinin var olup olmadığı
 						// kontrol ediliyor...
 					
@@ -297,8 +301,17 @@ class Autoloader
 						if( ! file_exists($path) )	
 						{	
 							$classContent  = '<?php'.eol();
-							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
+							$classContent .= 'class '.$newClassName.eol();
 							$classContent .= '{'.eol();	
+							$classContent .= "\t".'public static function __callStatic($method, $parameters)'.eol();
+							$classContent .= "\t".'{'.eol();
+							$classContent .= "\t\t".'return call_user_func_array(array(uselib("Static'.$newClassName.'"), $method), $parameters);'.eol();
+							$classContent .= "\t".'}';
+							$classContent .= eol(2);
+							$classContent .= "\t".'public function __call($method, $parameters)'.eol();
+							$classContent .= "\t".'{'.eol();
+							$classContent .= "\t\t".'return call_user_func_array(array(uselib("Static'.$newClassName.'"), $method), $parameters);'.eol();
+							$classContent .= "\t".'}';
 							$classContent .= eol();
 							$classContent .= '}';
 						

@@ -1,6 +1,8 @@
 <?php
 $config['ClassMap']['path'] = array
 (
+	'StaticA' => 'Application/Libraries/Test/A.php',
+	'Test\StaticA' => 'Application/Libraries/Test/A.php',
 	'Ajax' => 'System/Libraries/Ajax.php',
 	'Arrays' => 'System/Libraries/Arrays.php',
 	'Benchmark' => 'System/Libraries/Benchmark.php',
@@ -76,12 +78,12 @@ $config['ClassMap']['path'] = array
 	'Security' => 'System/Libraries/Security.php',
 	'Session' => 'System/Libraries/Session.php',
 	'Socket' => 'System/Libraries/Socket.php',
-	'Cache' => 'System/Libraries/StaticAccess/Libraries/Cache/Cache.php',
-	'DB' => 'System/Libraries/StaticAccess/Libraries/Database/DB.php',
-	'DBForge' => 'System/Libraries/StaticAccess/Libraries/Database/DBForge.php',
-	'DBTool' => 'System/Libraries/StaticAccess/Libraries/Database/DBTool.php',
-	'Email' => 'System/Libraries/StaticAccess/Libraries/Email.php',
-	'StaticAccess' => 'System/Libraries/StaticAccess/StaticAccess.php',
+	'Cache' => 'System/Libraries/StaticAccess/Cache/Cache.php',
+	'DB' => 'System/Libraries/StaticAccess/Database/DB.php',
+	'DBForge' => 'System/Libraries/StaticAccess/Database/DBForge.php',
+	'DBTool' => 'System/Libraries/StaticAccess/Database/DBTool.php',
+	'Email' => 'System/Libraries/StaticAccess/Email.php',
+	'A' => 'System/Libraries/StaticAccess/Test/A.php',
 	'Stream' => 'System/Libraries/Stream.php',
 	'Strings' => 'System/Libraries/Strings.php',
 	'Symbol' => 'System/Libraries/Symbol.php',
