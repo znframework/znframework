@@ -1,8 +1,6 @@
 <?php
 $config['ClassMap']['path'] = array
 (
-	'StaticA' => 'Application/Libraries/Test/A.php',
-	'Test\StaticA' => 'Application/Libraries/Test/A.php',
 	'Ajax' => 'System/Libraries/Ajax.php',
 	'Arrays' => 'System/Libraries/Arrays.php',
 	'Benchmark' => 'System/Libraries/Benchmark.php',
@@ -83,7 +81,6 @@ $config['ClassMap']['path'] = array
 	'DBForge' => 'System/Libraries/StaticAccess/Database/DBForge.php',
 	'DBTool' => 'System/Libraries/StaticAccess/Database/DBTool.php',
 	'Email' => 'System/Libraries/StaticAccess/Email.php',
-	'A' => 'System/Libraries/StaticAccess/Test/A.php',
 	'Stream' => 'System/Libraries/Stream.php',
 	'Strings' => 'System/Libraries/Strings.php',
 	'Symbol' => 'System/Libraries/Symbol.php',

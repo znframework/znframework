@@ -280,15 +280,17 @@ class Autoloader
 					{
 						// Yeni yollar oluşturuluyor...
 						$newClassName = str_ireplace('Static', '', $classInfo['class']);
-						$newPath      = str_replace(array($classInfo['class'].'.php', $baseDirectory), array($newClassName.'.php', ''), $v);	
-						$newDir       = str_replace($newClassName.'.php', '', $newPath);
+						$newPath      = str_ireplace(array($classInfo['class'].'.php', $baseDirectory), array($newClassName.'.php', ''), $v);	
 						
+						// Yeni dizin yolu oluşturuluyor...
+						$pathEx = explode('/', $newPath);		
+						array_pop($pathEx);		
+						$newDir = implode('/', $pathEx);
 						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
 						$newDir = $dir.$newDir;
 
 						// Oluşturulacak dizinin var olup olmadığı
-						// kontrol ediliyor...
-					
+						// kontrol ediliyor...		
 						if( ! isDirExists($newDir) )
 						{
 							mkdir($newDir);
@@ -300,6 +302,7 @@ class Autoloader
 						// kontrol ediliyor...
 						if( ! file_exists($path) )	
 						{	
+							// Statik sınıf içeriği oluşturuluyor....
 							$classContent  = '<?php'.eol();
 							$classContent .= 'class '.$newClassName.eol();
 							$classContent .= '{'.eol();	
@@ -315,6 +318,7 @@ class Autoloader
 							$classContent .= eol();
 							$classContent .= '}';
 						
+							// Dosya yazdırılıyor...
 							$fileOpen  = fopen($path, 'w');	
 							$fileWrite = fwrite($fileOpen, $classContent);
 						
