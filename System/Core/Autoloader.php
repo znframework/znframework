@@ -26,6 +26,14 @@ class Autoloader
 	 */
 	private static $classes;
 	
+	/* Class Değişkeni
+	 *
+	 *
+	 * Çağrılan sınıf bilgisini tutması
+	 * için oluşturulmuştur.
+	 */
+	public static $class;
+	
 	/******************************************************************************************
 	* RUN                                                                                     *
 	*******************************************************************************************
@@ -56,6 +64,8 @@ class Autoloader
 		if( file_exists($file) )
 		{	
 			require_once($file);
+			
+			self::$class = $classInfo['class'];
 		}
 		else
 		{
@@ -72,6 +82,8 @@ class Autoloader
 			if( file_exists($file) )
 			{	
 				require_once($file);
+				
+				self::$class = $classInfo['class'];
 			}
 			else
 			{
@@ -232,6 +244,47 @@ class Autoloader
 				if( isset($classInfo['class']) )
 				{
 					$classes[$classInfo['class']] = $v;	
+					
+					// Statik erişim sağlanmak istenen
+					// Statik olmayan sınıfların
+					// sınıf adına Static ön eki getirilerek
+					// bu sınıfların statik kullanımlarının oluşturulması
+					// sağlanabilir.			
+					if( strstr($classInfo['class'], 'Static') )
+					{
+						// Yeni yollar oluşturuluyor...
+						$newClassName = str_replace('Static', '', $classInfo['class']);
+						$newPath      = str_replace(array($classInfo['class'].'.php', $baseDirectory), array($newClassName.'.php', ''), $v);	
+						$newDir       = str_replace($newClassName.'.php', '', $newPath);
+						
+						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/Libraries/';
+						$newDir = $dir.$newDir;
+						
+						// Oluşturulacak dizinin var olup olmadığı
+						// kontrol ediliyor...
+						if( ! isDirExists($newDir) )
+						{
+							mkdir($newDir);
+						}
+						
+						$path = $dir.$newPath;	
+						
+						// Oluşturulacak dosyanın var olup olmadığı
+						// kontrol ediliyor...
+						if( ! file_exists($path) )	
+						{	
+							$classContent  = '<?php'.eol();
+							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
+							$classContent .= '{'.eol();	
+							$classContent .= eol();
+							$classContent .= '}';
+						
+							$fileOpen  = fopen($path, 'w');	
+							$fileWrite = fwrite($fileOpen, $classContent);
+						
+							fclose($fileOpen);
+						}
+					}
 				}
 				
 				if( isset($classInfo['namespace']) )
