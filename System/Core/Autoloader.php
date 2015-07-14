@@ -26,14 +26,6 @@ class Autoloader
 	 */
 	private static $classes;
 	
-	/* Class Değişkeni
-	 *
-	 *
-	 * Çağrılan sınıf bilgisini tutması
-	 * için oluşturulmuştur.
-	 */
-	public static $class;
-	
 	/******************************************************************************************
 	* RUN                                                                                     *
 	*******************************************************************************************
@@ -67,16 +59,11 @@ class Autoloader
 		
 			$classInfo = Autoloader::tokenClassFileInfo($file);
 			
-			if( ! empty($classInfo['namespace']) )
-			{
-				self::$class = $classInfo['namespace'].'\\'.$classInfo['class'];
-			}
-			else
-			{
-				self::$class = $classInfo['class'];
-			}
+			$classExists = ! empty($classInfo['namespace'])
+						   ? $classInfo['namespace'].'\\'.$classInfo['class']
+						   : $classExists = $classInfo['class'];
 			
-			if( ! class_exists(self::$class) )
+			if( ! class_exists($classExists) )
 			{
 				self::createClassMap();	
 				
@@ -88,8 +75,6 @@ class Autoloader
 				if( file_exists($file) )
 				{	
 					require_once($file);
-					
-					self::$class = $classInfo['class'];
 				}
 			}
 		}
@@ -108,8 +93,6 @@ class Autoloader
 			if( file_exists($file) )
 			{	
 				require_once($file);
-				
-				self::$class = $classInfo['class'];
 			}
 			else
 			{
@@ -287,8 +270,13 @@ class Autoloader
 						array_pop($pathEx);		
 						$newDir = implode('/', $pathEx);
 						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
-						$newDir = $dir.$newDir;
-
+						$newDir = $dir.$newDir;	
+						
+						if( ! isDirExists($dir) )
+						{
+							mkdir($dir);
+						}
+						
 						// Oluşturulacak dizinin var olup olmadığı
 						// kontrol ediliyor...		
 						if( ! isDirExists($newDir) )
