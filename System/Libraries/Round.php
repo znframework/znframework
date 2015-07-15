@@ -1,5 +1,5 @@
 <?php
-class Round
+class StaticRound
 {
 	/***********************************************************************************/
 	/* ROUND LIBRARY						                   	                       */
@@ -24,7 +24,7 @@ class Round
 	// @count = Virgülden sonraki ondalıklı bölmün kaç karakter olacağı
 	// @type = Yuvarlamanın yönü. Parametrenin alabileceği değerler: average, down, up
 	// Dönen Değer: Yuvarlanmı sayısal veri.
-	public static function data($number = '', $count = 0, $type = "average")
+	public function data($number = '', $count = 0, $type = "average")
 	{
 		if( ! is_numeric($number) || empty($number) ) 
 		{

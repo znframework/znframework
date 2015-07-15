@@ -1,5 +1,5 @@
 <?php
-class Limit
+class StaticLimit
 {
 	/***********************************************************************************/
 	/* LIMIT LIBRARY						                   	                       */
@@ -25,7 +25,7 @@ class Limit
 	// @endchar = Metnin kelime sayısı sınırlanan sayıdan fazla ise devamı olduğunu gösteren ve metnin sonuna eklenen karakter.
 	// @striptags = Metindeki html tagları numerik koda dönüştürülsün mü?. true veya false.
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function word($str = '', $limit = 100, $endChar = '...', $stripTags = true)
+	public function word($str = '', $limit = 100, $endChar = '...', $stripTags = true)
 	{
 		if( ! is_string($str) ) 
 		{
@@ -80,7 +80,7 @@ class Limit
 	// @endchar = Metnin kelime sayısı sınırlanan sayıdan fazla ise devamı olduğunu gösteren ve metnin sonuna eklenen karakter.
 	// @striptags = Metindeki html tagları numerik koda dönüştürülsün mü?. true veya false.
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function char($str = '', $limit = 500, $endChar = '...',  $stripTags = false, $encoding = "utf-8")
+	public function char($str = '', $limit = 500, $endChar = '...',  $stripTags = false, $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{

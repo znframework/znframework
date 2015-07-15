@@ -1,5 +1,5 @@
 <?php
-class HTML5
+class StaticHTML5
 {
 	/***********************************************************************************/
 	/* HTML5 LIBRARY						                   	                       */
@@ -29,7 +29,7 @@ class HTML5
 	| // name="ornek" id="zntr"       														  |
 	|          																				  |
 	******************************************************************************************/	
-	protected static function attributes($attributes = '')
+	protected function attributes($attributes = '')
 	{
 		$attribute = '';
 		
@@ -66,7 +66,7 @@ class HTML5
 	| 3. text 		 	=> text/plain      											          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function formOpen($name = '', $_attributes = '')
+	public function formOpen($name = '', $_attributes = '')
 	{
 		return Form::open($name, $_attributes);
 	}
@@ -82,13 +82,13 @@ class HTML5
 	| // </form>         											  						  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function formClose()
+	public function formClose()
 	{
 		return Form::close();
 	}
 	
 	// Form Input Nesneleri
-	protected static function _input($name = "", $value = "", $_attributes = '', $type = '')
+	protected function _input($name = "", $value = "", $_attributes = '', $type = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -116,7 +116,7 @@ class HTML5
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eol();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -133,9 +133,9 @@ class HTML5
 	| // <input type="email" name="nesne" value="Değer" style="color:red">       			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function emailObject($name = '', $value = '', $_attributes = '')
+	public function emailObject($name = '', $value = '', $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'email');
+		return $this->_input($name, $value, $_attributes, 'email');
 	}
 	
 	/******************************************************************************************
@@ -152,9 +152,9 @@ class HTML5
 	| // <input type="url" name="nesne" value="Değer" style="color:red">       			      | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function urlObject($name = "", $value = "", $_attributes = '')
+	public function urlObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'url');
+		return $this->_input($name, $value, $_attributes, 'url');
 	}
 	
 	/******************************************************************************************
@@ -171,9 +171,9 @@ class HTML5
 	| // <input type="url" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function numberObject($name = "", $value = "", $_attributes = '')
+	public function numberObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'number');
+		return $this->_input($name, $value, $_attributes, 'number');
 	}
 	
 	/******************************************************************************************
@@ -190,9 +190,9 @@ class HTML5
 	| // <input type="search" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function searchObject($name = "", $value = "", $_attributes = '')
+	public function searchObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'search');
+		return $this->_input($name, $value, $_attributes, 'search');
 	}
 	
 	/******************************************************************************************
@@ -209,9 +209,9 @@ class HTML5
 	| // <input type="tel" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public static function telObject($name = "", $value = "", $_attributes = '')
+	public function telObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'tel');
+		return $this->_input($name, $value, $_attributes, 'tel');
 	}
 	
 	/******************************************************************************************
@@ -228,9 +228,9 @@ class HTML5
 	| // <input type="color" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function colorObject($name = "", $value = "", $_attributes = '')
+	public function colorObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'color');
+		return $this->_input($name, $value, $_attributes, 'color');
 	}
 	
 	/******************************************************************************************
@@ -247,9 +247,9 @@ class HTML5
 	| // <input type="date" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function dateObject($name = "", $value = "", $_attributes = '')
+	public function dateObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'date');
+		return $this->_input($name, $value, $_attributes, 'date');
 	}
 	
 	/******************************************************************************************
@@ -266,9 +266,9 @@ class HTML5
 	| // <input type="datetime" name="nesne" value="Değer" style="color:red">       		  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function datetimeObject($name = "", $value = "", $_attributes = '')
+	public function datetimeObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'datetime');
+		return $this->_input($name, $value, $_attributes, 'datetime');
 	}
 	
 	/******************************************************************************************
@@ -285,9 +285,9 @@ class HTML5
 	| // <input type="datetime-local" name="nesne" value="Değer" style="color:red">       	  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function datetimeLocalObject($name = "", $value = "", $_attributes = '')
+	public function datetimeLocalObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'datetime-local');
+		return $this->_input($name, $value, $_attributes, 'datetime-local');
 	}
 	
 	/******************************************************************************************
@@ -304,9 +304,9 @@ class HTML5
 	| // <input type="time" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function timeObject($name = "", $value = "", $_attributes = '')
+	public function timeObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'time');
+		return $this->_input($name, $value, $_attributes, 'time');
 	}
 	
 	/******************************************************************************************
@@ -323,9 +323,9 @@ class HTML5
 	| // <input type="week" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function weekObject($name = "", $value = "", $_attributes = '')
+	public function weekObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'week');
+		return $this->_input($name, $value, $_attributes, 'week');
 	}
 	
 	/******************************************************************************************
@@ -342,9 +342,9 @@ class HTML5
 	| // <input type="month" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function monthObject($name = "", $value = "", $_attributes = '')
+	public function monthObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'month');
+		return $this->_input($name, $value, $_attributes, 'month');
 	}
 	
 	/******************************************************************************************
@@ -361,9 +361,9 @@ class HTML5
 	| // <input type="range" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function rangeObject($name = "", $value = "", $_attributes = '')
+	public function rangeObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'range');
+		return $this->_input($name, $value, $_attributes, 'range');
 	}
 	
 	/******************************************************************************************
@@ -380,9 +380,9 @@ class HTML5
 	| // <input type="image" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function imageObject($name = "", $value = "", $_attributes = '')
+	public function imageObject($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'image');
+		return $this->_input($name, $value, $_attributes, 'image');
 	}
 	
 	/******************************************************************************************
@@ -400,13 +400,13 @@ class HTML5
 	| // <input type="text" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function inputObject($type = "", $name = "", $value = "", $_attributes = '')
+	public function inputObject($type = "", $name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, $type);
+		return $this->_input($name, $value, $_attributes, $type);
 	}
 	
 	// İçerik girilir tipteki html5 nesneleri için
-	protected static function _content($html, $type)
+	protected function _content($html, $type)
 	{
 		if( ! is__value($html) )  
 		{
@@ -428,9 +428,9 @@ class HTML5
 	| // <header>İçerik</header>											       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function header($html = "")
+	public function header($html = "")
 	{
-		return self::_content($html, 'header');
+		return $this->_content($html, 'header');
 	}
 	
 	/******************************************************************************************
@@ -445,9 +445,9 @@ class HTML5
 	| // <footer>İçerik</footer>											       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function footer($html = "")
+	public function footer($html = "")
 	{
-		return self::_content($html, 'footer');
+		return $this->_content($html, 'footer');
 	}
 	
 	/******************************************************************************************
@@ -462,9 +462,9 @@ class HTML5
 	| // <nav>İçerik</nav>											       	          		  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function nav($html = "")
+	public function nav($html = "")
 	{
-		return self::_content($html, 'nav');
+		return $this->_content($html, 'nav');
 	}	
 	
 	/******************************************************************************************
@@ -479,9 +479,9 @@ class HTML5
 	| // <article>İçerik</article>											       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function article($html = "")
+	public function article($html = "")
 	{
-		return self::_content($html, 'article');
+		return $this->_content($html, 'article');
 	}
 	
 	/******************************************************************************************
@@ -496,9 +496,9 @@ class HTML5
 	| // <aside>İçerik</aside>											       	              | 
 	|          																				  |
 	******************************************************************************************/
-	public static function aside($html = "")
+	public function aside($html = "")
 	{
-		return self::_content($html, 'aside');
+		return $this->_content($html, 'aside');
 	}
 	
 	/******************************************************************************************
@@ -513,9 +513,9 @@ class HTML5
 	| // <section>İçerik</section>											       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function section($html = "")
+	public function section($html = "")
 	{
-		return self::_content($html, 'section');
+		return $this->_content($html, 'section');
 	}
 	
 	/******************************************************************************************
@@ -530,20 +530,20 @@ class HTML5
 	| // <hgroup>İçerik</hgroup>											       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function hgroup($html = "")
+	public function hgroup($html = "")
 	{
-		return self::_content($html, 'hgroup');
+		return $this->_content($html, 'hgroup');
 	}
 	
 	// içerik ve özellik eklenebilir HTML5 nesneleri için
-	protected static function _contentAttribute($content, $_attributes, $type)
+	protected function _contentAttribute($content, $_attributes, $type)
 	{
 		if( ! isValue($content) )  
 		{
 			$content = '';
 		}
 		
-		return '<'.$type.self::attributes($_attributes).'>'.$content."</$type>".eol();
+		return '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".eol();
 	}
 	
 	/******************************************************************************************
@@ -559,9 +559,9 @@ class HTML5
 	| // <canvas name="nesne">İçerik</canvas>											      | 
 	|          																				  |
 	******************************************************************************************/
-	public static function canvas($content = "", $_attributes = '')
+	public function canvas($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'canvas');
+		return $this->_contentAttribute($content, $_attributes, 'canvas');
 	}
 	
 	/******************************************************************************************
@@ -577,9 +577,9 @@ class HTML5
 	| // <datalist name="nesne">İçerik</datalist>											  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function dataList($content = "", $_attributes = '')
+	public function dataList($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'datalist');
+		return $this->_contentAttribute($content, $_attributes, 'datalist');
 	}
 	
 	/******************************************************************************************
@@ -595,9 +595,9 @@ class HTML5
 	| // <output name="nesne">İçerik</output>											      | 
 	|          																				  |
 	******************************************************************************************/
-	public static function output($content = "", $_attributes = '')
+	public function output($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'output');
+		return $this->_contentAttribute($content, $_attributes, 'output');
 	}	
 	
 	/******************************************************************************************
@@ -613,9 +613,9 @@ class HTML5
 	| // <details name="nesne">İçerik</details>											      | 
 	|          																				  |
 	******************************************************************************************/
-	public static function details($content = "", $_attributes = '')
+	public function details($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'details');
+		return $this->_contentAttribute($content, $_attributes, 'details');
 	}
 	
 	/******************************************************************************************
@@ -631,9 +631,9 @@ class HTML5
 	| // <summary name="nesne">İçerik</summary>											      | 
 	|          																				  |
 	******************************************************************************************/
-	public static function summary($content = "", $_attributes = '')
+	public function summary($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'summary');
+		return $this->_contentAttribute($content, $_attributes, 'summary');
 	}
 	
 	/******************************************************************************************
@@ -649,9 +649,9 @@ class HTML5
 	| // <figure name="nesne">İçerik</figure>											      | 
 	|          																				  |
 	******************************************************************************************/
-	public static function figure($content = "", $_attributes = '')
+	public function figure($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'figure');
+		return $this->_contentAttribute($content, $_attributes, 'figure');
 	}
 	
 	/******************************************************************************************
@@ -667,9 +667,9 @@ class HTML5
 	| // <figcaption name="nesne">İçerik</figcaption>										  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function figCaption($content = "", $_attributes = '')
+	public function figCaption($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'figcaption');
+		return $this->_contentAttribute($content, $_attributes, 'figcaption');
 	}
 	
 	/******************************************************************************************
@@ -685,9 +685,9 @@ class HTML5
 	| // <mark name="nesne">İçerik</mark>										 			  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function mark($content = "", $_attributes = '')
+	public function mark($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'mark');
+		return $this->_contentAttribute($content, $_attributes, 'mark');
 	}
 	
 	/******************************************************************************************
@@ -703,9 +703,9 @@ class HTML5
 	| // <time name="nesne">İçerik</time>										 			  | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function time($content = "", $_attributes = '')
+	public function time($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'time');
+		return $this->_contentAttribute($content, $_attributes, 'time');
 	}
 
 	/******************************************************************************************
@@ -721,9 +721,9 @@ class HTML5
 	| // <dialog name="nesne">İçerik</dialog>										 		  | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function dialog($content = "", $_attributes = '')
+	public function dialog($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'dialog');
+		return $this->_contentAttribute($content, $_attributes, 'dialog');
 	}
 	
 	/******************************************************************************************
@@ -739,9 +739,9 @@ class HTML5
 	| // <command name="nesne">İçerik</command>										 		  | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function command($content = "", $_attributes = '')
+	public function command($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'command');
+		return $this->_contentAttribute($content, $_attributes, 'command');
 	}
 	
 	/******************************************************************************************
@@ -757,9 +757,9 @@ class HTML5
 	| // <meter name="nesne">İçerik</meter>										 		      | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function meter($content = "", $_attributes = '')
+	public function meter($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'meter');
+		return $this->_contentAttribute($content, $_attributes, 'meter');
 	}
 	
 	/******************************************************************************************
@@ -775,9 +775,9 @@ class HTML5
 	| // <progress name="nesne">İçerik</progress>										 	  | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function progress($content = "", $_attributes = '')
+	public function progress($content = "", $_attributes = '')
 	{
-		return self::_contentAttribute($content, $_attributes, 'progress');
+		return $this->_contentAttribute($content, $_attributes, 'progress');
 	}
 	
 	/******************************************************************************************
@@ -792,20 +792,20 @@ class HTML5
 	| // <keygen name="nesne">										 	  				      | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function keygen($_attributes = '')
+	public function keygen($_attributes = '')
 	{
-		return '<keygen'.self::attributes($_attributes).'>'.eol();
+		return '<keygen'.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	// HTML5 medya nesneleri için
-	protected static function _media($src, $_attributes, $type)
+	protected function _media($src, $_attributes, $type)
 	{
 		if( ! is_string($src) )  
 		{
 			$src = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.eol();
+		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -821,9 +821,9 @@ class HTML5
 	| // <embed src="http://www.ornek.com/kaynak" name="nesne">								  | 
 	|          																				  |
 	******************************************************************************************/ 
-	public static function embed($src = "", $_attributes = '')
+	public function embed($src = "", $_attributes = '')
 	{
-		return self::_media($src, $_attributes, 'embed');
+		return $this->_media($src, $_attributes, 'embed');
 	}
 	
 	/******************************************************************************************
@@ -839,13 +839,13 @@ class HTML5
 	| // <source src="http://www.ornek.com/kaynak" name="nesne">							  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function source($src = "", $_attributes = array())
+	public function source($src = "", $_attributes = array())
 	{
-		return self::_media($src, $_attributes, 'source');
+		return $this->_media($src, $_attributes, 'source');
 	}
 	
 	// HTML5 içerik eklenebilir medya nesneleri için.
-	protected static function _mediaContent($src, $content, $_attributes, $type)
+	protected function _mediaContent($src, $content, $_attributes, $type)
 	{
 		if( ! is_string($src) )  
 		{
@@ -857,7 +857,7 @@ class HTML5
 			$content = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.self::attributes($_attributes).'>'.$content."</$type>".eol();
+		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.$content."</$type>".eol();
 	}
 	
 	/******************************************************************************************
@@ -874,9 +874,9 @@ class HTML5
 	| // <video src="http://www.ornek.com/kaynak" name="nesne">İçerik</video>				  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function video($src = "", $content = "", $attributes = array())
+	public function video($src = "", $content = "", $attributes = array())
 	{
-		return self::_mediaContent($src, $content, $_attributes, 'video');
+		return $this->_mediaContent($src, $content, $_attributes, 'video');
 	}
 	
 	/******************************************************************************************
@@ -893,8 +893,8 @@ class HTML5
 	| // <audio src="http://www.ornek.com/kaynak" name="nesne">İçerik</audio>				  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function audio($src = "", $content = "", $attributes = array(""))
+	public function audio($src = "", $content = "", $attributes = array(""))
 	{
-		return self::_mediaContent($src, $content, $_attributes, 'audio');
+		return $this->_mediaContent($src, $content, $_attributes, 'audio');
 	}
 }

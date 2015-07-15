@@ -1,5 +1,5 @@
 <?php 
-class CURL
+class StaticCURL
 {
 	/***********************************************************************************/
 	/* CURL LIBRARY   						                   	                       */
@@ -17,13 +17,21 @@ class CURL
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * Curl ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
 	/* Inıt Değişkeni
 	 *  
 	 * Curl Inıt oturum bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $init;
+	protected $init;
 	
 	/* Setting Değişkeni
 	 *  
@@ -31,7 +39,12 @@ class CURL
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $setting;
+	protected $setting;
+	
+	public function __construct()
+	{
+		$this->config = Config::get('Curl');	
+	}
 
 	/******************************************************************************************
 	* OPEN                                                                                    *
@@ -45,11 +58,11 @@ class CURL
 	| Not: Bu parametrenin kullanımı isteğe bağlıdır.  										  |
 	|          																				  |
 	******************************************************************************************/
-	public static function open($url = NULL)
+	public function open($url = NULL)
 	{
-		self::$init = curl_init($url);
+		$this->init = curl_init($url);
 		
-		return selff::$init;
+		return $this->init;
 	}
 	
 	/******************************************************************************************
@@ -71,15 +84,15 @@ class CURL
 	| Örnek Kullanım: settings(array('url' => 'http://www.example.xxx/', ...));   			  |
 	|          																				  |
 	******************************************************************************************/
-	public static function settings($settings = '', $value = '')
+	public function settings($settings = '', $value = '')
 	{	
 		//Ayar boş veya oturum başlatılmamışsa false değeri döndürme işlemi yapılıyor.
-		if( empty($settings) || ! isset(self::$init) ) 
+		if( empty($settings) || ! isset($this->init) ) 
 		{
 			return false;
 		}
 		
-		$options = Config::get('Curl','options');
+		$options = $this->config['options'];
 		
 		// settings parametresinin dizi olma veya string olma durumuna göre işleniyor.
 		if( is_array($settings) )
@@ -99,7 +112,7 @@ class CURL
 				{
 					$opt = $key;
 				}
-				curl_setopt(self::$init,$opt,$val);			
+				curl_setopt($this->init,$opt,$val);			
 			}
 		}
 		else
@@ -128,7 +141,7 @@ class CURL
 				$opt = $settings;
 			}
 			
-			curl_setopt(self::$init,$opt,$value);
+			curl_setopt($this->init,$opt,$value);
 		}
 		
 	}
@@ -141,14 +154,14 @@ class CURL
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public static function execute()
+	public function execute()
 	{
-		if( ! isset(self::$init) ) 
+		if( ! isset($this->init) ) 
 		{
 			return false;
 		}
 		
-		return curl_exec(self::$init);
+		return curl_exec($this->init);
 	}
 
 	/******************************************************************************************
@@ -163,7 +176,7 @@ class CURL
 	| Örnek Kullanım: info('speed_download');  // CURLINFO_SPEED_DOWNLOAD    				  |
 	|          																				  |
 	******************************************************************************************/
-	public static function info($data = '')
+	public function info($data = '')
 	{
 		if( ! isValue($data) )
 		{
@@ -175,7 +188,7 @@ class CURL
 		// belirlenen ayar parametrelerini kullanabilirsiniz. 
 		if( ! is_int($data) )
 		{	
-			$infos = Config::get('Curl','infos');
+			$infos = $this->config['infos'];
 			
 			if( isset($infos[$data]) ) 
 			{
@@ -191,7 +204,7 @@ class CURL
 			$info = $data;	
 		}
 		
-		return curl_getinfo(self::$init, $info);	
+		return curl_getinfo($this->init, $info);	
 	}
 	
 	/******************************************************************************************
@@ -204,14 +217,14 @@ class CURL
 	| Örnek Kullanım: error();  // 															  |
 	|          																				  |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( ! isset(self::$init) ) 
+		if( ! isset($this->init) ) 
 		{
 			return false;
 		}
 		
-		return curl_error(self::$init);
+		return curl_error($this->init);
 	}
 	
 	/******************************************************************************************
@@ -224,14 +237,14 @@ class CURL
 	| Örnek Kullanım: errno();  // 															  |
 	|          																				  |
 	******************************************************************************************/
-	public static function errno()
+	public function errno()
 	{
-		if( ! isset(self::$init) ) 
+		if( ! isset($this->init) ) 
 		{
 			return false;
 		}
 		
-		return curl_errno(self::$init);
+		return curl_errno($this->init);
 	}
 	
 	/******************************************************************************************
@@ -244,15 +257,15 @@ class CURL
 	| Örnek Kullanım: errno();  // 															  |
 	|          																				  |
 	******************************************************************************************/
-	public static function errval()
+	public function errval()
 	{
-		if( ! isset(self::$init) )
+		if( ! isset($this->init) )
 		{ 
 			return false;
 		}
 		
-		$errors = Config::get('Curl','errors');
-		$errno  = curl_errno(self::$init);
+		$errors = $this->config['errors'];
+		$errno  = curl_errno($this->init);
 		
 		if( isset($errno) ) 
 		{
@@ -278,7 +291,7 @@ class CURL
 	| Örnek Kullanım: errno();  // 															  |
 	|          																				  |
 	******************************************************************************************/
-	public static function version($info = '')
+	public function version($info = '')
 	{
 		if( ! is_string($info)) 
 		{
@@ -305,11 +318,11 @@ class CURL
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|														                                  |
 	******************************************************************************************/
-	public static function close()
+	public function close()
 	{
-		if( isset(self::$init) ) 
+		if( isset($this->init) ) 
 		{
-			return curl_close(self::$init);
+			return curl_close($this->init);
 		}
 		else
 		{

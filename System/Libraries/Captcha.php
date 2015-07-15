@@ -1,5 +1,5 @@
 <?php
-class Captcha
+class StaticCaptcha
 {
 	/***********************************************************************************/
 	/* CAPTCHA LIBRARY						                   	                       */
@@ -24,15 +24,10 @@ class Captcha
 	|																						  |
 	| Parametreler: Tek parametresi vardır.                                              	  |
 	| 1. boolean var @img => <img> nesnesi oluşturulsun mu?.						     	  |
-	|          																				  |
-	| Örnek Kullanım:         																  |
-	| echo create_captcha(true);															  |
-	|																						  |
-	| $kod = create_captcha(); 																  |
-	| echo '<img src="'.$kod.'" />'; 														  |
+	| 1. array var @configs => Config/Captcha.php dosyasında yer alan ayarlar kullanılır.  	  |
 	|																						  |
 	******************************************************************************************/	
-	public static function create($img = false, $configs = array())
+	public function create($img = false, $configs = array())
 	{
 		if( ! isset($_SESSION) ) 
 		{
@@ -201,13 +196,8 @@ class Captcha
 	*******************************************************************************************
 	| Genel Kullanım: Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir. 		  |
 	|																						  |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım:         																  |
-	| echo get_captcha_code(); // Çıktı: 1A4D31 											  |
-	|																						  |
 	******************************************************************************************/	
-	public static function getCode()
+	public function getCode()
 	{
 		if( ! isset($_SESSION) ) 
 		{

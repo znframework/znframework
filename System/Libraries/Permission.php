@@ -1,5 +1,5 @@
 <?php 
-class Permission
+class StaticPermission
 {
 	/***********************************************************************************/
 	/* PERMISSON LIBRARY					                   	                       */
@@ -17,19 +17,32 @@ class Permission
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * FTP ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
 	/* Permission Değişkeni
 	 *  
 	 * Config/Permission.php dosyasındaki ayar
 	 * bilgilerini tutması için oluşturulmuştur.
 	 */
-	private static $permission = array();
+	protected $permission = array();
 	
 	/* Result Değişkeni
 	 *  
 	 * Yetki sonucu durum
 	 * bilgisini tutması için oluşturulmuştur.
 	 */
-	private static $result;
+	protected $result;
+	
+	public function __construct()
+	{
+		$this->config = Config::get('Permission');	
+	}
 	
 	/******************************************************************************************
 	* PROCESS                                                                                 *
@@ -51,7 +64,7 @@ class Permission
 	| görüntülenmeyecektir.         														  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function process($roleId = '', $process = '', $object = '')
+	public function process($roleId = '', $process = '', $object = '')
 	{
 		// Parametrelerin kontrolleri yapılıyor.
 		if( ! is_numeric($roleId) ) 
@@ -67,11 +80,11 @@ class Permission
 			$object = '';
 		}
 		
-		self::$permission = Config::get('Permission','process');
+		$this->permission = $this->config['process'];
 		
-		if( isset(self::$permission[$roleId]) ) 
+		if( isset($this->permission[$roleId]) ) 
 		{
-			$rules = self::$permission[$roleId]; 
+			$rules = $this->permission[$roleId]; 
 		}
 		else
 		{
@@ -116,7 +129,7 @@ class Permission
 					}
 					else
 					{
-						 self::$result = false;
+						 $this->result = false;
 					}
 				}
 				else
@@ -128,12 +141,12 @@ class Permission
 					}
 					else
 					{
-						 self::$result = $object;
+						 $this->result = $object;
 					}
 				}
 			}
 			
-			return self::$result;
+			return $this->result;
 		}
 		else
 		{	
@@ -180,18 +193,18 @@ class Permission
 	| Örnek Kullanım: page(4);        	  			  									      |
 	|          																				  |
 	******************************************************************************************/
-	public static function page($roleId = '6')
+	public function page($roleId = '6')
 	{
 		if( ! is_numeric($roleId) ) 
 		{
 			return false;
 		}
 		
-		self::$permission = Config::get('Permission','page');
+		$this->permission = $this->config['page'];
 		
-		if( isset(self::$permission[$roleId]) )
+		if( isset($this->permission[$roleId]) )
 		{ 
-			$rules = self::$permission[$roleId]; 
+			$rules = $this->permission[$roleId]; 
 		}
 		else
 		{
@@ -236,7 +249,7 @@ class Permission
 					}
 					else
 					{
-						 self::$result = false;
+						 $this->result = false;
 					}
 				}
 				else
@@ -248,12 +261,12 @@ class Permission
 					}
 					else
 					{
-						 self::$result = true;
+						 $this->result = true;
 					}
 				}
 			}
 			
-			return self::$result;
+			return $this->result;
 		}
 		else
 		{		

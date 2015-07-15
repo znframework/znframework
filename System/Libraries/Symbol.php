@@ -1,5 +1,5 @@
 <?php
-class Symbol
+class StaticSymbol
 {
 	/***********************************************************************************/
 	/* SYMBOL LIBRARY						                   	                       */
@@ -29,7 +29,7 @@ class Symbol
 	| Örnek Kullanım: symbol('daimon');         											  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function name($symbolName = 'turkishLira')
+	public function name($symbolName = 'turkishLira')
 	{
 		if( ! is_string($symbolName) ) 
 		{

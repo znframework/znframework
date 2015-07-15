@@ -1,5 +1,5 @@
 <?php 
-class Json
+class StaticJson
 {
 	/***********************************************************************************/
 	/* JSON LIBRARY	     					                   	                       */
@@ -22,14 +22,14 @@ class Json
 	 * Anahtar ile değer asındaki ayraç
 	 * Varsayılan:+-?||?-+
 	 */
-	private static $key = "+-?||?-+" ;
+	private $key = "+-?||?-+" ;
 	
 	/* Seperator Değişkeni
 	 *  
 	 * Anahtar ve değerler asındaki ayraç
 	 * Varsayılan:|?-++-?|
 	 */
-	private static $seperator = "|?-++-?|";
+	private $seperator = "|?-++-?|";
 	
 	/******************************************************************************************
 	* ENCODE                                                                                  *
@@ -45,7 +45,7 @@ class Json
 	| // 1+-?||?-+1|?-++-?|2+-?||?-+2     													  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function encode($data = array(), $key = '', $seperator = '')
+	public function encode($data = array(), $key = '', $seperator = '')
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
@@ -68,13 +68,13 @@ class Json
 		// @key parametresi boş ise ön tanımlı ayracı kullan.
 		if( empty($key) ) 
 		{
-			$key = self::$key;
+			$key = $this->key;
 		}
 		
 		// @seperator parametresi boş ise ön tanımlı ayracı kullan.
 		if( empty($seperator) ) 
 		{
-			$seperator = self::$seperator;
+			$seperator = $this->seperator;
 		}
 		// -----------------------------------------------------------------------------
 		
@@ -102,7 +102,7 @@ class Json
 	|          																				  |
 	******************************************************************************************/	
 
-	public static function decode($word = '', $key = '', $seperator = '')
+	public function decode($word = '', $key = '', $seperator = '')
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($word) ) 
@@ -127,12 +127,12 @@ class Json
 		
 		if( empty($key) ) 
 		{
-			$key = self::$key;
+			$key = $this->key;
 		}
 		
 		if( empty($seperator) ) 
 		{
-			$seperator = self::$seperator;
+			$seperator = $this->seperator;
 		}
 		// -----------------------------------------------------------------------------
 		

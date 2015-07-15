@@ -1,5 +1,5 @@
 <?php
-class Validation
+class StaticValidation
 {
 	/***********************************************************************************/
 	/* VALIDATION LIBRARY    				                   	                       */
@@ -23,7 +23,7 @@ class Validation
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $errors 	= array();
+	protected $errors 	= array();
 	
 	/* Error Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class Validation
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error  	= array();
+	protected $error  	= array();
 	
 	/* New Value Değişkeni
 	 *  
@@ -40,7 +40,7 @@ class Validation
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $nval 	= array();
+	protected $nval 	= array();
 	
 	/* PROTECTED Method Type Fonksiyonu
 	 *  
@@ -48,7 +48,7 @@ class Validation
 	 * için oluşturulmuştur.
 	 *
 	 */
-	protected static function _methodType($name = '', $met = '')
+	protected function _methodType($name = '', $met = '')
 	{
 		if( $met === "post" ) 		
 		{
@@ -72,7 +72,7 @@ class Validation
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected static function _methodNval($name = '', $val = '', $met = '')
+	protected function _methodNval($name = '', $val = '', $met = '')
 	{
 		if( $met === "post" ) 		
 		{
@@ -102,7 +102,7 @@ class Validation
 	| Örnek Kullanım: identity(123213); // Çıktı: true veya false      		      			  |
 	|          																				  |
 	******************************************************************************************/
-	public static function identity($no = '')
+	public function identity($no = '')
 	{
 		if( ! is_numeric($no) ) 
 		{
@@ -149,7 +149,7 @@ class Validation
 	| Örnek Kullanım: email('bilgi@zntr.net'); // Çıktı: true veya false      		      	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function email($data = '')
+	public function email($data = '')
 	{
 		if( ! is_string($data) ) 
 		{
@@ -176,7 +176,7 @@ class Validation
 	| Örnek Kullanım: url('zntr.net'); // Çıktı: true veya false      		      	          |
 	|          																				  |
 	******************************************************************************************/
-	public static function url($data = '')
+	public function url($data = '')
 	{
 		if( ! is_string($data) ) 
 		{
@@ -203,7 +203,7 @@ class Validation
 	| Örnek Kullanım: specialChar('zntr.net'); // Çıktı: true veya false      		      	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function specialChar($data = '')
+	public function specialChar($data = '')
 	{
 		if( ! is_string($data) ) 
 		{
@@ -231,7 +231,7 @@ class Validation
 	| Örnek Kullanım: maxchar('zntr.net', 10); // Çıktı: true veya false      		      	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function maxchar($data = '', $char = '')
+	public function maxchar($data = '', $char = '')
 	{
 		if( ! is_string($data) ) 
 		{
@@ -264,7 +264,7 @@ class Validation
 	| Örnek Kullanım: minchar('zntr.net', 5); // Çıktı: true veya false      		      	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function minchar($data = '', $char = '')
+	public function minchar($data = '', $char = '')
 	{
 		if( ! is_string($data) ) 
 		{
@@ -314,7 +314,7 @@ class Validation
 	| .																						  |
 	|  >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı bilgi için ZNTR.NET<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   |    																				  |
 	******************************************************************************************/
-	public static function rules($name = '', $config = array(), $viewName = '', $met = 'post')
+	public function rules($name = '', $config = array(), $viewName = '', $met = 'post')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -351,7 +351,7 @@ class Validation
 
 		$messages = array();
 		
-		$edit = self::_methodType($name, $met);
+		$edit = $this->_methodType($name, $met);
 		
 		if( ! isset($edit) ) 
 		{
@@ -392,10 +392,10 @@ class Validation
 		}
 		
 		// Süzgeç sonrası validation::nval() yönteminin yeni değeri
-		self::$nval[$name] = $edit;
+		$this->nval[$name] = $edit;
 		
 		// Süzgeç sonrası yeni değer
-		self::_methodNval($name, $edit, $met);
+		$this->_methodNval($name, $edit, $met);
 		
 		// required boş geçilemez yapar.
 		if( in_array('required', $config) )
@@ -404,7 +404,7 @@ class Validation
 			{ 		
 				$required 			= lang('Validation', 'required',$viewName);
 				$messages[$i] 		= $required.'<br>'; $i++;
-				self::$error[$name] = $required;
+				$this->error[$name] = $required;
 			} 
 		}
 		
@@ -422,32 +422,32 @@ class Validation
 			{ 
 				$securityCode 		= lang('Validation', 'captchaCode',$viewName);
 				$messages[$i] 		= $securityCode.'<br>'; $i++;
-				self::$error[$name] = $securityCode;
+				$this->error[$name] = $securityCode;
 			} 
 		}
 		
 		// register işlemlerinde iki şifre kutusunun eşleştirilmesi için kullanılmaktadır.
 		if( isset($config['matchPassword']) )
 		{ 
-			$pm = self::_methodType($config['matchPassword'], $met);
+			$pm = $this->_methodType($config['matchPassword'], $met);
 			
 			if( $edit != $pm )
 			{ 
 				$passwordMatch 	= lang('Validation', 'passwordMatch',$viewName);
 				$messages[$i] 		= $passwordMatch.'<br>'; $i++;
-				self::$error[$name] = $passwordMatch;
+				$this->error[$name] = $passwordMatch;
 			} 
 		}
 		
 		if( isset($config['match']) )
 		{ 
-			$pm = self::_methodType($config['match'], $met);
+			$pm = $this->_methodType($config['match'], $met);
 			
 			if( $edit != $pm )
 			{ 
 				$passwordMatch 	= lang('Validation', 'dataMatch',$viewName);
 				$messages[$i] 		= $passwordMatch.'<br>'; $i++;
-				self::$error[$name] = $passwordMatch;
+				$this->error[$name] = $passwordMatch;
 			} 
 		}
 		
@@ -460,7 +460,7 @@ class Validation
 			{ 
 				$oldPasswordMatch = lang('Validation', 'oldPasswordMatch',$viewName);
 				$messages[$i] 		= $oldPasswordMatch.'<br>'; $i++;
-				self::$error[$name] = $oldPasswordMatch;
+				$this->error[$name] = $oldPasswordMatch;
 			} 
 		}
 		
@@ -471,76 +471,76 @@ class Validation
 			{ 
 				$numeric 			= lang('Validation', 'numeric',$viewName);
 				$messages[$i] 		= $numeric.'<br>'; $i++;
-				self::$error[$name] = $numeric;
+				$this->error[$name] = $numeric;
 			} 
 		}
 		
 		// email form aracının email olması gerektiğini belirtir.
 		if( in_array('email', $config) )
 		{ 
-			if( ! self::email($edit) )
+			if( ! $this->email($edit) )
 			{ 
 				$email 				= lang('Validation', 'email',$viewName);
 				$messages[$i] 		= $email.'<br>';  $i++;
-				self::$error[$name] = $email;
+				$this->error[$name] = $email;
 			} 
 		}
 		
 		if( in_array('url' ,$config) )
 		{ 
-			if( ! self::url($edit) )
+			if( ! $this->url($edit) )
 			{ 
 				$url 				= lang('Validation', 'url',$viewName);
 				$messages[$i] 		= $url.'<br>';  $i++;
-				self::$error[$name] = $url;
+				$this->error[$name] = $url;
 			} 
 		}
 		
 		if( in_array('identity', $config) )
 		{ 
-			if( ! self::identity($edit) )
+			if( ! $this->identity($edit) )
 			{ 
 				$identity 			= lang('Validation', 'identity',$viewName);
 				$messages[$i] 		= $identity.'<br>';  $i++;
-				self::$error[$name] = $identity;
+				$this->error[$name] = $identity;
 			} 
 		}
 		
 		// no special char, özel karakterlerin kullanımını engeller.
 		if( in_array('specialChar', $config) )
 		{
-			if( self::specialChar($edit) )
+			if( $this->specialChar($edit) )
 			{ 
 				$noSpecialChar 	= lang('Validation', 'noSpecialChar',$viewName);
 				$messages[$i] 		= $noSpecialChar.'<br>';  $i++;
-				self::$error[$name] = $noSpecialChar;
+				$this->error[$name] = $noSpecialChar;
 			} 
 		}
 		
 		// maxchar form aracının maximum alacağı karakter sayısını belirtir.	
 		if( isset($config['maxchar']) )
 		{ 
-			if( ! self::maxchar($edit, $config['maxchar']) )
+			if( ! $this->maxchar($edit, $config['maxchar']) )
 			{ 
 				$maxchar 			= lang('Validation', 'maxchar',array("%"=>$viewName, "#" => $config['maxchar']));
 				$messages[$i] 		= $maxchar.'<br>';  $i++;
-				self::$error[$name] = $maxchar;
+				$this->error[$name] = $maxchar;
 			} 
 		}
 		
 		// minchar from aracının minimum alacağı karakter sayısını belirtir.
 		if( isset($config['minchar']) )
 		{	
-			if( ! self::minchar($edit, $config['minchar']) )
+			if( ! $this->minchar($edit, $config['minchar']) )
 			{ 
 				$minchar 			= lang('Validation', 'minchar',array("%"=>$viewName, "#" => $config['minchar']));
 				$messages[$i] 		= $minchar.'<br>'; $i++;
-				self::$error[$name] = $minchar;
+				$this->error[$name] = $minchar;
 			} 
 		}
 		
 		// kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
-		array_push(self::$errors, $messages);
+		array_push($this->errors, $messages);
 		
 	}	
 	
@@ -555,15 +555,15 @@ class Validation
 	| Örnek Kullanım: nval('kullanici');              										  |
 	|          																				  |
 	******************************************************************************************/
-	public static function nval($name = "")
+	public function nval($name = "")
 	{
 		if( ! is_string($name) ) 
 		{
 			return false;
 		}
-		if( isset(self::$nval[$name]) )
+		if( isset($this->nval[$name]) )
 		{ 
-			return self::$nval[$name];
+			return $this->nval[$name];
 		}
 		else
 		{
@@ -591,7 +591,7 @@ class Validation
 	| Örnek Kullanım: error('kullanici'); // Çıktı: kullanici nesnesine ait string            |
 	|          																				  |
 	******************************************************************************************/
-	public static function error($name = "array")
+	public function error($name = "array")
 	{
 		if( ! is_string($name) ) 
 		{
@@ -600,12 +600,12 @@ class Validation
 		
 		if( $name === "string" || $name === "array" || $name === "echo" )
 		{
-			if( count(self::$errors) > 0 )
+			if( count($this->errors) > 0 )
 			{
 				$result = '';
 				$resultArray = array();
 				
-				foreach(self::$errors as $key => $value)
+				foreach($this->errors as $key => $value)
 				{
 					if( is_array($value) )foreach($value as $k => $val)
 					{
@@ -631,9 +631,9 @@ class Validation
 		}
 		else
 		{
-			if( isset(self::$error[$name]) ) 
+			if( isset($this->error[$name]) ) 
 			{
-				return self::$error[$name]; 
+				return $this->error[$name]; 
 			}
 			else 
 			{
@@ -646,7 +646,7 @@ class Validation
 	// bu fonksiyon aracılığı ile sayfa yenilendiğin ya da formun gönderilmesi srıasında
 	
 	// hata oluştuğunda ekrana girilen bilgileri yansıtır.
-	public static function postBack($name = '', $met = "post")
+	public function postBack($name = '', $met = "post")
 	{
 		if( empty($name) )
 		{
@@ -663,7 +663,7 @@ class Validation
 			$met = "post";
 		}	
 		
-		$method = self::_methodType($name, $met);
+		$method = $this->_methodType($name, $met);
 		
 		if( ! isset($method) ) 
 		{

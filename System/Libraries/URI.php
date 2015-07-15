@@ -1,5 +1,5 @@
 <?php
-class URI
+class StaticURI
 {
 	/***********************************************************************************/
 	/* URI LIBRARY	    					                   	                       */
@@ -18,7 +18,7 @@ class URI
 	/***********************************************************************************/
 	
 	// Uri işlemleri için oluşturulmuştur.
-	private static function cleanPath()
+	protected function cleanPath()
 	{
 		$pathInfo = cleanInjection(requestUri());
 		
@@ -56,7 +56,7 @@ class URI
 	| Örnek Kullanım: get('test', "framework"); // test/zntr/yerli/framework     		      |
 	|          																				  |
 	******************************************************************************************/
-	public static function get($get = '', $index = 1, $while = false)
+	public function get($get = '', $index = 1, $while = false)
 	{
 		// Parametre kontrolleri yapılıyor. ---------------------------------------------------
 		if( empty($get) ) 
@@ -77,7 +77,7 @@ class URI
 		}
 		// ------------------------------------------------------------------------------------
 		
-		$segArr = self::segmentArray();
+		$segArr = $this->segmentArray();
 		$segVal = '';
 		
 		if( in_array($get, $segArr) )
@@ -165,9 +165,9 @@ class URI
 	| Örnek Kullanım: segmentArray(); // array('test', 'zntr', 'yerli', 'framework')         |
 	|          																				  |
 	******************************************************************************************/
-	public static function segmentArray()
+	public function segmentArray()
 	{
-		$segmentEx = explode("/", self::cleanPath());
+		$segmentEx = explode("/", $this->cleanPath());
 		return $segmentEx;	
 	}
 	
@@ -182,9 +182,9 @@ class URI
 	| Örnek Kullanım: totalSegments(); // 4                                                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function totalSegments()
+	public function totalSegments()
 	{
-		$segmentEx     = explode("/", self::cleanPath());	
+		$segmentEx     = explode("/", $this->cleanPath());	
 		$segmentEx     = array_diff($segmentEx, array(""," "));
 		$totalSegments = count($segmentEx);
 		
@@ -205,7 +205,7 @@ class URI
 	| Örnek Kullanım: segment(3); // yerli                                                    |
 	|          																				  |
 	******************************************************************************************/
-	public static function segment($seg = 1)
+	public function segment($seg = 1)
 	{
 		if( ! is_numeric($seg) ) 
 		{
@@ -299,7 +299,7 @@ class URI
 	| Örnek Kullanım: currentSegment(); // framework                                         |
 	|          																				  |
 	******************************************************************************************/
-	public static function currentSegment()
+	public function currentSegment()
 	{	
 		$str = substr(server('currentPath'), 1, strlen(server('currentPath')) - 1);
 		

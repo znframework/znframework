@@ -1,5 +1,5 @@
 <?php
-class Form
+class StaticForm
 {
 	/***********************************************************************************/
 	/* FORM LIBRARY	     					                   	                       */
@@ -29,7 +29,7 @@ class Form
 	| // name="ornek" id="zntr"       														  |
 	|          																				  |
 	******************************************************************************************/	
-	protected static function attributes($attributes = '')
+	protected function attributes($attributes = '')
 	{
 		$attribute = "";
 		
@@ -69,7 +69,7 @@ class Form
 	| 3. text 		 	=> text/plain      											          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function open($name = '', $_attributes = '')
+	public function open($name = '', $_attributes = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -117,7 +117,7 @@ class Form
 			$_attributes['method'] = 'post';
 		}
 		
-		return '<form name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.eol();
+		return '<form name="'.$name.'" '.$id_txt.$this->attributes($_attributes).'>'.eol();
 	}
 
 	/******************************************************************************************
@@ -131,7 +131,7 @@ class Form
 	| // </form>         											  						  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function close()
+	public function close()
 	{
 		return '</form>'.eol();
 	}
@@ -154,7 +154,7 @@ class Form
 	| Not: Çoklu kullanım sadece hidden nesnesine özgüdür.         							  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function hidden($name = '', $value = '')
+	public function hidden($name = '', $value = '')
 	{
 		if( ! isValue($value) ) 
 		{
@@ -181,7 +181,7 @@ class Form
 	}	
 	
 	// Form Input Nesneleri
-	protected static function _input($name = "", $value = "", $_attributes = '', $type = '')
+	protected function _input($name = "", $value = "", $_attributes = '', $type = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -209,7 +209,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.self::attributes($_attributes).'>'.eol();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -226,9 +226,9 @@ class Form
 	| // <input type="text" name="nesne" value="Değer" style="color:red">       			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function text($name = "", $value = "", $_attributes = '')
+	public function text($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'text');
+		return $this->_input($name, $value, $_attributes, 'text');
 	}
 	
 	/******************************************************************************************
@@ -245,9 +245,9 @@ class Form
 	| // <input type='password' name="nesne" value="Değer" style="color:red">       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function password($name = "", $value = "", $_attributes = '')
+	public function password($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'password');
+		return $this->_input($name, $value, $_attributes, 'password');
 	}
 
 	/******************************************************************************************
@@ -264,7 +264,7 @@ class Form
 	| // <textarea name="nesne" style="color:red">Değer</textarea>				       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function textArea($name = "", $value = "", $_attributes = '')
+	public function textArea($name = "", $value = "", $_attributes = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -288,7 +288,7 @@ class Form
 			      ? ''
 			      : "id=\"$id\"";
 		
-		return '<textarea name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>'.$value.'</textarea>'.eol();
+		return '<textarea name="'.$name.'" '.$id_txt.$this->attributes($_attributes).'>'.$value.'</textarea>'.eol();
 	}
 
 	/******************************************************************************************
@@ -305,9 +305,9 @@ class Form
 	| // <input type="radio" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function radio($name = "", $value = "", $_attributes = '')
+	public function radio($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'radio');
+		return $this->_input($name, $value, $_attributes, 'radio');
 	}
 
 	/******************************************************************************************
@@ -328,7 +328,7 @@ class Form
 	|	 </select>   		      															  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function select($name = '', $options = array(), $selected = '', $_attributes = '', $multiple = false)
+	public function select($name = '', $options = array(), $selected = '', $_attributes = '', $multiple = false)
 	{
 		if( ! is_string($name) ) 
 		{
@@ -363,7 +363,7 @@ class Form
 			$multiple = '';	
 		}
 				  
-		$selectbox = '<select '.$multiple.' name="'.$name.'" '.$id_txt.self::attributes($_attributes).'>';
+		$selectbox = '<select '.$multiple.' name="'.$name.'" '.$id_txt.$this->attributes($_attributes).'>';
 		
 		if( is_array($options) )foreach($options as $key => $value)
 		{
@@ -401,9 +401,9 @@ class Form
 	|	 </select>   		      															  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function multiple($name = '', $options = array(), $selected = '', $_attributes = '')
+	public function multiple($name = '', $options = array(), $selected = '', $_attributes = '')
 	{
-		return self::select($name, $options, $selected, $_attributes, true);
+		return $this->select($name, $options, $selected, $_attributes, true);
 	}
 	
 	/******************************************************************************************
@@ -420,9 +420,9 @@ class Form
 	| // <input type="checkbox" name="nesne" value="Değer" style="color:red">       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function checkBox($name = "", $value = "", $_attributes = '')
+	public function checkBox($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'checkbox');
+		return $this->_input($name, $value, $_attributes, 'checkbox');
 	}
 	
 	/******************************************************************************************
@@ -439,9 +439,9 @@ class Form
 	| // <input type="file" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function file($name = "", $value = "", $_attributes = '')
+	public function file($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'file');
+		return $this->_input($name, $value, $_attributes, 'file');
 	}
 	
 	/******************************************************************************************
@@ -458,9 +458,9 @@ class Form
 	| // <input type="submit" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function submit($name = "", $value = "", $_attributes = '')
+	public function submit($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'submit');
+		return $this->_input($name, $value, $_attributes, 'submit');
 	}
 	
 	/******************************************************************************************
@@ -477,9 +477,9 @@ class Form
 	| // <input type="button" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function button($name = "", $value = "", $_attributes = '')
+	public function button($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'button');
+		return $this->_input($name, $value, $_attributes, 'button');
 	}
 
 	/******************************************************************************************
@@ -496,8 +496,8 @@ class Form
 	| // <input type="reset" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function reset($name = "", $value = "", $_attributes = '')
+	public function reset($name = "", $value = "", $_attributes = '')
 	{
-		return self::_input($name, $value, $_attributes, 'reset');
+		return $this->_input($name, $value, $_attributes, 'reset');
 	}	
 }

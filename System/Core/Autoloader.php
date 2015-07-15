@@ -60,6 +60,23 @@ class Autoloader
 			if( ! class_exists($classInfo['namespace']) )
 			{
 				self::createClassMap();	
+				
+				// Sınıfın bilgileri yeniden alınıyor...
+				$classInfo = self::getClassFileInfo($class);
+				
+				// Sınıfın yolu yeniden isteniyor...
+				$file = $classInfo['path'];
+				
+				// Böyle bir sınıf varsa dahil ediliyor...
+				if( file_exists($file) )
+				{	
+					require_once($file);
+				}
+				else
+				{
+					// Böyle bir sınıf yoksa hata mesajı oluşturuluyor...
+					die(getErrorMessage('Error', 'classError', $class));
+				}
 			}
 		}
 		else

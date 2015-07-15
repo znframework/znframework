@@ -1,6 +1,5 @@
 <?php
-Config::iniSet(Config::get('Upload','settings'));
-class Upload
+class StaticUpload
 {
 	/***********************************************************************************/
 	/* UPLOAD LIBRARY						                   	                       */
@@ -24,7 +23,7 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $settings = array();
+	protected $settings = array();
 	
 	/* File Değişkeni
 	 *  
@@ -32,7 +31,7 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $file;
+	protected $file;
 	
 	/* Extension Control Değişkeni
 	 *  
@@ -40,7 +39,7 @@ class Upload
 	 * kontrol etmesi için oluşturulmuştur.
 	 *
 	 */
-	private static $extensionControl;
+	protected $extensionControl;
 	
 	/* Setting Status Değişkeni
 	 *  
@@ -48,7 +47,7 @@ class Upload
 	 * kontrol etmesi için oluşturulmuştur.
 	 *
 	 */
-	private static $settingStatus = false;
+	protected $settingStatus = false;
 	
 	/* Errors Değişkeni
 	 *  
@@ -56,7 +55,7 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $errors;
+	protected $errors;
 	
 	/* Manuel Error Değişkeni
 	 *  
@@ -64,7 +63,7 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $manuelError;
+	protected $manuelError;
 	
 	/* Encode Name Değişkeni
 	 *  
@@ -72,7 +71,12 @@ class Upload
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $encodeName;
+	protected $encodeName;
+	
+	public function __construct()
+	{
+		Config::iniSet(Config::get('Upload','settings'));	
+	}
 	
 	/******************************************************************************************
 	* SETTINGS                                                                                *
@@ -96,61 +100,61 @@ class Upload
 	| // Kullanmak için: Sayısal türde miktar belirtilir. Örnek: 10 * 1024 => 10 KB			  |
 	|          																				  |
 	******************************************************************************************/
-	public static function settings($set = array())
+	public function settings($set = array())
 	{
 		if( ! is_array($set) ) 
 		{
 			$set = array();
 		}
 
-		self::$settingStatus = true;
+		$this->settingStatus = true;
 		
 		// 1-extensions -> Dosyanın uzantısı
 		if( isset($set['extensions']) ) 	
 		{
-			self::$settings['extensions'] 	= $set['extensions'];
+			$this->settings['extensions'] 	= $set['extensions'];
 		}
 		
 		// 2-encode -> Dosyanın şifrelenmesi
 		if( isset($set['encode']) ) 		
 		{
-			self::$settings['encryption'] 	= $set['encode'];
+			$this->settings['encryption'] 	= $set['encode'];
 		}
 		else
 		{
-			self::$settings['encryption'] = 'md5';	
+			$this->settings['encryption'] = 'md5';	
 		}
 		
 		// 3-prefix -> Yüklenen dosyaların önüne ön ek koymak
 		if( isset($set['prefix']) ) 		
 		{
-			self::$settings['prefix'] 		= $set['prefix'];
+			$this->settings['prefix'] 		= $set['prefix'];
 		}
 		
 		// 4-mazsize -> Yükselenecebilecek maksimum dosya boyutu
 		if( isset($set['maxsize']) ) 		
 		{
-			self::$settings['maxsize'] 		= $set['maxsize'];
+			$this->settings['maxsize'] 		= $set['maxsize'];
 		}
 		
 		// 5-encodeLength -> Şifrenin karakter uzunluğu
 		if( isset($set['encodeLength']) ) 		
 		{
-			self::$settings['encodeLength'] 	= $set['encodeLength'];
+			$this->settings['encodeLength'] 	= $set['encodeLength'];
 		}
 		else
 		{
-			self::$settings['encodeLength'] = 8;		
+			$this->settings['encodeLength'] = 8;		
 		}
 		
 		// 4-mazsize -> Yükselenecebilecek maksimum dosya boyutu
 		if( isset($set['convertName']) ) 		
 		{
-			self::$settings['convertName'] = $set['convertName'];
+			$this->settings['convertName'] = $set['convertName'];
 		}
 		else
 		{
-			self::$settings['convertName'] = true;
+			$this->settings['convertName'] = true;
 		}
 	}
 	
@@ -166,7 +170,7 @@ class Upload
 	| Örnek Kullanım: start('fileupload', 'Aplication/Uploads');       		                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function start($fileName = 'upload', $rootDir = UPLOADS_DIR)
+	public function start($fileName = 'upload', $rootDir = UPLOADS_DIR)
 	{	
 		if( ! is_string($fileName) ) 
 		{
@@ -180,18 +184,18 @@ class Upload
 		
 		// Dosya yükleme ayarları yapılmamışsa
 		// Varsayılan ayarları kullanması için.
-		if( self::$settingStatus === false ) 
+		if( $this->settingStatus === false ) 
 		{
-			self::settings();
+			$this->settings();
 		}
 		
-		self::$file = $fileName;
+		$this->file = $fileName;
 
 		$root = $rootDir;
 		
 		if( ! isset($_FILES[$fileName]['name']) ) 
 		{ 
-			self::$manuelError = 4; 
+			$this->manuelError = 4; 
 			return false; 
 		}
 		
@@ -199,14 +203,14 @@ class Upload
 		
 		$encryption = '';
 		
-		if( isset(self::$settings['prefix']) ) 
+		if( isset($this->settings['prefix']) ) 
 		{
-			$encryption = self::$settings['prefix']; 
+			$encryption = $this->settings['prefix']; 
 		}
 		
-		if( isset(self::$settings['extensions']) ) 
+		if( isset($this->settings['extensions']) ) 
 		{
-			$extensions = explode("|", self::$settings['extensions']);
+			$extensions = explode("|", $this->settings['extensions']);
 		}
 		
 		$source = $_FILES[$fileName]['tmp_name'];
@@ -216,7 +220,7 @@ class Upload
 		{
 			if( empty($name[0]) ) 
 			{
-				self::$manuelError = 4; 
+				$this->manuelError = 4; 
 				return false; 
 			}
 			
@@ -226,28 +230,28 @@ class Upload
 				
 				$nm = $name[$index];
 				
-				if( self::$settings['encryption'] ) 
+				if( $this->settings['encryption'] ) 
 				{
-					if( ! isset(self::$settings['prefix']) )
+					if( ! isset($this->settings['prefix']) )
 					{
-						$encryption = substr(Encode::type(uniqid(rand()), self::$settings['encryption']), 0, self::$settings['encodeLength']).'-';
+						$encryption = substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';
 					}
 				}
 				
-				if( self::$settings['convertName'] === true )
+				if( $this->settings['convertName'] === true )
 				{
 					 $nm = Convert::urlWord($nm);	
 				}
 				
 				$target = $root.'/'.$encryption.$nm;
 
-				if( isset(self::$settings['extensions']) && ! in_array(extension($nm), $extensions) )
+				if( isset($this->settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
-					self::$extensionControl = lang('Upload', 'extensionError');	
+					$this->extensionControl = lang('Upload', 'extensionError');	
 				}
-				elseif( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($src) )
+				elseif( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($src) )
 				{
-					self::$manuelError = 10;
+					$this->manuelError = 10;
 				}
 				else
 				{
@@ -257,45 +261,45 @@ class Upload
 					}
 					else 
 					{
-						self::$manuelError = 9;
+						$this->manuelError = 9;
 					}
 				}
 			}
 		}	
 		else
 		{	
-			if( self::$settings['encryption'] ) 
+			if( $this->settings['encryption'] ) 
 			{
-				if( ! isset(self::$settings['prefix']) )
+				if( ! isset($this->settings['prefix']) )
 				{
-					$encryption = substr(Encode::type(uniqid(rand()), self::$settings['encryption']), 0, self::$settings['encodeLength']).'-';
+					$encryption = substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';
 				}
 			}
 			
-			if( self::$settings['convertName'] === true )
+			if( $this->settings['convertName'] === true )
 			{
 				 $name = Convert::urlWord($name);	
 			}
 			
 			if( empty($_FILES[$fileName]['name']) ) 
 			{ 
-				self::$manuelError = 4; 
+				$this->manuelError = 4; 
 				return false;
 			}
 			
-			if( isset(self::$settings['maxsize']) && self::$settings['maxsize'] < filesize($source) )
+			if( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($source) )
 			{
-				self::$manuelError = 10; 
+				$this->manuelError = 10; 
 				return false;
 			}
 
 			$target = $root.'/'.$encryption.$name;
 			
-			self::$encodeName = $encryption.$name;
+			$this->encodeName = $encryption.$name;
 			
-			if( isset(self::$settings['extensions']) && ! in_array(extension($name),$extensions) )
+			if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				self::$extensionControl = lang('Upload', 'extensionError');	
+				$this->extensionControl = lang('Upload', 'extensionError');	
 			}
 			else
 			{	
@@ -305,7 +309,7 @@ class Upload
 				}
 				else 
 				{
-					self::$manuelError = 9;
+					$this->manuelError = 9;
 				}				
 			}
 		}
@@ -328,23 +332,23 @@ class Upload
 	| $info->encodeName -> şifrelenen ismi.      											  |
 	|          																				  |
 	******************************************************************************************/
-	public static function info($info = '')
+	public function info($info = '')
 	{
-		if( ! empty($_FILES[self::$file]) )
+		if( ! empty($_FILES[$this->file]) )
 		{
 			$datas = array
 			(
-				'name' 		 => $_FILES[self::$file]['name'],
-				'type' 		 => $_FILES[self::$file]['type'],
-				'size' 		 => $_FILES[self::$file]['size'],
-				'tmpName' 	 => $_FILES[self::$file]['tmp_name'],
-				'error' 	 => $_FILES[self::$file]['error'],
-				'encodeName' => self::$encodeName
+				'name' 		 => $_FILES[$this->file]['name'],
+				'type' 		 => $_FILES[$this->file]['type'],
+				'size' 		 => $_FILES[$this->file]['size'],
+				'tmpName' 	 => $_FILES[$this->file]['tmp_name'],
+				'error' 	 => $_FILES[$this->file]['error'],
+				'encodeName' => $this->encodeName
 			);
 		
 			$values = array();
 			
-			if( ! is_array($_FILES[self::$file]['name']) )foreach($datas as $key => $val)
+			if( ! is_array($_FILES[$this->file]['name']) )foreach($datas as $key => $val)
 			{
 				$values[$key] = $val;
 			}
@@ -383,17 +387,17 @@ class Upload
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( ! isset($_FILES[self::$file]['error']) ) 
+		if( ! isset($_FILES[$this->file]['error']) ) 
 		{
 			return lang('Upload', 'unknownError');
 		}
 		
-		$errorNo = $_FILES[self::$file]['error'];
-		//$errorNo = self::$manuelError;
+		$errorNo = $_FILES[$this->file]['error'];
+		//$errorNo = $this->manuelError;
 		
-		self::$errors = array
+		$this->errors = array
 		(
 			'0'  => "scc", 			  // Dosya başarı ile yüklendi. 
 			'1'  => lang('Upload', '1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
@@ -407,24 +411,24 @@ class Upload
 			'10' => lang('Upload', '10') // Belirlenen maksimum dosya boyutu aşıldı!
 		);
 		// Manuel belirlenen hata oluşmuşsa
-		if( ! empty(self::$manuelError) )
+		if( ! empty($this->manuelError) )
 		{
-			return self::$errors[self::$manuelError];
+			return $this->errors[$this->manuelError];
 		}
 		// Uzantıdan kaynaklı hata oluşmussa
-		elseif( ! empty(self::$extensionControl) ) 
+		elseif( ! empty($this->extensionControl) ) 
 		{
-			return self::$extensionControl;
+			return $this->extensionControl;
 		}
 		// Hata numarasına göre hata bildir.
-		elseif( ! empty(self::$errors[$errorNo]) ) 
+		elseif( ! empty($this->errors[$errorNo]) ) 
 		{
-			if( self::$errors[$errorNo] === "scc" ) 
+			if( $this->errors[$errorNo] === "scc" ) 
 			{
 				return false;
 			}
 			// 0 Dışında herhangi bir hata numarası oluşmussa
-			return self::$errors[$errorNo];
+			return $this->errors[$errorNo];
 		}
 		// Bu kontroller dışında hata oluşmussa bilinmeyen
 		// hata uyarısı ver.	
@@ -446,7 +450,7 @@ class Upload
 	| Örnek Kullanım: sqlFile('Database/file.sql');         						  		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function sqlFile($sqlFile = '')
+	public function sqlFile($sqlFile = '')
 	{
 		if( ! is_string($sqlFile) || empty($sqlFile) ) 
 		{

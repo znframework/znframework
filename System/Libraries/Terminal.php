@@ -1,5 +1,5 @@
 <?php
-class Terminal
+class StaticTerminal
 {
 	/***********************************************************************************/
 	/* TERMINAL LIBRARY						                   	                       */
@@ -22,7 +22,7 @@ class Terminal
 	*******************************************************************************************
 	| Genel Kullanım: Oturum verilerini sıfılar.			  	                  		 	  |
 	******************************************************************************************/
-	protected static function clearCommand()
+	protected function clearCommand()
 	{	
 		unset($_SESSION['persistCommands']);
 		unset($_SESSION['commandResponses']);
@@ -41,7 +41,7 @@ class Terminal
 	| Örnek Kullanım: Terminal::run('cmd');        	  										  |
 	|          																				  |
 	******************************************************************************************/
-	public static function run($terminalType = 'php', $settings = array())
+	public function run($terminalType = 'php', $settings = array())
 	{
 		if( ! is_array($settings) )
 		{
@@ -58,7 +58,7 @@ class Terminal
 		
 		if( isset($_POST['clear']) && $_POST['clear'] === 'clear' ) 
 		{
-			self::clearCommand();
+			$this->clearCommand();
 		}
 		
 		if( ! isset($_SESSION['persistCommands']) || ! isset($_SESSION['commands']) ) 
@@ -105,7 +105,7 @@ class Terminal
 			{
 				if( $command === 'clear' ) 
 				{
-					self::clearCommand();
+					$this->clearCommand();
 				}
 				else 
 				{

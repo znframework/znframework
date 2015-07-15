@@ -1,5 +1,5 @@
 <?php
-class Image
+class StaticImage
 {
 	/***********************************************************************************/
 	/* IMAGE LIBRARY						                   	                       */
@@ -23,7 +23,7 @@ class Image
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $dirName = 'thumbs';
+	private $dirName = 'thumbs';
 	
 	/* Fıle Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class Image
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $file;
+	private $file;
 	
 	/* Thumb Path Değişkeni
 	 *  
@@ -39,7 +39,7 @@ class Image
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $thumbPath;
+	private $thumbPath;
 	
 	/* Error Değişkeni
 	 *  
@@ -47,43 +47,42 @@ class Image
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error;
+	private $error;
 	
 	// Dosya yolu verisinde düzenleme yapılıyor.
-	private static function newPath($filePath)
+	private function newPath($filePath)
 	{
 		$fileEx = explode("/", $filePath);
 		
-		self::$file = $fileEx[count($fileEx) - 1];
+		$this->file = $fileEx[count($fileEx) - 1];
 	
-		self::$thumbPath = substr($filePath,0,strlen($filePath) - strlen(self::$file)).self::$dirName;
+		$this->thumbPath = substr($filePath,0,strlen($filePath) - strlen($this->file)).$this->dirName;
 	
-		self::$thumbPath = suffix(self::$thumbPath);	
+		$this->thumbPath = suffix($this->thumbPath);	
 		
-		self::$thumbPath = str_replace(baseUrl(), "", self::$thumbPath);
+		$this->thumbPath = str_replace(baseUrl(), "", $this->thumbPath);
 	}
 	
 	// Uzantı kontrolü yapıyor.
-	private static function fromFileType($paths)
+	private function fromFileType($paths)
 	{
-		
 		// UZANTI JPG
-		if( extension(self::$file) === 'jpg' )
+		if( extension($this->file) === 'jpg' )
 		{ 
 			return imagecreatefromjpeg($paths);
 		}
 		// UZANTI JPEG
-		elseif( extension(self::$file) === 'jpeg' ) 
+		elseif( extension($this->file) === 'jpeg' ) 
 		{
 			return imagecreatefromjpeg($paths);
 		}
 		// UZANTI PNG
-		elseif( extension(self::$file) === 'png' )
+		elseif( extension($this->file) === 'png' )
 		{
 			return imagecreatefrompng($paths);
 		}
 		// UZANTI GIF
-		elseif( extension(self::$file) === 'gif' )  
+		elseif( extension($this->file) === 'gif' )  
 		{
 			return imagecreatefromgif($paths);
 		}
@@ -94,7 +93,7 @@ class Image
 	}
 	
 	// Dosya uzantısı kontrol ediliyor.
-	private static function isImageFile($file)
+	private function isImageFile($file)
 	{
 		$extensions = array('jpg', 'jpeg', 'png', 'gif');
 		
@@ -110,10 +109,10 @@ class Image
 	
 	// Dosya uzantısına göre oluşturulucak image dosyası.
 	// Aynı zamanda uzantılara göre kalite parametresi ayarlanıyor.
-	private static function createFileType($files, $paths, $quality = 0)
+	private function createFileType($files, $paths, $quality = 0)
 	{
 		// JPG İÇİN KALİTE AYARI
-		if( extension(self::$file) === 'jpg' )
+		if( extension($this->file) === 'jpg' )
 		{
 			if( $quality === 0 ) 
 			{
@@ -123,7 +122,7 @@ class Image
 			return imagejpeg($files, $paths, $quality);
 		}
 		// JPEG İÇİN KALİTE AYARI
-		elseif( extension(self::$file) === 'jpeg' )
+		elseif( extension($this->file) === 'jpeg' )
 		{
 			if( $quality === 0 ) 
 			{
@@ -133,7 +132,7 @@ class Image
 			return imagejpeg($files, $paths, $quality);
 		}
 		// PNG İÇİN KALİTE AYARI
-		elseif( extension(self::$file) === 'png' )
+		elseif( extension($this->file) === 'png' )
 		{
 			if( $quality === 0 )
 			{
@@ -143,7 +142,7 @@ class Image
 			return imagepng($files, $paths, $quality);
 		}
 		// GIF İÇİN KALİTE AYARI
-		elseif( extension(self::$file) === 'gif' )
+		elseif( extension($this->file) === 'gif' )
 		{
 			return imagegif($files, $paths);
 		}
@@ -179,7 +178,7 @@ class Image
 	| 9. quality  => Resmin kalitesini ayarlamak için kullanılır.                             |
 	|          																				  |
 	******************************************************************************************/	
-	public static function thumb($fpath = '', $set = array())
+	public function thumb($fpath = '', $set = array())
 	{
 		// Parametre kontrolleri yapılıyor -------------------------------------------
 		if( ! is_string($fpath) ) 
@@ -207,17 +206,17 @@ class Image
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($filePath) )
 		{
-			self::$error = getMessage('Image', 'notFoundError', $filePath);
-			report('Error', self::$error, 'ImageLibrary');
+			$this->error = getMessage('Image', 'notFoundError', $filePath);
+			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
 		
 		// Dosyanın uzantısı belirlenen uzantılır dışında
 		// ise durumu rapor etmesi sağlanıyor.
-		if( ! self::isImageFile($filePath) )
+		if( ! $this->isImageFile($filePath) )
 		{
-			self::$error = getMessage('Image', 'notImageFileError', $filePath);
-			report('Error', self::$error, 'ImageLibrary');
+			$this->error = getMessage('Image', 'notImageFileError', $filePath);
+			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
 		
@@ -307,18 +306,18 @@ class Image
 		// 5-Yükseklik Değeri
 		$prefix = "-".$x."x".$y."px-".$width."x".$height."size";
 		
-		self::newPath($filePath);
+		$this->newPath($filePath);
 		
 		// Dizin bilgisi kontrol ediliyor.
 		// Eğer thumb isminde bir dizin
 		// yoksa oluşturuluyor.
-		if( ! is_dir(self::$thumbPath) ) 
+		if( ! is_dir($this->thumbPath) ) 
 		{ 
-			Folder::create(self::$thumbPath);		
+			Folder::create($this->thumbPath);		
 		}
 		
 		// Dosya uzantısı temizleniyor.
-		$newFile = removeExtension(self::$file).$prefix.extension(self::$file, true);
+		$newFile = removeExtension($this->file).$prefix.extension($this->file, true);
 		
 		// Yeni oluşturulan dosya varsa yeni dosyanın 
 		// yol ve isim bilgisi oluşturuluyor.
@@ -326,12 +325,12 @@ class Image
 		// Böyle bir dosya daha önce yoksa
 		// İşlemler kaldığı yerden dosya oluşturulana
 		// kadar devam ediyor.
-		if( file_exists(self::$thumbPath.$newFile) ) 
+		if( file_exists($this->thumbPath.$newFile) ) 
 		{
-			return baseUrl(self::$thumbPath.$newFile);
+			return baseUrl($this->thumbPath.$newFile);
 		}
 				
-		$rFile   = self::fromFileType($filePath);
+		$rFile   = $this->fromFileType($filePath);
 		
 		$nFile   = imagecreatetruecolor($width, $height);
 		
@@ -355,11 +354,11 @@ class Image
 		
 		@imagecopyresampled($nFile, $rFile,  0, 0, $x, $y, $width, $height, $rWidth, $rHeight);
 			
-		self::createFileType($nFile ,self::$thumbPath.$newFile, $quality);
+		$this->createFileType($nFile ,$this->thumbPath.$newFile, $quality);
 		
 		imagedestroy($rFile); imagedestroy($nFile);	
 		
-		return baseUrl(self::$thumbPath.$newFile);
+		return baseUrl($this->thumbPath.$newFile);
 		
 	}
 	
@@ -379,7 +378,7 @@ class Image
 	| Not: Genişlik veya yükseklik parametrelerinden sadece bir tanesi kullanılmalıdır.       |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getProsize($path = '', $width = 0, $height = 0)
+	public function getProsize($path = '', $width = 0, $height = 0)
 	{
 		// Parametre kontrolleri yapılıyor. ------------------------------------------
 		if( ! is_string($path) ) 
@@ -396,8 +395,8 @@ class Image
 		}
 		if( empty($path) )
 		{
-			self::$error = getMessage('Image', 'notFoundError', $path);
-			report('Error', self::$error, 'ImageLibrary');
+			$this->error = getMessage('Image', 'notFoundError', $path);
+			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
 		// ---------------------------------------------------------------------------
@@ -408,8 +407,8 @@ class Image
 		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			self::$error = getMessage('Image', 'notFoundError', $path);
-			report('Error', self::$error, 'ImageLibrary');
+			$this->error = getMessage('Image', 'notFoundError', $path);
+			report('Error', $this->error, 'ImageLibrary');
 			return false;	
 		}
 		
@@ -418,7 +417,7 @@ class Image
 		// Genişliğe göre yüksekliği orantılar.
 		if( $width > 0 )
 		{
-			if($width <= $x)
+			if( $width <= $x )
 			{
 				$o = $x / $width;
 				
@@ -437,9 +436,9 @@ class Image
 		}
 		
 		// Yüksekliğe göre genişliği orantılar.
-		if($height > 0)
+		if( $height > 0 )
 		{
-			if($height <= $y)
+			if( $height <= $y )
 			{
 				$o = $y / $height;
 				
@@ -470,11 +469,11 @@ class Image
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( isset(self::$error) )
+		if( isset($this->error) )
 		{
-			return self::$error;
+			return $this->error;
 		}
 		else
 		{

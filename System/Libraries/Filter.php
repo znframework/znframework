@@ -1,5 +1,5 @@
 <?php
-class Filter
+class StaticFilter
 {
 	/***********************************************************************************/
 	/* FILTER LIBRARY						                   	                       */
@@ -24,7 +24,7 @@ class Filter
 	// @badwords = Filtrelenmesi istenen kelime veya kelimeler. string veya array veri türü.
 	// @changechar = Kötü içerikli kelimelerin yerini alacak yeni kelime veya kelimeler. string veya array veri türü.
 	// Dönen Değer: Filtrelenmiş veri.
-	public static function word($string = '', $badWords = '', $changeChar = '[badwords]')
+	public function word($string = '', $badWords = '', $changeChar = '[badwords]')
 	{
 		if( ! isValue($string) ) 
 		{
@@ -33,13 +33,18 @@ class Filter
 		
 		if( ! is_array($badWords) ) 
 		{
+			if( empty($badWords) )
+			{
+				return $string;	
+			}
+			
 			return  $string = Regex::replace($badWords, $changeChar, $string, 'xi');
 		}
 		
 		$ch = '';
 		$i = 0;	
 		
-		foreach($badWords as $value)
+		if( ! empty($badWords) ) foreach( $badWords as $value )
 		{
 			if( ! is_array($changeChar) )
 			{

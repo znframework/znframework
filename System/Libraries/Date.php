@@ -1,6 +1,5 @@
 <?PHP
-date_default_timezone_set(Config::get('DateTime', 'timeZone'));
-class Date
+class StaticDate
 {
 	/***********************************************************************************/
 	/* DATE LIBRARY	     					                   	                       */
@@ -18,6 +17,20 @@ class Date
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * Date ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct()
+	{
+		$this->config = Config::get('DateTime');
+		date_default_timezone_set($this->config['timeZone']);	
+	}
+	
 	/******************************************************************************************
 	* CURRENT DATE                                                                            *
 	*******************************************************************************************
@@ -28,7 +41,7 @@ class Date
 	| Örnek Kullanım: currentDate() // 01.01.2006							                  |
 	|       																				  |
 	******************************************************************************************/
-	public static function current()
+	public function current()
 	{		
 		return date("d.m.o");
 	}
@@ -44,7 +57,7 @@ class Date
 	| Örnek Kullanım: current_date_time() // 12.01.2015 09:02:41							  |
 	|       																				  |
 	******************************************************************************************/
-	public static function standart()
+	public function standart()
 	{		
 		return date("d.F.o l, H:i:s");
 	}
@@ -65,14 +78,14 @@ class Date
 	| echo setDate('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
 	|       																				  |
 	******************************************************************************************/
-	public static function set($exp = 'H:i:s')
+	public function set($exp = 'H:i:s')
 	{
 		if( ! is_string($exp) ) 
 		{
 			return false;
 		}
 
-		$chars = Config::get('DateTime', 'setDateFormatChars');
+		$chars = $this->config['setDateFormatChars'];
 		
 		$chars = Arrays::multikey($chars);
 		

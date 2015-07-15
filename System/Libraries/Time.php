@@ -1,6 +1,5 @@
 <?PHP
-date_default_timezone_set(Config::get('DateTime', 'timeZone'));
-class Time
+class StaticTime
 {
 	/***********************************************************************************/
 	/* TIME LIBRARY	     					                   	                       */
@@ -18,6 +17,22 @@ class Time
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * Date ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	 
+	public function __construct()
+	{
+		$this->config = Config::get('DateTime');
+		
+		date_default_timezone_set($this->config['timeZone']);	
+		
+		setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
+	}
+	
 	/******************************************************************************************
 	* STANDART TIME                                                                           *
 	*******************************************************************************************
@@ -28,17 +43,8 @@ class Time
 	| Örnek Kullanım: standartTime() // 12.01.2015 09:02:41								  	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function standart()
+	public function standart()
 	{	
-		// Config/DateTime.php dosyasından
-		// Tarih saat ayarları alınıyor.
-		$config = Config::get('DateTime');
-		
-		$setLocale = $config['setLocale'];
-		
-		// Dil biçimi ayarlanıyor.
-		setlocale(LC_ALL, $setLocale['charset'], $setLocale['language']);
-		
 		// Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
 		// Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
 		return strftime("%d %B %Y %A, %H:%M:%S");
@@ -54,17 +60,12 @@ class Time
 	| Örnek Kullanım: currentTime() // 09:02:41							                  |
 	|       																				  |
 	******************************************************************************************/
-	public static function current( $clock = '%H:%M:%S' )
+	public function current( $clock = '%H:%M:%S' )
 	{
 		if( ! is_string($clock) ) 
 		{
 			return false;
 		}
-		
-		$setLocale = Config::get('DateTime', 'setLocale');
-		
-		// Dil biçimi ayarlanıyor.
-		setlocale(LC_ALL, $setLocale['charset'], $setLocale['language']);
 		
 		return strftime($clock);	
 	}
@@ -85,25 +86,19 @@ class Time
 	| echo setTime('<daynum0>.<monnum0>.<year>'); // Çıktı: 12.01.2015					      |
 	|       																				  |
 	******************************************************************************************/
-	public static function set($exp = '')
+	public function set($exp = '')
 	{	
 		if( ! is_string($exp) ) 
 		{
 			return false;
 		}
-
-		$config = Config::get('DateTime'); 
 		
-		$chars = $config['setTimeFormatChars'];
+		$chars = $this->config['setTimeFormatChars'];
 		
 		$chars = Arrays::multikey($chars);
 		
 		$setExp = str_ireplace(array_keys($chars), array_values($chars), $exp);
-		
-		$setLocale = $config['setLocale'];
-		
-		setlocale(LC_ALL, $setLocale['charset'], $setLocale['language']);
-		
+
 		return strftime($setExp);
 	}
 }

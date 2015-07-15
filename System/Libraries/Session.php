@@ -1,7 +1,5 @@
 <?php
-Config::iniSet(Config::get('Session','settings'));
-if( ! isset($_SESSION) ) session_start();
-class Session
+class StaticSession
 {
 	/***********************************************************************************/
 	/* SESSION LIBRARY						                   	                       */
@@ -19,6 +17,26 @@ class Session
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * Oturum ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct()
+	{
+		$this->config = Config::get('Session');
+		
+		Config::iniSet($this->config['settings']);
+		
+		if( ! isset($_SESSION) )
+		{ 
+			session_start();	
+		}
+	}
+	
 	/******************************************************************************************
 	* INSERT                                                                                  *
 	*******************************************************************************************
@@ -32,14 +50,14 @@ class Session
 	| Not: Application/Config/Session.php dosyası üzerinden ayarlarını yapılandırabilirsiniz. |
 	|          																				  |
 	******************************************************************************************/
-	public static function insert($name = '', $values = '')
+	public function insert($name = '', $values = '')
 	{
 		if( empty($name) ) 
 		{
 			return false;
 		}
 		
-		$sessConfig = Config::get('Session');
+		$sessConfig = $this->config;
 		
 		if( is_array($name) )
 		{
@@ -84,18 +102,18 @@ class Session
 	| Örnek Kullanım: select('isim');       										          |
 	|          																				  |
 	******************************************************************************************/
-	public static function select($name = '')
+	public function select($name = '')
 	{
 		if( empty($name) ) 
 		{
 			return false;
 		}
 		
-		$sessConfig = Config::get('Session','encode');
+		$sessConfig = $this->config['encode'];
 		
 		if( is_array($name) )
 		{
-			foreach($name as $key)
+			foreach( $name as $key )
 			{
 				if( isHash($sessConfig) )
 				{
@@ -146,7 +164,7 @@ class Session
 	| Örnek Kullanım: selectAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function selectAll()
+	public function selectAll()
 	{
 		return $_SESSION;	
 	}
@@ -162,14 +180,14 @@ class Session
 	| Örnek Kullanım: delete('isim');       										          |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete($name = '')
+	public function delete($name = '')
 	{
 		if( empty($name) ) 
 		{
 			return false;
 		}
 		
-		$sessConfig = Config::get('Session','encode');
+		$sessConfig = $this->config['encode'];
 		
 		if( is_array($name) )
 		{
@@ -223,7 +241,7 @@ class Session
 	| Örnek Kullanım: deleteAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function deleteAll()
+	public function deleteAll()
 	{
 		session_destroy();
 	}

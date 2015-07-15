@@ -1,5 +1,5 @@
 <?php
-class Encode
+class StaticEncode
 {
 	/***********************************************************************************/
 	/* ENCODE LIBRARY						                   	                       */
@@ -17,6 +17,19 @@ class Encode
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * Encode ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct()
+	{
+		$this->config = Config::get('Encode');	
+	}
+		
 	/******************************************************************************************
 	* CREATE                                                                                  *
 	*******************************************************************************************
@@ -29,7 +42,7 @@ class Encode
 	| Örnek Kullanım: create(5);        									                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function create($count = 6, $chars = 'all')
+	public function create($count = 6, $chars = 'all')
 	{
 		// Parametre numeric yani sayısal veri içermelidir.
 		if( ! is_numeric($count) ) 
@@ -61,7 +74,7 @@ class Encode
 		// Parametre olarak belirtilen sayı kadar karakter
 		// listesinden karakterler seçilerek
 		// rastgele şifre oluşturulur.
-		for($i=0; $i < $count; $i++)
+		for( $i = 0; $i < $count; $i++ )
 		{
 			$password .= substr( $characters, rand( 0, strlen($characters)), 1 );	
 		}
@@ -86,7 +99,7 @@ class Encode
 	| Yukarıdaki kullanımların çıktıları birbirinden farklı olacaktır.      				  |
 	|          																				  |
 	******************************************************************************************/
-	public static function golden($data = '', $additional = 'default')
+	public function golden($data = '', $additional = 'default')
 	{
 		if( ! isValue($data) ) 
 		{
@@ -103,7 +116,7 @@ class Encode
 			return false;
 		}
 		
-		$algo = Config::get('Encode', 'type');
+		$algo = $this->config['type'];
 		
 		if( ! isHash($algo) )
 		{
@@ -137,7 +150,7 @@ class Encode
 	| Not:Şifre eki Config/Encode.php dosyasında yer alan proje anahtarı bölümündedir.   	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function super($data = '')
+	public function super($data = '')
 	{
 		if( ! isValue($data) ) 
 		{
@@ -149,9 +162,9 @@ class Encode
 			return false;
 		}
 		
-		$projectKey = Config::get('Encode','projectKey');
+		$projectKey = $this->config['projectKey'];
 		
-		$algo = Config::get('Encode', 'type');
+		$algo = $this->config['type'];
 		
 		if( ! isHash($algo) )
 		{
@@ -192,7 +205,7 @@ class Encode
 	| Not:Şifreleme türünüz geçerli şifreleme algoritması olmak zorundadır. 			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function type($data = '', $type = 'md5')
+	public function type($data = '', $type = 'md5')
 	{
 		if( ! isValue($data) ) 
 		{

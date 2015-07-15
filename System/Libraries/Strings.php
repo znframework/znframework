@@ -1,5 +1,5 @@
 <?php
-class Strings
+class StaticStrings
 {
 	/***********************************************************************************/
 	/* STRINGS LIBRARY						                   	                       */
@@ -28,7 +28,7 @@ class Strings
 	| Örnek Kullanım: mtrim(' abc bcd '); // abcbcd         						  		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function mtrim($str = '')
+	public function mtrim($str = '')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -53,7 +53,7 @@ class Strings
 	| Örnek Kullanım: trimSlashes('/abc bcd/'); // abc bcd         						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function trimSlashes($str = '')
+	public function trimSlashes($str = '')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -83,7 +83,7 @@ class Strings
 	| echo casing('Zn Kod Çatısına Hoş', 'title'); // Çıktı: Zn Kod Çatısına Hoş	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function casing($str = '', $type = 'lower', $encoding = "utf-8")
+	public function casing($str = '', $type = 'lower', $encoding = "utf-8")
 	{
 		return Covert::stringCase($str, $type, $encoding);
 	}
@@ -100,7 +100,7 @@ class Strings
 	| Örnek Kullanım: upperCase('zntr.net'); // ZNTR.NET         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function upperCase($str = '', $encoding = 'utf-8')
+	public function upperCase($str = '', $encoding = 'utf-8')
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
@@ -124,7 +124,7 @@ class Strings
 	| Örnek Kullanım: upperCase('ZNTR.NET'); // zntr.net         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function lowerCase($str = '', $encoding = 'utf-8')
+	public function lowerCase($str = '', $encoding = 'utf-8')
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
@@ -148,7 +148,7 @@ class Strings
 	| Örnek Kullanım: titleCase('ZNTR.NET'); // Zntr.net         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function titleCase($str = '', $encoding = 'utf-8')
+	public function titleCase($str = '', $encoding = 'utf-8')
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
@@ -172,13 +172,13 @@ class Strings
 	| Örnek Kullanım: camelCase('ZNTR NET'); // zntrNet         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function camelCase($str = '')
+	public function camelCase($str = '')
 	{
-		$string = self::titleCase($str);
+		$string = $this->titleCase($str);
 		
-		$string[0] = self::lowerCase($string);
+		$string[0] = $this->lowerCase($string);
 		
-		return self::mtrim($string);
+		return $this->mtrim($string);
 	}	
 	
 	/******************************************************************************************
@@ -193,11 +193,11 @@ class Strings
 	| Örnek Kullanım: pascalCase('ZNTR NET'); // zntrNet         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function pascalCase($str = '')
+	public function pascalCase($str = '')
 	{
-		$string = self::titleCase($str);
+		$string = $this->titleCase($str);
 		
-		return self::mtrim($string);
+		return $this->mtrim($string);
 	}
 
 	/******************************************************************************************
@@ -221,7 +221,7 @@ class Strings
 	| Örnek Kullanım: subString('ZNTR.NET', 0, 4); // ZNTR         						      |
 	|          																				  |
 	******************************************************************************************/
-	public static function subString($str = '', $starting = 0, $count = 0, $encoding = "utf-8")
+	public function subString($str = '', $starting = 0, $count = 0, $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{
@@ -279,7 +279,7 @@ class Strings
 	| Örnek Kullanım: string_search('ZNTR.NET', 'NET', 'pos'); // 5         				  |
 	|          																				  |
 	******************************************************************************************/
-	public static function search($str = '', $needle = '', $type = "str")
+	public function search($str = '', $needle = '', $type = "str")
 	{
 		if( ! is_string($str) ) 
 		{
@@ -320,7 +320,7 @@ class Strings
 	| Örnek Kullanım: string_reshuffle('ZNTR.NET', '.', 'N'); // Z.TRN.ET         			  |
 	|          																				  |
 	******************************************************************************************/
-	public static function reshuffle($str = '', $shuffle = '', $reshuffle = '')
+	public function reshuffle($str = '', $shuffle = '', $reshuffle = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -363,7 +363,7 @@ class Strings
 	| Örnek Kullanım: string_recurrentCount('ZNTR.NET', 'N'); // 2               			  |
 	|          																				  |
 	******************************************************************************************/
-	public static function recurrentCount($str = '', $char = '')
+	public function recurrentCount($str = '', $char = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -393,7 +393,7 @@ class Strings
 	| Örnek Kullanım: string_recurrentCount('ZNTR.NET', 'N', array('+', '-')); // Z+TR.-ET   |
 	|          																				  |
 	******************************************************************************************/
-	public static function placement($str = '', $delimiter = '?', $array = array())
+	public function placement($str = '', $delimiter = '?', $array = array())
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{

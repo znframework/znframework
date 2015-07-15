@@ -1,5 +1,5 @@
 <?php
-class Method
+class StaticMethod
 {
 	/***********************************************************************************/
 	/* METHOD LIBRARY						                   	                       */
@@ -30,7 +30,7 @@ class Method
 	| // $_POST['isim'] = 'Değer'      													      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function post($name = '', $value = '')
+	public function post($name = '', $value = '')
 	{
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($name) ) 
@@ -73,7 +73,7 @@ class Method
 	| // $_GET['isim'] = 'Değer'      													      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function get($name = '', $value = '')
+	public function get($name = '', $value = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -111,7 +111,7 @@ class Method
 	| // $_REQUEST['isim'] = 'Değer'      													  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function request($name = '', $value = '')
+	public function request($name = '', $value = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -149,7 +149,7 @@ class Method
 	| // $_FILES['upload']['name']      											          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function files($file_name = '', $type = 'name')
+	public function files($file_name = '', $type = 'name')
 	{
 		if( ! is_string($file_name) ) 
 		{
@@ -168,6 +168,4 @@ class Method
 		
 		return $_FILES[$file_name][$type];
 	}
-	
-	
 }

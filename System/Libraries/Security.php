@@ -1,5 +1,5 @@
 <?php 
-class Security
+class StaticSecurity
 {
 	/***********************************************************************************/
 	/* SECURITY LIBRARY						                   	                       */
@@ -17,6 +17,19 @@ class Security
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * Güvenlik ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct($config = array())
+	{
+		$this->config = Config::get('Security');	
+	}
+	
 	/******************************************************************************************
 	* NC ENCODE                                                                               *
 	*******************************************************************************************
@@ -31,7 +44,7 @@ class Security
 	| 2. ve 3. Parametreler kullanılmaz ise varsayılan olarak Config/Security.php dosyasında  |
 	| yer alan nc_encode => change chars karakterleri ayarlı olacaktır. 					  |
 	******************************************************************************************/
-	public static function ncEncode($string = '', $badWords = '', $changeChar = '[badchars]')
+	public function ncEncode($string = '', $badWords = '', $changeChar = '[badchars]')
 	{
 		if( ! is_string($string)) 
 		{
@@ -41,11 +54,15 @@ class Security
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
 		if( empty($badWords) )
 		{
-			$secnc = Config::get("Security", 'ncEncode');
+			$secnc = $this->config['ncEncode'];
 			$badWords = $secnc['bad_chars'];
 			$changeChar = $secnc['change_bad_chars'];
 		}
-		if( ! is_array($badWords)) return  $string = Regex::replace($badWords, $changeChar, $string, 'xi');
+		
+		if( ! is_array($badWords) ) 
+		{
+			return $string = Regex::replace($badWords, $changeChar, $string, 'xi');
+		}
 		
 		$ch = '';
 		$i = 0;	
@@ -82,14 +99,14 @@ class Security
 	|																						  |                                                   
 	| 1. string var @string => Temizleme yapılacak metin.                                     |
 	******************************************************************************************/	
-	public static function injectionEncode($string = '')
+	public function injectionEncode($string = '')
 	{
 		if( ! is_string($string)) 
 		{
 			return false;
 		}
 		
-		$secBadChars = Config::get("Security", 'injectionBadChars');
+		$secBadChars = $this->config['injectionBadChars'];
 		
 		if( ! empty($secBadChars)) 
 		{
@@ -119,7 +136,7 @@ class Security
 	|																						  |	
 	| 1. string var @string => Temizleme yapılacak metin. 									  |								       
 	******************************************************************************************/	
-	public static function injectionDecode($string = '')
+	public function injectionDecode($string = '')
 	{
 		if( ! is_string($string))
 		{ 
@@ -138,14 +155,14 @@ class Security
 	|																						  |
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	******************************************************************************************/	
-	public static function xssEncode($string = '')
+	public function xssEncode($string = '')
 	{
 		if( ! is_string($string)) 
 		{
 			return false;
 		}
 		
-		$secBadChars = Config::get("Security", 'scriptBadChars');
+		$secBadChars = $this->config['scriptBadChars'];
 		
 		if( ! empty($secBadChars)) 
 		{
@@ -176,7 +193,7 @@ class Security
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	| 2. string var @type => Tırnak işaretleri.           					                  |
 	******************************************************************************************/	
-	public static function htmlEncode($string, $type = 'quotes')
+	public function htmlEncode($string, $type = 'quotes')
 	{
 		if( ! is_string($string)) 
 		{
@@ -214,7 +231,7 @@ class Security
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	| 2. string var @type => Tırnak işaretleri.           					                  |
 	******************************************************************************************/	
-	public static function htmlDecode($string, $type = 'quotes')
+	public function htmlDecode($string, $type = 'quotes')
 	{
 		if( ! is_string($string))
 		{
@@ -247,7 +264,7 @@ class Security
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function phpTagEncode($str = '')
+	public function phpTagEncode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -268,7 +285,7 @@ class Security
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function phpTagDecode($str = '')
+	public function phpTagDecode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -289,7 +306,7 @@ class Security
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function nailEncode($str = '')
+	public function nailEncode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -312,7 +329,7 @@ class Security
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function nailDecode($str = '')
+	public function nailDecode($str = '')
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
@@ -335,14 +352,14 @@ class Security
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function foreignCharEncode($str = '')
+	public function foreignCharEncode($str = '')
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
 			return false;
 		}
 		
-		$chars = Config::get('ForeignChars', 'numericalCodes');
+		$chars = $this->config['numericalCodes'];
 		
 		return str_replace(array_keys($chars), array_values($chars), $str);
 	}	
@@ -352,14 +369,14 @@ class Security
 	// Parametreler
 	// @str = Şifrelenecek data.
 	// Dönen Değer: Şifrelenmiş bilgi.
-	public static function foreignCharDecode($str = '')
+	public function foreignCharDecode($str = '')
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
 			return false;
 		}
 		
-		$chars = Config::get('ForeignChars', 'numericalCodes');
+		$chars = $this->config['numericalCodes'];
 		
 		return str_replace(array_values($chars), array_keys($chars), $str);
 	}	

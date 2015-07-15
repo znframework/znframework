@@ -1,5 +1,5 @@
 <?php
-class Jquery
+class StaticJquery
 {	
 	/***********************************************************************************/
 	/* JQUERY LIBRARY						                   	                       */
@@ -23,7 +23,7 @@ class Jquery
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $keywords = array('this', 'document', 'window');
+	private $keywords = array('this', 'document', 'window');
 	
 	/* Keyword Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class Jquery
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $ready;
+	private $ready;
 	
 	/******************************************************************************************
 	* OPEN                                                                                    *
@@ -46,7 +46,7 @@ class Jquery
 	| Örnek Kullanım: open();        	  					                                  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function open($jqueryLibrary = true, $jqueryUiLibrary = false, $ready = true)
+	public function open($jqueryLibrary = true, $jqueryUiLibrary = false, $ready = true)
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_bool($jqueryLibrary) ) 
@@ -64,7 +64,7 @@ class Jquery
 		}
 		// ----------------------------------------------------------------------------
 		
-		self::$ready = $ready;
+		$this->ready = $ready;
 		
 		$script = '';
 		
@@ -101,15 +101,15 @@ class Jquery
 	| Örnek Kullanım: close();        	  					                                  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function close()
+	public function close()
 	{	
 		$script = "";
 		
 		// True ise ready kodunun devamını sona 
 		// eklemek için bu kontrol yapılıyor.
-		if( self::$ready === true )
+		if( $this->ready === true )
 		{
-			self::$ready = NULL;
+			$this->ready = NULL;
 			$script .= eol().'});'.eol();
 		}
 		
@@ -131,7 +131,7 @@ class Jquery
 	| $(document).ready(function(){ alert(1); });         									  |
 	|															                              |
 	******************************************************************************************/	
-	public static function ready($codes = '')
+	public function ready($codes = '')
 	{
 		if( ! is_string($codes) ) 
 		{
@@ -157,7 +157,7 @@ class Jquery
 	| $('#nesne').bind('mouseover', function(e){ alert(1); });         						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function event($element = 'this', $eventType = 'click', $callback = '')
+	public function event($element = 'this', $eventType = 'click', $callback = '')
 	{	
 		if( ! is_string($element) )
 		{
@@ -172,7 +172,7 @@ class Jquery
 			$callback = '';
 		}
 		
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
@@ -182,7 +182,7 @@ class Jquery
 	}	
 	
 	// Olay olşturmak için
-	protected static function _event($type = '', $element = 'this', $callback = '', $callback2 = '')
+	protected function _event($type = '', $element = 'this', $callback = '', $callback2 = '')
 	{	
 		if( ! is_string($element) )
 		{
@@ -207,7 +207,7 @@ class Jquery
 			$callback2 = ", function(e)".eol()."{".eol().$callback2.eol()."}";
 		}
 		
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
@@ -228,9 +228,9 @@ class Jquery
 	| Örnek Kullanım: click('#nesne', 'alert(1);');                     	  				  |
 	|															                              |
 	******************************************************************************************/	
-	public static function click($element = 'this', $callback = '')
+	public function click($element = 'this', $callback = '')
 	{
-		return self::_event('click', $element, $callback);
+		return $this->_event('click', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -245,9 +245,9 @@ class Jquery
 	| Örnek Kullanım: blur('#nesne', 'alert(1);');                  	     				  |
 	|															                              |
 	******************************************************************************************/	
-	public static function blur($element = 'this', $callback = '')
+	public function blur($element = 'this', $callback = '')
 	{
-		return self::_event('blur', $element, $callback);
+		return $this->_event('blur', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -262,9 +262,9 @@ class Jquery
 	| Örnek Kullanım: change('#nesne',             'alert(1);');        	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function change($element = 'this', $callback = '')
+	public function change($element = 'this', $callback = '')
 	{
-		return self::_event('change', $element, $callback);
+		return $this->_event('change', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -279,9 +279,9 @@ class Jquery
 	| Örnek Kullanım: dblclick('#nesne', 'alert(1);');        	     						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function dblClick($element = 'this', $callback = '')
+	public function dblClick($element = 'this', $callback = '')
 	{
-		return self::_event('dblclick', $element, $callback);
+		return $this->_event('dblclick', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -296,9 +296,9 @@ class Jquery
 	| Örnek Kullanım: resize('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function resize($element = 'this', $callback = '')
+	public function resize($element = 'this', $callback = '')
 	{
-		return self::_event('resize', $element, $callback);
+		return $this->_event('resize', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -313,9 +313,9 @@ class Jquery
 	| Örnek Kullanım: scroll('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function scroll($element = 'this', $callback = '')
+	public function scroll($element = 'this', $callback = '')
 	{
-		return self::_event('scroll', $element, $callback);
+		return $this->_event('scroll', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -330,9 +330,9 @@ class Jquery
 	| Örnek Kullanım: load('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function load($element = 'this', $callback = '')
+	public function load($element = 'this', $callback = '')
 	{
-		return self::_event('load', $element, $callback);
+		return $this->_event('load', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -347,9 +347,9 @@ class Jquery
 	| Örnek Kullanım: unload('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function unload($element = 'this', $callback = '')
+	public function unload($element = 'this', $callback = '')
 	{
-		return self::_event('unload', $element, $callback);
+		return $this->_event('unload', $element, $callback);
 	}	
 	
 	/******************************************************************************************
@@ -364,9 +364,9 @@ class Jquery
 	| Örnek Kullanım: focus('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function focus($element = 'this', $callback = '')
+	public function focus($element = 'this', $callback = '')
 	{
-		return self::_event('focus', $element, $callback);
+		return $this->_event('focus', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -381,9 +381,9 @@ class Jquery
 	| Örnek Kullanım: focusIn('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function focusIn($element = 'this', $callback = '')
+	public function focusIn($element = 'this', $callback = '')
 	{
-		return self::_event('focusin', $element, $callback);
+		return $this->_event('focusin', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -398,9 +398,9 @@ class Jquery
 	| Örnek Kullanım: focusOut('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function focusOut($element = 'this', $callback = '')
+	public function focusOut($element = 'this', $callback = '')
 	{
-		return self::_event('focusout', $element, $callback);
+		return $this->_event('focusout', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -415,9 +415,9 @@ class Jquery
 	| Örnek Kullanım: select('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function select($element = 'this', $callback = '')
+	public function select($element = 'this', $callback = '')
 	{
-		return self::_event('select', $element, $callback);
+		return $this->_event('select', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -432,9 +432,9 @@ class Jquery
 	| Örnek Kullanım: submit('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function submit($element = 'this', $callback = '')
+	public function submit($element = 'this', $callback = '')
 	{
-		return self::_event('submit', $element, $callback);
+		return $this->_event('submit', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -449,9 +449,9 @@ class Jquery
 	| Örnek Kullanım: keyDown('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function keyDown($element = 'this', $callback = '')
+	public function keyDown($element = 'this', $callback = '')
 	{
-		return self::_event('keydown', $element, $callback);
+		return $this->_event('keydown', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -466,9 +466,9 @@ class Jquery
 	| Örnek Kullanım: keyPress('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function keyPress($element = 'this', $callback = '')
+	public function keyPress($element = 'this', $callback = '')
 	{
-		return self::_event('keypress', $element, $callback);
+		return $this->_event('keypress', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -483,9 +483,9 @@ class Jquery
 	| Örnek Kullanım: keyUp('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function keyUp($element = 'this', $callback = '')
+	public function keyUp($element = 'this', $callback = '')
 	{
-		return self::_event('keyup', $element, $callback);
+		return $this->_event('keyup', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -500,9 +500,9 @@ class Jquery
 	| Örnek Kullanım: hover('#nesne', 'alert(1);');                     	     			  |
 	|															                              |
 	******************************************************************************************/	
-	public static function hover($element = 'this', $callback = '')
+	public function hover($element = 'this', $callback = '')
 	{
-		return self::_event('hover', $element, $callback);
+		return $this->_event('hover', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -517,9 +517,9 @@ class Jquery
 	| Örnek Kullanım: mouseDown('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseDown($element = 'this', $callback = '')
+	public function mouseDown($element = 'this', $callback = '')
 	{
-		return self::_event('mousedown', $element, $callback);
+		return $this->_event('mousedown', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -534,9 +534,9 @@ class Jquery
 	| Örnek Kullanım: mouseEnter('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseEnter($element = 'this', $callback = '')
+	public function mouseEnter($element = 'this', $callback = '')
 	{
-		return self::_event('mouseenter', $element, $callback);
+		return $this->_event('mouseenter', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -551,9 +551,9 @@ class Jquery
 	| Örnek Kullanım: mouseLeave('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseLeave($element = 'this', $callback = '')
+	public function mouseLeave($element = 'this', $callback = '')
 	{
-		return self::_event('mouseleave', $element, $callback);
+		return $this->_event('mouseleave', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -568,9 +568,9 @@ class Jquery
 	| Örnek Kullanım: mouseMove('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseMove($element = 'this', $callback = '')
+	public function mouseMove($element = 'this', $callback = '')
 	{
-		return self::_event('mousemove', $element, $callback);
+		return $this->_event('mousemove', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -585,9 +585,9 @@ class Jquery
 	| Örnek Kullanım: mouseOut('#nesne', 'alert(1);');                     	     	          |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseOut($element = 'this', $callback = '')
+	public function mouseOut($element = 'this', $callback = '')
 	{
-		return self::_event('mouseout', $element, $callback);
+		return $this->_event('mouseout', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -602,9 +602,9 @@ class Jquery
 	| Örnek Kullanım: mouseOver('#nesne', 'alert(1);');                     	     	      |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseOver($element = 'this', $callback = '')
+	public function mouseOver($element = 'this', $callback = '')
 	{
-		return self::_event('mouseover', $element, $callback);
+		return $this->_event('mouseover', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -619,9 +619,9 @@ class Jquery
 	| Örnek Kullanım: mouseUp('#nesne', 'alert(1);');                     	     	          |
 	|															                              |
 	******************************************************************************************/	
-	public static function mouseUp($element = 'this', $callback = '')
+	public function mouseUp($element = 'this', $callback = '')
 	{
-		return self::_event('mouseup', $element, $callback);
+		return $this->_event('mouseup', $element, $callback);
 	}
 	
 	/******************************************************************************************
@@ -636,13 +636,13 @@ class Jquery
 	| Örnek Kullanım: tglClick('#nesne', 'alert(1);');                     	     	          |
 	|															                              |
 	******************************************************************************************/	
-	public static function tglClick($element = 'this', $callback = '', $callback2 = '')
+	public function tglClick($element = 'this', $callback = '', $callback2 = '')
 	{
-		return self::_event('toggle', $element, $callback, $callback2);
+		return $this->_event('toggle', $element, $callback, $callback2);
 	}
 	
 	// Jquery nesneleri için.
-	protected static function _object($type = '', $element = "this", $speed = "", $easing = "",$callback = "")
+	protected function _object($type = '', $element = "this", $speed = "", $easing = "",$callback = "")
 	{
 		if( ! is_string($element) ) 
 		{
@@ -668,7 +668,7 @@ class Jquery
 			$easing = ", '".$easing."'"; 
 		}
 		
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
@@ -695,9 +695,9 @@ class Jquery
 	| $('#nesne').fadeIn(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function fadeIn($element = 'this', $speed = '', $callback = '')
+	public function fadeIn($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('fadeIn', $element, $speed, NULL, $callback);
+		return $this->_object('fadeIn', $element, $speed, NULL, $callback);
 	}
 	
 	/******************************************************************************************
@@ -714,9 +714,9 @@ class Jquery
 	| $('#nesne').fadeOut(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function fadeOut($element = 'this', $speed = '', $callback = '')
+	public function fadeOut($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('fadeOut', $element, $speed, NULL, $callback);
+		return $this->_object('fadeOut', $element, $speed, NULL, $callback);
 	}
 	
 	/******************************************************************************************
@@ -733,9 +733,9 @@ class Jquery
 	| $('#nesne').slideUp(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function slideUp($element = 'this', $speed = '', $callback = '')
+	public function slideUp($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('slideUp', $element, $speed, NULL, $callback);
+		return $this->_object('slideUp', $element, $speed, NULL, $callback);
 	}
 	
 	/******************************************************************************************
@@ -752,9 +752,9 @@ class Jquery
 	| $('#nesne').slideDown(1000, function(e){ alert(1); });         						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function slideDown($element = 'this', $speed = '', $callback = '')
+	public function slideDown($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('slideDown', $element, $speed, NULL, $callback);
+		return $this->_object('slideDown', $element, $speed, NULL, $callback);
 	}
 	
 	/******************************************************************************************
@@ -771,9 +771,9 @@ class Jquery
 	| $('#nesne').slideToggle(1000, function(e){ alert(1); });         						  |
 	|															                              |
 	******************************************************************************************/	
-	public static function slideToggle($element = 'this', $speed = '', $callback = '')
+	public function slideToggle($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('slideToggle', $element, $speed, NULL, $callback);
+		return $this->_object('slideToggle', $element, $speed, NULL, $callback);
 	}
 	
 	/******************************************************************************************
@@ -791,9 +791,9 @@ class Jquery
 	| $('#nesne').toggle(1000, "easeInOut", function(e){ alert(1); });         				  |
 	|															                              |
 	******************************************************************************************/	
-	public static function toggle($element = "this", $speed = "", $easing = "", $callback = "")
+	public function toggle($element = "this", $speed = "", $easing = "", $callback = "")
 	{
-		return self::_object('toggle', $element, $speed, $easing, $callback);
+		return $this->_object('toggle', $element, $speed, $easing, $callback);
 	}
 	
 	/******************************************************************************************
@@ -810,9 +810,9 @@ class Jquery
 	| $('#nesne').hide(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function hide($element = 'this', $speed = '', $callback = '')
+	public function hide($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('hide', $element, $speed, NULL, $callback);
+		return $this->_object('hide', $element, $speed, NULL, $callback);
 	}
 	
 	/******************************************************************************************
@@ -829,9 +829,9 @@ class Jquery
 	| $('#nesne').show(1000, function(e){ alert(1); });         						      |
 	|															                              |
 	******************************************************************************************/	
-	public static function show($element = 'this', $speed = '', $callback = '')
+	public function show($element = 'this', $speed = '', $callback = '')
 	{
-		return self::_object('show', $element, $speed, NULL, $callback);
+		return $this->_object('show', $element, $speed, NULL, $callback);
 	}	
 	
 	/******************************************************************************************
@@ -867,7 +867,7 @@ class Jquery
     | jquery::animate('#nesne', $anismasyon_nesneleri, $mili_salise, $efektler, $kodlar );    |
 	|															                              |
 	******************************************************************************************/	
-	public static function animate($element = 'this', $params = array(), $speed = '', $easing = '', $complete = '')
+	public function animate($element = 'this', $params = array(), $speed = '', $easing = '', $complete = '')
 	{
 		if( ! is_string($element) ) 
 		{
@@ -895,7 +895,7 @@ class Jquery
 		
 		if( ! empty($params) )
 		{
-			$animate .= self::objectData($params);
+			$animate .= $this->objectData($params);
 		}
 		
 		if( ! empty($speed) )
@@ -912,7 +912,7 @@ class Jquery
 	
 		if( is_array($easing) )
 		{
-			$ease = ",".eol()."\t\t".self::objectData($easing);			
+			$ease = ",".eol()."\t\t".$this->objectData($easing);			
 			$easing = $ease;
 	
 		}
@@ -926,7 +926,7 @@ class Jquery
 			$complete = ",".eol()."\t\tfunction(){".$complete."}";
 		}
 		
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
@@ -947,13 +947,13 @@ class Jquery
 	| @methods parametresinin alabileceği değerler:											  |
 	| type, url, dataType, error, success, complete, beforeSend, done ve diğer özellikler	  |
 	******************************************************************************************/	
-	public static function ajax($methods = array())
+	public function ajax($methods = array())
 	{
 		return Ajax::send($methods);
 	}
 	
 	// Jquery css class yapısı eklemek için.
-	protected static function _class($classType = '', $element = 'this', $class = '')
+	protected function _class($classType = '', $element = 'this', $class = '')
 	{
 		if( ! is_string($element) ) 
 		{
@@ -970,7 +970,7 @@ class Jquery
 			$class = '';
 		}
 		
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
@@ -992,9 +992,9 @@ class Jquery
 	| $('#nesne').addClass('red-color, bold');         						                  |
 	|															                              |
 	******************************************************************************************/	
-	public static function addClass($element = '', $class = '')
+	public function addClass($element = '', $class = '')
 	{
-		return self::_class('addClass', $element, $class);
+		return $this->_class('addClass', $element, $class);
 	}
 	
 	/******************************************************************************************
@@ -1010,9 +1010,9 @@ class Jquery
 	| $('#nesne').removeClass('red-color, bold');         						              |
 	|															                              |
 	******************************************************************************************/	
-	public static function removeClass($element = '', $class = '')
+	public function removeClass($element = '', $class = '')
 	{
-		return self::_class('removeClass', $element, $class);
+		return $this->_class('removeClass', $element, $class);
 	}
 	
 	/******************************************************************************************
@@ -1028,13 +1028,13 @@ class Jquery
 	| $('#nesne').toggleClass('red-color, bold');         						              |
 	|															                              |
 	******************************************************************************************/	
-	public static function toggleClass($element = '', $class = '')
+	public function toggleClass($element = '', $class = '')
 	{
-		return self::_class('toggleClass', $element, $class);
+		return $this->_class('toggleClass', $element, $class);
 	}
 	
 	// Jquery attr yapısı eklemek için. 
-	protected static function _attr($type = '', $element = "this", $attrs = "")
+	protected function _attr($type = '', $element = "this", $attrs = "")
 	{
 		if( ! is_string($element) ) 
 		{
@@ -1050,7 +1050,7 @@ class Jquery
 		
 		if( is_array($attrs) )
 		{
-			$attr .= self::objectData($attrs);
+			$attr .= $this->objectData($attrs);
 		}
 		else
 		{
@@ -1064,7 +1064,7 @@ class Jquery
 			}
 		}
 			
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		
@@ -1091,9 +1091,9 @@ class Jquery
 	| $('#nesne').attr({"name":"isim", "id":"nesne"});         	                              |
 	|															                              |
 	******************************************************************************************/	
-	public static function attr($element = '', $attr = '')
+	public function attr($element = '', $attr = '')
 	{
-		return self::_attr('attr', $element, $attr);
+		return $this->_attr('attr', $element, $attr);
 	}
 	
 	/******************************************************************************************
@@ -1114,9 +1114,9 @@ class Jquery
 	| $('#nesne').removeAttr({"name", "id"});         	                                      |
 	|															                              |
 	******************************************************************************************/	
-	public static function removeAttr($element = '', $attr = '')
+	public function removeAttr($element = '', $attr = '')
 	{
-		return self::_attr('removeAttr', $element, $attr);
+		return $this->_attr('removeAttr', $element, $attr);
 	}
 	
 	/******************************************************************************************
@@ -1133,7 +1133,7 @@ class Jquery
 	| :function(e1, e2){ alert(1); }         						                          |
 	|															                              |
 	******************************************************************************************/	
-	public static function func($property = 'this', $params = 'e', $code = '')
+	public function func($property = 'this', $params = 'e', $code = '')
 	{
 		if( ! is_string($property) ) 
 		{
@@ -1175,9 +1175,9 @@ class Jquery
 	| :function(e1, e2){ alert(1); }         						                          |
 	|															                              |
 	******************************************************************************************/	
-	public static function callback($element = 'this', $params = 'e', $code = '')
+	public function callback($element = 'this', $params = 'e', $code = '')
 	{
-		return self::func($element, $params, $code);	
+		return $this->func($element, $params, $code);	
 	}
 	
 	/******************************************************************************************
@@ -1192,7 +1192,7 @@ class Jquery
 	| {1:'a', 2:'b'}        						                                          |
 	|															                              |
 	******************************************************************************************/	
-	public static function objectData($data = array())
+	public function objectData($data = array())
 	{
 		return Arrays::objectData($data);
 	}
@@ -1211,7 +1211,7 @@ class Jquery
 	| $("$nesne").bind("click", function(e){alert("1")});       						      |                       
 	|															                              |
 	******************************************************************************************/	
-	public static function code($element = 'this', $property = '', $code = '')
+	public function code($element = 'this', $property = '', $code = '')
 	{
 		if( ! is_string($element) ) 
 		{
@@ -1223,7 +1223,7 @@ class Jquery
 			$code = '';
 		}
 		
-		$element = ( in_array($element, self::$keywords) )
+		$element = ( in_array($element, $this->keywords) )
 				   ? $element
 				   : "\"$element\"";
 		

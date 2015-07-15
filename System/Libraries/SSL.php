@@ -1,5 +1,5 @@
 <?php
-class SSL
+class StaticSSL
 {	
 	/***********************************************************************************/
 	/* SSL LIBRARY	     					                   	                       */
@@ -22,7 +22,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function open($sealedData = '', $data = '', $envKey = '', $privKeyId = '')
+	public function open($sealedData = '', $data = '', $envKey = '', $privKeyId = '')
 	{
 		if
 		( 
@@ -42,7 +42,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function seal($data = '', $sealedData = '', $envKey = '', $privKeyId = '')
+	public function seal($data = '', $sealedData = '', $envKey = '', $privKeyId = '')
 	{
 		if
 		( 
@@ -62,7 +62,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function sign($data = '', $signature = '', $privKeyId = '', $signatureAlgo = OPENSSL_ALGO_SHA1 )
+	public function sign($data = '', $signature = '', $privKeyId = '', $signatureAlgo = OPENSSL_ALGO_SHA1 )
 	{
 		if( ! is_string($data) || ! is_string($signature) )
 		{
@@ -77,7 +77,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function verify($data = '', $signature = '', $privKeyId = '', $signatureAlgo = OPENSSL_ALGO_SHA1 )
+	public function verify($data = '', $signature = '', $privKeyId = '', $signatureAlgo = OPENSSL_ALGO_SHA1 )
 	{
 		if( ! is_string($data) || ! is_string($signature) )
 		{
@@ -92,7 +92,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function spkiExportChallenge($spkac = '')
+	public function spkiExportChallenge($spkac = '')
 	{
 		if( ! is_string($spkac) )
 		{
@@ -107,7 +107,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function spkiExport($spkac = '')
+	public function spkiExport($spkac = '')
 	{
 		if( ! is_string($spkac) )
 		{
@@ -122,7 +122,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function spkiVerify($spkac = '')
+	public function spkiVerify($spkac = '')
 	{
 		if( ! is_string($spkac) )
 		{
@@ -137,7 +137,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function spkiNew($privKey = '', $challenge = '', $algorithm = 0)
+	public function spkiNew($privKey = '', $challenge = '', $algorithm = 0)
 	{
 		if
 		( 
@@ -157,7 +157,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function cipherIvLength($method = '')
+	public function cipherIvLength($method = '')
 	{
 		if( ! is_string($method) )
 		{
@@ -172,7 +172,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function csrExportToFile($csr = '', $outFileName = '', $noText = true)
+	public function csrExportToFile($csr = '', $outFileName = '', $noText = true)
 	{
 		if
 		( 
@@ -192,7 +192,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function csrExport($csr = '', $output = '', $noText = true)
+	public function csrExport($csr = '', $output = '', $noText = true)
 	{
 		if
 		( 
@@ -212,7 +212,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function csrGetPublicKey($csr = '', $shortnames = true)
+	public function csrGetPublicKey($csr = '', $shortnames = true)
 	{
 		if( ! is_bool($shortnames) )
 		{
@@ -227,7 +227,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function csrGetSubject($csr = '', $shortnames = true)
+	public function csrGetSubject($csr = '', $shortnames = true)
 	{
 		if( ! is_bool($shortnames) )
 		{
@@ -242,7 +242,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function csrNew($dn = array(), $privKey = '', $configArgs = array(), $extraAttrs = array())
+	public function csrNew($dn = array(), $privKey = '', $configArgs = array(), $extraAttrs = array())
 	{
 		if
 		( 
@@ -263,7 +263,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function csrSign($csr = '', $cacert = '', $privKey = '', $days = 0, $configs = array(), $serial = 0)
+	public function csrSign($csr = '', $cacert = '', $privKey = '', $days = 0, $configs = array(), $serial = 0)
 	{
 		if
 		( 
@@ -283,7 +283,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function encode($data = '', $method = '', $password = '', $options = 0, $iv = '')
+	public function encode($data = '', $method = '', $password = '', $options = 0, $iv = '')
 	{
 		if
 		( 
@@ -305,7 +305,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function decode($data = '', $method = '', $password = '', $options = 0, $iv = '')
+	public function decode($data = '', $method = '', $password = '', $options = 0, $iv = '')
 	{
 		if
 		( 
@@ -327,7 +327,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function dhComputeKey($pubKey = '', $dhKey = '')
+	public function dhComputeKey($pubKey = '', $dhKey = '')
 	{
 		if( ! is_string($pubKey) || ! is_resource($dhKey) )
 		{
@@ -342,7 +342,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function digest($data = '', $method = '', $rawOutput = true)
+	public function digest($data = '', $method = '', $rawOutput = true)
 	{
 		if
 		( 
@@ -362,7 +362,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
 		return openssl_error_string();
 	}
@@ -372,7 +372,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function freeKey($key = '')
+	public function freeKey($key = '')
 	{
 		if( ! is_resource($key) )
 		{
@@ -387,7 +387,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function getCertLocations()
+	public function getCertLocations()
 	{
 		return openssl_get_cert_locations();
 	}
@@ -397,7 +397,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function getCipherMethods($aliases = false)
+	public function getCipherMethods($aliases = false)
 	{
 		if( ! is_bool($aliases) )
 		{
@@ -412,7 +412,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function getMdMethods($aliases = false)
+	public function getMdMethods($aliases = false)
 	{
 		if( ! is_bool($aliases) )
 		{
@@ -427,7 +427,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pbkdf2($password = '', $salt = '', $keyLength = 0, $iterations = 0, $digestAlgo = '')
+	public function pbkdf2($password = '', $salt = '', $keyLength = 0, $iterations = 0, $digestAlgo = '')
 	{
 		if
 		( 
@@ -449,7 +449,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs12ExportToFile($x509 = '', $file = '', $privKey = '', $password = '', $params = array())
+	public function pkcs12ExportToFile($x509 = '', $file = '', $privKey = '', $password = '', $params = array())
 	{
 		if
 		( 
@@ -471,7 +471,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs12Export($x509 = '', $out = '', $privKey = '', $password = '', $args = array())
+	public function pkcs12Export($x509 = '', $out = '', $privKey = '', $password = '', $args = array())
 	{
 		if
 		( 
@@ -493,7 +493,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs12Read($pkcs12 = '', $cert = array(), $password = '')
+	public function pkcs12Read($pkcs12 = '', $cert = array(), $password = '')
 	{
 		if
 		( 
@@ -513,7 +513,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs7Decode($inFileName = '', $outFileName = '', $recIpCert = '', $recIpKey = '')
+	public function pkcs7Decode($inFileName = '', $outFileName = '', $recIpCert = '', $recIpKey = '')
 	{
 		if( ! is_string($inFileName) || ! is_string($outFileName) )
 		{
@@ -528,7 +528,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs7Encode($inFile = '', $outFile = '', $recipcerts  = '', $headers  = array(), $flags = PKCS7_DETACHED, $cipherId = OPENSSL_CIPHER_RC2_40)
+	public function pkcs7Encode($inFile = '', $outFile = '', $recipcerts  = '', $headers  = array(), $flags = PKCS7_DETACHED, $cipherId = OPENSSL_CIPHER_RC2_40)
 	{
 		if
 		( 
@@ -550,7 +550,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs7Sign($inFile = '', $outFile = '', $signcert  = '', $privKey = '', $headers  = array(), $flags = PKCS7_DETACHED, $extraCerts = '')
+	public function pkcs7Sign($inFile = '', $outFile = '', $signcert  = '', $privKey = '', $headers  = array(), $flags = PKCS7_DETACHED, $extraCerts = '')
 	{
 		if
 		( 
@@ -572,7 +572,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkcs7Verify($fileName = '', $flags = 0, $outFileName  = '', $caInfo = array(), $extraCerts = '', $content = '')
+	public function pkcs7Verify($fileName = '', $flags = 0, $outFileName  = '', $caInfo = array(), $extraCerts = '', $content = '')
 	{
 		if
 		( 
@@ -595,7 +595,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyGetPrivate($key = '', $passPhrase = '')
+	public function pkeyGetPrivate($key = '', $passPhrase = '')
 	{
 		if( ! is_string($passPhrase) )
 		{
@@ -610,7 +610,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyGetPublic($cert = '')
+	public function pkeyGetPublic($cert = '')
 	{
 		return openssl_pkey_get_public($cert);
 	}
@@ -620,7 +620,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyExportToFile($key = '', $file = '', $password = '', $configs = array())
+	public function pkeyExportToFile($key = '', $file = '', $password = '', $configs = array())
 	{
 		if
 		( 
@@ -640,7 +640,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyExport($key = '', $file = '', $password = '', $configs = array())
+	public function pkeyExport($key = '', $file = '', $password = '', $configs = array())
 	{
 		if
 		( 
@@ -660,7 +660,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyFree($key = '')
+	public function pkeyFree($key = '')
 	{
 		if( ! is_resource($key) )
 		{
@@ -675,7 +675,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyGetDetails($key = '')
+	public function pkeyGetDetails($key = '')
 	{
 		if( ! is_resource($key) )
 		{
@@ -690,7 +690,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function pkeyNew($configs = array())
+	public function pkeyNew($configs = array())
 	{
 		if( ! is_array($configs) )
 		{
@@ -705,7 +705,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function privateDecode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
+	public function privateDecode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
 	{
 		if
 		( 
@@ -725,7 +725,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function privateEncode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
+	public function privateEncode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
 	{
 		if
 		( 
@@ -745,7 +745,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function publicDecode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
+	public function publicDecode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
 	{
 		if
 		( 
@@ -765,7 +765,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function publicEncode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
+	public function publicEncode($data = '', $decrypted = '', $key = '', $padding = OPENSSL_PKCS1_PADDING)
 	{
 		if
 		( 
@@ -785,7 +785,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function randomPseudoBytes($length = 0, $strong = true)
+	public function randomPseudoBytes($length = 0, $strong = true)
 	{
 		if( ! is_numeric($length) || ! is_bool($strong) )
 		{
@@ -800,7 +800,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509CheckPrivateKey($cert = '', $key = '')
+	public function x509CheckPrivateKey($cert = '', $key = '')
 	{
 		return openssl_x509_check_private_key($cert, $key);
 	}
@@ -810,7 +810,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509CheckPurpose($x509cert = '', $purpose = 0, $caInfo = array(), $untrustedFile = '')
+	public function x509CheckPurpose($x509cert = '', $purpose = 0, $caInfo = array(), $untrustedFile = '')
 	{
 		if
 		( 
@@ -830,7 +830,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509ExportToFile($x509cert = '', $outFileName = '', $noText = true)
+	public function x509ExportToFile($x509cert = '', $outFileName = '', $noText = true)
 	{
 		if( ! is_bool($noText) || ! is_string($outFileName) )
 		{
@@ -845,7 +845,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509Export($x509cert = '', $outFileName = '', $noText = true)
+	public function x509Export($x509cert = '', $outFileName = '', $noText = true)
 	{
 		if( ! is_bool($noText) || ! is_string($outFileName) )
 		{
@@ -860,7 +860,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509FingerPrint($x509 = '', $hashAlgorithm = 'sha1', $rawOutput = false)
+	public function x509FingerPrint($x509 = '', $hashAlgorithm = 'sha1', $rawOutput = false)
 	{
 		if( ! isHash($hashAlgorithm) || ! is_bool($rawOutput) )
 		{
@@ -875,7 +875,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509Free($x509cert = '')
+	public function x509Free($x509cert = '')
 	{
 		if( ! is_resource($x509cert) )
 		{
@@ -890,7 +890,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509Parse($x509 = '', $shortNames = false)
+	public function x509Parse($x509 = '', $shortNames = false)
 	{
 		if( ! is_bool($shortNames) )
 		{
@@ -905,7 +905,7 @@ class SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public static function x509Read($x509certData = '')
+	public function x509Read($x509certData = '')
 	{
 		return openssl_x509_read($x509certData);
 	}

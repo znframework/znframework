@@ -1,5 +1,5 @@
 <?php
-class Download
+class StaticDownload
 {
 	/***********************************************************************************/
 	/* DOWNLOAD LIBRARY						                   	                       */
@@ -23,7 +23,7 @@ class Download
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error;
+	protected $error;
 	
 	/******************************************************************************************
 	* START                                                                                   *
@@ -36,19 +36,19 @@ class Download
 	| Örnek Kullanım: start('document/file.txt')         									  |
 	|          																				  |
 	******************************************************************************************/
-	public static function start($file = '')
+	public function start($file = '')
 	{
 		if( ! is_string($file) )
 		{
-			self::$error = getMessage('Download', 'stringParameterError');
-			report('Error', self::$error, 'DownloadLibrary');
+			$this->error = getMessage('Download', 'stringParameterError');
+			report('Error', $this->error, 'DownloadLibrary');
 			return false;	
 		}
 		
 		if( ! file_exists($file) )
 		{
-			self::$error = getMessage('Download', 'emptyParameterError');
-			report('Error', self::$error, 'DownloadLibrary');
+			$this->error = getMessage('Download', 'emptyParameterError');
+			report('Error', $this->error, 'DownloadLibrary');
 			return false;	
 		}
 		
@@ -77,11 +77,11 @@ class Download
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( isset(self::$error) )
+		if( isset($this->error) )
 		{
-			return self::$error;
+			return $this->error;
 		}
 		else
 		{

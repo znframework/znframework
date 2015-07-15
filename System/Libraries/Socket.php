@@ -1,5 +1,5 @@
 <?php
-class Socket
+class StaticSocket
 {	
 	/***********************************************************************************/
 	/* SOCKET LIBRARY						                   	                       */
@@ -22,7 +22,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function create($domain = 0, $type = 0, $protocol = 0)
+	public function create($domain = 0, $type = 0, $protocol = 0)
 	{
 		if
 		( 
@@ -42,7 +42,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function connect($socket = NULL, $address = '', $port = 0)
+	public function connect($socket = NULL, $address = '', $port = 0)
 	{
 		if
 		( 
@@ -62,7 +62,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function write($socket = NULL, $data = '', $length = 0)
+	public function write($socket = NULL, $data = '', $length = 0)
 	{
 		if
 		( 
@@ -87,7 +87,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function read($socket = NULL, $length = 0, $type = PHP_BINARY_READ)
+	public function read($socket = NULL, $length = 0, $type = PHP_BINARY_READ)
 	{
 		if
 		( 
@@ -112,7 +112,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function bind($socket = NULL, $address = '', $port = 0)
+	public function bind($socket = NULL, $address = '', $port = 0)
 	{
 		if
 		( 
@@ -132,7 +132,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function listen($socket = NULL, $backlog = 0)
+	public function listen($socket = NULL, $backlog = 0)
 	{
 		if( ! is_numeric($backlog) || ! is_resource($socket) )
 		{
@@ -147,7 +147,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function createListen($port = 0, $backlog = 128)
+	public function createListen($port = 0, $backlog = 128)
 	{
 		if( ! is_numeric($port) || ! is_numeric($backlog) )
 		{
@@ -162,7 +162,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getOption($socket = NULL, $level = 0, $optName = 0)
+	public function getOption($socket = NULL, $level = 0, $optName = 0)
 	{
 		if
 		( 
@@ -182,7 +182,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setOption($socket = NULL, $level = 0, $optName = 0, $optValue = 0)
+	public function setOption($socket = NULL, $level = 0, $optName = 0, $optValue = 0)
 	{
 		if
 		( 
@@ -202,7 +202,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getPeerName($socket = NULL, $address = '', $port = 0)
+	public function getPeerName($socket = NULL, $address = '', $port = 0)
 	{
 		if
 		( 
@@ -222,7 +222,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getName($socket = NULL, $address = '', $port = 0)
+	public function getName($socket = NULL, $address = '', $port = 0)
 	{
 		if
 		( 
@@ -242,7 +242,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function receive($socket = NULL, $buffer = '', $length = 0, $options = 0)
+	public function receive($socket = NULL, $buffer = '', $length = 0, $options = 0)
 	{
 		if
 		( 
@@ -263,7 +263,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function receiveFrom($socket = NULL, $buffer = '', $length = 0, $options = 0, $name = '', $port = 0)
+	public function receiveFrom($socket = NULL, $buffer = '', $length = 0, $options = 0, $name = '', $port = 0)
 	{
 		if
 		( 
@@ -284,7 +284,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function select($read = array(), $write = array(), $except = array(), $secondTimeout = 0, $microSecondTimeout = 0)
+	public function select($read = array(), $write = array(), $except = array(), $secondTimeout = 0, $microSecondTimeout = 0)
 	{
 		if
 		( 
@@ -304,7 +304,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function send($socket = NULL, $buffer = '', $length = 0, $options = 0)
+	public function send($socket = NULL, $buffer = '', $length = 0, $options = 0)
 	{
 		if
 		( 
@@ -325,7 +325,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function sendTo($socket = NULL, $buffer = '', $length = 0, $options = 0, $address = '', $port = 0)
+	public function sendTo($socket = NULL, $buffer = '', $length = 0, $options = 0, $address = '', $port = 0)
 	{
 		if
 		( 
@@ -347,7 +347,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setBlock($socket = NULL)
+	public function setBlock($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
@@ -362,7 +362,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setNonBlock($socket = NULL)
+	public function setNonBlock($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
@@ -377,7 +377,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function accept($socket = NULL)
+	public function accept($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
@@ -392,14 +392,14 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function error($socket = NULL)
+	public function error($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
 			return false;
 		}
 		
-		return socket_strerror(self::errno($socket));
+		return socket_strerror($this->errno($socket));
 	}
 	
 	/******************************************************************************************
@@ -407,7 +407,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function errno($socket = NULL)
+	public function errno($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
@@ -422,7 +422,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function clearError($socket = NULL)
+	public function clearError($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
@@ -437,7 +437,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function close($socket = NULL)
+	public function close($socket = NULL)
 	{
 		if( ! is_resource($socket) )
 		{
@@ -452,7 +452,7 @@ class Socket
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için SOCKET ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function shutDown($socket = NULL, $how = 2)
+	public function shutDown($socket = NULL, $how = 2)
 	{
 		if( ! is_resource($socket) || ! is_numeric($how) )
 		{

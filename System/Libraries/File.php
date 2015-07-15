@@ -1,5 +1,5 @@
 <?php
-class File
+class StaticFile
 {
 	/***********************************************************************************/
 	/* FILE LIBRARY	    					                   	                       */
@@ -23,7 +23,7 @@ class File
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error;
+	private $error;
 	
 	/******************************************************************************************
 	* READ                                                                                    *
@@ -32,11 +32,10 @@ class File
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @file => Okunacak dosyanın yolu.										  |
-	|          																				  |
-	| Örnek Kullanım: read('dizin/dosya.txt');        									      |
+	| 2. string var @mode => Dosya modu. Varsayılan:r										  |
 	|          																				  |
 	******************************************************************************************/
-	public static function read($file = '', $mode = 'r')
+	public function read($file = '', $mode = 'r')
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || ! is_string($mode) )
@@ -50,6 +49,7 @@ class File
 			// Dosyadaki veriyi oku.
 			$fileOpen = fopen($file, $mode);	
 			$fileRead = fread($fileOpen, filesize($file));
+			
 			fclose($fileOpen);
 			
 			return $fileRead;
@@ -57,8 +57,8 @@ class File
 		else
 		{
 			// Dosya mevcut değilse hata raporu oluştur.
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;		
 		}
 	}
@@ -75,7 +75,7 @@ class File
 	| Örnek Kullanım: write('dizin/dosya.txt', 'a');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function write($file = '', $data = '', $mode = 'w')
+	public function write($file = '', $data = '', $mode = 'w')
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || is_dir($file) || ! is_string($mode) ) 
@@ -89,8 +89,7 @@ class File
 			$data = '';
 		}
 
-		$fileOpen 	= fopen($file, $mode);
-		
+		$fileOpen  = fopen($file, $mode);
 		$fileWrite = fwrite($fileOpen, $data);
 		
 		fclose($fileOpen);
@@ -107,7 +106,7 @@ class File
 	| Örnek Kullanım: contents('dizin/dosya.txt');        									  |
 	|          																				  |
 	******************************************************************************************/
-	public static function contents($path = '')
+	public function contents($path = '')
 	{
 		if( ! is_string($path) || ! isFileExists($path) ) 
 		{
@@ -116,8 +115,8 @@ class File
 		
 		if( ! file_exists($path) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $path);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $path);
+			report('Error', $this->error, 'FileLibrary');
 			return false;	
 		}
 		// Dosya içeriğini getir.
@@ -140,7 +139,7 @@ class File
 	| 2. $veri->contents => Aranan veri bulunursa bulunan içerik döner.                       |
 	|          																				  |
 	******************************************************************************************/
-	public static function find($file = '', $data = '')
+	public function find($file = '', $data = '')
 	{
 		if( ! is_string($file) || empty($data) || ! isFileExists($file) ) 
 		{
@@ -152,19 +151,19 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;	
 		}
 		
 		// Dosyadan gereli veriyi çek.
 		$index = strpos(file_get_contents($file), $data);
 		
-		$contents = self::contents($file);
+		$contents = $this->contents($file);
 	
 		$object = (object)array 
 		(
-			'index' => $index,
+			'index'    => $index,
 			'contents' => $contents
 		);	
 		
@@ -182,7 +181,7 @@ class File
 	| Örnek Kullanım: create('dizin/yeniDosya.txt');        						          |
 	|          																				  |
 	******************************************************************************************/
-	public static function create($name = '')
+	public function create($name = '')
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($name) || is_dir($name) ) 
@@ -198,8 +197,8 @@ class File
 		else
 		{
 			// Dosya mevcutsa hatayı rapor et.
-			self::$error = getMessage('File', 'alreadyFileError', $name);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'alreadyFileError', $name);
+			report('Error', $this->error, 'FileLibrary');
 			return false;	
 		}
 	}
@@ -215,7 +214,7 @@ class File
 	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete($name = '')
+	public function delete($name = '')
 	{
 		if( ! is_string($name) ) 
 		{
@@ -224,8 +223,8 @@ class File
 		
 		if( ! isFileExists($name)) 
 		{
-			self::$error = getMessage('File', 'notFoundError', $name);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $name);
+			report('Error', $this->error, 'FileLibrary');
 			return false;	
 		}
 		else 
@@ -247,7 +246,7 @@ class File
 	| Örnek Kullanım: append('dizin/dosya.txt', 'b');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function append($file = '', $data = '', $mode = 'a')
+	public function append($file = '', $data = '', $mode = 'a')
 	{
 		// Parametre kontrolleri yapılıyor.
 		if( ! is_string($file) || ! is_string($mode) || is_dir($file) ) 
@@ -260,8 +259,7 @@ class File
 		}
 	
 		// Dosyaya veriyi yaz.
-		$fileOpen 	= @fopen($file, $mode);
-		
+		$fileOpen  = @fopen($file, $mode);
 		$fileWrite = @fwrite($fileOpen, $data);
 		
 		@fclose($fileOpen);
@@ -280,7 +278,7 @@ class File
 	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function permission($name = '', $permission = 0755)
+	public function permission($name = '', $permission = 0755)
 	{
 		if( ! is_string($name) ) 
 		{
@@ -292,8 +290,8 @@ class File
 		}
 		if( ! file_exists($name) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $name);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $name);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 		else
@@ -315,7 +313,7 @@ class File
 	| Örnek Kullanım: createDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function createDate($file = '', $type = "d.m.Y G:i:s")
+	public function createDate($file = '', $type = "d.m.Y G:i:s")
 	{
 		if( ! is_string($file) ) 
 		{
@@ -327,8 +325,8 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 		
@@ -350,7 +348,7 @@ class File
 	| Örnek Kullanım: changeDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function changeDate($file = '', $type = "d.m.Y G:i:s")
+	public function changeDate($file = '', $type = "d.m.Y G:i:s")
 	{
 		if( ! is_string($file) ) 
 		{
@@ -362,8 +360,8 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 		
@@ -386,7 +384,7 @@ class File
 	| Dönen Değerler: basename, size, date, readable, writable, executable, permission        |
 	|          																				  |
 	******************************************************************************************/
-	public static function info($file = '')
+	public function info($file = '')
 	{
 		if( ! is_file($file) )
 		{
@@ -425,7 +423,7 @@ class File
 	| 4. gb => giga byte cinsinden değer döndürür.          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function size($file = '', $type = "b", $decimal = 2)
+	public function size($file = '', $type = "b", $decimal = 2)
 	{
 		// Parametre kontrolleri yapılıyor. --------------------------------------------
 		if( ! is_string($file) ) 
@@ -438,8 +436,8 @@ class File
 		}
 		if( ! file_exists($file) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 		// ------------------------------------------------------------------------------
@@ -459,10 +457,11 @@ class File
 			if( Folder::files($file) )
 			{
 				// Hesaplanan boyuta dosya boyutlarını ilave et
-				foreach(Folder::files($file) as $val)
+				foreach( Folder::files($file) as $val )
 				{	
-					$size += self::size($file."/".$val);	
+					$size += $this->size($file."/".$val);	
 				}
+				
 				$size += filesize($file);
 			}
 			else
@@ -507,7 +506,7 @@ class File
 	| Örnek Kullanım: source('kaynak/dosya.zip', 'hedef/dizin');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public static function zipExtract($source = '', $target = '')
+	public function zipExtract($source = '', $target = '')
 	{
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($source) ) 
@@ -520,8 +519,8 @@ class File
 		}
 		if( ! file_exists($source) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $source);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $source);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 		// ----------------------------------------------------------------------------
@@ -530,7 +529,7 @@ class File
 		$zip = zip_open($source);
 		
 		// Zip dosyası okunuyor.
-		while($zipContent = zip_read($zip))
+		while( $zipContent = zip_read($zip) )
 		{
 			$zipFile = zip_entry_name($zipContent);
 			
@@ -541,6 +540,7 @@ class File
 				touch($targetPath);
 				
 				$newFile = fopen($targetPath, 'w+');
+				
 				fwrite($newFile, zip_entry_read($zipContent));
 				fclose($newFile);
 			}
@@ -557,7 +557,7 @@ class File
 	| Genel Kullanım: Dosyayı boyutlandırmak için kullanılır.		     				      |											
 	|          																				  |
 	******************************************************************************************/
-	public static function limit($file = '', $limit = 0, $mode = 'r+')
+	public function limit($file = '', $limit = 0, $mode = 'r+')
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || is_dir($file) || ! is_numeric($limit) || ! is_string($mode) ) 
@@ -567,13 +567,12 @@ class File
 		
 		if( ! file_exists($file) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 	
-		$fileOpen 	= fopen($file, $mode);
-		
+		$fileOpen  = fopen($file, $mode);
 		$fileWrite = ftruncate($fileOpen, $limit);
 		
 		fclose($fileOpen);
@@ -585,7 +584,7 @@ class File
 	| Genel Kullanım: Dosyanın ismini değiştirmek için kullanılır.	     				      |											
 	|          																				  |
 	******************************************************************************************/
-	public static function rename($oldName = '', $newName = 0)
+	public function rename($oldName = '', $newName = 0)
 	{
 		// Parametre kontrolü yapılıyor.
 		if( ! isValue($oldName) || ! isValue($newName)  ) 
@@ -595,8 +594,8 @@ class File
 		
 		if( ! file_exists($oldName) )
 		{
-			self::$error = getMessage('File', 'notFoundError', $file);
-			report('Error', self::$error, 'FileLibrary');
+			$this->error = getMessage('File', 'notFoundError', $file);
+			report('Error', $this->error, 'FileLibrary');
 			return false;
 		}
 	
@@ -609,7 +608,7 @@ class File
 	| Genel Kullanım:  Dosya sahibini döndürür.		  										  |
 	|     														                              |
 	******************************************************************************************/
-	public static function owner($file = '')
+	public function owner($file = '')
 	{
 		if( ! is_string($file))
 		{
@@ -632,7 +631,7 @@ class File
 	| Genel Kullanım:  Dosya sahib grubunu döndürür.		  								  |
 	|     														                              |
 	******************************************************************************************/
-	public static function group($file = '')
+	public function group($file = '')
 	{
 		if( ! is_string($file))
 		{
@@ -656,7 +655,7 @@ class File
 	| ve sonucu çıktı tamponuna yazar.		 		  										  |
 	|     														                              |
 	******************************************************************************************/
-	public static function open($file = '', $mode = '', $includePath = false)
+	public function open($file = '', $mode = '', $includePath = false)
 	{
 		if( ! is_string($file) || ! is_string($mode) || ! is_bool($includePath) )
 		{
@@ -673,7 +672,7 @@ class File
 	| ve sonucu çıktı tamponuna yazar.		 		  										  |
 	|     														                              |
 	******************************************************************************************/
-	public static function passThru($source = '')
+	public function passThru($source = '')
 	{
 		if( ! is_resource($source) )
 		{
@@ -689,7 +688,7 @@ class File
 	| Genel Kullanım: Açılan bir dosyanın kapatılması gerekirse bu yöntem kullanılır.		  |
 	|     														                              |
 	******************************************************************************************/
-	public static function close($source = '')
+	public function close($source = '')
 	{
 		if( ! is_resource($source) )
 		{
@@ -707,11 +706,11 @@ class File
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( isset(self::$error) )
+		if( isset($this->error) )
 		{
-			return self::$error;
+			return $this->error;
 		}
 		else
 		{

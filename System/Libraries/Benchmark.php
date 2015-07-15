@@ -1,5 +1,5 @@
 <?php 
-class Benchmark
+class StaticBenchmark
 {
 	/***********************************************************************************/
 	/* BENCHMARK LIBRARY				                   	                           */
@@ -23,7 +23,7 @@ class Benchmark
 	 * barındırmak için oluşturulmuştur.
 	 *
 	 */
-	private static $tests = array();
+	private $tests = array();
 	
 	/* Memtests Dizi Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class Benchmark
 	 * barındırmak için oluşturulmuştur.
 	 *
 	 */
-	private static $memtests = array();
+	private $memtests = array();
 	
 	/* Test Count Dizi Değişkeni
 	 *  
@@ -39,7 +39,7 @@ class Benchmark
 	 * için oluşturulmuştur.
 	 *
 	 */
-	private static $testCount = 0;
+	private $testCount = 0;
 	
 	/******************************************************************************************
 	* TEST START                                                                              *
@@ -51,7 +51,7 @@ class Benchmark
 	| 1. string var @test => Başlatılacak testin isim bilgisini tutar.					      |
 	|          																				  |
 	******************************************************************************************/
-	public static function testStart($test = '')
+	public function testStart($test = '')
 	{
 		if( ! is_string($test)) 
 		{
@@ -60,20 +60,20 @@ class Benchmark
 		
 		// Kaç test kullanıldığını hesaplamak için
 		// test count değişkeni birer birer artırılıyor.
-		self::$testCount++;
+		$this->testCount++;
 		
 		// Yöntem içinden tanımlanan kodlardan kaynaklı
 		// fazlalık hesaplanıyor.
-		$legancy = ( self::$testCount === 1 ) 
+		$legancy = ( $this->testCount === 1 ) 
 				   ? $legancy = 136 
 				   : 56;
 	
 		$test = $test."_start";
 		
 		// Mikrotime yöntemi başlatılıyor.
-		self::$tests[$test]    = microtime();
+		$this->tests[$test]    = microtime();
 		// Bu satıra kadar olan bellek miktarı hesaplanıyor.
-		self::$memtests[$test] = memory_get_usage() + $legancy;
+		$this->memtests[$test] = memory_get_usage() + $legancy;
 	}
 	
 	/******************************************************************************************
@@ -86,7 +86,7 @@ class Benchmark
 	| 1. string var @test => Sonlandırılacak testin isim bilgisini tutar.					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function testEnd($test = '')
+	public function testEnd($test = '')
 	{
 		if( ! is_string($test) ) 
 		{
@@ -95,9 +95,9 @@ class Benchmark
 		
 		$test = $test."_end";
 		
-		self::$memtests[$test] = memory_get_usage();	
+		$this->memtests[$test] = memory_get_usage();	
 		
-		self::$tests[$test]    = microtime();		
+		$this->tests[$test]    = microtime();		
 	}
 	
 	/******************************************************************************************
@@ -111,7 +111,7 @@ class Benchmark
 	| kaç karakter olacağı bilgisidir. Varsayılan: 4					  					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function elapsedTime($result = '', $decimal = 4)
+	public function elapsedTime($result = '', $decimal = 4)
 	{   
 		if( ! is_string($result) ) 
 		{
@@ -125,9 +125,9 @@ class Benchmark
 		$resend  = $result."_end";
 		$restart = $result."_start";
 		
-		if( isset(self::$tests[$resend]) && isset(self::$tests[$restart]) )
+		if( isset($this->tests[$resend]) && isset($this->tests[$restart]) )
 		{
-			return round((self::$tests[$resend] - self::$tests[$restart]), $decimal);
+			return round(($this->tests[$resend] - $this->tests[$restart]), $decimal);
 		}
 		else
 		{
@@ -144,7 +144,7 @@ class Benchmark
 	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
 	|															                              |
 	******************************************************************************************/
-	public static function memoryUsage($realMemory = false)
+	public function memoryUsage($realMemory = false)
 	{
 		if( ! is_bool($realMemory) ) 
 		{
@@ -163,7 +163,7 @@ class Benchmark
 	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
 	|															                              |
 	******************************************************************************************/
-	public static function maxMemoryUsage($realMemory = false)
+	public function maxMemoryUsage($realMemory = false)
 	{
 		if( ! is_bool($realMemory) ) 
 		{
@@ -182,7 +182,7 @@ class Benchmark
 	| 1. string var @result => Sonucu öğrenilmek istenen testin isim bilgisi.		          |
 	|															                              |
 	******************************************************************************************/
-	public static function calculatedMemory($result = '')
+	public function calculatedMemory($result = '')
 	{
 		if( ! is_string($result) ) 
 		{
@@ -192,9 +192,9 @@ class Benchmark
 		$resend  = $result."_end";
 		$restart = $result."_start";
 
-		if( isset(self::$memtests[$resend]) && isset(self::$memtests[$restart]) )
+		if( isset($this->memtests[$resend]) && isset($this->memtests[$restart]) )
 		{
-			$calc = self::$memtests[$resend] - self::$memtests[$restart];
+			$calc = $this->memtests[$resend] - $this->memtests[$restart];
 		
 			return $calc;
 		}

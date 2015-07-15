@@ -1,5 +1,5 @@
 <?php
-class Regex
+class StaticRegex
 {
 	/***********************************************************************************/
 	/* REGEX LIBRARY						                   	                       */
@@ -16,6 +16,19 @@ class Regex
 	/* Erişim: regex::, $this->regex, zn::$use->regex, uselib('regex')
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
+	
+	/* Config Değişkeni
+	 *  
+	 * FTP ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct()
+	{
+		$this->config = Config::get('Regex');	
+	}
 	
 	/******************************************************************************************
 	* MATCH                                                                                   *
@@ -39,7 +52,7 @@ class Regex
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function match($pattern = '', $str = '', $ex = '', $delimiter = '/')
+	public function match($pattern = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
@@ -58,15 +71,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$specialChars = Config::get('Regex','specialChars');
+		$specialChars = $this->config['specialChars'];
 		
 		$pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regexChars   = Arrays::multikey(Config::get('Regex','regexChars'));
+		$regexChars   = Arrays::multikey($this->config['regexChars']);
 		
-		$settingChars = Arrays::multikey(Config::get('Regex','settingChars'));
+		$settingChars = Arrays::multikey($this->config['settingChars']);
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	
@@ -105,7 +118,7 @@ class Regex
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function matchAll($pattern = '', $str = '', $ex = '', $delimiter = '/')
+	public function matchAll($pattern = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
@@ -122,15 +135,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$specialChars = Config::get('Regex','specialChars');
+		$specialChars = $this->config['specialChars'];
 		
 		$pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regexChars   = Arrays::multikey(Config::get('Regex','regexChars'));
+		$regexChars   = Arrays::multikey($this->config['regexChars']);
 		
-		$settingChars = Arrays::multikey(Config::get('Regex','settingChars'));
+		$settingChars = Arrays::multikey($this->config['settingChars']);
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	
@@ -170,7 +183,7 @@ class Regex
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function replace($pattern = '', $rep = '', $str = '', $ex = '', $delimiter = '/')
+	public function replace($pattern = '', $rep = '', $str = '', $ex = '', $delimiter = '/')
 	{
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if
@@ -194,15 +207,15 @@ class Regex
 		}
 		// --------------------------------------------------------------------------------------------
 		
-		$specialChars = Config::get('Regex','specialChars');
+		$specialChars = $this->config['specialChars'];
 		
 		$pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regexChars   = Arrays::multikey(Config::get('Regex','regexChars'));
+		$regexChars   = Arrays::multikey($this->config['regexChars']);
 		
-		$settingChars = Arrays::multikey(Config::get('Regex','settingChars'));
+		$settingChars = Arrays::multikey($this->config['settingChars']);
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	
@@ -231,7 +244,7 @@ class Regex
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function group($str = '')
+	public function group($str = '')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -255,7 +268,7 @@ class Regex
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function recount($str = '')
+	public function recount($str = '')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -279,7 +292,7 @@ class Regex
 	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function to($str = '')
+	public function to($str = '')
 	{
 		if( ! is_string($str) ) 
 		{

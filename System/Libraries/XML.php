@@ -1,5 +1,5 @@
 <?php
-class XML
+class StaticXML
 {
 	/***********************************************************************************/
 	/* XML LIBRARY		     				                   	                       */
@@ -23,7 +23,7 @@ class XML
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $xpath;
+	protected $xpath;
 	
 	/* Xml Url Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class XML
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $xmlUrl;
+	protected $xmlUrl;
 	
 	/* Dom Değişkeni
 	 *  
@@ -39,7 +39,7 @@ class XML
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $dom;
+	protected $dom;
 	
 	/******************************************************************************************
 	* LOAD                                                                                    *
@@ -56,7 +56,7 @@ class XML
 	| Örnek Kullanım: load('dizin/xml.xml');                                                  |
 	|          																				  |
 	******************************************************************************************/
-	public static function load($path = '', $type = 'file')
+	public function load($path = '', $type = 'file')
 	{
 		if( ! is_string($path) ) 
 		{
@@ -70,15 +70,15 @@ class XML
 		
 		if( $type === 'file' )
 		{
-			self::$xpath = simplexml_load_file(suffix($path, '.xml'));
-			self::$xmlUrl = $path;
+			$this->xpath = simplexml_load_file(suffix($path, '.xml'));
+			$this->xmlUrl = $path;
 		}
 		else
 		{
-			self::$xpath = simplexml_load_string($path);
+			$this->xpath = simplexml_load_string($path);
 		}
 		
-		return self::$xpath;
+		return $this->xpath;
 	}
 	
 	/******************************************************************************************
@@ -99,7 +99,7 @@ class XML
 	| echo $xml[0].$xml[1]; // Çıktı: birinci ikinci                                          | 
 	|          																				  |
 	******************************************************************************************/
-	public static function path($path = '')
+	public function path($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
@@ -108,7 +108,7 @@ class XML
 		
 		$path = str_replace("/","//",$path);
 		
-		return self::$xpath->xpath("//".$path);	
+		return $this->xpath->xpath("//".$path);	
 	}
 	
 	/******************************************************************************************
@@ -124,7 +124,7 @@ class XML
 	| Örnek Kullanım: create();																  |
 	|          																				  |
 	******************************************************************************************/
-	public static function create($version = "1.0", $charset = "iso-8859-8", $output = true)
+	public function create($version = "1.0", $charset = "iso-8859-8", $output = true)
 	{
 		if( ! is_string($version) || empty($version) ) 
 		{
@@ -141,11 +141,11 @@ class XML
 			$output = true;
 		}
 		
-		self::$dom = new DOMDocument($version, $charset);
+		$this->dom = new DOMDocument($version, $charset);
 		
-		self::$dom->formatOutput = $output;
+		$this->dom->formatOutput = $output;
 		
-		return self::$dom;
+		return $this->dom;
 	}
 	
 	/******************************************************************************************
@@ -162,7 +162,7 @@ class XML
     | $vidyo = xml::addElement('vidyo', $medya);  // 										  |
 	|          																				  |
 	******************************************************************************************/
-	public static function addElement($add = '', $to = '')
+	public function addElement($add = '', $to = '')
 	{
 		if( ! is_string($add) || empty($add) ) 
 		{
@@ -174,11 +174,11 @@ class XML
 			$to = '';
 		}
 		
-		$add = self::$dom->createElement($add);
+		$add = $this->dom->createElement($add);
 		
 		if( empty($to) ) 
 		{
-			self::$dom->appendChild($add); 
+			$this->dom->appendChild($add); 
 		}
 		else 
 		{
@@ -208,7 +208,7 @@ class XML
 	| xml::removeElement($medya, array($muzik, $resim)); // Çoklu nesne silmek için.		  |
 	|          																				  |
 	******************************************************************************************/
-	public static function removeElement($add = '', $to = '')
+	public function removeElement($add = '', $to = '')
 	{
 		if( ! is_object($add) || empty($add) )
 		{
@@ -256,7 +256,7 @@ class XML
 	| Örnek Kullanım: addContent($vidyo, "Burası vidyo bölümüdür.");						  |
 	|          																				  |
 	******************************************************************************************/
-	public static function addContent($to = "", $text = "")
+	public function addContent($to = "", $text = "")
 	{
 		if( ! is_object($to) )
 		{
@@ -268,11 +268,11 @@ class XML
 			$text = '';
 		}
 		
-		$text = self::$dom->createTextNode($text);
+		$text = $this->dom->createTextNode($text);
 		
 		if( empty($to) ) 
 		{
-			$to = self::$dom;
+			$to = $this->dom;
 		}
 		
 		$to->appendChild($text);
@@ -293,7 +293,7 @@ class XML
 	| addAttr($vidyo, array('id' => 'vidyo', 'name' => 'vidyo')); // Çoklu özellik ekleme	  |
 	|          																				  |
 	******************************************************************************************/
-	public static function addAttr($element = '', $name = '', $value = '')
+	public function addAttr($element = '', $name = '', $value = '')
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
@@ -332,7 +332,7 @@ class XML
 	| removeAttr($vidyo, array('id', 'name')); // Çoklu özellik silme  					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function removeAttr($element = '', $name = '')
+	public function removeAttr($element = '', $name = '')
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
@@ -371,7 +371,7 @@ class XML
 	| getAttr($vidyo, array('id', 'name')); // Çoklu özellik   					          |
 	|          																				  |
 	******************************************************************************************/
-	public static function getAttr($element = '', $name = '')
+	public function getAttr($element = '', $name = '')
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
@@ -412,7 +412,7 @@ class XML
 	| getContentsByName('vidyo'); // Burası vidyo bölümdür.	                              | 
 	|          																				  |
 	******************************************************************************************/
-	public static function getContentsByName($name = '')
+	public function getContentsByName($name = '')
 	{
 		if( ! is_string($name) || empty($name) ) 
 		{
@@ -421,7 +421,7 @@ class XML
 		
 		$all = '';
 		
-		$elements = self::$dom->getElementsByTagName($name);
+		$elements = $this->dom->getElementsByTagName($name);
 		
 		foreach($elements as $element)
 		{
@@ -443,14 +443,14 @@ class XML
 	| getContentById('vidyo'); // Burası vidyo bölümdür.	                                  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function getContentById($id = '')
+	public function getContentById($id = '')
 	{
 		if( ! is_string($id) || empty($id) ) 
 		{
 			return false;
 		}
 			
-		$element = self::$dom->getElementById($id);
+		$element = $this->dom->getElementById($id);
 		
 		return $element->textContent;
 	}
@@ -467,7 +467,7 @@ class XML
 	| getContentById($vidyo); // Burası vidyo bölümdür.	                                  | 
 	|          																				  |
 	******************************************************************************************/
-	public static function getContent($name = '')
+	public function getContent($name = '')
 	{
 		if( ! is_object($name) || empty($name) ) 
 		{
@@ -489,13 +489,13 @@ class XML
 	| xml::save();										                                      | 
 	|          																				  |
 	******************************************************************************************/
-	public static function save()
+	public function save()
 	{
-		$dom = self::$dom;
+		$dom = $this->dom;
 		
-		if( isset(self::$dom) ) 		self::$dom = NULL;
-		if( isset(self::$xmlUrl) )	 	self::$xmlUrl = NULL;
-		if( isset(self::$xpath) ) 		self::$xpath = NULL;
+		if( isset($this->dom) ) 		$this->dom = NULL;
+		if( isset($this->xmlUrl) )	 	$this->xmlUrl = NULL;
+		if( isset($this->xpath) ) 		$this->xpath = NULL;
 		
 		return $dom->saveXML();
 	}

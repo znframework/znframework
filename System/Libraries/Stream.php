@@ -1,5 +1,5 @@
 <?php
-class Stream
+class StaticStream
 {	
 	/***********************************************************************************/
 	/* STREAM LIBRARY						                   	                       */
@@ -22,7 +22,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function create($options = array(), $params = array())
+	public function create($options = array(), $params = array())
 	{
 		if( ! is_array($options) || ! is_array($params) )
 		{
@@ -37,7 +37,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getDefault($options = array())
+	public function getDefault($options = array())
 	{
 		if( ! is_array($options) )
 		{
@@ -52,7 +52,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setDefault($options = array())
+	public function setDefault($options = array())
 	{
 		if( ! is_array($options) )
 		{
@@ -67,7 +67,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getOptions($stream = NULL)
+	public function getOptions($stream = NULL)
 	{
 		if( ! is_resource($stream) )
 		{
@@ -82,7 +82,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setOptions($stream = '', $wrapper = '', $options = '')
+	public function setOptions($stream = '', $wrapper = '', $options = '')
 	{
 		if( ! is_resource($stream) )
 		{
@@ -97,7 +97,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getParams($stream = '')
+	public function getParams($stream = '')
 	{
 		if( ! is_resource($stream) )
 		{
@@ -112,7 +112,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setParams($stream = '', $params = array())
+	public function setParams($stream = '', $params = array())
 	{
 		if( ! is_array($params) || ! is_resource($stream) )
 		{
@@ -127,7 +127,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function copyTo($source = '', $target = '', $length = -1, $start = 0)
+	public function copyTo($source = '', $target = '', $length = -1, $start = 0)
 	{
 		if
 		( 
@@ -148,7 +148,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function filterAppend($stream = '', $filter = '', $writeRead = 0, $params = array())
+	public function filterAppend($stream = '', $filter = '', $writeRead = 0, $params = array())
 	{
 		if
 		( 
@@ -168,7 +168,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function filterPrepend($stream = '', $filter = '', $writeRead = 0, $params = array())
+	public function filterPrepend($stream = '', $filter = '', $writeRead = 0, $params = array())
 	{
 		if
 		( 
@@ -188,7 +188,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function filterRegister($filter = '', $class = '')
+	public function filterRegister($filter = '', $class = '')
 	{
 		if( ! is_string($class) || ! is_string($filter) )
 		{
@@ -203,7 +203,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function filterRemove($filter = '')
+	public function filterRemove($filter = '')
 	{
 		if( ! is_resource($filter) )
 		{
@@ -218,7 +218,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getContents($stream = '', $length = -1, $start = 0)
+	public function getContents($stream = '', $length = -1, $start = 0)
 	{
 		if
 		( 
@@ -238,7 +238,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getFilters()
+	public function getFilters()
 	{
 		return stream_get_filters();
 	}
@@ -248,7 +248,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getLine($stream = '', $length = -1, $eol = '')
+	public function getLine($stream = '', $length = -1, $eol = '')
 	{
 		if
 		( 
@@ -268,7 +268,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getMetaData($stream = '')
+	public function getMetaData($stream = '')
 	{
 		if( ! is_resource($stream) )
 		{
@@ -283,7 +283,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getTransports()
+	public function getTransports()
 	{
 		return stream_get_transports();
 	}
@@ -293,7 +293,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function getWrappers()
+	public function getWrappers()
 	{
 		return stream_get_wrappers();
 	}
@@ -303,7 +303,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function isLocal($stream = '')
+	public function isLocal($stream = '')
 	{
 		return stream_is_local($stream);
 	}
@@ -313,7 +313,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function notificationCallback($notificationCode = 0, $severity = 0, $message = '', $messageCode = 0, $bytesTransferred = 0, $bytesMax = 0)
+	public function notificationCallback($notificationCode = 0, $severity = 0, $message = '', $messageCode = 0, $bytesTransferred = 0, $bytesMax = 0)
 	{
 		if
 		( 
@@ -336,7 +336,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function wrapperRegister($protocol = '', $class = '', $options = 0)
+	public function wrapperRegister($protocol = '', $class = '', $options = 0)
 	{
 		if
 		( 
@@ -356,7 +356,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function wrapperRestore($protocol = '')
+	public function wrapperRestore($protocol = '')
 	{
 		if( ! is_string($protocol) )
 		{
@@ -371,7 +371,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function wrapperUnregister($protocol = '')
+	public function wrapperUnregister($protocol = '')
 	{
 		if( ! is_string($protocol) )
 		{
@@ -386,7 +386,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function select($read = array(), $write = array(), $except = array(), $secondTimeout = 0, $microSecondTimeout = 0)
+	public function select($read = array(), $write = array(), $except = array(), $secondTimeout = 0, $microSecondTimeout = 0)
 	{
 		if
 		( 
@@ -408,7 +408,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setBlock($stream = '', $mode = 0)
+	public function setBlock($stream = '', $mode = 0)
 	{
 		if( ! is_numeric($mode) || ! is_resource($stream) )
 		{
@@ -423,7 +423,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setChunkSize($fileOpen = '', $size = 0)
+	public function setChunkSize($fileOpen = '', $size = 0)
 	{
 		if( ! is_numeric($size) || ! is_resource($fileOpen) )
 		{
@@ -438,7 +438,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setReadBuffer($stream = '', $buffer = 0)
+	public function setReadBuffer($stream = '', $buffer = 0)
 	{
 		if( ! is_numeric($buffer) || ! is_resource($stream) )
 		{
@@ -453,7 +453,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setTimeout($stream = '', $secondTimeout = 0, $microSecondTimeout = 0)
+	public function setTimeout($stream = '', $secondTimeout = 0, $microSecondTimeout = 0)
 	{
 		if
 		( 
@@ -473,7 +473,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function setWriteBuffer($stream = '', $buffer = 0)
+	public function setWriteBuffer($stream = '', $buffer = 0)
 	{
 		if( ! is_numeric($buffer) || ! is_resource($stream) )
 		{
@@ -488,7 +488,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketAccept($socket = '', $timeout = 0, $peerName = '')
+	public function socketAccept($socket = '', $timeout = 0, $peerName = '')
 	{
 		if
 		( 
@@ -513,7 +513,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketClient($socket = '', $errno = 0, $errstr = '', $timeout = 0, $flags = STREAM_CLIENT_CONNECT, $context = NULL)
+	public function socketClient($socket = '', $errno = 0, $errstr = '', $timeout = 0, $flags = STREAM_CLIENT_CONNECT, $context = NULL)
 	{
 		if
 		( 
@@ -540,7 +540,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketEnableEncode($stream = '', $enable = true, $encodeType = STREAM_CRYPTO_METHOD_TLS_CLIENT)
+	public function socketEnableEncode($stream = '', $enable = true, $encodeType = STREAM_CRYPTO_METHOD_TLS_CLIENT)
 	{
 		if
 		( 
@@ -560,7 +560,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketGetName($socket = '', $wantPeer = true)
+	public function socketGetName($socket = '', $wantPeer = true)
 	{
 		if( ! is_resource($socket) || ! is_bool($wantPeer) )
 		{
@@ -575,7 +575,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketPair($domain = 0, $type = 0, $protocol = 0)
+	public function socketPair($domain = 0, $type = 0, $protocol = 0)
 	{
 		if
 		( 
@@ -595,7 +595,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketReceiveFrom($socket = NULL, $length = 0, $options = 0, $address = '')
+	public function socketReceiveFrom($socket = NULL, $length = 0, $options = 0, $address = '')
 	{
 		if
 		( 
@@ -616,7 +616,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketSendTo($socket = NULL, $data = '', $options = 0, $address = '')
+	public function socketSendTo($socket = NULL, $data = '', $options = 0, $address = '')
 	{
 		if
 		( 
@@ -637,7 +637,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketServer($socket = '', $errno = 0, $errstr = '', $flags = STREAM_SERVER_LISTEN, $context = NULL)
+	public function socketServer($socket = '', $errno = 0, $errstr = '', $flags = STREAM_SERVER_LISTEN, $context = NULL)
 	{
 		if
 		( 
@@ -659,7 +659,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function socketShutDown($stream = '', $how = 0)
+	public function socketShutDown($stream = '', $how = 0)
 	{
 		if( ! is_resource($stream) || ! is_numeric($how) )
 		{
@@ -674,7 +674,7 @@ class Stream
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için STREAM ile ilgili kaynakları inceleyiniz.       |
 	******************************************************************************************/
-	public static function supportsLock($stream = '')
+	public function supportsLock($stream = '')
 	{
 		if( ! is_resource($stream) )
 		{

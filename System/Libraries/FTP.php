@@ -1,5 +1,5 @@
 <?php
-class FTP
+class StaticFTP
 {
 	/***********************************************************************************/
 	/* FTP LIBRARY   						                   	                       */
@@ -17,13 +17,21 @@ class FTP
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	/* Config Değişkeni
+	 *  
+	 * FTP ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
 	/* Connect Değişkeni
 	 *  
 	 * Bağlantı bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $connect = NULL;
+	protected $connect = NULL;
 	
 	/* Login Değişkeni
 	 *  
@@ -31,7 +39,7 @@ class FTP
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $login = NULL;
+	protected $login = NULL;
 	
 	/* Error Değişkeni
 	 *  
@@ -39,7 +47,14 @@ class FTP
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error = NULL;
+	protected $error = NULL;
+	
+	public function __construct($config = array())
+	{
+		$this->config = Config::get('Ftp');	
+		
+		$this->connect($config);
+	}
 	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
@@ -62,7 +77,7 @@ class FTP
 	| 6.ssl_connect = false         														  |
 	|         																		          |
 	******************************************************************************************/	
-	public static function connect($con = array())
+	public function connect($con = array())
 	{	
 		if( ! is_array($con) )
 		{
@@ -70,7 +85,7 @@ class FTP
 		}
 		
 		// Config/Ftp.php dosyasından ftp ayarları alınıyor.
-		$config = Config::get('Ftp');
+		$config = $this->config;
 		
 		// ----------------------------------------------------------------------------
 		// FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
@@ -110,18 +125,18 @@ class FTP
 	
 		// Bağlantı türü ayarına göre ssl veya normal
 		// bağlatı yapılıp yapılmayacağı belirlenir.
-		self::$connect =  	( $ssl === false ) 
+		$this->connect =  	( $ssl === false ) 
 							? @ftp_connect($host, $port, $timeout)
 							: @ftp_ssl_connect($host, $port, $timeout);
 							
-		if( empty(self::$connect) ) 
+		if( empty($this->connect) ) 
 		{
 			return false;
 		}
 		
-		self::$login = @ftp_login(self::$connect, $user, $password);
+		$this->login = @ftp_login($this->connect, $user, $password);
 		
-		if( empty(self::$login) )
+		if( empty($this->login) )
 		{
 			return false;
 		}
@@ -137,11 +152,11 @@ class FTP
 	| Örnek Kullanım: close();        	  												      |
 	|         																		          |
 	******************************************************************************************/	
-	public static function close()
+	public function close()
 	{
-		if( ! empty(self::$connect) )
+		if( ! empty($this->connect) )
 		{
-			@ftp_close(self::$connect);
+			@ftp_close($this->connect);
 		}
 		else
 		{ 
@@ -161,26 +176,21 @@ class FTP
 	| Örnek Kullanım: createFolder('dizin/yeniDizin');        						          |
 	|          																				  |
 	******************************************************************************************/
-	public static function createFolder($path = '')
+	public function createFolder($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
 			return false;	
 		}
-		// Bağlantı yoksa otomatik bağlantı oluştur.
-		if( empty(self::$connect) ) 
-		{
-			self::connect();
-		}
 		
-		if( @ftp_mkdir(self::$connect, $path) )
+		if( @ftp_mkdir($this->connect, $path) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error =  getMessage('Folder', 'alreadyFileError', $path);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error =  getMessage('Folder', 'alreadyFileError', $path);
+			report('Error', $this->error, 'FtpLibrary');
 			return false; 
 		}
 	}
@@ -196,26 +206,21 @@ class FTP
 	| Örnek Kullanım: deleteFolder('dizin/yeniDizin');        					              |
 	|          																				  |
 	******************************************************************************************/
-	public static function deleteFolder($path = '')
+	public function deleteFolder($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
 			return false;	
 		}
-		// Bağlantı yoksa otomatik bağlantı oluştur.
-		if( empty(self::$connect) )
-		{
-			self::connect();
-		}
 		
-		if( @ftp_rmdir(self::$connect, $path) )
+		if( @ftp_rmdir($this->connect, $path) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'notFoundError', $path);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error = getMessage('Folder', 'notFoundError', $path);
+			report('Error', $this->error, 'FtpLibrary');
 			return false;	
 		}
 	
@@ -232,23 +237,21 @@ class FTP
 	| Örnek Kullanım: changeFolder('dizin/yeniDizin');        				         	      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function changeFolder($path = '')
+	public function changeFolder($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
 			return false;	
 		}
-		// Bağlantı yoksa otomatik bağlantı oluştur.
-		if(empty(self::$connect)) self::connect();
 	
-		if( @ftp_chdir(self::$connect, $path) )
+		if( @ftp_chdir($this->connect, $path) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'changeFolderError', $path);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error = getMessage('Folder', 'changeFolderError', $path);
+			report('Error', $this->error, 'FtpLibrary');
 			return false;	
 		}
 	}
@@ -265,26 +268,21 @@ class FTP
 	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public static function rename($oldName = '', $newName = '')
+	public function rename($oldName = '', $newName = '')
 	{
 		if( ! ( is_string($oldName) || is_string($newName) ) ) 
 		{
 			return false;	
 		}
 		
-		if( empty(self::$connect) ) 
-		{
-			self::connect();
-		}
-		
-		if( @ftp_rename(self::$connect, $oldName, $newName) )
+		if( @ftp_rename($this->connect, $oldName, $newName) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('Folder', 'changeFolderNameError', $oldName);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error = getMessage('Folder', 'changeFolderNameError', $oldName);
+			report('Error', $this->error, 'FtpLibrary');
 			return false;	
 		}
 	}
@@ -300,26 +298,21 @@ class FTP
 	| Örnek Kullanım: deleteFile('dizin/yeniDosya.txt');        			     	          |
 	|          																				  |
 	******************************************************************************************/
-	public static function deleteFile($path = '')
+	public function deleteFile($path = '')
 	{
 		if( ! is_string($path) ) 
 		{
 			return false;
 		}
 		
-		if( empty(self::$connect) )
-		{
-			self::connect();
-		}
-		
-		if( @ftp_delete(self::$connect, $path) )
+		if( @ftp_delete($this->connect, $path) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('File', 'notFoundError', $path);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error = getMessage('File', 'notFoundError', $path);
+			report('Error', $this->error, 'FtpLibrary');
 			return false;	
 		}
 	}
@@ -337,7 +330,7 @@ class FTP
 	| Örnek Kullanım: upload('yerel/yeniDosya.txt', 'sunucu/dizin', 'binary');                |
 	|          																				  |
 	******************************************************************************************/
-	public static function upload($localPath = '', $remotePath = '', $type = 'ascii')
+	public function upload($localPath = '', $remotePath = '', $type = 'ascii')
 	{
 		if( ! (is_string($localPath) || is_string($remotePath)) ) 
 		{
@@ -349,11 +342,6 @@ class FTP
 			$type = 'ascii';	
 		}
 		
-		if( empty(self::$connect) ) 
-		{
-			self::connect();
-		}
-		
 		if( $type === 'ascii' )
 		{
 			$mode = FTP_ASCII;
@@ -363,14 +351,14 @@ class FTP
 			$mode = FTP_BINARY;
 		}
 		
-		if( @ftp_put(self::$connect, $localPath, $remotePath, $mode) )
+		if( @ftp_put($this->connect, $localPath, $remotePath, $mode) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('File', 'remoteUploadError', $localPath);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error = getMessage('File', 'remoteUploadError', $localPath);
+			report('Error', $this->error, 'FtpLibrary');
 			return false;	
 		}
 	}
@@ -388,7 +376,7 @@ class FTP
 	| Örnek Kullanım: download('sunucu/yeniDosya.txt', 'yerel/dizin', 'binary');              |
 	|          																				  |
 	******************************************************************************************/
-	public static function download($remotePath = '', $localPath = '', $type = 'ascii')
+	public function download($remotePath = '', $localPath = '', $type = 'ascii')
 	{
 		if( ! (is_string($localPath) || is_string($remotePath)) ) 
 		{
@@ -399,12 +387,7 @@ class FTP
 		{
 			$type = 'ascii';	
 		}
-		
-		if( empty(self::$connect) ) 
-		{
-			self::connect();
-		}
-		
+	
 		if( $type === 'ascii' )
 		{
 			$mode = FTP_ASCII;
@@ -414,14 +397,14 @@ class FTP
 			$mode = FTP_BINARY;
 		}
 		
-		if( @ftp_get(self::$connect, $localPath, $remotePath, $mode) )
+		if( @ftp_get($this->connect, $localPath, $remotePath, $mode) )
 		{
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('File', 'remoteDownloadError', $localPath);
-			report('Error', self::$error, 'FtpLibrary');
+			$this->error = getMessage('File', 'remoteDownloadError', $localPath);
+			report('Error', $this->error, 'FtpLibrary');
 			return false;	
 		}
 	}
@@ -438,7 +421,7 @@ class FTP
 	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function permission($path = '', $type = 0755)
+	public function permission($path = '', $type = 0755)
 	{
 		if( ! is_string($path) )
 		{
@@ -450,12 +433,7 @@ class FTP
 			$type = 0755;
 		}
 		
-		if( empty(self::$connect) ) 
-		{
-			self::connect();
-		}
-		
-		if( @ftp_chmod(self::$connect, $type, $path) )
+		if( @ftp_chmod($this->connect, $type, $path) )
 		{
 			return true;
 		}
@@ -480,19 +458,14 @@ class FTP
 	| Örnek Kullanım: $veri = files('dizin/'); // tüm dosya ve dizinleri listeler.            |
 	|          																				  |
 	******************************************************************************************/
-	public static function files($path = '', $extension = '')
+	public function files($path = '', $extension = '')
 	{
 		if( ! is_string($path) )
 		{
 			return false;	
 		}
-		
-		if( empty(self::$connect) )
-		{
-			self::connect();
-		}
-		
-		$list = @ftp_nlist(self::$connect, $path);
+
+		$list = @ftp_nlist($this->connect, $path);
 	
 		if( ! empty($list) ) foreach($list as $file)
 		{
@@ -552,7 +525,7 @@ class FTP
 	| 4. gb => giga byte cinsinden değer döndürür.          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function fileSize($path = '', $type = 'b', $decimal = 2)
+	public function fileSize($path = '', $type = 'b', $decimal = 2)
 	{
 		if( ! is_string($path) ) 
 		{
@@ -564,32 +537,27 @@ class FTP
 			$type = 'b';	
 		}
 		
-		if( empty(self::$connect) ) 
-		{
-			self::connect();
-		}
-		
 		$size = 0;
 		
 		$extension = extension($path);
 		
 		if( ! empty($extension) )
 		{
-			$size = @ftp_size(self::$connect, $path);
+			$size = @ftp_size($this->connect, $path);
 		}
 		else
 		{
-			if( self::files($path) )
+			if( $this->files($path) )
 			{
-				foreach(self::files($path) as $val)
+				foreach($this->files($path) as $val)
 				{	
-					$size += @ftp_size(self::$connect, $path."/".$val);	
+					$size += @ftp_size($this->connect, $path."/".$val);	
 				}
-				$size += @ftp_size(self::$connect, $path);
+				$size += @ftp_size($this->connect, $path);
 			}
 			else
 			{
-				$size += @ftp_size(self::$connect, $path);
+				$size += @ftp_size($this->connect, $path);
 			}	
 		}
 		
@@ -619,11 +587,11 @@ class FTP
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( isset(self::$error) )
+		if( isset($this->error) )
 		{
-			return self::$error;
+			return $this->error;
 		}
 		else
 		{

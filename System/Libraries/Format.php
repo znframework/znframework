@@ -1,5 +1,5 @@
 <?php
-class Format
+class StaticFormat
 {
 	/***********************************************************************************/
 	/* FORMAT LIBRARY						                   	                       */
@@ -24,7 +24,7 @@ class Format
 	// @precision = Virgülden sonraki ondalıklı bölümün kaç karaker olacağı.
 	// @unit = Dönüştürülen verinin birimi görüntülensin mi?.
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function byte($bytes = 0, $precision = 1, $unit = true)
+	public function byte($bytes = 0, $precision = 1, $unit = true)
 	{
 		if( ! is_numeric($bytes) ) 
 		{
@@ -122,7 +122,7 @@ class Format
 	// @money = Sayısal veri. Örnek 1.000,00
 	// @type = Paranın birimi belirlenir. Örnek 1.000,00 TL
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function money($money = 0, $type = '')
+	public function money($money = 0, $type = '')
 	{
 		if( ! is_numeric($money) ) 
 		{
@@ -144,16 +144,17 @@ class Format
 		
 		$str = strrev($strEx[0]);
 		
-		for($i=0; $i<strlen($str); $i++)
+		for( $i = 0; $i < strlen($str); $i++ )
 		{
-			if( $i%3 === 0 )
+			if( $i % 3 === 0 )
 			{
 				array_unshift($join, '.');
 			}
+			
 			array_unshift($join, $str[$i]);
 		}
 		
-		for($i=0; $i<count($join);$i++)
+		for( $i = 0; $i < count($join); $i++ )
 		{
 			$moneyFormat .= $join[$i];	
 		}
@@ -183,7 +184,7 @@ class Format
 	// @type = Hangi türden. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
 	// @type = Hangi türe 
 	// Dönen Değer: Dönüştürülmüş veri.
-	public static function time($count = '', $type = "second", $output = "day")
+	public function time($count = '', $type = "second", $output = "day")
 	{
 		if( ! is_numeric($count) ) 
 		{
@@ -200,19 +201,19 @@ class Format
 			$output = "day";
 		}
 		
-		if($output === "second") $out = 1;
-		if($output === "minute") $out = 60;
-		if($output === "hour") 	 $out = 60 * 60;
-		if($output === "day") 	 $out = 60 * 60 * 24;
-		if($output === "month")  $out = 60 * 60 * 24 * 30;
-		if($output === "year")	 $out = 60 * 60 * 24 * 30 * 12;
+		if( $output === "second" ) $out = 1;
+		if( $output === "minute" ) $out = 60;
+		if( $output === "hour" )   $out = 60 * 60;
+		if( $output === "day" )    $out = 60 * 60 * 24;
+		if( $output === "month" )  $out = 60 * 60 * 24 * 30;
+		if( $output === "year" )   $out = 60 * 60 * 24 * 30 * 12;
 		
-		if($type === "second") 	 $time = $count;
-		if($type === "minute") 	 $time = 60 * $count;
-		if($type === "hour") 	 $time = 60 * 60 * $count;
-		if($type === "day") 	 $time = 60 * 60 * 24 * $count;
-		if($type === "month") 	 $time = 60 * 60 * 24 * 30 * $count;
-		if($type === "year")	 $time = 60 * 60 * 24 * 30 * 12 * $count;
+		if( $type === "second" ) $time = $count;
+		if( $type === "minute" ) $time = 60 * $count;
+		if( $type === "hour" ) 	 $time = 60 * 60 * $count;
+		if( $type === "day" ) 	 $time = 60 * 60 * 24 * $count;
+		if( $type === "month" )  $time = 60 * 60 * 24 * 30 * $count;
+		if( $type === "year" )	 $time = 60 * 60 * 24 * 30 * 12 * $count;
 			
 		return $time / $out;	
 	}	

@@ -1,5 +1,5 @@
 <?php
-class User
+class StaticUser
 {
 	/***********************************************************************************/
 	/* USER LIBRARY	     					                   	                       */
@@ -23,7 +23,7 @@ class User
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $username;
+	protected $username;
 	
 	/* Password Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class User
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $password;
+	protected $password;
 	
 	/* Error Değişkeni
 	 *  
@@ -39,7 +39,7 @@ class User
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error;
+	protected $error;
 	
 	/* Success Değişkeni
 	 *  
@@ -47,7 +47,20 @@ class User
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $success;
+	protected $success;
+	
+	/* Config Değişkeni
+	 *  
+	 * User ayar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct($config = array())
+	{
+		$this->config = Config::get('User');	
+	}
 	
 	/******************************************************************************************
 	* REGISTER                                                                                *
@@ -69,7 +82,7 @@ class User
 	| Örnek Kullanım: register(array('user' => 'zntr', 'pass' => '1234'));       		      |
 	|          																				  |
 	******************************************************************************************/
-	public static function register($data = array(), $autoLogin = false, $activationReturnLink = '')
+	public function register($data = array(), $autoLogin = false, $activationReturnLink = '')
 	{
 		if( ! is_array($data) ) 
 		{
@@ -84,7 +97,7 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$userConfig			= Config::get("User");	
+		$userConfig			= $this->config;	
 		$joinTables  		= $userConfig['joinTables'];
 		$joinColumn  		= $userConfig['joinColumn'];	
 		$usernameColumn  	= $userConfig['usernameColumn'];
@@ -107,7 +120,7 @@ class User
 		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
-			self::$error = lang('User', 'registerUsernameError');	
+			$this->error = lang('User', 'registerUsernameError');	
 			return false;
 		}
 		
@@ -129,7 +142,7 @@ class User
 			
 			if( ! $db->insert($tableName , $data) )
 			{
-				self::$error = lang('User', 'registerUnknownError');	
+				$this->error = lang('User', 'registerUnknownError');	
 				return false;
 			}	
 
@@ -145,8 +158,8 @@ class User
 				}	
 			}
 		
-			self::$error   = false;
-			self::$success = lang('User', 'registerSuccess');
+			$this->error   = false;
+			$this->success = lang('User', 'registerSuccess');
 			
 			if( ! empty($activationColumn) )
 			{
@@ -159,13 +172,13 @@ class User
 					$email = '';
 				}
 				
-				self::_activation($loginUsername, $encodePassword, $activationReturnLink, $email);				
+				$this->_activation($loginUsername, $encodePassword, $activationReturnLink, $email);				
 			}
 			else
 			{
 				if( $autoLogin === true )
 				{
-					self::login($loginUsername, $loginPassword);
+					$this->login($loginUsername, $loginPassword);
 				}
 				elseif( is_string($autoLogin) )
 				{
@@ -177,7 +190,7 @@ class User
 		}
 		else
 		{
-			self::$error = lang('User', 'registerError');
+			$this->error = lang('User', 'registerError');
 			return false;
 		}
 	}
@@ -196,11 +209,11 @@ class User
 	| Örnek Kullanım: update('eski1234', 'yeni1234', NULL, array('telefon' => 'xxxxx'));      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function update($old = '', $new = '', $newAgain = '', $data = array())
+	public function update($old = '', $new = '', $newAgain = '', $data = array())
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
-		if( self::isLogin() )
+		if( $this->isLogin() )
 		{
 			// Parametreler kontrol ediliyor.--------------------------------------------------
 			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
@@ -226,7 +239,7 @@ class User
 				$newAgain = $new;
 			}
 					
-			$userConfig = Config::get("User");	
+			$userConfig = $this->config;	
 			$joinTables = $userConfig['joinTables'];
 			$jc 		= $userConfig['joinColumn'];
 			$pc 		= $userConfig['passwordColumn'];
@@ -245,19 +258,19 @@ class User
 					      : array($tn);	
 			}
 		
-			$username = self::data($tn)->$uc;
-			$password = self::data($tn)->$pc;
+			$username = $this->data($tn)->$uc;
+			$password = $this->data($tn)->$pc;
 		
 			$row 	  = "";
 		
 			if( $oldPassword != $password )
 			{
-				self::$error = lang('User', 'oldPasswordError');
+				$this->error = lang('User', 'oldPasswordError');
 				return false;	
 			}
 			elseif( $newPassword != $newPasswordAgain )
 			{
-				self::$error = lang('User', 'passwordNotMatchError');
+				$this->error = lang('User', 'passwordNotMatchError');
 				return false;
 			}
 			else
@@ -283,12 +296,12 @@ class User
 				{
 					if( ! $db->where($uc.' =', $username)->update($tn, $data) )
 					{
-						self::$error = lang('User', 'registerUnknownError');	
+						$this->error = lang('User', 'registerUnknownError');	
 						return false;
 					}	
 				}
 				
-				self::$success = lang('User', 'updateProcessSuccess');	
+				$this->success = lang('User', 'updateProcessSuccess');	
 				return false;	
 			}
 		}
@@ -310,13 +323,13 @@ class User
 	| NOT: Aktivasyon dönüş linkinin belirtiği sayfada kullanılmalıdır                        |
 	|          																				  |
 	******************************************************************************************/
-	public static function activationComplete()
+	public function activationComplete()
 	{
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$userConfig			= Config::get("User");	
+		$userConfig			= $this->config;	
 		$tableName 			= $userConfig['tableName'];
 		$usernameColumn  	= $userConfig['usernameColumn'];
 		$passwordColumn  	= $userConfig['passwordColumn'];
@@ -342,25 +355,25 @@ class User
 				$db->where($usernameColumn.' =', $user)
 				   ->update($tableName, array($activationColumn => '1'));
 				
-				self::$success = lang('User', 'activationComplete');
+				$this->success = lang('User', 'activationComplete');
 				
 				return true;
 			}	
 			else
 			{
-				self::$error = lang('User', 'activationCompleteError');
+				$this->error = lang('User', 'activationCompleteError');
 				return false;
 			}				
 		}
 		else
 		{
-			self::$error = lang('User', 'activationCompleteError');
+			$this->error = lang('User', 'activationCompleteError');
 			return false;
 		}
 	}
 	
 	// Aktivasyon işlemi için
-	private static function _activation($user = "", $pass = "", $activationReturnLink = '', $email = '')
+	protected function _activation($user = "", $pass = "", $activationReturnLink = '', $email = '')
 	{
 		if( ! isUrl($activationReturnLink) )
 		{
@@ -385,13 +398,13 @@ class User
 		
 		if( $sendEmail->send() )
 		{
-			self::$success = lang('User', 'activationEmail');
+			$this->success = lang('User', 'activationEmail');
 			return true;
 		}
 		else
 		{	
-			self::$success = false;
-			self::$error = lang('User', 'emailError');
+			$this->success = false;
+			$this->error = lang('User', 'emailError');
 			return false;
 		}
 	}
@@ -406,10 +419,10 @@ class User
 	| Örnek Kullanım: totalActiveUsers(); 									              |
 	|          																				  |
 	******************************************************************************************/
-	public static function totalActiveUsers()
+	public function totalActiveUsers()
 	{
-		$activeColumn 	= Config::get("User",'activeColumn');	
-		$tableName 		= Config::get("User",'tableName');
+		$activeColumn 	= $this->config['activeColumn'];	
+		$tableName 		= $this->config['tableName'];
 		
 		if( ! empty($activeColumn) )
 		{
@@ -442,10 +455,10 @@ class User
 	| Örnek Kullanım: totalBannedUsers(); 									              |
 	|          																				  |
 	******************************************************************************************/
-	public static function totalBannedUsers()
+	public function totalBannedUsers()
 	{
-		$bannedColumn 	= Config::get("User",'bannedColumn');	
-		$tableName 	= Config::get("User",'tableName');
+		$bannedColumn 	= $this->config['bannedColumn'];	
+		$tableName 		= $this->config['tableName'];
 		
 		if( ! empty($bannedColumn) )
 		{	
@@ -478,9 +491,9 @@ class User
 	| Örnek Kullanım: totalBannedUsers(); 									              |
 	|          																				  |
 	******************************************************************************************/
-	public static function totalUsers()
+	public function totalUsers()
 	{
-		$tableName = Config::get("User",'tableName');
+		$tableName = $this->config['tableName'];
 		
 		$db = uselib('DB');
 		
@@ -509,7 +522,7 @@ class User
 	| Örnek Kullanım: login('zntr', '1234', true);       		                              |
 	|          																				  |
 	******************************************************************************************/	
-	public static function login($un = 'username', $pw = 'password', $rememberMe = false)
+	public function login($un = 'username', $pw = 'password', $rememberMe = false)
 	{
 		if( ! is_string($un) ) 
 		{
@@ -533,7 +546,7 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$userConfig			= Config::get("User");	
+		$userConfig			= $this->config;	
 		$passwordColumn  	= $userConfig['passwordColumn'];
 		$usernameColumn  	= $userConfig['usernameColumn'];
 		$emailColumn  		= $userConfig['emailColumn'];
@@ -551,13 +564,13 @@ class User
 		
 		if( empty($r) )
 		{
-			self::$error = lang('User', 'loginError');	
+			$this->error = lang('User', 'loginError');	
 			return false;
 		}
 		
 		if( ! isset($r->$passwordColumn) )
 		{
-			self::$error = lang('User', 'loginError');	
+			$this->error = lang('User', 'loginError');	
 			return false;
 		}
 				
@@ -580,13 +593,13 @@ class User
 		{
 			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
-				self::$error = lang('User', 'bannedError');	
+				$this->error = lang('User', 'bannedError');	
 				return false;
 			}
 			
 			if( ! empty($activationColumn) && empty($activationControl) )
 			{
-				self::$error = lang('User', 'activationError');	
+				$this->error = lang('User', 'activationError');	
 				return false;
 			}
 			
@@ -613,13 +626,13 @@ class User
 				$db->where($usernameColumn.' =', $username)->update($tableName, array($activeColumn  => 1));
 			}
 			
-			self::$error = false;
-			self::$success = lang('User', 'loginSuccess');
+			$this->error = false;
+			$this->success = lang('User', 'loginSuccess');
 			return true;
 		}
 		else
 		{
-			self::$error = lang('User', 'loginError');	
+			$this->error = lang('User', 'loginError');	
 			return false;
 		}
 	}
@@ -636,7 +649,7 @@ class User
 	| Örnek Kullanım: forgotPassword('bilgi@zntr.net', 'kullanici/giris');       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function forgotPassword($email = "", $returnLinkPath = "")
+	public function forgotPassword($email = "", $returnLinkPath = "")
 	{
 		if( ! is_string($email) ) 
 		{
@@ -652,7 +665,7 @@ class User
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$userConfig		= Config::get("User");	
+		$userConfig		= $this->config;	
 		$usernameColumn = $userConfig['usernameColumn'];
 		$passwordColumn = $userConfig['passwordColumn'];				
 		$emailColumn  	= $userConfig['emailColumn'];		
@@ -713,21 +726,21 @@ class User
 				
 				$db->update($tableName, array($passwordColumn => $encodePassword));
 
-				self::$error = true;	
-				self::$success = lang('User', 'forgotPasswordSuccess');
+				$this->error = true;	
+				$this->success = lang('User', 'forgotPasswordSuccess');
 				return false;
 			}
 			else
 			{	
-				self::$success = false;
-				self::$error = lang('User', 'emailError');
+				$this->success = false;
+				$this->error = lang('User', 'emailError');
 				return false;
 			}
 		}
 		else
 		{
-			self::$success = false;
-			self::$error = lang('User', 'forgotPasswordError');	
+			$this->success = false;
+			$this->error = lang('User', 'forgotPasswordError');	
 			return false;
 		}
 	}
@@ -742,9 +755,9 @@ class User
 	| Örnek Kullanım: isLogin();      														  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function isLogin()
+	public function isLogin()
 	{
-		$config    = Config::get('User');
+		$config    = $this->config;
 		$username  = $config['usernameColumn'];
 		$tableName = $config['tableName'];
 		$password  = $config['passwordColumn']; 
@@ -765,7 +778,7 @@ class User
 		}
 		
 		
-		if( isset(self::data($tableName)->$username) )
+		if( isset($this->data($tableName)->$username) )
 		{
 			$isLogin = true;
 		}
@@ -801,14 +814,14 @@ class User
 	| $data->sutun_adi          															  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function data($tbl = '')
+	public function data($tbl = '')
 	{
 		if( ! isset($_SESSION) ) 
 		{
 			session_start();
 		}
 		
-		$config 		= Config::get('User');
+		$config 		= $this->config;
 		$usernameColumn = $config['usernameColumn'];
 		
 		if( isset($_SESSION[md5($usernameColumn)]) )
@@ -818,17 +831,17 @@ class User
 			$joinColumn 	= $config['joinColumn'];
 			$tableName 		= $config['tableName'];
 			
-			self::$username = $_SESSION[md5($usernameColumn)];
+			$this->username = $_SESSION[md5($usernameColumn)];
 			
 			$db = uselib('DB');
 		
-			$r[$tbl] = $db->where($usernameColumn.' =',self::$username)
+			$r[$tbl] = $db->where($usernameColumn.' =',$this->username)
 					->get($tableName)
 					->row();
 	
 			if( ! empty($joinTables) )
 			{
-				$joinCol = $db->where($usernameColumn.' =',self::$username)
+				$joinCol = $db->where($usernameColumn.' =',$this->username)
 							  ->get($tableName)
 							  ->row()
 							  ->$joinColumn;
@@ -875,7 +888,7 @@ class User
 	| Örnek Kullanım: logout('kullanici/giris');      									      |
 	|          																				  |
 	******************************************************************************************/
-	public static function logout($redirectUrl = '', $time = 0)
+	public function logout($redirectUrl = '', $time = 0)
 	{	
 		if( ! is_string($redirectUrl) ) 
 		{
@@ -887,11 +900,11 @@ class User
 			$time = 0;
 		}
 
-		$config    = Config::get('User');
+		$config    = $this->config;
 		$username  = $config['usernameColumn'];
 		$tableName = $config['tableName'];
 		
-		if( isset(self::data($tableName)->$username) )
+		if( isset($this->data($tableName)->$username) )
 		{
 			if( ! isset($_SESSION) ) 
 			{
@@ -902,7 +915,7 @@ class User
 			{	
 				$db = uselib('DB');
 				
-				$db->where($config['usernameColumn'].' =', self::data($tableName)->$username)
+				$db->where($config['usernameColumn'].' =', $this->data($tableName)->$username)
 				   ->update($config['tableName'], array($config['activeColumn'] => 0));
 			}
 			
@@ -927,11 +940,11 @@ class User
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if( ! empty(self::$error) ) 
+		if( ! empty($this->error) ) 
 		{
-			return self::$error; 
+			return $this->error; 
 		}
 		else 
 		{
@@ -947,11 +960,11 @@ class User
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function success()
+	public function success()
 	{
-		if( ! empty(self::$success) ) 
+		if( ! empty($this->success) ) 
 		{
-			return self::$success; 
+			return $this->success; 
 		}
 		else 
 		{

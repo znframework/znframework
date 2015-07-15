@@ -1,5 +1,5 @@
 <?php 
-class Cookie
+class StaticCookie
 {
 	/***********************************************************************************/
 	/* COOKIE LIBRARY						                   	                       */
@@ -19,11 +19,25 @@ class Cookie
 	
 	/* Error Değişkeni
 	 *  
-	 * Sepet işlemlerinde oluşan hata bilgilerini
+	 * Çerez işlemlerinde oluşan hata bilgilerini
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $error;
+	protected $error;
+	
+	/* Config Değişkeni
+	 *  
+	 * Çerez ayar bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
+	public function __construct()
+	{
+		if( ! isset($_SESSION) ) session_start();
+		$this->config = Config::get("Cookie");	
+	}
 	
 	/******************************************************************************************
 	* INSERT                                                                                  *
@@ -45,7 +59,7 @@ class Cookie
 	| Not: Application/Config/Cookie.php dosyası üzerinden ayarlarını yapılandırabilirsiniz.  |
 	|          																				  |
 	******************************************************************************************/
-	public static function insert($name = '', $value = '', $time = '', $path = '', $domain = '', $secure = false, $httpOnly = true) // varsayılan süre 1 hafta
+	public function insert($name = '', $value = '', $time = '', $path = '', $domain = '', $secure = false, $httpOnly = true) // varsayılan süre 1 hafta
 	{	
 		/************************************************************************************************/
 		// Parametrelerin geçerlilik kontrolü yapılıyor.
@@ -76,19 +90,19 @@ class Cookie
 		}
 		if( empty($name) )
 		{			
-			self::$error = getMessage('Cookie', 'nameParameterEmptyError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'nameParameterEmptyError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;
 		}
 		if( empty($value) )
 		{
-			self::$error = getMessage('Cookie', 'valueParameterEmptyError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'valueParameterEmptyError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;
 		}
 		/************************************************************************************************/
 		
-		$cookieConfig = Config::get("Cookie");
+		$cookieConfig = $this->config;
 		
 		/************************************************************************************************/
 		// Parametreler değer almamışsa gereken değerleri config dosyasından alınması sağlanıyor.
@@ -109,13 +123,13 @@ class Cookie
 		{
 			$secure = $cookieConfig["secure"];
 		}
-		if(empty($httpOnly))
+		if( empty($httpOnly) )
 		{
 			$httpOnly = $cookieConfig['httpOnly'];
 		}
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
-		if(isHash($cookieConfig["encode"]))
+		if( isHash($cookieConfig["encode"]) )
 		{
 			$name = hash($cookieConfig["encode"], $name);
 		}
@@ -125,16 +139,17 @@ class Cookie
 		// Çerez oluşturulması sırasında hata olursa hata loglanıyor.
 		if( setcookie($name, $value, time() + $time, $path, $domain, $secure, $httpOnly) )
 		{
-			if($cookieConfig['regenerate'] === true)
+			if( $cookieConfig['regenerate'] === true )
 			{
 				session_regenerate_id();
 			}
+			
 			return true;
 		}
 		else
 		{
-			self::$error = getMessage('Cookie', 'setError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'setError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;
 		}
 		
@@ -151,7 +166,7 @@ class Cookie
 	| Örnek Kullanım: select('isim');       										          |
 	|          																				  |
 	******************************************************************************************/
-	public static function select($name = '')
+	public function select($name = '')
 	{
 		if( ! isValue($name) ) 
 		{
@@ -160,12 +175,12 @@ class Cookie
 
 		if( empty($name) )
 		{
-			self::$error = getMessage('Cookie', 'nameParameterEmptyError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'nameParameterEmptyError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;
 		}
 		
-		$cookieConfig = Config::get("Cookie");
+		$cookieConfig = $this->config;
 		
 		// Veri güvenliği için çerezlerin anahtar değerleri şifrelenmektedir.
 		// Bu ayarın değiştirilmesini isterseniz. Config/Cookie.php dosyasına bakınız.
@@ -180,8 +195,8 @@ class Cookie
 		}
 		else 
 		{
-			self::$error = getMessage('Cookie', 'notSelectError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'notSelectError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;	
 		}
 	}
@@ -198,25 +213,25 @@ class Cookie
 	| Örnek Kullanım: delete('isim');       										          |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete($name = '', $path = '')
+	public function delete($name = '', $path = '')
 	{
-		if( ! isValue($name)) 
+		if( ! isValue($name) ) 
 		{
 			return false;
 		}
-		if( ! is_string($path))
+		if( ! is_string($path) )
 		{
 			$path = '';
 		}
 		
 		if( empty($name) )
 		{
-			self::$error = getMessage('Cookie', 'nameParameterEmptyError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'nameParameterEmptyError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;
 		}
 		
-		$cookieConfig = Config::get("Cookie");
+		$cookieConfig = $this->config;
 		
 		if( empty($path) )
 		{
@@ -235,8 +250,8 @@ class Cookie
 		}
 		else
 		{ 
-			self::$error = getMessage('Cookie', 'notDeleteError');
-			report('Error',self::$error,'CookieLibrary');
+			$this->error = getMessage('Cookie', 'notDeleteError');
+			report('Error',$this->error,'CookieLibrary');
 			return false;		
 		}
 	}
@@ -251,7 +266,7 @@ class Cookie
 	| Örnek Kullanım: selectAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function selectAll()
+	public function selectAll()
 	{
 		if( ! empty($_COOKIE) ) 
 		{
@@ -273,11 +288,11 @@ class Cookie
 	| Örnek Kullanım: deleteAll();       										              |
 	|          																				  |
 	******************************************************************************************/
-	public static function deleteAll()
+	public function deleteAll()
 	{	
-		$path = Config::get('Cookie', 'path');
+		$path = $this->config['path'];
 		
-		if( ! empty($_COOKIE) ) foreach ($_COOKIE as $key => $val)
+		if( ! empty($_COOKIE) ) foreach( $_COOKIE as $key => $val )
 		{			
 			setcookie($key, '', time() - 1, $path);
 		}
@@ -295,11 +310,11 @@ class Cookie
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public static function error()
+	public function error()
 	{
-		if(self::$error)
+		if( ! empty($this->error) )
 		{
-			return self::$error;
+			return $this->error;
 		}
 		else
 		{

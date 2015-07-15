@@ -1,5 +1,5 @@
 <?php
-class Convert
+class StaticConvert
 {
 	/***********************************************************************************/
 	/* CONVERT LIBRARY						                   	                       */
@@ -44,26 +44,28 @@ class Convert
 	| echo char($html, 'html', 'dec'); // Çıktı: 77 101 116 105 110                 		  |	
 	|       																				  |
 	******************************************************************************************/
-	public static function char($string = '', $type = 'char', $changeType = 'html')
+	public function char($string = '', $type = 'char', $changeType = 'html')
 	{
 		if( ! isValue($string) ) 
 		{
 			return false;
 		}
+		
 		if( ! is_string($type) ) 
 		{
 			$type = 'char';
 		}
+		
 		if( ! is_string($changeType) ) 
 		{
 			$changeType = 'html';
 		}
 		
-		for($i=32; $i<=255; $i++)
+		for( $i = 32; $i <= 255; $i++ )
 		{
-			$hexRemaining = ($i%16);
-			$hexRemaining = str_replace(array(10,11,12,13,14,15),array('A','B','C','D','E','F'), $hexRemaining);
-			$hex = ( floor($i/16) ).$hexRemaining;
+			$hexRemaining = ( $i % 16 );
+			$hexRemaining = str_replace( array(10, 11, 12, 13, 14, 15), array('A', 'B', 'C', 'D', 'E', 'F'), $hexRemaining );
+			$hex 		  = ( floor( $i / 16) ).$hexRemaining;
 			
 			if( $hex[0] == '0' ) 
 			{
@@ -72,14 +74,14 @@ class Convert
 			
 			if( chr($i) !== ' ' )
 			{
-				$chars['char'][] 	= chr($i);
-				$chars['dec'][] 	= $i." ";
-				$chars['hex'][] 	= $hex." ";
-				$chars['html'][] 	= "&#{$i};";
+				$chars['char'][] = chr($i);
+				$chars['dec'][]  = $i." ";
+				$chars['hex'][]  = $hex." ";
+				$chars['html'][] = "&#{$i};";
 			}		
 		}	
 		
-		return str_replace($chars[strtolower($type)], $chars[strtolower($changeType)], $string);
+		return str_replace( $chars[strtolower($type)], $chars[strtolower($changeType)], $string );
 	}
 
 	/******************************************************************************************
@@ -94,7 +96,7 @@ class Convert
 	| echo accent_converter('Åķŝǻň'); // Çıktı: Aksan 										  |
 	|       																				  |
 	******************************************************************************************/
-	public static function accent($str = '') 
+	public function accent($str = '') 
 	{	
 		if( ! is_string($str) ) 
 		{
@@ -124,7 +126,7 @@ class Convert
 	| echo url_word_converter('Zn Kod Çatısına Hoş', '/'); //  zn/kod/catisina/hos			  |
 	|       																				  |
 	******************************************************************************************/
-	public static function urlWord($str = '', $splitWord = '-')
+	public function urlWord($str = '', $splitWord = '-')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -143,13 +145,9 @@ class Convert
 		$badChars = Config::get('Security', 'urlBadChars');
 		
 		$str = str_replace(array_keys($accent), array_values($accent), $str); 
-		
 		$str = str_replace($badChars, '', $str);
-		
 		$str = preg_replace("/\s+/", ' ', $str);
-		
 		$str = str_replace("&nbsp;", '', $str);
-		
 		$str = str_replace(' ', $splitWord, trim(strtolower($str)));
 		
 		return $str;
@@ -174,7 +172,7 @@ class Convert
 	| echo case_converter('Zn Kod Çatısına Hoş', 'title'); // Çıktı: Zn Kod Çatısına Hoş	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function stringCase($str = '', $type = 'lower', $encoding = "utf-8")
+	public function stringCase($str = '', $type = 'lower', $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{
@@ -211,7 +209,7 @@ class Convert
 	| Genel Kullanım: Dizinnin . 	                          								  |
 	|																						  |
 	******************************************************************************************/
-	public static function arrayCase($array = array(), $type = 'lower', $keyval = 'all')
+	public function arrayCase($array = array(), $type = 'lower', $keyval = 'all')
 	{
 		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
 		{
@@ -272,7 +270,7 @@ class Convert
 	| echo case_converter('Zn Kod Çatısına Hoş', 'latin5', 'urtf-8');                         |
 	|       																				  |
 	******************************************************************************************/
-	public static function charset($str = '', $fromCharset = 'utf-8', $toCharset = 'utf-8')
+	public function charset($str = '', $fromCharset = 'utf-8', $toCharset = 'utf-8')
 	{
 		if( ! is_string($str) ) 
 		{
@@ -299,7 +297,7 @@ class Convert
 	| Örnek Kullanım: highLight('echo 1;');  											  	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function highLight($str = '', $settings = array())
+	public function highLight($str = '', $settings = array())
 	{
 		if( ! is_string($str) || ! is_array($settings) )
 		{
@@ -374,7 +372,7 @@ class Convert
 		
 		$constantsMatch = array();
 		
-		foreach($magicConstants as $v)
+		foreach( $magicConstants as $v )
 		{
 			$constantsMatch['<span style="color: '.$functionColor.'">'.$v] = '<span style="color: '.$constantColor.'">'.$v;	
 		}
@@ -425,7 +423,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toInt($var = NULL)
+	public function toInt($var = NULL)
 	{
 		return (int)$var;	
 	}
@@ -439,7 +437,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toInteger($var = NULL)
+	public function toInteger($var = NULL)
 	{
 		return (integer)$var;	
 	}
@@ -453,7 +451,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toBool($var = NULL)
+	public function toBool($var = NULL)
 	{
 		return (bool)$var;	
 	}
@@ -467,7 +465,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toBoolean($var = NULL)
+	public function toBoolean($var = NULL)
 	{
 		return (boolean)$var;	
 	}
@@ -481,7 +479,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toString($var = NULL)
+	public function toString($var = NULL)
 	{
 		if( is_array($var) || is_object($var) ) 
 		{
@@ -500,7 +498,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toFloat($var = NULL)
+	public function toFloat($var = NULL)
 	{
 		return (float)$var;	
 	}	
@@ -514,7 +512,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toReal($var = NULL)
+	public function toReal($var = NULL)
 	{
 		return (real)$var;	
 	}	
@@ -528,7 +526,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toDouble($var = NULL)
+	public function toDouble($var = NULL)
 	{
 		return (double)$var;	
 	}
@@ -542,7 +540,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toObject($var = NULL)
+	public function toObject($var = NULL)
 	{
 		return (object)$var;	
 	}
@@ -556,7 +554,7 @@ class Convert
 	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toArray($var = NULL)
+	public function toArray($var = NULL)
 	{
 		return (array)$var;	
 	}
@@ -570,7 +568,7 @@ class Convert
 	| 1. var var @var => Silinecek değişken.				                         	  	  |
 	|       																				  |
 	******************************************************************************************/
-	public static function toUnset($var = NULL)
+	public function toUnset($var = NULL)
 	{
 		return (unset)$var;	
 	}
@@ -587,7 +585,7 @@ class Convert
 	| echo case_converter('Zn Kod Çatısına Hoş', 'latin5', 'urtf-8');                         |
 	|       																				  |
 	******************************************************************************************/
-	public static function varType($var = '', $type = 'int')
+	public function varType($var = '', $type = 'int')
 	{
 		if( ! is_string($type) ) 
 		{

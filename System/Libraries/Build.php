@@ -1,5 +1,5 @@
 <?php
-class Build
+class StaticBuild
 {
 	/***********************************************************************************/
 	/* BUILD LIBRARY		    		                   	                           */
@@ -29,17 +29,18 @@ class Build
 	| // name="ornek" id="zntr"       														  |
 	|          																				  |
 	******************************************************************************************/	
-	protected static function attributes($attributes = '')
+	protected function attributes($attributes = '')
 	{
 		$attribute = '';
 		if( is_array($attributes) )
 		{
-			foreach($attributes as $key => $values)
+			foreach( $attributes as $key => $values )
 			{
 				if( is_numeric($key) )
 				{
 					$key = $values;
 				}
+				
 				$attribute .= ' '.$key.'="'.$values.'"';
 			}	
 		}
@@ -58,24 +59,9 @@ class Build
 	| 3. array var @attribute => Özellik eklemek içindir.									  |
 	| 4. [ string var @version ] => Oluşturulacak belgenin sürümü. Varsayılan:1.0    		  |
 	| 5. [ string var @encoding ] => Oluşturulacak belgenin karakter seti. Varsayılan:utf-8   |
-	|          																				  |
-	| Örnek Kullanım:         																  |
-	| echo xml_builder																		  |
-	| (																						  |
-	|	'node=medya', 	 // 1. Parametre Eleman adı: node=medya.							  |
-	|       xml_builder	 // 2. Parametre İçerik.											  |
-	|       (																			      |
-	|           'vidyo', 'Vidyo Elementi', array('xml:id' => 'vidyo')						  |
-	|       ).																				  |
-	|       xml_builder																		  |
-	|       (																				  |
-	|           'resim', 'Resim Elementi', array('xml:id' => 'resim')						  |
-	|       ),																				  |
-	|       array('xml:id' => 'node')  // 3. Parametre Özellikler.							  |
-	| ); 																					  |
 	|																						  |
 	******************************************************************************************/	
-	public static function xml($elements = '', $content = '', $attribute = '', $version = '1.0', $encoding = 'utf-8')
+	public function xml($elements = '', $content = '', $attribute = '', $version = '1.0', $encoding = 'utf-8')
 	{		
 		if( ! is_string($elements) || empty($elements) ) 
 		{
@@ -97,15 +83,15 @@ class Build
 		if( strstr($elements, "node") )
 		{
 			$elementsEx = explode("=", $elements);
-			$elements = trim($elementsEx[1]);
-			$str = '<?xml version="'.$version.'" encoding="'.$encoding.'"?>';
+			$elements   = trim($elementsEx[1]);
+			$str 		= '<?xml version="'.$version.'" encoding="'.$encoding.'"?>';
 		}		
 		else
 		{
 			$str = '';
 		}
 		
-		$str .= eol().'<'.$elements.self::attributes($attribute).'>'.$content.'</'.$elements.'>'.eol();
+		$str .= eol().'<'.$elements.$this->attributes($attribute).'>'.$content.'</'.$elements.'>'.eol();
 		
 		return $str;
 	}	
@@ -119,12 +105,9 @@ class Build
 	| 1. array var @elements => Listeyi oluşturacak seçenekler.						     	  |
 	| 2. array var @attributes => Listeye özellik eklemek için.		      					  |
 	| 3. string var @type => Liste türü. Varsayılan:ul   									  |
-	|          																				  |
-	| Örnek Kullanım:         																  |
-	| echo list_builder(array('a', 'b', 'c'), array('name' => 'liste'), 'ol');                |
 	|																						  |
 	******************************************************************************************/	
-	public static function lists($elements = '', $attributes = '', $type = 'ul')
+	public function lists($elements = '', $attributes = '', $type = 'ul')
 	{
 		if( ! is_array($elements) || empty($elements) ) 
 		{
@@ -136,11 +119,11 @@ class Build
 			$type = 'ul';
 		}
 		
-		$list = '<'.$type.self::attributes($attributes).'>'.eol();
+		$list = '<'.$type.$this->attributes($attributes).'>'.eol();
 		
 		$i = 0;
 		
-		foreach($elements as $k => $values)
+		foreach( $elements as $k => $values )
 		{
 			$list .= "\t".'<li>'.$values.'</li>'.eol();
 			$i++;
@@ -159,46 +142,32 @@ class Build
 	| Parametreler: 2 parametresi vardır.                                              		  |
 	| 1. array var @elements => Tabloya oluşturacak satır ve sütunlar.				     	  |
 	| 2. array var @attributes => Tabloya özellik eklemek için.		      					  |
-	|          																				  |
-	| Örnek Kullanım:         																  |
-	| $elemanlar = array(																	  |
-	|     array("1", "2", "3" => array("colspan" => "3")), 									  |
-	|     array("6", "7", "8", "9", "10")													  |
-	| );																					  |
-	|																						  |
-	| $ozellikler = array(																      |
-	|    "border" => "1", 																	  |
-	|    "width" => "300", 																      |
-	|    "height" => "100"																	  |
-	| );																					  |
-	|																						  |
-	| echo table_builder($elemanlar, $ozellikler);											  |
 	|																						  |
 	******************************************************************************************/	
-	public static function table($elements = '', $attributes = '')
+	public function table($elements = '', $attributes = '')
 	{
 		if( ! is_array($elements) || empty($elements) ) 
 		{
 			return false;
 		}
 		
-		$table = '<table '.self::attributes($attributes).'>';
+		$table = '<table '.$this->attributes($attributes).'>';
 		$colno = 1;
 		$rowno = 1;
 		
-		foreach($elements as $key => $element)
+		foreach( $elements as $key => $element )
 		{
 			$table .= eol()."\t".'<tr>'.eol();
 			
-			if( is_array($element) ) foreach($element as $k => $v)
+			if( is_array($element) ) foreach( $element as $k => $v )
 			{
-				$val = $v;
+				$val  = $v;
 				$attr = '';
 				
 				if( is_array($v) )
 				{
-					$attr = self::attributes($v);
-					$val = $k;
+					$attr = $this->attributes($v);
+					$val  = $k;
 				}
 			
 				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.eol();	
@@ -208,6 +177,7 @@ class Build
 			$table .= "\t".'</tr>'.eol();
 			$rowno++;
 		}
+		
 		$table .= '</table>';
 		
 		return $table;

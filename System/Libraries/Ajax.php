@@ -1,5 +1,5 @@
 <?php 	
-class Ajax
+class StaticAjax
 {
 	/***********************************************************************************/
 	/* AJAX LIBRARY						                   	                           */
@@ -23,7 +23,7 @@ class Ajax
 	 * için oluşturulmuştur.
 	 *
 	 */
-	protected static $functions = array
+	protected $functions = array
 	(
 		'error', 
 		'success', 
@@ -38,7 +38,7 @@ class Ajax
 	 * için oluşturulmuştur.
 	 *
 	 */
-	protected static $callbackFunctions = array
+	protected $callbackFunctions = array
 	(
 		'done', 
 		'always', 
@@ -57,7 +57,7 @@ class Ajax
 	| @methods parametresinin alabileceği değerler:											  |
 	| type, url, dataType, error, success, complete, beforeSend, done ve diğer özellikler	  |
 	******************************************************************************************/	
-	public static function send($methods = array())
+	public function send($methods = array())
 	{
 		if( ! is_array($methods) ) 
 		{
@@ -67,19 +67,19 @@ class Ajax
 		$methods['type'] = ''; $method = '';		
 		
 		// type: parametresinin değeri varsayılan olarak post belirlenmiştir.
-		$methods['type'] = ( ! $methods['type']) 
+		$methods['type'] = ! $methods['type']
 						   ? 'post' 
 						   : $methods['type'];
 		
 		if( isset($methods['url']) )
 		{
 			// url kontrolü yapıldı. 
-			$methods['url']  = ( ! isUrl($methods['url'])) 
+			$methods['url']  = ! isUrl($methods['url'])
 			                   ? siteUrl($methods['url']) 
 							   : $methods['url']; 
 		}
 		
-		foreach($methods as $key => $val)
+		foreach( $methods as $key => $val )
 		{
 			// Anahtar olarak gönderilen verilerden herhangi biri aşağıdaki koşulu sağlarsa
 			// bu değer fonksiyon olarak değerlendirilecektir.
@@ -90,18 +90,18 @@ class Ajax
 			// 4-dataFilter
 			// 5-error
 			
-			if( in_array($key, self::$functions) )
+			if( in_array($key, $this->functions) )
 			{
 				$value = "function(data){".$val."}"; 	
 			}
 			else
 			{
-				$value = self::_value_control($val);
+				$value = $this->_value_control($val);
 			}
 			
 			// Anahtar olarak gönderilen verilerden herhangi biri aşağıdaki koşulu sağlarsa
 			// bu değer dönüş fonksiyonu olarak değerlendirilecektir.
-			if( ! in_array($key, self::$callbackFunctions) )
+			if( ! in_array($key, $this->callbackFunctions) )
 			{
 				$method .= "\t\t".$key.':'.$value.','.eol();
 			}
@@ -120,7 +120,7 @@ class Ajax
 		
 		$isCallback = false;
 		
-		foreach(self::$callbackFunctions as $callfunc)
+		foreach( $this->callbackFunctions as $callfunc )
 		{
 			if( isset($methods[$callfunc]) )
 			{
@@ -129,7 +129,7 @@ class Ajax
 			}
 		}
 	
-		if($isCallback === false)
+		if( $isCallback === false )
 		{
 			$ajax .= ";".eol();
 		}
@@ -140,21 +140,21 @@ class Ajax
 	// Özelliklerin değerlerinin kontrolü sağlanıyor..
 	// Eğer anahtar içerikli kelimeler içermiyorsa
 	// Veri tırnak içerisine alınıyor.
-	protected static function _value_control($val)
+	protected function _value_control($val)
 	{
-		if( strtolower($val) === "true")
+		if( strtolower($val) === "true" )
 		{
 			return "true";	
 		}
-		elseif( strtolower($val) === "false")
+		elseif( strtolower($val) === "false" )
 		{
 			return "false";	
 		}
-	    elseif(preg_match('/\{.+\:.+\}/', $val))
+	    elseif( preg_match('/\{.+\:.+\}/', $val) )
 		{
 			return $val;
 		}
-		elseif(preg_match('/function.*\(.*\)/', $val))
+		elseif( preg_match('/function.*\(.*\)/', $val) )
 		{
 			return $val;	
 		}
@@ -175,7 +175,7 @@ class Ajax
 	| 1. array var @data => Gönderilecek olan dizi.							  				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function jsonSendBack($data = array())
+	public function jsonSendBack($data = array())
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
@@ -194,7 +194,7 @@ class Ajax
 	| 1. mixed var @data => Çıktı oluşturulacak veri.							  		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function sendBack($data = '')
+	public function sendBack($data = '')
 	{
 		if( is_array($data) )
 		{ 
@@ -213,7 +213,7 @@ class Ajax
 	| 1. array var @data => Çıktı oluşturulacak veri.							  		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function pr($data = array())
+	public function pr($data = array())
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
@@ -232,7 +232,7 @@ class Ajax
 	| 1. array var @data => Çıktı oluşturulacak veri.							  		      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function dump($data)
+	public function dump($data)
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
@@ -270,7 +270,7 @@ class Ajax
 	| @methods parametresinin alabileceği değerler:											  |
 	| type, url, dataType, error, success, complete, beforeSend, done ve diğer özellikler	  |
 	******************************************************************************************/
-	public static function pagination($start = 0, $limit = 5, $totalRows = 20, $set = array())
+	public function pagination($start = 0, $limit = 5, $totalRows = 20, $set = array())
 	{
 		// Parametrelerin kontrolleri yapılıyor. -----------------------------------------------
 		if( ! is_numeric($start) ) 
@@ -345,10 +345,14 @@ class Ajax
 		// --------------------------------------------------------------------------------------
 		
 		// Sayfalama Linkleri Oluşturuluyor...---------------------------------------------------
-		for($i = 1; $i <= $linkCount; $i++)
+		for( $i = 1; $i <= $linkCount; $i++ )
 		{
-			$current = (($i * $limit) - 1) - $limit;
-			if( $current < 0 ) $current = 0;
+			$current = ( ($i * $limit) - 1 ) - $limit;
+			
+			if( $current < 0 ) 
+			{
+				$current = 0;
+			}
 			
 			// Aktif sayfa butonununa ait css ve stil kullanımı ---------------------------------
 			if( $start == $current )
@@ -366,6 +370,7 @@ class Ajax
 			{
 				$attr = "";	
 			}
+			
 			$links .= "\t<input$attr type='button' page='".$current."' value='".$i."'>".eol();
 			// ----------------------------------------------------------------------------------
 		}

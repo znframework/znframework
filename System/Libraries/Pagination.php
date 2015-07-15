@@ -1,5 +1,5 @@
 <?php 
-class Pagination
+class StaticPagination
 {
 	/***********************************************************************************/
 	/* PAGINATION LIBRARY	     			                   	                       */
@@ -23,7 +23,7 @@ class Pagination
 	 * tutması için oluşturulmuştur.
 	 * Varsayılan:0
 	 */
-	private static $totalRows 		= 0;
+	protected $totalRows 		= 50;
 	
 	/* Limit Değişkeni
 	 *  
@@ -31,7 +31,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:0
 	 */
-	private static $limit 			= 0;
+	protected $limit 		= 10;
 	
 	/* Count Links Değişkeni
 	 *  
@@ -39,7 +39,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:10
 	 */
-	private static $countLinks 	= 10;
+	protected $countLinks 	= 10;
 	
 	/* Class Dizi Değişkeni
 	 *  
@@ -47,7 +47,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * 
 	 */
-	private static $class			= array();
+	protected $class		= array();
 	
 	/* Style Dizi Değişkeni
 	 *  
@@ -55,7 +55,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * 
 	 */
-	private static $style			= array();
+	protected $style		= array();
 	
 	/* First Tag Değişkeni
 	 *  
@@ -63,7 +63,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[prev]
 	 */
-	private static $prevTag 		= '[prev]';
+	protected $prevTag 		= '[prev]';
 	
 	/* Last Tag Değişkeni
 	 *  
@@ -71,7 +71,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[next]
 	 */
-	private static $nextTag 		= '[next]';
+	protected $nextTag 		= '[next]';
 	
 	/* Firstest Tag Değişkeni
 	 *  
@@ -79,7 +79,7 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[first]
 	 */
-	private static $firstTag 	= '[first]';
+	protected $firstTag 	= '[first]';
 	
 	/* Lastest Tag Değişkeni
 	 *  
@@ -87,14 +87,14 @@ class Pagination
 	 * bilgisini tutması için oluşturulmuştur.
 	 * Varsayılan:[last]
 	 */
-	private static $lastTag 	= '[last]';
+	protected $lastTag 		= '[last]';
 	
 	/* Url Tag Değişkeni
 	 *  
 	 * Sayfalama nesnesinin çalıştırılacağı url
 	 * bilgisini tutması için oluşturulmuştur.
 	 */
-	private static $url;
+	protected $url;
 	
 	/******************************************************************************************
 	* SETTINGS                                                                                *
@@ -129,7 +129,7 @@ class Pagination
 	| 6.last     => Son butonunu görteren linke stil veya sınıf eklenmesi için kullanılır.    |
 	|          																				  |
 	******************************************************************************************/	
-	public static function settings($config = array())
+	public function settings($config = array())
 	{
 		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
 		if( ! is_array($config) ) 
@@ -139,16 +139,16 @@ class Pagination
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
-		if( isset($config['totalRows']) )	self::$totalRows 	= $config['totalRows'];
-		if( isset($config['limit']) )		self::$limit 		= $config['limit'];
-		if( isset($config['url']) )			self::$url 			= suffix(siteUrl($config['url']));	
-		if( isset($config['countLinks']) )	self::$countLinks 	= $config['countLinks'];
-		if( isset($config['class']) )		self::$class 		= $config['class'];
-		if( isset($config['style']) )		self::$style 		= $config['style'];
-		if( isset($config['prevName']) )	self::$prevTag 		= $config['prevName'];
-		if( isset($config['nextName']) )	self::$nextTag 		= $config['nextName'];
-		if( isset($config['firstName']) )	self::$firstTag 	= $config['firstName'];
-		if( isset($config['lastName']) )	self::$lastTag 		= $config['lastName'];
+		if( isset($config['totalRows']) )	$this->totalRows 	= $config['totalRows'];
+		if( isset($config['limit']) )		$this->limit 		= $config['limit'];
+		if( isset($config['url']) )			$this->url 			= suffix(siteUrl($config['url']));	
+		if( isset($config['countLinks']) )	$this->countLinks 	= $config['countLinks'];
+		if( isset($config['class']) )		$this->class 		= $config['class'];
+		if( isset($config['style']) )		$this->style 		= $config['style'];
+		if( isset($config['prevName']) )	$this->prevTag 		= $config['prevName'];
+		if( isset($config['nextName']) )	$this->nextTag 		= $config['nextName'];
+		if( isset($config['firstName']) )	$this->firstTag 	= $config['firstName'];
+		if( isset($config['lastName']) )	$this->lastTag 		= $config['lastName'];
 		// ---------------------------------------------------------------------------------------	
 	}
 	
@@ -170,11 +170,11 @@ class Pagination
 	| Örnek Kullanım: create();        	  					                                  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function create($start = '', $settings = array())
+	public function create($start = '', $settings = array())
 	{
 		if( ! empty($settings) )
 		{
-			self::settings($settings);	
+			$this->settings($settings);	
 		}
 		
 		$page  = '';
@@ -216,27 +216,31 @@ class Pagination
 		
 		// Kaç adet sayfa oluşacağı belirleniyor
 		// Sayfa Sayısı = Toplam Satır / Limit
-		$perPage = @ceil(self::$totalRows / self::$limit);
+		$this->limit = $this->limit === 0
+					 ? 1
+					 : $this->limit;
+					 
+		$perPage = ceil($this->totalRows / $this->limit);
 		
 		// Toplam link sayısı sayfa sayısından büyükse
-		if( self::$countLinks > $perPage )
+		if( $this->countLinks > $perPage )
 		{	
 			// lINKS Sayfalamada yer alacak linkler oluşturuluyor.
 			// LINKS -------------------------------------------------------------------	
 			for($i = 1; $i <= $perPage; $i++)
 			{
-				$page = ($i - 1) * self::$limit;
+				$page = ($i - 1) * $this->limit;
 				
 				// Kontrolere göre varsa stil veya sınıf verileri ekleniyor.
 				
-				if( $i - 1 == $startPage / self::$limit )
+				if( $i - 1 == $startPage / $this->limit )
 				{
-					$currentLink = ( isset(self::$class['current']) ) 
-								 ? 'class="'.self::$class['current'].'"' 
+					$currentLink = ( isset($this->class['current']) ) 
+								 ? 'class="'.$this->class['current'].'"' 
 								 : "";
 					
-					$currentLinkStyle = ( isset(self::$style['current']) ) 
-					                  ? 'style="'.self::$style['current'].'"' 
+					$currentLinkStyle = ( isset($this->style['current']) ) 
+					                  ? 'style="'.$this->style['current'].'"' 
 								      : "";
 				}
 				else
@@ -245,15 +249,15 @@ class Pagination
 					$currentLinkStyle = '';	
 				}
 				
-				$classLinks = ( isset(self::$class['links']) ) 
-							  ? 'class="'.self::$class['links'].'"' 
+				$classLinks = ( isset($this->class['links']) ) 
+							  ? 'class="'.$this->class['links'].'"' 
 							  : "";
 							   
-				$styleLinks = ( isset(self::$style['links']) ) 
-							  ? 'style="'.self::$style['links'].'"' 
+				$styleLinks = ( isset($this->style['links']) ) 
+							  ? 'style="'.$this->style['links'].'"' 
 							  : "";
 							   
-				$links .= '<a href="'.self::$url.$page.'" '.$classLinks.' '.$styleLinks.'><span '.$currentLink.' '.$currentLinkStyle.'> '.$i.'</span></a>';
+				$links .= '<a href="'.$this->url.$page.'" '.$classLinks.' '.$styleLinks.'><span '.$currentLink.' '.$currentLinkStyle.'> '.$i.'</span></a>';
 			}
 			// LINKS -------------------------------------------------------------------
 			
@@ -261,15 +265,15 @@ class Pagination
 			// PREV TAG ---------------------------------------------------------------	
 			if( $startPage != 0 )
 			{
-				$classPrev = ( isset(self::$class['prev']) ) 
-							 ? 'class="'.self::$class['prev'].'"' 
+				$classPrev = ( isset($this->class['prev']) ) 
+							 ? 'class="'.$this->class['prev'].'"' 
 							 : "";
 				
-				$stylePrev = ( isset(self::$style['prev']) ) 
-							 ? 'style="'.self::$style['prev'].'"' 
+				$stylePrev = ( isset($this->style['prev']) ) 
+							 ? 'style="'.$this->style['prev'].'"' 
 							 : "";
 							  
-				$first = '<a href="'.self::$url.($startPage - self::$limit ).'" '.$classPrev .' '.$stylePrev.'>'.self::$prevTag.'</a>';
+				$first = '<a href="'.$this->url.($startPage - $this->limit ).'" '.$classPrev .' '.$stylePrev.'>'.$this->prevTag.'</a>';
 			}
 			else
 			{
@@ -281,18 +285,18 @@ class Pagination
 			// NEXT TAG ---------------------------------------------------------------			
 			if( $startPage != $page )
 			{
-				$classNext = ( isset(self::$class['next']) ) 
-							 ? 'class="'.self::$class['next'].'"' 
+				$classNext = ( isset($this->class['next']) ) 
+							 ? 'class="'.$this->class['next'].'"' 
 							 : "";
 
-				$styleNext = ( isset(self::$style['next']) ) 
-							 ? 'style="'.self::$style['next'].'"' 
+				$styleNext = ( isset($this->style['next']) ) 
+							 ? 'style="'.$this->style['next'].'"' 
 							 : "";
 				
-				$lastUrl   = self::$url.($startPage + self::$limit);
+				$lastUrl   = $this->url.($startPage + $this->limit);
 				$lastStcl  = $classNext.' '.$styleNext;
 							  
-				$last = '<a href="'.$lastUrl.'" '.$lastStcl.'>'.self::$nextTag.'</a>';
+				$last = '<a href="'.$lastUrl.'" '.$lastStcl.'>'.$this->nextTag.'</a>';
 			}
 			else
 			{
@@ -300,7 +304,7 @@ class Pagination
 			}
 			// NEXT TAG ---------------------------------------------------------------	
 			
-			if( self::$totalRows > self::$limit ) 
+			if( $this->totalRows > $this->limit ) 
 			{
 				return $first.' '.$links.' '.$last;
 			}
@@ -308,81 +312,81 @@ class Pagination
 		else
 		{
 			
-			$perPage = self::$countLinks;
+			$perPage = $this->countLinks;
 			
 			// Linkler için class kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastTagClass = ( isset(self::$class['last']) ) 
-							? ' class="'.self::$class['last'].'" ' 
+			$lastTagClass = ( isset($this->class['last']) ) 
+							? ' class="'.$this->class['last'].'" ' 
 							: '';
 			
 			// FIRST LINK
-			$firstTagClass = ( isset(self::$class['first']) ) 
-						     ? ' class="'.self::$class['first'].'" ' 
+			$firstTagClass = ( isset($this->class['first']) ) 
+						     ? ' class="'.$this->class['first'].'" ' 
 							 : '';
 			
 			// NEXT LINK
-			$nextTagClass = ( isset(self::$class['next']) ) 
-							? ' class="'.self::$class['next'].'" ' 
+			$nextTagClass = ( isset($this->class['next']) ) 
+							? ' class="'.$this->class['next'].'" ' 
 							: '';
 			
 			// CURRENT LINK 
-			$currentLinkClass = ( isset(self::$class['current']) ) 
-								? ' class="'.self::$class['current'].'" ' 
+			$currentLinkClass = ( isset($this->class['current']) ) 
+								? ' class="'.$this->class['current'].'" ' 
 								: '';
 			
 			// LINKS 					  
-			$linksClass = ( isset(self::$class['links']) ) 
-						  ? ' class="'.self::$class['links'].'" ' 
+			$linksClass = ( isset($this->class['links']) ) 
+						  ? ' class="'.$this->class['links'].'" ' 
 						  : '';
 			
 			// PREV 					  
-			$prevTagClass = ( isset(self::$class['prev']) ) 
-							? ' class="'.self::$class['prev'].'" ' 
+			$prevTagClass = ( isset($this->class['prev']) ) 
+							? ' class="'.$this->class['prev'].'" ' 
 							: '';					 
 			// -------------------------------------------------------------------------
 			
 			// Linkler için style kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastTagStyle = ( isset(self::$style['last']) ) 
-							? ' style="'.self::$style['last'].'" ' 
+			$lastTagStyle = ( isset($this->style['last']) ) 
+							? ' style="'.$this->style['last'].'" ' 
 							: '';
 			
 			// FIRST LINK
-			$firstTagStyle = ( isset(self::$style['first']) ) 
-							 ? ' style="'.self::$style['first'].'" ' 
+			$firstTagStyle = ( isset($this->style['first']) ) 
+							 ? ' style="'.$this->style['first'].'" ' 
 							 : '';	
 			
 			// NEXT LINK
-			$nextTagStyle = ( isset(self::$style['next']) ) 
-							? ' style="'.self::$style['next'].'" ' 
+			$nextTagStyle = ( isset($this->style['next']) ) 
+							? ' style="'.$this->style['next'].'" ' 
 							: '';				   
 			
 			// CURRENT LINK 
-			$currentLinkStyle = ( isset(self::$style['current']) ) 
-							    ? ' style="'.self::$style['current'].'" ' 
+			$currentLinkStyle = ( isset($this->style['current']) ) 
+							    ? ' style="'.$this->style['current'].'" ' 
 							    : '';
 			
 			// LINKS 
-			$linksStyle = ( isset(self::$style['links']) ) 
-						  ? ' style="'.self::$style['links'].'" ' 
+			$linksStyle = ( isset($this->style['links']) ) 
+						  ? ' style="'.$this->style['links'].'" ' 
 						  : '';
 			
 			// PREV
-			$prevTagStyle = ( isset(self::$style['prev']) ) 
-							? ' style="'.self::$style['prev'].'" ' 
+			$prevTagStyle = ( isset($this->style['prev']) ) 
+							? ' style="'.$this->style['prev'].'" ' 
 							: '';				   
 			// -------------------------------------------------------------------------
 			
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
-			$lastTagNum        = self::$url.(self::$totalRows - (self::$totalRows % self::$limit) - 1);
+			$lastTagNum        = $this->url.($this->totalRows - ($this->totalRows % $this->limit) - 1);
 			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			
-			$lastTag = '<a href="'.$lastTagNum.'"'.$lastTagStyleClass.'>'.self::$lastTag.'</a>';
+			$lastTag = '<a href="'.$lastTagNum.'"'.$lastTagStyleClass.'>'.$this->lastTag.'</a>';
 			// -------------------------------------------------------------------------
 						
 			// -------------------------------------------------------------------------
@@ -390,7 +394,7 @@ class Pagination
 			// -------------------------------------------------------------------------
 			$firstTagStyleClass = $firstTagClass.$firstTagStyle;
 			
-			$firstTag = '<a href="'.self::$url.'0"'.$firstTagStyleClass.'>'.self::$firstTag.'</a>';
+			$firstTag = '<a href="'.$this->url.'0"'.$firstTagStyleClass.'>'.$this->firstTag.'</a>';
 			// -------------------------------------------------------------------------
 			
 			if( $startPage > 0 )
@@ -398,10 +402,10 @@ class Pagination
 				// -------------------------------------------------------------------------
 				// PREV TAG 
 				// -------------------------------------------------------------------------
-				$firstNum = self::$url.($startPage - self::$limit );
+				$firstNum = $this->url.($startPage - $this->limit );
 				$fisrtStyleClass = $prevTagClass.$prevTagStyle;
 				
-				$first = '<a href="'.$firstNum.'"'.$fisrtStyleClass.'>'.self::$prevTag.'</a>';				
+				$first = '<a href="'.$firstNum.'"'.$fisrtStyleClass.'>'.$this->prevTag.'</a>';				
 				// -------------------------------------------------------------------------
 			}
 			else
@@ -409,31 +413,31 @@ class Pagination
 				$first = '';	
 			}
 			
-			if( ($startPage / self::$limit) == 0 ) 
+			if( ($startPage / $this->limit) == 0 ) 
 			{
 				$pagIndex = 1; 
 			}
 			else 
 			{
-				$pagIndex = @ceil( $startPage / self::$limit + 1);
+				$pagIndex = @ceil( $startPage / $this->limit + 1);
 			}
 			
-			if( $startPage < self::$totalRows - self::$limit )
+			if( $startPage < $this->totalRows - $this->limit )
 			{
 				// -------------------------------------------------------------------------
 				// NEXT TAG 
 				// -------------------------------------------------------------------------
-				$lastNum = self::$url.($startPage + self::$limit);
+				$lastNum = $this->url.($startPage + $this->limit);
 				$lastStyleClass = $nextTagClass.$nextTagStyle;
 				
-				$last = '<a href="'.$lastNum.'"'.$lastStyleClass.'>'.self::$nextTag.'</a>';	
+				$last = '<a href="'.$lastNum.'"'.$lastStyleClass.'>'.$this->nextTag.'</a>';	
 				// -------------------------------------------------------------------------				
 			}
 			else
 			{
 				$last        = '';
 				$lastTag = '';
-				$pagIndex   = @ceil(self::$totalRows / self::$limit) - self::$countLinks + 1;
+				$pagIndex   = @ceil($this->totalRows / $this->limit) - $this->countLinks + 1;
 			}
 			
 			if( $pagIndex < 1 || $startPage == 0 ) 
@@ -443,21 +447,21 @@ class Pagination
 			
 			$nPerPage = $perPage + $pagIndex - 1;
 			
-			if( $nPerPage >= @ceil(self::$totalRows / self::$limit) ) 
+			if( $nPerPage >= @ceil($this->totalRows / $this->limit) ) 
 			{
-				$nPerPage  = @ceil(self::$totalRows / self::$limit);
+				$nPerPage  = @ceil($this->totalRows / $this->limit);
 				$lastTag = '';
 				$last        = '';
 			}
 			
 			$links = '';
 			
-			for($i = $pagIndex; $i <= $nPerPage; $i++)
+			for( $i = $pagIndex; $i <= $nPerPage; $i++ )
 			{
-				$page = ($i - 1) * self::$limit;
+				$page = ($i - 1) * $this->limit;
 				
 				// Aktif sayfa linki kontrol ediliyor.		
-				if( $i - 1 == $startPage / self::$limit )
+				if( $i - 1 == $startPage / $this->limit )
 				{
 					$currentLink = $currentLinkClass.$currentLinkStyle;
 				}
@@ -471,11 +475,11 @@ class Pagination
 				// -------------------------------------------------------------------------
 				$linksStyleClass = $linksClass.$linksStyle;
 				
-				$links .= '<a href="'.self::$url.$page.'"'.$linksStyleClass.'><span '.$currentLink.'> '.$i.'</span></a>';
+				$links .= '<a href="'.$this->url.$page.'"'.$linksStyleClass.'><span '.$currentLink.'> '.$i.'</span></a>';
 				// -------------------------------------------------------------------------
 			}
 	
-			if( self::$totalRows > self::$limit ) 
+			if( $this->totalRows > $this->limit ) 
 			{
 				return $firstTag.' '.$first.' '.$links.' '.$last.' '.$lastTag;
 			}

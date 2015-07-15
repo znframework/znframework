@@ -1,5 +1,5 @@
 <?php
-class CSS3
+class StaticCSS3
 {
 	/***********************************************************************************/
 	/* CSS3 LIBRARY						                   	                           */
@@ -17,6 +17,13 @@ class CSS3
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	protected $browsers;
+	
+	public function __construct()
+	{
+		$this->browsers = Config::get('Css3', 'browsers');	
+	}
+	
 	/******************************************************************************************
 	* OPEN                                                                                    *
 	*******************************************************************************************
@@ -25,7 +32,7 @@ class CSS3
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public static function open()
+	public function open()
 	{
 		$str  = "<style type='text/css'>".eol();
 		return $str;	
@@ -40,7 +47,7 @@ class CSS3
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public static function close()
+	public function close()
 	{
 		$str = "</style>".eol();	
 		return $str;
@@ -66,7 +73,7 @@ class CSS3
 	| 5-matrix																				  |
 	| 																					      |
 	******************************************************************************************/
-	public static function transform($element = '', $property = array())
+	public function transform($element = '', $property = array())
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
@@ -77,9 +84,9 @@ class CSS3
 		$str .= $element."{".eol();
 		
 		// Config dosyasındaki desteklenen tarayıcıların listesi alınıyor.
-		$browsers = Config::get('Css3', 'browsers');	
+		$browsers = $this->browsers;	
 		
-		foreach($browsers as $val)
+		foreach( $browsers as $val )
 		{
 			if( ! is_array($property) )
 			{
@@ -88,11 +95,13 @@ class CSS3
 			else
 			{
 				$str .= $val."transform:";
-				foreach($property as $k => $v)
+				
+				foreach( $property as $k => $v )
 				{
 					$str .= $k."(".$v.") ";	
 				}
-				$str = substr($str, 0, -1);
+				
+				$str  = substr($str, 0, -1);
 				$str .= ";".eol();
 			}
 		}
@@ -123,7 +132,7 @@ class CSS3
 	| 4-animation veya easing => transtion-timing-function									  |
 	| 																					      |
 	******************************************************************************************/
-	public static function transition($element = '', $param = array(), $attr = array())
+	public function transition($element = '', $param = array(), $attr = array())
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
@@ -135,12 +144,12 @@ class CSS3
 		
 		// Farklı css kodları kullanmanız gerektiğinde 
 		// bu parametre kullanılır.
-		if( is_array($attr) && ! empty($attr) ) foreach($attr as $k => $v)
+		if( is_array($attr) && ! empty($attr) ) foreach( $attr as $k => $v )
 		{
 			$str .= "$k:$v;".eol();	
 		}
 		
-		$browsers = Config::get('Css3', 'browsers');	
+		$browsers = $this->browsers;	
 		
 		if( is_array($param) )
 		{
@@ -148,11 +157,10 @@ class CSS3
 			if( isset($param["property"]) )
 			{
 				$propertyEx = explode(":",$param["property"]);
-				$property = $propertyEx[0];
+				$property   = $propertyEx[0];
+				$str       .= $param["property"].";".eol();
 				
-				$str .= $param["property"].";".eol();
-				
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."transition-property:$property;".eol();
 				}
@@ -161,7 +169,7 @@ class CSS3
 			// Geçiş süresi belirleniyor.
 			if( isset($param["duration"]) )
 			{
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."transition-duration:".$param["duration"].";".eol();
 				}
@@ -170,7 +178,7 @@ class CSS3
 			// Geçişe başlama süresi belirleniyor.
 			if( isset($param["delay"]) )
 			{
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."transition-delay:".$param["delay"].";".eol();
 				}
@@ -179,7 +187,7 @@ class CSS3
 			// Geçiş efekti belirleniyor.
 			if( isset($param["animation"]) )
 			{
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."transition-timing-function:".$param["animation"].";".eol();
 				}
@@ -187,7 +195,7 @@ class CSS3
 			elseif( isset($param["easing"]) )
 			{
 				// Geçiş efekti belirleniyor. animation parametresinin alternatifidir.
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."transition-timing-function:".$param["easing"].";".eol();
 				}
@@ -195,7 +203,7 @@ class CSS3
 		}
 		else
 		{
-			foreach($browsers as $val)
+			foreach( $browsers as $val )
 			{
 				$str .= $val."transition:$param;".eol();
 			}
@@ -230,7 +238,7 @@ class CSS3
 	| 8-repeat => animation-iteration-count  										 		  |
 	| 																					      |
 	******************************************************************************************/
-	public static function animation($element = '', $param = array(), $attr = array())
+	public function animation($element = '', $param = array(), $attr = array())
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
@@ -240,11 +248,11 @@ class CSS3
 		$str  = "";
 		$str .= $element."{".eol();
 		
-		$browsers = Config::get('Css3', 'browsers');	
+		$browsers = $this->browsers;	
 		
 		// Farklı css kodları kullanmanız gerektiğinde 
 		// bu parametre kullanılır.
-		if( is_array($attr) && ! empty($attr) ) foreach($attr as $k => $v)
+		if( is_array($attr) && ! empty($attr) ) foreach( $attr as $k => $v )
 		{
 			$str .= "$k:$v;".eol();	
 		}
@@ -254,7 +262,7 @@ class CSS3
 			// Animasyon uygulanacak nesnenin adı.
 			if( isset($param["name"]) )
 			{
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."animation-name:".$param["name"].";".eol();
 				}
@@ -263,7 +271,7 @@ class CSS3
 			// Animasyon süresi.
 			if( isset($param["duration"]) )
 			{
-				foreach($browsers as $val)
+				foreach( $browsers as $val )
 				{
 					$str .= $val."animation-duration:".$param["duration"].";".eol();
 				}
@@ -344,7 +352,7 @@ class CSS3
 		return $str;
 	}
 	
-	protected static function _shadow($element = '', $type = 'box', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
+	protected function _shadow($element = '', $type = 'box', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
@@ -358,7 +366,7 @@ class CSS3
 		$str  = "";
 		$str .= $element."{".eol();
 		
-		$browsers = Config::get('Css3', 'browsers');	
+		$browsers = $this->browsers;	
 		
 		$x 			= ! isset($param['x']) ? 0 : $param['x'];	
 		$y 			= ! isset($param['y']) ? 0 : $param['y'];	
@@ -403,9 +411,9 @@ class CSS3
 	| 5-color									 								              |
 	| 																					      |
 	******************************************************************************************/
-	public static function boxShadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
+	public function boxShadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "diffusion" => "0", "color" => "#000"))
 	{
-		return self::_shadow($element, $type = 'box', $param);
+		return $this->_shadow($element, $type = 'box', $param);
 	} 
 	
 	/******************************************************************************************
@@ -426,9 +434,9 @@ class CSS3
 	| 4-color									 								              |
 	| 																					      |
 	******************************************************************************************/
-	public static function textShadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "color" => "#000"))
+	public function textShadow($element = '', $param = array("x" => 0, "y" => 0, "blur" => "0", "color" => "#000"))
 	{
-		return self::_shadow($element, $type = 'text', $param);
+		return $this->_shadow($element, $type = 'text', $param);
 	}
 	
 	/******************************************************************************************
@@ -450,7 +458,7 @@ class CSS3
 	| 5-bottom-right-radius								 								      |
 	| 																					      |
 	******************************************************************************************/
-	public static function borderRadius($element = '', $param = array())
+	public function borderRadius($element = '', $param = array())
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
@@ -464,7 +472,7 @@ class CSS3
 		$str  = "";
 		$str .= $element."{".eol();
 		
-		$browsers = Config::get('Css3', 'browsers');	
+		$browsers = $this->browsers;	
 		
 		if(isset($param["radius"]))
 		{
@@ -523,7 +531,7 @@ class CSS3
 	| Örnek Kullanım: code('#nesne', 'transform', 'skew(10,5)scale(5,3)')	 				  |
 	| 																					      |
 	******************************************************************************************/
-	public static function code($element = '', $code = '', $property = '')
+	public function code($element = '', $code = '', $property = '')
 	{
 		if( ! is_string($element) || empty($element)) 
 		{
@@ -541,7 +549,7 @@ class CSS3
 		$str  = "";
 		$str .= $element."{".eol();
 		
-		$browsers = Config::get('Css3', 'browsers');	
+		$browsers = $this->browsers;	
 		
 		foreach($browsers as $val)
 		{

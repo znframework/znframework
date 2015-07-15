@@ -1,5 +1,5 @@
 <?php
-class Clean
+class StaticClean
 {
 	/***********************************************************************************/
 	/* CLEAN LIBRARY						                   	                       */
@@ -25,21 +25,10 @@ class Clean
 	| Parametreler: 2 parametresi vardır.                                              	      |
 	| 1. string/array var @searchData => Aranacak metin veya dizi elamanları.				  |
 	| 2. string/array var @cleanWord => Silinecek metin veya dizi elamanları.				  |
-	|          																				  |
-	| Örnek Kullanım:  																	      |
-	|																				          |
-	| Metinsel ifadelerde temizleme işlemi       											  |
-	| echo data('bilgi@zntr.net', 'bilgi'); // Çıktı: @zntr.net 							  |
-	| echo data('bilgi@zntr.net', array('bilgi', '.net')); // Çıktı: @zntr 				      |
-	|																				          |
-	| Dizi İçerikli ifadelerde temizleme işlemi												  |
-	| var_dump( data(array('a', 'b', 'c'), 'b') ); // Çıktı: a c 						      |
-	| var_dump( data(array('a', 'b', 'c'), array('b', 'c')) ); // Çıktı: a 				      |
 	|																						  |
 	******************************************************************************************/	
-	public static function data($searchData = '', $cleanWord = '')
+	public function data($searchData = '', $cleanWord = '')
 	{
-
 		if( ! is_array($searchData) )
 		{	
 			if( ! isValue($cleanWord) ) 

@@ -1,5 +1,5 @@
 <?php
-class Search
+class StaticSearch
 {
 	/***********************************************************************************/
 	/* SEARCH LIBRARY						                   	                       */
@@ -22,17 +22,17 @@ class Search
 	 * Arama sonucu verilerini tutaması
 	 * için tanımlanmış dizi değişken
 	 */
-	private static $result;
+	private $result;
 	
 	/* Filter Değişkeni
 	 *  
 	 * Aramayı başlatmadan önce filtre uygulamak için
 	 * tanımlanmış dizi değişken
 	 */
-	private static $filter = array();
+	private $filter = array();
 	
 	// filter ve or_filter için.
-	protected static function _filter($column = '', $value = '', $type)
+	protected function _filter($column = '', $value = '', $type)
 	{
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
 		if( ! is_string($column) || ! is_string($column) ) 
@@ -47,7 +47,7 @@ class Search
 		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
-		self::$filter[] = "$column|$value|$type";
+		$this->filter[] = "$column|$value|$type";
 	}
 	
 	/******************************************************************************************
@@ -67,9 +67,9 @@ class Search
 	| [VEYA] bağlacı ile yapılmak isteniyorsa orFilter() yöntemini kullanılır.        		  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function filter($column = '', $value = '')
+	public function filter($column = '', $value = '')
 	{
-		self::_filter($column, $value, 'and');
+		$this->_filter($column, $value, 'and');
 	}
 	
 	/******************************************************************************************
@@ -86,9 +86,9 @@ class Search
 	| // or where yas > 15         														      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function orFilter($column = '', $value = '')
+	public function orFilter($column = '', $value = '')
 	{
-		self::_filter($column, $value, 'or');
+		$this->_filter($column, $value, 'or');
 	}
 	
 	/******************************************************************************************
@@ -114,7 +114,7 @@ class Search
 	| inside, starting, ending         														  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function get($conditions = array(), $word = '', $type = 'inside')
+	public function get($conditions = array(), $word = '', $type = 'inside')
 	{
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
@@ -171,9 +171,9 @@ class Search
 				
 				// Filter dizisi boş değilse
 				// Filtrelere göre verileri çek
-				if( ! empty(self::$filter) )
+				if( ! empty($this->filter) )
 				{
-					foreach(self::$filter as $val)
+					foreach($this->filter as $val)
 					{		
 						$exval = explode("|", $val);
 						
@@ -196,15 +196,15 @@ class Search
 			$db->get($key);
 			
 			// Sonuçları result dizisine yazdır.
-			self::$result[$key] = $db->result();
+			$this->result[$key] = $db->result();
 		}
 		
-		$result = self::$result;
+		$result = $this->result;
 		
 		$db->close();
 		// Değişkenleri sıfırla
-		self::$result = '';
-		self::$filter = array();
+		$this->result = '';
+		$this->filter = array();
 		
 		// Sonuçları object veri türünde döndür.
 		return (object)$result;	
@@ -219,7 +219,7 @@ class Search
 	// 1- bool/boolean sonucun bulunuduğunu yada bulunmadığını gösteren true veya false değeri döndürür.
 	// 2- pos/position sonuc bulunmuş ise bulunan bilginin başlangıç indeks numarasını bulunmamış ise -1 değerini döndürür.
 	// Dönen Değer: Arama sonucu.
-	public static function data($searchData = '', $searchWord = '', $output = 'bool')
+	public function data($searchData = '', $searchWord = '', $output = 'bool')
 	{
 		if( ! is_string($output) ) 
 		{

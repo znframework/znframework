@@ -1,5 +1,5 @@
 <?php 
-class OB
+class StaticOB
 {
 	/***********************************************************************************/
 	/* OB LIBRARY        					                   	                       */
@@ -28,7 +28,7 @@ class OB
 	| Örnek Kullanım: takeFileBuffer('dosya/index.html');		 							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function takeFileBuffer($file = '')
+	public function takeFileBuffer($file = '')
 	{
 		if( ! file_exists($file) )
 		{
@@ -58,7 +58,7 @@ class OB
 	| Örnek Kullanım: takeFuncBuffer(function(){echo 1;});		 							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function takeFuncBuffer($func = '', $params = array())
+	public function takeFuncBuffer($func = '', $params = array())
 	{
 		if( ! is_callable($func) || ! is_array($params) )
 		{
@@ -96,7 +96,7 @@ class OB
 	| Örnek Kullanım: insert('veri', 'dosya/index.html');		 							  |
 	|          																				  |
 	******************************************************************************************/
-	public static function insert($name = '', $data = '', $params = array())
+	public function insert($name = '', $data = '', $params = array())
 	{
 		if( ! isValue($name) || ! is_array($params) )
 		{
@@ -105,11 +105,11 @@ class OB
 		
 		if( is_callable($data) )
 		{
-			return Session::insert('OB_DATAS_'.$name, self::takeFuncBuffer($data, $params));	
+			return Session::insert('OB_DATAS_'.$name, $this->takeFuncBuffer($data, $params));	
 		}
 		elseif( file_exists($data) )
 		{
-			return Session::insert('OB_DATAS_'.$name, self::takeFileBuffer($data));	
+			return Session::insert('OB_DATAS_'.$name, $this->takeFileBuffer($data));	
 		}
 		else
 		{
@@ -128,7 +128,7 @@ class OB
 	| Örnek Kullanım: select('veri');		 							  					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function select($name = '')
+	public function select($name = '')
 	{
 		if( ! isValue($name) )
 		{
@@ -149,7 +149,7 @@ class OB
 	| Örnek Kullanım: delete('veri');		 							  					  |
 	|          																				  |
 	******************************************************************************************/
-	public static function delete($name = '')
+	public function delete($name = '')
 	{
 		if( ! isValue($name) )
 		{
@@ -165,7 +165,7 @@ class OB
 	| Genel Kullanım: ob_start().		  	  	          									  |
 	|          																				  |
 	******************************************************************************************/
-	public static function start($callback = '', $chunkSize = 0, $flags = 0)
+	public function start($callback = '', $chunkSize = 0, $flags = 0)
 	{
 		if( ! empty($callback) )
 		{
@@ -206,7 +206,7 @@ class OB
 	| Genel Kullanım: ob_end_clean().		  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function endClean()
+	public function endClean()
 	{
 		return ob_end_clean();	
 	}
@@ -217,7 +217,7 @@ class OB
 	| Genel Kullanım: ob_clean().	     	  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function clean()
+	public function clean()
 	{
 		return ob_clean();	
 	}
@@ -228,7 +228,7 @@ class OB
 	| Genel Kullanım: ob_end_flush().		  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function endFlush()
+	public function endFlush()
 	{
 		return ob_end_flush();	
 	}
@@ -239,7 +239,7 @@ class OB
 	| Genel Kullanım: ob_flush().		         	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function flush()
+	public function flush()
 	{
 		return ob_flush();	
 	}
@@ -250,7 +250,7 @@ class OB
 	| Genel Kullanım: ob_get_clean().		  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function getClean()
+	public function getClean()
 	{
 		return ob_get_clean();	
 	}
@@ -261,7 +261,7 @@ class OB
 	| Genel Kullanım: ob_get_contents().		  	  	      								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function contents()
+	public function contents()
 	{
 		return ob_get_contents();	
 	}
@@ -272,7 +272,7 @@ class OB
 	| Genel Kullanım: ob_get_length().		  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function length()
+	public function length()
 	{
 		return ob_get_length();	
 	}
@@ -283,7 +283,7 @@ class OB
 	| Genel Kullanım: ob_get_level().		  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function level()
+	public function level()
 	{
 		return ob_get_level();	
 	}
@@ -294,7 +294,7 @@ class OB
 	| Genel Kullanım: ob_get_status().		  	  	          								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function status()
+	public function status()
 	{
 		return ob_get_status();	
 	}
@@ -305,7 +305,7 @@ class OB
 	| Genel Kullanım: ob_list_handlers().		  	  	      								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function listHandlers()
+	public function listHandlers()
 	{
 		return ob_list_handlers();	
 	}
@@ -316,7 +316,7 @@ class OB
 	| Genel Kullanım: ob_implicit_flush().		  	  	      								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function implicitFlush($flag = true)
+	public function implicitFlush($flag = true)
 	{
 		if( ! is_numeric($flag) )
 		{
@@ -332,7 +332,7 @@ class OB
 	| Genel Kullanım: ob_gzhandler().		  	  	      								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function gzHandler($buffer = '', $mode = 0)
+	public function gzHandler($buffer = '', $mode = 0)
 	{
 		if( ! empty($buffer) )
 		{
