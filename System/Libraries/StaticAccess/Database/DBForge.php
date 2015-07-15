@@ -1,13 +1,8 @@
 <?php
-class DBForge
+class DBForge extends StaticAccess
 {
-	public static function __callStatic($method, $parameters)
+	public static function getClassName()
 	{
-		return call_user_func_array(array(uselib("StaticDBForge"), $method), $parameters);
-	}
-
-	public function __call($method, $parameters)
-	{
-		return call_user_func_array(array(uselib("StaticDBForge"), $method), $parameters);
+		return __CLASS__;
 	}
 }

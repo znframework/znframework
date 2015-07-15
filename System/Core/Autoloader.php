@@ -57,7 +57,7 @@ class Autoloader
 		{	
 			require_once($file);
 		
-			$classInfo = Autoloader::tokenClassFileInfo($file);
+			$classInfo = self::tokenClassFileInfo($file);
 			
 			$classExists = ! empty($classInfo['namespace'])
 						   ? $classInfo['namespace'].'\\'.$classInfo['class']
@@ -248,7 +248,7 @@ class Autoloader
 				$classEx = explode('/', $v);
 				
 				// Sınıf isimleri ve yolları oluşturuluyor...
-				$classInfo = Autoloader::tokenClassFileInfo($v);
+				$classInfo = self::tokenClassFileInfo($v);
 				
 				if( isset($classInfo['class']) )
 				{
@@ -259,7 +259,7 @@ class Autoloader
 					// sınıf adına Static ön eki getirilerek
 					// bu sınıfların statik kullanımlarının oluşturulması
 					// sağlanabilir.			
-					if( strstr(strtolower($classInfo['class']), strtolower('Static')) )
+					if( strpos(strtolower($classInfo['class']), strtolower('Static')) === 0 && $classInfo['class'] !== 'StaticAccess' )
 					{
 						// Yeni yollar oluşturuluyor...
 						$newClassName = str_ireplace('Static', '', $classInfo['class']);
@@ -292,18 +292,12 @@ class Autoloader
 						{	
 							// Statik sınıf içeriği oluşturuluyor....
 							$classContent  = '<?php'.eol();
-							$classContent .= 'class '.$newClassName.eol();
+							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
 							$classContent .= '{'.eol();	
-							$classContent .= "\t".'public static function __callStatic($method, $parameters)'.eol();
+							$classContent .= "\t".'public static function getClassName()'.eol();
 							$classContent .= "\t".'{'.eol();
-							$classContent .= "\t\t".'return call_user_func_array(array(uselib("Static'.$newClassName.'"), $method), $parameters);'.eol();
-							$classContent .= "\t".'}';
-							$classContent .= eol(2);
-							$classContent .= "\t".'public function __call($method, $parameters)'.eol();
-							$classContent .= "\t".'{'.eol();
-							$classContent .= "\t\t".'return call_user_func_array(array(uselib("Static'.$newClassName.'"), $method), $parameters);'.eol();
-							$classContent .= "\t".'}';
-							$classContent .= eol();
+							$classContent .= "\t\t".'return __CLASS__;'.eol();
+							$classContent .= "\t".'}'.eol();
 							$classContent .= '}';
 						
 							// Dosya yazdırılıyor...

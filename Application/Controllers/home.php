@@ -1,36 +1,8 @@
 <?php
-/************************************************************/
-/*                  CONTROLLER HOME PAGE                    */
-/************************************************************/
-/*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
 class Home extends Controller
 {	
-	/******************************************************************\
-	|																   | 
-	|					    ZN DYNAMIC FRAMEWORK				       |
-	|																   |
-	|------------------------------------------------------------------|
-	|																   |
-	|  ZN Framework, nesne erişimi için Controller çağrısını zorunlu   |
-	|  tutmuyor. Bu yüzden yukarıda açıklama satırlarına alınmıştır.   |
-	|																   |
-	|  Aşağıdaki kodları çalıştırmak için takip etmeniz gereken yol;   |
-	|																   |
-	|  Çalıştırma Link: http://test.com/index.php/home/index		   |
-    |																   |
-	|  http://siteadi/[index.php]/[sınıf-ismi]/[metot-ismi]/[p1]/...   | 
-	|                                                                  |
-	|  Daha detaylı kullanım için: http://www.zntr.net	   			   |
-	|                                                                  |
-	\******************************************************************/
-	
-	function index($params = "")
+	// Çalıştırma Linki: http://test.com/index.php/home/index/[p1]...	
+	public function index($params = "")
 	{	
 		/******************************************************************************************
 		* Gönderilen Veriler                                                                      *
@@ -54,5 +26,11 @@ class Home extends Controller
 		| NOT: Bu işlem için view() ya da page() yöntemlerinden her ikiside kullanılabilir.		  |
 		******************************************************************************************/
 		Import::view("welcome", $data);
+	}
+	
+	// Çalıştırma Linki : http://test.com/index.php/home/test/[p1]...	
+	public function test($p1 = 'Controller: home, Method: test')
+	{
+		echo $p1;
 	}
 }
