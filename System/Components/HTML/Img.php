@@ -1,5 +1,5 @@
 <?php
-class CImg extends CHtmlCommon
+class StaticCImg extends CHtmlCommon
 {
 	/***********************************************************************************/
 	/* IMG COMPONENT	     	     		                   	                       */

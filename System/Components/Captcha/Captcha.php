@@ -1,5 +1,5 @@
 <?php
-class CCaptcha
+class StaticCCaptcha
 {
 	/***********************************************************************************/
 	/* CAPTCHA COMPONENT         		                   	                           */

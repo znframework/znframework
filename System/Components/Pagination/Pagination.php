@@ -1,5 +1,5 @@
 <?php
-class CPagination
+class StaticCPagination
 {
 	/***********************************************************************************/
 	/* PAGINATION COMPONENT	  	     		                   	                       */

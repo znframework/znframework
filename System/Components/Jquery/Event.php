@@ -1,5 +1,5 @@
 <?php
-class CEvent extends CJqueryCommon
+class StaticCEvent extends CJqueryCommon
 {
 	/***********************************************************************************/
 	/* EVENT COMPONENT	     	     		                   	                       */

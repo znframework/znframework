@@ -1,5 +1,5 @@
 <?php
-class CHTML extends CHtmlCommon
+class StaticCHTML extends CHtmlCommon
 {
 	/***********************************************************************************/
 	/* HTML COMPONENT	     	     		                   	                       */

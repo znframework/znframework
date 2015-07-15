@@ -1,5 +1,5 @@
 <?php
-class CLink extends CHtmlCommon
+class StaticCLink extends CHtmlCommon
 {
 	/***********************************************************************************/
 	/* LINK COMPONENT	     	     		                   	                       */

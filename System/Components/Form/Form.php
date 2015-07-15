@@ -1,5 +1,5 @@
 <?php
-class CForm extends CFormValidation
+class StaticCForm extends CFormValidation
 {
 	/***********************************************************************************/
 	/* FORM COMPONENT	     	     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class CScript
+class StaticCScript
 {
 	/***********************************************************************************/
 	/* SCRIPT COMPONENT	     	     		                   	                       */

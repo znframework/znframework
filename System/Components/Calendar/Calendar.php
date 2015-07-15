@@ -1,5 +1,5 @@
 <?php
-class CCalendar
+class StaticCCalendar
 {
 	/***********************************************************************************/
 	/* CALENDAR COMPONENT		     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class CAnimation
+class StaticCAnimation
 {
 	/***********************************************************************************/
 	/* ANIMATION COMPONENT		   		                   	                           */

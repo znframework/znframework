@@ -1,5 +1,5 @@
 <?php
-class CTransform
+class StaticCTransform
 {
 	/***********************************************************************************/
 	/* TRANSFORM COMPONENT	  	     		                   	                       */

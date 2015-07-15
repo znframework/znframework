@@ -1,5 +1,5 @@
 <?php
-class CTemplate
+class StaticCTemplate
 {
 	/***********************************************************************************/
 	/* TEMPLATE COMPONENT	  	     		                   	                       */

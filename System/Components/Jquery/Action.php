@@ -1,5 +1,5 @@
 <?php
-class CAction extends CJqueryCommon
+class StaticCAction extends CJqueryCommon
 {
 	/***********************************************************************************/
 	/* ACTION COMPONENT	     	     		                   	                       */

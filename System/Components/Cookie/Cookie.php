@@ -1,5 +1,5 @@
 <?php
-class CCookie
+class StaticCCookie
 {
 	/***********************************************************************************/
 	/* COOKIE COMPONENT		     		                   	                           */

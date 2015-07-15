@@ -31,6 +31,6 @@ class Home extends Controller
 	// Çalıştırma Linki : http://test.com/index.php/home/test/[p1]...	
 	public function test($p1 = 'Controller: home, Method: test')
 	{
-		echo $p1;
+		echo $p1;		
 	}
 }

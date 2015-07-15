@@ -1,5 +1,5 @@
 <?php
-class CParser
+class StaticCParser
 {
 	/***********************************************************************************/
 	/* PARSER COMPONENT	     	     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class CShadow
+class StaticCShadow
 {
 	/***********************************************************************************/
 	/* SHADOW COMPONENT	     	     		                   	                       */

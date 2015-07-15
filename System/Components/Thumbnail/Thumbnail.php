@@ -1,5 +1,5 @@
 <?php
-class CThumbnail
+class StaticCThumbnail
 {
 	/***********************************************************************************/
 	/* THUMBNAIL COMPONENT    	     		                   	                       */

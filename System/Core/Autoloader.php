@@ -290,6 +290,7 @@ class Autoloader
 						// kontrol ediliyor...
 						if( ! file_exists($path) )	
 						{	
+							echo $path."<br>";
 							// Statik sınıf içeriği oluşturuluyor....
 							$classContent  = '<?php'.eol();
 							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();

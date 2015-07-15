@@ -1,5 +1,5 @@
 <?php
-class CJquery extends CJqueryCommon
+class StaticCJquery extends CJqueryCommon
 {
 	/***********************************************************************************/
 	/* JQUERY COMPONENT	     	     		                   	                       */
