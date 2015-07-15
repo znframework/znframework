@@ -56,26 +56,10 @@ class Autoloader
 		if( file_exists($file) )
 		{	
 			require_once($file);
-		
-			$classInfo = self::tokenClassFileInfo($file);
-			
-			$classExists = ! empty($classInfo['namespace'])
-						   ? $classInfo['namespace'].'\\'.$classInfo['class']
-						   : $classExists = $classInfo['class'];
-			
-			if( ! class_exists($classExists) )
+
+			if( ! class_exists($classInfo['namespace']) )
 			{
 				self::createClassMap();	
-				
-				$classInfo = self::getClassFileInfo($class);
-	
-				// Sınıfın yolu alınıyor...
-				$file = $classInfo['path'];
-				
-				if( file_exists($file) )
-				{	
-					require_once($file);
-				}
 			}
 		}
 		else
@@ -261,11 +245,13 @@ class Autoloader
 					// sağlanabilir.			
 					if( strpos(strtolower($classInfo['class']), strtolower('Static')) === 0 && $classInfo['class'] !== 'StaticAccess' )
 					{
-						// Yeni yollar oluşturuluyor...
+						// Yeni sınıf ismi oluşturuluyor...
 						$newClassName = str_ireplace('Static', '', $classInfo['class']);
+						
+						// Yeni sınıf dizini oluşturuluyor...
 						$newPath      = str_ireplace(array($classInfo['class'].'.php', $baseDirectory), array($newClassName.'.php', ''), $v);	
 						
-						// Yeni dizin yolu oluşturuluyor...
+						// Yeni StaticAccess/ dizin yolu oluşturuluyor...
 						$pathEx = explode('/', $newPath);		
 						array_pop($pathEx);		
 						$newDir = implode('/', $pathEx);
@@ -281,6 +267,7 @@ class Autoloader
 						// kontrol ediliyor...		
 						if( ! isDirExists($newDir) )
 						{
+							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
 							mkdir($newDir);
 						}
 						
@@ -290,7 +277,6 @@ class Autoloader
 						// kontrol ediliyor...
 						if( ! file_exists($path) )	
 						{	
-							echo $path."<br>";
 							// Statik sınıf içeriği oluşturuluyor....
 							$classContent  = '<?php'.eol();
 							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();

@@ -83,6 +83,7 @@ $config['ClassMap']['path'] = array
 	'CTransform' => 'System/Libraries/StaticAccess/CSS/Transform.php',
 	'CTransition' => 'System/Libraries/StaticAccess/CSS/Transition.php',
 	'Cache' => 'System/Libraries/StaticAccess/Cache/Cache.php',
+	'CCalendar' => 'System/Libraries/StaticAccess/Calendar/Calendar.php',
 	'CCaptcha' => 'System/Libraries/StaticAccess/Captcha/Captcha.php',
 	'CCookie' => 'System/Libraries/StaticAccess/Cookie/Cookie.php',
 	'DB' => 'System/Libraries/StaticAccess/Database/DB.php',
