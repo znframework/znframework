@@ -281,7 +281,7 @@ class Autoloader
 						
 						$classMap = Config::get('ClassMap');
 						
-						if( ! empty($classMap['classes']) && ! isset($classMap['classes'][strtolower($newClassName)]) )
+						if( file_exists(CONFIG_DIR.'ClassMap.php') && ! isset($classMap['classes'][strtolower($newClassName)]) )
 						{
 							// Yeni sınıf dizini oluşturuluyor...
 							$newPath = str_ireplace($baseDirectory, '', $v);	
