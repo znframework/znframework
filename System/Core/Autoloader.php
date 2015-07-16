@@ -59,49 +59,38 @@ class Autoloader
 
 			if( ! class_exists($classInfo['namespace']) )
 			{
-				self::createClassMap();	
-				
-				// Sınıfın bilgileri yeniden alınıyor...
-				$classInfo = self::getClassFileInfo($class);
-				
-				// Sınıfın yolu yeniden isteniyor...
-				$file = $classInfo['path'];
-				
-				// Böyle bir sınıf varsa dahil ediliyor...
-				if( file_exists($file) )
-				{	
-					require_once($file);
-				}
-				else
-				{
-					// Böyle bir sınıf yoksa hata mesajı oluşturuluyor...
-					die(getErrorMessage('Error', 'classError', $class));
-				}
+				self::tryAgainCreateClassMap($classInfo['class']);
 			}
 		}
 		else
 		{
-			// Böyle bir sınıf yoksa classmap yeniden oluşturuluyor...
-			self::createClassMap();
-			
-			// Sınıfın bilgileri yeniden alınıyor...
-			$classInfo = self::getClassFileInfo($class);
-			
-			// Sınıfın yolu yeniden isteniyor...
-			$file = $classInfo['path'];
-			
-			// Böyle bir sınıf varsa dahil ediliyor...
-			if( file_exists($file) )
-			{	
-				require_once($file);
-			}
-			else
-			{
-				// Böyle bir sınıf yoksa hata mesajı oluşturuluyor...
-				die(getErrorMessage('Error', 'classError', $class));
-			}
+			self::tryAgainCreateClassMap($classInfo['class']);
 		}
 	} 
+	
+	/******************************************************************************************
+	* PRIVATE TRY AGAIN CREATE CLASS MAP                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: Yardımcı yöntemdir.    												  |
+	|          																				  |
+	******************************************************************************************/
+	private static function tryAgainCreateClassMap($class)
+	{
+		self::createClassMap();	
+		
+		// Sınıfın bilgileri yeniden alınıyor...
+		$classInfo = self::getClassFileInfo($class);
+
+		// Böyle bir sınıf varsa dahil ediliyor...
+		if( file_exists($classInfo['path']) )
+		{	
+			require_once($classInfo['path']);
+		}
+		else
+		{
+			die(getErrorMessage('Error', 'classError', $class));
+		}
+	}
 	
 	/******************************************************************************************
 	* CREATE CLASS MAP                                                                        *
@@ -119,7 +108,7 @@ class Autoloader
 			$classMaps = self::searchClassMap($directory, $directory);
 		}
 		
-		self::$classes = $classMaps;
+		self::$classes = $classMaps['classes'];
 		
 		$path = CONFIG_DIR.'ClassMap.php';
 		
@@ -127,9 +116,19 @@ class Autoloader
 		// ClassMap dosyasının metinsel bölümü oluşturuluyor.
 		// ----------------------------------------------------------------------------------------
 		$classMapPage  = '<?php'.eol();
-		$classMapPage .= '$config[\'ClassMap\'][\'path\'] = array'.eol().'('.eol();
+		$classMapPage .= '$config[\'ClassMap\'][\'classes\'] = array'.eol().'('.eol();
 		
-		if( ! empty($classMaps) ) foreach($classMaps as $k => $v)
+		if( ! empty($classMaps['classes']) ) foreach($classMaps['classes'] as $k => $v)
+		{
+			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
+		}
+		
+		$classMapPage  = rtrim($classMapPage, ','.eol());	
+		$classMapPage .= eol().');'.eol(2);
+		
+		$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'] = array'.eol().'('.eol();
+		
+		if( ! empty($classMaps['namespaces']) ) foreach($classMaps['namespaces'] as $k => $v)
 		{
 			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
 		}
@@ -154,38 +153,53 @@ class Autoloader
 	|          																				  |
 	******************************************************************************************/
 	public static function getClassFileInfo($class = '')
-	{
-		$classMap = ! empty(self::$classes) 
-			        ? self::$classes
-				    : Config::get('ClassMap', 'path');
-			
-		$classMapCaseLower = array_change_key_case($classMap, CASE_LOWER);	
-		$classCaseLower    = strtolower($class);
+	{	
+		$classCaseLower = strtolower($class);
 		
-		// ----------------------------------------------------------------------------------------
-		// DOSYA bilgisi oluşturuluyor...
-		// ----------------------------------------------------------------------------------------
-		$file = isset($classMapCaseLower[$classCaseLower])
-			  ? $classMapCaseLower[$classCaseLower]
-			  : '';
-		// ----------------------------------------------------------------------------------------
+		$config	  = Config::get('ClassMap');
 		
-		// ----------------------------------------------------------------------------------------
-		// NAMESPACE bilgisi oluşturuluyor...
-		// ----------------------------------------------------------------------------------------	  
-		$className  = array_keys($classMap);
-		$classIndex = array_search($classCaseLower, array_keys($classMapCaseLower));	
-		$namespace  = $className[$classIndex + 1];
-	
-		if( $classMap[$namespace] !== $file )
+		$classMap = ! empty($config['classes'])
+				    ? $config['classes']
+					: self::$classes;
+						
+		$namespaces = $config['namespaces'];
+		
+		$path 	   = '';
+		$namespace = '';
+		
+		if( isset($classMap[$classCaseLower]) )
 		{
-			$namespace = $class;	
+			// ----------------------------------------------------------------------------------------
+			// PATH: bilgisi oluşturuluyor...
+			// ----------------------------------------------------------------------------------------	
+			$path      = $classMap[$classCaseLower];	
+			// ----------------------------------------------------------------------------------------
+			
+			// ----------------------------------------------------------------------------------------
+			// NAMESPACE bilgisi oluşturuluyor...
+			// ----------------------------------------------------------------------------------------
+			$namespace = isset($namespaces[$classCaseLower])
+				       ? $namespaces[$classCaseLower] 
+				       : $class;
+			// ----------------------------------------------------------------------------------------
 		}
-		// ----------------------------------------------------------------------------------------
-		
+		else
+		{
+			$namespaceValues = array_values($namespaces);
+			$namespaceKeys   = array_keys($namespaces);
+			$index 		     = array_search($classCaseLower, $namespaceValues);
+			
+			if( $index > -1 )
+			{
+				$namespace = $class;			
+				$class     = $namespaceKeys[$index];
+				$path      = $classMap[$class];
+			}
+		}
+				
 		return array
 		(
-			'path' 		=> $file,
+			'path' 		=> $path,
 			'class'	   	=> $class,
 			'namespace'	=> $namespace
 		);
@@ -253,7 +267,7 @@ class Autoloader
 				
 				if( isset($classInfo['class']) )
 				{
-					$classes[$classInfo['class']] = $v;	
+					$classes['classes'][strtolower($classInfo['class'])] = $v;	
 					
 					// Statik erişim sağlanmak istenen
 					// Statik olmayan sınıfların
@@ -261,61 +275,66 @@ class Autoloader
 					// bu sınıfların statik kullanımlarının oluşturulması
 					// sağlanabilir.			
 					if( strpos(strtolower($classInfo['class']), strtolower('Static')) === 0 && $classInfo['class'] !== 'StaticAccess' )
-					{
+					{			
 						// Yeni sınıf ismi oluşturuluyor...
 						$newClassName = str_ireplace('Static', '', $classInfo['class']);
 						
-						// Yeni sınıf dizini oluşturuluyor...
-						$newPath      = str_ireplace(array($classInfo['class'].'.php', $baseDirectory), array($newClassName.'.php', ''), $v);	
+						$classMap = Config::get('ClassMap');
 						
-						// Yeni StaticAccess/ dizin yolu oluşturuluyor...
-						$pathEx = explode('/', $newPath);		
-						array_pop($pathEx);		
-						$newDir = implode('/', $pathEx);
-						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
-						$newDir = $dir.$newDir;	
-						
-						if( ! isDirExists($dir) )
+						if( ! empty($classMap['classes']) && ! isset($classMap['classes'][strtolower($newClassName)]) )
 						{
-							mkdir($dir);
-						}
-						
-						// Oluşturulacak dizinin var olup olmadığı
-						// kontrol ediliyor...		
-						if( ! isDirExists($newDir) )
-						{
-							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
-							mkdir($newDir);
-						}
-						
-						$path = $dir.$newPath;	
-						
-						// Oluşturulacak dosyanın var olup olmadığı
-						// kontrol ediliyor...
-						if( ! file_exists($path) )	
-						{	
-							// Statik sınıf içeriği oluşturuluyor....
-							$classContent  = '<?php'.eol();
-							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
-							$classContent .= '{'.eol();	
-							$classContent .= "\t".'public static function getClassName()'.eol();
-							$classContent .= "\t".'{'.eol();
-							$classContent .= "\t\t".'return __CLASS__;'.eol();
-							$classContent .= "\t".'}'.eol();
-							$classContent .= '}';
-						
-							// Dosya yazdırılıyor...
-							$fileOpen  = fopen($path, 'w');	
-							$fileWrite = fwrite($fileOpen, $classContent);
-						
-							fclose($fileOpen);
+							// Yeni sınıf dizini oluşturuluyor...
+							$newPath = str_ireplace($baseDirectory, '', $v);	
+							
+							// Yeni StaticAccess/ dizin yolu oluşturuluyor...
+							$pathEx = explode('/', $newPath);		
+							array_pop($pathEx);		
+							$newDir = implode('/', $pathEx);
+							$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
+							$newDir = $dir.$newDir;	
+							
+							if( ! isDirExists($dir) )
+							{
+								mkdir($dir);
+							}
+							
+							// Oluşturulacak dizinin var olup olmadığı
+							// kontrol ediliyor...		
+							if( ! isDirExists($newDir) )
+							{
+								// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
+								mkdir($newDir);
+							}
+							
+							$path = $dir.removeExtension($newPath).substr(md5(rand(0, 9999)), 0, 8).'.php';	
+							
+							// Oluşturulacak dosyanın var olup olmadığı
+							// kontrol ediliyor...
+							if( ! file_exists($path) )	
+							{	
+								// Statik sınıf içeriği oluşturuluyor....
+								$classContent  = '<?php'.eol();
+								$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
+								$classContent .= '{'.eol();	
+								$classContent .= "\t".'public static function getClassName()'.eol();
+								$classContent .= "\t".'{'.eol();
+								$classContent .= "\t\t".'return __CLASS__;'.eol();
+								$classContent .= "\t".'}'.eol();
+								$classContent .= '}';
+							
+								// Dosya yazdırılıyor...
+								$fileOpen  = fopen($path, 'w');	
+								$fileWrite = fwrite($fileOpen, $classContent);
+							
+								fclose($fileOpen);
+							}
 						}
 					}
 				}
 				
 				if( isset($classInfo['namespace']) )
 				{
-					$classes[$classInfo['namespace'].'\\'.$classInfo['class']] = $v;	
+					$classes['namespaces'][strtolower($classInfo['class'])] = strtolower($classInfo['namespace'].'\\'.$classInfo['class']);	
 				}
 			}
 			elseif( is_dir($v) )

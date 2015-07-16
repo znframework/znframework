@@ -25,7 +25,7 @@ class StaticSecurity
 	 */
 	protected $config;
 	
-	public function __construct($config = array())
+	public function __construct()
 	{
 		$this->config = Config::get('Security');	
 	}
