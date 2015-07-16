@@ -59,12 +59,12 @@ class Autoloader
 
 			if( ! class_exists($classInfo['namespace']) )
 			{
-				self::tryAgainCreateClassMap($classInfo['class']);
+				self::tryAgainCreateClassMap($class);
 			}
 		}
 		else
 		{
-			self::tryAgainCreateClassMap($classInfo['class']);
+			self::tryAgainCreateClassMap($class);
 		}
 	} 
 	
