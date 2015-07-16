@@ -87,7 +87,7 @@ class Autoloader
 			require_once($classInfo['path']);
 		}
 		else
-		{
+		{	
 			die(getErrorMessage('Error', 'classError', $class));
 		}
 	}
@@ -279,55 +279,50 @@ class Autoloader
 						// Yeni sınıf ismi oluşturuluyor...
 						$newClassName = str_ireplace('Static', '', $classInfo['class']);
 						
-						$classMap = Config::get('ClassMap');
+						// Yeni sınıf dizini oluşturuluyor...
+						$newPath = str_ireplace($baseDirectory, '', $v);	
 						
-						if( file_exists(CONFIG_DIR.'ClassMap.php') && ! isset($classMap['classes'][strtolower($newClassName)]) )
+						// Yeni StaticAccess/ dizin yolu oluşturuluyor...
+						$pathEx = explode('/', $newPath);		
+						array_pop($pathEx);		
+						$newDir = implode('/', $pathEx);
+						$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
+						$newDir = $dir.$newDir;	
+						
+						if( ! isDirExists($dir) )
 						{
-							// Yeni sınıf dizini oluşturuluyor...
-							$newPath = str_ireplace($baseDirectory, '', $v);	
-							
-							// Yeni StaticAccess/ dizin yolu oluşturuluyor...
-							$pathEx = explode('/', $newPath);		
-							array_pop($pathEx);		
-							$newDir = implode('/', $pathEx);
-							$dir    = SYSTEM_LIBRARIES_DIR.'StaticAccess/';
-							$newDir = $dir.$newDir;	
-							
-							if( ! isDirExists($dir) )
-							{
-								mkdir($dir);
-							}
-							
-							// Oluşturulacak dizinin var olup olmadığı
-							// kontrol ediliyor...		
-							if( ! isDirExists($newDir) )
-							{
-								// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
-								mkdir($newDir);
-							}
-							
-							$path = $dir.removeExtension($newPath).substr(md5(rand(0, 9999)), 0, 8).'.php';	
-							
-							// Oluşturulacak dosyanın var olup olmadığı
-							// kontrol ediliyor...
-							if( ! file_exists($path) )	
-							{	
-								// Statik sınıf içeriği oluşturuluyor....
-								$classContent  = '<?php'.eol();
-								$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
-								$classContent .= '{'.eol();	
-								$classContent .= "\t".'public static function getClassName()'.eol();
-								$classContent .= "\t".'{'.eol();
-								$classContent .= "\t\t".'return __CLASS__;'.eol();
-								$classContent .= "\t".'}'.eol();
-								$classContent .= '}';
-							
-								// Dosya yazdırılıyor...
-								$fileOpen  = fopen($path, 'w');	
-								$fileWrite = fwrite($fileOpen, $classContent);
-							
-								fclose($fileOpen);
-							}
+							mkdir($dir);
+						}
+						
+						// Oluşturulacak dizinin var olup olmadığı
+						// kontrol ediliyor...		
+						if( ! isDirExists($newDir) )
+						{
+							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
+							mkdir($newDir);
+						}
+						
+						$path = $newDir.'/'.$classInfo['class'].'.php';	
+						
+						// Oluşturulacak dosyanın var olup olmadığı
+						// kontrol ediliyor...
+						if( ! file_exists($path) )	
+						{	
+							// Statik sınıf içeriği oluşturuluyor....
+							$classContent  = '<?php'.eol();
+							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
+							$classContent .= '{'.eol();	
+							$classContent .= "\t".'public static function getClassName()'.eol();
+							$classContent .= "\t".'{'.eol();
+							$classContent .= "\t\t".'return __CLASS__;'.eol();
+							$classContent .= "\t".'}'.eol();
+							$classContent .= '}';
+						
+							// Dosya yazdırılıyor...
+							$fileOpen  = fopen($path, 'w');	
+							$fileWrite = fwrite($fileOpen, $classContent);
+						
+							fclose($fileOpen);
 						}
 					}
 				}
