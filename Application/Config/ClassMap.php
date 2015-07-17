@@ -209,4 +209,5 @@ $config['ClassMap']['classes'] = array
 
 $config['ClassMap']['namespaces'] = array
 (
+	
 );

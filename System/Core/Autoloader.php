@@ -26,6 +26,14 @@ class Autoloader
 	 */
 	private static $classes;
 	
+	/* Namespaces Değişkeni
+	 *
+	 *
+	 * ClassMap bilgisini tutması
+	 * için oluşturulmuştur.
+	 */
+	private static $namespaces;
+	
 	/******************************************************************************************
 	* RUN                                                                                     *
 	*******************************************************************************************
@@ -48,7 +56,7 @@ class Autoloader
 		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
-	
+			
 		// Sınıfın yolu alınıyor...
 		$file = $classInfo['path'];
 		
@@ -76,11 +84,11 @@ class Autoloader
 	******************************************************************************************/
 	private static function tryAgainCreateClassMap($class)
 	{
-		self::createClassMap();	
+		self::createClassMap();
 		
-		// Sınıfın bilgileri yeniden alınıyor...
+		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
-
+		
 		// Böyle bir sınıf varsa dahil ediliyor...
 		if( file_exists($classInfo['path']) )
 		{	
@@ -108,8 +116,6 @@ class Autoloader
 			$classMaps = self::searchClassMap($directory, $directory);
 		}
 		
-		self::$classes = $classMaps['classes'];
-		
 		$path = CONFIG_DIR.'ClassMap.php';
 		
 		// ----------------------------------------------------------------------------------------
@@ -118,19 +124,28 @@ class Autoloader
 		$classMapPage  = '<?php'.eol();
 		$classMapPage .= '$config[\'ClassMap\'][\'classes\'] = array'.eol().'('.eol();
 		
-		if( ! empty($classMaps['classes']) ) foreach($classMaps['classes'] as $k => $v)
+		if( ! empty($classMaps['classes']) ) 
 		{
-			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
+			self::$classes    = $classMaps['classes'];
+			
+			foreach($classMaps['classes'] as $k => $v)
+			{
+				$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
+			}
 		}
-		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
 		$classMapPage .= eol().');'.eol(2);
 		
 		$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'] = array'.eol().'('.eol();
 		
-		if( ! empty($classMaps['namespaces']) ) foreach($classMaps['namespaces'] as $k => $v)
+		if( ! empty($classMaps['namespaces']) ) 
 		{
-			$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
+			self::$namespaces = $classMaps['namespaces'];
+			
+			foreach($classMaps['namespaces'] as $k => $v)
+			{
+				$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
+			}
 		}
 		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
@@ -156,25 +171,27 @@ class Autoloader
 	{	
 		$classCaseLower = strtolower($class);
 		
-		$config	  = Config::get('ClassMap');
+		$classMap = Config::get('ClassMap');
 		
-		$classMap = ! empty($config['classes'])
-				    ? $config['classes']
+		$classes    = count($classMap['classes']) > self::$classes
+					? $classMap['classes']
 					: self::$classes;
-						
-		$namespaces = $config['namespaces'];
 		
+		$namespaces = count($classMap['namespaces']) > self::$namespaces
+					? $classMap['namespaces']
+					: self::$namespaces;
+					
 		$path 	   = '';
 		$namespace = '';
-		
-		if( isset($classMap[$classCaseLower]) )
+			
+		if( isset($classes[$classCaseLower]) )
 		{
 			// ----------------------------------------------------------------------------------------
 			// PATH: bilgisi oluşturuluyor...
 			// ----------------------------------------------------------------------------------------	
-			$path      = $classMap[$classCaseLower];	
+			$path      = $classes[$classCaseLower];	
 			// ----------------------------------------------------------------------------------------
-			
+
 			// ----------------------------------------------------------------------------------------
 			// NAMESPACE bilgisi oluşturuluyor...
 			// ----------------------------------------------------------------------------------------
@@ -193,10 +210,10 @@ class Autoloader
 			{
 				$namespace = $class;			
 				$class     = $namespaceKeys[$index];
-				$path      = $classMap[$class];
+				$path      = $classes[$class];
 			}
 		}
-				
+		
 		return array
 		(
 			'path' 		=> $path,
