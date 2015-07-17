@@ -56,7 +56,7 @@ class Autoloader
 		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
-			
+		
 		// Sınıfın yolu alınıyor...
 		$file = $classInfo['path'];
 		
@@ -173,17 +173,17 @@ class Autoloader
 		
 		$classMap = Config::get('ClassMap');
 		
-		$classes    = count($classMap['classes']) > self::$classes
+		$classes    = count($classMap['classes']) > count(self::$classes)
 					? $classMap['classes']
 					: self::$classes;
 		
-		$namespaces = count($classMap['namespaces']) > self::$namespaces
+		$namespaces = count($classMap['namespaces']) > count(self::$namespaces)
 					? $classMap['namespaces']
 					: self::$namespaces;
-					
+		
 		$path 	   = '';
 		$namespace = '';
-			
+				
 		if( isset($classes[$classCaseLower]) )
 		{
 			// ----------------------------------------------------------------------------------------
@@ -200,7 +200,7 @@ class Autoloader
 				       : $class;
 			// ----------------------------------------------------------------------------------------
 		}
-		else
+		elseif( ! empty($namespaces) )
 		{
 			$namespaceValues = array_values($namespaces);
 			$namespaceKeys   = array_keys($namespaces);
