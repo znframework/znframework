@@ -231,29 +231,42 @@ class Autoloader
 	******************************************************************************************/
 	public static function tokenClassFileInfo($fileName = '')
 	{
-		$tokens = token_get_all(file_get_contents($fileName));
+		$contents = file_get_contents($fileName);
+		$tokens   = token_get_all($contents);
 		
 		$classInfo = array();
 		
 		$i = 0;
 		
+		// -------------------------------------------------------------------------------------------
+		// Gerçek Sınıf İsmi Oluşturuluyor...
+		// -------------------------------------------------------------------------------------------
 		foreach( $tokens as $token )
 		{
-			if( $token[0] === T_NAMESPACE )
-			{
-				$classInfo['namespace'] = $tokens[$i + 2][1];
-			}
-			
 			if( $token[0] === T_CLASS )
 			{
-				$classInfo['class'] = $tokens[$i + 2][1];
+				$classInfo['class'] = isset($tokens[$i + 2][1])
+								    ? $tokens[$i + 2][1]
+								    : NULL;
 				
 				break;
 			}
 			
 			$i++;
 		}	
+		// -------------------------------------------------------------------------------------------
 		
+		// -------------------------------------------------------------------------------------------
+		// Namespace(İsim Alanı) Oluşturuluyor...
+		// -------------------------------------------------------------------------------------------
+		preg_match('/namespace\s+.*\s*\;/xi', $contents, $match);
+		
+		if( ! empty($match[0]) )
+		{		 
+			$classInfo['namespace'] = str_ireplace(array('namespace', ' ', ';'), '', $match[0]);
+		}
+		// -------------------------------------------------------------------------------------------
+			
 		return $classInfo;
 	}
 	
@@ -308,7 +321,7 @@ class Autoloader
 						
 						if( ! isDirExists($dir) )
 						{
-							mkdir($dir);
+							mkdir($dir, 0777, true);
 						}
 						
 						// Oluşturulacak dizinin var olup olmadığı
@@ -316,7 +329,7 @@ class Autoloader
 						if( ! isDirExists($newDir) )
 						{
 							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
-							mkdir($newDir);
+							mkdir($newDir, 0777, true);
 						}
 						
 						$path = $newDir.'/'.$classInfo['class'].'.php';	
@@ -346,7 +359,15 @@ class Autoloader
 				
 				if( isset($classInfo['namespace']) )
 				{
-					$classes['namespaces'][strtolower($classInfo['class'])] = strtolower($classInfo['namespace'].'\\'.$classInfo['class']);	
+					$class = isset($classInfo['class'])
+						   ? $classInfo['class']
+						   : '';
+					
+					$fix = ! empty($class)
+						   ? '\\'
+						   : ''; 	   
+					
+					$classes['namespaces'][strtolower($class)] = strtolower($classInfo['namespace'].$fix.$class);	
 				}
 			}
 			elseif( is_dir($v) )

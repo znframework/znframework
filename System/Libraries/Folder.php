@@ -37,7 +37,7 @@ class StaticFolder
 	| Örnek Kullanım: create('dizin/yeniDizin');        						              |
 	|          																				  |
 	******************************************************************************************/
-	public function create($name = '', $permission = 0755)
+	public function create($name = '', $permission = 0755, $recursive = true)
 	{		
 		if( ! is_string($name) ) 
 		{
@@ -50,7 +50,7 @@ class StaticFolder
 		
 		if( ! file_exists($name) && ! is_file($name) )
 		{
-			mkdir($name,$permission);
+			mkdir($name,$permission, $recursive);
 		}
 		else
 		{
