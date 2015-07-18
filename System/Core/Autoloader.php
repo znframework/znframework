@@ -56,7 +56,7 @@ class Autoloader
 		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
-		
+	
 		// Sınıfın yolu alınıyor...
 		$file = $classInfo['path'];
 		
@@ -64,7 +64,9 @@ class Autoloader
 		if( file_exists($file) )
 		{	
 			require_once($file);
-
+			
+			// Namespace olduğu halde class ismi bildirilirse
+			// Sınıf haritasını yeniden oluşturmayı dene
 			if( ! class_exists($classInfo['namespace']) )
 			{
 				self::tryAgainCreateClassMap($class);
@@ -72,6 +74,8 @@ class Autoloader
 		}
 		else
 		{
+			// Aranılan dosya bulunamazsa 1 kereye mahsuz
+			// sınıf haritasını yeniden oluşturmayı dene
 			self::tryAgainCreateClassMap($class);
 		}
 	} 
@@ -208,9 +212,11 @@ class Autoloader
 			
 			if( $index > -1 )
 			{
-				$namespace = $class;			
-				$class     = $namespaceKeys[$index];
-				$path      = $classes[$class];
+				$namespace = $class;		
+				$class     = $namespaceKeys[$index];					   
+				$path      = isset($classes[$class])
+						   ? $classes[$class]
+						   : '';
 			}
 		}
 		
@@ -237,12 +243,41 @@ class Autoloader
 		$classInfo = array();
 		
 		$i = 0;
+		$ns = '';
 		
-		// -------------------------------------------------------------------------------------------
-		// Gerçek Sınıf İsmi Oluşturuluyor...
-		// -------------------------------------------------------------------------------------------
 		foreach( $tokens as $token )
 		{
+			// -------------------------------------------------------------------------------------------
+			// Gerçek İsim Alanı Oluşturuluyor...
+			// -------------------------------------------------------------------------------------------
+			if( $token[0] === T_NAMESPACE )
+			{
+				if( isset($tokens[$i + 2][1]) )
+				{
+					if( empty($tokens[$i + 4][1]) )
+					{
+						$ns = $tokens[$i + 2][1];
+					}
+					else
+					{
+						$ii = $i;
+					
+						while( isset($tokens[$ii + 2][1]) )
+						{
+							$ns .= $tokens[$ii + 2][1];
+							
+							$ii++;
+						}
+					}
+				}
+				
+				$classInfo['namespace'] = $ns;
+			}
+			// -------------------------------------------------------------------------------------------
+			
+			// -------------------------------------------------------------------------------------------
+			// Gerçek Sınıf İsmi Oluşturuluyor...
+			// -------------------------------------------------------------------------------------------
 			if( $token[0] === T_CLASS )
 			{
 				$classInfo['class'] = isset($tokens[$i + 2][1])
@@ -251,22 +286,11 @@ class Autoloader
 				
 				break;
 			}
+			// -------------------------------------------------------------------------------------------
 			
 			$i++;
 		}	
-		// -------------------------------------------------------------------------------------------
-		
-		// -------------------------------------------------------------------------------------------
-		// Namespace(İsim Alanı) Oluşturuluyor...
-		// -------------------------------------------------------------------------------------------
-		preg_match('/namespace\s+.*\s*\;/xi', $contents, $match);
-		
-		if( ! empty($match[0]) )
-		{		 
-			$classInfo['namespace'] = str_ireplace(array('namespace', ' ', ';'), '', $match[0]);
-		}
-		// -------------------------------------------------------------------------------------------
-			
+	
 		return $classInfo;
 	}
 	
