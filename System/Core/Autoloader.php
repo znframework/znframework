@@ -322,7 +322,7 @@ class Autoloader
 			// -------------------------------------------------------------------------------------------
 			// Gerçek Sınıf İsmi Oluşturuluyor...
 			// -------------------------------------------------------------------------------------------
-			if( $token[0] === T_CLASS )
+			if( $token[0] === T_CLASS || $token[0] === T_INTERFACE )
 			{
 				// Sınıf bilgisi oluşturuluyor...
 				$classInfo['class'] = isset($tokens[$i + 2][1])
