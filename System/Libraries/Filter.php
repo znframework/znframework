@@ -17,7 +17,7 @@ class __USE_STATIC_ACCESS__Filter
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	// Function: word_filter()
+	// Function: word()
 	// İşlev: Metin içinde istenilmeyen kelimelerin izole edilmesi için kullanılır.
 	// Parametreler
 	// @string = Filtrelenecek veri.

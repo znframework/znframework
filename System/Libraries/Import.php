@@ -210,15 +210,6 @@ class Import
 			$randomPageVariable = PAGES_DIR.suffix($randomPageVariable,".php");
 		}
 		
-		if( ! is_file(PAGES_DIR.suffix($headPage,".php")) ) 
-		{
-			$headPage = ''; 
-		}
-		else
-		{ 
-			$headPage = PAGES_DIR.suffix($headPage,".php");
-		}
-		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$header  = Config::get('Doctype', $masterPageSet['docType']).eol();
@@ -389,9 +380,37 @@ class Import
 		//------------------------------------------------------------------------------------
 		if( ! empty($headPage) )
 		{
-			ob_start(); 
+			ob_start();
 			
-			require_once($headPage); 
+			// Tek bir üst sayfa kullanımı için.
+			if( ! is_array($headPage) )
+			{
+				if( is_file(PAGES_DIR.suffix($headPage,".php")) ) 
+				{
+					if( ! extension($headPage) )
+					{
+						$headPage = $headPage.'.php';
+					}
+					
+					require_once(PAGES_DIR.$headPage); 
+				}
+			}
+			else
+			{
+				// Birden fazla üst sayfa kullanımı için.
+				foreach( $headPage as $hpage )
+				{
+					if( is_file(PAGES_DIR.suffix($hpage,".php")) ) 
+					{
+						if( ! extension($hpage) )
+						{
+							$hpage = $hpage.'.php';
+						}
+						
+						require_once(PAGES_DIR.$hpage);
+					}
+				}
+			}
 			
 			$content = ob_get_contents();
 			 
