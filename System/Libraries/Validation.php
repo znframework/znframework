@@ -1,5 +1,5 @@
 <?php
-class StaticValidation
+class __USE_STATIC_ACCESS__Validation
 {
 	/***********************************************************************************/
 	/* VALIDATION LIBRARY    				                   	                       */

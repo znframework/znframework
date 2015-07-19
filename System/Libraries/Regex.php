@@ -1,5 +1,5 @@
 <?php
-class StaticRegex
+class __USE_STATIC_ACCESS__Regex
 {
 	/***********************************************************************************/
 	/* REGEX LIBRARY						                   	                       */

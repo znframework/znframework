@@ -1,5 +1,5 @@
 <?php
-class StaticHTML5
+class __USE_STATIC_ACCESS__HTML5
 {
 	/***********************************************************************************/
 	/* HTML5 LIBRARY						                   	                       */

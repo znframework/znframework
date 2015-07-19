@@ -1,5 +1,5 @@
 <?php
-class StaticCStyle
+class __USE_STATIC_ACCESS__CStyle
 {
 	/***********************************************************************************/
 	/* STYLE COMPONENT	     	     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticForm
+class __USE_STATIC_ACCESS__Form
 {
 	/***********************************************************************************/
 	/* FORM LIBRARY	     					                   	                       */

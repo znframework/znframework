@@ -1,5 +1,5 @@
 <?php 
-class StaticCookie
+class __USE_STATIC_ACCESS__Cookie
 {
 	/***********************************************************************************/
 	/* COOKIE LIBRARY						                   	                       */

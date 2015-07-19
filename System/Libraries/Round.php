@@ -1,5 +1,5 @@
 <?php
-class StaticRound
+class __USE_STATIC_ACCESS__Round
 {
 	/***********************************************************************************/
 	/* ROUND LIBRARY						                   	                       */

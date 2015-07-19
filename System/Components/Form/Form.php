@@ -1,5 +1,5 @@
 <?php
-class StaticCForm extends CFormValidation
+class __USE_STATIC_ACCESS__CForm extends CFormValidation
 {
 	/***********************************************************************************/
 	/* FORM COMPONENT	     	     		                   	                       */
@@ -291,7 +291,7 @@ class StaticCForm extends CFormValidation
 				$select = '';
 			}
 			
-			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'."\n";
+			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.eol();
 		}
 		
 		$this->options = $selectbox;
@@ -426,48 +426,20 @@ class StaticCForm extends CFormValidation
 		$value =  ( ! empty($value) ) 
 				  ? ' value="'.$value.'" '
 				  : '';	 
+				  
+		$attributes = $this->type.$this->name.$this->id.$this->css.$this->style.$this->attr;
 							
 		if( $this->type === 'select' )
 		{
-			$createObject  = 	'<'.
-								$this->type.
-								$this->name.
-								$this->id.
-								$value.
-								$this->css.
-								$this->style.
-								$this->attr.
-								'>'.	
-								$this->options.
-								'</select>'.
-								"\n";
+			$createObject = '<'.$attributes.$value.'>'.$this->options.'</select>'.eol();
 		}
 		elseif( $this->type === 'textarea' )
 		{
-			$createObject  = 	'<'.
-								$this->type.
-								$this->name.
-								$this->id.
-								$this->css.
-								$this->style.
-								$this->attr.							
-								'>'.	
-								$this->value.
-								'</textarea>'.
-								"\n";
+			$createObject = '<'.$attributes.'>'.$this->value.'</textarea>'.eol();
 		}
 		else
 		{
-			$createObject  = 	'<'.
-								$this->type.
-								$this->name.
-								$this->id.
-								$value.
-								$this->css.
-								$this->style.
-								$this->attr.
-								'>'.
-								"\n";	
+			$createObject = '<'.$attributes.$value.'>'.eol();	
 		}
 		
 		$this->_validateControl();
@@ -491,15 +463,7 @@ class StaticCForm extends CFormValidation
 			$this->method = ' method="post" ';
 		}
 		
-		$form = '<form'.
-				$this->name.	
-				$this->id.
-				$this->enctype.
-				$this->action.
-				$this->method.
-				$this->attr.
-				'>'.
-				"\n";
+		$form = '<form'.$this->name.$this->id.$this->enctype.$this->action.$this->method.$this->attr.'>'.eol();
 		
 		return $form;
 	}
@@ -530,7 +494,7 @@ class StaticCForm extends CFormValidation
 	
 	public function enctype($enctype = '')
 	{
-		switch($enctype)
+		switch( $enctype )
 		{
 			case "multipart" 	: $enctype = 'multipart/form-data'; 				break;
 			case "application" 	: $enctype = 'application/x-www-form-urlencoded';	break;
@@ -549,7 +513,7 @@ class StaticCForm extends CFormValidation
 	public function close()
 	{
 		$this->_formDefaultVariable();
-		return '</form>'."\n";
+		return '</form>'.eol();
 	}
 	
 	public function validateError($output = 'array')

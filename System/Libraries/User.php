@@ -1,5 +1,5 @@
 <?php
-class StaticUser
+class __USE_STATIC_ACCESS__User
 {
 	/***********************************************************************************/
 	/* USER LIBRARY	     					                   	                       */

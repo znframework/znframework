@@ -1,5 +1,5 @@
 <?php
-class StaticFile
+class __USE_STATIC_ACCESS__File
 {
 	/***********************************************************************************/
 	/* FILE LIBRARY	    					                   	                       */

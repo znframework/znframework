@@ -1,5 +1,5 @@
 <?php
-class StaticTerminal
+class __USE_STATIC_ACCESS__Terminal
 {
 	/***********************************************************************************/
 	/* TERMINAL LIBRARY						                   	                       */

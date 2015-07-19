@@ -1,5 +1,5 @@
 <?php 
-class StaticCart
+class __USE_STATIC_ACCESS__Cart
 {
 	/***********************************************************************************/
 	/* CART LIBRARY	     					                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticDownload
+class __USE_STATIC_ACCESS__Download
 {
 	/***********************************************************************************/
 	/* DOWNLOAD LIBRARY						                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticLimit
+class __USE_STATIC_ACCESS__Limit
 {
 	/***********************************************************************************/
 	/* LIMIT LIBRARY						                   	                       */

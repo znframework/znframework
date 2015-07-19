@@ -1,5 +1,5 @@
 <?php
-class StaticCTransition
+class __USE_STATIC_ACCESS__CTransition
 {
 	/***********************************************************************************/
 	/* TRANSITION COMPONENT	  	     		                   	                       */

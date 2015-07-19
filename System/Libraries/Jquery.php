@@ -1,5 +1,5 @@
 <?php
-class StaticJquery
+class __USE_STATIC_ACCESS__Jquery
 {	
 	/***********************************************************************************/
 	/* JQUERY LIBRARY						                   	                       */

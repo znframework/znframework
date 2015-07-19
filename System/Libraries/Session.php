@@ -1,5 +1,5 @@
 <?php
-class StaticSession
+class __USE_STATIC_ACCESS__Session
 {
 	/***********************************************************************************/
 	/* SESSION LIBRARY						                   	                       */

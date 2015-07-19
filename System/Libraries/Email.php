@@ -1,5 +1,5 @@
 <?php
-class StaticEmail
+class __USE_STATIC_ACCESS__Email
 {
 	/***********************************************************************************/
 	/* EMAIL LIBRARY						                   	                       */

@@ -1,5 +1,5 @@
 <?PHP
-class StaticDate
+class __USE_STATIC_ACCESS__Date
 {
 	/***********************************************************************************/
 	/* DATE LIBRARY	     					                   	                       */

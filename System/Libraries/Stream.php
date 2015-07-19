@@ -1,5 +1,5 @@
 <?php
-class StaticStream
+class __USE_STATIC_ACCESS__Stream
 {	
 	/***********************************************************************************/
 	/* STREAM LIBRARY						                   	                       */

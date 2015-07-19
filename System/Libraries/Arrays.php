@@ -1,5 +1,5 @@
 <?php	
-class StaticArrays
+class __USE_STATIC_ACCESS__Arrays
 {
 	/***********************************************************************************/
 	/* ARRAYS LIBRARY					                   	                           */

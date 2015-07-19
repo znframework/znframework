@@ -1,5 +1,5 @@
 <?php
-class StaticCAjax extends CJqueryCommon
+class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 {
 	/***********************************************************************************/
 	/* AJAX COMPONENT	     	     		                   	                       */

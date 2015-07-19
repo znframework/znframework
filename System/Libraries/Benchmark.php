@@ -1,5 +1,5 @@
 <?php 
-class StaticBenchmark
+class __USE_STATIC_ACCESS__Benchmark
 {
 	/***********************************************************************************/
 	/* BENCHMARK LIBRARY				                   	                           */

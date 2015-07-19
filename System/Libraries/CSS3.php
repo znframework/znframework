@@ -1,5 +1,5 @@
 <?php
-class StaticCSS3
+class __USE_STATIC_ACCESS__CSS3
 {
 	/***********************************************************************************/
 	/* CSS3 LIBRARY						                   	                           */

@@ -1,5 +1,5 @@
 <?php
-class StaticDBForge
+class __USE_STATIC_ACCESS__DBForge
 {
 	/***********************************************************************************/
 	/* DB FORGE LIBRARY		    		                   	                           */

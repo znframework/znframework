@@ -1,5 +1,5 @@
 <?php 
-class StaticCURL
+class __USE_STATIC_ACCESS__CURL
 {
 	/***********************************************************************************/
 	/* CURL LIBRARY   						                   	                       */

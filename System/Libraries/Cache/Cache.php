@@ -1,5 +1,5 @@
 <?php
-class StaticCache
+class __USE_STATIC_ACCESS__Cache
 {
 	/***********************************************************************************/
 	/* CACHE LIBRARY						                   	                       */

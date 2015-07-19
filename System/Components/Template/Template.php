@@ -1,5 +1,5 @@
 <?php
-class StaticCTemplate
+class __USE_STATIC_ACCESS__CTemplate
 {
 	/***********************************************************************************/
 	/* TEMPLATE COMPONENT	  	     		                   	                       */

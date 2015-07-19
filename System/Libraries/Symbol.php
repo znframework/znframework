@@ -1,5 +1,5 @@
 <?php
-class StaticSymbol
+class __USE_STATIC_ACCESS__Symbol
 {
 	/***********************************************************************************/
 	/* SYMBOL LIBRARY						                   	                       */

@@ -1,5 +1,5 @@
 <?PHP
-class StaticTime
+class __USE_STATIC_ACCESS__Time
 {
 	/***********************************************************************************/
 	/* TIME LIBRARY	     					                   	                       */

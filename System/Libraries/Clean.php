@@ -1,5 +1,5 @@
 <?php
-class StaticClean
+class __USE_STATIC_ACCESS__Clean
 {
 	/***********************************************************************************/
 	/* CLEAN LIBRARY						                   	                       */

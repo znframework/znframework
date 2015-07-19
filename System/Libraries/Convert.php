@@ -1,5 +1,5 @@
 <?php
-class StaticConvert
+class __USE_STATIC_ACCESS__Convert
 {
 	/***********************************************************************************/
 	/* CONVERT LIBRARY						                   	                       */

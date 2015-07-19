@@ -1,5 +1,5 @@
 <?php
-class StaticCXML
+class __USE_STATIC_ACCESS__CXML
 {
 	/***********************************************************************************/
 	/* XML COMPONENT	     	     		                   	                       */

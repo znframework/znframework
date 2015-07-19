@@ -1,5 +1,5 @@
 <?php
-class StaticCThumbnail
+class __USE_STATIC_ACCESS__CThumbnail
 {
 	/***********************************************************************************/
 	/* THUMBNAIL COMPONENT    	     		                   	                       */

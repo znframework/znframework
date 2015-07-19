@@ -1,5 +1,5 @@
 <?php
-class StaticUpload
+class __USE_STATIC_ACCESS__Upload
 {
 	/***********************************************************************************/
 	/* UPLOAD LIBRARY						                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticCParser
+class __USE_STATIC_ACCESS__CParser
 {
 	/***********************************************************************************/
 	/* PARSER COMPONENT	     	     		                   	                       */

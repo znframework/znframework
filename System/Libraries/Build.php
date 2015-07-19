@@ -1,5 +1,5 @@
 <?php
-class StaticBuild
+class __USE_STATIC_ACCESS__Build
 {
 	/***********************************************************************************/
 	/* BUILD LIBRARY		    		                   	                           */

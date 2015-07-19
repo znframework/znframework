@@ -1,5 +1,5 @@
 <?php
-class StaticCAnimation
+class __USE_STATIC_ACCESS__CAnimation
 {
 	/***********************************************************************************/
 	/* ANIMATION COMPONENT		   		                   	                           */

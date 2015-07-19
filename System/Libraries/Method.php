@@ -1,5 +1,5 @@
 <?php
-class StaticMethod
+class __USE_STATIC_ACCESS__Method
 {
 	/***********************************************************************************/
 	/* METHOD LIBRARY						                   	                       */

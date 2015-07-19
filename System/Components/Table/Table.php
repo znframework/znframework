@@ -1,5 +1,5 @@
 <?php
-class StaticCTable
+class __USE_STATIC_ACCESS__CTable
 {
 	/***********************************************************************************/
 	/* TABLE COMPONENT	     	     		                   	                       */

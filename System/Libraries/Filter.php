@@ -1,5 +1,5 @@
 <?php
-class StaticFilter
+class __USE_STATIC_ACCESS__Filter
 {
 	/***********************************************************************************/
 	/* FILTER LIBRARY						                   	                       */

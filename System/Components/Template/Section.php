@@ -1,5 +1,5 @@
 <?php
-class StaticCSection
+class __USE_STATIC_ACCESS__CSection
 {
 	/***********************************************************************************/
 	/* SECTION COMPONENT     	     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticSearch
+class __USE_STATIC_ACCESS__Search
 {
 	/***********************************************************************************/
 	/* SEARCH LIBRARY						                   	                       */

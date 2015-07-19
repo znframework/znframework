@@ -1,5 +1,5 @@
 <?php
-class StaticURI
+class __USE_STATIC_ACCESS__URI
 {
 	/***********************************************************************************/
 	/* URI LIBRARY	    					                   	                       */

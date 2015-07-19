@@ -1,5 +1,5 @@
 <?php
-class StaticCMailto extends CHtmlCommon
+class __USE_STATIC_ACCESS__CMailto extends CHtmlCommon
 {
 	/***********************************************************************************/
 	/* MAIL TO COMPONENT	  	     		                   	                       */

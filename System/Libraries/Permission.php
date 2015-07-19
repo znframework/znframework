@@ -1,5 +1,5 @@
 <?php 
-class StaticPermission
+class __USE_STATIC_ACCESS__Permission
 {
 	/***********************************************************************************/
 	/* PERMISSON LIBRARY					                   	                       */

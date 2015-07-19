@@ -1,5 +1,5 @@
 <?php 	
-class StaticAjax
+class __USE_STATIC_ACCESS__Ajax
 {
 	/***********************************************************************************/
 	/* AJAX LIBRARY						                   	                           */

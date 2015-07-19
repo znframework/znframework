@@ -1,5 +1,5 @@
 <?php 
-class StaticJson
+class __USE_STATIC_ACCESS__Json
 {
 	/***********************************************************************************/
 	/* JSON LIBRARY	     					                   	                       */

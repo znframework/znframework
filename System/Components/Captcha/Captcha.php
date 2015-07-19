@@ -1,5 +1,5 @@
 <?php
-class StaticCCaptcha
+class __USE_STATIC_ACCESS__CCaptcha
 {
 	/***********************************************************************************/
 	/* CAPTCHA COMPONENT         		                   	                           */

@@ -1,5 +1,5 @@
 <?php
-class StaticXML
+class __USE_STATIC_ACCESS__XML
 {
 	/***********************************************************************************/
 	/* XML LIBRARY		     				                   	                       */

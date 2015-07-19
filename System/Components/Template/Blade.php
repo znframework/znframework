@@ -1,5 +1,5 @@
 <?php
-class StaticCBlade
+class __USE_STATIC_ACCESS__CBlade
 {
 	/***********************************************************************************/
 	/* BLADE COMPONENT	     	     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticCScript
+class __USE_STATIC_ACCESS__CScript
 {
 	/***********************************************************************************/
 	/* SCRIPT COMPONENT	     	     		                   	                       */

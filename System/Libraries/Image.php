@@ -1,5 +1,5 @@
 <?php
-class StaticImage
+class __USE_STATIC_ACCESS__Image
 {
 	/***********************************************************************************/
 	/* IMAGE LIBRARY						                   	                       */

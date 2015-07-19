@@ -1,5 +1,5 @@
 <?php
-class StaticHTML
+class __USE_STATIC_ACCESS__HTML
 {
 	/***********************************************************************************/
 	/* HTML LIBRARY						                   	                           */

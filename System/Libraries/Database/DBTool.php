@@ -1,5 +1,5 @@
 <?php	
-class StaticDBTool
+class __USE_STATIC_ACCESS__DBTool
 {	
 	/***********************************************************************************/
 	/* DB TOOL LIBRARY		    		                   	                           */

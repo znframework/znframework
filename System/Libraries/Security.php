@@ -1,5 +1,5 @@
 <?php 
-class StaticSecurity
+class __USE_STATIC_ACCESS__Security
 {
 	/***********************************************************************************/
 	/* SECURITY LIBRARY						                   	                       */

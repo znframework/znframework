@@ -1,5 +1,5 @@
 <?php
-class StaticCCSS
+class __USE_STATIC_ACCESS__CCSS
 {
 	/***********************************************************************************/
 	/* CSS COMPONENT	     	     		                   	                       */

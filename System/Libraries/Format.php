@@ -1,5 +1,5 @@
 <?php
-class StaticFormat
+class __USE_STATIC_ACCESS__Format
 {
 	/***********************************************************************************/
 	/* FORMAT LIBRARY						                   	                       */

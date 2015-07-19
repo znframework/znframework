@@ -1,7 +1,7 @@
 <?php
 Config::iniSet(Config::get('Session','settings'));
 if( ! isset($_SESSION) ) session_start();
-class StaticCSession
+class __USE_STATIC_ACCESS__CSession
 {
 	/***********************************************************************************/
 	/* SESSION COMPONENT	   	     		                   	                       */

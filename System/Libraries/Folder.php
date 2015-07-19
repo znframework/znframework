@@ -1,5 +1,5 @@
 <?php
-class StaticFolder
+class __USE_STATIC_ACCESS__Folder
 {
 	/***********************************************************************************/
 	/* FOLDER LIBRARY						                   	                       */

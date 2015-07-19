@@ -1,5 +1,5 @@
 <?php
-class StaticSocket
+class __USE_STATIC_ACCESS__Socket
 {	
 	/***********************************************************************************/
 	/* SOCKET LIBRARY						                   	                       */

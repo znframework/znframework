@@ -1,5 +1,5 @@
 <?php
-class StaticStrings
+class __USE_STATIC_ACCESS__Strings
 {
 	/***********************************************************************************/
 	/* STRINGS LIBRARY						                   	                       */

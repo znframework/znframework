@@ -1,5 +1,5 @@
 <?php
-class StaticFTP
+class __USE_STATIC_ACCESS__FTP
 {
 	/***********************************************************************************/
 	/* FTP LIBRARY   						                   	                       */

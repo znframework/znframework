@@ -1,5 +1,5 @@
 <?php
-class StaticCAnimate extends CJqueryCommon
+class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 {
 	/***********************************************************************************/
 	/* ANIMATE COMPONENT     	     		                   	                       */

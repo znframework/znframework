@@ -88,6 +88,7 @@ class Autoloader
 	******************************************************************************************/
 	private static function tryAgainCreateClassMap($class)
 	{
+		// Config/ClassMap.php dosyasını oluştur. 
 		self::createClassMap();
 		
 		// Sınıf bilgileri alınıyor...
@@ -113,17 +114,23 @@ class Autoloader
 	******************************************************************************************/
 	public static function createClassMap()
 	{
+		// ClassMap'in oluşturulması için hangi dizinlerin
+		// taranması gerektiği Config/Autoloader.php dosyasında
+		// yer alır. Bu dizinlerin bilgisi alınıyor.
 		$classMap = Config::get('Autoloader', 'classMap');
 		
+		// Belirtilen dizinler ve alt dizinler taranıyor
+		// ve sınıf haritaları oluşturuluyor...
 		if( ! empty($classMap) ) foreach($classMap as $directory)
 		{
 			$classMaps = self::searchClassMap($directory, $directory);
 		}
 		
+		// Config/ClassMap.php 
 		$path = CONFIG_DIR.'ClassMap.php';
 		
 		// ----------------------------------------------------------------------------------------
-		// ClassMap dosyasının metinsel bölümü oluşturuluyor.
+		// ClassMap dosyasının sınıflar bölümü oluşturuluyor.
 		// ----------------------------------------------------------------------------------------
 		$classMapPage  = '<?php'.eol();
 		$classMapPage .= '$config[\'ClassMap\'][\'classes\'] = array'.eol().'('.eol();
@@ -140,6 +147,9 @@ class Autoloader
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
 		$classMapPage .= eol().');'.eol(2);
 		
+		// ----------------------------------------------------------------------------------------
+		// ClassMap dosyasının isim alanları bölümü oluşturuluyor.
+		// ----------------------------------------------------------------------------------------
 		$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'] = array'.eol().'('.eol();
 		
 		if( ! empty($classMaps['namespaces']) ) 
@@ -173,21 +183,35 @@ class Autoloader
 	******************************************************************************************/
 	public static function getClassFileInfo($class = '')
 	{	
+		// ClassMap.php dosyasında yer alan veriler küçük harfle 
+		// oluşturulduğu için parametre küçük harfe dönüştürülüyor.
 		$classCaseLower = strtolower($class);
 		
+		// ClassMap.php dosyasına ait ayarlar alınıyor...
 		$classMap = Config::get('ClassMap');
 		
+		// ClassMap oluşturulurken yeni çağrılan sınıfa ait bilgiler
+		// dosyaya kaydedilemeden işlemler devam ettiği için sayfanın
+		// bir kez yenilenmesi gerekmektedir. Bunun önüne geçmek için
+		// oluşturulan dosya bilgisine ait veriler önce bir değişkende
+		// saklanıyor. Eğer bu değişkendeki veri sayısı dosyadaki veri
+		// sayısından fazla ise değişkenden veri çekiliyor. Böylecede
+		// sayfanın yenilenmesine gerek kalmadan çağrılan sınıfın bilgisi
+		// ClassMap.php dosyasına eklenmiş oluyor.
 		$classes    = count($classMap['classes']) > count(self::$classes)
 					? $classMap['classes']
 					: self::$classes;
 		
+		// Yukarıdaki mantık isim alanlarının kullanımı içinde geçerlidir.
 		$namespaces = count($classMap['namespaces']) > count(self::$namespaces)
 					? $classMap['namespaces']
 					: self::$namespaces;
 		
 		$path 	   = '';
 		$namespace = '';
-				
+			
+		// Tanımlanmakta olan sınıfın bilgisi classmap'te yer alan
+		// sınıflar bölümünde var ise...		
 		if( isset($classes[$classCaseLower]) )
 		{
 			// ----------------------------------------------------------------------------------------
@@ -206,20 +230,38 @@ class Autoloader
 		}
 		elseif( ! empty($namespaces) )
 		{
+			// Tanımlanmakta olan sınıfın bilgisi classmap'te yer alan sınıflar 
+			// bölümünde yoksa namespace bölümünde ara..
+			
+			// ClassMap.php dosyasında oluşturulumuş namespaces ve classes
+			// verileri arasında ilişki kuruluyor..
+			// Bunun amacı tanımlanan sınıf bilgisi bir isim alanı içeriyorsa
+			// İsim alanından araştırması hayır sınıf bilgisi içeriyorsa 
+			// sınıflar içinde araştırmasıdır. Yani isim alanı olan sınıflar
+			// da sadece sınıf isimleri kullanılarak erişim sağlanabiliyor.
 			$namespaceValues = array_values($namespaces);
 			$namespaceKeys   = array_keys($namespaces);
 			$index 		     = array_search($classCaseLower, $namespaceValues);
 			
+			// Sınıf bilgisi isim alanları içinde mevcutsa.
 			if( $index > -1 )
 			{
+				// İsim alanı olarak parametre olarak girilen bilgiyi kullan.
 				$namespace = $class;		
-				$class     = $namespaceKeys[$index];					   
+				
+				// Sınıf bilgisi olarak İsim alanı içinde yer alan sınıf bilgisini kullan.
+				$class     = $namespaceKeys[$index];
+				
+				// Yol bilgisi olarak sınıflar içinde yer alan yol bilgisini kullan.					   
 				$path      = isset($classes[$class])
 						   ? $classes[$class]
 						   : '';
 			}
 		}
 		
+		// ----------------------------------------------------------------------------------------
+		// Namespace, class ve yol bilgileri döndürülüyor...
+		// ----------------------------------------------------------------------------------------
 		return array
 		(
 			'path' 		=> $path,
@@ -237,8 +279,8 @@ class Autoloader
 	******************************************************************************************/
 	public static function tokenClassFileInfo($fileName = '')
 	{
-		$contents = file_get_contents($fileName);
-		$tokens   = token_get_all($contents);
+		// Dosya içeriğini al ve tarama yap.
+		$tokens   = token_get_all(file_get_contents($fileName));
 		
 		$classInfo = array();
 		
@@ -254,12 +296,15 @@ class Autoloader
 			{
 				if( isset($tokens[$i + 2][1]) )
 				{
+					// İsim alanı tek bölümden oluşup oluşmadığı kontrol ediliyor...
 					if( empty($tokens[$i + 4][1]) )
 					{
 						$ns = $tokens[$i + 2][1];
 					}
 					else
 					{
+						// İsim alanı \ sembolü ile ayrılmış birden
+						// false bölümden oluşuyorsa kontrol edilir.
 						$ii = $i;
 					
 						while( isset($tokens[$ii + 2][1]) )
@@ -271,6 +316,7 @@ class Autoloader
 					}
 				}
 				
+				// İsim alanı bilgisi oluşturuluyor...
 				$classInfo['namespace'] = $ns;
 			}
 			// -------------------------------------------------------------------------------------------
@@ -280,6 +326,7 @@ class Autoloader
 			// -------------------------------------------------------------------------------------------
 			if( $token[0] === T_CLASS )
 			{
+				// Sınıf bilgisi oluşturuluyor...
 				$classInfo['class'] = isset($tokens[$i + 2][1])
 								    ? $tokens[$i + 2][1]
 								    : NULL;
@@ -305,13 +352,17 @@ class Autoloader
 	{
 		static $classes;
 		
+		// Dizin parametreleri / eki içermiyorsa 
+		// dizin bilgisinin sonuna / ekini ekle.
 		$directory 	   = suffix($directory); 
 		$baseDirectory = suffix($baseDirectory); 
 		
+		// Dizine ait alt dosya ve dizinler alınıyor...
 		$files = glob($directory.'*');
 	
 		if( ! empty($files) ) foreach($files as $v)
 		{
+			// Sadece .php uzantılı dosyalar için işlem yap.
 			if( is_file($v) && extension($v) === 'php' )
 			{
 				$classEx = explode('/', $v);
@@ -328,11 +379,11 @@ class Autoloader
 					// sınıf adına Static ön eki getirilerek
 					// bu sınıfların statik kullanımlarının oluşturulması
 					// sağlanabilir.			
-					if( strpos(strtolower($classInfo['class']), strtolower('Static')) === 0 && $classInfo['class'] !== 'StaticAccess' )
+					if( strpos(strtolower($classInfo['class']), strtolower('__USE_STATIC_ACCESS__')) === 0 )
 					{			
 						// Yeni sınıf ismi oluşturuluyor...
-						$newClassName = str_ireplace('Static', '', $classInfo['class']);
-						
+						$newClassName = str_ireplace('__USE_STATIC_ACCESS__', '', $classInfo['class']);
+					
 						// Yeni sınıf dizini oluşturuluyor...
 						$newPath = str_ireplace($baseDirectory, '', $v);	
 						
@@ -381,21 +432,29 @@ class Autoloader
 					}
 				}
 				
+				// İsim alanı varsa oluşturuluyor...
 				if( isset($classInfo['namespace']) )
 				{
-					$class = isset($classInfo['class'])
-						   ? $classInfo['class']
-						   : '';
+					// Sınıf isminin valığı kontrol ediliyor...
+					// Varsa isim alanı eki(\) kullan.
+					if( isset($classInfo['class']) )
+					{
+						$class = $classInfo['class'];
+						$fix   = '\\';
+					}
+					else
+					{
+						$class = ''; 
+						$fix   = '';	
+					}	   
 					
-					$fix = ! empty($class)
-						   ? '\\'
-						   : ''; 	   
-					
+					// İsim alanını oluştur.
 					$classes['namespaces'][strtolower($class)] = strtolower($classInfo['namespace'].$fix.$class);	
 				}
 			}
 			elseif( is_dir($v) )
 			{
+				// Yol bir dizini ifade ediyorsa taramaya devam et.
 				self::searchClassMap($v, $baseDirectory);
 			}
 		}	

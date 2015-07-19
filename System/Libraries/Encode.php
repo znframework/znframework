@@ -1,5 +1,5 @@
 <?php
-class StaticEncode
+class __USE_STATIC_ACCESS__Encode
 {
 	/***********************************************************************************/
 	/* ENCODE LIBRARY						                   	                       */

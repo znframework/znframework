@@ -1,6 +1,6 @@
 <?php
 Config::iniSet(Config::get('Upload','settings'));
-class StaticCUpload
+class __USE_STATIC_ACCESS__CUpload
 {
 	/***********************************************************************************/
 	/* UPLOAD COMPONENT	     	     		                   	                       */

@@ -1,5 +1,5 @@
 <?php
-class StaticCAction extends CJqueryCommon
+class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 {
 	/***********************************************************************************/
 	/* ACTION COMPONENT	     	     		                   	                       */

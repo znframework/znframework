@@ -1,5 +1,5 @@
 <?php
-class StaticCList
+class __USE_STATIC_ACCESS__CList
 {
 	/***********************************************************************************/
 	/* LISTER COMPONENT	     	     		                   	                       */

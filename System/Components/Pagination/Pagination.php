@@ -1,5 +1,5 @@
 <?php
-class StaticCPagination
+class __USE_STATIC_ACCESS__CPagination
 {
 	/***********************************************************************************/
 	/* PAGINATION COMPONENT	  	     		                   	                       */

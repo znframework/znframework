@@ -1,5 +1,5 @@
 <?php
-class StaticSSL
+class __USE_STATIC_ACCESS__SSL
 {	
 	/***********************************************************************************/
 	/* SSL LIBRARY	     					                   	                       */
