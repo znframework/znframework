@@ -56,7 +56,7 @@ class Autoloader
 		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
-	
+
 		// Sınıfın yolu alınıyor...
 		$file = $classInfo['path'];
 		
@@ -144,6 +144,7 @@ class Autoloader
 				$classMapPage .= "\t".'\''.$k.'\' => \''.$v.'\','.eol();
 			}
 		}
+		
 		$classMapPage  = rtrim($classMapPage, ','.eol());	
 		$classMapPage .= eol().');'.eol(2);
 		
@@ -242,19 +243,16 @@ class Autoloader
 			$namespaceValues = array_values($namespaces);
 			$namespaceKeys   = array_keys($namespaces);
 			$index 		     = array_search($classCaseLower, $namespaceValues);
-			
+
 			// Sınıf bilgisi isim alanları içinde mevcutsa.
 			if( $index > -1 )
 			{
 				// İsim alanı olarak parametre olarak girilen bilgiyi kullan.
-				$namespace = $class;		
-				
-				// Sınıf bilgisi olarak İsim alanı içinde yer alan sınıf bilgisini kullan.
-				$class     = $namespaceKeys[$index];
+				$namespace = $namespaceKeys[$index];		
 				
 				// Yol bilgisi olarak sınıflar içinde yer alan yol bilgisini kullan.					   
-				$path      = isset($classes[$class])
-						   ? $classes[$class]
+				$path      = isset($classes[$namespace])
+						   ? $classes[$namespace]
 						   : '';
 			}
 		}
@@ -372,14 +370,29 @@ class Autoloader
 				
 				if( isset($classInfo['class']) )
 				{
-					$classes['classes'][strtolower($classInfo['class'])] = $v;	
+					$class = strtolower($classInfo['class']);
+					
+					// İsim alanı varsa oluşturuluyor...
+					if( isset($classInfo['namespace']) )
+					{	
+						// İsim alanını oluştur.	
+						$className = strtolower($classInfo['namespace']).'\\'.$class;		
+						
+						$classes['namespaces'][$className] = $class;
+					}
+					else
+					{
+						$className = $class;
+					}
+					
+					$classes['classes'][$className] = $v;	
 					
 					// Statik erişim sağlanmak istenen
 					// Statik olmayan sınıfların
 					// sınıf adına Static ön eki getirilerek
 					// bu sınıfların statik kullanımlarının oluşturulması
 					// sağlanabilir.			
-					if( strpos(strtolower($classInfo['class']), strtolower('__USE_STATIC_ACCESS__')) === 0 )
+					if( strpos($class, strtolower('__USE_STATIC_ACCESS__')) === 0 )
 					{			
 						// Yeni sınıf ismi oluşturuluyor...
 						$newClassName = str_ireplace('__USE_STATIC_ACCESS__', '', $classInfo['class']);
@@ -430,26 +443,6 @@ class Autoloader
 							fclose($fileOpen);
 						}
 					}
-				}
-				
-				// İsim alanı varsa oluşturuluyor...
-				if( isset($classInfo['namespace']) )
-				{
-					// Sınıf isminin valığı kontrol ediliyor...
-					// Varsa isim alanı eki(\) kullan.
-					if( isset($classInfo['class']) )
-					{
-						$class = $classInfo['class'];
-						$fix   = '\\';
-					}
-					else
-					{
-						$class = ''; 
-						$fix   = '';	
-					}	   
-					
-					// İsim alanını oluştur.
-					$classes['namespaces'][strtolower($class)] = strtolower($classInfo['namespace'].$fix.$class);	
 				}
 			}
 			elseif( is_dir($v) )

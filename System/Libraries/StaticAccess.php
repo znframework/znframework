@@ -9,9 +9,9 @@ class StaticAccess
 	/* Lisans: The MIT License
 	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 	/*
-	/* Sınıf Adı: CPagination
+	/* Sınıf Adı: StaticAccess
 	/* Versiyon: 2.0 Temmuz V029 Güncellemesi
-	/* Tanımlanma: Static
+	/* Tanımlanma: Static ve Non Static
 	/* Dahil Edilme: Gerektirmez
 	/* Erişim: Sistem tarafından kullanılmaktadır.
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
