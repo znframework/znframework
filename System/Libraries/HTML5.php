@@ -408,11 +408,13 @@ class __USE_STATIC_ACCESS__HTML5
 	// İçerik girilir tipteki html5 nesneleri için
 	protected function _content($html, $type)
 	{
-		if( ! is__value($html) )  
+		if( ! isValue($html) )  
 		{
 			$html = '';
 		}
+		
 		$str = "<$type>$html</$type>";
+		
 		return $str;
 	}
 	
