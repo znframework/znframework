@@ -328,7 +328,7 @@ class Autoloader
 				if( isset($tokens[$i + 2][1]) )
 				{
 					// İsim alanı tek bölümden oluşup oluşmadığı kontrol ediliyor...
-					if( empty($tokens[$i + 4][1]) )
+					if( ! isset($tokens[$i + 3][1]) )
 					{
 						$ns = $tokens[$i + 2][1];
 					}
@@ -348,7 +348,7 @@ class Autoloader
 				}
 				
 				// İsim alanı bilgisi oluşturuluyor...
-				$classInfo['namespace'] = $ns;
+				$classInfo['namespace'] = trim($ns);
 			}
 			// -------------------------------------------------------------------------------------------
 			
