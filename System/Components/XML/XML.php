@@ -45,7 +45,7 @@ class __USE_STATIC_ACCESS__CXML
 		
 		if( is_array($attributes) )
 		{
-			foreach($attributes as $key => $values)
+			foreach( $attributes as $key => $values )
 			{
 				if( is_numeric($key) )
 				{
@@ -76,11 +76,19 @@ class __USE_STATIC_ACCESS__CXML
 		if( is_string($element) )
 		{
 			$this->objects['element'] = $element;
-		}	
+		}
+		else
+		{
+			Error::set('CXML', 'element', lang('Error', 'stringParameter', 'element'));	
+		}
 		
-		if( $node === true)
+		if( $node === true )
 		{
 			$this->objects['node'] = $node;
+		}
+		else
+		{
+			Error::set('CXML', 'element', lang('Error', 'booleanParameter', 'node'));		
 		}
 		
 		return $this;
@@ -103,6 +111,10 @@ class __USE_STATIC_ACCESS__CXML
 		{
 			$this->objects['content'] = $content;
 		}	
+		else
+		{
+			Error::set('CXML', 'content', lang('Error', 'valueParameter', 'content'));		
+		}
 		
 		return $this;
 	}
@@ -124,6 +136,10 @@ class __USE_STATIC_ACCESS__CXML
 		{
 			$this->objects['attribute'] = $attribute;
 		}	
+		else
+		{
+			Error::set('CXML', 'attr', lang('Error', 'arrayParameter', 'attribute'));		
+		}
 		
 		return $this;
 	}
@@ -136,9 +152,13 @@ class __USE_STATIC_ACCESS__CXML
 	******************************************************************************************/	
 	public function version($version = '1.0')
 	{
-		if( is_array($version) )
+		if( is_string($version) )
 		{
 			$this->objects['version'] = $version;
+		}
+		else
+		{
+			Error::set('CXML', 'version', lang('Error', 'stringParameter', 'version'));		
 		}	
 		
 		return $this;
@@ -156,6 +176,10 @@ class __USE_STATIC_ACCESS__CXML
 		{
 			$this->objects['charset'] = $charset;
 		}	
+		else
+		{
+			Error::set('CXML', 'charset', lang('Error', 'charsetParameter', 'charset'));		
+		}
 		
 		return $this;
 	}

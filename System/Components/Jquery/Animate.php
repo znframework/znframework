@@ -59,6 +59,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	{
 		if( ! isChar($selector) )
 		{
+			Error::set('CAnimate', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -70,6 +71,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		{
 			$this->selector = "\"$selector\"";	
 		}
+		
 		return $this;
 	}	
 	
@@ -87,7 +89,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		}
 		else
 		{
-			return $this;
+			Error::set('CAnimate', 'speed', lang('Error', 'valueParameter', 'duration'));
 		}
 		
 		return $this;
@@ -107,7 +109,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		}
 		else
 		{
-			return $this;
+			Error::set('CAnimate', 'duration', lang('Error', 'valueParameter', 'duration'));
 		}
 		
 		return $this;
@@ -125,6 +127,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		}
 		else
 		{
+			Error::set('CAnimate', 'queue', lang('Error', 'valueParameter', 'queue'));
 			return $this;
 		}
 		
@@ -135,8 +138,9 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	
 	public function callback($params = '', $callback = '')
 	{
-		if( ! is_string($callback) )
+		if( ! is_string($params) || ! is_string($callback) )
 		{
+			Error::set('CAnimate', 'callback', lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		
@@ -147,8 +151,9 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	
 	public function func($params = '', $callback = '')
 	{
-		if( ! is_string($callback) )
+		if( ! is_string($params) || ! is_string($callback) )
 		{
+			Error::set('CAnimate', 'func', lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		
@@ -161,6 +166,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	{
 		if( ! is_array($attr) )
 		{
+			Error::set('CAnimate', 'attr', lang('Error', 'arrayParameter', 'attr'));
 			return $this;	
 		}
 		
@@ -214,7 +220,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		
 		$animate .= $this->complete();
 		
-		if( ! empty($combineAnimation) ) foreach($combineAnimation as $animation)
+		if( ! empty($combineAnimation) ) foreach( $combineAnimation as $animation )
 		{			
 			$animate .= $animation;
 		}

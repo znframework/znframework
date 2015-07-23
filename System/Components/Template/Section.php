@@ -87,6 +87,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! is_array($attributes) )
 		{
+			Error::set('CSection', 'data', lang('Error', 'arrayParameter', 'attributes'));
 			return $this;	
 		}
 		
@@ -112,6 +113,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($id))
 		{
+			Error::set('CSection', 'id', lang('Error', 'valueParameter', 'id'));
 			return $this;	
 		}
 		
@@ -135,6 +137,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($name))
 		{
+			Error::set('CSection', 'name', lang('Error', 'valueParameter', 'name'));
 			return $this;	
 		}
 		
@@ -158,6 +161,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! is_string($css) )
 		{
+			Error::set('CSection', 'css', lang('Error', 'stringParameter', 'css'));
 			return $this;	
 		}
 		
@@ -181,6 +185,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($width) )
 		{
+			Error::set('CSection', 'width', lang('Error', 'valueParameter', 'width'));
 			return $this;	
 		}
 		
@@ -209,6 +214,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($height) )
 		{
+			Error::set('CSection', 'height', lang('Error', 'valueParameter', 'height'));
 			return $this;	
 		}
 		
@@ -237,6 +243,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($border) )
 		{
+			Error::set('CSection', 'border', lang('Error', 'valueParameter', 'border'));
 			return $this;	
 		}
 		
@@ -260,6 +267,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($border) )
 		{
+			Error::set('CSection', 'borderType', lang('Error', 'valueParameter', 'border'));
 			return $this;	
 		}
 
@@ -286,6 +294,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($borderColor) )
 		{
+			Error::set('CSection', 'borderColor', lang('Error', 'valueParameter', 'borderColor'));
 			return $this;	
 		}
 		
@@ -317,6 +326,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($borderSize) )
 		{
+			Error::set('CSection', 'borderSize', lang('Error', 'valueParameter', 'borderSize'));
 			return $this;	
 		}
 		
@@ -345,6 +355,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($color) )
 		{
+			Error::set('CSection', 'color', lang('Error', 'valueParameter', 'color'));
 			return $this;	
 		}
 		
@@ -394,6 +405,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($fontSize) )
 		{
+			Error::set('CSection', 'fontSize', lang('Error', 'valueParameter', 'fontSize'));
 			return $this;	
 		}
 		
@@ -422,6 +434,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($family) )
 		{
+			Error::set('CSection', 'fontType', lang('Error', 'valueParameter', 'fontType'));
 			return $this;	
 		}
 
@@ -448,6 +461,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($family) )
 		{
+			Error::set('CSection', 'fontFamily', lang('Error', 'valueParameter', 'fontFamily'));
 			return $this;	
 		}
 
@@ -474,6 +488,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($bgColor) )
 		{
+			Error::set('CSection', 'bgColor', lang('Error', 'valueParameter', 'bgColor'));
 			return $this;	
 		}
 		
@@ -491,6 +506,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($bgUrl) )
 		{
+			Error::set('CSection', 'bgUrl', lang('Error', 'valueParameter', 'bgUrl'));
 			return $this;	
 		}
 		
@@ -503,6 +519,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($bgImage) )
 		{
+			Error::set('CSection', 'bgImage', lang('Error', 'valueParameter', 'bgImage'));
 			return $this;	
 		}
 		
@@ -515,6 +532,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($background) )
 		{
+			Error::set('CSection', 'background', lang('Error', 'valueParameter', 'background'));
 			return $this;	
 		}
 		
@@ -534,6 +552,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($zindex) )
 		{
+			Error::set('CSection', 'zindex', lang('Error', 'valueParameter', 'zindex'));
 			return $this;	
 		}
 		
@@ -545,8 +564,9 @@ class __USE_STATIC_ACCESS__CSection
 	
 	public function size($width = '', $height = '')
 	{
-		if( ! ( isValue($height) || isValue($width) ) )
+		if( ! isValue($height) || ! isValue($width) )
 		{
+			Error::set('CSection', 'size', lang('Error', 'valueParameter', 'width & height'));
 			return $this;	
 		}
 		
@@ -570,6 +590,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($position) )
 		{
+			Error::set('CSection', 'position', lang('Error', 'valueParameter', 'position'));
 			return $this;	
 		}
 		
@@ -582,6 +603,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($align) )
 		{
+			Error::set('CSection', 'align', lang('Error', 'valueParameter', 'align'));
 			return $this;	
 		}
 		
@@ -594,6 +616,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($align) )
 		{
+			Error::set('CSection', 'textAlign', lang('Error', 'valueParameter', 'center'));
 			return $this;	
 		}
 		
@@ -606,6 +629,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($align) )
 		{
+			Error::set('CSection', 'valign', lang('Error', 'valueParameter', 'align'));
 			return $this;	
 		}
 		
@@ -615,8 +639,7 @@ class __USE_STATIC_ACCESS__CSection
 	}
 	
 	protected function _clear($clear)
-	{		
-
+	{	
 		$style = ' style="clear:'.$clear.';" ';
 		
 		$section  = eol().'<div '.$style.'></div>'.eol();
@@ -628,6 +651,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($clear) )
 		{
+			Error::set('CSection', 'clear', lang('Error', 'valueParameter', 'clear'));
 			return $this;	
 		}
 		
@@ -640,6 +664,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($align) )
 		{
+			Error::set('CSection', 'float', lang('Error', 'valueParameter', 'align'));
 			return $this;	
 		}
 		
@@ -655,6 +680,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($margin) )
 		{
+			Error::set('CSection', 'margin', lang('Error', 'valueParameter', 'margin'));
 			return $this;	
 		}
 		
@@ -668,8 +694,9 @@ class __USE_STATIC_ACCESS__CSection
 	
 	public function coordinate($x = '', $y = '')
 	{
-		if( ! ( isValue($x) || isValue() ) )
+		if( ! isValue($x) || ! isValue($y) )
 		{
+			Error::set('CSection', 'coordinate', lang('Error', 'valueParameter', 'x & y'));
 			return $this;	
 		}
 		
@@ -707,6 +734,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($padding) )
 		{
+			Error::set('CSection', 'padding', lang('Error', 'valueParameter', 'padding'));
 			return $this;	
 		}
 		
@@ -744,6 +772,7 @@ class __USE_STATIC_ACCESS__CSection
 	{
 		if( ! isValue($content) )
 		{
+			Error::set('CSection', 'content', lang('Error', 'valueParameter', 'content'));
 			return $this;
 		}
 		

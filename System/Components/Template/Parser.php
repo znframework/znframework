@@ -93,9 +93,9 @@ class __USE_STATIC_ACCESS__CParser
 	public function data($string = '', $data = array())
 	{
 		// Parametre konrolleri sağlanıyor.
-		if( ! ( is_string($string) || is_array($data) ) )
+		if( ! is_string($string) || ! is_array($data) )
 		{
-			return false;	
+			return Error::set('CParser', 'data', lang('Error', 'stringParameter', 'string'));	
 		}
 		
 		// Veri dizisi boş değilse işlemleri gerçekleştir.

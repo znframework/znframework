@@ -1,6 +1,4 @@
 <?php
-Config::iniSet(Config::get('Session','settings'));
-if( ! isset($_SESSION) ) session_start();
 class __USE_STATIC_ACCESS__CSession
 {
 	/***********************************************************************************/
@@ -25,10 +23,21 @@ class __USE_STATIC_ACCESS__CSession
 	protected $encode = array();
 	protected $error;
 	
+	public function __construct()
+	{
+		Config::iniSet(Config::get('Session','settings'));
+		
+		if( ! isset($_SESSION) ) 
+		{
+			session_start();
+		}
+	}
+	
 	public function name($name = '')
 	{
 		if( ! isChar($name))
 		{
+			Error::set('CSession', 'name', lang('Error', 'valueParameter', 'name'));
 			return $this;		
 		}
 		
@@ -39,8 +48,9 @@ class __USE_STATIC_ACCESS__CSession
 	
 	public function encode($name = '', $value = '')
 	{
-		if( ! ( isHash($name) || isHash($value) ))
+		if( ! ( isHash($name) || isHash($value) ) )
 		{
+			Error::set('CSession', 'encode', lang('Error', 'hashParameter', 'name | value'));
 			return $this;		
 		}
 		
@@ -54,6 +64,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! isHash($hash))
 		{
+			Error::set('CSession', 'decode', lang('Error', 'hashParameter', 'hash'));
 			return $this;	
 		}
 		
@@ -71,8 +82,9 @@ class __USE_STATIC_ACCESS__CSession
 
 	public function regenerate($regenerate = true)
 	{
-		if( ! is_bool($regenerate))
+		if( ! is_bool($regenerate) )
 		{
+			Error::set('CSession', 'regenerate', lang('Error', 'booleanParameter', 'regenerate'));
 			return $this;		
 		}
 		
@@ -83,17 +95,18 @@ class __USE_STATIC_ACCESS__CSession
 	
 	public function create($name = '', $value = '')
 	{
-		if( ! empty($name)) 
+		if( ! empty($name) ) 
 		{
-			if( ! isChar($name))
+			if( ! isChar($name) )
 			{
+				Error::set('CSession', 'create', lang('Error', 'valueParameter', 'name'));
 				return false;
 			}
 			
 			$this->name($name);
 		}
 		
-		if( ! empty($value))
+		if( ! empty($value) )
 		{
 			$this->value($value);	
 		}
@@ -150,6 +163,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! isValue($name))
 		{
+			Error::set('CSession', 'select', lang('Error', 'valueParameter', 'name'));
 			return false;	
 		}
 		
@@ -159,14 +173,14 @@ class __USE_STATIC_ACCESS__CSession
 			$this->name = NULL;	
 		}
 		
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
 			return $_SESSION;
 		}
 		
-		if(isset($this->encode['name']))
+		if( isset($this->encode['name']) )
 		{
-			if(isHash($this->encode['name']))
+			if( isHash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);		
 				$this->encode = array();	
@@ -174,13 +188,13 @@ class __USE_STATIC_ACCESS__CSession
 		}
 		else
 		{
-			if(Config::get("Session", "encode") === true)
+			if( Config::get("Session", "encode") === true )
 			{
 				$name = md5($name);
 			}
 		}
 		
-		if(isset($_SESSION[$name]))
+		if( isset($_SESSION[$name]) )
 		{
 			return $_SESSION[$name];
 		}
@@ -192,20 +206,21 @@ class __USE_STATIC_ACCESS__CSession
 	
 	public function delete($name = '')
 	{
-		if( ! isValue($name))
+		if( ! isValue($name) )
 		{
+			Error::set('CSession', 'delete', lang('Error', 'valueParameter', 'name'));
 			return false;	
 		}
 	
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
 			$name = $this->name;
 			$this->name = NULL;	
 		}
 	
-		if(empty($name)) 
+		if( empty($name) ) 
 		{
-			if(isset($_SESSION))
+			if( isset($_SESSION) )
 			{
 				session_destroy();
 			}
@@ -213,9 +228,9 @@ class __USE_STATIC_ACCESS__CSession
 		
 		$sessionConfig = Config::get("Session");
 		
-		if(isset($this->encode['name']))
+		if( isset($this->encode['name']) )
 		{
-			if(isHash($this->encode['name']))
+			if( isHash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);	
 				$this->encode = array();	
@@ -223,7 +238,7 @@ class __USE_STATIC_ACCESS__CSession
 		}
 		else
 		{
-			if($sessionConfig["encode"] === true)
+			if( $sessionConfig["encode"] === true )
 			{
 				$name = md5($name);
 			}
@@ -241,7 +256,15 @@ class __USE_STATIC_ACCESS__CSession
 	
 	public function error()
 	{
-		return $this->error;
+		if( ! empty($this->error) )
+		{
+			Error::set('CSession', 'error', $this->error);
+			return $this->error;
+		}
+		else
+		{
+			return false;	
+		}
 	}
 	
 	protected function _defaultVariable()

@@ -24,6 +24,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_array($attributes))
 		{
+			Error::set('CTable', 'attr', lang('Error', 'arrayParameter', 'attributes'));
 			return $this;	
 		}
 		
@@ -36,12 +37,13 @@ class __USE_STATIC_ACCESS__CTable
 	
 	public function cell($spacing = 0, $padding = 0)
 	{
-		if( ! ( is_numeric($spacing) || is_numeric($padding) ) )
+		if( ! is_numeric($spacing) || ! is_numeric($padding) )
 		{
+			Error::set('CTable', 'cell', lang('Error', 'numericParameter', 'spacing & padding'));
 			return $this;	
 		}
-		if( ! empty($spacing)) $this->attr['cellspacing'] = $spacing;
-		if( ! empty($padding)) $this->attr['cellpadding'] = $padding;
+		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
+		if( ! empty($padding) ) $this->attr['cellpadding'] = $padding;
 		
 		return $this;
 	}
@@ -50,10 +52,11 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($spacing) )
 		{
+			Error::set('CTable', 'cellSpacing', lang('Error', 'numericParameter', 'spacing'));
 			return $this;	
 		}
 		
-		if( ! empty($spacing)) $this->attr['cellspacing'] = $spacing;
+		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
 		
 		return $this;
 	}
@@ -62,6 +65,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($padding) )
 		{
+			Error::set('CTable', 'cellPadding', lang('Error', 'numericParameter', 'padding'));
 			return $this;	
 		}
 		
@@ -74,16 +78,18 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($border) )
 		{
+			Error::set('CTable', 'border', lang('Error', 'numericParameter', 'border'));
 			return $this;	
 		}
 		
 		if( ! is_string($color) )
 		{
+			Error::set('CTable', 'border', lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 		
-		if( ! empty($border)) $this->attr['border'] = $border;
-		if( ! empty($color)) $this->attr['bordercolor'] = $color;
+		if( ! empty($border) ) $this->attr['border']      = $border;
+		if( ! empty($color) )  $this->attr['bordercolor'] = $color;
 	
 		return $this;
 	}
@@ -92,15 +98,11 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($border) )
 		{
+			Error::set('CTable', 'borderSize', lang('Error', 'numericParameter', 'border'));
 			return $this;	
 		}
 		
-		if( ! is_string($color) )
-		{
-			return $this;	
-		}
-		
-		if( ! empty($border)) $this->attr['border'] = $border;
+		if( ! empty($border) ) $this->attr['border'] = $border;
 	
 		return $this;
 	}
@@ -109,6 +111,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($color) )
 		{
+			Error::set('CTable', 'borderColor', lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 
@@ -121,6 +124,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($align) )
 		{
+			Error::set('CTable', 'align', lang('Error', 'stringParameter', 'align'));
 			return $this;	
 		}
 		
@@ -133,6 +137,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! isValue($width) )
 		{
+			Error::set('CTable', 'width', lang('Error', 'valueParameter', 'width'));
 			return $this;	
 		}
 		
@@ -145,6 +150,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! isValue($height) )
 		{
+			Error::set('CTable', 'height', lang('Error', 'valueParameter', 'height'));
 			return $this;	
 		}
 		
@@ -155,13 +161,14 @@ class __USE_STATIC_ACCESS__CTable
 	
 	public function size($width = '', $height = '')
 	{
-		if( ! ( isValue($height) || isValue($width) ) )
+		if( ! isValue($height) || ! isValue($width) )
 		{
+			Error::set('CTable', 'size', lang('Error', 'valueParameter', 'width & height'));
 			return $this;	
 		}
 		
-		if( ! empty($width))  $this->attr['width'] = $width;
-		if( ! empty($height)) $this->attr['height'] = $height;
+		if( ! empty($width) )  $this->attr['width']  = $width;
+		if( ! empty($height) ) $this->attr['height'] = $height;
 		
 		return $this;
 	}
@@ -170,10 +177,11 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($css) )
 		{
+			Error::set('CTable', 'css', lang('Error', 'stringParameter', 'css'));
 			return $this;	
 		}
 		
-		if( ! empty($css)) $this->attr['class'] = $css;
+		if( ! empty($css) ) $this->attr['class'] = $css;
 		
 		return $this;
 	}
@@ -182,6 +190,7 @@ class __USE_STATIC_ACCESS__CTable
 	public function style($_attributes = array())
 	{
 		$attribute = "";
+		
 		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
@@ -204,6 +213,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($background) )
 		{
+			Error::set('CTable', 'background', lang('Error', 'stringParameter', 'background'));
 			return $this;	
 		}
 		
@@ -216,6 +226,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($bgColor) )
 		{
+			Error::set('CTable', 'bgColor', lang('Error', 'stringParameter', 'bgColor'));
 			return $this;	
 		}
 		
@@ -227,12 +238,16 @@ class __USE_STATIC_ACCESS__CTable
 	protected function _attributes($attributes = '')
 	{
 		$attribute = '';
-		if(is_array($attributes))
+		
+		if( is_array($attributes) )
 		{
-			foreach($attributes as $key => $values)
+			foreach( $attributes as $key => $values )
 			{
-				if(is_numeric($key))
+				if( is_numeric($key) )
+				{
 					$key = $values;
+				}
+				
 				$attribute .= ' '.$key.'="'.$values.'"';
 			}	
 		}

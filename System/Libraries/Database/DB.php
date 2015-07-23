@@ -1232,7 +1232,7 @@ class __USE_STATIC_ACCESS__DB
 		{
 			// Table yöntemi tanımlanmış ise
 			// 1. parametre, 2. parametre olarak kullanılsın
-			$columns = $type === 'inc'	
+			$columns = $type === 'increment'	
 					 ? abs($columns)
 					 : -abs($columns);
 			
@@ -1244,14 +1244,14 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
-			Error::set('DB', 'increment', lang('Error', 'stringParameter', 'table'));
-			Error::set('DB', 'increment', lang('Error', 'emptyParameter', 'columns'));
-			Error::set('DB', 'increment', lang('Error', 'numericParameter', 'incdec'));
+			Error::set('DB', $type, lang('Error', 'stringParameter', 'table'));
+			Error::set('DB', $type, lang('Error', 'emptyParameter', 'columns'));
+			Error::set('DB', $type, lang('Error', 'numericParameter', 'incdec'));
 			
 			return false;
 		}
 		
-		$incdec = $type === 'inc'	
+		$incdec = $type === 'increment'	
 				 ? abs($incdec)
 				 : -abs($incdec);
 		
@@ -1304,7 +1304,7 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function increment($table = '', $columns = array(), $increment = 1)
 	{
-		return $this->_incdec($table, $columns, $increment, 'inc');
+		return $this->_incdec($table, $columns, $increment, 'increment');
 	}
 	
 	/******************************************************************************************
@@ -1322,7 +1322,7 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function decrement($table = '', $columns = array(), $decrement = 1)
 	{
-		return $this->_incdec($table, $columns, $decrement, 'dec');
+		return $this->_incdec($table, $columns, $decrement, 'decrement');
 	}
 	
 	/******************************************************************************************

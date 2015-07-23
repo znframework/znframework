@@ -60,6 +60,7 @@ class __USE_STATIC_ACCESS__CJquery extends CJqueryCommon
 	{
 		if( ! isChar($selector) )
 		{
+			Error::set('CJquery', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -84,6 +85,7 @@ class __USE_STATIC_ACCESS__CJquery extends CJqueryCommon
 	{
 		if( ! is_string($property) )
 		{
+			Error::set('CJquery', 'property', lang('Error', 'stringParameter', 'property'));
 			return $this;	
 		}
 		
@@ -93,6 +95,7 @@ class __USE_STATIC_ACCESS__CJquery extends CJqueryCommon
 		{
 			$this->attr = $this->_params($attr);
 		}
+		
 		return $this;
 	}
 	
@@ -143,7 +146,7 @@ class __USE_STATIC_ACCESS__CJquery extends CJqueryCommon
 		
 		$complete .= $this->complete();
 		
-		if( ! empty($combineFunction))foreach($combineFunction as $function)
+		if( ! empty($combineFunction)) foreach( $combineFunction as $function )
 		{			
 			$complete .= $function;
 		}

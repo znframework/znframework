@@ -1,5 +1,4 @@
 <?php
-Config::iniSet(Config::get('Upload','settings'));
 class __USE_STATIC_ACCESS__CUpload
 {
 	/***********************************************************************************/
@@ -26,6 +25,10 @@ class __USE_STATIC_ACCESS__CUpload
 	 */
 	private $settings = array();
 	
+	public function __construct()
+	{
+		Config::iniSet(Config::get('Upload','settings'));	
+	}
 
 	/******************************************************************************************
 	* EXTENSIONS                                                                      		  *
@@ -40,7 +43,6 @@ class __USE_STATIC_ACCESS__CUpload
 	******************************************************************************************/
 	public function extensions()
 	{
-		
 		$args = func_get_args();
 		
 		if( ! empty($args ) )
@@ -67,6 +69,10 @@ class __USE_STATIC_ACCESS__CUpload
 		if( is_bool($convert) )
 		{
 			$this->settings['convertName'] = $convert;
+		}
+		else
+		{
+			Error::set('CUpload', 'convertName', lang('Error', 'booleanParameter', 'convert'));	
 		}
 		
 		return $this;
@@ -114,6 +120,10 @@ class __USE_STATIC_ACCESS__CUpload
 		{
 			$this->settings['prefix'] = $prefix;	
 		}
+		else
+		{
+			Error::set('CUpload', 'prefix', lang('Error', 'valueParameter', 'prefix'));		
+		}
 		
 		return $this;
 	}
@@ -134,6 +144,10 @@ class __USE_STATIC_ACCESS__CUpload
 		if( is_numeric($maxsize) )
 		{
 			$this->settings['maxsize'] = $maxsize;	
+		}
+		else
+		{
+			Error::set('CUpload', 'maxsize', lang('Error', 'numericParameter', 'maxsize'));		
 		}
 		
 		return $this;
@@ -156,6 +170,10 @@ class __USE_STATIC_ACCESS__CUpload
 		{
 			$this->settings['encodeLength'] = $encodeLength;	
 		}
+		else
+		{
+			Error::set('CUpload', 'encodeLength', lang('Error', 'numericParameter', 'encodeLength'));		
+		}
 		
 		return $this;
 	}
@@ -177,6 +195,10 @@ class __USE_STATIC_ACCESS__CUpload
 		{
 			$this->settings['target'] = $target;	
 		}
+		else
+		{
+			Error::set('CUpload', 'target', lang('Error', 'stringParameter', 'target'));		
+		}
 		
 		return $this;
 	}
@@ -197,6 +219,10 @@ class __USE_STATIC_ACCESS__CUpload
 		if( is_string($source) )
 		{
 			$this->settings['source'] = $source;	
+		}
+		else
+		{
+			Error::set('CUpload', 'source', lang('Error', 'stringParameter', 'source'));	
 		}
 		
 		return $this;
@@ -265,6 +291,8 @@ class __USE_STATIC_ACCESS__CUpload
 	******************************************************************************************/
 	public function error()
 	{
-		return Upload::error();
+		$error = Upload::error();
+		Error::set('CUpload', 'error', $error);
+		return $error;
 	}
 }

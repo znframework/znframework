@@ -46,6 +46,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($url) )
 		{
+			Error::set('CAjax', 'url', lang('Error', 'stringParameter', 'url'));
 			return $this;	
 		}
 		
@@ -66,6 +67,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($data) )
 		{
+			Error::set('CAjax', 'data', lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 		
@@ -81,6 +83,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($headers) )
 		{
+			Error::set('CAjax', 'headers', lang('Error', 'valueParameter', 'headers'));
 			return $this;	
 		}
 		
@@ -96,6 +99,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($ifModified) )
 		{
+			Error::set('CAjax', 'ifModified', lang('Error', 'valueParameter', 'isModified'));
 			return $this;	
 		}
 		
@@ -112,6 +116,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($isLocal) )
 		{
+			Error::set('CAjax', 'isLocal', lang('Error', 'valueParameter', 'isLocal'));
 			return $this;	
 		}
 		
@@ -129,6 +134,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($mimeType) )
 		{
+			Error::set('CAjax', 'mimeType', lang('Error', 'valueParameter', 'mimeType'));
 			return $this;	
 		}
 		
@@ -172,6 +178,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($jsonpCallback) )
 		{
+			Error::set('CAjax', 'jsonpCallback', lang('Error', 'valueParameter', 'jsonpCallback'));
 			return $this;	
 		}
 		
@@ -192,6 +199,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($type) )
 		{
+			Error::set('CAjax', 'dataType', lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -207,6 +215,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($password) )
 		{
+			Error::set('CAjax', 'password', lang('Error', 'stringParameter', 'password'));
 			return $this;	
 		}
 		
@@ -222,6 +231,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($username) )
 		{
+			Error::set('CAjax', 'username', lang('Error', 'stringParameter', 'username'));
 			return $this;	
 		}
 		
@@ -238,6 +248,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($method) )
 		{
+			Error::set('CAjax', 'method', lang('Error', 'stringParameter', 'method'));
 			return $this;	
 		}
 		
@@ -254,6 +265,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($method) )
 		{
+			Error::set('CAjax', 'type', lang('Error', 'stringParameter', 'method'));
 			return $this;	
 		}
 		
@@ -267,8 +279,9 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	// scriptCharset:string
 	public function scriptCharset($scriptCharset = 'utf-8')
 	{
-		if( ! is_string($scriptCharset) )
+		if( ! isCharset($scriptCharset) )
 		{
+			Error::set('CAjax', 'scriptCharset', lang('Error', 'charsetParameter', 'scriptCharset'));
 			return $this;	
 		}
 		
@@ -282,8 +295,9 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	// traditional:bool: true or false
 	public function traditional($traditional = true)
 	{
-		if( ! is_string($traditional) )
+		if( ! isValue($traditional) )
 		{
+			Error::set('CAjax', 'traditional', lang('Error', 'valueParameter', 'traditional'));
 			return $this;	
 		}
 		
@@ -300,6 +314,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($processData) )
 		{
+			Error::set('CAjax', 'processData', lang('Error', 'valueParameter', 'processData'));
 			return $this;	
 		}
 		
@@ -316,6 +331,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($cache) )
 		{
+			Error::set('CAjax', 'cache', lang('Error', 'valueParameter', 'cache'));
 			return $this;	
 		}
 		
@@ -332,6 +348,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($xhrFields) )
 		{
+			Error::set('CAjax', 'xhrFields', lang('Error', 'stringParameter', 'xhrFields'));
 			return $this;	
 		}
 		
@@ -347,6 +364,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($context) )
 		{
+			Error::set('CAjax', 'context', lang('Error', 'valueParameter', 'context'));
 			return $this;	
 		}
 		
@@ -362,6 +380,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($accepts) )
 		{
+			Error::set('CAjax', 'accepts', lang('Error', 'stringParameter', 'accepts'));
 			return $this;	
 		}
 		
@@ -377,6 +396,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_string($contents) )
 		{
+			Error::set('CAjax', 'contents', lang('Error', 'stringParameter', 'contents'));
 			return $this;	
 		}
 		
@@ -392,6 +412,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($async) )
 		{
+			Error::set('CAjax', 'async', lang('Error', 'valueParameter', 'async'));
 			return $this;	
 		}
 		
@@ -408,6 +429,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($crossDomain) )
 		{
+			Error::set('CAjax', 'crossDomain', lang('Error', 'valueParameter', 'crossDomain'));
 			return $this;	
 		}
 		
@@ -424,6 +446,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($timeout) )
 		{
+			Error::set('CAjax', 'timeout', lang('Error', 'valueParameter', 'timeout'));
 			return $this;	
 		}
 		
@@ -440,6 +463,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! isValue($globals) )
 		{
+			Error::set('CAjax', 'globals', lang('Error', 'valueParameter', 'globals'));
 			return $this;	
 		}
 		
@@ -466,6 +490,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 		}
 		else
 		{
+			Error::set('CAjax', 'contentType', lang('Error', 'valueParameter', 'contentType'));
 			return $this;	
 		}
 		
@@ -478,6 +503,7 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	{
 		if( ! is_array($codes) )
 		{
+			Error::set('CAjax', $name, lang('Error', 'arrayParameter', 'codes'));
 			return $this;	
 		}	
 		
@@ -536,8 +562,9 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	
 	protected function _functions($name, $params, $codes)
 	{
-		if( ! ( is_string($params) || is_string($codes) ) )
+		if( ! is_string($params) || ! is_string($codes) )
 		{
+			Error::set('CAjax', $name, lang('Error', 'stringParameter', 'params & codes'));
 			return $this;
 		}
 		
@@ -668,10 +695,9 @@ class __USE_STATIC_ACCESS__CAjax extends CJqueryCommon
 	// [string @data]) => data() method instead of the alternative 
 	public function send($url = '', $data = '')
 	{
-		if( ! ( is_string($url) || is_string($data) ) )
+		if( ! is_string($url) || ! is_string($data) )
 		{
-			$url = '';
-			$data = '';	
+			return Error::set('CAjax', 'send', lang('Error', 'stringParameter', 'url & data'));
 		}
 		
 		if( ! empty($url) )

@@ -59,6 +59,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! isChar($selector))
 		{
+			Error::set('CEvent', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -70,6 +71,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 		{
 			$this->selector = "\"$selector\"";	
 		}
+		
 		return $this;
 	}
 	
@@ -81,7 +83,12 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	 */
 	protected function _event($type = '', $selector = '', $callback = '')
 	{
-		$this->property($type);$type;
+		if( ! is_string($selector) || ! is_string($callback) )
+		{
+			Error::set('CEvent', $type, lang('Error', 'stringParameter', 'selector & callback'));	
+		}
+		
+		$this->property($type);
 		
 		if( ! empty($selector))
 		{
@@ -468,6 +475,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! is_string($type))
 		{
+			Error::set('CEvent', 'type', lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -489,6 +497,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! is_string($property))
 		{
+			Error::set('CEvent', 'property', lang('Error', 'stringParameter', 'property'));
 			return $this;	
 		}
 		
@@ -498,6 +507,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 		{
 			$this->type = $this->_params($attr);
 		}
+		
 		return $this;
 	}
 	
@@ -730,8 +740,9 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	 */
 	public function callback($params = '', $callback = '')
 	{
-		if( ! is_string($callback))
+		if( ! is_string($params) || ! is_string($callback) )
 		{
+			Error::set('CEvent', 'callback', lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		
@@ -751,12 +762,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	 */
 	public function func($params = '', $callback = '')
 	{
-		if( ! is_string($callback))
-		{
-			return $this;	
-		}
-		
-		$this->callback = "function($params)".eol()."{".eol()."\t$callback".eol()."}";
+		$this->callback($params, $callback);
 		
 		return $this;
 	}

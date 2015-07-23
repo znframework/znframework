@@ -51,6 +51,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($header) )
 		{
+			Error::set('CTemplate', 'header', lang('Error', 'valueParameter', 'header'));
 			return $this;	
 		}
 		
@@ -67,6 +68,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($footer) )
 		{
+			Error::set('CTemplate', 'footer', lang('Error', 'valueParameter', 'footer'));
 			return $this;	
 		}
 		
@@ -83,6 +85,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($leftSide) )
 		{
+			Error::set('CTemplate', 'leftSide', lang('Error', 'valueParameter', 'leftSide'));
 			return $this;	
 		}
 		
@@ -99,6 +102,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($rightSide) )
 		{
+			Error::set('CTemplate', 'rightSide', lang('Error', 'valueParameter', 'rightSide'));
 			return $this;	
 		}
 		
@@ -115,6 +119,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($content) )
 		{
+			Error::set('CTemplate', 'content', lang('Error', 'valueParameter', 'content'));
 			return $this;	
 		}
 		
@@ -131,6 +136,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($content) )
 		{
+			Error::set('CTemplate', 'bottom', lang('Error', 'valueParameter', 'bottom'));
 			return $this;	
 		}
 		
@@ -147,6 +153,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($content) )
 		{
+			Error::set('CTemplate', 'top', lang('Error', 'valueParameter', 'content'));
 			return $this;	
 		}
 		
@@ -162,8 +169,9 @@ class __USE_STATIC_ACCESS__CTemplate
 	public function body($name = 'body', $styles = array())
 	{
 		
-		if( ! isValue($name))
+		if( ! isValue($name) )
 		{
+			Error::set('CTemplate', 'body', lang('Error', 'valueParameter', 'name'));
 			return $this;	
 		}
 		
@@ -196,6 +204,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! is_string($align) )
 		{
+			Error::set('CTemplate', 'align', lang('Error', 'stringParameter', 'align'));
 			return $this;	
 		}
 		
@@ -223,6 +232,7 @@ class __USE_STATIC_ACCESS__CTemplate
 	{
 		if( ! isValue($width) )
 		{
+			Error::set('CTemplate', 'width', lang('Error', 'valueParameter', 'width'));
 			return $this;	
 		}
 		

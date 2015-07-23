@@ -40,6 +40,7 @@ class __USE_STATIC_ACCESS__CThumbnail
 	{
 		if( ! is_string($file) )
 		{
+			Error::set('CThumbnail', 'path', lang('Error', 'stringParameter', 'file'));
 			return $this;	
 		}
 	
@@ -66,6 +67,7 @@ class __USE_STATIC_ACCESS__CThumbnail
 	{
 		if( ! is_numeric($quality) )
 		{
+			Error::set('CThumbnail', 'quality', lang('Error', 'numericParameter', 'quality'));
 			return $this;	
 		}
 	
@@ -91,8 +93,9 @@ class __USE_STATIC_ACCESS__CThumbnail
 	******************************************************************************************/
 	public function crop($x = 0, $y = 0)
 	{
-		if( ! ( is_numeric($x) && is_numeric($y) ) )
+		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
+			Error::set('CThumbnail', 'crop', lang('Error', 'numericParameter', 'x & y'));
 			return $this;	
 		}
 	
@@ -123,8 +126,9 @@ class __USE_STATIC_ACCESS__CThumbnail
 	******************************************************************************************/
 	public function size($width = 0, $height = 0)
 	{
-		if( ! ( is_numeric($width) && is_numeric($height) ) )
+		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
+			Error::set('CThumbnail', 'size', lang('Error', 'numericParameter', 'width & height'));
 			return $this;	
 		}
 	
@@ -156,8 +160,9 @@ class __USE_STATIC_ACCESS__CThumbnail
 	******************************************************************************************/
 	public function resize($width = 0, $height = 0)
 	{
-		if( ! ( is_numeric($width) && is_numeric($height) ) )
+		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
+			Error::set('CThumbnail', 'resize', lang('Error', 'numericParameter', 'width & height'));
 			return $this;	
 		}
 	
@@ -189,8 +194,9 @@ class __USE_STATIC_ACCESS__CThumbnail
 	******************************************************************************************/
 	public function prosize($width = 0, $height = 0)
 	{
-		if( ! ( is_numeric($width) && is_numeric($height) ) )
+		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
+			Error::set('CThumbnail', 'prosize', lang('Error', 'numericParameter', 'width & height'));
 			return $this;	
 		}
 	

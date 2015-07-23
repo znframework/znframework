@@ -67,6 +67,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isChar($selector))
 		{
+			Error::set('CAction', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -91,6 +92,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isValue($data))
 		{
+			Error::set('CAction', 'speed', lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 		
@@ -116,6 +118,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isValue($data))
 		{
+			Error::set('CAction', 'duration', lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 		
@@ -141,6 +144,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isValue($data))
 		{
+			Error::set('CAction', 'easing', lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 			
@@ -159,6 +163,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! is_string($type))
 		{
+			Error::set('CAction', 'type', lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -247,8 +252,9 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	
 	public function callback($params = '', $callback = '')
 	{
-		if( ! is_string($callback))
+		if( ! is_string($params) || ! is_string($callback) )
 		{
+			Error::set('CAction', 'callback', lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		
@@ -259,12 +265,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	
 	public function func($params = '', $callback = '')
 	{
-		if( ! is_string($callback))
-		{
-			return $this;	
-		}
-		
-		$this->callback = ", function($params)".eol()."{".eol()."\t$callback".eol()."}";
+		$this->callback($params, $callback);
 		
 		return $this;
 	}

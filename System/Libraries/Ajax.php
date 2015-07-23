@@ -96,7 +96,7 @@ class __USE_STATIC_ACCESS__Ajax
 			}
 			else
 			{
-				$value = $this->_value_control($val);
+				$value = $this->_valueControl($val);
 			}
 			
 			// Anahtar olarak gönderilen verilerden herhangi biri aşağıdaki koşulu sağlarsa
@@ -140,7 +140,7 @@ class __USE_STATIC_ACCESS__Ajax
 	// Özelliklerin değerlerinin kontrolü sağlanıyor..
 	// Eğer anahtar içerikli kelimeler içermiyorsa
 	// Veri tırnak içerisine alınıyor.
-	protected function _value_control($val)
+	protected function _valueControl($val)
 	{
 		if( strtolower($val) === "true" )
 		{
