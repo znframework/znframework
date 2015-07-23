@@ -170,7 +170,7 @@ class Structure
 			{
 				if( APP_TYPE === 'local' )
 				{
-					set_error_handler('ZNException::getErrorHandler');	
+					set_error_handler('Exceptions::getErrorHandler');	
 				}
 				
 				call_user_func_array( array($var, $function), $parameters);
@@ -186,7 +186,7 @@ class Structure
 				if( ! Config::get('Route', 'show404') )
 				{				
 					// Hatayı ekrana yazdır.
-					echo ZNException::getErrorMessage('Error', 'callUserFuncArrayError', $function);
+					echo Exceptions::getErrorMessage('Error', 'callUserFuncArrayError', $function);
 					
 					// Hatayı rapor et.
 					report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
@@ -210,7 +210,7 @@ class Structure
 			else
 			{
 				// Hatayı ekrana yazdır.
-				echo ZNException::getErrorMessage('Error', 'notIsFileError', $isFile);
+				echo Exceptions::getErrorMessage('Error', 'notIsFileError', $isFile);
 				
 				// Hatayı rapor et.
 				report('Error', getMessage('Error', 'notIsFileError'), 'SystemNotIsFileError');

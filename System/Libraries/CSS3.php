@@ -77,7 +77,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return false;
+			return Error::set('CSS3', 'transform', lang('Error', 'stringParameter', 'element'));
 		}
 		
 		$str  = '';
@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return false;
+			return Error::set('CSS3', 'transition', lang('Error', 'stringParameter', 'element'));
 		}
 	
 		$str  = "";
@@ -242,7 +242,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return false;
+			return Error::set('CSS3', 'animation', lang('Error', 'stringParameter', 'element'));
 		}
 		
 		$str  = "";
@@ -356,7 +356,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return false;
+			return Error::set('CSS3', 'shadow', lang('Error', 'stringParameter', 'element'));
 		}
 		if( ! is_array($param) ) 
 		{
@@ -383,12 +383,13 @@ class __USE_STATIC_ACCESS__CSS3
 			$shadow = "$type-shadow:$x $y $blur $color;".eol();	
 		}
 		
-		foreach($browsers as $val)
+		foreach( $browsers as $val )
 		{
 			$str .= $val.$shadow;
 		}
 				
 		$str .= "}".eol();
+		
 		return $str;
 	}
 	
@@ -462,7 +463,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return false;
+			return Error::set('CSS3', 'borderRadius', lang('Error', 'stringParameter', 'element'));
 		}
 		if( ! is_array($param) ) 
 		{
@@ -474,44 +475,44 @@ class __USE_STATIC_ACCESS__CSS3
 		
 		$browsers = $this->browsers;	
 		
-		if(isset($param["radius"]))
+		if( isset($param["radius"]) )
 		{
-			foreach($browsers as $val)
+			foreach( $browsers as $val )
 			{
 				$str .= $val."border-radius:".$param["radius"].";".eol();
 			}
-			
 		}
-		if(isset($param["top-left-radius"]))
+		
+		if( isset($param["top-left-radius"]) )
 		{
-			foreach($browsers as $val)
+			foreach( $browsers as $val )
 			{
 				$str .= $val."border-top-left-radius:".$param["top-left-radius"].";".eol();
 			}
 		}
-		if(isset($param["top-right-radius"]))
+		
+		if( isset($param["top-right-radius"]) )
 		{
 			foreach($browsers as $val)
 			{
 				$str .= $val."border-top-right-radius:".$param["top-right-radius"].";".eol();
 			}
-
 		}
-		if(isset($param["bottom-left-radius"]))
+		
+		if( isset($param["bottom-left-radius"]) )
 		{
-			foreach($browsers as $val)
+			foreach( $browsers as $val )
 			{
 				$str .= $val."border-bottom-left-radius:".$param["bottom-left-radius"].";".eol();
 			}
 		}
 		
-		if(isset($param["bottom-right-radius"]))
+		if( isset($param["bottom-right-radius"]) )
 		{
-			foreach($browsers as $val)
+			foreach( $browsers as $val )
 			{
 				$str .= $val."border-bottom-right-radius:".$param["bottom-right-radius"].";".eol();
 			}
-		
 		}
 		
 		$str .= "}".eol();
@@ -533,9 +534,9 @@ class __USE_STATIC_ACCESS__CSS3
 	******************************************************************************************/
 	public function code($element = '', $code = '', $property = '')
 	{
-		if( ! is_string($element) || empty($element)) 
+		if( ! is_string($element) || empty($element) ) 
 		{
-			return false;
+			return Error::set('CSS3', 'code', lang('Error', 'stringParameter', 'element'));
 		}
 		if( ! is_string($code)) 
 		{
@@ -551,7 +552,7 @@ class __USE_STATIC_ACCESS__CSS3
 		
 		$browsers = $this->browsers;	
 		
-		foreach($browsers as $val)
+		foreach( $browsers as $val )
 		{
 			$str .= $val.$code.":".$property.";".eol();
 		}

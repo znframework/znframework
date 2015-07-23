@@ -28,7 +28,7 @@ class __USE_STATIC_ACCESS__Round
 	{
 		if( ! is_numeric($number) || empty($number) ) 
 		{
-			return false;
+			return Error::set('Round', 'data', lang('Error', 'numericParameter', 'number'));
 		}
 		
 		if( ! is_numeric($count) ) 

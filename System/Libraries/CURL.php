@@ -89,7 +89,7 @@ class __USE_STATIC_ACCESS__CURL
 		//Ayar boş veya oturum başlatılmamışsa false değeri döndürme işlemi yapılıyor.
 		if( empty($settings) || ! isset($this->init) ) 
 		{
-			return false;
+			return Error::set('CURL', 'settings', lang('Error', 'emptyParameter', 'settings'));
 		}
 		
 		$options = $this->config['options'];
@@ -99,7 +99,7 @@ class __USE_STATIC_ACCESS__CURL
 		{
 			// settings parametresinin dizi olması durumunda
 			// çoklu setopt ayarı yapılmaktadır.
-			foreach($settings as $key => $val)
+			foreach( $settings as $key => $val )
 			{	
 				// İster standart CURLOPT ayar parametreleri
 				// istersenizde Config/Curl.php dosyasında
@@ -112,6 +112,7 @@ class __USE_STATIC_ACCESS__CURL
 				{
 					$opt = $key;
 				}
+				
 				curl_setopt($this->init,$opt,$val);			
 			}
 		}
@@ -127,7 +128,7 @@ class __USE_STATIC_ACCESS__CURL
 			// belirlenen ayar parametrelerini kullanabilirsiniz. 
 			if( ! is_int($settings) )
 			{
-				if(isset($options[$settings]))
+				if( isset($options[$settings]) )
 				{
 					$opt = $options[$settings];
 				}
@@ -143,7 +144,6 @@ class __USE_STATIC_ACCESS__CURL
 			
 			curl_setopt($this->init,$opt,$value);
 		}
-		
 	}
 	
 	/******************************************************************************************
@@ -158,7 +158,7 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) ) 
 		{
-			return false;
+			return Error::set('CURL', 'execute', lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
 		return curl_exec($this->init);
@@ -221,10 +221,14 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) ) 
 		{
-			return false;
+			return Error::set('CURL', 'error', lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
-		return curl_error($this->init);
+		$error = curl_error($this->init);
+		
+		Error::set('CURL', 'error', $error);
+		
+		return $error;
 	}
 	
 	/******************************************************************************************
@@ -241,10 +245,14 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) ) 
 		{
-			return false;
+			return Error::set('CURL', 'errno', lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
-		return curl_errno($this->init);
+		$errno = curl_errno($this->init);
+		
+		Error::set('CURL', 'errno', $errno);
+		
+		return $errno;
 	}
 	
 	/******************************************************************************************
@@ -261,7 +269,7 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) )
 		{ 
-			return false;
+			return Error::set('CURL', 'errval', lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
 		$errors = $this->config['errors'];
@@ -271,12 +279,14 @@ class __USE_STATIC_ACCESS__CURL
 		{
 			if( isset($errors[$errno]) )
 			{
+				Error::set('CURL', 'errval', $errors[$errno]);
+				
 				return $errors[$errno]; 
 			}
 		}
 		else 
 		{
-			return false;
+			return Error::set('CURL', 'errval', lang('Error', 'emptyParameter', '$errno'));
 		}
 	}
 
@@ -326,7 +336,7 @@ class __USE_STATIC_ACCESS__CURL
 		}
 		else
 		{
-			return false;
+			return Error::set('CURL', 'close', lang('Error', 'emptyParameter', '$this->init'));
 		}
 	}
 }

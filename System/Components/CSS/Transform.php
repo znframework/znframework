@@ -54,6 +54,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! isChar($selector) ) 
 		{
+			Error::set('CTransform', 'type', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 
@@ -67,7 +68,7 @@ class __USE_STATIC_ACCESS__CTransform
 	protected function _params($data)
 	{
 		$arguments = $data;
-		$argument = '';
+		$argument  = '';
 		
 		if( is_array($data) )
 		{
@@ -142,6 +143,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! isValue($argument) )
 		{
+			Error::set('CTransform', 'rotate', lang('Error', 'valueParameter', 'argument'));
 			return $this;
 		}
 		
@@ -172,8 +174,9 @@ class __USE_STATIC_ACCESS__CTransform
 	******************************************************************************************/
 	public function scale($x = 0, $y = 0)
 	{
-		if( ! ( is_numeric($x) || is_numeric($y)) )
+		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
+			Error::set('CTransform', 'scale', lang('Error', 'numericParameter', 'x & y'));
 			return $this;
 		}
 		
@@ -197,6 +200,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{	
 		if( ! is_numeric($x) )
 		{
+			Error::set('CTransform', 'scaleX', lang('Error', 'numericParameter', 'x'));
 			return $this;
 		}
 		
@@ -220,6 +224,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! is_numeric($y) )
 		{
+			Error::set('CTransform', 'scaleY', lang('Error', 'numericParameter', 'y'));
 			return $this;
 		}
 		
@@ -242,8 +247,9 @@ class __USE_STATIC_ACCESS__CTransform
 	******************************************************************************************/
 	public function skew($x = '', $y = '')
 	{
-		if( ! ( isValue($x) || isValue($y) ) )
+		if( ! isValue($x) || ! isValue($y) )
 		{
+			Error::set('CTransform', 'skew', lang('Error', 'valueParameter', 'x & y'));
 			return $this;
 		}
 		
@@ -276,6 +282,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! isValue($x) )
 		{
+			Error::set('CTransform', 'skewX', lang('Error', 'valueParameter', 'x'));
 			return $this;
 		}
 		
@@ -304,6 +311,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! isValue($y) )
 		{
+			Error::set('CTransform', 'skewY', lang('Error', 'valueParameter', 'y'));
 			return $this;
 		}
 		
@@ -331,8 +339,9 @@ class __USE_STATIC_ACCESS__CTransform
 	******************************************************************************************/
 	public function translate($x = 0, $y = 0)
 	{
-		if( ! ( isValue($x) || isValue($y) ) )
+		if( ! isValue($x) || ! isValue($y) )
 		{
+			Error::set('CTransform', 'translate', lang('Error', 'valueParameter', 'x & y'));
 			return $this;
 		}
 		
@@ -375,6 +384,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! isValue($x) )
 		{
+			Error::set('CTransform', 'translateX', lang('Error', 'valueParameter', 'x'));
 			return $this;
 		}
 		
@@ -403,6 +413,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		if( ! isValue($y) )
 		{
+			Error::set('CTransform', 'translateY', lang('Error', 'valueParameter', 'y'));
 			return $this;
 		}
 		
@@ -426,7 +437,7 @@ class __USE_STATIC_ACCESS__CTransform
 	{
 		$transforms = '';
 		
-		if( ! empty($this->transforms) )foreach($this->transforms as $trans)
+		if( ! empty($this->transforms) ) foreach( $this->transforms as $trans )
 		{
 			$transforms .= $trans;
 		}	
@@ -441,7 +452,7 @@ class __USE_STATIC_ACCESS__CTransform
 	// Değişkenler varsayılan ayarlarına getiriliyor.
 	protected function _defaultVariable()
 	{
-		if( $this->selector !== 'this' )  $this->selector = 'this';
-		if( ! empty($this->transforms) )  $this->transforms = array();
+		if( $this->selector !== 'this' ) $this->selector = 'this';
+		if( ! empty($this->transforms) ) $this->transforms = array();
 	}
 }

@@ -215,6 +215,7 @@ class __USE_STATIC_ACCESS__CForm extends CFormValidation
 	public function attr($_attributes = '')
 	{
 		$attribute = "";
+		
 		if( is_array($_attributes) )
 		{
 			foreach($_attributes as $key => $values)
@@ -280,7 +281,7 @@ class __USE_STATIC_ACCESS__CForm extends CFormValidation
 	{
 		$selectbox = '';
 		
-		if( ! empty($options) )foreach($options as $key => $value)
+		if( ! empty($options) ) foreach( $options as $key => $value )
 		{
 			if( $selected == $key ) 
 			{
@@ -309,6 +310,7 @@ class __USE_STATIC_ACCESS__CForm extends CFormValidation
 	public function secure()
 	{
 		$this->secure = func_get_args();
+		
 		return $this;	
 	}
 	

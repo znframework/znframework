@@ -69,7 +69,7 @@ class __USE_STATIC_ACCESS__Permission
 		// Parametrelerin kontrolleri yapılıyor.
 		if( ! is_numeric($roleId) ) 
 		{
-			return false;
+			return Error::set('Permission', 'process', lang('Error', 'numericParameter', 'roleId'));	
 		}
 		if( ! isValue($process) ) 
 		{
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Permission
 	{
 		if( ! is_numeric($roleId) ) 
 		{
-			return false;
+			return Error::set('Permission', 'page', lang('Error', 'numericParameter', 'roleId'));	
 		}
 		
 		$this->permission = $this->config['page'];

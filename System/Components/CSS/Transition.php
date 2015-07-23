@@ -68,6 +68,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isChar($selector) )
 		{
+			Error::set('CTransition', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 
@@ -90,9 +91,10 @@ class __USE_STATIC_ACCESS__CTransition
 	public function attr($_attributes = array())
 	{
 		$attribute = '';
+		
 		if( is_array($_attributes) )
 		{
-			foreach($_attributes as $key => $values)
+			foreach( $_attributes as $key => $values )
 			{
 				if( is_numeric($key) )
 				{
@@ -123,6 +125,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($property))
 		{
+			Error::set('CTransition', 'property', lang('Error', 'valueParameter', 'property'));
 			return $this;	
 		}
 		
@@ -146,6 +149,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($duration))
 		{
+			Error::set('CTransition', 'duration', lang('Error', 'valueParameter', 'duration'));
 			return $this;	
 		}
 		
@@ -174,6 +178,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($delay) )
 		{
+			Error::set('CTransition', 'delay', lang('Error', 'valueParameter', 'delay'));
 			return $this;	
 		}
 		
@@ -202,6 +207,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($easing))
 		{
+			Error::set('CTransition', 'easing', lang('Error', 'valueParameter', 'easing'));
 			return $this;	
 		}
 		
@@ -214,7 +220,8 @@ class __USE_STATIC_ACCESS__CTransition
 	public function _transitions($data)
 	{
 		$transitions = "";
-		foreach($this->browsers as $val)
+		
+		foreach( $this->browsers as $val )
 		{
 			$transitions .= "$val$data";
 		}
@@ -254,7 +261,7 @@ class __USE_STATIC_ACCESS__CTransition
 		$str .= $this->attr.eol();
 		$str .= $this->complete();
 		
-		if( ! empty($combineTransitions) )foreach($combineTransitions as $transition)
+		if( ! empty($combineTransitions) ) foreach( $combineTransitions as $transition )
 		{			
 			$str .= $transition;
 		}

@@ -39,6 +39,7 @@ class __USE_STATIC_ACCESS__CStyle
 	{
 		if( ! is_string($type) )
 		{
+			Error::set('CStyle', 'type', lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		

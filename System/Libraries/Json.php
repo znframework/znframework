@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__Json
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
 		{
-			return false;
+			return Error::set('Json', 'encode', lang('Error', 'arrayParameter', 'data'));
 		}
 		
 		if( ! is_string($key) ) 
@@ -107,12 +107,12 @@ class __USE_STATIC_ACCESS__Json
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($word) ) 
 		{
-			return false;
+			return Error::set('Json', 'decode', lang('Error', 'stringParameter', 'word'));
 		}
 		
 		if( empty($word) ) 
 		{
-			return false;
+			return Error::set('Json', 'decode', lang('Error', 'emptyParameter', 'word'));
 		}
 		
 		if( ! is_string($key) ) 
@@ -140,9 +140,10 @@ class __USE_STATIC_ACCESS__Json
 		$splits = array();
 		$object = array();
 		
-		if( is_array($keyval) ) foreach($keyval as $v)
+		if( is_array($keyval) ) foreach( $keyval as $v )
 		{
 			 $splits = explode($key, $v);
+			 
 			 if( isset($splits[1]) )
 			 {
 				$object[$splits[0]] = $splits[1];

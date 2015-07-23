@@ -102,6 +102,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! isChar($name))
 		{
+			Error::set('CCookie', 'name', lang('Error', 'valueParameter', 'name'));
 			return $this;
 		}
 		
@@ -125,6 +126,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! is_numeric($time))
 		{
+			Error::set('CCookie', 'time', lang('Error', 'numericParameter', 'time'));
 			return $this;	
 		}
 		
@@ -149,8 +151,10 @@ class __USE_STATIC_ACCESS__CCookie
 	******************************************************************************************/
 	public function encode($name = '', $value = '')
 	{
-		if( ! ( isHash($name) || isHash($value) ))
+		if( ! ( isHash($name) || isHash($value) ) )
 		{
+			Error::set('CCookie', 'encode', lang('Error', 'hashParameter', 'name | value'));
+			
 			return $this;	
 		}
 		
@@ -178,6 +182,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! isHash($hash))
 		{
+			Error::set('CCookie', 'decode', lang('Error', 'hashParameter', 'hash'));
 			return $this;	
 		}
 		
@@ -221,6 +226,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! is_bool($regenerate))
 		{
+			Error::set('CCookie', 'regenerate', lang('Error', 'booleanParameter', 'regenerate'));
 			return $this;		
 		}
 		
@@ -244,6 +250,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! is_string($path))
 		{
+			Error::set('CCookie', 'path', lang('Error', 'stringParameter', 'path'));
 			return $this;	
 		}
 		
@@ -267,6 +274,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! is_string($domain))
 		{
+			Error::set('CCookie', 'domain', lang('Error', 'stringParameter', 'domain'));
 			return $this;	
 		}
 		
@@ -291,6 +299,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! is_bool($secure))
 		{
+			Error::set('CCookie', 'secure', lang('Error', 'booleanParameter', 'secure'));
 			return $this;	
 		}
 		
@@ -316,6 +325,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! is_bool($httpOnly))
 		{
+			Error::set('CCookie', 'httpOnly', lang('Error', 'booleanParameter', 'httpOnly'));
 			return $this;	
 		}
 		
@@ -343,7 +353,7 @@ class __USE_STATIC_ACCESS__CCookie
 		{
 			if( ! isChar($name) )
 			{
-				return false;
+				return Error::set('CCookie', 'create', lang('Error', 'valueParameter', 'name'));
 			}
 			
 			$this->name($name);
@@ -403,8 +413,7 @@ class __USE_STATIC_ACCESS__CCookie
 		else
 		{
 			$this->error = getMessage('Cookie', 'setError');
-			report('Error', $this->error, 'CookieComponent');
-			return false;
+			return Error::set('CCookie', 'create', $this->error);
 		}
 	} 
 	
@@ -424,7 +433,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! isValue($name) )
 		{
-			return false;	
+			return Error::set('CCookie', 'select', lang('Error', 'valueParameter', 'name'));	
 		}
 		
 		if( empty($name) ) 
@@ -448,7 +457,7 @@ class __USE_STATIC_ACCESS__CCookie
 		}
 		else
 		{
-			if(Config::get("Cookie", "encode") === true)
+			if( Config::get("Cookie", "encode") === true )
 			{
 				$name = md5($name);
 			}
@@ -485,7 +494,7 @@ class __USE_STATIC_ACCESS__CCookie
 	{
 		if( ! isValue($name) )
 		{
-			return false;	
+			return Error::set('CCookie', 'delete', lang('Error', 'valueParameter', 'name'));	
 		}
 	
 		if( empty($name) ) 
@@ -538,7 +547,15 @@ class __USE_STATIC_ACCESS__CCookie
 	
 	public function error()
 	{
-		return $this->error;
+		if( ! empty($this->error) )
+		{
+			Error::set('CCookie', 'error', $this->error);
+			return $this->error;
+		}
+		else
+		{
+			return false;	
+		}
 	}
 	
 	protected function _defaultVariable()

@@ -48,7 +48,7 @@ class __USE_STATIC_ACCESS__Convert
 	{
 		if( ! isValue($string) ) 
 		{
-			return false;
+			return Error::set('Convert', 'char', lang('Error', 'valueParameter', 'string'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -100,7 +100,7 @@ class __USE_STATIC_ACCESS__Convert
 	{	
 		if( ! is_string($str) ) 
 		{
-			return false;
+			return Error::set('Convert', 'accent', lang('Error', 'stringParameter', 'str'));
 		}
 		
 		// Config/ForeignChars.php dosyasından
@@ -130,7 +130,7 @@ class __USE_STATIC_ACCESS__Convert
 	{
 		if( ! is_string($str) ) 
 		{
-			return false;
+			return Error::set('Convert', 'urlWord', lang('Error', 'stringParameter', 'str'));
 		}
 	
 		if( ! is_string($splitWord) ) 
@@ -176,7 +176,7 @@ class __USE_STATIC_ACCESS__Convert
 	{
 		if( ! is_string($str) ) 
 		{
-			return false;
+			return Error::set('Convert', 'stringCase', lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -213,6 +213,10 @@ class __USE_STATIC_ACCESS__Convert
 	{
 		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
 		{
+			Error::set('Convert', 'arrayCase', lang('Error', 'arrayParameter', 'array'));
+			Error::set('Convert', 'arrayCase', lang('Error', 'stringParameter', 'type'));
+			Error::set('Convert', 'arrayCase', lang('Error', 'stringParameter', 'keyval'));
+			
 			return false;	
 		}
 		
@@ -274,11 +278,14 @@ class __USE_STATIC_ACCESS__Convert
 	{
 		if( ! is_string($str) ) 
 		{
-			return false;
+			return Error::set('Convert', 'charset', lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! isCharset($fromCharset) || ! isCharset($toCharset) ) 
 		{
+			Error::set('Convert', 'charset', lang('Error', 'charsetParameter', 'fromCharset'));
+			Error::set('Convert', 'charset', lang('Error', 'charsetParameter', 'toCharset'));
+			
 			return false;
 		}
 		
@@ -301,6 +308,9 @@ class __USE_STATIC_ACCESS__Convert
 	{
 		if( ! is_string($str) || ! is_array($settings) )
 		{
+			Error::set('Convert', 'highLight', lang('Error', 'stringParameter', 'str'));
+			Error::set('Convert', 'highLight', lang('Error', 'arrayParameter', 'settings'));
+			
 			return false;	
 		}
 		
@@ -357,7 +367,7 @@ class __USE_STATIC_ACCESS__Convert
 		
 		$keywordsMatch = array();
 		
-		foreach($keywords as $v)
+		foreach( $keywords as $v )
 		{
 			$keywordsMatch['<span style="color: #0000BB">'.$v] = '<span style="color: '.$keywordColor.'">'.$v;	
 		}

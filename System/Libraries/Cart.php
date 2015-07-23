@@ -61,17 +61,15 @@ class __USE_STATIC_ACCESS__Cart
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			$this->error = getMessage('Cart', 'insertParameterEmptyError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			$this->error = lang('Error', 'emptyParameter', 'product');
+			return Error::set('Cart', 'insertItem', $this->error);	
 		}
 		
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			$this->error = getMessage('Cart', 'arrayParameterError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			$this->error = lang('Error', 'arrayParameter', 'product');
+			return Error::set('Cart', 'insertItem', $this->error);	
 		}
 		
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -116,8 +114,7 @@ class __USE_STATIC_ACCESS__Cart
 		else
 		{
 			$this->error = getMessage('Cart', 'noDataError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			return Error::set('Cart', 'selectItems', $this->error);
 		}
 	}
 	
@@ -144,7 +141,7 @@ class __USE_STATIC_ACCESS__Cart
 	{
 		if( empty($code) ) 
 		{
-			return false;
+			return Error::set('Cart', 'selectItem', lang('Error', 'emptyParameter', 'code'));
 		}
 		
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -204,7 +201,7 @@ class __USE_STATIC_ACCESS__Cart
 		else
 		{
 			$this->error = getMessage('Cart', 'noDataError');
-			report('Error', $this->error, 'CartLibrary');
+			Error::set('Cart', 'totalItem', $this->error);
 			return 0;	
 		}
 	}
@@ -230,7 +227,7 @@ class __USE_STATIC_ACCESS__Cart
 		if( empty($this->items) )
 		{
 			$this->error = getMessage('Cart', 'noDataError');
-			report('Error', $this->error, 'CartLibrary');
+			Error::set('Cart', 'totalPrices', $this->error);
 			return 0;	
 		}
 		
@@ -238,8 +235,11 @@ class __USE_STATIC_ACCESS__Cart
 		
 		foreach( $this->items as $values )
 		{
-			$quantity = (isset($values['quantity'])) ? $values['quantity'] : 1;
-			$total += $values['price'] * $quantity;
+			$quantity  = isset($values['quantity']) 
+					   ? $values['quantity'] 
+					   : 1;
+					   
+			$total    += $values['price'] * $quantity;
 		}
 		
 		return $total;
@@ -275,22 +275,19 @@ class __USE_STATIC_ACCESS__Cart
 		if( empty($code) )
 		{
 			$this->error = getMessage('Cart', 'updateCodeError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			return Error::set('Cart', 'updateItem', $this->error);
 		}
 		
 		if( empty($data) )
 		{
 			$this->error = getMessage('Cart', 'updateParameterEmptyError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			return Error::set('Cart', 'updateItem', $this->error);
 		}
 		
 		if( ! is_array($data) )
 		{
 			$this->error = getMessage('Cart', 'updateArrayParameterError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			return Error::set('Cart', 'updateItem', $this->error);
 		}	
 		
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -364,8 +361,7 @@ class __USE_STATIC_ACCESS__Cart
 		if( empty($code) )
 		{
 			$this->error = getMessage('Cart', 'deleteCodeError');
-			report('Error', $this->error, 'CartLibrary');
-			return false;	
+			return Error::set('Cart', 'deleteItem', $this->error);	
 		}
 
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -414,7 +410,7 @@ class __USE_STATIC_ACCESS__Cart
 	{
 		if( isset($_SESSION[md5('cart')]) )
 		{
-				unset($_SESSION[md5('cart')]);
+			unset($_SESSION[md5('cart')]);
 		}
 	}
 	
@@ -437,8 +433,9 @@ class __USE_STATIC_ACCESS__Cart
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return false;
+			return Error::set('Cart', 'moneyFormat', lang('Error', 'numericParameter', 'money'));
 		}
+		
 		if( ! is_string($type) ) 
 		{
 			$type = '';
@@ -495,6 +492,7 @@ class __USE_STATIC_ACCESS__Cart
 	{
 		if( isset($this->error) )
 		{
+			Error::set('Cart', 'error', $this->error);
 			return $this->error;
 		}
 		else

@@ -40,7 +40,7 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || ! is_string($mode) )
 		{
-			return false;
+			return Error::set('File', 'read', lang('Error', 'stringParameter', 'file'));
 		}
 		
 		// Dosya mevcutsa işlemi gerçekleştir.
@@ -57,9 +57,8 @@ class __USE_STATIC_ACCESS__File
 		else
 		{
 			// Dosya mevcut değilse hata raporu oluştur.
-			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;		
+			$this->error = lang('File', 'notFoundError', $file);
+			return Error::set('File', 'read', $this->error);		
 		}
 	}
 	
@@ -80,6 +79,10 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || is_dir($file) || ! is_string($mode) ) 
 		{
+			Error::set('File', 'write', lang('Error', 'stringParameter', 'file'));
+			Error::set('File', 'write', lang('Error', 'dirParameter', 'data'));
+			Error::set('File', 'write', lang('Error', 'stringParameter', 'mode'));
+			
 			return false;
 		}
 		
@@ -110,14 +113,13 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($path) || ! isFileExists($path) ) 
 		{
-			return false;
+			return Error::set('File', 'contents', lang('Error', 'stringParameter', 'path'));
 		}
 		
 		if( ! file_exists($path) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $path);
-			report('Error', $this->error, 'FileLibrary');
-			return false;	
+			return Error::set('File', 'write', $this->error);	
 		}
 		// Dosya içeriğini getir.
 		return file_get_contents($path);
@@ -143,31 +145,27 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($file) || empty($data) || ! isFileExists($file) ) 
 		{
+			Error::set('File', 'find', lang('Error', 'stringParameter', 'file'));
+			Error::set('File', 'find', lang('Error', 'fileParameter', 'file'));
+			Error::set('File', 'find', lang('Error', 'emptyParameter', 'data'));
+			
 			return false;
 		}
 		if( ! isValue($data) ) 
 		{
 			$data = '';
 		}
-		if( ! file_exists($file) )
-		{
-			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;	
-		}
-		
+
 		// Dosyadan gereli veriyi çek.
 		$index = strpos(file_get_contents($file), $data);
 		
 		$contents = $this->contents($file);
 	
-		$object = (object)array 
+		return (object)array 
 		(
 			'index'    => $index,
 			'contents' => $contents
 		);	
-		
-		return $object;	
 	}
 	
 	/******************************************************************************************
@@ -186,6 +184,9 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($name) || is_dir($name) ) 
 		{
+			Error::set('File', 'create', lang('Error', 'stringParameter', 'name'));
+			Error::set('File', 'create', lang('Error', 'dirParameter', 'name'));
+			
 			return false;
 		}
 		// Dosya mevcut değilse oluştur.
@@ -197,9 +198,8 @@ class __USE_STATIC_ACCESS__File
 		else
 		{
 			// Dosya mevcutsa hatayı rapor et.
-			$this->error = getMessage('File', 'alreadyFileError', $name);
-			report('Error', $this->error, 'FileLibrary');
-			return false;	
+			$this->error = lang('File', 'alreadyFileError', $name);
+			return Error::set('File', 'create', $this->error);	
 		}
 	}
 	
@@ -218,14 +218,13 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($name) ) 
 		{
-			return false;
+			return Error::set('File', 'delete', lang('Error', 'stringParameter', 'name'));
 		}
 		
 		if( ! isFileExists($name)) 
 		{
 			$this->error = getMessage('File', 'notFoundError', $name);
-			report('Error', $this->error, 'FileLibrary');
-			return false;	
+			return Error::set('File', 'delete', $this->error);	
 		}
 		else 
 		{
@@ -251,8 +250,13 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolleri yapılıyor.
 		if( ! is_string($file) || ! is_string($mode) || is_dir($file) ) 
 		{
+			Error::set('File', 'append', lang('Error', 'stringParameter', 'file'));
+			Error::set('File', 'append', lang('Error', 'dirParameter', 'file'));
+			Error::set('File', 'append', lang('Error', 'stringParameter', 'mode'));
+			
 			return false;
 		}
+		
 		if( ! isValue($data) )
 		{
 			$data = '';
@@ -282,7 +286,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($name) ) 
 		{
-			return false;
+			return Error::set('File', 'permission', lang('Error', 'stringParameter', 'name'));
 		}
 		if( ! is_numeric($permission) ) 
 		{
@@ -291,8 +295,7 @@ class __USE_STATIC_ACCESS__File
 		if( ! file_exists($name) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $name);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'append', $this->error);
 		}
 		else
 		{
@@ -317,7 +320,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($file) ) 
 		{
-			return false;
+			return Error::set('File', 'createDate', lang('Error', 'stringParameter', 'file'));
 		}
 		if( ! is_string($type) ) 
 		{
@@ -326,8 +329,7 @@ class __USE_STATIC_ACCESS__File
 		if( ! file_exists($file) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'createDate', $this->error);
 		}
 		
 		// Dosyanın oluşturulma tarihi
@@ -352,7 +354,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($file) ) 
 		{
-			return false;
+			return Error::set('File', 'changeDate', lang('Error', 'stringParameter', 'file'));
 		}
 		if( ! is_string($type) ) 
 		{
@@ -361,8 +363,7 @@ class __USE_STATIC_ACCESS__File
 		if( ! file_exists($file) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'changeDate', $this->error);
 		}
 		
 		// Dosyanın son değiştirilme tarihi
@@ -388,10 +389,10 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_file($file) )
 		{
-			return false;
+			return Error::set('File', 'info', lang('Error', 'fileParameter', 'file'));
 		}
 		
-		$fileInfo = array
+		return (object)array
 		(
 			'basename' 	 => pathInfos($file, 'basename'),
 			'size'		 => filesize($file),
@@ -401,8 +402,6 @@ class __USE_STATIC_ACCESS__File
 			'executable' => is_executable($file),
 			'permission' => fileperms($file)	
 		);
-		
-		return (object)$fileInfo;
 	}
 	
 	/******************************************************************************************
@@ -428,7 +427,7 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolleri yapılıyor. --------------------------------------------
 		if( ! is_string($file) ) 
 		{
-			return false;
+			return Error::set('File', 'size', lang('Error', 'stringParameter', 'file'));
 		}
 		if( ! is_string($type) ) 
 		{
@@ -437,8 +436,7 @@ class __USE_STATIC_ACCESS__File
 		if( ! file_exists($file) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'size', $this->error);
 		}
 		// ------------------------------------------------------------------------------
 		
@@ -511,7 +509,7 @@ class __USE_STATIC_ACCESS__File
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($source) ) 
 		{
-			return false;
+			return Error::set('File', 'zipExtract', lang('Error', 'stringParameter', 'source'));
 		}
 		if( ! is_string($target) ) 
 		{
@@ -520,8 +518,7 @@ class __USE_STATIC_ACCESS__File
 		if( ! file_exists($source) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $source);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'zipExtract', $this->error);
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -562,14 +559,18 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || is_dir($file) || ! is_numeric($limit) || ! is_string($mode) ) 
 		{
+			Error::set('File', 'limit', lang('Error', 'stringParameter', 'file'));
+			Error::set('File', 'limit', lang('Error', 'dirParameter', 'file'));
+			Error::set('File', 'limit', lang('Error', 'numericParameter', 'limit'));
+			Error::set('File', 'limit', lang('Error', 'stringParameter', 'mode'));
+			
 			return false;
 		}
 		
 		if( ! file_exists($file) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'limit', $this->error);
 		}
 	
 		$fileOpen  = fopen($file, $mode);
@@ -589,14 +590,16 @@ class __USE_STATIC_ACCESS__File
 		// Parametre kontrolü yapılıyor.
 		if( ! isValue($oldName) || ! isValue($newName)  ) 
 		{
+			Error::set('File', 'rename', lang('Error', 'valueParameter', 'oldName'));
+			Error::set('File', 'rename', lang('Error', 'valueParameter', 'newName'));
+			
 			return false;
 		}
 		
 		if( ! file_exists($oldName) )
 		{
 			$this->error = getMessage('File', 'notFoundError', $file);
-			report('Error', $this->error, 'FileLibrary');
-			return false;
+			return Error::set('File', 'rename', $this->error);
 		}
 	
 		return rename($oldName, $newName);
@@ -612,7 +615,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($file))
 		{
-			return false;	
+			return Error::set('File', 'owner', lang('Error', 'stringParameter', 'file'));
 		}
 		
 		if( function_exists('posix_getpwuid') )
@@ -635,7 +638,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($file))
 		{
-			return false;	
+			return Error::set('File', 'group', lang('Error', 'stringParameter', 'file'));	
 		}
 		
 		if( function_exists('posix_getgrgid') )
@@ -659,6 +662,10 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_string($file) || ! is_string($mode) || ! is_bool($includePath) )
 		{
+			Error::set('File', 'open', lang('Error', 'stringParameter', 'file'));
+			Error::set('File', 'open', lang('Error', 'stringParameter', 'mode'));
+			Error::set('File', 'open', lang('Error', 'booleanParameter', 'includePath'));
+			
 			return false;	
 		}
 		
@@ -676,7 +683,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_resource($source) )
 		{
-			return false;	
+			return Error::set('File', 'passThru', lang('Error', 'resourceParameter', 'source'));	
 		}
 		
 		return fpassthru($source);
@@ -692,7 +699,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_resource($source) )
 		{
-			return false;	
+			return Error::set('File', 'close', lang('Error', 'resourceParameter', 'source'));	
 		}
 		
 		return fclose($source);
@@ -710,6 +717,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( isset($this->error) )
 		{
+			Error::set('File', 'error', $this->error);	
 			return $this->error;
 		}
 		else

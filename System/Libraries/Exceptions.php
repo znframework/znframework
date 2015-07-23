@@ -1,5 +1,5 @@
 <?php
-class ZNException extends Exception
+class Exceptions extends Exception
 {
 	/***********************************************************************************/
 	/* ZN EXCEPTION LIBRARY	     			                   	                       */
@@ -13,7 +13,7 @@ class ZNException extends Exception
 	/* Versiyon: 1.4
 	/* Tanımlanma: Statik
 	/* Dahil Edilme: Gerektirmez
-	/* Erişim: znexception::, $this->znexception, zn::$use->znexception, uselib('znexception')
+	/* Erişim: Exceptions::, $this->znexception, zn::$use->znexception, uselib('znexception')
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 		

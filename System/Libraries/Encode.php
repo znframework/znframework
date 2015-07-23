@@ -101,21 +101,16 @@ class __USE_STATIC_ACCESS__Encode
 	******************************************************************************************/
 	public function golden($data = '', $additional = 'default')
 	{
-		if( ! isValue($data) ) 
+		if( ! isValue($data) || empty($data) ) 
 		{
-			return false;
+			return Error::set('Encode', 'golden', lang('Error', 'valueParameter', 'data'));
 		}
 		
 		if( ! isValue($additional) )
 		{
 			$additional = 'default';
 		}
-		
-		if( empty($data) ) 
-		{
-			return false;
-		}
-		
+	
 		$algo = $this->config['type'];
 		
 		if( ! isHash($algo) )
@@ -152,14 +147,9 @@ class __USE_STATIC_ACCESS__Encode
 	******************************************************************************************/
 	public function super($data = '')
 	{
-		if( ! isValue($data) ) 
+		if( ! isValue($data) || empty($data) ) 
 		{
-			return false;
-		}
-		
-		if( empty($data) ) 
-		{	
-			return false;
+			return Error::set('Encode', 'super', lang('Error', 'valueParameter', 'data'));
 		}
 		
 		$projectKey = $this->config['projectKey'];
@@ -209,7 +199,7 @@ class __USE_STATIC_ACCESS__Encode
 	{
 		if( ! isValue($data) ) 
 		{
-			return false;
+			return Error::set('Encode', 'type', lang('Error', 'valueParameter', 'data'));
 		}
 		
 		// String veri dışında veri girilerse

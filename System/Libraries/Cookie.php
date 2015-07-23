@@ -35,7 +35,11 @@ class __USE_STATIC_ACCESS__Cookie
 	
 	public function __construct()
 	{
-		if( ! isset($_SESSION) ) session_start();
+		if( ! isset($_SESSION) ) 
+		{
+			session_start();
+		}
+		
 		$this->config = Config::get("Cookie");	
 	}
 	
@@ -66,7 +70,7 @@ class __USE_STATIC_ACCESS__Cookie
 		/************************************************************************************************/
 		if( ! isValue($name) ) 
 		{
-			return false;
+			return Error::set('Cookie', 'insert', lang('Error', 'valueParameter', 'name'));
 		}
 		if( ! is_numeric($time) ) 
 		{
@@ -90,15 +94,13 @@ class __USE_STATIC_ACCESS__Cookie
 		}
 		if( empty($name) )
 		{			
-			$this->error = getMessage('Cookie', 'nameParameterEmptyError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;
+			$this->error = lang('Cookie', 'nameParameterEmptyError');
+			return Error::set('Cookie', 'insert', $this->error);
 		}
 		if( empty($value) )
 		{
-			$this->error = getMessage('Cookie', 'valueParameterEmptyError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;
+			$this->error = lang('Cookie', 'valueParameterEmptyError');
+			return Error::set('Cookie', 'insert', $this->error);
 		}
 		/************************************************************************************************/
 		
@@ -149,8 +151,7 @@ class __USE_STATIC_ACCESS__Cookie
 		else
 		{
 			$this->error = getMessage('Cookie', 'setError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;
+			return Error::set('Cookie', 'insert', $this->error);
 		}
 		
 	}
@@ -170,14 +171,13 @@ class __USE_STATIC_ACCESS__Cookie
 	{
 		if( ! isValue($name) ) 
 		{
-			return false;
+			return Error::set('Cookie', 'select', lang('Error', 'valueParameter', 'name'));
 		}
 
 		if( empty($name) )
 		{
-			$this->error = getMessage('Cookie', 'nameParameterEmptyError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;
+			$this->error = lang('Cookie', 'nameParameterEmptyError');
+			return Error::set('Cookie', 'select', $this->error);
 		}
 		
 		$cookieConfig = $this->config;
@@ -195,9 +195,8 @@ class __USE_STATIC_ACCESS__Cookie
 		}
 		else 
 		{
-			$this->error = getMessage('Cookie', 'notSelectError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;	
+			$this->error = lang('Cookie', 'notSelectError');
+			return Error::set('Cookie', 'select', $this->error);
 		}
 	}
 	
@@ -226,9 +225,8 @@ class __USE_STATIC_ACCESS__Cookie
 		
 		if( empty($name) )
 		{
-			$this->error = getMessage('Cookie', 'nameParameterEmptyError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;
+			$this->error = lang('Cookie', 'nameParameterEmptyError');
+			return Error::set('Cookie', 'delete', $this->error);
 		}
 		
 		$cookieConfig = $this->config;
@@ -250,9 +248,8 @@ class __USE_STATIC_ACCESS__Cookie
 		}
 		else
 		{ 
-			$this->error = getMessage('Cookie', 'notDeleteError');
-			report('Error',$this->error,'CookieLibrary');
-			return false;		
+			$this->error = lang('Cookie', 'notDeleteError');
+			return Error::set('Cookie', 'delete', $this->error);	
 		}
 	}
 	
@@ -314,14 +311,13 @@ class __USE_STATIC_ACCESS__Cookie
 	{
 		if( ! empty($this->error) )
 		{
+			Error::set('Cookie', 'error', $this->error);
 			return $this->error;
 		}
 		else
 		{
 			return false;	
 		}
-	}
-	
+	}	
 }
-
 /* ---------------------------------------CLASS COOKIE SON---------------------------------------------*/

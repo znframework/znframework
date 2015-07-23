@@ -20,9 +20,9 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Genel Kullanım: Masterpage olarak belirlen sayfanın head etiketleri arasına harici kod  |
 | yazmak için sayfa belirlemek için kullanlır.											  |
 | Parametre:Metinsel türde Views/Pages/ dizininden tüm sayfalar için geçerli olacak bir   |
-| head sayfası belirlenir. Örnek: "head";  												  |  
+| head sayfası belirlenir. Örnek: "head";  veya array(h1, h2 ....) 						  |  
 ******************************************************************************************/
-$config['Masterpage']['headPage'] = '';
+$config['Masterpage']['headPage'] = ''; // String veya Array veri türü içerebilir.
 
 /******************************************************************************************
 * BODY PAGE                                                                   		  	  *

@@ -134,7 +134,7 @@ class __USE_STATIC_ACCESS__Pagination
 		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
 		if( ! is_array($config) ) 
 		{
-			return false;
+			return Error::set('Pagination', 'settings', lang('Error', 'arrayParameter', 'config'));	
 		}
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler

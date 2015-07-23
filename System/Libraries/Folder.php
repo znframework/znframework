@@ -48,14 +48,14 @@ class __USE_STATIC_ACCESS__Folder
 			$permission = 0755;
 		}
 		
-		if( ! file_exists($name) && ! is_file($name) )
+		if( ! isDirExists($name) )
 		{
 			mkdir($name,$permission, $recursive);
 		}
 		else
 		{
 			$this->error =  getMessage('Folder', 'alreadyFileError', $name);
-			report('Error', $this->error, 'FolderLibrary');
+			Error::set('Folder', 'create', $this->error);
 		}
 	}
 	
@@ -77,15 +77,14 @@ class __USE_STATIC_ACCESS__Folder
 			$name = '';
 		}
 		
-		if( file_exists($name) && is_dir($name) )
+		if( isDirExists($name) )
 		{
 			chdir($name);
 		}
 		else
 		{
 			$this->error =  getMessage('Folder', 'alreadyFileError', $name);
-			report('Error', $this->error, 'FolderLibrary');
-			return false;
+			return Error::set('Folder', 'change', $this->error);
 		}
 	}
 	
@@ -119,8 +118,7 @@ class __USE_STATIC_ACCESS__Folder
 		else
 		{
 			$this->error =  getMessage('Folder', 'alreadyFileError', $name);
-			report('Error', $this->error, 'FolderLibrary');
-			return false;
+			return Error::set('Folder', 'rename', $this->error);
 		}
 	}
 	
@@ -148,8 +146,8 @@ class __USE_STATIC_ACCESS__Folder
 		}
 		else
 		{
-			$this->error = getMessage('Folder', 'notFoundError', $name);
-			report('Error', $this->error, 'FolderLibrary');
+			$this->error = lang('Folder', 'notFoundError', $name);
+			Error::set('Folder', 'deleteEmpty', $this->error);
 		}
 	}
 	
@@ -170,18 +168,18 @@ class __USE_STATIC_ACCESS__Folder
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($source) ) 
 		{
-			return false;
+			return Error::set('Folder', 'copy', lang('Error', 'stringParameter', 'source'));
 		}
+		
 		if( ! is_string($target) )
 		{
-			return false;
+			return Error::set('Folder', 'copy', lang('Error', 'stringParameter', 'target'));
 		}
 		
 		if( ! file_exists($source) )
 		{
 			$this->error = getMessage('Folder', 'notFoundError', $source);
-			report('Error', $this->error, 'FolderLibrary');
-			return false;	
+			return Error::set('Folder', 'copy', $this->error);
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -234,13 +232,12 @@ class __USE_STATIC_ACCESS__Folder
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return false;
+			return Error::set('Folder', 'delete', lang('Error', 'stringParameter', 'name'));
 		}
 		if( ! file_exists($name) )
 		{
 			$this->error = getMessage('Folder', 'notFoundError', $name);
-			report('Error', $this->error, 'FolderLibrary');
-			return false;	
+			return Error::set('Folder', 'copy', $this->error);	
 		}
 		// ----------------------------------------------------------------------------
 
@@ -297,7 +294,7 @@ class __USE_STATIC_ACCESS__Folder
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($path) ) 
 		{
-			return false;	
+			return Error::set('Folder', 'files', lang('Error', 'stringParameter', 'path'));	
 		}
 		if( ! is_string($extension) ) 
 		{
@@ -306,8 +303,7 @@ class __USE_STATIC_ACCESS__Folder
 		if( is_file($path) )
 		{
 			$this->error = getMessage('Folder', 'parameterError', $path);
-			report('Error', $this->error, 'FolderLibrary');
-			return false;		
+			return Error::set('Folder', 'copy', $this->error);		
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -358,7 +354,7 @@ class __USE_STATIC_ACCESS__Folder
 		else
 		{
 			// 1. parametre dizin değilse false değeri döndür.
-			return false;	
+			return Error::set('Folder', 'files', lang('Error', 'dirParameter', 'path'));	
 		}
 		
 	}	
@@ -375,7 +371,7 @@ class __USE_STATIC_ACCESS__Folder
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($dir) ) 
 		{
-			return false;	
+			return Error::set('Folder', 'fileInfo', lang('Error', 'stringParameter', 'dir'));
 		}
 		if( ! is_string($extension) ) 
 		{
@@ -411,7 +407,7 @@ class __USE_STATIC_ACCESS__Folder
 		}
 		else
 		{
-			return false;
+			return Error::set('Folder', 'fileInfo', lang('Error', 'fileDirParameter', 'dir'));
 		}	
 	}
 	
@@ -432,7 +428,7 @@ class __USE_STATIC_ACCESS__Folder
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($pattern) ) 
 		{
-			return false;	
+			return Error::set('Folder', 'allFiles', lang('Error', 'stringParameter', 'pattern'));	
 		}
 		
 		if( $allFiles === true )
@@ -495,7 +491,7 @@ class __USE_STATIC_ACCESS__Folder
 	{
 		if( ! is_string($name) ) 
 		{
-			return false;
+			return Error::set('Folder', 'permission', lang('Error', 'stringParameter', 'name'));
 		}
 		if( ! is_numeric($permission) ) 
 		{
@@ -505,8 +501,7 @@ class __USE_STATIC_ACCESS__Folder
 		if( ! file_exists($name))
 		{
 			$this->error = getMessage('Folder', 'notFoundError', $name);
-			report('Error', $this->error, 'FolderLibrary');
-			return false;	
+			return Error::set('Folder', 'permission', $this->error);	
 		}
 		else
 		{
@@ -527,6 +522,7 @@ class __USE_STATIC_ACCESS__Folder
 	{
 		if( isset($this->error) )
 		{
+			Error::set('Folder', 'error', $this->error);
 			return $this->error;
 		}
 		else

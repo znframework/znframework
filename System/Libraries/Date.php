@@ -82,7 +82,7 @@ class __USE_STATIC_ACCESS__Date
 	{
 		if( ! is_string($exp) ) 
 		{
-			return false;
+			return Error::set('Date', 'set', lang('Error', 'stringParameter', 'exp'));
 		}
 
 		$chars = $this->config['setDateFormatChars'];

@@ -29,7 +29,7 @@ class __USE_STATIC_ACCESS__Limit
 	{
 		if( ! is_string($str) ) 
 		{
-			return false;
+			return Error::set('Limit', 'word', lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! is_numeric($limit) ) 
@@ -84,7 +84,7 @@ class __USE_STATIC_ACCESS__Limit
 	{
 		if( ! is_string($str) ) 
 		{
-			return false;
+			return Error::set('Limit', 'char', lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! is_numeric($limit) )

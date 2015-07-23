@@ -33,7 +33,7 @@ class __USE_STATIC_ACCESS__Arrays
 	{
 		if( ! is_array($array) ) 
 		{
-			return false;
+			return Error::set('Arrays', 'posChange', lang('Error', 'arrayParameter', 'array'));
 		}
 		
 		if( ! is_numeric($poss) ) 
@@ -98,7 +98,7 @@ class __USE_STATIC_ACCESS__Arrays
 	{
 		if( ! is_array($array) ) 
 		{
-			return false;
+			return Error::set('Arrays', 'posReverse', lang('Error', 'arrayParameter', 'array'));
 		}
 		
 		if( ! is_numeric($poss) ) 
@@ -169,7 +169,7 @@ class __USE_STATIC_ACCESS__Arrays
 	{
 		if( ! is_array($array) ) 
 		{
-			return false;
+			return Error::set('Arrays', 'deleteElement', lang('Error', 'arrayParameter', 'array'));
 		}
 		
 		$newArray = array();
@@ -261,7 +261,7 @@ class __USE_STATIC_ACCESS__Arrays
 		}
 		else 
 		{
-			return false;
+			return Error::set('Arrays', 'multikey', lang('Error', 'arrayParameter', 'array'));
 		}
 	}
 	
@@ -279,7 +279,7 @@ class __USE_STATIC_ACCESS__Arrays
 	{
 		if( ! is_array($array) ) 
 		{
-			return false;
+			return Error::set('Arrays', 'keyval', lang('Error', 'arrayParameter', 'array'));
 		}
 		
 		if( $keyval === "val" || $keyval === "value" )

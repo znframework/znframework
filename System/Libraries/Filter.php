@@ -17,18 +17,17 @@ class __USE_STATIC_ACCESS__Filter
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	// Function: word()
-	// İşlev: Metin içinde istenilmeyen kelimelerin izole edilmesi için kullanılır.
-	// Parametreler
-	// @string = Filtrelenecek veri.
-	// @badwords = Filtrelenmesi istenen kelime veya kelimeler. string veya array veri türü.
-	// @changechar = Kötü içerikli kelimelerin yerini alacak yeni kelime veya kelimeler. string veya array veri türü.
-	// Dönen Değer: Filtrelenmiş veri.
+	/******************************************************************************************
+	* WORD                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Metin içinde istenilmeyen kelimelerin izole edilmesi için kullanılır.   |
+	|          																				  |
+	******************************************************************************************/
 	public function word($string = '', $badWords = '', $changeChar = '[badwords]')
 	{
 		if( ! isValue($string) ) 
 		{
-			return false;
+			return Error::set('Filter', 'word', lang('Error', 'valueParameter', 'string'));
 		}
 		
 		if( ! is_array($badWords) ) 
@@ -64,4 +63,15 @@ class __USE_STATIC_ACCESS__Filter
 
 		return $string;
 	}	
+	
+	/******************************************************************************************
+	* DATA                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Filter::word() yöntemi ile aynı işlevi görür.     			          |
+	|          																				  |
+	******************************************************************************************/
+	public function data($string = '', $badWords = '', $changeChar = '[badwords]')
+	{
+		return self::word($string, $badWords, $changeChar);
+	}
 }

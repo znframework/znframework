@@ -70,10 +70,12 @@ class __USE_STATIC_ACCESS__DBForge
 	{
 		if( ! is_string($table) ) 
 		{
-			return false;
+			Error::set('DBForge', 'table', lang('Error', 'stringParameter', 'table'));
 		}
-		
-		$this->table = ' '.$this->prefix.$table.' ';
+		else
+		{
+			$this->table = ' '.$this->prefix.$table.' ';
+		}
 		
 		return $this;
 	}
@@ -93,7 +95,7 @@ class __USE_STATIC_ACCESS__DBForge
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'createDatabase', lang('Error', 'stringParameter', 'dbname'));
 		}
 		
 		return $this->db->exec('CREATE DATABASE '.$dbname);
@@ -114,7 +116,7 @@ class __USE_STATIC_ACCESS__DBForge
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'dropDatabase', lang('Error', 'stringParameter', 'dbname'));
 		}
 		
 		return $this->db->exec('DROP DATABASE '.$dbname);
@@ -145,11 +147,12 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'createTable', lang('Error', 'stringParameter', 'table'));
 		}
+		
 		if( ! is_array($condition) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'createTable', lang('Error', 'arrayParameter', 'condition'));
 		}
 		
 		$keys = array_keys($condition);
@@ -187,7 +190,7 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'dropTable', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		return $this->db->exec('DROP TABLE '.$this->prefix.$table);
@@ -264,14 +267,14 @@ class __USE_STATIC_ACCESS__DBForge
 			$this->table = NULL;
 		}
 		
-		if( ! is_string($name) || ! is_string($newName) ) 
+		if( ! is_string($name) || empty($name) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'renameTable', lang('Error', 'stringParameter', 'name'));
 		}
 		
-		if( empty($name) || empty($newName) ) 
+		if( ! is_string($newName) || empty($newName) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'renameTable', lang('Error', 'stringParameter', 'newName'));
 		}
 		
 		return $this->db->exec('ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$newName);
@@ -305,12 +308,12 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'addColumn', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! is_array($condition) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'addColumn', lang('Error', 'arrayParameter', 'condition'));
 		}
 		
 		if( $this->db->addColumn() !== false )
@@ -324,13 +327,13 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		$con = NULL;
 		
-		foreach($condition as $column => $values)
+		foreach( $condition as $column => $values )
 		{
 			$colvals = '';
 			
 			if( is_array($values) )
 			{	
-				foreach($values as $val)
+				foreach( $values as $val )
 				{
 					$colvals .= ' '.$val;
 				}
@@ -376,12 +379,12 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'dropColumn', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! ( is_string($column) || is_array($column) ) || empty($column) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'dropColumn', lang('Error', 'stringArrayParameter', 'column'));
 		}
 		
 		if( $this->db->dropColumn() !== false )
@@ -434,12 +437,12 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'modifyColumn', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! is_array($condition) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'modifyColumn', lang('Error', 'arrayParameter', 'condition'));
 		}
 		
 		if( $this->db->modifyColumn() !== false )
@@ -505,12 +508,12 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'renameColumn', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! is_array($condition) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'renameColumn', lang('Error', 'arrayParameter', 'condition'));
 		}
 		
 		if( $this->db->renameColumn() !== false )
@@ -524,13 +527,13 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		$con = NULL;
 		
-		foreach($condition as $column => $values)
+		foreach( $condition as $column => $values )
 		{
 			$colvals = '';
 			
 			if( is_array($values) )
 			{	
-				foreach($values as $val)
+				foreach( $values as $val )
 				{
 					$colvals .= ' '.$val;
 				}
@@ -573,7 +576,7 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'truncate', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if($this->db->truncate() !== false)
@@ -603,7 +606,7 @@ class __USE_STATIC_ACCESS__DBForge
 	{
 		if( ! is_string($connectName) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'differentConnection', lang('Error', 'stringParameter', 'connectName'));
 		}
 		
 		$config = Config::get('Database');
@@ -611,7 +614,7 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		if( ! isset($configDifferent[$connectName]) ) 
 		{
-			return false;
+			return Error::set('DBForge', 'differentConnection', lang('Error', 'emptyParameter', 'connectName'));
 		}
 		
 		foreach($config as $key => $val)
@@ -628,7 +631,14 @@ class __USE_STATIC_ACCESS__DBForge
 		return new DbForge($configDifferent[$connectName]);
 	}
 	
-	public function error(){ return $this->db->error(); }
+	/******************************************************************************************
+	* ERROR                                                                                   *
+	******************************************************************************************/
+	public function error()
+	{
+		Error::set('DBForge', 'error', $this->db->error()); 
+		return $this->db->error(); 
+	}
 	
 	/******************************************************************************************
 	* DESTRUCT                                                                                *

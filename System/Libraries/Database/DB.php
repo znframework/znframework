@@ -294,12 +294,14 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function from($table = '')
 	{
-		if( ! is_string($table) ) 
+		if( is_string($table) ) 
 		{
-			return false;
+			$this->from = ' FROM '.$this->prefix.$table.' ';
 		}
-		
-		$this->from = ' FROM '.$this->prefix.$table.' ';
+		else
+		{
+			Error::set('DB', 'from', lang('Error', 'stringParameter', 'table'));	
+		}
 		
 		return $this;
 	}
@@ -317,12 +319,14 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function table($table = '')
 	{
-		if( ! is_string($table) ) 
+		if( is_string($table) ) 
 		{
-			return false;
+			$this->table = ' '.$this->prefix.$table.' ';
 		}
-		
-		$this->table = ' '.$this->prefix.$table.' ';
+		else
+		{
+			Error::set('DB', 'table', lang('Error', 'stringParameter', 'table'));	
+		}
 		
 		return $this;
 	}
@@ -346,14 +350,16 @@ class __USE_STATIC_ACCESS__DB
 	public function where($column = '', $value = '', $logical = '')
 	{
 		// Parametrelerin string kontrolü yapılıyor.
-		if( ! ( is_string($column) || is_string($value) || is_string($logical) ) ) 
+		if( ! is_string($column) || ! is_string($value) || ! is_string($logical) ) 
 		{
-			return false;
+			Error::set('DB', 'where', lang('Error', 'stringParameter', 'column, value, logical'));
 		}
+		else
+		{
+			$value = presuffix($this->db->realEscapeString($value), "'");
 		
-		$value = presuffix($this->db->realEscapeString($value), "'");
-		
-		$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
+			$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
+		}
 		
 		return $this;
 	}
@@ -376,14 +382,16 @@ class __USE_STATIC_ACCESS__DB
 	public function having($column = '', $value = '', $logical = '')
 	{
 		// Parametrelerin string kontrolü yapılıyor.
-		if( ! ( is_string($column) || is_string($value) || is_string($logical) ) ) 
+		if( ! is_string($column) || ! is_string($value) || ! is_string($logical) ) 
 		{
-			return false;
+			Error::set('DB', 'having', lang('Error', 'stringParameter', 'column, value, logical'));
 		}
-		
-		$value = presuffix($this->db->realEscapeString($value), "'");
+		else
+		{
+			$value = presuffix($this->db->realEscapeString($value), "'");
 
-		$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
+			$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
+		}
 		
 		return $this;
 	}
@@ -404,12 +412,14 @@ class __USE_STATIC_ACCESS__DB
 	public function join($table = '', $condition = '', $type = '')
 	{
 		// Parametrelerin string kontrolü yapılıyor.
-		if( ! ( is_string($table) || is_string($condition) || is_string($type) ) ) 
+		if( ! is_string($table) || ! is_string($condition) || ! is_string($type) ) 
 		{
-			return false;
+			Error::set('DB', 'join', lang('Error', 'stringParameter', 'table, condition, type'));
 		}
-		
-		$this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
+		else
+		{
+			$this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
+		}
 		
 		return $this;
 	}
@@ -429,7 +439,9 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($table) ) 
 		{
-			return false;
+			Error::set('DB', 'get', lang('Error', 'stringParameter', 'table'));
+			
+			return $this;
 		}
 		
 		if( empty($this->select) )
@@ -535,19 +547,22 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			return false;
+			Error::set('DB', 'query', lang('Error', 'stringParameter', 'query'));
+			Error::set('DB', 'query', lang('Error', 'emptyParameter', 'query'));
 		}
-		
-		$secure = $this->secure;
-
-		$this->db->query($this->_querySecurity($query), $secure);
-		
-		if( ! empty($this->transStart) ) 
+		else
 		{
-			$transError = $this->db->error();
-			if( ! empty($transError) ) 
+			$secure = $this->secure;
+	
+			$this->db->query($this->_querySecurity($query), $secure);
+			
+			if( ! empty($this->transStart) ) 
 			{
-				$this->transError = $transError; 
+				$transError = $this->db->error();
+				if( ! empty($transError) ) 
+				{
+					$this->transError = $transError; 
+				}
 			}
 		}
 		
@@ -569,6 +584,9 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
+			Error::set('DB', 'execQuery', lang('Error', 'stringParameter', 'query'));
+			Error::set('DB', 'execQuery', lang('Error', 'emptyParameter', 'query'));
+			
 			return false;	
 		}
 		
@@ -809,6 +827,7 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function error()
 	{ 
+		Error::set('DB', 'error', $this->db->error()); 
 		return $this->db->error(); 
 	}
 	
@@ -1030,11 +1049,11 @@ class __USE_STATIC_ACCESS__DB
 		$exp  = ''; 
 		$vals = '';
 		
-		if( ! empty($expresion) ) foreach($expresion as $mf => $val)
+		if( ! empty($expresion) ) foreach( $expresion as $mf => $val )
 		{
 			$exp .= $mf.'(';
 			
-			if( ! empty($val) && is_array($val) ) foreach($val as $v)
+			if( ! empty($val) && is_array($val) ) foreach( $val as $v )
 			{
 				if( ! is_numeric($v) ) 
 				{
@@ -1070,10 +1089,12 @@ class __USE_STATIC_ACCESS__DB
 	{ 
 		if( ! is_string($condition) ) 
 		{
-			return false; 
+			Error::set('DB', 'groupBy', lang('Error', 'stringParameter', 'condition')); 
 		}
-		
-		$this->groupBy = ' GROUP BY '.$condition.' ' ;
+		else
+		{
+			$this->groupBy = ' GROUP BY '.$condition.' ' ;
+		}
 		
 		return $this;
 	}
@@ -1092,12 +1113,14 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function orderBy($condition = '', $type = '')
 	{ 
-		if( ! ( is_string($condition) || is_string($type)) ) 
+		if( ! is_string($condition) || ! is_string($type) ) 
 		{
-			return false; 
+			Error::set('DB', 'orderBy', lang('Error', 'stringParameter', 'condition, type')); 
 		}
-		
-		$this->orderBy = ' ORDER BY '.$condition.' '.$type.' ';  
+		else
+		{
+			$this->orderBy = ' ORDER BY '.$condition.' '.$type.' ';  
+		}
 		
 		return $this; 
 	}
@@ -1118,19 +1141,21 @@ class __USE_STATIC_ACCESS__DB
 	{ 
 		if( ! is_numeric($start) || ! is_numeric($limit) ) 
 		{
-			return false; 
+			Error::set('DB', 'limit', lang('Error', 'numericParameter', 'start, limit')); 
 		}
-		
-		if( ! empty($limit) ) 
+		else
 		{
-			$comma = ' , '; 
+			if( ! empty($limit) ) 
+			{
+				$comma = ' , '; 
+			}
+			else 
+			{
+				$comma = '';
+			}
+			
+			$this->limit = ' LIMIT '.$start.$comma.$limit.' ';
 		}
-		else 
-		{
-			$comma = '';
-		}
-		
-		$this->limit = ' LIMIT '.$start.$comma.$limit.' ';
 		
 		return $this; 
 	}
@@ -1156,16 +1181,19 @@ class __USE_STATIC_ACCESS__DB
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			Error::set('DB', 'status', lang('Error', 'stringParameter', 'table'));
+			Error::set('DB', 'status', lang('Error', 'emptyParameter', 'table'));
 		}
-		
-		$table = "'".$this->prefix.trim($table)."'";
-
-		$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
-		
-		$secure = $this->secure;
-		
-		$this->db->query($this->_querySecurity($query), $secure);
+		else
+		{
+			$table = "'".$this->prefix.trim($table)."'";
+	
+			$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
+			
+			$secure = $this->secure;
+			
+			$this->db->query($this->_querySecurity($query), $secure);
+		}
 		
 		return $this;
 	}
@@ -1185,10 +1213,12 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_array($data) ) 
 		{
-			return false;
+			Error::set('DB', 'secure', lang('Error', 'arrayParameter', 'data'));
 		}
-		
-		$this->secure = $data;
+		else
+		{
+			$this->secure = $data;
+		}
 		
 		return $this;
 	}
@@ -1214,6 +1244,10 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
+			Error::set('DB', 'increment', lang('Error', 'stringParameter', 'table'));
+			Error::set('DB', 'increment', lang('Error', 'emptyParameter', 'columns'));
+			Error::set('DB', 'increment', lang('Error', 'numericParameter', 'incdec'));
+			
 			return false;
 		}
 		
@@ -1221,7 +1255,7 @@ class __USE_STATIC_ACCESS__DB
 				 ? abs($incdec)
 				 : -abs($incdec);
 		
-		if( is_array($columns) ) foreach($columns as $v)
+		if( is_array($columns) ) foreach( $columns as $v )
 		{
 			$newColumns[$v] = "$v + $incdec";	
 		}
@@ -1241,10 +1275,11 @@ class __USE_STATIC_ACCESS__DB
 		
 		$data = '';
 		
-		foreach($newColumns as $key => $value)
+		foreach( $newColumns as $key => $value )
 		{
 			$data .= $key.'='.$value.',';
 		}
+		
 		$set = ' SET '.substr($data,0,-1);
 		
 		$updateQuery = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
@@ -1315,11 +1350,12 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DB', 'insert', lang('Error', 'stringParameter', 'table'));
 		}
+		
 		if( ! is_array($datas) || empty($datas) ) 
 		{
-			return false;
+			return Error::set('DB', 'insert', lang('Error', 'arrayParameter', 'datas'));
 		}
 		
 		$data = ""; $values = "";
@@ -1370,12 +1406,12 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DB', 'update', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! is_array($set) || empty($set) ) 
 		{
-			return false;
+			return Error::set('DB', 'update', lang('Error', 'arrayParameter', 'set'));
 		}
 		
 		if( ! empty($this->where) ) 
@@ -1389,10 +1425,11 @@ class __USE_STATIC_ACCESS__DB
 		
 		$data = '';
 		
-		foreach($set as $key => $value)
+		foreach( $set as $key => $value )
 		{
 			$data .= $key.'='."'".$value."'".',';
 		}
+		
 		$set = ' SET '.substr($data,0,-1);
 		
 		$updateQuery = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
@@ -1418,7 +1455,7 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return false;
+			return Error::set('DB', 'delete', lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! empty($this->where) ) 
@@ -1475,7 +1512,7 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($connectName) ) 
 		{
-			return false;
+			return Error::set('DB', 'differentConnection', lang('Error', 'stringParameter', 'connectName'));
 		}
 		
 		$config = $this->config;
@@ -1483,7 +1520,7 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! isset($configDifferent[$connectName]) ) 
 		{
-			return false;
+			return Error::set('DB', 'differentConnection', lang('Error', 'emptyParameter', 'connectName'));
 		}
 		
 		foreach($config as $key => $val)
@@ -1507,22 +1544,22 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/	
 	private function _querySecurity($query = '')
 	{	
-		
 		if( isset($this->secure) ) 
 		{
 			$secure = $this->secure;
+			
 			$secureParams = array();
 			
 			if( is_numeric(key($secure)) )
 			{	
-				$strex = explode('?', $query);	
+				$strex  = explode('?', $query);	
 				$newstr = '';
 				
 				if( ! empty($strex) ) for($i = 0; $i < count($strex); $i++)
 				{
 					$sec = isset($secure[$i])
-							  ? $secure[$i]
-							  : NULL;
+					     ? $secure[$i]
+					     : NULL;
 							  
 					$newstr .= $strex[$i].$this->db->realEscapeString($sec);
 				}

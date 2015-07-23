@@ -17,6 +17,14 @@ class __USE_STATIC_ACCESS__Captcha
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	public function __construct()
+	{
+		if( ! isset($_SESSION) ) 
+		{
+			session_start();
+		}
+	}
+	
 	/******************************************************************************************
 	* CREATE CAPTCHA                                                                          *
 	*******************************************************************************************
@@ -29,11 +37,6 @@ class __USE_STATIC_ACCESS__Captcha
 	******************************************************************************************/	
 	public function create($img = false, $configs = array())
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
 		if( ! empty($configs) )
 		{
 			Config::set('Captcha', $configs);
@@ -199,11 +202,13 @@ class __USE_STATIC_ACCESS__Captcha
 	******************************************************************************************/	
 	public function getCode()
 	{
-		if( ! isset($_SESSION) ) 
+		if( isset($_SESSION[md5('captchaCode')]) )
 		{
-			session_start();
+			return $_SESSION[md5('captchaCode')];
 		}
-		
-		return $_SESSION[md5('captchaCode')];
+		else
+		{
+			return false;	
+		}
 	}	
 }

@@ -40,6 +40,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($param) )
 		{
+			Error::set('CCaptcha', 'width', lang('Error', 'numericParameter', 'param'));
 			return $this;	
 		}
 		
@@ -66,6 +67,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($param) )
 		{
+			Error::set('CCaptcha', 'height', lang('Error', 'numericParameter', 'param'));
 			return $this;	
 		}
 		
@@ -112,6 +114,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($param) )
 		{
+			Error::set('CCaptcha', 'length', lang('Error', 'numericParameter', 'param'));
 			return $this;	
 		}
 		
@@ -139,8 +142,11 @@ class __USE_STATIC_ACCESS__CCaptcha
 	******************************************************************************************/
 	public function border($is = true, $color = '')
 	{
-		if( ! ( is_bool($is) && is_string($color) ) )
+		if( ! is_bool($is) || ! is_string($color) )
 		{
+			Error::set('CCaptcha', 'border', lang('Error', 'booleanParameter', 'is'));
+			Error::set('CCaptcha', 'border', lang('Error', 'stringParameter', 'color'));
+			
 			return $this;	
 		}
 		
@@ -170,6 +176,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_string($color) )
 		{
+			Error::set('CCaptcha', 'borderColor', lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 
@@ -197,6 +204,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_string($color) )
 		{
+			Error::set('CCaptcha', 'bgColor', lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 		
@@ -283,6 +291,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($size) )
 		{
+			Error::set('CCaptcha', 'textSize', lang('Error', 'numericParameter', 'size'));
 			return $this;
 		}
 		
@@ -310,6 +319,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
+			Error::set('CCaptcha', 'textCoordinate', lang('Error', 'numericParameter', 'x | y'));
 			return $this;
 		}
 
@@ -341,6 +351,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_string($color) )
 		{
+			Error::set('CCaptcha', 'textColor', lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 		
@@ -370,6 +381,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($size) || ! is_numeric($x) || ! is_numeric($y) )
 		{
+			Error::set('CCaptcha', 'text', lang('Error', 'numericParameter', 'size | x | y'));
 			return $this;
 		}
 		
@@ -407,8 +419,11 @@ class __USE_STATIC_ACCESS__CCaptcha
 	******************************************************************************************/
 	public function grid($is = true, $color = '')
 	{
-		if( ! ( is_bool($is) && is_string($color) ) )
+		if( ! is_bool($is) || ! is_string($color) )
 		{
+			Error::set('CCaptcha', 'grid', lang('Error', 'booleanParameter', 'is'));
+			Error::set('CCaptcha', 'grid', lang('Error', 'stringParameter', 'color'));
+			
 			return $this;	
 		}
 
@@ -438,6 +453,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_string($color) )
 		{
+			Error::set('CCaptcha', 'gridColor', lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 
@@ -465,6 +481,7 @@ class __USE_STATIC_ACCESS__CCaptcha
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
+			Error::set('CCaptcha', 'gridSpace', lang('Error', 'numericParameter', 'x | y'));
 			return $this;
 		}
 

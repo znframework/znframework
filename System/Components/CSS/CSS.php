@@ -55,6 +55,7 @@ class __USE_STATIC_ACCESS__CCSS
 	{
 		if( ! isChar($selector))
 		{
+			Error::set('CCSS', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 
@@ -98,6 +99,7 @@ class __USE_STATIC_ACCESS__CCSS
 	{		
 		if( ! is_array($attr) )
 		{
+			Error::set('CCSS', 'attr', lang('Error', 'arrayParameter', 'attr'));
 			return false;	
 		}
 
@@ -175,7 +177,7 @@ class __USE_STATIC_ACCESS__CCSS
 	{
 		if( ! is_string($selector) )
 		{
-			return false;	
+			return Error::set('CCSS', 'getSelector', lang('Error', 'stringParameter', 'selector'));
 		}
 		
 		$space = '\s*';
@@ -205,7 +207,10 @@ class __USE_STATIC_ACCESS__CCSS
 	{
 		if( ! is_string($selector) || ! is_array($attr) )
 		{
-			return false;	
+			Error::set('CCSS', 'setSelector', lang('Error', 'stringParameter', 'selector'));	
+			Error::set('CCSS', 'setSelector', lang('Error', 'arrayParameter', 'attr'));
+			
+			return false;
 		}	
 
 		$file = $this->manipulation['file'];

@@ -104,7 +104,7 @@ class __USE_STATIC_ACCESS__Upload
 	{
 		if( ! is_array($set) ) 
 		{
-			$set = array();
+			return Error::set('Upload', 'settings', lang('Error', 'arrayParameter', 'set'));
 		}
 
 		$this->settingStatus = true;
@@ -174,7 +174,7 @@ class __USE_STATIC_ACCESS__Upload
 	{	
 		if( ! is_string($fileName) ) 
 		{
-			return false;
+			return Error::set('Upload', 'start', lang('Error', 'stringParameter', 'fileName'));
 		}
 		
 		if( ! is_string($rootDir) ) 
@@ -454,7 +454,7 @@ class __USE_STATIC_ACCESS__Upload
 	{
 		if( ! is_string($sqlFile) || empty($sqlFile) ) 
 		{
-			return false;
+			return Error::set('Upload', 'sqlFile', lang('Error', 'stringParameter', 'sqlFile'));
 		}
 
 		$fileContents = File::contents(suffix($sqlFile,".sql"));

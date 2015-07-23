@@ -60,11 +60,11 @@ class __USE_STATIC_ACCESS__Time
 	| Örnek Kullanım: currentTime() // 09:02:41							                  |
 	|       																				  |
 	******************************************************************************************/
-	public function current( $clock = '%H:%M:%S' )
+	public function current($clock = '%H:%M:%S')
 	{
 		if( ! is_string($clock) ) 
 		{
-			return false;
+			return Error::set('Time', 'current', lang('Error', 'stringParameter', 'clock'));
 		}
 		
 		return strftime($clock);	
@@ -90,7 +90,7 @@ class __USE_STATIC_ACCESS__Time
 	{	
 		if( ! is_string($exp) ) 
 		{
-			return false;
+			return Error::set('Time', 'set', lang('Error', 'stringParameter', 'exp'));
 		}
 		
 		$chars = $this->config['setTimeFormatChars'];

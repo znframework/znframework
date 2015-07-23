@@ -35,15 +35,15 @@ class __USE_STATIC_ACCESS__Search
 	protected function _filter($column = '', $value = '', $type)
 	{
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
-		if( ! is_string($column) || ! is_string($column) ) 
+		if( ! is_string($column) ) 
 		{
-			return false;
+			return Error::set('Search', 'filter', lang('Error', 'stringParameter', 'column'));
 		}
 		
 		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
-		if( ! (is_string($value) || is_numeric($value)) ) 
+		if( ! isValue($value) ) 
 		{
-			return false;
+			return Error::set('Search', 'filter', lang('Error', 'valueParameter', 'value'));
 		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
@@ -70,6 +70,8 @@ class __USE_STATIC_ACCESS__Search
 	public function filter($column = '', $value = '')
 	{
 		$this->_filter($column, $value, 'and');
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
@@ -89,6 +91,8 @@ class __USE_STATIC_ACCESS__Search
 	public function orFilter($column = '', $value = '')
 	{
 		$this->_filter($column, $value, 'or');
+		
+		return $this;
 	}
 	
 	/******************************************************************************************
@@ -119,12 +123,12 @@ class __USE_STATIC_ACCESS__Search
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
 		{
-			return false;
+			return Error::set('Search', 'get', lang('Error', 'arrayParameter', 'conditions'));
 		}
 		
-		if( ! (is_string($word) || is_numeric($word)) ) 
+		if( ! isValue($word) ) 
 		{
-			return false;
+			return Error::set('Search', 'get', lang('Error', 'valueParameter', 'word'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -230,7 +234,7 @@ class __USE_STATIC_ACCESS__Search
 		{	
 			if( ! isValue($searchWord) ) 
 			{
-				return false;
+				return Error::set('Search', 'data', lang('Error', 'valueParameter', 'searchWord'));
 			}
 			
 			if( $output === 'str' || $output === 'string' ) 

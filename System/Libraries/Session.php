@@ -54,7 +54,7 @@ class __USE_STATIC_ACCESS__Session
 	{
 		if( empty($name) ) 
 		{
-			return false;
+			return Error::set('Session', 'insert', lang('Error', 'emptyParameter', 'name'));
 		}
 		
 		$sessConfig = $this->config;
@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__Session
 	{
 		if( empty($name) ) 
 		{
-			return false;
+			return Error::set('Session', 'select', lang('Error', 'emptyParameter', 'name'));
 		}
 		
 		$sessConfig = $this->config['encode'];
@@ -184,7 +184,7 @@ class __USE_STATIC_ACCESS__Session
 	{
 		if( empty($name) ) 
 		{
-			return false;
+			return Error::set('Session', 'delete', lang('Error', 'emptyParameter', 'name'));
 		}
 		
 		$sessConfig = $this->config['encode'];

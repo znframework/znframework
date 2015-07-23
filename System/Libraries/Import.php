@@ -42,7 +42,7 @@ class Import
 	{
 		if( ! is_string($randomPageVariable) )
 		{
-			return false;
+			return Error::set('Import', 'page', lang('Error', 'stringParameter', 'randomPageVariable'));
 		}
 		
 		if( ! extension($randomPageVariable) )
@@ -75,7 +75,7 @@ class Import
 		}
 		else
 		{
-			return false;	
+			return Error::set('Import', 'page', lang('Error', 'fileNotFound', $randomPageVariable));	
 		}
 	}
 	
@@ -160,7 +160,7 @@ class Import
 		}
 		else
 		{
-			return false;	
+			return Error::set('Import', 'template', lang('Error', 'fileNotFound', $page));	
 		}
 	}
 	
@@ -565,7 +565,7 @@ class Import
 		}
 		else
 		{ 
-			return false;
+			return Error::set('Import', 'font', lang('Error', 'emptyVariable', '@str'));
 		}
 	}
 	
@@ -625,7 +625,7 @@ class Import
 		}
 		else
 		{ 
-			return false;
+			return Error::set('Import', 'style', lang('Error', 'emptyVariable', '@str'));
 		}
 		
 	}	
@@ -687,9 +687,8 @@ class Import
 		}
 		else
 		{ 
-			return false;
+			return Error::set('Import', 'script', lang('Error', 'emptyVariable', '@str'));
 		}
-		
 	}
 	
 	/******************************************************************************************
@@ -710,14 +709,14 @@ class Import
 	{
 		if( ! is_string($randomPageVariable) ) 
 		{
-			return false;
+			return Error::set('Import', 'something', lang('Error', 'stringParameter', 'randomPageVariable'));
 		}
 
 		if( extension($randomPageVariable) === 'js' )
 		{
 			if( ! isFileExists($randomPageVariable) ) 
 			{
-				return false;
+				return Error::set('Import', 'something', lang('Error', 'fileParameter', 'randomPageVariable'));
 			}
 			
 			$return = '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eol();
@@ -735,7 +734,7 @@ class Import
 		{
 			if( ! isFileExists($randomPageVariable) ) 
 			{
-				return false;
+				return Error::set('Import', 'something', lang('Error', 'fileParameter', 'randomPageVariable'));
 			}
 			
 			$return = '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eol();
@@ -766,7 +765,7 @@ class Import
 			{
 				if( ! isFileExists($randomPageVariable) ) 
 				{
-					return false;
+					return Error::set('Import', 'something', lang('Error', 'fileParameter', 'randomPageVariable'));
 				}
 				
 				require($randomPageVariable); 
@@ -776,7 +775,7 @@ class Import
 			{
 				if( ! isFileExists($randomPageVariable) ) 
 				{
-					return false;
+					return Error::set('Import', 'something', lang('Error', 'fileParameter', 'randomPageVariable'));
 				}
 				
 				ob_start(); 
@@ -802,8 +801,12 @@ class Import
 	******************************************************************************************/
 	public static function package($packages = "", $differentExtension = array() )
 	{
-		if( ! ( is_string($packages) || isDirExists($packages) || is_array($differentExtension) ) ) 
+		if( ! is_string($packages) || ! isDirExists($packages) || ! is_array($differentExtension) ) 
 		{
+			Error::set('Import', 'package', lang('Error', 'stringParameter', 'packages'));
+			Error::set('Import', 'package', lang('Error', 'dirParameter', 'packages'));
+			Error::set('Import', 'package', lang('Error', 'arrayParameter', 'differentExtension'));
+			
 			return false;
 		}
 	
@@ -837,7 +840,7 @@ class Import
 		}
 		else 
 		{
-			return false;
+			return Error::set('Import', 'package', lang('Error', 'emptyParameter', '@packages'));
 		}
 	}
 }

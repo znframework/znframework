@@ -68,6 +68,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! isChar($selector) )
 		{
+			Error::set('CShadow', 'selector', lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 
@@ -123,6 +124,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! isValue($val) )
 		{
+			Error::set('CShadow', 'x', lang('Error', 'valueParameter', 'val'));
 			return $this;	
 		}
 		
@@ -169,6 +171,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! isValue($val) )
 		{
+			Error::set('CShadow', 'y', lang('Error', 'valueParameter', 'val'));
 			return $this;	
 		}
 		
@@ -215,6 +218,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! isValue($val) )
 		{
+			Error::set('CShadow', 'blur', lang('Error', 'valueParameter', 'val'));
 			return $this;	
 		}
 		
@@ -243,6 +247,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! isValue($val) )
 		{
+			Error::set('CShadow', 'diffusion', lang('Error', 'valueParameter', 'val'));
 			return $this;	
 		}
 		
@@ -290,6 +295,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! isValue($val))
 		{
+			Error::set('CShadow', 'color', lang('Error', 'valueParameter', 'val'));
 			return $this;	
 		}
 		
@@ -318,6 +324,7 @@ class __USE_STATIC_ACCESS__CShadow
 	{
 		if( ! is_string($val))
 		{
+			Error::set('CShadow', 'type', lang('Error', 'stringParameter', 'val'));
 			return $this;	
 		}
 		

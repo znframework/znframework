@@ -32,7 +32,7 @@ class __USE_STATIC_ACCESS__OB
 	{
 		if( ! file_exists($file) )
 		{
-			return false;	
+			return Error::set('OB', 'takeFileBuffer', lang('Error', 'fileParameter', 'file'));	
 		}
 		
 		ob_start();
@@ -62,6 +62,9 @@ class __USE_STATIC_ACCESS__OB
 	{
 		if( ! is_callable($func) || ! is_array($params) )
 		{
+			Error::set('OB', 'takeFuncBuffer', lang('Error', 'callableParameter', 'func'));	
+			Error::set('OB', 'takeFuncBuffer', lang('Error', 'arrayParameter', 'params'));
+			
 			return false;	
 		}
 		
@@ -100,7 +103,10 @@ class __USE_STATIC_ACCESS__OB
 	{
 		if( ! isValue($name) || ! is_array($params) )
 		{
-			return false;	
+			Error::set('OB', 'insert', lang('Error', 'valueParameter', 'name'));
+			Error::set('OB', 'insert', lang('Error', 'arrayParameter', 'params'));	
+			
+			return false;
 		}
 		
 		if( is_callable($data) )
@@ -132,7 +138,7 @@ class __USE_STATIC_ACCESS__OB
 	{
 		if( ! isValue($name) )
 		{
-			return false;	
+			return Error::set('OB', 'select', lang('Error', 'valueParameter', 'name'));	
 		}
 		
 		return Session::select('OB_DATAS_'.$name);
@@ -153,7 +159,7 @@ class __USE_STATIC_ACCESS__OB
 	{
 		if( ! isValue($name) )
 		{
-			return false;	
+			return Error::set('OB', 'delete', lang('Error', 'valueParameter', 'name'));		
 		}
 		
 		return Session::delete('OB_DATAS_'.$name);
@@ -171,7 +177,7 @@ class __USE_STATIC_ACCESS__OB
 		{
 			if( ! is_callable($callback) )
 			{
-				return false;	
+				return Error::set('OB', 'start', lang('Error', 'callableParameter', 'callback'));		
 			}
 			
 			return ob_start($callback);
@@ -180,7 +186,7 @@ class __USE_STATIC_ACCESS__OB
 		{
 			if( ! is_numeric($chunkSize) )
 			{
-				return false;	
+				return Error::set('OB', 'start', lang('Error', 'numericParameter', 'chunkSize'));		
 			}
 			
 			return ob_start($callback, $chunkSize);
@@ -189,7 +195,7 @@ class __USE_STATIC_ACCESS__OB
 		{
 			if( ! is_numeric($flags) )
 			{
-				return false;	
+				return Error::set('OB', 'start', lang('Error', 'numericParameter', 'flags'));		
 			}
 			
 			return ob_start($callback, $chunkSize, $flags);
@@ -320,7 +326,7 @@ class __USE_STATIC_ACCESS__OB
 	{
 		if( ! is_numeric($flag) )
 		{
-			return false;	
+			return Error::set('OB', 'implicitFlush', lang('Error', 'numericParameter', 'flag'));		
 		}
 		
 		return ob_implicit_flush($flag);	
@@ -338,7 +344,7 @@ class __USE_STATIC_ACCESS__OB
 		{
 			if( ! is_string($buffer) )
 			{
-				return false;	
+				return Error::set('OB', 'gzHandler', lang('Error', 'stringParameter', 'buffer'));		
 			}
 			
 			return ob_gzhandler($buffer);	
@@ -347,7 +353,7 @@ class __USE_STATIC_ACCESS__OB
 		{
 			if( ! is_numeric($mode) )
 			{
-				return false;	
+				return Error::set('OB', 'gzHandler', lang('Error', 'numericParameter', 'mode'));		
 			}
 			
 			return ob_gzhandler($buffer, $mode);	

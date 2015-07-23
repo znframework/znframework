@@ -32,11 +32,13 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_string($url) )
 		{
+			Error::set('CImg', 'src', lang('Error', 'stringParameter', 'url'));
 			return $this;	
 		}
 		
 		if( ! isEmail($url) )
 		{ 
+			Error::set('CImg', 'src', lang('Error', 'emailParameter', 'url'));
 			return $this;
 		}
 		
@@ -60,6 +62,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! isValue($title) )
 		{
+			Error::set('CImg', 'title', lang('Error', 'valueParameter', 'title'));
 			return $this;	
 		}
 		
@@ -83,6 +86,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_numeric($width) )
 		{
+			Error::set('CImg', 'width', lang('Error', 'numericParameter', 'width'));
 			return $this;	
 		}
 		
@@ -106,6 +110,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_numeric($height) )
 		{
+			Error::set('CImg', 'height', lang('Error', 'numericParameter', 'height'));
 			return $this;	
 		}
 		
@@ -126,10 +131,11 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	| Örnek Kullanım: ->size(200, 200)         											  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function size($width = '', $height = '')
+	public function size($width = 100, $height = 100)
 	{
-		if( ! ( is_numeric($height) || is_numeric($width) ) )
+		if( ! is_numeric($height) || ! is_numeric($width) )
 		{
+			Error::set('CImg', 'size', lang('Error', 'numericParameter', 'width & height'));
 			return $this;	
 		}
 		

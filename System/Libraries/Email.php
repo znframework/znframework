@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__Email
 	 *
 	 * 'utf-8'
 	 */
-	protected $charset			= 'utf-8';
+	protected $charset			= 'UTF-8';
 	
 	/* Multi Part Değişkeni
 	 *  
@@ -435,10 +435,15 @@ class __USE_STATIC_ACCESS__Email
 	|          																				  |
 	******************************************************************************************/
 	public function __construct($config = array())
-	{
+	{		
 		$this->config  = Config::get('Email');
 		
 		$this->charset = $this->config['charset'];
+		
+		if( ! empty($this->charset) )
+		{
+			$this->charset = strtoupper($this->charset);	
+		}
 		
 		if( empty($config) )
 		{
@@ -469,18 +474,20 @@ class __USE_STATIC_ACCESS__Email
 	{
 		if( ! is_array($config) )
 		{
-			return false;	
+			Error::set('Email', 'settings', lang('Error', 'arrayParameter', 'config'));	
 		}
-
-		foreach( $config as $key => $val )
+		else
 		{
-			if ( isset($this->$key) )
+			foreach( $config as $key => $val )
 			{
-				$this->$key = $val;
+				if ( isset($this->$key) )
+				{
+					$this->$key = $val;
+				}
 			}
+	
+			$this->smtpAuth = ! ( $this->smtpUser === '' && $this->smtpPassword === '' );
 		}
-
-		$this->smtpAuth = ! ( $this->smtpUser === '' && $this->smtpPassword === '' );
 		
 		return $this;
 	}
@@ -1030,7 +1037,7 @@ class __USE_STATIC_ACCESS__Email
 		return $this;
 	}
 	
-	public function charset($charset = 'utf-8')
+	public function charset($charset = 'UTF-8')
 	{
 		if( isCharset($charset) )
 		{
@@ -1390,7 +1397,11 @@ class __USE_STATIC_ACCESS__Email
 			$raw_data .= htmlspecialchars($this->lastBody);
 		}
 		
-		return $msg.( $raw_data === '' ? '' : '<pre>'.$raw_data.'</pre>' );
+		$errorString = $msg.( $raw_data === '' ? '' : '<pre>'.$raw_data.'</pre>' );
+		
+		Error::set('Email', 'error', $errorString);
+		
+		return $errorString;
 	}
 	
 	public function success()
@@ -1470,6 +1481,7 @@ class __USE_STATIC_ACCESS__Email
 				$this->encode = '7bit';
 			}
 		}
+		
 		if( $return === true )
 		{
 			return $this->encode;
@@ -1566,6 +1578,7 @@ class __USE_STATIC_ACCESS__Email
 				{
 					$this->lastBody = $hdr.$this->eol.$this->eol.$this->body;
 				}
+				
 				return;
 				
 			case 'html' :

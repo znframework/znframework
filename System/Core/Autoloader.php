@@ -64,7 +64,7 @@ class Autoloader
 		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
-
+		
 		// Sınıfın yolu alınıyor...
 		$file = $classInfo['path'];
 		
@@ -95,9 +95,23 @@ class Autoloader
 	|          																				  |
 	******************************************************************************************/
 	private static function tryAgainCreateClassMap($class)
-	{
-		// Config/ClassMap.php dosyasını oluştur. 
-		self::createClassMap();
+	{	
+		$classCaseLower = md5(strtolower($class));
+		
+		if( ! isset($_SESSION) )
+		{ 
+			session_start();	
+		}
+		
+		// Eğer oluşturulmaya çalışılan sınıf yoksa
+		// Yeniden kontrol etme işlemini birkez yap
+		if( empty($_SESSION[$classCaseLower]) )
+		{
+			// Config/ClassMap.php dosyasını oluştur. 
+			self::createClassMap();	
+			
+			$_SESSION[$classCaseLower] = true;
+		}
 		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
@@ -106,6 +120,10 @@ class Autoloader
 		if( file_exists($classInfo['path']) )
 		{	
 			require_once($classInfo['path']);
+			
+			// Class bulunup dahil edilebilmişse
+			// Oturum verilerinden sınıf bilgisini sil
+			unset($_SESSION[$classCaseLower]);
 		}
 		else
 		{	
@@ -122,10 +140,19 @@ class Autoloader
 	******************************************************************************************/
 	public static function createClassMap()
 	{
+		$configAutoloader = Config::get('Autoloader');
+		
+		// Config/Autoloader.php dosyasından tarama
+		// ayaraı kapalı ise tarama yapmaz.
+		if( $configAutoloader['directoryScanning'] === false )
+		{
+			return false;			
+		}
+		
 		// ClassMap'in oluşturulması için hangi dizinlerin
 		// taranması gerektiği Config/Autoloader.php dosyasında
 		// yer alır. Bu dizinlerin bilgisi alınıyor.
-		$classMap = Config::get('Autoloader', 'classMap');
+		$classMap = $configAutoloader['classMap'];
 		
 		// Belirtilen dizinler ve alt dizinler taranıyor
 		// ve sınıf haritaları oluşturuluyor...
@@ -228,13 +255,11 @@ class Autoloader
 			// ----------------------------------------------------------------------------------------	
 			$path      = $classes[$classCaseLower];	
 			// ----------------------------------------------------------------------------------------
-
+			
 			// ----------------------------------------------------------------------------------------
 			// NAMESPACE bilgisi oluşturuluyor...
 			// ----------------------------------------------------------------------------------------
-			$namespace = isset($namespaces[$classCaseLower])
-				       ? $namespaces[$classCaseLower] 
-				       : $class;
+			$namespace = $class;
 			// ----------------------------------------------------------------------------------------
 		}
 		elseif( ! empty($namespaces) )

@@ -122,8 +122,9 @@ class __USE_STATIC_ACCESS__CCalendar
 	******************************************************************************************/
 	public function nameType($day = 'short', $month = 'long')
 	{
-		if( ! ( is_string($day) && is_string($month) ) )	
+		if( ! is_string($day) || ! is_string($month) )	
 		{
+			Error::set('CCalendar', 'nameType', lang('Error', 'stringParameter', 'day | month'));
 			return $this;	
 		}
 		
@@ -156,6 +157,7 @@ class __USE_STATIC_ACCESS__CCalendar
 	{
 		if( ! is_array($css) )
 		{
+			Error::set('CCalendar', 'css', lang('Error', 'arrayParameter', 'css'));
 			return $this;	
 		}
 		
@@ -186,6 +188,7 @@ class __USE_STATIC_ACCESS__CCalendar
 	{
 		if( ! is_array($style) )
 		{
+			Error::set('CCalendar', 'style', lang('Error', 'arrayParameter', 'style'));
 			return $this;	
 		}
 		
@@ -211,6 +214,7 @@ class __USE_STATIC_ACCESS__CCalendar
 	{
 		if( ! ( is_string($prev) && is_string($next) ) )	
 		{
+			Error::set('CCalendar', 'linkNames', lang('Error', 'stringParameter', 'prev | next'));
 			return $this;	
 		}
 		
