@@ -595,6 +595,8 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
+		$links = array_change_key_case(Config::get('Links', 'style'));
+		
 		foreach(array_unique($arguments) as $style)
 		{
 			if( is_array($style) ) 
@@ -603,11 +605,20 @@ class Import
 			}	
 		
 			if( ! in_array("style_".$style, self::$isImport) )
-			{
+			{					
 				if( isFileExists(STYLES_DIR.suffix($style,".css")) )
 				{
 					$str .= '<link href="'.baseUrl().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.eol();
 				}
+				elseif( isUrl($style) && extension($style) === 'css' )
+				{
+					$str .= '<link href="'.$style.'" rel="stylesheet" type="text/css" />'.eol();
+				}
+				elseif( isset($links[strtolower($style)]) )
+				{
+					$str .= '<link href="'.$links[strtolower($style)].'" rel="stylesheet" type="text/css" />'.eol();	
+				}
+				
 				self::$isImport[] = "style_".$style;
 			}
 		}
@@ -656,6 +667,8 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
+		$links = array_change_key_case(Config::get('Links', 'script'));
+		
 		foreach(array_unique($arguments) as $script)
 		{
 			if( is_array($script) ) 
@@ -668,6 +681,14 @@ class Import
 				if( isFileExists(SCRIPTS_DIR.suffix($script,".js")) )
 				{
 					$str .= '<script type="text/javascript" src="'.baseUrl().SCRIPTS_DIR.suffix($script,".js").'"></script>'.eol();
+				}
+				elseif( isUrl($script) && extension($script) === 'js' )
+				{
+					$str .= '<script type="text/javascript" src="'.$script.'"></script>'.eol();
+				}
+				elseif( isset($links[strtolower($script)]) )
+				{
+					$str .= '<script type="text/javascript" src="'.$links[strtolower($script)].'"></script>'.eol();	
 				}
 				
 				self::$isImport[] = "script_".$script;

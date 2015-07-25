@@ -71,13 +71,13 @@ class __USE_STATIC_ACCESS__Jquery
 		// True ise Jquery kütüphanesini dahil et.
 		if( $jqueryLibrary === true )
 		{
-			$script  .= Import::script('Jquery', true);
+			$script  .= Import::script('jquery', true);
 		}
 		
 		// True ise JqueryUi kütüphanesini dahil et.
 		if( $jqueryUiLibrary === true )
 		{
-			$script  .= Import::script('JqueryUi', true);
+			$script  .= Import::script('jqueryUi', true);
 		}
 		
 		$script .= '<script type="text/javascript">'.eol();

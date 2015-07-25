@@ -56,8 +56,8 @@ class __USE_STATIC_ACCESS__CScript
 	
 	public function open()
 	{		
-		$script = "";
-		$script .= Import::script('Jquery', true);
+		$script  = "";
+		$script .= Import::script('jquery', true);
 		$script .= "<script type=\"$this->type\">".eol();
 		
 		if( $this->ready )
