@@ -205,7 +205,11 @@ class __USE_STATIC_ACCESS__URI
 	{
 		if( ! is_numeric($seg) ) 
 		{
+<<<<<<< HEAD
 			return Error::set(lang('Error', 'numericParameter', 'seg'));
+=======
+			return Error::set('URI', 'segment', lang('Error', 'numericParameter', 'seg'));
+>>>>>>> origin/master
 		}
 		
 		$ok = $seg;
