@@ -37,11 +37,11 @@ class Error
 	
 		$className = isset($info[1]['class'])
 				   ? str_ireplace('__USE_STATIC_ACCESS__', '', $info[1]['class'])
-				   : $info[5]['function'];
+				   : $info[5]['class'];
 		   
 		$methodName = isset($info[1]['function'])
 					? $info[1]['function']
-					: $info[5]['class'];
+					: $info[5]['function'];
 					
 		$line = isset($info[1]['line'])
 			  ? $info[1]['line']
