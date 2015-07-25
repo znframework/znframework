@@ -72,7 +72,7 @@ class __USE_STATIC_ACCESS__CUpload
 		}
 		else
 		{
-			Error::set('CUpload', 'convertName', lang('Error', 'booleanParameter', 'convert'));	
+			Error::set(lang('Error', 'booleanParameter', 'convert'));	
 		}
 		
 		return $this;
@@ -122,7 +122,7 @@ class __USE_STATIC_ACCESS__CUpload
 		}
 		else
 		{
-			Error::set('CUpload', 'prefix', lang('Error', 'valueParameter', 'prefix'));		
+			Error::set(lang('Error', 'valueParameter', 'prefix'));		
 		}
 		
 		return $this;
@@ -147,7 +147,7 @@ class __USE_STATIC_ACCESS__CUpload
 		}
 		else
 		{
-			Error::set('CUpload', 'maxsize', lang('Error', 'numericParameter', 'maxsize'));		
+			Error::set(lang('Error', 'numericParameter', 'maxsize'));		
 		}
 		
 		return $this;
@@ -172,7 +172,7 @@ class __USE_STATIC_ACCESS__CUpload
 		}
 		else
 		{
-			Error::set('CUpload', 'encodeLength', lang('Error', 'numericParameter', 'encodeLength'));		
+			Error::set(lang('Error', 'numericParameter', 'encodeLength'));		
 		}
 		
 		return $this;
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__CUpload
 		}
 		else
 		{
-			Error::set('CUpload', 'target', lang('Error', 'stringParameter', 'target'));		
+			Error::set(lang('Error', 'stringParameter', 'target'));		
 		}
 		
 		return $this;
@@ -222,7 +222,7 @@ class __USE_STATIC_ACCESS__CUpload
 		}
 		else
 		{
-			Error::set('CUpload', 'source', lang('Error', 'stringParameter', 'source'));	
+			Error::set(lang('Error', 'stringParameter', 'source'));	
 		}
 		
 		return $this;
@@ -292,7 +292,7 @@ class __USE_STATIC_ACCESS__CUpload
 	public function error()
 	{
 		$error = Upload::error();
-		Error::set('CUpload', 'error', $error);
+		Error::set($error);
 		return $error;
 	}
 }

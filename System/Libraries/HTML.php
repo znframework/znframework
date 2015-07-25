@@ -53,12 +53,12 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($element) ) 
 		{
-			return Error::set('HTML', 'element', lang('Error', 'valueParameter', 'element'));	
+			return Error::set(lang('Error', 'valueParameter', 'element'));	
 		}
 		
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'element', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<'.$element.$this->attributes($attributes).'>'.$str.'</'.$element.'>';
@@ -74,7 +74,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'multiAttr', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		if( is_array($array) )
@@ -126,7 +126,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'heading', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		if( ! is_numeric($type) ) 
@@ -147,7 +147,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'font', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<font'.$this->attributes($attributes).'>'.$str.'</font>';
@@ -163,7 +163,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'parag', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return	'<p'.$this->attributes($attributes).'>'.$str.'</p>';
@@ -179,7 +179,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'bold', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<bold'.$this->attributes($attributes).'>'.$str.'</bold>';
@@ -195,7 +195,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'strong', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<strong'.$this->attributes($attributes).'>'.$str.'</strong>';
@@ -211,7 +211,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'italic', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<em'.$this->attributes($attributes).'>'.$str.'</em>';
@@ -227,7 +227,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'underLine', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<u'.$this->attributes($attributes).'>'.$str.'</u>';
@@ -243,7 +243,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'overLine', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<del'.$this->attributes($attributes).'>'.$str.'</del>';
@@ -259,7 +259,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'overText', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<sup'.$this->attributes($attributes).'>'.$str.'</sup>';
@@ -275,7 +275,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! isValue($str) ) 
 		{
-			return Error::set('HTML', 'underText', lang('Error', 'valueParameter', 'str'));
+			return Error::set(lang('Error', 'valueParameter', 'str'));
 		}
 		
 		return '<sub'.$this->attributes($attributes).'>'.$str.'</sub>';
@@ -306,12 +306,12 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! is_string($url) )
 		{
-			return Error::set('HTML', 'anchor', lang('Error', 'valueParameter', 'url'));
+			return Error::set(lang('Error', 'valueParameter', 'url'));
 		}
 		
 		if( ! isValue($value) ) 
 		{
-			return Error::set('HTML', 'anchor', lang('Error', 'valueParameter', 'value'));
+			return Error::set(lang('Error', 'valueParameter', 'value'));
 		}
 		
 		if( ! isUrl($url) && ! strstr($url, '#'))
@@ -337,12 +337,12 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! is_string($mail) ) 
 		{
-			return Error::set('HTML', 'mailTo', lang('Error', 'stringParameter', 'mail'));
+			return Error::set(lang('Error', 'stringParameter', 'mail'));
 		}
 		
 		if( ! isEmail($mail) ) 
 		{
-			return Error::set('HTML', 'mailTo', lang('Error', 'emailParameter', 'mail'));
+			return Error::set(lang('Error', 'emailParameter', 'mail'));
 		}
 		
 		return '<a'.$this->attributes($_attributes).' href="mailto:'.$mail.'">'.$mail.'</a>';	
@@ -358,7 +358,7 @@ class __USE_STATIC_ACCESS__HTML
 	{
 		if( ! is_string($src) ) 
 		{
-			return Error::set('HTML', 'image', lang('Error', 'stringParameter', 'src'));
+			return Error::set(lang('Error', 'stringParameter', 'src'));
 		}
 		
 		if( ! isUrl($src) ) 

@@ -48,7 +48,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set('Security', 'ncEncode', lang('Error', 'stringParameter', 'string'));
+			return Error::set(lang('Error', 'stringParameter', 'string'));
 		}
 	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
@@ -103,7 +103,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set('Security', 'injectionEncode', lang('Error', 'stringParameter', 'string'));
+			return Error::set(lang('Error', 'stringParameter', 'string'));
 		}
 		
 		$secBadChars = $this->config['injectionBadChars'];
@@ -140,7 +140,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string))
 		{ 
-			return Error::set('Security', 'injectionDecode', lang('Error', 'stringParameter', 'string'));
+			return Error::set(lang('Error', 'stringParameter', 'string'));
 		}
 		
 		return stripslashes(trim($string));
@@ -159,7 +159,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set('Security', 'xssEncode', lang('Error', 'stringParameter', 'string'));
+			return Error::set(lang('Error', 'stringParameter', 'string'));
 		}
 		
 		$secBadChars = $this->config['scriptBadChars'];
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set('Security', 'htmlEncode', lang('Error', 'stringParameter', 'string'));
+			return Error::set(lang('Error', 'stringParameter', 'string'));
 		}
 		
 		if( ! is_string($type)) 
@@ -235,7 +235,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Security', 'htmlDecode', lang('Error', 'stringParameter', 'string'));
+			return Error::set(lang('Error', 'stringParameter', 'string'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -268,7 +268,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Security', 'phpTagEncode', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$phpTagChars = array
@@ -289,7 +289,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Security', 'phpTagDecode', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$phpTagChars = array
@@ -310,7 +310,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Security', 'nailEncode', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$nailChars = array
@@ -333,7 +333,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Security', 'nailDecode', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$nailChars = array
@@ -356,7 +356,7 @@ class __USE_STATIC_ACCESS__Security
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Security', 'foreignCharEncode', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -373,7 +373,7 @@ class __USE_STATIC_ACCESS__Security
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Security', 'foreignCharDecode', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$chars = $this->config['numericalCodes'];

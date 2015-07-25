@@ -60,7 +60,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('XML', 'load', lang('Error', 'stringParameter', 'path'));
+			return Error::set(lang('Error', 'stringParameter', 'path'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -103,7 +103,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('XML', 'path', lang('Error', 'stringParameter', 'path'));
+			return Error::set(lang('Error', 'stringParameter', 'path'));
 		}
 		
 		$path = str_replace("/","//",$path);
@@ -166,7 +166,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_string($add) || empty($add) ) 
 		{
-			return Error::set('XML', 'addElement', lang('Error', 'stringParameter', 'add'));
+			return Error::set(lang('Error', 'stringParameter', 'add'));
 		}
 		
 		if( ! is_object($to) ) 
@@ -212,14 +212,14 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_object($add) || empty($add) )
 		{
-			return Error::set('XML', 'removeElement', lang('Error', 'stringParameter', 'add'));
+			return Error::set(lang('Error', 'stringParameter', 'add'));
 		}
 		
 		if( ! is_array($to) )
 		{
 			if( ! is_object($to) ) 
 			{
-				return Error::set('XML', 'removeElement', lang('Error', 'objectParameter', 'to'));
+				return Error::set(lang('Error', 'objectParameter', 'to'));
 			}
 			
 			if( $add->hasChildNodes() <= $to->hasChildNodes() ) 
@@ -260,7 +260,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_object($to) )
 		{
-			return Error::set('XML', 'addContent', lang('Error', 'objectParameter', 'to'));
+			return Error::set(lang('Error', 'objectParameter', 'to'));
 		}
 		
 		if( ! isChar($text) ) 
@@ -297,7 +297,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
-			return Error::set('XML', 'addAttr', lang('Error', 'objectParameter', 'element'));
+			return Error::set(lang('Error', 'objectParameter', 'element'));
 		}
 		
 		if( ! is_array($name) )
@@ -336,7 +336,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
-			return Error::set('XML', 'removeAttr', lang('Error', 'objectParameter', 'element'));
+			return Error::set(lang('Error', 'objectParameter', 'element'));
 		}
 		
 		if( ! isChar($name) )
@@ -375,7 +375,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_object($element) || empty($element) ) 
 		{
-			return Error::set('XML', 'getAttr', lang('Error', 'objectParameter', 'element'));
+			return Error::set(lang('Error', 'objectParameter', 'element'));
 		}
 			
 		if( ! is_array($name) )
@@ -416,7 +416,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_string($name) || empty($name) ) 
 		{
-			return Error::set('XML', 'getContentsByName', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 		
 		$all = '';
@@ -447,7 +447,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_string($id) || empty($id) ) 
 		{
-			return Error::set('XML', 'getContentById', lang('Error', 'stringParameter', 'id'));
+			return Error::set(lang('Error', 'stringParameter', 'id'));
 		}
 			
 		$element = $this->dom->getElementById($id);
@@ -471,7 +471,7 @@ class __USE_STATIC_ACCESS__XML
 	{
 		if( ! is_object($name) || empty($name) ) 
 		{
-			return Error::set('XML', 'getContent', lang('Error', 'objectParameter', 'name'));
+			return Error::set(lang('Error', 'objectParameter', 'name'));
 		}
 			
 		return $name->textContent;

@@ -37,13 +37,13 @@ class __USE_STATIC_ACCESS__Search
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
 		if( ! is_string($column) ) 
 		{
-			return Error::set('Search', 'filter', lang('Error', 'stringParameter', 'column'));
+			return Error::set(lang('Error', 'stringParameter', 'column'));
 		}
 		
 		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
 		if( ! isValue($value) ) 
 		{
-			return Error::set('Search', 'filter', lang('Error', 'valueParameter', 'value'));
+			return Error::set(lang('Error', 'valueParameter', 'value'));
 		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
@@ -123,12 +123,12 @@ class __USE_STATIC_ACCESS__Search
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
 		{
-			return Error::set('Search', 'get', lang('Error', 'arrayParameter', 'conditions'));
+			return Error::set(lang('Error', 'arrayParameter', 'conditions'));
 		}
 		
 		if( ! isValue($word) ) 
 		{
-			return Error::set('Search', 'get', lang('Error', 'valueParameter', 'word'));
+			return Error::set(lang('Error', 'valueParameter', 'word'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -234,7 +234,7 @@ class __USE_STATIC_ACCESS__Search
 		{	
 			if( ! isValue($searchWord) ) 
 			{
-				return Error::set('Search', 'data', lang('Error', 'valueParameter', 'searchWord'));
+				return Error::set(lang('Error', 'valueParameter', 'searchWord'));
 			}
 			
 			if( $output === 'str' || $output === 'string' ) 

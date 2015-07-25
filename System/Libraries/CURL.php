@@ -89,7 +89,7 @@ class __USE_STATIC_ACCESS__CURL
 		//Ayar boş veya oturum başlatılmamışsa false değeri döndürme işlemi yapılıyor.
 		if( empty($settings) || ! isset($this->init) ) 
 		{
-			return Error::set('CURL', 'settings', lang('Error', 'emptyParameter', 'settings'));
+			return Error::set(lang('Error', 'emptyParameter', 'settings'));
 		}
 		
 		$options = $this->config['options'];
@@ -158,7 +158,7 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) ) 
 		{
-			return Error::set('CURL', 'execute', lang('Error', 'emptyParameter', '$this->init'));
+			return Error::set(lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
 		return curl_exec($this->init);
@@ -221,12 +221,12 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) ) 
 		{
-			return Error::set('CURL', 'error', lang('Error', 'emptyParameter', '$this->init'));
+			return Error::set(lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
 		$error = curl_error($this->init);
 		
-		Error::set('CURL', 'error', $error);
+		Error::set($error);
 		
 		return $error;
 	}
@@ -245,12 +245,12 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) ) 
 		{
-			return Error::set('CURL', 'errno', lang('Error', 'emptyParameter', '$this->init'));
+			return Error::set(lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
 		$errno = curl_errno($this->init);
 		
-		Error::set('CURL', 'errno', $errno);
+		Error::set($errno);
 		
 		return $errno;
 	}
@@ -269,7 +269,7 @@ class __USE_STATIC_ACCESS__CURL
 	{
 		if( ! isset($this->init) )
 		{ 
-			return Error::set('CURL', 'errval', lang('Error', 'emptyParameter', '$this->init'));
+			return Error::set(lang('Error', 'emptyParameter', '$this->init'));
 		}
 		
 		$errors = $this->config['errors'];
@@ -279,14 +279,14 @@ class __USE_STATIC_ACCESS__CURL
 		{
 			if( isset($errors[$errno]) )
 			{
-				Error::set('CURL', 'errval', $errors[$errno]);
+				Error::set($errors[$errno]);
 				
 				return $errors[$errno]; 
 			}
 		}
 		else 
 		{
-			return Error::set('CURL', 'errval', lang('Error', 'emptyParameter', '$errno'));
+			return Error::set(lang('Error', 'emptyParameter', '$errno'));
 		}
 	}
 
@@ -336,7 +336,7 @@ class __USE_STATIC_ACCESS__CURL
 		}
 		else
 		{
-			return Error::set('CURL', 'close', lang('Error', 'emptyParameter', '$this->init'));
+			return Error::set(lang('Error', 'emptyParameter', '$this->init'));
 		}
 	}
 }

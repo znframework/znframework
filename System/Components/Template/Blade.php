@@ -78,7 +78,7 @@ class __USE_STATIC_ACCESS__CBlade
 	{
 		if( ! is_string($str) )
 		{
-			return Error::set('CBlade', 'data', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$bladeChars = array

@@ -33,7 +33,7 @@ class __USE_STATIC_ACCESS__Symbol
 	{
 		if( ! is_string($symbolName) ) 
 		{
-			return Error::set('Symbol', 'name', lang('Error', 'stringParameter', 'symbolName'));
+			return Error::set(lang('Error', 'stringParameter', 'symbolName'));
 		}
 		
 		$symbol = Config::get('Symbols', $symbolName);

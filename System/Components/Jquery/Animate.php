@@ -59,7 +59,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	{
 		if( ! isChar($selector) )
 		{
-			Error::set('CAnimate', 'selector', lang('Error', 'valueParameter', 'selector'));
+			Error::set(lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -89,7 +89,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		}
 		else
 		{
-			Error::set('CAnimate', 'speed', lang('Error', 'valueParameter', 'duration'));
+			Error::set(lang('Error', 'valueParameter', 'duration'));
 		}
 		
 		return $this;
@@ -109,7 +109,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		}
 		else
 		{
-			Error::set('CAnimate', 'duration', lang('Error', 'valueParameter', 'duration'));
+			Error::set(lang('Error', 'valueParameter', 'duration'));
 		}
 		
 		return $this;
@@ -127,7 +127,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 		}
 		else
 		{
-			Error::set('CAnimate', 'queue', lang('Error', 'valueParameter', 'queue'));
+			Error::set(lang('Error', 'valueParameter', 'queue'));
 			return $this;
 		}
 		
@@ -140,7 +140,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	{
 		if( ! is_string($params) || ! is_string($callback) )
 		{
-			Error::set('CAnimate', 'callback', lang('Error', 'stringParameter', 'params & callback'));
+			Error::set(lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		
@@ -153,7 +153,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	{
 		if( ! is_string($params) || ! is_string($callback) )
 		{
-			Error::set('CAnimate', 'func', lang('Error', 'stringParameter', 'params & callback'));
+			Error::set(lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		
@@ -166,7 +166,7 @@ class __USE_STATIC_ACCESS__CAnimate extends CJqueryCommon
 	{
 		if( ! is_array($attr) )
 		{
-			Error::set('CAnimate', 'attr', lang('Error', 'arrayParameter', 'attr'));
+			Error::set(lang('Error', 'arrayParameter', 'attr'));
 			return $this;	
 		}
 		

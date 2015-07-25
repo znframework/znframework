@@ -32,13 +32,13 @@ class __USE_STATIC_ACCESS__CMailto extends CHtmlCommon
 	{
 		if( ! is_string($url) )
 		{
-			Error::set('CMailto', 'email', lang('Error', 'stringParameter', 'url'));
+			Error::set(lang('Error', 'stringParameter', 'url'));
 			return $this;	
 		}
 		
 		if( ! isEmail($url) )
 		{ 
-			Error::set('CMailto', 'email', lang('Error', 'emailParameter', 'url'));
+			Error::set(lang('Error', 'emailParameter', 'url'));
 			return $this;
 		}
 		

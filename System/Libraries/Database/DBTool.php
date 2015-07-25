@@ -366,7 +366,7 @@ class __USE_STATIC_ACCESS__DBTool
 	******************************************************************************************/
 	public function error()
 	{
-		Error::set('DBTool', 'error', $this->db->error()); 
+		Error::set($this->db->error()); 
 		return $this->db->error(); 
 	}
 	

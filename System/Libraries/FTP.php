@@ -81,7 +81,7 @@ class __USE_STATIC_ACCESS__FTP
 	{	
 		if( ! is_array($con) )
 		{
-			return Error::set('FTP', 'connect', lang('Error', 'arrayParameter', 'con'));
+			return Error::set(lang('Error', 'arrayParameter', 'con'));
 		}
 		
 		// Config/Ftp.php dosyasından ftp ayarları alınıyor.
@@ -131,7 +131,7 @@ class __USE_STATIC_ACCESS__FTP
 							
 		if( empty($this->connect) ) 
 		{
-			return Error::set('FTP', 'connect', lang('Error', 'emptyVariable', '@this->connect'));
+			return Error::set(lang('Error', 'emptyVariable', '@this->connect'));
 		}
 		
 		$this->login = @ftp_login($this->connect, $user, $password);
@@ -160,7 +160,7 @@ class __USE_STATIC_ACCESS__FTP
 		}
 		else
 		{ 
-			return Error::set('FTP', 'close', lang('Error', 'emptyVariable', '@this->connect'));
+			return Error::set(lang('Error', 'emptyVariable', '@this->connect'));
 		}
 	}
 	
@@ -180,7 +180,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('FTP', 'createFolder', lang('Error', 'stringParameter', 'path'));	
+			return Error::set(lang('Error', 'stringParameter', 'path'));	
 		}
 		
 		if( @ftp_mkdir($this->connect, $path) )
@@ -190,7 +190,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error =  getMessage('Folder', 'alreadyFileError', $path);
-			return Error::set('FTP', 'createFolder', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -209,7 +209,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('FTP', 'deleteFolder', lang('Error', 'stringParameter', 'path'));	
+			return Error::set(lang('Error', 'stringParameter', 'path'));	
 		}
 		
 		if( @ftp_rmdir($this->connect, $path) )
@@ -219,7 +219,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error = getMessage('Folder', 'notFoundError', $path);
-			return Error::set('FTP', 'deleteFolder', $this->error);	
+			return Error::set($this->error);	
 		}
 	
 	}
@@ -239,7 +239,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('FTP', 'changeFolder', lang('Error', 'stringParameter', 'path'));
+			return Error::set(lang('Error', 'stringParameter', 'path'));
 		}
 	
 		if( @ftp_chdir($this->connect, $path) )
@@ -249,7 +249,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error = getMessage('Folder', 'changeFolderError', $path);
-			return Error::set('FTP', 'changeFolder', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -269,8 +269,8 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($oldName) || ! is_string($newName) ) 
 		{
-			Error::set('FTP', 'rename', lang('Error', 'stringParameter', 'oldName'));
-			Error::set('FTP', 'rename', lang('Error', 'stringParameter', 'newName'));
+			Error::set(lang('Error', 'stringParameter', 'oldName'));
+			Error::set(lang('Error', 'stringParameter', 'newName'));
 			
 			return false;	
 		}
@@ -282,7 +282,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error = getMessage('Folder', 'changeFolderNameError', $oldName);
-			return Error::set('FTP', 'rename', $this->error);	
+			return Error::set($this->error);	
 		}
 	}
 	
@@ -301,7 +301,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('FTP', 'deleteFile', lang('Error', 'stringParameter', 'path'));
+			return Error::set(lang('Error', 'stringParameter', 'path'));
 		}
 		
 		if( @ftp_delete($this->connect, $path) )
@@ -311,7 +311,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error = getMessage('File', 'notFoundError', $path);
-			return Error::set('FTP', 'deleteFile', $this->error);	
+			return Error::set($this->error);	
 		}
 	}
 	
@@ -332,8 +332,8 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			Error::set('FTP', 'upload', lang('Error', 'stringParameter', 'localPath'));
-			Error::set('FTP', 'upload', lang('Error', 'stringParameter', 'remotePath'));
+			Error::set(lang('Error', 'stringParameter', 'localPath'));
+			Error::set(lang('Error', 'stringParameter', 'remotePath'));
 			
 			return false;
 		}
@@ -359,7 +359,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error = getMessage('File', 'remoteUploadError', $localPath);
-			return Error::set('FTP', 'upload', $this->error);	
+			return Error::set($this->error);	
 		}
 	}
 	
@@ -380,8 +380,8 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			Error::set('FTP', 'download', lang('Error', 'stringParameter', 'remotePath'));
-			Error::set('FTP', 'download', lang('Error', 'stringParameter', 'localPath'));
+			Error::set(lang('Error', 'stringParameter', 'remotePath'));
+			Error::set(lang('Error', 'stringParameter', 'localPath'));
 			
 			return false;
 		}
@@ -407,7 +407,7 @@ class __USE_STATIC_ACCESS__FTP
 		else
 		{
 			$this->error = getMessage('File', 'remoteDownloadError', $localPath);
-			return Error::set('FTP', 'download', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -427,7 +427,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) )
 		{
-			return Error::set('FTP', 'permission', lang('Error', 'stringParameter', 'path'));		
+			return Error::set(lang('Error', 'stringParameter', 'path'));		
 		}
 		
 		if( ! is_numeric($type) )
@@ -441,7 +441,7 @@ class __USE_STATIC_ACCESS__FTP
 		}
 		else
 		{ 
-			return Error::set('FTP', 'permission', lang('Error', 'emptyVariable', '@this->connect'));	
+			return Error::set(lang('Error', 'emptyVariable', '@this->connect'));	
 		}
 	}
 	
@@ -464,7 +464,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) )
 		{
-			return Error::set('FTP', 'files', lang('Error', 'stringParameter', 'path'));		
+			return Error::set(lang('Error', 'stringParameter', 'path'));		
 		}
 
 		$list = @ftp_nlist($this->connect, $path);
@@ -505,7 +505,7 @@ class __USE_STATIC_ACCESS__FTP
 		}
 		else
 		{
-			return Error::set('FTP', 'files', lang('Error', 'emptyVariable', '@files'));	
+			return Error::set(lang('Error', 'emptyVariable', '@files'));	
 		}
 	}
 	
@@ -531,7 +531,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set('FTP', 'fileSize', lang('Error', 'stringParameter', 'path'));		
+			return Error::set(lang('Error', 'stringParameter', 'path'));		
 		}
 		
 		if( ! is_string($type) ) 
@@ -593,7 +593,7 @@ class __USE_STATIC_ACCESS__FTP
 	{
 		if( isset($this->error) )
 		{
-			Error::set('FTP', 'error', $this->error);	
+			Error::set($this->error);	
 			return $this->error;
 		}
 		else

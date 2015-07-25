@@ -183,7 +183,7 @@ class __USE_STATIC_ACCESS__Image
 		// Parametre kontrolleri yapılıyor -------------------------------------------
 		if( ! is_string($fpath) ) 
 		{
-			return Error::set('Image', 'thumb', lang('Error', 'stringParameter', 'fpath'));
+			return Error::set(lang('Error', 'stringParameter', 'fpath'));
 		}
 		if( ! is_array($set) )
 		{
@@ -383,7 +383,7 @@ class __USE_STATIC_ACCESS__Image
 		// Parametre kontrolleri yapılıyor. ------------------------------------------
 		if( ! is_string($path) ) 
 		{
-			return Error::set('Image', 'getProsize', lang('Error', 'stringParameter', 'path'));
+			return Error::set(lang('Error', 'stringParameter', 'path'));
 		}
 		if( ! is_numeric($width) )
 		{

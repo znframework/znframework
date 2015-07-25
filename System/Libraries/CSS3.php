@@ -77,7 +77,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return Error::set('CSS3', 'transform', lang('Error', 'stringParameter', 'element'));
+			return Error::set(lang('Error', 'stringParameter', 'element'));
 		}
 		
 		$str  = '';
@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return Error::set('CSS3', 'transition', lang('Error', 'stringParameter', 'element'));
+			return Error::set(lang('Error', 'stringParameter', 'element'));
 		}
 	
 		$str  = "";
@@ -242,7 +242,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return Error::set('CSS3', 'animation', lang('Error', 'stringParameter', 'element'));
+			return Error::set(lang('Error', 'stringParameter', 'element'));
 		}
 		
 		$str  = "";
@@ -356,7 +356,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return Error::set('CSS3', 'shadow', lang('Error', 'stringParameter', 'element'));
+			return Error::set(lang('Error', 'stringParameter', 'element'));
 		}
 		if( ! is_array($param) ) 
 		{
@@ -463,7 +463,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return Error::set('CSS3', 'borderRadius', lang('Error', 'stringParameter', 'element'));
+			return Error::set(lang('Error', 'stringParameter', 'element'));
 		}
 		if( ! is_array($param) ) 
 		{
@@ -536,7 +536,7 @@ class __USE_STATIC_ACCESS__CSS3
 	{
 		if( ! is_string($element) || empty($element) ) 
 		{
-			return Error::set('CSS3', 'code', lang('Error', 'stringParameter', 'element'));
+			return Error::set(lang('Error', 'stringParameter', 'element'));
 		}
 		if( ! is_string($code)) 
 		{

@@ -70,7 +70,7 @@ class __USE_STATIC_ACCESS__Cookie
 		/************************************************************************************************/
 		if( ! isValue($name) ) 
 		{
-			return Error::set('Cookie', 'insert', lang('Error', 'valueParameter', 'name'));
+			return Error::set(lang('Error', 'valueParameter', 'name'));
 		}
 		if( ! is_numeric($time) ) 
 		{
@@ -95,12 +95,12 @@ class __USE_STATIC_ACCESS__Cookie
 		if( empty($name) )
 		{			
 			$this->error = lang('Cookie', 'nameParameterEmptyError');
-			return Error::set('Cookie', 'insert', $this->error);
+			return Error::set($this->error);
 		}
 		if( empty($value) )
 		{
 			$this->error = lang('Cookie', 'valueParameterEmptyError');
-			return Error::set('Cookie', 'insert', $this->error);
+			return Error::set($this->error);
 		}
 		/************************************************************************************************/
 		
@@ -151,7 +151,7 @@ class __USE_STATIC_ACCESS__Cookie
 		else
 		{
 			$this->error = getMessage('Cookie', 'setError');
-			return Error::set('Cookie', 'insert', $this->error);
+			return Error::set($this->error);
 		}
 		
 	}
@@ -171,13 +171,13 @@ class __USE_STATIC_ACCESS__Cookie
 	{
 		if( ! isValue($name) ) 
 		{
-			return Error::set('Cookie', 'select', lang('Error', 'valueParameter', 'name'));
+			return Error::set(lang('Error', 'valueParameter', 'name'));
 		}
 
 		if( empty($name) )
 		{
 			$this->error = lang('Cookie', 'nameParameterEmptyError');
-			return Error::set('Cookie', 'select', $this->error);
+			return Error::set($this->error);
 		}
 		
 		$cookieConfig = $this->config;
@@ -196,7 +196,7 @@ class __USE_STATIC_ACCESS__Cookie
 		else 
 		{
 			$this->error = lang('Cookie', 'notSelectError');
-			return Error::set('Cookie', 'select', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -226,7 +226,7 @@ class __USE_STATIC_ACCESS__Cookie
 		if( empty($name) )
 		{
 			$this->error = lang('Cookie', 'nameParameterEmptyError');
-			return Error::set('Cookie', 'delete', $this->error);
+			return Error::set($this->error);
 		}
 		
 		$cookieConfig = $this->config;
@@ -249,7 +249,7 @@ class __USE_STATIC_ACCESS__Cookie
 		else
 		{ 
 			$this->error = lang('Cookie', 'notDeleteError');
-			return Error::set('Cookie', 'delete', $this->error);	
+			return Error::set($this->error);	
 		}
 	}
 	
@@ -311,7 +311,7 @@ class __USE_STATIC_ACCESS__Cookie
 	{
 		if( ! empty($this->error) )
 		{
-			Error::set('Cookie', 'error', $this->error);
+			Error::set($this->error);
 			return $this->error;
 		}
 		else

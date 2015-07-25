@@ -32,7 +32,7 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Strings', 'mtrim', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$str = preg_replace('/\s+/', '', $str);
@@ -57,7 +57,7 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Strings', 'trimSlashes', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		$str = trim($str, "/");
@@ -104,8 +104,8 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			Error::set('Strings', 'upperCase', lang('Error', 'stringParameter', 'str'));
-			Error::set('Strings', 'upperCase', lang('Error', 'charsetParameter', 'encoding'));
+			Error::set(lang('Error', 'stringParameter', 'str'));
+			Error::set(lang('Error', 'charsetParameter', 'encoding'));
 			
 			return false;
 		}
@@ -131,8 +131,8 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			Error::set('Strings', 'lowerCase', lang('Error', 'stringParameter', 'str'));
-			Error::set('Strings', 'lowerCase', lang('Error', 'charsetParameter', 'encoding'));
+			Error::set(lang('Error', 'stringParameter', 'str'));
+			Error::set(lang('Error', 'charsetParameter', 'encoding'));
 			
 			return false;
 		}
@@ -158,8 +158,8 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			Error::set('Strings', 'titleCase', lang('Error', 'stringParameter', 'str'));
-			Error::set('Strings', 'titleCase', lang('Error', 'charsetParameter', 'encoding'));
+			Error::set(lang('Error', 'stringParameter', 'str'));
+			Error::set(lang('Error', 'charsetParameter', 'encoding'));
 			
 			return false;
 		}
@@ -234,7 +234,7 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Strings', 'subString', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! isChar($starting) ) 
@@ -292,7 +292,7 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) ) 
 		{
-			Error::set('Strings', 'search', lang('Error', 'stringParameter', 'str'));
+			Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -333,7 +333,7 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Strings', 'reshuffle', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! isValue($shuffle) || empty($shuffle) ) 
@@ -376,7 +376,7 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Strings', 'recurrentCount', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! isValue($char) ) 
@@ -406,12 +406,12 @@ class __USE_STATIC_ACCESS__Strings
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set('Strings', 'placement', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Strings', 'placement', lang('Error', 'arrayParameter', 'array'));
+			return Error::set(lang('Error', 'arrayParameter', 'array'));
 		}
 		
 		if( ! empty($delimiter) )

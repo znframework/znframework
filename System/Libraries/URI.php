@@ -61,7 +61,7 @@ class __USE_STATIC_ACCESS__URI
 		// Parametre kontrolleri yapılıyor. ---------------------------------------------------
 		if( ! is_string($get) || empty($get) ) 
 		{
-			return Error::set('URI', 'get', lang('Error', 'stringParameter', 'get'));
+			return Error::set(lang('Error', 'stringParameter', 'get'));
 		}
 		if( ! isChar($index) ) 
 		{
@@ -205,7 +205,7 @@ class __USE_STATIC_ACCESS__URI
 	{
 		if( ! is_numeric($seg) ) 
 		{
-			rreturn Error::set('URI', 'segment', lang('Error', 'numericParameter', 'seg'));
+			return Error::set(lang('Error', 'numericParameter', 'seg'));
 		}
 		
 		$ok = $seg;

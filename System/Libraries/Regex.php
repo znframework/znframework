@@ -57,8 +57,8 @@ class __USE_STATIC_ACCESS__Regex
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			Error::set('Regex', 'match', lang('Error', 'stringParameter', 'pattern'));
-			Error::set('Regex', 'match', lang('Error', 'stringParameter', 'str'));	
+			Error::set(lang('Error', 'stringParameter', 'pattern'));
+			Error::set(lang('Error', 'stringParameter', 'str'));	
 			
 			return false;
 		}	
@@ -126,8 +126,8 @@ class __USE_STATIC_ACCESS__Regex
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			Error::set('Regex', 'matchAll', lang('Error', 'stringParameter', 'pattern'));
-			Error::set('Regex', 'matchAll', lang('Error', 'stringParameter', 'str'));	
+			Error::set(lang('Error', 'stringParameter', 'pattern'));
+			Error::set(lang('Error', 'stringParameter', 'str'));	
 			
 			return false;
 		}	
@@ -199,9 +199,9 @@ class __USE_STATIC_ACCESS__Regex
 			! is_string($str)   
 		) 
 		{
-			Error::set('Regex', 'replace', lang('Error', 'stringParameter', 'pattern'));
-			Error::set('Regex', 'replace', lang('Error', 'stringParameter', 'rep'));
-			Error::set('Regex', 'replace', lang('Error', 'stringParameter', 'str'));	
+			Error::set(lang('Error', 'stringParameter', 'pattern'));
+			Error::set(lang('Error', 'stringParameter', 'rep'));
+			Error::set(lang('Error', 'stringParameter', 'str'));	
 			
 			return false;
 		}
@@ -258,7 +258,7 @@ class __USE_STATIC_ACCESS__Regex
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Regex', 'group', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		return "(".$str.")";
@@ -282,7 +282,7 @@ class __USE_STATIC_ACCESS__Regex
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Regex', 'recount', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		return "{".$str."}";
@@ -306,7 +306,7 @@ class __USE_STATIC_ACCESS__Regex
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Regex', 'to', lang('Error', 'stringParameter', 'str'));
+			return Error::set(lang('Error', 'stringParameter', 'str'));
 		}
 		
 		return "[".$str."]";

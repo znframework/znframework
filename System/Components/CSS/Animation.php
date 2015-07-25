@@ -68,7 +68,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isChar($selector) )
 		{
-			Error::set('CAnimation', 'selector', lang('Error', 'valueParameter', 'selector'));
+			Error::set(lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 
@@ -124,7 +124,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($name) )
 		{
-			Error::set('CAnimation', 'name', lang('Error', 'valueParameter', 'name'));
+			Error::set(lang('Error', 'valueParameter', 'name'));
 			return $this;	
 		}
 		
@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($direction) )
 		{
-			Error::set('CAnimation', 'direction', lang('Error', 'valueParameter', 'direction'));
+			Error::set(lang('Error', 'valueParameter', 'direction'));
 			return $this;	
 		}
 		
@@ -172,7 +172,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($status) )
 		{
-			Error::set('CAnimation', 'status', lang('Error', 'valueParameter', 'status'));
+			Error::set(lang('Error', 'valueParameter', 'status'));
 			return $this;	
 		}
 		
@@ -196,7 +196,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($fill) )
 		{
-			Error::set('CAnimation', 'fill', lang('Error', 'valueParameter', 'fill'));
+			Error::set(lang('Error', 'valueParameter', 'fill'));
 			return $this;	
 		}
 		
@@ -220,7 +220,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($repeat) )
 		{
-			Error::set('CAnimation', 'repeat', lang('Error', 'valueParameter', 'repeat'));
+			Error::set(lang('Error', 'valueParameter', 'repeat'));
 			return $this;	
 		}
 		
@@ -244,7 +244,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($duration) )
 		{
-			Error::set('CAnimation', 'duration', lang('Error', 'valueParameter', 'duration'));
+			Error::set(lang('Error', 'valueParameter', 'duration'));
 			return $this;	
 		}
 		
@@ -273,7 +273,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($delay) )
 		{
-			Error::set('CAnimation', 'delay', lang('Error', 'valueParameter', 'delay'));
+			Error::set(lang('Error', 'valueParameter', 'delay'));
 			return $this;	
 		}
 		
@@ -302,7 +302,7 @@ class __USE_STATIC_ACCESS__CAnimation
 	{
 		if( ! isValue($easing) )
 		{
-			Error::set('CAnimation', 'easing', lang('Error', 'valueParameter', 'easing'));
+			Error::set(lang('Error', 'valueParameter', 'easing'));
 			return $this;	
 		}
 		

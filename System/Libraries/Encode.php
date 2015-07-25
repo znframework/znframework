@@ -103,7 +103,7 @@ class __USE_STATIC_ACCESS__Encode
 	{
 		if( ! isValue($data) || empty($data) ) 
 		{
-			return Error::set('Encode', 'golden', lang('Error', 'valueParameter', 'data'));
+			return Error::set(lang('Error', 'valueParameter', 'data'));
 		}
 		
 		if( ! isValue($additional) )
@@ -149,7 +149,7 @@ class __USE_STATIC_ACCESS__Encode
 	{
 		if( ! isValue($data) || empty($data) ) 
 		{
-			return Error::set('Encode', 'super', lang('Error', 'valueParameter', 'data'));
+			return Error::set(lang('Error', 'valueParameter', 'data'));
 		}
 		
 		$projectKey = $this->config['projectKey'];
@@ -199,7 +199,7 @@ class __USE_STATIC_ACCESS__Encode
 	{
 		if( ! isValue($data) ) 
 		{
-			return Error::set('Encode', 'type', lang('Error', 'valueParameter', 'data'));
+			return Error::set(lang('Error', 'valueParameter', 'data'));
 		}
 		
 		// String veri dışında veri girilerse

@@ -24,7 +24,7 @@ class __USE_STATIC_ACCESS__CScript
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('CScript', 'type', lang('Error', 'stringParameter', 'type'));
+			Error::set(lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -37,7 +37,7 @@ class __USE_STATIC_ACCESS__CScript
 	{
 		if( ! is_bool($type) )
 		{
-			Error::set('CScript', 'ready', lang('Error', 'booleanParameter', 'type'));
+			Error::set(lang('Error', 'booleanParameter', 'type'));
 			return $this;	
 		}
 		

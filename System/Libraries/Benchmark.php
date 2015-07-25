@@ -55,7 +55,7 @@ class __USE_STATIC_ACCESS__Benchmark
 	{
 		if( ! is_string($test)) 
 		{
-			return Error::set('Benchmark', 'testStart', lang('Error', 'stringParameter', 'test'));
+			return Error::set(lang('Error', 'stringParameter', 'test'));
 		}
 		
 		// Kaç test kullanıldığını hesaplamak için
@@ -90,7 +90,7 @@ class __USE_STATIC_ACCESS__Benchmark
 	{
 		if( ! is_string($test) ) 
 		{
-			return Error::set('Benchmark', 'testEnd', lang('Error', 'stringParameter', 'test'));
+			return Error::set(lang('Error', 'stringParameter', 'test'));
 		}
 		
 		$test = $test."_end";
@@ -115,7 +115,7 @@ class __USE_STATIC_ACCESS__Benchmark
 	{   
 		if( ! is_string($result) ) 
 		{
-			return Error::set('Benchmark', 'elapsedTime', lang('Error', 'stringParameter', 'result'));
+			return Error::set(lang('Error', 'stringParameter', 'result'));
 		}
 		if( ! is_numeric($decimal) ) 
 		{
@@ -186,7 +186,7 @@ class __USE_STATIC_ACCESS__Benchmark
 	{
 		if( ! is_string($result) ) 
 		{
-			return Error::set('Benchmark', 'calculatedMemory', lang('Error', 'stringParameter', 'result'));
+			return Error::set(lang('Error', 'stringParameter', 'result'));
 		}
 		
 		$resend  = $result."_end";

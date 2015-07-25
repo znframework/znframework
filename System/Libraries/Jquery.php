@@ -135,7 +135,7 @@ class __USE_STATIC_ACCESS__Jquery
 	{
 		if( ! is_string($codes) ) 
 		{
-			return Error::set('Jquery', 'ready', lang('Error', 'stringParameter', 'codes'));
+			return Error::set(lang('Error', 'stringParameter', 'codes'));
 		}
 		
 		$ready = '$(document).ready(function()'.eol().'{'.eol().$codes.eol().'});'.eol();

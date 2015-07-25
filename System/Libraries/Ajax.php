@@ -61,7 +61,7 @@ class __USE_STATIC_ACCESS__Ajax
 	{
 		if( ! is_array($methods) ) 
 		{
-			return Error::set('Ajax', 'send', lang('Error', 'arrayParameter', 'methods'));
+			return Error::set(lang('Error', 'arrayParameter', 'methods'));
 		}
 	
 		$methods['type'] = ''; $method = '';		
@@ -179,8 +179,8 @@ class __USE_STATIC_ACCESS__Ajax
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
-			Error::set('Ajax', 'jsonSendBack', lang('Error', 'arrayParameter', 'data'));
-			Error::set('Ajax', 'jsonSendBack', lang('Error', 'emptyParameter', 'data'));
+			Error::set(lang('Error', 'arrayParameter', 'data'));
+			Error::set(lang('Error', 'emptyParameter', 'data'));
 			
 			return false;
 		}
@@ -201,7 +201,7 @@ class __USE_STATIC_ACCESS__Ajax
 	{
 		if( ! isValue($data) )
 		{ 
-			return Error::set('Ajax', 'sendBack', lang('Error', 'valueParameter', 'data'));
+			return Error::set(lang('Error', 'valueParameter', 'data'));
 		}
 		
 		echo $data; exit;	
@@ -220,8 +220,8 @@ class __USE_STATIC_ACCESS__Ajax
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
-			Error::set('Ajax', 'pr', lang('Error', 'arrayParameter', 'data'));
-			Error::set('Ajax', 'pr', lang('Error', 'emptyParameter', 'data'));
+			Error::set(lang('Error', 'arrayParameter', 'data'));
+			Error::set(lang('Error', 'emptyParameter', 'data'));
 			
 			return false;
 		}
@@ -242,8 +242,8 @@ class __USE_STATIC_ACCESS__Ajax
 	{
 		if( empty($data) || ! is_array($data) ) 
 		{
-			Error::set('Ajax', 'dump', lang('Error', 'arrayParameter', 'data'));
-			Error::set('Ajax', 'dump', lang('Error', 'emptyParameter', 'data'));
+			Error::set(lang('Error', 'arrayParameter', 'data'));
+			Error::set(lang('Error', 'emptyParameter', 'data'));
 			
 			return false;
 		}

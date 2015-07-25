@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_numeric($no) ) 
 		{
-			return Error::set('Validation', 'identity', lang('Error', 'numericParameter', 'no'));
+			return Error::set(lang('Error', 'numericParameter', 'no'));
 		}
 		
 		$numone 	= ($no[0] + $no[2] + $no[4] + $no[6]  + $no[8]) * 7;
@@ -153,7 +153,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set('Validation', 'email', lang('Error', 'stringParameter', 'data'));
+			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
 		if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $data) ) 
 		{
@@ -180,7 +180,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set('Validation', 'url', lang('Error', 'stringParameter', 'data'));
+			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
 		if( ! preg_match('#^(\w+:)?//#i', $data) ) 
 		{
@@ -207,7 +207,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set('Validation', 'specialChar', lang('Error', 'stringParameter', 'data'));
+			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) ) 
 		{
@@ -235,11 +235,11 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set('Validation', 'maxchar', lang('Error', 'stringParameter', 'data'));
+			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
 		if( ! is_numeric($char) ) 
 		{
-			return Error::set('Validation', 'maxchar', lang('Error', 'numericParameter', 'char'));
+			return Error::set(lang('Error', 'numericParameter', 'char'));
 		}
 		
 		if( strlen($data) <= $char ) 
@@ -268,11 +268,11 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set('Validation', 'minchar', lang('Error', 'stringParameter', 'data'));
+			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
 		if( ! is_numeric($char) ) 
 		{
-			return Error::set('Validation', 'minchar', lang('Error', 'numericParameter', 'char'));
+			return Error::set(lang('Error', 'numericParameter', 'char'));
 		}
 		
 		if( strlen($data) >= $char ) 
@@ -318,7 +318,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($name) || empty($name) ) 
 		{
-			return Error::set('Validation', 'rules', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 		if( ! is_array($config) ) 
 		{
@@ -335,7 +335,7 @@ class __USE_STATIC_ACCESS__Validation
 		
 		if( empty($config) || ! is_array($config) ) 
 		{
-			return Error::set('Validation', 'rules', lang('Error', 'arrayParameter', 'config'));
+			return Error::set(lang('Error', 'arrayParameter', 'config'));
 		}
 		
 		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
@@ -554,7 +554,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Validation', 'nval', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 		
 		if( isset($this->nval[$name]) )
@@ -646,7 +646,7 @@ class __USE_STATIC_ACCESS__Validation
 	{
 		if( ! is_string($name) || empty($name) )
 		{
-			return Error::set('Validation', 'postBack', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 
 		if( ! is_string($met) ) 

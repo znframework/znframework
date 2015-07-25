@@ -66,7 +66,7 @@ class __USE_STATIC_ACCESS__Build
 	{		
 		if( ! is_string($elements) || empty($elements) ) 
 		{
-			return Error::set('Build', 'xml', lang('Error', 'stringParameter', 'elements'));	
+			return Error::set(lang('Error', 'stringParameter', 'elements'));	
 		}
 		if( ! isValue($content) ) 
 		{
@@ -112,7 +112,7 @@ class __USE_STATIC_ACCESS__Build
 	{
 		if( ! is_array($elements) || empty($elements) ) 
 		{
-			return Error::set('Build', 'lists', lang('Error', 'arrayParameter', 'elements'));
+			return Error::set(lang('Error', 'arrayParameter', 'elements'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -149,7 +149,7 @@ class __USE_STATIC_ACCESS__Build
 	{
 		if( ! is_array($elements) || empty($elements) ) 
 		{
-			return Error::set('Build', 'table', lang('Error', 'arrayParameter', 'elements'));
+			return Error::set(lang('Error', 'arrayParameter', 'elements'));
 		}
 		
 		$table = '<table '.$this->attributes($attributes).'>';

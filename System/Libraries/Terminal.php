@@ -45,7 +45,7 @@ class __USE_STATIC_ACCESS__Terminal
 	{
 		if( ! is_array($settings) )
 		{
-			return Error::set('Terminal', 'run', lang('Error', 'arrayParameter', 'settings'));	
+			return Error::set(lang('Error', 'arrayParameter', 'settings'));	
 		}
 		
 		$settings['width'] 		=  isset($settings['width']) 	  ? $settings['width']      : '800px';

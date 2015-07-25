@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__Json
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
 		{
-			return Error::set('Json', 'encode', lang('Error', 'arrayParameter', 'data'));
+			return Error::set(lang('Error', 'arrayParameter', 'data'));
 		}
 		
 		if( ! is_string($key) ) 
@@ -107,12 +107,12 @@ class __USE_STATIC_ACCESS__Json
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($word) ) 
 		{
-			return Error::set('Json', 'decode', lang('Error', 'stringParameter', 'word'));
+			return Error::set(lang('Error', 'stringParameter', 'word'));
 		}
 		
 		if( empty($word) ) 
 		{
-			return Error::set('Json', 'decode', lang('Error', 'emptyParameter', 'word'));
+			return Error::set(lang('Error', 'emptyParameter', 'word'));
 		}
 		
 		if( ! is_string($key) ) 

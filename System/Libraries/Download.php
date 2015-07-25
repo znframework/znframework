@@ -41,13 +41,13 @@ class __USE_STATIC_ACCESS__Download
 		if( ! is_string($file) )
 		{
 			$this->error = lang('Download', 'stringParameterError');
-			return Error::set('Download', 'start', $this->error);	
+			return Error::set($this->error);	
 		}
 		
 		if( ! file_exists($file) )
 		{
 			$this->error = getMessage('Download', 'emptyParameterError');
-			return Error::set('Download', 'start', $this->error);
+			return Error::set($this->error);
 		}
 		
 		// İndirilecek dosyanın yolu ile adını ayırmak için 
@@ -79,7 +79,7 @@ class __USE_STATIC_ACCESS__Download
 	{
 		if( isset($this->error) )
 		{
-			return Error::set('Download', 'error', $this->error);
+			return Error::set($this->error);
 		}
 		else
 		{

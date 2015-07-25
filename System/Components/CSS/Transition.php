@@ -68,7 +68,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isChar($selector) )
 		{
-			Error::set('CTransition', 'selector', lang('Error', 'valueParameter', 'selector'));
+			Error::set(lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 
@@ -125,7 +125,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($property))
 		{
-			Error::set('CTransition', 'property', lang('Error', 'valueParameter', 'property'));
+			Error::set(lang('Error', 'valueParameter', 'property'));
 			return $this;	
 		}
 		
@@ -149,7 +149,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($duration))
 		{
-			Error::set('CTransition', 'duration', lang('Error', 'valueParameter', 'duration'));
+			Error::set(lang('Error', 'valueParameter', 'duration'));
 			return $this;	
 		}
 		
@@ -178,7 +178,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($delay) )
 		{
-			Error::set('CTransition', 'delay', lang('Error', 'valueParameter', 'delay'));
+			Error::set(lang('Error', 'valueParameter', 'delay'));
 			return $this;	
 		}
 		
@@ -207,7 +207,7 @@ class __USE_STATIC_ACCESS__CTransition
 	{
 		if( ! isValue($easing))
 		{
-			Error::set('CTransition', 'easing', lang('Error', 'valueParameter', 'easing'));
+			Error::set(lang('Error', 'valueParameter', 'easing'));
 			return $this;	
 		}
 		

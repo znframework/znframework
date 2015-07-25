@@ -37,7 +37,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! isChar($name))
 		{
-			Error::set('CSession', 'name', lang('Error', 'valueParameter', 'name'));
+			Error::set(lang('Error', 'valueParameter', 'name'));
 			return $this;		
 		}
 		
@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! ( isHash($name) || isHash($value) ) )
 		{
-			Error::set('CSession', 'encode', lang('Error', 'hashParameter', 'name | value'));
+			Error::set(lang('Error', 'hashParameter', 'name | value'));
 			return $this;		
 		}
 		
@@ -64,7 +64,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! isHash($hash))
 		{
-			Error::set('CSession', 'decode', lang('Error', 'hashParameter', 'hash'));
+			Error::set(lang('Error', 'hashParameter', 'hash'));
 			return $this;	
 		}
 		
@@ -84,7 +84,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! is_bool($regenerate) )
 		{
-			Error::set('CSession', 'regenerate', lang('Error', 'booleanParameter', 'regenerate'));
+			Error::set(lang('Error', 'booleanParameter', 'regenerate'));
 			return $this;		
 		}
 		
@@ -99,7 +99,7 @@ class __USE_STATIC_ACCESS__CSession
 		{
 			if( ! isChar($name) )
 			{
-				Error::set('CSession', 'create', lang('Error', 'valueParameter', 'name'));
+				Error::set(lang('Error', 'valueParameter', 'name'));
 				return false;
 			}
 			
@@ -163,7 +163,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! isValue($name))
 		{
-			Error::set('CSession', 'select', lang('Error', 'valueParameter', 'name'));
+			Error::set(lang('Error', 'valueParameter', 'name'));
 			return false;	
 		}
 		
@@ -208,7 +208,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! isValue($name) )
 		{
-			Error::set('CSession', 'delete', lang('Error', 'valueParameter', 'name'));
+			Error::set(lang('Error', 'valueParameter', 'name'));
 			return false;	
 		}
 	
@@ -258,7 +258,7 @@ class __USE_STATIC_ACCESS__CSession
 	{
 		if( ! empty($this->error) )
 		{
-			Error::set('CSession', 'error', $this->error);
+			Error::set($this->error);
 			return $this->error;
 		}
 		else

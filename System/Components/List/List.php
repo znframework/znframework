@@ -57,7 +57,7 @@ class __USE_STATIC_ACCESS__CList
 	{
 		if( ! is_array($attributes))
 		{
-			Error::set('CList', 'attr', lang('Error', 'arrayParameter', 'attributes'));
+			Error::set(lang('Error', 'arrayParameter', 'attributes'));
 			return $this;	
 		}
 		
@@ -85,7 +85,7 @@ class __USE_STATIC_ACCESS__CList
 	{
 		if( ! is_string($css) )
 		{
-			Error::set('CList', 'css', lang('Error', 'stringParameter', 'css'));
+			Error::set(lang('Error', 'stringParameter', 'css'));
 			return $this;	
 		}
 		
@@ -113,7 +113,7 @@ class __USE_STATIC_ACCESS__CList
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('CList', 'type', lang('Error', 'stringParameter', 'type'));
+			Error::set(lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -199,7 +199,7 @@ class __USE_STATIC_ACCESS__CList
 		
 		if( ! is_array($elements))
 		{
-			Error::set('CList', 'elements', lang('Error', 'arrayParameter', 'elements'));
+			Error::set(lang('Error', 'arrayParameter', 'elements'));
 			
 			return $this;	
 		}

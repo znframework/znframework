@@ -35,7 +35,7 @@ class __USE_STATIC_ACCESS__Method
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Method', 'post', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 		
 		if( empty($name) ) 
@@ -54,7 +54,7 @@ class __USE_STATIC_ACCESS__Method
 		// böyle bir veri yoksa
 		if( empty($_POST[$name]) ) 
 		{
-			return Error::set('Method', 'post', lang('Error', 'emptyVariable', '@$_POST[\'name\']'));
+			return Error::set(lang('Error', 'emptyVariable', '@$_POST[\'name\']'));
 		}
 		
 		return $_POST[$name];
@@ -77,7 +77,7 @@ class __USE_STATIC_ACCESS__Method
 	{
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Method', 'get', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 		
 		if( empty($name) ) 
@@ -92,7 +92,7 @@ class __USE_STATIC_ACCESS__Method
 		
 		if( empty($_GET[$name]) ) 
 		{
-			return Error::set('Method', 'get', lang('Error', 'emptyVariable', '@$_GET[\'name\']'));
+			return Error::set(lang('Error', 'emptyVariable', '@$_GET[\'name\']'));
 		}
 		
 		return $_GET[$name];	
@@ -115,7 +115,7 @@ class __USE_STATIC_ACCESS__Method
 	{
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Method', 'request', lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'stringParameter', 'name'));
 		}
 		
 		if( empty($name) ) 
@@ -130,7 +130,7 @@ class __USE_STATIC_ACCESS__Method
 		
 		if( empty($_REQUEST[$name]) ) 
 		{
-			return Error::set('Method', 'request', lang('Error', 'emptyVariable', '@$_REQUEST[\'name\']'));
+			return Error::set(lang('Error', 'emptyVariable', '@$_REQUEST[\'name\']'));
 		}
 		
 		return $_REQUEST[$name];
@@ -153,7 +153,7 @@ class __USE_STATIC_ACCESS__Method
 	{
 		if( ! is_string($fileName) ) 
 		{
-			return Error::set('Method', 'files', lang('Error', 'stringParameter', 'fileName'));
+			return Error::set(lang('Error', 'stringParameter', 'fileName'));
 		}
 		
 		if( ! is_string($type) ) 
@@ -163,7 +163,7 @@ class __USE_STATIC_ACCESS__Method
 		
 		if( empty($fileName) ) 
 		{
-			return Error::set('Method', 'files', lang('Error', 'emptyVariable', '@fileName'));
+			return Error::set(lang('Error', 'emptyVariable', '@fileName'));
 		}
 		
 		return $_FILES[$fileName][$type];

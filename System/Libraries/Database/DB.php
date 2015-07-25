@@ -300,7 +300,7 @@ class __USE_STATIC_ACCESS__DB
 		}
 		else
 		{
-			Error::set('DB', 'from', lang('Error', 'stringParameter', 'table'));	
+			Error::set(lang('Error', 'stringParameter', 'table'));	
 		}
 		
 		return $this;
@@ -325,7 +325,7 @@ class __USE_STATIC_ACCESS__DB
 		}
 		else
 		{
-			Error::set('DB', 'table', lang('Error', 'stringParameter', 'table'));	
+			Error::set(lang('Error', 'stringParameter', 'table'));	
 		}
 		
 		return $this;
@@ -352,7 +352,7 @@ class __USE_STATIC_ACCESS__DB
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($column) || ! is_string($value) || ! is_string($logical) ) 
 		{
-			Error::set('DB', 'where', lang('Error', 'stringParameter', 'column, value, logical'));
+			Error::set(lang('Error', 'stringParameter', 'column, value, logical'));
 		}
 		else
 		{
@@ -384,7 +384,7 @@ class __USE_STATIC_ACCESS__DB
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($column) || ! is_string($value) || ! is_string($logical) ) 
 		{
-			Error::set('DB', 'having', lang('Error', 'stringParameter', 'column, value, logical'));
+			Error::set(lang('Error', 'stringParameter', 'column, value, logical'));
 		}
 		else
 		{
@@ -414,7 +414,7 @@ class __USE_STATIC_ACCESS__DB
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($table) || ! is_string($condition) || ! is_string($type) ) 
 		{
-			Error::set('DB', 'join', lang('Error', 'stringParameter', 'table, condition, type'));
+			Error::set(lang('Error', 'stringParameter', 'table, condition, type'));
 		}
 		else
 		{
@@ -439,7 +439,7 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($table) ) 
 		{
-			Error::set('DB', 'get', lang('Error', 'stringParameter', 'table'));
+			Error::set(lang('Error', 'stringParameter', 'table'));
 			
 			return $this;
 		}
@@ -547,8 +547,8 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Error::set('DB', 'query', lang('Error', 'stringParameter', 'query'));
-			Error::set('DB', 'query', lang('Error', 'emptyParameter', 'query'));
+			Error::set(lang('Error', 'stringParameter', 'query'));
+			Error::set(lang('Error', 'emptyParameter', 'query'));
 		}
 		else
 		{
@@ -584,8 +584,8 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Error::set('DB', 'execQuery', lang('Error', 'stringParameter', 'query'));
-			Error::set('DB', 'execQuery', lang('Error', 'emptyParameter', 'query'));
+			Error::set(lang('Error', 'stringParameter', 'query'));
+			Error::set(lang('Error', 'emptyParameter', 'query'));
 			
 			return false;	
 		}
@@ -827,7 +827,7 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function error()
 	{ 
-		Error::set('DB', 'error', $this->db->error()); 
+		Error::set($this->db->error()); 
 		return $this->db->error(); 
 	}
 	
@@ -1089,7 +1089,7 @@ class __USE_STATIC_ACCESS__DB
 	{ 
 		if( ! is_string($condition) ) 
 		{
-			Error::set('DB', 'groupBy', lang('Error', 'stringParameter', 'condition')); 
+			Error::set(lang('Error', 'stringParameter', 'condition')); 
 		}
 		else
 		{
@@ -1115,7 +1115,7 @@ class __USE_STATIC_ACCESS__DB
 	{ 
 		if( ! is_string($condition) || ! is_string($type) ) 
 		{
-			Error::set('DB', 'orderBy', lang('Error', 'stringParameter', 'condition, type')); 
+			Error::set(lang('Error', 'stringParameter', 'condition, type')); 
 		}
 		else
 		{
@@ -1141,7 +1141,7 @@ class __USE_STATIC_ACCESS__DB
 	{ 
 		if( ! is_numeric($start) || ! is_numeric($limit) ) 
 		{
-			Error::set('DB', 'limit', lang('Error', 'numericParameter', 'start, limit')); 
+			Error::set(lang('Error', 'numericParameter', 'start, limit')); 
 		}
 		else
 		{
@@ -1181,8 +1181,8 @@ class __USE_STATIC_ACCESS__DB
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			Error::set('DB', 'status', lang('Error', 'stringParameter', 'table'));
-			Error::set('DB', 'status', lang('Error', 'emptyParameter', 'table'));
+			Error::set(lang('Error', 'stringParameter', 'table'));
+			Error::set(lang('Error', 'emptyParameter', 'table'));
 		}
 		else
 		{
@@ -1213,7 +1213,7 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_array($data) ) 
 		{
-			Error::set('DB', 'secure', lang('Error', 'arrayParameter', 'data'));
+			Error::set(lang('Error', 'arrayParameter', 'data'));
 		}
 		else
 		{
@@ -1244,9 +1244,9 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
-			Error::set('DB', $type, lang('Error', 'stringParameter', 'table'));
-			Error::set('DB', $type, lang('Error', 'emptyParameter', 'columns'));
-			Error::set('DB', $type, lang('Error', 'numericParameter', 'incdec'));
+			Error::set(lang('Error', 'stringParameter', 'table'));
+			Error::set(lang('Error', 'emptyParameter', 'columns'));
+			Error::set(lang('Error', 'numericParameter', 'incdec'));
 			
 			return false;
 		}
@@ -1350,12 +1350,12 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set('DB', 'insert', lang('Error', 'stringParameter', 'table'));
+			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! is_array($datas) || empty($datas) ) 
 		{
-			return Error::set('DB', 'insert', lang('Error', 'arrayParameter', 'datas'));
+			return Error::set(lang('Error', 'arrayParameter', 'datas'));
 		}
 		
 		$data = ""; $values = "";
@@ -1406,12 +1406,12 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set('DB', 'update', lang('Error', 'stringParameter', 'table'));
+			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! is_array($set) || empty($set) ) 
 		{
-			return Error::set('DB', 'update', lang('Error', 'arrayParameter', 'set'));
+			return Error::set(lang('Error', 'arrayParameter', 'set'));
 		}
 		
 		if( ! empty($this->where) ) 
@@ -1455,7 +1455,7 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set('DB', 'delete', lang('Error', 'stringParameter', 'table'));
+			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
 		if( ! empty($this->where) ) 
@@ -1512,7 +1512,7 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( ! is_string($connectName) ) 
 		{
-			return Error::set('DB', 'differentConnection', lang('Error', 'stringParameter', 'connectName'));
+			return Error::set(lang('Error', 'stringParameter', 'connectName'));
 		}
 		
 		$config = $this->config;
@@ -1520,7 +1520,7 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( ! isset($configDifferent[$connectName]) ) 
 		{
-			return Error::set('DB', 'differentConnection', lang('Error', 'emptyParameter', 'connectName'));
+			return Error::set(lang('Error', 'emptyParameter', 'connectName'));
 		}
 		
 		foreach($config as $key => $val)

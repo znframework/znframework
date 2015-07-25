@@ -64,7 +64,7 @@ class __USE_STATIC_ACCESS__Time
 	{
 		if( ! is_string($clock) ) 
 		{
-			return Error::set('Time', 'current', lang('Error', 'stringParameter', 'clock'));
+			return Error::set(lang('Error', 'stringParameter', 'clock'));
 		}
 		
 		return strftime($clock);	
@@ -90,7 +90,7 @@ class __USE_STATIC_ACCESS__Time
 	{	
 		if( ! is_string($exp) ) 
 		{
-			return Error::set('Time', 'set', lang('Error', 'stringParameter', 'exp'));
+			return Error::set(lang('Error', 'stringParameter', 'exp'));
 		}
 		
 		$chars = $this->config['setTimeFormatChars'];

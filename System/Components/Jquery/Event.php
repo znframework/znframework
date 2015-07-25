@@ -59,7 +59,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! isChar($selector))
 		{
-			Error::set('CEvent', 'selector', lang('Error', 'valueParameter', 'selector'));
+			Error::set(lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -85,7 +85,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! is_string($selector) || ! is_string($callback) )
 		{
-			Error::set('CEvent', $type, lang('Error', 'stringParameter', 'selector & callback'));	
+			Error::set(lang('Error', 'stringParameter', 'selector & callback'));	
 		}
 		
 		$this->property($type);
@@ -475,7 +475,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! is_string($type))
 		{
-			Error::set('CEvent', 'type', lang('Error', 'stringParameter', 'type'));
+			Error::set(lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -497,7 +497,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! is_string($property))
 		{
-			Error::set('CEvent', 'property', lang('Error', 'stringParameter', 'property'));
+			Error::set(lang('Error', 'stringParameter', 'property'));
 			return $this;	
 		}
 		
@@ -742,7 +742,7 @@ class __USE_STATIC_ACCESS__CEvent extends CJqueryCommon
 	{
 		if( ! is_string($params) || ! is_string($callback) )
 		{
-			Error::set('CEvent', 'callback', lang('Error', 'stringParameter', 'params & callback'));
+			Error::set(lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		

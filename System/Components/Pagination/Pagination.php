@@ -27,7 +27,7 @@ class __USE_STATIC_ACCESS__CPagination
 		}
 		else
 		{
-			Error::set('CPagination', 'url', lang('Error', 'stringParameter', 'url'));	
+			Error::set(lang('Error', 'stringParameter', 'url'));	
 		}
 		
 		return $this;
@@ -37,7 +37,7 @@ class __USE_STATIC_ACCESS__CPagination
 	{
 		if( ! is_numeric($start) )
 		{
-			Error::set('CPagination', 'start', lang('Error', 'numericParameter', 'start'));
+			Error::set(lang('Error', 'numericParameter', 'start'));
 			return $this;
 		}
 		
@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__CPagination
 	{
 		if( ! is_numeric($limit) )
 		{
-			Error::set('CPagination', 'limit', lang('Error', 'numericParameter', 'limit'));
+			Error::set(lang('Error', 'numericParameter', 'limit'));
 			return $this;
 		}
 		
@@ -63,7 +63,7 @@ class __USE_STATIC_ACCESS__CPagination
 	{
 		if( ! is_numeric($totalRows) )
 		{
-			Error::set('CPagination', 'totalRows', lang('Error', 'numericParameter', 'totalRows'));
+			Error::set(lang('Error', 'numericParameter', 'totalRows'));
 			return $this;
 		}
 		
@@ -76,7 +76,7 @@ class __USE_STATIC_ACCESS__CPagination
 	{
 		if( ! is_numeric($countLinks) )
 		{
-			Error::set('CPagination', 'countLinks', lang('Error', 'numericParameter', 'countLinks'));
+			Error::set(lang('Error', 'numericParameter', 'countLinks'));
 			return $this;
 		}
 		
@@ -118,7 +118,7 @@ class __USE_STATIC_ACCESS__CPagination
 	{
 		if( ! is_array($css) )
 		{
-			Error::set('CPagination', 'css', lang('Error', 'arrayParameter', 'css'));
+			Error::set(lang('Error', 'arrayParameter', 'css'));
 			return $this;	
 		}
 		
@@ -131,7 +131,7 @@ class __USE_STATIC_ACCESS__CPagination
 	{
 		if( ! is_array($style) )
 		{
-			Error::set('CPagination', 'style', lang('Error', 'arrayParameter', 'style'));
+			Error::set(lang('Error', 'arrayParameter', 'style'));
 			return $this;	
 		}
 		

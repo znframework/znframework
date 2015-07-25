@@ -24,20 +24,27 @@
 		{
 			$string  = '<table cellpadding="5" cellspacing="5">';
 			$string .= '<tr>
+							<td><b>'.$lang['upperLine'].'</b></td>
 							<td><b>'.$lang['class'].'</b></td>
 							<td><b>'.$lang['method'].'</b></td>
 							<td><b>'.$lang['errorInfo'].'</b></td>
+							<td><b>'.$lang['upperFile'].'</b></td>
 						</tr>';
 			
-			if( isset($errors[$className][$methodName]) )
+			if( isset($errors[$className][$methodName]['message']) )
 			{
-				foreach( $errors[$className][$methodName] as $error )
+				$i = 0;
+				foreach( $errors[$className][$methodName]['message'] as $error )
 				{
 					$string .= '<tr>
+									<td>'.$errors[$className][$methodName]['line'][$i].'</td>
 									<td>'.ucfirst($className).'</td>
 									<td>::'.$methodName.'</td>
 									<td><span class="importantColorExceptionTable">'.$error.'</span></td>
+									<td>'.$errors[$className][$methodName]['file'][$i].'</td>
 							    </tr>';
+								
+					$i++;
 				} 
 				
 				$string .= '</table>';
@@ -48,13 +55,15 @@
 			{
 				foreach( $errors[$className] as $key => $error )
 				{	
-					if( isset($errors[$className][$key]) ) foreach( $errors[$className][$key] as $v )
+					if( isset($errors[$className][$key]['message']) ) foreach( $errors[$className][$key]['message'] as $v )
 					{
 						$string .= '<tr>
+									<td>'.$errors[$className][$key]['line'][0].'</td>
 									<td>'.ucfirst($className).'</td>
 									<td>::'.$key.'</td>
 									<td><span class="importantColorExceptionTable">'.$v.'</span></td>
-							    </tr>';	
+									<td>'.$errors[$className][$key]['file'][0].'</td>
+							    </tr>';		
 					}
 				}	
 				

@@ -32,13 +32,13 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_string($url) )
 		{
-			Error::set('CImg', 'src', lang('Error', 'stringParameter', 'url'));
+			Error::set(lang('Error', 'stringParameter', 'url'));
 			return $this;	
 		}
 		
 		if( ! isEmail($url) )
 		{ 
-			Error::set('CImg', 'src', lang('Error', 'emailParameter', 'url'));
+			Error::set(lang('Error', 'emailParameter', 'url'));
 			return $this;
 		}
 		
@@ -62,7 +62,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! isValue($title) )
 		{
-			Error::set('CImg', 'title', lang('Error', 'valueParameter', 'title'));
+			Error::set(lang('Error', 'valueParameter', 'title'));
 			return $this;	
 		}
 		
@@ -86,7 +86,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_numeric($width) )
 		{
-			Error::set('CImg', 'width', lang('Error', 'numericParameter', 'width'));
+			Error::set(lang('Error', 'numericParameter', 'width'));
 			return $this;	
 		}
 		
@@ -110,7 +110,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_numeric($height) )
 		{
-			Error::set('CImg', 'height', lang('Error', 'numericParameter', 'height'));
+			Error::set(lang('Error', 'numericParameter', 'height'));
 			return $this;	
 		}
 		
@@ -135,7 +135,7 @@ class __USE_STATIC_ACCESS__CImg extends CHtmlCommon
 	{
 		if( ! is_numeric($height) || ! is_numeric($width) )
 		{
-			Error::set('CImg', 'size', lang('Error', 'numericParameter', 'width & height'));
+			Error::set(lang('Error', 'numericParameter', 'width & height'));
 			return $this;	
 		}
 		

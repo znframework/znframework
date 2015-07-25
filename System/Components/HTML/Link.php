@@ -32,7 +32,7 @@ class __USE_STATIC_ACCESS__CLink extends CHtmlCommon
 	{
 		if( ! is_string($url) )
 		{
-			Error::set('CLink', 'href', lang('Error', 'stringParameter', 'url'));
+			Error::set(lang('Error', 'stringParameter', 'url'));
 			return $this;	
 		}
 		

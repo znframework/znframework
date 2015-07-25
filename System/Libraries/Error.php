@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class Error
 {
 	/***********************************************************************************/
@@ -31,9 +31,30 @@ class Error
 	| Genel Kullanım: Kütüphaneler içinde oluşan hataları kaydetmek için kullanılır.          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function set($className = '', $methodName = '', $errorMessage = '')
+	public static function set($errorMessage = '')
 	{
-		self::$errors[strtolower($className)][strtolower($methodName)][] = $errorMessage; 
+		$info = debug_backtrace();
+	
+		$className = isset($info[1]['class'])
+				   ? str_ireplace('__USE_STATIC_ACCESS__', '', $info[1]['class'])
+				   : $info[5]['function'];
+		   
+		$methodName = isset($info[1]['function'])
+					? $info[1]['function']
+					: $info[5]['class'];
+					
+		$line = isset($info[1]['line'])
+			  ? $info[1]['line']
+			  : $info[5]['line'];
+			  
+		$file = isset($info[1]['file'])
+			  ? $info[1]['file']
+			  : $info[5]['file'];
+	
+		self::$errors[strtolower($className)][strtolower($methodName)]['message'][] = $errorMessage;
+		self::$errors[strtolower($className)][strtolower($methodName)]['line'][]    = $line; 
+		self::$errors[strtolower($className)][strtolower($methodName)]['file'][]    = $file; 
+		
 		report(ucfirst($className.'Error'), $errorMessage, ucfirst($className).'Library');
 		
 		return false;
@@ -52,9 +73,9 @@ class Error
 		
 		if( isset(self::$errors[$className]) )
 		{
-			if( isset(self::$errors[$className][$methodName]) )
+			if( isset(self::$errors[$className][$methodName]['message']) )
 			{
-				return self::$errors[$className][$methodName]; 
+				return self::$errors[$className][$methodName]['message']; 
 			}
 			else
 			{
@@ -89,9 +110,9 @@ class Error
 		{
 			$string = '';
 			
-			if( isset(self::$errors[$className][$methodName]) )
+			if( isset(self::$errors[$className][$methodName]['message']) )
 			{
-				foreach( self::$errors[$className][$methodName] as $error )
+				foreach( self::$errors[$className][$methodName]['message'] as $error )
 				{
 					$string .= ucfirst($className)."::".$methodName." : $error<br>";
 				} 
@@ -102,7 +123,7 @@ class Error
 			{
 				foreach( self::$errors[$className] as $key => $error )
 				{	
-					if( isset(self::$errors[$className][$key]) ) foreach( self::$errors[$className][$key] as $v )
+					if( isset(self::$errors[$className][$key]['message']) ) foreach( self::$errors[$className][$key]['message'] as $v )
 					{
 						$string .= ucfirst($className)."::".$key." : $v<br>";	
 					}
@@ -125,8 +146,6 @@ class Error
 	******************************************************************************************/	
 	public static function getTable($className = '', $methodName = '')
 	{
-		$debug = debug_backtrace();
-
 		$data = array
 		(
 			'errors'	 => self::$errors,

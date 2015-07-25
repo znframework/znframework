@@ -310,9 +310,13 @@ class Autoloader
 	******************************************************************************************/
 	public static function tokenClassFileInfo($fileName = '')
 	{
-		// Dosya içeriğini al ve tarama yap.
-		$tokens   = token_get_all(file_get_contents($fileName));
+		if( ! is_file($fileName) )
+		{
+			return false;	
+		}
 		
+		// Dosya içeriğini al ve tarama yap.
+		$tokens    = token_get_all(file_get_contents($fileName));
 		$classInfo = array();
 		
 		$i = 0;

@@ -24,7 +24,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_array($attributes))
 		{
-			Error::set('CTable', 'attr', lang('Error', 'arrayParameter', 'attributes'));
+			Error::set(lang('Error', 'arrayParameter', 'attributes'));
 			return $this;	
 		}
 		
@@ -39,7 +39,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($spacing) || ! is_numeric($padding) )
 		{
-			Error::set('CTable', 'cell', lang('Error', 'numericParameter', 'spacing & padding'));
+			Error::set(lang('Error', 'numericParameter', 'spacing & padding'));
 			return $this;	
 		}
 		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
@@ -52,7 +52,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($spacing) )
 		{
-			Error::set('CTable', 'cellSpacing', lang('Error', 'numericParameter', 'spacing'));
+			Error::set(lang('Error', 'numericParameter', 'spacing'));
 			return $this;	
 		}
 		
@@ -65,7 +65,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($padding) )
 		{
-			Error::set('CTable', 'cellPadding', lang('Error', 'numericParameter', 'padding'));
+			Error::set(lang('Error', 'numericParameter', 'padding'));
 			return $this;	
 		}
 		
@@ -78,13 +78,13 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($border) )
 		{
-			Error::set('CTable', 'border', lang('Error', 'numericParameter', 'border'));
+			Error::set(lang('Error', 'numericParameter', 'border'));
 			return $this;	
 		}
 		
 		if( ! is_string($color) )
 		{
-			Error::set('CTable', 'border', lang('Error', 'stringParameter', 'color'));
+			Error::set(lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 		
@@ -98,7 +98,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_numeric($border) )
 		{
-			Error::set('CTable', 'borderSize', lang('Error', 'numericParameter', 'border'));
+			Error::set(lang('Error', 'numericParameter', 'border'));
 			return $this;	
 		}
 		
@@ -111,7 +111,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($color) )
 		{
-			Error::set('CTable', 'borderColor', lang('Error', 'stringParameter', 'color'));
+			Error::set(lang('Error', 'stringParameter', 'color'));
 			return $this;	
 		}
 
@@ -124,7 +124,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($align) )
 		{
-			Error::set('CTable', 'align', lang('Error', 'stringParameter', 'align'));
+			Error::set(lang('Error', 'stringParameter', 'align'));
 			return $this;	
 		}
 		
@@ -137,7 +137,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! isValue($width) )
 		{
-			Error::set('CTable', 'width', lang('Error', 'valueParameter', 'width'));
+			Error::set(lang('Error', 'valueParameter', 'width'));
 			return $this;	
 		}
 		
@@ -150,7 +150,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! isValue($height) )
 		{
-			Error::set('CTable', 'height', lang('Error', 'valueParameter', 'height'));
+			Error::set(lang('Error', 'valueParameter', 'height'));
 			return $this;	
 		}
 		
@@ -163,7 +163,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! isValue($height) || ! isValue($width) )
 		{
-			Error::set('CTable', 'size', lang('Error', 'valueParameter', 'width & height'));
+			Error::set(lang('Error', 'valueParameter', 'width & height'));
 			return $this;	
 		}
 		
@@ -177,7 +177,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($css) )
 		{
-			Error::set('CTable', 'css', lang('Error', 'stringParameter', 'css'));
+			Error::set(lang('Error', 'stringParameter', 'css'));
 			return $this;	
 		}
 		
@@ -213,7 +213,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($background) )
 		{
-			Error::set('CTable', 'background', lang('Error', 'stringParameter', 'background'));
+			Error::set(lang('Error', 'stringParameter', 'background'));
 			return $this;	
 		}
 		
@@ -226,7 +226,7 @@ class __USE_STATIC_ACCESS__CTable
 	{
 		if( ! is_string($bgColor) )
 		{
-			Error::set('CTable', 'bgColor', lang('Error', 'stringParameter', 'bgColor'));
+			Error::set(lang('Error', 'stringParameter', 'bgColor'));
 			return $this;	
 		}
 		

@@ -79,7 +79,7 @@ class __USE_STATIC_ACCESS__CXML
 		}
 		else
 		{
-			Error::set('CXML', 'element', lang('Error', 'stringParameter', 'element'));	
+			Error::set(lang('Error', 'stringParameter', 'element'));	
 		}
 		
 		if( $node === true )
@@ -88,7 +88,7 @@ class __USE_STATIC_ACCESS__CXML
 		}
 		else
 		{
-			Error::set('CXML', 'element', lang('Error', 'booleanParameter', 'node'));		
+			Error::set(lang('Error', 'booleanParameter', 'node'));		
 		}
 		
 		return $this;
@@ -113,7 +113,7 @@ class __USE_STATIC_ACCESS__CXML
 		}	
 		else
 		{
-			Error::set('CXML', 'content', lang('Error', 'valueParameter', 'content'));		
+			Error::set(lang('Error', 'valueParameter', 'content'));		
 		}
 		
 		return $this;
@@ -138,7 +138,7 @@ class __USE_STATIC_ACCESS__CXML
 		}	
 		else
 		{
-			Error::set('CXML', 'attr', lang('Error', 'arrayParameter', 'attribute'));		
+			Error::set(lang('Error', 'arrayParameter', 'attribute'));		
 		}
 		
 		return $this;
@@ -158,7 +158,7 @@ class __USE_STATIC_ACCESS__CXML
 		}
 		else
 		{
-			Error::set('CXML', 'version', lang('Error', 'stringParameter', 'version'));		
+			Error::set(lang('Error', 'stringParameter', 'version'));		
 		}	
 		
 		return $this;
@@ -178,7 +178,7 @@ class __USE_STATIC_ACCESS__CXML
 		}	
 		else
 		{
-			Error::set('CXML', 'charset', lang('Error', 'charsetParameter', 'charset'));		
+			Error::set(lang('Error', 'charsetParameter', 'charset'));		
 		}
 		
 		return $this;

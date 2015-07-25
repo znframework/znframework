@@ -27,7 +27,7 @@ class __USE_STATIC_ACCESS__Filter
 	{
 		if( ! isValue($string) ) 
 		{
-			return Error::set('Filter', 'word', lang('Error', 'valueParameter', 'string'));
+			return Error::set(lang('Error', 'valueParameter', 'string'));
 		}
 		
 		if( ! is_array($badWords) ) 

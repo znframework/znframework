@@ -474,7 +474,7 @@ class __USE_STATIC_ACCESS__Email
 	{
 		if( ! is_array($config) )
 		{
-			Error::set('Email', 'settings', lang('Error', 'arrayParameter', 'config'));	
+			Error::set(lang('Error', 'arrayParameter', 'config'));	
 		}
 		else
 		{
@@ -1399,7 +1399,7 @@ class __USE_STATIC_ACCESS__Email
 		
 		$errorString = $msg.( $raw_data === '' ? '' : '<pre>'.$raw_data.'</pre>' );
 		
-		Error::set('Email', 'error', $errorString);
+		Error::set($errorString);
 		
 		return $errorString;
 	}

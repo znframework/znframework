@@ -67,7 +67,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isChar($selector))
 		{
-			Error::set('CAction', 'selector', lang('Error', 'valueParameter', 'selector'));
+			Error::set(lang('Error', 'valueParameter', 'selector'));
 			return $this;	
 		}
 		
@@ -92,7 +92,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isValue($data))
 		{
-			Error::set('CAction', 'speed', lang('Error', 'valueParameter', 'data'));
+			Error::set(lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 		
@@ -118,7 +118,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isValue($data))
 		{
-			Error::set('CAction', 'duration', lang('Error', 'valueParameter', 'data'));
+			Error::set(lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 		
@@ -144,7 +144,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! isValue($data))
 		{
-			Error::set('CAction', 'easing', lang('Error', 'valueParameter', 'data'));
+			Error::set(lang('Error', 'valueParameter', 'data'));
 			return $this;	
 		}
 			
@@ -163,7 +163,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! is_string($type))
 		{
-			Error::set('CAction', 'type', lang('Error', 'stringParameter', 'type'));
+			Error::set(lang('Error', 'stringParameter', 'type'));
 			return $this;	
 		}
 		
@@ -254,7 +254,7 @@ class __USE_STATIC_ACCESS__CAction extends CJqueryCommon
 	{
 		if( ! is_string($params) || ! is_string($callback) )
 		{
-			Error::set('CAction', 'callback', lang('Error', 'stringParameter', 'params & callback'));
+			Error::set(lang('Error', 'stringParameter', 'params & callback'));
 			return $this;	
 		}
 		

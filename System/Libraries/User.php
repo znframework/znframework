@@ -86,7 +86,7 @@ class __USE_STATIC_ACCESS__User
 	{
 		if( ! is_array($data) ) 
 		{
-			return Error::set('User', 'register', lang('Error', 'arrayParameter', 'data'));
+			return Error::set(lang('Error', 'arrayParameter', 'data'));
 		}
 		if( ! is_string($activationReturnLink) ) 
 		{
@@ -121,7 +121,7 @@ class __USE_STATIC_ACCESS__User
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
 			$this->error = lang('User', 'registerUsernameError');	
-			return Error::set('User', 'register', $this->error);
+			return Error::set($this->error);
 		}
 		
 		$loginUsername  = $data[$usernameColumn];
@@ -143,7 +143,7 @@ class __USE_STATIC_ACCESS__User
 			if( ! $db->insert($tableName , $data) )
 			{
 				$this->error = lang('User', 'registerUnknownError');	
-				return Error::set('User', 'register', $this->error);
+				return Error::set($this->error);
 			}	
 
 			if( ! empty($joinTables) )
@@ -191,7 +191,7 @@ class __USE_STATIC_ACCESS__User
 		else
 		{
 			$this->error = lang('User', 'registerError');
-			return Error::set('User', 'register', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -218,18 +218,18 @@ class __USE_STATIC_ACCESS__User
 			// Parametreler kontrol ediliyor.--------------------------------------------------
 			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
 			{
-				Error::set('User', 'update', lang('Error', 'stringParameter', 'old'));
-				Error::set('User', 'update', lang('Error', 'stringParameter', 'new'));
-				Error::set('User', 'update', lang('Error', 'arrayParameter', 'data'));
+				Error::set(lang('Error', 'stringParameter', 'old'));
+				Error::set(lang('Error', 'stringParameter', 'new'));
+				Error::set(lang('Error', 'arrayParameter', 'data'));
 				
 				return false;
 			}
 				
 			if( empty($old) || empty($new) || empty($data) ) 
 			{
-				Error::set('User', 'update', lang('Error', 'emptyParameter', 'old'));
-				Error::set('User', 'update', lang('Error', 'emptyParameter', 'new'));
-				Error::set('User', 'update', lang('Error', 'emptyParameter', 'data'));
+				Error::set(lang('Error', 'emptyParameter', 'old'));
+				Error::set(lang('Error', 'emptyParameter', 'new'));
+				Error::set(lang('Error', 'emptyParameter', 'data'));
 				
 				return false;
 			}
@@ -274,12 +274,12 @@ class __USE_STATIC_ACCESS__User
 			if( $oldPassword != $password )
 			{
 				$this->error = lang('User', 'oldPasswordError');
-				return Error::set('User', 'update', $this->error);	
+				return Error::set($this->error);	
 			}
 			elseif( $newPassword != $newPasswordAgain )
 			{
 				$this->error = lang('User', 'passwordNotMatchError');
-				return Error::set('User', 'update', $this->error);
+				return Error::set($this->error);
 			}
 			else
 			{
@@ -305,7 +305,7 @@ class __USE_STATIC_ACCESS__User
 					if( ! $db->where($uc.' =', $username)->update($tn, $data) )
 					{
 						$this->error = lang('User', 'registerUnknownError');	
-						return Error::set('User', 'update', $this->error);
+						return Error::set($this->error);
 					}	
 				}
 				
@@ -370,13 +370,13 @@ class __USE_STATIC_ACCESS__User
 			else
 			{
 				$this->error = lang('User', 'activationCompleteError');
-				return Error::set('User', 'activationComplete', $this->error);
+				return Error::set($this->error);
 			}				
 		}
 		else
 		{
 			$this->error = lang('User', 'activationCompleteError');
-			return Error::set('User', 'activationComplete', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -534,12 +534,12 @@ class __USE_STATIC_ACCESS__User
 	{
 		if( ! is_string($un) ) 
 		{
-			return Error::set('User', 'login', lang('Error', 'stringParameter', 'un'));
+			return Error::set(lang('Error', 'stringParameter', 'un'));
 		}
 		
 		if( ! is_string($pw) ) 
 		{
-			return Error::set('User', 'login', lang('Error', 'stringParameter', 'pw'));
+			return Error::set(lang('Error', 'stringParameter', 'pw'));
 		}
 		
 		if( ! isValue($rememberMe) ) 
@@ -573,13 +573,13 @@ class __USE_STATIC_ACCESS__User
 		if( empty($r) )
 		{
 			$this->error = lang('User', 'loginError');	
-			return Error::set('User', 'login', $this->error);
+			return Error::set($this->error);
 		}
 		
 		if( ! isset($r->$passwordColumn) )
 		{
 			$this->error = lang('User', 'loginError');	
-			return Error::set('User', 'login', $this->error);
+			return Error::set($this->error);
 		}
 				
 		$passwordControl   = $r->$passwordColumn;
@@ -602,13 +602,13 @@ class __USE_STATIC_ACCESS__User
 			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
 				$this->error = lang('User', 'bannedError');	
-				return Error::set('User', 'login', $this->error);
+				return Error::set($this->error);
 			}
 			
 			if( ! empty($activationColumn) && empty($activationControl) )
 			{
 				$this->error = lang('User', 'activationError');	
-				return Error::set('User', 'login', $this->error);
+				return Error::set($this->error);
 			}
 			
 			if( ! isset($_SESSION) ) 
@@ -641,7 +641,7 @@ class __USE_STATIC_ACCESS__User
 		else
 		{
 			$this->error = lang('User', 'loginError');	
-			return Error::set('User', 'login', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -661,7 +661,7 @@ class __USE_STATIC_ACCESS__User
 	{
 		if( ! is_string($email) ) 
 		{
-			return Error::set('User', 'forgotPassword', lang('Error', 'stringParameter', 'email'));
+			return Error::set(lang('Error', 'stringParameter', 'email'));
 		}
 		
 		if( ! is_string($returnLinkPath) ) 
@@ -742,14 +742,14 @@ class __USE_STATIC_ACCESS__User
 			{	
 				$this->success = false;
 				$this->error = lang('User', 'emailError');
-				return Error::set('User', 'forgotPassword', $this->error);
+				return Error::set($this->error);
 			}
 		}
 		else
 		{
 			$this->success = false;
 			$this->error = lang('User', 'forgotPasswordError');	
-			return Error::set('User', 'forgotPassword', $this->error);
+			return Error::set($this->error);
 		}
 	}
 	
@@ -952,7 +952,7 @@ class __USE_STATIC_ACCESS__User
 	{
 		if( ! empty($this->error) ) 
 		{
-			Error::set('User', 'error', $this->error);
+			Error::set($this->error);
 			return $this->error; 
 		}
 		else 
