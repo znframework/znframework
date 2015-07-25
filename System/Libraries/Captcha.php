@@ -4,7 +4,7 @@ class __USE_STATIC_ACCESS__Captcha
 	/***********************************************************************************/
 	/* CAPTCHA LIBRARY						                   	                       */
 	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN
+	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 	/* Site: www.zntr.net
 	/* Lisans: The MIT License
 	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net

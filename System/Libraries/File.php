@@ -4,7 +4,7 @@ class __USE_STATIC_ACCESS__File
 	/***********************************************************************************/
 	/* FILE LIBRARY	    					                   	                       */
 	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN
+	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 	/* Site: www.zntr.net
 	/* Lisans: The MIT License
 	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
@@ -699,7 +699,7 @@ class __USE_STATIC_ACCESS__File
 	{
 		if( ! is_resource($source) )
 		{
-			return Error::set('File', 'close', lang('Error', 'resourceParameter', 'source'));	
+			return Error::set(lang('Error', 'resourceParameter', 'source'));	
 		}
 		
 		return fclose($source);
