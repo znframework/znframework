@@ -26,7 +26,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_array($options) || ! is_array($params) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'arrayParameter', 'options & params'));	
 		}
 		
 		return stream_context_create($options, $params);
@@ -41,7 +41,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_array($options) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'arrayParameter', 'options'));	
 		}
 		
 		return stream_context_get_default($options);
@@ -56,7 +56,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_array($options) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'arrayParameter', 'options'));	
 		}
 		
 		return stream_context_set_default($options);
@@ -71,7 +71,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($stream) )
 		{
-			return $stream;	
+			return Error::set(lang('Error', 'resourceParameter', 'stream'));
 		}
 		
 		return stream_context_get_options($stream);
@@ -86,7 +86,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($stream) )
 		{
-			return $stream;	
+			return Error::set(lang('Error', 'resourceParameter', 'stream'));
 		}
 		
 		return stream_context_set_options($stream, $wrapper, $options);
@@ -101,7 +101,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($stream) )
 		{
-			return $stream;	
+			return Error::set(lang('Error', 'resourceParameter', 'stream'));
 		}
 		
 		return stream_context_get_params($stream);
@@ -116,6 +116,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_array($params) || ! is_resource($stream) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'arrayParameter', 'params'));
+			
 			return false;	
 		}
 		
@@ -137,6 +140,9 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($start) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'source & target'));
+			Error::set(lang('Error', 'numericParameter', 'length & start'));
+			
 			return false;	
 		}
 		
@@ -157,6 +163,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_resource($stream) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'stringParameter', 'filter'));
+			Error::set(lang('Error', 'numericParameter', 'writeRead'));
+			
 			return false;	
 		}
 		
@@ -177,6 +187,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_resource($stream) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'stringParameter', 'filter'));
+			Error::set(lang('Error', 'numericParameter', 'writeRead'));
+			
 			return false;	
 		}
 		
@@ -192,7 +206,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_string($class) || ! is_string($filter) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'filter & class'));	
 		}
 		
 		return stream_filter_register($filter, $class);
@@ -207,7 +221,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($filter) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'resourceParameter', 'filter'));	
 		}
 		
 		return stream_filter_remove($filter);
@@ -227,6 +241,9 @@ class __USE_STATIC_ACCESS__Stream
 			! is_resource($stream) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'length & start'));
+			
 			return false;	
 		}
 		
@@ -257,6 +274,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_resource($stream) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'length'));
+			Error::set(lang('Error', 'stringParameter', 'eol'));
+			
 			return false;	
 		}
 		
@@ -272,7 +293,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($stream) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'resourceParameter', 'stream'));	
 		}
 		
 		return stream_get_meta_data($stream);
@@ -325,6 +346,9 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($bytesMax)
 		)
 		{
+			Error::set(lang('Error', 'numericParameter', 'notificationCode & severity & messageCode & bytesTransferred & bytesMax'));
+			Error::set(lang('Error', 'stringParameter', 'message'));
+			
 			return false;	
 		}
 		
@@ -345,6 +369,9 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($options)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'protocol & class'));
+			Error::set(lang('Error', 'numericParameter', 'options'));
+			
 			return false;	
 		}
 		
@@ -360,7 +387,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_string($protocol) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'protocol'));	
 		}
 		
 		return stream_wrapper_restore($protocol);
@@ -375,7 +402,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_string($protocol) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'protocol'));	
 		}
 		
 		return stream_wrapper_unregister($protocol);
@@ -397,6 +424,9 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($microSecondTimeout)
 		)
 		{
+			Error::set(lang('Error', 'arrayParameter', 'read & write & except'));
+			Error::set(lang('Error', 'numericParameter', 'secondTime & microSecondTime'));
+			
 			return false;	
 		}
 		
@@ -412,6 +442,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_numeric($mode) || ! is_resource($stream) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'mode'));
+			
 			return false;	
 		}
 		
@@ -427,6 +460,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_numeric($size) || ! is_resource($fileOpen) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'fileOpen'));
+			Error::set(lang('Error', 'numericParameter', 'size'));
+			
 			return false;	
 		}
 		
@@ -442,6 +478,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_numeric($buffer) || ! is_resource($stream) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'buffer'));
+			
 			return false;	
 		}
 		
@@ -462,6 +501,9 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($microSecondTimeout)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'secondTimeout & microSecondTimeout'));
+			
 			return false;	
 		}
 		
@@ -477,6 +519,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_numeric($buffer) || ! is_resource($stream) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'buffer'));
+			
 			return false;	
 		}
 		
@@ -497,6 +542,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'timeout'));
+			Error::set(lang('Error', 'stringParameter', 'peerName'));
+			
 			return false;	
 		}
 		
@@ -524,6 +573,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($flags)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'errno & timeout & flags'));
+			Error::set(lang('Error', 'stringParameter', 'errstr'));
+			
 			return false;	
 		}
 		
@@ -549,6 +602,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($encodeType)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'booleanParameter', 'enable'));
+			Error::set(lang('Error', 'numericParameter', 'encodeTypes'));
+			
 			return false;	
 		}
 		
@@ -564,6 +621,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($socket) || ! is_bool($wantPeer) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'booleanParameter', 'wantPeer'));
+			
 			return false;	
 		}
 		
@@ -584,7 +644,7 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($protocol)
 		)
 		{
-			return false;	
+			return Error::set(lang('Error', 'numericParameter', 'domain & type & protocol'));	
 		}
 		
 		return stream_socket_pair($domain, $type, $protocol);
@@ -605,6 +665,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_string($address) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'length & options'));
+			Error::set(lang('Error', 'stringParameter', 'address'));
+			
 			return false;
 		}
 
@@ -626,6 +690,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_string($address) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'stringParameter', 'data & address'));
+			Error::set(lang('Error', 'numericParameter', 'options'));
+			
 			return false;
 		}
 
@@ -647,6 +715,10 @@ class __USE_STATIC_ACCESS__Stream
 			! is_numeric($flags)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'errno & flags'));
+			Error::set(lang('Error', 'stringParameter', 'errstr'));
+			
 			return false;	
 		}
 		
@@ -663,6 +735,9 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($stream) || ! is_numeric($how) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'stream'));
+			Error::set(lang('Error', 'numericParameter', 'how'));
+			
 			return false;	
 		}	
 	
@@ -678,7 +753,7 @@ class __USE_STATIC_ACCESS__Stream
 	{
 		if( ! is_resource($stream) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'resourceParameter', 'stream'));	
 		}
 		
 		return stream_supports_lock($stream);

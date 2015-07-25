@@ -31,7 +31,7 @@ class __USE_STATIC_ACCESS__Socket
 			! is_numeric($protocol) 
 		)
 		{
-			return false;	
+			return Error::set(lang('Error', 'numericParameter', 'domain & type & protocol'));	
 		}
 		
 		return socket_create($domain, $type, $protocol);
@@ -51,6 +51,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'address'));
+			Error::set(lang('Error', 'numericParameter', 'port'));
+			
 			return false;
 		}
 		
@@ -71,6 +75,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'data'));
+			Error::set(lang('Error', 'numericParameter', 'length'));
+			
 			return false;
 		}
 		
@@ -96,6 +104,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'length'));
+			Error::set(lang('Error', 'numericParameter', 'type'));
+			
 			return false;
 		}
 		
@@ -121,6 +133,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'address'));
+			Error::set(lang('Error', 'numericParameter', 'port'));
+			
 			return false;
 		}
 		
@@ -136,6 +152,9 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_numeric($backlog) || ! is_resource($socket) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'backlog'));
+			
 			return false;
 		}
 	
@@ -151,7 +170,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_numeric($port) || ! is_numeric($backlog) )
 		{
-			return false;
+			return Error::set(lang('Error', 'numericParameter', 'port & backlog'));
 		}
 		
 		return socket_create_listen($port, $backlog);
@@ -171,6 +190,9 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'level & optName'));
+			
 			return false;
 		}
 		
@@ -191,6 +213,9 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'level & optName'));
+			
 			return false;
 		}
 		
@@ -211,6 +236,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'address'));
+			Error::set(lang('Error', 'numericParameter', 'port'));
+			
 			return false;
 		}
 		
@@ -231,6 +260,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'address'));
+			Error::set(lang('Error', 'numericParameter', 'port'));
+			
 			return false;
 		}
 		
@@ -252,6 +285,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'buffer'));
+			Error::set(lang('Error', 'numericParameter', 'length & options'));
+			
 			return false;
 		}
 		
@@ -273,6 +310,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_resource($socket) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'buffer'));
+			Error::set(lang('Error', 'numericParameter', 'length & options'));
+			
 			return false;
 		}
 
@@ -293,7 +334,7 @@ class __USE_STATIC_ACCESS__Socket
 			! is_array($except) 
 		)
 		{
-			return false;
+			return Error::set(lang('Error', 'arrayParameter', 'read & write & except'));
 		}
 		
 		return socket_select($read, $write, $except, $secondTimeout, $microSecondTimeout);
@@ -314,6 +355,10 @@ class __USE_STATIC_ACCESS__Socket
 			! is_numeric($options) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'buffer'));
+			Error::set(lang('Error', 'numericParameter', 'length & options'));
+			
 			return false;
 		}
 		
@@ -336,6 +381,10 @@ class __USE_STATIC_ACCESS__Socket
 			! isValue($address) 
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'valueParameter', 'buffer & address'));
+			Error::set(lang('Error', 'numericParameter', 'length & options'));
+			
 			return false;
 		}
 		
@@ -351,7 +400,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_set_block($socket);	
@@ -366,7 +415,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_set_nonblock($socket);	
@@ -381,7 +430,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_accept($socket);	
@@ -396,7 +445,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_strerror($this->errno($socket));
@@ -411,7 +460,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_last_error($socket);
@@ -426,7 +475,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_clear_error($socket);
@@ -441,7 +490,7 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) )
 		{
-			return false;
+			return Error::set(lang('Error', 'resourceParameter', 'socket'));
 		}
 		
 		return socket_close($socket);	
@@ -456,6 +505,9 @@ class __USE_STATIC_ACCESS__Socket
 	{
 		if( ! is_resource($socket) || ! is_numeric($how) )
 		{
+			Error::set(lang('Error', 'resourceParameter', 'socket'));
+			Error::set(lang('Error', 'numericParameter', 'how'));
+			
 			return false;
 		}
 		

@@ -31,7 +31,7 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($envKey)
 		)
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'sealedData & data & envKey'));	
 		}
 		
 		return openssl_open($sealedData, $data, $envKey, $privKeyId);
@@ -51,7 +51,7 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($envKey)
 		)
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'sealedData & data & envKey'));	
 		}
 		
 		return openssl_seal($data, $sealedData, $envKey, $privKeyId);
@@ -66,7 +66,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($data) || ! is_string($signature) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'data & signature'));	
 		}
 		
 		return openssl_sign($data, $signature, $privKeyId, $signatureAlgo);
@@ -81,7 +81,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($data) || ! is_string($signature) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'data & signature'));	
 		}
 		
 		return openssl_verify($data, $signature, $privKeyId, $signatureAlgo);
@@ -96,7 +96,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($spkac) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'spkac'));	
 		}
 		
 		return openssl_spki_export_challenge($spkac);
@@ -111,7 +111,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($spkac) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'spkac'));		
 		}
 		
 		return openssl_spki_export($spkac);
@@ -126,7 +126,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($spkac) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'spkac'));		
 		}
 		
 		return openssl_spki_verify($spkac);
@@ -146,6 +146,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($algorithm)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'privKey'));	
+			Error::set(lang('Error', 'stringParameter', 'challenge'));
+			Error::set(lang('Error', 'numericParameter', 'algorithm'));
+			
 			return false;	
 		}
 		
@@ -161,7 +165,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($method) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'method'));	
 		}
 		
 		return openssl_cipher_iv_length($method);
@@ -181,6 +185,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_bool($noText)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'csr'));
+			Error::set(lang('Error', 'stringParameter', 'outFileName'));
+			Error::set(lang('Error', 'booleanParameter', 'noText'));
+			
 			return false;	
 		}
 		
@@ -201,6 +209,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_bool($noText)
 		)
 		{
+			Error::set(lang('Error', 'resourceParameter', 'csr'));
+			Error::set(lang('Error', 'stringParameter', 'output'));
+			Error::set(lang('Error', 'booleanParameter', 'noText'));
+			
 			return false;	
 		}
 		
@@ -212,14 +224,14 @@ class __USE_STATIC_ACCESS__SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public function csrGetPublicKey($csr = '', $shortnames = true)
+	public function csrGetPublicKey($csr = '', $shortNames = true)
 	{
-		if( ! is_bool($shortnames) )
+		if( ! is_bool($shortNames) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'booleanParameter', 'shortNames'));	
 		}
 		
-		return openssl_csr_get_public_key($csr, $shortnames);
+		return openssl_csr_get_public_key($csr, $shortNames);
 	}
 	
 	/******************************************************************************************
@@ -227,14 +239,14 @@ class __USE_STATIC_ACCESS__SSL
 	*******************************************************************************************
 	| Genel Kullanımı :	Detaylı kullanım için openssl ile ilgili kaynakları inceleyiniz.      |
 	******************************************************************************************/
-	public function csrGetSubject($csr = '', $shortnames = true)
+	public function csrGetSubject($csr = '', $shortNames = true)
 	{
-		if( ! is_bool($shortnames) )
+		if( ! is_bool($shortNames) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'booleanParameter', 'shortNames'));	
 		}
 		
-		return openssl_csr_get_subject($csr, $shortnames);
+		return openssl_csr_get_subject($csr, $shortNames);
 	}
 	
 	/******************************************************************************************
@@ -252,6 +264,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_array($extraAttrs)
 		)
 		{
+			Error::set(lang('Error', 'arrayParameter', 'dn & configArgs & extraAttrs'));
+			Error::set(lang('Error', 'resourceParameter', 'privKey'));			
+			
 			return false;	
 		}
 		
@@ -272,6 +287,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($serial)
 		)
 		{
+			Error::set(lang('Error', 'numericParameter', 'days & serial'));	
+			Error::set(lang('Error', 'arrayParameter', 'configs'));	
+			
 			return false;	
 		}
 		
@@ -294,6 +312,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($iv)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & method & password & iv'));
+			Error::set(lang('Error', 'numericParameter', 'options'));		
+			
 			return false;	
 		}
 		
@@ -316,6 +337,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($iv)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & method & password & iv'));
+			Error::set(lang('Error', 'numericParameter', 'options'));
+			
 			return false;	
 		}
 		
@@ -331,6 +355,9 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($pubKey) || ! is_resource($dhKey) )
 		{
+			Error::set(lang('Error', 'stringParameter', 'pubKey'));
+			Error::set(lang('Error', 'resourceParameter', 'dhKey'));
+			
 			return false;	
 		}
 		
@@ -351,6 +378,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_bool($rawOutput)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & method'));
+			Error::set(lang('Error', 'booleanParameter', 'rawOutput'));
+			
 			return false;	
 		}
 		
@@ -376,7 +406,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_resource($key) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'resourceParameter', 'key'));	
 		}
 		
 		return openssl_free_key($key);
@@ -401,7 +431,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_bool($aliases) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'booleanParameter', 'aliases'));		
 		}
 		
 		return openssl_get_cipher_methods($aliases);
@@ -416,7 +446,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_bool($aliases) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'booleanParameter', 'aliases'));		
 		}
 		
 		return openssl_get_md_methods($aliases);
@@ -438,6 +468,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($digestAlgo)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'password & salt & digestAlgo'));
+			Error::set(lang('Error', 'numericParameter', 'keyLength & iterations'));	
+			
 			return false;	
 		}
 		
@@ -460,6 +493,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_array($params)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'x509 & file & privKey & password'));
+			Error::set(lang('Error', 'arrayParameter', 'params'));
+			
 			return false;	
 		}
 		
@@ -482,6 +518,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_array($args)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'x509 & out & privKey & password'));
+			Error::set(lang('Error', 'arrayParameter', 'args'));
+			
 			return false;	
 		}
 		
@@ -502,6 +541,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_array($cert)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'pcks12 & password'));
+			Error::set(lang('Error', 'arrayParameter', 'cert'));
+			
 			return false;	
 		}
 		
@@ -517,7 +559,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($inFileName) || ! is_string($outFileName) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'inFileName & outFileName'));	
 		}
 		
 		return openssl_pkcs7_decrypt($inFileName, $outFileName, $recIpCert, $recIpKey);
@@ -539,6 +581,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($cipherId)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'inFile & outFile'));
+			Error::set(lang('Error', 'arrayParameter', 'headers'));
+			Error::set(lang('Error', 'numericParameter', 'flags & cipherId'));
+			
 			return false;	
 		}
 		
@@ -561,6 +607,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($extraCerts)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'inFile & outFile & extraCerts'));
+			Error::set(lang('Error', 'arrayParameter', 'headers'));
+			Error::set(lang('Error', 'numericParameter', 'flags'));
+			
 			return false;	
 		}
 		
@@ -584,6 +634,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($content)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'fileName & outFileName & extraCerts & content'));
+			Error::set(lang('Error', 'arrayParameter', 'caInfo'));
+			Error::set(lang('Error', 'numericParameter', 'flags'));
+			
 			return false;	
 		}
 		
@@ -599,7 +653,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_string($passPhrase) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'stringParameter', 'passPhrase'));
 		}
 		
 		return openssl_pkey_get_private($key, $passPhrase);
@@ -629,6 +683,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_array($configs)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'file & password'));
+			Error::set(lang('Error', 'arrayParameter', 'configs'));
+			
 			return false;	
 		}
 		
@@ -649,6 +706,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_array($configs)
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'file & password'));
+			Error::set(lang('Error', 'arrayParameter', 'configs'));
+			
 			return false;	
 		}
 		
@@ -664,7 +724,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_resource($key) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'resourceParameter', 'key'));	
 		}
 		
 		return openssl_pkey_free($key);
@@ -679,7 +739,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_resource($key) )
 		{
-			return false;	
+			return fError::set(lang('Error', 'resourceParameter', 'key'));	
 		}
 		
 		return openssl_pkey_get_details($key);
@@ -694,7 +754,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_array($configs) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'arrayParameter', 'configs'));	
 		}
 		
 		return openssl_pkey_new($configs);
@@ -714,6 +774,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($padding) 
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & decrypted'));
+			Error::set(lang('Error', 'numericParameter', 'padding'));
+			
 			return false;	
 		}
 		
@@ -734,6 +797,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($padding) 
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & decrypted'));
+			Error::set(lang('Error', 'numericParameter', 'padding'));
+			
 			return false;	
 		}
 		
@@ -754,6 +820,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($padding) 
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & decrypted'));
+			Error::set(lang('Error', 'numericParameter', 'padding'));
+			
 			return false;	
 		}
 		
@@ -774,6 +843,9 @@ class __USE_STATIC_ACCESS__SSL
 			! is_numeric($padding) 
 		)
 		{
+			Error::set(lang('Error', 'stringParameter', 'data & decrypted'));
+			Error::set(lang('Error', 'numericParameter', 'padding'));
+			
 			return false;	
 		}
 		
@@ -789,6 +861,9 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_numeric($length) || ! is_bool($strong) )
 		{
+			Error::set(lang('Error', 'numericParameter', 'length'));
+			Error::set(lang('Error', 'booleanParameter', 'strong'));
+			
 			return false;	
 		}
 		
@@ -819,6 +894,10 @@ class __USE_STATIC_ACCESS__SSL
 			! is_string($untrustedFile) 
 		)
 		{
+			Error::set(lang('Error', 'numericParameter', 'purpose'));
+			Error::set(lang('Error', 'arrayParameter', 'caInfo'));
+			Error::set(lang('Error', 'stringParameter', 'untrustedFile'));
+			
 			return false;	
 		}
 		
@@ -834,6 +913,9 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_bool($noText) || ! is_string($outFileName) )
 		{
+			Error::set(lang('Error', 'stringParameter', 'outFileName'));
+			Error::set(lang('Error', 'booleanParameter', 'noText'));
+			
 			return false;	
 		}
 		
@@ -849,6 +931,9 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_bool($noText) || ! is_string($outFileName) )
 		{
+			Error::set(lang('Error', 'stringParameter', 'outFileName'));
+			Error::set(lang('Error', 'booleanParameter', 'noText'));
+			
 			return false;	
 		}
 		
@@ -864,6 +949,9 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! isHash($hashAlgorithm) || ! is_bool($rawOutput) )
 		{
+			Error::set(lang('Error', 'hashParameter', 'hashAlgorithm'));
+			Error::set(lang('Error', 'booleanParameter', 'rawOutput'));
+			
 			return false;	
 		}
 		
@@ -879,7 +967,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_resource($x509cert) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'resourceParameter', 'x509cert'));
 		}
 		
 		return openssl_x509_free($x509cert);
@@ -894,7 +982,7 @@ class __USE_STATIC_ACCESS__SSL
 	{
 		if( ! is_bool($shortNames) )
 		{
-			return false;	
+			return Error::set(lang('Error', 'booleanParameter', 'shortNames'));
 		}
 		
 		return openssl_x509_parse($x509, $shortNames);
