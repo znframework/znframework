@@ -24,6 +24,6 @@ $config['Links']['script'] = array
 * STYLE                                                                         	  	  *
 *******************************************************************************************
 | Genel Kullanım: Style URL bilgilerini tutmak için oluşturulmuştur.               	      |
-| Bu linkleri güncelleyerek jquery'nin en son sürümlerini kullanabilirsiniz.			  |
+| Bu linkleri güncelleyerek dışardan style dosyaları çağırabilirsiniz.					  |
 ******************************************************************************************/
 $config['Links']['style'] = array();

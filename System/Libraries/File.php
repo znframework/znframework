@@ -234,6 +234,35 @@ class __USE_STATIC_ACCESS__File
 	}
 	
 	/******************************************************************************************
+	* CLEAN CACHE                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Silinen dosyanın ön bellekten kaldırılması için oluşturulmuştur.        |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. boolean var @real => Gerçek ön bellekten silinip silinemeyeceği.					  |
+	| 1. string var @fileName => Ön bellekten silinmesi istenen dosya.		     			  |
+	|          											  									  |
+	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
+	|          																				  |
+	******************************************************************************************/
+	public function cleanCache($real = false, $fileName = '')
+	{
+		if( ! is_bool($real) ) 
+		{
+			return Error::set(lang('Error', 'booleanParameter', 'real'));
+		}
+		
+		if( ! file_exists($fileName) )
+		{
+			return clearstatcache($real);
+		}
+		else
+		{
+			return clearstatcache($real, $fileName);
+		}
+	}
+	
+	/******************************************************************************************
 	* APPEND                                                                                  *
 	*******************************************************************************************
 	| Genel Kullanım: Dosyaya veri yazmak için kullanılır.		     				          |

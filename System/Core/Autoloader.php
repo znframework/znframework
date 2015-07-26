@@ -207,6 +207,11 @@ class Autoloader
 		$fileOpen  = fopen($path, 'w');		
 		$fileWrite = fwrite($fileOpen, $classMapPage);
 		
+		if( empty($fileWrite) )
+		{
+			die(getErrorMessage('Error', 'fileNotWrite', $path));
+		} 
+		
 		fclose($fileOpen);
 	}
 	
@@ -476,6 +481,11 @@ class Autoloader
 							// Dosya yazdırılıyor...
 							$fileOpen  = fopen($path, 'w');	
 							$fileWrite = fwrite($fileOpen, $classContent);
+							
+							if( empty($fileWrite) )
+							{
+								die(getErrorMessage('Error', 'fileNotWrite', $path));
+							}
 						
 							fclose($fileOpen);
 						}

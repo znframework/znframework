@@ -14,6 +14,7 @@ $lang['Error']['classDeclaredError'] 		= 'Error: `%` class already exists! Not d
 $lang['Error']['callUserFuncArrayError'] 	= 'Error: URL does not contain a valid function or method information! `%` method could not be found!';
 $lang['Error']['notIsFileError'] 		  	= 'Error: URL does not contain a valid path! `%` file could not be found!';
 $lang['Error']['fileNotFound']				= 'Error: `%` file was not found!';
+$lang['Error']['fileNotWrite']				= 'Error: `%` file can not create! Please check the powers of file creation!';
 $lang['Error']['line']						= 'Line';
 $lang['Error']['upperLine']					= 'LINE';
 $lang['Error']['message']					= 'Error';

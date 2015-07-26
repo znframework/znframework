@@ -36,12 +36,12 @@ class __USE_STATIC_ACCESS__Arrays
 			return Error::set(lang('Error', 'arrayParameter', 'array'));
 		}
 		
-		if( ! is_numeric($poss) ) 
+		if( ! isRealNumeric($poss) ) 
 		{
 			$poss = array_search($poss, $array);
 		}
 		
-		if( ! is_numeric($changePos) ) 
+		if( ! isRealNumeric($changePos) ) 
 		{
 			$changePos = array_search($changePos, $array);
 		}
@@ -101,11 +101,11 @@ class __USE_STATIC_ACCESS__Arrays
 			return Error::set(lang('Error', 'arrayParameter', 'array'));
 		}
 		
-		if( ! is_numeric($poss) ) 
+		if( ! isRealNumeric($poss) ) 
 		{
 			$poss = array_search($poss, $array);
 		}
-		if( ! is_numeric($changePos) ) 
+		if( ! isRealNumeric($changePos) ) 
 		{
 			$changePos = array_search($changePos, $array);
 		}
@@ -138,8 +138,15 @@ class __USE_STATIC_ACCESS__Arrays
 			}
 		}
 		
-		$lastArray[$pos] = $changeElement;
-		$lastArray[$changePos] = $element;
+		if( isset($changeElement) )
+		{
+			$lastArray[$pos] = $changeElement;
+		}
+		
+		if( isset($element) )
+		{
+			$lastArray[$changePos] = $element;
+		}
 		
 		return $lastArray;
 	}

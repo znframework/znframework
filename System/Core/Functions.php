@@ -258,6 +258,23 @@ function isChar($str = NULL)
 	}
 }	
 
+// Function: isRealNumeric()
+// İşlev: Parametrenin string olmayan bir numerik veri olup olmadığını kontrol eder.
+// Parametreler: Herhangi bir değer.
+// Dönen Değerler: Parametre metinsel veya sayısal türde ise true, değilse false değeri döner.
+
+function isRealNumeric($num = 0)
+{
+	if( ! is_string($num) && is_numeric($num) )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}	
+
 /******************************************************************************************
 * IS DECLARED CLASS - DAHİL EDİLDİĞİ SÜRÜM:1.5                                            *
 *******************************************************************************************

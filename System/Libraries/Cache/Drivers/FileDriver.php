@@ -30,7 +30,7 @@ class FileDriver
 	******************************************************************************************/
 	public function __construct()
 	{
-		$this->path = APP_DIR.'Cache/';
+		$this->path = STORAGE_DIR;
 		
 		if( ! isDirExists($this->path) )
 		{
