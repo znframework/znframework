@@ -35,6 +35,8 @@ class Repair
 		// Burada ayarlarda belirtilen sayfa isimleri bilgisi alınıyor.
 		$repairConfig = Config::get('Repair');
 		$repairPages  = $repairConfig['pages'];
+		$routePate	  = strtolower($repairConfig['routePage']);
+		$currentPath  = strtolower(currentPath()); 
 		
 		// Eğer Config/Repair.php dosyasında pages = "all" olarrak alınmış ise 
 		// tüm sayfalar için tadilat modu uygulanıyor demektir.
@@ -42,7 +44,7 @@ class Repair
 		{
 			if( $repairPages === "all" )
 			{
-				if( currentPath() !== $repairConfig['routePage'] ) 
+				if( $currentPath !== $routePate ) 
 				{
 					redirect($repairConfig['routePage']);
 				}
@@ -51,32 +53,37 @@ class Repair
 		
 		
 		// Sayfalar tek tek çağrılıyor..
-		if( is_array($repairPages) )
-		{
+		if( is_array($repairPages) && ! empty($repairPages) )
+		{		
 			// Eğer Config/Repair.php dosyasında pages = array("all") olarrak alınmış ise 
 			// tüm sayfalar için tadilat modu uygulanıyor demektir.
 			if( $repairPages[0] === "all" )
 			{
-				if( currentPath() !== $repairConfig['routePage'] ) 
+				if( $currentPath !== $routePate ) 
 				{
 					redirect($repairConfig['routePage']);
 				}
 			}
-			
-			foreach($repairPages as $rp)
+		
+			foreach( $repairPages as $k => $rp )
 			{
-				// Gelen sayfa o anki url içinde geçip geçmediğini kontrol ediliyor.
-				$pagePos = strstr(currentPath(), $rp);	
-				
-				// Eğer gelen sayfa o anki url içinde geçiyorsa yani sonuc -1 den büyükse 
-				// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
-				if( ! empty($pagePos) )
+				// Yönlendirme sayfası bir anahtar-değer çifti içeriyorsa bu sayfaya yönlenmesi sağlanır
+				if( strstr($currentPath, strtolower($k)) )
 				{
-					if( currentPath() !== $repairConfig['routePage'] )
+					redirect($rp);	
+				}
+				else
+				{
+					// Eğer gelen sayfa o anki url içinde geçiyorsa yani sonuc -1 den büyükse 
+					// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
+					if( strstr($currentPath, strtolower($rp)) )
 					{
-						redirect($repairConfig['routePage']);
-					}
-				}	
+						if( $currentPath !== $routePate )
+						{
+							redirect($repairConfig['routePage']);
+						}
+					}	
+				}
 			}
 		}	
 	}	

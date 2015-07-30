@@ -150,7 +150,7 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
-		if( ! is_array($condition) ) 
+		if( ! is_array($condition) || empty($condition) ) 
 		{
 			return Error::set(lang('Error', 'arrayParameter', 'condition'));
 		}
@@ -159,7 +159,7 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		$column = "";
 		
-		foreach($condition as $key => $value)
+		foreach( $condition as $key => $value )
 		{
 			$column .= $key.' '.$value.',';
 		}
@@ -311,20 +311,15 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
-		if( ! is_array($condition) ) 
+		if( ! is_array($condition) || empty($condition) ) 
 		{
 			return Error::set(lang('Error', 'arrayParameter', 'condition'));
 		}
 		
-		if( $this->db->addColumn() !== false )
-		{
-			$addColumn = $this->db->addColumn();
-		}
-		else
-		{
-			$addColumn = 'ADD ';
-		}
-		
+		$addColumn = $this->db->addColumn() !== false
+				   ? $this->db->addColumn()
+			       : 'ADD ';
+				   
 		$con = NULL;
 		
 		foreach( $condition as $column => $values )
@@ -387,15 +382,10 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringArrayParameter', 'column'));
 		}
 		
-		if( $this->db->dropColumn() !== false )
-		{
-			$dropColumn = $this->db->dropColumn();
-		}
-		else
-		{
-			$dropColumn = 'DROP ';
-		}
-		
+		$dropColumn = $this->db->dropColumn() !== false
+					? $this->db->dropColumn()
+					: 'DROP ';
+	
 		if( ! is_array($column) )
 		{
 			return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$column.';');		
@@ -440,23 +430,18 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
-		if( ! is_array($condition) ) 
+		if( ! is_array($condition) || empty($condition) ) 
 		{
 			return Error::set(lang('Error', 'arrayParameter', 'condition'));
 		}
 		
-		if( $this->db->modifyColumn() !== false )
-		{
-			$modifyColumn = $this->db->modifyColumn();
-		}
-		else
-		{
-			$modifyColumn = 'MODIFY ';
-		}
-		
+		$modifyColumn = $this->db->modifyColumn() !== false
+					  ? $this->db->modifyColumn()
+					  : 'MODIFY ';
+	
 		$con = NULL;
 			
-		foreach($condition as $column => $values)
+		foreach( $condition as $column => $values )
 		{
 			$colvals = '';
 			
@@ -511,19 +496,14 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
-		if( ! is_array($condition) ) 
+		if( ! is_array($condition) || empty($condition) ) 
 		{
 			return Error::set(lang('Error', 'arrayParameter', 'condition'));
 		}
 		
-		if( $this->db->renameColumn() !== false )
-		{
-			$renameColumn = $this->db->renameColumn();
-		}
-		else
-		{
-			$renameColumn = 'CHANGE COLUMN ';
-		}
+		$renameColumn = $this->db->renameColumn() !== false
+					  ? $this->db->renameColumn()
+					  : 'CHANGE COLUMN ';
 		
 		$con = NULL;
 		
@@ -579,14 +559,9 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
-		if($this->db->truncate() !== false)
-		{
-			$truncate = $this->db->truncate();
-		}
-		else
-		{
-			$truncate = 'TRUNCATE TABLE ';
-		}
+		$truncate = $this->db->truncate() !== false
+				  ? $this->db->truncate()
+				  : 'TRUNCATE TABLE ';
 		
 		return $this->db->exec($truncate.$this->prefix.$table);
 	}
@@ -617,7 +592,7 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'emptyParameter', 'connectName'));
 		}
 		
-		foreach($config as $key => $val)
+		foreach( $config as $key => $val )
 		{
 			if( $key !== 'differentConnection' )
 			{

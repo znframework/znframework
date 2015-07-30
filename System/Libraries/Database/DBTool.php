@@ -238,9 +238,9 @@ class __USE_STATIC_ACCESS__DBTool
 		
 		if( $table === '*' )
 		{
-			foreach($this->db->result() as $tables)
+			foreach( $this->db->result() as $tables )
 			{
-				foreach ($tables as $db => $tableName)
+				foreach( $tables as $db => $tableName )
 				{
 					$this->db->query("OPTIMIZE TABLE ".$tableName);
 				}
@@ -253,11 +253,11 @@ class __USE_STATIC_ACCESS__DBTool
 		}
 		else
 		{
-			$tables = ( is_array($table) ) 
-					  ? $table
-					  : explode(',',$table);
+			$tables = is_array($table)
+					? $table
+					: explode(',',$table);
 			
-			foreach ($tables as $tableName)
+			foreach( $tables as $tableName )
 			{
 				$this->db->query("OPTIMIZE TABLE ".$this->prefix.$tableName);
 			}
@@ -288,7 +288,7 @@ class __USE_STATIC_ACCESS__DBTool
 		
 		if( $table === '*' )
 		{
-			foreach($this->db->result() as $tables)
+			foreach( $this->db->result() as $tables )
 			{
 				foreach ($tables as $db => $tableName)
 				{
@@ -303,11 +303,11 @@ class __USE_STATIC_ACCESS__DBTool
 		}
 		else
 		{	
-			$tables = ( is_array($table) ) 
-					  ? $table
-					  : explode(',',$table);
+			$tables = is_array($table)
+					? $table
+					: explode(',',$table);
 			
-			foreach ($tables as $tableName)
+			foreach( $tables as $tableName )
 			{
 				$this->db->query("REPAIR TABLE  ".$this->prefix.$tableName);
 			}
@@ -347,7 +347,7 @@ class __USE_STATIC_ACCESS__DBTool
 			return false;
 		}
 		
-		foreach($config as $key => $val)
+		foreach( $config as $key => $val )
 		{
 			if( $key !== 'differentConnection' )
 			{

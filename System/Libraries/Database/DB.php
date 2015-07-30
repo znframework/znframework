@@ -350,7 +350,7 @@ class __USE_STATIC_ACCESS__DB
 	public function where($column = '', $value = '', $logical = '')
 	{
 		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($column) || ! is_string($value) || ! is_string($logical) ) 
+		if( ! is_string($column) || ! isValue($value) || ! is_string($logical) ) 
 		{
 			Error::set(lang('Error', 'stringParameter', 'column, value, logical'));
 		}
@@ -382,7 +382,7 @@ class __USE_STATIC_ACCESS__DB
 	public function having($column = '', $value = '', $logical = '')
 	{
 		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($column) || ! is_string($value) || ! is_string($logical) ) 
+		if( ! is_string($column) || ! isValue($value) || ! is_string($logical) ) 
 		{
 			Error::set(lang('Error', 'stringParameter', 'column, value, logical'));
 		}
@@ -526,7 +526,7 @@ class __USE_STATIC_ACCESS__DB
 		$this->_resetQuery();
 		
 		$secure = $this->secure;
-		
+
 		$this->db->query($this->_querySecurity($queryBuilder), $secure);
 		
 		return $this;
@@ -1453,6 +1453,12 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function delete($table = '')
 	{
+		if( ! empty($this->table) ) 
+		{
+			$table = $this->table; 
+			$this->table = NULL;
+		}
+		
 		if( ! is_string($table) || empty($table) ) 
 		{
 			return Error::set(lang('Error', 'stringParameter', 'table'));
@@ -1465,12 +1471,6 @@ class __USE_STATIC_ACCESS__DB
 		else 
 		{
 			$where = '';
-		}
-		
-		if( ! empty($this->table) ) 
-		{
-			$table = $this->table; 
-			$this->table = NULL;
 		}
 		
 		$deleteQuery = 'DELETE FROM '.$this->prefix.$table.$where.$this->where;

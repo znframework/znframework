@@ -45,6 +45,9 @@ $config['Repair']['machines'] = array();
 | string atama yapabirsiniz. Birden çok sayfa belirtilecekse dizi içerisinde sırası ile	  |
 | onarım yapılan sayfalar belirtilir. Eğer tüm sayfalarda onarım yapılıyorsa string 	  |
 | "all" ataması kullanılır.						  	 				     				  |	
+| Örnek Kullanımlar: 'all' // tüm sayfaları routePage ayarına yönlendirir. 				  |	
+| Örnek Kullanımlar: array('home', 'test') // Belirtilen sayfalar routePage'e yönlenir.   |	
+| Örnek Kullanımlar: array('home' => 'repairHome') // home, repairHome sayfasına yönlenir.|	
 ******************************************************************************************/
 $config['Repair']['pages'] = array();
 

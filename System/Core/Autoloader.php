@@ -437,7 +437,7 @@ class Autoloader
 					if( strpos($class, self::$useStaticAccess) === 0 )
 					{			
 						// Yeni sınıf ismi oluşturuluyor...
-						$newClassName = str_ireplace(self::$useStaticAccess, '', $class);
+						$newClassName = str_ireplace(self::$useStaticAccess, '', $classInfo['class']);
 					
 						// Yeni sınıf dizini oluşturuluyor...
 						$newPath = str_ireplace($baseDirectory, '', $v);	
@@ -462,7 +462,7 @@ class Autoloader
 							mkdir($newDir, 0777, true);
 						}
 						
-						$path = $newDir.'/'.$classInfo['class'].'.php';	
+						$path = suffix($newDir).$classInfo['class'].'.php';
 						
 						// Oluşturulacak dosyanın var olup olmadığı
 						// kontrol ediliyor...
@@ -489,6 +489,8 @@ class Autoloader
 						
 							fclose($fileOpen);
 						}
+						
+						$classes['classes'][strtolower($newClassName)] = $path;
 					}
 				}
 			}

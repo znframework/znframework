@@ -158,7 +158,6 @@ class Config
 	 */
 	public static function iniSet($key = '', $val = '')
 	{
-		
 		if( empty($key) ) 
 		{
 			return false;
