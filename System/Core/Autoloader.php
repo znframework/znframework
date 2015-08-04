@@ -269,24 +269,13 @@ class Autoloader
 		}
 		elseif( ! empty($namespaces) )
 		{
-			// Tanımlanmakta olan sınıfın bilgisi classmap'te yer alan sınıflar 
-			// bölümünde yoksa namespace bölümünde ara..
+			$namespaces = array_flip($namespaces);
 			
-			// ClassMap.php dosyasında oluşturulumuş namespaces ve classes
-			// verileri arasında ilişki kuruluyor..
-			// Bunun amacı tanımlanan sınıf bilgisi bir isim alanı içeriyorsa
-			// İsim alanından araştırması hayır sınıf bilgisi içeriyorsa 
-			// sınıflar içinde araştırmasıdır. Yani isim alanı olan sınıflar
-			// da sadece sınıf isimleri kullanılarak erişim sağlanabiliyor.
-			$namespaceValues = array_values($namespaces);
-			$namespaceKeys   = array_keys($namespaces);
-			$index 		     = array_search($classCaseLower, $namespaceValues);
-
 			// Sınıf bilgisi isim alanları içinde mevcutsa.
-			if( $index > -1 )
+			if( isset($namespaces[$classCaseLower]) )
 			{
 				// İsim alanı olarak parametre olarak girilen bilgiyi kullan.
-				$namespace = $namespaceKeys[$index];		
+				$namespace = $namespaces[$classCaseLower];		
 				
 				// Yol bilgisi olarak sınıflar içinde yer alan yol bilgisini kullan.					   
 				$path      = isset($classes[$namespace])
