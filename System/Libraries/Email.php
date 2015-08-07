@@ -1993,7 +1993,7 @@ class __USE_STATIC_ACCESS__Email
 			case 'hello' :
 						if( $this->smtpAuth || $this->_getEncode() === '8bit' )
 						{
-							$this->_sendData('HELO '.$this->_getHostName() );
+							$this->_sendData('EHLO '.$this->_getHostName() );
 						}
 						else
 						{
