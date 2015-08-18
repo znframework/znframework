@@ -34,14 +34,6 @@ class Autoloader
 	 */
 	private static $namespaces;
 	
-	/* Use Static Access Değişkeni
-	 *
-	 *
-	 * __use_static_access__ bilgisini tutması
-	 * için oluşturulmuştur.
-	 */
-	private static $useStaticAccess = '__use_static_access__';
-	
 	/******************************************************************************************
 	* RUN                                                                                     *
 	*******************************************************************************************
@@ -418,15 +410,17 @@ class Autoloader
 					
 					$classes['classes'][$className] = $v;	
 					
+					$useStaticAccess = strtolower(STATIC_ACCESS);
+					
 					// Statik erişim sağlanmak istenen
 					// Statik olmayan sınıfların
 					// sınıf adına Static ön eki getirilerek
 					// bu sınıfların statik kullanımlarının oluşturulması
 					// sağlanabilir.			
-					if( strpos($class, self::$useStaticAccess) === 0 )
+					if( strpos($class, $useStaticAccess) === 0 )
 					{			
 						// Yeni sınıf ismi oluşturuluyor...
-						$newClassName = str_ireplace(self::$useStaticAccess, '', $classInfo['class']);
+						$newClassName = str_ireplace($useStaticAccess, '', $classInfo['class']);
 					
 						// Yeni sınıf dizini oluşturuluyor...
 						$newPath = str_ireplace($baseDirectory, '', $v);	

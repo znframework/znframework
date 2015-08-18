@@ -36,7 +36,7 @@ class Error
 		$info = debug_backtrace();
 	
 		$className = isset($info[1]['class'])
-				   ? str_ireplace('__USE_STATIC_ACCESS__', '', $info[1]['class'])
+				   ? str_ireplace(STATIC_ACCESS, '', $info[1]['class'])
 				   : $info[5]['class'];
 		   
 		$methodName = isset($info[1]['function'])
