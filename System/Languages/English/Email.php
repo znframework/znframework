@@ -11,6 +11,7 @@ Copyright 2012-2015 zntr!net - Tüm hakları saklıdır!
 */
 $lang['Email']['mustBeArray'] 			= 'The email validation method must be passed an array!';
 $lang['Email']['invalidAddress'] 		= 'Invalid email address: %';
+$lang['Email']['noSend']       			= 'Cannot send mail!';
 $lang['Email']['attachmentMissing'] 	= 'Unable to locate the following email attachment: %';
 $lang['Email']['attachmentUnreadable'] 	= 'Unable to open this attachment: %';
 $lang['Email']['noFrom'] 				= 'Cannot send mail with no "From" header!';
@@ -28,3 +29,4 @@ $lang['Email']['smtpAuthUserName']		= 'Failed to authenticate username! Error: %
 $lang['Email']['smtpAuthPassword'] 		= 'Failed to authenticate password! Error: %';
 $lang['Email']['smtpDataFailure'] 		= 'Unable to send data: %';
 $lang['Email']['exitStatus'] 			= 'Exit status code: %';
+$lang['Email']['mimeMessage'] 			= 'This is a multi-part message in MIME format.%Your email application may not support this format.';

@@ -421,7 +421,7 @@ class FbsqlDriver
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		return str_replace(array("'",'"'), array("\'", '\"'), $data);
+		return Security::escapeStringEncode($data);
 	}
 	
 	/******************************************************************************************

@@ -31,7 +31,6 @@ $config['Autoloader']['classMap'] = array
 (
 	LIBRARIES_DIR,
 	MODELS_DIR,
-	SYSTEM_LIBRARIES_DIR,
-	COMPONENTS_DIR
+	SYSTEM_LIBRARIES_DIR
 );
 //--------------------------------------------------------------------------------------------------------------------------

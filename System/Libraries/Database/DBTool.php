@@ -33,9 +33,7 @@ class __USE_STATIC_ACCESS__DBTool
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		require_once(SYSTEM_LIBRARIES_DIR.'Database/DBCommon.php');
-		
-		$this->db = DBCommon();
+		$this->db = DBCommon::run();
 		
 		$this->prefix = Config::get('Database', 'prefix');
 		
@@ -358,7 +356,7 @@ class __USE_STATIC_ACCESS__DBTool
 			}
 		}
 		
-		return new DbTool($configDifferent[$connectName]);
+		return new self($configDifferent[$connectName]);
 	}
 	
 	/******************************************************************************************

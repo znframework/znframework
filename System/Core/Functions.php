@@ -378,14 +378,7 @@ function output($data = '', $settings = array(), $display = true)
 	$globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 	
 	$output  = "<span$globalStyle>";
-	$output .= "<pre>";
-	$output .= '********************************************************<br>';
-	$output .= '* DATA OUTPUT                                          *<br>';
-	$output .= '********************************************************';
-	$output .= "</pre>";
 	$output .= _output($data, '', 0, $settings);
-	$output .= "<br>";
-	$output .= '********************************************************';
 	$output .= "</span>";
 	
 	if( $display === true)
@@ -1525,7 +1518,7 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 		
 		if( ! empty($ex) ) foreach( $ex as $k => $v )
 		{
-			$newArray[$k] = '<span style="'.$exStyle .'">'.$v.'</span>';
+			$newArray[$k] = $v;
 		}
 		
 		$ex = $newArray;

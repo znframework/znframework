@@ -10,12 +10,19 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 $lang['Error']['classError'] 				= 'Error: `%` class was not found!';
+$lang['Error']['controllerNameError'] 		= 'Error: A controller can not be identified by the file `%` name!';
 $lang['Error']['classDeclaredError'] 		= 'Error: `%` class already exists! Not declared again!';
 $lang['Error']['callUserFuncArrayError'] 	= 'Error: URL does not contain a valid function or method information! `%` method could not be found!';
 $lang['Error']['notIsFileError'] 		  	= 'Error: URL does not contain a valid path! `%` file could not be found!';
 $lang['Error']['fileNotFound']				= 'Error: `%` file was not found!';
 $lang['Error']['fileNotWrite']				= 'Error: `%` file can not create! Please check the permits of file creation!';
 $lang['Error']['dirNotWrite']				= 'Error: `%` dir can not create! Please check the permits of dir creation!';
+$lang['Error']['undefinedFunction']			= 'Error: Call to undefined function `%`!';
+$lang['Error']['undefinedFunctionExtension']= 'Error: `%` extension is not loaded! Install to use the `%` functions.';
+$lang['Error']['invalidVersion']			= 'Error: In order to use `%` methods need to be installed PHP version `#`!';
+$lang['Error']['driverError'] 				= '`%` driver not found!';
+$lang['Error']['invalidDriverFunction']  	= '`%` driver haven`t `#`() method!';
+$lang['Error']['notSupport']				= 'Not Support!';
 $lang['Error']['line']						= 'Line';
 $lang['Error']['upperLine']					= 'LINE';
 $lang['Error']['message']					= 'Error';
@@ -33,6 +40,7 @@ $lang['Error']['arrayParameter']			= '`%` parameter should contain the array dat
 $lang['Error']['objectParameter']			= '`%` parameter should contain the object data type!';
 $lang['Error']['numericParameter']			= '`%` parameter should contain the numeric data type!';
 $lang['Error']['valueParameter']			= '`%` parameter should contain the string, numeric or boolean data type!';
+$lang['Error']['scalarParameter']			= '`%` parameter should contain the scalar data type!';
 $lang['Error']['resourceParameter']			= '`%` parameter should contain the resource data type!';
 $lang['Error']['callableParameter']			= '`%` parameter should contain the callable data type!';
 $lang['Error']['stringArrayParameter']		= '`%` parameter should contain the string or array data type!';

@@ -122,9 +122,4 @@ define('UPLOADS_DIR', RESOURCES_DIR.'Uploads/');
 /******************************************************************************************
 * SYSTEM_TEMPLATES_DIR: System/Templates/               	                              * 
 ******************************************************************************************/	
-define('SYSTEM_TEMPLATES_DIR', SYSTEM_DIR.'Templates/');				
-
-/******************************************************************************************
-* COMPONENTS_DIR: System/Components/    	 	                                 		  * 
-******************************************************************************************/
-define('COMPONENTS_DIR', SYSTEM_DIR.'Components/');			
+define('SYSTEM_TEMPLATES_DIR', SYSTEM_DIR.'Templates/');					

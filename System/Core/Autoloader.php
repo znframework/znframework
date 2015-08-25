@@ -124,6 +124,20 @@ class Autoloader
 	}
 	
 	/******************************************************************************************
+	* CLEAN								                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: Olmayan bir sınıfın yeniden oluşturulması engellenen sınıf isimlerini
+	  oturumdan silip yeniden oluşturmasını demek için kullanılır.
+	|          																				  |
+	******************************************************************************************/
+	public static function clean($class = '')
+	{	
+		$classCaseLower = md5(strtolower($class));
+		
+		unset($_SESSION[$classCaseLower]);
+	}
+	
+	/******************************************************************************************
 	* CREATE CLASS MAP                                                                        *
 	*******************************************************************************************
 	| Genel Kullanım: Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.   |

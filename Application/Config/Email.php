@@ -9,38 +9,54 @@ Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 /******************************************************************************************
-* EMAIL SETTINGS                                    									  *
+* EMAIL DRIVER                                       									  *
 *******************************************************************************************
-| E-posta ile ilgili ayarlar yer almaktadır.					                          |
+| E-posta gönderiminin hangi platform ile gönderileceğidir.		                          |
+
+  @driver string -> mail (standart mail yöntemini kullanır).
+  @driver string -> imap (imap_mail yöntemini kullanır).
+  @driver string -> send (mb_send_mail yöntemini kullanır).
+  @driver string -> smtp (soket ve dosya yöntemlerini kullanılır).
+  @driver string -> pipe (popen yöntemini kullanır).
 |          																				  |
 ******************************************************************************************/
-$config['Email'] = array
+$config['Email']['driver'] = 'mail';
+
+/******************************************************************************************
+* SMTP                                              									  *
+*******************************************************************************************
+| SMTP ayarlarını yapılandırmak için kulanılan ayarlar dizisidir.                         |
+|          																				  |
+******************************************************************************************/
+$config['Email']['smtp'] = array
 (
-	'smtpHost'			=> '',
-	'smtpUser'			=> '',
-	'smtpPassword'		=> '',
-	'smtpPort'			=> 587,
-	'smtpKeepAlive'		=> false,
-	'smtpTimeout'		=> 10,
-	'smtpEncode'		=> 'tls',	// tls, ssl
-	'senderMail'		=> '',
-	'senderName'		=> '',
-	'wordWrap'			=> true,
-	'charWrap'			=> 80,
-	'validate'			=> true,
-	'eol'				=> "\n",
-	'dsn'				=> false,
-	'priority'	   		=> 3,		// 1, 2, 3, 4, 5
-	'protocolType' 		=> 'mail',  // mail, smtp
-	'contentType'		=> 'text',  // text, html
-	'charset'			=> 'UTF-8',
-	'multiPart'			=> 'mixed', // mixed, related
-	'sendMultiPart'		=> true,
-	'mailPath'			=> '/usr/sbin/sendmail',
-	'bccStackMode'		=> false,
-	'bccStackSize'		=> 200,
-	'altContent'		=> '',
-	'mbEnabled'			=> true,
-	'iconvEnabled'		=> true,
-	'xMailer'			=> 'ZN',
+	'host'			=> '',
+	'user'			=> '',
+	'password'		=> '',
+	'port'			=> 587,
+	'keepAlive'		=> false,
+	'timeout'		=> 10,
+	'encode'		=> '',	// empty, tls, ssl
+	'dsn'			=> false,
+	'auth'			=> true
+);
+
+/******************************************************************************************
+* GENERAL                                              									  *
+*******************************************************************************************
+| Genel e-posta ayarlarını yapılandırmak için kulanılan ayarlar dizisidir.                |
+|          																				  |
+******************************************************************************************/
+$config['Email']['general'] = array
+(
+	'senderMail'    => '', // Ön tanımlı gönderen e-posta adresi.
+	'senderName'    => '', // Ön tanımlı gönderen ismi.
+	'priority'	   	=> 3,		// 1, 2, 3, 4, 5
+	'charset'		=> 'UTF-8',
+	'contentType'	=> 'plain',  // plain, html
+	'multiPart'		=> 'mixed', // mixed, related, alternative
+	'xMailer'		=> 'ZN',
+	'encoding'		=> '8bit',
+	'mimeVersion'	=> '1.0',
+	'mailPath'		=> '/usr/sbin/sendmail'
 );

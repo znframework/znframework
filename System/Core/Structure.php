@@ -98,6 +98,19 @@ class Structure
 			$isFile = CONTROLLERS_DIR.suffix($page, '.php');
 			
 			unset($segments[0]);
+			
+			// Bir Controller/ dosyası index kelimesi ile isimlendirilemez!
+			if( strtolower($page) === 'index' )
+			{
+				// Hatayı ekrana yazdır.
+				echo Error::message('Error', 'controllerNameError', $page);
+				
+				// Hatayı rapor et.
+				report('Error', getMessage('Error', 'controllerNameError'), 'ControllerNameError');
+				
+				// Çalışmayı durdur.
+				return false;
+			}
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -170,7 +183,7 @@ class Structure
 			{
 				if( APP_TYPE === 'local' )
 				{
-					set_error_handler('Exceptions::getErrorHandler');	
+					set_error_handler('Exceptions::table');	
 				}
 				
 				call_user_func_array( array($var, $function), $parameters);
@@ -186,7 +199,7 @@ class Structure
 				if( ! Config::get('Route', 'show404') )
 				{				
 					// Hatayı ekrana yazdır.
-					echo Exceptions::getErrorMessage('Error', 'callUserFuncArrayError', $function);
+					echo Error::message('Error', 'callUserFuncArrayError', $function);
 					
 					// Hatayı rapor et.
 					report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
@@ -210,7 +223,7 @@ class Structure
 			else
 			{
 				// Hatayı ekrana yazdır.
-				echo Exceptions::getErrorMessage('Error', 'notIsFileError', $isFile);
+				echo Error::message('Error', 'notIsFileError', $isFile);
 				
 				// Hatayı rapor et.
 				report('Error', getMessage('Error', 'notIsFileError'), 'SystemNotIsFileError');

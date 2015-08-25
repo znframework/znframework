@@ -241,9 +241,7 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function __construct($config = array())
 	{
-		require_once(SYSTEM_LIBRARIES_DIR.'Database/DBCommon.php');
-		
-		$this->db = DBCommon();
+		$this->db = DBCommon::run();
 		
 		$this->config = Config::get('Database');
 		
@@ -255,6 +253,17 @@ class __USE_STATIC_ACCESS__DB
 		}
 		
 		$this->db->connect($config);
+	}
+	
+	/******************************************************************************************
+	* CALL                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
+	|          																				  |
+	******************************************************************************************/
+	public function __call($method = '', $param = '')
+	{	
+		die(getErrorMessage('Error', 'undefinedFunction', "DB::$method()"));	
 	}
 	
 	/******************************************************************************************
@@ -1534,7 +1543,7 @@ class __USE_STATIC_ACCESS__DB
 			}
 		}
 		
-		return new Db($configDifferent[$connectName]);
+		return new self($configDifferent[$connectName]);
 	}
 	
 	/******************************************************************************************

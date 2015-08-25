@@ -1,8 +1,0 @@
-<?php
-class CJquery extends StaticAccess
-{
-	public static function getClassName()
-	{
-		return __CLASS__;
-	}
-}

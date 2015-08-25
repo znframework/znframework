@@ -1,45 +1,56 @@
 <?php
-/************************************************************/
-/*                        DB COMMON                         */
-/************************************************************/
-/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-/* Site: www.zntr.net
-/* Lisans: The MIT License
-/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-*/
-/******************************************************************************************
-* DB COMMON                                                                               *
-*******************************************************************************************
-| Genel Kullanım: Veritabanı sürüleri için ortak bir kullanım oluşturulmuştur.    		  |
-| başında kullanılır.										  							  |
-|															                              |
-| Parametreler: Herhangi bir parametresi yoktur.                                          |
-|          																				  |
-******************************************************************************************/
-function DBCommon()
-{	
-	$config = Config::get('Database');
+class DBCommon
+{
+	/***********************************************************************************/
+	/* DB COMMON LIBRARY				                   	                           */
+	/***********************************************************************************/
+	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	/* Site: www.zntr.net
+	/* Lisans: The MIT License
+	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/*
+	/* Sınıf Adı: DBCommon
+	/* Versiyon: 2.0 Eylül Güncellemesi
+	/* Tanımlanma: Dinamik
+	/* Dahil Edilme: Gerektirmez
+	/* Erişim: DB sınıfları tarafından kullanılmaktadır.
+	/* Not: Büyük-küçük harf duyarlılığı yoktur.
+	/***********************************************************************************/
 	
-	if( isset($config['driver']) ) 
+	/******************************************************************************************
+	* RUN                                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürüleri için ortak bir kullanım oluşturulmuştur.    		  |
+	| başında kullanılır.										  							  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public static function run()
 	{	
-		// Drivere ayarına girilen verinin
-		// ilk harfini büyük yapması isteniyor.
-		// pdo => Pdo		
-		$driver = ucfirst($config['driver']);
-	
-		// Sub driver kullanılırken driver->subdriver
-		// kullanımı için böyle bir kontrol yapılmaktadır.
-		if( strpos($driver, '->') )
-		{
-			$subDrivers = explode('->', $driver);
-			$driver  = $subDrivers[0];
-		}
+		$config = Config::get('Database');
 		
-		$drv = $driver.'Driver';
+		if( isset($config['driver']) ) 
+		{	
+			// Drivere ayarına girilen verinin
+			// ilk harfini büyük yapması isteniyor.
+			// pdo => Pdo		
+			$driver = ucfirst($config['driver']);
 		
-		// Sürüden bir nesne oluşturuluyor.
-		$db = new $drv;
-		
-		return $db;
-	}	
+			// Sub driver kullanılırken driver->subdriver
+			// kullanımı için böyle bir kontrol yapılmaktadır.
+			if( strpos($driver, '->') )
+			{
+				$subDrivers = explode('->', $driver);
+				$driver  = $subDrivers[0];
+			}
+			
+			$drv = $driver.'Driver';
+			
+			// Sürüden bir nesne oluşturuluyor.
+			$db = new $drv;
+			
+			return $db;
+		}	
+	}
 }

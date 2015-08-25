@@ -24,7 +24,6 @@ $config['Regex']['regexChars'] = array
 (
 	'{nonWord}' 		=> '\B',
 	'{word}' 			=> '\b',
-	'{numeric}' 		=> '\d',
 	'{nonNumeric}' 		=> '\D',
 	'{numeric}' 		=> '\d',
 	'{schar}' 			=> '\W',

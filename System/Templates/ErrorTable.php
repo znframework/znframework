@@ -74,7 +74,14 @@
 		}
 		else
 		{
-			echo $lang['noError'];	
+			if( empty($errors) )
+			{
+				echo $lang['noError'];	
+			}
+			else
+			{
+				output($errors);
+			}
 		}
 	?>
 </div>

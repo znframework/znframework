@@ -11,6 +11,7 @@ Copyright 2012-2015 zntr!net - Tüm hakları saklıdır!
 */
 $lang['Email']['mustBeArray']    		= 'E-posta dizi bilgisi içermelidir!';
 $lang['Email']['invalidAddress']       = 'Gönderilmedi! % e-posta adresi geçersiz!';
+$lang['Email']['noSend']       			= 'E-posta gönderilmedi!';
 $lang['Email']['attachmentMissing']    = 'E-posta eki eksik!';
 $lang['Email']['attachmentUnreadable'] = 'E-posta eki okunamıyor!';
 $lang['Email']['noFrom']       		= 'Kimden bilgisi belirtmeden e-posta gönderilemez!';
@@ -28,3 +29,4 @@ $lang['Email']['smtpAuthUserName'] 			= 'Kullanıcı adı kimliği doğrulanamad
 $lang['Email']['smtpAuthPassword'] 			= 'Parola kimlik doğrulaması yapılamadı! Hata: %';
 $lang['Email']['smtpDataFailure'] 	= 'SMPT Veri göndermek için açılamıyor: %';
 $lang['Email']['exitStatus'] 			= 'Çıkış durum kodu: %';
+$lang['Email']['mimeMessage'] 			= 'Bu MIME biçiminde çok parçalı mesajdır.%E-posta uygulaması bu formatı desteklemiyor olabilir.';

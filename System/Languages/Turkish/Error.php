@@ -10,12 +10,21 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
 */
 $lang['Error']['classError'] 				= 'Hata: `%` sınıfı bulunamadı!';
+$lang['Error']['controllerNameError'] 		= 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!';
 $lang['Error']['classDeclaredError'] 		= 'Hata: `%` sınıfı zaten var! Yeniden tanımlanamaz!';
 $lang['Error']['callUserFuncArrayError'] 	= 'Hata: URL geçerli fonksiyon veya metot bilgisi içermiyor! `%` metodu bulunamadı!';
 $lang['Error']['notIsFileError'] 			= 'Hata: URL geçerli bir yol içermiyor! `%` dosyası bulunamadı!';
 $lang['Error']['fileNotFound']				= 'Hata: `%` dosyasi bulunamadi!';
 $lang['Error']['fileNotWrite']				= 'Hata: `%` dosyası oluşturulamıyor! Lütfen dizin oluşturma yetkilerini kontrol edin!';
 $lang['Error']['dirNotWrite']				= 'Hata: `%` dizini oluşturulamıyor! Lütfen dosya oluşturma yetkilerini kontrol edin!';
+$lang['Error']['undefinedFunction']			= 'Hata: `%` fonksiyonu tanımlı değil!';
+$lang['Error']['undefinedFunctionExtension']= 'Hata: `%` eklentisi yüklü değil! `%` fonksiyonlarını kullanmak için yükleyiniz.';
+$lang['Error']['invalidVersion']			= 'Hata: `%` yöntemlerini kullanabilmeniz için en az `#` PHP sürümünün yüklü olması gerekmektedir!';
+$lang['Error']['driverError'] 				= '`%` sürücüsü bulunamadı!';
+$lang['Error']['unsupportedDriver'] 		= '`%` sürücünü kullanmak için yüklenmesi gerekmektedir!';
+$lang['Error']['invalidDriver'] 			= '`%` sürücüsü geçersizdir!';
+$lang['Error']['invalidDriverFunction']  	= '`%` sürücüsüne ait ` #`() kullanımı bulunmamaktadır!';
+$lang['Error']['notSupport']				= 'Desteklenmiyor!';
 $lang['Error']['line']						= 'Satır';
 $lang['Error']['upperLine']					= 'SATIR';
 $lang['Error']['message']					= 'Hata';
@@ -33,6 +42,7 @@ $lang['Error']['arrayParameter']			= '`%` parametresi array veri türü içermel
 $lang['Error']['objectParameter']			= '`%` parametresi object veri türü içermelidir!';
 $lang['Error']['numericParameter']			= '`%` parametresi numerik veri türü içermelidir!';
 $lang['Error']['valueParameter']			= '`%` parametresi string, numeric veya boolean veri türlerinden birini içermelidir!';
+$lang['Error']['scalarParameter']			= '`%` parametresi scalar veri türü içermelidir!';
 $lang['Error']['resourceParameter']			= '`%` parametresi kaynak(resource) veri türü içermelidir!';
 $lang['Error']['callableParameter']			= '`%` parametresi çağrılabilir(callable) veri türü içermelidir!';
 $lang['Error']['stringArrayParameter']		= '`%` parametresi string veya array veri türü içermelidir!';
