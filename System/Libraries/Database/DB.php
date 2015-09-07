@@ -1617,6 +1617,7 @@ class __USE_STATIC_ACCESS__DB
 		$this->having = NULL;
 		$this->orderBy = NULL;
 		$this->limit = NULL;
+		$this->join = NULL;
 		$this->config = array();
 	}
 	
