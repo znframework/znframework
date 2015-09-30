@@ -216,10 +216,11 @@ class __USE_STATIC_ACCESS__Validation
 	******************************************************************************************/
 	public function specialChar($data = '')
 	{
-		if( ! is_string($data) ) 
+		if( ! is_scalar($data) ) 
 		{
 			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
+		
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) ) 
 		{
 			return false; 
@@ -244,10 +245,11 @@ class __USE_STATIC_ACCESS__Validation
 	******************************************************************************************/
 	public function maxchar($data = '', $char = '')
 	{
-		if( ! is_string($data) ) 
+		if( ! is_scalar($data) ) 
 		{
 			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
+		
 		if( ! is_numeric($char) ) 
 		{
 			return Error::set(lang('Error', 'numericParameter', 'char'));
@@ -277,7 +279,7 @@ class __USE_STATIC_ACCESS__Validation
 	******************************************************************************************/
 	public function minchar($data = '', $char = '')
 	{
-		if( ! is_string($data) ) 
+		if( ! is_scalar($data) ) 
 		{
 			return Error::set(lang('Error', 'stringParameter', 'data'));
 		}
@@ -327,9 +329,9 @@ class __USE_STATIC_ACCESS__Validation
 	******************************************************************************************/
 	public function rules($name = '', $config = array(), $viewName = '', $met = 'post')
 	{
-		if( ! is_string($name) || empty($name) ) 
+		if( ! is_scalar($name) || empty($name) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'scalarParameter', 'name'));
 		}
 		if( ! is_array($config) ) 
 		{
@@ -563,9 +565,9 @@ class __USE_STATIC_ACCESS__Validation
 	******************************************************************************************/
 	public function nval($name = "")
 	{
-		if( ! is_string($name) ) 
+		if( ! is_scalar($name) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'scalarParameter', 'name'));
 		}
 		
 		if( isset($this->nval[$name]) )
@@ -655,9 +657,9 @@ class __USE_STATIC_ACCESS__Validation
 	// hata oluştuğunda ekrana girilen bilgileri yansıtır.
 	public function postBack($name = '', $met = "post")
 	{
-		if( ! is_string($name) || empty($name) )
+		if( ! is_scalar($name) || empty($name) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
+			return Error::set(lang('Error', 'scalarParameter', 'name'));
 		}
 
 		if( ! is_string($met) ) 
