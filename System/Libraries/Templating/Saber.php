@@ -100,7 +100,7 @@ class __USE_STATIC_ACCESS__Saber
 			'[[e'	=> '<?php echo "',
 			'e]]'	=> '" ?>',
 			'[c' 	=> '<!-- ',
-			'c]'  => ' -->',
+			'c]' 	=> ' -->',
 			'[e' 	=> '<?php echo ',
 			'e]' 	=> ' ?>',	
 			'[p'    => '<?php',

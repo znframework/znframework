@@ -141,10 +141,10 @@ class __USE_STATIC_ACCESS__Parser
 						{
 							// Bloğu değiştirme ve çoğalatma
 							// işlemi gerçekleştir.
-							foreach($result as $res)
+							foreach( $result as $res )
 							{
 								// Değiştirme işlemlerini gerçekleştir.
-								foreach($data[$key] as $item)
+								foreach( $data[$key] as $item )
 								{
 									$newResult = preg_replace('/'.$kstart.'/', '', $res);
 									$newResult = preg_replace('/'.$kend.'/', '', $newResult);	

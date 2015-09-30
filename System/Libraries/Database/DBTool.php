@@ -373,6 +373,6 @@ class __USE_STATIC_ACCESS__DBTool
 	******************************************************************************************/
 	public function __destruct()
 	{
-		$this->db->close();	
+		@$this->db->close();	
 	}
 }

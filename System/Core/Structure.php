@@ -97,6 +97,33 @@ class Structure
 			$page   = $segments[0];
 			$isFile = CONTROLLERS_DIR.suffix($page, '.php');
 			
+			// Kontrolcüler Controllers/ dizini içinde 
+			// farklı bir dizinde yer alıyorsa bu bölüm
+			// ile o kontrolcülere erişim sağlanıyor.
+			if( ! is_file($isFile) )
+			{
+				$if 	   = '';
+				$nsegments = $segments;
+				
+				for( $i = 0; $i < count($segments); $i++ )
+				{
+					$if    .= $segments[$i].'/';
+					$ifTrim = rtrim($if, '/');
+					$isF    = CONTROLLERS_DIR.suffix($ifTrim , '.php');
+
+					if( is_file($isF) )
+					{
+						$page     = divide($ifTrim, '/', -1);
+						$isFile   = $isF;
+						$segments = $nsegments;
+						
+						break;
+					}
+					
+					array_shift($nsegments);
+				}	
+			}
+			
 			unset($segments[0]);
 			
 			// Bir Controller/ dosyası index kelimesi ile isimlendirilemez!

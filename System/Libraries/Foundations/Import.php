@@ -224,9 +224,9 @@ class Import
 					          ? $head['bodyPage'] 
 						      : $masterPageSet['bodyPage'];
 		
-		$headPage = 	( isset($head['headPage']) ) 
-					    ? $head['headPage'] 
-						: $masterPageSet['headPage'];
+		$headPage = ( isset($head['headPage']) ) 
+					? $head['headPage'] 
+					: $masterPageSet['headPage'];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -251,7 +251,7 @@ class Import
 		
 		if( is_array($masterPageSet['contentCharset']) )
 		{
-			foreach($masterPageSet['contentCharset'] as $v)
+			foreach( $masterPageSet['contentCharset'] as $v )
 			{
 				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eol();	
 			}
@@ -290,7 +290,7 @@ class Import
 			$metas = array_merge($metas, $head['meta']);
 		}
 		
-		if( ! empty($metas) ) foreach($metas as $name => $content)
+		if( ! empty($metas) ) foreach( $metas as $name => $content )
 		{
 			if( isset($head['meta'][$name]) )
 			{
@@ -315,7 +315,7 @@ class Import
 				}
 				else
 				{
-					foreach($content as $key => $val)
+					foreach( $content as $key => $val )
 					{
 						$header .= "<meta $httpOrName=\"$name\" content=\"$val\">".eol();	
 					}	
@@ -443,9 +443,9 @@ class Import
 			}
 			
 			$content = ob_get_contents();
-			 
+			 			
+
 			ob_end_clean(); 
-			
 			$header .= $content.eol() ; 	
 		}
 		//------------------------------------------------------------------------------------
@@ -527,7 +527,7 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
-		foreach(array_unique($arguments) as $font)
+		foreach( array_unique($arguments) as $font )
 		{	
 			if( is_array($font) ) 
 			{
@@ -561,7 +561,7 @@ class Import
 			
 			if( ! empty($differentSet) )
 			{			
-				foreach($differentSet as $of)
+				foreach( $differentSet as $of )
 				{
 					if( isFileExists(FONTS_DIR.$font.prefix($of, '.')) )
 					{		
@@ -627,7 +627,7 @@ class Import
 		
 		$links = array_change_key_case(Config::get('Links', 'style'));
 		
-		foreach(array_unique($arguments) as $style)
+		foreach( array_unique($arguments) as $style )
 		{
 			if( is_array($style) ) 
 			{
@@ -699,7 +699,7 @@ class Import
 		
 		$links = array_change_key_case(Config::get('Links', 'script'));
 		
-		foreach(array_unique($arguments) as $script)
+		foreach( array_unique($arguments) as $script )
 		{
 			if( is_array($script) ) 
 			{
@@ -772,7 +772,7 @@ class Import
 			
 			$return = '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eol();
 			
-			if($randomObGetContentsVariable === false)
+			if( $randomObGetContentsVariable === false )
 			{
 				echo $return;
 			}
@@ -790,7 +790,7 @@ class Import
 			
 			$return = '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eol();
 			
-			if($randomObGetContentsVariable === false)
+			if( $randomObGetContentsVariable === false )
 			{
 				echo $return;
 			}
@@ -863,7 +863,7 @@ class Import
 	
 		if( Folder::files($packages) ) 
 		{
-			foreach(Folder::files($packages) as $val)
+			foreach( Folder::files($packages) as $val )
 			{				
 				if( extension($val) === "php" )
 				{

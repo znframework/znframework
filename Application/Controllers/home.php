@@ -12,9 +12,9 @@ class Home extends Controller
 		| 3. font => Views/Fonts/textfont.ttf                                                     |
 		| 4. welcomeMessage => ZN KOD ÇATISINA HOŞ GELDİNİZ                                       |
 		******************************************************************************************/
-		$data["title"] 			 = "ZN FRAMEWORK";
-		$data["style"] 			 = Import::style("style", true);
-		$data["font"]			 = Import::font("textfont", true);
+		$data["title"] 			= "ZN FRAMEWORK";
+		$data["style"] 			= Import::style("style", true);
+		$data["font"]			= Import::font("textfont", true);
 		$data["welcomeMessage"] = "PHP Web Framework <b>Made In Turkey</b>";
 
 		/******************************************************************************************
@@ -27,4 +27,9 @@ class Home extends Controller
 		******************************************************************************************/
 		Import::view("welcome", $data);
 	}	
+	
+	function test()
+	{
+		
+	}		
 }

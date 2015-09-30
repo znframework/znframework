@@ -1389,10 +1389,9 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 }
 
 // Function: redirectData()
-// İşlev: Yönlendirme ile gönderilen datayı okumak için kullanıloır.
+// İşlev: Yönlendirme ile gönderilen datayı okumak için kullanılır.
 // Parametreler: $k = Gönderilen bilginin anahtar kelimesi.
 // Dönen Değerler: Anahtar ifadenin değeri.
-
 function redirectData($k = '')
 {
 	if( ! is_string($k) ) 
@@ -1405,13 +1404,41 @@ function redirectData($k = '')
 		session_start();
 	}
 	
-	if( isset($_SESSION[md5('redirect:'.$k)]) ) 
+	$data = md5('redirect:'.$k);
+	
+	if( isset($_SESSION[$data]) ) 
 	{
-		return $_SESSION[md5('redirect:'.$k)];
+		return $_SESSION[$data];
 	}
 	else
 	{
 		return false;
+	}
+}
+
+// Function: redirectDeleteData()
+// İşlev: Yönlendirme ile gönderilen datayı silmek için kullanıloır.
+// Parametreler: $data = Gönderilen bilginin anahtar kelimesi. Metinsel veya dizisel olabilir.
+// Dönen Değerler: void.
+function redirectDeleteData($data = '')
+{
+	if( is_array($data) ) foreach( $data as $v )
+	{
+		$v = md5('redirect:'.$v);
+	
+		if( isset($_SESSION[$v]) )
+		{
+			unset($_SESSION[$v]);
+		}	
+	}
+	else
+	{
+		$data = md5('redirect:'.$data);
+		
+		if( isset($_SESSION[$data]) )
+		{
+			unset($_SESSION[$data]);
+		}
 	}
 }
 

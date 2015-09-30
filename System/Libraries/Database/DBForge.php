@@ -618,6 +618,6 @@ class __USE_STATIC_ACCESS__DBForge
 	******************************************************************************************/
 	public function __destruct()
 	{
-		$this->db->close();	
+		@$this->db->close();	
 	}
 }
