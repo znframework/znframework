@@ -233,6 +233,14 @@ class __USE_STATIC_ACCESS__DB
 	 */
 	private $config;
 	
+	/* Pagination Değişkeni
+	 *  
+	 * Sayfalama ayar bilgilerini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $pagination;
+	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
 	*******************************************************************************************
@@ -1032,6 +1040,70 @@ class __USE_STATIC_ACCESS__DB
 	}
 	
 	/******************************************************************************************
+	* FOUND ROWS                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki limitten bağımsız sorgu sonucudur.	          |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->foundRows();                        	               	              |
+	|          																				  |
+	******************************************************************************************/
+	public function foundRows()
+	{ 
+		$rows = $this->query('SELECT FOUND_ROWS()')->fetchRow();
+		
+		return $rows[0];
+	}
+	
+	/******************************************************************************************
+	* PAGINATOIN                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
+	  
+	  @param  array $data
+	  @return array veya object
+	|          																				  |
+	******************************************************************************************/
+	public function pagination($table = '', $settings = array(), $returnType = 'object')
+	{ 
+		if( ! is_array($settings) )
+		{
+			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));	
+		} 
+		
+		if( ! empty($this->table) ) 
+		{
+			// Table yöntemi tanımlanmış ise
+			// 1. parametre, 2. parametre olarak kullanılsın
+			$returnType  = $settings;
+			$settings    = $table;
+			$table       = $this->table; 
+			
+			$this->table = NULL;
+		}
+
+		$this->calcFoundRows()->get($table);
+				
+		$result = $returnType === 'object'
+				? $this->result()
+				: $this->resultArray();
+		
+		$return['result']      = $result;
+		$settings['totalRows'] = $this->foundRows();
+		$settings['limit']     = isset($this->pagination['limit']) ? $this->pagination['limit'] : NULL;
+		$settings['start']     = isset($this->pagination['start']) ? $this->pagination['start'] : NULL;
+		$return['create']      = Pagination::create(NULL, $settings);
+		$return['settings']    = $settings;
+		
+		$this->pagination = array();
+		
+		return $returnType === 'object'
+			   ? (object)$return
+			   : $return;
+	}
+	
+	/******************************************************************************************
 	* MATH                                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde matematiksel yöntemlerin kullanılması içindir.		  |
@@ -1148,23 +1220,28 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function limit($start = '', $limit = '')
 	{ 
-		if( ! is_numeric($start) || ! is_numeric($limit) ) 
-		{
-			Error::set(lang('Error', 'numericParameter', 'start, limit')); 
+		if( ! is_numeric($start) ) 
+		{	
+			$start = 0;
 		}
-		else
+		
+		if( ! is_numeric($limit) ) 
 		{
-			if( ! empty($limit) ) 
-			{
-				$comma = ' , '; 
-			}
-			else 
-			{
-				$comma = '';
-			}
-			
-			$this->limit = ' LIMIT '.$start.$comma.$limit.' ';
+			$limit = 0;
 		}
+		
+		if( ! empty($limit) ) 
+		{
+			$comma = ' , '; 
+		}
+		else 
+		{
+			$comma = '';
+		}
+		
+		$this->pagination['start'] = $start;
+		$this->pagination['limit'] = $limit;
+		$this->limit = ' LIMIT '.$start.$comma.$limit.' ';
 		
 		return $this; 
 	}
