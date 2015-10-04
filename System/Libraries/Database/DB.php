@@ -1057,7 +1057,7 @@ class __USE_STATIC_ACCESS__DB
 	}
 	
 	/******************************************************************************************
-	* PAGINATOIN                                                                              *
+	* PAGINATION                                                                              *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
 	  
@@ -1082,7 +1082,10 @@ class __USE_STATIC_ACCESS__DB
 			
 			$this->table = NULL;
 		}
-
+		
+		$limit = $this->pagination['limit'];
+		$start = $this->pagination['start'];
+		
 		$this->calcFoundRows()->get($table);
 				
 		$result = $returnType === 'object'
@@ -1090,13 +1093,12 @@ class __USE_STATIC_ACCESS__DB
 				: $this->resultArray();
 		
 		$return['result']      = $result;
+		$return['totalRows']   = $this->totalRows();
 		$settings['totalRows'] = $this->foundRows();
-		$settings['limit']     = isset($this->pagination['limit']) ? $this->pagination['limit'] : NULL;
-		$settings['start']     = isset($this->pagination['start']) ? $this->pagination['start'] : NULL;
+		$settings['limit']     = isset($limit) ? $limit : NULL;
+		$settings['start']     = isset($start) ? $start : NULL;
 		$return['create']      = Pagination::create(NULL, $settings);
 		$return['settings']    = $settings;
-		
-		$this->pagination = array();
 		
 		return $returnType === 'object'
 			   ? (object)$return
@@ -1696,6 +1698,7 @@ class __USE_STATIC_ACCESS__DB
 		$this->limit = NULL;
 		$this->join = NULL;
 		$this->config = array();
+		$this->pagination = array();
 	}
 	
 	/******************************************************************************************
