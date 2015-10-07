@@ -595,7 +595,7 @@ class Import
 		}
 		else
 		{ 
-			return Error::set(lang('Error', 'emptyVariable', '@str'));
+			return false;
 		}
 	}
 	
@@ -666,7 +666,7 @@ class Import
 		}
 		else
 		{ 
-			return Error::set(lang('Error', 'emptyVariable', '@str'));
+			return false;
 		}
 		
 	}	
@@ -738,7 +738,7 @@ class Import
 		}
 		else
 		{ 
-			return Error::set(lang('Error', 'emptyVariable', '@str'));
+			return false;
 		}
 	}
 	
@@ -891,7 +891,7 @@ class Import
 		}
 		else 
 		{
-			return Error::set(lang('Error', 'emptyParameter', '@packages'));
+			return false;
 		}
 	}
 }

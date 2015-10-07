@@ -50,7 +50,7 @@ class Controller
 		{
 			// Sınıf Tanımlaması Yapılıyor.
 			$this->$class = uselib($class);	
-			return $this->$class ;
+			return $this->$class;
 		}
 		// ---------------------------------------------------------------------
 	}

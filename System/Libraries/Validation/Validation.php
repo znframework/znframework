@@ -614,7 +614,7 @@ class __USE_STATIC_ACCESS__Validation
 				$result = '';
 				$resultArray = array();
 				
-				foreach($this->errors as $key => $value)
+				foreach( $this->errors as $key => $value )
 				{
 					if( is_array($value) )foreach($value as $k => $val)
 					{
