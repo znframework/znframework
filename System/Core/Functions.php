@@ -729,7 +729,7 @@ function currentLang()
 
 function suffix($string = '', $fix = '/')
 {
-	if( ! is_string($string) || empty($string) || empty($fix)  ) 
+	if( ! is_scalar($string) ) 
 	{
 		return false;
 	}
@@ -764,7 +764,7 @@ function suffix($string = '', $fix = '/')
 // ön ek eklenecek karakter aynı ise yeniden herhangi bir ekleme işlemi gerçekleşmez.
 function prefix($string = '', $fix = '/')
 {
-	if( ! is_string($string) ||  empty($string) || empty($fix) )
+	if( ! is_scalar($string) )
 	{
 		return false;
 	}
