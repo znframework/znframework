@@ -88,23 +88,8 @@ class Autoloader
 	******************************************************************************************/
 	private static function tryAgainCreateClassMap($class)
 	{	
-		$classCaseLower = md5(strtolower($class));
-		
-		if( ! isset($_SESSION) )
-		{ 
-			session_start();	
-		}
-		
-		// Eğer oluşturulmaya çalışılan sınıf yoksa
-		// Yeniden kontrol etme işlemini birkez yap
-		if( empty($_SESSION[$classCaseLower]) )
-		{
-			// Config/ClassMap.php dosyasını oluştur. 
-			self::createClassMap();	
+		self::createClassMap();	
 			
-			$_SESSION[$classCaseLower] = true;
-		}
-		
 		// Sınıf bilgileri alınıyor...
 		$classInfo = self::getClassFileInfo($class);
 		
@@ -112,29 +97,11 @@ class Autoloader
 		if( file_exists($classInfo['path']) )
 		{	
 			require_once($classInfo['path']);
-			
-			// Class bulunup dahil edilebilmişse
-			// Oturum verilerinden sınıf bilgisini sil
-			unset($_SESSION[$classCaseLower]);
 		}
 		else
 		{	
 			die(getErrorMessage('Error', 'classError', $class));
 		}
-	}
-	
-	/******************************************************************************************
-	* CLEAN								                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Olmayan bir sınıfın yeniden oluşturulması engellenen sınıf isimlerini
-	  oturumdan silip yeniden oluşturmasını demek için kullanılır.
-	|          																				  |
-	******************************************************************************************/
-	public static function clean($class = '')
-	{	
-		$classCaseLower = md5(strtolower($class));
-		
-		unset($_SESSION[$classCaseLower]);
 	}
 	
 	/******************************************************************************************
