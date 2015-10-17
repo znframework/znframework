@@ -753,6 +753,11 @@ function suffix($string = '', $fix = '/')
 		$string = $string.$fix;	
 	}
 	
+	if( $string === '/' )
+	{
+		return false;	
+	}
+	
 	return $string;
 }
 
@@ -786,6 +791,11 @@ function prefix($string = '', $fix = '/')
 	else
 	{
 		$string = $fix.$string;	
+	}
+	
+	if( $string === '/' )
+	{
+		return false;	
 	}
 	
 	return $string;
@@ -851,16 +861,7 @@ function siteUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	if( currentLang() )
-	{
-		$currentLang = currentLang().'/';
-	}
-	else
-	{
-		$currentLang = '';	
-	}
-	
-	return sslStatus().$host.$newBaseDir.indexStatus().$currentLang.cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).cleanInjection($uri);
 }
 
 // Function: baseUrl()
