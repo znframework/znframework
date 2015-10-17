@@ -851,7 +851,7 @@ function siteUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.indexStatus().currentLang().cleanInjection($uri);
 }
 
 // Function: baseUrl()
@@ -1603,7 +1603,7 @@ function currentUri()
 	
 	if( indexStatus() ) 
 	{
-		$cu = str_replace('index.php/', '', $cu);
+		$cu = str_replace(indexStatus(), '', $cu);
 	}
 	
 	return $cu;
