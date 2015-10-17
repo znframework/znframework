@@ -461,7 +461,7 @@ class __USE_STATIC_ACCESS__HTML
 		{
 			$metas = '';
 			
-			foreach($name as $val)
+			foreach( $name as $val )
 			{
 				if( ! isset($val['name']) )
 				{ 

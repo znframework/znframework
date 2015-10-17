@@ -558,14 +558,14 @@ class __USE_STATIC_ACCESS__Strings
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function length($string = '')
+	public function length($string = '', $encoding = 'utf-8')
 	{
 		if( ! is_scalar($string) ) 
 		{
 			return Error::set(lang('Error', 'scalarParameter', '1.(string)'));
 		}
 		
-		return strlen($string);
+		return mb_strlen($string, $encoding);
 	}
 	
 	/******************************************************************************************
@@ -618,7 +618,7 @@ class __USE_STATIC_ACCESS__Strings
 	  @return array
 	|          																				  |
 	******************************************************************************************/
-	public function translationTable($table = HTML_SPECIALCHARS , $quote = ENT_COMPAT)
+	public function translationTable($table = HTML_SPECIALCHARS, $quote = ENT_COMPAT)
 	{
 		if( ! is_scalar($table) || ! is_scalar($quote) ) 
 		{

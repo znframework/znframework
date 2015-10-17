@@ -125,10 +125,10 @@ class __USE_STATIC_ACCESS__JS
 		
 		if( $this->ready === true )
 		{
-			$script .= eol().'});'.eol();
+			$script .= eol().'});';
 		}
 		
-		$script .=  '</script>'.eol();
+		$script .=  eol().'</script>'.eol();
 		
 		return $script;
 	}	

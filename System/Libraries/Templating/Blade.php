@@ -103,16 +103,37 @@ class __USE_STATIC_ACCESS__Blade
 			'{['    => '<?php',
 			']}'  	=> '?>'
   		);
-
+		
+		$endKeywords = array
+		(
+			'foreach',
+			'for',
+			'while',
+			'if',
+			'switch'
+		);
+	
 		$newData = str_replace(array_keys($bladeChars), array_values($bladeChars), $str);
 		
 		$newDatas = array();
 
 		preg_match_all('/\B@.+\B/', $newData, $matchData);
 
-		if( ! empty($matchData[0]) )foreach($matchData[0] as $val)
+		if( ! empty($matchData[0]) ) foreach( $matchData[0] as $val )
 		{
 			$new = str_replace('@', '??', $val);
+			
+			preg_match('/\w+/', $new, $matchKeyword);
+			
+			$matchKeyword = isset( $matchKeyword[0] )
+			              ? $matchKeyword[0]
+						  : NULL;
+		
+			if( in_array(strtolower(trim($matchKeyword)), $endKeywords) && ! strstr($new, ':') )
+			{
+				  $new .= ':';
+			}
+	
 			$newDatas[$val] = $new.' ?>';
 		}
 	

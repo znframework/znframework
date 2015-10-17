@@ -29,13 +29,13 @@ Structure::run();
 ******************************************************************************************/
 class Structure
 {
-	/* STRUCTURE RUN
-	 *
-	 *
-	 *
-	 */
-	
-	public static function run()
+	/******************************************************************************************
+	* DATAS                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Çalıştırılmak istenen yapının ihtiyaç duyduğu verileri döndürür.		  |
+	|          																				  |
+	******************************************************************************************/
+	public static function datas()
 	{
 		/* Page Değişkeni
 		 *
@@ -157,8 +157,31 @@ class Structure
 		{
 			$parameters = $segments;
 		}
+		
+		return array
+		(
+			'parameters' => $parameters,
+			'page'		 => $page,
+			'isFile'	 => $isFile,
+			'function'	 => $function
+
+		);
+	}
 	
-		// ----------------------------------------------------------------------
+	/******************************************************************************************
+	* RUN                                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Temel yapıyı çalıştırmak için oluşturulmuştur.						  |
+	|          																				  |
+	******************************************************************************************/
+	public static function run()
+	{
+		$datas = self::datas();
+		
+		$parameters = $datas['parameters'];
+		$page       = $datas['page'];
+		$isFile     = $datas['isFile'];
+		$function   = $datas['function'];
 		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
@@ -188,7 +211,7 @@ class Structure
 			// -------------------------------------------------------------------------------
 			//  Tadilat modu açıksa bu ayarlar geçerli olacaktır.
 			// -------------------------------------------------------------------------------
-			if( Config::get('Repair', 'mode') ) 
+			if( Config::get('Repair', 'mode') === true ) 
 			{
 				Repair::mode();
 			}
@@ -201,42 +224,45 @@ class Structure
 			// -------------------------------------------------------------------------------
 			// Sayfaya ait controller nesnesi oluşturuluyor.
 			// -------------------------------------------------------------------------------
-			 $var = new $page;
-				
-			// -------------------------------------------------------------------------------
-			// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
-			// -------------------------------------------------------------------------------	
-			if( is_callable(array($var, $function)) )
+			if( class_exists($page, false) )
 			{
-				if( APP_TYPE === 'local' )
-				{
-					set_error_handler('Exceptions::table');	
-				}
-				
-				call_user_func_array( array($var, $function), $parameters);
-				
-				if( APP_TYPE === 'local' )
-				{
-					restore_error_handler();
-				}
-			}
-			else
-			{
-				// Sayfa bilgisine erişilemezse hata bildir.
-				if( ! Config::get('Route', 'show404') )
-				{				
-					// Hatayı ekrana yazdır.
-					echo Error::message('Error', 'callUserFuncArrayError', $function);
+				$var = new $page;
 					
-					// Hatayı rapor et.
-					report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
+				// -------------------------------------------------------------------------------
+				// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
+				// -------------------------------------------------------------------------------	
+				if( is_callable(array($var, $function)) )
+				{
+					if( APP_TYPE === 'local' )
+					{
+						set_error_handler('Exceptions::table');	
+					}
 					
-					// Çalışmayı durdur.
-					return false;
+					call_user_func_array( array($var, $function), $parameters);
+					
+					if( APP_TYPE === 'local' )
+					{
+						restore_error_handler();
+					}
 				}
 				else
 				{
-					redirect(Config::get('Route', 'show404'));
+					// Sayfa bilgisine erişilemezse hata bildir.
+					if( ! Config::get('Route', 'show404') )
+					{				
+						// Hatayı ekrana yazdır.
+						echo Error::message('Error', 'callUserFuncArrayError', $function);
+						
+						// Hatayı rapor et.
+						report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
+						
+						// Çalışmayı durdur.
+						return false;
+					}
+					else
+					{
+						redirect(Config::get('Route', 'show404'));
+					}
 				}
 			}
 		}

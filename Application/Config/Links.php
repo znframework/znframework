@@ -13,6 +13,8 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Script URL bilgilerini tutmak için oluşturulmuştur.           	      |
 | Bu linkleri güncelleyerek jquery'nin en son sürümlerini kullanabilirsiniz.			  |
+| Bu scriptleri import ederken anahtar ifadeler kullanılarak dahil etme işlemi yapılır.   |
+| Örnek Kullanım: Import::script('jqueryUi');											  |
 ******************************************************************************************/
 $config['Links']['script'] = array
 (
@@ -25,5 +27,7 @@ $config['Links']['script'] = array
 *******************************************************************************************
 | Genel Kullanım: Style URL bilgilerini tutmak için oluşturulmuştur.               	      |
 | Bu linkleri güncelleyerek dışardan style dosyaları çağırabilirsiniz.					  |
+| Bu stilleri import ederken anahtar ifadeler kullanılarak dahil etme işlemi yapılır.     |
+| Örnek Kullanım: Import::style('style');									     		  |
 ******************************************************************************************/
 $config['Links']['style'] = array();

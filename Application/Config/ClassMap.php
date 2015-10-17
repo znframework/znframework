@@ -1,7 +1,6 @@
 <?php
 $config['ClassMap']['classes'] = array
 (
-	'test' => 'Application/Models/test.php',
 	'__use_static_access__user' => 'System/Libraries/Authentication/User.php',
 	'user' => 'System/Libraries/StaticAccess/Authentication/__USE_STATIC_ACCESS__User.php',
 	'__use_static_access__benchmark' => 'System/Libraries/Benchmarking/Benchmark.php',
@@ -114,6 +113,8 @@ $config['ClassMap']['classes'] = array
 	'__use_static_access__method' => 'System/Libraries/Foundations/Method.php',
 	'method' => 'System/Libraries/StaticAccess/Foundations/__USE_STATIC_ACCESS__Method.php',
 	'repair' => 'System/Libraries/Foundations/Repair.php',
+	'__use_static_access__route' => 'System/Libraries/Foundations/Route.php',
+	'route' => 'System/Libraries/StaticAccess/__USE_STATIC_ACCESS__Route.php',
 	'staticaccess' => 'System/Libraries/Foundations/StaticAccess.php',
 	'__use_static_access__uri' => 'System/Libraries/Foundations/URI.php',
 	'uri' => 'System/Libraries/StaticAccess/Foundations/__USE_STATIC_ACCESS__URI.php',

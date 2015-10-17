@@ -392,7 +392,7 @@ class __USE_STATIC_ACCESS__User
 	}
 	
 	// Aktivasyon işlemi için
-	protected function _activation($user = "", $pass = "", $activationReturnLink = '', $email = '')
+	protected function _activation($user = '', $pass = '', $activationReturnLink = '', $email = '')
 	{
 		if( ! isUrl($activationReturnLink) )
 		{
@@ -403,9 +403,16 @@ class __USE_STATIC_ACCESS__User
 			$url = suffix($activationReturnLink);
 		}
 		
-		$message = "<a href='".$url."user/".$user."/pass/".$pass."'>".lang('User', 'activation')."</a>";	
+		$templateData = array
+		(
+			'url'  => $url,
+			'user' => $user,
+			'pass' => $pass
+		);
 		
-		$user = ( ! empty($email) ) 
+		$message = Import::template('UserEmail/Activation', $templateData, true);	
+		
+		$user = ! empty($email) 
 				? $email 
 				: $user;
 				
@@ -716,16 +723,15 @@ class __USE_STATIC_ACCESS__User
 			
 			$newPassword    = Encode::create(10);
 			$encodePassword = Encode::super($newPassword);
-			$message = "
-			<pre>
-				".lang('User', 'username').": ".$row->$usernameColumn."
-
-				".lang('User', 'password').": ".$newPassword."
-				
-				<a href='".$returnLinkPath."'>".lang('User', 'learnNewPassword')."</a>
-			</pre>
-			";
 			
+			$templateData = array
+			(
+				'usernameColumn' => $row->$usernameColumn,
+				'newPassword'    => $newPassword,
+				'returnLinkPath' => $returnLinkPath
+			);
+
+			$message   = Import::template('UserEmail/ForgotPassword', $templateData, true);	
 			$sendEmail = uselib('Email');
 			
 			$sendEmail->receiver($email, $email);

@@ -133,7 +133,7 @@ class __USE_STATIC_ACCESS__Upload
 		}
 		else
 		{
-			$this->settings['encryption'] = 'md5';	
+			$this->settings['encryption']   = 'md5';	
 		}
 		
 		// 3-prefix -> Yüklenen dosyaların önüne ön ek koymak
@@ -151,7 +151,7 @@ class __USE_STATIC_ACCESS__Upload
 		// 5-encodeLength -> Şifrenin karakter uzunluğu
 		if( isset($set['encodeLength']) ) 		
 		{
-			$this->settings['encodeLength'] 	= $set['encodeLength'];
+			$this->settings['encodeLength'] = $set['encodeLength'];
 		}
 		else
 		{
@@ -161,11 +161,11 @@ class __USE_STATIC_ACCESS__Upload
 		// 4-mazsize -> Yükselenecebilecek maksimum dosya boyutu
 		if( isset($set['convertName']) ) 		
 		{
-			$this->settings['convertName'] = $set['convertName'];
+			$this->settings['convertName']  = $set['convertName'];
 		}
 		else
 		{
-			$this->settings['convertName'] = true;
+			$this->settings['convertName']  = true;
 		}
 	}
 
@@ -567,17 +567,17 @@ class __USE_STATIC_ACCESS__Upload
 		
 			$values = array();
 			
-			if( ! is_array($_FILES[$this->file]['name']) )foreach($datas as $key => $val)
+			if( ! is_array($_FILES[$this->file]['name']) ) foreach( $datas as $key => $val )
 			{
 				$values[$key] = $val;
 			}
 			else
 			{
-				foreach($datas as $key => $val)
+				foreach( $datas as $key => $val )
 				{
 					if( ! empty($datas[$key]) )
 					{
-						foreach($datas[$key] as $v)
+						foreach( $datas[$key] as $v )
 						{
 							$values[$key][] = $v;
 						}

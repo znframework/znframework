@@ -8,31 +8,49 @@
 /* Lisans: The MIT License
 /* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 
-/* 
-Sistem Uygulama Seçenekleri
-
-1-local
-2-development
-3-publication 
-
-Varsayılan: local
 */
-System::run('local');
+
+//------------------------------------------------------------------
+// Temel Sistem Ayarları
+//
+// 1 - Application Directory: Uygulamanın yer alacağı dizini ayarlamak içindir.
+//
+// 2 - Application Type: Uygulama türünü ayarlamak içindir.
+//     local: Yerel sunucuda çalışırken tercih edilebilir.
+//     development: Proje'nin geliştirilmesi aşamasında tercih edilebilir.
+//     publication: Proje'nin yayınlanması ile bu seçenek tercih edilebilir.
+//
+// 3 - Benchmark Performance Test: Sistemin açılış hızını test etmek içindir.
+//     true: Sayfanın yüklenmek hızı ve kullandığı bellek miktarını gösteren bir tablo çıktılar.
+//     false: Herhangi bir tablo çıktılamaz.
+//------------------------------------------------------------------
+$settings = array
+(
+	'applicationDirectory' => 'Application', // Sonunda bölü(/) işareti kullanmayınız.
+	'applicationType'      => 'local',       // local, development veya publication
+	'benchmarkingTest'     => false          // true veya false
+);
+
+//------------------------------------------------------------------
+//  Sistem Çalıştırılıyor...
+//------------------------------------------------------------------
+System::run($settings);
+//------------------------------------------------------------------
 
 class System
 {
-	public static function run($apptype)
+	public static function run($settings)
 	{	
 		//------------------------------------------------------------------
 		//  Uygulama Dizini
 		//------------------------------------------------------------------
-		define('APP_DIR', 'Application/');
+		define('APP_DIR', $settings['applicationDirectory'].'/');
 		//------------------------------------------------------------------
 		
 		//------------------------------------------------------------------
 		//  Uygulama Türü
 		//------------------------------------------------------------------
-		define('APP_TYPE', $apptype);
+		define('APP_TYPE', $settings['applicationType']);
 		//------------------------------------------------------------------
 		
 		//------------------------------------------------------------------
@@ -85,13 +103,13 @@ class System
 		//------------------------------------------------------------------
 		//  Sistem Performans Testini Başlat: true or false
 		//------------------------------------------------------------------	
-		$BENCHMARK_PERFOMANCE_TEST_START = false;	
+		$benchmarkingTest = $settings['benchmarkingTest'];	
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		
-		if( $BENCHMARK_PERFOMANCE_TEST_START === true ) 
+		if( $benchmarkingTest === true ) 
 		{
 			//------------------------------------------------------------------
 			//  Sisteminin Açılış Zamanını Hesaplamayı Başlat
@@ -108,24 +126,24 @@ class System
 		//  Sistem çalıştırılıyor ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//******************************************************************
 		
-		if( $BENCHMARK_PERFOMANCE_TEST_START === true )
+		if( $benchmarkingTest === true )
 		{	
 			//------------------------------------------------------------------
 			//  Sistemin Açılış Zamanını Hesaplamayı Bitir
 			//------------------------------------------------------------------
-			$finish 		  = microtime();
+			$finish         = microtime();
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  System Elapsed Time Calculating
 			//------------------------------------------------------------------
-			$elapsedTime     = $finish - $start;
+			$elapsedTime    = $finish - $start;
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Sistemin Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
-			$memoryUsage 	  = memory_get_usage();
+			$memoryUsage    = memory_get_usage();
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
@@ -137,14 +155,14 @@ class System
 			//------------------------------------------------------------------
 			//  Benchmark Performans Sonuç Tablosu
 			//------------------------------------------------------------------
-			$benchmarkData = array
+			$benchmarkData  = array
 			(
 				'elapsedTime'	 => $elapsedTime,
 				'memoryUsage'	 => $memoryUsage,
 				'maxMemoryUsage' => $maxMemoryUsage
 			);	
 			
-			$benchResult = Import::template('BenchmarkTable', $benchmarkData, true);
+			$benchResult    = Import::template('BenchmarkTable', $benchmarkData, true);
 			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------

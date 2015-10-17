@@ -29,7 +29,7 @@ $config['Encode']['driver'] = 'mcrypt';
 *******************************************************************************************
 | Genel Kullanım: Encode.php kütüphanesinde yer alan yöntemlerin temel olarak hangi		  |
 | şifreleme algoritmasını kullanacağı seçmek için kullanılır. Şifrelenmesini istediğiniz  |
-| hash algorimatsını yazmanız yeterlidir.				 								  |											
+| hash algoritmasını yazmanız yeterlidir.				 								  |											
 ******************************************************************************************/
 $config['Encode']['type'] = 'md5';
 

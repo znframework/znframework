@@ -46,6 +46,7 @@ class Starting
 		if( $composer === true )
 		{
 			$path = 'vendor/autoload.php';
+			
 			if( file_exists($path) )
 			{
 				require_once($path);

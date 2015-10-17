@@ -374,7 +374,7 @@ class __USE_STATIC_ACCESS__DB
 		else
 		{
 			$value = presuffix($this->db->realEscapeString($value), "'");
-		
+			
 			$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
 		}
 		

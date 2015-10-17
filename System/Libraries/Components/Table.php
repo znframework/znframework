@@ -304,7 +304,7 @@ class __USE_STATIC_ACCESS__Table
 	
 	public function create()
 	{
-		$table  = '<table '.$this->_attributes($this->attr).'>';
+		$table  = '<table'.$this->_attributes($this->attr).'>';
 		$table .= $this->table;
 		$table .= '</table>';
 		
