@@ -851,7 +851,16 @@ function siteUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.indexStatus().currentLang().cleanInjection($uri);
+	if( currentLang() )
+	{
+		$currentLang = currentLang().'/';
+	}
+	else
+	{
+		$currentLang = '';	
+	}
+	
+	return sslStatus().$host.$newBaseDir.indexStatus().$currentLang.cleanInjection($uri);
 }
 
 // Function: baseUrl()
