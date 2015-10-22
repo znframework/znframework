@@ -167,6 +167,8 @@ class __USE_STATIC_ACCESS__Upload
 		{
 			$this->settings['convertName']  = true;
 		}
+		
+		return $this;
 	}
 
 	/******************************************************************************************

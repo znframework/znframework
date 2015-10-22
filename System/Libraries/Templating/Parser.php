@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__Parser
 	| Genel Kullanım: Görünüm sayfasında ayrıştırma işlemi yapmak için kullanılır.			  |
 	|															                              |
 	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Views/Pages/ dizininde yer alan sayfa ismi.					  |
+	| 1. string var @page => Views/ dizininde yer alan sayfa ismi.		         			  |
 	| 2. array var @data => Değiştirilecek veriler.					  					      |
 	| 3. boolean var @output => Direk çıktı üretilsin mi, değer mi döndürülsün?.			  |
 	|          																				  |
@@ -77,7 +77,7 @@ class __USE_STATIC_ACCESS__Parser
 	| Genel Kullanım: Görünüm sayfasında ayrıştırma işlemi yapmak için kullanılır.			  |
 	|															                              |
 	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Views/Pages/ dizininde yer alan sayfa ismi.					  |
+	| 1. string var @page => Views/ dizininde yer alan sayfa ismi.      					  |
 	| 2. array var @data => Değiştirilecek veriler.					  					      |
 	| 3. boolean var @output => Direk çıktı üretilsin mi, değer mi döndürülsün?.			  |
 	|          																				  |

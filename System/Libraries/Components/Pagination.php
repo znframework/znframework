@@ -284,6 +284,8 @@ class __USE_STATIC_ACCESS__Pagination
 		if( isset($config['firstName']) )	$this->firstTag 	= $config['firstName'];
 		if( isset($config['lastName']) )	$this->lastTag 		= $config['lastName'];
 		// ---------------------------------------------------------------------------------------	
+		
+		return $this;
 	}
 	
 	public function create($start = NULL, $settings = array())

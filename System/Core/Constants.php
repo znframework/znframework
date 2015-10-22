@@ -85,7 +85,7 @@ define('MODELS_DIR', APP_DIR.'Models/');
 define('VIEWS_DIR', APP_DIR.'Views/'); 									
 
 /******************************************************************************************
-* PAGES_DIR: Application/Views/Pages/    	                                         	  * 
+* PAGES_DIR: Application/Views/           	                                         	  * 
 ******************************************************************************************/	
 define('PAGES_DIR', VIEWS_DIR); 													
 
@@ -95,17 +95,17 @@ define('PAGES_DIR', VIEWS_DIR);
 define('FILES_DIR', RESOURCES_DIR.'Files/');
 
 /******************************************************************************************
-* FONTS_DIR: Application/Views/Fonts/    	                                      	  	  * 
+* FONTS_DIR: Application/Resources/Fonts/    	                                      	  * 
 ******************************************************************************************/	
 define('FONTS_DIR', RESOURCES_DIR.'Fonts/');		
 
 /******************************************************************************************
-* SCRIPTS_DIR: Application/Views/Scripts/                                             	  * 
+* SCRIPTS_DIR: Application/Resources/Scripts/                                         	  * 
 ******************************************************************************************/	
 define('SCRIPTS_DIR', RESOURCES_DIR.'Scripts/'); 	
 
 /******************************************************************************************
-* STYLES_DIR: Application/Views/Styles/       	                                      	  * 
+* STYLES_DIR: Application/Resources/Styles/       	                                  	  * 
 ******************************************************************************************/	
 define('STYLES_DIR', RESOURCES_DIR.'Styles/'); 					
 

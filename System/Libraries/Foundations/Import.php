@@ -197,7 +197,7 @@ class Import
 	/******************************************************************************************
 	* MASTERPAGE                                                                              *
 	*******************************************************************************************
-	| Genel Kullanım: Views/Pages/ dizini içinde yer alan herhangi bir sayfayı masterpage     |
+	| Genel Kullanım: Views/ dizini içinde yer alan herhangi bir sayfayı masterpage           |
 	| olarak ayarlamak için kullanılır.										  				  |
 	|															                              |
 	| Parametreler: 2 parametresi vardır.                                                     |
@@ -505,7 +505,7 @@ class Import
 	* FONT                                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Harici font yüklemek için kullanılır. Yüklenmek istenen fontlar		  |
-	| Views/Fonts/ dizinine atılır.										  				      |
+	| Resources/Fonts/ dizinine atılır.										  				  |
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. array/args var @fonts => Parametre olarak sıralı font dosyalarını veya dizi içinde   |
@@ -603,7 +603,7 @@ class Import
 	* STYLE                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Harici stil yüklemek için kullanılır. Yüklenmek istenen stiller		  |
-	| Views/Styles/ dizinine atılır.									  				      |
+	| Resources/Styles/ dizinine atılır.			     				  				      |
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. array/args var @styles => Parametre olarak sıralı stil dosyalarını veya dizi içinde  |
@@ -675,7 +675,7 @@ class Import
 	* SCRIPT                                                                                  *
 	*******************************************************************************************
 	| Genel Kullanım: Harici js dosyası yüklemek için kullanılır. Yüklenmek istenen stiller	  |
-	| Views/Scripts/ dizinine atılır.										  				  |
+	| Resources/Scripts/ dizinine atılır.		    						  				  |
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. array/args var @scripts => Parametre olarak sıralı js dosyalarını veya dizi içinde   |
@@ -752,8 +752,8 @@ class Import
 	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
 	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
 	|          																				  |
-	| Örnek Kullanım: Import::something('Application/Views/Pages/OrnekSayfa.php');        	  |
-	| Örnek Kullanım: Import::something('Application/Views/Style/Stil.js');        	          |
+	| Örnek Kullanım: Import::something('Application/Views/OrnekSayfa.php');             	  |
+	| Örnek Kullanım: Import::something('Application/Resources/Styles/Stil.js');  	          |
 	|          																				  |
 	******************************************************************************************/
 	public static function something($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
@@ -847,7 +847,7 @@ class Import
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @packages => Dahil edilecek dosyaların bulunduğu dizin.					  |
 	|          																				  |
-	| Örnek Kullanım: Import::something('Application/Views/Pages/');        	              |
+	| Örnek Kullanım: Import::something('Application/Views/');              	              |
 	|          																				  |
 	******************************************************************************************/
 	public static function package($packages = "", $differentExtension = array() )
