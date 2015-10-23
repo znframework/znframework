@@ -6,15 +6,14 @@ class Home extends Controller
 	{	
 		/******************************************************************************************
 		* Gönderilen Veriler                                                                      *
-		*******************************************************************************************
-		| 1. title => ZN FRAMEWORK                                                                |
+		*******************************************************************************************	
+		| 1. font  => Resources/Fonts/textfont.ttf                                                |
 		| 2. style => Resources/Styles/style.css                                                  |
-		| 3. font  => Resources/Fonts/textfont.ttf                                                |
-		| 4. welcomeMessage => ZN KOD ÇATISINA HOŞ GELDİNİZ                                       |
+		| 3. title => ZERONEED PHP WEB FRAMEWORK                                                  |
 		******************************************************************************************/
-		$data['font']			= Import::font('textfont', true);
-		$data['style'] 			= Import::style('style', true);	
-		$data['title'] 			= 'ZERONEED PHP WEB FRAMEWORK';
+		$data['font']  = Import::font('textfont', true);
+		$data['style'] = Import::style('style', true);	
+		$data['title'] = 'ZERONEED PHP WEB FRAMEWORK';
 		
 		/******************************************************************************************
 		* Dahil Edilen Welcome.php Görünüm Sayfası                                                *
@@ -29,6 +28,6 @@ class Home extends Controller
 	
 	public function test()
 	{
- 		
+ 	
 	}
 }

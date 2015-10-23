@@ -25,15 +25,15 @@
 // kodlarını bu fonksiyon ismi ile kullanabilirsiniz.
 Route::run('construct', function()
 {
-	// Başlangıçta çalıştırılmasını istediğiniz yöntemler
+	// Başlangıçta çalıştırılmasını istediğiniz kodlar
 });
 
 // Çalıştırma Linki: http://test.com/index.php/routing/index/[p1]...	
 Route::run('index', function($params = '')
 {	
-	$data['font']			= Import::font('textfont', true);
-	$data['style'] 			= Import::style('style', true);	
-	$data['title'] 			= 'ZERONEED PHP WEB FRAMEWORK';
+	$data['font']  = Import::font('textfont', true);
+	$data['style'] = Import::style('style', true);	
+	$data['title'] = 'ZERONEED PHP WEB FRAMEWORK';
 
 	Import::view('welcome', $data);
 });
@@ -42,5 +42,5 @@ Route::run('index', function($params = '')
 // kodlarını bu fonksiyon ismi ile kullanabilirsiniz.
 Route::run('destruct', function()
 {
-	// Başlangıçta çalıştırılmasını istediğiniz yöntemler
+	// Sonda çalıştırılmasını istediğiniz kodlar
 });
