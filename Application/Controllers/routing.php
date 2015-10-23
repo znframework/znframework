@@ -21,18 +21,26 @@
 |                                                                                         |
 ******************************************************************************************/
 
+// Construct yapıcısı gibi tüm sayfa için çalışmasını istediğiniz
+// kodlarını bu fonksiyon ismi ile kullanabilirsiniz.
+Route::run('construct', function()
+{
+	// Başlangıçta çalıştırılmasını istediğiniz yöntemler
+});
+
 // Çalıştırma Linki: http://test.com/index.php/routing/index/[p1]...	
 Route::run('index', function($params = '')
 {	
 	$data['font']			= Import::font('textfont', true);
 	$data['style'] 			= Import::style('style', true);	
-	$data['title'] 			= 'ZN FRAMEWORK';
-	$data['welcomeMessage'] = 'PHP Web Framework <b>Made In Turkey</b>';
+	$data['title'] 			= 'ZERONEED PHP WEB FRAMEWORK';
 
 	Import::view('welcome', $data);
 });
 
-Route::run('test', function()
+// Destruct yıkıcısı gibi tüm sayfa sonunda çalışmasını istediğiniz
+// kodlarını bu fonksiyon ismi ile kullanabilirsiniz.
+Route::run('destruct', function()
 {
-	
+	// Başlangıçta çalıştırılmasını istediğiniz yöntemler
 });

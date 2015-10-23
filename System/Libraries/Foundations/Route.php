@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__Route
+class __USE_STATIC_ACCESS__Route extends Controller
 {
 	/***********************************************************************************/
 	/* ROUTE LIBRARY																   */
@@ -34,24 +34,24 @@ class __USE_STATIC_ACCESS__Route
 		$parameters = $datas['parameters'];
 		$isFile     = $datas['isFile'];
 		$function   = $datas['function'];
-	
+		
+		if( APP_TYPE === 'local' )
+		{
+			set_error_handler('Exceptions::table');	
+		}
+		
+		if( ( $functionName === 'construct' || $functionName === 'destruct' ) && is_callable($functionRun) )
+		{
+			call_user_func_array($functionRun, $parameters);
+		}
+		
 		if( file_exists($isFile) )
 		{
 			if( $functionName === $function )
 			{
 				if( is_callable($functionRun) )
-				{
-					if( APP_TYPE === 'local' )
-					{
-						set_error_handler('Exceptions::table');	
-					}
-						
+				{				
 					call_user_func_array($functionRun, $parameters);	
-					
-					if( APP_TYPE === 'local' )
-					{
-						restore_error_handler();
-					}
 				}
 				else
 				{
@@ -73,6 +73,11 @@ class __USE_STATIC_ACCESS__Route
 					}
 				}
 			}
+		}
+		
+		if( APP_TYPE === 'local' )
+		{
+			restore_error_handler();
 		}
 	}	
 }

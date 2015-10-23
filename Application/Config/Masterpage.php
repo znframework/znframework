@@ -19,7 +19,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Masterpage olarak belirlen sayfanın head etiketleri arasına harici kod  |
 | yazmak için sayfa belirlemek için kullanlır.											  |
-| Parametre:Metinsel türde Views/Pages/ dizininden tüm sayfalar için geçerli olacak bir   |
+| Parametre:Metinsel türde Views/ dizininden tüm sayfalar için geçerli olacak bir         | 
 | head sayfası belirlenir. Örnek: "head";  veya array(h1, h2 ....) 						  |  
 ******************************************************************************************/
 $config['Masterpage']['headPage'] = ''; // String veya Array veri türü içerebilir.
@@ -28,7 +28,7 @@ $config['Masterpage']['headPage'] = ''; // String veya Array veri türü içereb
 * BODY PAGE                                                                   		  	  *
 *******************************************************************************************
 | Genel Kullanım: Masterpage olacak sayfayı ayarlamak için kullanılır.					  |
-| Parametre:Metinsel türde Views/Pages/ dizininden masterpage olarak düşünülen sayfa 	  |
+| Parametre:Metinsel türde Views/ dizininden masterpage olarak düşünülen sayfa 	          |
 | adı bilgisi girilir. Örnek: "body";											  		  |  
 ******************************************************************************************/
 $config['Masterpage']['bodyPage'] = '';
@@ -72,9 +72,10 @@ $config['Masterpage']['backgroundImage'] = '';
 /******************************************************************************************
 * FONT			                                                		  	  			  *
 *******************************************************************************************
-| Genel Kullanım: Harici font kullanımı kullanmak istediğiniz özel fontları Views/Fonts/  |
+| Genel Kullanım: Harici font kullanımı kullanmak istediğiniz özel fontları 			  |
+| Resources/Fonts/																		  |
 |dizinine atıp bu dizin içindek dosyanın adını yazarak kullanabilirsiniz.				  |
-| Aşağıdaki dizi içerisine Views/Fonts/ dizinindeki dosya/dosyaların isimlerini 		  |
+| Aşağıdaki dizi içerisine Resources/Fonts/ dizinindeki dosya/dosyaların isimlerini       |
 | yazmanız yeterlidir.								  			 					 	  |		
 ******************************************************************************************/
 $config['Masterpage']['font'] = array();
@@ -83,7 +84,8 @@ $config['Masterpage']['font'] = array();
 * STYLE			                                                		  	  			  *
 *******************************************************************************************
 | Genel Kullanım: Harici css dosyası kullanımı kullanmak istediğiniz stil dosyalarını     |
-| Views/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine Views/Styles/ 	  |
+| Resources/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine              |
+| Resources/Styles/                      												  |
 | dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.							  |		
 ******************************************************************************************/
 $config['Masterpage']['style'] = array();
@@ -92,7 +94,7 @@ $config['Masterpage']['style'] = array();
 * SCRIPT     	                                                		  	  			  *
 *******************************************************************************************
 | Genel Kullanım: Harici javascript dosyası kullanımı. Aşağıdaki dizi içerisine 		  |
-| Views/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.			  |		
+| Resources/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.	      |		
 ******************************************************************************************/
 $config['Masterpage']['script'] = array();
 

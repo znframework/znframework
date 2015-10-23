@@ -9,8 +9,7 @@
 
 <body>
     <div id="logo" class="font">
-    	<div id="logo-text" class="text-shadow"><?php echo $title; ?></div>
-    	<div id="logo-sub-text"><?php echo $welcomeMessage; ?></div>
+    	<div id="logo-text"><span class="alpha-color">z</span>ero<span class="alpha-color">n</span>eed</div>
     </div>
 </body>
 

@@ -14,9 +14,8 @@ class Home extends Controller
 		******************************************************************************************/
 		$data['font']			= Import::font('textfont', true);
 		$data['style'] 			= Import::style('style', true);	
-		$data['title'] 			= 'ZN FRAMEWORK';
-		$data['welcomeMessage'] = 'PHP Web Framework <b>Made In Turkey</b>';
-
+		$data['title'] 			= 'ZERONEED PHP WEB FRAMEWORK';
+		
 		/******************************************************************************************
 		* Dahil Edilen Welcome.php Görünüm Sayfası                                                *
 		*******************************************************************************************
@@ -30,6 +29,6 @@ class Home extends Controller
 	
 	public function test()
 	{
-		
-	}		
+ 		
+	}
 }
