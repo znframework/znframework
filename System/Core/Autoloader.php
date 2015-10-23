@@ -67,7 +67,7 @@ class Autoloader
 			
 			// Namespace olduğu halde class ismi bildirilirse
 			// Sınıf haritasını yeniden oluşturmayı dene
-			if( ! class_exists($classInfo['namespace']) )
+			if( ! ( class_exists($classInfo['namespace']) || trait_exists($classInfo['namespace']) || interface_exists($classInfo['namespace']) ) )
 			{
 				self::tryAgainCreateClassMap($class);
 			}
@@ -326,7 +326,7 @@ class Autoloader
 			// -------------------------------------------------------------------------------------------
 			// Gerçek Sınıf İsmi Oluşturuluyor...
 			// -------------------------------------------------------------------------------------------
-			if( $token[0] === T_CLASS || $token[0] === T_INTERFACE )
+			if( $token[0] === T_CLASS || $token[0] === T_INTERFACE || $token[0] === T_TRAIT )
 			{
 				// Sınıf bilgisi oluşturuluyor...
 				$classInfo['class'] = isset($tokens[$i + 2][1])
