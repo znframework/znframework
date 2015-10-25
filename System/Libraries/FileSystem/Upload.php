@@ -403,6 +403,12 @@ class __USE_STATIC_ACCESS__Upload
 			$rootDir = UPLOADS_DIR;
 		}
 		
+		// Dosyanın yükleneceği dizin yoksa oluşturulur.
+		if( ! isDirExists($rootDir) )
+		{
+			Folder::create($rootDir);	
+		}
+		
 		// Dosya yükleme ayarları yapılmamışsa
 		// Varsayılan ayarları kullanması için.
 		if( $this->settingStatus === false ) 
