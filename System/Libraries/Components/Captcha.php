@@ -591,9 +591,9 @@ class __USE_STATIC_ACCESS__Captcha
 				/***************************************************************************/
 				// Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
 				/***************************************************************************/
-				$infoExtendsion = strtolower(pathinfo($set["background"], PATHINFO_EXTENSION));
+				$infoExtension = strtolower(pathinfo($set["background"], PATHINFO_EXTENSION));
 					
-				switch( $infoExtendsion )
+				switch( $infoExtension )
 				{
 					case 'jpeg':
 					case 'jpg' : $file = imagecreatefromjpeg($set["background"]); break;
