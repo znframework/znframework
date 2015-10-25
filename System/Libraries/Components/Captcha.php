@@ -576,8 +576,7 @@ class __USE_STATIC_ACCESS__Captcha
 			$setGridColor	= explode("|",$set['gridColor']);
 			
 			
-			$file = @imagecreatetruecolor($set["width"], $set["height"]);	  
-				  
+			$file       = @imagecreatetruecolor($set["width"], $set["height"]);	  	  
 			$fontColor 	= @imagecolorallocate($file, $setFontColor[0], $setFontColor[1], $setFontColor[2]);
 			$color 		= @imagecolorallocate($file, $setBgColor[0], $setBgColor[1], $setBgColor[2]);
 			
@@ -588,25 +587,20 @@ class __USE_STATIC_ACCESS__Captcha
 				{
 					$set["background"] = $set["background"][rand(0, count($set["background"]) - 1)];
 				}
+				
 				/***************************************************************************/
 				// Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
-				/***************************************************************************/	
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'png' )
+				/***************************************************************************/
+				$infoExtendsion = strtolower(pathinfo($set["background"], PATHINFO_EXTENSION));
+					
+				switch( $infoExtendsion )
 				{
-					$file = imagecreatefrompng($set["background"]);
-				}
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpeg' )
-				{	
-					$file = imagecreatefromjpeg($set["background"]);
-				}
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'jpg' )
-				{	
-					$file = imagecreatefromjpeg($set["background"]);
-				}
-				if( strtolower(pathinfo($set["background"], PATHINFO_EXTENSION)) === 'gif' )
-				{	
-					$file = imagecreatefromgif($set["background"]);
-				}
+					case 'jpeg':
+					case 'jpg' : $file = imagecreatefromjpeg($set["background"]); break;
+					case 'png' : $file = imagecreatefrompng($set["background"]);  break;
+					case 'gif' : $file = imagecreatefromgif($set["background"]);  break;
+					default    : $file = imagecreatefromjpeg($set["background"]); 
+				}	
 			}
 			else
 			{
