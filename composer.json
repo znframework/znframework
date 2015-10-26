@@ -21,7 +21,7 @@
 	"require" : 
 	{
 		"php": ">=5.4.0",
-		"znframework/znframework": "master"
+		"znframework/znframework": "stable-2.0.0"
 	},
 	
 	"autoload": 
@@ -34,6 +34,6 @@
 	
 	"comments" :
 	{
-		"autoload": "ZERONEED Framework kendi içerisinde autoload özelligine sahiptir. Bu nedenle composer ile autoload etmeye gerek yoktur."		
+		"autoload": "ZERONEED Framework kendi iÃ§erisinde autoload Ã¶zelligine sahiptir. Bu nedenle composer ile autoload etmeye gerek yoktur."		
 	}
 }
