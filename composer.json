@@ -21,7 +21,7 @@
 	"require" : 
 	{
 		"php": ">=5.4.0",
-		"znframework/znframework": "master"
+		"znframework/znframework": "stable"
 	},
 	
 	"comments" :
