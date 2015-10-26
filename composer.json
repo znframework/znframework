@@ -2,21 +2,21 @@
 	"repositories": 
 	[
         {
-			"description": "The ZN Framework.",
-            "type": "package",
-			"license": "MIT",
-            "package": 
-			{
-                "name": "znframework/znframework",
-                "version": "2.0.0",
-                "dist": 
-				{
-                    "url": "https://github.com/znframework/znframework.git",
-                    "type": "git"
+		"description": "The ZN Framework.",
+                "type": "package",
+		"license": "MIT",
+                "package": 
+		{
+                      "name": "znframework/znframework",
+                      "version": "2.0.0",
+                      "dist": 
+		      {
+                             "url": "https://github.com/znframework/znframework.git",
+                             "type": "git"
+                      }
                 }
-            }
         }
-    ],
+        ], 
 	
 	"require" : 
 	{
@@ -24,11 +24,8 @@
 		"znframework/znframework": "dev-master"
 	},
 	
-	"autoload": 
+	"comments" :
 	{
-		"classmap" : 
-		[
-			"System/"
-		]
+		"autoload": "ZERONEED Framework kendi içerisinde autoload özelliğine sahiptir. Bu nedenle composer ile autoload etmeye gerek yoktur."		
 	}
 }
