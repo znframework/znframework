@@ -5,7 +5,7 @@
 		background:#F3F6F6;
 		padding:10px;
 		margin-bottom:10px;
-		font-family:"Courier New", Courier, monospace, Tahoma, Arial;
+		font-family:Consolas, "Courier New", Courier, monospace, Tahoma, Arial;
 		color:#333;
 		font-size:16px;
 		text-align:left;

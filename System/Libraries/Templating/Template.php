@@ -171,11 +171,19 @@ class __USE_STATIC_ACCESS__Template
 		}
 		
 		ob_start(); 
-		eval("?>$string");
+		@eval("?>$string");
 		$content = ob_get_contents(); 
 		ob_end_clean(); 
 		
-		return $content;
+		if( ! empty($content) )
+		{
+			return $content;
+		}
+		else
+		{
+			$lastError = Error::last();
+			Exceptions::table($lastError['message'], '', $lastError['line']);
+		}
 	}	
 	
 	/******************************************************************************************

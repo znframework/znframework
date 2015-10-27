@@ -206,9 +206,9 @@ class Error
 	| Genel Kullanım: Son oluşan hata hakkında bilgi verir.						   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function last()
+	public static function last($type = NULL)
 	{
-		return error_get_last();
+		return errorReport($type);
 	}
 	
 	/******************************************************************************************

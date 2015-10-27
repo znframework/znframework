@@ -57,7 +57,7 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	private static function _page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false , $randomPageDir = PAGES_DIR)
+	private static function _page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false, $randomPageDir = PAGES_DIR)
 	{
 		if( ! is_string($randomPageVariable) )
 		{
@@ -111,9 +111,9 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa.template');        	  						  |
 	|          																				  |
 	******************************************************************************************/
-	private static function _template($page, $data, $obGetContents)
+	private static function _template($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
 	{
-		$return = Template::data(self::_page($page, $data, true), $data);
+		$return = Template::data(self::_page($page, $data, true, $randomPageDir), $data);
 			
 		if( $obGetContents === true )
 		{
@@ -136,14 +136,14 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function page($page = '', $data = '', $obGetContents = false)
+	public static function page($page = '', $data = '', $obGetContents = false, $randomPageDir = PAGES_DIR)
 	{
 		if( stristr($page, self::$templateExtension) )
 		{
-			return self::_template($page, $data, $obGetContents);
+			return self::_template($page, $data, $obGetContents, $randomPageDir);
 		}
 		
-		return self::_page($page, $data, $obGetContents);
+		return self::_page($page, $data, $obGetContents, $randomPageDir);
 	}
 	
 	/******************************************************************************************
@@ -159,66 +159,9 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function view($page = '', $data = '', $obGetContents = false)
+	public static function view($page = '', $data = '', $obGetContents = false, $randomPageDir = PAGES_DIR)
 	{
-		return self::page($page, $data, $obGetContents);
-	}
-	
-	/******************************************************************************************
-	* BLADEPAGE                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyasında manipüle edilmiş blade dosyasını dahil etmek için 	  |
-	| kullanılır.						      												  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public static function bladePage($page = '', $data = '', $obGetContents = false)
-	{
-		return Blade::view($page, $data, $obGetContents);
-	}
-	
-	/******************************************************************************************
-	* PARSERPAGE                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyasında manipüle edilmiş PARSER dosyasını dahil etmek için 	  |
-	| kullanılır.						      												  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public static function parserPage($page = '', $data = '', $obGetContents = false)
-	{
-		return Parser::view($page, $data, $obGetContents);
-	}
-
-	/******************************************************************************************
-	* SABERPAGE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyasında manipüle edilmiş SABER dosyasını dahil etmek için 	  |
-	| kullanılır.						      												  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public static function saberPage($page = '', $data = '', $obGetContents = false)
-	{
-		return Saber::view($page, $data, $obGetContents);
+		return self::page($page, $data, $obGetContents, $randomPageDir);
 	}
 	
 	/******************************************************************************************
