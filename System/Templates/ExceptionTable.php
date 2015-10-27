@@ -4,7 +4,7 @@
 		border:solid 1px #E1E4E5;
 		background:#F3F6F6;
 		padding:10px;
-		margin-bottom:10px;
+		margin:10px;
 		font-family:Consolas, "Courier New", Courier, monospace, Tahoma, Arial;
 		color:#333;
 		font-size:16px;

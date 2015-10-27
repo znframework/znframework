@@ -63,7 +63,7 @@ class Exceptions extends Exception
 	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
 	|          																				  |
 	******************************************************************************************/	
-	public static function table($msg = '', $file = '', $line = '')
+	public static function table($no = '', $msg = '', $file = '', $line = '')
 	{
 		echo self::_template($msg, $file, $line);  
 	}

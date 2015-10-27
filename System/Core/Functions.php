@@ -1537,7 +1537,7 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 		background:#F3F6F6;
 		padding:10px;
 		margin-bottom:10px;
-		font-family:Courier New, Courier, monospace, Tahoma, Arial;
+		font-family:Consolas, Courier New, Courier, monospace, Tahoma, Arial;
 		color:#333;
 		text-align:left;
 		font-size:16px;
