@@ -1,19 +1,19 @@
 <?php
-class __USE_STATIC_ACCESS__Parser
+class __USE_STATIC_ACCESS__Template
 {
 	/***********************************************************************************/
-	/* PARSER LIBRARY	     	     		                   	                       */
+	/* TEMPLATE LIBRARY	     	     		                   	                       */
 	/***********************************************************************************/
 	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 	/* Site: www.zntr.net
 	/* Lisans: The MIT License
 	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 	/*
-	/* Sınıf Adı: Parser
-	/* Versiyon: 1.2
+	/* Sınıf Adı: Template
+	/* Versiyon: 2.0.0 October
 	/* Tanımlanma: Dinamik
 	/* Dahil Edilme: Gerektirmez
-	/* Erişim: $this->Parser, zn::$use->Parser, uselib('Parser')
+	/* Erişim: $this->Template, zn::$use->Template, uselib('Template')
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
@@ -45,51 +45,6 @@ class __USE_STATIC_ACCESS__Parser
 	}
 	
 	/******************************************************************************************
-	* VIEW                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Görünüm sayfasında ayrıştırma işlemi yapmak için kullanılır.			  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Views/ dizininde yer alan sayfa ismi.		         			  |
-	| 2. array var @data => Değiştirilecek veriler.					  					      |
-	| 3. boolean var @output => Direk çıktı üretilsin mi, değer mi döndürülsün?.			  |
-	|          																				  |
-	| Örnek Kullanım: ->view('test', array('test' => 'deneme'))         					  |
-	|          																				  |
-	******************************************************************************************/
-	public function view($page = '', $data = array(), $output = false)
-	{
-		$stringData = Import::page($page, $data, true);
-		
-		$return = $this->data($stringData, $data);
-		
-		if( $output === true )
-		{
-			return $return;
-		}
-		
-		echo $return;
-	}
-	
-	/******************************************************************************************
-	* PAGE / VIEW                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Görünüm sayfasında ayrıştırma işlemi yapmak için kullanılır.			  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Views/ dizininde yer alan sayfa ismi.      					  |
-	| 2. array var @data => Değiştirilecek veriler.					  					      |
-	| 3. boolean var @output => Direk çıktı üretilsin mi, değer mi döndürülsün?.			  |
-	|          																				  |
-	| Örnek Kullanım: ->page('test', array('test' => 'deneme'))         					  |
-	|          																				  |
-	******************************************************************************************/
-	public function page($page = '', $data = array(), $output = false)
-	{
-		return $this->view($page, $data, $output);
-	}
-	
-	/******************************************************************************************
 	* DATA                                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Metinsel ifadelerde ayrıştırma işlemi yapmak için kullanılır.			  |
@@ -104,18 +59,18 @@ class __USE_STATIC_ACCESS__Parser
 	public function data($string = '', $data = array())
 	{
 		// Parametre konrolleri sağlanıyor.
-		if( ! is_string($string) || ! is_array($data) )
+		if( ! is_string($string) )
 		{
 			return Error::set(lang('Error', 'stringParameter', 'string'));	
 		}
-		
+	
 		// Veri dizisi boş değilse işlemleri gerçekleştir.
 		if( ! empty($data) ) 
 		{
 			$space = '\s*';
 			$all   = '.*';
 		
-			foreach($data as $key => $val)
+			foreach( $data as $key => $val )
 			{
 				// Eleman dizi değilse değiştirme işlemi gerçekleştir.
 				if( ! is_array($val) )
@@ -128,7 +83,7 @@ class __USE_STATIC_ACCESS__Parser
 				{
 					$allString = '';
 					$newResult = '';
-					
+		
 					if( ! empty($val) )
 					{
 						
@@ -160,7 +115,67 @@ class __USE_STATIC_ACCESS__Parser
 			}
 		}
 		
-		return $string;
+		$pattern = array
+		(
+			// Döngüler
+			'/\s*@(foreach\s*\(.*\))/' 	=> '<?php $1: ?>',
+			'/\s*@(while\s*\(.*\))/' 	=> '<?php $1: ?>',
+			'/\s*@(for\s*\(.*\))/' 		=> '<?php $1: ?>',
+			
+			// Karar Yapıları
+			'/\s*@(elseif\s*\(.*\))/'  	=> '<?php $1: ?>',
+			'/\s*@(if\s*\(.*\))/' 		=> '<?php $1: ?>',
+			'/\s*@(switch\s*\(.*\))/' 	=> '<?php $1: ?>',
+			'/\s*@(else\s*)/'			=> '<?php $1: ?>',
+			'/\s*@(case\s*)((\'.*\'|\".*\"|[0-9])*)/' => '<?php $1 $2: ?>',		
+			
+			// Kapatma Blokları
+			'/\s*@(endif)/' 			=> '<?php $1 ?>',
+			'/\s*@(endforeach)/'   		=> '<?php $1 ?>',
+			'/\s*@(endfor)/' 			=> '<?php $1 ?>',
+			'/\s*@(endswhile)/' 		=> '<?php $1 ?>',
+			'/\s*@(endswitch)/' 		=> '<?php $1 ?>',
+			
+			// Anahtar Kelimeler
+			'/\s*@(break)/'  		 	=> '<?php $1 ?>',
+			'/\s*@(continue)/'  	 	=> '<?php $1 ?>',
+			'/\s*@(default)/'  	 		=> '<?php $1: ?>',
+			
+			// Yazdırılabilir Fonksiyonlar
+			'/\s*@@((\w+|\$|::|\-\>)*\s*\(.*\))/' 	=> '<?php echo $1 ?>',	
+			
+			// Fonksiyonlar
+			'/\s*@((\w+|\$|::|\-\>)*\s*\(.*\))/'  	=> '<?php $1; ?>',
+			
+			// Yazdırılabilir Değişkenler
+			'/\s*@(\$\w+\s*)/' 	=> '<?php echo $1 ?>',
+			
+			// Açıklama Satırları
+			'/\{\-\-/'			 		=> '<!--',
+			'/\-\-\}/'			 		=> '-->',
+			
+			// Yazdırmak Tagları
+			'/\{\{/'			 		=> '<?php echo ',
+			'/\}\}/'			 		=> ' ?>',	
+			
+			// PHP Tagları
+			'/\{\[/'			 		=> '<?php ',
+			'/\]\}/'			 		=> ' ?>',
+		);
+			
+		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
+		
+		if( is_array($data) )
+		{
+			extract($data, EXTR_OVERWRITE);
+		}
+		
+		ob_start(); 
+		eval("?>$string");
+		$content = ob_get_contents(); 
+		ob_end_clean(); 
+		
+		return $content;
 	}	
 	
 	/******************************************************************************************

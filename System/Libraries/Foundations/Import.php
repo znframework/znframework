@@ -25,6 +25,14 @@ class Import
 	 */
 	private static $isImport = array();
 	
+	/* Template Değişkeni
+	 *  
+	 * Template uzantısı bilgisini
+	 * bilgisini tutması için oluşturulmuştur.
+	 *
+	 */
+	private static $templateExtension = '.template';
+	
 	/******************************************************************************************
 	* CALL                                                                                    *
 	*******************************************************************************************
@@ -49,14 +57,14 @@ class Import
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public static function page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false , $randomPageDir = PAGES_DIR)
+	private static function _page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false , $randomPageDir = PAGES_DIR)
 	{
 		if( ! is_string($randomPageVariable) )
 		{
 			return Error::set(lang('Error', 'stringParameter', 'randomPageVariable'));
 		}
 		
-		if( ! extension($randomPageVariable) )
+		if( ! extension($randomPageVariable) || stristr($randomPageVariable, self::$templateExtension) )
 		{
 			$randomPageVariable = suffix($randomPageVariable, '.php');
 		}
@@ -88,6 +96,54 @@ class Import
 		{
 			return Error::set(lang('Error', 'fileNotFound', $randomPageVariable));	
 		}
+	}
+	
+	/******************************************************************************************
+	* TEMPLATE                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: view.template.php dosyalarını yüklemek ve ayrıştırmak için kullanılır.  |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: Import::page('OrnekSayfa.template');        	  						  |
+	|          																				  |
+	******************************************************************************************/
+	private static function _template($page, $data, $obGetContents)
+	{
+		$return = Template::data(self::_page($page, $data, true), $data);
+			
+		if( $obGetContents === true )
+		{
+			return $return;
+		}
+		
+		echo $return;	
+	}
+	
+	/******************************************************************************************
+	* PAGE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public static function page($page = '', $data = '', $obGetContents = false)
+	{
+		if( stristr($page, self::$templateExtension) )
+		{
+			return self::_template($page, $data, $obGetContents);
+		}
+		
+		return self::_page($page, $data, $obGetContents);
 	}
 	
 	/******************************************************************************************
@@ -231,15 +287,6 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 	
-		if( ! is_file(PAGES_DIR.suffix($randomPageVariable,".php")) )
-		{ 
-			$randomPageVariable = ''; 
-		}
-		else
-		{ 
-			$randomPageVariable = PAGES_DIR.suffix($randomPageVariable,".php");
-		}
-		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$header  = Config::get('Doctype', $masterPageSet['docType']).eol();
@@ -410,43 +457,20 @@ class Import
 		//------------------------------------------------------------------------------------
 		if( ! empty($headPage) )
 		{
-			ob_start();
-			
+
 			// Tek bir üst sayfa kullanımı için.
 			if( ! is_array($headPage) )
 			{
-				if( is_file(PAGES_DIR.suffix($headPage,".php")) ) 
-				{
-					if( ! extension($headPage) )
-					{
-						$headPage = $headPage.'.php';
-					}
-					
-					require_once(PAGES_DIR.$headPage); 
-				}
+				$header .= self::page($headPage, '', true).eol();
 			}
 			else
 			{
 				// Birden fazla üst sayfa kullanımı için.
 				foreach( $headPage as $hpage )
 				{
-					if( is_file(PAGES_DIR.suffix($hpage,".php")) ) 
-					{
-						if( ! extension($hpage) )
-						{
-							$hpage = $hpage.'.php';
-						}
-						
-						require_once(PAGES_DIR.$hpage);
-					}
+					$header .= self::page($hpage, '', true).eol();
 				}
-			}
-			
-			$content = ob_get_contents();
-			 			
-
-			ob_end_clean(); 
-			$header .= $content.eol() ; 	
+			}	
 		}
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -476,14 +500,9 @@ class Import
 	
 		echo $header;
 		
-		if( is_array($randomDataVariable) ) 
-		{
-			extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
-		}
-		
 		if( ! empty($randomPageVariable) ) 
 		{
-			require($randomPageVariable);	
+			self::page($randomPageVariable, $randomDataVariable);
 		}
 		
 		$randomFooterVariable  = eol().'</body>'.eol();

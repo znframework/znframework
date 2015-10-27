@@ -1,5 +1,5 @@
 <?php
-class Saber extends StaticAccess
+class Template extends StaticAccess
 {
 	public static function getClassName()
 	{
