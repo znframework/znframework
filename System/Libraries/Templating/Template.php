@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*@((\w+|\$|::|\-\>)*\s*\(.*\))/'  => '<?php $1; ?>',
 			
 			// Yazdırılabilir Değişkenler
-			'/\s*@(\$\w+\s*)/' 			=> '<?php echo $1 ?>',
+			'/\s*@(\$(\w+|\-\>)*\s*)/' 	=> '<?php echo $1 ?>',
 			
 			// Açıklama Satırları
 			'/\{\-\-/'			 		=> '<!--',
