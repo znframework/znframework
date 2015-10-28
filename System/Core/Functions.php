@@ -1628,7 +1628,7 @@ function requestUri()
 	               ? substr(server('currentPath'), 1) 
 				   : currentUri();
 	
-	if( @$requestUri[strlen($requestUri) - 1] === '/' )
+	if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
 	{
 			$requestUri = substr($requestUri, 0, -1);
 	}
