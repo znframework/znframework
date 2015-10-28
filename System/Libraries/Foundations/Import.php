@@ -219,50 +219,61 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		$randomPageVariable = ( isset($head['bodyPage']) ) 
-					          ? $head['bodyPage'] 
-						      : $masterPageSet['bodyPage'];
+		$randomPageVariable = isset($head['bodyPage'])
+					        ? $head['bodyPage'] 
+						    : $masterPageSet['bodyPage'];
 		
-		$headPage = ( isset($head['headPage']) ) 
-					? $head['headPage'] 
-					: $masterPageSet['headPage'];
+		$headPage = isset($head['headPage'])
+			      ? $head['headPage'] 
+			      : $masterPageSet['headPage'];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 	
-		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/		
+		$docType = isset($head['docType']) 			
+			     ? $head['docType'] 		
+			     : $masterPageSet["docType"];
 		
-		$header  = Config::get('Doctype', $masterPageSet['docType']).eol();
+		$header  = Config::get('Doctype', $docType).eol();
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eol();
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$header .= '<head>'.eol();
 		
-		if( is_array($masterPageSet['contentCharset']) )
+		$contentCharset = isset($head['contentCharset']) 			
+					    ? $head['contentCharset'] 		
+					    : $masterPageSet["contentCharset"];
+					  
+		if( is_array($contentCharset) )
 		{
-			foreach( $masterPageSet['contentCharset'] as $v )
+			foreach( $contentCharset as $v )
 			{
 				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eol();	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$masterPageSet['contentCharset'].'">'.eol();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.eol();	
 		}
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.$masterPageSet['contentLanguage'].'">'.eol();
+		$contentLanguage = isset($head['contentLanguage']) 			
+					     ? $head['contentLanguage'] 		
+					     : $masterPageSet["contentLanguage"];
+		
+		$header .= '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.eol();
 			
 		//------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------					
-		$datas 		= $masterPageSet['data'];
+		$datas = $masterPageSet['data'];
 						
-		$metas 		= $masterPageSet['meta'];
+		$metas = $masterPageSet['meta'];
 						
-		$title 		= ( isset($head['title']) ) 			
-					  ? $head['title'] 		
-					  : $masterPageSet["title"];
+		$title = isset($head['title'])			
+			   ? $head['title'] 		
+			   : $masterPageSet["title"];
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
@@ -364,9 +375,13 @@ class Import
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
 		
-		if( ! empty($masterPageSet['browserIcon']) ) 
+		$browserIcon  = isset($head['browserIcon'])			
+					  ? $head['browserIcon'] 		
+					  : $masterPageSet["browserIcon"];
+					  
+		if( ! empty($browserIcon) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.baseUrl($masterPageSet['browserIcon']).'" />'.eol();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.eol();
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -385,7 +400,7 @@ class Import
 			}
 			else
 			{
-				foreach($datas as $v)
+				foreach( $datas as $v )
 				{
 					$header .= $v.eol();	
 				}	
@@ -427,14 +442,13 @@ class Import
 		//------------------------------------------------------------------------------------
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//------------------------------------------------------------------------------------
-		if( $masterPageSet['backgroundImage'] ) 
-		{
-			$bgImage = " background='".baseUrl($masterPageSet['backgroundImage'])."' bgproperties='fixed'"; 
-		}
-		else 
-		{
-			$bgImage = "";
-		}
+		$backgroundImage  = isset($head['backgroundImage'])			
+					      ? $head['backgroundImage'] 		
+					      : $masterPageSet["backgroundImage"];
+						  
+		$bgImage = ! empty($backgroundImage)
+		           ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"'
+				   : '';
 		//------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//------------------------------------------------------------------------------------
