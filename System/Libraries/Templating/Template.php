@@ -142,13 +142,13 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*@(default)/'  	 		=> '<?php $1: ?>',
 			
 			// Yazdırılabilir Fonksiyonlar
-			'/\s*@@((\w+|\$|::|\-\>)*\s*\(.*\))/' => '<?php echo $1 ?>',	
+			'/\s*@@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/' => '<?php echo $1 ?>',	
 			
 			// Fonksiyonlar
-			'/\s*@((\w+|\$|::|\-\>)*\s*\(.*\))/'  => '<?php $1; ?>',
+			'/\s*@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/'  => '<?php $1; ?>',
 			
 			// Yazdırılabilir Değişkenler
-			'/\s*@(\$(\w+|\-\>)*\s*)/' 	=> '<?php echo $1 ?>',
+			'/\s*@(\$(\w+|\s*\-\s*\>\s*)*\s*)/' 	=> '<?php echo $1 ?>',
 			
 			// Açıklama Satırları
 			'/\{\-\-/'			 		=> '<!--',
