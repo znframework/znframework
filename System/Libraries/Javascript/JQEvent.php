@@ -97,7 +97,7 @@ class __USE_STATIC_ACCESS__JQEvent extends JSCommon
 			Error::set(lang('Error', 'stringParameter', 'selector & callback'));	
 		}
 		
-		$this->property($type);
+		$this->property = $type;
 		
 		if( ! empty($selector))
 		{
