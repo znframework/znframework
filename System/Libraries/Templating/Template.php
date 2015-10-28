@@ -175,14 +175,13 @@ class __USE_STATIC_ACCESS__Template
 		$content = ob_get_contents(); 
 		ob_end_clean(); 
 		
-		if( ! empty($content) )
+		if( $lastError = Error::last() )
 		{
-			return $content;
+			Exceptions::table('', $lastError['message'], '', $lastError['line']);
 		}
 		else
 		{
-			$lastError = Error::last();
-			Exceptions::table('', $lastError['message'], '', $lastError['line']);
+			return $content;
 		}
 	}	
 	

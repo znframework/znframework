@@ -2,12 +2,12 @@
 	.generalExceptionTable
 	{
 		border:solid 1px #E1E4E5;
-		background:#F3F6F6;
+		background:#FEFEFE;
 		padding:10px;
 		margin:10px;
-		font-family:Consolas, "Courier New", Courier, monospace, Tahoma, Arial;
-		color:#333;
-		font-size:16px;
+		font-family:Calibri, Ebrima, Century Gothic, Consolas, "Courier New", Courier, monospace, Tahoma, Arial;
+		color:#666;
+		font-size:14px;
 		text-align:left;
 	}
 	

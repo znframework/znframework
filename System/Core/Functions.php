@@ -1534,13 +1534,13 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 {
 	$style = '
 		border:solid 1px #E1E4E5;
-		background:#F3F6F6;
+		background:#FEFEFE;
 		padding:10px;
 		margin-bottom:10px;
-		font-family:Consolas, Courier New, Courier, monospace, Tahoma, Arial;
-		color:#333;
+		font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;
+		color:#666;
 		text-align:left;
-		font-size:16px;
+		font-size:14px;
 	';
 	
 	$exStyle = 'color:#900;';
