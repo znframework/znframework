@@ -315,7 +315,7 @@ class MysqliDriver
 		
 		$columns = array();
 		$fields = mysqli_fetch_fields($this->query);
-		$num_fields = $this->num_fields();
+		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
 		{		

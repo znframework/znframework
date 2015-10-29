@@ -355,7 +355,7 @@ class PdoDriver
 		
 		$columns = array();
 		
-		$total_columns = $this->num_fields();
+		$total_columns = $this->numFields();
 		
 		for ($i = 0; $i < $total_columns; $i ++) 
 		{

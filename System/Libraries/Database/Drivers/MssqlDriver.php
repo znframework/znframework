@@ -302,7 +302,7 @@ class MssqlDriver
 		}
 		
 		$columns = array();
-		$num_fields = $this->num_fields();
+		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
 		{		
