@@ -34,13 +34,13 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 	 
 	protected $property = '';
 	
-	/* Callback Variables
-	 * Data Function
-	 * alert("example");
+	/* Property Queue Variables
+	 * 
 	 *
-	 * function(data){alert("example");}
-	 */
-	protected $func = '';
+	 * @string var = 1
+	 * 
+	 */	
+	protected $propertyQueue = '';
 	
 	/* Attributes Variables
 	 * Attributes 
@@ -101,59 +101,8 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 
 		$this->attr = $attr;
 		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* ATTR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Propertinin parametrelerini ayarlamak için kullanılır.				  |
-		
-	  @param argument p1, p2 ... pN .property(p1, p2, p3 .... pN) 
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function attr()
-	{
-		$this->attr = func_get_args();
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* FUNC / CALLBACK                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Geri dönüş fonksiyonunu oluşturmak içindir.    						  |
-		
-	  @param string $param
-	  @param string $callback
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function func($params = '', $func = '')
-	{
-		$this->callback($params, $func);
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* CALLBACK                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Geri dönüş fonksiyonunu oluşturmak içindir.    						  |
-		
-	  @param string $param
-	  @param string $callback
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function callback($params = '', $func = '')
-	{
-		$this->func = JQ::func($params, $func);
-		
+		$this->propertyQueue .= JQ::property($property, $attr);
+
 		return $this;
 	}
 	
@@ -169,9 +118,8 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 	******************************************************************************************/
 	public function complete()
 	{
-		$this->attr[] = $this->func;
-		$complete = JQ::property($this->property, $this->attr);
-		
+		$complete = $this->propertyQueue;
+
 		$this->_defaultVariable();
 		
 		return $complete;
@@ -193,8 +141,8 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 		
 		$complete  = eol().JQ::selector($this->selector);
 		
-		$complete .= $this->complete();
-		
+		$complete .= $this->complete();		
+			
 		if( ! empty($combineFunction)) foreach( $combineFunction as $function )
 		{			
 			$complete .= $function;
@@ -217,9 +165,9 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 	******************************************************************************************/
 	protected function _defaultVariable()
 	{
-		if($this->selector !== 'this') 	$this->selector = 'this';
-		if($this->property !== '')  	$this->property = '';
-		if($this->func !== '')  		$this->func = '';
-		if($this->attr !== '')  		$this->attr = '';
+		if( $this->selector !== 'this' ) 	$this->selector = 'this';
+		if( $this->property !== '' )  		$this->property = '';
+		if( $this->attr !== '' )  			$this->attr = '';
+		if( $this->propertyQueue !== '') 	$this->propertyQueue = '';
 	}
 }
