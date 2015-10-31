@@ -214,8 +214,8 @@ class CubridDriver
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= cubrid_field_name($this->query, $i);
 			$columns[$i]->type			= cubrid_field_type($this->query, $i);
-			$columns[$i]->max_length	= cubrid_field_len($this->query, $i);
-			$columns[$i]->primary_key	= (int) (strpos(cubrid_field_flags($this->query, $i), 'primary_key') !== false);
+			$columns[$i]->maxLength		= cubrid_field_len($this->query, $i);
+			$columns[$i]->primaryKey	= (int) (strpos(cubrid_field_flags($this->query, $i), 'primary_key') !== false);
 		}
 		return $columns;
 	}

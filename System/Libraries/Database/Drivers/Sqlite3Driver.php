@@ -180,12 +180,12 @@ class Sqlite3Driver
 		
 		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
 		{	
-			$type 						= $this->query->columnType($i);
+			$type 					= $this->query->columnType($i);
 			
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $this->result_id->columnName($i);		
-			$columns[$i]->type			= isset($data_types[$type]) ? $data_types[$type] : $type;
-			$columns[$i]->max_length	= NULL;
+			$columns[$i]			= new stdClass();
+			$columns[$i]->name		= $this->result_id->columnName($i);		
+			$columns[$i]->type		= isset($data_types[$type]) ? $data_types[$type] : $type;
+			$columns[$i]->maxLength	= NULL;
 		}
 		
 		return $columns;

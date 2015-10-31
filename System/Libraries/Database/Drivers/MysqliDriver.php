@@ -202,8 +202,8 @@ class MysqliDriver
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= $field_data[$i]->name;
 			$columns[$i]->type			= $field_data[$i]->type;
-			$columns[$i]->max_length	= $field_data[$i]->max_length;
-			$columns[$i]->primary_key	= (int) ($field_data[$i]->flags & 2);
+			$columns[$i]->maxLength		= $field_data[$i]->max_length;
+			$columns[$i]->primaryKey	= (int) ($field_data[$i]->flags & 2);
 			$columns[$i]->default		= $field_data[$i]->def;
 		}
 		

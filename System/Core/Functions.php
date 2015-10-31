@@ -1213,12 +1213,17 @@ function divide($str = '', $seperator = "|", $index = 0)
 		$seperator = "|";
 	}
 	
-	if( ! isValue($index)) 
+	if( ! isValue($index) ) 
 	{
 		$index = 0;
 	}
 	
 	$arrayEx = explode($seperator, $str);
+	
+	if( $index === 'all')
+	{
+		return $arrayEx;
+	}
 	
 	if( $index < 0 )
 	{

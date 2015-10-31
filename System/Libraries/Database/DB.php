@@ -239,7 +239,7 @@ class __USE_STATIC_ACCESS__DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $pagination;
+	private $pagination = array('start' => 0, 'limit' => 0);
 	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
@@ -1220,16 +1220,11 @@ class __USE_STATIC_ACCESS__DB
 	| Örnek Kullanım: ->limit(0, 5)  // LIMIT 0, 5											  |
 	|          																				  |
 	******************************************************************************************/
-	public function limit($start = '', $limit = '')
+	public function limit($start = 0, $limit = 0)
 	{ 
-		if( ! is_numeric($start) ) 
-		{	
-			$start = 0;
-		}
-		
-		if( ! is_numeric($limit) ) 
+		if( $start === NULL )
 		{
-			$limit = 0;
+			$start = URI::segment(-1);
 		}
 		
 		if( ! empty($limit) ) 
@@ -1241,9 +1236,9 @@ class __USE_STATIC_ACCESS__DB
 			$comma = '';
 		}
 		
-		$this->pagination['start'] = $start;
-		$this->pagination['limit'] = $limit;
-		$this->limit = ' LIMIT '.$start.$comma.$limit.' ';
+		$this->pagination['start'] = (int)$start;
+		$this->pagination['limit'] = (int)$limit;
+		$this->limit = ' LIMIT '.(int)$start.$comma.(int)$limit.' ';
 		
 		return $this; 
 	}
@@ -1698,7 +1693,7 @@ class __USE_STATIC_ACCESS__DB
 		$this->limit = NULL;
 		$this->join = NULL;
 		$this->config = array();
-		$this->pagination = array();
+		$this->pagination = array('start' => 0, 'limit' => 0);
 	}
 	
 	/******************************************************************************************

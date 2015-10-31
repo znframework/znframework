@@ -347,7 +347,7 @@ class __USE_STATIC_ACCESS__Pagination
 		{	
 			// lINKS Sayfalamada yer alacak linkler oluşturuluyor.
 			// LINKS -------------------------------------------------------------------	
-			for($i = 1; $i <= $perPage; $i++)
+			for( $i = 1; $i <= $perPage; $i++ )
 			{
 				$page = ($i - 1) * $this->limit;
 				
@@ -555,8 +555,8 @@ class __USE_STATIC_ACCESS__Pagination
 			}
 			else
 			{
-				$last        = '';
-				$lastTag = '';
+				$last       = '';
+				$lastTag 	= '';
 				$pagIndex   = @ceil($this->totalRows / $this->limit) - $this->countLinks + 1;
 			}
 			
@@ -570,8 +570,8 @@ class __USE_STATIC_ACCESS__Pagination
 			if( $nPerPage >= @ceil($this->totalRows / $this->limit) ) 
 			{
 				$nPerPage  = @ceil($this->totalRows / $this->limit);
-				$lastTag = '';
-				$last        = '';
+				$lastTag   = '';
+				$last      = '';
 			}
 			
 			$links = '';

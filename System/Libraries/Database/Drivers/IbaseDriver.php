@@ -202,8 +202,8 @@ class IbaseDriver
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= $info['name'];
 			$columns[$i]->type			= $info['type'];
-			$columns[$i]->max_length	= $info['length'];
-			$columns[$i]->primary_key	= false;
+			$columns[$i]->maxLength		= $info['length'];
+			$columns[$i]->primaryKey	= false;
 		}
 		
 		return $columns;

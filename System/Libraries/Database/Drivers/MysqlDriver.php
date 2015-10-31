@@ -196,11 +196,11 @@ class MysqlDriver
 		
 		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
 		{
-			$columns[$i]					= new stdClass();
-			$columns[$i]->name				= mysql_field_name($this->query, $i);
-			$columns[$i]->type				= mysql_field_type($this->query, $i);
-			$columns[$i]->max_length		= mysql_field_len($this->query, $i);
-			$columns[$i]->primary_key		= (int) (strpos(mysql_field_flags($this->query, $i), 'primary_key') !== false);
+			$columns[$i]				= new stdClass();
+			$columns[$i]->name			= mysql_field_name($this->query, $i);
+			$columns[$i]->type			= mysql_field_type($this->query, $i);
+			$columns[$i]->maxLength		= mysql_field_len($this->query, $i);
+			$columns[$i]->primaryKey	= (int) (strpos(mysql_field_flags($this->query, $i), 'primary_key') !== false);
 		}
 		
 		return $columns;

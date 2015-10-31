@@ -194,8 +194,8 @@ class MssqlDriver
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= $field->name;
 			$columns[$i]->type			= $field->type;
-			$columns[$i]->max_length	= $field->max_length;
-			$columns[$i]->primary_key	= false;
+			$columns[$i]->maxLength		= $field->max_length;
+			$columns[$i]->primaryKey	= false;
 		}
 		
 		return $columns;

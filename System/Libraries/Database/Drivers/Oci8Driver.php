@@ -223,7 +223,7 @@ class Oci8Driver
 			$field				= new stdClass();
 			$field->name		= oci_field_name($this->query, $i);
 			$field->type		= oci_field_type($this->query, $i);
-			$field->max_length	= oci_field_size($this->query, $i);
+			$field->maxLength	= oci_field_size($this->query, $i);
 			$columns[] 			= $field;
 		}
 		

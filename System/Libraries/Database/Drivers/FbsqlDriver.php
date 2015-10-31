@@ -211,8 +211,8 @@ class FbsqlDriver
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= fbsql_field_name($this->query, $i);
 			$columns[$i]->type			= fbsql_field_type($this->query, $i);
-			$columns[$i]->max_length	= fbsql_field_len($this->query, $i);
-			$columns[$i]->primary_key	= (int) (strpos(fbsql_field_flags($this->query, $i), 'primary_key') !== false);
+			$columns[$i]->maxLength		= fbsql_field_len($this->query, $i);
+			$columns[$i]->primaryKey	= (int) (strpos(fbsql_field_flags($this->query, $i), 'primary_key') !== false);
 		}
 		
 		return $columns;

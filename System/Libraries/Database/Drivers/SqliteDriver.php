@@ -178,10 +178,10 @@ class SqliteDriver
 		
 		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= sqlite_field_name($this->query, $i);
-			$columns[$i]->type			= NULL;
-			$columns[$i]->max_length	= NULL;
+			$columns[$i]			= new stdClass();
+			$columns[$i]->name		= sqlite_field_name($this->query, $i);
+			$columns[$i]->type		= NULL;
+			$columns[$i]->maxLength	= NULL;
 		}
 		
 		return $columns;

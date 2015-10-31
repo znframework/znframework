@@ -174,10 +174,10 @@ class SybaseDriver
 		{
 			$info = sybase_fetch_field($this->query, $i);
 			
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $info->name;
-			$columns[$i]->type			= $info->type;
-			$columns[$i]->max_length	= $info->max_length;
+			$columns[$i]			= new stdClass();
+			$columns[$i]->name		= $info->name;
+			$columns[$i]->type		= $info->type;
+			$columns[$i]->maxLength	= $info->max_length;
 		}
 		
 		return $columns;

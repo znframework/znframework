@@ -189,10 +189,10 @@ class SqlsrvDriver
 		
 		foreach (sqlsrv_field_metadata($this->query) as $i => $field)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $field['Name'];
-			$columns[$i]->type			= $field['Type'];
-			$columns[$i]->max_length	= $field['Size'];
+			$columns[$i]			= new stdClass();
+			$columns[$i]->name		= $field['Name'];
+			$columns[$i]->type		= $field['Type'];
+			$columns[$i]->maxLength	= $field['Size'];
 		}
 		
 		return $columns;

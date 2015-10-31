@@ -183,8 +183,8 @@ class OdbcDriver
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= odbc_field_name($this->query, $index);
 			$columns[$i]->type			= odbc_field_type($this->query, $index);
-			$columns[$i]->max_length	= odbc_field_len($this->query, $index);
-			$columns[$i]->primary_key	= 0;
+			$columns[$i]->maxLength		= odbc_field_len($this->query, $index);
+			$columns[$i]->primaryKey	= 0;
 			$columns[$i]->default		= '';
 		}
 		

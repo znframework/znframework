@@ -62,6 +62,8 @@ class __USE_STATIC_ACCESS__Convert
 			return Error::set(lang('Error', 'valueParameter', 'string'));
 		}
 		
+		$string = self::accent($string);
+		
 		if( ! is_string($type) ) 
 		{
 			$type = 'char';
@@ -149,13 +151,9 @@ class __USE_STATIC_ACCESS__Convert
 			$splitWord = "-";
 		}	
 		
-		$accent = Config::get('ForeignChars', 'accentChars');
-		
-		$accent = Arrays::multikey($accent);
-		
 		$badChars = Config::get('Security', 'urlBadChars');
 		
-		$str = str_replace(array_keys($accent), array_values($accent), $str); 
+		$str = self::accent($str);
 		$str = str_replace($badChars, '', $str);
 		$str = preg_replace("/\s+/", ' ', $str);
 		$str = str_replace("&nbsp;", '', $str);
@@ -408,8 +406,8 @@ class __USE_STATIC_ACCESS__Convert
 			'#0000BB' => $color,
 			
 			// PHP Tag Renkleri
-			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php',
-			'<span style="color: '.$color.'">?&gt;'	  => '<span style="color: '.$tagColor.'">?&gt;',
+			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php</span>',
+			'<span style="color: '.$color.'">?&gt;'	  => '<span style="color: '.$tagColor.'">?&gt;</span>',
 			
 			// Keywords
 			'#007700' => $keywordColor,

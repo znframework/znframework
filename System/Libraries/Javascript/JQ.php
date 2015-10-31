@@ -170,7 +170,7 @@ class __USE_STATIC_ACCESS__JQ extends JSCommon
 	{
 		if( ! empty($callback) )
 		{
-			$params[]= array($this->func('e', $callback));
+			$params[] = array($this->func('e', $callback));
 		}
 		
 		return $this->selector($selector).$this->property($property, $params, $comma);		   

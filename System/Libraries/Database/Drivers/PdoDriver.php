@@ -248,8 +248,8 @@ class PdoDriver
 				$columns[$i]				= new stdClass();
 				$columns[$i]->name			= $field['name'];
 				$columns[$i]->type			= $field['native_type'];
-				$columns[$i]->max_length	= ($field['len'] > 0) ? $field['len'] : NULL;
-				$columns[$i]->primary_key	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
+				$columns[$i]->maxLength		= ($field['len'] > 0) ? $field['len'] : NULL;
+				$columns[$i]->primaryKey	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
 			}
 			return $columns;
 		}
