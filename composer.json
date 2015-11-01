@@ -30,10 +30,5 @@
 		[
 			"System/Libraries/"
 		]
-	},
-	
-	"comments" :
-	{
-		"autoload": "ZERONEED Framework kendi içerisinde autoload özelligine sahiptir. Bu nedenle composer ile autoload etmeye gerek yoktur."		
 	}
 }
