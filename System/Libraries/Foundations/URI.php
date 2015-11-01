@@ -70,10 +70,6 @@ class __USE_STATIC_ACCESS__URI
 	public function get($get = '', $index = 1, $while = false)
 	{
 		// Parametre kontrolleri yapılıyor. ---------------------------------------------------
-		if( ! is_string($get) || empty($get) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'get'));
-		}
 		if( ! isChar($index) ) 
 		{
 			$index = 1;		
@@ -86,6 +82,45 @@ class __USE_STATIC_ACCESS__URI
 		
 		$segArr = $this->segmentArray();
 		$segVal = '';
+		
+		if( is_numeric($get) )
+		{
+			if( $get == 0 )
+			{
+				$get = 1;	
+			}
+			
+			$get -= 1;
+			
+			$uri = '';
+			
+			if( $index === 'all' )
+			{
+				$index = -1;	
+			}
+			
+			if( $index < 0 )
+			{
+				$index = count($segArr) + $index + 1;	
+			}
+			
+			if( $index > 0 )
+			{
+				$index = $get + $index;	
+			}
+			
+			if( abs($index) > count($segArr) )
+			{
+				$index = count($segArr);
+			}
+			
+			for( $i = $get; $i < $index; $i++ )
+			{
+				$uri .= $segArr[$i].'/';
+			}
+			
+			return rtrim($uri, '/');
+		}
 		
 		if( in_array($get, $segArr) )
 		{ 

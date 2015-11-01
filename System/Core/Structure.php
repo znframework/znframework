@@ -183,6 +183,41 @@ class Structure
 		$isFile     = $datas['isFile'];
 		$function   = $datas['function'];
 		
+		/******************************************************************************************
+		* CURRENT_CFILE: Aktif çalıştırılan kontrolcü dosyasının yol bilgisi                      *
+		******************************************************************************************/	
+		define('CURRENT_CFILE', $isFile);
+		
+		/******************************************************************************************
+		* CURRENT_CFUNCTION: Aktif çalıştırılan sayfaya ait fonksiyon bilgisi                     *
+		******************************************************************************************/
+		define('CURRENT_CFUNCTION', $function);
+		
+		/******************************************************************************************
+		* CURRENT_CPAGE: Aktif çalıştırılan sayfaya ait kontrolcü dosyasının ad bilgisini         *
+		******************************************************************************************/
+		define('CURRENT_CPAGE', $page.".php");
+		
+		/******************************************************************************************
+		* CURRENT_CONTROLLER: Aktif çalıştırılan sayfaya ait kontrolcü bilgisi	                  *
+		******************************************************************************************/
+		define('CURRENT_CONTROLLER', $page);
+		
+		/******************************************************************************************
+		* CURRENT_CPATH: Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu	bilgisi       *
+		******************************************************************************************/
+		define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
+		
+		/******************************************************************************************
+		* CURRENT_CFURI: Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu	bilgisi       *
+		******************************************************************************************/
+		define('CURRENT_CFURI', CURRENT_CFPATH);
+		
+		/******************************************************************************************
+		* CURRENT_CPATH: Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon URL yol bilgisi   *
+		******************************************************************************************/
+		define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
+		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
 		if( Config::get('Cache','obGzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 

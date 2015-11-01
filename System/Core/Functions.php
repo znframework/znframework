@@ -1043,7 +1043,7 @@ function basePath($uri = '', $index = 0)
 			
 			$newBaseDir = '';
 			
-			for($i = 0; $i < count($baseDir) + $index; $i++)
+			for( $i = 0; $i < count($baseDir) + $index; $i++ )
 			{
 				$newBaseDir .= suffix($baseDir[$i]);
 			}
@@ -1220,7 +1220,7 @@ function divide($str = '', $seperator = "|", $index = 0)
 	
 	$arrayEx = explode($seperator, $str);
 	
-	if( $index === 'all')
+	if( $index === 'all' )
 	{
 		return $arrayEx;
 	}

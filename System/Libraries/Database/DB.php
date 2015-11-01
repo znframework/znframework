@@ -519,26 +519,26 @@ class __USE_STATIC_ACCESS__DB
 		
 		// Sorgu yöntemlerinden gelen değeler birleştiriliyor.
 		$queryBuilder = $this->select.
-						 $this->all.
-						 $this->distinct.
-						 $this->distinctRow.
-						 $this->highPriority.
-						 $this->straightJoin.
-						 $this->smallResult.
-						 $this->bigResult.
-						 $this->bufferResult.
-						 $this->cache.
-						 $this->noCache.
-						 $this->calcFoundRows.					 
-						 $this->selectColumn.
-						 $this->math.
-						 $this->from.
-						 $this->join.
-						 $where.$this->where.
-						 $this->groupBy.
-						 $having.$this->having.
-						 $this->orderBy.
-						 $this->limit;	
+						$this->all.
+						$this->distinct.
+						$this->distinctRow.
+						$this->highPriority.
+						$this->straightJoin.
+						$this->smallResult.
+						$this->bigResult.
+						$this->bufferResult.
+						$this->cache.
+						$this->noCache.
+						$this->calcFoundRows.					 
+						$this->selectColumn.
+						$this->math.
+						$this->from.
+						$this->join.
+						$where.$this->where.
+						$this->groupBy.
+					    $having.$this->having.
+						$this->orderBy.
+						$this->limit;	
 		
 		$this->_resetQuery();
 		
@@ -554,13 +554,14 @@ class __USE_STATIC_ACCESS__DB
 	*******************************************************************************************
 	| Genel Kullanım: Standart veritabanı sorgusu kullanmak için oluşturulmuştur.			  |
 	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
+	| Parametreler: 2 parametresi vardır.                                                     |
 	| 1. string var @query  => SQL SORGULARI yazılır.							              |
+	| 2. string var @secure  => Sorgu güvenliği içindir.						              |
 	|          																				  |
 	| Örnek Kullanım: $this->db->query('SELECT * FROM OrnekTablo');        					  |
 	|          																				  |
 	******************************************************************************************/
-	public function query($query = '')
+	public function query($query = '', $secure = array())
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
@@ -569,8 +570,11 @@ class __USE_STATIC_ACCESS__DB
 		}
 		else
 		{
-			$secure = $this->secure;
-	
+			if( isset($this->secure) )
+			{
+				$secure = $this->secure;
+			}
+			
 			$this->db->query($this->_querySecurity($query), $secure);
 			
 			if( ! empty($this->transStart) ) 
@@ -593,11 +597,12 @@ class __USE_STATIC_ACCESS__DB
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
 	| 1. string var @query  => SQL SORGULARI yazılır.							              |
+	| 2. string var @secure  => Sorgu güvenliği içindir.						              |
 	|          																				  |
 	| Örnek Kullanım: $this->db->execQuery('DROP TABLE OrnekTablo');        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function execQuery($query = '')
+	public function execQuery($query = '', $secure = array())
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
@@ -607,7 +612,10 @@ class __USE_STATIC_ACCESS__DB
 			return false;	
 		}
 		
-		$secure = $this->secure;
+		if( isset($this->secure) )
+		{
+			$secure = $this->secure;	
+		}
 		
 		return $this->db->exec($this->_querySecurity($query), $secure);
 	}
@@ -1086,14 +1094,45 @@ class __USE_STATIC_ACCESS__DB
 		$limit = $this->pagination['limit'];
 		$start = $this->pagination['start'];
 		
-		$this->calcFoundRows()->get($table);
-				
+		// Eğer tablo parametresi boşluk içeren metinsel bir ifade içeriyorsa
+		// bu ifade standart sorgu kabul edilerek kullanılır.
+		if( strstr($table, ' ') )
+		{
+			$strNext = stristr($table, "LIMIT");
+			
+			if( ! is_numeric(Uri::segment(-1)) )
+			{ 
+				$startPage = 0; 
+			}
+			else
+			{ 
+				// Son segment sayısal veri ise
+				// başlangıç değeri olarak ayarla
+				$startPage = Uri::segment(-1);
+			}
+			
+			$strNext = str_ireplace('NULL', $startPage, $strNext);
+			$strPrev = stristr($table, "LIMIT", true);
+			$strPrev = str_ireplace('SELECT', 'SELECT SQL_CALC_FOUND_ROWS', $strPrev);
+			preg_match_all('/[0-9]+/', $strNext, $match);
+			
+			$start = isset($match[0][0]) ? $match[0][0] : 0;
+			$limit = isset($match[0][1]) ? $match[0][1] : $start;
+			
+			$this->query($strPrev." LIMIT $start, $limit");
+		}
+		else
+		{
+			$this->calcFoundRows()->get($table);	
+		}
+		
 		$result = $returnType === 'object'
 				? $this->result()
 				: $this->resultArray();
-		
+
 		$return['result']      = $result;
 		$return['totalRows']   = $this->totalRows();
+		$return['columns']     = $this->columns();
 		$settings['totalRows'] = $this->foundRows();
 		$settings['limit']     = isset($limit) ? $limit : NULL;
 		$settings['start']     = isset($start) ? $start : NULL;

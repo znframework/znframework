@@ -96,7 +96,7 @@ class __USE_STATIC_ACCESS__Pagination
 	 * Sayfalama nesnesinin çalıştırılacağı url
 	 * bilgisini tutması için oluşturulmuştur.
 	 */
-	protected $url;
+	protected $url  		= CURRENT_CFPATH;
 	
 	/******************************************************************************************
 	* CALL                                                                                    *
@@ -276,6 +276,7 @@ class __USE_STATIC_ACCESS__Pagination
 		if( isset($config['totalRows']) )	$this->totalRows 	= $config['totalRows'];
 		if( isset($config['limit']) )		$this->limit 		= $config['limit'];
 		if( isset($config['url']) )			$this->url 			= suffix(siteUrl($config['url']));	
+		else								$this->url 			= suffix(CURRENT_CFURL);	
 		if( isset($config['countLinks']) )	$this->countLinks 	= $config['countLinks'];
 		if( isset($config['class']) )		$this->class 		= $config['class'];
 		if( isset($config['style']) )		$this->style 		= $config['style'];
@@ -284,7 +285,7 @@ class __USE_STATIC_ACCESS__Pagination
 		if( isset($config['firstName']) )	$this->firstTag 	= $config['firstName'];
 		if( isset($config['lastName']) )	$this->lastTag 		= $config['lastName'];
 		// ---------------------------------------------------------------------------------------	
-		
+	
 		return $this;
 	}
 	

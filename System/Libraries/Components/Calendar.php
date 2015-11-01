@@ -259,6 +259,11 @@ class __USE_STATIC_ACCESS__Calendar
 		// Gün, ay ve yıl bilgilerini alınıyor.
 		$today = getdate();
 		
+		if( ! isset($this->url) )
+		{
+			$this->url = suffix(CURRENT_CFURL);		
+		}
+		
 		// Eğer parametreler boş ise
 		// Varsayılan olarak URL adresinin
 		// Son iki segmentini kullan
