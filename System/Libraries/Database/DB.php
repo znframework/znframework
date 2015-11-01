@@ -241,6 +241,14 @@ class __USE_STATIC_ACCESS__DB
 	 */
 	private $pagination = array('start' => 0, 'limit' => 0);
 	
+	/* Pagination Query Builder Değişkeni
+	 *  
+	 * Sayfalama için limitsiz sorguyu
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $unlimitedTotalRows;
+	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
 	*******************************************************************************************
@@ -518,32 +526,34 @@ class __USE_STATIC_ACCESS__DB
 		}
 		
 		// Sorgu yöntemlerinden gelen değeler birleştiriliyor.
-		$queryBuilder = $this->select.
-						$this->all.
-						$this->distinct.
-						$this->distinctRow.
-						$this->highPriority.
-						$this->straightJoin.
-						$this->smallResult.
-						$this->bigResult.
-						$this->bufferResult.
-						$this->cache.
-						$this->noCache.
-						$this->calcFoundRows.					 
-						$this->selectColumn.
-						$this->math.
-						$this->from.
-						$this->join.
-						$where.$this->where.
-						$this->groupBy.
-					    $having.$this->having.
-						$this->orderBy.
-						$this->limit;	
+		
+		$paginationQueryBuilder = $this->select.
+								  $this->all.
+								  $this->distinct.
+								  $this->distinctRow.
+							 	  $this->highPriority.
+								  $this->straightJoin.
+								  $this->smallResult.
+								  $this->bigResult.
+								  $this->bufferResult.
+								  $this->cache.
+								  $this->noCache.
+								  $this->calcFoundRows.					 
+								  $this->selectColumn.
+								  $this->math.
+								  $this->from.
+								  $this->join.
+								  $where.$this->where.
+								  $this->groupBy.
+								  $having.$this->having.
+								  $this->orderBy;
+		
+		$queryBuilder = $paginationQueryBuilder.$this->limit;
 		
 		$this->_resetQuery();
 		
 		$secure = $this->secure;
-
+		$this->unlimitedTotalRows = $this->query($this->_querySecurity($paginationQueryBuilder), $secure)->totalRows();
 		$this->db->query($this->_querySecurity($queryBuilder), $secure);
 		
 		return $this;
@@ -670,9 +680,16 @@ class __USE_STATIC_ACCESS__DB
 	| Örnek Kullanım: ->totalRows();        			                                      |
 	|          																				  |
 	******************************************************************************************/
-	public function totalRows()
+	public function totalRows($total = false)
 	{ 
-		return $this->db->numRows(); 
+		if( $total === false )
+		{
+			return $this->db->numRows(); 
+		}
+		else
+		{
+			return $this->unlimitedTotalRows;	
+		}
 	}
 	
 	/******************************************************************************************
@@ -1069,79 +1086,32 @@ class __USE_STATIC_ACCESS__DB
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
 	  
-	  @param  array $data
+	  @param  array $settings
+	  @param  bool $output
 	  @return array veya object
 	|          																				  |
 	******************************************************************************************/
-	public function pagination($table = '', $settings = array(), $returnType = 'object')
+	public function pagination($settings = array(), $output = true)
 	{ 
 		if( ! is_array($settings) )
 		{
 			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));	
 		} 
-		
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$returnType  = $settings;
-			$settings    = $table;
-			$table       = $this->table; 
-			
-			$this->table = NULL;
-		}
-		
+	
 		$limit = $this->pagination['limit'];
 		$start = $this->pagination['start'];
 		
-		// Eğer tablo parametresi boşluk içeren metinsel bir ifade içeriyorsa
-		// bu ifade standart sorgu kabul edilerek kullanılır.
-		if( strstr($table, ' ') )
-		{
-			$strNext = stristr($table, "LIMIT");
-			
-			if( ! is_numeric(Uri::segment(-1)) )
-			{ 
-				$startPage = 0; 
-			}
-			else
-			{ 
-				// Son segment sayısal veri ise
-				// başlangıç değeri olarak ayarla
-				$startPage = Uri::segment(-1);
-			}
-			
-			$strNext = str_ireplace('NULL', $startPage, $strNext);
-			$strPrev = stristr($table, "LIMIT", true);
-			$strPrev = str_ireplace('SELECT', 'SELECT SQL_CALC_FOUND_ROWS', $strPrev);
-			preg_match_all('/[0-9]+/', $strNext, $match);
-			
-			$start = isset($match[0][0]) ? $match[0][0] : 0;
-			$limit = isset($match[0][1]) ? $match[0][1] : $start;
-			
-			$this->query($strPrev." LIMIT $start, $limit");
-		}
-		else
-		{
-			$this->calcFoundRows()->get($table);	
-		}
-		
-		$result = $returnType === 'object'
-				? $this->result()
-				: $this->resultArray();
-
-		$return['result']      = $result;
-		$return['totalRows']   = $this->totalRows();
-		$return['columns']     = $this->columns();
-		$settings['totalRows'] = $this->foundRows();
-		$settings['limit']     = isset($limit) ? $limit : NULL;
+		$settings['totalRows'] = $this->unlimitedTotalRows;
+		$settings['limit']     = isset($limit) ? $limit : 10;
 		$settings['start']     = isset($start) ? $start : NULL;
-		$return['create']      = Pagination::create(NULL, $settings);
-		$return['settings']    = $settings;
 		
-		return $returnType === 'object'
-			   ? (object)$return
-			   : $return;
+		$return = $output === true
+		        ? Pagination::create(NULL, $settings) 
+				: $settings;
+		
+		$this->pagination = array('start' => 0, 'limit' => 0);
+		
+		return $return;
 	}
 	
 	/******************************************************************************************
@@ -1278,7 +1248,7 @@ class __USE_STATIC_ACCESS__DB
 		$this->pagination['start'] = (int)$start;
 		$this->pagination['limit'] = (int)$limit;
 		$this->limit = ' LIMIT '.(int)$start.$comma.(int)$limit.' ';
-		
+	
 		return $this; 
 	}
 	
@@ -1732,7 +1702,6 @@ class __USE_STATIC_ACCESS__DB
 		$this->limit = NULL;
 		$this->join = NULL;
 		$this->config = array();
-		$this->pagination = array('start' => 0, 'limit' => 0);
 	}
 	
 	/******************************************************************************************
