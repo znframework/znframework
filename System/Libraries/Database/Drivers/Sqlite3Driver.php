@@ -64,11 +64,6 @@ class Sqlite3Driver
 		}
 	}
 	
-	protected function ctimetype($type = '', $chars = array('/', '.'), $change = '-')
-	{
-	 	return str_replace($chars, $change, $type);
-	}
-	
 	public function autoIncrement()
 	{
 		return ' AUTO INCREMENT ';
@@ -179,25 +174,25 @@ class Sqlite3Driver
 	// yyyy-mm-dd
 	public function date($len = '')
 	{
-		return $this->cvartype('DATE', $this->ctimetype($len));
+		return $this->cvartype('DATE', $len);
 	}
 	
 	// yyyy-mm-dd hh:mm:ss
 	public function datetime($len = '')
 	{
-		return $this->cvartype('DATETIME', $this->ctimetype($len));
+		return $this->cvartype('DATETIME', $len);
 	}
 	
 	// hh:mm:ss
 	public function time($len = '')
 	{
-		return $this->cvartype('DATE', $this->ctimetype($len), array('/', '.', '-'), ':');
+		return $this->cvartype('DATE', $len);
 	}
 	
 	// yyyymmddhhmmss
 	public function timeStamp($len = '')
 	{
-		return $this->cvartype('DATETIME', $this->ctimetype($len));
+		return $this->cvartype('DATETIME', $len);
 	}
 	
 	// ENUM ENUMERATED listesinin kisaltılmış halidir. () içinde 65535 değer tutabilir
