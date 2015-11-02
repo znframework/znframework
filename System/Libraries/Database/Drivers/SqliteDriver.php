@@ -66,7 +66,7 @@ class SqliteDriver
 
 	public function autoIncrement()
 	{
-		return ' AUTO INCREMENT ';
+		return ' AUTOINCREMENT  ';
 	}
 	
 	public function primaryKey($col = '')

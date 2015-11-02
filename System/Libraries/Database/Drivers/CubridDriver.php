@@ -66,7 +66,7 @@ class CubridDriver
 
 	public function autoIncrement()
 	{
-		return ' AUTO INCREMENT ';
+		return ' AUTO_INCREMENT ';
 	}
 	
 	public function primaryKey($col = '')

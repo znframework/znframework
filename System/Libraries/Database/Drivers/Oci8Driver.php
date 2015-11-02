@@ -66,7 +66,7 @@ class Oci8Driver
 
 	public function autoIncrement()
 	{
-		return ' INCREMENT BY ';
+		return ' MINVALUE 1 STARVALUE WITH 1 INCREMENT BY 1 ';
 	}
 	
 	public function primaryKey($col = '')
