@@ -24,6 +24,20 @@ class __USE_STATIC_ACCESS__Search
 	 */
 	private $result;
 	
+	/* Word Değişkeni
+	 *  
+	 * Aranacak kelime bilgisini tutaması
+	 * için tanımlanmış dizi değişken
+	 */
+	private $word;
+	
+	/* Type Değişkeni
+	 *  
+	 * Arama türü bilgisini tutaması
+	 * için tanımlanmış dizi değişken
+	 */
+	private $type;
+	
 	/* Filter Değişkeni
 	 *  
 	 * Aramayı başlatmadan önce filtre uygulamak için
@@ -107,6 +121,61 @@ class __USE_STATIC_ACCESS__Search
 	}
 	
 	/******************************************************************************************
+	* OR FILTER                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Aramaya birden fazla filtre uygulanacağı zamana ve kullanımda veya      |
+	| bağlacı tercih edileceği zaman kullanılır.                                              |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
+	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
+	|          																				  |
+	| Örnek Kullanım: orFilter('yas >', 15);        	  			  						  |
+	| // or where yas > 15         														      |
+	|          																				  |
+	******************************************************************************************/	
+	public function orFilter($column = '', $value = '')
+	{
+		$this->_filter($column, $value, 'or');
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* WORD                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Aranacak kelime veya data.                                              |
+	
+	  @var string $word: aranacak kelime
+	  
+	  @return $this
+	|          																				  |
+	******************************************************************************************/	
+	public function word($word = '')
+	{
+		$this->word = $word;
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* TYPE                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Aranacak türü.          				                                  |
+	
+	  @var string $type: arama türü
+	  
+	  @return $this
+	|          																				  |
+	******************************************************************************************/	
+	public function type($type = '')
+	{
+		$this->type = $type;
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
 	* GET                                                                                     *
 	*******************************************************************************************
 	| Genel Kullanım: Arama işlemini başlatır ve sonucu çıktılar.                             |
@@ -125,8 +194,8 @@ class __USE_STATIC_ACCESS__Search
 	|     ) 																			      |
 	| );        	  			  							  						          |
 	|          																				  |
-	| 3. TYPE Parametresi 3 farklı değer alabilir        									  |
-	| inside, starting, ending         														  |
+	| 3. TYPE Parametresi 4 farklı değer alabilir        									  |
+	| inside, starting, ending, equal 														  |
 	|          																				  |
 	******************************************************************************************/	
 	public function get($conditions = array(), $word = '', $type = 'inside')
@@ -140,6 +209,16 @@ class __USE_STATIC_ACCESS__Search
 		if( ! isValue($word) ) 
 		{
 			return Error::set(lang('Error', 'valueParameter', 'word'));
+		}
+		
+		if( ! empty($this->type) )
+		{
+			$type = $this->type	;
+		}
+		
+		if( ! empty($this->word) )
+		{
+			$word = $this->word	;
 		}
 		
 		if( ! is_string($type) ) 
@@ -157,19 +236,28 @@ class __USE_STATIC_ACCESS__Search
 		// İçerisinde Geçen
 		if( $type === "inside" ) 
 		{
-			$str = '%'.$word.'%';
+			$str = DB::like($word, 'inside');
 		}
 		
 		// İle Başlayan
 		if( $type === "starting" ) 
 		{
-			$str = $word.'%';
+			$str = DB::like($word, 'starting');
 		}
 		
 		// İle Biten
 		if( $type === "ending" ) 
 		{
-			$str = '%'.$word;
+			$str = DB::like($word, 'ending');
+		}
+		
+		if( $type === 'equal')
+		{
+			$operator = ' = ';
+		}
+		else
+		{
+			$operator = ' like ';	
 		}
 		// ------------------------------------------------------------------------
 		
@@ -182,7 +270,7 @@ class __USE_STATIC_ACCESS__Search
 			
 			foreach($values as $keys)
 			{	
-				$db->where($keys.' like', $str);
+				$db->where($keys.$operator, $str);
 				
 				// Filter dizisi boş değilse
 				// Filtrelere göre verileri çek
@@ -218,7 +306,9 @@ class __USE_STATIC_ACCESS__Search
 		
 		$db->close();
 		// Değişkenleri sıfırla
-		$this->result = '';
+		$this->result = NULL;
+		$this->type   = NULL;
+		$this->word   = NULL;
 		$this->filter = array();
 		
 		// Sonuçları object veri türünde döndür.

@@ -41,6 +41,181 @@ class MysqliDriver
 	 */
 	private $query;
 	
+	/* Operators Değişkeni
+	 *  
+	 * Farklı platformlardaki operator farklılıklar bilgisi
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	public $operators = array
+	(
+		'like' => '%'
+	);
+	 
+	protected function cvartype($type = '', $len = '')
+	{
+	 	if( $len === '' )
+		{
+			return " $type ";	
+		}
+		else
+		{
+			return " $type($len) ";	
+		}
+	}
+	
+	protected function ctimetype($type = '', $chars = array('/', '.'), $change = '-')
+	{
+	 	return str_replace($chars, $change, $type);
+	}
+	
+	public function autoIncrement()
+	{
+		return ' AUTO_INCREMENT ';
+	}
+	
+	public function primaryKey($col = '')
+	{
+		return $this->cvartype('PRIMARY KEY', $col);
+	}
+	
+	public function foreignKey($col = '')
+	{
+		return $this->cvartype('FOREIGN KEY', $col);
+	}
+	
+	public function unique($col = '')
+	{
+		return $this->cvartype('UNIQUE', $col);
+	}
+	
+	public function null($type = true)
+	{
+		return $type === true ? ' NULL ' : ' NOT NULL ';
+	}
+	
+	public function notNull()
+	{
+		return ' NOT NULL ';
+	}
+	
+	 // NUMERICAL
+	public function int($len = '')
+	{
+		return $this->cvartype('INT', $len);
+	}
+	
+	public function smallInt($len = '')
+	{
+		return $this->cvartype('SMALLINT', $len);
+	}
+	
+	public function tinyInt($len = '')
+	{
+		return $this->cvartype('TINYINT', $len);
+	}
+	
+	public function mediumInt($len = '')
+	{
+		return $this->cvartype('MEDIUMINT', $len);
+	}
+	
+	public function bigInt($len = '')
+	{
+		return $this->cvartype('BIGINT', $len);
+	}
+	
+	public function decimal($len = '')
+	{
+		return $this->cvartype('DECIMAL', $len);
+	}
+	
+	public function double($len = '')
+	{
+		return $this->cvartype('DOUBLE', $len);
+	}
+	
+	public function float($len = '')
+	{
+		return $this->cvartype('FLOAT', $len);
+	}
+	
+	// STRING
+	public function char($len = '')
+	{
+		return $this->cvartype('CHAR', $len);
+	}
+	
+	public function varChar($len = '')
+	{
+		return $this->cvartype('VARCHAR', $len);
+	}
+	
+	// max.255 karakter
+	public function tinyText()
+	{
+		return $this->cvartype('TINYTEXT');
+	}
+	
+	// max. 65535 karakter 
+	public function text()
+	{
+		return $this->cvartype('TEXT');
+	}
+	
+	// max. 16777215 karakter 
+	public function mediumText()
+	{
+		return $this->cvartype('MEDIUMTEXT');
+	}
+	
+	// max. 4294967295 karakter
+	public function longText()
+	{
+		return $this->cvartype('LONGTEXT');
+	}
+	
+	// DATETIME
+	// yyyy-mm-dd
+	public function date($len = '')
+	{
+		return $this->cvartype('DATE', $this->ctimetype($len));
+	}
+	
+	// yyyy-mm-dd hh:mm:ss
+	public function datetime($len = '')
+	{
+		return $this->cvartype('DATETIME', $this->ctimetype($len));
+	}
+	
+	// hh:mm:ss
+	public function time($len = '')
+	{
+		return $this->cvartype('TIME', $this->ctimetype($len), array('/', '.', '-'), ':');
+	}
+	
+	// yyyymmddhhmmss
+	public function timeStamp($len = '')
+	{
+		return $this->cvartype('TIMESTAMP', $this->ctimetype($len));
+	}
+	
+	// ENUM ENUMERATED listesinin kisaltılmış halidir. () içinde 65535 değer tutabilir
+	public function enum($args = array())
+	{
+		$args = "'".implode("','", $args)."'";
+		
+		return " ENUM($args) ";
+	}
+	
+	// ENUM ENUMERATED listesinin kisaltılmış halidir. () içinde 65535 değer tutabilir
+	public function set($args = array())
+	{
+		$args = "'".implode("','", $args)."'";
+		
+		return " SET($args) ";
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************

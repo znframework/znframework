@@ -241,13 +241,21 @@ class __USE_STATIC_ACCESS__DB
 	 */
 	private $pagination = array('start' => 0, 'limit' => 0);
 	
-	/* Pagination Query Builder Değişkeni
+	/* Unlimited Total Rows Değişkeni
 	 *  
-	 * Sayfalama için limitsiz sorguyu
+	 * Limit değerine rağmen toplam kayıt sayısını
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
 	private $unlimitedTotalRows;
+	
+	/* Table Name Değişkeni
+	 *  
+	 * Sorguda kullanılan tablo bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $tableName;
 	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
@@ -322,6 +330,7 @@ class __USE_STATIC_ACCESS__DB
 		if( is_string($table) ) 
 		{
 			$this->from = ' FROM '.$this->prefix.$table.' ';
+			$this->tableName = $this->prefix.$table;
 		}
 		else
 		{
@@ -346,7 +355,8 @@ class __USE_STATIC_ACCESS__DB
 	{
 		if( is_string($table) ) 
 		{
-			$this->table = ' '.$this->prefix.$table.' ';
+			$this->table = $table;
+			$this->tableName = $this->prefix.$table;
 		}
 		else
 		{
@@ -387,6 +397,53 @@ class __USE_STATIC_ACCESS__DB
 		}
 		
 		return $this;
+	}
+	
+	
+	/******************************************************************************************
+	* WHERE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function like($value = '', $type = 'starting')
+	{
+		// Parametrelerin string kontrolü yapılıyor.
+		if( ! is_scalar($value) || ! is_string($type) ) 
+		{
+			return Error::set(lang('Error', 'stringParameter', 'value, type'));
+		}
+		
+		$operator = $this->db->operators['like'];
+		
+		if( $type === "inside" ) 
+		{
+			$value = $operator.$value.$operator;
+		}
+		
+		// İle Başlayan
+		if( $type === "starting" ) 
+		{
+			$value = $value.$operator;
+		}
+		
+		// İle Biten
+		if( $type === "ending" ) 
+		{
+			$value = $operator.$value;
+		}
+		
+		return $value;
 	}
 	
 	/******************************************************************************************
@@ -477,6 +534,7 @@ class __USE_STATIC_ACCESS__DB
 		if( ! empty($table) ) 
 		{
 			$this->from = ' FROM '.$this->prefix.$table.' ';
+			$this->tableName = $this->prefix.$table;
 		}
 		elseif( ! empty($this->table) )
 		{
@@ -855,6 +913,21 @@ class __USE_STATIC_ACCESS__DB
 	public function columnData()
 	{ 
 		return $this->db->columnData(); 
+	}
+	
+	/******************************************************************************************
+	* TABLE NAME                                                                              *
+	*******************************************************************************************
+	| Genel Kullanım: Sorguda kullanılan tablonun bilgisini verir.				     	  	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->tableName();                			                              |
+	|          																				  |
+	******************************************************************************************/
+	public function tableName()
+	{ 
+		return $this->tableName; 
 	}
 	
 	/******************************************************************************************
@@ -1672,6 +1745,153 @@ class __USE_STATIC_ACCESS__DB
 		$this->secure = NULL;
 
 		return $query;
+	}
+	
+	public function int($len = '')
+	{
+		return $this->db->int($len);
+	}
+	
+	public function integer($len = '')
+	{
+		return $this->int($len);
+	}
+	
+	public function smallInt($len = '')
+	{
+		return $this->db->smallInt($len);
+	}
+	
+	public function tinyInt($len = '')
+	{
+		return $this->db->tinyInt($len);
+	}
+	
+	public function mediumInt($len = '')
+	{
+		return $this->db->mediumInt($len);
+	}
+	
+	public function bigInt($len = '')
+	{
+		return $this->db->bigInt($len);
+	}
+	
+	public function decimal($len = '')
+	{
+		return $this->db->decimal($len);
+	}
+	
+	public function double($len = '')
+	{
+		return $this->db->double($len);
+	}
+	
+	public function float($len = '')
+	{
+		return $this->db->float($len);
+	}
+	
+	// STRING
+	public function char($len = '')
+	{
+		return $this->db->char($len);
+	}
+	
+	public function varChar($len = '')
+	{
+		return $this->db->varChar($len);
+	}
+	
+	// max.255 karakter
+	public function tinyText()
+	{
+		return $this->db->tinyText($len);
+	}
+	
+	// max. 65535 karakter 
+	public function text()
+	{
+		return $this->db->text();
+	}
+	
+	// max. 16777215 karakter 
+	public function mediumText()
+	{
+		return $this->db->mediumText();
+	}
+	
+	// max. 4294967295 karakter
+	public function longText()
+	{
+		return $this->db->longText();
+	}
+	
+	// DATETIME
+	// yyyy-mm-dd
+	public function date($len = '')
+	{
+		return $this->db->date();
+	}
+	
+	// yyyy-mm-dd hh:mm:ss
+	public function datetime($len = '')
+	{
+		return $this->db->datetime();
+	}
+	
+	// hh:mm:ss
+	public function time($len = '')
+	{
+		return $this->db->time();
+	}
+	
+	// yyyymmddhhmmss
+	public function timeStamp($len = '')
+	{
+		return $this->db->timeStamp();
+	}
+	
+	// ENUM ENUMERATED listesinin kisaltılmış halidir. () içinde 65535 değer tutabilir
+	public function enum()
+	{
+		return $this->db->enum(func_get_args());
+	}
+	
+	// ENUM ENUMERATED listesinin kisaltılmış halidir. () içinde 65535 değer tutabilir
+	public function set()
+	{
+		return $this->db->set(func_get_args());
+	}
+	
+	public function autoIncrement()
+	{
+		return $this->db->autoIncrement();
+	}
+	
+	public function primaryKey($col = '')
+	{
+		return $this->db->primaryKey($col);
+	}
+	
+	public function foreignKey($col = '')
+	{
+		return $this->db->foreignKey($col);
+	}
+	
+	public function unique($col = '')
+	{
+		return $this->db->unique($col);
+	}
+	
+	public function null($type = true)
+	{
+		return $this->db->null($type);
+	}
+	
+	public function notNull()
+	{
+		return $this->db->notNull();
 	}
 	
 	/******************************************************************************************

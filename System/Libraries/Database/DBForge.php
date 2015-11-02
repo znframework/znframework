@@ -157,11 +157,23 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		$column = "";
 		
+
 		foreach( $condition as $key => $value )
 		{
-			$column .= $key.' '.$value.',';
+			$values = "";
+			
+			if( is_array($value) ) foreach( $value as $val )
+			{
+				$values .= ' '.$val;
+			}
+			else
+			{
+				$values = $value;	
+			}
+			
+			$column .= $key.' '.$values.',';
 		}
-		
+
 		return $this->db->exec('CREATE TABLE '.$this->prefix.$table.'('.substr($column,0,-1).')');
 	}
 	
