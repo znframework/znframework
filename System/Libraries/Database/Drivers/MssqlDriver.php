@@ -66,7 +66,7 @@ class MssqlDriver
 
 	public function autoIncrement()
 	{
-		return ' AUTO INCREMENT ';
+		return ' IDENTITY(1,1) ';
 	}
 	
 	public function primaryKey($col = '')
