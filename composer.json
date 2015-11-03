@@ -22,13 +22,5 @@
 	{
 		"php": ">=5.4.0",
 		"znframework/znframework": "dev-master"
-	},
-	
-	"autoload": 
-	{
-		"classmap" : 
-		[
-			"System/Libraries/"
-		]
 	}
 }
