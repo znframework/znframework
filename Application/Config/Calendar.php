@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -19,7 +19,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Dillere göre ay bilgilerini tutan dizidir.                			  |
 ******************************************************************************************/
-$config['Calendar']['month_names'] = array
+$config['Calendar']['monthNames'] = array
 (
 	'tr' => array
 			(
@@ -53,17 +53,13 @@ $config['Calendar']['month_names'] = array
 				'December'	=> 'Dec'
 			)
 );
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 
 /******************************************************************************************
 * DAY NAMES                                                                           	  *
 *******************************************************************************************
 | Genel Kullanım: Dillere göre gün bilgilerini tutan dizidir.                			  |
 ******************************************************************************************/
-$config['Calendar']['day_names'] = array
+$config['Calendar']['dayNames'] = array
 (
 	'tr' => array
 			(
@@ -86,8 +82,4 @@ $config['Calendar']['day_names'] = array
 				'Saturday'	=> 'Sat', 
 				'Sunday'	=> 'Sun'
 			)
-<<<<<<< HEAD
 );
-=======
-);
->>>>>>> origin/master

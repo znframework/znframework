@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -234,4 +234,4 @@ $config['Database']['collation'] 	= 'utf8_general_ci'; // String
 |	  'ornek2VT' => array('database' => 'ornek2')										  |
 | )     	    										              		  			  |		
 ******************************************************************************************/
-$config['Database']['different_connection'] = array(); // String
+$config['Database']['differentConnection'] = array(); // String

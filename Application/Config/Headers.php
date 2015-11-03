@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 |  Parametreler: true veya false.													      |
 | Varsayılan: false          															  |
 ******************************************************************************************/
-$config['Headers']['set_htaccess_file'] = false;
+$config['Headers']['setHtaccessFile'] = false;
 
 /******************************************************************************************
 * INISET			                                                                      *
@@ -32,7 +32,7 @@ $config['Headers']['set_htaccess_file'] = false;
 | Parametreler: array() dizi değerler alır.									              |
 | Varsayılan: array()      															      |
 ******************************************************************************************/
-$config['Headers']['iniset'] = array
+$config['Headers']['iniSet'] = array
 (
 	'Header set Connection keep-alive'
 );

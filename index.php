@@ -1,65 +1,95 @@
 <?php
 /******************************************************************\
-|                                                                  | 
 |                          ZN FRAMEWORK                            |
-|                                                                  |
-*******************************************************************/
+\******************************************************************/
 
-/*
-	YAZAR: OZAN UYKUN
-	
-	1-COPYRIGHT(C) OZAN UYKUN
-	2-TÜM HAKLARI SAKLIDIR.
-	3-EMEGE SAYGI
+/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+
 */
 
-/* 
-	SİSTEM ÇALIŞTIRMA MODLARI
-	
-	1-development
-	2-publication 
-	
-	Varsayılan: development
-*/
+//------------------------------------------------------------------
+// Temel Sistem Ayarları
+//
+// 1 - Application Directory: Uygulamanın yer alacağı dizini ayarlamak içindir.
+//
+// 2 - Application Type: Uygulama türünü ayarlamak içindir.
+//     local: Yerel sunucuda çalışırken tercih edilebilir.
+//     development: Proje'nin geliştirilmesi aşamasında tercih edilebilir.
+//     publication: Proje'nin yayınlanması ile bu seçenek tercih edilebilir.
+//
+// 3 - Benchmark Performance Test: Sistemin açılış hızını test etmek içindir.
+//     true: Sayfanın yüklenmek hızı ve kullandığı bellek miktarını gösteren bir tablo çıktılar.
+//     false: Herhangi bir tablo çıktılamaz.
+//------------------------------------------------------------------
+$settings = array
+(
+	'applicationDirectory' => 'Application', // Sonunda bölü(/) işareti kullanmayınız.
+	'applicationType'      => 'local',       // local, development veya publication
+	'benchmarkingTest'     => false          // true veya false
+);
 
-/* SYSTEM RUN *
- *
- * 
- * Sistem çalıştırılıyor...
- */
-System::run('development');
+//------------------------------------------------------------------
+//  Sistem Çalıştırılıyor...
+//------------------------------------------------------------------
+System::run($settings);
+//------------------------------------------------------------------
 
-/* SYSTEM SINIFI *
- *
- * 
- * 
- */
 class System
 {
-	public static function run($apptype)
+	public static function run($settings)
 	{	
 		//------------------------------------------------------------------
 		//  Uygulama Dizini
 		//------------------------------------------------------------------
-		define('APP_DIR', 'Application/');
+		define('APP_DIR', $settings['applicationDirectory'].'/');
+		//------------------------------------------------------------------
 		
+		//------------------------------------------------------------------
+		//  Uygulama Türü
+		//------------------------------------------------------------------
+		define('APP_TYPE', $settings['applicationType']);
+		//------------------------------------------------------------------
+		
+		//------------------------------------------------------------------
 		// Kullanılabilir Uygulama Seçenekleri
-		switch($apptype)
+		//------------------------------------------------------------------
+		switch( APP_TYPE )
 		{ 
+			//------------------------------------------------------------------
 			// Publication Yayın Modu
+			// Tüm hatalar kapalıdır.
+			// Projenin tamamlanmasından sonra bu modun kullanılması önerilir.
+			//------------------------------------------------------------------
 			case 'publication' :
 				error_reporting(0); 
 			break;
-		
-			// Developmen Geliştirme Modu
+			//------------------------------------------------------------------
+			
+			//------------------------------------------------------------------
+			// Local Yerel Mod
+			// Standart PHP hata çıktısı kapatılır. Bunun yerine
+			// hatalar özel bir çıktı ile gösterilir.
+			//------------------------------------------------------------------
+			case 'local' :
+			//------------------------------------------------------------------
+			// Development Geliştirme Modu
+			// Tüm hatalar açıktır.
+			//------------------------------------------------------------------
 			case 'development' : 
 				error_reporting(-1);
 			break; 
+			//------------------------------------------------------------------
 			
+			//------------------------------------------------------------------
 			// Farklı bir kullanım hatası
-			default: echo 'Invalid Application Environment! Available Options: development or publication'; exit;
+			//------------------------------------------------------------------
+			default: echo 'Invalid Application Environment! Available Options: local, development or publication'; exit;
+			//------------------------------------------------------------------
 		}	
-		
+		//------------------------------------------------------------------
 		
 		/******************************************************************\
 		|                                                                  | 
@@ -73,18 +103,19 @@ class System
 		//------------------------------------------------------------------
 		//  Sistem Performans Testini Başlat: true or false
 		//------------------------------------------------------------------	
-		$BENCHMARK_PERFOMANCE_TEST_START = false;	
+		$benchmarkingTest = $settings['benchmarkingTest'];	
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		//------------------------------------------------------------------
 		
-		if($BENCHMARK_PERFOMANCE_TEST_START === true) 
+		if( $benchmarkingTest === true ) 
 		{
 			//------------------------------------------------------------------
 			//  Sisteminin Açılış Zamanını Hesaplamayı Başlat
 			//------------------------------------------------------------------
 			$start = microtime();
+			//------------------------------------------------------------------
 		}
 		
 		//******************************************************************
@@ -95,53 +126,56 @@ class System
 		//  Sistem çalıştırılıyor ... >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//******************************************************************
 		
-		if($BENCHMARK_PERFOMANCE_TEST_START === true)
+		if( $benchmarkingTest === true )
 		{	
 			//------------------------------------------------------------------
 			//  Sistemin Açılış Zamanını Hesaplamayı Bitir
 			//------------------------------------------------------------------
-			$finish 		  = microtime();
+			$finish         = microtime();
+			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  System Elapsed Time Calculating
 			//------------------------------------------------------------------
-			$elapsed_time     = round($finish - $start, 4);
+			$elapsedTime    = $finish - $start;
+			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Sistemin Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
-			$memory_usage 	  = memory_get_usage();
+			$memoryUsage    = memory_get_usage();
+			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Sistemin Maksimum Bellek Kullanımını Hesapla
 			//------------------------------------------------------------------
-			$max_memory_usage = memory_get_peak_usage();
+			$maxMemoryUsage = memory_get_peak_usage();
+			//------------------------------------------------------------------
 			
 			//------------------------------------------------------------------
 			//  Benchmark Performans Sonuç Tablosu
 			//------------------------------------------------------------------
-			$bench_result     = "
-			<pre>
-			/******************************************************************\
-			|                                                                  | 
-			|                <b>BENCHMARK PERFORMANCE TEST RESULT</b>                 |
-			|                                                                  |
-			|------------------------------------------------------------------|
-			|                                                                  |
-			|  System Elapsed Time     : <b>$elapsed_time</b> Second                  	   |                               
-			|  System Memory Usage     : <b>$memory_usage</b> Bytes                   	   |                                
-			|  System Max Memory Usage : <b>$max_memory_usage</b> Bytes              	           |	 	                 
-			|                                                                  |
-			\******************************************************************/
-			</pre>
-			";
+			$benchmarkData  = array
+			(
+				'elapsedTime'	 => $elapsedTime,
+				'memoryUsage'	 => $memoryUsage,
+				'maxMemoryUsage' => $maxMemoryUsage
+			);	
 			
-			echo $bench_result;
+			$benchResult    = Import::template('BenchmarkTable', $benchmarkData, true);
+			//------------------------------------------------------------------
+			
+			//------------------------------------------------------------------
+			//  Benchmark Performans Sonuç Tablosu Yazdırılıyor
+			//------------------------------------------------------------------
+			echo $benchResult;
+			//------------------------------------------------------------------
 					
 			//------------------------------------------------------------------
 			//  Sistem benchmark performans test sonuçlarını raporla.
 			//------------------------------------------------------------------
-			report('BenchmarkTestResults', $bench_result, 'BenchmarkTestResults');
+			report('BenchmarkTestResults', $benchResult, 'BenchmarkTestResults');
+			//------------------------------------------------------------------
 		}
 	}
 }

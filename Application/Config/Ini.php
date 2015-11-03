@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -20,7 +20,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Genel Kullanım: ini_set() yöntemiyle yapamadığınız ayarlamaları buradan yapabilirsiniz. |
 | .htaccess dosyasında ini ayarları yapılabilsin mi?   									  |
 ******************************************************************************************/
-$config['Ini']['set_htaccess_file'] = false;
+$config['Ini']['setHtaccessFile'] = false;
 
 /******************************************************************************************
 * SETTINGS                                                                                *

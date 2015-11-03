@@ -11,7 +11,7 @@ Framework kullanımı ile ilgili dökümantasyona ulaşmak için aşağıdaki ba
 (For additional documentation regarding use ZN Framework use the following link.)<br>
 <a href='http://www.zntr.net/Guide/index.html'>Kullanma Kılavuz</a>
 
-<h3>Topluluk (Contribute)</h3>
+<h3>Topluluk (Community)</h3>
 
 Kullanıcıların soru ve sorunlarını paylaşabileceği bir forumda mevcuttur. Aşağıdaki bağlantı ile foruma ulaşabilirsiniz.<br>
 (Users are presented at a forum of questions and problems can be shared. You can find forums on the link below.)<br>

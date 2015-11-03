@@ -2,22 +2,25 @@
 	"repositories": 
 	[
         {
-            "type": "package",
-            "package": 
-			{
-                "name": "znframework/znframework",
-                "version": "1.1.0",
-                "dist": 
-				{
-                    "url": "https://github.com/znframework/znframework.git",
-                    "type": "git"
-                }
-            }
+             "description": "The ZN Framework.",
+             "type": "package",
+             "license": "MIT",
+             "package": 
+             {
+                  "name": "znframework/znframework",
+                  "version": "2.0.0",
+                  "dist": 
+		          {
+                       "url": "https://github.com/znframework/znframework.git",
+                       "type": "git"
+                  }
+             }
         }
-    ],
+        ], 
 	
 	"require" : 
 	{
+		"php": ">=5.4.0",
 		"znframework/znframework": "dev-master"
 	},
 	
@@ -25,9 +28,7 @@
 	{
 		"classmap" : 
 		[
-			"System/Libraries",
-			"System/Components",
-			"System/Database"
+			"System/Libraries/"
 		]
 	}
 }

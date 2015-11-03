@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -22,7 +22,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Varsayılan: false																		  |
 | Kayıtlar Logs/ dizini içerisinde kayıt altına alınmaktadır.	     					  |
 ******************************************************************************************/
-$config['Log']['create_file'] = false;
+$config['Log']['createFile'] = false;
 
 /******************************************************************************************
 * FILE TIME                                                                      		  *
@@ -34,4 +34,4 @@ $config['Log']['create_file'] = false;
 | silinir ve yeni hata kaydı eklenir. Böylece Log dosyalarının şismesinin				  |
 | önüne geçilmiş olur.	     					  										  |					
 ******************************************************************************************/
-$config['Log']['file_time'] = '30 day';
+$config['Log']['fileTime'] = '30 day';

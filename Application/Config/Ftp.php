@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -56,4 +56,4 @@ $config['Ftp']['port'] = 21;
 | 																						  |
 | Not: Bu kullanım sürümlere göre desteklenmeyebilir.				         			  |
 ******************************************************************************************/
-$config['Ftp']['ssl_connect'] = false;
+$config['Ftp']['sslConnect'] = false;

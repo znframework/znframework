@@ -1,10 +1,10 @@
 <?php
 /************************************************************/
-/*                     USER(KULLANICI)                      */
+/*                            FONT                          */
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -22,4 +22,4 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | karakteri kullanmanıza gerek yoktur. Örnek array('ufo', 'fon') şeklinde yazmanız        |
 | yeterlidir.	 												     					  |
 ******************************************************************************************/
-$config['Font']['different_font_extensions'] = array();
+$config['Font']['differentFontExtensions'] = array();

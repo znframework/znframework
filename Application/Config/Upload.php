@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -21,7 +21,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | true olması durumunda alttaki ayarlar .htaccess  dosyasına eklenir.					  |
 | false olması durumunda alttaki ayarlar ini_set() yöntemi ile set edilmeye çalışılır.    |						
 ******************************************************************************************/
-$config['Upload']['set_htaccess_file'] = false;
+$config['Upload']['setHtaccessFile'] = false;
 
 /******************************************************************************************
 * SETTINGS                                                                                *

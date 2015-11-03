@@ -3,11 +3,10 @@
 /*                   	 STRUCTURE URL                      */
 /************************************************************/
 /*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
+/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
 */
 /* 
 	ZN FRAMEWOK URL SİSTEMİ
@@ -30,34 +29,27 @@ Structure::run();
 ******************************************************************************************/
 class Structure
 {
-	/* STRUCTURE RUN
-	 *
-	 *
-	 *
-	 */
-	
-	public static function run()
+	/******************************************************************************************
+	* DATAS                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Çalıştırılmak istenen yapının ihtiyaç duyduğu verileri döndürür.		  |
+	|          																				  |
+	******************************************************************************************/
+	public static function datas()
 	{
-		/* Url Join Değişkeni
+		/* Page Değişkeni
 		 *
-		 * Url parlarını birleştirmek
-		 * için oluşturulmuştur.
+		 * Controller/page.php bilgisini
+		 * tutması çin oluşturulmuştur.
 		 */
-		$url_join 		= ''; 	
+		$page 			= ''; 
 		
-		/* Url Parameters Değişkeni
+		/* Function Değişkeni
 		 *
-		 * Url adresinin parametre bölümlerini
-		 * tutması için oluşturulmuştur.
+		 * Page/Function bilgisini
+		 * tutaması için oluşturulmuştur.
 		 */
-		$url_parameters = '';	
-		
-		/* Is Fıle Değişkeni
-		 *
-		 * Girilen Url adresinin geçerli bir.
-		 * sayfa olma durumun kontrol etmesi için oluşturulmuştur.
-		 */  
-		$is_file 		= ''; 
+		$function 		= 'index'; 	
 		
 		/* Parameters Dizi Değişkeni
 		 *
@@ -66,77 +58,169 @@ class Structure
 		 */  	
 		$parameters 	= array();
 		
+		/* Segments Değişkeni
+		 *
+		 * Url adresinin parametre bölümlerini
+		 * tutması için oluşturulmuştur.
+		 */
+		$segments  		= '';	
+		
+		/* Is Fıle Değişkeni
+		 *
+		 * Girilen Url adresinin geçerli bir.
+		 * sayfa olma durumun kontrol etmesi için oluşturulmuştur.
+		 */  
+		$isFile 		= ''; 
+		
 		/* Request Uri Değişkeni
 		 *
 		 * Ziyaretçi URL adresini
 		 * tutması için oluşturulmuştur.
 		 */
-		$request_uri 	= request_uri();
-		
+		$requestUri 	= requestUri();
 		
 		// -------------------------------------------------------------------------------
 		//  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
 		// -------------------------------------------------------------------------------
-		$url 			= explode("?", $request_uri);
+		$url 			= explode('?', $requestUri);
 		
 		// -------------------------------------------------------------------------------
 		//  Temel URL adresi / karakteri ile bölümlere ayrılıyor.
 		// -------------------------------------------------------------------------------
-		$url_explode 	= explode("/", $url[0]);
+		$segments 		= explode('/', $url[0]);
 		
 		// -------------------------------------------------------------------------------
-		//  Bölümlere ayrılan URL yeniden yapılandırılıyor.
+		//  Controller/Sayfa: Controller/ dizini içinde çalıştırılacak dosya adı.
 		// -------------------------------------------------------------------------------
-		for($i=0; $i < count($url_explode); $i++)
+		if( isset($segments[0]) )
 		{
-			$url_join .= $url_explode[$i];
+			$page   = $segments[0];
+			$isFile = CONTROLLERS_DIR.suffix($page, '.php');
 			
-			// URL için geçerli bir sayfa bilgisi elde edilirse...
-			if( is_file( CONTROLLERS_DIR.suffix($url_join, ".php") ) )
+			// Kontrolcüler Controllers/ dizini içinde 
+			// farklı bir dizinde yer alıyorsa bu bölüm
+			// ile o kontrolcülere erişim sağlanıyor.
+			if( ! is_file($isFile) )
 			{
-				// -------------------------------------------------------------------------------
-				//  1. Bölüm:Dosya ve Sınıf ismini oluşturur.
-				// -------------------------------------------------------------------------------
-				if( isset($url_explode[$i]) )
-				{
-					$page = $url_explode[$i];
-				}
+				$if 	   = '';
+				$nsegments = $segments;
 				
-				// -------------------------------------------------------------------------------
-				//  2. Bölüm:Fonksiyon veya Yöntem ismini oluşturur.
-				// -------------------------------------------------------------------------------
-				if( isset($url_explode[$i + 1]) )	
+				for( $i = 0; $i < count($segments); $i++ )
 				{
-					$function = $url_explode[$i + 1];
-				}
+					$if    .= $segments[$i].'/';
+					$ifTrim = rtrim($if, '/');
+					$isF    = CONTROLLERS_DIR.suffix($ifTrim , '.php');
+
+					if( is_file($isF) )
+					{
+						$page     = divide($ifTrim, '/', -1);
+						$isFile   = $isF;
+						$segments = $nsegments;
+						
+						break;
+					}
+					
+					array_shift($nsegments);
+				}	
+			}
+			
+			unset($segments[0]);
+			
+			// Bir Controller/ dosyası index kelimesi ile isimlendirilemez!
+			if( strtolower($page) === 'index' )
+			{
+				// Hatayı ekrana yazdır.
+				echo Error::message('Error', 'controllerNameError', $page);
 				
-				// -------------------------------------------------------------------------------
-				//  3. Bölüm ve Sonraki Bölümler:Parametreleri oluşturur.
-				// -------------------------------------------------------------------------------
-				$url_parameters = $i + 2;
-				$last_join 		= $url_join;		
-				$is_file 		= CONTROLLERS_DIR.suffix($last_join, ".php");
-			}
-			else
-			{
-				$url_join .= "/";	
-			}
-		
-			// -------------------------------------------------------------------------------
-			//  Parametreleri birleştir.
-			// -------------------------------------------------------------------------------
-			if( isset($url_explode[$url_parameters]) )
-			{
-				 array_push( $parameters, $url_explode[$url_parameters] ); 		 
-				 $url_parameters++;
+				// Hatayı rapor et.
+				report('Error', getMessage('Error', 'controllerNameError'), 'ControllerNameError');
+				
+				// Çalışmayı durdur.
+				return false;
 			}
 		}
 		
-		// ----------------------------------------------------------------------
+		// -------------------------------------------------------------------------------
+		//  Fonksiyon: Çalıştırılacak dosyaya ait yöntem adı.
+		// -------------------------------------------------------------------------------
+		if( isset($segments[1]) )
+		{
+			$function = $segments[1];
+			
+			unset($segments[1]);
+		}
+		
+		// -------------------------------------------------------------------------------
+		//  Parametreler: Çalıştırılacak yönteme gönderilecek parametreler.
+		// -------------------------------------------------------------------------------
+		if( isset($segments[2]) )
+		{
+			$parameters = $segments;
+		}
+		
+		return array
+		(
+			'parameters' => $parameters,
+			'page'		 => $page,
+			'isFile'	 => $isFile,
+			'function'	 => $function
+
+		);
+	}
+	
+	/******************************************************************************************
+	* RUN                                                                                     *
+	*******************************************************************************************
+	| Genel Kullanım: Temel yapıyı çalıştırmak için oluşturulmuştur.						  |
+	|          																				  |
+	******************************************************************************************/
+	public static function run()
+	{
+		$datas = self::datas();
+		
+		$parameters = $datas['parameters'];
+		$page       = $datas['page'];
+		$isFile     = $datas['isFile'];
+		$function   = $datas['function'];
+		
+		/******************************************************************************************
+		* CURRENT_CFILE: Aktif çalıştırılan kontrolcü dosyasının yol bilgisi                      *
+		******************************************************************************************/	
+		define('CURRENT_CFILE', $isFile);
+		
+		/******************************************************************************************
+		* CURRENT_CFUNCTION: Aktif çalıştırılan sayfaya ait fonksiyon bilgisi                     *
+		******************************************************************************************/
+		define('CURRENT_CFUNCTION', $function);
+		
+		/******************************************************************************************
+		* CURRENT_CPAGE: Aktif çalıştırılan sayfaya ait kontrolcü dosyasının ad bilgisini         *
+		******************************************************************************************/
+		define('CURRENT_CPAGE', $page.".php");
+		
+		/******************************************************************************************
+		* CURRENT_CONTROLLER: Aktif çalıştırılan sayfaya ait kontrolcü bilgisi	                  *
+		******************************************************************************************/
+		define('CURRENT_CONTROLLER', $page);
+		
+		/******************************************************************************************
+		* CURRENT_CPATH: Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu	bilgisi       *
+		******************************************************************************************/
+		define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
+		
+		/******************************************************************************************
+		* CURRENT_CFURI: Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu	bilgisi       *
+		******************************************************************************************/
+		define('CURRENT_CFURI', CURRENT_CFPATH);
+		
+		/******************************************************************************************
+		* CURRENT_CPATH: Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon URL yol bilgisi   *
+		******************************************************************************************/
+		define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 		
 		// TAMPONLAMA BAŞLATILIYOR...
 		
-		if( config::get("Cache","ob_gzhandler") && substr_count(server('accept_encoding'), 'gzip') ) 
+		if( Config::get('Cache','obGzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 
 		{
 			ob_start('ob_gzhandler');
 		}
@@ -149,7 +233,7 @@ class Structure
 
 		// BAŞLIK BİLGİLERİ DÜZENLENİYOR...
 		
-		headers(config::get('Headers', 'settings'));
+		headers(Config::get('Headers', 'settings'));
 		
 		// ----------------------------------------------------------------------
 	
@@ -157,108 +241,80 @@ class Structure
 		// -------------------------------------------------------------------------------
 		//  Sayfa bilgisine erişilmişse sayfa dahil edilir.
 		// -------------------------------------------------------------------------------
-		if( ! empty($is_file) )
+		if( file_exists($isFile) )
 		{
 			// -------------------------------------------------------------------------------
 			//  Tadilat modu açıksa bu ayarlar geçerli olacaktır.
 			// -------------------------------------------------------------------------------
-			if( config::get("Repair","mode") ) 
+			if( Config::get('Repair', 'mode') === true ) 
 			{
-				repair::mode();
+				Repair::mode();
 			}
 			
 			// -------------------------------------------------------------------------------
 			//  Sayfa dahil ediliyor.
 			// -------------------------------------------------------------------------------
-			require_once $is_file;
-				
-			// -------------------------------------------------------------------------------
-			//  URL fonksiyon bilgisi içermiyorsa varsayılan olarak index ayarlansın.
-			// -------------------------------------------------------------------------------
-			if( ! isset($function) ) 
-			{
-				$function = 'index';		
-			}
-			
-			// -------------------------------------------------------------------------------
-			//  Sayfa bilgisi boş ise ya da geçersiz URL bilgisi girilmişse bildir.
-			// -------------------------------------------------------------------------------
-			if( empty($page) ) 
-			{
-				if( ! config::get('Route', 'show_404') )
-				{
-					$error = get_message('System', 'system_call_user_func_class_error');
-					
-					// Sayfa bilgisine erişilemezse hata bildir.
-					echo $error;
-					
-					// Hatayı rapor et.
-					report('Error', $error, 'SystemCallUserFuncClassError');
-					
-					// Çalışmayı durdur.
-					return false;
-				}
-				else
-				{
-					redirect(config::get('Route', 'show_404'));
-				}
-			}
+			require_once $isFile;
 				
 			// -------------------------------------------------------------------------------
 			// Sayfaya ait controller nesnesi oluşturuluyor.
 			// -------------------------------------------------------------------------------
-			zn::$dynamic = new $page;
-			
-			// -------------------------------------------------------------------------------
-			// Otomatik yüklemeleri güncelle.
-			// -------------------------------------------------------------------------------
-			zndynamic_autoloaded();
-				
-			// -------------------------------------------------------------------------------
-			// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
-			// -------------------------------------------------------------------------------	
-			if( is_callable(array(zn::$dynamic, $function)) )
+			if( class_exists($page, false) )
 			{
-				call_user_func_array( array(zn::$dynamic, $function), $parameters);
-			}
-			else
-			{
-				// Sayfa bilgisine erişilemezse hata bildir.
-				if( ! config::get('Route', 'show_404') )
+				$var = new $page;
+					
+				// -------------------------------------------------------------------------------
+				// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
+				// -------------------------------------------------------------------------------	
+				if( is_callable(array($var, $function)) )
 				{
-					$error = get_message('System', 'system_call_user_func_array_error');
+					if( APP_TYPE === 'local' )
+					{
+						set_error_handler('Exceptions::table');	
+					}
 					
-					// Hatayı ekrana yazdır.
-					echo $error;
+					call_user_func_array( array($var, $function), $parameters);
 					
-					// Hatayı rapor et.
-					report('Error', $error, 'SystemCallUserFuncArrayError');
-					
-					// Çalışmayı durdur.
-					return false;
+					if( APP_TYPE === 'local' )
+					{
+						restore_error_handler();
+					}
 				}
 				else
 				{
-					redirect(config::get('Route', 'show_404'));
+					// Sayfa bilgisine erişilemezse hata bildir.
+					if( ! Config::get('Route', 'show404') )
+					{				
+						// Hatayı ekrana yazdır.
+						echo Error::message('Error', 'callUserFuncArrayError', $function);
+						
+						// Hatayı rapor et.
+						report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
+						
+						// Çalışmayı durdur.
+						return false;
+					}
+					else
+					{
+						redirect(Config::get('Route', 'show404'));
+					}
 				}
 			}
 		}
 		else
 		{	
 			// Sayfa bilgisine erişilemezse hata bildir.
-			if( config::get('Route','show_404') ) 
+			if( Config::get('Route','show404') ) 
 			{				
-				redirect(config::get('Route','show_404'));		
+				redirect(Config::get('Route','show404'));		
 			}
 			else
 			{
-				$error = get_message('System', 'system_not_is_file_error');
-				
 				// Hatayı ekrana yazdır.
-				echo $error;
+				echo Error::message('Error', 'notIsFileError', $isFile);
 				
 				// Hatayı rapor et.
-				report('Error', $error, 'SystemNotIsFileError');
+				report('Error', getMessage('Error', 'notIsFileError'), 'SystemNotIsFileError');
 				
 				// Çalışmayı durdur.
 				return false;

@@ -3,29 +3,11 @@
 /*                       AUTOLOADS                          */
 /************************************************************/
 /*
-
-Author: Ozan UYKUN
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-/* DOĞRUDAN DEĞİŞKEN ERİŞİMİ KULLAN
- *
- * Static @var zn::use
- *
- */
- 
-zn::$use = using();
-
-/* DORĞUDAN YÖNTEMSEL ERİŞİM KULLAN
- *
- * Global @func this()
- *
- */
-function this()
-{
-	return zn::$use;
-}
-
+/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+/* Site: www.zntr.net
+/* Lisans: The MIT License
+/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+*/
 /* STARTING RUN *
  *
  * 
@@ -43,70 +25,48 @@ class Starting
 	public static function run()
 	{	
 		// INI AYARLAR YAPILANDIRILIYOR...
-		$iniset = config::get('Ini', 'settings');
+		$iniSet = Config::get('Ini', 'settings');
 		
-		if( ! empty($iniset) ) 
+		if( ! empty($iniSet) ) 
 		{
-			config::iniset($iniset);
+			Config::iniSet($iniSet);
 		}
 		// ----------------------------------------------------------------------
-		
-				
+					
 		// HTACCESS DOSYASI OLUŞTURULUYOR... 	
-		if( config::get('Htaccess','create_file') === true ) 
+		if( Config::get('Htaccess','createFile') === true ) 
 		{
-			create_htaccess_file();
+			createHtaccessFile();
 		}	
 		// ----------------------------------------------------------------------
 		
-		// OTOMATİK YÜKLEMELER İŞLENİYOR...		
-		$autoload = config::get('Autoload');
+		// COMPOSER DOSYASI OLUŞTURULUYOR...	
+		$composer = Config::get('Composer', 'autoload');
 		
-		// Kütüphaneleri otomatik yükle.
-		if( ! empty($autoload['library']) )	
+		if( $composer === true )
 		{
-			autoload($autoload['library'], 'Libraries');
+			$path = 'vendor/autoload.php';
+			
+			if( file_exists($path) )
+			{
+				require_once($path);
+			}
+			else
+			{
+				report('Error', getMessage('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+				
+				die(getErrorMessage('Error', 'fileNotFound', $path));
+			}
 		}
-		
-		// Bileşenleri otomatik yükle.
-		if( ! empty($autoload['component']) )	
+		elseif( file_exists($composer) )
 		{
-			autoload($autoload['component'], 'Components');
+			require_once($composer);
 		}
-		
-		// Araçları otomatik yükle.
-		if( ! empty($autoload['tool']) )	
+		elseif( ! empty($composer) )
 		{
-			autoload($autoload['tool'], 'Tools');
-		}
-		
-		// Dil dosyalarını otomatik yükle.
-		if( ! empty($autoload['language']) )	
-		{
-			autoload($autoload['language'], 'Languages');
-		}
-		
-		// Model dosyalarını otomatik yükle.
-		if( ! empty($autoload['model']) )	
-		{
-			autoload($autoload['model'], 'Models');
-		}	
-		// ----------------------------------------------------------------------
-		
-		// COMPOSER AUTOLOAD		
-		if( $autoload['composer'] === true )
-		{
-			( file_exists('vendor/autoload.php') )
-			? require_once('vendor/autoload.php')
-			: report('Error','vendor/autoload.php was not found.','AutoloadComposer');
-		}
-		elseif( file_exists($autoload['composer']) )
-		{
-			require_once($autoload['composer']);
-		}
-		elseif( ! empty($autoload['composer']) )
-		{
-			report('Error', $autoload['composer'].' was not found.','AutoloadComposer');
+			report('Error', getMessage('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
+			
+			die(getErrorMessage('Error', 'fileNotFound', $composer));
 		}
 		// ----------------------------------------------------------------------	
 	}

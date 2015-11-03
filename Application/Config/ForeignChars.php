@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -23,7 +23,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 |																						  |
 | Not: Daha çok accent_converter() yöntemi ile birlikte kullanılmaktadır.				  |
 ******************************************************************************************/
-$config['ForeignChars']['accent_chars'] = array
+$config['ForeignChars']['accentChars'] = array
 (
 	'ä|æ|ǽ' 														=> 'ae',
 	'ö|œ' 															=> 'oe',
@@ -125,7 +125,7 @@ $config['ForeignChars']['accent_chars'] = array
 |																						  |
 | Not: Daha çok Converter.php aracı ile birlikte kullanılmaktadır.				          |
 ******************************************************************************************/
-$config['ForeignChars']['numerical_codes'] = array
+$config['ForeignChars']['numericalCodes'] = array
 (
 	'À'	=> '&#192;',
 	'Ā'	=> '&#256;',

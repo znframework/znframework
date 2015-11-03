@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -45,6 +45,9 @@ $config['Repair']['machines'] = array();
 | string atama yapabirsiniz. Birden çok sayfa belirtilecekse dizi içerisinde sırası ile	  |
 | onarım yapılan sayfalar belirtilir. Eğer tüm sayfalarda onarım yapılıyorsa string 	  |
 | "all" ataması kullanılır.						  	 				     				  |	
+| Örnek Kullanımlar: 'all' // tüm sayfaları routePage ayarına yönlendirir. 				  |	
+| Örnek Kullanımlar: array('home', 'test') // Belirtilen sayfalar routePage'e yönlenir.   |	
+| Örnek Kullanımlar: array('home' => 'repairHome') // home, repairHome sayfasına yönlenir.|	
 ******************************************************************************************/
 $config['Repair']['pages'] = array();
 
@@ -54,4 +57,4 @@ $config['Repair']['pages'] = array();
 | Genel Kullanımı: Onarıma alınan sayfa ziyaret edildiğinde kullanıcıların hangi sayfaya  |
 | yönlenmesi isteniyorsa o sayfanın yolu belirtilir.						  	 		  |	
 ******************************************************************************************/
-$config['Repair']['route_page'] = ''; 
+$config['Repair']['routePage'] = ''; 

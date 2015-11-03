@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -22,6 +22,13 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 $config['Language'] = array
 (
-	'tr' => 'turkish',
-	'en' => 'english'
+	'tr' => 'Turkish',
+	'en' => 'English'
 );
+
+/******************************************************************************************
+* DEFAULT                                                                        		  *
+*******************************************************************************************
+| Genel Kullanım: Varsayılan dil seçeneği.	     								  		  |
+******************************************************************************************/
+$config['Language']['default'] = 'tr';

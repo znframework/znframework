@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -20,26 +20,29 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki 		  |
 | değişiklikler yapılmıştır.					  										  |
 ******************************************************************************************/
-$config['Regex']['regex_chars'] = array
+$config['Regex']['regexChars'] = array
 (
-	'<non-numeric>' 	=> '\D',
-	'<numeric>' 		=> '\d',
-	'<schar>' 			=> '\W',
-	'<non-schar>' 		=> '\w',
-	'<char>' 			=> '.',
-	'<non-space>' 		=> '\S',
-	'<space>'			=> '\s',
-	'<starting>'		=> '^',
-	'<ending>'			=> '$',
-	'<repeat-z>'		=> '*',
-	'<repeat>'			=> '+',
-	'<whether>'			=> '?',
-	'<or>'				=> '|',
-	'<perline-r>'		=> '\r',
-	'<perline>'			=> '\n',
-	'<tab>'				=> '\t',
-	'<esc>'				=> '\e',
-	'<hex>'				=> '\x'
+	'{nonWord}' 		=> '\B',
+	'{word}' 			=> '\b',
+	'{nonNumeric}' 		=> '\D',
+	'{numeric}' 		=> '\d',
+	'{schar}' 			=> '\W',
+	'{nonSchar}' 		=> '\w',
+	'{char}' 			=> '.',
+	'{nonSpace}' 		=> '\S',
+	'{space}'			=> '\s',
+	'{starting}'		=> '^',
+	'{ending}'			=> '$',
+	'{repeatZ}'			=> '*',
+	'{repeat}'			=> '+',
+	'{whether}'			=> '?',
+	'{or}'				=> '|',
+	'{eolR}'			=> '\r',
+	'{eolN}'			=> '\n',
+	'{eol}'				=> '\r\n',
+	'{tab}'				=> '\t',
+	'{esc}'				=> '\e',
+	'{hex}'				=> '\x'
 );
 
 /******************************************************************************************
@@ -48,13 +51,13 @@ $config['Regex']['regex_chars'] = array
 | Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle 	  |
 | ilgili aşağıdaki değişiklikler yapılmıştır 											  |
 ******************************************************************************************/
-$config['Regex']['setting_chars'] = array
+$config['Regex']['settingChars'] = array
 (
-	'<insens>' 			=> 'i',
-	'<generic>' 		=> 'g',
-	'<each>' 			=> 's',
-	'<multiline>'		=> 'm', 
-	'<inspace>' 		=> 'x'
+	'{insens}' 			=> 'i',
+	'{generic}' 		=> 'g',
+	'{each}' 			=> 's',
+	'{multiline}'		=> 'm', 
+	'{inspace>}' 		=> 'x'
 );
 
 /******************************************************************************************
@@ -63,7 +66,7 @@ $config['Regex']['setting_chars'] = array
 | Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi  |
 | kullanmak için aşağıdaki değişiklikler yapılmıştır.									  |
 ******************************************************************************************/
-$config['Regex']['special_chars'] = array
+$config['Regex']['specialChars'] = array
 (
 	'.' 				=> '\.',
 	'^' 				=> '\^',

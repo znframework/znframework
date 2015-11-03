@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -31,7 +31,7 @@ $config['Uri']['index.php'] 	= true;
 | Parametreler: "", ?																	  |
 | Varsayılan: "".				                 										  |						
 ******************************************************************************************/
-$config['Uri']['index_suffix']  = '';
+$config['Uri']['indexSuffix']  = '';
 
 /******************************************************************************************
 * LANG		                                                                              *

@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -37,16 +37,16 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | 	11.2-y: Dikeydeki ızgara sayısı. Varsayılan:4										  |
 | 11-grid_color: Izgara rengi. Varsayılan:50|50|50										  |
 ******************************************************************************************/
-$config['Captcha']['char_count'] 	= '6';   
-$config['Captcha']['bg_color']   	= '80|80|80';
+$config['Captcha']['charLength'] 	= '6';   
+$config['Captcha']['bgColor']   	= '80|80|80';
 $config['Captcha']['background'] 	= array(); 
-$config['Captcha']['font_color'] 	= '255|255|255'; 
+$config['Captcha']['textColor'] 	= '255|255|255'; 
 $config['Captcha']['border'] 	 	= false; 
-$config['Captcha']['border_color'] 	= '0|0|0';
+$config['Captcha']['borderColor'] 	= '0|0|0';
 $config['Captcha']['width']			= '180'; 
 $config['Captcha']['height'] 		= '40'; 
-$config['Captcha']['image_string'] 	= array('size' => '5', 'x' => '65', 'y' => '13');
+$config['Captcha']['imageString'] 	= array('size' => '5', 'x' => '65', 'y' => '13');
 $config['Captcha']['grid']			= true; 
-$config['Captcha']['grid_space']	= array('x' => 12, 'y' => 4);
-$config['Captcha']['grid_color'] 	= '50|50|50'; 
+$config['Captcha']['gridSpace']		= array('x' => 12, 'y' => 4);
+$config['Captcha']['gridColor'] 	= '50|50|50'; 
 //--------------------------------------------------------------------------------------------------------------------------

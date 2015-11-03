@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -15,11 +15,21 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 ******************************************************************************************/
 
 /******************************************************************************************
+* CRYPTO DRIVERS                                                                      	  *
+*******************************************************************************************
+| Genel Kullanım: Veri şifrelemede kullanılan şifreleme sürücüleri.						  |		
+ 
+  @drivers: mcyrpt, openssl, hash, phash, mhash
+|																						  |									
+******************************************************************************************/
+$config['Encode']['driver'] = 'mcrypt';
+
+/******************************************************************************************
 * ENCODE  TYPE                                                                        	  *
 *******************************************************************************************
 | Genel Kullanım: Encode.php kütüphanesinde yer alan yöntemlerin temel olarak hangi		  |
 | şifreleme algoritmasını kullanacağı seçmek için kullanılır. Şifrelenmesini istediğiniz  |
-| hash algorimatsını yazmanız yeterlidir.				 								  |											
+| hash algoritmasını yazmanız yeterlidir.				 								  |											
 ******************************************************************************************/
 $config['Encode']['type'] = 'md5';
 
@@ -31,4 +41,4 @@ $config['Encode']['type'] = 'md5';
 | amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını 		  |
 | sağlayarak şifre güvenliğini sağlamaktır.					     						  |
 ******************************************************************************************/
-$config['Encode']['project_key'] = 'default project';
+$config['Encode']['projectKey'] = 'default project';

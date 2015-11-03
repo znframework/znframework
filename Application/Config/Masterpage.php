@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -19,40 +19,40 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 *******************************************************************************************
 | Genel Kullanım: Masterpage olarak belirlen sayfanın head etiketleri arasına harici kod  |
 | yazmak için sayfa belirlemek için kullanlır.											  |
-| Parametre:Metinsel türde Views/Pages/ dizininden tüm sayfalar için geçerli olacak bir   |
-| head sayfası belirlenir. Örnek: "head";  												  |  
+| Parametre:Metinsel türde Views/ dizininden tüm sayfalar için geçerli olacak bir         | 
+| head sayfası belirlenir. Örnek: "head";  veya array(h1, h2 ....) 						  |  
 ******************************************************************************************/
-$config['Masterpage']['head_page'] = '';
+$config['Masterpage']['headPage'] = ''; // String veya Array veri türü içerebilir.
 
 /******************************************************************************************
 * BODY PAGE                                                                   		  	  *
 *******************************************************************************************
 | Genel Kullanım: Masterpage olacak sayfayı ayarlamak için kullanılır.					  |
-| Parametre:Metinsel türde Views/Pages/ dizininden masterpage olarak düşünülen sayfa 	  |
+| Parametre:Metinsel türde Views/ dizininden masterpage olarak düşünülen sayfa 	          |
 | adı bilgisi girilir. Örnek: "body";											  		  |  
 ******************************************************************************************/
-$config['Masterpage']['body_page'] = '';
+$config['Masterpage']['bodyPage'] = '';
 
 /******************************************************************************************
 * DOCTYPE                                                                   		  	  *
 *******************************************************************************************
 | Genel Kullanım: Sayfanın döküman türü varsayılan:xhtml1-trans.			  			  | 
 ******************************************************************************************/
-$config['Masterpage']['doctype'] = 'xhtml1_transitional';
+$config['Masterpage']['docType'] = 'xhtml1Transitional';
 
 /******************************************************************************************
 * CONTENT CHARSET                                                             		  	  *
 *******************************************************************************************
 | Genel Kullanım: Sayfanın dil kodlaması varsayılarn:utf-8.			  			 	      | 
 ******************************************************************************************/
-$config['Masterpage']['content_charset'] = array('utf-8');
+$config['Masterpage']['contentCharset'] = array('utf-8');
 
 /******************************************************************************************
 * CONTENT LANGUAGE                                                             		  	  *
 *******************************************************************************************
 | Genel Kullanım: Sayfanın dil içeriği varsayılan:tr.			  			 	          | 
 ******************************************************************************************/
-$config['Masterpage']['content_language'] = 'tr';
+$config['Masterpage']['contentLanguage'] = 'tr';
 
 /******************************************************************************************
 * BROWSER/SHORTCUT ICON                                                             	  *
@@ -60,21 +60,22 @@ $config['Masterpage']['content_language'] = 'tr';
 | Genel Kullanım: Web sitesinin tarayıcıda görünen ikon eklemek için ikonun 			  |
 | yolunu yazınız.										  		  			 	          | 
 ******************************************************************************************/
-$config['Masterpage']['browser_icon'] = '';
+$config['Masterpage']['browserIcon'] = '';
 
 /******************************************************************************************
 * BACKGROUND IMAGE                                                		  	  			  *
 *******************************************************************************************
 | Genel Kullanım: Web sitesinin arkaplan resmi.								  			  |
 ******************************************************************************************/
-$config['Masterpage']['bg_image'] = '';
+$config['Masterpage']['backgroundImage'] = '';
 
 /******************************************************************************************
 * FONT			                                                		  	  			  *
 *******************************************************************************************
-| Genel Kullanım: Harici font kullanımı kullanmak istediğiniz özel fontları Views/Fonts/  |
+| Genel Kullanım: Harici font kullanımı kullanmak istediğiniz özel fontları 			  |
+| Resources/Fonts/																		  |
 |dizinine atıp bu dizin içindek dosyanın adını yazarak kullanabilirsiniz.				  |
-| Aşağıdaki dizi içerisine Views/Fonts/ dizinindeki dosya/dosyaların isimlerini 		  |
+| Aşağıdaki dizi içerisine Resources/Fonts/ dizinindeki dosya/dosyaların isimlerini       |
 | yazmanız yeterlidir.								  			 					 	  |		
 ******************************************************************************************/
 $config['Masterpage']['font'] = array();
@@ -83,7 +84,8 @@ $config['Masterpage']['font'] = array();
 * STYLE			                                                		  	  			  *
 *******************************************************************************************
 | Genel Kullanım: Harici css dosyası kullanımı kullanmak istediğiniz stil dosyalarını     |
-| Views/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine Views/Styles/ 	  |
+| Resources/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine              |
+| Resources/Styles/                      												  |
 | dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.							  |		
 ******************************************************************************************/
 $config['Masterpage']['style'] = array();
@@ -92,7 +94,7 @@ $config['Masterpage']['style'] = array();
 * SCRIPT     	                                                		  	  			  *
 *******************************************************************************************
 | Genel Kullanım: Harici javascript dosyası kullanımı. Aşağıdaki dizi içerisine 		  |
-| Views/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.			  |		
+| Resources/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.	      |		
 ******************************************************************************************/
 $config['Masterpage']['script'] = array();
 

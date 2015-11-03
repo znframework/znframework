@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -20,9 +20,35 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 | Genel Kullanımı: User Sınıfının Bağlantı Kurulacağı Kullanıcı Tablosu Adı.			  |
 | Veri: string.																			  |
 | Kullanımı: Zorunludur.																  |
-| Örnek: = $config['User']['table_name'] = 'kullanicilar';			  					  |						
+| Örnek: = $config['User']['tableName'] = 'kullanicilar';			  					  |						
 ******************************************************************************************/
-$config['User']['table_name'] 		= '';		
+$config['User']['tableName'] = '';	
+
+/******************************************************************************************
+* JOIN COLUMN                                                                             *
+*******************************************************************************************
+| Genel Kullanımı: Birleştirmenin yapılmak istendiği sütun bilgisi. Genellikle ID sütünu  |
+| kullanılır.																			  |
+| Veri: string.																			  |
+| Kullanımı: Zorunlu değildir.															  |
+| Sütun Veri Türü: mixed															      |
+| Örnek: = $config['User']['joinColumn'] = 'id';					     			      |						
+******************************************************************************************/
+$config['User']['joinColumn'] = '';
+
+/******************************************************************************************
+* JOIN TABLES                                                                             *
+*******************************************************************************************
+| Genel Kullanımı: Kullanıcılarla ilgili birden fazla tablo varsa bu tabloları 			  |
+| birleştirmek için kullanılır.															  |
+| Kullanımı: Zorunlu değildir.															  |
+| Örnek: array																			  |
+|		 ( 																				  |
+|			'tablo2' => 'birlestirilecekSutun2',									      |
+|			'tablo3' => 'birlestirilecekSutun3'									          |
+|		 )			  					  												  |						
+******************************************************************************************/
+$config['User']['joinTables'] = array();	
 
 /******************************************************************************************
 * USERNAME COLUMN                                                                         *
@@ -31,9 +57,9 @@ $config['User']['table_name'] 		= '';
 | Veri: string.																			  |
 | Kullanımı: Zorunludur.																  |
 | Sütun Veri Türü: Varchar															      |
-| Örnek: = $config['User']['username_column'] = 'kullanici_adi';			  			  |						
+| Örnek: = $config['User']['usernameColumn'] = 'kullanici_adi';			  			  |						
 ******************************************************************************************/
-$config['User']['username_column'] 	= '';
+$config['User']['usernameColumn'] = '';
 
 /******************************************************************************************
 * PASSWORD COLUMN                                                                         *
@@ -43,9 +69,9 @@ $config['User']['username_column'] 	= '';
 | Kullanımı: Zorunludur.																  |
 | Sütun Veri Türü: Varchar																  |
 | Veri Uzunluğu: En az 32 karakter.														  |
-| Örnek: = $config['User']['username_column'] = 'sifre';			  			          |						
+| Örnek: = $config['User']['usernameColumn'] = 'sifre';			  			          |						
 ******************************************************************************************/
-$config['User']['password_column']  = '';
+$config['User']['passwordColumn'] = '';
 
 /******************************************************************************************
 * EMAIL COLUMN                                                                            *
@@ -55,9 +81,9 @@ $config['User']['password_column']  = '';
 | Kullanımı: Görecelidir. Kullanıcı adı sütünu e-posta bilgisi içermiyorsa				  |
 | bu sütun kullanılmalıdır.																  |
 | Sütun Veri Türü: Varchar																  |
-| Örnek: = $config['User']['email_column'] = 'eposta';		  			          		  |						
+| Örnek: = $config['User']['emailColumn'] = 'eposta';		  			          		  |						
 ******************************************************************************************/
-$config['User']['email_column']  = '';
+$config['User']['emailColumn'] = '';
 
 /******************************************************************************************
 * EMAIL COLUMN                                                                            *
@@ -69,9 +95,9 @@ $config['User']['email_column']  = '';
 | kullanıcı tablosunda bu bölüme uygu sütun oluşturup bu bölüme yazılmadılır.			  |
 | Kullanılmayacaksa boş bırakılmalıdır. 												  |
 | Sütun Veri Türü: Char / Int. 0 veya 1 değeri tutmalıdır. 1 Aktif, 0 Aktif Değil		  |
-| Örnek: = $config['User']['active_column'] = 'aktif_durum';		  			          |						
+| Örnek: = $config['User']['activeColumn'] = 'aktif_durum';		  			          |						
 ******************************************************************************************/
-$config['User']['active_column']	= '';
+$config['User']['activeColumn']	= '';
 
 /******************************************************************************************
 * BANNED COLUMN                                                                           *
@@ -82,9 +108,9 @@ $config['User']['active_column']	= '';
 | Kullanımı: Görecelidir. Kullanıcılardan banlananların siteye girememesini sağlar. 	  |
 | Bu sütun kullanılmayacaksa boş bırakılmalıdır.										  |
 | Sütun Veri Türü: Char / Int. 0 veya 1 değeri tutmalıdır. 1 Banlanmış, 0 Banlanmamış	  |
-| Örnek: = $config['User']['banned_column'] = 'ban_durum';	  			                  |						
+| Örnek: = $config['User']['bannedColumn'] = 'ban_durum';	  			                  |						
 ******************************************************************************************/
-$config['User']['banned_column']	= ''; 	
+$config['User']['bannedColumn']	= ''; 	
 
 /******************************************************************************************
 * ACTIVATION COLUMN                                                                       *
@@ -95,6 +121,6 @@ $config['User']['banned_column']	= '';
 | Kullanımı: Görecelidir. Aktivasyon işlemi istenmiyorsa bu sütun boş bırakılmalıdır.	  |
 | Sütun Veri Türü: Char / Int. 0 veya 1 değeri tutmalıdır. 1 Aktivasyon Yapılmış, 		  |
 | 0 Aktivasyon Yapılmamış																  |
-| Örnek: = $config['User']['activation_column'] = 'aktivasyon_durum';			          |						
+| Örnek: = $config['User']['activationColumn'] = 'aktivasyon_durum';			          |						
 ******************************************************************************************/
-$config['User']['activation_column'] = '';
+$config['User']['activationColumn'] = '';

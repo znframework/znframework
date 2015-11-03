@@ -1,0 +1,5 @@
+body{ padding:0px; margin:0px;}
+#logo{ position:absolute; width:600px; height:106px; left:50%; margin-left:-200px; margin-top:-90px; top:50%; }
+#logo-text{ font-size:91px; color:#2C5072;}
+.font{ font-family:textfont, Caviar Dreams;}
+.alpha-color{ color:#00BFFF; }

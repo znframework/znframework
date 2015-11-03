@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -70,4 +70,4 @@ $config['Cookie']['secure'] = false; // Boolean
 | olacaktır. Yani çerez, JavaScript gibi betik dilleri tarafından erişilebilir 			  |
 | olmayacaktır.   								             							  |		      															 						
 ******************************************************************************************/
-$config['Cookie']['httponly'] = true; // Boolean
+$config['Cookie']['httpOnly'] = true; // Boolean

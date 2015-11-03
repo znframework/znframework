@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -18,18 +18,20 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 * SYMBOLS                                                                                 *
 *******************************************************************************************
 | Genel Kullanımı: Aşağıda sembollerin listesi yer almaktadır. Bu sembolleri 			  |
-| kullanabilmek için symbol() aracından yararlanılır.	  								  |						
+| kullanabilmek için symbol::name() yönteminden yararlanılır.	  						  |						
 ******************************************************************************************/
 $config['Symbols'] = array
 (
 	'copyright' 			=> '&copy;',		//©
 	'register' 				=> '&#174;',		//®
 	'euro'					=> '&#8364;',		//€
-	'right_double_arrow'	=> '&#187;',		//»
-	'left_double_arrow' 	=> '&#171;',		//«
-	'invert_question'		=> '&#191;',		//¿
-	'trade_mark'			=> '&#8482;',		//™
-	'turkish_lira'			=> '&#x20BA;',		//t
+	'dolar'					=> '$',				//$
+	'usd'					=> '$',				//$
+	'rightDoubleArrow'		=> '&#187;',		//»
+	'leftDoubleArrow' 		=> '&#171;',		//«
+	'invertQuestion'		=> '&#191;',		//¿
+	'tradeMark'				=> '&#8482;',		//™
+	'turkishLira'			=> '&#x20BA;',		//t
 	'cent'					=> '&#162;',		//¢
 	'yen'					=> '&#165;',		//¥
 	'pound'					=> '&#163;',		//£
@@ -39,8 +41,8 @@ $config['Symbols'] = array
 	'micro'					=> '&#181;',		//µ
 	'degree'				=> '&#176;',		//°
 	'section'				=> '&#167;',		//§
-	'big_slash'				=> '&#216;',		//Ø
-	'small_slash'			=> '&#248;',		//ø
+	'bigSlash'				=> '&#216;',		//Ø
+	'smallSlash'			=> '&#248;',		//ø
 	'permil'				=> '&permil;',		//‰
 	'tilde'					=> '&#126;',		//~
 	'spade'					=> '&spades;',    	//♠
@@ -54,22 +56,22 @@ $config['Symbols'] = array
 	'partial'				=> '&part;',		//∂
 	'integral'				=> '&int;',			//∫
 	'infinity'				=> '&infin;',		//∞
-	'square_root'			=> '&radic;',		//√
+	'squareRoot'			=> '&radic;',		//√
 	'approximately'			=> '&asymp;',		//≈
-	'not_equals'			=> '&ne;',			//≠
+	'notEquals'				=> '&ne;',			//≠
 	'triangle'				=> '&there4;',		//∴
-	'greater_equals'		=> '&ge;',			//≥
-	'less_equals'			=> '&le;',			//≤
+	'greaterEquals'			=> '&ge;',			//≥
+	'lessEquals'			=> '&le;',			//≤
 	'paragraph'				=> '&para;',		//¶
-	'big_dote'				=> '&bull;',		//•
-	'mid_dote'				=> '&middot;',		//·
+	'bigDote'				=> '&bull;',		//•
+	'midDote'				=> '&middot;',		//·
 	'dagger'				=> '&dagger;',		//†
-	'double_dagger'			=> '&Dagger;',		//‡
+	'doubleDagger'			=> '&Dagger;',		//‡
 	'diamond'				=> '&loz;',			//◊
-	'up_arrow'				=> '&uarr;',		//↑
-	'down_arrow'			=> '&darr;',		//↓
-	'left_arrow'			=> '&larr;',		//←
-	'right_arrow'			=> '&rarr;',		//→
-	'double_headed_arrow'	=> '&harr;',		//↔
-	'not_symbol'			=> '&not;'			//¬
+	'upArrow'				=> '&uarr;',		//↑
+	'downArrow'				=> '&darr;',		//↓
+	'leftArrow'				=> '&larr;',		//←
+	'rightArrow'			=> '&rarr;',		//→
+	'doubleHeadedArrow'		=> '&harr;',		//↔
+	'notSymbol'				=> '&not;'			//¬
 );

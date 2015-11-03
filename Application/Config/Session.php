@@ -4,7 +4,7 @@
 /************************************************************/
 /*
 
-Author: Ozan UYKUN
+Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 Site: http://www.zntr.net
 Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 
@@ -17,7 +17,7 @@ Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
 /******************************************************************************************
 * ENCODE                                                                                  *
 *******************************************************************************************
-| Genel Kullanımı: session değerlerini tutan anahtar ifadeler şifrelensin mi?			  |
+| Genel Kullanımı: Session değerlerini tutan anahtar ifadeler şifrelensin mi?			  |
 | Şifrelenmesini istediğini hash algorimatsını yazmanız yeterlidir.					      |
 | Boş bırakılması halinde herhangi bir şifreleme yapmayacaktır.			                  |						
 ******************************************************************************************/
@@ -39,7 +39,7 @@ $config['Session']['regenerate'] = true;
 | true olması durumunda alttaki ayarlar .htaccess  dosyasına eklenir.				      |
 | false olması durumunda alttaki ayarlar ini_set() yöntemi ile set edilmeye çalışılır.	  |						
 ******************************************************************************************/
-$config['Session']['set_htaccess_file'] = false; 
+$config['Session']['setHtaccessFile'] = false; 
 
 /******************************************************************************************
 * SETTINGS                                                                                *
@@ -66,7 +66,7 @@ $config['Session']['settings'] = array
 	'session.referer_check' 			=> '', // NULL
 	'session.entropy_file' 				=> '', // NULL
 	'session.entropy_length' 			=> '', // 0
-	'session.cache_limiter' 			=> '', //nocache
+	'session.cache_limiter' 			=> '', // nocache
 	'session.cache_expire'				=> '', // 180
 	'session.use_trans_sid'				=> '', // 0
 	'session.hash_function'				=> '', // 0
