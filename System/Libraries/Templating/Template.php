@@ -145,7 +145,7 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*@@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/' => '<?php echo $1 ?>',	
 			
 			// Fonksiyonlar
-			'/\s*@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/'  => '<?php $1; ?>',
+			'/\s*@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/'  => '<?php $1 ?>',
 			
 			// Yazdırılabilir Değişkenler
 			'/\s*@(\$(\w+|\s*\-\s*\>\s*)*\s*)/' 	=> '<?php echo $1 ?>',

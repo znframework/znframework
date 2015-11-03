@@ -26,7 +26,7 @@ class __USE_STATIC_ACCESS__Vars
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "Vars::$method()"));	
-	}
+	}	
 	
 	/******************************************************************************************
 	* BOOLEAN VALUE                                                                           *
@@ -37,10 +37,24 @@ class __USE_STATIC_ACCESS__Vars
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function b($var = '')
+	public function bool($var = '')
 	{
 		return boolval($var);		
 	}	
+	
+	/******************************************************************************************
+	* BOOLEAN VALUE                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Bir değişkenin boolean değer Alın.	 						          |
+	
+	  @param mixed $var
+	  @return bool
+	|          																				  |
+	******************************************************************************************/
+	public function boolean($var = '')
+	{
+		return boolval($var);		
+	}
 	
 	/******************************************************************************************
 	* FLOAT VALUE                                                                             *
@@ -51,7 +65,7 @@ class __USE_STATIC_ACCESS__Vars
 	  @return float
 	|          																				  |
 	******************************************************************************************/
-	public function f($var = '')
+	public function float($var = '')
 	{
 		return floatval($var);		
 	}
@@ -65,7 +79,7 @@ class __USE_STATIC_ACCESS__Vars
 	  @return float
 	|          																				  |
 	******************************************************************************************/
-	public function d($var = '')
+	public function double($var = '')
 	{
 		return floatval($var);		
 	}
@@ -79,7 +93,21 @@ class __USE_STATIC_ACCESS__Vars
 	  @return int
 	|          																				  |
 	******************************************************************************************/
-	public function i($var = '')
+	public function int($var = '')
+	{
+		return intval($var);		
+	}
+	
+	/******************************************************************************************
+	* INTEGER VALUE                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Bir değişkenin tam sayı değerini döndürür.	 				          |
+	
+	  @param  mixed $var
+	  @return int
+	|          																				  |
+	******************************************************************************************/
+	public function integer($var = '')
 	{
 		return intval($var);		
 	}
@@ -93,7 +121,7 @@ class __USE_STATIC_ACCESS__Vars
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function s($var = '')
+	public function string($var = '')
 	{
 		return strval($var);		
 	}
