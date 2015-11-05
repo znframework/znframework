@@ -100,27 +100,6 @@ class __USE_STATIC_ACCESS__Search
 	}
 	
 	/******************************************************************************************
-	* OR FILTER                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Aramaya birden fazla filtre uygulanacağı zamana ve kullanımda veya      |
-	| bağlacı tercih edileceği zaman kullanılır.                                              |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
-	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
-	|          																				  |
-	| Örnek Kullanım: orFilter('yas >', 15);        	  			  						  |
-	| // or where yas > 15         														      |
-	|          																				  |
-	******************************************************************************************/	
-	public function orFilter($column = '', $value = '')
-	{
-		$this->_filter($column, $value, 'or');
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
 	* WORD                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Aranacak kelime veya data.                                              |
@@ -173,11 +152,11 @@ class __USE_STATIC_ACCESS__Search
 	|     ) 																			      |
 	| );        	  			  							  						          |
 	|          																				  |
-	| 3. TYPE Parametresi 4 farklı değer alabilir        									  |
-	| inside, starting, ending, equal 														  |
+	| 3. TYPE Parametresi 5 farklı değer alabilir        									  |
+	| inside, starting, ending, equal, auto 												  |
 	|          																				  |
 	******************************************************************************************/	
-	public function get($conditions = array(), $word = '', $type = 'inside')
+	public function get($conditions = array(), $word = '', $type = 'auto')
 	{
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
@@ -212,6 +191,21 @@ class __USE_STATIC_ACCESS__Search
 		
 		// Aramanın neye göre yapılacağı belirtiliyor. ----------------------------
 		
+		$operator = ' LIKE ';		
+		$str      = $word;
+		
+		if( $type === "auto" )
+		{
+			if( is_numeric($word) )
+			{
+				$operator = ' = ';
+			}
+			else
+			{
+				$str = DB::like($word, 'inside');
+			}
+		}
+		
 		// İçerisinde Geçen
 		if( $type === "inside" ) 
 		{
@@ -233,10 +227,7 @@ class __USE_STATIC_ACCESS__Search
 		if( $type === 'equal')
 		{
 			$operator = ' = ';
-		}
-		else
-		{
-			$operator = ' like ';	
+			
 		}
 		// ------------------------------------------------------------------------
 		
@@ -249,7 +240,7 @@ class __USE_STATIC_ACCESS__Search
 			
 			foreach($values as $keys)
 			{	
-				$db->where($keys.$operator, $str);
+				$db->where($keys.$operator, $str, 'OR');
 				
 				// Filter dizisi boş değilse
 				// Filtrelere göre verileri çek
@@ -262,13 +253,13 @@ class __USE_STATIC_ACCESS__Search
 						// Ve bağlaçlı filter kullanılmışsa
 						if( $exval[2] === "and" )
 						{
-							$db->where("and $exval[0] ", $exval[1]);	
+							$db->where("$exval[0] ", $exval[1], 'AND');	
 						}
 						
 						// Veya bağlaçlı or_filter kullanılmışsa
 						if( $exval[2] === "or" )
 						{
-							$db->where("or $exval[0] ", $exval[1]);
+							$db->where("$exval[0] ", $exval[1], 'OR');
 						}
 					}	
 				}

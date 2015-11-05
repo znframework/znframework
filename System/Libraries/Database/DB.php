@@ -607,7 +607,7 @@ class __USE_STATIC_ACCESS__DB
 								  $this->orderBy;
 		
 		$queryBuilder = $paginationQueryBuilder.$this->limit;
-		
+	
 		$this->_resetQuery();
 		
 		$secure = $this->secure;
