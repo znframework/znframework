@@ -121,27 +121,6 @@ class __USE_STATIC_ACCESS__Search
 	}
 	
 	/******************************************************************************************
-	* OR FILTER                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Aramaya birden fazla filtre uygulanacağı zamana ve kullanımda veya      |
-	| bağlacı tercih edileceği zaman kullanılır.                                              |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
-	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
-	|          																				  |
-	| Örnek Kullanım: orFilter('yas >', 15);        	  			  						  |
-	| // or where yas > 15         														      |
-	|          																				  |
-	******************************************************************************************/	
-	public function orFilter($column = '', $value = '')
-	{
-		$this->_filter($column, $value, 'or');
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
 	* WORD                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Aranacak kelime veya data.                                              |
