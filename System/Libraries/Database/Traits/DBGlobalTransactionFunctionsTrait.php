@@ -66,7 +66,7 @@ trait DBGlobalTransactionFunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function waitUnitSqlThreadAfterGtids()
+	public function waitUntilSqlThreadAfterGtids()
 	{
 		return $this->_math('WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS', func_get_args());
 	}

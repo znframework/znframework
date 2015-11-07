@@ -700,9 +700,16 @@ class __USE_STATIC_ACCESS__DB
 	| Örnek Kullanım: ->result();                			                                  |
 	|          																				  |
 	******************************************************************************************/
-	public function result()
+	public function result( $type = 'object' )
 	{ 
-		return $this->db->result(); 
+		if( $type === 'object' )
+		{
+			return $this->db->result();
+		}
+		else
+		{
+			return $this->db->resultArray();
+		}
 	}
 	
 	/******************************************************************************************
@@ -751,33 +758,73 @@ class __USE_STATIC_ACCESS__DB
 	}
 	
 	/******************************************************************************************
+	* FETCH                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu verileri object veri türünde verir.     	  				  |
+		
+	  @var string $type: assoc, array veya row
+	|          																				  |
+	******************************************************************************************/
+	public function fetch($type = 'assoc')
+	{ 
+		if( $type === 'assoc' )
+		{
+			return $this->db->fetchAssoc(); 
+		}
+		elseif( $type === 'array')
+		{
+			return $this->db->fetchArray(); 
+		}
+		else
+		{
+			return $this->db->fetchRow();
+		}
+	}
+	
+	/******************************************************************************************
 	* FETCH ROW                                                                               *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu sonucu tek satır veriyi object veri türünde verir.     	  		  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->fetchRow();                			                              |
+		
+	  @param bool $printable: false
+	  @return object/string
 	|          																				  |
 	******************************************************************************************/
-	public function fetchRow()
+	public function fetchRow($printable = false)
 	{ 
-		return $this->db->fetchRow(); 
+		$row = $this->db->fetchRow();
+		
+		if( $printable === false )
+		{
+			return $row ; 
+		}
+		else
+		{
+			return current($row);	
+		}
 	}
 	
 	/******************************************************************************************
 	* ROW                                                                                     *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu sonucu tek satır veriyi elde etmek için kullanılır.     	  	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->row();                			                                      |
+
+	  @param bool $printable: false
+	  @return object/string
 	|          																				  |
 	******************************************************************************************/
-	public function row()
+	public function row($printable = false)
 	{ 
-		return $this->db->row(); 
+		$row = $this->db->row();
+		
+		if( $printable === false )
+		{
+			return $row ; 
+		}
+		else
+		{
+			return current($row);	
+		}
 	}
 	
 	/******************************************************************************************
