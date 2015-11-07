@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__JQ extends JSCommon
+class __USE_STATIC_ACCESS__JQ
 {
 	/***********************************************************************************/
 	/* JQUERY BUILDER LIBRARY 	     		                   	                       */
@@ -17,13 +17,7 @@ class __USE_STATIC_ACCESS__JQ extends JSCommon
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
-	protected $selector = 'this';
+	use JSCommonTrait;
 	
 	/* Property Variables
 	 * Property 

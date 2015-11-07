@@ -17,29 +17,7 @@ class IbaseDriver
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Config Değişkeni
-	 *  
-	 * Veritabanı ayarlar bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $config;
-	
-	/* Connect Değişkeni
-	 *  
-	 * Veritabanı bağlantı bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $connect;
-	
-	/* Query Değişkeni
-	 *  
-	 * Veritabanı sorgu bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $query;
+	use DBDriverCommonTrait;
 	
 	/* Ibase Trans Değişkeni
 	 *  
@@ -59,18 +37,6 @@ class IbaseDriver
 	(
 		'like' => '%'
 	);
-	 
-	protected function cvartype($type = '', $len = '')
-	{
-	 	if( $len === '' )
-		{
-			return " $type ";	
-		}
-		else
-		{
-			return " $type($len) ";	
-		}
-	}
 	
 	public function autoIncrement()
 	{

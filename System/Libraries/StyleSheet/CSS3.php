@@ -16,13 +16,8 @@ class __USE_STATIC_ACCESS__CSS3
 	/* Erişim: css3::, $this->css3, zn::$use->css3, uselib('css3')
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
-	
-	protected $browsers;
-	
-	public function __construct()
-	{
-		$this->browsers = Config::get('Css3', 'browsers');	
-	}
+
+	use StyleSheetCommonTrait;
 	
 	/******************************************************************************************
 	* CALL                                                                                    *

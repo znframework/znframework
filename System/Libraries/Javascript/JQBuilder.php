@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
+class __USE_STATIC_ACCESS__JQBuilder
 {
 	/***********************************************************************************/
 	/* JQUERY BUILDER LIBRARY 	     		                   	                       */
@@ -17,13 +17,7 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
-	protected $selector = 'this';
+	use JSCommonTrait;
 	
 	/* Property Variables
 	 * Property 
@@ -60,23 +54,6 @@ class __USE_STATIC_ACCESS__JQBuilder extends JSCommon
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "JQBuilder::$method()"));	
 	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Seçiciyi belirlemek için kullanılır.									  |
-		
-	  @param string $selector $(selector)
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		$this->selector = $selector;
-		
-		return $this;
-	}	
 	
 	/******************************************************************************************
 	* PROPERTY                                                                                *

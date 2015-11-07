@@ -160,7 +160,6 @@ class __USE_STATIC_ACCESS__Convert
 		$str = str_replace(' ', $splitWord, trim(strtolower($str)));
 		
 		return $str;
-		
 	}
 
 	/******************************************************************************************

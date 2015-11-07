@@ -17,6 +17,8 @@ class __USE_STATIC_ACCESS__Form
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	use HyperTextCommonTrait;
+	
 	/******************************************************************************************
 	* CALL                                                                                    *
 	*******************************************************************************************
@@ -96,7 +98,7 @@ class __USE_STATIC_ACCESS__Form
 			$_attributes['method'] = 'post';
 		}
 		
-		return '<form name="'.$name.'" '.$id_txt.Html::attributes($_attributes).'>'.eol();
+		return '<form name="'.$name.'" '.$id_txt.$this->attributes($_attributes).'>'.eol();
 	}
 
 	/******************************************************************************************
@@ -188,7 +190,7 @@ class __USE_STATIC_ACCESS__Form
 			      ? ''
 			      : "id=\"$id\"";
 	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.Html::attributes($_attributes).'>'.eol();
+		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -267,7 +269,7 @@ class __USE_STATIC_ACCESS__Form
 			      ? ''
 			      : "id=\"$id\"";
 		
-		return '<textarea name="'.$name.'" '.$id_txt.Html::attributes($_attributes).'>'.$value.'</textarea>'.eol();
+		return '<textarea name="'.$name.'" '.$id_txt.$this->attributes($_attributes).'>'.$value.'</textarea>'.eol();
 	}
 
 	/******************************************************************************************
@@ -342,7 +344,7 @@ class __USE_STATIC_ACCESS__Form
 			$multiple = '';	
 		}
 				  
-		$selectbox = '<select '.$multiple.' name="'.$name.'" '.$id_txt.Html::attributes($_attributes).'>';
+		$selectbox = '<select '.$multiple.' name="'.$name.'" '.$id_txt.$this->attributes($_attributes).'>';
 		
 		if( is_array($options) )foreach($options as $key => $value)
 		{

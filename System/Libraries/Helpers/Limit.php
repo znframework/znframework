@@ -36,7 +36,7 @@ class __USE_STATIC_ACCESS__Limit
 	// @endchar = Metnin kelime sayısı sınırlanan sayıdan fazla ise devamı olduğunu gösteren ve metnin sonuna eklenen karakter.
 	// @striptags = Metindeki html tagları numerik koda dönüştürülsün mü?. true veya false.
 	// Dönen Değer: Dönüştürülmüş veri.
-	public function word($str = '', $limit = 100, $endChar = '...', $stripTags = true)
+	public function word($str = '', $limit = 100, $endChar = '...', $stripTags = true, $encoding = "utf-8")
 	{
 		if( ! is_string($str) ) 
 		{
@@ -75,7 +75,7 @@ class __USE_STATIC_ACCESS__Limit
 		
 		preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/', $str, $matches);
 	
-		if( strlen($str) === strlen($matches[0]) )
+		if( mb_strlen($str, $encoding) === mb_strlen($matches[0], $encoding) )
 		{
 			$endChar = '';
 		}
@@ -127,7 +127,7 @@ class __USE_STATIC_ACCESS__Limit
 		
 		$str = preg_replace("/\s+/", ' ', str_replace(array("\r\n", "\r", "\n", "&nbsp;"), ' ', $str));
 	
-		if( strlen($str) <= $limit )
+		if( mb_strlen($str, $encoding) <= $limit )
 		{
 			return $str;
 		}

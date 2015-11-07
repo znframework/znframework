@@ -17,41 +17,7 @@ class __USE_STATIC_ACCESS__Animation
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Easing Değişkeni
-	 *  
-	 * Easing animasyon bilgisini tutması 
-	 * için oluşturulumuştur. 
-	 */
-	protected $easing;
-	
-	/* Selector Değişkeni
-	 *  
-	 * Seçici bilgisini tutması için
-	 * oluşturulumuştur. 
-	 */
-	protected $selector = 'this';
-	
-	/* Attr Değişkeni
-	 *  
-	 * Eklenmek istenen farklı css kodlarına.
-	 * ait bilgileri tutması için oluşturulmuştur.
-	 */
-	protected $attr;
-	
-	/* Transtions Değişkeni
-	 *  
-	 * Geçiş efektlerine ait kullanacak
-	 * verileri tutması için oluşturulmuştur.
-	 *
-	 */
-	protected $transitions = '';
-	
-	// Construct yapıcısı tarafından
-	// Config/Css3.php dosyasından ayarlar alınıyor.
-	public function __construct()
-	{
-		$this->browsers = Config::get('Css3', 'browsers');	
-	}
+	use StyleSheetCommonTrait;
 	
 	/******************************************************************************************
 	* CALL                                                                                    *
@@ -63,63 +29,7 @@ class __USE_STATIC_ACCESS__Animation
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "Animation::$method()"));	
 	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Css kodlarının uygulanacağı nesne seçicisi.        		  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @selector => .nesne, #eleman, td ... gibi seçiciler belirtilir.		      |
-	|          																				  |
-	| Örnek Kullanım: ->selector('#eleman') 						 		 		  		  |
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		if( ! isChar($selector) )
-		{
-			Error::set(lang('Error', 'valueParameter', 'selector'));
-			return $this;	
-		}
 
-		$this->selector = $selector;	
-	
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* ATTR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Farklı bir css kodu ekleneceği zaman kullanılır.        		  		  |
-	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array var @_attributes => Eklenecek css kodları ve değerleri.		     			  |
-	|          																				  |
-	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function attr($_attributes = array())
-	{
-		$attribute = '';
-		if( is_array($_attributes) )
-		{
-			foreach($_attributes as $key => $values)
-			{
-				if( is_numeric($key) )
-				{
-					$key = $values;
-				}
-				
-				$attribute .= ' '.$key.':'.$values.';';
-			}	
-		}
-		
-		$this->attr = $attribute;
-		
-		return $this;	
-	}
-	
 	/******************************************************************************************
 	* ANIMATION NAME                                                                          *
 	*******************************************************************************************
@@ -320,68 +230,5 @@ class __USE_STATIC_ACCESS__Animation
 		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".eol());
 		
 		return $this;
-	}
-	
-	// PROTECTED transitions nesnesi
-	protected function _transitions($data)
-	{
-		$transitions = "";
-		
-		foreach($this->browsers as $val)
-		{
-			$transitions .= "$val$data";
-		}
-		
-		return eol().$transitions;
-	}
-	
-	/******************************************************************************************
-	* ANIMATION COMPLETE                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Çoklu animasyon oluşturulacağı zaman sonlandırma yöntemi olarak		  |
-	| kullanılır    				  			  											  |
-	|															                              |	
-	| Örnek Kullanım: ->complete() 		  									  	 			  |
-	|          																				  |
-	******************************************************************************************/
-	public function complete()
-	{
-		$trans = $this->transitions;	
-		$this->_defaultVariable();
-		return $trans;
-	}	
-	
-	/******************************************************************************************
-	* ANIMATION CREATE	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Animasyon oluşturmada kullanılan son yöntemdir.   					  |
-	|															                              |	
-	| Örnek Kullanım: ->create() 		  									  	 			  |
-	|          																				  |
-	******************************************************************************************/
-	public function create()
-	{
-		$combineTransitions = func_get_args();
-		
-		$str  = $this->selector."{".eol();	
-		$str .= $this->attr.eol();
-		$str .= $this->complete();
-		
-		if( ! empty($combineTransitions) ) foreach( $combineTransitions as $transition )
-		{			
-			$str .= $transition;
-		}
-	
-		$str .= "}".eol();
-		
-		return $str;
-	}
-	
-	// Değişkenler default ayarlarına getiriliyor.
-	protected function _defaultVariable()
-	{
-		if( ! empty($this->attr) ) 		  $this->attr = NULL;
-		if( ! empty($this->transitions) ) $this->transitions = '';
-		if( $this->selector !== 'this' )  $this->selector = 'this';
 	}
 }

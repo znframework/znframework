@@ -17,6 +17,8 @@ class __USE_STATIC_ACCESS__HTML5
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	use HyperTextCommonTrait;
+	
 	/******************************************************************************************
 	* CALL                                                                                    *
 	*******************************************************************************************
@@ -26,38 +28,6 @@ class __USE_STATIC_ACCESS__HTML5
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "HTML5::$method()"));	
-	}
-
-	// Form Input Nesneleri
-	protected function _input($name = "", $value = "", $_attributes = '', $type = '')
-	{
-		if( ! is_string($name) ) 
-		{
-			$name = '';
-		}
-		
-		if( ! isValue($value) ) 
-		{
-			$value = '';		
-		}
-		
-		$value = ( ! empty($value)) 
-				 ? 'value="'.$value.'"' 
-				 : "";
-		
-		// Herhangi bir id değeri tanımlanmamışsa
-		// Id değeri olarak isim bilgisini kullan.
-		$id = ( isset($_attributes["id"]) ) 
-			  ? $_attributes["id"] 
-			  : $name;
-		
-		// Id değer tanımlanmışsa
-		// Id değeri olarak tanımalanan değeri kullan.
-		$id_txt = ( isset($_attributes["id"]) ) 
-			      ? ''
-			      : "id=\"$id\"";
-	
-		return '<input type="'.$type.'" name="'.$name.'" '.$id_txt.' '.$value.Html::attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -220,7 +190,7 @@ class __USE_STATIC_ACCESS__HTML5
 			$content = '';
 		}
 		
-		return '<'.$type.Html::attributes($_attributes).'>'.$content."</$type>".eol();
+		return '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".eol();
 	}
 	
 	/******************************************************************************************
@@ -471,7 +441,7 @@ class __USE_STATIC_ACCESS__HTML5
 	******************************************************************************************/ 
 	public function keygen($_attributes = '')
 	{
-		return '<keygen'.Html::attributes($_attributes).'>'.eol();
+		return '<keygen'.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	// HTML5 medya nesneleri için
@@ -482,7 +452,7 @@ class __USE_STATIC_ACCESS__HTML5
 			$src = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.Html::attributes($_attributes).'>'.eol();
+		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.eol();
 	}
 	
 	/******************************************************************************************
@@ -534,7 +504,7 @@ class __USE_STATIC_ACCESS__HTML5
 			$content = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.Html::attributes($_attributes).'>'.$content."</$type>".eol();
+		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.$content."</$type>".eol();
 	}
 	
 	/******************************************************************************************

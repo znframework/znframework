@@ -17,26 +17,7 @@ class __USE_STATIC_ACCESS__Shadow
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Easing Değişkeni
-	 *  
-	 * Easing animasyon bilgisini tutması 
-	 * için oluşturulumuştur. 
-	 */
-	protected $easing;
-	
-	/* Selector Değişkeni
-	 *  
-	 * Seçici bilgisini tutması için
-	 * oluşturulumuştur. 
-	 */
-	protected $selector = 'this';
-	
-	/* Attr Değişkeni
-	 *  
-	 * Eklenmek istenen farklı css kodlarına.
-	 * ait bilgileri tutması için oluşturulmuştur.
-	 */
-	protected $attr;
+	use StyleSheetCommonTrait;
 	
 	/* Params Değişkeni
 	 *  
@@ -45,13 +26,6 @@ class __USE_STATIC_ACCESS__Shadow
 	 *
 	 */
 	protected $params = array();
-
-	// Construct yapıcısı tarafından
-	// Config/Css3.php dosyasından ayarlar alınıyor.
-	public function __construct()
-	{
-		$this->browsers = Config::get('Css3', 'browsers');	
-	}
 	
 	/******************************************************************************************
 	* CALL                                                                                    *
@@ -62,62 +36,6 @@ class __USE_STATIC_ACCESS__Shadow
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "Shadow::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Css kodlarının uygulanacağı nesne seçicisi.        		  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @selector => .nesne, #eleman, td ... gibi seçiciler belirtilir.		      |
-	|          																				  |
-	| Örnek Kullanım: ->selector('#eleman') 						 		 		  		  |
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		if( ! isChar($selector) )
-		{
-			Error::set(lang('Error', 'valueParameter', 'selector'));
-			return $this;	
-		}
-
-		$this->selector = $selector;	
-	
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* ATTR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Farklı bir css kodu ekleneceği zaman kullanılır.        		  		  |
-	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array var @_attributes => Eklenecek css kodları ve değerleri.		     			  |
-	|          																				  |
-	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function attr($_attributes = array())
-	{
-		$attribute = '';
-		
-		if( is_array($_attributes) )
-		{
-			foreach($_attributes as $key => $values)
-			{
-				if( is_numeric($key) )
-				{
-					$key = $values;
-				}
-				$attribute .= ' '.$key.':'.$values.';';
-			}	
-		}
-		
-		$this->attr = $attribute;
-		
-		return $this;	
 	}
 	
 	/******************************************************************************************

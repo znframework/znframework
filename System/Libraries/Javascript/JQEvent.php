@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__JQEvent extends JSCommon
+class __USE_STATIC_ACCESS__JQEvent
 {
 	/***********************************************************************************/
 	/* EVENT COMPONENT	     	     		                   	                       */
@@ -17,13 +17,7 @@ class __USE_STATIC_ACCESS__JQEvent extends JSCommon
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
-	protected $selector = 'this';
+	use JSCommonTrait;
 	
 	/* Type Variables
 	 * Event Types
@@ -39,14 +33,6 @@ class __USE_STATIC_ACCESS__JQEvent extends JSCommon
 	 * @var string
 	 */
 	protected $params		= '';
-	
-	/* Callback Variables
-	 * Data Function
-	 * alert("example");
-	 *
-	 * function(data){alert("example");}
-	 */
-	protected $callback = '';
 	
 	/* Property Variables
 	 * Property
@@ -65,23 +51,6 @@ class __USE_STATIC_ACCESS__JQEvent extends JSCommon
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "JQEvent::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Seçiciyi belirlemek için kullanılır.									  |
-		
-	  @param string $selector
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		$this->selector = $selector;
-		
-		return $this;
 	}
 	
 	/* Protected Event
@@ -661,38 +630,6 @@ class __USE_STATIC_ACCESS__JQEvent extends JSCommon
 		$this->params = func_get_args();
 		
 		return $this;	
-	}
-	
-	/* Callback Data Function
-	 *
-	 * Params: string @params, string @callback
-	 *
-	 * @params: data, event
-	 * @callback: alert('custom');
-	 *
-	 * @return function(data, event){alert('custom');}
-	 */
-	public function callback($params = '', $callback = '')
-	{	
-		$this->callback = JQ::func($params, $callback);
-		
-		return $this;
-	}
-	
-	/* Callback/Function Data Function
-	 *
-	 * Params: string @params, string @callback
-	 *
-	 * @params: data, event
-	 * @callback: alert('custom');
-	 *
-	 * @return function(data, event){alert('custom');}
-	 */
-	public function func($params = '', $callback = '')
-	{
-		$this->callback($params, $callback);
-		
-		return $this;
 	}
 	
 	/* Complete Function

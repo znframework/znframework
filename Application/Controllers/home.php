@@ -31,7 +31,7 @@ class Home extends Controller
 		$data['font']  = Import::font('textfont', true);
 		$data['style'] = Import::style('style', true);	
 		$data['title'] = 'ZERONEED PHP WEB FRAMEWORK';
-		
+	
 		Import::view('test.template', $data);
 	}
 }

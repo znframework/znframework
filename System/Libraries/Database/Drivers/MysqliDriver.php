@@ -17,29 +17,7 @@ class MysqliDriver
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Config Değişkeni
-	 *  
-	 * Veritabanı ayarlar bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $config;
-	
-	/* Connect Değişkeni
-	 *  
-	 * Veritabanı bağlantı bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $connect;
-	
-	/* Query Değişkeni
-	 *  
-	 * Veritabanı sorgu bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $query;
+	use DBDriverCommonTrait;
 	
 	/* Operators Değişkeni
 	 *  
@@ -51,19 +29,7 @@ class MysqliDriver
 	(
 		'like' => '%'
 	);
-	 
-	protected function cvartype($type = '', $len = '')
-	{
-	 	if( $len === '' )
-		{
-			return " $type ";	
-		}
-		else
-		{
-			return " $type($len) ";	
-		}
-	}
-	
+
 	public function autoIncrement()
 	{
 		return ' AUTO_INCREMENT ';

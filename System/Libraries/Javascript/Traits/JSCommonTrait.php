@@ -1,21 +1,76 @@
 <?php
-class JSCommon
+trait JSCommonTrait
 {
-	/***********************************************************************************/
-	/* JQUERY COMMON COMPONENT	      		                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: JqueryCommon
-	/* Versiyon: 1.2
-	/* Tanımlanma: Dinamik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Jquery bileşenleri tarafından kullanılmaktadır.
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	/* 
+	 * Seçici seçimi
+	 *
+	 * $(this), $("#custom"), $(".example") 
+	 *
+	 * @var string this
+	 */
+	protected $selector = 'this';
+	
+	/* 
+	 * Fonksiyon bloğu
+	 *
+	 * function(data){alert("example");}
+	 *
+	 * @var string
+	 */
+	protected $callback = '';
+	
+	/******************************************************************************************
+	* SELECTOR                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Seçiciyi belirlemek için kullanılır.									  |
+		
+	  @param string $selector
+	  
+	  @return $this
+	|          																				  |
+	******************************************************************************************/
+	public function selector($selector = '')
+	{
+		$this->selector = $selector;
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* CALLBACK                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgunun fonksiyon bloğunu oluşturmak için kullanılır.     		      |
+		
+	  @param string $params
+	  @param string $callback 
+	  
+	  @return $this
+	|          																				  |
+	******************************************************************************************/
+	public function callback($params = '', $callback = '')
+	{
+		$this->callback = JQ::func($params, $callback);
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* FUNC                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Callback işlevinin diğer adıdır.						     		      |
+		
+	  @param string $params
+	  @param string $callback 
+	  
+	  @return $this
+	|          																				  |
+	******************************************************************************************/
+	public function func($params = '', $callback = '')
+	{
+		$this->callback($params, $callback);
+		
+		return $this;
+	}
 	
 	/******************************************************************************************
 	* BOOL TO STR                                                                             *

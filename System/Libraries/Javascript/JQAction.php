@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__JQAction extends JSCommon
+class __USE_STATIC_ACCESS__JQAction
 {
 	/***********************************************************************************/
 	/* JQUERY ACTION LIBRARY  	     		                   	                       */
@@ -18,14 +18,7 @@ class __USE_STATIC_ACCESS__JQAction extends JSCommon
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* 
-	 * Seçici seçimi
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 *
-	 * @var string this
-	 */
-	protected $selector = 'this';
+	use JSCommonTrait;
 	
 	/* 
 	 * Özellik belirteci.
@@ -35,15 +28,6 @@ class __USE_STATIC_ACCESS__JQAction extends JSCommon
 	 * @var string show
 	 */
 	protected $type		= 'show';
-	
-	/* 
-	 * Fonksiyon bloğu
-	 *
-	 * function(data){alert("example");}
-	 *
-	 * @var string
-	 */
-	protected $callback = '';
 	
 	/* 
 	 * Hız bilgisi 
@@ -72,23 +56,6 @@ class __USE_STATIC_ACCESS__JQAction extends JSCommon
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "JQAction::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Seçici bilgisini oluşturulması için kullanılır.						  |
-		
-	  @param string $selector
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		$this->selector = $selector;
-		
-		return $this;
 	}
 	
 	/******************************************************************************************
@@ -340,42 +307,6 @@ class __USE_STATIC_ACCESS__JQAction extends JSCommon
 		$this->_effect('slideToggle', $selector, $speed, $callback);
 		
 		return $this->create();
-	}
-	
-	/******************************************************************************************
-	* CALLBACK                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgunun fonksiyon bloğunu oluşturmak için kullanılır.     		      |
-		
-	  @param string $params
-	  @param string $callback 
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function callback($params = '', $callback = '')
-	{
-		$this->callback = JQ::func($params, $callback);
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* FUNC                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Callback işlevinin diğer adıdır.						     		      |
-		
-	  @param string $params
-	  @param string $callback 
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function func($params = '', $callback = '')
-	{
-		$this->callback($params, $callback);
-		
-		return $this;
 	}
 	
 	/******************************************************************************************

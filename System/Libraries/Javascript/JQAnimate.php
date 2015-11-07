@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__JQAnimate extends JSCommon
+class __USE_STATIC_ACCESS__JQAnimate
 {
 	/***********************************************************************************/
 	/* ANIMATE COMPONENT     	     		                   	                       */
@@ -17,6 +17,8 @@ class __USE_STATIC_ACCESS__JQAnimate extends JSCommon
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	use JSCommonTrait;
+	
 	/* Easing Variables
 	 * Easing 
 	 * easeIn, ease ...
@@ -24,23 +26,7 @@ class __USE_STATIC_ACCESS__JQAnimate extends JSCommon
 	 * 
 	 */
 	protected $easing = array();
-	
-	/* Callback Variables
-	 * Data Function
-	 * alert("example");
-	 *
-	 * function(data){alert("example");}
-	 */
-	protected $callback = '';
-	
-	/* Selector Variables
-	 * Selector 
-	 * this, #custom, .example
-	 *
-	 * $(this), $("#custom"), $(".example") 
-	 */
-	protected $selector = 'this';
-	
+		
 	/* Attributes Variables
 	 * Attributes 
 	 * 
@@ -58,23 +44,6 @@ class __USE_STATIC_ACCESS__JQAnimate extends JSCommon
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "JQAnimate::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Seçiciyi belirlemek için kullanılır.									  |
-		
-	  @param string $selector
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		$this->selector = $selector;	
-
-		return $this;
 	}
 	
 	/******************************************************************************************
@@ -147,48 +116,6 @@ class __USE_STATIC_ACCESS__JQAnimate extends JSCommon
 		$this->easing['queue'] = $queue;
 		
 		return $this;	
-	}
-	
-	/******************************************************************************************
-	* CALLBACK                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Geri dönüş fonksiyonunu oluşturmak içindir.    						  |
-		
-	  @param string $param
-	  @param string $callback
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function callback($params = '', $callback = '')
-	{
-		 $this->func($params, $callback);
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* FUNC / CALLBACK                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Geri dönüş fonksiyonunu oluşturmak içindir.    						  |
-		
-	  @param string $param
-	  @param string $callback
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function func($params = '', $callback = '')
-	{
-		if( ! is_string($params) || ! is_string($callback) )
-		{
-			Error::set(lang('Error', 'stringParameter', 'params & callback'));
-			return $this;	
-		}
-		
-		$this->callback = JQ::func($param, $callback);
-		
-		return $this;
 	}
 	
 	/******************************************************************************************

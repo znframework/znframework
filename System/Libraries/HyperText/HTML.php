@@ -17,6 +17,8 @@ class __USE_STATIC_ACCESS__HTML
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	use HyperTextCommonTrait;
+	
 	/******************************************************************************************
 	* CALL                                                                                    *
 	*******************************************************************************************
@@ -26,31 +28,6 @@ class __USE_STATIC_ACCESS__HTML
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "HTML::$method()"));	
-	}
-
-	// Function: $this->attributes()
-	// İşlev: Girilen dizi bilgisini html etiketlerinin özellik değer biglisi türüne dönüştürür.
-	// Parametreler
-	// @attributes = Özellik değer çifti içeren dizi bilgisi. Örnek array("a" => "b") dizi verisi, a="b" verisine dönüşür.
-	// Dönen Değer: Dönüştürülmüş veri.
-	public function attributes($attributes = '')
-	{
-		$attribute = '';
-		
-		if( is_array($attributes) )
-		{
-			foreach( $attributes as $key => $values )
-			{
-				if( is_numeric($key) )
-				{
-					$key = $values;
-				}
-				
-				$attribute .= ' '.$key.'="'.$values.'"';
-			}	
-		}
-		
-		return $attribute;	
 	}
 
 	// Function: html_element()

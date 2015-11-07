@@ -16,34 +16,8 @@ class __USE_STATIC_ACCESS__DBTool
 	/* Erişim: $this->dbtool, zn::$use->dbtool, uselib('dbtool')
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
-		
-	/* Prefix Değişkeni
-	 *  
-	 * Tablo ön eki bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $prefix;
 	
-	/******************************************************************************************
-	* CONSTRUCT                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
-	|          																				  |
-	******************************************************************************************/
-	public function __construct($config = array())
-	{
-		$this->db = DBCommon::run();
-		
-		$this->prefix = Config::get('Database', 'prefix');
-		
-		if( empty($config) ) 
-		{
-			$config = Config::get('Database');
-		}
-		
-		$this->db->connect($config);
-	}
+	use DBCommonTrait;
 	
 	/******************************************************************************************
 	* LIST DATABASES                                                                          *
@@ -71,7 +45,7 @@ class __USE_STATIC_ACCESS__DBTool
 		
 		$newDatabases = array();
 		
-		foreach($this->db->result() as $databases)
+		foreach( $this->db->result() as $databases )
 		{
 			foreach ($databases as $db => $database)
 			{
@@ -108,9 +82,9 @@ class __USE_STATIC_ACCESS__DBTool
 		
 		$newTables = array();
 		
-		foreach($this->db->result() as $tables)
+		foreach( $this->db->result() as $tables )
 		{
-			foreach ($tables as $tb => $table)
+			foreach( $tables as $tb => $table )
 			{
 				$newTables[] = $table;
 			}
@@ -159,7 +133,7 @@ class __USE_STATIC_ACCESS__DBTool
 		
 		$return = NULL;
 		
-		foreach($tables as $table)
+		foreach( $tables as $table )
 		{
 			if( ! empty($this->prefix) && ! strstr($table, $this->prefix) )
 			{
@@ -175,10 +149,10 @@ class __USE_STATIC_ACCESS__DBTool
 			$row2 = $this->db->fetchRow();
 			$return.= eol(2).$row2[1].";".eol(2);
 		
-			for ($i = 0; $i < $numFields; $i++) 
+			for( $i = 0; $i < $numFields; $i++ ) 
 			{
 				
-				while($row = $this->db->fetchRow())
+				while( $row = $this->db->fetchRow() )
 				{
 					$return.= 'INSERT INTO '.$table.' VALUES(';
 					
@@ -288,7 +262,7 @@ class __USE_STATIC_ACCESS__DBTool
 		{
 			foreach( $this->db->result() as $tables )
 			{
-				foreach ($tables as $db => $tableName)
+				foreach( $tables as $db => $tableName )
 				{
 					$this->db->query("REPAIR TABLE ".$tableName);
 				}
@@ -317,62 +291,5 @@ class __USE_STATIC_ACCESS__DBTool
 		}
 				
 		return getMessage('Database', 'repairTablesSuccess');
-	}
-	
-	/******************************************************************************************
-	* DIFFERENT CONNECTION                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Birden fazla ve birden farklı veritabanı bağlantısı yapmak içindir.	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @connect_name => Bağlantı veri dizisi ismi.       	                      |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function differentConnection($connectName = '')
-	{
-		if( ! is_string($connectName) ) 
-		{
-			return false;
-		}
-		
-		$config = Config::get('Database');
-		$configDifferent = $config['differentConnection'];
-		
-		if( ! isset($configDifferent[$connectName]) ) 
-		{
-			return false;
-		}
-		
-		foreach( $config as $key => $val )
-		{
-			if( $key !== 'differentConnection' )
-			{
-				if( ! isset($configDifferent[$connectName][$key]) )
-				{
-					$configDifferent[$connectName][$key] = $val;
-				}
-			}
-		}
-		
-		return new self($configDifferent[$connectName]);
-	}
-	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	******************************************************************************************/
-	public function error()
-	{
-		Error::set($this->db->error()); 
-		return $this->db->error(); 
-	}
-	
-	/******************************************************************************************
-	* DESTRUCT                                                                                *
-	******************************************************************************************/
-	public function __destruct()
-	{
-		@$this->db->close();	
 	}
 }

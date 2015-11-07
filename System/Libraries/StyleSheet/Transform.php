@@ -17,12 +17,7 @@ class __USE_STATIC_ACCESS__Transform
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Selector Değişkeni
-	 *  
-	 * Seçici bilgisini tutması için
-	 * oluşturulumuştur. 
-	 */
-	protected $selector = 'this';
+	use StyleSheetCommonTrait;
 	
 	/* Transforms Değişkeni
 	 *  
@@ -32,13 +27,6 @@ class __USE_STATIC_ACCESS__Transform
 	 */
 	protected $transforms = array();
 	 
-	// Construct yapıcısı tarafından
-	// Config/Css3.php dosyasından ayarlar alınıyor.
-	public function __construct()
-	{
-		$this->browsers = Config::get('Css3', 'browsers');	
-	}
-	
 	/******************************************************************************************
 	* CALL                                                                                    *
 	*******************************************************************************************
@@ -48,30 +36,6 @@ class __USE_STATIC_ACCESS__Transform
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "Transform::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* SELECTOR                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Css kodlarının uygulanacağı nesne seçicisi.        		  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @selector => .nesne, #eleman, td ... gibi seçiciler belirtilir.		      |
-	|          																				  |
-	| Örnek Kullanım: ->selector('#eleman') 						 		 		  		  |
-	|          																				  |
-	******************************************************************************************/
-	public function selector($selector = '')
-	{
-		if( ! isChar($selector) ) 
-		{
-			Error::set(lang('Error', 'valueParameter', 'selector'));
-			return $this;	
-		}
-
-		$this->selector = $selector;	
-	
-		return $this;
 	}
 	
 	// Protected Params Fonkisyonu

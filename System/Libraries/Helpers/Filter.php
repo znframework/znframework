@@ -36,43 +36,12 @@ class __USE_STATIC_ACCESS__Filter
 	******************************************************************************************/
 	public function word($string = '', $badWords = '', $changeChar = '[badwords]')
 	{
-		if( ! isValue($string) ) 
+		if( ! is_scalar($string) ) 
 		{
 			return Error::set(lang('Error', 'valueParameter', 'string'));
 		}
 		
-		if( ! is_array($badWords) ) 
-		{
-			if( empty($badWords) )
-			{
-				return $string;	
-			}
-			
-			return  $string = Regex::replace($badWords, $changeChar, $string, 'xi');
-		}
-		
-		$ch = '';
-		$i = 0;	
-		
-		if( ! empty($badWords) ) foreach( $badWords as $value )
-		{
-			if( ! is_array($changeChar) )
-			{
-				$ch = $changeChar;
-			}
-			else
-			{
-				if( isset($changeChar[$i]) )
-				{
-					$ch = $changeChar[$i];	
-					$i++;
-				}
-			}
-			
-			$string = Regex::replace($value, $ch, $string, 'xi');
-		}
-
-		return $string;
+		return str_ireplace($badWords, $changeChar, $string);
 	}	
 	
 	/******************************************************************************************

@@ -17,6 +17,26 @@ class __USE_STATIC_ACCESS__DB
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	use DBCommonTrait;
+	use DBControlFlowTrait;
+	use DBVariableTypesTrait;
+	use DBMathFunctionsTrait;
+	use DBOtherFunctionsTrait;
+	use DBConversionExpressionEvaluationTrait;
+	use DBStringFunctionsTrait;
+	use DBSelectClausesTrait;
+	use DBMiscellaneousFunctionsTrait;
+	use DBDateTimeFunctionsTrait;
+	use DBFullTextFunctionsTrait;
+	use DBXMLFunctionsTrait;
+	use DBEncryptionCompressionFunctionsTrait;
+	use DBInformationFunctiosTrait;
+	use DBSpatialAnalysisFunctionsTrait;
+	use DBJsonFunctionsTrait;
+	use DBGlobalTransactionFunctionsTrait;
+	use DBEnterpriseEncryptionFunctionsTrait;
+	use DBAggregateFunctionsTrait;
+	
 	/* Select Değişkeni
 	 *  
 	 * SELECT bilgisini
@@ -40,14 +60,6 @@ class __USE_STATIC_ACCESS__DB
 	 *
 	 */
 	private $from;
-	
-	/* Table Değişkeni
-	 *  
-	 * TABLE bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $table;
 	
 	/* Where Değişkeni
 	 *  
@@ -215,23 +227,7 @@ class __USE_STATIC_ACCESS__DB
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $transError;
-	
-	/* Prefix Değişkeni
-	 *  
-	 * Tablo ön eki bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $prefix;
-	
-	/* Config Değişkeni
-	 *  
-	 * Tablo ayar bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $config;
+	private $transError;	
 	
 	/* Pagination Değişkeni
 	 *  
@@ -248,36 +244,6 @@ class __USE_STATIC_ACCESS__DB
 	 *
 	 */
 	private $unlimitedTotalRows;
-	
-	/* Table Name Değişkeni
-	 *  
-	 * Sorguda kullanılan tablo bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $tableName;
-	
-	/******************************************************************************************
-	* CONSTRUCT                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
-	|          																				  |
-	******************************************************************************************/
-	public function __construct($config = array())
-	{
-		$this->db = DBCommon::run();
-		
-		$this->config = Config::get('Database');
-		
-		$this->prefix = $this->config['prefix'];
-		
-		if( empty($config) ) 
-		{
-			$config = $this->config;
-		}
-		
-		$this->db->connect($config);
-	}
 	
 	/******************************************************************************************
 	* CALL                                                                                    *
@@ -308,6 +274,13 @@ class __USE_STATIC_ACCESS__DB
 			$condition = '*';
 		}
 		
+		$args = func_get_args();
+		
+		if( count($args) > 1 )
+		{
+			$condition = rtrim(implode(',', $args), ',');
+		}
+		
 		$this->selectColumn = ' '.$condition.' ';
 		$this->select = 'SELECT';
 		
@@ -330,32 +303,6 @@ class __USE_STATIC_ACCESS__DB
 		if( is_string($table) ) 
 		{
 			$this->from = ' FROM '.$this->prefix.$table.' ';
-			$this->tableName = $this->prefix.$table;
-		}
-		else
-		{
-			Error::set(lang('Error', 'stringParameter', 'table'));	
-		}
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* TABLE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde Tablo ismi belirtmek için oluşturulmuştur.			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @table => Tablo adı parametresidir.                                       |
-	|          																				  |
-	| Örnek Kullanım: ->table('OrnekTablo')		        									  |
-	|          																				  |
-	******************************************************************************************/
-	public function table($table = '')
-	{
-		if( is_string($table) ) 
-		{
-			$this->table = $table;
 			$this->tableName = $this->prefix.$table;
 		}
 		else
@@ -399,52 +346,6 @@ class __USE_STATIC_ACCESS__DB
 		return $this;
 	}
 	
-	
-	/******************************************************************************************
-	* WHERE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @column => Sütun ve operatör parametresidir.                              |
-	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
-	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
-	|          																				  |
-	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
-	|          																				  |
-	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
-	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
-	|          																				  |
-	******************************************************************************************/
-	public function like($value = '', $type = 'starting')
-	{
-		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_scalar($value) || ! is_string($type) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'value, type'));
-		}
-		
-		$operator = $this->db->operators['like'];
-		
-		if( $type === "inside" ) 
-		{
-			$value = $operator.$value.$operator;
-		}
-		
-		// İle Başlayan
-		if( $type === "starting" ) 
-		{
-			$value = $value.$operator;
-		}
-		
-		// İle Biten
-		if( $type === "ending" ) 
-		{
-			$value = $operator.$value;
-		}
-		
-		return $value;
-	}
 	
 	/******************************************************************************************
 	* HAVING                                                                                  *
@@ -528,7 +429,16 @@ class __USE_STATIC_ACCESS__DB
 		
 		if( empty($this->select) )
 		{ 
-			$this->select = 'SELECT'; $this->selectColumn = ' * ';
+			$this->select = 'SELECT'; 
+			
+			if( empty($this->math) )
+			{
+				$this->selectColumn = ' * ';
+			}
+			else
+			{
+				$this->selectColumn = ' ';	
+			}
 		}
 				
 		if( ! empty($table) ) 
@@ -609,7 +519,7 @@ class __USE_STATIC_ACCESS__DB
 		$queryBuilder = $paginationQueryBuilder.$this->limit;
 	
 		$this->_resetQuery();
-		
+
 		$secure = $this->secure;
 		$this->unlimitedTotalRows = $this->query($this->_querySecurity($paginationQueryBuilder), $secure)->totalRows();
 		$this->db->query($this->_querySecurity($queryBuilder), $secure);
@@ -931,230 +841,6 @@ class __USE_STATIC_ACCESS__DB
 	}
 	
 	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu sonucunda oluşan hata hakkında bilgi almak için kullanılır.	      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->error();                     			                              |
-	|          																				  |
-	******************************************************************************************/
-	public function error()
-	{ 
-		Error::set($this->db->error()); 
-		return $this->db->error(); 
-	}
-	
-	/******************************************************************************************
-	* CLOSE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı bağlantısını kapatmak için kullanılır.	      			      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->close();                     			                              |
-	|          																				  |
-	******************************************************************************************/
-	public function close()
-	{ 
-		return $this->db->close(); 
-	}
-	
-	/******************************************************************************************
-	* ALL                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki ALL komutunun kullanımıdır.	      			  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->all();                     			                                  |
-	|          																				  |
-	******************************************************************************************/
-	public function all()
-	{ 
-		$this->all = ' ALL '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* DISTINCT                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki DISTINCT komutunun kullanımıdır.	      		  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->distinct();                     			                          |
-	|          																				  |
-	******************************************************************************************/
-	public function distinct()
-	{ 
-		$this->distinct = ' DISTINCT '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* DISTINCTROW                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki DISTINCTROW komutunun kullanımıdır.	      	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->distinctRow();                     			                          |
-	|          																				  |
-	******************************************************************************************/
-	public function distinctRow()
-	{ 
-		$this->distinctRow = ' DISTINCTROW '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* STRAIGHT JOIN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki STRAIGHT_JOIN komutunun kullanımıdır.	      	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->straightJoin();                     	                              |
-	|          																				  |
-	******************************************************************************************/
-	public function straightJoin()
-	{ 
-		$this->straightJoin = ' STRAIGHT_JOIN '; 
-		return $this; 
-	}	
-		
-	/******************************************************************************************
-	* HIGH PRIORITY                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki HIGH_PRIORITY komutunun kullanımıdır.	      	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->highPriority();                     	                              |
-	|          																				  |
-	******************************************************************************************/
-	public function highPriority()
-	{ 
-		$this->highPriority = ' HIGH_PRIORITY '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* SQL SMALL RESULT                                                                        *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki SQL_SMALL_RESULT komutunun kullanımıdır.	      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->smallResult();                     	                              |
-	|          																				  |
-	******************************************************************************************/
-	public function smallResult()
-	{ 
-		$this->smallResult = ' SQL_SMALL_RESULT '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* SQL BIG RESULT                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki SQL_BIG_RESULT komutunun kullanımıdır.	      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->bigResult();                        	                              |
-	|          																				  |
-	******************************************************************************************/
-	public function bigResult()
-	{ 
-		$this->bigResult = ' SQL_BIG_RESULT '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* SQL BUFFER RESULT                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki SQL_BUFFER_RESULT komutunun kullanımıdır.	      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->bufferResult();                        	                          |
-	|          																				  |
-	******************************************************************************************/
-	public function bufferResult()
-	{ 
-		$this->bufferResult = ' SQL_BUFFER_RESULT '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* SQL CACHE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki SQL_CACHE komutunun kullanımıdır.	      	      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->cache();                        	                                  |
-	|          																				  |
-	******************************************************************************************/
-	public function cache()
-	{ 
-		$this->cache = ' SQL_CACHE '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* SQL NO CACHE                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki SQL_NO_CACHE komutunun kullanımıdır.	  	      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->noCache();                        	                                  |
-	|          																				  |
-	******************************************************************************************/
-	public function noCache()
-	{ 
-		$this->noCache = ' SQL_NO_CACHE '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* SQL CALC FOUND ROWS                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki SQL_CALC_FOUND_ROWS komutunun kullanımıdır.	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->calcFoundRows();                        	                          |
-	|          																				  |
-	******************************************************************************************/
-	public function calcFoundRows()
-	{ 
-		$this->calcFoundRows = ' SQL_CALC_FOUND_ROWS '; 
-		return $this; 
-	}
-	
-	/******************************************************************************************
-	* FOUND ROWS                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sorgusundaki limitten bağımsız sorgu sonucudur.	          |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: ->foundRows();                        	               	              |
-	|          																				  |
-	******************************************************************************************/
-	public function foundRows()
-	{ 
-		$rows = $this->query('SELECT FOUND_ROWS()')->fetchRow();
-		
-		return $rows[0];
-	}
-	
-	/******************************************************************************************
 	* PAGINATION                                                                              *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
@@ -1199,13 +885,13 @@ class __USE_STATIC_ACCESS__DB
 	| Örnek Kullanım: ->math('AVG(sayi, id)') // Metin olarak                                 |
 	|          																				  |
 	******************************************************************************************/
-	public function math($expresion = array())
+	public function math($expression = array())
 	{ 
-		if( ! is_array($expresion) ) 
+		if( ! is_array($expression) ) 
 		{
 			if( is_string($expression) )
 			{
-				$this->math = $expresion;
+				$this->math = $expression;
 			}
 			
 			return $this;
@@ -1214,17 +900,12 @@ class __USE_STATIC_ACCESS__DB
 		$exp  = ''; 
 		$vals = '';
 		
-		if( ! empty($expresion) ) foreach( $expresion as $mf => $val )
+		if( ! empty($expression) ) foreach( $expression as $mf => $val )
 		{
 			$exp .= $mf.'(';
 			
 			if( ! empty($val) && is_array($val) ) foreach( $val as $v )
 			{
-				if( ! is_numeric($v) ) 
-				{
-					$v = "'".$v."'";
-				}
-				
 				$vals .= $v.',';
 			}
 			
@@ -1648,61 +1329,6 @@ class __USE_STATIC_ACCESS__DB
 	}
 	
 	/******************************************************************************************
-	* VERSION                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanı sürücüsünün sürüm bilgisini verir.							  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: $this->db->version();  									 			  |
-	|          																				  |
-	******************************************************************************************/
-	public function version()
-	{
-		return $this->db->version();	
-	}
-	
-	/******************************************************************************************
-	* DIFFERENT CONNECTION                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Birden fazla ve birden farklı veritabanı bağlantısı yapmak içindir.	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @connect_name => Bağlantı veri dizisi ismi.       	                      |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function differentConnection($connectName = '')
-	{
-		if( ! is_string($connectName) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'connectName'));
-		}
-		
-		$config = $this->config;
-		$configDifferent = $config['differentConnection'];
-		
-		if( ! isset($configDifferent[$connectName]) ) 
-		{
-			return Error::set(lang('Error', 'emptyParameter', 'connectName'));
-		}
-		
-		foreach($config as $key => $val)
-		{
-			if( $key !== 'differentConnection' )
-			{
-				if( ! isset($configDifferent[$connectName][$key]) )
-				{
-					$configDifferent[$connectName][$key] = $val;
-				}
-			}
-		}
-		
-		return new self($configDifferent[$connectName]);
-	}
-	
-	/******************************************************************************************
 	// PRIVATE QUERY SECURITY																  *
 	// Sorgu güvenliği için oluşturulmuş 													  *
 	// Sınıf içi güvenlik yeöntemi.                                                           *
@@ -1748,399 +1374,6 @@ class __USE_STATIC_ACCESS__DB
 	}
 	
 	/******************************************************************************************
-	* INT                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: SQL INT kullanımının karşılığıdır.									  |
-	
-	  @var numeric $len
-	  
-	  @return INT
-	|          																				  |
-	******************************************************************************************/
-	public function int($len = '')
-	{
-		return $this->db->int($len);
-	}
-	
-	/******************************************************************************************
-	* INTEGER                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: SQL INT kullanımının karşılığıdır.									  |
-	
-	  @var numeric $len
-	  
-	  @return INT
-	|          																				  |
-	******************************************************************************************/
-	public function integer($len = '')
-	{
-		return $this->int($len);
-	}
-	
-	/******************************************************************************************
-	* SMALLINT                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: SQL SMALLINT kullanımının karşılığıdır.								  |
-	
-	  @var numeric $len
-	  
-	  @return SMALLINT
-	|          																				  |
-	******************************************************************************************/
-	public function smallInt($len = '')
-	{
-		return $this->db->smallInt($len);
-	}
-	
-	/******************************************************************************************
-	* TINYINT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: SQL TINYINT kullanımının karşılığıdır.								  |
-	
-	  @var numeric $len
-	  
-	  @return TINYINT
-	|          																				  |
-	******************************************************************************************/
-	public function tinyInt($len = '')
-	{
-		return $this->db->tinyInt($len);
-	}
-	
-	/******************************************************************************************
-	* MEDIUMINT                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: SQL MEDIUMINT kullanımının karşılığıdır.								  |
-	
-	  @var numeric $len
-	  
-	  @return MEDIUMINT
-	|          																				  |
-	******************************************************************************************/
-	public function mediumInt($len = '')
-	{
-		return $this->db->mediumInt($len);
-	}
-	
-	/******************************************************************************************
-	* BIGINT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: SQL BIGINT kullanımının karşılığıdır.	     							  |
-	
-	  @var numeric $len
-	  
-	  @return BIGINT
-	|          																				  |
-	******************************************************************************************/
-	public function bigInt($len = '')
-	{
-		return $this->db->bigInt($len);
-	}
-	
-	/******************************************************************************************
-	* DECIMAL                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: SQL DECIMAL kullanımının karşılığıdır.	  							  |
-	
-	  @var numeric $len
-	  
-	  @return DECIMAL
-	|          																				  |
-	******************************************************************************************/
-	public function decimal($len = '')
-	{
-		return $this->db->decimal($len);
-	}
-	
-	/******************************************************************************************
-	* DOUBLE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: SQL DOUBLE kullanımının karşılığıdır.	  	     						  |
-	
-	  @var numeric $len
-	  
-	  @return DOUBLE
-	|          																				  |
-	******************************************************************************************/
-	public function double($len = '')
-	{
-		return $this->db->double($len);
-	}
-	
-	/******************************************************************************************
-	* FLOAT                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: SQL FLOAT kullanımının karşılığıdır.	  	     						  |
-	
-	  @var numeric $len
-	  
-	  @return FLOAT
-	|          																				  |
-	******************************************************************************************/
-	public function float($len = '')
-	{
-		return $this->db->float($len);
-	}
-	
-	/******************************************************************************************
-	* CHAR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: SQL CHAR kullanımının karşılığıdır.	  	     						  |
-	
-	  @var numeric $len
-	  
-	  @return CHAR
-	|          																				  |
-	******************************************************************************************/
-	public function char($len = '')
-	{
-		return $this->db->char($len);
-	}
-	
-	/******************************************************************************************
-	* VARCHAR                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: SQL VARCHAR kullanımının karşılığıdır. 	     						  |
-	
-	  @var numeric $len
-	  
-	  @return VARCHAR
-	|          																				  |
-	******************************************************************************************/
-	public function varChar($len = '')
-	{
-		return $this->db->varChar($len);
-	}
-	
-	/******************************************************************************************
-	* TINYTEXT                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: SQL TINYTEXT kullanımının karşılığıdır. 	     						  |
-	
-	  @return TINYTEXT
-	|          																				  |
-	******************************************************************************************/
-	public function tinyText()
-	{
-		return $this->db->tinyText();
-	}
-	
-	/******************************************************************************************
-	* TEXT                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: SQL TEXT kullanımının karşılığıdır. 	         						  |
-	
-	  @return TEXT
-	|          																				  |
-	******************************************************************************************/
-	public function text()
-	{
-		return $this->db->text();
-	}
-	
-	/******************************************************************************************
-	* MEDIUMTEXT                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: SQL MEDIUMTEXT kullanımının karşılığıdır. 	   						  |
-	
-	  @return MEDIUMTEXT
-	|          																				  |
-	******************************************************************************************/
-	public function mediumText()
-	{
-		return $this->db->mediumText();
-	}
-	
-	/******************************************************************************************
-	* LONGTEXT                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: SQL LONGTEXT kullanımının karşılığıdır. 	     						  |
-	
-	  @return LONGTEXT
-	|          																				  |
-	******************************************************************************************/
-	public function longText()
-	{
-		return $this->db->longText();
-	}
-	
-	/******************************************************************************************
-	* DATE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: SQL DATE kullanımının karşılığıdır. 	         						  |
-	
-	  @var numeric $len
-	  
-	  @return DATE
-	|          																				  |
-	******************************************************************************************/
-	public function date($len = '')
-	{
-		return $this->db->date();
-	}
-	
-	/******************************************************************************************
-	* DATETIME                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: SQL DATETIME kullanımının karşılığıdır. 	       						  |
-	
-	  @var numeric $len
-	  
-	  @return DATETIME
-	|          																				  |
-	******************************************************************************************/
-	public function datetime($len = '')
-	{
-		return $this->db->datetime();
-	}
-	
-	/******************************************************************************************
-	* TIME                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: SQL TIME kullanımının karşılığıdır.    	       						  |
-	
-	  @var numeric $len
-	  
-	  @return TIME
-	|          																				  |
-	******************************************************************************************/
-	public function time($len = '')
-	{
-		return $this->db->time();
-	}
-	
-	/******************************************************************************************
-	* TIMESTAMP                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: SQL TIMESTAMP kullanımının karşılığıdır.    	  						  |
-	
-	  @var numeric $len
-	  
-	  @return TIMESTAMP
-	|          																				  |
-	******************************************************************************************/
-	public function timeStamp($len = '')
-	{
-		return $this->db->timeStamp();
-	}
-	
-	/******************************************************************************************
-	* ENUM                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: SQL ENUM kullanımının karşılığıdır.        	  						  |
-	
-	  @var ...args
-	  
-	  @return ENUM(p1, p2 ... pN)
-	|          																				  |
-	******************************************************************************************/
-	public function enum()
-	{
-		return $this->db->enum(func_get_args());
-	}
-	
-	/******************************************************************************************
-	* SET                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: SQL SET kullanımının karşılığıdır.        	  						  |
-	
-	  @var ...args
-	  
-	  @return SET(p1, p2 ... pN)
-	|          																				  |
-	******************************************************************************************/
-	public function set()
-	{
-		return $this->db->set(func_get_args());
-	}
-	
-	/******************************************************************************************
-	* AUTO INCREMENT                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: SQL AUTO_INCREMENT  kullanımının karşılığıdır.        	  			  |
-	  
-	  @return AUTO_INCREMENT
-	|          																				  |
-	******************************************************************************************/
-	public function autoIncrement()
-	{
-		return $this->db->autoIncrement();
-	}
-	
-	/******************************************************************************************
-	* PRIMARY KEY                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: SQL PRIMARY KEY kullanımının karşılığıdır.   	  						  |
-	
-	  @var string $col
-	  
-	  @return PRIMARY KEY
-	|          																				  |
-	******************************************************************************************/
-	public function primaryKey($col = '')
-	{
-		return $this->db->primaryKey($col);
-	}
-	
-	/******************************************************************************************
-	* FOREIGN KEY                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: SQL FOREIGN KEY kullanımının karşılığıdır.   	  						  |
-	
-	  @var string $col
-	  
-	  @return FOREIGN KEY
-	|          																				  |
-	******************************************************************************************/
-	public function foreignKey($col = '')
-	{
-		return $this->db->foreignKey($col);
-	}
-	
-	/******************************************************************************************
-	* UNIQUE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: SQL UNIQUE kullanımının karşılığıdır.      	  						  |
-	
-	  @var string $col
-	  
-	  @return UNIQUE
-	|          																				  |
-	******************************************************************************************/
-	public function unique($col = '')
-	{
-		return $this->db->unique($col);
-	}
-	
-	/******************************************************************************************
-	* NULL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: SQL NULL kullanımının karşılığıdır.       	  						  |
-	
-	  @var bool $type
-	  
-	  @return NULL / NOT NULL
-	|          																				  |
-	******************************************************************************************/
-	public function null($type = true)
-	{
-		return $this->db->null($type);
-	}
-	
-	/******************************************************************************************
-	* NOT NULL                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: SQL NOT NULL kullanımının karşılığıdır.     	  						  |
-	
-	  @return NOT NULL
-	|          																				  |
-	******************************************************************************************/
-	public function notNull()
-	{
-		return $this->db->notNull();
-	}
-	
-	/******************************************************************************************
 	* DEĞİŞKENLERİ SIFIRLA                                                                    *
 	******************************************************************************************/
 	private function _resetQuery()
@@ -2167,13 +1400,5 @@ class __USE_STATIC_ACCESS__DB
 		$this->orderBy 		= NULL;
 		$this->limit 		= NULL;
 		$this->join 		= NULL;
-	}
-	
-	/******************************************************************************************
-	* DESTRUCT                                                                                *
-	******************************************************************************************/
-	public function __destruct()
-	{
-		@$this->db->close();	
 	}
 }

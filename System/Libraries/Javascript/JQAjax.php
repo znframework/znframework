@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__JQAjax extends JSCommon
+class __USE_STATIC_ACCESS__JQAjax
 {
 	/***********************************************************************************/
 	/* JQUERY AJAX LIBRARY    	     		                   	                       */
@@ -17,6 +17,8 @@ class __USE_STATIC_ACCESS__JQAjax extends JSCommon
 	/* Erişim: JQAjax::, $this->JQAjax, zn::$use->JQAjax, uselib('JQAjax')
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
+	
+	use JSCommonTrait;
 	
 	/* 
 	 * Fonksiyon blokları 

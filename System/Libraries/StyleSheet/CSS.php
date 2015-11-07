@@ -17,12 +17,7 @@ class __USE_STATIC_ACCESS__CSS
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
-	/* Easing Değişkeni
-	 *  
-	 * Easing animasyon bilgisini tutması 
-	 * için oluşturulumuştur. 
-	 */
-	protected $easing;
+	use StyleSheetCommonTrait;
 	
 	/* Manipulation Değişkeni
 	 *  
@@ -30,20 +25,6 @@ class __USE_STATIC_ACCESS__CSS
 	 * için oluşturulumuştur. 
 	 */
 	protected $manipulation;
-	
-	/* Selector Değişkeni
-	 *  
-	 * Seçici bilgisini tutması için
-	 * oluşturulumuştur. 
-	 */
-	protected $selector = 'this';
-	
-	// Construct yapıcısı tarafından
-	// Config/Css3.php dosyasından ayarlar alınıyor.
-	public function __construct()
-	{
-		$this->browsers = Config::get('Css3', 'browsers');	
-	}
 	
 	/******************************************************************************************
 	* CALL                                                                                    *
@@ -54,45 +35,6 @@ class __USE_STATIC_ACCESS__CSS
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "CSS::$method()"));	
-	}
-	
-	/* Selector Function
-	 * Params: string @selector 
-	 * this, #custom, .example
-	 *
-	 * this, #custom, .example
-	 */
-	public function selector($selector = '')
-	{
-		if( ! isChar($selector))
-		{
-			Error::set(lang('Error', 'valueParameter', 'selector'));
-			return $this;	
-		}
-
-		$this->selector = $selector;	
-	
-		return $this;
-	}
-	
-	// PROTECTED ATTR
-	protected function _attr($_attributes = array())
-	{
-		$attribute = '';
-		
-		if( is_array($_attributes) )
-		{
-			foreach($_attributes as $key => $values)
-			{
-				if( is_numeric($key) )
-				{
-					$key = $values;
-				}
-				$attribute .= ' '.$key.':'.$values.';';
-			}	
-		}
-		
-		return $attribute;	
 	}
 	
 	/******************************************************************************************
