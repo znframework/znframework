@@ -815,15 +815,26 @@ class __USE_STATIC_ACCESS__DB
 	******************************************************************************************/
 	public function row($printable = false)
 	{ 
-		$row = $this->db->row();
-		
-		if( $printable === false )
+		if( is_numeric($printable) )
 		{
-			return $row ; 
+			$result = $this->db->resultArray(); 
+			
+			if( $printable < 0 )
+			{
+				return $result[count($result) + $printable];	
+			}
+			else
+			{
+				return $result[$printable];
+			}
+		}
+		elseif( $printable === false )
+		{
+			return $this->db->row();
 		}
 		else
 		{
-			return current($row);	
+			return current($this->db->row());	
 		}
 	}
 	
