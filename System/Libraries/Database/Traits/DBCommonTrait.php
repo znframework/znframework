@@ -17,6 +17,14 @@ trait DBCommonTrait
 	 */
 	private $prefix;
 	
+	/* Secure Değişkeni
+	 *  
+	 * Güvenlik işlem bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $secure;
+	
 	/* Table Değişkeni
 	 *  
 	 * TABLE bilgisini
@@ -32,6 +40,22 @@ trait DBCommonTrait
 	 *
 	 */
 	private $tableName;
+	
+	/* Unlimited String Query Değişkeni
+	 *  
+	 * Sorgunun metinsel değerini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $stringQuery;
+	
+	/* String Query Değişkeni
+	 *  
+	 * Sorgunun limitsiz metinsel değerini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	private $unlimitedStringQuery;
 	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
@@ -119,6 +143,36 @@ trait DBCommonTrait
 	}
 	
 	/******************************************************************************************
+	* TABLE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde Tablo ismi belirtmek için oluşturulmuştur.			  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @table => Tablo adı parametresidir.                                       |
+	|          																				  |
+	| Örnek Kullanım: ->table('OrnekTablo')		        									  |
+	|          																				  |
+	******************************************************************************************/
+	public function stringQuery($total = false)
+	{
+		if( $total === false )
+		{
+			return $this->stringQuery; 
+		}
+		else
+		{
+			if( ! empty($this->unlimitedStringQuery) )
+			{
+				return $this->unlimitedStringQuery;	
+			}
+			else
+			{
+				return $this->stringQuery;	
+			}
+		}
+	}
+	
+	/******************************************************************************************
 	* DIFFERENT CONNECTION                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Birden fazla ve birden farklı veritabanı bağlantısı yapmak içindir.	  |
@@ -156,6 +210,78 @@ trait DBCommonTrait
 		}
 		
 		return new self($configDifferent[$connectName]);
+	}
+	
+	/******************************************************************************************
+	* SECURE                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde veri güvenliğini sağlaması için oluşturulmuştur.	  |
+	|															                              |
+	| Parametreler: Tek dizi parametresi vardır.                                              |
+	| 1. array var @data => Güvenlik işlemine dahil edilecek veriler.                         |
+	|          																				  |
+	| Örnek Kullanım: ->secure(array(':x' => '1', ':y' => 2))				  				  |
+	|          																				  |
+	******************************************************************************************/
+	public function secure($data = array())
+	{
+		if( ! is_array($data) ) 
+		{
+			Error::set(lang('Error', 'arrayParameter', 'data'));
+		}
+		else
+		{
+			$this->secure = $data;
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	// PRIVATE QUERY SECURITY																  *
+	// Sorgu güvenliği için oluşturulmuş 													  *
+	// Sınıf içi güvenlik yeöntemi.                                                           *
+	******************************************************************************************/	
+	private function _querySecurity($query = '')
+	{	
+		if( isset($this->secure) ) 
+		{
+			$secure = $this->secure;
+			
+			$secureParams = array();
+			
+			if( is_numeric(key($secure)) )
+			{	
+				$strex  = explode('?', $query);	
+				$newstr = '';
+				
+				if( ! empty($strex) ) for($i = 0; $i < count($strex); $i++)
+				{
+					$sec = isset($secure[$i])
+					     ? $secure[$i]
+					     : NULL;
+							  
+					$newstr .= $strex[$i].$this->db->realEscapeString($sec);
+				}
+
+				$query = $newstr;
+			}
+			else
+			{
+				foreach($this->secure as $k => $v)
+				{
+					$secureParams[$k] = $this->db->realEscapeString($v);
+				}
+			}
+			
+			$query = str_replace(array_keys($secureParams), array_values($secureParams), $query);
+		}
+		
+		$this->stringQuery = $query;
+		
+		$this->secure = NULL;
+
+		return $query;
 	}
 	
 	/******************************************************************************************

@@ -36,8 +36,9 @@ class __USE_STATIC_ACCESS__DBForge
 		{
 			return Error::set(lang('Error', 'stringParameter', 'dbname'));
 		}
-		
-		return $this->db->exec('CREATE DATABASE '.$dbname);
+
+		$query  = 'CREATE DATABASE '.$dbname;	
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -58,7 +59,8 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'dbname'));
 		}
 		
-		return $this->db->exec('DROP DATABASE '.$dbname);
+		$query  = 'DROP DATABASE '.$dbname;	
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -115,7 +117,9 @@ class __USE_STATIC_ACCESS__DBForge
 			$column .= $key.' '.$values.',';
 		}
 
-		return $this->db->exec('CREATE TABLE '.$this->prefix.$table.'('.substr($column,0,-1).')');
+		$query  = 'CREATE TABLE '.$this->prefix.$table.'('.substr($column,0,-1).')';
+		
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -144,7 +148,8 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'table'));
 		}
 		
-		return $this->db->exec('DROP TABLE '.$this->prefix.$table);
+		$query  = 'DROP TABLE '.$this->prefix.$table;
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -228,7 +233,8 @@ class __USE_STATIC_ACCESS__DBForge
 			return Error::set(lang('Error', 'stringParameter', 'newName'));
 		}
 		
-		return $this->db->exec('ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$newName);
+		$query  = 'ALTER TABLE '.$this->prefix.$name.' RENAME TO '.$this->prefix.$newName;
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -294,7 +300,8 @@ class __USE_STATIC_ACCESS__DBForge
 			
 		$con = substr($con, 0 , -1);
 		
-		return $this->db->exec('ALTER TABLE '.$table.' '.$con.';'); 
+		$query  = 'ALTER TABLE '.$table.' '.$con.';';
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -339,14 +346,18 @@ class __USE_STATIC_ACCESS__DBForge
 	
 		if( ! is_array($column) )
 		{
-			return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$column.';');		
+			$query  = 'ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$column.';';
+			return $this->db->exec($this->_querySecurity($query), $this->secure);	
 		}
 		else
 		{
 			foreach($column as $col)
 			{
-				$this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$col.';');
+				$query  = 'ALTER TABLE '.$this->prefix.$table.' '.$dropColumn.$col.';';
+				$this->db->exec($this->_querySecurity($query), $this->secure);
 			}
+			
+			return true;
 		}
 	}
 	
@@ -413,7 +424,8 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		$con = substr($con, 0 , -1);
 		
-		return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$con.';');
+		$query  = 'ALTER TABLE '.$this->prefix.$table.' '.$con.';';
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -479,7 +491,8 @@ class __USE_STATIC_ACCESS__DBForge
 		
 		$con = substr($con, 0 , -1);
 		
-		return $this->db->exec('ALTER TABLE '.$this->prefix.$table.' '.$con.';');
+		$query  = 'ALTER TABLE '.$this->prefix.$table.' '.$con.';';
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 	
 	/******************************************************************************************
@@ -514,6 +527,7 @@ class __USE_STATIC_ACCESS__DBForge
 				  ? $this->db->truncate()
 				  : 'TRUNCATE TABLE ';
 		
-		return $this->db->exec($truncate.$this->prefix.$table);
+		$query  = $truncate.$this->prefix.$table;
+		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
 }

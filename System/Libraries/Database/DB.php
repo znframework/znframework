@@ -197,14 +197,6 @@ class __USE_STATIC_ACCESS__DB
 	 */
 	private $limit;
 	
-	/* Secure Değişkeni
-	 *  
-	 * Güvenlik işlem bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	private $secure;
-	
 	/* Join Değişkeni
 	 *  
 	 * JOIN bilgisini
@@ -517,12 +509,14 @@ class __USE_STATIC_ACCESS__DB
 								  $this->orderBy;
 		
 		$queryBuilder = $paginationQueryBuilder.$this->limit;
-	
+		
 		$this->_resetQuery();
 
 		$secure = $this->secure;
 		$this->unlimitedTotalRows = $this->query($this->_querySecurity($paginationQueryBuilder), $secure)->totalRows();
 		$this->db->query($this->_querySecurity($queryBuilder), $secure);
+
+		$this->unlimitedStringQuery = $paginationQueryBuilder;
 		
 		return $this;
 	}
@@ -1098,32 +1092,7 @@ class __USE_STATIC_ACCESS__DB
 			
 			$this->db->query($this->_querySecurity($query), $secure);
 		}
-		
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* SECURE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde veri güvenliğini sağlaması için oluşturulmuştur.	  |
-	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array var @data => Güvenlik işlemine dahil edilecek veriler.                         |
-	|          																				  |
-	| Örnek Kullanım: ->secure(array(':x' => '1', ':y' => 2))				  				  |
-	|          																				  |
-	******************************************************************************************/
-	public function secure($data = array())
-	{
-		if( ! is_array($data) ) 
-		{
-			Error::set(lang('Error', 'arrayParameter', 'data'));
-		}
-		else
-		{
-			$this->secure = $data;
-		}
-		
+
 		return $this;
 	}
 	
@@ -1189,7 +1158,7 @@ class __USE_STATIC_ACCESS__DB
 		$updateQuery = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
 		
 		$this->where = NULL;
-		
+
 		return $this->db->query($updateQuery);
 	}
 	
@@ -1281,7 +1250,7 @@ class __USE_STATIC_ACCESS__DB
 		$insertQuery = 'INSERT INTO '.$this->prefix.$table.' ('.substr($data,0,-1).') VALUES ('.substr($values,0,-1).')';
 		
 		$secure = $this->secure;
-		
+
 		return $this->db->query($this->_querySecurity($insertQuery), $secure);
 	}
 	
@@ -1340,7 +1309,7 @@ class __USE_STATIC_ACCESS__DB
 	
 		$this->where = NULL;
 		$secure = $this->secure;
-		
+
 		return $this->db->query($this->_querySecurity($updateQuery), $secure);	
 	}
 	
@@ -1382,53 +1351,8 @@ class __USE_STATIC_ACCESS__DB
 		$this->where = NULL;
 			
 		$secure = $this->secure;
-		
+
 		return $this->db->query($this->_querySecurity($deleteQuery), $secure);
-	}
-	
-	/******************************************************************************************
-	// PRIVATE QUERY SECURITY																  *
-	// Sorgu güvenliği için oluşturulmuş 													  *
-	// Sınıf içi güvenlik yeöntemi.                                                           *
-	******************************************************************************************/	
-	private function _querySecurity($query = '')
-	{	
-		if( isset($this->secure) ) 
-		{
-			$secure = $this->secure;
-			
-			$secureParams = array();
-			
-			if( is_numeric(key($secure)) )
-			{	
-				$strex  = explode('?', $query);	
-				$newstr = '';
-				
-				if( ! empty($strex) ) for($i = 0; $i < count($strex); $i++)
-				{
-					$sec = isset($secure[$i])
-					     ? $secure[$i]
-					     : NULL;
-							  
-					$newstr .= $strex[$i].$this->db->realEscapeString($sec);
-				}
-
-				$query = $newstr;
-			}
-			else
-			{
-				foreach($this->secure as $k => $v)
-				{
-					$secureParams[$k] = $this->db->realEscapeString($v);
-				}
-			}
-			
-			$query = str_replace(array_keys($secureParams), array_values($secureParams), $query);
-		}
-		
-		$this->secure = NULL;
-
-		return $query;
 	}
 	
 	/******************************************************************************************
