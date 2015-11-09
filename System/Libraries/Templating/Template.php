@@ -115,25 +115,28 @@ class __USE_STATIC_ACCESS__Template
 			}
 		}
 		
+		$regexChar      = '.*';
+		$htmlRegexChar  = '.*?';
+		
 		$pattern = array
 		(
 			// HTML
 			'/\s*\#end(\w+)\s*/i'		=> '</$1>',
 			'/\s*\#\#(\w+)\s*/i'		=> '</$1>',
-			'/\s*\#(\!*\w+)\s*(\[((\w+|\=*|\'*\s*|\"*\s*|\:*|\;*\s*|\-*|\#*|\/*|\.*|\?*)*)\])*\s*/i' 	=> '<$1 $3>',
+			'/\s*\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i' => '<$1 $3>',
 			'/\s*\<(\!*\w+)\s+\>\s*/i' 	=> '<$1>',	
 			
 			// Döngüler
-			'/\s*@(foreach\s*\(.*\))/' 	=> '<?php $1: ?>',
-			'/\s*@(while\s*\(.*\))/' 	=> '<?php $1: ?>',
-			'/\s*@(for\s*\(.*\))/' 		=> '<?php $1: ?>',
+			'/\s*@(foreach\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
+			'/\s*@(while\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
+			'/\s*@(for\s*\('.$regexChar.'\))/' 		=> '<?php $1: ?>',
 			
 			// Karar Yapıları
-			'/\s*@(elseif\s*\(.*\))/'  	=> '<?php $1: ?>',
-			'/\s*@(if\s*\(.*\))/' 		=> '<?php $1: ?>',
-			'/\s*@(switch\s*\(.*\))/' 	=> '<?php $1: ?>',
+			'/\s*@(elseif\s*\('.$regexChar.'\))/'  	=> '<?php $1: ?>',
+			'/\s*@(if\s*\('.$regexChar.'\))/' 		=> '<?php $1: ?>',
+			'/\s*@(switch\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
 			'/\s*@(else\s*)/'			=> '<?php $1: ?>',
-			'/\s*@(case\s*)((\'.*\'|\".*\"|[0-9])*)/' => '<?php $1 $2: ?>',		
+			'/\s*@(case\s*)('.$regexChar.')/' => '<?php $1 $2: ?>',		
 			
 			// Kapatma Blokları
 			'/\s*@(endif)/' 			=> '<?php $1 ?>',
@@ -148,13 +151,13 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*@(default)/'  	 		=> '<?php $1: ?>',
 			
 			// Yazdırılabilir Fonksiyonlar
-			'/\s*@@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/' => '<?php echo $1 ?>',	
+			'/\s*@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/' => '<?php echo $1 ?>',	
 			
 			// Fonksiyonlar
-			'/\s*@((\w+|\$|::|\s*\-\s*\>\s*)*\s*\(.*\))/'  => '<?php $1 ?>',
+			'/\s*@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
 			
 			// Yazdırılabilir Değişkenler
-			'/\s*@(\$(\w+|\s*\-\s*\>\s*)*\s*)/' 	=> '<?php echo $1 ?>',
+			'/\s*@(\$\w+(\-\>)*\w*\s*)/' 	=> '<?php echo $1 ?>',
 			
 			// Açıklama Satırları
 			'/\{\-\-/'			 		=> '<!--',
