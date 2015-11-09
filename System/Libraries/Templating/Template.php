@@ -114,8 +114,7 @@ class __USE_STATIC_ACCESS__Template
 				}
 			}
 		}
-		
-		$regexChar      = '.*';
+		$regexChar      = '(([^@]|(?R)|(\w+|\'\s*|\"\s*)@(\w+|\s*\'|\s*\"))*)';
 		$htmlRegexChar  = '.*?';
 		
 		$pattern = array
@@ -157,7 +156,7 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
 			
 			// Yazdırılabilir Değişkenler
-			'/\s*@(\$\w+(\-\>)*\w*\s*)/' 	=> '<?php echo $1 ?>',
+			'/\s*@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/' 	=> '<?php echo $1 ?>',
 			
 			// Açıklama Satırları
 			'/\{\-\-/'			 		=> '<!--',
