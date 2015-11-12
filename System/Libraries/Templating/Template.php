@@ -114,7 +114,8 @@ class __USE_STATIC_ACCESS__Template
 				}
 			}
 		}
-		$regexChar      = '(([^@]|(?R)|(\w+|\'\s*|\"\s*)@(\w+|\s*\'|\s*\"))*)';
+		
+		$regexChar      = '(([^@]|(\w+|\'\s*|\"\s*)@(\w+|\s*\'|\s*\"))*)';
 		$htmlRegexChar  = '.*?';
 		
 		$pattern = array
@@ -124,6 +125,7 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*\#\#(\w+)\s*/i'		=> '</$1>',
 			'/\s*\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i' => '<$1 $3>',
 			'/\s*\<(\!*\w+)\s+\>\s*/i' 	=> '<$1>',	
+			
 			
 			// Döngüler
 			'/\s*@(foreach\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
