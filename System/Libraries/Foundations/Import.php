@@ -502,6 +502,8 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
+		$lastParam = isset($arguments[count($arguments) - 1]) ? $arguments[count($arguments) - 1] : false;
+		
 		foreach( array_unique($arguments) as $font )
 		{	
 			if( is_array($font) ) 
@@ -559,7 +561,7 @@ class Import
 		
 		if( ! empty($str) ) 
 		{
-			if( $arguments[count($arguments) - 1] === true )
+			if( $lastParam === true )
 			{
 				return $str;
 			}
@@ -599,6 +601,8 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
+		$lastParam = isset($arguments[count($arguments) - 1]) ? $arguments[count($arguments) - 1] : false;
+		
 		$links = array_change_key_case(Config::get('Links', 'style'));
 		
 		foreach( array_unique($arguments) as $style )
@@ -629,7 +633,7 @@ class Import
 		
 		if( ! empty($str) ) 
 		{
-			if( $arguments[count($arguments) - 1] === true )
+			if( $lastParam === true )
 			{
 				return $str;
 			}
@@ -670,6 +674,8 @@ class Import
 			$arguments = $arguments[0];
 		}
 		
+		$lastParam = isset($arguments[count($arguments) - 1]) ? $arguments[count($arguments) - 1] : false;
+		
 		$links = array_change_key_case(Config::get('Links', 'script'));
 		
 		foreach( array_unique($arguments) as $script )
@@ -700,7 +706,7 @@ class Import
 		
 		if( ! empty($str) ) 
 		{
-			if( $arguments[count($arguments) - 1] === true )
+			if( $lastParam === true )
 			{
 				return $str;
 			}
