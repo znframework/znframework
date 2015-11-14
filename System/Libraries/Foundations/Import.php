@@ -496,7 +496,6 @@ class Import
 		$str = "<style type='text/css'>";
 		
 		$arguments = func_get_args();
-		$args      = $arguments;
 		
 		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
@@ -560,7 +559,7 @@ class Import
 		
 		if( ! empty($str) ) 
 		{
-			if( $args[count($args) - 1] === true )
+			if( $arguments[count($arguments) - 1] === true )
 			{
 				return $str;
 			}
@@ -594,7 +593,6 @@ class Import
 		$str = '';
 		
 		$arguments = func_get_args();
-		$args      = $arguments;
 		
 		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
@@ -631,7 +629,7 @@ class Import
 		
 		if( ! empty($str) ) 
 		{
-			if( $args[count($args) - 1] === true )
+			if( $arguments[count($arguments) - 1] === true )
 			{
 				return $str;
 			}
@@ -666,7 +664,6 @@ class Import
 		$str = '';
 		
 		$arguments = func_get_args();
-		$args      = $arguments;
 		
 		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
@@ -703,7 +700,7 @@ class Import
 		
 		if( ! empty($str) ) 
 		{
-			if( $args[count($args) - 1] === true )
+			if( $arguments[count($arguments) - 1] === true )
 			{
 				return $str;
 			}
