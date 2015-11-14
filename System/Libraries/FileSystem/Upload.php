@@ -471,7 +471,9 @@ class __USE_STATIC_ACCESS__Upload
 				}
 				
 				$target = $root.'/'.$encryption.$nm;
-
+				
+				$this->encodeName[] = $encryption.$nm;
+				
 				if( isset($this->settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
 					$this->extensionControl = lang('Upload', 'extensionError');	
