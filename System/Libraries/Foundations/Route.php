@@ -1,21 +1,26 @@
 <?php
 class __USE_STATIC_ACCESS__Route extends Controller
 {
-	/***********************************************************************************/
-	/* ROUTE LIBRARY																   */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Driver
-	/* Versiyon: 2.0 Ekim Güncellemesi
-	/* Tanımlanma: Mixed
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Route::.
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
+	
+	protected $route = array();
+	
+	public function change($route = array())
+	{
+		if( is_array($route) )
+		{
+			$this->route = $route;
+		}
+		
+		return $this;
+	}
 	
 	/******************************************************************************************
 	* RUN                                                                                     *
@@ -27,8 +32,18 @@ class __USE_STATIC_ACCESS__Route extends Controller
 	  @return mixed
 	|          																				  |
 	******************************************************************************************/
-	public function run($functionName = '', $functionRun = '')
+	public function run($functionName = '', $functionRun = '', $route = array())
 	{
+		if( ! empty($this->route) )
+		{
+			$route = $this->route;
+		}
+		
+		if( is_array($route) && ! empty($route) )
+		{
+			Config::set('Route', 'changeUri', $route);	
+		}
+		
 		$datas = Structure::datas();
 		
 		$parameters = $datas['parameters'];

@@ -125,8 +125,7 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*\#\#(\w+)\s*/i'		=> '</$1>',
 			'/\s*\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i' => '<$1 $3>',
 			'/\s*\<(\!*\w+)\s+\>\s*/i' 	=> '<$1>',	
-			
-			
+					
 			// Döngüler
 			'/\s*@(foreach\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
 			'/\s*@(while\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
@@ -154,6 +153,10 @@ class __USE_STATIC_ACCESS__Template
 			// Yazdırılabilir Fonksiyonlar
 			'/\s*@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/' => '<?php echo $1 ?>',	
 			
+			// Section Fonksiyonu
+			'/\s*@section\s*\((\'|\")(\w+)('.$htmlRegexChar.')(\"|\')\,\s*(\'|\")('.$htmlRegexChar.')(\"|\')\)/' => '<$2$3>$6<$2>',
+			'/\s*@section\s*\((\'|\")(\w+)('.$htmlRegexChar.')(\"|\')\)\s*('.$htmlRegexChar.')\s*@endsection/'   => '<$2$3>$5<$2>',
+			
 			// Fonksiyonlar
 			'/\s*@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
 			
@@ -161,16 +164,15 @@ class __USE_STATIC_ACCESS__Template
 			'/\s*@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/' 	=> '<?php echo $1 ?>',
 			
 			// Açıklama Satırları
-			'/\{\-\-/'			 		=> '<!--',
-			'/\-\-\}/'			 		=> '-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 	=> '<!--$1-->',
 			
-			// Yazdırmak Tagları
-			'/\{\{/'			 		=> '<?php echo ',
-			'/\}\}/'			 		=> ' ?>',	
+			// Html Kodları Temizlenerek Yazdırılır
+			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/'	=> '<?php echo htmlentities($1) ?>',
 			
-			// PHP Tagları
-			'/\{\[/'			 		=> '<?php ',
-			'/\]\}/'			 		=> ' ?>',
+			// Yazdırma Tagları
+			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/'		=> '<?php echo $1 ?>',
+			
+			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'		=> '<?php $1 ?>',
 		);
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
