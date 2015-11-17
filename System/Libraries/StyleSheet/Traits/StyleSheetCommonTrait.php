@@ -80,7 +80,7 @@ trait StyleSheetCommonTrait
 	******************************************************************************************/
 	public function attr($_attributes = array())
 	{
-		$this->attr = $this->_attr();
+		$this->attr = $this->_attr($_attributes);
 		return $this;
 	}
 	
