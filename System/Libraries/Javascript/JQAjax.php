@@ -797,7 +797,7 @@ class __USE_STATIC_ACCESS__JQAjax
 			$ajax .= $val;
 		}
 		
-		$ajax = substr($ajax, 0, -1);
+		$ajax = rtrim(trim($ajax), ',');
 		
 		$ajax .= eol();
 		
@@ -806,7 +806,7 @@ class __USE_STATIC_ACCESS__JQAjax
 			$ajax .= "\t$val,";
 		}
 		
-		$ajax = substr($ajax, 0, -1);
+		$ajax = rtrim(trim($ajax), ',');
 		
 		$callbacks = '';
 		
