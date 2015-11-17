@@ -1,26 +1,19 @@
 {
-	"repositories": 
-	[
+    "name": "znframework/znframework",
+    "type": "project",
+    "description": "zeroneed",
+    "keywords": ["zn","zeroneed"],
+    "homepage": "https://github.com/znframework/znframework",
+    "license": "MIT",
+    "authors": [
         {
-             "description": "The ZN Framework.",
-             "type": "package",
-             "license": "MIT",
-             "package": 
-             {
-                  "name": "znframework/znframework",
-                  "version": "2.0.0",
-                  "dist": 
-		          {
-                       "url": "https://github.com/znframework/znframework.git",
-                       "type": "git"
-                  }
-             }
+            "name": "Ozan UYKUN",
+            "email": "ozanbote@windowslive.com",
+            "homepage": "http://zntr.net",
+            "role": "Developer"
         }
-        ], 
-	
-	"require" : 
-	{
-		"php": ">=5.4.0",
-		"znframework/znframework": "dev-master"
-	}
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
 }
