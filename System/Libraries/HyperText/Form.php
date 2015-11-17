@@ -420,9 +420,15 @@ class __USE_STATIC_ACCESS__Form
 	| // <input type="file" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function file($name = "", $value = "", $_attributes = '')
+	public function file($name = "", $multiple = false, $_attributes = '')
 	{
-		return $this->_input($name, $value, $_attributes, 'file');
+		if( $multiple === true )
+		{
+			$_attributes['multiple'] = 'multiple';	
+			$name = suffix($name, '[]');
+		}
+		
+		return $this->_input($name, '', $_attributes, 'file');
 	}
 	
 	/******************************************************************************************
