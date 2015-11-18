@@ -115,7 +115,7 @@ class __USE_STATIC_ACCESS__Template
 			}
 		}
 		
-		$regexChar      = '(([^@]|(\'\s*|\").*?(\s*\'|\s*\"))*)';
+		$regexChar      = '(([^@]|(\'|\").*?(\'|\"))*)';
 		$htmlRegexChar  = '.*?';
 		
 		$pattern = array
