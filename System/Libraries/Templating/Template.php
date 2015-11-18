@@ -121,57 +121,55 @@ class __USE_STATIC_ACCESS__Template
 		$pattern = array
 		(
 			// HTML
-			'/\s*\#end(\w+)\s*/i'		=> '</$1>',
-			'/\s*\#\#(\w+)\s*/i'		=> '</$1>',
-			'/\s*\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i' => '<$1 $3>',
-			'/\s*\<(\!*\w+)\s+\>\s*/i' 	=> '<$1>',	
-					
-			// Döngüler
-			'/\s*@(foreach\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
-			'/\s*@(while\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
-			'/\s*@(for\s*\('.$regexChar.'\))/' 		=> '<?php $1: ?>',
+			'/\s*\#end(\w+)/i' 									=> '</$1>',
+			'/\#\#(\!*\w+)\s*\(('.$htmlRegexChar.')\)/i' 		=> '<$1 $2>',
+			'/\s*\#\#(\w+)/i'									=> '</$1>',
+			'/\#(\!*\w+)\s*\(('.$htmlRegexChar.')(\s*\,\s*('.$htmlRegexChar.'))*\)/i' => '<$1 $4>$2</$1>',
+			'/\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i'	=> '<$1 $3>',
+			'/\<(\!*\w+)\s+\>/i' 								=> '<$1>',	
 			
-			// Karar Yapıları
-			'/\s*@(elseif\s*\('.$regexChar.'\))/'  	=> '<?php $1: ?>',
-			'/\s*@(if\s*\('.$regexChar.'\))/' 		=> '<?php $1: ?>',
-			'/\s*@(switch\s*\('.$regexChar.'\))/' 	=> '<?php $1: ?>',
-			'/\s*@(else\s*)/'			=> '<?php $1: ?>',
-			'/\s*@(case\s*)('.$regexChar.')/' => '<?php $1 $2: ?>',		
-			
-			// Kapatma Blokları
+			// IF - ELSE - ENDIF
+			'/@(if)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
+			'/\s*@(elseif)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
 			'/\s*@(endif)/' 			=> '<?php $1 ?>',
+			
+			// FOREACH - ENDFOREACH
+			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
 			'/\s*@(endforeach)/'   		=> '<?php $1 ?>',
+			
+			// FOR - ENDFOR
+			'/@(for)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
 			'/\s*@(endfor)/' 			=> '<?php $1 ?>',
-			'/\s*@(endswhile)/' 		=> '<?php $1 ?>',
-			'/\s*@(endswitch)/' 		=> '<?php $1 ?>',
 			
-			// Anahtar Kelimeler
-			'/\s*@(break)/'  		 	=> '<?php $1 ?>',
-			'/\s*@(continue)/'  	 	=> '<?php $1 ?>',
-			'/\s*@(default)/'  	 		=> '<?php $1: ?>',
+			// WHILE - ENDWHILE
+			'/@(while)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
+			'/\s*@(endswhile)/' 		=> '<?php $1 ?>',			
 			
-			// Yazdırılabilir Fonksiyonlar
-			'/\s*@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/' => '<?php echo $1 ?>',	
+			// KEYWORDS
+			'/@(break)/'  	 => '<?php $1 ?>',
+			'/@(continue)/'  => '<?php $1 ?>',
+			'/@(default)/'   => '<?php $1: ?>',
 			
-			// Section Fonksiyonu
-			'/\s*@section\s*\((\'|\")(\w+)('.$htmlRegexChar.')(\"|\')\,\s*(\'|\")('.$htmlRegexChar.')(\"|\')\)/' => '<$2$3>$6<$2>',
-			'/\s*@section\s*\((\'|\")(\w+)('.$htmlRegexChar.')(\"|\')\)\s*('.$htmlRegexChar.')\s*@endsection/'   => '<$2$3>$5<$2>',
+			// PRINTABLE FUNCTIONS
+			'/@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/' => '<?php echo $1 ?>',		
 			
-			// Fonksiyonlar
-			'/\s*@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
+			// FUNCTIONS
+			'/@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
 			
-			// Yazdırılabilir Değişkenler
-			'/\s*@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/' 	=> '<?php echo $1 ?>',
 			
-			// Açıklama Satırları
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 	=> '<!--$1-->',
+			// PRITABLE VARIABLES
+			'/@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/' 	 => '<?php echo $1 ?>',
 			
-			// Html Kodları Temizlenerek Yazdırılır
+			// COMMENTS
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 => '<!--$1-->',
+			
+			// HTMLENTITES PRINT
 			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/'	=> '<?php echo htmlentities($1) ?>',
 			
-			// Yazdırma Tagları
+			// PRINT
 			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/'		=> '<?php echo $1 ?>',
 			
+			// PHP TAGS
 			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'		=> '<?php $1 ?>',
 		);
 			
