@@ -1,21 +1,14 @@
 <?php
-class __USE_STATIC_ACCESS__Validation
+class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 {
-	/***********************************************************************************/
-	/* VALIDATION LIBRARY    				                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Validation
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: validation::, $this->validation, zn::$use->validation, uselib('validation')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Errors Değişkeni
 	 *  
@@ -42,66 +35,26 @@ class __USE_STATIC_ACCESS__Validation
 	 */
 	protected $nval 	= array();
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Validation::$method()"));	
-	}
-	
-	/* PROTECTED Method Type Fonksiyonu
+	/* Settings Değişkeni
 	 *  
-	 * Method kontrolü yapması
-	 * için oluşturulmuştur.
+	 * Ayarlar bilgisini tutar.
 	 *
 	 */
-	protected function _methodType($name = '', $met = '')
-	{
-		if( $met === "post" ) 		
-		{
-			return Method::post($name);
-		}
-		
-		if( $met === "get" ) 		
-		{
-			return Method::get($name);
-		}
-		
-		if( $met === "request" ) 	
-		{
-			return Method::request($name);
-		}	
-	}
+	protected $settings = array();
 	
-	/* PROTECTED Method New Value Fonksiyonu
-	 *  
-	 * Kontrol edilen yeni değeri bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected function _methodNval($name = '', $val = '', $met = '')
-	{
-		if( $met === "post" ) 		
-		{
-			return Method::post($name, $val);
-		}
-		
-		if( $met === "get" ) 		
-		{
-			return Method::get($name, $val);
-		}
-		
-		if( $met === "request" ) 	
-		{
-			return Method::request($name, $val);
-		}	
-	}
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use CallUndefinedMethodTrait;
 	
-	
+	//----------------------------------------------------------------------------------------------------
+	// Control Methods Başlangıç
+	//----------------------------------------------------------------------------------------------------
+
 	/******************************************************************************************
 	* IDENDITY                                                                                *
 	*******************************************************************************************
@@ -298,6 +251,199 @@ class __USE_STATIC_ACCESS__Validation
 		}
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Control Methods Bitiş
+	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Rules Method Başlangıç
+	//----------------------------------------------------------------------------------------------------
+
+	//----------------------------------------------------------------------------------------------------
+	// name()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function name($name = '')
+	{
+		$this->settings['name'] = $name;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// method()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $method
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function method($method = 'post')
+	{
+		$this->settings['method'] = $method;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// value()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $value
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function value($value = '')
+	{
+		$this->settings['value'] = $value;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// required()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function required()
+	{
+		$this->settings['config'][] = 'required';
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// numeric()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function numeric()
+	{
+		$this->settings['config'][] = 'numeric';
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// match()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $match
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function match($match = '')
+	{
+		$this->settings['config']['match'] = $match;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// matchPassword()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $match
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function matchPassword($match = '')
+	{
+		$this->settings['config']['matchPassword'] = $match;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// oldPassword()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $oldPassword
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function oldPassword($oldPassword = '')
+	{
+		$this->settings['config']['oldPassword'] = $oldPassword;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// compare()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param numeric $min
+	// @param numeric $max
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function compare($min = '', $max = '')
+	{
+		$this->settings['config']['minchar'] = $min;
+		$this->settings['config']['maxchar'] = $max;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// validate()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param args
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function validate()
+	{
+		$this->settings['validate'] = func_get_args();
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// secure()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param args
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function secure()
+	{
+		$this->settings['secure'] = func_get_args();
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// pattern()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $pattern
+	// @param string $char
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function pattern($pattern = '', $char = '')
+	{
+		$this->settings['config']['pattern'] = presuffix($pattern).$char;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// captcha()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $captcha
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function captcha($captcha = '')
+	{
+		$this->settings['config']['captcha'] = $captcha;
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* RULES                                                                                   *
 	*******************************************************************************************
@@ -329,28 +475,43 @@ class __USE_STATIC_ACCESS__Validation
 	******************************************************************************************/
 	public function rules($name = '', $config = array(), $viewName = '', $met = 'post')
 	{
-		if( ! is_scalar($name) || empty($name) ) 
+		if( ! empty($this->settings['name']) )
 		{
-			return Error::set(lang('Error', 'scalarParameter', 'name'));
-		}
-		if( ! is_array($config) ) 
-		{
-			$config = array();
-		}
-		if( ! is_string($name) ) 
-		{
-			$viewName = '';
-		}
-		if( ! is_string($met) ) 
-		{
-			$met = 'post';
+			$name = $this->settings['name'];
 		}
 		
-		if( empty($config) || ! is_array($config) ) 
+		if( ! empty($this->settings['method']) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'config'));
+			$met = $this->settings['method'];
 		}
 		
+		if( ! empty($this->settings['value']) )
+		{
+			$viewName = $this->settings['value'];
+		}
+		
+		if( ! empty($this->settings['config']) )
+		{
+			$config = array_merge($config, $this->settings['config']);
+		}
+		
+		if( ! empty($this->settings['validate']) )
+		{
+			$config = array_merge($config, $this->settings['validate']);
+		}
+		
+		if( ! empty($this->settings['secure']) )
+		{
+			$config = array_merge($config, $this->settings['secure']);
+		}
+		
+		if( ! empty($this->settings['pattern']) )
+		{
+			$config = array_merge($config, $this->settings['pattern']);
+		}
+		
+		$this->settings = array();
+
 		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
 
 		$viewName = ( empty($viewName) ) 
@@ -547,11 +708,76 @@ class __USE_STATIC_ACCESS__Validation
 			} 
 		}
 		
-		// kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
-		array_push($this->errors, $messages);
+		if( isset($config['pattern']) )
+		{ 
+			if( ! preg_match($config['pattern'], $edit) )
+			{ 
+				$pattern 			= lang('Validation', 'pattern', $viewName);
+				$messages[$i] 		= $pattern.'<br>';  $i++;
+				$this->error[$name] = $pattern;
+			} 
+		}
 		
-	}	
+		// kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
+		array_push($this->errors, $messages);	
+	}
 	
+	/* PROTECTED Method Type Fonksiyonu
+	 *  
+	 * Method kontrolü yapması
+	 * için oluşturulmuştur.
+	 *
+	 */
+	protected function _methodType($name = '', $met = '')
+	{
+		if( $met === "post" ) 		
+		{
+			return Method::post($name);
+		}
+		
+		if( $met === "get" ) 		
+		{
+			return Method::get($name);
+		}
+		
+		if( $met === "request" ) 	
+		{
+			return Method::request($name);
+		}	
+	}
+	
+	/* PROTECTED Method New Value Fonksiyonu
+	 *  
+	 * Kontrol edilen yeni değeri bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected function _methodNval($name = '', $val = '', $met = '')
+	{
+		if( $met === "post" ) 		
+		{
+			return Method::post($name, $val);
+		}
+		
+		if( $met === "get" ) 		
+		{
+			return Method::get($name, $val);
+		}
+		
+		if( $met === "request" ) 	
+		{
+			return Method::request($name, $val);
+		}	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Rules Method Bitiş
+	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Other Methods Başlangıç
+	//----------------------------------------------------------------------------------------------------
+
 	/******************************************************************************************
 	* NEW VALUE                                                                               *
 	*******************************************************************************************
@@ -676,4 +902,8 @@ class __USE_STATIC_ACCESS__Validation
 		
 		return $method;
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Other Methods Başlangıç
+	//----------------------------------------------------------------------------------------------------
 }

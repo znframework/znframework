@@ -1,22 +1,22 @@
 <?php
-/************************************************************/
-/*                   EXCEPTION LANGUAGE                     */
-/************************************************************/
-/*
-
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
+//----------------------------------------------------------------------------------------------------
+// ERROR
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 $lang['Error']['classError'] 				= 'Hata: `%` sınıfı bulunamadı!';
 $lang['Error']['controllerNameError'] 		= 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!';
 $lang['Error']['classDeclaredError'] 		= 'Hata: `%` sınıfı zaten var! Yeniden tanımlanamaz!';
 $lang['Error']['callUserFuncArrayError'] 	= 'Hata: URL geçerli fonksiyon veya metot bilgisi içermiyor! `%` metodu bulunamadı!';
 $lang['Error']['notIsFileError'] 			= 'Hata: URL geçerli bir yol içermiyor! `%` dosyası bulunamadı!';
 $lang['Error']['fileNotFound']				= 'Hata: `%` dosyasi bulunamadi!';
-$lang['Error']['fileNotWrite']				= 'Hata: `%` dosyası oluşturulamıyor! Lütfen dizin oluşturma yetkilerini kontrol edin!';
-$lang['Error']['dirNotWrite']				= 'Hata: `%` dizini oluşturulamıyor! Lütfen dosya oluşturma yetkilerini kontrol edin!';
+$lang['Error']['fileNotWrite']				= 'Hata: `%` dosyası oluşturulamıyor! Lütfen dosya oluşturma yetkilerini kontrol edin!';
+$lang['Error']['dirNotWrite']				= 'Hata: `%` dizini oluşturulamıyor! Lütfen dizin oluşturma yetkilerini kontrol edin!';
 $lang['Error']['undefinedFunction']			= 'Hata: `%` fonksiyonu tanımlı değil!';
 $lang['Error']['undefinedFunctionExtension']= 'Hata: `%` eklentisi yüklü değil! `%` fonksiyonlarını kullanmak için yükleyiniz.';
 $lang['Error']['invalidVersion']			= 'Hata: `%` yöntemlerini kullanabilmeniz için en az `#` PHP sürümünün yüklü olması gerekmektedir!';
@@ -52,3 +52,4 @@ $lang['Error']['fileDirParameter']			= '`%` parametresi dosya veya dizin bilgisi
 $lang['Error']['emptyParameter']			= '`%` parametresi bir değer içermelidir!';
 $lang['Error']['emptyVariable']			    = '`%` değişkeni bir değer içermelidir!';
 $lang['Error']['charsetParameter']			= '`%` parametresi geçerli karakter seti içermelidir!';
+$lang['Error']['invalidVersion']			= '`%` geçersiz versiyon bilgisi!';

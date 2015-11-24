@@ -1,21 +1,14 @@
 <?php
-class __USE_STATIC_ACCESS__Template
+class __USE_STATIC_ACCESS__Template implements TemplateInterface
 {
-	/***********************************************************************************/
-	/* TEMPLATE LIBRARY	     	     		                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Template
-	/* Versiyon: 2.0.0 October
-	/* Tanımlanma: Dinamik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: $this->Template, zn::$use->Template, uselib('Template')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Left Delimiter Değişkeni
 	 *  
@@ -33,16 +26,14 @@ class __USE_STATIC_ACCESS__Template
 	 */
 	protected $rdel = '}';
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Parser::$method()"));	
-	}
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* DATA                                                                                    *
@@ -129,20 +120,20 @@ class __USE_STATIC_ACCESS__Template
 			'/\<(\!*\w+)\s+\>/i' 								=> '<$1>',	
 			
 			// IF - ELSE - ENDIF
-			'/@(if)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
+			'/@(if)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  	=> '<?php $1$2: ?>',
 			'/\s*@(elseif)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
 			'/\s*@(endif)/' 			=> '<?php $1 ?>',
 			
 			// FOREACH - ENDFOREACH
-			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
+			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  	 => '<?php $1$2: ?>',
 			'/\s*@(endforeach)/'   		=> '<?php $1 ?>',
 			
 			// FOR - ENDFOR
-			'/@(for)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
+			'/@(for)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  	=> '<?php $1$2: ?>',
 			'/\s*@(endfor)/' 			=> '<?php $1 ?>',
 			
 			// WHILE - ENDWHILE
-			'/@(while)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/'  => '<?php $1$2: ?>',
+			'/@(while)\s*(\('.$htmlRegexChar.'\))'.eol().'\s*/' => '<?php $1$2: ?>',
 			'/\s*@(endswhile)/' 		=> '<?php $1 ?>',			
 			
 			// KEYWORDS
@@ -157,7 +148,7 @@ class __USE_STATIC_ACCESS__Template
 			'/@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
 			
 			
-			// PRITABLE VARIABLES
+			// PRINTABLE VARIABLES
 			'/@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/' 	 => '<?php echo $1 ?>',
 			
 			// COMMENTS

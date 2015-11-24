@@ -1,21 +1,14 @@
 <?php 
-class __USE_STATIC_ACCESS__Security
+class __USE_STATIC_ACCESS__Security implements SecurityInterface
 {
-	/***********************************************************************************/
-	/* SECURITY LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Security
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: security::, $this->security, zn::$use->security, uselib('security')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Config Değişkeni
 	 *  
@@ -30,16 +23,7 @@ class __USE_STATIC_ACCESS__Security
 		$this->config = Config::get('Security');	
 	}
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Security::$method()"));	
-	}
+	use CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* NC ENCODE                                                                               *

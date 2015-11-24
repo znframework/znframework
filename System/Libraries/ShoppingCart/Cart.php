@@ -1,21 +1,14 @@
 <?php 
-class __USE_STATIC_ACCESS__Cart
+class __USE_STATIC_ACCESS__Cart implements CartInterface
 {
-	/***********************************************************************************/
-	/* CART LIBRARY	     					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Cart
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: cart::, $this->cart, zn::$use->cart, uselib('cart')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Items Dizi Değişkeni
 	 *  
@@ -25,29 +18,21 @@ class __USE_STATIC_ACCESS__Cart
 	 */
 	private $items = array();
 	
-	/* Error Değişkeni
-	 *  
-	 * Sepet işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $error;
-	
 	public function __construct()
 	{
 		if( ! isset($_SESSION) ) session_start();
 	}
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Cart::$method()"));	
-	}
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* INSERT ITEM                                                                             *
@@ -490,26 +475,5 @@ class __USE_STATIC_ACCESS__Cart
 		$moneyFormat = substr($moneyFormat,0,-1).','.$remaining.$type;
 		
 		return $moneyFormat;
-	}
-	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Sepet işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.|
-	|     														                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|     														                              |
-	******************************************************************************************/
-	public function error()
-	{
-		if( isset($this->error) )
-		{
-			Error::set($this->error);
-			return $this->error;
-		}
-		else
-		{
-			return false;
-		}
 	}
 }

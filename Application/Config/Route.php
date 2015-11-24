@@ -1,50 +1,64 @@
 <?php
-/************************************************************/
-/*                   ROUTE(YÖNLENDİRME)                     */
-/************************************************************/
-/*
+//----------------------------------------------------------------------------------------------------
+// ROUTE 
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
+//----------------------------------------------------------------------------------------------------
+// Open Page
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Başlangıçta varsayılan açılış sayfasını sağlayan Controller dosyasıdır.
+// Dikkat edilirse açılış sayfası welcome.php'dir ancak bu işlemi yapan home.php	          
+// Controller dosyasıdır.																  					
+//
+//----------------------------------------------------------------------------------------------------
+$config['Route']['openPage']	= 'home';
 
-/******************************************************************************************
-* ROUTE                                                                                   *
-*******************************************************************************************
-| Genel Kullanımı: Açılış sayfası, hata sayfası veya URI yönlendirme gibi işlemlerin      |
-| yapıldığı ayar dosyasıdır.									  						  |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Show 404
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Geçersiz URI adresi girildiğinde yönlendirilmek istenen URI yoludur.   					
+//
+//----------------------------------------------------------------------------------------------------
+$config['Route']['show404']		= '';
 
-/******************************************************************************************
-* OPEN PAGE                                                                               *
-*******************************************************************************************
-| Genel Kullanımı: Başlangıçta varsayılan açılış sayfasını sağlayan Controller dosyasıdır.|
-| Dikkat edilirse açılış sayfası welcome.php'dir ancak bu işlemi yapan home.php	          |
-| Controller dosyasıdır.																  |						
-******************************************************************************************/
-$config['Route']['openPage'] 	= 'home';
+//----------------------------------------------------------------------------------------------------
+// Pattern Type
+//----------------------------------------------------------------------------------------------------
+//
+// Bu ayar Change URI ayarına yazılacak desenin türünü belirler.
+//
+// @key string patternType: special, classic
+//
+// special: Config/Regex.php dosyasında yer alan karakterlerin kullanımlarıdır.
+// classic: Düzenli ifadelerdeki standart karakterlerin kullanımlarıdır. 	
+//	      						
+//----------------------------------------------------------------------------------------------------
+$config['Route']['patternType']	= 'classic';
 
-/******************************************************************************************
-* OPEN PAGE                                                                               *
-*******************************************************************************************
-| Genel Kullanımı: Geçersiz URI adresi girildiğinde yönlendirilmek istenen URI yoludur.   |						
-******************************************************************************************/
-$config['Route']['show404'] 	= '';
-
-/******************************************************************************************
-* CHANGE URI                                                                              *
-*******************************************************************************************
-| Genel Kullanımı: URI adreslerinde değişiklik yapmak yani URI yönlendirme yapmak için    |
-| kullanılır. Yönlendirmeler bir dizi içerisinde belirtilir. Dizi anahtar verisi olarak   |
-| Eski URI bilgisi, değer verisi olarakta yeni URI bilgisi yazılır. Böylece bir sayfaya   |
-| birden fazla yönlendirme verisi girilebilir.   										  |	
-|    																			          |	
-| Örnek Kullanım:  																		  |
-| array																					  |
-| (																						  |
-| 'anasayfa' => 'home/index',															  |
-| 'home'     => 'home/index'														      |
-| );																				      |
-| Yukarıdaki kullanımda home/index için 2 farklı yönlendirme sağlamış olduk.		      |							
-******************************************************************************************/
-$config['Route']['changeUri'] 	= array();
+//----------------------------------------------------------------------------------------------------
+// Change Uri
+//----------------------------------------------------------------------------------------------------
+//
+// URI adreslerine rota vermek için kullanılır.
+//
+// Kullanım: @key -> yeni adres, @value -> eski adres										  
+//    																			           																		  
+// array																					  
+// (																						  														  
+//     'anasayfa'     => 'home/index'														      
+// );																				      
+//	      						
+//----------------------------------------------------------------------------------------------------
+$config['Route']['changeUri'] 	= array
+(
+	// '(\b)\/(\b)' => '$1/index/$2' // index ibaresini kaldırmak.
+);

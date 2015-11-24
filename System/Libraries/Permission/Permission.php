@@ -1,5 +1,5 @@
 <?php 
-class __USE_STATIC_ACCESS__Permission
+class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 {
 	/***********************************************************************************/
 	/* PERMISSON LIBRARY					                   	                       */
@@ -7,7 +7,7 @@ class __USE_STATIC_ACCESS__Permission
 	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 	/* Site: www.zntr.net
 	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
+	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	/*
 	/* Sınıf Adı: Perfmission
 	/* Versiyon: 1.0
@@ -44,16 +44,7 @@ class __USE_STATIC_ACCESS__Permission
 		$this->config = Config::get('Permission');	
 	}
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Permission::$method()"));	
-	}
+	use CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* PROCESS                                                                                 *
@@ -82,11 +73,11 @@ class __USE_STATIC_ACCESS__Permission
 		{
 			return Error::set(lang('Error', 'numericParameter', 'roleId'));	
 		}
-		if( ! isValue($process) ) 
+		if( ! is_scalar($process) ) 
 		{
 			$process = '';
 		}
-		if( ! isValue($object) ) 
+		if( ! is_scalar($object) ) 
 		{
 			$object = '';
 		}
