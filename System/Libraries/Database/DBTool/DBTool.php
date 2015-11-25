@@ -248,6 +248,8 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			return $this->db->backup($fileName);
 		}
 		
+		$eol = eol();
+		
 		if( $tables === '*' )
 		{
 			$tables = array();
@@ -282,7 +284,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			$return.= 'DROP TABLE '.$table.';';
 			$this->db->query('SHOW CREATE TABLE '.$table);
 			$row2 = $this->db->fetchRow();
-			$return.= eol(2).$row2[1].";".eol(2);
+			$return.= $eol.$eol.$row2[1].";".$eol.$eol;
 		
 			for( $i = 0; $i < $numFields; $i++ ) 
 			{
@@ -310,10 +312,10 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 							$return.= ','; 
 						}
 					}
-					$return.= ");".eol();
+					$return.= ");".$eol;
 				}
 			}
-			$return .= eol(3);
+			$return .= $eol.$eol.$eol;
 		}
 		
 		if( empty($fileName) ) 

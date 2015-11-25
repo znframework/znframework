@@ -580,25 +580,4 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 			return round($size / (1024 * 1024 * 1024), $decimal);
 		}
 	}
-	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Ftp işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.  |
-	|     														                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|     														                              |
-	******************************************************************************************/
-	public function error()
-	{
-		if( isset($this->error) )
-		{
-			Error::set($this->error);	
-			return $this->error;
-		}
-		else
-		{
-			return false;
-		}
-	}
 }

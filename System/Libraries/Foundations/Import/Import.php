@@ -363,6 +363,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	
 		$this->parameters = array();
 		
+		$eol = eol();
+		
 		//-----------------------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
@@ -387,12 +389,12 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			     ? $head['docType'] 		
 			     : $masterPageSet["docType"];
 		
-		$header  = Config::get('Doctype', $docType).eol();
-		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.eol();
+		$header  = Config::get('Doctype', $docType).$eol;
+		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.$eol;
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
-		$header .= '<head>'.eol();
+		$header .= '<head>'.$eol;
 		
 		$contentCharset = isset($head['contentCharset']) 			
 					    ? $head['contentCharset'] 		
@@ -402,19 +404,19 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			foreach( $contentCharset as $v )
 			{
-				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".eol();	
+				$header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".$eol;	
 			}
 		}
 		else
 		{
-			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.eol();	
+			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.$eol;	
 		}
 		
 		$contentLanguage = isset($head['contentLanguage']) 			
 					     ? $head['contentLanguage'] 		
 					     : $masterPageSet["contentLanguage"];
 		
-		$header .= '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.eol();
+		$header .= '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.$eol;
 			
 		//-----------------------------------------------------------------------------------------------------
 		// Data ve Meta verileri alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -432,7 +434,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		if( ! empty($title) ) 			
 		{
-			$header .= '<title>'.$title.'</title>'.eol();	
+			$header .= '<title>'.$title.'</title>'.$eol;	
 		}
 		
 		//-----------------------------------------------------------------------------------------------------
@@ -464,13 +466,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 							  
 				if( ! is_array($content) )
 				{			  
-					$header .= "<meta $httpOrName=\"$name\" content=\"$content\">".eol();
+					$header .= "<meta $httpOrName=\"$name\" content=\"$content\">".$eol;
 				}
 				else
 				{
 					foreach( $content as $key => $val )
 					{
-						$header .= "<meta $httpOrName=\"$name\" content=\"$val\">".eol();	
+						$header .= "<meta $httpOrName=\"$name\" content=\"$val\">".$eol;	
 					}	
 				}
 			}
@@ -533,7 +535,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 					  
 		if( ! empty($browserIcon) ) 
 		{
-			$header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.eol();
+			$header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
 		}
 		
 		//-----------------------------------------------------------------------------------------------------
@@ -548,13 +550,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{ 
 			if( ! is_array($datas) )
 			{ 
-				$header .= $datas.eol(); 
+				$header .= $datas.$eol; 
 			}
 			else
 			{
 				foreach( $datas as $v )
 				{
-					$header .= $v.eol();	
+					$header .= $v.$eol;	
 				}	
 			}
 		}
@@ -571,14 +573,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			// Tek bir üst sayfa kullanımı için.
 			if( ! is_array($headPage) )
 			{
-				$header .= $this->page($headPage, '', true).eol();
+				$header .= $this->page($headPage, '', true).$eol;
 			}
 			else
 			{
 				// Birden fazla üst sayfa kullanımı için.
 				foreach( $headPage as $hpage )
 				{
-					$header .= $this->page($hpage, '', true).eol();
+					$header .= $this->page($hpage, '', true).$eol;
 				}
 			}	
 		}
@@ -586,7 +588,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
 		
-		$header .= '</head>'.eol();
+		$header .= '</head>'.$eol;
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -609,7 +611,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			        ? $head['bodyAttributes'] 		
 			        : $masterPageSet["bodyAttributes"];
 		
-		$header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.eol();
+		$header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
 	
 		echo $header;
 		
@@ -618,7 +620,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$this->page($randomPageVariable, $randomDataVariable);
 		}
 		
-		$randomFooterVariable  = eol().'</body>'.eol();
+		$randomFooterVariable  = $eol.'</body>'.$eol;
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY END<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 		
 		$randomFooterVariable .= '</html>';
@@ -687,7 +689,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	******************************************************************************************/
 	public function font()
 	{	
-		$str       = "<style type='text/css'>".eol();
+		$eol	   = eol();
+		$str       = "<style type='text/css'>".$eol;
 		$args      = $this->_parameters(func_get_args(), 'fonts');		
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -703,26 +706,27 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$f = divide($font, "/", -1);
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
 			
-			$fontFile = FONTS_DIR.$font;
+			$fontFile = FONTS_DIR.$font;		
+			$baseUrl  = baseUrl($fontFile);
 			
 			if( is_file($fontFile.".svg") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl($fontFile.".svg").'") format("truetype")}'.eol();				
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.svg") format("truetype")}'.$eol;				
 			}
 			if( is_file($fontFile.".woff") )
 			{			
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl($fontFile.".woff").'") format("truetype")}'.eol();		
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.woff") format("truetype")}'.$eol;		
 			}
 			// OTF IE VE CHROME DESTEKLEMIYOR
 			if( is_file($fontFile.".otf") )
 			{
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl($fontFile.".otf").'") format("truetype")}'.eol();			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.otf") format("truetype")}'.$eol;			
 			}
 			
 			// TTF IE DESTEKLEMIYOR
 			if( is_file($fontFile.".ttf") )
 			{		
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl($fontFile.".ttf").'") format("truetype")}'.eol();			
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.ttf") format("truetype")}'.$eol;			
 			}
 			
 			// CND ENTEGRASYON
@@ -731,7 +735,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			if( ! empty($cndFont) )
 			{		
-				$str .= '@font-face{font-family:"'.divide(removeExtension($cndFont), "/", -1).'"; src:url("'.$cndFont.'") format("truetype")}'.eol();			
+				$str .= '@font-face{font-family:"'.divide(removeExtension($cndFont), "/", -1).'"; src:url("'.$cndFont.'") format("truetype")}'.$eol;			
 			}
 			
 			// FARKLI FONTLAR
@@ -743,7 +747,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				{
 					if( is_file($fontFile.prefix($of, '.')) )
 					{		
-						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl($fontFile.prefix($of, '.')).'") format("truetype")}'.eol();			
+						$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.prefix($of, '.').'") format("truetype")}'.$eol;			
 					}
 				}	
 			}
@@ -752,13 +756,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			if( is_file($fontFile.".eot") )
 			{
 				$str .= '<!--[if IE]>';
-				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.baseUrl($fontFile.".eot").'") format("truetype")}';
+				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.eot") format("truetype")}';
 				$str .= '<![endif]-->';
-				$str .= eol();
+				$str .= $eol;
 			}		
 		}
 		
-		$str .= '</style>'.eol();
+		$str .= '</style>'.$eol;
 		
 		if( ! empty($str) ) 
 		{
@@ -801,7 +805,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	******************************************************************************************/
 	public function style()
 	{
-		$str       = '';		
+		$str       = '';	
+		$eol	   = eol();	
 		$args      = $this->_parameters(func_get_args(), 'styles');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -813,20 +818,22 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			{
 				$style = '';
 			}	
+			
+			$styleFile = STYLES_DIR.suffix($style,".css");
 		
 			if( ! in_array("style_".$style, $this->isImport) )
 			{					
-				if( is_file(STYLES_DIR.suffix($style,".css")) )
+				if( is_file($styleFile) )
 				{
-					$str .= '<link href="'.baseUrl().STYLES_DIR.suffix($style,".css").'" rel="stylesheet" type="text/css" />'.eol();
+					$str .= '<link href="'.baseUrl($styleFile).'" rel="stylesheet" type="text/css" />'.$eol;
 				}
 				elseif( isUrl($style) && extension($style) === 'css' )
 				{
-					$str .= '<link href="'.$style.'" rel="stylesheet" type="text/css" />'.eol();
+					$str .= '<link href="'.$style.'" rel="stylesheet" type="text/css" />'.$eol;
 				}
 				elseif( isset($links[strtolower($style)]) )
 				{
-					$str .= '<link href="'.$links[strtolower($style)].'" rel="stylesheet" type="text/css" />'.eol();	
+					$str .= '<link href="'.$links[strtolower($style)].'" rel="stylesheet" type="text/css" />'.$eol;	
 				}
 				
 				$this->isImport[] = "style_".$style;
@@ -875,6 +882,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	public function script()
 	{
 		$str 	   = '';	
+		$eol	   = eol();	
 		$args      = $this->_parameters(func_get_args(), 'scripts');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -887,19 +895,21 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				$script = '';
 			}
 			
+			$scriptFile = SCRIPTS_DIR.suffix($script, ".js");
+			
 			if( ! in_array("script_".$script, $this->isImport) )
 			{
-				if( is_file(SCRIPTS_DIR.suffix($script,".js")) )
+				if( is_file($scriptFile) )
 				{
-					$str .= '<script type="text/javascript" src="'.baseUrl().SCRIPTS_DIR.suffix($script,".js").'"></script>'.eol();
+					$str .= '<script type="text/javascript" src="'.baseUrl($scriptFile).'"></script>'.$eol;
 				}
 				elseif( isUrl($script) && extension($script) === 'js' )
 				{
-					$str .= '<script type="text/javascript" src="'.$script.'"></script>'.eol();
+					$str .= '<script type="text/javascript" src="'.$script.'"></script>'.$eol;
 				}
 				elseif( isset($links[strtolower($script)]) )
 				{
-					$str .= '<script type="text/javascript" src="'.$links[strtolower($script)].'"></script>'.eol();	
+					$str .= '<script type="text/javascript" src="'.$links[strtolower($script)].'"></script>'.$eol;	
 				}
 				
 				$this->isImport[] = "script_".$script;
@@ -959,19 +969,24 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 
 		$this->parameters = array();
 		
+		$eol = eol();
+		
+		$randomPageVariableExtension = extension($randomPageVariable);
+		$randomPageVariableBaseUrl   = baseUrl($randomPageVariable);
+		
 		if( ! is_string($randomPageVariable) ) 
 		{
 			return Error::set(lang('Error', 'stringParameter', 'randomPageVariable'));
 		}
 
-		if( extension($randomPageVariable) === 'js' )
+		if( $randomPageVariableExtension === 'js' )
 		{
 			if( ! is_file($randomPageVariable) ) 
 			{
 				return Error::set(lang('Error', 'fileParameter', 'randomPageVariable'));
 			}
 			
-			$return = '<script type="text/javascript" src="'.baseUrl().$randomPageVariable.'"></script>'.eol();
+			$return = '<script type="text/javascript" src="'.$randomPageVariableBaseUrl.'"></script>'.$eol;
 			
 			if( $randomObGetContentsVariable === false )
 			{
@@ -982,14 +997,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				return $return;	
 			}
 		}
-		elseif( extension($randomPageVariable) === 'css' )	
+		elseif( $randomPageVariableExtension === 'css' )	
 		{
 			if( ! is_file($randomPageVariable) ) 
 			{
 				return Error::set(lang('Error', 'fileParameter', 'randomPageVariable'));
 			}
 			
-			$return = '<link href="'.baseUrl().$randomPageVariable.'" rel="stylesheet" type="text/css" />'.eol();
+			$return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
 			
 			if( $randomObGetContentsVariable === false )
 			{
@@ -1002,7 +1017,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		else
 		{
-			$extension = ! extension($randomPageVariable)
+			$extension = ! $randomPageVariableExtension
 						 ? '.php'
 						 : '';
 			
@@ -1059,40 +1074,49 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::something('Application/Views/');              	              |
 	|          																				  |
 	******************************************************************************************/
-	public function package($packages = "", $differentExtension = array() )
+	public function package($packages = "", $differentExtension = array(), $recursive = false)
 	{
-		if( ! is_string($packages) || ! is_dir($packages) || ! is_array($differentExtension) ) 
+		if( ! is_string($packages) || ! is_dir($packages) ) 
 		{
 			Error::set(lang('Error', 'stringParameter', 'packages'));
 			Error::set(lang('Error', 'dirParameter', 'packages'));
-			Error::set(lang('Error', 'arrayParameter', 'differentExtension'));
 			
 			return false;
 		}
-	
-		if( Folder::files($packages) ) 
+		
+		$eol = eol();
+
+		$packageFiles = Folder::allFiles($packages, $recursive);
+		
+		if( ! empty($packageFiles) ) 
 		{
-			foreach( Folder::files($packages) as $val )
+			foreach( $packageFiles as $val )
 			{				
-				if( extension($val) === "php" )
-				{
-					require_once (suffix($packages).$val);
-				}
-				elseif( extension($val) === "js" )
-				{
-					echo '<script type="text/javascript" src="'.baseUrl().suffix($packages).$val.'"></script>'.eol();
-				}
-				elseif( extension($val) === "css" )
-				{
-					echo '<link href="'.baseUrl().suffix($packages).$val.'" rel="stylesheet" type="text/css" />'.eol();
-				}
-				else
-				{
-					if( ! empty($differentExtension) )
+				$baseUrl = baseUrl($val);
+				$exten   = extension($val);
+				
+				if( is_file($val) )
+				{		
+					if( $exten === "php" )
 					{
-						if( in_array(extension($val), $differentExtension) )
+						require_once $val;
+					}
+					elseif( $exten === "js" )
+					{
+						echo '<script type="text/javascript" src="'.$baseUrl.'"></script>'.$eol;
+					}
+					elseif( $exten === "css" )
+					{
+						echo '<link href="'.$baseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
+					}
+					else
+					{
+						if( ! empty($differentExtension) )
 						{
-							require_once(suffix($packages).$val);	
+							if( in_array($exten, $differentExtension) )
+							{
+								require_once $val;	
+							}
 						}
 					}
 				}

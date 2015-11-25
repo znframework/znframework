@@ -174,6 +174,8 @@ class Autoloader
 			isset($configClassMap['classes']) ? $configClassMap['classes'] : array()
 		);
 		
+		$eol  = eol();
+		
 		// Config/ClassMap.php 
 		$path = CONFIG_DIR.'ClassMap.php';
 		
@@ -182,7 +184,7 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		if( ! is_file($path) )
 		{
-			$classMapPage  = '<?php'.eol();
+			$classMapPage  = '<?php'.$eol;
 		}
 		else
 		{
@@ -195,7 +197,7 @@ class Autoloader
 			
 			foreach( $classArray as $k => $v )
 			{
-				$classMapPage .= '$config[\'ClassMap\'][\'classes\'][\''.$k.'\'] = \''.$v.'\';'.eol();
+				$classMapPage .= '$config[\'ClassMap\'][\'classes\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
 			}
 		}
 		
@@ -214,7 +216,7 @@ class Autoloader
 			
 			foreach( $namespaceArray as $k => $v )
 			{
-				$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.eol();
+				$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
 			}
 		}
 	
@@ -411,7 +413,9 @@ class Autoloader
 		);
 		
 		$staticAccessDirectory = SYSTEM_DIR.'StaticAccess/';
-	
+		
+		$eol = eol();
+		
 		if( ! empty($files) ) foreach( $files as $v )
 		{
 			// Sadece .php uzantılı dosyalar için işlem yap.
@@ -483,13 +487,13 @@ class Autoloader
 						if( ! file_exists($path) )	
 						{	
 							// Statik sınıf içeriği oluşturuluyor....
-							$classContent  = '<?php'.eol();
-							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
-							$classContent .= '{'.eol();	
-							$classContent .= "\t".'public static function getClassName()'.eol();
-							$classContent .= "\t".'{'.eol();
-							$classContent .= "\t\t".'return __CLASS__;'.eol();
-							$classContent .= "\t".'}'.eol();
+							$classContent  = '<?php'.$eol;
+							$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
+							$classContent .= '{'.$eol;	
+							$classContent .= "\t".'public static function getClassName()'.$eol;
+							$classContent .= "\t".'{'.$eol;
+							$classContent .= "\t\t".'return __CLASS__;'.$eol;
+							$classContent .= "\t".'}'.$eol;
 							$classContent .= '}';
 						
 							file_put_contents($path, $classContent);

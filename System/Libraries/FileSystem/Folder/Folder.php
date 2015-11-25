@@ -415,7 +415,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		{	
 			$dir = opendir($path);
 			
-			while($file = readdir($dir))
+			while( $file = readdir($dir) )
 			{
 				if( $file !== '.' && $file !== '..' )
 				{				
@@ -430,9 +430,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 					{
 						if( $extension === 'dir' )
 						{
-							$extens = extension($file);
-							
-							if( empty($extens) )
+							if( is_dir($file) )
 							{
 								$files[] = $file;	
 							}
@@ -444,6 +442,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 					}
 				}
 			}
+			
 			return $files;
 		}
 		else

@@ -108,12 +108,15 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 		$colNo = 1;
 		$rowNo = 1;
 		$table = '';
+		$eol   = eol();
 		
 		$elements = func_get_args();
 		
+		
+		
 		foreach($elements as $key => $element)
 		{
-			$table .= eol()."\t".'<tr>'.eol();
+			$table .= $eol."\t".'<tr>'.$eol;
 			
 			if(is_array($element))foreach($element as $k => $v)
 			{
@@ -126,11 +129,11 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 					$val = $k;
 				}
 			
-				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.eol();	
+				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.$eol;	
 				$colNo++;
 			}
 		
-			$table .= "\t".'</tr>'.eol();
+			$table .= "\t".'</tr>'.$eol;
 			$rowNo++;
 		}
 		

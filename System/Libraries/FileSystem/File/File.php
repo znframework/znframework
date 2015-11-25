@@ -356,29 +356,30 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		$size = 0;
 	
 		$extension = extension($file);
-		
+		$fileSize  = filesize($file);
 		// Bu bir dosya ise
 		if( ! empty($extension) )
 		{
-			$size += filesize($file);
+			$size += $fileSize;
 		}
 		else
 		{
+			$folderFiles = Folder::files($file);
 			// Dizin içerisinde dosyalar mevcut ise 
-			if( Folder::files($file) )
+			if( $folderFiles )
 			{
 				// Hesaplanan boyuta dosya boyutlarını ilave et
-				foreach( Folder::files($file) as $val )
+				foreach( $folderFiles as $val )
 				{	
 					$size += $this->size($file."/".$val);	
 				}
 				
-				$size += filesize($file);
+				$size += $fileSize;
 			}
 			else
 			{
 				// Dizin içerisinde herhangi bir dosya mevcut değilse
-				$size += filesize($file);
+				$size += $fileSize;
 			}	
 		}
 		

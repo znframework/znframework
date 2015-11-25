@@ -4053,7 +4053,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sytemUser()
+	public function systemUser()
 	{
 		$math = $this->_math('SYSTEM_USER', func_get_args());
 		

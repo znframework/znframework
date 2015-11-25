@@ -930,6 +930,7 @@ function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = Config::get('Cache');
+	$eol    = eol();
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
@@ -945,7 +946,7 @@ mod_gzip_item_include mime ^text/.*
 mod_gzip_item_include mime ^application/x-javascript.*
 mod_gzip_item_exclude mime ^image/.*
 mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>'.eol(2);
+</ifModule>'.$eol.$eol;
 	}
 	else
 	{
@@ -961,14 +962,14 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 		$exp = '';
 		foreach($config['modExpires']['fileTypeTime'] as $type => $value)
 		{
-			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eol();
+			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
 		}
 		
 		$modExpires = '<ifModule mod_expires.c>
 ExpiresActive On
 ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 '.$exp.'
-</ifModule>'.eol(2);
+</ifModule>'.$eol.$eol;
 	}
 	else
 	{
@@ -986,13 +987,13 @@ ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
-</filesMatch>'.eol();
+</filesMatch>'.$eol;
 		}
 		
 		$modHeaders = '<ifModule mod_headers.c>
 '.$fmatch.'
 </ifModule>
-'.eol(2);
+'.$eol.$eol;
 	}
 	else
 	{
@@ -1005,14 +1006,14 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	
 	if( ! empty($headerSet['setHtaccessFile']) )
 	{
-		$headersIniSet  = "<ifModule mod_expires.c>".eol();	
+		$headersIniSet  = "<ifModule mod_expires.c>".$eol;	
 		
 		foreach( $headerSet['iniSet'] as $val )
 		{
-			$headersIniSet .= "$val".eol();
+			$headersIniSet .= "$val".$eol;
 		}
 		
-		$headersIniSet .= "</ifModule>".eol(2);
+		$headersIniSet .= "</ifModule>".$eol.$eol;
 	}
 	else
 	{
@@ -1029,7 +1030,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		
 		foreach( $htaccessSettings['settings'] as $key => $val )
 		{
-			$htaccessSettingsStr .= "<$key>".eol();
+			$htaccessSettingsStr .= "<$key>".$eol;
 			
 			foreach( $val as $v )
 			{
@@ -1037,7 +1038,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 			}
 			
 			$keyex = explode(" ", $key);
-			$htaccessSettingsStr .= eol()."</$keyex[0]>".eol(2);
+			$htaccessSettingsStr .= $eol."</$keyex[0]>".$eol.$eol;
 		}	
 	}
 	else
@@ -1052,12 +1053,12 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! Config::get('Uri','index.php') )
 	{
-		$htaccess .= "<IfModule mod_rewrite.c>".eol();
-		$htaccess .= "RewriteEngine On".eol();
-		$htaccess .= "RewriteBase /".eol();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eol();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eol();
-		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.eol();
+		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
+		$htaccess .= "RewriteEngine On".$eol;
+		$htaccess .= "RewriteBase /".$eol;
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
+		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.$eol;
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
@@ -1111,13 +1112,13 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( $v !== '' )
 			{
-				$sets .= "php_value $k $v".eol();		 
+				$sets .= "php_value $k $v".$eol;		 
 			}			
 		}
 		
 		if( ! empty($sets) )
 		{
-			$htaccess .= eol()."<IfModule mod_php5.c>".eol();
+			$htaccess .= $eol."<IfModule mod_php5.c>".$eol;
 			$htaccess .= $sets;
 			$htaccess .= "</IfModule>";
 		}

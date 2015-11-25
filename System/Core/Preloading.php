@@ -926,9 +926,23 @@ function server($type = '')
 		'gatewayInterface'			 => (isset($_SERVER['GATEWAY_INTERFACE'])) 		? $_SERVER['GATEWAY_INTERFACE'] 	: false			
 	);	
 	
-	return ( isset($server[$type]) ) 
-		   ? $server[$type]
-		   : false;
+	if( isset($server[$type]) )
+	{
+		if( is_array($server[$type]) )
+		{
+			return $server[$type];	
+		}
+		else
+		{
+			return htmlspecialchars($server[$type], ENT_QUOTES, "utf-8");
+		}
+	}
+	elseif( isset($_SERVER[$type]) )
+	{
+		return htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
+	}
+	
+	return false;
 }	
 
 //----------------------------------------------------------------------------------------------------
