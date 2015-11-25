@@ -26,6 +26,14 @@ class RedisDriver implements CacheInterface
 	 */
 	protected $serialized = array();
 	
+	public function __construct()
+	{
+		if( $this->isSupported() === false )
+		{
+			die(lang('Cache', 'unsupported', 'Redis'));
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -34,11 +42,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function connect($settings = array())
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		$config = Config::get('Cache', 'driverSettings');
 		
 		$config = ! empty($settings)
@@ -59,19 +62,19 @@ class RedisDriver implements CacheInterface
 			}
 			if ( empty($success) )
 			{
-				die(getMessage('Cache', 'connectionRefused', 'Connection'));
+				die(lang('Cache', 'connectionRefused', 'Connection'));
 			}
 		}
 		catch( RedisException $e )
 		{
-			die(getMessage('Cache', 'connectionRefused', $e->getMessage()));
+			die(lang('Cache', 'connectionRefused', $e->getMessage()));
 		}
 		
 		if( isset($config['password']) )
 		{
 			if ( ! $this->redis->auth($config['password']))
 			{
-				die(getMessage('Cache', 'authenticationFailed'));
+				die(lang('Cache', 'authenticationFailed'));
 			}
 		}
 
@@ -98,17 +101,13 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function select($key = '')
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		$value = $this->redis->get($key);
 		
 		if( $value !== false && isset($this->serialized[$key]) )
 		{
 			return unserialize($value);
 		}
+		
 		return $value;
 	}
 	
@@ -128,11 +127,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function insert($key = '', $data = '', $time = 60, $compressed = false)
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		if( is_array($data) OR is_object($data) )
 		{
 			if( ! $this->redis->sIsMember('ZNRedisSerialized', $key) && ! $this->redis->sAdd('ZNRedisSerialized', $key) )
@@ -169,11 +163,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function delete($key = '')
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		if( $this->redis->delete($key) !== 1 )
 		{
 			return false;
@@ -201,11 +190,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function increment($key = '', $increment = 1)
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		return $this->redis->incr($key, $increment);
 	}
 	
@@ -223,11 +207,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function decrement($key = '', $decrement = 1)
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		return $this->redis->decr($key, $decrement);
 	}
 	
@@ -239,11 +218,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function clean()
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		return $this->redis->flushDB();
 	}
 	
@@ -260,11 +234,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function info($type = NULL)
  	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		return $this->redis->info();
  	}
 	
@@ -281,11 +250,6 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function getMetaData($key = '')
 	{
-		if( $this->isSupported() === false )
-		{
-			return getMessage('Cache', 'unsupported', 'Redis');
-		}
-		
 		$data = $this->select($key);
 		
 		if( $data !== false )
@@ -310,10 +274,7 @@ class RedisDriver implements CacheInterface
 	{
 		if( ! extension_loaded('redis') )
 		{
-			$report = getMessage('Cache', 'unsupported', 'Redis');
-			report('CacheUnsupported', $report, 'CacheLibary');
-			
-			return false;
+			return Error::set(lang('Cache', 'unsupported', 'Redis'));
 		}
 		
 		return $this->connect();

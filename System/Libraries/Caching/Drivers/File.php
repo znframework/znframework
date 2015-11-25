@@ -27,7 +27,7 @@ class FileDriver implements CacheInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			library('Folder', 'create', array($this->path, 0777));	
+			Forder::create($this->path, 0777);	
 		}	
 	}
 	/******************************************************************************************
@@ -75,7 +75,8 @@ class FileDriver implements CacheInterface
 		
 		if( File::write($this->path.$key, serialize($datas)) )
 		{
-			chmod($this->path.$key, 0640);
+			File::permission($this->path.$key, 0640);
+			
 			return true;
 		}
 		
@@ -95,9 +96,7 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	public function delete($key = '')
 	{
-		return ( file_exists($this->path.$key) )
-		 	   ? unlink($this->path.$key) 
-			   : false;
+		return File::delete($this->path.$key);
 	}
 	
 	/******************************************************************************************
@@ -125,10 +124,10 @@ class FileDriver implements CacheInterface
 			return false;
 		}
 		
-		$new_value = $data['data'] + $increment;
+		$newValue = $data['data'] + $increment;
 		
-		return ( $this->insert($key, $new_value, $data['ttl']) )
-			   ? $new_value
+		return ( $this->insert($key, $newValue, $data['ttl']) )
+			   ? $newValue
 			   : false;
 	}
 	
@@ -157,10 +156,10 @@ class FileDriver implements CacheInterface
 			return FALSE;
 		}
 		
-		$new_value = $data['data'] - $decrement;
+		$newValue = $data['data'] - $decrement;
 		
-		return $this->insert($key, $new_value, $data['ttl'])
-			   ? $new_value
+		return $this->insert($key, $newValue, $data['ttl'])
+			   ? $newValue
 			   : false;
 	}
 	
@@ -209,7 +208,7 @@ class FileDriver implements CacheInterface
 			return false;
 		}
 		
-		$data = unserialize(file_get_contents($this->path.$key));
+		$data = unserialize(File::read($this->path.$key));
 		
 		if( is_array($data) )
 		{
@@ -251,11 +250,11 @@ class FileDriver implements CacheInterface
 			return false;
 		}
 
-		$data = unserialize(@file_get_contents($this->path.$key));
+		$data = unserialize(File::read($this->path.$key));
 		
 		if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
 		{
-			unlink($this->path.$key);
+			File::delete($this->path.$key);
 			
 			return false;
 		}

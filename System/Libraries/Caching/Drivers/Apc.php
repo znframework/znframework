@@ -10,6 +10,14 @@ class ApcDriver implements CacheInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	public function __construct()
+	{
+		if( $this->isSupported() === false )
+		{
+			die(lang('Cache', 'unsupported', 'Apc'));
+		}	
+	}
+	
 	/******************************************************************************************
 	* SELECT                                                                                  *
 	*******************************************************************************************
@@ -23,11 +31,6 @@ class ApcDriver implements CacheInterface
 	******************************************************************************************/
 	public function select($key = '')
 	{
-		if( ! function_exists('apc_fetch') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
 		$success = false;
 		
 		$data = apc_fetch($key, $success);
@@ -57,12 +60,7 @@ class ApcDriver implements CacheInterface
 	|          																				  |
 	******************************************************************************************/
 	public function insert($key = '', $var = '', $time = 60, $compressed = false)
-	{
-		if( ! function_exists('apc_store') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
+	{	
 		$time = (int)$time;
 		
 		return apc_store
@@ -86,11 +84,6 @@ class ApcDriver implements CacheInterface
 	******************************************************************************************/
 	public function delete($key = '')
 	{
-		if( ! function_exists('apc_delete') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
 		return apc_delete($key);
 	}
 	
@@ -108,11 +101,6 @@ class ApcDriver implements CacheInterface
 	******************************************************************************************/
 	public function increment($key = '', $increment = 1)
 	{
-		if( ! function_exists('apc_inc') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
 		return apc_inc($key, $increment);
 	}
 	
@@ -129,12 +117,7 @@ class ApcDriver implements CacheInterface
 	|          																				  |
 	******************************************************************************************/
 	public function decrement($key = '', $decrement = 1)
-	{
-		if( ! function_exists('apc_dec') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
+	{	
 		return apc_dec($key, $decrement);
 	}
 	
@@ -146,11 +129,6 @@ class ApcDriver implements CacheInterface
 	******************************************************************************************/
 	public function clean()
 	{
-		if( ! function_exists('apc_clear_cache') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
 		return apc_clear_cache('user');
 	}
 	
@@ -166,12 +144,7 @@ class ApcDriver implements CacheInterface
 	|          																				  |
 	******************************************************************************************/
 	public function info($type = NULL)
-	{
-		if( ! function_exists('apc_cache_info') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
+	{	
 		return apc_cache_info($type);
  	}
 	
@@ -188,11 +161,6 @@ class ApcDriver implements CacheInterface
 	******************************************************************************************/
 	public function getMetaData($key = '')
 	{
-		if( ! function_exists('apc_fetch') )
-		{
-			return getMessage('Cache', 'unsupported', 'Apc');
-		}
-		
 		$success = false;
 		
 		$stored = apc_fetch($key, $success);
@@ -222,9 +190,7 @@ class ApcDriver implements CacheInterface
 	{
 		if ( ! extension_loaded('apc') || ! ini_get('apc.enabled') )
 		{
-			$report = getMessage('Cache', 'unsupported', 'Apc');
-			report('CacheUnsupported', $report, 'CacheLibary');
-			return false;
+			return Error::set(lang('Cache', 'unsupported', 'Apc'));
 		}
 		
 		return true;

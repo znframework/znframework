@@ -531,24 +531,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 	******************************************************************************************/
 	public function permission($name = '', $permission = 0755)
 	{
-		if( ! is_string($name) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
-		}
-		if( ! is_numeric($permission) ) 
-		{
-			$permission = 0755;
-		}
-		
-		if( ! file_exists($name))
-		{
-			return Error::set(lang('Folder', 'notFoundError', $name));	
-		}
-		else
-		{
-			// Dosya veya dizini yetkilendir.
-			chmod($name, $permission);
-		}
+		return File::permission($name, $permission);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

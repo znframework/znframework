@@ -10,6 +10,14 @@ class WincacheDriver implements CacheInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	public function __construct()
+	{
+		if( $this->isSupported() === false )
+		{
+			die(lang('Cache', 'unsupported', 'Wincache'));
+		}	
+	}
+	
 	/******************************************************************************************
 	* SELECT                                                                                  *
 	*******************************************************************************************
@@ -25,14 +33,7 @@ class WincacheDriver implements CacheInterface
 	{
 		$success = false;
 		
-		if( function_exists('wincache_ucache_get') )
-		{
-			$data = wincache_ucache_get($key, $success);
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		$data = wincache_ucache_get($key, $success);
 		
 		return ( $success ) 
 			   ? $data 
@@ -55,14 +56,7 @@ class WincacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function insert($key = '', $var = '', $time = 60, $expressed = false)
 	{
-		if( function_exists('wincache_ucache_set') )
-		{
-			return wincache_ucache_set($key, $var, $time);
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		return wincache_ucache_set($key, $var, $time);
 	}
 		
 	/******************************************************************************************
@@ -78,14 +72,7 @@ class WincacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function delete($key = '')
 	{
-		if( function_exists('wincache_ucache_delete') )
-		{
-			return wincache_ucache_delete($key);
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		return wincache_ucache_delete($key);
 	}
 	
 	/******************************************************************************************
@@ -104,14 +91,7 @@ class WincacheDriver implements CacheInterface
 	{
 		$success = false;
 		
-		if( function_exists('wincache_ucache_inc') )
-		{
-			$value = wincache_ucache_inc($key, $increment, $success);
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		$value = wincache_ucache_inc($key, $increment, $success);
 		
 		return ( $success === true ) 
 			   ? $value 
@@ -134,14 +114,7 @@ class WincacheDriver implements CacheInterface
 	{
 		$success = false;
 		
-		if( function_exists('wincache_ucache_dec') )
-		{
-			$value = wincache_ucache_dec($key, $decrement, $success);
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		$value = wincache_ucache_dec($key, $decrement, $success);
 		
 		return ( $success === true ) 
 			   ? $value 
@@ -156,14 +129,7 @@ class WincacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function clean()
 	{
-		if( function_exists('wincache_ucache_clear') )
-		{
-			return wincache_ucache_clear();
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		return wincache_ucache_clear();
 	}
 	
 	/******************************************************************************************
@@ -174,14 +140,7 @@ class WincacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function info($type = NULL)
  	{
-		if( function_exists('wincache_ucache_info') )
-		{
-			return wincache_ucache_info(true);
-		}
-		else
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
+		return wincache_ucache_info(true);
  	}
 	
 	/******************************************************************************************
@@ -197,11 +156,6 @@ class WincacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function getMetaData($key = '')
 	{
-		if( ! function_exists('wincache_ucache_info') )
-		{
-			return getMessage('Cache', 'unsupported', 'Wincache');
-		}
-		
 		if( $stored = wincache_ucache_info(false, $key) )
 		{
 			$age 	  = $stored['ucache_entries'][1]['age_seconds'];
@@ -216,6 +170,7 @@ class WincacheDriver implements CacheInterface
 				'ttl'		=> $ttl
 			);
 		}
+		
 		return false;
 	}
 	
@@ -229,9 +184,7 @@ class WincacheDriver implements CacheInterface
 	{
 		if ( ! extension_loaded('wincache') || ! ini_get('wincache.ucenabled') )
 		{
-			$report = getMessage('Cache', 'unsupported', 'Wincache');
-			report('CacheUnsupported', $report, 'CacheLibary');
-			return false;
+			return Error::set(lang('Cache', 'unsupported', 'Wincache'));
 		}
 		
 		return true;
