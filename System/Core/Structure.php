@@ -86,7 +86,7 @@ class Structure
 		if( isset($segments[0]) )
 		{
 			$page   = $segments[0];
-			$isFile = CONTROLLERS_DIR.suffix($page, '.php');
+			$isFile = restorationPath(CONTROLLERS_DIR.suffix($page, '.php'));
 			
 			// Kontrolcüler Controllers/ dizini içinde 
 			// farklı bir dizinde yer alıyorsa bu bölüm
@@ -100,7 +100,7 @@ class Structure
 				{
 					$if    .= $segments[$i].'/';
 					$ifTrim = rtrim($if, '/');
-					$isF    = CONTROLLERS_DIR.suffix($ifTrim , '.php');
+					$isF    = restorationPath(CONTROLLERS_DIR.suffix($ifTrim , '.php'));
 
 					if( is_file($isF) )
 					{

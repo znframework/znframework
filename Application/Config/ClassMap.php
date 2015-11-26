@@ -302,3 +302,5 @@ $config['ClassMap']['classes']['varsinterface'] = 'System/Libraries/VariableType
 $config['ClassMap']['classes']['__use_static_access__xml'] = 'System/Libraries/XMLManipulation/XML.php';
 $config['ClassMap']['classes']['xml'] = 'System/StaticAccess/XMLManipulation/__USE_STATIC_ACCESS__XML.php';
 $config['ClassMap']['classes']['xmlinterface'] = 'System/Libraries/XMLManipulation/XMLInterface.php';
+$config['ClassMap']['classes']['test'] = 'Application/Libraries/Test.php';
+$config['ClassMap']['classes']['test1'] = 'Application/Libraries/Test1.php';

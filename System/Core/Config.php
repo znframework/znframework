@@ -53,7 +53,7 @@ class Config
 		
 		if( ! isImport($path) ) 
 		{
-			require_once $path;
+			require_once restorationPath($path);
 			
 			self::$config = $config;
 		}

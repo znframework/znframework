@@ -13,35 +13,6 @@
 //----------------------------------SYSTEM AND USER FUNCTIONS START-----------------------------------
 
 //----------------------------------------------------------------------------------------------------
-// isRepmac()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Config/Repear.php dosyasında yer alan machines = array() dizisi içerisinde ip numarası veya
-// numaralarının o anki modeminizin ip'si ile eşleşip eşleşmediğini kontrol eder. Böylece site içi
-// tadilat yapılan bilgisayar ile diğer kullanıcı bilgisayarlarının ayırt edilmesi sağlanır.
-// Parametreler: Yok.
-// Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
-//
-//----------------------------------------------------------------------------------------------------
-function isRepmac()
-{
-	if( is_array(Config::get('Repair','machines')) )
-	{
-		$result = in_array(ipv4(), Config::get('Repair','machines'));
-	}
-	elseif( ipv4() == Config::get('Repair','machines') )
-	{
-		$result = true;
-	}
-	else 
-	{
-		$result = false;
-	}
-	
-	return $result;
-}
-
-//----------------------------------------------------------------------------------------------------
 // getLang()
 //----------------------------------------------------------------------------------------------------
 //
@@ -113,7 +84,7 @@ function lang($file = '', $str = '', $changed = '')
 	
 	$key 		= removeExtension($file, 'php');
 	$file 		= Config::get('Language', getLang()).'/'.suffix($file, '.php');
-	$langDir    = LANGUAGES_DIR.$file ;
+	$langDir    = restorationPath(LANGUAGES_DIR.$file);
 	$sysLangDir = SYSTEM_LANGUAGES_DIR.$file;
 	
 	global $lang;
@@ -312,7 +283,7 @@ function baseUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.restorationPath(cleanInjection($uri));
 }	
 	
 //----------------------------------------------------------------------------------------------------

@@ -11,39 +11,52 @@
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------
+// Temel Sistem Ayarları
+//----------------------------------------------------------------------------------------------------
+//
+// 1 - Application Directory: Uygulamanın yer alacağı dizini ayarlamak içindir.
+//
+// 2 - Restoration Directory: Uygulamanın restorasyonu yapılacağı dizini ayarlamak içindir.
+//
+// 3 - Application Type: Uygulama türünü ayarlamak içindir.
+//     local: Yerel sunucuda çalışırken tercih edilebilir.
+//     development: Proje'nin geliştirilmesi aşamasında tercih edilebilir.
+//     publication: Proje'nin yayınlanması ile bu seçenek tercih edilebilir.
+//
+// 4 - Benchmark Performance Test: Sistemin açılış hızını test etmek içindir.
+//
+// 5 - Restoration Mode: Uygulamanızda restorasyon yapılabilmesi içindir.
+//
+// 6 - Restoration Machines IP: Restorasyon işlemlerinin görüntüleneceği IP adres/adresleri.
+//
+//----------------------------------------------------------------------------------------------------
+$system = array
+(
+	'applicationDirectory'   => 'Application', // Uygulama dizini.
+	'restorationDirectory'   => 'Restoration', // Uygulama dizini.
+	'applicationType'        => 'local',       // local, development veya publication
+	'benchmarkingTest'       => false,         // true veya false
+	'restorationMode'        => false, 
+	'restorationMachinesIP'  => array()   	   // string veya dizi türünde olabilir
+);
+//----------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------
 //  Ön Yüklenenler
 //----------------------------------------------------------------------------------------------------
 require_once 'System/Core/Preloading.php';
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------
-// Temel Sistem Ayarları
-//----------------------------------------------------------------------------------------------------
-//
-// 1 - Application Directory: Uygulamanın yer alacağı dizini ayarlamak içindir.
-//
-// 2 - Application Type: Uygulama türünü ayarlamak içindir.
-//     local: Yerel sunucuda çalışırken tercih edilebilir.
-//     development: Proje'nin geliştirilmesi aşamasında tercih edilebilir.
-//     publication: Proje'nin yayınlanması ile bu seçenek tercih edilebilir.
-//
-// 3 - Benchmark Performance Test: Sistemin açılış hızını test etmek içindir.
-//     true: Sayfanın yüklenmek hızı ve kullandığı bellek miktarını gösteren bir tablo çıktılar.
-//     false: Herhangi bir tablo çıktılamaz.
-//
-//----------------------------------------------------------------------------------------------------
-$system = array
-(
-	'applicationDirectory' => 'Application', // Uygulama dizini.
-	'applicationType'      => 'local',       // local, development veya publication
-	'benchmarkingTest'     => false          // true veya false
-);
-//------------------------------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------------------------------
 //  Uygulama Dizini
 //----------------------------------------------------------------------------------------------------
 define('APP_DIR', suffix($system['applicationDirectory']));
+//----------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------
+//  Restorasyon Dizini
+//----------------------------------------------------------------------------------------------------
+define('RES_DIR', suffix($system['restorationDirectory']));
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------

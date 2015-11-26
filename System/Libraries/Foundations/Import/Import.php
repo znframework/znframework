@@ -234,8 +234,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomPageVariable = suffix($randomPageVariable, '.php');
 		}
 		
-		$randomPagePath = $randomPageDir.$randomPageVariable;
-		
+		$randomPagePath = restorationPath($randomPageDir.$randomPageVariable);
+
 		if( is_file($randomPagePath) ) 
 		{
 			if( is_array($randomDataVariable) )
@@ -706,7 +706,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$f = divide($font, "/", -1);
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
 			
-			$fontFile = FONTS_DIR.$font;		
+			$fontFile = restorationPath(FONTS_DIR.$font);		
 			$baseUrl  = baseUrl($fontFile);
 			
 			if( is_file($fontFile.".svg") )
@@ -819,7 +819,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				$style = '';
 			}	
 			
-			$styleFile = STYLES_DIR.suffix($style,".css");
+			$styleFile = restorationPath(STYLES_DIR.suffix($style,".css"));
 		
 			if( ! in_array("style_".$style, $this->isImport) )
 			{					
@@ -895,7 +895,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				$script = '';
 			}
 			
-			$scriptFile = SCRIPTS_DIR.suffix($script, ".js");
+			$scriptFile = restorationPath(SCRIPTS_DIR.suffix($script, ".js"));
 			
 			if( ! in_array("script_".$script, $this->isImport) )
 			{
@@ -978,6 +978,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			return Error::set(lang('Error', 'stringParameter', 'randomPageVariable'));
 		}
+		
+		$randomPageVariable = restorationPath($randomPageVariable);
 
 		if( $randomPageVariableExtension === 'js' )
 		{
@@ -1091,7 +1093,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		if( ! empty($packageFiles) ) 
 		{
 			foreach( $packageFiles as $val )
-			{				
+			{		
+				$val     = restorationPath($val);		
 				$baseUrl = baseUrl($val);
 				$exten   = extension($val);
 				
