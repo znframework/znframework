@@ -1,4 +1,4 @@
-# ZERONEED Framework
+# Zero Need Framework
 
 <h3>ZN Framework Nedir? (What Is ZN Framework?)</h3>
 
