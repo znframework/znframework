@@ -1,4 +1,4 @@
-# ZN Dynamic Framework
+# ZERONEED Framework
 
 <h3>ZN Framework Nedir? (What Is ZN Framework?)</h3>
 
