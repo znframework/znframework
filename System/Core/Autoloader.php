@@ -384,6 +384,51 @@ class Autoloader
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// Token File Info
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yolu belirtilen fonksiyon bilgilerini almak için oluşturulmuştur.
+	//
+	// @param  string $fileName
+	// @return array
+	//
+	//----------------------------------------------------------------------------------------------------
+	public static function tokenFileInfo($fileName = '', $type = T_FUNCTION)
+	{
+		if( ! is_file($fileName) )
+		{
+			return false;	
+		}
+		
+		// Dosya içeriğini al ve tarama yap.
+		$tokens = token_get_all(file_get_contents($fileName));
+		$info   = array();
+		
+		$i = 0;
+		
+		$type = Convert::toConstant($type, 'T_');
+		
+		foreach( $tokens as $token )
+		{
+			// -------------------------------------------------------------------------------------------
+			// Fonksiyon ismi yakalanıyor
+			// -------------------------------------------------------------------------------------------
+			if( $token[0] === $type )
+			{
+				// Sınıf bilgisi oluşturuluyor...
+				$info[] = isset($tokens[$i + 2][1])
+						? $tokens[$i + 2][1]
+						: NULL;
+			}
+			// -------------------------------------------------------------------------------------------
+			
+			$i++;
+		}	
+	
+		return $info;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// Protected Search Class Map
 	//----------------------------------------------------------------------------------------------------
 	//

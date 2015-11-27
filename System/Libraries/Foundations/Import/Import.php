@@ -226,6 +226,24 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	}
 	
 	/******************************************************************************************
+	* HANDLOAD                                                                                *
+	*******************************************************************************************
+	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
+	|															                              |
+	| Parametreler: 3 parametresi vardır.                                                     |
+	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
+	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
+	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
+	|          																				  |
+	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
+	|          																				  |
+	******************************************************************************************/
+	public function handload($page = '', $data = '', $obGetContents = false, $randomPageDir = HANDLOAD_DIR)
+	{
+		return $this->page($page, $data, $obGetContents, $randomPageDir);
+	}
+	
+	/******************************************************************************************
 	* PAGE                                                                                    *
 	*******************************************************************************************
 	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
