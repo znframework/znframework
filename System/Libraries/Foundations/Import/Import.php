@@ -65,6 +65,34 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// recursive()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var bool $recursive
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function recursive($recursive = true)
+	{
+		$this->parameters['recursive'] = $recursive;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// differentExtensions()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var ... $args
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function differentExtensions()
+	{
+		$this->parameters['differentExtensions'] = func_get_args();
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// data()
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -1076,7 +1104,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::something('Application/Views/');              	              |
 	|          																				  |
 	******************************************************************************************/
-	public function package($packages = "", $differentExtension = array(), $recursive = false)
+	public function package($packages = "", $recursive = false, $getContents = false, $differentExtension = array())
 	{
 		if( ! is_string($packages) || ! is_dir($packages) ) 
 		{
@@ -1086,12 +1114,34 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			return false;
 		}
 		
+		if( ! empty($this->parameters['usable']) )
+		{
+			$getContents = $this->parameters['usable'];
+		}
+		
+		if( ! empty($this->parameters['recursive']) )
+		{
+			$recursive = $this->parameters['recursive'];
+		}
+		
+		if( ! empty($this->parameters['differentExtensions']) )
+		{
+			$differentExtension = $this->parameters['differentExtensions'];
+		}
+		
+		$this->parameters = array();
+	
 		$eol = eol();
 
 		$packageFiles = Folder::allFiles($packages, $recursive);
 		
 		if( ! empty($packageFiles) ) 
 		{
+			if( $getContents === true )
+			{
+				ob_start(); 
+			}
+			
 			foreach( $packageFiles as $val )
 			{		
 				$val     = restorationPath($val);		
@@ -1123,6 +1173,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 						}
 					}
 				}
+			}
+			
+			if( $getContents === true )
+			{
+				$randomContentVariable = ob_get_contents(); 
+				ob_end_clean();
+				
+				return $randomContentVariable; 
 			}
 		}
 		else 
