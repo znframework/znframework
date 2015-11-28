@@ -42,32 +42,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 	//----------------------------------------------------------------------------------------------------
 	public function post($name = '', $value = '')
 	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
-		}
-		
-		if( empty($name) ) 
-		{
-			return $_POST;
-		}
-		// ---------------------------------------------------------------------------
-		
-		// @value parametresi boş değilse
-		if( ! empty($value) )
-		{
-			$_POST[$name] = $value;
-		}
-		
-		// Global veri içersinde
-		// böyle bir veri yoksa
-		if( empty($_POST[$name]) ) 
-		{
-			return Error::set(lang('Error', 'emptyVariable', '@$_POST[\'name\']'));
-		}
-		
-		return htmlspecialchars($_POST[$name], ENT_QUOTES, "utf-8");
+		return $this->_method($name, $value, $_POST ,__FUNCTION__);
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -80,32 +55,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 	//----------------------------------------------------------------------------------------------------
 	public function get($name = '', $value = '')
 	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
-		}
-		
-		if( empty($name) ) 
-		{
-			return $_GET;
-		}
-		// ---------------------------------------------------------------------------
-		
-		// @value parametresi boş değilse
-		if( ! empty($value) )
-		{
-			$_GET[$name] = $value;
-		}
-		
-		// Global veri içersinde
-		// böyle bir veri yoksa
-		if( empty($_GET[$name]) ) 
-		{
-			return Error::set(lang('Error', 'emptyVariable', '@$_GET[\'name\']'));
-		}
-		
-		return htmlspecialchars($_GET[$name], ENT_QUOTES, "utf-8");
+		return $this->_method($name, $value, $_GET, __FUNCTION__);
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -118,32 +68,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 	//----------------------------------------------------------------------------------------------------
 	public function request($name = '', $value = '')
 	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
-		}
-		
-		if( empty($name) ) 
-		{
-			return $_REQUEST;
-		}
-		// ---------------------------------------------------------------------------
-		
-		// @value parametresi boş değilse
-		if( ! empty($value) )
-		{
-			$_REQUEST[$name] = $value;
-		}
-		
-		// Global veri içersinde
-		// böyle bir veri yoksa
-		if( empty($_REQUEST[$name]) ) 
-		{
-			return Error::set(lang('Error', 'emptyVariable', '@$_REQUEST[\'name\']'));
-		}
-		
-		return htmlspecialchars($_REQUEST[$name], ENT_QUOTES, "utf-8");
+		return $this->_method($name, $value, $_REQUEST, __FUNCTION__);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -156,32 +81,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 	//----------------------------------------------------------------------------------------------------
 	public function env($name = '', $value = '')
 	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
-		}
-		
-		if( empty($name) ) 
-		{
-			return $_ENV;
-		}
-		// ---------------------------------------------------------------------------
-		
-		// @value parametresi boş değilse
-		if( ! empty($value) )
-		{
-			$_ENV[$name] = $value;
-		}
-		
-		// Global veri içersinde
-		// böyle bir veri yoksa
-		if( empty($_ENV[$name]) ) 
-		{
-			return Error::set(lang('Error', 'emptyVariable', '@$_ENV[\'name\']'));
-		}
-		
-		return htmlspecialchars($_ENV[$name], ENT_QUOTES, "utf-8");
+		return $this->_method($name, $value, $_ENV, __FUNCTION__);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -261,5 +161,54 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 			case 'server' 	: unset($_SERVER[$name]);  break;
 			case 'request' 	: unset($_REQUEST[$name]); break;
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	// @param mixed  $value
+	// @param var    $input
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _method($name = '', $value = '', $input = '', $type = '')
+	{
+		// Parametreler kontrol ediliyor. --------------------------------------------
+		if( ! is_string($name) ) 
+		{
+			return Error::set(lang('Error', 'stringParameter', 'name'));
+		}
+		
+		if( empty($name) ) 
+		{
+			return $input;
+		}
+		// ---------------------------------------------------------------------------
+		
+		$typeString = '$_'.strtoupper($type);
+		
+		// @value parametresi boş değilse
+		if( ! empty($value) )
+		{
+			switch( $type )
+			{
+				case 'post'    : $_POST[$name]    = $value; break;
+				case 'get'     : $_GET[$name]     = $value; break;
+				case 'request' : $_REQUEST[$name] = $value; break;
+				case 'env'	   : $_ENV[$name]     = $value; break;
+				default  	   : $_POST[$name]    = $value; break;
+			}
+		}
+		
+		// Global veri içersinde
+		// böyle bir veri yoksa
+		if( empty($input[$name]) ) 
+		{
+			return Error::set(lang('Error', 'emptyVariable', "$typeString"."['name']"));
+		}
+		
+		return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
 	}
 }
