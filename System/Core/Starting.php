@@ -65,14 +65,9 @@ if( $functions['autoload']['status'] === true )
 //----------------------------------------------------------------------------------------------------
 // El ile Yüklenen Fonksiyonlar
 //----------------------------------------------------------------------------------------------------
-if( ! empty($functions['handload']) ) foreach( $functions['handload'] as $file )
+if( ! empty($functions['handload']) )
 {
-	$file =  restorationPath(HANDLOAD_DIR.suffix($file, '.php'));
-
-	if( is_file($file) )
-	{
-		require_once $file;
-	}
+	Import::handload($functions['handload']);
 }
 //----------------------------------------------------------------------------------------------------
 

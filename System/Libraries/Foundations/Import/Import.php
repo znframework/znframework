@@ -238,9 +238,24 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public function handload($page = '', $data = '', $obGetContents = false, $randomPageDir = HANDLOAD_DIR)
+	public function handload()
 	{
-		return $this->page($page, $data, $obGetContents, $randomPageDir);
+		$args = func_get_args();
+		
+		if( isset($args[0]) && is_array($args[0]) )
+		{
+			$args = $args[0];
+		}
+
+		if( ! empty($args) ) foreach( $args as $file )
+		{
+			$file =  restorationPath(HANDLOAD_DIR.suffix($file, '.php'));
+		
+			if( is_file($file) )
+			{
+				require_once $file;
+			}
+		}
 	}
 	
 	/******************************************************************************************
