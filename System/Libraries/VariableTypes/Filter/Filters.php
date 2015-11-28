@@ -1,22 +1,22 @@
 <?php	
 class __USE_STATIC_ACCESS__Filters implements FiltersInterface
 {
-	/***********************************************************************************/
-	/* FILTERS LIBRARY					                   	                           */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Filters
-	/* Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Mixed
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Filters::, $this->Filters, zn::$use->Filters, uselib('Filters')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Call Undefined Method                                                                       
+	//----------------------------------------------------------------------------------------------------
+	//
+	// __call()
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
 	
 	/******************************************************************************************

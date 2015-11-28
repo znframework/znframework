@@ -179,6 +179,7 @@ $config['ClassMap']['classes']['__use_static_access__import'] = 'System/Librarie
 $config['ClassMap']['classes']['import'] = 'System/StaticAccess/Foundations/Import/__USE_STATIC_ACCESS__Import.php';
 $config['ClassMap']['classes']['importinterface'] = 'System/Libraries/Foundations/Import/ImportInterface.php';
 $config['ClassMap']['classes']['model'] = 'System/Libraries/Foundations/Model.php';
+$config['ClassMap']['classes']['restoration'] = 'System/Libraries/Foundations/Restoration.php';
 $config['ClassMap']['classes']['staticaccess'] = 'System/Libraries/Foundations/StaticAccess.php';
 $config['ClassMap']['classes']['callundefinedmethodtrait'] = 'System/Libraries/Foundations/Traits/CallUndefinedMethod.php';
 $config['ClassMap']['classes']['drivermethodtrait'] = 'System/Libraries/Foundations/Traits/DriverMethod.php';

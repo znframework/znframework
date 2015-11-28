@@ -1,22 +1,22 @@
 <?php	
 class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 {
-	/***********************************************************************************/
-	/* CLASSES LIBRARY					                   	                           */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Classes
-	/* Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Classes::, $this->Classes, zn::$use->Classes, uselib('Classes')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Call Undefined Method                                                                       
+	//----------------------------------------------------------------------------------------------------
+	//
+	// __call()
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
 	
 	/******************************************************************************************

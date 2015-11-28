@@ -186,9 +186,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 			return $input;
 		}
 		// ---------------------------------------------------------------------------
-		
-		$typeString = '$_'.strtoupper($type);
-		
+			
 		// @value parametresi boş değilse
 		if( ! empty($value) )
 		{
@@ -206,7 +204,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		// böyle bir veri yoksa
 		if( empty($input[$name]) ) 
 		{
-			return Error::set(lang('Error', 'emptyVariable', "$typeString"."['name']"));
+			return Error::set(lang('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']"));
 		}
 		
 		return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
