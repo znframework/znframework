@@ -237,4 +237,29 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		
 		return $_FILES[$fileName][$type];
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Delete
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $input
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function delete($input = '', $name = '')
+	{
+		if( ! is_scalar($input) || ! is_scalar($name) ) 
+		{
+			return Error::set(lang('Error', 'scalarParameter', '1.(input) && 2.(name)'));
+		}
+		
+		switch( $input )
+		{
+			case 'post' 	: unset($_POST[$name]);    break;
+			case 'get' 		: unset($_GET[$name]); 	   break;
+			case 'env' 		: unset($_ENV[$name]); 	   break;
+			case 'server' 	: unset($_SERVER[$name]);  break;
+			case 'request' 	: unset($_REQUEST[$name]); break;
+		}
+	}
 }

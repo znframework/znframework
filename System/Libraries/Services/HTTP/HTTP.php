@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__HTTP extends __USE_STATIC_ACCESS__Method implements HTTPInterface, MethodInterface
+class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -152,11 +152,11 @@ class __USE_STATIC_ACCESS__HTTP extends __USE_STATIC_ACCESS__Method implements H
 		
 		switch( $input )
 		{
-			case 'post' 	: return $this->post($name); 	 break;
-			case 'get' 		: return $this->get($name); 	 break;
-			case 'env' 		: return $this->env($name); 	 break;
-			case 'server' 	: return $this->server($name);   break;
-			case 'request' 	: return $this->request($name);  break;
+			case 'post' 	: return Method::post($name); 	 break;
+			case 'get' 		: return Method::get($name); 	 break;
+			case 'env' 		: return Method::env($name); 	 break;
+			case 'server' 	: return Method::server($name);  break;
+			case 'request' 	: return Method::request($name); break;
 		}
 	}
 	
@@ -178,11 +178,11 @@ class __USE_STATIC_ACCESS__HTTP extends __USE_STATIC_ACCESS__Method implements H
 		
 		switch( $input )
 		{
-			case 'post' 	: return $this->post($name, $value); 	 break;
-			case 'get' 		: return $this->get($name, $value); 	 break;
-			case 'env' 		: return $this->env($name, $value); 	 break;
-			case 'server' 	: return $this->server($name, $value);   break;
-			case 'request' 	: return $this->request($name, $value);  break;
+			case 'post' 	: return Method::post($name, $value); 	 break;
+			case 'get' 		: return Method::get($name, $value); 	 break;
+			case 'env' 		: return Method::env($name, $value); 	 break;
+			case 'server' 	: return Method::server($name, $value);  break;
+			case 'request' 	: return Method::request($name, $value); break;
 		}
 	}
 	
