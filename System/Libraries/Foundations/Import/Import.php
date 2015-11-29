@@ -47,6 +47,19 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
 	// Setting Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -590,6 +603,9 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
 		
+		//-----------------------------------------------------------------------------------------------------
+		// Browser Icon dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		//-----------------------------------------------------------------------------------------------------
 		$browserIcon  = isset($head['browserIcon'])			
 					  ? $head['browserIcon'] 		
 					  : $masterPageSet["browserIcon"];
@@ -598,6 +614,28 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			$header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
 		}
+		//-----------------------------------------------------------------------------------------------------
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//-----------------------------------------------------------------------------------------------------
+		
+		//-----------------------------------------------------------------------------------------------------
+		// Tema dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		//-----------------------------------------------------------------------------------------------------
+		$theme = isset($head['theme']['name'])			
+			   ? $head['theme']['name'] 		
+			   : $masterPageSet['theme']['name'];
+			   
+		$themeRecursive = isset($head['theme']['recursive'])			
+			   ? $head['theme']['recursive'] 		
+			   : $masterPageSet['theme']['recursive'];
+			   
+		if( ! empty($theme) ) 			
+		{
+			$header .= $this->theme($theme, $themeRecursive, true);	
+		}
+		//-----------------------------------------------------------------------------------------------------
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//-----------------------------------------------------------------------------------------------------
 		
 		//-----------------------------------------------------------------------------------------------------
 		// Farklı veriler dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1035,48 +1073,30 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		$randomPageVariableExtension = extension($randomPageVariable);
 		$randomPageVariableBaseUrl   = baseUrl($randomPageVariable);
 		
-		if( ! is_string($randomPageVariable) ) 
+		$return = '';
+		
+		if( ! is_file($randomPageVariable) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'randomPageVariable'));
+			return Error::set(lang('Error', 'fileParameter', '1.(randomPageVariable)'));
 		}
 		
 		$randomPageVariable = restorationPath($randomPageVariable);
 
 		if( $randomPageVariableExtension === 'js' )
 		{
-			if( ! is_file($randomPageVariable) ) 
-			{
-				return Error::set(lang('Error', 'fileParameter', 'randomPageVariable'));
-			}
-			
 			$return = '<script type="text/javascript" src="'.$randomPageVariableBaseUrl.'"></script>'.$eol;
-			
-			if( $randomObGetContentsVariable === false )
-			{
-				echo $return;
-			}
-			else
-			{
-				return $return;	
-			}
 		}
 		elseif( $randomPageVariableExtension === 'css' )	
-		{
-			if( ! is_file($randomPageVariable) ) 
-			{
-				return Error::set(lang('Error', 'fileParameter', 'randomPageVariable'));
-			}
-			
+		{	
 			$return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
-			
-			if( $randomObGetContentsVariable === false )
-			{
-				echo $return;
-			}
-			else
-			{
-				return $return;	
-			}
+		}
+		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $exten) )
+		{			
+			$return = '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;				
+		}
+		elseif( $randomPageVariableExtension === 'eot' )
+		{		
+			$return = '<style type="text/css"><!--[if IE]>@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}<![endif]--></style>'.$eol;				
 		}
 		else
 		{
@@ -1090,24 +1110,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			{
 				extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
 			}
+
 			
 			if( $randomObGetContentsVariable === false )
 			{
-				if( ! is_file($randomPageVariable) ) 
-				{
-					return Error::set(lang('Error', 'fileParameter', 'randomPageVariable'));
-				}
-				
 				require($randomPageVariable); 
 			}
-			
-			if( $randomObGetContentsVariable === true )
+			else
 			{
-				if( ! is_file($randomPageVariable) ) 
-				{
-					return Error::set(lang('Error', 'fileParameter', 'randomPageVariable'));
-				}
-				
 				ob_start(); 
 				require($randomPageVariable); 
 				$randomContentVariable = ob_get_contents(); 
@@ -1115,6 +1125,15 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				
 				return $randomContentVariable; 
 			}
+		}
+		
+		if( $randomObGetContentsVariable === false )
+		{
+			echo $return;
+		}
+		else
+		{
+			return $return;	
 		}
 	}
 	
@@ -1126,17 +1145,16 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// Package Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
-	/******************************************************************************************
-	* PACKAGE                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizin içindeki dosyaları aynı anda dahil etmek için kullanılır.	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @packages => Dahil edilecek dosyaların bulunduğu dizin.					  |
-	|          																				  |
-	| Örnek Kullanım: Import::something('Application/Views/');              	              |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Package
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $package
+	// @param bool   $recursive  
+	// @param bool   $getContents
+	// @param array  $differentExtension        	              
+	//       
+	//----------------------------------------------------------------------------------------------------   																				  
 	public function package($packages = "", $recursive = false, $getContents = false, $differentExtension = array())
 	{
 		if( ! is_string($packages) || ! is_dir($packages) ) 
@@ -1166,7 +1184,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	
 		$eol = eol();
 
-		$packageFiles = Folder::allFiles($packages, $recursive);
+		$packageFiles = Folder::allFiles(suffix($packages), $recursive);
 		
 		if( ! empty($packageFiles) ) 
 		{
@@ -1176,7 +1194,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}
 			
 			foreach( $packageFiles as $val )
-			{		
+			{	
 				$val     = restorationPath($val);		
 				$baseUrl = baseUrl($val);
 				$exten   = extension($val);
@@ -1194,6 +1212,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 					elseif( $exten === "css" )
 					{
 						echo '<link href="'.$baseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
+					}
+					elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $exten) )
+					{			
+						echo '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($val), "/", -1).'"; src:url("'.$baseUrl.'") format("truetype")}</style>'.$eol;				
+					}
+					elseif( $exten === "eot" )
+					{		
+						echo '<style type="text/css"><!--[if IE]>@font-face{font-family:"'.divide(removeExtension($val), "/", -1).'"; src:url("'.$baseUrl.'") format("truetype")}<![endif]--></style>'.$eol;				
 					}
 					else
 					{
@@ -1220,6 +1246,21 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			return false;
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Theme
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $theme
+	// @param bool   $recursive  
+	// @param bool   $getContents
+	// @param array  $differentExtension        	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function theme($theme = 'Default', $recursive = false, $getContents = false, $differentExtension = array())
+	{
+		return $this->package(THEMES_DIR.$theme, $recursive, $getContents, $differentExtension);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

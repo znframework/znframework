@@ -233,16 +233,27 @@ interface ImportInterface
 	******************************************************************************************/
 	public function something($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable);
 	
-	/******************************************************************************************
-	* PACKAGE                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizin içindeki dosyaları aynı anda dahil etmek için kullanılır.	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @packages => Dahil edilecek dosyaların bulunduğu dizin.					  |
-	|          																				  |
-	| Örnek Kullanım: Import::something('Application/Views/');              	              |
-	|          																				  |
-	******************************************************************************************/
-	public function package($packages, $differentExtension);
+	//----------------------------------------------------------------------------------------------------
+	// Package
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $package
+	// @param bool   $recursive  
+	// @param bool   $getContents
+	// @param array  $differentExtension        	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function package($package, $recursive, $getContents, $differentExtension);
+	
+	//----------------------------------------------------------------------------------------------------
+	// Theme
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $theme
+	// @param bool   $recursive  
+	// @param bool   $getContents
+	// @param array  $differentExtension        	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function theme($theme, $recursive, $getContents, $differentExtension);
 }
