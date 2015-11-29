@@ -64,7 +64,7 @@ $system['restorationDirectory']  = 'Restoration';
 // Restore işlemi yapılacağı zaman bu değer true olarak ayarlanmalıdır.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$system['restorationMode']       = true; 
+$system['restorationMode']       = false; 
 
 //----------------------------------------------------------------------------------------------------
 // Restoration Machines IP                                                                  
