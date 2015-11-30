@@ -29,15 +29,6 @@ interface ImportInterface
 	public function recursive($recursive);
 	
 	//----------------------------------------------------------------------------------------------------
-	// differentExtensions()
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var ... $args
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function differentExtensions();
-	
-	//----------------------------------------------------------------------------------------------------
 	// data()
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -239,11 +230,10 @@ interface ImportInterface
 	//
 	// @param string $package
 	// @param bool   $recursive  
-	// @param bool   $getContents
-	// @param array  $differentExtension        	              
+	// @param bool   $getContents    	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function package($package, $recursive, $getContents, $differentExtension);
+	public function package($package, $recursive, $getContents);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Theme
@@ -251,9 +241,19 @@ interface ImportInterface
 	//
 	// @param string $theme
 	// @param bool   $recursive  
-	// @param bool   $getContents
-	// @param array  $differentExtension        	              
+	// @param bool   $getContents     	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function theme($theme, $recursive, $getContents, $differentExtension);
+	public function theme($theme, $recursive, $getContents);
+	
+	//----------------------------------------------------------------------------------------------------
+	// Plugin
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $plugin
+	// @param bool   $recursive  
+	// @param bool   $getContents     	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function plugin($plugin, $recursive, $getContents);
 }

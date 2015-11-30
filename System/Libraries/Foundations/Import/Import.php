@@ -92,20 +92,6 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// differentExtensions()
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var ... $args
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function differentExtensions()
-	{
-		$this->parameters['differentExtensions'] = func_get_args();
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// data()
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -638,6 +624,25 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		
 		//-----------------------------------------------------------------------------------------------------
+		// Tema dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		//-----------------------------------------------------------------------------------------------------
+		$plugin = isset($head['plugin']['name'])			
+			    ? $head['plugin']['name'] 		
+			    : $masterPageSet['plugin']['name'];
+			   
+		$pluginRecursive = isset($head['plugin']['recursive'])			
+			   ? $head['plugin']['recursive'] 		
+			   : $masterPageSet['plugin']['recursive'];
+			   
+		if( ! empty($plugin) ) 			
+		{
+			$header .= $this->theme($plugin, $pluginRecursive, true);	
+		}
+		//-----------------------------------------------------------------------------------------------------
+		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//-----------------------------------------------------------------------------------------------------
+		
+		//-----------------------------------------------------------------------------------------------------
 		// Farklı veriler dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
 		if( isset($head['data']) )
@@ -1100,30 +1105,28 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		else
 		{
-			$extension = ! $randomPageVariableExtension
-						 ? '.php'
-						 : '';
+			$randomPageVariable = suffix($randomPageVariable, '.php');
 			
-			$randomPageVariable .= $extension;
-			
-			if( is_array($randomDataVariable) )
+			if( is_file($randomPageVariable) )
 			{
-				extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
-			}
-
-			
-			if( $randomObGetContentsVariable === false )
-			{
-				require($randomPageVariable); 
-			}
-			else
-			{
-				ob_start(); 
-				require($randomPageVariable); 
-				$randomContentVariable = ob_get_contents(); 
-				ob_end_clean();
-				
-				return $randomContentVariable; 
+				if( is_array($randomDataVariable) )
+				{
+					extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
+				}
+					
+				if( $randomObGetContentsVariable === false )
+				{
+					require($randomPageVariable); 
+				}
+				else
+				{
+					ob_start(); 
+					require($randomPageVariable); 
+					$randomContentVariable = ob_get_contents(); 
+					ob_end_clean();
+					
+					return $randomContentVariable; 
+				}
 			}
 		}
 		
@@ -1151,16 +1154,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//
 	// @param string $package
 	// @param bool   $recursive  
-	// @param bool   $getContents
-	// @param array  $differentExtension        	              
+	// @param bool   $getContents      	              
 	//       
 	//----------------------------------------------------------------------------------------------------   																				  
-	public function package($packages = "", $recursive = false, $getContents = false, $differentExtension = array())
+	public function package($packages = "", $recursive = false, $getContents = false)
 	{
-		if( ! is_string($packages) || ! is_dir($packages) ) 
+		if( ! is_string($packages)  ) 
 		{
 			Error::set(lang('Error', 'stringParameter', 'packages'));
-			Error::set(lang('Error', 'dirParameter', 'packages'));
 			
 			return false;
 		}
@@ -1175,76 +1176,42 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$recursive = $this->parameters['recursive'];
 		}
 		
-		if( ! empty($this->parameters['differentExtensions']) )
-		{
-			$differentExtension = $this->parameters['differentExtensions'];
-		}
-		
 		$this->parameters = array();
 	
 		$eol = eol();
-
-		$packageFiles = Folder::allFiles(suffix($packages), $recursive);
 		
-		if( ! empty($packageFiles) ) 
+		$return = '';
+		
+		if( is_dir($packages) )
 		{
-			if( $getContents === true )
-			{
-				ob_start(); 
-			}
+			$packageFiles = Folder::allFiles(suffix($packages), $recursive);
 			
-			foreach( $packageFiles as $val )
-			{	
-				$val     = restorationPath($val);		
-				$baseUrl = baseUrl($val);
-				$exten   = extension($val);
-				
-				if( is_file($val) )
-				{		
-					if( $exten === "php" )
+			if( ! empty($packageFiles) ) 
+			{
+				foreach( $packageFiles as $val )
+				{	
+					$val = restorationPath($val);		
+						
+					if( $getContents === true )
 					{
-						require_once $val;
-					}
-					elseif( $exten === "js" )
-					{
-						echo '<script type="text/javascript" src="'.$baseUrl.'"></script>'.$eol;
-					}
-					elseif( $exten === "css" )
-					{
-						echo '<link href="'.$baseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
-					}
-					elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $exten) )
-					{			
-						echo '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($val), "/", -1).'"; src:url("'.$baseUrl.'") format("truetype")}</style>'.$eol;				
-					}
-					elseif( $exten === "eot" )
-					{		
-						echo '<style type="text/css"><!--[if IE]>@font-face{font-family:"'.divide(removeExtension($val), "/", -1).'"; src:url("'.$baseUrl.'") format("truetype")}<![endif]--></style>'.$eol;				
+						$return .= $this->something($val, '', true);
 					}
 					else
 					{
-						if( ! empty($differentExtension) )
-						{
-							if( in_array($exten, $differentExtension) )
-							{
-								require_once $val;	
-							}
-						}
+						$this->something($val);
 					}
 				}
-			}
-			
-			if( $getContents === true )
-			{
-				$randomContentVariable = ob_get_contents(); 
-				ob_end_clean();
 				
-				return $randomContentVariable; 
+				return $return;			
+			}
+			else 
+			{
+				return false;
 			}
 		}
-		else 
+		elseif( is_file($packages) )
 		{
-			return false;
+			return $this->something($packages, '', $getContents);	
 		}
 	}
 	
@@ -1254,13 +1221,26 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//
 	// @param string $theme
 	// @param bool   $recursive  
-	// @param bool   $getContents
-	// @param array  $differentExtension        	              
+	// @param bool   $getContents    	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function theme($theme = 'Default', $recursive = false, $getContents = false, $differentExtension = array())
+	public function theme($theme = 'Default', $recursive = false, $getContents = false)
 	{
-		return $this->package(THEMES_DIR.$theme, $recursive, $getContents, $differentExtension);
+		return $this->package(THEMES_DIR.$theme, $recursive, $getContents);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Plugin
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $plugin
+	// @param bool   $recursive  
+	// @param bool   $getContents     	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function plugin($theme = 'Default', $recursive = false, $getContents = false)
+	{
+		return $this->package(PLUGINS_DIR.$theme, $recursive, $getContents);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
