@@ -1863,6 +1863,20 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	}
 	
 	/******************************************************************************************
+	* VALUE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu tek satır veriyi elde etmek için kullanılır.     	  	  |
+
+	  @param bool $printable: false
+	  @return object/string
+	|          																				  |
+	******************************************************************************************/
+	public function value()
+	{ 
+		return current((array)$this->db->row());
+	}
+	
+	/******************************************************************************************
 	* AFFECTED ROWS                                                                           *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinden etkilenen satır sayısını verir.		     	  	  |
