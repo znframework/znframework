@@ -1090,7 +1090,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{	
 			$return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
 		}
-		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $exten) )
+		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $randomPageVariableExtension) )
 		{			
 			$return = '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;				
 		}
