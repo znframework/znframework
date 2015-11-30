@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__Style implements BootstrapInterface
+class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 {
 	/***********************************************************************************/
 	/* STYLE COMPONENT	     	     		                   	                       */

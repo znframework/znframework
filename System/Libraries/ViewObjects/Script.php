@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__Script implements BootstrapInterface
+class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

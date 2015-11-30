@@ -1,5 +1,5 @@
 <?php
-interface BootstrapInterface
+interface ViewObjectsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
