@@ -120,6 +120,9 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			'/\#(\!*\w+)\s*\(('.$htmlRegexChar.')(\s*\,\s*('.$htmlRegexChar.'))*\)/i' => '<$1 $4>$2</$1>',
 			'/\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i'	=> '<$1 $3>',
 			'/\<(\!*\w+)\s+\>/i' 								=> '<$1>',	
+			// Jquery Kodlarının Ayırt Edilmesi İçin
+			'/\$\(\'\s*\<(.*?)\>\s*\'\)/i' 						=> '$(\'#$1\')',
+			'/\$\(\"\s*\<(.*?)\>\s*\"\)/i' 						=> '$("#$1")',
 			
 			// IF - ELSE - ENDIF
 			'/@(if)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	=> '<?php $1$2: ?>',
