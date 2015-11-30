@@ -236,12 +236,12 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
     | Parametreler: 3 parametresi vardır.                                              		  |
 	| 1. string/array var @tables => Yedeği alınmak istenen tablo listesi. Varsayılan:*       |
 	| 2. string var @filename => Hangi isimle kaydedileceği. Varsayılan:*       			  |
-	| 3. string var @path => Yedeğin kaydedileceği dizin. Varsayılan:FILES_DIR		          |
+	| 3. string var @path => Yedeğin kaydedileceği dizin. Varsayılan:STORAGE_DIR		      |
 	|          																				  |
 	| Örnek Kullanım: $this->dbtool->backup('*', 'backup');        		 					  |
 	|          																				  |
 	******************************************************************************************/
-	public function backup($tables = '*', $fileName = '', $path = FILES_DIR)
+	public function backup($tables = '*', $fileName = '', $path = STORAGE_DIR)
 	{		
 		if( $this->db->backup($fileName) !== false )
 		{
