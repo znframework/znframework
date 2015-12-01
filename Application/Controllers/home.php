@@ -25,7 +25,5 @@ class Home extends Controller
     public function test()
     {
         // Kodlarınız...
-		
-		echo Style::open();
 	}
 }
