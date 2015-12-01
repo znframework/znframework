@@ -813,6 +813,16 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$fontFile = restorationPath(FONTS_DIR.$font);		
 			$baseUrl  = baseUrl($fontFile);
 			
+			if( extension($fontFile) )
+			{
+				if( is_file($fontFile) )
+				{
+					$strEx = $this->something($fontFile, '', true);
+					
+					break;
+				}
+			}
+			
 			if( is_file($fontFile.".svg") )
 			{			
 				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.svg") format("truetype")}'.$eol;				
@@ -867,6 +877,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		
 		$str .= '</style>'.$eol;
+		
+		if( isset($strEx) )
+		{
+			$str = $strEx;
+		}
 		
 		if( ! empty($str) ) 
 		{
