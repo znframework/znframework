@@ -42,16 +42,16 @@ if( Config::get('Htaccess','createFile') === true )
 // Fonksiyon Yükleme İşlemleri
 //----------------------------------------------------------------------------------------------------
  
-$functions = Config::get('Functions');
+$starting = Config::get('Starting');
 
-if( $functions['autoload']['status'] === true ) 
+if( $starting['autoload']['status'] === true ) 
 {
-	$autoloadFunctions = Folder::allFiles(AUTOLOAD_DIR, $functions['autoload']['recursive']);
+	$startingAutoload = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
 	
 	//------------------------------------------------------------------------------------------------
 	// Otomatik Olarak Yüklenen Fonksiyonlar
 	//------------------------------------------------------------------------------------------------
-	if( ! empty($autoloadFunctions) ) foreach( $autoloadFunctions as $file )
+	if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
 	{
 		$file = restorationPath(suffix($file, '.php'));
 		
@@ -65,9 +65,9 @@ if( $functions['autoload']['status'] === true )
 //----------------------------------------------------------------------------------------------------
 // El ile Yüklenen Fonksiyonlar
 //----------------------------------------------------------------------------------------------------
-if( ! empty($functions['handload']) )
+if( ! empty($starting['handload']) )
 {
-	Import::handload($functions['handload']);
+	Import::handload($starting['handload']);
 }
 //----------------------------------------------------------------------------------------------------
 

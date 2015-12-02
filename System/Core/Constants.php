@@ -38,31 +38,31 @@ define('STORAGE_DIR', APP_DIR.'Storage/');
 define('RESOURCES_DIR', APP_DIR.'Resources/');		
 
 //----------------------------------------------------------------------------------------------------
-// FUNCTIONS_DIR
+// STARTING_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Application/Functions/
+// @return Application/Starting/
 //
 //----------------------------------------------------------------------------------------------------
-define('FUNCTIONS_DIR', APP_DIR.'Functions/');	
+define('STARTING_DIR', APP_DIR.'Starting/');	
 
 //----------------------------------------------------------------------------------------------------
 // AUTOLOAD_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Application/Functions/Autoload/
+// @return Application/Starting/Autoload/
 //
 //----------------------------------------------------------------------------------------------------
-define('AUTOLOAD_DIR', FUNCTIONS_DIR.'Autoload/');	
+define('AUTOLOAD_DIR', STARTING_DIR.'Autoload/');	
 
 //----------------------------------------------------------------------------------------------------
 // HANDLOAD_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Application/Functions/Handload/
+// @return Application/Starting/Handload/
 //
 //----------------------------------------------------------------------------------------------------
-define('HANDLOAD_DIR', FUNCTIONS_DIR.'Handload/');		
+define('HANDLOAD_DIR', STARTING_DIR.'Handload/');		
 
 //----------------------------------------------------------------------------------------------------
 // SYSTEM_LANGUAGES_DIR

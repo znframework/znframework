@@ -19,7 +19,7 @@
 // Dizin içi dizinlerde de arama yapılması istenirse recursive true olarak ayarlanır.					  
 //											     			 	  						  
 //----------------------------------------------------------------------------------------------------
-$config['Functions']['autoload'] = array
+$config['Starting']['autoload'] = array
 (
 	'status'    => false,
 	'recursive' => false
@@ -33,4 +33,4 @@ $config['Functions']['autoload'] = array
 // Yol bilgisi belirtilirken Functions/Handload/ kök dizin kabul edilir. 				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Functions']['handload'] = array();
+$config['Starting']['handload'] = array();

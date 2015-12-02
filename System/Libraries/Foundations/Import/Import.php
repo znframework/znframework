@@ -1253,9 +1253,9 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @param bool   $getContents     	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function plugin($theme = 'Default', $recursive = false, $getContents = false)
+	public function plugin($plugin = 'Default', $recursive = false, $getContents = false)
 	{
-		return $this->package(PLUGINS_DIR.$theme, $recursive, $getContents);
+		return $this->package(PLUGINS_DIR.$plugin, $recursive, $getContents);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
