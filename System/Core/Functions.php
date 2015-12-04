@@ -105,7 +105,7 @@ function lang($file = '', $str = '', $changed = '')
 	{
 		$langstr = $lang[$key][$str];	
 	}
-	elseif(isset($lang[$key]) && empty($str) )
+	elseif( isset($lang[$key]) && empty($str) )
 	{
 		return $lang[$key];	
 	}
@@ -138,9 +138,9 @@ function lang($file = '', $str = '', $changed = '')
 		{
 			$values = array();
 			
-			foreach($changed as $key => $value)
+			foreach( $changed as $key => $value )
 			{
-				$keys[] = $key;
+				$keys[]   = $key;
 				$values[] = $value;	
 			}
 			
@@ -1136,7 +1136,7 @@ function headers($header = '')
 	}
 	else 
 	{
-		if( isset($header) ) foreach($header as $k => $v)
+		if( isset($header) ) foreach( $header as $k => $v )
 		{
 			header($v);
 		}

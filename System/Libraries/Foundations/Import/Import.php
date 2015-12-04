@@ -1169,10 +1169,45 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//
 	// @param string $package
 	// @param bool   $recursive  
+	// @param bool   $getContents   	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function package($packages = "", $recursive = false, $getContents = false, $dir = '')
+	{
+		if( ! is_array($packages) )
+		{
+			return $this->_package($dir.$packages, $recursive, $getContents);
+		}
+		else
+		{
+			$return = '';
+			
+			if( ! empty($packages) ) foreach($packages as $package)
+			{
+				$return .= $this->_package($dir.$package, $recursive, true);
+			}	
+			
+			if( $getContents === false )
+			{
+				echo $return;	
+			}
+			else
+			{
+				return $return;	
+			}
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Package
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $package
+	// @param bool   $recursive  
 	// @param bool   $getContents      	              
 	//       
 	//----------------------------------------------------------------------------------------------------   																				  
-	public function package($packages = "", $recursive = false, $getContents = false)
+	protected function _package($packages = "", $recursive = false, $getContents = false)
 	{
 		if( ! is_string($packages)  ) 
 		{
@@ -1241,7 +1276,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function theme($theme = 'Default', $recursive = false, $getContents = false)
 	{
-		return $this->package(THEMES_DIR.$theme, $recursive, $getContents);
+		return $this->package($theme, $recursive, $getContents, THEMES_DIR);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1255,7 +1290,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function plugin($plugin = 'Default', $recursive = false, $getContents = false)
 	{
-		return $this->package(PLUGINS_DIR.$plugin, $recursive, $getContents);
+		return $this->package($plugin, $recursive, $getContents, PLUGINS_DIR);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

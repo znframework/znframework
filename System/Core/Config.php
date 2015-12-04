@@ -79,7 +79,7 @@ class Config
 		
 		if( isset(self::$setConfigs[$file]) )
 		{
-			if( ! empty(self::$setConfigs[$file]) ) foreach(self::$setConfigs[$file] as $k => $v)
+			if( ! empty(self::$setConfigs[$file]) ) foreach( self::$setConfigs[$file] as $k => $v )
 			{
 				self::$config[$file][$k] = self::$setConfigs[$file][$k];
 			}
@@ -135,7 +135,7 @@ class Config
 		}
 		else
 		{
-			foreach($configs as $k => $v)
+			foreach( $configs as $k => $v )
 			{
 				self::$setConfigs[$file][$k] = $v;
 			}	
@@ -174,7 +174,7 @@ class Config
 		}
 		else
 		{
-			foreach($key as $k => $v)
+			foreach( $key as $k => $v )
 			{
 				if( $v !== '' ) 
 				{
@@ -207,7 +207,7 @@ class Config
 		{
 			$keys = array();
 			
-			foreach($key as $k)
+			foreach( $key as $k )
 			{
 				$keys[$k] = ini_get($k);	
 			}
