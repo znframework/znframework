@@ -278,43 +278,40 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			}
 			
 		    $this->db->query('SELECT * FROM '.$table);
-			
-			$numFields = $this->db->numFields();
 
-			$return.= 'DROP TABLE '.$table.';';
+			$return.= 'DROP TABLE IF EXISTS '.$table.';';
 			$this->db->query('SHOW CREATE TABLE '.$table);
-			$row2 = $this->db->fetchRow();
-			$return.= $eol.$eol.$row2[1].";".$eol.$eol;
+			$fetchRow = $this->db->fetchRow();
+			
+			$this->db->query('SELECT * FROM '.$table);
+			$fetchResult = $this->db->result();
 		
-			for( $i = 0; $i < $numFields; $i++ ) 
+			$return.= $eol.$eol.$fetchRow[1].";".$eol.$eol;
+		
+			if( ! empty($fetchResult) ) foreach( $fetchResult as $row ) 
 			{
+				$return.= 'INSERT INTO '.$table.' VALUES(';
 				
-				while( $row = $this->db->fetchRow() )
+				foreach( $row as $k => $v )
 				{
-					$return.= 'INSERT INTO '.$table.' VALUES(';
+					$v  = $this->db->realEscapeString($v );
+					$v  = preg_replace("/\n/","\\n", $v );
 					
-					for($j=0; $j<$numFields; $j++) 
-					{
-						$row[$j] = addslashes($row[$j]);
-						$row[$j] = preg_replace("/\n/","\\n",$row[$j]);
-						
-						if ( isset($row[$j]) ) 
-						{ 
-							$return.= '"'.$row[$j].'"' ; 
-						} 
-						else 
-						{ 
-							$return.= '""'; 
-						}
-						
-						if ( $j<($numFields-1) ) 
-						{ 
-							$return.= ','; 
-						}
+					if ( isset($v) ) 
+					{ 
+						$return.= '"'.$v .'", ' ; 
+					} 
+					else 
+					{ 
+						$return.= '"", '; 
 					}
-					$return.= ");".$eol;
 				}
+				
+				$return = rtrim(trim($return), ', ');
+			
+				$return.= ");".$eol;	
 			}
+			
 			$return .= $eol.$eol.$eol;
 		}
 		
