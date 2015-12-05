@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $select = '*';
+	private $select;
 	
 	/* From Değişkeni
 	 *  
@@ -591,6 +591,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		elseif( ! empty($this->from) )
 		{
 			$this->table = $this->from;
+		}
+		
+		if( empty($this->select) )
+		{
+			$this->select = ' * ';	
 		}
 		
 		if( ! empty($this->selectFunctions) )
