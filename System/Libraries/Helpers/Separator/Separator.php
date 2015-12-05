@@ -1,21 +1,14 @@
 <?php 
 class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 {
-	/***********************************************************************************/
-	/* JSON LIBRARY	     					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Seperator
-	/* Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Seperator::, $this->Seperator, zn::$use->Seperator, uselib('Seperator')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Key Değişkeni
 	 *  
@@ -32,6 +25,19 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 	private $seperator = "|?-++-?|";
 	
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* ENCODE                                                                                  *
@@ -52,7 +58,7 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'data'));
+			return Error::set('Error', 'arrayParameter', 'data');
 		}
 		
 		if( ! is_string($key) ) 
@@ -109,12 +115,12 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($word) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'word'));
+			return Error::set('Error', 'stringParameter', 'word');
 		}
 		
 		if( empty($word) ) 
 		{
-			return Error::set(lang('Error', 'emptyParameter', 'word'));
+			return Error::set('Error', 'emptyParameter', 'word');
 		}
 		
 		if( ! is_string($key) ) 

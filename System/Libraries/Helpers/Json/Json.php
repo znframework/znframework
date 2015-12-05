@@ -1,21 +1,14 @@
 <?php 
 class __USE_STATIC_ACCESS__Json implements JsonInterface
 {
-	/***********************************************************************************/
-	/* JSON LIBRARY	     					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Json
-	/* Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Json::, $this->Json, zn::$use->Json, uselib('Json')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	use CallUndefinedMethodTrait;
 	
@@ -40,7 +33,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, $array, $length);
@@ -56,7 +49,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, false, $length);
@@ -72,7 +65,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, true, $length);

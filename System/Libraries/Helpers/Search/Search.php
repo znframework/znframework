@@ -1,21 +1,14 @@
 <?php
 class __USE_STATIC_ACCESS__Search implements SearchInterface
 {
-	/***********************************************************************************/
-	/* SEARCH LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Search
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: search::, $this->search, zn::$use->search, uselib('search')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Result Değişkeni
 	 *  
@@ -47,19 +40,32 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 	
 	use CallUndefinedMethodTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
 	// filter ve or_filter için.
 	protected function _filter($column = '', $value = '', $type)
 	{
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
 		if( ! is_string($column) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'column'));
+			return Error::set('Error', 'stringParameter', 'column');
 		}
 		
 		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
 		if( ! is_scalar($value) ) 
 		{
-			return Error::set(lang('Error', 'valueParameter', 'value'));
+			return Error::set('Error', 'valueParameter', 'value');
 		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
@@ -173,12 +179,12 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'conditions'));
+			return Error::set('Error', 'arrayParameter', 'conditions');
 		}
 		
 		if( ! is_scalar($word) ) 
 		{
-			return Error::set(lang('Error', 'valueParameter', 'word'));
+			return Error::set('Error', 'valueParameter', 'word');
 		}
 		
 		if( ! empty($this->type) )
@@ -317,7 +323,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		{	
 			if( ! is_scalar($searchWord) ) 
 			{
-				return Error::set(lang('Error', 'valueParameter', 'searchWord'));
+				return Error::set('Error', 'valueParameter', 'searchWord');
 			}
 			
 			if( $output === 'str' || $output === 'string' ) 

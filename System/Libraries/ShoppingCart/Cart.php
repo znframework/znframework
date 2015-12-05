@@ -23,8 +23,6 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		if( ! isset($_SESSION) ) session_start();
 	}
 	
-	use ErrorControlTrait;
-	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
 	//----------------------------------------------------------------------------------------------------
@@ -33,6 +31,19 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* INSERT ITEM                                                                             *
@@ -58,15 +69,13 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			$this->error = lang('Error', 'emptyParameter', 'product');
-			return Error::set($this->error);	
+			return Error::set('Error', 'emptyParameter', 'product');	
 		}
 		
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			$this->error = lang('Error', 'arrayParameter', 'product');
-			return Error::set($this->error);	
+			return Error::set('Error', 'arrayParameter', 'product');	
 		}
 		
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -110,8 +119,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		else
 		{
-			$this->error = getMessage('Cart', 'noDataError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'noDataError');
 		}
 	}
 	
@@ -138,7 +146,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{
 		if( empty($code) ) 
 		{
-			return Error::set(lang('Error', 'emptyParameter', 'code'));
+			return Error::set('Error', 'emptyParameter', 'code');
 		}
 		
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -197,8 +205,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		else
 		{
-			$this->error = getMessage('Cart', 'noDataError');
-			Error::set($this->error);
+			Error::set('Cart', 'noDataError');
 			return 0;	
 		}
 	}
@@ -223,8 +230,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		
 		if( empty($this->items) )
 		{
-			$this->error = getMessage('Cart', 'noDataError');
-			Error::set($this->error);
+			Error::set('Cart', 'noDataError');
 			return 0;	
 		}
 		
@@ -271,20 +277,17 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{	
 		if( empty($code) )
 		{
-			$this->error = getMessage('Cart', 'updateCodeError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'updateCodeError');
 		}
 		
 		if( empty($data) )
 		{
-			$this->error = getMessage('Cart', 'updateParameterEmptyError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'updateParameterEmptyError');
 		}
 		
 		if( ! is_array($data) )
 		{
-			$this->error = getMessage('Cart', 'updateArrayParameterError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'updateArrayParameterError');
 		}	
 		
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -357,8 +360,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{		
 		if( empty($code) )
 		{
-			$this->error = getMessage('Cart', 'deleteCodeError');
-			return Error::set($this->error);	
+			return Error::set('Cart', 'deleteCodeError');	
 		}
 
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -430,7 +432,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'money'));
+			return Error::set('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 

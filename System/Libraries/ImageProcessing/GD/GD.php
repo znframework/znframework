@@ -54,6 +54,19 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	
 	use CallUndefinedMethodTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
 	/******************************************************************************************
 	* INFO                                                                                    *
 	*******************************************************************************************
@@ -108,7 +121,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 		
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Error::set(lang('Error', 'numericParameter', '1.(width) & 2.(height)'));
+			Error::set('Error', 'numericParameter', '1.(width) & 2.(height)');
 			
 			return $this;
 		}
@@ -145,7 +158,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_string($type) || ! is_string($source) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(type) & 2.(source)'));
+			return Error::set('Error', 'stringParameter', '1.(type) & 2.(source)');
 		}
 		
 		$type = strtolower($type);
@@ -189,7 +202,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 		}
 		else
 		{
-			return Error::set(lang('Error', 'fileParameter', '1.(fileName)'));	
+			return Error::set('Error', 'fileParameter', '1.(fileName)');	
 		}
 		
 		$newData['width'] 		= $data[0];
@@ -249,7 +262,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(fileName)'));	
+			Error::set('Error', 'stringParameter', '1.(fileName)');	
 		}
 		
 		return $this; 	
@@ -279,8 +292,8 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'fileParameter', '1.(jpegFile)'));	
-			Error::set(lang('Error', 'stringParameter', '2.(wbmpFile)'));	
+			Error::set('Error', 'fileParameter', '1.(jpegFile)');	
+			Error::set('Error', 'stringParameter', '2.(wbmpFile)');	
 			
 			return false;
 		}
@@ -310,8 +323,8 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'fileParameter', '1.(jpegFile)'));	
-			Error::set(lang('Error', 'stringParameter', '2.(wbmpFile)'));
+			Error::set('Error', 'fileParameter', '1.(jpegFile)');	
+			Error::set('Error', 'stringParameter', '2.(wbmpFile)');
 			
 			return false;	
 		}	
@@ -330,7 +343,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_bool($blendMode) )
 		{
-			Error::set(lang('Error', 'booleanParameter', '1.(blendMode)'));
+			Error::set('Error', 'booleanParameter', '1.(blendMode)');
 			
 			return $this;
 		}
@@ -370,7 +383,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_bool($mode) )
 		{
-			Error::set(lang('Error', 'booleanParameter', '1.(mode)'));
+			Error::set('Error', 'booleanParameter', '1.(mode)');
 			
 			return $this;
 		}
@@ -394,7 +407,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));
+			Error::set('Error', 'arrayParameter', '1.(settings)');
 			
 			return $this;
 		}
@@ -439,7 +452,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));
+			Error::set('Error', 'arrayParameter', '1.(settings)');
 			
 			return $this;
 		}
@@ -477,7 +490,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));
+			Error::set('Error', 'arrayParameter', '1.(settings)');
 			
 			return $this;
 		}
@@ -513,7 +526,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));
+			Error::set('Error', 'arrayParameter', '1.(settings)');
 			
 			return $this;
 		}
@@ -554,7 +567,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '2.(settings)'));
+			Error::set('Error', 'arrayParameter', '2.(settings)');
 			
 			return $this;
 		}
@@ -581,7 +594,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));
+			Error::set('Error', 'arrayParameter', '1.(settings)');
 			
 			return $this;
 		}
@@ -651,8 +664,8 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_scalar($char) || ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'scalarParameter', '1.(char)'));
-			Error::set(lang('Error', 'arrayParameter', '2.(settings)'));
+			Error::set('Error', 'scalarParameter', '1.(char)');
+			Error::set('Error', 'arrayParameter', '2.(settings)');
 			
 			return $this;
 		}
@@ -690,8 +703,8 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_scalar($text) || ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'scalarParameter', '1.(text)'));
-			Error::set(lang('Error', 'arrayParameter', '2.(settings)'));
+			Error::set('Error', 'scalarParameter', '1.(text)');
+			Error::set('Error', 'arrayParameter', '2.(settings)');
 			
 			return $this;
 		}
@@ -730,7 +743,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_string($rgb) )
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(rgb)'));
+			Error::set('Error', 'stringParameter', '1.(rgb)');
 			
 			return false;
 		}
@@ -761,7 +774,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( !! is_string($rgb) )
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(rgb)'));
+			Error::set('Error', 'stringParameter', '1.(rgb)');
 			
 			return false;
 		}
@@ -791,7 +804,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_string($rgb) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(rgb)'));
+			return Error::set('Error', 'stringParameter', '1.(rgb)');
 		}
 		
 		$rgb = explode('|', $rgb);
@@ -819,8 +832,8 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Error::set(lang('Error', 'resourceParameter', '1.(image)'));
-			Error::set(lang('Error', 'numericParameter', '2.(x) & 3.(y)'));
+			Error::set('Error', 'resourceParameter', '1.(image)');
+			Error::set('Error', 'numericParameter', '2.(x) & 3.(y)');
 			
 			return false;
 		}
@@ -843,7 +856,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_string($rgb) )
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(rgb)'));
+			Error::set('Error', 'stringParameter', '1.(rgb)');
 			
 			return false;
 		}
@@ -872,7 +885,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($sourceImage) )
 		{
-			return Error::set(lang('Error', 'resourceParameter', '1.(sourceImage)'));
+			return Error::set('Error', 'resourceParameter', '1.(sourceImage)');
 		}
 
 		imagecolormatch($this->canvas, $sourceImage);
@@ -895,8 +908,8 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_numeric($index) || ! is_string($rgb) )
 		{
-			Error::set(lang('Error', 'numericParameter', '1.(index)'));
-			Error::set(lang('Error', 'stringParameter', '2.(rgb)'));
+			Error::set('Error', 'numericParameter', '1.(index)');
+			Error::set('Error', 'stringParameter', '2.(rgb)');
 			
 			return $this;
 		}
@@ -939,7 +952,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_string($rgb) )
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(rgb)'));
+			Error::set('Error', 'stringParameter', '1.(rgb)');
 			
 			return $this;
 		}
@@ -965,7 +978,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($matrix) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(matrix)'));
+			Error::set('Error', 'arrayParameter', '1.(matrix)');
 			
 			return $this;
 		}
@@ -989,7 +1002,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_numeric($interlace) )
 		{
-			Error::set(lang('Error', 'numericParameter', '1.(interlace)'));
+			Error::set('Error', 'numericParameter', '1.(interlace)');
 			
 			return $this;
 		}
@@ -1014,7 +1027,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			Error::set(lang('Error', 'resourceParameter', '1.(source)'));
+			Error::set('Error', 'resourceParameter', '1.(source)');
 			
 			return $this;
 		}
@@ -1046,7 +1059,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			Error::set(lang('Error', 'resourceParameter', '1.(source)'));
+			Error::set('Error', 'resourceParameter', '1.(source)');
 			
 			return $this;
 		}
@@ -1080,7 +1093,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			Error::set(lang('Error', 'resourceParameter', '1.(source)'));
+			Error::set('Error', 'resourceParameter', '1.(source)');
 			
 			return $this;
 		}
@@ -1113,7 +1126,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			Error::set(lang('Error', 'resourceParameter', '1.(source)'));
+			Error::set('Error', 'resourceParameter', '1.(source)');
 			
 			return $this;
 		}
@@ -1147,7 +1160,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			Error::set(lang('Error', 'resourceParameter', '1.(source)'));
+			Error::set('Error', 'resourceParameter', '1.(source)');
 			
 			return $this;
 		}
@@ -1180,7 +1193,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '2.(settings)'));
+			Error::set('Error', 'arrayParameter', '2.(settings)');
 			
 			return $this;
 		}
@@ -1223,7 +1236,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));
+			Error::set('Error', 'arrayParameter', '1.(settings)');
 			
 			return $this;
 		}
@@ -1263,7 +1276,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{	
 		if( ! is_numeric($height) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '1.(height)'));
+			return Error::set('Error', 'numericParameter', '1.(height)');
 		}
 		
 		return imagefontheight($height);	
@@ -1283,7 +1296,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{	
 		if( ! is_numeric($width) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '1.(width)'));
+			return Error::set('Error', 'numericParameter', '1.(width)');
 		}
 		
 		return imagefontwidth($width);	
@@ -1498,7 +1511,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_resource($tile) )
 		{
-			return Error::set(lang('Error', 'resourceParameter', '1.(tile)'));	
+			return Error::set('Error', 'resourceParameter', '1.(tile)');	
 		}
 		
 		imagesettile($this->canvas, $tile);
@@ -1555,7 +1568,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{	
 		if( ! is_file($file) )
 		{
-			return Error::set(lang('Error', 'fileParameter', '1.(file)'));	
+			return Error::set('Error', 'fileParameter', '1.(file)');	
 		}
 		
 		return imageloadfont($file);	
@@ -1575,7 +1588,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{	
 		if( ! is_resource($source) )
 		{
-			return Error::set(lang('Error', 'resourceParameter', '1.(source)'));	
+			return Error::set('Error', 'resourceParameter', '1.(source)');	
 		}
 		
 		return imagepalettecopy($this->canvas, $source);	
@@ -1719,7 +1732,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	{
 		if( ! is_string($rgb) )
 		{
-			Error::set(lang('Error', 'stringParameter', '1(rgb)'));
+			Error::set('Error', 'stringParameter', '1(rgb)');
 			
 			return $this;
 		}

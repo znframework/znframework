@@ -298,39 +298,40 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( ! is_file($file) )
 		{	
-			$str  = '<?php'.eol();
-			$str .= 'class '.$this->classFix.$name.' extends '.$this->extendsFix.eol();
-			$str .= '{'.eol();
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'// Call Undefined Method'.eol();
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'use CallUndefinedMethodTrait;'.eol(2);
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'// Class/Table Name'.eol();
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'protected static $table = __CLASS__;'.eol(2);
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'// Up'.eol();
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'public function up()'.eol();
-			$str .= "\t".'{'.eol();
-			$str .= "\t\t".'// Queries'.eol();
-			$str .= "\t".'}'.eol(2);
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'// Down'.eol();
-			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.eol();
-			$str .= "\t".'public function down()'.eol();
-			$str .= "\t".'{'.eol();
-			$str .= "\t\t".'// Queries'.eol();
-			$str .= "\t\t".'$this->dropTable(); // Varsayılan işlem.'.eol();
-			$str .= "\t".'}'.eol();
+			$eol  = eol();
+			$str  = '<?php'.$eol;
+			$str .= 'class '.$this->classFix.$name.' extends '.$this->extendsFix.$eol;
+			$str .= '{'.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'// Call Undefined Method'.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'use CallUndefinedMethodTrait;'.$eol.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'// Class/Table Name'.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'protected static $table = __CLASS__;'.$eol.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'// Up'.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'public function up()'.$eol;
+			$str .= "\t".'{'.$eol;
+			$str .= "\t\t".'// Queries'.$eol;
+			$str .= "\t".'}'.$eol.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'// Down'.$eol;
+			$str .= "\t".'//----------------------------------------------------------------------------------------------------'.$eol;
+			$str .= "\t".'public function down()'.$eol;
+			$str .= "\t".'{'.$eol;
+			$str .= "\t\t".'// Queries'.$eol;
+			$str .= "\t\t".'$this->dropTable(); // Varsayılan işlem.'.$eol;
+			$str .= "\t".'}'.$eol;
 			$str .= '}';
 		
 			return File::write($file, $str);
 		}
 		else
 		{
-			return Error::set(lang('File', 'alreadyFileError', $file));	
+			return Error::set('File', 'alreadyFileError', $file);	
 		}
 	}
 	
@@ -377,7 +378,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			return Error::set(lang('Folder', 'notFoundError', $this->path));	
+			return Error::set('Folder', 'notFoundError', $this->path);	
 		}
 	}
 	
@@ -462,7 +463,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( (int)$numeric > 999 || (int)$numeric < 0 )
 		{
-			return Error::set(lang('Error', 'invalidVersion', $numeric));
+			return Error::set('Error', 'invalidVersion', $numeric);
 		}
 	
 		switch( $length )

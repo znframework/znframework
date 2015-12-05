@@ -1,23 +1,36 @@
 <?php	
 class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 {
-	/***********************************************************************************/
-	/* CLASSES LIBRARY					                   	                           */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Classes
-	/* Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Classes::, $this->Classes, zn::$use->Classes, uselib('Classes')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Call Undefined Method                                                                       
+	//----------------------------------------------------------------------------------------------------
+	//
+	// __call()
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* IS RELATION		                                                                      *
@@ -33,12 +46,12 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		if( ! is_object($object) )
 		{
-			return Error::set(lang('Error', 'objectParameter', '2.(object)'));	
+			return Error::set('Error', 'objectParameter', '2.(object)');	
 		}
 	
 		return is_a($object, $prefix.$className);
@@ -59,7 +72,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 	
 		return is_subclass_of($object, $prefix.$className);
@@ -79,7 +92,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) || ! is_string($method) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.($className) & 2.(method)'));	
+			return Error::set('Error', 'stringParameter', '1.($className) & 2.(method)');	
 		}
 	
 		return method_exists(uselib($prefix.$className), $method);
@@ -99,7 +112,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) || ! is_string($property) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.($className) & 2.(property)'));	
+			return Error::set('Error', 'stringParameter', '1.($className) & 2.(property)');	
 		}
 	
 		return  property_exists(uselib($prefix.$className), $property);
@@ -119,7 +132,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		return get_class_methods($prefix.$className);
@@ -139,7 +152,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		return get_class_vars($prefix.$className);
@@ -159,7 +172,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_object($var) )
 		{
-			return Error::set(lang('Error', 'objectParameter', '1.(var)'));	
+			return Error::set('Error', 'objectParameter', '1.(var)');	
 		}
 		
 		return str_replace($prefix, '', get_class($var));

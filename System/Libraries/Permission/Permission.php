@@ -1,21 +1,14 @@
 <?php 
 class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 {
-	/***********************************************************************************/
-	/* PERMISSON LIBRARY					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Perfmission
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: permission::, $this->permission, zn::$use->permission, uselib('permission')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Config Değişkeni
 	 *  
@@ -44,7 +37,27 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 		$this->config = Config::get('Permission');	
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* PROCESS                                                                                 *
@@ -71,7 +84,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 		// Parametrelerin kontrolleri yapılıyor.
 		if( ! is_numeric($roleId) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'roleId'));	
+			return Error::set('Error', 'numericParameter', 'roleId');	
 		}
 		if( ! is_scalar($process) ) 
 		{
@@ -106,15 +119,16 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 			break;	
 		}
 		
-		if( strpos($rules,"|") > -1 ) // Birden fazla yetki var ise..........
+		if( is_array($rules) ) // Birden fazla yetki var ise..........
 		{		
-			$pages = explode("|", $rules);
+			$pages = current($rules);
+			$type  = key($rules);
 		
-			foreach($pages as $page)
+			foreach( $pages as $page )
 			{
 				$page = trim($page);
-			
-				if( $page[0] === "!" ) 
+				
+				if( stripos($page[0], '!') === 0 ) 
 				{
 					$rule = substr(trim($page), 1); 
 				}
@@ -123,7 +137,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 					$rule = trim($page);
 				}
 				
-				if( $pages[0] === "perm->" )
+				if( $type === "perm" )
 				{
 					if( strpos($currentUrl, $rule) > -1 )
 					{
@@ -156,7 +170,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 				
 			if( $rules[0] === "!" ) 
 			{
-				$page = substr(trim($rules),1); 
+				$page = substr(trim($rules), 1); 
 			}
 			else 
 			{
@@ -199,7 +213,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	{
 		if( ! is_numeric($roleId) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'roleId'));	
+			return Error::set('Error', 'numericParameter', 'roleId');	
 		}
 		
 		$this->permission = $this->config['page'];
@@ -226,15 +240,16 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 			break;	
 		}
 		
-		if( strpos($rules,"|") ) // Birden fazla sayfa var ise..........
+		if( is_array($rules) ) // Birden fazla sayfa var ise..........
 		{
-			$pages = explode("|", $rules);
+			$pages = current($rules);
+			$type  = key($rules);
 		
 			foreach($pages as $page)
 			{
 				$page = trim($page);
 			
-				if( @$page[0] === "!" ) 
+				if( stripos($page[0], '!') === 0 ) 
 				{
 					$rule = substr(trim($page), 1); 
 				}
@@ -243,7 +258,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 					$rule = trim($page);
 				}
 				
-				if( $pages[0] === "perm->" )
+				if( $type === "perm" )
 				{
 					if( strpos($currentUrl, $rule) > -1 )
 					{
@@ -257,7 +272,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 				else
 				{
 					
-					if( @strpos($currentUrl, $rule) > -1 )
+					if( strpos($currentUrl, $rule) > -1 )
 					{					
 						 return false;
 					}

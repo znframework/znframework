@@ -81,7 +81,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{	
 		if( ! is_array($con) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'con'));
+			return Error::set('Error', 'arrayParameter', 'con');
 		}
 		
 		// Config/Ftp.php dosyasından ftp ayarları alınıyor.
@@ -131,7 +131,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 							
 		if( empty($this->connect) ) 
 		{
-			return Error::set(lang('Error', 'emptyVariable', '@this->connect'));
+			return Error::set('Error', 'emptyVariable', '@this->connect');
 		}
 		
 		$this->login = @ftp_login($this->connect, $user, $password);
@@ -160,7 +160,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{ 
-			return Error::set(lang('Error', 'emptyVariable', '@this->connect'));
+			return Error::set('Error', 'emptyVariable', '@this->connect');
 		}
 	}
 	
@@ -180,7 +180,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));	
+			return Error::set('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ftp_mkdir($this->connect, $path) )
@@ -189,8 +189,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error =  getMessage('Folder', 'alreadyFileError', $path);
-			return Error::set($this->error);
+			return Error::set('Folder', 'alreadyFileError', $path);
 		}
 	}
 	
@@ -209,7 +208,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));	
+			return Error::set('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ftp_rmdir($this->connect, $path) )
@@ -218,8 +217,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error = getMessage('Folder', 'notFoundError', $path);
-			return Error::set($this->error);	
+			return Error::set('Folder', 'notFoundError', $path);	
 		}
 	
 	}
@@ -239,7 +237,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));
+			return Error::set('Error', 'stringParameter', 'path');
 		}
 	
 		if( @ftp_chdir($this->connect, $path) )
@@ -248,8 +246,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error = getMessage('Folder', 'changeFolderError', $path);
-			return Error::set($this->error);
+			return Error::set('Folder', 'changeFolderError', $path);
 		}
 	}
 	
@@ -269,8 +266,8 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($oldName) || ! is_string($newName) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'oldName'));
-			Error::set(lang('Error', 'stringParameter', 'newName'));
+			Error::set('Error', 'stringParameter', 'oldName');
+			Error::set('Error', 'stringParameter', 'newName');
 			
 			return false;	
 		}
@@ -281,8 +278,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error = getMessage('Folder', 'changeFolderNameError', $oldName);
-			return Error::set($this->error);	
+			return Error::set('Folder', 'changeFolderNameError', $oldName);	
 		}
 	}
 	
@@ -301,7 +297,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));
+			return Error::set('Error', 'stringParameter', 'path');
 		}
 		
 		if( @ftp_delete($this->connect, $path) )
@@ -310,8 +306,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error = getMessage('File', 'notFoundError', $path);
-			return Error::set($this->error);	
+			return Error::set('File', 'notFoundError', $path);	
 		}
 	}
 	
@@ -332,8 +327,8 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'localPath'));
-			Error::set(lang('Error', 'stringParameter', 'remotePath'));
+			Error::set('Error', 'stringParameter', 'localPath');
+			Error::set('Error', 'stringParameter', 'remotePath');
 			
 			return false;
 		}
@@ -358,8 +353,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error = getMessage('File', 'remoteUploadError', $localPath);
-			return Error::set($this->error);	
+			return Error::set('File', 'remoteUploadError', $localPath);	
 		}
 	}
 	
@@ -380,8 +374,8 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'remotePath'));
-			Error::set(lang('Error', 'stringParameter', 'localPath'));
+			Error::set('Error', 'stringParameter', 'remotePath');
+			Error::set('Error', 'stringParameter', 'localPath');
 			
 			return false;
 		}
@@ -406,8 +400,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			$this->error = getMessage('File', 'remoteDownloadError', $localPath);
-			return Error::set($this->error);
+			return Error::set('File', 'remoteDownloadError', $localPath);
 		}
 	}
 	
@@ -427,7 +420,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));		
+			return Error::set('Error', 'stringParameter', 'path');		
 		}
 		
 		if( ! is_numeric($type) )
@@ -441,7 +434,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{ 
-			return Error::set(lang('Error', 'emptyVariable', '@this->connect'));	
+			return Error::set('Error', 'emptyVariable', '@this->connect');	
 		}
 	}
 	
@@ -464,7 +457,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));		
+			return Error::set('Error', 'stringParameter', 'path');		
 		}
 
 		$list = @ftp_nlist($this->connect, $path);
@@ -505,7 +498,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		}
 		else
 		{
-			return Error::set(lang('Error', 'emptyVariable', '@files'));	
+			return Error::set('Error', 'emptyVariable', '@files');	
 		}
 	}
 	
@@ -531,7 +524,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));		
+			return Error::set('Error', 'stringParameter', 'path');		
 		}
 		
 		if( ! is_string($type) ) 
@@ -578,27 +571,6 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		if( $type === "gb" )
 		{
 			return round($size / (1024 * 1024 * 1024), $decimal);
-		}
-	}
-	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Ftp işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.  |
-	|     														                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|     														                              |
-	******************************************************************************************/
-	public function error()
-	{
-		if( isset($this->error) )
-		{
-			Error::set($this->error);	
-			return $this->error;
-		}
-		else
-		{
-			return false;
 		}
 	}
 }

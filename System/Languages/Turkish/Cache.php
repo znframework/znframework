@@ -10,7 +10,7 @@
 //
 //----------------------------------------------------------------------------------------------------
 $lang['Cache']['driverError']          = '`%` sürücüsü bulunamadı!';
-$lang['Cache']['unsupported']          = '`%` sürücünü kullanmak için yüklenmesi gerekmektedir!';
+$lang['Cache']['unsupported']          = '`%` sürücüsünü kullanmak için yüklenmesi gerekmektedir!';
 $lang['Cache']['invalidDriver']        = '`%` sürücüsü geçersizdir!';
 $lang['Cache']['connectionRefused']    = 'Bağlantı sağlanamadı! Hata:`%`';
 $lang['Cache']['authenticationFailed'] = 'Geçersiz giriş!';

@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $select = '*';
+	private $select;
 	
 	/* From Değişkeni
 	 *  
@@ -376,7 +376,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'stringParameter', 'table'));	
+			Error::set('Error', 'stringParameter', 'table');	
 		}
 		
 		return $this;
@@ -403,7 +403,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'column, value, logical'));
+			Error::set('Error', 'stringParameter', 'column, value, logical');
 		}
 		else
 		{
@@ -436,7 +436,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'column, value, logical'));
+			Error::set('Error', 'stringParameter', 'column, value, logical');
 		}
 		else
 		{
@@ -466,7 +466,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($table) || ! is_string($condition) || ! is_string($type) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'table, condition, type'));
+			Error::set('Error', 'stringParameter', 'table, condition, type');
 		}
 		else
 		{
@@ -491,7 +491,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{ 
 		if( ! is_string($condition) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'condition')); 
+			Error::set('Error', 'stringParameter', 'condition'); 
 		}
 		else
 		{
@@ -517,7 +517,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{ 
 		if( ! is_string($condition) || ! is_string($type) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'condition, type')); 
+			Error::set('Error', 'stringParameter', 'condition, type'); 
 		}
 		else
 		{
@@ -577,7 +577,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($table) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'table'));
+			Error::set('Error', 'stringParameter', 'table');
 			
 			return $this;
 		}
@@ -591,6 +591,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		elseif( ! empty($this->from) )
 		{
 			$this->table = $this->from;
+		}
+		
+		if( empty($this->select) )
+		{
+			$this->select = ' * ';	
 		}
 		
 		if( ! empty($this->selectFunctions) )
@@ -1137,8 +1142,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'query'));
-			Error::set(lang('Error', 'emptyParameter', 'query'));
+			Error::set('Error', 'stringParameter', 'query');
+			Error::set('Error', 'emptyParameter', 'query');
 		}
 		else
 		{
@@ -1179,8 +1184,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'query'));
-			Error::set(lang('Error', 'emptyParameter', 'query'));
+			Error::set('Error', 'stringParameter', 'query');
+			Error::set('Error', 'emptyParameter', 'query');
 			
 			return false;	
 		}
@@ -1285,8 +1290,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'table'));
-			Error::set(lang('Error', 'emptyParameter', 'table'));
+			Error::set('Error', 'stringParameter', 'table');
+			Error::set('Error', 'emptyParameter', 'table');
 		}
 		else
 		{
@@ -1359,9 +1364,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'table'));
-			Error::set(lang('Error', 'emptyParameter', 'columns'));
-			Error::set(lang('Error', 'numericParameter', 'incdec'));
+			Error::set('Error', 'stringParameter', 'table');
+			Error::set('Error', 'emptyParameter', 'columns');
+			Error::set('Error', 'numericParameter', 'incdec');
 			
 			return false;
 		}
@@ -1445,12 +1450,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($datas) || empty($datas) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'datas'));
+			return Error::set('Error', 'arrayParameter', 'datas');
 		}
 		
 		$data = ""; $values = "";
@@ -1539,12 +1544,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($set) || empty($set) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'set'));
+			return Error::set('Error', 'arrayParameter', 'set');
 		}
 
 		$data = '';
@@ -1612,7 +1617,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($this->table) || empty($this->table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		$deleteQuery = 'DELETE '.
@@ -1863,6 +1868,20 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	}
 	
 	/******************************************************************************************
+	* VALUE                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu tek satır veriyi elde etmek için kullanılır.     	  	  |
+
+	  @param bool $printable: false
+	  @return object/string
+	|          																				  |
+	******************************************************************************************/
+	public function value()
+	{ 
+		return current((array)$this->db->row());
+	}
+	
+	/******************************************************************************************
 	* AFFECTED ROWS                                                                           *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinden etkilenen satır sayısını verir.		     	  	  |
@@ -1921,7 +1940,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{ 
 		if( ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'arrayParameter', '1.(settings)'));	
+			Error::set('Error', 'arrayParameter', '1.(settings)');	
 		} 
 	
 		$limit = $this->pagination['limit'];
@@ -3228,7 +3247,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_scalar($value) || ! is_string($type) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'value, type'));
+			return Error::set('Error', 'stringParameter', 'value, type');
 		}
 		
 		$operator = $this->db->operator(__FUNCTION__);
@@ -4053,7 +4072,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sytemUser()
+	public function systemUser()
 	{
 		$math = $this->_math('SYSTEM_USER', func_get_args());
 		

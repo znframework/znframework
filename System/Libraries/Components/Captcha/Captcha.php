@@ -47,6 +47,19 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -64,7 +77,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($param) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'param'));
+			Error::set('Error', 'numericParameter', 'param');
 			return $this;	
 		}
 		
@@ -90,7 +103,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($param) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'param'));
+			Error::set('Error', 'numericParameter', 'param');
 			return $this;	
 		}
 		
@@ -136,7 +149,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		if( ! is_numeric($param) )
 
 		{
-			Error::set(lang('Error', 'numericParameter', 'param'));
+			Error::set('Error', 'numericParameter', 'param');
 			return $this;	
 		}
 		
@@ -164,8 +177,8 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_bool($is) || ! is_string($color) )
 		{
-			Error::set(lang('Error', 'booleanParameter', 'is'));
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'booleanParameter', 'is');
+			Error::set('Error', 'stringParameter', 'color');
 			
 			return $this;	
 		}
@@ -194,7 +207,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 
@@ -220,7 +233,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 		
@@ -298,7 +311,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($size) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'size'));
+			Error::set('Error', 'numericParameter', 'size');
 			return $this;
 		}
 		
@@ -325,7 +338,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'x | y'));
+			Error::set('Error', 'numericParameter', 'x | y');
 			return $this;
 		}
 
@@ -356,7 +369,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 		
@@ -385,7 +398,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($size) || ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'size | x | y'));
+			Error::set('Error', 'numericParameter', 'size | x | y');
 			return $this;
 		}
 		
@@ -423,8 +436,8 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_bool($is) || ! is_string($color) )
 		{
-			Error::set(lang('Error', 'booleanParameter', 'is'));
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'booleanParameter', 'is');
+			Error::set('Error', 'stringParameter', 'color');
 			
 			return $this;	
 		}
@@ -453,7 +466,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 
@@ -480,7 +493,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'x | y'));
+			Error::set('Error', 'numericParameter', 'x | y');
 			return $this;
 		}
 

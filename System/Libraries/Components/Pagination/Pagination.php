@@ -101,6 +101,19 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -112,7 +125,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'stringParameter', 'url'));	
+			Error::set('Error', 'stringParameter', 'url');	
 		}
 		
 		return $this;
@@ -122,7 +135,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($start) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'start'));
+			Error::set('Error', 'numericParameter', 'start');
 			return $this;
 		}
 		
@@ -135,7 +148,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($limit) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'limit'));
+			Error::set('Error', 'numericParameter', 'limit');
 			return $this;
 		}
 		
@@ -148,7 +161,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($totalRows) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'totalRows'));
+			Error::set('Error', 'numericParameter', 'totalRows');
 			return $this;
 		}
 		
@@ -161,7 +174,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($countLinks) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'countLinks'));
+			Error::set('Error', 'numericParameter', 'countLinks');
 			return $this;
 		}
 		
@@ -203,7 +216,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_array($css) )
 		{
-			Error::set(lang('Error', 'arrayParameter', 'css'));
+			Error::set('Error', 'arrayParameter', 'css');
 			return $this;	
 		}
 		
@@ -216,7 +229,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_array($style) )
 		{
-			Error::set(lang('Error', 'arrayParameter', 'style'));
+			Error::set('Error', 'arrayParameter', 'style');
 			return $this;	
 		}
 		
@@ -272,7 +285,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
 		if( ! is_array($config) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'config'));	
+			return Error::set('Error', 'arrayParameter', 'config');	
 		}
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler

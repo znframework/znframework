@@ -70,7 +70,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_numeric($no) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'no'));
+			return Error::set('Error', 'numericParameter', 'no');
 		}
 		
 		$numone 	= ($no[0] + $no[2] + $no[4] + $no[6]  + $no[8]) * 7;
@@ -117,7 +117,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}
 		if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $data) ) 
 		{
@@ -144,7 +144,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}
 		if( ! preg_match('#^(\w+:)?//#i', $data) ) 
 		{
@@ -171,7 +171,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}
 		
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) ) 
@@ -200,12 +200,12 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}
 		
 		if( ! is_numeric($char) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'char'));
+			return Error::set('Error', 'numericParameter', 'char');
 		}
 		
 		if( strlen($data) <= $char ) 
@@ -234,11 +234,11 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}
 		if( ! is_numeric($char) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'char'));
+			return Error::set('Error', 'numericParameter', 'char');
 		}
 		
 		if( strlen($data) >= $char ) 
@@ -793,7 +793,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($name) ) 
 		{
-			return Error::set(lang('Error', 'scalarParameter', 'name'));
+			return Error::set('Error', 'scalarParameter', 'name');
 		}
 		
 		if( isset($this->nval[$name]) )
@@ -885,7 +885,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Error::set(lang('Error', 'scalarParameter', 'name'));
+			return Error::set('Error', 'scalarParameter', 'name');
 		}
 
 		if( ! is_string($met) ) 

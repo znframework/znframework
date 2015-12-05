@@ -119,6 +119,19 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
@@ -162,7 +175,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_string($day) || ! is_string($month) )	
 		{
-			Error::set(lang('Error', 'stringParameter', 'day | month'));
+			Error::set('Error', 'stringParameter', 'day | month');
 			return $this;	
 		}
 		
@@ -187,7 +200,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_array($css) )
 		{
-			Error::set(lang('Error', 'arrayParameter', 'css'));
+			Error::set('Error', 'arrayParameter', 'css');
 			return $this;	
 		}
 		
@@ -210,7 +223,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_array($style) )
 		{
-			Error::set(lang('Error', 'arrayParameter', 'style'));
+			Error::set('Error', 'arrayParameter', 'style');
 			return $this;	
 		}
 		
@@ -235,7 +248,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! ( is_string($prev) && is_string($next) ) )	
 		{
-			Error::set(lang('Error', 'stringParameter', 'prev | next'));
+			Error::set('Error', 'stringParameter', 'prev | next');
 			return $this;	
 		}
 		
@@ -397,23 +410,25 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 					   ? ' style="'.$this->style['links'].'"'
 					   : '';
 		
+		$eol  = eol();
+		
 		// Önceki linki oluşturuluyor.
 		$prev = "<a href='". suffix($this->url) . $year. "/". ( $month - 1 ) ."' {$buttonClass}{$buttonStyle}>$this->prev</a>";
 		// Sonraki linki oluşturuluyor.
 		$next = "<a href='". suffix($this->url) . $year. "/". ( $month + 1 ) ."' {$buttonClass}{$buttonStyle}>$this->next</a>";
 			 
-		$str  = "<table{$tableClass}{$tableStyle}>".eol();
+		$str  = "<table{$tableClass}{$tableStyle}>".$eol;
 		// Ay - Tarih Satırı
-		$str .= "\t<tr>".eol()."\t\t<th{$monthRowClass}{$monthRowStyle} colspan=\"7\">{$prev} {$monthName} - {$year} {$next}</th></tr>".eol();
-		$str .= "\t<tr>".eol();
+		$str .= "\t<tr>".$eol."\t\t<th{$monthRowClass}{$monthRowStyle} colspan=\"7\">{$prev} {$monthName} - {$year} {$next}</th></tr>".$eol;
+		$str .= "\t<tr>".$eol;
 		
 		// Gün İsimleri Satırı
 		foreach( $dayNames as $day )
 		{
-			$str .= "\t\t<td{$dayRowClass}{$dayRowStyle}>$day</td>".eol();
+			$str .= "\t\t<td{$dayRowClass}{$dayRowStyle}>$day</td>".$eol;
 		}
 		
-		$str .= "\t<tr>".eol();
+		$str .= "\t<tr>".$eol;
 		
 		if( $firstDay['wday'] == 0 ) 
 		{
@@ -423,7 +438,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		// Günler Satırı
 		for( $i=1; $i<$firstDay['wday']; $i++ )
 		{
-			$str .= "\t\t<td{$rowsClass}{$rowsStyle}>&nbsp;</td>".eol();
+			$str .= "\t\t<td{$rowsClass}{$rowsStyle}>&nbsp;</td>".$eol;
 		}
 		
 		$activeDay = 0;
@@ -454,10 +469,10 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 						 : '';
 			}
 			
-			$str .= "\t\t<td{$class}{$style}>$activeDay</td>".eol();
+			$str .= "\t\t<td{$class}{$style}>$activeDay</td>".$eol;
 		}
 		
-		$str .= "\t</tr>".eol();
+		$str .= "\t</tr>".$eol;
 		
 		$weekCount = floor(($lastDay ['mday'] - $activeDay) / 7);
 		
@@ -490,16 +505,16 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 							 : '';
 				}
 				
-				$str .= "\t\t<td{$class}{$style}>$activeDay</td>".eol();
+				$str .= "\t\t<td{$class}{$style}>$activeDay</td>".$eol;
 			}
 			
-			$str .= "\t</tr>".eol();
+			$str .= "\t</tr>".$eol;
 		}
 		
 	
 		if( $activeDay < $lastDay['mday'] )
 		{
-			$str .= "\t<tr>".eol();
+			$str .= "\t<tr>".$eol;
 			
 			for( $i = 0; $i < 7; $i++ )
 			{
@@ -528,14 +543,14 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 				
 				if( $activeDay <= $lastDay ['mday'] )
 				{
-					$str .= "\t\t<td{$class}{$style}>$activeDay</td>".eol();
+					$str .= "\t\t<td{$class}{$style}>$activeDay</td>".$eol;
 				}
 				else 
 				{
-					$str .= "\t\t<td{$class}{$style}>&nbsp;</td>".eol();
+					$str .= "\t\t<td{$class}{$style}>&nbsp;</td>".$eol;
 				}
 			}			
-			$str .= "\t</tr>".eol();
+			$str .= "\t</tr>".$eol;
 		}
 		
 		$str .= "</table>";

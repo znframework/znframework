@@ -12,6 +12,19 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	
 	use CallUndefinedMethodTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
 	/******************************************************************************************
 	* CONVERT                     	                                                          *
 	*******************************************************************************************
@@ -27,14 +40,14 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{	
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		$toEncodingFirst = Arrays::getFirst(explode('//', $toEncoding));
 		
 		if( ! isCharset($fromEncoding) || ! isCharset($toEncodingFirst) )
 		{
-			return Error::set(lang('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)'));	
+			return Error::set('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
 		}
 		
 		return iconv($fromEncoding, $toEncoding, $string);
@@ -67,7 +80,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($type) || empty($type) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(type)'));	
+			return Error::set('Error', 'stringParameter', '1.(type)');	
 		}
 		
 		return iconv_get_encoding($type.'_encoding');
@@ -87,12 +100,12 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($type) || empty($type) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(type)'));	
+			return Error::set('Error', 'stringParameter', '1.(type)');	
 		}
 		
 		if( ! isCharset($charset) )
 		{
-			return Error::set(lang('Error', 'charsetParameter', '2.(charset)'));
+			return Error::set('Error', 'charsetParameter', '2.(charset)');
 		}
 		
 		return iconv_set_encoding($type.'_encoding', $charset);
@@ -113,12 +126,12 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($encodedHeaders) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(encodedHeaders)'));	
+			return Error::set('Error', 'stringParameter', '1.(encodedHeaders)');	
 		}
 		
 		if( ! is_numeric($mode) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '2.(mode)'));
+			return Error::set('Error', 'numericParameter', '2.(mode)');
 		}
 		
 		if( $charset === NULL )
@@ -144,12 +157,12 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($encodedHeader) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(encodedHeader)'));	
+			return Error::set('Error', 'stringParameter', '1.(encodedHeader)');	
 		}
 		
 		if( ! is_numeric($mode) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '2.(mode)'));
+			return Error::set('Error', 'numericParameter', '2.(mode)');
 		}
 		
 		if( $charset === NULL )
@@ -175,7 +188,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($fieldName) || ! is_string($fieldValue) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(fieldName) & 2.(fieldValue)'));	
+			return Error::set('Error', 'stringParameter', '1.(fieldName) & 2.(fieldValue)');	
 		}
 	
 		return iconv_mime_encode($fieldName, $fieldValue, $preferences);

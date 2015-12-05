@@ -10,25 +10,42 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Call Undefined Method                                                                       
+	//----------------------------------------------------------------------------------------------------
+	//
+	// __call()
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
 	
-	/******************************************************************************************
-	* ARRAY POS CHANGE                                                                        *
-	*******************************************************************************************
-	| Genel Kullanım: Herhangi bir dizi indeksini, istenilen başka bir dizi indeksine 		  |
-	| eklemeye yarar.  															              |
-	|																						  |
-	| Parametreler: 3 parametresi vardır.                                              		  |
-	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
-	| 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      |
-	| 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.|
-	|																						  |
-	******************************************************************************************/	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control                                                                      
+	//----------------------------------------------------------------------------------------------------
+	//
+	// error()
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Pos Change                                                                       
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanım: Herhangi bir dizi indeksini, istenilen başka bir dizi indeksine 		  
+	// eklemeye yarar.  															              
+	//																						  
+	// Parametreler: 3 parametresi vardır.                                              		  
+	// 1. array var @array => İşlem yapılıcak dizi.							  				  
+	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
+	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function posChange($array = '', $poss = '', $changePos = '')
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! isRealNumeric($poss) ) 
@@ -78,22 +95,23 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	}
 
 	
-	/******************************************************************************************
-	* ARRAY POS REVERSE                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Dizi elementlarını kendi içlerinde yer değiştirmek için kullanılır. 	  |
-	|																						  |
-	| Parametreler: 3 parametresi vardır.                                              		  |
-	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
-	| 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      |
-	| 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.|
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Pos Reverse
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanım: Dizi elementlarını kendi içlerinde yer değiştirmek için kullanılır. 	  
+	//																						  
+	// Parametreler: 3 parametresi vardır.                                              		  
+	// 1. array var @array => İşlem yapılıcak dizi.							  				  
+	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
+	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
 	public function posReverse($array = '', $poss = '', $changePos = '')
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! isRealNumeric($poss) ) 
@@ -146,28 +164,33 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $lastArray;
 	}
 	
-	/******************************************************************************************
-	* ARRAY CASE -> V2 - TEMMUZ GÜNCELLEMESİ                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinnin . 	                          								  |
-	|																						  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Casing
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array  $array
+	// @param string $type  : lower, upper, title
+	// @param string $keyval: all, key, val	                          								  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function casing($array = array(), $type = 'lower', $keyval = 'all')
 	{
 		return Convert::arrayCase($array, $type, $keyval);
 	}
 	
-	/******************************************************************************************
-	* REMOVE LAST -> V2 - EYLÜL GÜNCELLEMESİ                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin son kaldırmak silmek için kullanılır.							  |
-	|																						  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Remove Last
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $count							  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function removeLast($array = array(), $count = 1)
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $count <= 1 )
@@ -192,17 +215,19 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* REMOVE FIRST -> V2 - EYLÜL GÜNCELLEMESİ                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin ilk elemanını kaldırmak için kullanılır.						  |
-	|																						  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Remove First
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array		
+	// @param numeric $count			  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function removeFirst($array = array(), $count = 1)
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $count <= 1 )
@@ -227,17 +252,19 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* ADD FIRST -> V2 - EYLÜL GÜNCELLEMESİ                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin başına elaman ekleme için kullanılır.							  |
-	|																						  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Add First
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $element						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function addFirst($array = array(), $element = '')
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! is_array($element) )
@@ -252,17 +279,19 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* ADD LAST -> V2 - EYLÜL GÜNCELLEMESİ                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin sonuna elaman ekleme için kullanılır.							  |
-	|																						  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Add Last
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $element						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function addLast($array = array(), $element = array())
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! is_array($element) )
@@ -277,21 +306,19 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* ARRAY DELETE ELEMENT                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Diziden istenilen eleman veya elamanları silmek için kullanılır. 	      |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              		  |
-	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
-	| 2. mixed var @object => Silinecek eleman.		                              |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Delete Element
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $object						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function deleteElement($array = array(), $object = '')
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		$newArray = array();
@@ -353,16 +380,14 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	}
 	
 	
-	/******************************************************************************************
-	* MULTI KEY ARRAY                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Çoklu anahtar oluşturmak için kullanılır. 	                          |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              		  |
-	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
-	| 2. string var @key_split => Çoklu anahtarları ayır edecek ayraç bilgisi. Varsayılan:|   |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Multikey
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array  $array
+	// @param string $keySplit:|						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function multikey($array = array(), $keySplit = "|")
 	{
 		$newArray = array();
@@ -383,25 +408,23 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		}
 		else 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 	}
 	
-	/******************************************************************************************
-	* ARRAY KEYVAL                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizinin anahtarını yada değerini elde etmek için kullanılır. 	      |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              		  |
-	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
-	| 2. string var @keyval => Öğrenilmek istenen bilgi. Varsayılan:val                       |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Keyval
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array  $array
+	// @param string $keyval: val/value, key, vals/values, keys						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function keyval($array = array(), $keyval = "val")
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'array'));
+			return Error::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $keyval === "val" || $keyval === "value" )
@@ -426,22 +449,20 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		}
 	}
 		
-	/******************************************************************************************
-	* GET LAST		                             			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin son elemanını döndürür.										  |
-	
-	  @param 	array   $array
-	  @param 	numeric $count
-	  @param	bool	$preserverKey
-	  @return 	string, array
-	|          																				  |
-	******************************************************************************************/
-	public function getLast($array = array(), $count = 1, $preserverKey = false)
+	//----------------------------------------------------------------------------------------------------
+	// Get Last
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $count
+	// @param bool	  $preserveKey						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function getLast($array = array(), $count = 1, $preserveKey = false)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( $count <= 1 )
@@ -450,28 +471,26 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		}
 		else
 		{
-			return $this->section($array, -$count, NULL, $preserverKey);
+			return $this->section($array, -$count, NULL, $preserveKey);
 		}
 		
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* GET FIRST		                             			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin ilk elemanını döndürür.										  |
-	
-	  @param 	array   $array
-	  @param 	numeric $count
-	  @param	bool	$preserverKey
-	  @return 	string, array
-	|          																				  |
-	******************************************************************************************/
-	public function getFirst($array = array(), $count = 1, $preserverKey = false)
+	//----------------------------------------------------------------------------------------------------
+	// Get First
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $count
+	// @param bool	  $preserveKey						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function getFirst($array = array(), $count = 1, $preserveKey = false)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( $count <= 1 )
@@ -480,36 +499,31 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		}
 		else
 		{
-			return $this->section($array, 0, $count, $preserverKey);
+			return $this->section($array, 0, $count, $preserveKey);
 		}
 		
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* ORDER                                        			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizide sıralama yapmak için kullanılır.								  |
-	
-	  @param 	array  $array
-	  @param	string $type  -> asc(asort),  		desc(arsort), 		 	asckey(ksort),   
-	  							 desckey(krsort), 	user(usort),		 	userassoc(uasort), 
-								 userkey(uksort), 	insens(natcasesort), 	natural(natsort), 	
-								 reverse(rsort),	random(shuffle)
-	  @param 	value  $flags -> regular, numeric, string, locale_string, natural, flag_case
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Order
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array  $array
+	// @param string $type :desc, asc...
+	// @param string $flags:regular						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function order($array = array(), $type = '', $flags = 'regular')
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_string($type) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '2.(type)'));	
+			return Error::set('Error', 'stringParameter', '2.(type)');	
 		}
 
 		$flags = Convert::toConstant($flags, 'SORT_');
@@ -533,15 +547,13 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* OBJECT DATA                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Dizi olarak girilen verileri object veri tipine dönüştürür. 	          |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              		  |
-	| 1. array var @array => İşlem yapılıcak dizi.							  				  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Object Data
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function objectData($data = array())
 	{
 		if( ! is_array($data) )
@@ -552,73 +564,73 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return json_encode($data);		
 	}	
 	
-	/******************************************************************************************
-	* LENGTH                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin eleman sayısını döndürür.							 	          |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Length
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function length($data = array())
 	{
 		if( ! is_array($data) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(data)'));	
+			return Error::set('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return count($data);	
 	}
 	
-	/******************************************************************************************
-	* APPORTION                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Diziyi eşit paraçlara böler.								 	          |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Apportion
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $portionCount
+	// @param bool	  $preserveKeys						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function apportion($data = array(), $portionCount = 1, $preserveKeys = false)
 	{
 		if( ! is_array($data) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(data)'));	
+			return Error::set('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return array_chunk($data, $portionCount, $preserveKeys);	
 	}
 	
-	/******************************************************************************************
-	* COMBINE                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: ' diziyi anahtar değer çifti olarak birleştirir.			 	          |
-	
-	  @param 	array $keys
-	  @param	array $values
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Combine
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $keys
+	// @param array $values					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function combine($keys = array(), $values = array())
 	{
 		if( ! is_array($keys) || ! is_array($values) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(keys) & 2.(values)'));	
+			return Error::set('Error', 'arrayParameter', '1.(keys) & 2.(values)');	
 		}
 		
 		return array_combine($keys, $values);	
 	}
 	
-	/******************************************************************************************
-	* COUNT SAME VALUES                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Dizide yer alan değerlerden hangisinden kaç tane olduğunu sayar.        |
-	
-	  @param 	array $array
-	  @param	value $key
-	  @return 	array, string
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Count Same Values
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $key					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function countSameValues($array = array(), $key = NULL)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		$return = array_count_values($array);	
@@ -638,267 +650,240 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $return;
 	}
 	
-	/******************************************************************************************
-	* FLIP                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin anahtarları ile değerleri yer değiştirir.			 	          |
-	
-	  @param 	array $array
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Flip
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function flip($array = array())
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_flip($array);	
 	}
 	
-	/******************************************************************************************
-	* IMPLEMENT CALLBACK                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen dizilerin elemanlarına geriçağırım işlevini uygular.		  |
-	
-	  @param 	string $functionName
-	  @param 	array ...arguments
-	  @return	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Implement Callback
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param ...args				  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function implementCallback()
 	{
 		return Functions::callArray('array_map', func_get_args());
 	}
 	
-	/******************************************************************************************
-	* RECURSIVE MERGE                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen dizileri bileştirmek için kullanılır.						  |
-	
-	  @param 	array ...arguments
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Recursive Merge
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param ...args				  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function recursiveMerge()
 	{
 		return Functions::callArray('array_merge_recursive', func_get_args());
 	}
 	
-	/******************************************************************************************
-	* MERGE                                        			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen dizileri bileştirmek için kullanılır.						  |
-	
-	  @param 	array ...arguments
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Merge
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param ...args			  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function merge()
 	{
 		return Functions::callArray('array_merge', func_get_args());
 	}
 	
-	/******************************************************************************************
-	* REVERSE                                     			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Diziyi tersine sıralayıp döndürür.									  |
-	
-	  @param 	array $array
-	  @param 	bool  $preserveKeys
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Reverse
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param bool	  $preserveKeys						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function reverse($array = array(), $preserveKeys = false)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($preserveKeys) )
 		{
-			return Error::set(lang('Error', 'booleanParameter', '2.(preserveKeys)'));	
+			return Error::set('Error', 'booleanParameter', '2.(preserveKeys)');	
 		}
 		
 		return array_reverse($array, $preserveKeys);
 	}
 	
-	/******************************************************************************************
-	* PRODUCT                                     			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizideki değerlerin çarpımını verir.									  |
-	
-	  @param 	array $array
-	  @return 	numeric
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Product
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function product($array = array())
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_product($array);
 	}
 	
-	/******************************************************************************************
-	* SUM                                     				                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizideki değerlerin toplamını verir.									  |
-	
-	  @param 	array $array
-	  @return 	numeric
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Sum
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function sum($array = array())
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_sum($array);
 	}
 	
-	/******************************************************************************************
-	* RANDOM                                     			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir diziden belli sayıda rasgele eleman döndürür.						  |
-	
-	  @param 	array 	$array
-	  @param	numeric $countRequest
-	  @return 	numeric, array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Random
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $countRequest					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function random($array = array(), $countRequest = 1)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_numeric($countRequest) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '2.(countRequest)'));	
+			return Error::set('Error', 'numericParameter', '2.(countRequest)');	
 		}
 		
 		return array_rand($array, $countRequest);
 	}
 	
-	/******************************************************************************************
-	* SEARCH                                     			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizide belirtilen değeri arar ve bulursa ilgili anahtarı döndürür.  |
-	
-	  @param 	array $array
-	  @param 	mixed $element
-	  @param 	bool  $strict
-	  @return 	numeric
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Search
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $element
+	// @param bool	$strict						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function search($array = array(), $element = '', $strict = false)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return Error::set(lang('Error', 'booleanParameter', '3.(strict)'));	
+			return Error::set('Error', 'booleanParameter', '3.(strict)');	
 		}
 		
 		return array_search($element, $array, $strict);
 	}
 	
-	/******************************************************************************************
-	* VALUE EXISTS                                 			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizide bir değerin varlığını araştırır.  							  |
-	
-	  @param 	array $array
-	  @param 	mixed $element
-	  @param 	bool  $strict
-	  @return 	bool
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Value Exists
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $element
+	// @param bool	$strict						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function valueExists($array = array(), $element = '', $strict = false)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return Error::set(lang('Error', 'booleanParameter', '3.(strict)'));	
+			return Error::set('Error', 'booleanParameter', '3.(strict)');	
 		}
 		
 		return in_array($element, $array, $strict);
 	}
 	
-	/******************************************************************************************
-	* KEY EXISTS                                  			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizide bir anahtarın varlığını arar.  							  |
-	
-	  @param 	array $array
-	  @param 	mixed $key
-	  @return 	bool
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Key Exists
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $array
+	// @param mixed $key					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function keyExists($array = array(), $key = '')
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_key_exists($key, $array);
 	}
 	
-	/******************************************************************************************
-	* SECTION                                     			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizinin belli bir bölümünü döndürür.								  |
-	
-	  @param 	array 	$array
-	  @param 	numeric $start
-	  @param 	numeric $length
-	  @param 	bool	$preserveKeys
-	  @return	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Section
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $start
+	// @param numeric $length
+	// @param bool	  $preserveKey						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function section($array = array(), $start = 0, $length = NULL, $preserveKeys = false)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_slice($array, $start, $length, $preserveKeys);
 	}
 	
-	/******************************************************************************************
-	* RESECTION                                     			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizinin belli bir bölümünü silip yerine başka şeyler koyar.		  |
-	
-	  @param 	array 	$array
-	  @param 	numeric $start
-	  @param 	numeric $length
-	  @param 	mixed	$newElement
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Resection
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param numeric $start
+	// @param numeric $length
+	// @param mixed	  $newElement						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function resection($array = array(), $start = 0, $length = NULL, $newElement = NULL)
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		array_splice($array, $start, $length, $newElement);
@@ -906,42 +891,38 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		return $array;
 	}
 	
-	/******************************************************************************************
-	* DELETE RECURRENT                             			                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Diziden yinelenen değerleri siler.									  |
-	
-	  @param 	array $array
-	  @param 	value $flags -> regular, numeric, string, locale_string
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Delete Recurrent
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array  $array
+	// @param string $flags					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function deleteRecurrent($array = array(), $flags = 'string')
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(array)'));	
+			return Error::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_unique($array, Convert::toConstant($flags, 'SORT_'));
 	}
 	
-	/******************************************************************************************
-	* SERIES                             			             		                      *
-	*******************************************************************************************
-	| Genel Kullanım: Belli bir eleman aralığını içeren bir dizi oluşturur.					  |
-	
-	  @param 	numeric $start
-	  @param 	numeric $end
-	  @param 	numeric $step
-	  @return 	array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Series
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param numeric $start
+	// @param numeric $end
+	// @param numeric $count						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function series($start = 0, $end = 0, $step = 1)
 	{
 		if( ! is_numeric($start) || ! is_numeric($end) || ! is_numeric($step) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)'));	
+			return Error::set('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)');	
 		}
 		
 		return range($start, $end, $step);

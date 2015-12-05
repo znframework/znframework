@@ -13,35 +13,71 @@
 //----------------------------------------------------------------------------------------------------
 // INI Ayarlarını Yapılandırma İşlemi
 //----------------------------------------------------------------------------------------------------
-
 $iniSet = Config::get('Ini', 'settings');
 
 if( ! empty($iniSet) ) 
 {
 	Config::iniSet($iniSet);
 }
-
 //----------------------------------------------------------------------------------------------------
+	
+	
 		
 //----------------------------------------------------------------------------------------------------
 // Htaccess Dosyası Oluşturma İşlemi
-//----------------------------------------------------------------------------------------------------
- 	
+//----------------------------------------------------------------------------------------------------	
 if( Config::get('Htaccess','createFile') === true ) 
 {
 	createHtaccessFile();
 }	
+//----------------------------------------------------------------------------------------------------
+
+
 
 //----------------------------------------------------------------------------------------------------
+// Fonksiyon Yükleme İşlemleri
+//----------------------------------------------------------------------------------------------------
+$starting = Config::get('Starting');
+
+if( $starting['autoload']['status'] === true ) 
+{
+	$startingAutoload = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+	
+	//------------------------------------------------------------------------------------------------
+	// Otomatik Olarak Yüklenen Fonksiyonlar
+	//------------------------------------------------------------------------------------------------
+	if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
+	{
+		$file = restorationPath(suffix($file, '.php'));
+		
+		if( is_file($file) )
+		{
+			require_once $file;
+		}
+	}
+}	
+
+//----------------------------------------------------------------------------------------------------
+// El ile Yüklenen Fonksiyonlar
+//----------------------------------------------------------------------------------------------------
+if( ! empty($starting['handload']) )
+{
+	Import::handload($starting['handload']);
+}
+//----------------------------------------------------------------------------------------------------
+
+
 
 //----------------------------------------------------------------------------------------------------
 // Composer Autoload İşlemi
 //----------------------------------------------------------------------------------------------------
-	
 $composer = Config::get('Composer', 'autoload');
 
 if( $composer === true )
 {
+	//------------------------------------------------------------------------------------------------
+	// Varsayılan Yol: vendor/autoload.php
+	//------------------------------------------------------------------------------------------------
 	$path = 'vendor/autoload.php';
 	
 	if( file_exists($path) )
@@ -50,20 +86,19 @@ if( $composer === true )
 	}
 	else
 	{
-		report('Error', getMessage('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+		report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 		
-		die(getErrorMessage('Error', 'fileNotFound', $path));
+		die(Error::message('Error', 'fileNotFound', $path));
 	}
 }
-elseif( file_exists($composer) )
+elseif( is_file($composer) )
 {
 	require_once($composer);
 }
 elseif( ! empty($composer) )
 {
-	report('Error', getMessage('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
+	report('Error', lang('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
 	
-	die(getErrorMessage('Error', 'fileNotFound', $composer));
+	die(Error::message('Error', 'fileNotFound', $composer));
 }
-
 //----------------------------------------------------------------------------------------------------	

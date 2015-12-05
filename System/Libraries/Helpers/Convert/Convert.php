@@ -1,23 +1,29 @@
 <?php
 class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 {
-	/***********************************************************************************/
-	/* CONVERT LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Convert
-	/* Versiyon: 1.4
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: convert::, $this->convert, zn::$use->convert, uselib('convert')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* CHAR                                                                                    *
@@ -50,7 +56,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return Error::set(lang('Error', 'valueParameter', 'string'));
+			return Error::set('Error', 'valueParameter', 'string');
 		}
 		
 		$string = self::accent($string);
@@ -104,7 +110,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{	
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		// Config/ForeignChars.php dosyasından
@@ -134,7 +140,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 	
 		if( ! is_string($splitWord) ) 
@@ -175,7 +181,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		return mb_convert_case($str, $this->toConstant($type, 'MB_CASE_'), $encoding);	
@@ -195,9 +201,9 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
 		{
-			Error::set(lang('Error', 'arrayParameter', 'array'));
-			Error::set(lang('Error', 'stringParameter', 'type'));
-			Error::set(lang('Error', 'stringParameter', 'keyval'));
+			Error::set('Error', 'arrayParameter', 'array');
+			Error::set('Error', 'stringParameter', 'type');
+			Error::set('Error', 'stringParameter', 'keyval');
 			
 			return false;	
 		}
@@ -260,13 +266,13 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! isCharset($fromCharset) || ! isCharset($toCharset) ) 
 		{
-			Error::set(lang('Error', 'charsetParameter', 'fromCharset'));
-			Error::set(lang('Error', 'charsetParameter', 'toCharset'));
+			Error::set('Error', 'charsetParameter', 'fromCharset');
+			Error::set('Error', 'charsetParameter', 'toCharset');
 			
 			return false;
 		}
@@ -290,8 +296,8 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) || ! is_array($settings) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'str'));
-			Error::set(lang('Error', 'arrayParameter', 'settings'));
+			Error::set('Error', 'stringParameter', 'str');
+			Error::set('Error', 'arrayParameter', 'settings');
 			
 			return false;	
 		}
@@ -578,12 +584,12 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_scalar($var) )
 		{
-			return Error::set(lang('Error', 'valueParameter', '1.(var)'));	
+			return Error::set('Error', 'valueParameter', '1.(var)');	
 		}
 		
 		if( ! is_string($prefix) || ! is_string($suffix) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '2.(prefix) & 2.(suffix)'));	
+			return Error::set('Error', 'stringParameter', '2.(prefix) & 2.(suffix)');	
 		}
 			
 		if( defined(strtoupper($prefix.$var.$suffix)) )

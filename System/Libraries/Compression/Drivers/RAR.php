@@ -20,7 +20,7 @@ class RarDriver implements CompressInterface
 	{
 		if( ! is_file($source) )
 		{
-			return Error::set(lang('Error', 'fileParameter', '1.(source)'));
+			return Error::set('Error', 'fileParameter', '1.(source)');
 		}
 		
 		$rarFile = rar_open($source, $password);
@@ -33,7 +33,7 @@ class RarDriver implements CompressInterface
 		}
 		else
 		{
-			return Error::set(lang('Error', 'emptyVariable', '$list'));	
+			return Error::set('Error', 'emptyVariable', '$list');	
 		}
 		
 		rar_close($rarFile);

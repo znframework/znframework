@@ -157,7 +157,7 @@ trait DatabaseTrait
 	{
 		if( ! is_string($table) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'table'));
+			Error::set('Error', 'stringParameter', 'table');
 		}
 		else
 		{
@@ -184,7 +184,7 @@ trait DatabaseTrait
 	{
 		if( ! is_string($col) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', 'col'));
+			Error::set('Error', 'stringParameter', 'col');
 		}
 		
 		$this->column[$col] = $val;
@@ -228,7 +228,7 @@ trait DatabaseTrait
 	{
 		if( ! is_string($connectName) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'connectName'));
+			return Error::set('Error', 'stringParameter', 'connectName');
 		}
 		
 		$config = $this->config;
@@ -236,7 +236,7 @@ trait DatabaseTrait
 		
 		if( ! isset($configDifferent[$connectName]) ) 
 		{
-			return Error::set(lang('Error', 'emptyParameter', 'connectName'));
+			return Error::set('Error', 'emptyParameter', 'connectName');
 		}
 		
 		foreach($config as $key => $val)
@@ -268,7 +268,7 @@ trait DatabaseTrait
 	{
 		if( ! is_array($data) ) 
 		{
-			Error::set(lang('Error', 'arrayParameter', 'data'));
+			Error::set('Error', 'arrayParameter', 'data');
 		}
 		else
 		{

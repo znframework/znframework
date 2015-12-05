@@ -1,23 +1,29 @@
 <?php
 class __USE_STATIC_ACCESS__Limit implements LimitInterface
 {
-	/***********************************************************************************/
-	/* LIMIT LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Limit
-	/* Versiyon: 1.4
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: limit::, $this->limit, zn::$use->limit, uselib('limit')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	// Function: word_limiter()
 	// İşlev: Bir metinin kaç kelime ile sınırlanacağını belirler.
@@ -31,7 +37,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! is_numeric($limit) ) 
@@ -86,7 +92,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! is_numeric($limit) )

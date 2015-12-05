@@ -65,7 +65,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			Error::set(lang('Folder', 'alreadyFileError', $name));
+			Error::set('Folder', 'alreadyFileError', $name);
 		}
 	}
 	
@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			return Error::set(lang('Folder', 'alreadyFileError', $name));
+			return Error::set('Folder', 'alreadyFileError', $name);
 		}
 	}
 	
@@ -142,7 +142,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			Error::set(lang('Folder', 'notFoundError', $name));
+			Error::set('Folder', 'notFoundError', $name);
 		}
 	}
 	
@@ -164,11 +164,11 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
+			return Error::set('Error', 'stringParameter', 'name');
 		}
 		if( ! file_exists($name) )
 		{
-			return Error::set(lang('Folder', 'notFoundError', $name));	
+			return Error::set('Folder', 'notFoundError', $name);	
 		}
 		// ----------------------------------------------------------------------------
 
@@ -225,7 +225,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($dir) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'dir'));
+			return Error::set('Error', 'stringParameter', 'dir');
 		}
 		if( ! is_string($extension) ) 
 		{
@@ -261,7 +261,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			return Error::set(lang('Error', 'fileDirParameter', 'dir'));
+			return Error::set('Error', 'fileDirParameter', 'dir');
 		}	
 	}
 	
@@ -290,17 +290,17 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($source) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'source'));
+			return Error::set('Error', 'stringParameter', 'source');
 		}
 		
 		if( ! is_string($target) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'target'));
+			return Error::set('Error', 'stringParameter', 'target');
 		}
 		
 		if( ! file_exists($source) )
 		{
-			return Error::set(lang('Folder', 'notFoundError', $source));
+			return Error::set('Folder', 'notFoundError', $source);
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -367,7 +367,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			return Error::set(lang('Folder', 'alreadyFileError', $name));
+			return Error::set('Folder', 'alreadyFileError', $name);
 		}
 	}
 	/******************************************************************************************
@@ -390,7 +390,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));	
+			return Error::set('Error', 'stringParameter', 'path');	
 		}
 		if( ! is_string($extension) ) 
 		{
@@ -398,7 +398,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}		
 		if( is_file($path) )
 		{
-			return Error::set(lang('Folder', 'parameterError', $path));		
+			return Error::set('Folder', 'parameterError', $path);		
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -415,7 +415,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		{	
 			$dir = opendir($path);
 			
-			while($file = readdir($dir))
+			while( $file = readdir($dir) )
 			{
 				if( $file !== '.' && $file !== '..' )
 				{				
@@ -430,9 +430,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 					{
 						if( $extension === 'dir' )
 						{
-							$extens = extension($file);
-							
-							if( empty($extens) )
+							if( is_dir($file) )
 							{
 								$files[] = $file;	
 							}
@@ -444,12 +442,13 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 					}
 				}
 			}
+			
 			return $files;
 		}
 		else
 		{
 			// 1. parametre dizin değilse false değeri döndür.
-			return Error::set(lang('Error', 'dirParameter', 'path'));	
+			return Error::set('Error', 'dirParameter', 'path');	
 		}
 		
 	}	
@@ -471,7 +470,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($pattern) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'pattern'));	
+			return Error::set('Error', 'stringParameter', 'pattern');	
 		}
 		
 		if( $allFiles === true )
@@ -532,24 +531,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 	******************************************************************************************/
 	public function permission($name = '', $permission = 0755)
 	{
-		if( ! is_string($name) ) 
-		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
-		}
-		if( ! is_numeric($permission) ) 
-		{
-			$permission = 0755;
-		}
-		
-		if( ! file_exists($name))
-		{
-			return Error::set(lang('Folder', 'notFoundError', $name));	
-		}
-		else
-		{
-			// Dosya veya dizini yetkilendir.
-			chmod($name, $permission);
-		}
+		return File::permission($name, $permission);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

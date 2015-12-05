@@ -37,14 +37,14 @@ class ZipDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(file)'));	
+			return Error::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		$open = zip_open($file);
 		
 		if( empty($open) )
 		{
-			return Error::set(lang('Error', 'fileNotFound', $file));	
+			return Error::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = zip_read($open);

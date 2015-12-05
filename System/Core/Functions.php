@@ -13,35 +13,6 @@
 //----------------------------------SYSTEM AND USER FUNCTIONS START-----------------------------------
 
 //----------------------------------------------------------------------------------------------------
-// isRepmac()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Config/Repear.php dosyasında yer alan machines = array() dizisi içerisinde ip numarası veya
-// numaralarının o anki modeminizin ip'si ile eşleşip eşleşmediğini kontrol eder. Böylece site içi
-// tadilat yapılan bilgisayar ile diğer kullanıcı bilgisayarlarının ayırt edilmesi sağlanır.
-// Parametreler: Yok.
-// Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
-//
-//----------------------------------------------------------------------------------------------------
-function isRepmac()
-{
-	if( is_array(Config::get('Repair','machines')) )
-	{
-		$result = in_array(ipv4(), Config::get('Repair','machines'));
-	}
-	elseif( ipv4() == Config::get('Repair','machines') )
-	{
-		$result = true;
-	}
-	else 
-	{
-		$result = false;
-	}
-	
-	return $result;
-}
-
-//----------------------------------------------------------------------------------------------------
 // getLang()
 //----------------------------------------------------------------------------------------------------
 //
@@ -113,7 +84,7 @@ function lang($file = '', $str = '', $changed = '')
 	
 	$key 		= removeExtension($file, 'php');
 	$file 		= Config::get('Language', getLang()).'/'.suffix($file, '.php');
-	$langDir    = LANGUAGES_DIR.$file ;
+	$langDir    = restorationPath(LANGUAGES_DIR.$file);
 	$sysLangDir = SYSTEM_LANGUAGES_DIR.$file;
 	
 	global $lang;
@@ -134,7 +105,7 @@ function lang($file = '', $str = '', $changed = '')
 	{
 		$langstr = $lang[$key][$str];	
 	}
-	elseif(isset($lang[$key]) && empty($str) )
+	elseif( isset($lang[$key]) && empty($str) )
 	{
 		return $lang[$key];	
 	}
@@ -167,9 +138,9 @@ function lang($file = '', $str = '', $changed = '')
 		{
 			$values = array();
 			
-			foreach($changed as $key => $value)
+			foreach( $changed as $key => $value )
 			{
-				$keys[] = $key;
+				$keys[]   = $key;
 				$values[] = $value;	
 			}
 			
@@ -312,7 +283,7 @@ function baseUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.restorationPath(cleanInjection($uri));
 }	
 	
 //----------------------------------------------------------------------------------------------------
@@ -697,19 +668,6 @@ function uselib($class = '')
 }
 
 //----------------------------------------------------------------------------------------------------
-// getMessage()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function getMessage($langFile, $errorMsg, $ex = '')
-{
-	return lang($langFile, $errorMsg, $ex);
-}
-
-//----------------------------------------------------------------------------------------------------
 // getErrorMessage()
 //----------------------------------------------------------------------------------------------------
 //
@@ -930,6 +888,7 @@ function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = Config::get('Cache');
+	$eol    = eol();
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
@@ -945,7 +904,7 @@ mod_gzip_item_include mime ^text/.*
 mod_gzip_item_include mime ^application/x-javascript.*
 mod_gzip_item_exclude mime ^image/.*
 mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>'.eol(2);
+</ifModule>'.$eol.$eol;
 	}
 	else
 	{
@@ -961,14 +920,14 @@ mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 		$exp = '';
 		foreach($config['modExpires']['fileTypeTime'] as $type => $value)
 		{
-			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.eol();
+			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
 		}
 		
 		$modExpires = '<ifModule mod_expires.c>
 ExpiresActive On
 ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 '.$exp.'
-</ifModule>'.eol(2);
+</ifModule>'.$eol.$eol;
 	}
 	else
 	{
@@ -986,13 +945,13 @@ ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 		{
 			$fmatch .= '<filesMatch "\.('.$type.')$">
 Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
-</filesMatch>'.eol();
+</filesMatch>'.$eol;
 		}
 		
 		$modHeaders = '<ifModule mod_headers.c>
 '.$fmatch.'
 </ifModule>
-'.eol(2);
+'.$eol.$eol;
 	}
 	else
 	{
@@ -1005,14 +964,14 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	
 	if( ! empty($headerSet['setHtaccessFile']) )
 	{
-		$headersIniSet  = "<ifModule mod_expires.c>".eol();	
+		$headersIniSet  = "<ifModule mod_expires.c>".$eol;	
 		
 		foreach( $headerSet['iniSet'] as $val )
 		{
-			$headersIniSet .= "$val".eol();
+			$headersIniSet .= "$val".$eol;
 		}
 		
-		$headersIniSet .= "</ifModule>".eol(2);
+		$headersIniSet .= "</ifModule>".$eol.$eol;
 	}
 	else
 	{
@@ -1029,7 +988,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		
 		foreach( $htaccessSettings['settings'] as $key => $val )
 		{
-			$htaccessSettingsStr .= "<$key>".eol();
+			$htaccessSettingsStr .= "<$key>".$eol;
 			
 			foreach( $val as $v )
 			{
@@ -1037,7 +996,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 			}
 			
 			$keyex = explode(" ", $key);
-			$htaccessSettingsStr .= eol()."</$keyex[0]>".eol(2);
+			$htaccessSettingsStr .= $eol."</$keyex[0]>".$eol.$eol;
 		}	
 	}
 	else
@@ -1052,12 +1011,12 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! Config::get('Uri','index.php') )
 	{
-		$htaccess .= "<IfModule mod_rewrite.c>".eol();
-		$htaccess .= "RewriteEngine On".eol();
-		$htaccess .= "RewriteBase /".eol();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".eol();
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".eol();
-		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.eol();
+		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
+		$htaccess .= "RewriteEngine On".$eol;
+		$htaccess .= "RewriteBase /".$eol;
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
+		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
+		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.$eol;
 		$htaccess .= "</IfModule>";
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
@@ -1111,13 +1070,13 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( $v !== '' )
 			{
-				$sets .= "php_value $k $v".eol();		 
+				$sets .= "php_value $k $v".$eol;		 
 			}			
 		}
 		
 		if( ! empty($sets) )
 		{
-			$htaccess .= eol()."<IfModule mod_php5.c>".eol();
+			$htaccess .= $eol."<IfModule mod_php5.c>".$eol;
 			$htaccess .= $sets;
 			$htaccess .= "</IfModule>";
 		}
@@ -1164,7 +1123,7 @@ function headers($header = '')
 	}
 	else 
 	{
-		if( isset($header) ) foreach($header as $k => $v)
+		if( isset($header) ) foreach( $header as $k => $v )
 		{
 			header($v);
 		}

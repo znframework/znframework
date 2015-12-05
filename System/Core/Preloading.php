@@ -70,6 +70,77 @@ define('HIERARCHY_DIR', CORE_DIR.'Hierarchy.php');
 define('CRLF', '\r\n');	
 
 //----------------------------------------------------------------------------------------------------
+// isResmac()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Config/Repear.php dosyasında yer alan machines = array() dizisi içerisinde ip numarası veya
+// numaralarının o anki modeminizin ip'si ile eşleşip eşleşmediğini kontrol eder. Böylece site içi
+// tadilat yapılan bilgisayar ile diğer kullanıcı bilgisayarlarının ayırt edilmesi sağlanır.
+// Parametreler: Yok.
+// Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
+//
+//----------------------------------------------------------------------------------------------------
+function isResmac()
+{
+	global $system;
+
+	$restorationIP   = $system['restorationMachinesIP'];
+	$restorationMode = $system['restorationMode'];
+	
+	if( $restorationMode === true )
+	{
+		$ipv4 = ipv4();
+		
+		if( is_array($restorationIP) )
+		{
+			$result = in_array($ipv4, $restorationIP);
+		}
+		elseif( $ipv4 == $restorationIP )
+		{
+			$result = true;
+		}
+		else 
+		{
+			$result = false;
+		}
+	}
+	else
+	{
+		$result = false;	
+	}
+		
+	return $result;
+}
+
+//----------------------------------------------------------------------------------------------------
+// restorationPath()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Restorasyon durumu açıkça dizin verisini değiştirir.
+// Parametreler: Yok.
+// Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
+//
+//----------------------------------------------------------------------------------------------------
+function restorationPath($path = '')
+{
+	if( isResmac() === true )
+	{
+		$newPath = preg_replace('/^'.rtrim(APP_DIR, '/').'/', rtrim(RES_DIR, '/'), $path);
+		
+		if( file_exists($newPath) )
+		{
+			return $newPath;	
+		}
+		else
+		{
+			return $path;	
+		}
+	} 
+	
+	return $path;
+}
+
+//----------------------------------------------------------------------------------------------------
 // isPhpVersion()
 //----------------------------------------------------------------------------------------------------
 //
@@ -844,11 +915,11 @@ function divide($str = '', $seperator = "|", $index = 0)
 //----------------------------------------------------------------------------------------------------
 function ipv4()
 {
-	if( $_SERVER['HTTP_CLIENT_IP'] )   //paylaşımlı bir bağlantı mı kullanıyor?
+	if( isset($_SERVER['HTTP_CLIENT_IP']) )   //paylaşımlı bir bağlantı mı kullanıyor?
 	{
 		$ip = $_SERVER['HTTP_CLIENT_IP'];
 	}
-	elseif( $_SERVER['HTTP_X_FORWARDED_FOR'] )   //ip adresi proxy'den mi geliyor?
+	elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )   //ip adresi proxy'den mi geliyor?
 	{
 		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 	}
@@ -926,9 +997,23 @@ function server($type = '')
 		'gatewayInterface'			 => (isset($_SERVER['GATEWAY_INTERFACE'])) 		? $_SERVER['GATEWAY_INTERFACE'] 	: false			
 	);	
 	
-	return ( isset($server[$type]) ) 
-		   ? $server[$type]
-		   : false;
+	if( isset($server[$type]) )
+	{
+		if( is_array($server[$type]) )
+		{
+			return $server[$type];	
+		}
+		else
+		{
+			return htmlspecialchars($server[$type], ENT_QUOTES, "utf-8");
+		}
+	}
+	elseif( isset($_SERVER[$type]) )
+	{
+		return htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
+	}
+	
+	return false;
 }	
 
 //----------------------------------------------------------------------------------------------------

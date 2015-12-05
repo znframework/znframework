@@ -60,7 +60,7 @@ class Autoloader
 		$classInfo = self::getClassFileInfo($class);
 		
 		// Sınıfın yolu alınıyor...
-		$file = $classInfo['path'];
+		$file = restorationPath($classInfo['path']);
 		
 		// Böyle bir sınıf varsa dahil ediliyor...
 		if( file_exists($file) )
@@ -69,7 +69,12 @@ class Autoloader
 			
 			// Namespace olduğu halde class ismi bildirilirse
 			// Sınıf haritasını yeniden oluşturmayı dene
-			if( ! ( class_exists($classInfo['namespace']) || trait_exists($classInfo['namespace']) || interface_exists($classInfo['namespace']) ) )
+			if
+			(
+				! class_exists($classInfo['namespace']) && 
+				! trait_exists($classInfo['namespace']) && 
+				! interface_exists($classInfo['namespace'])  
+			)
 			{
 				self::tryAgainCreateClassMap($class);
 			}
@@ -125,7 +130,7 @@ class Autoloader
 		// Böyle bir sınıf varsa dahil ediliyor...
 		if( file_exists($classInfo['path']) )
 		{	
-			require_once($classInfo['path']);
+			require_once(restorationPath($classInfo['path']));
 		}
 		else
 		{	
@@ -174,6 +179,8 @@ class Autoloader
 			isset($configClassMap['classes']) ? $configClassMap['classes'] : array()
 		);
 		
+		$eol  = eol();
+		
 		// Config/ClassMap.php 
 		$path = CONFIG_DIR.'ClassMap.php';
 		
@@ -182,7 +189,7 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		if( ! is_file($path) )
 		{
-			$classMapPage  = '<?php'.eol();
+			$classMapPage  = '<?php'.$eol;
 		}
 		else
 		{
@@ -195,7 +202,7 @@ class Autoloader
 			
 			foreach( $classArray as $k => $v )
 			{
-				$classMapPage .= '$config[\'ClassMap\'][\'classes\'][\''.$k.'\'] = \''.$v.'\';'.eol();
+				$classMapPage .= '$config[\'ClassMap\'][\'classes\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
 			}
 		}
 		
@@ -214,7 +221,7 @@ class Autoloader
 			
 			foreach( $namespaceArray as $k => $v )
 			{
-				$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.eol();
+				$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
 			}
 		}
 	
@@ -364,7 +371,12 @@ class Autoloader
 			// -------------------------------------------------------------------------------------------
 			// Gerçek Sınıf İsmi Oluşturuluyor...
 			// -------------------------------------------------------------------------------------------
-			if( $token[0] === T_CLASS || $token[0] === T_INTERFACE || $token[0] === T_TRAIT )
+			if
+			( 
+				$token[0] === T_CLASS     || 
+				$token[0] === T_INTERFACE || 
+				$token[0] === T_TRAIT 
+			)
 			{
 				// Sınıf bilgisi oluşturuluyor...
 				$classInfo['class'] = isset($tokens[$i + 2][1])
@@ -379,6 +391,51 @@ class Autoloader
 		}	
 	
 		return $classInfo;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Token File Info
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yolu belirtilen fonksiyon bilgilerini almak için oluşturulmuştur.
+	//
+	// @param  string $fileName
+	// @return array
+	//
+	//----------------------------------------------------------------------------------------------------
+	public static function tokenFileInfo($fileName = '', $type = T_FUNCTION)
+	{
+		if( ! is_file($fileName) )
+		{
+			return false;	
+		}
+		
+		// Dosya içeriğini al ve tarama yap.
+		$tokens = token_get_all(file_get_contents($fileName));
+		$info   = array();
+		
+		$i = 0;
+		
+		$type = Convert::toConstant($type, 'T_');
+		
+		foreach( $tokens as $token )
+		{
+			// -------------------------------------------------------------------------------------------
+			// Fonksiyon ismi yakalanıyor
+			// -------------------------------------------------------------------------------------------
+			if( $token[0] === $type )
+			{
+				// Sınıf bilgisi oluşturuluyor...
+				$info[] = isset($tokens[$i + 2][1])
+						? $tokens[$i + 2][1]
+						: NULL;
+			}
+			// -------------------------------------------------------------------------------------------
+			
+			$i++;
+		}	
+	
+		return $info;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -411,7 +468,9 @@ class Autoloader
 		);
 		
 		$staticAccessDirectory = SYSTEM_DIR.'StaticAccess/';
-	
+		
+		$eol = eol();
+		
 		if( ! empty($files) ) foreach( $files as $v )
 		{
 			// Sadece .php uzantılı dosyalar için işlem yap.
@@ -483,13 +542,13 @@ class Autoloader
 						if( ! file_exists($path) )	
 						{	
 							// Statik sınıf içeriği oluşturuluyor....
-							$classContent  = '<?php'.eol();
-							$classContent .= 'class '.$newClassName.' extends StaticAccess'.eol();
-							$classContent .= '{'.eol();	
-							$classContent .= "\t".'public static function getClassName()'.eol();
-							$classContent .= "\t".'{'.eol();
-							$classContent .= "\t\t".'return __CLASS__;'.eol();
-							$classContent .= "\t".'}'.eol();
+							$classContent  = '<?php'.$eol;
+							$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
+							$classContent .= '{'.$eol;	
+							$classContent .= "\t".'public static function getClassName()'.$eol;
+							$classContent .= "\t".'{'.$eol;
+							$classContent .= "\t\t".'return __CLASS__;'.$eol;
+							$classContent .= "\t".'}'.$eol;
 							$classContent .= '}';
 						
 							file_put_contents($path, $classContent);
