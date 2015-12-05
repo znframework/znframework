@@ -84,7 +84,7 @@ class __USE_STATIC_ACCESS__Filters implements FiltersInterface
 	{
 		if( ! is_string($filterName) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(filterName)'));	
+			return Error::set('Error', 'stringParameter', '1.(filterName)');	
 		}	
 		
 		return filter_id($filterName);	
@@ -122,7 +122,7 @@ class __USE_STATIC_ACCESS__Filters implements FiltersInterface
 	{		
 		if( ! is_array($data) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '1.(data)'));	
+			return Error::set('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return filter_var_array($data, $definition, $addEmpty);	
@@ -154,7 +154,7 @@ class __USE_STATIC_ACCESS__Filters implements FiltersInterface
 	{
 		if( ! is_string($varName) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(varName)'));	
+			return Error::set('Error', 'stringParameter', '1.(varName)');	
 		}	
 		
 		return filter_has_var($this->_inputConstant($type), $varName);	

@@ -167,7 +167,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			}
 		}
 	
-		return getMessage('Database', 'optimizeTablesSuccess');
+		return lang('Database', 'optimizeTablesSuccess');
 	}
 	
 	/******************************************************************************************
@@ -217,7 +217,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			}
 		}
 				
-		return getMessage('Database', 'repairTablesSuccess');
+		return lang('Database', 'repairTablesSuccess');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -325,7 +325,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 		
 		file_put_contents($path.$fileName, $return);
 		
-		return getMessage('Database', 'backupTablesSuccess');
+		return lang('Database', 'backupTablesSuccess');
 	}
 	
 	//----------------------------------------------------------------------------------------------------

@@ -79,7 +79,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($test)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'test'));
+			return Error::set('Error', 'stringParameter', 'test');
 		}
 		
 		// Kaç test kullanıldığını hesaplamak için
@@ -116,7 +116,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($test) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'test'));
+			return Error::set('Error', 'stringParameter', 'test');
 		}
 		
 		$test = $test."_end";
@@ -149,7 +149,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{   
 		if( ! is_string($result) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'result'));
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		if( ! is_numeric($decimal) ) 
 		{
@@ -181,7 +181,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($result) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'result'));
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		
 		if( empty($result) )
@@ -210,7 +210,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($result) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'result'));
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		
 		if( empty($result) )
@@ -239,7 +239,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($result) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'result'));
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		
 		$resend  = $result."_end";

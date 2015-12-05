@@ -59,8 +59,8 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(pattern)'));
-			Error::set(lang('Error', 'stringParameter', '2.(str)'));	
+			Error::set('Error', 'stringParameter', '1.(pattern)');
+			Error::set('Error', 'stringParameter', '2.(str)');	
 			
 			return false;
 		}	
@@ -100,8 +100,8 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(pattern)'));
-			Error::set(lang('Error', 'stringParameter', '2.(str)'));	
+			Error::set('Error', 'stringParameter', '1.(pattern)');
+			Error::set('Error', 'stringParameter', '2.(str)');	
 			
 			return false;
 		}	
@@ -142,9 +142,9 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($rep) || ! is_string($str) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(pattern)'));
-			Error::set(lang('Error', 'stringParameter', '2.(rep)'));
-			Error::set(lang('Error', 'stringParameter', '3.(str)'));	
+			Error::set('Error', 'stringParameter', '1.(pattern)');
+			Error::set('Error', 'stringParameter', '2.(rep)');
+			Error::set('Error', 'stringParameter', '3.(str)');	
 			
 			return false;
 		}
@@ -173,7 +173,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "(".$str.")";
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "{".$str."}";
@@ -221,7 +221,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "[".$str."]";
@@ -239,7 +239,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return preg_quote($data, $delimiter);

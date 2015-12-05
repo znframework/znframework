@@ -44,7 +44,7 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	{
 		if( ! is_string($clock) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'clock'));
+			return Error::set('Error', 'stringParameter', 'clock');
 		}
 		
 		return strftime($clock);	
@@ -81,7 +81,7 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	{	
 		if( ! is_string($exp) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'exp'));
+			return Error::set('Error', 'stringParameter', 'exp');
 		}
 		
 		$chars = $this->config['setTimeFormatChars'];

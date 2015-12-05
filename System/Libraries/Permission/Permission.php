@@ -71,7 +71,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 		// Parametrelerin kontrolleri yapılıyor.
 		if( ! is_numeric($roleId) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'roleId'));	
+			return Error::set('Error', 'numericParameter', 'roleId');	
 		}
 		if( ! is_scalar($process) ) 
 		{
@@ -200,7 +200,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	{
 		if( ! is_numeric($roleId) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'roleId'));	
+			return Error::set('Error', 'numericParameter', 'roleId');	
 		}
 		
 		$this->permission = $this->config['page'];

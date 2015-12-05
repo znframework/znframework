@@ -23,7 +23,7 @@ class __USE_STATIC_ACCESS__CDN implements CDNInterface
 	{
 		if( ! is_string($name) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'symbolName'));
+			return Error::set('Error', 'stringParameter', 'symbolName');
 		}
 		
 		$data = array_change_key_case(Config::get('Cdn', $configName));

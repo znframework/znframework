@@ -79,7 +79,7 @@ trait SessionTrait
 	{
 		if( ! isChar($name) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'name'));
+			Error::set('Error', 'valueParameter', 'name');
 			return $this;
 		}
 		
@@ -100,7 +100,7 @@ trait SessionTrait
 	{
 		if( ! ( isHash($name) || isHash($value) ) )
 		{
-			Error::set(lang('Error', 'hashParameter', 'name | value'));
+			Error::set('Error', 'hashParameter', 'name | value');
 			return $this;		
 		}
 		
@@ -121,7 +121,7 @@ trait SessionTrait
 	{
 		if( ! isHash($hash))
 		{
-			Error::set(lang('Error', 'hashParameter', 'hash'));
+			Error::set('Error', 'hashParameter', 'hash');
 			return $this;	
 		}
 		
@@ -141,7 +141,7 @@ trait SessionTrait
 	{
 		if( ! is_bool($regenerate) )
 		{
-			Error::set(lang('Error', 'booleanParameter', 'regenerate'));
+			Error::set('Error', 'booleanParameter', 'regenerate');
 			return $this;		
 		}
 		

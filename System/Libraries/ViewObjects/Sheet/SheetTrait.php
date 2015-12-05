@@ -108,7 +108,7 @@ trait SheetTrait
 	{
 		if( ! isChar($selector) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'selector'));
+			Error::set('Error', 'valueParameter', 'selector');
 			return $this;	
 		}
 

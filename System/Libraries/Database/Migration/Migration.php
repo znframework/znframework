@@ -331,7 +331,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			return Error::set(lang('File', 'alreadyFileError', $file));	
+			return Error::set('File', 'alreadyFileError', $file);	
 		}
 	}
 	
@@ -378,7 +378,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			return Error::set(lang('Folder', 'notFoundError', $this->path));	
+			return Error::set('Folder', 'notFoundError', $this->path);	
 		}
 	}
 	
@@ -463,7 +463,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( (int)$numeric > 999 || (int)$numeric < 0 )
 		{
-			return Error::set(lang('Error', 'invalidVersion', $numeric));
+			return Error::set('Error', 'invalidVersion', $numeric);
 		}
 	
 		switch( $length )

@@ -60,7 +60,7 @@ class __USE_STATIC_ACCESS__JQ
 	{
 		if( ! isChar($selector) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'selector'));
+			Error::set('Error', 'valueParameter', 'selector');
 			return $this;	
 		}
 		
@@ -92,7 +92,7 @@ class __USE_STATIC_ACCESS__JQ
 	{
 		if( ! is_string($property) || empty($property) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'property'));	
+			return Error::set('Error', 'stringParameter', 'property');	
 		}
 
 		return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");

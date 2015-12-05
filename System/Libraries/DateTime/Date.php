@@ -75,7 +75,7 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 	{
 		if( ! is_string($exp) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'exp'));
+			return Error::set('Error', 'stringParameter', 'exp');
 		}
 
 		$chars = $this->config['setDateFormatChars'];

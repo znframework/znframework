@@ -40,7 +40,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, $array, $length);
@@ -56,7 +56,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, false, $length);
@@ -72,7 +72,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(data)'));
+			return Error::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, true, $length);

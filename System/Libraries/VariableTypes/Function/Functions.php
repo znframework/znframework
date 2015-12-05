@@ -29,12 +29,12 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	{
 		if( ! is_callable($callback) )
 		{
-			return Error::set(lang('Error', 'callableParameter', '1.(callback)'));	
+			return Error::set('Error', 'callableParameter', '1.(callback)');	
 		}
 		
 		if( ! is_array($params) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '2.(params)'));	
+			return Error::set('Error', 'arrayParameter', '2.(params)');	
 		}
 		
 		return call_user_func_array($callback, $params);		
@@ -61,12 +61,12 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	{
 		if( ! is_callable($callback) )
 		{
-			return Error::set(lang('Error', 'callableParameter', '1.(callback)'));	
+			return Error::set('Error', 'callableParameter', '1.(callback)');	
 		}
 		
 		if( ! is_array($params) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '2.(params)'));	
+			return Error::set('Error', 'arrayParameter', '2.(params)');	
 		}
 		
 		return forward_static_call_array($callback, $params);		

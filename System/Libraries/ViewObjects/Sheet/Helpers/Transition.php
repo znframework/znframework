@@ -29,7 +29,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($property))
 		{
-			Error::set(lang('Error', 'valueParameter', 'property'));
+			Error::set('Error', 'valueParameter', 'property');
 			return $this;	
 		}
 		
@@ -53,7 +53,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($duration))
 		{
-			Error::set(lang('Error', 'valueParameter', 'duration'));
+			Error::set('Error', 'valueParameter', 'duration');
 			return $this;	
 		}
 		
@@ -82,7 +82,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($delay) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'delay'));
+			Error::set('Error', 'valueParameter', 'delay');
 			return $this;	
 		}
 		
@@ -111,7 +111,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($easing))
 		{
-			Error::set(lang('Error', 'valueParameter', 'easing'));
+			Error::set('Error', 'valueParameter', 'easing');
 			return $this;	
 		}
 		

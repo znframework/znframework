@@ -34,7 +34,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		$str = preg_replace('/\s+/', '', $str);
@@ -59,7 +59,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		$str = trim($str, "/");
@@ -106,8 +106,8 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(str)'));
-			Error::set(lang('Error', 'charsetParameter', '2.(encoding)'));
+			Error::set('Error', 'stringParameter', '1.(str)');
+			Error::set('Error', 'charsetParameter', '2.(encoding)');
 			
 			return false;
 		}
@@ -133,8 +133,8 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(str)'));
-			Error::set(lang('Error', 'charsetParameter', '2.(encoding)'));
+			Error::set('Error', 'stringParameter', '1.(str)');
+			Error::set('Error', 'charsetParameter', '2.(encoding)');
 			
 			return false;
 		}
@@ -160,8 +160,8 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			Error::set(lang('Error', 'stringParameter', '1.(str)'));
-			Error::set(lang('Error', 'charsetParameter', '2.(encoding)'));
+			Error::set('Error', 'stringParameter', '1.(str)');
+			Error::set('Error', 'charsetParameter', '2.(encoding)');
 			
 			return false;
 		}
@@ -227,7 +227,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return mb_substr($str, $starting, $count, $encoding);
@@ -256,7 +256,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || ! is_string($needle) || ! is_string($type) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str) & 2.(neddle) & 3.($type)'));
+			return Error::set('Error', 'stringParameter', '1.(str) & 2.(neddle) & 3.($type)');
 		}
 		
 		if( $type === "str" || $type === "string" )
@@ -301,7 +301,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		if( ! is_scalar($shuffle) || empty($shuffle) ) 
@@ -344,7 +344,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		if( ! is_scalar($char) ) 
@@ -374,12 +374,12 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(str)'));
+			return Error::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		if( ! is_array($array) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', '3.(array)'));
+			return Error::set('Error', 'arrayParameter', '3.(array)');
 		}
 		
 		if( ! empty($delimiter) )
@@ -423,7 +423,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($string) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));
+			return Error::set('Error', 'stringParameter', '1.(string)');
 		}
 		
 		if( $case === true )
@@ -450,7 +450,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($string) || ! is_string($split) ) 
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(string) & 2.(split)'));
+			return Error::set('Error', 'scalarParameter', '1.(string) & 2.(split)');
 		}
 		
 		return explode($split, $string);
@@ -469,7 +469,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_numeric($ascii) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', '1.(ascii)'));
+			return Error::set('Error', 'numericParameter', '1.(ascii)');
 		}
 		
 		return chr($ascii);
@@ -488,7 +488,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($string) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));
+			return Error::set('Error', 'stringParameter', '1.(string)');
 		}
 		
 		return ord($string);
@@ -508,7 +508,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($string) || ! is_string($addDifferentChars) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string) & 2.(addDifferentChars)'));
+			return Error::set('Error', 'stringParameter', '1.(string) & 2.(addDifferentChars)');
 		}
 		
 		$return = addslashes($string);
@@ -534,7 +534,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_string($string) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));
+			return Error::set('Error', 'stringParameter', '1.(string)');
 		}
 		
 		return stripslashes(stripcslashes($string));
@@ -553,7 +553,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(string)'));
+			return Error::set('Error', 'scalarParameter', '1.(string)');
 		}
 		
 		return mb_strlen($string, $encoding);
@@ -573,7 +573,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_scalar($string) || ! is_scalar($salt) ) 
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(string) & 2.(salt)'));
+			return Error::set('Error', 'scalarParameter', '1.(string) & 2.(salt)');
 		}
 		
 		return crypt($string, $salt);
@@ -593,7 +593,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(string)'));
+			return Error::set('Error', 'scalarParameter', '1.(string)');
 		}
 		
 		return str_repeat($string, $count);
@@ -613,7 +613,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	{
 		if( ! is_scalar($table) || ! is_scalar($quote) ) 
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(table) & 2.(quote)'));
+			return Error::set('Error', 'scalarParameter', '1.(table) & 2.(quote)');
 		}
 		
 		return get_html_translation_table(Convert::toConstant($table, 'HTML_'), Convert::toConstant($quote, 'ENT_'));

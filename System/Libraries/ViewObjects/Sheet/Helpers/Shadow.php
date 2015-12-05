@@ -37,7 +37,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'val'));
+			Error::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -84,7 +84,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'val'));
+			Error::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -131,7 +131,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'val'));
+			Error::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -160,7 +160,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'val'));
+			Error::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -208,7 +208,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val))
 		{
-			Error::set(lang('Error', 'valueParameter', 'val'));
+			Error::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -237,7 +237,7 @@ class CSSShadow
 	{
 		if( ! is_string($val))
 		{
-			Error::set(lang('Error', 'stringParameter', 'val'));
+			Error::set('Error', 'stringParameter', 'val');
 			return $this;	
 		}
 		

@@ -43,7 +43,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
@@ -98,7 +98,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['injectionBadChars'];
@@ -135,7 +135,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string))
 		{ 
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		return stripslashes(trim($string));
@@ -154,7 +154,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['scriptBadChars'];
@@ -192,7 +192,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -230,7 +230,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -263,7 +263,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$phpTagChars = array
@@ -284,7 +284,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$phpTagChars = array
@@ -305,7 +305,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$nailChars = array
@@ -328,7 +328,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$nailChars = array
@@ -351,7 +351,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -368,7 +368,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -385,7 +385,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}	
 		
 		return addslashes($data);
@@ -400,7 +400,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}	
 		
 		return stripslashes($data);

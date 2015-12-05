@@ -52,7 +52,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		// Parametre konrolleri sağlanıyor.
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));	
+			return Error::set('Error', 'stringParameter', 'string');	
 		}
 		
 		$eol = eol();

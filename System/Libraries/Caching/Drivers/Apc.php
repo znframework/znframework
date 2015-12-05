@@ -190,7 +190,7 @@ class ApcDriver implements CacheInterface
 	{
 		if ( ! extension_loaded('apc') || ! ini_get('apc.enabled') )
 		{
-			return Error::set(lang('Cache', 'unsupported', 'Apc'));
+			return Error::set('Cache', 'unsupported', 'Apc');
 		}
 		
 		return true;

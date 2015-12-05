@@ -53,7 +53,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'dbname'));
+			return Error::set('Error', 'stringParameter', 'dbname');
 		}
 
 		$query  = 'CREATE DATABASE '.$dbname;	
@@ -76,7 +76,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'dbname'));
+			return Error::set('Error', 'stringParameter', 'dbname');
 		}
 		
 		$query  = 'DROP DATABASE '.$dbname;	
@@ -127,12 +127,12 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($condition) || empty($condition) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'condition'));
+			return Error::set('Error', 'arrayParameter', 'condition');
 		}
 		
 		$keys = array_keys($condition);
@@ -188,7 +188,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		$query  = 'DROP TABLE '.$table;
@@ -277,12 +277,12 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($name) || empty($name) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'name'));
+			return Error::set('Error', 'stringParameter', 'name');
 		}
 		
 		if( ! is_string($newName) || empty($newName) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'newName'));
+			return Error::set('Error', 'stringParameter', 'newName');
 		}
 		
 		$query  = 'ALTER TABLE '.$name.' RENAME TO '.$this->prefix.$newName;
@@ -319,7 +319,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		$truncate = $this->db->truncate() !== false
@@ -377,12 +377,12 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($condition) || empty($condition) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'condition'));
+			return Error::set('Error', 'arrayParameter', 'condition');
 		}
 		
 		$addColumn = $this->db->addColumn() !== false
@@ -455,12 +455,12 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! ( is_string($column) || is_array($column) ) || empty($column) ) 
 		{
-			return Error::set(lang('Error', 'stringArrayParameter', 'column'));
+			return Error::set('Error', 'stringArrayParameter', 'column');
 		}
 		
 		$dropColumn = $this->db->dropColumn() !== false
@@ -524,12 +524,12 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($condition) || empty($condition) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'condition'));
+			return Error::set('Error', 'arrayParameter', 'condition');
 		}
 		
 		$modifyColumn = $this->db->modifyColumn() !== false
@@ -602,12 +602,12 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'table'));
+			return Error::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($condition) || empty($condition) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'condition'));
+			return Error::set('Error', 'arrayParameter', 'condition');
 		}
 		
 		$renameColumn = $this->db->renameColumn() !== false

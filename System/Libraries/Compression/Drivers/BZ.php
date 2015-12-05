@@ -26,19 +26,19 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(file)'));	
+			return Error::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		if( ! is_scalar($data) )
 		{
-			return Error::set(lang('Error', 'valueParameter', '2.(data)'));	
+			return Error::set('Error', 'valueParameter', '2.(data)');	
 		}
 		
 		$open = bzopen($file, 'w');
 		
 		if( empty($open) )
 		{
-			return Error::set(lang('Error', 'fileNotFound', $file));	
+			return Error::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = bzwrite($open, $data, strlen($data));
@@ -58,19 +58,19 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(file)'));	
+			return Error::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '2.(length)'));	
+			return Error::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		$open = bzopen($file, 'r');
 		
 		if( empty($open) )
 		{
-			return Error::set(lang('Error', 'fileNotFound', $file));	
+			return Error::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = bzread($open, $length);
@@ -90,12 +90,12 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Error::set(lang('Error', 'valueParameter', '1.(data)'));	
+			return Error::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($blockSize) || ! is_numeric($workFactor) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '2.(blockSize) & 3.(workFactor)'));	
+			return Error::set('Error', 'numericParameter', '2.(blockSize) & 3.(workFactor)');	
 		}
 		
 		return bzcompress($data, $blockSize, $workFactor);
@@ -111,12 +111,12 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Error::set(lang('Error', 'valueParameter', '1.(data)'));	
+			return Error::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($small) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '2.(small)'));	
+			return Error::set('Error', 'numericParameter', '2.(small)');	
 		}
 		
 		return bzdecompress($data, $small);

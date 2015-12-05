@@ -83,7 +83,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 		{
 			if( ! isChar($name) )
 			{
-				Error::set(lang('Error', 'valueParameter', 'name'));
+				Error::set('Error', 'valueParameter', 'name');
 				return false;
 			}
 			
@@ -155,7 +155,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Error::set(lang('Error', 'valueParameter', 'name'));	
+			return Error::set('Error', 'valueParameter', 'name');	
 		}
 		
 		if( isset($this->encode['name']) )
@@ -211,7 +211,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Error::set(lang('Error', 'valueParameter', 'name'));	
+			return Error::set('Error', 'valueParameter', 'name');	
 		}	
 		
 		$sessionConfig = $this->config;

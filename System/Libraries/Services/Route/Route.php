@@ -91,15 +91,12 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 				{
 					// Sayfa bilgisine erişilemezse hata bildir.
 					if( ! Config::get('Route', 'show404') )
-					{				
-						// Hatayı ekrana yazdır.
-						echo Error::message('Error', 'callUserFuncArrayError', $functionRun);
-						
+					{		
 						// Hatayı rapor et.
-						report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
-						
-						// Çalışmayı durdur.
-						return false;
+						report('Error', lang('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
+								
+						// Hatayı ekrana yazdır.
+						die(Error::message('Error', 'callUserFuncArrayError', $functionRun));
 					}
 					else
 					{

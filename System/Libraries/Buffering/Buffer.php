@@ -35,7 +35,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return Error::set(lang('Error', 'fileParameter', 'file'));	
+			return Error::set('Error', 'fileParameter', 'file');	
 		}
 		
 		ob_start();
@@ -62,8 +62,8 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_callable($func) || ! is_array($params) )
 		{
-			Error::set(lang('Error', 'callableParameter', 'func'));	
-			Error::set(lang('Error', 'arrayParameter', 'params'));
+			Error::set('Error', 'callableParameter', 'func');	
+			Error::set('Error', 'arrayParameter', 'params');
 			
 			return false;	
 		}
@@ -108,8 +108,8 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_scalar($name) || ! is_array($params) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'name'));
-			Error::set(lang('Error', 'arrayParameter', 'params'));	
+			Error::set('Error', 'valueParameter', 'name');
+			Error::set('Error', 'arrayParameter', 'params');	
 			
 			return false;
 		}
@@ -140,7 +140,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_scalar($name) )
 		{
-			return Error::set(lang('Error', 'valueParameter', 'name'));	
+			return Error::set('Error', 'valueParameter', 'name');	
 		}
 		
 		return Session::select('OB_DATAS_'.$name);
@@ -158,7 +158,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_scalar($name) )
 		{
-			return Error::set(lang('Error', 'valueParameter', 'name'));		
+			return Error::set('Error', 'valueParameter', 'name');		
 		}
 		
 		return Session::delete('OB_DATAS_'.$name);

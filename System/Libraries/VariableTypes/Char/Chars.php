@@ -32,7 +32,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_alnum($string);		
@@ -51,7 +51,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_alpha($string);		
@@ -70,7 +70,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_scalar($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_digit($string);		
@@ -89,7 +89,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_graph($string);		
@@ -108,7 +108,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_lower($string);		
@@ -127,7 +127,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_upper($string);		
@@ -146,7 +146,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_print($string);		
@@ -166,7 +166,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_punct($string);		
@@ -185,7 +185,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_space($string);		
@@ -204,7 +204,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_xdigit($string);		
@@ -223,7 +223,7 @@ class __USE_STATIC_ACCESS__Chars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(string)'));	
+			return Error::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_cntrl($string);		

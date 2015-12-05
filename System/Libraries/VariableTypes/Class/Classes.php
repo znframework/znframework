@@ -33,12 +33,12 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		if( ! is_object($object) )
 		{
-			return Error::set(lang('Error', 'objectParameter', '2.(object)'));	
+			return Error::set('Error', 'objectParameter', '2.(object)');	
 		}
 	
 		return is_a($object, $prefix.$className);
@@ -59,7 +59,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 	
 		return is_subclass_of($object, $prefix.$className);
@@ -79,7 +79,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) || ! is_string($method) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.($className) & 2.(method)'));	
+			return Error::set('Error', 'stringParameter', '1.($className) & 2.(method)');	
 		}
 	
 		return method_exists(uselib($prefix.$className), $method);
@@ -99,7 +99,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) || ! is_string($property) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.($className) & 2.(property)'));	
+			return Error::set('Error', 'stringParameter', '1.($className) & 2.(property)');	
 		}
 	
 		return  property_exists(uselib($prefix.$className), $property);
@@ -119,7 +119,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		return get_class_methods($prefix.$className);
@@ -139,7 +139,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return Error::set(lang('Error', 'stringParameter', '1.(className)'));	
+			return Error::set('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		return get_class_vars($prefix.$className);
@@ -159,7 +159,7 @@ class __USE_STATIC_ACCESS__Classes implements ClassesInterface
 	{
 		if( ! is_object($var) )
 		{
-			return Error::set(lang('Error', 'objectParameter', '1.(var)'));	
+			return Error::set('Error', 'objectParameter', '1.(var)');	
 		}
 		
 		return str_replace($prefix, '', get_class($var));

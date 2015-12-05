@@ -36,7 +36,7 @@ class CSSManipulation
 	{		
 		if( ! is_array($attr) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'attr'));	
+			return Error::set('Error', 'arrayParameter', 'attr');	
 		}
 
 		$str  = $this->selector."{".eol();	
@@ -113,7 +113,7 @@ class CSSManipulation
 	{
 		if( ! is_string($selector) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'selector'));
+			return Error::set('Error', 'stringParameter', 'selector');
 		}
 		
 		$space = '\s*';
@@ -143,8 +143,8 @@ class CSSManipulation
 	{
 		if( ! is_string($selector) || ! is_array($attr) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'selector'));	
-			Error::set(lang('Error', 'arrayParameter', 'attr'));
+			Error::set('Error', 'stringParameter', 'selector');	
+			Error::set('Error', 'arrayParameter', 'attr');
 			
 			return false;
 		}	

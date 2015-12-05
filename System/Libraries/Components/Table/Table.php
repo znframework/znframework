@@ -65,7 +65,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_array($attributes))
 		{
-			Error::set(lang('Error', 'arrayParameter', 'attributes'));
+			Error::set('Error', 'arrayParameter', 'attributes');
 			return $this;	
 		}
 		
@@ -87,7 +87,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_string($align) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'align'));
+			Error::set('Error', 'stringParameter', 'align');
 			return $this;	
 		}
 		
@@ -154,7 +154,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_numeric($spacing) || ! is_numeric($padding) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'spacing & padding'));
+			Error::set('Error', 'numericParameter', 'spacing & padding');
 			return $this;	
 		}
 		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
@@ -174,7 +174,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_numeric($spacing) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'spacing'));
+			Error::set('Error', 'numericParameter', 'spacing');
 			return $this;	
 		}
 		
@@ -194,7 +194,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_numeric($padding) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'padding'));
+			Error::set('Error', 'numericParameter', 'padding');
 			return $this;	
 		}
 		
@@ -215,13 +215,13 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_numeric($border) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'border'));
+			Error::set('Error', 'numericParameter', 'border');
 			return $this;	
 		}
 		
 		if( ! is_string($color) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 		
@@ -242,7 +242,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_numeric($border) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'border'));
+			Error::set('Error', 'numericParameter', 'border');
 			return $this;	
 		}
 		
@@ -262,7 +262,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_string($color) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'color'));
+			Error::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 
@@ -282,7 +282,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_scalar($width) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'width'));
+			Error::set('Error', 'valueParameter', 'width');
 			return $this;	
 		}
 		
@@ -302,7 +302,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_scalar($height) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'height'));
+			Error::set('Error', 'valueParameter', 'height');
 			return $this;	
 		}
 		
@@ -323,7 +323,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_scalar($height) || ! is_scalar($width) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'width & height'));
+			Error::set('Error', 'valueParameter', 'width & height');
 			return $this;	
 		}
 		
@@ -344,7 +344,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_string($css) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'css'));
+			Error::set('Error', 'stringParameter', 'css');
 			return $this;	
 		}
 		
@@ -393,7 +393,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_string($background) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'background'));
+			Error::set('Error', 'stringParameter', 'background');
 			return $this;	
 		}
 		
@@ -413,7 +413,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	{
 		if( ! is_string($bgColor) )
 		{
-			Error::set(lang('Error', 'stringParameter', 'bgColor'));
+			Error::set('Error', 'stringParameter', 'bgColor');
 			return $this;	
 		}
 		

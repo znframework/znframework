@@ -153,15 +153,12 @@ if( file_exists($isFile) )
 		{
 			// Sayfa bilgisine erişilemezse hata bildir.
 			if( ! Config::get('Route', 'show404') )
-			{				
-				// Hatayı ekrana yazdır.
-				echo Error::message('Error', 'callUserFuncArrayError', $function);
-				
+			{		
 				// Hatayı rapor et.
-				report('Error', getMessage('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
-				
-				// Çalışmayı durdur.
-				exit;
+				report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');	
+					
+				// Hatayı ekrana yazdır.
+				die(Error::message('Error', 'callUserFuncArrayError', $function));
 			}
 			else
 			{
@@ -179,14 +176,11 @@ else
 	}
 	else
 	{
-		// Hatayı ekrana yazdır.
-		echo Error::message('Error', 'notIsFileError', $isFile);
-		
 		// Hatayı rapor et.
-		report('Error', getMessage('Error', 'notIsFileError'), 'SystemNotIsFileError');
+		report('Error', lang('Error', 'notIsFileError', $isFile), 'SystemNotIsFileError');
 		
-		// Çalışmayı durdur.
-		exit;
+		// Hatayı ekrana yazdır.
+		die(Error::message('Error', 'notIsFileError', $isFile));
 	}		
 }
 

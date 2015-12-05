@@ -30,12 +30,12 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	{
 		if( ! is_numeric($bytes) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'bytes'));
+			return Error::set('Error', 'numericParameter', 'bytes');
 		}
 		
 		if( ! is_numeric($precision) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'precision'));		
+			return Error::set('Error', 'numericParameter', 'precision');		
 		}
 		
 		if( ! is_bool($unit) ) 
@@ -128,7 +128,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'money'));
+			return Error::set('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 
@@ -190,7 +190,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	{
 		if( ! is_numeric($count) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'count'));
+			return Error::set('Error', 'numericParameter', 'count');
 		}
 		
 		if( ! is_string($type) ) 

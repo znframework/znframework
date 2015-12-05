@@ -112,7 +112,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_numeric($time))
 		{
-			Error::set(lang('Error', 'numericParameter', 'time'));
+			Error::set('Error', 'numericParameter', 'time');
 			return $this;	
 		}
 		
@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_string($path))
 		{
-			Error::set(lang('Error', 'stringParameter', 'path'));
+			Error::set('Error', 'stringParameter', 'path');
 			return $this;	
 		}
 		
@@ -160,7 +160,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_string($domain))
 		{
-			Error::set(lang('Error', 'stringParameter', 'domain'));
+			Error::set('Error', 'stringParameter', 'domain');
 			return $this;	
 		}
 		
@@ -185,7 +185,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_bool($secure))
 		{
-			Error::set(lang('Error', 'booleanParameter', 'secure'));
+			Error::set('Error', 'booleanParameter', 'secure');
 			return $this;	
 		}
 		
@@ -211,7 +211,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_bool($httpOnly))
 		{
-			Error::set(lang('Error', 'booleanParameter', 'httpOnly'));
+			Error::set('Error', 'booleanParameter', 'httpOnly');
 			return $this;	
 		}
 		
@@ -247,7 +247,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 		{
 			if( ! isChar($name) )
 			{
-				return Error::set(lang('Error', 'valueParameter', 'name'));
+				return Error::set('Error', 'valueParameter', 'name');
 			}
 			
 			$this->name($name);
@@ -309,8 +309,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 		}
 		else
 		{
-			$this->error = getMessage('Cookie', 'setError');
-			return Error::set($this->error);
+			return Error::set('Cookie', 'setError');
 		}
 	} 
 	
@@ -338,7 +337,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_scalar($name) )
 		{
-			return Error::set(lang('Error', 'valueParameter', 'name'));	
+			return Error::set('Error', 'valueParameter', 'name');	
 		}
 		
 		if( empty($name) ) 
@@ -423,7 +422,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Error::set(lang('Error', 'valueParameter', 'name'));	
+			return Error::set('Error', 'valueParameter', 'name');	
 		}
 	
 		$cookieConfig = $this->config;

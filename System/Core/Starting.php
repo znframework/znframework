@@ -13,27 +13,23 @@
 //----------------------------------------------------------------------------------------------------
 // INI Ayarlarını Yapılandırma İşlemi
 //----------------------------------------------------------------------------------------------------
-
 $iniSet = Config::get('Ini', 'settings');
 
 if( ! empty($iniSet) ) 
 {
 	Config::iniSet($iniSet);
 }
-
 //----------------------------------------------------------------------------------------------------
 	
 	
 		
 //----------------------------------------------------------------------------------------------------
 // Htaccess Dosyası Oluşturma İşlemi
-//----------------------------------------------------------------------------------------------------
- 	
+//----------------------------------------------------------------------------------------------------	
 if( Config::get('Htaccess','createFile') === true ) 
 {
 	createHtaccessFile();
 }	
-
 //----------------------------------------------------------------------------------------------------
 
 
@@ -41,7 +37,6 @@ if( Config::get('Htaccess','createFile') === true )
 //----------------------------------------------------------------------------------------------------
 // Fonksiyon Yükleme İşlemleri
 //----------------------------------------------------------------------------------------------------
- 
 $starting = Config::get('Starting');
 
 if( $starting['autoload']['status'] === true ) 
@@ -76,11 +71,13 @@ if( ! empty($starting['handload']) )
 //----------------------------------------------------------------------------------------------------
 // Composer Autoload İşlemi
 //----------------------------------------------------------------------------------------------------
-	
 $composer = Config::get('Composer', 'autoload');
 
 if( $composer === true )
 {
+	//------------------------------------------------------------------------------------------------
+	// Varsayılan Yol: vendor/autoload.php
+	//------------------------------------------------------------------------------------------------
 	$path = 'vendor/autoload.php';
 	
 	if( file_exists($path) )
@@ -89,20 +86,19 @@ if( $composer === true )
 	}
 	else
 	{
-		report('Error', getMessage('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+		report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 		
-		die(getErrorMessage('Error', 'fileNotFound', $path));
+		die(Error::message('Error', 'fileNotFound', $path));
 	}
 }
-elseif( file_exists($composer) )
+elseif( is_file($composer) )
 {
 	require_once($composer);
 }
 elseif( ! empty($composer) )
 {
-	report('Error', getMessage('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
+	report('Error', lang('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
 	
-	die(getErrorMessage('Error', 'fileNotFound', $composer));
+	die(Error::message('Error', 'fileNotFound', $composer));
 }
-
 //----------------------------------------------------------------------------------------------------	

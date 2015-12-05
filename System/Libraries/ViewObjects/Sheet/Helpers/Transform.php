@@ -102,7 +102,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($argument) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'argument'));
+			Error::set('Error', 'valueParameter', 'argument');
 			return $this;
 		}
 		
@@ -135,7 +135,7 @@ class CSSTransform
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'x & y'));
+			Error::set('Error', 'numericParameter', 'x & y');
 			return $this;
 		}
 		
@@ -159,7 +159,7 @@ class CSSTransform
 	{	
 		if( ! is_numeric($x) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'x'));
+			Error::set('Error', 'numericParameter', 'x');
 			return $this;
 		}
 		
@@ -183,7 +183,7 @@ class CSSTransform
 	{
 		if( ! is_numeric($y) )
 		{
-			Error::set(lang('Error', 'numericParameter', 'y'));
+			Error::set('Error', 'numericParameter', 'y');
 			return $this;
 		}
 		
@@ -208,7 +208,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) || ! is_scalar($y) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'x & y'));
+			Error::set('Error', 'valueParameter', 'x & y');
 			return $this;
 		}
 		
@@ -241,7 +241,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'x'));
+			Error::set('Error', 'valueParameter', 'x');
 			return $this;
 		}
 		
@@ -270,7 +270,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($y) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'y'));
+			Error::set('Error', 'valueParameter', 'y');
 			return $this;
 		}
 		
@@ -300,7 +300,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) || ! is_scalar($y) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'x & y'));
+			Error::set('Error', 'valueParameter', 'x & y');
 			return $this;
 		}
 		
@@ -343,7 +343,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'x'));
+			Error::set('Error', 'valueParameter', 'x');
 			return $this;
 		}
 		
@@ -372,7 +372,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($y) )
 		{
-			Error::set(lang('Error', 'valueParameter', 'y'));
+			Error::set('Error', 'valueParameter', 'y');
 			return $this;
 		}
 		

@@ -71,12 +71,12 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(data)'));	
+			return Error::set('Error', 'scalarParameter', '1.(data)');	
 		}
 		
 		if( ! is_array($settings) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '2.(settings)'));	
+			return Error::set('Error', 'arrayParameter', '2.(settings)');	
 		}
 		
 		return $this->crypto->encrypt($data,  $settings);
@@ -105,12 +105,12 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Error::set(lang('Error', 'scalarParameter', '1.(data)'));	
+			return Error::set('Error', 'scalarParameter', '1.(data)');	
 		}
 		
 		if( ! is_array($settings) )
 		{
-			return Error::set(lang('Error', 'arrayParameter', '2.(settings)'));	
+			return Error::set('Error', 'arrayParameter', '2.(settings)');	
 		}
 		
 		return $this->crypto->decrypt($data,  $settings);
@@ -138,7 +138,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	{
 		if( ! is_numeric($length) )
 		{
-			return Error::set(lang('Error', 'numericParameter', '1.(length)'));	
+			return Error::set('Error', 'numericParameter', '1.(length)');	
 		}
 		
 		return $this->crypto->keygen($length);

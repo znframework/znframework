@@ -110,7 +110,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	{
 		if( ! is_array($set) ) 
 		{
-			return Error::set(lang('Error', 'arrayParameter', 'set'));
+			return Error::set('Error', 'arrayParameter', 'set');
 		}
 
 		$this->settingStatus = true;
@@ -208,7 +208,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'booleanParameter', 'convert'));	
+			Error::set('Error', 'booleanParameter', 'convert');	
 		}
 		
 		return $this;
@@ -258,7 +258,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'valueParameter', 'prefix'));		
+			Error::set('Error', 'valueParameter', 'prefix');		
 		}
 		
 		return $this;
@@ -283,7 +283,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'numericParameter', 'maxsize'));		
+			Error::set('Error', 'numericParameter', 'maxsize');		
 		}
 		
 		return $this;
@@ -308,7 +308,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'numericParameter', 'encodeLength'));		
+			Error::set('Error', 'numericParameter', 'encodeLength');		
 		}
 		
 		return $this;
@@ -333,7 +333,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'stringParameter', 'target'));		
+			Error::set('Error', 'stringParameter', 'target');		
 		}
 		
 		return $this;
@@ -358,7 +358,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'stringParameter', 'source'));	
+			Error::set('Error', 'stringParameter', 'source');	
 		}
 		
 		return $this;
@@ -398,7 +398,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		
 		if( ! is_string($fileName) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'fileName'));
+			return Error::set('Error', 'stringParameter', 'fileName');
 		}
 		
 		if( ! is_string($rootDir) ) 

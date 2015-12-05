@@ -122,7 +122,6 @@ class PdoDriver implements DatabaseDriverInterface
 			$this->select_driver  = $subdrivers[1];
 		}
 		
-		
 		if( empty($this->select_driver) ) 
 		{
 			$this->select_driver = 'mysql';
@@ -130,7 +129,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		if( ! in_array($this->select_driver, $this->pdo_subdrivers) )
 		{
-			die(getMessage('Database', 'driverError', $this->select_driver));		
+			die(Error::message('Database', 'driverError', $this->select_driver));		
 		}
 		
 		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	

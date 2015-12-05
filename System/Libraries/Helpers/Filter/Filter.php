@@ -29,7 +29,7 @@ class __USE_STATIC_ACCESS__Filter implements FilterInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return Error::set(lang('Error', 'valueParameter', 'string'));
+			return Error::set('Error', 'valueParameter', 'string');
 		}
 		
 		return str_ireplace($badWords, $changeChar, $string);

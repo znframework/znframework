@@ -179,7 +179,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		// Parametre kontrolleri yapılıyor -------------------------------------------
 		if( ! is_string($fpath) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'fpath'));
+			return Error::set('Error', 'stringParameter', 'fpath');
 		}
 		if( ! is_array($set) )
 		{
@@ -202,18 +202,14 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($filePath) )
 		{
-			$this->error = getMessage('Image', 'notFoundError', $filePath);
-			report('Error', $this->error, 'ImageLibrary');
-			return false;	
+			return Error::set('Image', 'notFoundError', $filePath);	
 		}
 		
 		// Dosyanın uzantısı belirlenen uzantılır dışında
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! $this->isImageFile($filePath) )
 		{
-			$this->error = getMessage('Image', 'notImageFileError', $filePath);
-			report('Error', $this->error, 'ImageLibrary');
-			return false;	
+			return Error::set('Image', 'notImageFileError', $filePath);	
 		}
 		
 		// Ayarlar parametresinde tanımlayan ayarlara
@@ -379,7 +375,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		// Parametre kontrolleri yapılıyor. ------------------------------------------
 		if( ! is_string($path) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'path'));
+			return Error::set('Error', 'stringParameter', 'path');
 		}
 		if( ! is_numeric($width) )
 		{
@@ -391,9 +387,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		}
 		if( empty($path) )
 		{
-			$this->error = getMessage('Image', 'notFoundError', $path);
-			report('Error', $this->error, 'ImageLibrary');
-			return false;	
+			return Error::set('Image', 'notFoundError', $path);	
 		}
 		// ---------------------------------------------------------------------------
 		
@@ -403,9 +397,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			$this->error = getMessage('Image', 'notFoundError', $path);
-			report('Error', $this->error, 'ImageLibrary');
-			return false;	
+			return Error::set('Image', 'notFoundError', $path);	
 		}
 		
 		$x = $g[0]; $y = $g[1];

@@ -256,7 +256,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	{
 		if( ! is_numeric($seg) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'seg'));
+			return Error::set('Error', 'numericParameter', 'seg');
 		}
 		
 		$ok = $seg;

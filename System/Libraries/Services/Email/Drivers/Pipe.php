@@ -33,7 +33,7 @@ class PipeDriver implements EmailDriverInterface
 		
 		if( empty($open) )
 		{
-			return Error::set(lang('Email', 'sendFailureSendmail'));
+			return Error::set('Email', 'sendFailureSendmail');
 		}
 		
 		@fputs($open, $headers);
@@ -43,8 +43,8 @@ class PipeDriver implements EmailDriverInterface
 		
 		if( $status !== 0 )
 		{
-			Error::set(lang('Email', 'exitStatus', $status));
-			Error::set(lang('Email', 'noSocket'));
+			Error::set('Email', 'exitStatus', $status);
+			Error::set('Email', 'noSocket');
 			
 			return false;
 		}
