@@ -43,6 +43,17 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 	
 	use CallUndefinedMethodTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
 	use ErrorControlTrait;
 	
 	// Dosya yolu verisinde düzenleme yapılıyor.

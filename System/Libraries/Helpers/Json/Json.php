@@ -1,21 +1,14 @@
 <?php 
 class __USE_STATIC_ACCESS__Json implements JsonInterface
 {
-	/***********************************************************************************/
-	/* JSON LIBRARY	     					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Json
-	/* Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Json::, $this->Json, zn::$use->Json, uselib('Json')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	use CallUndefinedMethodTrait;
 	

@@ -1,23 +1,29 @@
 <?php
 class __USE_STATIC_ACCESS__Format implements FormatInterface
 {
-	/***********************************************************************************/
-	/* FORMAT LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Format
-	/* Versiyon: 1.4
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: format::, $this->format, zn::$use->format, uselib('format')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	// Function: byte_formatter()
 	// İşlev: Girilen sayısal veriyi bayt biçimine çevirir.
