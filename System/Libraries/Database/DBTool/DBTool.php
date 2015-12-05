@@ -38,16 +38,16 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 	// Database Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
-	/******************************************************************************************
-	* LIST DATABASES                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Database listesini öğrenmek için kullanılır.  					      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->listDatabases();        		 						  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// List Databases
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Hostunuda yer var olan veritabanlarını listeler.
+	//
+	// @param  void
+	// @return array
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function listDatabases()
 	{
 		if( $this->db->listDatabases() !== false )
@@ -83,16 +83,16 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 	// Table Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
-	/******************************************************************************************
-	* LIST TABLES                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Tablo listesini öğrenmek için kullanılır.  					      	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->listTables();        		 							  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// List Tables
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bağlı olduğunuz veritabanına ait tabloları listeler.
+	//
+	// @param  void
+	// @return array
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function listTables()
 	{
 		if( $this->db->listTables() !== false )
@@ -120,17 +120,16 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 		return $newTables;
 	}
 	
-	/******************************************************************************************
-	* OPTIMIZE TABLES                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Tabloları optimize etmek için kullanılır.  					    	  |
-	|															                              |
-    | Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/array var @table => Optimize edilmesi istenilen tablo listesi. Varsayılan:*   |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->optimizeTables("tbl1, tbl2"); 					      |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Optimize Tables
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bağlı olduğunuz veritabanına ait tabloları optimize eder.
+	//
+	// @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+	// @return string message
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function optimizeTables($table = '*')
 	{
 		$this->db->query("SHOW TABLES");
@@ -170,17 +169,16 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 		return lang('Database', 'optimizeTablesSuccess');
 	}
 	
-	/******************************************************************************************
-	* REPAIR TABLES                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Tabloları onarmak etmek için kullanılır.      	     		    	  |
-	|															                              |
-    | Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/array var @table => Onarılması istenilen tablo listesi. Varsayılan:*          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->repairTables("tbl1, tbl2");        		 			  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Repair Tables
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bağlı olduğunuz veritabanına ait tabloları onarır.
+	//
+	// @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+	// @return string message
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function repairTables($table = '*')
 	{
 		$this->db->query("SHOW TABLES");
@@ -228,19 +226,18 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 	// Backup Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
-	/******************************************************************************************
-	* BACKUP                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanının yedeğini almak için kullanılır.  					      |
-	|															                              |
-    | Parametreler: 3 parametresi vardır.                                              		  |
-	| 1. string/array var @tables => Yedeği alınmak istenen tablo listesi. Varsayılan:*       |
-	| 2. string var @filename => Hangi isimle kaydedileceği. Varsayılan:*       			  |
-	| 3. string var @path => Yedeğin kaydedileceği dizin. Varsayılan:STORAGE_DIR		      |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->backup('*', 'backup');        		 					  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Backup
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bağlı olduğunuz veritabanına ait tablolarınızın yedeğini alır.
+	// Yedek dosyası içerisinde tablo oluşturma veriler ve kayıtlar yer alır.
+	//
+	// @param  mixed  $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+	// @param  string $filename
+	// @return string $path: STORAGE_DIR
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function backup($tables = '*', $fileName = '', $path = STORAGE_DIR)
 	{		
 		if( $this->db->backup($fileName) !== false )
@@ -277,12 +274,15 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 				$table = $this->prefix.$table;
 			}
 			
-		    $this->db->query('SELECT * FROM '.$table);
-
+			// Yedek yüklenirken aynı isimler
+			// var olan tablolar silinir.
 			$return.= 'DROP TABLE IF EXISTS '.$table.';';
+			
+			// Tabloların oluşturulma seması çıkartılır.
 			$this->db->query('SHOW CREATE TABLE '.$table);
 			$fetchRow = $this->db->fetchRow();
 			
+			// Yedeğe eklenecek kayıtlar oluşturuluyor.
 			$this->db->query('SELECT * FROM '.$table);
 			$fetchResult = $this->db->result();
 		
@@ -320,6 +320,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			$fileName = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
 		}
 		
+		// Dosya oluşturuluyor.
 		file_put_contents($path.$fileName, $return);
 		
 		return lang('Database', 'backupTablesSuccess');
