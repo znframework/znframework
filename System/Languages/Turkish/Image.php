@@ -1,14 +1,14 @@
 <?php
-/************************************************************/
-/*                    IMAGE LANGUAGE                        */
-/************************************************************/
-/*
-
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
-$lang['Image']['notFoundError'] = '`%` dosyası bulunamadı!';
+//----------------------------------------------------------------------------------------------------
+// IMAGE
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
+$lang['Image']['notFoundError']     = '`%` dosyası bulunamadı!';
 $lang['Image']['notImageFileError'] = '`%` dosyası resim dosyası değildir!';
 

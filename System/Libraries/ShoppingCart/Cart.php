@@ -1,21 +1,14 @@
 <?php 
-class __USE_STATIC_ACCESS__Cart
+class __USE_STATIC_ACCESS__Cart implements CartInterface
 {
-	/***********************************************************************************/
-	/* CART LIBRARY	     					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Cart
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: cart::, $this->cart, zn::$use->cart, uselib('cart')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Items Dizi Değişkeni
 	 *  
@@ -25,29 +18,32 @@ class __USE_STATIC_ACCESS__Cart
 	 */
 	private $items = array();
 	
-	/* Error Değişkeni
-	 *  
-	 * Sepet işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $error;
-	
 	public function __construct()
 	{
 		if( ! isset($_SESSION) ) session_start();
 	}
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Cart::$method()"));	
-	}
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* INSERT ITEM                                                                             *
@@ -73,15 +69,13 @@ class __USE_STATIC_ACCESS__Cart
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			$this->error = lang('Error', 'emptyParameter', 'product');
-			return Error::set($this->error);	
+			return Error::set('Error', 'emptyParameter', 'product');	
 		}
 		
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			$this->error = lang('Error', 'arrayParameter', 'product');
-			return Error::set($this->error);	
+			return Error::set('Error', 'arrayParameter', 'product');	
 		}
 		
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -125,8 +119,7 @@ class __USE_STATIC_ACCESS__Cart
 		}
 		else
 		{
-			$this->error = getMessage('Cart', 'noDataError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'noDataError');
 		}
 	}
 	
@@ -153,7 +146,7 @@ class __USE_STATIC_ACCESS__Cart
 	{
 		if( empty($code) ) 
 		{
-			return Error::set(lang('Error', 'emptyParameter', 'code'));
+			return Error::set('Error', 'emptyParameter', 'code');
 		}
 		
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -212,8 +205,7 @@ class __USE_STATIC_ACCESS__Cart
 		}
 		else
 		{
-			$this->error = getMessage('Cart', 'noDataError');
-			Error::set($this->error);
+			Error::set('Cart', 'noDataError');
 			return 0;	
 		}
 	}
@@ -238,8 +230,7 @@ class __USE_STATIC_ACCESS__Cart
 		
 		if( empty($this->items) )
 		{
-			$this->error = getMessage('Cart', 'noDataError');
-			Error::set($this->error);
+			Error::set('Cart', 'noDataError');
 			return 0;	
 		}
 		
@@ -286,20 +277,17 @@ class __USE_STATIC_ACCESS__Cart
 	{	
 		if( empty($code) )
 		{
-			$this->error = getMessage('Cart', 'updateCodeError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'updateCodeError');
 		}
 		
 		if( empty($data) )
 		{
-			$this->error = getMessage('Cart', 'updateParameterEmptyError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'updateParameterEmptyError');
 		}
 		
 		if( ! is_array($data) )
 		{
-			$this->error = getMessage('Cart', 'updateArrayParameterError');
-			return Error::set($this->error);
+			return Error::set('Cart', 'updateArrayParameterError');
 		}	
 		
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -372,8 +360,7 @@ class __USE_STATIC_ACCESS__Cart
 	{		
 		if( empty($code) )
 		{
-			$this->error = getMessage('Cart', 'deleteCodeError');
-			return Error::set($this->error);	
+			return Error::set('Cart', 'deleteCodeError');	
 		}
 
 		$this->items = ( isset($_SESSION[md5('cart')]) ) 
@@ -445,7 +432,7 @@ class __USE_STATIC_ACCESS__Cart
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return Error::set(lang('Error', 'numericParameter', 'money'));
+			return Error::set('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 
@@ -490,26 +477,5 @@ class __USE_STATIC_ACCESS__Cart
 		$moneyFormat = substr($moneyFormat,0,-1).','.$remaining.$type;
 		
 		return $moneyFormat;
-	}
-	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Sepet işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.|
-	|     														                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|     														                              |
-	******************************************************************************************/
-	public function error()
-	{
-		if( isset($this->error) )
-		{
-			Error::set($this->error);
-			return $this->error;
-		}
-		else
-		{
-			return false;
-		}
 	}
 }

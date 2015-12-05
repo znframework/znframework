@@ -1,25 +1,23 @@
 <?php
-/************************************************************/
-/*                    SECURITY(GÜVENLİK)                    */
-/************************************************************/
-/*
+//----------------------------------------------------------------------------------------------------
+// SECURITY 
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-/******************************************************************************************
-* SECURITY                                                                                *
-*******************************************************************************************
-| Genel Kullanımı: Sistem güvenliği için oluşturulmuş bir ayar dosyasıdır.			      |						
-******************************************************************************************/
-
-/******************************************************************************************
-* NC ENCODE                                                                               *
-*******************************************************************************************
-| Genel Kullanımı: Security sınıfında kullanılan ncEncode() yönteminin temizlemesi 	  |
-| istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.			      |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Nc Encode
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Security sınıfında kullanılan ncEncode() yönteminin temizlemesi 	  
+// istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.			      						
+//
+//----------------------------------------------------------------------------------------------------
 $config['Security']['ncEncode'] = array 
 (
 		'bad_chars' => array
@@ -35,20 +33,23 @@ $config['Security']['ncEncode'] = array
 		'change_bad_chars' => '[badchars]' // string veya array
 );
 
-/******************************************************************************************
-* URL CHANGE CHARS                                                                        *
-*******************************************************************************************
-| Genel Kullanımı: URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve 		  |
-| değiştirilmesini istediğiniz kelimeler veya imgeler. Anahtar ifade olarak değişmesini   |
-| istediğiniz karakterler, değer olarak değişecek karakterlerin yerini                    |
-| alacak yeni karakterler.																  |
-| NOT: Küçük-Büyük harf duyarlılığı yoktur. 											  |
-| Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri |
-| koymanız gereklidir. Örnek \. Değiştirme işlemi için preg_replace() yöntemi kullanıldığı|
-| için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler 	  |
-| olan / / karakterleri kullanmanıza gerek yoktur. 										  |
-| Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.			     					  |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Url Change Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve 		  
+// değiştirilmesini istediğiniz kelimeler veya imgeler. Anahtar ifade olarak değişmesini   
+// istediğiniz karakterler, değer olarak değişecek karakterlerin yerini                    
+// alacak yeni karakterler.																  
+// NOT: Küçük-Büyük harf duyarlılığı yoktur. 											  
+//
+// Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri 
+// koymanız gereklidir. Örnek \. Değiştirme işlemi için preg_replace() yöntemi kullanıldığı
+// için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler 	  
+// olan / / karakterleri kullanmanıza gerek yoktur. 										 
+// Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.		
+//	     					  				
+//----------------------------------------------------------------------------------------------------
 $config['Security']['urlChangeChars'] = array
 (
 	'<' 	=> '',
@@ -56,11 +57,13 @@ $config['Security']['urlChangeChars'] = array
 	// 'old_chars' => 'change_new_chars'
 ); 
 
-/******************************************************************************************
-* FILE BAD CHARS                                                                          *
-*******************************************************************************************
-| Genel Kullanımı: Dosya isimlerinde tehlike yaratacak karater listesi.			          |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// File Bad Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Dosya isimlerinde tehlike yaratacak karater listesi.			          					
+//
+//----------------------------------------------------------------------------------------------------
 $config['Security']['fileBadChars'] = array
 (
 	'<!--', '-->', '<', '>', '"', "'", '&', '?', '$', '#', '{', '}', '[', ']', '=', ';', '../', '%20', '&22',
@@ -76,11 +79,13 @@ $config['Security']['fileBadChars'] = array
 	'%3d'		// =
 );
 
-/******************************************************************************************
-* URL BAD CHARS                                                                           *
-*******************************************************************************************
-| Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.			          	  |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Url Bad Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.			          	  					
+//
+//----------------------------------------------------------------------------------------------------
 $config['Security']['urlBadChars'] = array
 (
 	'"', "'", '<', '>', "?", '&',
@@ -89,21 +94,25 @@ $config['Security']['urlBadChars'] = array
 	'\\', '../', '%20', '&22'
 );
 
-/******************************************************************************************
-* INJECTION BAD CHARS                                                                     *
-*******************************************************************************************
-| Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Injection Bad Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          					
+//
+//----------------------------------------------------------------------------------------------------
 $config['Security']['injectionBadChars'] = array
 (
 	'or.+\=' => '',
 );
 
-/******************************************************************************************
-* SCRIPT BAD CHARS                                                                        *
-*******************************************************************************************
-| Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Script Bad Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          						
+//
+//----------------------------------------------------------------------------------------------------
 $config['Security']['scriptBadChars'] = array
 (
 	'document\.cookie'	=> 'document&#46;cookie',
@@ -119,11 +128,13 @@ $config['Security']['scriptBadChars'] = array
 	'>' 				=> '&#62;',
 );
 
-/******************************************************************************************
-* REGULAR EXPRESSION BAD CHARS                                                            *
-*******************************************************************************************
-| Genel Kullanımı: Düzenli ifadelerde tehlikeye neden olacak karater listesi.			  |						
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Regex Bad Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Düzenli ifadelerde tehlikeye neden olacak karater listesi.			  					
+//
+//----------------------------------------------------------------------------------------------------
 $config['Security']['regexBadChars'] = array
 (
 	"([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?",

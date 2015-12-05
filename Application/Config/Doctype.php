@@ -1,18 +1,22 @@
 <?php 
-/************************************************************/
-/*                  DOCTYPE(DÖKÜMAN TÜRÜ)                   */
-/************************************************************/
-/*
+//----------------------------------------------------------------------------------------------------
+// DOCTYPE 
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-/******************************************************************************************
-* DOCTYPE                                                                         	  	  *
-*******************************************************************************************
-| Genel Kullanım: Döküman türleri listesi.      			  							  |
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Doctype                                                                         	  	  
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Döküman türleri listesi.      			  							  
+//
+//----------------------------------------------------------------------------------------------------
 $config['Doctype']['xhtml1Strict'] 			= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//TR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
 $config['Doctype']['xhtml1Transitional'] 	= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//TR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 $config['Doctype']['xhtml1Frameset'] 		= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//TR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';

@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZN FRAMEWORK PHP TABANLI KOD ÇATISI</title>
+<link rel="shortcut icon" href="Images/Logo/logo.png" />
+<link type="text/css" rel="stylesheet" href="Styles/Structure.css" />
+<script src="Scripts/Jquery.js"></script>
+<script src="Scripts/Structure.js"></script>
+</head>
+
+<body>
+
+<div id="header">
+	<div header="logo"><a target="pages" href="Pages/welcome.html"><img src="Images/Logo/logo.png" /></a></div>
+	<div header="title" class="title-font white-font-color">ZN FRAMEWORK 2</div>
+</div>
+<div id="center">
+	<div id="left" class="site-bg-color">
+    	<div id="search">
+        	<div search="logo" class="title-font white-font-color"><div type="logo-img"><a target="pages" href="Pages/welcome.html"><img src="Images/Icons/home.png" /></a> </div><div  type="logo-text">ZN Framework 2</div></div>
+        	<div search="text">
+            <form id="search-form" target="pages" action="Pages/search.html" method="get">
+            	<input type="text" name="search-text" id="search-text" value="Döküman ara..." />
+            </form>
+            </div>
+        </div>
+        
+        <div id="menu">
+        	<ul id="home-menu" class="menu-font">
+            	<li><a target="pages" href="Pages/welcome.html">ZN Framework Nedir?</a></li>
+                <li><a target="pages" href="Pages/installation.html">Kurulum Talimatları</a>
+                	<ul id="sub-menu">
+                        <li><a target="pages" href="Pages/installation.html">Kurulum Talimatları</a></li>
+                        <li><a target="pages" href="Pages/directory_structure.html">Dizin ve Dosya Yapısı</a></li>
+                        <li><a target="pages" href="Pages/troubleshooting.html">Sorun Giderme</a></li>
+                   
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/mvc.html">MVC (Model-View-Controller) Kullanımı</a>
+                	<ul id="sub-menu">
+                        <li><a target="pages" href="Pages/mvc_controller.html">Controller(Kontrolcü) Kullanımı</a></li>
+                        <li><a target="pages" href="Pages/mvc_view.html">View(Görünüm) Kullanımı</a></li>
+                        <li><a target="pages" href="Pages/mvc_model.html">Model Kullanımı</a></li>
+                   
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/uri_and_route.html">URI ve Route(Rota) İşlemleri</a>
+                	<ul id="sub-menu">
+                        <li><a target="pages" href="Pages/uri_structure.html">URI Yapıları</a></li>
+                        <li><a target="pages" href="Pages/uri_edit.html">URL Adresini Düzenleme</a></li>
+                        <li><a target="pages" href="Pages/uri_route.html">Route(Yönlendirme) Yapmak</a></li>
+                   
+                    </ul>
+                </li>
+             
+                
+                <li><a target="pages" href="Pages/access_methods.html">Nesne Erişim Yöntemleri</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/access_dynamic.html">Dinamik Erişim($this->class->func())</a></li>
+                        <li><a target="pages" href="Pages/access_static.html">Statik Erişim(class::func())</a></li> 
+                        <li><a target="pages" href="Pages/access_znuse.html">Değişkensel Erişim(zn::$use->class->func())</a></li>
+                        <li><a target="pages" href="Pages/access_this.html">Yöntemsel Erişim(uselib('class')->func())</a></li> 
+                        <li><a target="pages" href="Pages/access_standart.html">Standart Erişim($object = New Class)</a></li>         
+                    </ul>
+                </li>  
+                
+                <li><a target="pages" href="Pages/performance.html">Performans Artırma Önerileri</a></li>
+                
+                <li><a target="pages" href="Pages/pre_constant_and_function.html">Ön Tanımlı Sabitler ve Fonksiyonlar</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/pre_constant.html">Ön Tanımlı Sabitler</a></li>
+                        <li><a target="pages" href="Pages/pre_is_controls.html">Is Kontrol Komutları</a></li>  
+                        <li><a target="pages" href="Pages/pre_output.html">Çıktı Oluşturma Komutları</a></li>  
+                        <li><a target="pages" href="Pages/pre_lang.html">Dil Kullanım Komutları</a></li>   
+                        <li><a target="pages" href="Pages/pre_fix.html">Ön Ek ve Son Ek Komutları</a></li>  
+                        <li><a target="pages" href="Pages/pre_url.html">URL Bilgisi Komutları</a></li>
+                        <li><a target="pages" href="Pages/pre_path.html">Yol Bilgisi Komutları</a></li>
+                        <li><a target="pages" href="Pages/pre_pathinfo.html">Dosya ve Dosya Uzantısı Bilgisi Komutları</a></li>  
+                        <li><a target="pages" href="Pages/pre_redirect.html">Yönlendirme Komutları</a></li>   
+                        <li><a target="pages" href="Pages/pre_server.html">Ip ve Server Komutları</a></li>  
+                        <li><a target="pages" href="Pages/pre_library.html">Kütüphane Kullanım Komutları</a></li>
+                        <li><a target="pages" href="Pages/pre_other.html">Diğer Ön Tanımlı Komutlar</a></li>   
+                    </ul>
+                </li> 
+             
+                <li><a target="pages" href="Pages/autoloader.html">Autoloader(Otomatik Yükleyici) Kullanımı</a></li>
+                
+                <li><a target="pages" href="Pages/masterpage.html">Masterpage(Anasayfa) Kullanımı</a></li>
+                
+                
+                <li><a target="pages" href="Pages/db_dynamic.html">Database(Veritabanı) Kullanımı</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/db_config.html">Database Ayarlarını Yapılandırma</a></li>
+                        <li><a target="pages" href="Pages/db_db.html">Db Sınıfı</a></li>
+                        <li><a target="pages" href="Pages/db_trans.html">Transaction Sorgu Oluşturmak</a></li> 
+                        <li><a target="pages" href="Pages/db_forge.html">DbForge Sınıfı</a></li>  
+                        <li><a target="pages" href="Pages/db_tool.html">DbTool Sınıfı</a></li>
+                        <li><a target="pages" href="Pages/db_different_connect.html">Farklı Bağlantı Oluşturmak</a></li>     
+                        <li><a target="pages" href="Pages/db_migration.html">Migration(Göç) Oluşturmak</a></li>   
+                    </ul>
+                </li>
+                 
+                <li><a target="pages" href="Pages/auth.html">Authentication(Kimlik Doğrulama)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/auth_config.html">Ayarları Yapılandırma</a></li>
+                        <li><a target="pages" href="Pages/auth_user.html">User(Kullanıcı)</a></li>
+                        <li><a target="pages" href="Pages/auth_example.html">Örnek Kullanımlar</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/bench.html">Benchmarking(Performans Karşılaştırma)</a></li>
+                
+                <li><a target="pages" href="Pages/buffer.html">Buffering(Tamponlama)</a></li>
+         
+                <li><a target="pages" href="Pages/caching.html">Caching(Ön Belleleme)</a></li>
+                
+                <li><a target="pages" href="Pages/components.html">Components(Bileşenler)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/component_calendar.html">Calendar(Takvim) Bileşeni</a></li>
+                        <li><a target="pages" href="Pages/component_captcha.html">Captcha(Güvenlik Kodu) Bileşeni</a></li>
+                        <li><a target="pages" href="Pages/component_pagination.html">Pagination(Sayfalama) Bileşeni</a></li> 
+                        <li><a target="pages" href="Pages/component_schedule.html">Schedule(Liste) Bileşeni</a></li>
+                        <li><a target="pages" href="Pages/component_table.html">Table(Tablo) Bileşeni</a></li>
+                        <li><a target="pages" href="Pages/component_terminal.html">Terminal(CMD) Bileşeni</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/compression.html">Compression(Sıkıştırma)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/compression_drivers.html">Sıkıştırma Sürücüleri</a></li>
+                        <li><a target="pages" href="Pages/compression_compress.html">Compress(Sıkıştırma)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/cryptography.html">Cryptography(Şifreleme)</a>
+                    <ul id="sub-menu">
+                    	<li><a target="pages" href="Pages/cryptography_drivers.html">Crypto(Şifreleme) Sürücüleri</a></li>
+                        <li><a target="pages" href="Pages/cryptography_crypto.html">Crypto(Şifreleme)</a></li>
+                        <li><a target="pages" href="Pages/cryptography_encode.html">Encode(Yerel Şifreleme)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/datetime.html">DateTime(Tarih Zaman)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/datetime_date.html">Date(Tarih)</a></li>
+                        <li><a target="pages" href="Pages/datetime_time.html">Time(Zaman)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/email.html">Email Service(E-posta Servisi)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/email_drivers.html">E-posta Sürücüleri</a></li>
+                        <li><a target="pages" href="Pages/email_email.html">Email(E-posta)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/encoding.html">Encoding Support(Kodlama Desteği)</a>
+                    <ul id="sub-menu">
+                    	<li><a target="pages" href="Pages/encoding_ml.html">Multi Language(ML) Çoklu Dil</a></li>
+                        <li><a target="pages" href="Pages/encoding_gettext.html">Gettext(GT)</a></li>
+                        <li><a target="pages" href="Pages/encoding_iconv.html">Iconv(IV)</a></li>
+                        <li><a target="pages" href="Pages/encoding_mb.html">Multi Byte(MB) Çok Baytlı Dizgeler</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/errorhandling.html">Error Handling(Hata Yönetimi)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/errorhandling_error.html">Error(Hata)</a></li>
+                        <li><a target="pages" href="Pages/errorhandling_exceptions.html">Exceptions(İstisnalar)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/filesystem.html">File System(Dosya Sistemi)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/filesystem_download.html">Download(İndirme)</a></li>
+                        <li><a target="pages" href="Pages/filesystem_upload.html">Upload(Yükleme)</a></li>
+                        <li><a target="pages" href="Pages/filesystem_file.html">File(Dosya)</a></li>
+                        <li><a target="pages" href="Pages/filesystem_folder.html">Folder(Dizin)</a></li>
+                        <li><a target="pages" href="Pages/filesystem_znr.html">Record(Kayıt)</a></li>
+                    </ul>
+                </li>
+                
+                 <li><a target="pages" href="Pages/foundations.html">Foundations(Temel Yapılar)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/foundations_import.html">Import(Dahil Etme)</a></li>
+                        <li><a target="pages" href="Pages/foundations_uri.html">URI</a></li>
+                        <li><a target="pages" href="Pages/foundations_method.html">Method(Get, Post, Request)</a></li>
+                        <li><a target="pages" href="Pages/foundations_controller.html">Controller(Kontrolcü)</a></li>
+                        <li><a target="pages" href="Pages/foundations_model.html">Model</a></li>
+                        <li><a target="pages" href="Pages/foundations_driver.html">Driver(Sürücü)</a></li>
+                        <li><a target="pages" href="Pages/foundations_staticaccess.html">StaticAccess(Statik Erişim)</a></li>
+                        <li><a target="pages" href="Pages/foundations_repair.html">Repair(Tadilat)</a></li>
+                        <li><a target="pages" href="Pages/foundations_route.html">Route(Rota)</a></li>
+                        <li><a target="pages" href="Pages/foundations_redirect.html">Redirect(Yönlendirme)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/helpers.html">Helpers(Araçlar)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/helpers_cdn.html">CDN(Dağıtım Ağı)</a></li>
+                        <li><a target="pages" href="Pages/helpers_clean.html">Clean(Temizleme)</a></li>
+                        <li><a target="pages" href="Pages/helpers_convert.html">Convert(Dönüştürme)</a></li>
+                        <li><a target="pages" href="Pages/helpers_filter.html">Filter(Süzgeç)</a></li>
+                        <li><a target="pages" href="Pages/helpers_format.html">Format(Biçim)</a></li>
+                        <li><a target="pages" href="Pages/helpers_json.html">Json</a></li>
+                        <li><a target="pages" href="Pages/helpers_limit.html">Limit(Sınırlama)</a></li>
+                        <li><a target="pages" href="Pages/helpers_round.html">Round(Yuvalama)</a></li>
+                        <li><a target="pages" href="Pages/helpers_search.html">Search(Arama)</a></li>
+                        <li><a target="pages" href="Pages/helpers_separator.html">Separator(Ayrıştırıcı)</a></li>
+                        <li><a target="pages" href="Pages/helpers_symbol.html">Symbol(Sembol)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/hypertext.html">Hyper Text(HTML)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/hypertext_html.html">HTML</a></li>
+                        <li><a target="pages" href="Pages/hypertext_html5.html">HTML5</a></li>
+                        <li><a target="pages" href="Pages/hypertext_form.html">Form</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/imageprocessing.html">Image Processing(Resim İşleme)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/imageprocessing_image.html">Image(Resim Biçimlendirme)</a></li>
+                        <li><a target="pages" href="Pages/imageprocessing_thumb.html">Thumb(Resim Biçimlendirme)</a></li>
+                        <li><a target="pages" href="Pages/imageprocessing_gd.html">GD(Grafik Kütüphanesi)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/java.html">Javascript & Jquery</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/java_jqajax.html">Ajax</a></li>
+                        <li><a target="pages" href="Pages/java_jqaction.html">Action</a></li>
+                        <li><a target="pages" href="Pages/java_jqanimate.html">Animate</a></li>
+                        <li><a target="pages" href="Pages/java_jqevent.html">Event</a></li>
+                        <li><a target="pages" href="Pages/java_jqbuilder.html">Builder</a></li>
+                        <li><a target="pages" href="Pages/java_jq.html">JQ</a></li>
+                        <li><a target="pages" href="Pages/java_js.html">Script</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/permission.html">Permission(Yetkilendirme)</a></li>
+                
+                <li><a target="pages" href="Pages/security.html">Security(Güvenlik)</a></li>
+                
+                <li><a target="pages" href="Pages/services.html">Services(Servisler)</a>
+                    <ul id="sub-menu">
+                        <li><a target="pages" href="Pages/services_curl.html">CURL</a></li>
+                        <li><a target="pages" href="Pages/services_ftp.html">FTP</a></li>
+                        <li><a target="pages" href="Pages/services_network.html">Network(Net)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/sessioncookie.html">Session & Cookie(Oturum ve Çerez)</a>
+                    <ul id="sub-menu">  
+                        <li><a target="pages" href="Pages/sessioncookie_session.html">Session(Oturum)</a></li>
+                        <li><a target="pages" href="Pages/sessioncookie_cookie.html">Cookie(Çerez)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/shoppingcart.html">Shopping Cart(Sepet Arabası)</a></li>
+               
+                <li><a target="pages" href="Pages/stylesheet.html">Style Sheet(CSS)</a>
+                    <ul id="sub-menu">
+                    	<li><a target="pages" href="Pages/stylesheet_style.html">Style</a></li>
+                        <li><a target="pages" href="Pages/stylesheet_css.html">Manipulation</a></li>
+                        <li><a target="pages" href="Pages/stylesheet_shadow.html">Shadow(Gölge)</a></li>
+                        <li><a target="pages" href="Pages/stylesheet_animation.html">Animation(Animasyon)</a></li>
+                        <li><a target="pages" href="Pages/stylesheet_transition.html">Transition(Geçiş)</a></li>
+                        <li><a target="pages" href="Pages/stylesheet_transform.html">Transform(Dönüştürme)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/templating.html">Template(Şablon)</a></li>
+                
+                <li><a target="pages" href="Pages/textprocessing.html">Text Processing(Metin İşleme)</a>
+                    <ul id="sub-menu">
+                    	<li><a target="pages" href="Pages/textprocessing_strings.html">Strings(Metinler)</a></li>
+                        <li><a target="pages" href="Pages/textprocessing_regex.html">Regex(Düzenli İfadeler)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/validation.html">Validation(Onaylama)</a></li>
+                
+                <li><a target="pages" href="Pages/variabletypes.html">Variable Types(Değişken Türleri)</a>
+                    <ul id="sub-menu">
+                    	<li><a target="pages" href="Pages/variabletypes_arrays.html">Arrays(Diziler)</a></li>
+                        <li><a target="pages" href="Pages/variabletypes_chars.html">Chars(Karakterler)</a></li>
+                        <li><a target="pages" href="Pages/variabletypes_vars.html">Vars(Değişkenler)</a></li>
+                        <li><a target="pages" href="Pages/variabletypes_functions.html">Functions(Fonksiyonlar)</a></li>
+                        <li><a target="pages" href="Pages/variabletypes_classes.html">Classes(Sınıflar)</a></li>
+                        <li><a target="pages" href="Pages/variabletypes_filters.html">Filters(Filtreler)</a></li>
+                    </ul>
+                </li>
+                
+                <li><a target="pages" href="Pages/xml.html">XML Manipulation</a></li>
+                
+                <li><a target="pages" href="Pages/contribution.html">ZN Kod Çatısına Katkıda Bulunun</a></li>
+            </ul>
+        </div>
+        
+    </div>
+    
+    <div id="right">
+    	<div id="content">
+        	
+            <iframe name="pages" width="100%" height="100%" marginheight="0" marginwidth="0" frameborder="0" src="Pages/welcome.html"></iframe>
+        	
+        </div>
+        <div id="content-footer" class="menu-font"><span class="site-font-color">ZN Framework</span> <span class="black-font-color"> 3.0.0 Beta Güncellemesi</span></div>
+    </div>
+	
+</div>
+<div class="clear"></div>
+<div id="footer">
+	<div class="footer-title-font">© copyright 2015 - Tüm hakları saklıdır. www.zntr.net</div>
+</div>
+
+
+</body>
+</html>

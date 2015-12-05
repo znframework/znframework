@@ -1,14 +1,14 @@
 <?php
-/************************************************************/
-/*                   EXCEPTION LANGUAGE                     */
-/************************************************************/
-/*
-
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-*/
+//----------------------------------------------------------------------------------------------------
+// ERROR
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 $lang['Error']['classError'] 				= 'Error: `%` class was not found!';
 $lang['Error']['controllerNameError'] 		= 'Error: A controller can not be identified by the file `%` name!';
 $lang['Error']['classDeclaredError'] 		= 'Error: `%` class already exists! Not declared again!';
@@ -50,3 +50,5 @@ $lang['Error']['fileDirParameter']			= '`%` parameter should contain the file or
 $lang['Error']['emptyParameter']			= '`%` parameter should contain a value!';
 $lang['Error']['emptyVariable']				= '`%` variable should contain a value!';
 $lang['Error']['charsetParameter']			= '`%` parameter should contain a valid charset!';
+$lang['Error']['invalidVersion']			= '`%` version information is invalid!';
+$lang['Error']['invalidInput']			    = '`%` input information is invalid!';

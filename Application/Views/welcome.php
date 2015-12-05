@@ -10,6 +10,8 @@
 <body>
     <div id="logo" class="font">
     	<div id="logo-text"><span class="alpha-color">z</span>ero<span class="alpha-color">n</span>eed</div>
+        <div id="logo-sub-text">PHP Web Framework Kolaylık Arayanların Kod Çatısı</div>
+        <div id="logo-image"></div>
     </div>
 </body>
 

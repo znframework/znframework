@@ -1,35 +1,35 @@
 <?php
-/************************************************************/
-/*                    CACHE(ÖN BELLEKLEME)                  */
-/************************************************************/
-/*
+//----------------------------------------------------------------------------------------------------
+// CACHE 
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-/******************************************************************************************
-* CACHE                                                                            	  	  *
-*******************************************************************************************
-| Genel Kullanım: Ön bellekleme işlemlerini gerçekleştirmek için kullaılır.       		  |
-******************************************************************************************/	
-
-/******************************************************************************************
-* DRIVER                                                                           	      *
-*******************************************************************************************
-| Genel Kullanım: Ön bellekleme türü seçmek için kullanılır.		   	          		  |
-| Parametre: Ön bellekleme sürücülerinin herhangi biri.									  |
-| Drivers: apc, memcache, wincache, file, redis  				 	 					  |			
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Driver                                                                           	      
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Ön bellekleme türü seçmek için kullanılır.		   	          		  
+// Parametre: Ön bellekleme sürücülerinin herhangi biri.									  
+// Drivers: apc, memcache, wincache, file, redis  				 	 					  	
+//
+//----------------------------------------------------------------------------------------------------
 $config['Cache']['driver'] = 'file';
 
-/******************************************************************************************
-* MEMCACHE SETTINGS                                                                       *
-*******************************************************************************************
-| Genel Kullanım: Ön bellekleme sürücüleri için bağlantı ayarlarını yapmak için kullanılır|
-| Parametre: Sürücüler.									  							      |
-| Drivers: apc, memcache, wincache								 	 					  |			
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Driver Settings                                                                       
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Ön bellekleme sürücüleri için bağlantı ayarlarını yapmak için kullanılır
+// Parametre: Sürücüler.									  							      
+// Drivers: apc, memcache, wincache								 	 					  	
+//
+//----------------------------------------------------------------------------------------------------
 $config['Cache']['driverSettings'] = array
 (
 	'memcache' => array
@@ -49,24 +49,28 @@ $config['Cache']['driverSettings'] = array
 	)
 );
 
-/******************************************************************************************
-* OB GZHANDLER                                                                         	  *
-*******************************************************************************************
-| Genel Kullanım: Tamponlamada ob_gzhandler işlevini aktif etmek için kullanılır.         |
-| Parametre: Gzip modu açık(true), gzip modu kapalı(false).  							  |
-| Örnek: true veya false.														          |
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// OB Gzhandler                                                                        	
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Tamponlamada ob_gzhandler işlevini aktif etmek için kullanılır.         
+// Parametre: Gzip modu açık(true), gzip modu kapalı(false).  							  
+// Örnek: true veya false.														          
+//
+//----------------------------------------------------------------------------------------------------
 $config['Cache']['obGzhandler'] = false;
 
-/******************************************************************************************
-* MOD GZIP                                                                            	  *
-*******************************************************************************************
-| Genel Kullanım: Gzip sıkıştırmayı aktif hale getirmek için kullanılır.                  |
-| Parametreler																			  |
-| 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.   				  |
-| 2-included_file_extension: Hangi uzantılı dosyaların ön belleklemeye dahil edileceğidir.|
-| Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')	              |
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Mod Gzip
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Gzip sıkıştırmayı aktif hale getirmek için kullanılır.                  
+// Parametreler																			  
+// 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.   				  
+// 2-included_file_extension: Hangi uzantılı dosyaların ön belleklemeye dahil edileceğidir.
+// Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')	  
+//            
+//----------------------------------------------------------------------------------------------------
 $config['Cache']['modGzip'] = array
 (
 	// Ön bellekleme durumu.
@@ -75,16 +79,18 @@ $config['Cache']['modGzip'] = array
 	'includedFileExtension' => 'html?|txt|css|js|php|pl'
 ); 
 
-/******************************************************************************************
-* MOD EXPIRES                                                                          	  *
-*******************************************************************************************
-| Genel Kullanım: Tarayıcı ön belleklemenin aktif hale getirmek için kullanılır.          |
-| Parametreler																			  |
-| 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  |
-| 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.  |
-| 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi. |
-| Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))	          |
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Mod Expires                                                                          	  
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Tarayıcı ön belleklemenin aktif hale getirmek için kullanılır.          
+// Parametreler																			  
+// 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  
+// 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.  
+// 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi. 
+// Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))	          
+//
+//----------------------------------------------------------------------------------------------------
 $config['Cache']['modExpires'] = array
 (
 	// Ön bellekleme durumu.
@@ -103,15 +109,17 @@ $config['Cache']['modExpires'] = array
 	'defaultTime' => 1 // 1 Saniye
 ); 
 
-/******************************************************************************************
-* MOD HEADERS                                                                          	  *
-*******************************************************************************************
-| Genel Kullanım: Header belleklemenin aktif hale getirmek için kullanılır.               |
-| Parametreler																			  |
-| 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  |
-| 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi      |
-| erişim yöntemi ile belleğe alınacağı belirtilir.  									  |
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Mod Headers                                                                         	  
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Header belleklemenin aktif hale getirmek için kullanılır.               
+// Parametreler																			  
+// 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  
+// 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi      
+// erişim yöntemi ile belleğe alınacağı belirtilir.  									  
+//
+//----------------------------------------------------------------------------------------------------
 $config['Cache']['modHeaders'] = array
 (
 	// Ön bellekleme durumu.
@@ -126,4 +134,4 @@ $config['Cache']['modHeaders'] = array
 		'html|htm|php' 						=> array('time' => 1, 		'access' => 'private, must-revalidate')
 	)
 );
-//--------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------

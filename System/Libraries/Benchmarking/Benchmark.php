@@ -1,72 +1,98 @@
 <?php 
-class __USE_STATIC_ACCESS__Benchmark
+class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 {
-	/***********************************************************************************/
-	/* BENCHMARK LIBRARY				                   	                           */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Benchmark
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: benchmark::, $this->benchmark, zn::$use->benchmark, uselib('benchmark')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
-	/* Tests Dizi Değişkeni
-	 *  
-	 * Oluşturulan farklı testlerin isim ve süre bilgilerini
-	 * barındırmak için oluşturulmuştur.
-	 *
-	 */
-	private $tests = array();
+	//----------------------------------------------------------------------------------------------------
+	// Protected Test
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Test isimleri bilgisi 
+	//
+	// @var  array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $tests = array();
 	
-	/* Memtests Dizi Değişkeni
-	 *  
-	 * Oluşturulan farklı testlerin bellek miktarı bilgilerini
-	 * barındırmak için oluşturulmuştur.
-	 *
-	 */
-	private $memtests = array();
+	//----------------------------------------------------------------------------------------------------
+	// Protected Memtests
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bellek test isimleri bilgisi 
+	//
+	// @var  array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $memtests = array();
 	
-	/* Test Count Dizi Değişkeni
-	 *  
-	 * Oluşturulan test sayısını hesaplamak
-	 * için oluşturulmuştur.
-	 *
-	 */
-	private $testCount = 0;
+	//----------------------------------------------------------------------------------------------------
+	// Protected Memtests
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bellek test isimleri bilgisi 
+	//
+	// @var  array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $usedtests = array();
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Benchmark::$method()"));	
-	}
+	//----------------------------------------------------------------------------------------------------
+	// Protected Test Count
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Test sayısı bilgisi 
+	//
+	// @var  numeric
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $testCount = 0;
 	
-	/******************************************************************************************
-	* TEST START                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Testi başlatmak için kullanılır. Hesaplanacak kodların başında		  |
-	| başında kullanılır.										  							  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @test => Başlatılacak testin isim bilgisini tutar.					      |
-	|          																				  |
-	******************************************************************************************/
-	public function testStart($test = '')
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Test Methods Başlangıç
+	//----------------------------------------------------------------------------------------------------
+
+	//----------------------------------------------------------------------------------------------------
+	// Test Start
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $test
+	// @return void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function start($test = '')
 	{
 		if( ! is_string($test)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'test'));
+			return Error::set('Error', 'stringParameter', 'test');
 		}
 		
 		// Kaç test kullanıldığını hesaplamak için
@@ -77,56 +103,66 @@ class __USE_STATIC_ACCESS__Benchmark
 		// fazlalık hesaplanıyor.
 		$legancy = ( $this->testCount === 1 ) 
 				   ? $legancy = 136 
-				   : 56;
+				   : 48;
 	
 		$test = $test."_start";
 		
 		// Mikrotime yöntemi başlatılıyor.
-		$this->tests[$test]    = microtime();
+		$this->tests[$test]     = microtime();
+		
+		// Mikrotime yöntemi başlatılıyor.
+		$this->usedtests[$test] = get_required_files();
+		
 		// Bu satıra kadar olan bellek miktarı hesaplanıyor.
-		$this->memtests[$test] = memory_get_usage() + $legancy;
+		$this->memtests[$test]  = memory_get_usage() + $legancy;
 	}
 	
-	/******************************************************************************************
-	* TEST END                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Testi sonlandırmak için kullanılır. Hesaplanacak kodların sonunda		  |
-	| başında kullanılır.										  							  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @test => Sonlandırılacak testin isim bilgisini tutar.					  |
-	|          																				  |
-	******************************************************************************************/
-	public function testEnd($test = '')
+	//----------------------------------------------------------------------------------------------------
+	// Test End
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $test
+	// @return void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function end($test = '')
 	{
 		if( ! is_string($test) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'test'));
+			return Error::set('Error', 'stringParameter', 'test');
 		}
 		
 		$test = $test."_end";
 		
-		$this->memtests[$test] = memory_get_usage();	
+		$this->memtests[$test]  = memory_get_usage();
 		
-		$this->tests[$test]    = microtime();		
+		$this->usedtests[$test] = get_required_files();	
+		
+		$this->tests[$test]     = microtime();		
 	}
 	
-	/******************************************************************************************
-	* ELAPSED TIME                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Test esnasında toplam geçen süreyi hesaplamak için kullanılır.		  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @result => Hesaplanacak testin isim bilgisini tutar.					  |
-	| 2. numeric var @decimal => Dönen zaman bilgisinin ondalıklı bölümünün                   |
-	| kaç karakter olacağı bilgisidir. Varsayılan: 4					  					  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Test Methods Bitiş
+	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Result Methods Başlangıç
+	//----------------------------------------------------------------------------------------------------
+
+	//----------------------------------------------------------------------------------------------------
+	// Elapsed Time
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $result
+	// @param  numeric $decimal
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function elapsedTime($result = '', $decimal = 4)
 	{   
 		if( ! is_string($result) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'result'));
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		if( ! is_numeric($decimal) ) 
 		{
@@ -146,58 +182,77 @@ class __USE_STATIC_ACCESS__Benchmark
 		}
 	}
 	
-	/******************************************************************************************
-	* MEMORY USAGE                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Sistemin kullandığı toplam bellek boyutunu hesaplamak için kullanılır.  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
-	|															                              |
-	******************************************************************************************/
-	public function memoryUsage($realMemory = false)
+	//----------------------------------------------------------------------------------------------------
+	// Used Files
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $result
+	// @return numeric
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function usedFiles($result = '')
 	{
-		if( ! is_bool($realMemory) ) 
+		if( ! is_string($result) ) 
 		{
-			$realMemory = false;
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		
-		return  memory_get_usage($realMemory);
-	}
-	
-	/******************************************************************************************
-	* MAX MEMORY USAGE                                                                        *
-	*******************************************************************************************
-	| Genel Kullanım: Sistemin PHP betiği için ayırdığı toplam bellek miktarıdır.             |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. boolean var @real_memory => true: Gerçek bellek kullanım bilgisini verir.		      |
-	|															                              |
-	******************************************************************************************/
-	public function maxMemoryUsage($realMemory = false)
-	{
-		if( ! is_bool($realMemory) ) 
+		if( empty($result) )
 		{
-			$realMemory = false;
+			return get_required_files();
 		}
 		
-		return  memory_get_peak_usage($realMemory);
+		$resend  = $result."_end";
+		$restart = $result."_start";
+		
+		if( isset($this->usedtests[$resend]) && isset($this->usedtests[$restart]) )
+		{
+			return array_diff($this->usedtests[$resend], $this->usedtests[$restart]);
+		}
 	}
 	
-	/******************************************************************************************
-	* CALCULATED MEMORY                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Test edilen kodların bellekte ne kadar yer kapladığı bilgisini verir.   |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @result => Sonucu öğrenilmek istenen testin isim bilgisi.		          |
-	|															                              |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Used File Count
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $result
+	// @return numeric
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function usedFileCount($result = '')
+	{
+		if( ! is_string($result) ) 
+		{
+			return Error::set('Error', 'stringParameter', 'result');
+		}
+		
+		if( empty($result) )
+		{
+			return get_required_files();
+		}
+		
+		$resend  = $result."_end";
+		$restart = $result."_start";
+		
+		if( isset($this->usedtests[$resend]) && isset($this->usedtests[$restart]) )
+		{
+			return count($this->usedtests[$resend]) - count($this->usedtests[$restart]);
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Calculated Memory
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $result
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function calculatedMemory($result = '')
 	{
 		if( ! is_string($result) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'result'));
+			return Error::set('Error', 'stringParameter', 'result');
 		}
 		
 		$resend  = $result."_end";
@@ -214,4 +269,52 @@ class __USE_STATIC_ACCESS__Benchmark
 			return false;
 		}
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Result Methods Bitiş
+	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Memory Methods Başlangıç
+	//----------------------------------------------------------------------------------------------------
+
+	//----------------------------------------------------------------------------------------------------
+	// Memory Usage
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  bool $realMemory
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function memoryUsage($realMemory = false)
+	{
+		if( ! is_bool($realMemory) ) 
+		{
+			$realMemory = false;
+		}
+		
+		return  memory_get_usage($realMemory);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Max Memory Usage
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  bool $realMemory
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function maxMemoryUsage($realMemory = false)
+	{
+		if( ! is_bool($realMemory) ) 
+		{
+			$realMemory = false;
+		}
+		
+		return  memory_get_peak_usage($realMemory);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Memory Methods Bitiş
+	//----------------------------------------------------------------------------------------------------
 }

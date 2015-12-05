@@ -1,43 +1,45 @@
-<?php
-/************************************************************/
-/*                         CONFIG CLASS                     */
-/************************************************************/
-/*
-/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-/* Site: www.zntr.net
-/* Lisans: The MIT License
-/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-*/
-/******************************************************************************************
-* CONFIG CLASS                                                                            *
-*******************************************************************************************
-| Sınıfı Kullanırken      :	Config::, $this->config, zn::$use->config, this()->config     |
-| 																						  |
-| Genel Kullanım:																          |
-| Config/ dizininde yer alan config dosyalarındaki ayarları kullanmak					  |
-| bu ayarlar üzerinde değişiklik yapmak gibi işlemler için oluşturulmuştur.			      |
-|																						  |
-******************************************************************************************/	
+<?php	
 class Config
 {
-	/*
-	 * Set edilen ayarları tutacak dizi değişken
-	 *
-	 * array @set_configs
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// $setConfigs
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Set edilen ayarları tutacak dizi değişken
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	private static $setConfigs = array();
 	
-	/*
-	 * Ayarları tutacak dizi değişken
-	 *
-	 * array @config
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// $config
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Ayarları tutacak dizi değişken
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	private static $config = array();
 	
-	// config() yöntemi için oluşturulmuştur.
-	// Parametreye göre ayar dosyasını yükler.
+	//----------------------------------------------------------------------------------------------------
+	// _config()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $file
+	// @return void
+	// 
+	//----------------------------------------------------------------------------------------------------
 	private static function _config($file)
 	{
 		global $config;
@@ -51,21 +53,21 @@ class Config
 		
 		if( ! isImport($path) ) 
 		{
-			require_once $path;
+			require_once restorationPath($path);
 			
 			self::$config = $config;
 		}
 	}
 	
-	/* GET FUNCTION
-	 *
-	 * Ayar çağırmak için kullanılır.
-	 *
-	 * 2 Parametresi vardır.
-	 *
-	 * 1. Parametre string @file: Çağrılacak config dosyasının adı.
-	 * 2. Parametre string @configs: Dosya içerisinden çağrılmak istenen dizi anahtarı.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// get()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $file
+	// @param  string $configs
+	// @return array
+	// 
+	//----------------------------------------------------------------------------------------------------
 	public static function get($file = '', $configs = '')
 	{	
 		if( ! is_string($file) || empty($file) ) 
@@ -77,7 +79,7 @@ class Config
 		
 		if( isset(self::$setConfigs[$file]) )
 		{
-			if( ! empty(self::$setConfigs[$file]) ) foreach(self::$setConfigs[$file] as $k => $v)
+			if( ! empty(self::$setConfigs[$file]) ) foreach( self::$setConfigs[$file] as $k => $v )
 			{
 				self::$config[$file][$k] = self::$setConfigs[$file][$k];
 			}
@@ -104,16 +106,15 @@ class Config
 		}
 	}
 	
-	/* SET FUNCTION
-	 *
-	 * Ayar bilgisini değiştirmek için kullanılır.
-	 *
-	 * 3 Parametresi vardır.
-	 *
-	 * 1. Parametre string @file: Çağrılacak config dosyasının adı.
-	 * 2. Parametre string @configs: Dosya içerisinden değiştirilmek istenen dizi anahtarı.
-	 * 3. Parametre mixed @set: Eski ayarın yerini alması istenilen yeni değer.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// set()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $file
+	// @param  string $configs
+	// @return array
+	// 
+	//----------------------------------------------------------------------------------------------------
 	public static function set($file = '', $configs = '', $set = '')
 	{
 		if( ! is_string($file) || empty($file) ) 
@@ -134,7 +135,7 @@ class Config
 		}
 		else
 		{
-			foreach($configs as $k => $v)
+			foreach( $configs as $k => $v )
 			{
 				self::$setConfigs[$file][$k] = $v;
 			}	
@@ -143,19 +144,15 @@ class Config
 		return self::$setConfigs;
 	}
 	
-	/* INISET FUNCTION
-	 *
-	 * PHP INI ayarlarını yapılandırmak için kullanılır.
-	 *
-	 * 2 Parametresi vardır.
-	 *
-	 * 1. Parametre string or array @key: Değiştirilmek istenen ini ayarının adı.
-	 * 2. Parametre string @val: Yeni ayar
-	 *
-	 * Birden fazla ayarın aynı anda değiştirilmesi istenirse
-	 * 2. parametre dizi olarak belirtilir. Bu durumda 2. parametre kullanılmaz.
-	 * array(key1 => val1, key2 => val2 ...) kullanılır.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// iniSet()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  mixed  $key
+	// @param  string $val
+	// @return void
+	// 
+	//----------------------------------------------------------------------------------------------------
 	public static function iniSet($key = '', $val = '')
 	{
 		if( empty($key) ) 
@@ -177,7 +174,7 @@ class Config
 		}
 		else
 		{
-			foreach($key as $k => $v)
+			foreach( $key as $k => $v )
 			{
 				if( $v !== '' ) 
 				{
@@ -187,18 +184,14 @@ class Config
 		}
 	}
 	
-	/* INIGET FUNCTION
-	 *
-	 * PHP INI ayar veya ayarlarının değerlerini öğrenmek için kullanılır.
-	 *
-	 * 1 Parametresi vardır.
-	 *
-	 * 1. Parametre string or array @key: Çağrılması istenilen ayarın adı
-	 *
-	 * Birden fazla ayarın aynı anda değer bilgisinin alınması isteniyorsa.
-	 * 2. parametre dizi olarak belirtilir.
-	 * array(key1, key2 ...) kullanılır.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// iniGet()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  mixed  $key
+	// @return mixed
+	// 
+	//----------------------------------------------------------------------------------------------------
 	public static function iniGet($key = '')
 	{
 		if( empty($key) ) 
@@ -214,7 +207,7 @@ class Config
 		{
 			$keys = array();
 			
-			foreach($key as $k)
+			foreach( $key as $k )
 			{
 				$keys[$k] = ini_get($k);	
 			}
@@ -223,10 +216,15 @@ class Config
 		}
 	}
 	
-	/* INIGET ALL FUNCTION
-	 *
-	 * Tüm yapılandırılmış ini ayarlarını almak için kullanılır.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// iniGetAll()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $key
+	// @param  bool   $details
+	// @return array
+	// 
+	//----------------------------------------------------------------------------------------------------
 	public static function iniGetAll($extension = '', $details = true)
 	{
 		if( empty($extension) ) 
@@ -239,10 +237,14 @@ class Config
 		}
 	}
 	
-	/* INI RESTORE FUNCTION
-	 *
-	 * Tüm yapılandırılmış ini ayarlarını sıfırlamak için kullanılır.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// iniRestore()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $str
+	// @return bool
+	// 
+	//----------------------------------------------------------------------------------------------------
 	public static function iniRestore($str = '')
 	{
 		return ini_restore($str);	

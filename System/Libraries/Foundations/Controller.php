@@ -1,21 +1,14 @@
 <?php
 class Controller
 {
-	/***********************************************************************************/
-	/* CONTROLLER LIBRARY	     			                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Controller
-	/* Versiyon: 1.2
-	/* Tanımlanma: Dinamik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Controllers/ sınıflarına extends edilerek kullanılır
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/******************************************************************************************
 	* CONSTRUCT                                                                               *
@@ -49,8 +42,7 @@ class Controller
 		if( ! isset($this->$class) )
 		{
 			// Sınıf Tanımlaması Yapılıyor.
-			$this->$class = uselib($class);	
-			return $this->$class;
+			return $this->$class = uselib($class);	
 		}
 		// ---------------------------------------------------------------------
 	}

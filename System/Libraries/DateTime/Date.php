@@ -1,99 +1,81 @@
-<?PHP
-class __USE_STATIC_ACCESS__Date
+<?php
+class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 {
-	/***********************************************************************************/
-	/* DATE LIBRARY	     					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Date
-	/* Versiyon: 2.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: date::, $this->date, zn::$use->date, uselib('date')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// DATE CLASS
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site: www.zntr.net
+	// Lisans: The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	// Sınıf Adı: Date
+	// Versiyon: 2.0
+	// Tanımlanma: Statik
+	// Dahil Edilme: Gerektirmez
+	// Erişim: Date::, $this->Date, zn::$use->Date, uselib('Date'), new Date
+	// Not: Büyük-küçük harf duyarlılığı yoktur.
+	//
+	//----------------------------------------------------------------------------------------------------
 	
-	/* Config Değişkeni
-	 *  
-	 * Date ayar bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected $config;
+	//----------------------------------------------------------------------------------------------------
+	// Common
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $config
+	//
+	// __construct()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use DateTimeTrait;
 	
-	public function __construct()
-	{
-		$this->config = Config::get('DateTime');
-		date_default_timezone_set($this->config['timeZone']);	
-	}
-	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Date::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* CURRENT DATE                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Aktif tarih bilgisini verir.			  	                              |
-	|																						  |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|																						  |
-	| Örnek Kullanım: currentDate() // 01.01.2006							                  |
-	|       																				  |
-	******************************************************************************************/
-	public function current()
+	//----------------------------------------------------------------------------------------------------
+	// Current
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Aktif saat bilgisini verir.
+	//
+	// @param  string clock
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function current($clock = NULL)
 	{		
 		return date("d.m.o");
 	}
 
 
-	/******************************************************************************************
-	* CURRENT                                                                       		  *
-	*******************************************************************************************
-	| Genel Kullanım: Aktif tarih ve saat bilgisini verir.			  	                      |
-	|																						  |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|																						  |
-	| Örnek Kullanım: current_date_time() // 12.01.2015 09:02:41							  |
-	|       																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Standart
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Standart tarih ve saat bilgisi üretir.
+	//
+	// @param  void
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function standart()
 	{		
 		return date("d.F.o l, H:i:s");
 	}
 
-	/******************************************************************************************
-	* SET DATE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Tarih ve saat ayarlamaları yapmak için kullanılır.			  	      |
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @exp => Tarih ve saat ayarlaması yapmak için kullanılacak biçim 		  |
-	| karaketerleri.				                                                          |   
-	|																						  |
-	| Biçim Karakterler Listesi																  |
-	| Config/DateTime.php dosyasınki set_date_format_chars parametreli listeye bakınız.		  |
-	|																						  |
-	| Örnek Kullanım:  																	      |
-	| echo setDate('{daynum0}.{monnum0}.{year}'); // Çıktı: 12.01.2015					      |
-	|       																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Set
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Tarih ve saat ayarlamaları yapmak için kullanılır.	
+	//
+	// @param  string exp
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function set($exp = 'H:i:s')
 	{
 		if( ! is_string($exp) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'exp'));
+			return Error::set('Error', 'stringParameter', 'exp');
 		}
 
 		$chars = $this->config['setDateFormatChars'];

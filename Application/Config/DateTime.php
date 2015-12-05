@@ -1,51 +1,53 @@
 <?php
-/************************************************************/
-/*                        DATETIME                          */
-/************************************************************/
-/*
+//----------------------------------------------------------------------------------------------------
+// DATETIME 
+//----------------------------------------------------------------------------------------------------
+//
+// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.zntr.net
+// Lisans     : The MIT License
+// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+//
+//----------------------------------------------------------------------------------------------------
 
-Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-Site: http://www.zntr.net
-Copyright 2012-2015 zntr.net - Tüm hakları saklıdır.
-
-/******************************************************************************************
-* DATETIME                                                                         	  	  *
-*******************************************************************************************
-| Genel Kullanım: Tarih saat ile ilgili ayarları yapmak için kullanılır.      			  |
-******************************************************************************************/
-
-/******************************************************************************************
-* TIMEZONE                                                                         	  	  *
-*******************************************************************************************
-| Genel Kullanım: Saatlerde kaymama olmaması için bölge seçimi yapılmıştır.				  |
-| Bulunduğunu bölgeye göre ayarlayabilirsiniz.											  | 
-| Varsayılan olarak Europe/Istanbul seçilmiştir.      									  |	
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Timezone                                                                         	  	  
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Saatlerde kaymama olmaması için bölge seçimi yapılmıştır.				  
+// Bulunduğunu bölgeye göre ayarlayabilirsiniz.											  
+// Varsayılan olarak Europe/Istanbul seçilmiştir.      									  
+//
+//----------------------------------------------------------------------------------------------------
 $config['DateTime']['timeZone'] = 'Europe/Istanbul';
 
-/******************************************************************************************
-* SETLOCALE                                                                         	  *
-*******************************************************************************************
-| Genel Kullanım: Türkçe içerikli karakterleri desteklemesi amacıyla kullanılır.   		  |	
-| setDate() yöntemi haric diğer yöntemler için kullanılır.							      |					
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Set Locale
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Türkçe içerikli karakterleri desteklemesi amacıyla kullanılır.   		  
+// setDate() yöntemi haric diğer yöntemler için kullanılır.							      				
+//
+//----------------------------------------------------------------------------------------------------
 $config['DateTime']['setLocale'] = array(
 
 	'charset'  => 'tr_TR.UTF-8',
 	'language' => 'turkish',	
 );
 
-/******************************************************************************************
-* SET TIME FORMAT CHARS                                                                   *
-*******************************************************************************************
-| Genel Kullanım: setTime() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
-| aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  |
-| Örnek: %a yerine {short_day} ifadesi kullanılabilir.									  |
-| ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  |
-| kullanılabilirler.																	  |
-| Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  |
-| hepsini karşılığı %a özel ifadesidir.						      						  |					
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Set Time Format Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: setTime() yöntemi için oluşturulmuş özel kullanımlar yerine			  
+// aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  
+// Örnek: %a yerine {short_day} ifadesi kullanılabilir.									  
+// ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  
+// kullanılabilirler.																	  
+// Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  
+// hepsini karşılığı %a özel ifadesidir.						      						  				
+//
+//----------------------------------------------------------------------------------------------------
 $config['DateTime']['setTimeFormatChars'] = array
 (
 	'{shortDayName}|{shortDay}|{SD}' 							=> '%a',
@@ -77,17 +79,19 @@ $config['DateTime']['setTimeFormatChars'] = array
 );
 
 
-/******************************************************************************************
-* SET DATE FORMAT CHARS                                                                   *
-*******************************************************************************************
-| Genel Kullanım: setDate() yöntemi için oluşturulmuş özel kullanımlar yerine			  |
-| aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  |
-| Örnek: D yerine {short_day} ifadesi kullanılabilir.									  |
-| ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  |
-| kullanılabilirler.																	  |
-| Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  |
-| hepsini karşılığı D özel ifadesidir.						      						  |					
-******************************************************************************************/
+//----------------------------------------------------------------------------------------------------
+// Set Date Format Chars
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: setDate() yöntemi için oluşturulmuş özel kullanımlar yerine			  
+// aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.							  
+// Örnek: D yerine {short_day} ifadesi kullanılabilir.									  
+// ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak 						  
+// kullanılabilirler.																	  
+// Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir						  
+// hepsini karşılığı D özel ifadesidir.						      						  				
+//
+//----------------------------------------------------------------------------------------------------
 $config['DateTime']['setDateFormatChars'] = array
 (
 	'{shortDayName}|{shortDay}|{SD}' 							=> 'D',

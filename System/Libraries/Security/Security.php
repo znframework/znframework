@@ -1,21 +1,14 @@
 <?php 
-class __USE_STATIC_ACCESS__Security
+class __USE_STATIC_ACCESS__Security implements SecurityInterface
 {
-	/***********************************************************************************/
-	/* SECURITY LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2015, zntr.net
-	/*
-	/* Sınıf Adı: Security
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: security::, $this->security, zn::$use->security, uselib('security')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	/* Config Değişkeni
 	 *  
@@ -30,16 +23,20 @@ class __USE_STATIC_ACCESS__Security
 		$this->config = Config::get('Security');	
 	}
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "Security::$method()"));	
-	}
+	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
 	
 	/******************************************************************************************
 	* NC ENCODE                                                                               *
@@ -59,7 +56,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
@@ -114,7 +111,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['injectionBadChars'];
@@ -151,7 +148,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string))
 		{ 
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		return stripslashes(trim($string));
@@ -170,7 +167,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['scriptBadChars'];
@@ -208,7 +205,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string)) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -246,7 +243,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set(lang('Error', 'stringParameter', 'string'));
+			return Error::set('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -279,7 +276,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$phpTagChars = array
@@ -300,7 +297,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$phpTagChars = array
@@ -321,7 +318,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$nailChars = array
@@ -344,7 +341,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$nailChars = array
@@ -367,7 +364,7 @@ class __USE_STATIC_ACCESS__Security
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -384,7 +381,7 @@ class __USE_STATIC_ACCESS__Security
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'str'));
+			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -401,7 +398,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}	
 		
 		return addslashes($data);
@@ -416,7 +413,7 @@ class __USE_STATIC_ACCESS__Security
 	{
 		if( ! is_string($data) ) 
 		{
-			return Error::set(lang('Error', 'stringParameter', 'data'));
+			return Error::set('Error', 'stringParameter', 'data');
 		}	
 		
 		return stripslashes($data);
