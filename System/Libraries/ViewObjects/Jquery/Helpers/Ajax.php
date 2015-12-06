@@ -794,10 +794,6 @@ class JQAjax
 			$ajax .= $val;
 		}
 		
-		$ajax = rtrim(trim($ajax), ',');
-		
-		$ajax .= $eol;
-		
 		if( ! empty($this->functions) ) foreach( $this->functions as $val )
 		{
 			$ajax .= "\t$val,";
