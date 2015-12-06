@@ -120,10 +120,6 @@ $config['Security']['scriptBadChars'] = array
 	'\.parentNode' 		=> '&#46;parentNode',
 	'\.innerHTML' 		=> '&#46;innerHTML',
 	'\-moz\-binding' 	=> '&#150;moz&#150;binding',
-	'<comment>' 		=> '&#60;comment&#62;',
-	'<\!\[CDATA\[',
-	'<\!\-\-',
-	'\-\->',
 	'<' 				=> '&#60;',
 	'>' 				=> '&#62;',
 );
