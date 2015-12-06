@@ -512,9 +512,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				$content = $head['meta'][$name];
 			}
 			
+			if( ! stristr($name, 'http:') && ! stristr($name, 'name:') )
+			{
+				$name = 'name:'.$name;
+			}
+			
 			if( ! empty($content) )
 			{
-				$nameEx = explode("->", $name);
+				$nameEx = explode(":", $name);
 				
 				$httpOrName = ( $nameEx[0] === 'http' )
 							  ? 'http-equiv'
