@@ -545,12 +545,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// Fontlar dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
 		if( ! empty($masterPageSet["font"]) )
-		{					
+		{		
+			$masterPageSet['font'][] = true;			
 			$header .= $this->font($masterPageSet["font"], true);
 		}
 		
 		if( isset($head['font']) )
-		{					
+		{	
+			$head['font'][] = true;				
 			$header .= $this->font($head['font'], true);
 		}
 		//-----------------------------------------------------------------------------------------------------
@@ -562,11 +564,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		if( is_array($masterPageSet['script']) )
 		{
+			$masterPageSet['script'][] = true;
 			$header .= $this->script($masterPageSet['script'], true);
 		}
 		
 		if( isset($head['script']) )
 		{
+			$head['script'][] = true;
 			$header .= $this->script($head['script'], true);
 		}
 		//-----------------------------------------------------------------------------------------------------
@@ -578,12 +582,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		if( is_array($masterPageSet['style']) )
 		{
-			$header .= $this->style($masterPageSet['style'], true);
+			$masterPageSet['style'][] = true;
+			$header .= $this->style($masterPageSet['style']);
 		}
 		
 		if( isset($head['style']) )
 		{
-			$header .= $this->style($head['style'], true);
+			$head['style'][] = true;
+			$header .= $this->style($head['style']);
 		}
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -766,7 +772,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			$lastParam = isset($arguments[$argumentCount]) ? $arguments[$argumentCount] : false;	
 		}
-		
+
 		$arguments = array_unique($arguments);
 		
 		return (object)array
