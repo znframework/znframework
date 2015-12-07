@@ -81,8 +81,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	******************************************************************************************/
 	public function library()
 	{
-		$arguments = array_unique(func_get_args());
-		Import::script($arguments);
+		Import::script(func_get_args());
 		
 		return $this;
 	}
