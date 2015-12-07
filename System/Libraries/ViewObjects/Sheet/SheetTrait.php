@@ -39,11 +39,25 @@ trait SheetTrait
 	 */
 	protected $transitions = '';
 	
+	protected $tag = false;
+	
 	// Construct yapıcısı tarafından
 	// Config/Css3.php dosyasından ayarlar alınıyor.
-	public function __construct()
+	public function __construct($tag = false)
 	{
 		$this->browsers = Config::get('Css3', 'browsers');	
+		
+		$this->tag = $tag;
+	}
+	
+	protected function _tag($code)
+	{
+		if( $this->tag === true )
+		{
+			return Style::open().$code.Style::close();
+		}
+		
+		return $code;
 	}
 	
 	/******************************************************************************************
@@ -169,7 +183,7 @@ trait SheetTrait
 	
 		$str .= "}".eol();
 		
-		return $str;
+		return $this->_tag($str);
 	}
 	
 	// Değişkenler default ayarlarına getiriliyor.

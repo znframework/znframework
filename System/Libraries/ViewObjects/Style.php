@@ -77,9 +77,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	******************************************************************************************/
 	public function library()
 	{
-		$arguments = array_unique(func_get_args());
-		
-		Import::style($arguments);
+		Import::style(func_get_args());
 		
 		return $this;
 	}

@@ -405,7 +405,7 @@ class CSSTransform
 		
 		$this->_defaultVariable();
 		
-		return $transforms;
+		return $this->_tag($transforms);
 	}
 	
 	// Değişkenler varsayılan ayarlarına getiriliyor.

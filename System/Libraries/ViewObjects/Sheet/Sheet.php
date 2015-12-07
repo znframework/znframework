@@ -35,9 +35,9 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function animation()
+	public function animation($tag = false)
 	{
-		return uselib('CSSAnimation');
+		return uselib('CSSAnimation', array($tag));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -59,9 +59,9 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function shadow()
+	public function shadow($tag = false)
 	{
-		return uselib('CSSShadow');
+		return uselib('CSSShadow', array($tag));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -71,9 +71,9 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function transform()
+	public function transform($tag = false)
 	{
-		return uselib('CSSTransform');
+		return uselib('CSSTransform', array($tag));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -83,8 +83,8 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function transition()
+	public function transition($tag = false)
 	{
-		return uselib('CSSTransition');
+		return uselib('CSSTransition', array($tag));
 	}
 }

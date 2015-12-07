@@ -159,9 +159,9 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ajax()
+	public function ajax($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('JQAjax');
+		return uselib('JQAjax', array($tag, $jq, $jqui));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -171,9 +171,9 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function action()
+	public function action($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('JQAction');
+		return uselib('JQAction', array($tag, $jq, $jqui));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -183,9 +183,9 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function animate()
+	public function animate($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('JQAnimate');
+		return uselib('JQAnimate', array($tag, $jq, $jqui));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -195,8 +195,8 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function event()
+	public function event($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('JQEvent');
+		return uselib('JQEvent', array($tag, $jq, $jqui));
 	}
 }
