@@ -1016,9 +1016,16 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 			{
 				$htaccessSettingsStr .= "<$key>".$eol;
 				
-				foreach( $val as $v )
+				if( is_array($val) )
 				{
-					$htaccessSettingsStr .= $v;
+					foreach( $val as $v )
+					{
+						$htaccessSettingsStr .= $v;
+					}
+				}
+				else
+				{
+					$htaccessSettingsStr .= $val;
 				}
 				
 				$keyex = explode(" ", $key);
