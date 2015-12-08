@@ -1731,10 +1731,29 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		{
 			return $this->db->result();
 		}
+		elseif( $type === 'json' )
+		{
+			return json_encode($this->db->result());	
+		}
 		else
 		{
 			return $this->db->resultArray();
 		}
+	}
+	
+	/******************************************************************************************
+	* JSON                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu kayıt bilgilerini verir.     			   		          |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->resultJson();              			                                  |
+	|          																				  |
+	******************************************************************************************/
+	public function resultJson( $type = 'object' )
+	{ 
+		return json_encode($this->db->result());	
 	}
 	
 	/******************************************************************************************
