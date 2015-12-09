@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 class Error implements ErrorInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,53 +10,39 @@ class Error implements ErrorInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	//----------------------------------------------------------------------------------------------------
-	// Errors
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var array $errors
-	//
-	//----------------------------------------------------------------------------------------------------
+	/* Errors Değişkeni
+	 *  
+	 * Oluşan hatalar bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
 	private static $errors;
 	
-	//----------------------------------------------------------------------------------------------------
-	// Set
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Kütüphaneler içinde oluşan hataları kaydetmek için kullanılır.
-	//
-	// @var string $errorMessage
-	// @var mixed  $output
-	// @var mixec  $object
-	//
-	//----------------------------------------------------------------------------------------------------
-	public static function set($errorMessage = '', $output = false, $object = '')
+	/******************************************************************************************
+	* SET            	                                                                      *
+	*******************************************************************************************
+	| Genel Kullanım: Kütüphaneler içinde oluşan hataları kaydetmek için kullanılır.          |
+	|          																				  |
+	******************************************************************************************/	
+	public static function set($errorMessage = '', $output = false)
 	{
-		//------------------------------------------------------------------------------------------------
-		// 2. Parametre metinsel değer alırsa lang() yönteminden verinin çağrılmasını sağlar.
-		//------------------------------------------------------------------------------------------------
-		if( is_string($output) )
-		{
-			$errorMessage = lang($errorMessage, $output, $object);	
-		}
-		
 		$info = debug_backtrace();
 	
 		$className = isset($info[1]['class'])
 				   ? str_ireplace(STATIC_ACCESS, '', $info[1]['class'])
-				   : ( isset($info[5]['class']) ? $info[5]['class'] : false );
+				   : $info[5]['class'];
 		   
 		$methodName = isset($info[1]['function'])
 					? $info[1]['function']
-					: ( isset($info[5]['function']) ? $info[5]['function'] : false );
+					: $info[5]['function'];
 					
 		$line = isset($info[1]['line'])
 			  ? $info[1]['line']
-			  : ( isset($info[5]['line']) ? $info[5]['line'] : false );
+			  : $info[5]['line'];
 			  
 		$file = isset($info[1]['file'])
 			  ? $info[1]['file']
-			  : ( isset($info[5]['file']) ? $info[5]['file'] : false );
+			  : $info[5]['file'];
 	
 		self::$errors[strtolower($className)][strtolower($methodName)]['message'][] = $errorMessage;
 		self::$errors[strtolower($className)][strtolower($methodName)]['line'][]    = $line; 
