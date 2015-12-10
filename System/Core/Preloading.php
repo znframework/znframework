@@ -915,13 +915,13 @@ function divide($str = '', $seperator = "|", $index = 0)
 //----------------------------------------------------------------------------------------------------
 function ipv4()
 {
-	if( isset($_SERVER['HTTP_CLIENT_IP']) )   //paylaşımlı bir bağlantı mı kullanıyor?
+	if( isset($_SERVER['HTTP_CLIENT_IP']) ) 
 	{
 		$ip = $_SERVER['HTTP_CLIENT_IP'];
 	}
-	elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )   //ip adresi proxy'den mi geliyor?
+	elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) 
 	{
-		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		$ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
 	}
 	else
 	{
