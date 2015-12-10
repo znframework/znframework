@@ -34,18 +34,6 @@ $config['Masterpage']['headPage'] = ''; // String veya Array veri türü içereb
 $config['Masterpage']['bodyPage'] = '';
 
 //----------------------------------------------------------------------------------------------------
-// Foot Page
-//----------------------------------------------------------------------------------------------------
-//
-// Genel Kullanım: Masterpage olarak belirlen sayfanın en altına harici kod  
-// yazmak için sayfa belirlemek için kullanlır.											  
-// Parametre:Metinsel türde Views/ dizininden tüm sayfalar için geçerli olacak bir         
-// foot sayfası belirlenir. Örnek: "head";  veya array(h1, h2 ....) 						   
-//
-//----------------------------------------------------------------------------------------------------
-$config['Masterpage']['footPage'] = ''; // String veya Array veri türü içerebilir.
-
-//----------------------------------------------------------------------------------------------------
 // Doctype
 //----------------------------------------------------------------------------------------------------
 //
@@ -189,13 +177,13 @@ $config['Masterpage']['meta'] = array
 	'name:designer'			=> '',
 	'name:distribution'		=> '',
 	'name:keywords'			=> '',
-	'http:cache-control' 	=> '',
-	'http:refresh'			=> '',
 	'name:abstract'			=> '',
 	'name:copyright'		=> '',
 	'name:expires'			=> '',
 	'name:pragma'			=> '',
 	'name:revisit-after'	=> '',
+	'http:cache-control' 	=> '',
+	'http:refresh'			=> '',
 	'name:robots'			=> array()
 );
 

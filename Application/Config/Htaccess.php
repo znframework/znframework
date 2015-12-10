@@ -41,8 +41,7 @@ $config['Htaccess']['setFile'] = false;
 //
 // Genel Kullanım: Bu yöntemin kullanılabilmesi için yukarıdaki ayarın true olması 		  
 // gerekmektedir. htaccess dosyasına header ayarları eklemek için kullanılır.			  
-// Parametreler: array( '<module>' => array('setting1', 'setting2' ...))				      
-// Varsayılan: array()																	  
+// Parametreler: array( '<module>' => array('setting1', 'setting2' ...))				      																  
 // Bu yöntemi kullanırken < > işaretlerini kullanmayınız.							      
 // Modülü kapatma işlemini kendisi gerçekleştirmektedir.                                   
 // Dizi içerisindeki birinci parametre modül adı ve tip									  
@@ -51,5 +50,5 @@ $config['Htaccess']['setFile'] = false;
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['settings'] = array
 (
-	 //'ifmodule mod_headers.c' => array('Header set Connection keep-alive')
+	 // 'ifmodule mod_headers.c' => array('Header set Connection keep-alive')
 );
