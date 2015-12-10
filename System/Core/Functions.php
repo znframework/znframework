@@ -1259,13 +1259,13 @@ function divide($str = '', $seperator = "|", $index = 0)
 
 function ipv4()
 {
-	if( server('clientIp') )   //paylaşımlı bir bağlantı mı kullanıyor?
+	if( server('clientIp') ) 
 	{
 		$ip = server('clientIp');
 	}
-	elseif( server('xForwardedFor') )   //ip adresi proxy'den mi geliyor?
+	elseif( server('xForwardedFor') ) 
 	{
-		$ip = server('xForwardedFor');
+		$ip = divide(server('xForwardedFor'), ',');
 	}
 	else
 	{
