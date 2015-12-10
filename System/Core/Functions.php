@@ -1014,22 +1014,29 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( ! is_numeric($key) )
 			{
-				$htaccessSettingsStr .= "<$key>".$eol;
-				
 				if( is_array($val) )
 				{
-					foreach( $val as $v )
+					$htaccessSettingsStr .= "<$key>".$eol;
+					
+					foreach( $val as $k => $v)
 					{
-						$htaccessSettingsStr .= $v;
+						if( ! is_numeric($k) )
+						{
+							$htaccessSettingsStr .= "$k $v".$eol;
+						}
+						else
+						{
+							$htaccessSettingsStr .= $v.$eol;
+						}
 					}
+					
+					$keyex = explode(" ", $key);
+					$htaccessSettingsStr .= "</$keyex[0]>".$eol.$eol;
 				}
 				else
 				{
-					$htaccessSettingsStr .= $val;
+					$htaccessSettingsStr .= "$key $val".$eol;
 				}
-				
-				$keyex = explode(" ", $key);
-				$htaccessSettingsStr .= $eol."</$keyex[0]>".$eol.$eol;
 			}
 			else
 			{
