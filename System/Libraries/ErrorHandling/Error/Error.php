@@ -24,14 +24,14 @@ class Error implements ErrorInterface
 	| Genel Kullanım: Kütüphaneler içinde oluşan hataları kaydetmek için kullanılır.          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function set($errorMessage = '', $output = false, $object = '')
+	public static function set($errorMessage = '', $langMessage = NULL, $object = '')
 	{
 		//------------------------------------------------------------------------------------------------
 		// 2. Parametre metinsel değer alırsa lang() yönteminden verinin çağrılmasını sağlar.
 		//------------------------------------------------------------------------------------------------
-		if( is_string($output) )
+		if( $langMessage !== NULL )
 		{
-			$errorMessage = lang($errorMessage, $output, $object);	
+			$errorMessage = lang($errorMessage, $langMessage, $object);	
 		}
 		
 		$info = debug_backtrace();
@@ -58,7 +58,7 @@ class Error implements ErrorInterface
 		
 		report(ucfirst($className.'Error'), $errorMessage, ucfirst($className).'Library');
 	
-		return $output === false ? false : $errorMessage;
+		return false;
 	}
 	
 	/******************************************************************************************
