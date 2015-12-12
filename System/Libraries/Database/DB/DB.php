@@ -383,6 +383,28 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	}
 	
 	/******************************************************************************************
+	* Protedted Where Having                                                                  *
+	******************************************************************************************/
+	protected function _whereHaving($column, $value, $logical)
+	{
+		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
+		{
+			Error::set('Error', 'stringParameter', 'column, value, logical');
+		}
+		else
+		{
+			if( $value !== '' )
+			{
+				$value = presuffix($this->db->realEscapeString($value), "'");
+			}
+			
+			return ' '.$column.' '.$value.' '.$logical.' ';
+		}
+		
+		return '';
+	}
+	
+	/******************************************************************************************
 	* WHERE                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
@@ -400,17 +422,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function where($column = '', $value = '', $logical = '')
 	{
-		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
-		{
-			Error::set('Error', 'stringParameter', 'column, value, logical');
-		}
-		else
-		{
-			$value = presuffix($this->db->realEscapeString($value), "'");
-			
-			$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
-		}
+		$this->where .= $this->_whereHaving($column, $value, $logical);
 		
 		return $this;
 	}
@@ -433,17 +445,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function having($column = '', $value = '', $logical = '')
 	{
-		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
-		{
-			Error::set('Error', 'stringParameter', 'column, value, logical');
-		}
-		else
-		{
-			$value = presuffix($this->db->realEscapeString($value), "'");
-
-			$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
-		}
+		$this->having .= $this->_whereHaving($column, $value, $logical);
 		
 		return $this;
 	}
