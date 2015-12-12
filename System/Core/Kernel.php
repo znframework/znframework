@@ -110,7 +110,7 @@ headers(Config::get('Headers', 'settings'));
 // -------------------------------------------------------------------------------
 //  Sayfa bilgisine erişilmişse sayfa dahil edilir.
 // -------------------------------------------------------------------------------
-if( file_exists($isFile) )
+if( is_file($isFile) )
 {
 	// -------------------------------------------------------------------------------
 	//  Sayfa dahil ediliyor.
@@ -151,25 +151,23 @@ if( file_exists($isFile) )
 		}
 		else
 		{
-			// Sayfa bilgisine erişilemezse hata bildir.
-			if( ! Config::get('Route', 'show404') )
-			{		
+			if( Config::get('Route', 'show404') )
+			{	
+				redirect(Config::get('Route', 'show404'));	
+			}
+			else
+			{
 				// Hatayı rapor et.
 				report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');	
 					
 				// Hatayı ekrana yazdır.
 				die(Error::message('Error', 'callUserFuncArrayError', $function));
 			}
-			else
-			{
-				redirect(Config::get('Route', 'show404'));
-			}
 		}
 	}
 }
 else
 {	
-	// Sayfa bilgisine erişilemezse hata bildir.
 	if( Config::get('Route','show404') ) 
 	{				
 		redirect(Config::get('Route','show404'));		
