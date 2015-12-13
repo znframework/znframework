@@ -82,12 +82,11 @@ define('CRLF', "\r\n");
 //----------------------------------------------------------------------------------------------------
 function isResmac()
 {
-	global $system;
+	global $application;
 
-	$restorationIP   = $system['restorationMachinesIP'];
-	$restorationMode = $system['restorationMode'];
+	$restorationIP = $application['restoration']['machinesIP'];
 	
-	if( $restorationMode === true )
+	if( APPMODE === 'restoration' )
 	{
 		$ipv4 = ipv4();
 		
@@ -125,7 +124,7 @@ function restorationPath($path = '')
 {
 	if( isResmac() === true )
 	{
-		$newPath = preg_replace('/^'.rtrim(APP_DIR, '/').'/', rtrim(RES_DIR, '/'), $path);
+		$newPath = preg_replace('/^'.rtrim(APPDIR, '/').'/', rtrim(RESDIR, '/'), $path);
 		
 		if( file_exists($newPath) )
 		{

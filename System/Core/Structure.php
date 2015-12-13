@@ -132,13 +132,11 @@ class Structure
 				die(Error::message('Error', 'controllerNameError', $pageControl));
 			}
 		}
-		
-		global $system;
-		
+	
 		//------------------------------------------------------------------------------------------------
 		//  Restore Modu
 		//------------------------------------------------------------------------------------------------
-		if( $system['restorationMode'] === true )
+		if( APPMODE === 'restoration' )
 		{
 			Restoration::mode();
 		}
