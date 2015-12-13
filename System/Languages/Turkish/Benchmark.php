@@ -19,3 +19,4 @@ $lang['Benchmark']['configAutoloader']	= 'Config/Autoloader.php';
 $lang['Benchmark']['configHtaccess']	= 'Config/Htaccess.php';
 $lang['Benchmark']['second']			= 'Saniye';
 $lang['Benchmark']['byte']				= 'Bayt';
+$lang['Benchmark']['countFile']			= 'Yüklenen Dosya Sayısı';
