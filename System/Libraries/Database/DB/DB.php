@@ -472,6 +472,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		else
 		{
+			$table = $this->prefix.$table;
 			$this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
 		}
 		
