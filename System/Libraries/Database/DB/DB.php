@@ -479,6 +479,87 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	// @param string $operator
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _join($table = '', $column = '', $otherColumn = '', $operator = '=', $type = 'INNER')
+	{
+		$condition = suffix($this->prefix.$table, '.'.$column).' '.$operator.' '.$this->prefix.$otherColumn.' ';
+		$this->join($table, $condition, $type);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Inner Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function innerJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'INNER');
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Outer Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function outerJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'OUTER');
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Left Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function leftJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'LEFT');
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Right Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rightJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'RIGHT');
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* GROUP BY                                                                                *
 	*******************************************************************************************
