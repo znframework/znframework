@@ -559,7 +559,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		$this->pagination['start'] = (int)$start;
 		$this->pagination['limit'] = (int)$limit;
-		$this->limit = ' LIMIT '.(int)$start.$comma.(int)$limit.' ';
+		
+		$this->limit = ' LIMIT '.(int)$start.( ! empty($limit) ? $comma.(int)$limit.' ' : '' );
 	
 		return $this; 
 	}
@@ -595,14 +596,23 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			$this->table = $this->from;
 		}
 		
+		if( ! empty($this->selectFunctions) )
+		{
+			$selectFunctions = rtrim(implode(',', $this->selectFunctions), ',');
+			
+			if( empty($this->select) )
+			{
+				$this->select = $selectFunctions;
+			}
+			else
+			{
+				$this->select .= ','.$selectFunctions;
+			}
+		}
+		
 		if( empty($this->select) )
 		{
 			$this->select = ' * ';	
-		}
-		
-		if( ! empty($this->selectFunctions) )
-		{
-			$this->select = rtrim(implode(',', $this->selectFunctions), ',');	
 		}
 		
 		// Sorgu yöntemlerinden gelen değeler birleştiriliyor.		
