@@ -26,6 +26,7 @@
     <tr><td><?php echo $lang['elapsedTime']; ?></td><td>: <b><?php echo $elapsedTime." ".$lang['second']; ?></b></td></tr>
     <tr><td><?php echo $lang['memoryUsage']; ?></td><td>: <b><?php echo $memoryUsage." ".$lang['byte']; ?></b></td></tr>
     <tr><td><?php echo $lang['maxMemoryUsage']; ?></td><td>: <b><?php echo $maxMemoryUsage." ".$lang['byte']; ?></b></td></tr>
+    <tr><td><?php echo $lang['countFile']; ?></td><td>: <b><?php echo count(get_required_files()); ?></b></td></tr>
     <tr><td colspan='2'></td></tr><tr><td colspan='2'></td></tr><tr><td colspan='2'></td></tr>
     <tr><td colspan='2' class="importantColorBenchmarkTable"><?php echo $lang['performanceTips']; ?></td></tr>
     <tr><td colspan='2'><?php echo $lang['laterProcess']; ?></td></tr>

@@ -640,7 +640,7 @@ function library($class = NULL, $function = NULL, $parameters = array())
 // Genel Kullanım: Herhangi bir sınıfı kullanmak için oluşturulmuştur.					  
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function uselib($class = '')
+function uselib($class = '', $parameters = array())
 {
 	if( ! class_exists($class) )
 	{
@@ -661,7 +661,31 @@ function uselib($class = '')
 			zn::$use = new stdClass();	
 		}
 
-		zn::$use->$class = new $class;
+		switch( count($parameters) )
+		{
+			// Parametre yoksa
+			case 0 : zn::$use->$class = new $class; break;
+	
+			// 1 parametre için
+			case 1 : zn::$use->$class = new $class($parameters[0]); break;
+			
+			// 2 parametre için
+			case 2 : zn::$use->$class = new $class($parameters[0], $parameters[1]); break;
+			
+			// 3 parametre için
+			case 3 : zn::$use->$class = new $class($parameters[0], $parameters[1], $parameters[2]); break;
+	
+			// 4 parametre için
+			case 4 : zn::$use->$class = new $class($parameters[0], $parameters[1], $parameters[2], $parameters[3]); break;
+				
+			// 5 parametre için
+			case 5 : zn::$use->$class = new $class($parameters[0], $parameters[1], $parameters[2], $parameters[3], $parameters[4]); break;
+			
+			// Daha fazla parametre için
+			// next 5.6.0
+			// default: zn::$use->$class = new $class(...$parameters);
+		
+		}
 	}
 	
 	return zn::$use->$class;	
@@ -847,7 +871,7 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 		$destination = str_replace(' ', '-', $subject);
 	}
 	
-	$logDir    = APP_DIR.'Logs/';
+	$logDir    = APPDIR.'Logs/';
 	$extension = '.log';
 	
 	if( ! is_dir($logDir) )
@@ -988,15 +1012,36 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		
 		foreach( $htaccessSettings['settings'] as $key => $val )
 		{
-			$htaccessSettingsStr .= "<$key>".$eol;
-			
-			foreach( $val as $v )
+			if( ! is_numeric($key) )
 			{
-				$htaccessSettingsStr .= $v;
+				if( is_array($val) )
+				{
+					$htaccessSettingsStr .= "<$key>".$eol;
+					
+					foreach( $val as $k => $v)
+					{
+						if( ! is_numeric($k) )
+						{
+							$htaccessSettingsStr .= "$k $v".$eol;
+						}
+						else
+						{
+							$htaccessSettingsStr .= $v.$eol;
+						}
+					}
+					
+					$keyex = explode(" ", $key);
+					$htaccessSettingsStr .= "</$keyex[0]>".$eol.$eol;
+				}
+				else
+				{
+					$htaccessSettingsStr .= "$key $val".$eol;
+				}
 			}
-			
-			$keyex = explode(" ", $key);
-			$htaccessSettingsStr .= $eol."</$keyex[0]>".$eol.$eol;
+			else
+			{
+				$htaccessSettingsStr .= $val.$eol;
+			}
 		}	
 	}
 	else

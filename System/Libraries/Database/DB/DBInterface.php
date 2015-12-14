@@ -213,6 +213,18 @@ interface DBInterface
 	public function resultArray();
 	
 	/******************************************************************************************
+	* RESULT JSON                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu kayıt bilgilerini json veri türünde elde edilir.     	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->resultJson();                			                              |
+	|          																				  |
+	******************************************************************************************/
+	public function resultJson();
+	
+	/******************************************************************************************
 	* FETCH ARRAY                                                                             *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu sonucu verileri dizi türünde verir.     	  					  |

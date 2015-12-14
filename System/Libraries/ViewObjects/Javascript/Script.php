@@ -81,8 +81,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	******************************************************************************************/
 	public function library()
 	{
-		$arguments = array_unique(func_get_args());
-		Import::script($arguments);
+		Import::script(func_get_args());
 		
 		return $this;
 	}
@@ -97,13 +96,23 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function open($ready = true)
+	public function open($ready = true, $jqueryCdn = false, $jqueryUiCdn = false)
 	{		
 		$this->ready = $ready;
 		
 		$eol     = eol();
 		$script  = "";
-		$script .= Import::script('jquery', true);
+		
+		if( $jqueryCdn === true ) 
+		{
+			$script .= Import::script('jquery', true);
+		}
+		
+		if( $jqueryUiCdn === true ) 
+		{
+			$script .= Import::script('jqueryUi', true);
+		}
+		
 		$script .= "<script type=\"$this->type\">".$eol;
 		
 		if( $this->ready === true )

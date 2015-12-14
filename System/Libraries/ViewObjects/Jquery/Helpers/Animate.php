@@ -246,7 +246,7 @@ class JQAnimate
 	
 		$animate .= ";".eol();
 			
-		return $animate;
+		return $this->_tag($animate);
 	}
 	
 	/******************************************************************************************

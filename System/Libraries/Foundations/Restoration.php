@@ -22,42 +22,42 @@ class Restoration
 		// kalmamaları için hata raporlama kapatılıyor.
 		error_reporting(0); 
 		
-		global $system;
+		global $application;
 		// Config/Repair.php dosyasında tadilata alınacak sayfalar belirtilir.
 		// Burada ayarlarda belirtilen sayfa isimleri bilgisi alınıyor.
-
-		$repairPages  = $system['restorationPages'];
-		$routePate	  = strtolower($system['restorationRoutePage']);
-		$currentPath  = strtolower(currentPath()); 
+		
+		$restoration  		= $application['restoration'];
+		$restorationPages   = $restoration['pages'];
+		$routePage	  		= strtolower($restoration['routePage']);
+		$currentPath  		= strtolower(currentPath()); 
 		
 		// Eğer Config/Repair.php dosyasında pages = "all" olarrak alınmış ise 
 		// tüm sayfalar için tadilat modu uygulanıyor demektir.
-		if( is_string($repairPages) )
+		if( is_string($restorationPages) )
 		{
-			if( $repairPages === "all" )
+			if( $restorationPages === "all" )
 			{
-				if( $currentPath !== $routePate ) 
+				if( $currentPath !== $routePage ) 
 				{
-					redirect($system['routePage']);
+					redirect($restoration['routePage']);
 				}
 			}
 		}
 		
-		
 		// Sayfalar tek tek çağrılıyor..
-		if( is_array($repairPages) && ! empty($repairPages) )
+		if( is_array($restorationPages) && ! empty($restorationPages) )
 		{		
 			// Eğer Config/Repair.php dosyasında pages = array("all") olarrak alınmış ise 
 			// tüm sayfalar için tadilat modu uygulanıyor demektir.
-			if( $repairPages[0] === "all" )
+			if( $restorationPages[0] === "all" )
 			{
-				if( $currentPath !== $routePate ) 
+				if( $currentPath !== $routePage ) 
 				{
-					redirect($system['restorationRoutePage']);
+					redirect($restoration['routePage']);
 				}
 			}
 		
-			foreach( $repairPages as $k => $rp )
+			foreach( $restorationPages as $k => $rp )
 			{
 				// Yönlendirme sayfası bir anahtar-değer çifti içeriyorsa bu sayfaya yönlenmesi sağlanır
 				if( strstr($currentPath, strtolower($k)) )
@@ -70,9 +70,9 @@ class Restoration
 					// yönlendirme sayfası olarak belirlene sayfaya yönlendir.
 					if( strstr($currentPath, strtolower($rp)) )
 					{
-						if( $currentPath !== $routePate )
+						if( $currentPath !== $routePage )
 						{
-							redirect($system['restorationRoutePage']);
+							redirect($restoration['routePage']);
 						}
 					}	
 				}

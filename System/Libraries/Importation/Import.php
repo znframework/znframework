@@ -392,7 +392,42 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	// Master Page Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
-
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Set Page
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param mixed $page
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _setpage($page)
+	{
+		if( ! empty($page) )
+		{
+			$eol    = eol();
+			$return = '';
+			
+			// Tek bir üst sayfa kullanımı için.
+			if( ! is_array($page) )
+			{
+				$return .= $this->page($page, '', true).$eol;
+			}
+			else
+			{
+				// Birden fazla üst sayfa kullanımı için.
+				foreach( $page as $p )
+				{
+					$return .= $this->page($p, '', true).$eol;
+				}
+			}	
+			
+			return $return;
+		}
+		
+		return false;
+	}
+	
+	
 	/******************************************************************************************
 	* MASTERPAGE                                                                              *
 	*******************************************************************************************
@@ -433,32 +468,23 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		$randomPageVariable = isset($head['bodyPage'])
-					        ? $head['bodyPage'] 
-						    : $masterPageSet['bodyPage'];
-		
-		$headPage = isset($head['headPage'])
-			      ? $head['headPage'] 
-			      : $masterPageSet['headPage'];
+		$randomPageVariable = isset($head['bodyPage']) ? $head['bodyPage'] : $masterPageSet['bodyPage'];	
+		$headPage 			= isset($head['headPage']) ? $head['headPage'] : $masterPageSet['headPage'];
+		$footPage 			= isset($head['footPage']) ? $head['footPage'] : $masterPageSet['footPage'];
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
 	
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/		
-		$docType = isset($head['docType']) 			
-			     ? $head['docType'] 		
-			     : $masterPageSet["docType"];
+		$docType = isset($head['docType']) ? $head['docType'] : $masterPageSet["docType"];
 		
 		$header  = Config::get('Doctype', $docType).$eol;
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.$eol;
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-		
 		$header .= '<head>'.$eol;
 		
-		$contentCharset = isset($head['contentCharset']) 			
-					    ? $head['contentCharset'] 		
-					    : $masterPageSet["contentCharset"];
+		$contentCharset = isset($head['contentCharset']) ? $head['contentCharset'] : $masterPageSet["contentCharset"];
 					  
 		if( is_array($contentCharset) )
 		{
@@ -472,9 +498,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.$eol;	
 		}
 		
-		$contentLanguage = isset($head['contentLanguage']) 			
-					     ? $head['contentLanguage'] 		
-					     : $masterPageSet["contentLanguage"];
+		$contentLanguage = isset($head['contentLanguage']) ? $head['contentLanguage'] : $masterPageSet["contentLanguage"];
 		
 		$header .= '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.$eol;
 			
@@ -485,9 +509,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 						
 		$metas = $masterPageSet['meta'];
 						
-		$title = isset($head['title'])			
-			   ? $head['title'] 		
-			   : $masterPageSet["title"];
+		$title = isset($head['title']) ? $head['title'] : $masterPageSet["title"];
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -512,17 +534,16 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 				$content = $head['meta'][$name];
 			}
 			
+			if( ! stristr($name, 'http:') && ! stristr($name, 'name:') )
+			{
+				$name = 'name:'.$name;
+			}
+			
 			if( ! empty($content) )
 			{
-				$nameEx = explode("->", $name);
-				
-				$httpOrName = ( $nameEx[0] === 'http' )
-							  ? 'http-equiv'
-							  : 'name';
-				
-				$name 		= ( isset($nameEx[1]) )
-							  ? $nameEx[1]
-							  : $nameEx[0];
+				$nameEx 	= explode(":", $name);
+				$httpOrName = ( $nameEx[0] === 'http' ) ? 'http-equiv' : 'name';
+				$name 		= ( isset($nameEx[1]) ) ? $nameEx[1] : $nameEx[0];
 							  
 				if( ! is_array($content) )
 				{			  
@@ -545,12 +566,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// Fontlar dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
 		if( ! empty($masterPageSet["font"]) )
-		{					
+		{		
+			$masterPageSet['font'][] = true;			
 			$header .= $this->font($masterPageSet["font"], true);
 		}
 		
 		if( isset($head['font']) )
-		{					
+		{	
+			$head['font'][] = true;				
 			$header .= $this->font($head['font'], true);
 		}
 		//-----------------------------------------------------------------------------------------------------
@@ -562,11 +585,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		if( is_array($masterPageSet['script']) )
 		{
+			$masterPageSet['script'][] = true;
 			$header .= $this->script($masterPageSet['script'], true);
 		}
 		
 		if( isset($head['script']) )
 		{
+			$head['script'][] = true;
 			$header .= $this->script($head['script'], true);
 		}
 		//-----------------------------------------------------------------------------------------------------
@@ -578,12 +603,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		if( is_array($masterPageSet['style']) )
 		{
-			$header .= $this->style($masterPageSet['style'], true);
+			$masterPageSet['style'][] = true;
+			$header .= $this->style($masterPageSet['style']);
 		}
 		
 		if( isset($head['style']) )
 		{
-			$header .= $this->style($head['style'], true);
+			$head['style'][] = true;
+			$header .= $this->style($head['style']);
 		}
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -592,9 +619,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Browser Icon dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		$browserIcon  = isset($head['browserIcon'])			
-					  ? $head['browserIcon'] 		
-					  : $masterPageSet["browserIcon"];
+		$browserIcon  = isset($head['browserIcon']) ? $head['browserIcon'] : $masterPageSet["browserIcon"];
 					  
 		if( ! empty($browserIcon) ) 
 		{
@@ -607,13 +632,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Tema dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		$theme = isset($head['theme']['name'])			
-			   ? $head['theme']['name'] 		
-			   : $masterPageSet['theme']['name'];
-			   
-		$themeRecursive = isset($head['theme']['recursive'])			
-			   ? $head['theme']['recursive'] 		
-			   : $masterPageSet['theme']['recursive'];
+		$theme          = isset($head['theme']['name']) ? $head['theme']['name'] : $masterPageSet['theme']['name']; 
+		$themeRecursive = isset($head['theme']['recursive']) ? $head['theme']['recursive'] : $masterPageSet['theme']['recursive'];
 			   
 		if( ! empty($theme) ) 			
 		{
@@ -626,13 +646,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Eklenti dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		$plugin = isset($head['plugin']['name'])			
-			    ? $head['plugin']['name'] 		
-			    : $masterPageSet['plugin']['name'];
-			   
-		$pluginRecursive = isset($head['plugin']['recursive'])			
-			   ? $head['plugin']['recursive'] 		
-			   : $masterPageSet['plugin']['recursive'];
+		$plugin 		 = isset($head['plugin']['name']) ? $head['plugin']['name'] : $masterPageSet['plugin']['name']; 
+		$pluginRecursive = isset($head['plugin']['recursive']) ? $head['plugin']['recursive'] : $masterPageSet['plugin']['recursive'];
 			   
 		if( ! empty($plugin) ) 			
 		{
@@ -671,23 +686,9 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Başlık sayfası dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( ! empty($headPage) )
-		{
-
-			// Tek bir üst sayfa kullanımı için.
-			if( ! is_array($headPage) )
-			{
-				$header .= $this->page($headPage, '', true).$eol;
-			}
-			else
-			{
-				// Birden fazla üst sayfa kullanımı için.
-				foreach( $headPage as $hpage )
-				{
-					$header .= $this->page($hpage, '', true).$eol;
-				}
-			}	
-		}
+		
+		$header .= $this->_setpage($headPage);
+		
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -700,20 +701,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		$backgroundImage  = isset($head['backgroundImage'])			
-					      ? $head['backgroundImage'] 		
-					      : $masterPageSet["backgroundImage"];
-						  
-		$bgImage = ! empty($backgroundImage)
-		           ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"'
-				   : '';
+		$backgroundImage  = isset($head['backgroundImage']) ? $head['backgroundImage'] : $masterPageSet["backgroundImage"];			  
+		$bgImage 	 	  = ! empty($backgroundImage) ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"' : '';
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
 		
-		$bodyAttributes = isset($head['bodyAttributes'])			
-			        ? $head['bodyAttributes'] 		
-			        : $masterPageSet["bodyAttributes"];
+		$bodyAttributes = isset($head['bodyAttributes']) ? $head['bodyAttributes'] : $masterPageSet["bodyAttributes"];
 		
 		$header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
 	
@@ -766,7 +760,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			$lastParam = isset($arguments[$argumentCount]) ? $arguments[$argumentCount] : false;	
 		}
-		
+
 		$arguments = array_unique($arguments);
 		
 		return (object)array

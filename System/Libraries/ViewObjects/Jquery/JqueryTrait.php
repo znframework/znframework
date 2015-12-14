@@ -19,6 +19,27 @@ trait JqueryTrait
 	 */
 	protected $callback = '';
 	
+	protected $tag 			= false;
+	protected $jqueryCdn 	= false;
+	protected $jqueryUiCdn 	= false;
+
+	public function __construct($tag = false, $jqueryCdn = false, $jqueryUiCdn = false)
+	{
+		$this->tag	 		= $tag;
+		$this->jqueryCdn 	= $jqueryCdn;
+		$this->jqueryUiCdn 	= $jqueryUiCdn;		
+	}
+	
+	protected function _tag($code)
+	{
+		if( $this->tag === true )
+		{
+			return Script::open(true, $this->jqueryCdn, $this->jqueryUiCdn).$code.Script::close();
+		}
+		
+		return $code;
+	}
+	
 	/******************************************************************************************
 	* SELECTOR                                                                                *
 	*******************************************************************************************

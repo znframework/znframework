@@ -19,3 +19,4 @@ $lang['Benchmark']['configAutoloader']	= 'Config/Autoloader.php';
 $lang['Benchmark']['configHtaccess']	= 'Config/Htaccess.php';
 $lang['Benchmark']['second']			= 'Seconds';
 $lang['Benchmark']['byte']				= 'Bytes';
+$lang['Benchmark']['countFile']			= 'Count Load Files';

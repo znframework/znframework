@@ -67,7 +67,7 @@ define('HIERARCHY_DIR', CORE_DIR.'Hierarchy.php');
 // @return \r\n
 //
 //----------------------------------------------------------------------------------------------------
-define('CRLF', '\r\n');	
+define('CRLF', "\r\n");	
 
 //----------------------------------------------------------------------------------------------------
 // isResmac()
@@ -82,12 +82,11 @@ define('CRLF', '\r\n');
 //----------------------------------------------------------------------------------------------------
 function isResmac()
 {
-	global $system;
+	global $application;
 
-	$restorationIP   = $system['restorationMachinesIP'];
-	$restorationMode = $system['restorationMode'];
+	$restorationIP = $application['restoration']['machinesIP'];
 	
-	if( $restorationMode === true )
+	if( APPMODE === 'restoration' )
 	{
 		$ipv4 = ipv4();
 		
@@ -125,7 +124,7 @@ function restorationPath($path = '')
 {
 	if( isResmac() === true )
 	{
-		$newPath = preg_replace('/^'.rtrim(APP_DIR, '/').'/', rtrim(RES_DIR, '/'), $path);
+		$newPath = preg_replace('/^'.rtrim(APPDIR, '/').'/', rtrim(RESDIR, '/'), $path);
 		
 		if( file_exists($newPath) )
 		{
@@ -915,13 +914,13 @@ function divide($str = '', $seperator = "|", $index = 0)
 //----------------------------------------------------------------------------------------------------
 function ipv4()
 {
-	if( isset($_SERVER['HTTP_CLIENT_IP']) )   //paylaşımlı bir bağlantı mı kullanıyor?
+	if( isset($_SERVER['HTTP_CLIENT_IP']) ) 
 	{
 		$ip = $_SERVER['HTTP_CLIENT_IP'];
 	}
-	elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )   //ip adresi proxy'den mi geliyor?
+	elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) 
 	{
-		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		$ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
 	}
 	else
 	{

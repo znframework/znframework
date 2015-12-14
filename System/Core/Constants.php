@@ -17,7 +17,7 @@
 // @return Application/Config/
 //
 //----------------------------------------------------------------------------------------------------
-define('CONFIG_DIR', APP_DIR.'Config/'); 
+define('CONFIG_DIR', APPDIR.'Config/'); 
 
 //----------------------------------------------------------------------------------------------------
 // STORAGE_DIR
@@ -26,7 +26,7 @@ define('CONFIG_DIR', APP_DIR.'Config/');
 // @return Application/Storage/
 //
 //----------------------------------------------------------------------------------------------------
-define('STORAGE_DIR', APP_DIR.'Storage/'); 
+define('STORAGE_DIR', APPDIR.'Storage/'); 
 
 //----------------------------------------------------------------------------------------------------
 // RESOURCES_DIR
@@ -35,7 +35,7 @@ define('STORAGE_DIR', APP_DIR.'Storage/');
 // @return Application/Resources/
 //
 //----------------------------------------------------------------------------------------------------
-define('RESOURCES_DIR', APP_DIR.'Resources/');		
+define('RESOURCES_DIR', APPDIR.'Resources/');		
 
 //----------------------------------------------------------------------------------------------------
 // STARTING_DIR
@@ -44,7 +44,7 @@ define('RESOURCES_DIR', APP_DIR.'Resources/');
 // @return Application/Starting/
 //
 //----------------------------------------------------------------------------------------------------
-define('STARTING_DIR', APP_DIR.'Starting/');	
+define('STARTING_DIR', APPDIR.'Starting/');	
 
 //----------------------------------------------------------------------------------------------------
 // AUTOLOAD_DIR
@@ -80,7 +80,7 @@ define('SYSTEM_LANGUAGES_DIR', SYSTEM_DIR.'Languages/');
 // @return Application/Languages/
 //
 //----------------------------------------------------------------------------------------------------
-define('LANGUAGES_DIR', APP_DIR.'Languages/'); 
+define('LANGUAGES_DIR', APPDIR.'Languages/'); 
 
 //----------------------------------------------------------------------------------------------------
 // SYSTEM_LIBRARIES_DIR
@@ -98,7 +98,7 @@ define('SYSTEM_LIBRARIES_DIR', SYSTEM_DIR.'Libraries/');
 // @return Application/Libraries/
 //
 //----------------------------------------------------------------------------------------------------
-define('LIBRARIES_DIR', APP_DIR.'Libraries/'); 			
+define('LIBRARIES_DIR', APPDIR.'Libraries/'); 			
 
 //----------------------------------------------------------------------------------------------------
 // CONTROLLERS_DIR
@@ -107,7 +107,7 @@ define('LIBRARIES_DIR', APP_DIR.'Libraries/');
 // @return Application/Controllers/
 //
 //----------------------------------------------------------------------------------------------------
-define('CONTROLLERS_DIR', APP_DIR.'Controllers/'); 			
+define('CONTROLLERS_DIR', APPDIR.'Controllers/'); 			
 
 //----------------------------------------------------------------------------------------------------
 // MODELS_DIR
@@ -116,7 +116,7 @@ define('CONTROLLERS_DIR', APP_DIR.'Controllers/');
 // @return Application/Models/
 //
 //----------------------------------------------------------------------------------------------------
-define('MODELS_DIR', APP_DIR.'Models/'); 				
+define('MODELS_DIR', APPDIR.'Models/'); 				
 
 //----------------------------------------------------------------------------------------------------
 // VIEWS_DIR
@@ -125,7 +125,7 @@ define('MODELS_DIR', APP_DIR.'Models/');
 // @return Application/Views/
 //
 //----------------------------------------------------------------------------------------------------
-define('VIEWS_DIR', APP_DIR.'Views/'); 									
+define('VIEWS_DIR', APPDIR.'Views/'); 									
 
 //----------------------------------------------------------------------------------------------------
 // PAGES_DIR

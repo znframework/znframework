@@ -289,7 +289,7 @@ class CSSShadow
 		
 		$this->_defaultVariable();
 		
-		return $str;
+		return $this->_tag($str);
 	}
 	
 	// VARSAYILAN DEĞİŞKEN AYARLARI

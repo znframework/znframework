@@ -794,10 +794,6 @@ class JQAjax
 			$ajax .= $val;
 		}
 		
-		$ajax = rtrim(trim($ajax), ',');
-		
-		$ajax .= $eol;
-		
 		if( ! empty($this->functions) ) foreach( $this->functions as $val )
 		{
 			$ajax .= "\t$val,";
@@ -821,7 +817,7 @@ class JQAjax
 			$callbacks = ";".$eol;
 		}
 		
-		$ajax = $eol."$.ajax".$eol."({".$eol."$ajax".$eol."})$callbacks";
+		$ajax = $this->_tag($eol."$.ajax".$eol."({".$eol."$ajax".$eol."})$callbacks");
 		
 		$this->_defaultVariable();
 		

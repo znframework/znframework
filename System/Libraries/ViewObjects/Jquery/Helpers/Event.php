@@ -660,7 +660,7 @@ class JQEvent
 		
 		$event .= ";";
 		
-		return $event;
+		return $this->_tag($event);
 	}
 	
 	/* Default Variable

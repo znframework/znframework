@@ -383,6 +383,28 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	}
 	
 	/******************************************************************************************
+	* Protedted Where Having                                                                  *
+	******************************************************************************************/
+	protected function _whereHaving($column, $value, $logical)
+	{
+		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
+		{
+			Error::set('Error', 'stringParameter', 'column, value, logical');
+		}
+		else
+		{
+			if( $value !== '' )
+			{
+				$value = presuffix($this->db->realEscapeString($value), "'");
+			}
+			
+			return ' '.$column.' '.$value.' '.$logical.' ';
+		}
+		
+		return '';
+	}
+	
+	/******************************************************************************************
 	* WHERE                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
@@ -400,17 +422,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function where($column = '', $value = '', $logical = '')
 	{
-		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
-		{
-			Error::set('Error', 'stringParameter', 'column, value, logical');
-		}
-		else
-		{
-			$value = presuffix($this->db->realEscapeString($value), "'");
-			
-			$this->where .= ' '.$column.' '.$value.' '.$logical.' ';
-		}
+		$this->where .= $this->_whereHaving($column, $value, $logical);
 		
 		return $this;
 	}
@@ -433,17 +445,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function having($column = '', $value = '', $logical = '')
 	{
-		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
-		{
-			Error::set('Error', 'stringParameter', 'column, value, logical');
-		}
-		else
-		{
-			$value = presuffix($this->db->realEscapeString($value), "'");
-
-			$this->having .= ' '.$column.' '.$value.' '.$logical.' ';
-		}
+		$this->having .= $this->_whereHaving($column, $value, $logical);
 		
 		return $this;
 	}
@@ -557,7 +559,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		$this->pagination['start'] = (int)$start;
 		$this->pagination['limit'] = (int)$limit;
-		$this->limit = ' LIMIT '.(int)$start.$comma.(int)$limit.' ';
+		
+		$this->limit = ' LIMIT '.(int)$start.( ! empty($limit) ? $comma.(int)$limit.' ' : '' );
 	
 		return $this; 
 	}
@@ -593,14 +596,23 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			$this->table = $this->from;
 		}
 		
+		if( ! empty($this->selectFunctions) )
+		{
+			$selectFunctions = rtrim(implode(',', $this->selectFunctions), ',');
+			
+			if( empty($this->select) )
+			{
+				$this->select = $selectFunctions;
+			}
+			else
+			{
+				$this->select .= ','.$selectFunctions;
+			}
+		}
+		
 		if( empty($this->select) )
 		{
 			$this->select = ' * ';	
-		}
-		
-		if( ! empty($this->selectFunctions) )
-		{
-			$this->select = rtrim(implode(',', $this->selectFunctions), ',');	
 		}
 		
 		// Sorgu yöntemlerinden gelen değeler birleştiriliyor.		
@@ -1731,10 +1743,29 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		{
 			return $this->db->result();
 		}
+		elseif( $type === 'json' )
+		{
+			return json_encode($this->db->result());	
+		}
 		else
 		{
 			return $this->db->resultArray();
 		}
+	}
+	
+	/******************************************************************************************
+	* JSON                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu kayıt bilgilerini verir.     			   		          |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->resultJson();              			                                  |
+	|          																				  |
+	******************************************************************************************/
+	public function resultJson( $type = 'object' )
+	{ 
+		return json_encode($this->db->result());	
 	}
 	
 	/******************************************************************************************

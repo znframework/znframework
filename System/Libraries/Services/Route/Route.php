@@ -58,16 +58,10 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 			Config::set('Route', 'changeUri', $route);	
 		}
 		
-		$datas = Structure::data();
-		
+		$datas 		= Structure::data();
 		$parameters = $datas['parameters'];
 		$isFile     = $datas['file'];
 		$function   = $datas['function'];
-		
-		if( APP_TYPE === 'local' )
-		{
-			set_error_handler('Exceptions::table');	
-		}
 		
 		if( ( $functionName === 'construct' || $functionName === 'destruct' ) && is_callable($functionRun) )
 		{
@@ -104,11 +98,6 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 					}
 				}
 			}
-		}
-		
-		if( APP_TYPE === 'local' )
-		{
-			restore_error_handler();
 		}
 	}	
 }

@@ -164,7 +164,7 @@ $config['Masterpage']['title'] 	= '';
 //----------------------------------------------------------------------------------------------------
 //
 // Genel Kullanım: Standart olarak kullanılan meta verilerini kullanmak için oluşturuldu.  
-// Meta içeri name ise name-> ayracı, http-equiv ise http-> ayracı kullanılarak 			  
+// Meta içeri name ise name: ayracı, http-equiv ise http: ayracı kullanılarak 			  
 // meta tagları ekleyebilirsiniz.														  
 //																					      
 // Aşağıdaki taglar ön tanımlı meta taglarıdır.  									      
@@ -172,19 +172,19 @@ $config['Masterpage']['title'] 	= '';
 //----------------------------------------------------------------------------------------------------
 $config['Masterpage']['meta'] = array
 (
-	'name->description'		=> '', 
-	'name->author'			=> '',
-	'name->designer'		=> '',
-	'name->distribution'	=> '',
-	'name->keywords'		=> '',
-	'http->cache-control' 	=> '',
-	'http->refresh'			=> '',
-	'name->abstract'		=> '',
-	'name->copyright'		=> '',
-	'name->expires'			=> '',
-	'name->pragma'			=> '',
-	'name->revisit-after'	=> '',
-	'name->robots'			=> array()
+	'name:description'		=> '', 
+	'name:author'			=> '',
+	'name:designer'			=> '',
+	'name:distribution'		=> '',
+	'name:keywords'			=> '',
+	'name:abstract'			=> '',
+	'name:copyright'		=> '',
+	'name:expires'			=> '',
+	'name:pragma'			=> '',
+	'name:revisit-after'	=> '',
+	'http:cache-control' 	=> '',
+	'http:refresh'			=> '',
+	'name:robots'			=> array()
 );
 
 //----------------------------------------------------------------------------------------------------
