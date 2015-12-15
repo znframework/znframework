@@ -492,9 +492,24 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _join($table = '', $column = '', $otherColumn = '', $operator = '=', $type = 'INNER')
+	protected function _join($tableAndColumn = '', $otherColumn = '', $operator = '=', $type = 'INNER')
 	{
-		$condition = suffix($this->prefix.$table, '.'.$column).' '.$operator.' '.$this->prefix.$otherColumn.' ';
+		$tableAndColumn = explode('.', $tableAndColumn);
+		
+		$table     = isset($tableAndColumn[0]) ? $this->prefix.$tableAndColumn[0] : '';
+		$column    = isset($tableAndColumn[1]) ? $this->prefix.$tableAndColumn[1] : '';	
+		$condition = $table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';
+		
+		if( empty($table) )
+		{
+			Error::set('Error', 'emptyVariable', 'table');	
+		}
+		
+		if( empty($column) )
+		{
+			Error::set('Error', 'emptyVariable', 'column');	
+		}
+		
 		$this->join($table, $condition, $type);
 	}
 	
@@ -507,9 +522,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	public function innerJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'INNER');
+		$this->_join($table, $otherColumn, $operator, 'INNER');
 		
 		return $this;
 	}
@@ -523,7 +538,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
 	{
 		$this->_join($table, $column, $otherColumn, $operator, 'OUTER');
 		
@@ -539,7 +554,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
 	{
 		$this->_join($table, $column, $otherColumn, $operator, 'LEFT');
 		
@@ -555,7 +570,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin($table = '', $column = '', $otherColumn = '', $operator = '=')
+	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
 	{
 		$this->_join($table, $column, $otherColumn, $operator, 'RIGHT');
 		
