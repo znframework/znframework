@@ -248,6 +248,41 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	protected $attachments = array();
 	
 	/* 
+	 * Alıcı bilgisi.
+	 * 
+	 * @var array
+	 */ 
+	protected $to = array();
+	
+	/* 
+	 * Alıcı bilgisi.
+	 * 
+	 * @var array
+	 */ 
+	protected $replyTo = array();
+	
+	/* 
+	 * Alıcı bilgisi.
+	 * 
+	 * @var string
+	 */ 
+	protected $from;
+	
+	/* 
+	 * Konu bilgisi.
+	 * 
+	 * @var string
+	 */ 
+	protected $subject;
+	
+	/* 
+	 * Mesaj bilgisi.
+	 * 
+	 * @var string
+	 */ 
+	protected $message;
+	
+	/* 
 	 * Email sürücüsünü sınıf bilgisini
 	 * tutmak için oluşturulmuştur.
 	 * 
