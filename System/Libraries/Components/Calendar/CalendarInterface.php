@@ -61,7 +61,7 @@ interface CalendarInterface
 	public function style($style);
 	
 	//----------------------------------------------------------------------------------------------------
-	// Link Name
+	// Link Names
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// Takvimde yer alan iler ve geri butonu linklerinin isimlerini			 
@@ -72,7 +72,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function linkName($prev, $next);
+	public function linkNames($prev, $next);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create

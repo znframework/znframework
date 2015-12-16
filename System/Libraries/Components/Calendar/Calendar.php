@@ -233,7 +233,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Link Name
+	// Link Names
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// Takvimde yer alan iler ve geri butonu linklerinin isimlerini			 
@@ -244,7 +244,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function linkName($prev = '<<', $next = '>>')
+	public function linkNames($prev = '<<', $next = '>>')
 	{
 		if( ! ( is_string($prev) && is_string($next) ) )	
 		{
