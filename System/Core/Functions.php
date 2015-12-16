@@ -1142,7 +1142,10 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		return false;
 	}
 	
-	file_put_contents('.htaccess', trim($htaccess));
+	if( ! file_put_contents('.htaccess', trim($htaccess)) )
+	{
+		Error::set('Error', 'fileNotWrite', '.htaccess');
+	}
 	
 	unset( $htaccess );	
 }

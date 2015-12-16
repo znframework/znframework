@@ -165,7 +165,12 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 			return Error::set('Error', 'valueParameter', 'data');
 		}
 
-		return file_put_contents($file, $data);
+		if( ! file_put_contents($file, $data) )
+		{
+			return Error::set('Error', 'fileNotWrite', $file);
+		}
+		
+		return true;
 	}	
 	
 	/******************************************************************************************
@@ -196,7 +201,12 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 			return Error::set('Error', 'valueParameter', 'data');
 		}
 		
-		return file_put_contents($file, $data, FILE_APPEND);
+		if( ! file_put_contents($file, $data, FILE_APPEND) )
+		{
+			return Error::set('Error', 'fileNotWrite', $file);
+		}
+		
+		return true;
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -569,7 +579,10 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 				
 				touch($targetPath);
 				
-				file_put_contents($targetPath, zip_entry_read($zipContent));
+				if( ! file_put_contents($targetPath, zip_entry_read($zipContent)) )
+				{
+					return Error::set('Error', 'fileNotWrite', $targetPath);
+				}
 			}
 			else
 			{

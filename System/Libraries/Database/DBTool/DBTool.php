@@ -320,8 +320,10 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			$fileName = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
 		}
 		
-		// Dosya oluşturuluyor.
-		file_put_contents($path.$fileName, $return);
+		if( ! file_put_contents($path.$fileName, $return) )
+		{
+			Error::set('Error', 'fileNotWrite', $path.$fileName);
+		}
 		
 		return lang('Database', 'backupTablesSuccess');
 	}
