@@ -261,7 +261,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	/******************************************************************************************
 	* PRIVATE REGULAR CONVERTING                                                              *
 	******************************************************************************************/	
-	private function _regularConverting($pattern, $ex = '', $delimiter)
+	private function _regularConverting($pattern, $ex = '', $delimiter = '/')
 	{
 		
 		$specialChars = $this->config['specialChars'];
@@ -282,8 +282,6 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 			$ex = str_ireplace(array_keys($settingChars), array_values($settingChars), $ex);
 		}
 		
-		$pattern = $delimiter.trim($pattern, '/').$delimiter.$ex;	
-		
-		return $pattern;
+		return presuffix($pattern, $delimiter).$ex;
 	}
 }
