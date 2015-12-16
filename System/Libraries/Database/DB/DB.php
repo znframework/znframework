@@ -472,8 +472,107 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		else
 		{
+			$table = $this->prefix.$table;
+			$type  = strtoupper($type);
+			
 			$this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
 		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	// @param string $operator
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _join($tableAndColumn = '', $otherColumn = '', $operator = '=', $type = 'INNER')
+	{
+		$tableAndColumn = explode('.', $tableAndColumn);
+		
+		$table     = isset($tableAndColumn[0]) ? $this->prefix.$tableAndColumn[0] : '';
+		$column    = isset($tableAndColumn[1]) ? $this->prefix.$tableAndColumn[1] : '';	
+		$condition = $table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';
+		
+		if( empty($table) )
+		{
+			Error::set('Error', 'emptyVariable', 'table');	
+		}
+		
+		if( empty($column) )
+		{
+			Error::set('Error', 'emptyVariable', 'column');	
+		}
+		
+		$this->join($table, $condition, $type);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Inner Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function innerJoin($table = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $otherColumn, $operator, 'INNER');
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Outer Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'OUTER');
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Left Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'LEFT');
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Right Join
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
+	{
+		$this->_join($table, $column, $otherColumn, $operator, 'RIGHT');
 		
 		return $this;
 	}

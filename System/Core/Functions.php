@@ -819,7 +819,7 @@ function routeUri($requestUri = '')
 	{	
 		if( $patternType === 'classic' )
 		{
-			$requestUri = preg_replace('/'.$key.'/xi', $val, $requestUri);
+			$requestUri = preg_replace(presuffix($key).'xi', $val, $requestUri);
 		}
 		else
 		{
@@ -844,7 +844,7 @@ function cleanInjection($string = "")
 
 	if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
 	{		
-		$string = preg_replace('/'.$key.'/xi', $val, $string);
+		$string = preg_replace(presuffix($key).'xi', $val, $string);
 	}
 	
 	return $string;
@@ -1142,7 +1142,10 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		return false;
 	}
 	
-	file_put_contents('.htaccess', trim($htaccess));
+	if( ! file_put_contents('.htaccess', trim($htaccess)) )
+	{
+		Error::set('Error', 'fileNotWrite', '.htaccess');
+	}
 	
 	unset( $htaccess );	
 }

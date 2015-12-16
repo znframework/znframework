@@ -228,7 +228,10 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
 		// ----------------------------------------------------------------------------------------	
-		file_put_contents($path, $classMapPage, FILE_APPEND);
+		if( ! file_put_contents($path, $classMapPage, FILE_APPEND) )
+		{
+			die(getErrorMessage('Error', 'fileNotWrite', $path));
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -551,7 +554,10 @@ class Autoloader
 							$classContent .= "\t".'}'.$eol;
 							$classContent .= '}';
 						
-							file_put_contents($path, $classContent);
+							if( ! file_put_contents($path, $classContent) );
+							{
+								die(getErrorMessage('Error', 'fileNotWrite', $path));
+							}
 						}
 						
 						$classes['classes'][strtolower($newClassName)] = $path;

@@ -34,7 +34,7 @@ $application['benchmark'] = false;
 // Application Mode                                                                  
 //----------------------------------------------------------------------------------------------------
 //
-// Uygulama modu belirtilir. Kullanılabilir modlar: publicaton, restoration, development ve local				     			 	  		  
+// Uygulama modu belirtilir. Kullanılabilir modlar: publicaton, restoration, development				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $application['mode'] = 'Development';

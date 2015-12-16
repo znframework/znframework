@@ -463,7 +463,11 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		if( isset($oldData[$where]) )
 		{
 			$oldData[$where] = $data;
-			file_put_contents($table, $this->_secureEncodeData($oldData));
+
+			if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
+			{
+				return Error::set('Error', 'fileNotWrite', $table);
+			}
 		}
 	}
 	
@@ -526,7 +530,10 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 			return Error::set('Error', 'fileNotFound', '1.(table)');	
 		}
 		
-		file_put_contents($table, $this->_secureEncodeData($oldData));
+		if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
+		{
+			return Error::set('Error', 'fileNotWrite', $table);
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -589,7 +596,10 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 			}
 		}
 		
-		file_put_contents($table, $this->_secureEncodeData($oldData));
+		if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
+		{
+			return Error::set('Error', 'fileNotWrite', $table);
+		}
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
