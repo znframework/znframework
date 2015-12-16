@@ -376,11 +376,10 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				return false;
 			}
 				
-			if( empty($old) || empty($new) || empty($data) ) 
+			if( empty($old) || empty($new) ) 
 			{
 				Error::set('Error', 'emptyParameter', '1.(old)');
 				Error::set('Error', 'emptyParameter', '2.(new)');
-				Error::set('Error', 'emptyParameter', '4.(data)');
 				
 				return false;
 			}
