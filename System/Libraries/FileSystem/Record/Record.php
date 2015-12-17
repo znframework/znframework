@@ -488,6 +488,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! empty($this->table) )
 		{
+
 			$data  = $table;
 			$table = $this->table;	
 			$this->table = NULL;
