@@ -29,13 +29,6 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct()
-	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -540,9 +533,9 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		
 		$set = Config::get("Captcha");
 		
-		$_SESSION[md5('captchaCode')] = substr(md5(rand(0,999999999999999)),-($set['charLength']));	
+		Session::insert('captchaCode', substr(md5(rand(0,999999999999999)),-($set['charLength'])));	
 		
-		if( isset($_SESSION[md5('captchaCode')]) )
+		if( $sessionCaptchaCode = Session::select('captchaCode') )
 		{
 			if( ! isset($set["width"]) ) $set["width"] 								= 100;
 			if( ! isset($set["height"]) ) $set["height"] 							= 30;
@@ -610,7 +603,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 			//----------------------------------------------------------------------------------------------------------------------
 			
 			// Resim üzerinde görüntülenecek kod bilgisi.
-			@imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"],  $_SESSION[md5('captchaCode')], $fontColor);
+			@imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"], $sessionCaptchaCode, $fontColor);
 			
 			// GRID --------------------------------------------------------------------------------------
 			if( $set["grid"] === true )
@@ -704,14 +697,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function getCode()
 	{
-		if( isset($_SESSION[md5('captchaCode')]) )
-		{
-			return $_SESSION[md5('captchaCode')];
-		}
-		else
-		{
-			return false;	
-		}
+		return Session::select('captchaCode');
 	}
 	
 	//----------------------------------------------------------------------------------------------------

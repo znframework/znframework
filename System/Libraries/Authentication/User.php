@@ -65,6 +65,8 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	public function __construct()
 	{
 		$this->config = Config::get('User');	
+		
+		Session::start();
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -602,28 +604,23 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function data($tbl = '')
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
 		$config 		= $this->config;
 		$usernameColumn = $config['usernameColumn'];
 		
-		if( isset($_SESSION[md5($usernameColumn)]) )
+		if( $sessionUserName = Session::select($usernameColumn) )
 		{
 			$joinTables		= $config['joinTables'];
 			$usernameColumn = $config['usernameColumn'];
 			$joinColumn 	= $config['joinColumn'];
 			$tableName 		= $config['tableName'];
 			
-			$this->username = $_SESSION[md5($usernameColumn)];
+			$this->username = $sessionUserName;
 			
 			$db = uselib('DB');
 		
 			$r[$tbl] = $db->where($usernameColumn.' =',$this->username)
-					->get($tableName)
-					->row();
+					      ->get($tableName)
+					      ->row();
 	
 			if( ! empty($joinTables) )
 			{
@@ -680,8 +677,8 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$db = uselib('DB');
 			
 			$totalRows = $db->where($activeColumn.' =', 1)
-							 ->get($tableName)
-							 ->totalRows();
+							->get($tableName)
+							->totalRows();
 			
 			if( ! empty($totalRows) )
 			{
@@ -714,8 +711,8 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$db = uselib('DB');
 			
 			$totalRows = $db->where($bannedColumn.' =', 1)
-							 ->get($tableName)
-						 	 ->totalRows();
+							->get($tableName)
+						 	->totalRows();
 			
 			if( ! empty($totalRows) )
 			{
@@ -908,21 +905,14 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				return Error::set('User', 'activationError');
 			}
 			
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
-			$_SESSION[md5($usernameColumn)] = $username; 
-			
-			session_regenerate_id();
+			Session::insert($usernameColumn, $username); 
 			
 			if( Method::post($rememberMe) || ! empty($rememberMe) )
 			{
-				if( Cookie::select(md5($usernameColumn)) != $username )
+				if( Cookie::select($usernameColumn) != $username )
 				{					
-					Cookie::insert(md5($usernameColumn), $username);
-					Cookie::insert(md5($passwordColumn), $password);
+					Cookie::insert($usernameColumn, $username);
+					Cookie::insert($passwordColumn, $password);
 				}
 			}
 			
@@ -967,11 +957,6 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( isset($this->data($tableName)->$username) )
 		{
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
 			if( $config['activeColumn'] )
 			{	
 				$db = uselib('DB');
@@ -980,13 +965,10 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				   ->update($config['tableName'], array($config['activeColumn'] => 0));
 			}
 			
-			Cookie::delete(md5($config['usernameColumn']));
-			Cookie::delete(md5($config['passwordColumn']));	
+			Cookie::delete($config['usernameColumn']);
+			Cookie::delete($config['passwordColumn']);	
 			
-			if( isset($_SESSION[md5($config['usernameColumn'])]) ) 
-			{
-				unset($_SESSION[md5($config['usernameColumn'])]);
-			}
+			Session::delete($config['usernameColumn']);
 			
 			redirect($redirectUrl, $time);
 		}
@@ -1007,8 +989,8 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		$tableName = $config['tableName'];
 		$password  = $config['passwordColumn']; 
 		
-		$cUsername = Cookie::select(md5($username));
-		$cPassword = Cookie::select(md5($password));
+		$cUsername = Cookie::select($username);
+		$cPassword = Cookie::select($password);
 		
 		$result = '';
 		
@@ -1028,12 +1010,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		elseif( ! empty($result) )
 		{
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
-			$_SESSION[md5($username)] = $cUsername;
+			Session::insert($username, $cUsername);
 			
 			$isLogin = true;	
 		}

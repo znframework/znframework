@@ -23,18 +23,13 @@
 //----------------------------------------------------------------------------------------------------
 function getLang()
 {
-	if( ! isset($_SESSION) ) 
+	if( Session::select("lang") === false ) 
 	{
-		session_start();
-	}
-	
-	if( ! isset($_SESSION[md5("lang")]) ) 
-	{
-		return $_SESSION[md5("lang")] = Config::get('Language', 'default');
+		return Session::insert("lang", Config::get('Language', 'default'));
 	}
 	else
 	{ 
-		return $_SESSION[md5("lang")];
+		return Session::select("lang");
 	}
 }
 
@@ -59,12 +54,7 @@ function setLang($l = '')
 		$l = Config::get('Language', 'default');	
 	}
 	
-	if( ! isset($_SESSION) ) 
-	{
-		session_start();
-	}
-	
-	$_SESSION[md5("lang")] = $l;
+	Session::insert("lang", $l);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -166,11 +156,6 @@ function lang($file = '', $str = '', $changed = '')
 //----------------------------------------------------------------------------------------------------
 function currentLang()
 {
-	if( ! isset($_SESSION) ) 
-	{
-		session_start();
-	}
-	
 	if( ! Config::get("Uri","lang") ) 
 	{
 		return false;
@@ -514,14 +499,9 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 	
 	if( ! empty($data) )
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
 		foreach( $data as $k => $v )
 		{
-			$_SESSION[md5('redirect:'.$k)] = $v;	
+			Session::insert('redirect:'.$k, $v);	
 		}		
 	}
 	
@@ -549,21 +529,14 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 //----------------------------------------------------------------------------------------------------
 function redirectData($k = '')
 {
-	if( ! is_string($k) ) 
+	if( ! is_scalar($k) ) 
 	{
 		return false;
 	}
 	
-	if( ! isset($_SESSION) ) 
+	if( $data = Session::select('redirect:'.$k) ) 
 	{
-		session_start();
-	}
-	
-	$data = md5('redirect:'.$k);
-	
-	if( isset($_SESSION[$data]) ) 
-	{
-		return $_SESSION[$data];
+		return $data;
 	}
 	else
 	{
@@ -584,21 +557,11 @@ function redirectDeleteData($data = '')
 {
 	if( is_array($data) ) foreach( $data as $v )
 	{
-		$v = md5('redirect:'.$v);
-	
-		if( isset($_SESSION[$v]) )
-		{
-			unset($_SESSION[$v]);
-		}	
+		Session::delete('redirect:'.$v);	
 	}
 	else
 	{
-		$data = md5('redirect:'.$data);
-		
-		if( isset($_SESSION[$data]) )
-		{
-			unset($_SESSION[$data]);
-		}
+		Session::delete('redirect:'.$data);
 	}
 }
 
