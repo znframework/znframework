@@ -349,9 +349,9 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				$old = $this->parameters['oldPassword'];
 			}
 			
-			if( isset($this->parameters['passwordAgain']) )
+			if( isset($this->parameters['newPassword']) )
 			{
-				$new = $this->parameters['passwordAgain'];
+				$new = $this->parameters['newPassword'];
 			}
 			
 			if( isset($this->parameters['passwordAgain']) )
