@@ -393,6 +393,21 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	}
 	
 	/******************************************************************************************
+	* JSON                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu kayıt bilgilerini verir.     			   		          |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->resultJson();              			                                  |
+	|          																				  |
+	******************************************************************************************/
+	public function resultJson()
+	{ 
+		return json_encode($this->result());	
+	}
+	
+	/******************************************************************************************
 	* RESULT ARRAY                                                                        	  *
 	*******************************************************************************************
 	| Genel Kullanım: Array veri türünde sonuçları listeler.  							      |
