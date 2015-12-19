@@ -341,12 +341,13 @@ interface DBInterface
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
 	  
-	  @param  array $settings
-	  @param  bool $output
+	  @param  string $url
+	  @param  array  $settings
+	  @param  bool   $output
 	  @return array veya object
 	|          																				  |
 	******************************************************************************************/
-	public function pagination($settings, $output);
+	public function pagination($url, $settings, $output);
 	
 	/******************************************************************************************
 	* GROUP BY                                                                                *

@@ -2061,12 +2061,13 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
 	  
-	  @param  array $settings
-	  @param  bool $output
+	  @param  string $url
+	  @param  array  $settings
+	  @param  bool   $output
 	  @return array veya object
 	|          																				  |
 	******************************************************************************************/
-	public function pagination($settings = array(), $output = true)
+	public function pagination($url = '', $settings = array(), $output = true)
 	{ 
 		if( ! is_array($settings) )
 		{
@@ -2079,6 +2080,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$settings['totalRows'] = $this->totalRows(true);
 		$settings['limit']     = isset($limit) ? $limit : 10;
 		$settings['start']     = isset($start) ? $start : NULL;
+		
+		if( ! empty($url) )
+		{
+			$settings['url'] = $url;	
+		}
 		
 		$return = $output === true
 		        ? Pagination::create(NULL, $settings) 
