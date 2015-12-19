@@ -396,11 +396,11 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 					 
 		$perPage = ceil($this->totalRows / $this->limit);
 		
-		// LINKS 					  
-		$linksClass = ( isset($this->class['links']) ) ? ' class="'.$this->class['links'].'" ' : '';
+		$lc = ( ! empty($this->class['links']) ) ? $this->class['links'].' ' : ''; 
+		$ls = ( ! empty($this->style['links']) ) ? $this->style['links'].' ' : '';
 		
-		// LINKS 
-		$linksStyle = ( isset($this->style['links']) ) ? ' style="'.$this->style['links'].'" ' : '';
+		$linksClass = ! empty($lc) ? ' class="'.trim($lc).'"' : '';
+		$linksStyle = ! empty($ls) ? ' style="'.trim($ls).'"' : '';
 		
 		$linksStyleClass = $linksClass.$linksStyle;
 		
@@ -419,21 +419,18 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				
 				if( $i - 1 == $startPage / $this->limit )
 				{
-					$currentLink = ( isset($this->class['current']) ) ? 'class="'.$this->class['current'].'"' : "";
+					$currentLinkClass = ( $classC = trim($lc.$this->class['current']) ) ? 'class="'.$classC.'"' : "";
 					
-					$currentLinkStyle = ( isset($this->style['current']) ) ? 'style="'.$this->style['current'].'"' : "";
+					$currentLinkStyle = ( $styleC = trim($ls.$this->style['current']) ) ? 'style="'.$styleC.'"' : "";
+					
+					$currentLink = $currentLinkClass.$currentLinkStyle;
 				}
 				else
 				{
-					$currentLink = '';	
-					$currentLinkStyle = '';	
+					$currentLink = $linksStyleClass;	
 				}
-				
-				$classLinks = ( isset($this->class['links']) ) ? 'class="'.$this->class['links'].'"' : "";
 							   
-				$styleLinks = ( isset($this->style['links']) ) ? 'style="'.$this->style['links'].'"' : "";
-							   
-				$links .= '<a href="'.$this->url.$page.'" '.$classLinks.' '.$styleLinks.'><span '.$currentLink.' '.$currentLinkStyle.'> '.$i.'</span></a>';
+				$links .= '<a href="'.$this->url.$page.'"'.$currentLink.'>'.$i.'</a>';
 			}
 			// LINKS -------------------------------------------------------------------
 			
@@ -441,11 +438,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// PREV TAG ---------------------------------------------------------------	
 			if( $startPage != 0 )
 			{
-				$classPrev  = ( isset($this->class['prev']) ) ? 'class="'.$this->class['prev'].'"' : "";
-				
-				$stylePrev  = ( isset($this->style['prev']) ) ? 'style="'.$this->style['prev'].'"' : "";
-				
-				$firstStcl  = $classPrev.$linksStyleClass.$stylePrev;
+				$classPrev  = ( $classP = trim($lc.$this->class['prev']) ) ? 'class="'.$classP.'"' : "";	
+				$stylePrev  = ( $styleP = trim($ls.$this->style['prev']) ) ? 'style="'.$styleP.'"' : "";	
+				$firstStcl  = $classPrev.$stylePrev;
 							  
 				$first = '<a href="'.$this->url.($startPage - $this->limit ).'" '.$firstStcl.'>'.$this->prevTag.'</a>';
 			}
@@ -458,13 +453,11 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// NEXT Sonraki butonu ile ilgili kontrol yapılıyor.
 			// NEXT TAG ---------------------------------------------------------------			
 			if( $startPage != $page )
-			{
-				$classNext = ( isset($this->class['next']) ) ? 'class="'.$this->class['next'].'"' : "";
-
-				$styleNext = ( isset($this->style['next']) ) ? 'style="'.$this->style['next'].'"' : "";
-				
+			{				  
+				$classNext = ( $classN = trim($lc.$this->class['next']) ) ? 'class="'.$classN.'"' : "";
+				$styleNext = ( $styleN = trim($ls.$this->style['next']) ) ? 'style="'.$styleN.'"' : "";	
 				$lastUrl   = $this->url.($startPage + $this->limit);
-				$lastStcl  = $classNext.$linksStyleClass.$styleNext;
+				$lastStcl  = $classNext.$styleNext;
 							  
 				$last = '<a href="'.$lastUrl.'" '.$lastStcl.'>'.$this->nextTag.'</a>';
 			}
@@ -486,43 +479,43 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// Linkler için class kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastTagClass     = ( isset($this->class['last']) ) ? ' class="'.$this->class['last'].'" ' : '';
+			$lastTagClass     = ( $classLast = trim($lc.$this->class['last']) ) ? ' class="'.$classLast.'" ' : '';
 			
 			// FIRST LINK
-			$firstTagClass    = ( isset($this->class['first']) ) ? ' class="'.$this->class['first'].'" ' : '';
+			$firstTagClass    = ( $classFirst = trim($lc.$this->class['first']) ) ? ' class="'.$classFirst.'" ' : '';
 			
 			// NEXT LINK
-			$nextTagClass     = ( isset($this->class['next']) ) ? ' class="'.$this->class['next'].'" ' : '';
+			$nextTagClass     = ( $classNext = trim($lc.$this->class['next']) ) ? ' class="'.$classNext.'" ' : '';
 			
 			// CURRENT LINK 
-			$currentLinkClass = ( isset($this->class['current']) ) ? ' class="'.$this->class['current'].'" ' : '';
+			$currentLinkClass = ( $classCurrent = trim($lc.$this->class['current']) ) ? ' class="'.$classCurrent.'" ' : '';
 			
 			// PREV 					  
-			$prevTagClass     = ( isset($this->class['prev']) ) ? ' class="'.$this->class['prev'].'" ' : '';					 
+			$prevTagClass     = ( $classPrev = trim($lc.$this->class['prev']) ) ? ' class="'.$classPrev.'" ' : '';					 
 			// -------------------------------------------------------------------------
 			
 			// Linkler için style kontrolleri sağlanıyor. ------------------------------
 			
 			// LAST LINK
-			$lastTagStyle     = ( isset($this->style['last']) ) ? ' style="'.$this->style['last'].'" ' : '';
+			$lastTagStyle     = ( $styleLast = trim($ls.$this->style['last']) ) ? ' style="'.$styleLast.'" ' : '';
 			
 			// FIRST LINK
-			$firstTagStyle    = ( isset($this->style['first']) ) ? ' style="'.$this->style['first'].'" ' : '';	
+			$firstTagStyle    = ( $styleFirst = trim($ls.$this->style['first']) ) ? ' style="'.$styleFirst.'" ' : '';	
 			
 			// NEXT LINK
-			$nextTagStyle     = ( isset($this->style['next']) ) ? ' style="'.$this->style['next'].'" ' : '';				   
+			$nextTagStyle     = ( $styleNext = trim($ls.$this->style['next']) ) ? ' style="'.$styleNext.'" ' : '';				   
 			
 			// CURRENT LINK 
-			$currentLinkStyle = ( isset($this->style['current']) ) ? ' style="'.$this->style['current'].'" ' : '';
+			$currentLinkStyle = ( $styleCurrent = trim($ls.$this->style['current']) ) ? ' style="'.$styleCurrent.'" ' : '';
 			// PREV
-			$prevTagStyle     = ( isset($this->style['prev']) ) ? ' style="'.$this->style['prev'].'" ' : '';				   
+			$prevTagStyle     = ( $stylePrev = trim($ls.$this->style['prev']) ) ? ' style="'.$stylePrev.'" ' : '';				   
 			// -------------------------------------------------------------------------
 			
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
 			$lastTagNum        = $this->url.($this->totalRows - ($this->totalRows % $this->limit) - 1);
-			$lastTagStyleClass = $lastTagClass.$linksStyleClass.$lastTagStyle;
+			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			
 			$lastTag = '<a href="'.$lastTagNum.'"'.$lastTagStyleClass.'>'.$this->lastTag.'</a>';
 			// -------------------------------------------------------------------------
@@ -530,7 +523,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// -------------------------------------------------------------------------
 			// FIRST TAG 
 			// -------------------------------------------------------------------------
-			$firstTagStyleClass = $firstTagClass.$linksStyleClass.$firstTagStyle;
+			$firstTagStyleClass = $firstTagClass.$firstTagStyle;
 			
 			$firstTag = '<a href="'.$this->url.'0"'.$firstTagStyleClass.'>'.$this->firstTag.'</a>';
 			// -------------------------------------------------------------------------
@@ -541,9 +534,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				// PREV TAG 
 				// -------------------------------------------------------------------------
 				$firstNum = $this->url.($startPage - $this->limit );
-				$fisrtStyleClass = $prevTagClass.$linksStyleClass.$prevTagStyle;
+				$prevTagStyleClass = $prevTagClass.$prevTagStyle;
 				
-				$first = '<a href="'.$firstNum.'"'.$fisrtStyleClass.'>'.$this->prevTag.'</a>';				
+				$first = '<a href="'.$firstNum.'"'.$prevTagStyleClass.'>'.$this->prevTag.'</a>';				
 				// -------------------------------------------------------------------------
 			}
 			else
@@ -566,10 +559,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				// NEXT TAG 
 				// -------------------------------------------------------------------------
 				$lastNum = $this->url.($startPage + $this->limit);
-				$lastStyleClass = $nextTagClass.$linksStyleClass.$nextTagStyle;
+				$nextTagStyleClass = $nextTagClass.$nextTagStyle;
 				
-
-				$last = '<a href="'.$lastNum.'"'.$lastStyleClass.'>'.$this->nextTag.'</a>';	
+				$last = '<a href="'.$lastNum.'"'.$nextTagStyleClass.'>'.$this->nextTag.'</a>';	
 				// -------------------------------------------------------------------------				
 			}
 			else
@@ -602,14 +594,14 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				// Aktif sayfa linki kontrol ediliyor.		
 				if( $i - 1 == ceil($startPage / $this->limit) )
 				{
-					$currentLink = $currentLinkClass.$linksStyleClass.$currentLinkStyle;
+					$currentLink = $currentLinkClass.$currentLinkStyle;
 				}
 				else
 				{
-					$currentLink = '';	
+					$currentLink = $linksStyleClass;	
 				}
-				
-				$links .= '<a href="'.$this->url.$page.'"'.$linksStyleClass.'><span '.$currentLink.'> '.$i.'</span></a>';
+		
+				$links .= '<a href="'.$this->url.$page.'"'.$currentLink.'>'.$i.'</a>';
 				// -------------------------------------------------------------------------
 			}
 	
