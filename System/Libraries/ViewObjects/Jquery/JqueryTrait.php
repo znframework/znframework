@@ -40,6 +40,18 @@ trait JqueryTrait
 		return $code;
 	}
 	
+	protected function _nailConvert($str, $nail = '"')
+	{
+		if( $nail === '"')
+		{
+			return str_replace('"', "'", $str);
+		}
+		else
+		{
+			return str_replace( "'", '"', $str);
+		}
+	}
+	
 	/******************************************************************************************
 	* SELECTOR                                                                                *
 	*******************************************************************************************
@@ -282,7 +294,7 @@ trait JqueryTrait
 	}
 	
 	/******************************************************************************************
-	* CDE                                                                                     *
+	* CODE                                                                                     *
 	*******************************************************************************************
 	| Genel Kullanım: Parametrenin ne tür veri içerdiğinin kontrolü yapılır. 	    		  |
 	
@@ -301,7 +313,8 @@ trait JqueryTrait
 		}
 		else 
 		{
-			$cd = "\"$code\"";
+			$code = $this->_nailConvert($code, '"');
+			$cd = presuffix($code, '"');
 		}
 		
 		return $cd;

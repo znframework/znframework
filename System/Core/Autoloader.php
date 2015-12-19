@@ -228,10 +228,7 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
 		// ----------------------------------------------------------------------------------------	
-		if( ! file_put_contents($path, $classMapPage, FILE_APPEND) )
-		{
-			die(getErrorMessage('Error', 'fileNotWrite', $path));
-		}
+		file_put_contents($path, $classMapPage, FILE_APPEND);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

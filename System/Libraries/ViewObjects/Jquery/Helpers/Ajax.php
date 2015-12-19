@@ -323,7 +323,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['method'] = "\ttype:\"$method\",".eol();
+		$this->sets['method'] = "\tmethod:\"$method\",".eol();
 		
 		return $this;
 	}

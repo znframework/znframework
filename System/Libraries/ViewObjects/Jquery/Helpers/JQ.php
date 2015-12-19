@@ -169,7 +169,14 @@ class __USE_STATIC_ACCESS__JQ
 			$params[] = array($this->func('e', $callback));
 		}
 		
-		return $this->selector($selector).$this->property($property, $params, $comma);		   
+		$select = '';
+		
+		if( ! empty($selector) )
+		{
+			$select = $this->selector($selector);	
+		}
+		
+		return $select.$this->property($property, $params, $comma);		   
 	}
 	
 	//----------------------------------------------------------------------------------------------------
