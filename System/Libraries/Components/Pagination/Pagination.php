@@ -342,7 +342,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 
 	public function create($start = NULL, $settings = array())
 	{
-		$settings = array_merge($this->settings, $settings);
+		$config   = Config::get('Components', 'pagination');
+		
+		$settings = array_merge($config, $this->settings, $settings);
 		
 		if( ! empty($settings) )
 		{

@@ -108,7 +108,14 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config = Config::get('Calendar');
+		$this->config = Config::get('Components', 'calendar');
+		
+		$this->prev 		= $this->config['prevName'];
+		$this->next 		= $this->config['nextName'];
+		$this->dayNames 	= $this->config['dayType'];
+		$this->monthNames 	= $this->config['monthType'];
+		$this->css 			= $this->config['class'];
+		$this->style 		= $this->config['style'];
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -176,6 +183,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		if( ! is_string($day) || ! is_string($month) )	
 		{
 			Error::set('Error', 'stringParameter', 'day | month');
+			
 			return $this;	
 		}
 		
@@ -270,6 +278,23 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
+	// Settings
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Takvim ayalarını yapılandırmak için kullanılır.
+	// 
+	// @param  array $settings
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function settings($settings = array())
+	{
+		Config::set('Components', 'calendar', $settings);
+		
+		return $this;
+	}
+		
+	//----------------------------------------------------------------------------------------------------
 	// Create Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -348,7 +373,6 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		// Ay ismini sitenin aktif
 		// diline göre ayarlar. 
 		
-		
 		if( $this->monthNames === 'long' )
 		{
 			$monthNames = array_keys($this->config['monthNames'][getLang()]);
@@ -361,54 +385,32 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		$monthName = $monthNames[$month - 1];
 		// Gün ismini sitenin aktif
 		// diline göre ayarlar.
-		$dayNames  = ( $this->dayNames === 'long' )
-					 ? array_keys($this->config['dayNames'][getLang()])
-					 : array_values($this->config['dayNames'][getLang()]);
+		$dayNames  = ( $this->dayNames === 'long' ) ? array_keys($this->config['dayNames'][getLang()]) : array_values($this->config['dayNames'][getLang()]);
 		
 		// Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
 		$firstDay = getdate( mktime(0, 0, 0, $month, 1, $year) );
 		$lastDay  = getdate( mktime(0, 0, 0, $month + 1, 0, $year));
 		
 		// TABLO İÇİN CSS
-		$tableClass = ( isset($this->css['table']) )
-					  ? ' class="'.$this->css['table'].'"'
-					  : '';
+		$tableClass = ( isset($this->css['table']) ) ? ' class="'.$this->css['table'].'"' : '';
 		// TABLO İÇİN STYLE	
-		$tableStyle = ( isset($this->style['table']) )
-					  ? ' style="'.$this->style['table'].'"'
-					  : '';
+		$tableStyle = ( isset($this->style['table']) ) ? ' style="'.$this->style['table'].'"' : '';
 		// AY VE TARİH SÜTUNU İÇİN	CSS	   
-		$monthRowClass = ( isset($this->css['monthName']) )
-					     ? ' class="'.$this->css['monthName'].'"'
-					     : '';
+		$monthRowClass = ( isset($this->css['monthName']) ) ? ' class="'.$this->css['monthName'].'"' : '';
 		// AY VE TARİH SÜTUNU İÇİN	STYLE			
-		$monthRowStyle = ( isset($this->style['monthName']) )
-					     ? ' style="'.$this->style['monthName'].'"'
-					     : '';
+		$monthRowStyle = ( isset($this->style['monthName']) ) ? ' style="'.$this->style['monthName'].'"' : '';
 		// GÜN SÜTUNU İÇİN	CSS	
-		$dayRowClass = ( isset($this->css['dayName']) )
-					   ? ' class="'.$this->css['dayName'].'"'
-					   : '';
+		$dayRowClass = ( isset($this->css['dayName']) ) ? ' class="'.$this->css['dayName'].'"' : '';
 		// GÜN SÜTUNU İÇİN	STYLE			
-		$dayRowStyle = ( isset($this->style['dayName']) )
-					   ? ' style="'.$this->style['dayName'].'"'
-					   : '';
+		$dayRowStyle = ( isset($this->style['dayName']) ) ? ' style="'.$this->style['dayName'].'"' : '';
 		// GÜN SAYILARI SÜTUNLARI İÇİN	CSS	
-		$rowsClass = ( isset($this->css['days']) )
-					 ? ' class="'.$this->css['days'].'"'
-					 : '';
+		$rowsClass = ( isset($this->css['days']) ) ? ' class="'.$this->css['days'].'"' : '';
 		// GÜN SAYILARI SÜTUNLARI İÇİN	STYLE			
-		$rowsStyle = ( isset($this->style['days']) )
-					 ? ' style="'.$this->style['days'].'"'
-					 : '';
+		$rowsStyle = ( isset($this->style['days']) ) ? ' style="'.$this->style['days'].'"' : '';
 		// ÖNCEKİ VE SONRAKİ LİNKLERİ İÇİN	CSS					 
-		$buttonClass = ( isset($this->css['links']) )
-					   ? ' class="'.$this->css['links'].'"'
-					   : '';
+		$buttonClass = ( isset($this->css['links']) ) ? ' class="'.$this->css['links'].'"' : '';
 		// ÖNCEKİ VE SONRAKİ LİNKLERİ İÇİN	STYLE		
-		$buttonStyle = ( isset($this->style['links']) )
-					   ? ' style="'.$this->style['links'].'"'
-					   : '';
+		$buttonStyle = ( isset($this->style['links']) ) ? ' style="'.$this->style['links'].'"' : '';
 		
 		$eol  = eol();
 		
@@ -450,23 +452,15 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 			// Aktif gün için stil ve css kullanımı.
 			if( $activeDay == $today['mday'] ) 
 			{
-				$class = ( isset($this->css['current']) )
-						 ? ' class="'.$this->css['current'].'"'
-						 : '';
+				$class = ( isset($this->css['current']) ) ? ' class="'.$this->css['current'].'"' : '';
 				
-				$style = ( isset($this->style['current']) )
-						 ? ' style="'.$this->style['current'].'"'
-						 : '';
+				$style = ( isset($this->style['current']) ) ? ' style="'.$this->style['current'].'"' : '';
 			} 
 			else 
 			{
-				$class = ( isset($this->css['days']) )
-						 ? ' class="'.$this->css['days'].'"'
-						 : '';
+				$class = ( isset($this->css['days']) ) ? ' class="'.$this->css['days'].'"' : '';
 				
-				$style = ( isset($this->style['days']) )
-						 ? ' style="'.$this->style['days'].'"'
-						 : '';
+				$style = ( isset($this->style['days']) ) ? ' style="'.$this->style['days'].'"' : '';
 			}
 			
 			$str .= "\t\t<td{$class}{$style}>$activeDay</td>".$eol;
@@ -486,23 +480,15 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 				// Aktif gün için stil ve css kullanımı.
 				if ( $activeDay == $today['mday'] ) 
 				{
-					$class = ( isset($this->css['current']) )
-							 ? ' class="'.$this->css['current'].'"'
-							 : '';
+					$class = ( isset($this->css['current']) ) ? ' class="'.$this->css['current'].'"' : '';
 				
-					$style = ( isset($this->style['current']) )
-							 ? ' style="'.$this->style['current'].'"'
-							 : '';
+					$style = ( isset($this->style['current']) ) ? ' style="'.$this->style['current'].'"' : '';
 				} 
 				else 
 				{
-					$class = ( isset($this->css['days']) )
-							 ? ' class="'.$this->css['days'].'"'
-							 : '';
+					$class = ( isset($this->css['days']) ) ? ' class="'.$this->css['days'].'"' : '';
 				
-					$style = ( isset($this->style['days']) )
-							 ? ' style="'.$this->style['days'].'"'
-							 : '';
+					$style = ( isset($this->style['days']) ) ? ' style="'.$this->style['days'].'"' : '';
 				}
 				
 				$str .= "\t\t<td{$class}{$style}>$activeDay</td>".$eol;
@@ -522,23 +508,15 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 				// Aktif gün için stil ve css kullanımı.
 				if( $activeDay == $today['mday'] ) 
 				{
-					$class = ( isset($this->css['current']) )
-							 ? ' class="'.$this->css['current'].'"'
-							 : '';
+					$class = ( isset($this->css['current']) ) ? ' class="'.$this->css['current'].'"' : '';
 				
-					$style = ( isset($this->style['current']) )
-							 ? ' style="'.$this->style['current'].'"'
-							 : '';
+					$style = ( isset($this->style['current']) ) ? ' style="'.$this->style['current'].'"' : '';
 				} 
 				else 
 				{
-					$class = ( isset($this->css['days']) )
-							 ? ' class="'.$this->css['days'].'"'
-							 : '';
+					$class = ( isset($this->css['days']) ) ? ' class="'.$this->css['days'].'"' : '';
 				
-					$style = ( isset($this->style['days']) )
-							 ? ' style="'.$this->style['days'].'"'
-							 : '';
+					$style = ( isset($this->style['days']) ) ? ' style="'.$this->style['days'].'"' : '';
 				}
 				
 				if( $activeDay <= $lastDay ['mday'] )

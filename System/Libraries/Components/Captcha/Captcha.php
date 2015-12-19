@@ -523,17 +523,19 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function create($img = false, $configs = array())
-	{
-		$configs = array_merge($this->sets, $configs);
+	{	
+		$config  = Config::get('Components', 'captcha');
+		
+		$configs = array_merge($config, $this->sets, $configs);
 		
 		if( ! empty($configs) )
 		{
-			Config::set('Captcha', $configs);
+			Config::set('Components', 'captcha', $configs);
 		}
 		
-		$set = Config::get("Captcha");
-		
-		Session::insert('captchaCode', substr(md5(rand(0,999999999999999)),-($set['charLength'])));	
+		$set = Config::get('Components', 'captcha');
+	
+		Session::insert('captchaCode', substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
 		
 		if( $sessionCaptchaCode = Session::select('captchaCode') )
 		{

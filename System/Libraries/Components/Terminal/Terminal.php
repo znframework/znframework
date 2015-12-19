@@ -63,13 +63,15 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 			return Error::set('Error', 'arrayParameter', 'settings');	
 		}
 		
-		$settings['width'] 		=  isset($settings['width']) 	  ? $settings['width']      : '800px';
-		$settings['height'] 	=  isset($settings['height']) 	  ? $settings['height']     : '350px';
-		$settings['bgColor'] 	=  isset($settings['bgColor'])    ? $settings['bgColor']    : '#000';
-		$settings['barBgColor'] =  isset($settings['barBgColor']) ? $settings['barBgColor'] : '#222';
-		$settings['textColor'] 	=  isset($settings['textColor'])  ? $settings['textColor']  : '#ccc';
-		$settings['textType'] 	=  isset($settings['textType'])   ? $settings['textType']   : 'Consolas, monospace';
-		$settings['textSize'] 	=  isset($settings['textSize'])   ? $settings['textSize']   : '12px';
+		$configs = Config::get('Components', 'terminal');
+		
+		$settings['width'] 		=  isset($settings['width']) 	  ? $settings['width']      : $configs['width'];
+		$settings['height'] 	=  isset($settings['height']) 	  ? $settings['height']     : $configs['height'];
+		$settings['bgColor'] 	=  isset($settings['bgColor'])    ? $settings['bgColor']    : $configs['bgColor'];
+		$settings['barBgColor'] =  isset($settings['barBgColor']) ? $settings['barBgColor'] : $configs['barBgColor'];
+		$settings['textColor'] 	=  isset($settings['textColor'])  ? $settings['textColor']  : $configs['textColor'];
+		$settings['textType'] 	=  isset($settings['textType'])   ? $settings['textType']   : $configs['textType'];
+		$settings['textSize'] 	=  isset($settings['textSize'])   ? $settings['textSize']   : $configs['textSize'];
 		
 		if( isset($_POST['clear']) && $_POST['clear'] === 'clear' ) 
 		{
