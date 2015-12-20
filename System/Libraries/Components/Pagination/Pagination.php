@@ -10,7 +10,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	protected $settings 	= array();
+	protected $settings     = array();
 	
 	/* Total Rows Değişkeni
 	 *  
@@ -540,7 +540,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
-			$pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) );
+			$pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) ) - 1;
 			$lastTagNum        = $this->url.$pageRowNumber;
 			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			
