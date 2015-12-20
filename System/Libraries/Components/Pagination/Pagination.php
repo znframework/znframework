@@ -417,7 +417,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				
 				// Kontrolere göre varsa stil veya sınıf verileri ekleniyor.
 				
-				if( $i - 1 == $startPage / $this->limit )
+				if( $i - 1 == floor($startPage / $this->limit) )
 				{
 					$currentLinkClass = ( $classC = trim($lc.$this->class['current']) ) ? 'class="'.$classC.'"' : "";
 					
@@ -514,7 +514,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
-			$lastTagNum        = $this->url.($this->totalRows - ($this->totalRows % $this->limit) - 1);
+			$lastTagNum        = $this->url.($this->totalRows - ($this->totalRows % $this->limit) );
 			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			
 			$lastTag = '<a href="'.$lastTagNum.'"'.$lastTagStyleClass.'>'.$this->lastTag.'</a>';
@@ -550,7 +550,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			}
 			else 
 			{
-				$pagIndex = ceil( $startPage / $this->limit + 1);
+				$pagIndex = floor( $startPage / $this->limit + 1);
 			}
 			
 			if( $startPage < $this->totalRows - $this->limit )
@@ -590,9 +590,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			for( $i = $pagIndex; $i <= $nPerPage; $i++ )
 			{
 				$page = ($i - 1) * $this->limit;
-				
-				// Aktif sayfa linki kontrol ediliyor.		
-				if( $i - 1 == ceil($startPage / $this->limit) )
+			
+				// Aktif sayfa linki kontrol ediliyor.
+				if( $i - 1 == floor((int)$startPage / $this->limit) )
 				{
 					$currentLink = $currentLinkClass.$currentLinkStyle;
 				}
