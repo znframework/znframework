@@ -10,7 +10,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	protected $settings = array();
+	protected $settings 	= array();
 	
 	/* Total Rows Değişkeni
 	 *  
@@ -18,7 +18,15 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	 * tutması için oluşturulmuştur.
 	 * Varsayılan:0
 	 */
-	protected $totalRows 		= 50;
+	protected $totalRows 	= 50;
+	
+	/* Start Değişkeni
+	 *  
+	 * Başlangıç bilgisini
+	 * tutması için oluşturulmuştur.
+	 * Varsayılan:0
+	 */
+	protected $start 		= 0;
 	
 	/* Limit Değişkeni
 	 *  
@@ -304,6 +312,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
 		if( isset($config['totalRows']) )	$this->totalRows 	= $config['totalRows'];
+		if( isset($config['start']) )	    $this->start 	    = $config['start'];
 		if( isset($config['limit']) )		$this->limit 		= $config['limit'];
 		if( isset($config['countLinks']) )	$this->countLinks 	= $config['countLinks'];
 		if( isset($config['class']) )		$this->class 		= $config['class'];
@@ -321,7 +330,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		}
 		elseif( $type === 'ajax' )    
 		{
-			$this->url = '#';
+			$this->url = '#prow=';
 		}
 		else
 		{
@@ -336,6 +345,14 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	// Settings Method Bitiş
 	//----------------------------------------------------------------------------------------------------
 	
+	protected function _ajax($value)
+	{
+		if( $this->url === '#prow=' )
+		{
+			return ' prow="'.$value.'" ptype="ajax"';	
+		}
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Create Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
@@ -349,6 +366,11 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		if( ! empty($settings) )
 		{
 			$this->settings($settings);	
+		}
+		
+		if( ! empty($this->start) )
+		{
+			$start = $this->start;
 		}
 		
 		$page  = '';
@@ -419,9 +441,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				
 				if( $i - 1 == floor($startPage / $this->limit) )
 				{
-					$currentLinkClass = ( $classC = trim($lc.$this->class['current']) ) ? 'class="'.$classC.'"' : "";
+					$currentLinkClass = ( $classC = trim($lc.$this->class['current']) ) ? ' class="'.$classC.'"' : "";
 					
-					$currentLinkStyle = ( $styleC = trim($ls.$this->style['current']) ) ? 'style="'.$styleC.'"' : "";
+					$currentLinkStyle = ( $styleC = trim($ls.$this->style['current']) ) ? ' style="'.$styleC.'"' : "";
 					
 					$currentLink = $currentLinkClass.$currentLinkStyle;
 				}
@@ -430,7 +452,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 					$currentLink = $linksStyleClass;	
 				}
 							   
-				$links .= '<a href="'.$this->url.$page.'"'.$currentLink.'>'.$i.'</a>';
+				$links .= '<a href="'.$this->url.$page.'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
 			}
 			// LINKS -------------------------------------------------------------------
 			
@@ -438,11 +460,12 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// PREV TAG ---------------------------------------------------------------	
 			if( $startPage != 0 )
 			{
-				$classPrev  = ( $classP = trim($lc.$this->class['prev']) ) ? 'class="'.$classP.'"' : "";	
-				$stylePrev  = ( $styleP = trim($ls.$this->style['prev']) ) ? 'style="'.$styleP.'"' : "";	
+				$classPrev  = ( $classP = trim($lc.$this->class['prev']) ) ? ' class="'.$classP.'"' : "";	
+				$stylePrev  = ( $styleP = trim($ls.$this->style['prev']) ) ? ' style="'.$styleP.'"' : "";	
 				$firstStcl  = $classPrev.$stylePrev;
-							  
-				$first = '<a href="'.$this->url.($startPage - $this->limit ).'" '.$firstStcl.'>'.$this->prevTag.'</a>';
+					
+				$pageRowNumber = $startPage - $this->limit;	  
+				$first = '<a href="'.$this->url.$pageRowNumber.'"'.$this->_ajax($pageRowNumber).$firstStcl.'>'.$this->prevTag.'</a>';
 			}
 			else
 			{
@@ -454,12 +477,15 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// NEXT TAG ---------------------------------------------------------------			
 			if( $startPage != $page )
 			{				  
-				$classNext = ( $classN = trim($lc.$this->class['next']) ) ? 'class="'.$classN.'"' : "";
-				$styleNext = ( $styleN = trim($ls.$this->style['next']) ) ? 'style="'.$styleN.'"' : "";	
-				$lastUrl   = $this->url.($startPage + $this->limit);
+				$classNext = ( $classN = trim($lc.$this->class['next']) ) ? ' class="'.$classN.'"' : "";
+				$styleNext = ( $styleN = trim($ls.$this->style['next']) ) ? ' style="'.$styleN.'"' : "";	
+				
+				$pageRowNumber = $startPage + $this->limit;
+				
+				$lastUrl   = $this->url.($pageRowNumber);
 				$lastStcl  = $classNext.$styleNext;
 							  
-				$last = '<a href="'.$lastUrl.'" '.$lastStcl.'>'.$this->nextTag.'</a>';
+				$last = '<a href="'.$lastUrl.'"'.$this->_ajax($pageRowNumber).$lastStcl.'>'.$this->nextTag.'</a>';
 			}
 			else
 			{
@@ -514,10 +540,13 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
-			$lastTagNum        = $this->url.($this->totalRows - ($this->totalRows % $this->limit) );
+			$pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) );
+			$lastTagNum        = $this->url.$pageRowNumber;
 			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			
-			$lastTag = '<a href="'.$lastTagNum.'"'.$lastTagStyleClass.'>'.$this->lastTag.'</a>';
+			
+			
+			$lastTag = '<a href="'.$lastTagNum.'"'.$this->_ajax($pageRowNumber).$lastTagStyleClass.'>'.$this->lastTag.'</a>';
 			// -------------------------------------------------------------------------
 						
 			// -------------------------------------------------------------------------
@@ -525,7 +554,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// -------------------------------------------------------------------------
 			$firstTagStyleClass = $firstTagClass.$firstTagStyle;
 			
-			$firstTag = '<a href="'.$this->url.'0"'.$firstTagStyleClass.'>'.$this->firstTag.'</a>';
+			$firstTag = '<a href="'.$this->url.'0"'.$this->_ajax(0).$firstTagStyleClass.'>'.$this->firstTag.'</a>';
 			// -------------------------------------------------------------------------
 			
 			if( $startPage > 0 )
@@ -533,10 +562,11 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				// -------------------------------------------------------------------------
 				// PREV TAG 
 				// -------------------------------------------------------------------------
-				$firstNum = $this->url.($startPage - $this->limit );
+				$pageRowNumber = $startPage - $this->limit;
+				$firstNum = $this->url.$pageRowNumber;
 				$prevTagStyleClass = $prevTagClass.$prevTagStyle;
 				
-				$first = '<a href="'.$firstNum.'"'.$prevTagStyleClass.'>'.$this->prevTag.'</a>';				
+				$first = '<a href="'.$firstNum.'"'.$this->_ajax($pageRowNumber).$prevTagStyleClass.'>'.$this->prevTag.'</a>';				
 				// -------------------------------------------------------------------------
 			}
 			else
@@ -558,10 +588,11 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 				// -------------------------------------------------------------------------
 				// NEXT TAG 
 				// -------------------------------------------------------------------------
-				$lastNum = $this->url.($startPage + $this->limit);
+				$pageRowNumber = $startPage + $this->limit;
+				$lastNum = $this->url.($pageRowNumber);
 				$nextTagStyleClass = $nextTagClass.$nextTagStyle;
 				
-				$last = '<a href="'.$lastNum.'"'.$nextTagStyleClass.'>'.$this->nextTag.'</a>';	
+				$last = '<a href="'.$lastNum.'"'.$this->_ajax($pageRowNumber).$nextTagStyleClass.'>'.$this->nextTag.'</a>';	
 				// -------------------------------------------------------------------------				
 			}
 			else
@@ -601,7 +632,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 					$currentLink = $linksStyleClass;	
 				}
 		
-				$links .= '<a href="'.$this->url.$page.'"'.$currentLink.'>'.$i.'</a>';
+				$links .= '<a href="'.$this->url.$page.'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
 				// -------------------------------------------------------------------------
 			}
 	

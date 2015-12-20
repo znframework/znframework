@@ -305,18 +305,6 @@ trait JqueryTrait
 	******************************************************************************************/
 	protected function _isCode($code)
 	{
-		$cd = '';
-		
-		if( is_numeric($code) || $this->_isBool($code) || $this->_isJson($code) || $this->_isFunc($code) ) 
-		{
-			$cd = $code;
-		}
-		else 
-		{
-			$code = $this->_nailConvert($code, '"');
-			$cd = presuffix($code, '"');
-		}
-		
-		return $cd;
+		return $code;
 	}
 }

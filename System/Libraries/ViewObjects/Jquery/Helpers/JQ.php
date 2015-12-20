@@ -77,7 +77,7 @@ class __USE_STATIC_ACCESS__JQ
 		}
 		else
 		{
-			$code = "\"$selector\"";	
+			$code = "\"".$this->_nailConvert($selector)."\"";	
 		}
 		
 		return "$($code)";
