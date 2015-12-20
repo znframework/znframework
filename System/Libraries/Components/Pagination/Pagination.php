@@ -368,9 +368,9 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			$this->settings($settings);	
 		}
 		
-		if( ! empty($this->start) )
+		if( $this->start !== NULL )
 		{
-			$start = $this->start;
+			$start = (int)$this->start;
 		}
 		
 		$page  = '';

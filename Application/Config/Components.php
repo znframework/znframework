@@ -25,6 +25,7 @@ $config['Components']['pagination'] = array
 	'lastName'		=> '>>',
 	
 	'totalRows' 	=> 50,
+	'start'			=> NULL,
 	'limit'			=> 10,
 	'countLinks' 	=> 10,
 	'type'			=> 'classic', // classic, ajax
