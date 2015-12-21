@@ -20,6 +20,14 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	 */
 	protected $totalRows 	= 50;
 	
+	/* Config Değişkeni
+	 *  
+	 * Ayarlar bilgisini
+	 * tutması için oluşturulmuştur.
+	 * Varsayılan:0
+	 */
+	protected $config 		= array();
+	
 	/* Start Değişkeni
 	 *  
 	 * Başlangıç bilgisini
@@ -27,6 +35,14 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	 * Varsayılan:0
 	 */
 	protected $start 		= 0;
+	
+	/* Type Değişkeni
+	 *  
+	 * Sayfalama türü bilgisini
+	 * tutması için oluşturulmuştur.
+	 * Varsayılan:'classic' -> ajax, classic
+	 */
+	protected $type 		= 'classic';
 	
 	/* Limit Değişkeni
 	 *  
@@ -124,6 +140,11 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
+	
+	public function __construct()
+	{
+		$this->config = Config::get('Components', 'pagination');	
+	}
 
 	public function url($url = '')
 	{
@@ -233,7 +254,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		return $this;
 	}
 	
-	public function css($css = '')
+	public function css($css = array())
 	{
 		if( ! is_array($css) )
 		{
@@ -308,27 +329,29 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		{
 			return Error::set('Error', 'arrayParameter', 'config');	
 		}
+		
+		$configs = $this->config; 
+		
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
-		if( isset($config['totalRows']) )	$this->totalRows 	= $config['totalRows'];
-		if( isset($config['start']) )	    $this->start 	    = $config['start'];
-		if( isset($config['limit']) )		$this->limit 		= $config['limit'];
-		if( isset($config['countLinks']) )	$this->countLinks 	= $config['countLinks'];
-		if( isset($config['class']) )		$this->class 		= $config['class'];
-		if( isset($config['style']) )		$this->style 		= $config['style'];
-		if( isset($config['prevName']) )	$this->prevTag 		= $config['prevName'];
-		if( isset($config['nextName']) )	$this->nextTag 		= $config['nextName'];
-		if( isset($config['firstName']) )	$this->firstTag 	= $config['firstName'];
-		if( isset($config['lastName']) )	$this->lastTag 		= $config['lastName'];
+		$this->totalRows 	= $config['totalRows'];
+		$this->start 	    = $config['start'];
+		$this->limit 		= $config['limit'];
+		$this->countLinks 	= $config['countLinks'];
+		$this->class 		= array_merge($configs['class'], $config['class']);
+		$this->style 		= array_merge($configs['style'], $config['style']);
+		$this->prevTag 		= $config['prevName'];
+		$this->nextTag 		= $config['nextName'];
+		$this->firstTag 	= $config['firstName'];
+		$this->lastTag 		= $config['lastName'];
+		$this->type 	    = $config['type'];
 		
-		$type = isset($config['type']) ? $config['type'] : '';
-		
-		if( isset($config['url']) && $type !== 'ajax')			
+		if( isset($config['url']) && $this->type !== 'ajax' )			
 		{
 			$this->url = suffix(siteUrl($config['url']));	
 		}
-		elseif( $type === 'ajax' )    
+		elseif( $this->type === 'ajax' )    
 		{
 			$this->url = '#prow=';
 		}
@@ -347,7 +370,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	
 	protected function _ajax($value)
 	{
-		if( $this->url === '#prow=' )
+		if( $this->type === 'ajax' )
 		{
 			return ' prow="'.$value.'" ptype="ajax"';	
 		}
@@ -359,9 +382,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 
 	public function create($start = NULL, $settings = array())
 	{
-		$config   = Config::get('Components', 'pagination');
-		
-		$settings = array_merge($config, $this->settings, $settings);
+		$settings = array_merge($this->config, $this->settings, $settings);
 		
 		if( ! empty($settings) )
 		{
@@ -412,9 +433,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		
 		// Kaç adet sayfa oluşacağı belirleniyor
 		// Sayfa Sayısı = Toplam Satır / Limit
-		$this->limit = $this->limit === 0
-					 ? 1
-					 : $this->limit;
+		$this->limit = $this->limit === 0 ? 1 : $this->limit;
 					 
 		$perPage = ceil($this->totalRows / $this->limit);
 		
@@ -429,9 +448,6 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// Toplam link sayısı sayfa sayısından büyükse
 		if( $this->countLinks > $perPage )
 		{	
-			// lINKS Sayfalamada yer alacak linkler oluşturuluyor.
-		
-			
 			// LINKS -------------------------------------------------------------------	
 			for( $i = 1; $i <= $perPage; $i++ )
 			{
