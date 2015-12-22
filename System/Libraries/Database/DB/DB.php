@@ -540,7 +540,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'OUTER');
+		$this->_join($table, $otherColumn, $operator, 'OUTER');
 		
 		return $this;
 	}
@@ -556,7 +556,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'LEFT');
+		$this->_join($table, $otherColumn, $operator, 'LEFT');
 		
 		return $this;
 	}
@@ -572,7 +572,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'RIGHT');
+		$this->_join($table, $otherColumn, $operator, 'RIGHT');
 		
 		return $this;
 	}

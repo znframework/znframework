@@ -261,9 +261,9 @@ class JQAnimate
 	******************************************************************************************/
 	protected function _defaultVariable()
 	{
-		if( ! empty($this->easing)) 	$this->easing = array();
-		if( ! empty($this->callback))  	$this->callback = '';
-		if($this->selector !== 'this')  $this->selector = 'this';
-		if( ! empty($this->attr))  		$this->attr = '';
+		$this->easing = array();
+		$this->callback = '';
+		$this->selector = 'this';
+		$this->attr = '';
 	}
 }

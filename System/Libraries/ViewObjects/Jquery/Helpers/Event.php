@@ -684,9 +684,10 @@ class JQEvent
 	 */
 	protected function _defaultVariable()
 	{
-		if($this->selector !== 'this') 	$this->selector = 'this';
-		if($this->type !== '')  		$this->type		= '';
-		if($this->callback !== '')  	$this->callback = '';
-		if($this->property !== 'bind')  $this->property 	= 'bind';
+		$this->selector = 'this';
+		$this->type		= '';
+		$this->callback = '';
+		$this->property = 'bind';
+		$this->params   = '';
 	}
 }

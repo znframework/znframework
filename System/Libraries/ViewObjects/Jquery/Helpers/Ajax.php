@@ -836,8 +836,8 @@ class JQAjax
 	// DEFAULT VARIABLES
 	protected function _defaultVariable()
 	{
-		if( ! empty($this->functions)) $this->functions = array();
-		if( ! empty($this->sets)) $this->sets = array();
-		if( ! empty($this->callbacks)) $this->callbacks = array();
+		$this->functions = array();
+		$this->sets 	 = array();
+		$this->callbacks = array();
 	}
 }

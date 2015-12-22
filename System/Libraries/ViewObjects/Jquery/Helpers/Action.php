@@ -357,10 +357,10 @@ class JQAction
 	******************************************************************************************/
 	protected function _defaultVariable()
 	{
-		if($this->selector !== 'this') 	$this->selector = 'this';
-		if($this->type !== 'show')  	$this->type		= 'show';
-		if($this->callback !== '')  	$this->callback = '';
-		if($this->speed !== '')  		$this->speed 	= '';
-		if($this->easing !== '')  		$this->easing   = '';	
+		$this->selector = 'this';
+		$this->type		= 'show';
+		$this->callback = '';
+		$this->speed 	= '';
+		$this->easing   = '';	
 	}
 }

@@ -1025,7 +1025,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
 		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.$eol;
-		$htaccess .= "</IfModule>";
+		$htaccess .= "</IfModule>".$eol;
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
