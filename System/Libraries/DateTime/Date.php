@@ -58,7 +58,7 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface, DateInterfac
 	//----------------------------------------------------------------------------------------------------
 	public function convert($date = '', $format = 'd-m-Y H:i:s')
 	{
-		return date($format, strtotime($date));	
+		return date($this->_convert('setDateFormatChars', $format), strtotime($date));	
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -92,13 +92,7 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface, DateInterfac
 		{
 			return Error::set('Error', 'stringParameter', 'exp');
 		}
-
-		$chars = $this->config['setDateFormatChars'];
 		
-		$chars = Arrays::multikey($chars);
-		
-		$newClock = str_ireplace(array_keys($chars), array_values($chars), $exp);
-		
-		return date($newClock);
+		return date($this->_convert('setDateFormatChars', $exp));
 	}
 }

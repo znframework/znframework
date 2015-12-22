@@ -551,10 +551,7 @@ class Autoloader
 							$classContent .= "\t".'}'.$eol;
 							$classContent .= '}';
 						
-							if( ! file_put_contents($path, $classContent) );
-							{
-								die(getErrorMessage('Error', 'fileNotWrite', $path));
-							}
+							file_put_contents($path, $classContent);
 						}
 						
 						$classes['classes'][strtolower($newClassName)] = $path;
