@@ -302,3 +302,4 @@ $config['ClassMap']['classes']['templateinterface'] = 'System/Libraries/ViewObje
 $config['ClassMap']['classes']['__use_static_access__xml'] = 'System/Libraries/XMLManipulation/XML.php';
 $config['ClassMap']['classes']['xml'] = 'System/StaticAccess/XMLManipulation/__USE_STATIC_ACCESS__XML.php';
 $config['ClassMap']['classes']['xmlinterface'] = 'System/Libraries/XMLManipulation/XMLInterface.php';
+$config['ClassMap']['classes']['dateinterface'] = 'System/Libraries/DateTime/DateInterface.php';

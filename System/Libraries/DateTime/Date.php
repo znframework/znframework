@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
+class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface, DateInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	// DATE CLASS
@@ -45,6 +45,21 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 		return date("d.m.o");
 	}
 
+	//----------------------------------------------------------------------------------------------------
+	// Convert
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Tarih bilgisini dönüştürmek için kullanılır.
+	//
+	// @param  string $date
+	// @param  string $format
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function convert($date = '', $format = 'd-m-Y H:i:s')
+	{
+		return date($format, strtotime($date));	
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Standart

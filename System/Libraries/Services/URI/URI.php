@@ -49,6 +49,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		{
 			$index = 1;		
 		}
+		
 		if( ! is_scalar($while) ) 
 		{
 			$while = false;
@@ -140,7 +141,19 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			{
 				$return = '';
 				
-				for($i= 1; $i <= $index; $i++)
+				$countSegArr = count($segArr) - 1;
+				
+				if( $index > $countSegArr )
+				{
+					$index = $countSegArr;
+				}
+				
+				if( $index < 0 )
+				{
+					$index = $countSegArr + $index + 1;	
+				}
+				
+				for( $i = 1; $i <= $index; $i++ )
 				{
 					$return .= htmlspecialchars($segArr[$segVal + $i], ENT_QUOTES, "utf-8")."/";
 				}
@@ -196,6 +209,154 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	//----------------------------------------------------------------------------------------------------
 	// Get Method Bitiş
 	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get Count
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Belirtilen segmentten sonra kaç adet segmentin olduğunu verir.
+	//
+	// @param string $get
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getCount($get = '')
+	{
+		$segArr = $this->segmentArray();
+		
+		if( in_array($get, $segArr) )
+		{ 
+			$segVal = array_search($get, $segArr); 
+		
+			return count($segArr) - 1 - $segVal;
+		}
+		
+		return false;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get All
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Belirtilen segmentten sonra tüm segmentleri verir.
+	//
+	// @param string $get
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getAll($get = '')
+	{
+		$segArr = $this->segmentArray();
+		
+		if( in_array($get, $segArr) )
+		{ 
+			$return = '';
+			
+			$segVal = array_search($get, $segArr); 
+			
+			for( $i = 1; $i < count($segArr) - $segVal; $i++ )
+			{
+				$return .= htmlspecialchars($segArr[$segVal + $i], ENT_QUOTES, "utf-8")."/";
+			}
+			
+			$return = substr($return, 0, -1);
+			
+			return $return;
+		}
+		
+		return false;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get Index
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Belirtilen segment indekslerine göre aralık almak için kullanılır.
+	//
+	// @param numeric $get
+	// @param numeric $get
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getIndex($get = 1, $index = 1)
+	{
+		if( ! is_numeric($get) )
+		{
+			return false;	
+		}
+		
+		$segArr = $this->segmentArray();
+		
+		if( $get == 0 )
+		{
+			$get = 1;	
+		}
+		
+		$get -= 1;
+		
+		$uri = '';
+		
+		$countSegArr = count($segArr);
+		
+		if( $index < 0 )
+		{
+			$index = $countSegArr + $index + 1;	
+		}
+		
+		if( $index > 0 )
+		{
+			$index = $get + $index;	
+		}
+		
+		if( abs($index) > $countSegArr )
+		{
+			$index = $countSegArr;
+		}
+		
+		for( $i = $get; $i < $index; $i++ )
+		{
+			$uri .= $segArr[$i].'/';
+		}
+		
+		return rtrim($uri, '/');
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get Name
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Belirtilen segment isimlerine göre aralık almak için kullanılır.
+	//
+	// @param string $get
+	// @param string $get
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getName($get = '', $index = '')
+	{
+		if( ! is_scalar($get) )
+		{
+			return false;	
+		}
+		
+		$segArr   = $this->segmentArray();	
+			
+		$getVal   = array_search($get, $segArr);
+		
+		if( $index === 'all' )
+		{
+			$indexVal = count($segArr) - 1;	
+		}
+		else
+		{
+			$indexVal = array_search($index, $segArr);
+		}
+		
+		$return   = '';
+
+		for($i = $getVal; $i <= $indexVal; $i++)
+		{
+			$return .= htmlspecialchars($segArr[$i], ENT_QUOTES, "utf-8")."/";
+		}
+		
+		return substr($return, 0, -1);
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Segment Methods Başlangıç

@@ -350,26 +350,25 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 			if( ! is_numeric($month) ) 
 			{
 				$month = $today['mon'];
-			}			
+			}	
+					
 			if( ! is_numeric($year) ) 
 			{
 				$year = $today['year'];
 			}	
 		}
 		
-		// Ay 0 değerine ulaştığında
-		if( $month < 1 )
+		if( isset($_SERVER['HTTP_REFERER']) )
 		{
-			$month = 12;
-			$year--;	
-		}
-		// Ay 13 değerine ulaştığında
-		elseif( $month > 12 )
-		{
-			$month = 1;
-			$year++;	
-		}
+			$arrays = array_diff(explode('/', prevUrl()), explode('/', currentUrl()));
 		
+			$prevMonth = end($arrays);
+		}
+		else
+		{
+			$prevMonth = $month;	
+		}
+
 		// Ay ismini sitenin aktif
 		// diline göre ayarlar. 
 		
@@ -390,6 +389,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		// Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
 		$firstDay = getdate( mktime(0, 0, 0, $month, 1, $year) );
 		$lastDay  = getdate( mktime(0, 0, 0, $month + 1, 0, $year));
+		
 		
 		// TABLO İÇİN CSS
 		$tableClass = ( isset($this->css['table']) ) ? ' class="'.$this->css['table'].'"' : '';
@@ -415,9 +415,9 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		$eol  = eol();
 		
 		// Önceki linki oluşturuluyor.
-		$prev = "<a href='". suffix($this->url) . $year. "/". ( $month - 1 ) ."' {$buttonClass}{$buttonStyle}>$this->prev</a>";
+		$prev = "<a href='". suffix($this->url) . ($month == 1 ? $year - 1 : $year). "/". ( $month - 1 == 0  ? 12  : $month - 1 ) ."' {$buttonClass}{$buttonStyle}>$this->prev</a>";
 		// Sonraki linki oluşturuluyor.
-		$next = "<a href='". suffix($this->url) . $year. "/". ( $month + 1 ) ."' {$buttonClass}{$buttonStyle}>$this->next</a>";
+		$next = "<a href='". suffix($this->url) . ($month == 12 ? $year + 1 : $year). "/". ( $month + 1 == 13 ? 1 : $month + 1) ."' {$buttonClass}{$buttonStyle}>$this->next</a>";
 			 
 		$str  = "<table{$tableClass}{$tableStyle}>".$eol;
 		// Ay - Tarih Satırı
@@ -450,7 +450,12 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 			$activeDay++;
 			
 			// Aktif gün için stil ve css kullanımı.
-			if( $activeDay == $today['mday'] ) 
+			if
+			( 
+				$activeDay == $today['mday'] && 
+				$year == $today['year']      && 
+				$month == $today['mon'] 
+			) 
 			{
 				$class = ( isset($this->css['current']) ) ? ' class="'.$this->css['current'].'"' : '';
 				
@@ -478,7 +483,12 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 			{
 				$activeDay++;
 				// Aktif gün için stil ve css kullanımı.
-				if ( $activeDay == $today['mday'] ) 
+				if 
+				( 
+					$activeDay == $today['mday'] && 
+					$year == $today['year']      && 
+					$month == $today['mon'] 
+				) 
 				{
 					$class = ( isset($this->css['current']) ) ? ' class="'.$this->css['current'].'"' : '';
 				
