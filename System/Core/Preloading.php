@@ -385,13 +385,8 @@ function charsetList()
 // dizi içeriğinin düzenli çıktısını almak için kullanılır.			  																				                                   							
 //
 //----------------------------------------------------------------------------------------------------
-function output($data = '', $settings = array(), $display = true)
-{
-	if( ! is_array($settings) )
-	{
-		return false;	
-	}
-	
+function output($data = '', $settings = array(), $content = false)
+{	
 	// ----------------------------------------------------------------------------------------------
 	// AYARLAR
 	// ----------------------------------------------------------------------------------------------
@@ -405,7 +400,7 @@ function output($data = '', $settings = array(), $display = true)
 	$output .= _output($data, '', 0, $settings);
 	$output .= "</span>";
 	
-	if( $display === true)
+	if( $content === false)
 	{
 		echo $output;
 	}
