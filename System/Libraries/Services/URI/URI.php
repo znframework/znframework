@@ -61,43 +61,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		
 		if( is_numeric($get) )
 		{
-			if( $get == 0 )
-			{
-				$get = 1;	
-			}
-			
-			$get -= 1;
-			
-			$uri = '';
-			
-			if( $index === 'all' )
-			{
-				$index = -1;	
-			}
-			
-			$countSegArr = count($segArr);
-			
-			if( $index < 0 )
-			{
-				$index = $countSegArr + $index + 1;	
-			}
-			
-			if( $index > 0 )
-			{
-				$index = $get + $index;	
-			}
-			
-			if( abs($index) > $countSegArr )
-			{
-				$index = $countSegArr;
-			}
-			
-			for( $i = $get; $i < $index; $i++ )
-			{
-				$uri .= $segArr[$i].'/';
-			}
-			
-			return rtrim($uri, '/');
+			return $this->getByIndex($get, $index);
 		}
 		
 		if( in_array($get, $segArr) )
@@ -108,16 +72,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			// 2. parametrenin sayısal olmama durumu
 			if( ! empty($while) && ! is_numeric($index) )
 			{
-				$getVal   = array_search($get, $segArr);
-				$indexVal = array_search($index, $segArr);
-				$return   = '';
-		
-				for($i = $getVal; $i <= $indexVal; $i++)
-				{
-					$return .= htmlspecialchars($segArr[$i], ENT_QUOTES, "utf-8")."/";
-				}
-				
-				return substr($return, 0, -1);
+				return $this->getByName($get, $index);
 			}
 			
 			// 2. parametrenin all olma durumu
@@ -125,15 +80,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			// segmentleri verir.
 			if( $index === 'all' )
 			{
-				$return = '';
-				
-				for($i=1; $i < count($segArr) - $segVal; $i++)
-				{
-					$return .= htmlspecialchars($segArr[$segVal + $i], ENT_QUOTES, "utf-8")."/";
-				}
-				$return = substr($return,0,-1);
-				
-				return $return;
+				return $this->getNameAll($get);
 			}
 			
 			// 3. parametrenin boş olmaması durumu
@@ -168,7 +115,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			// itibaren kalan bölüm sayısını verir.
 			if( $index === "count" )
 			{
-				return count($segArr) - 1 - $segVal;
+				return $this->getNameCount($get);
 			}
 			
 			if( isset($segArr[$segVal + $index]) ) 
@@ -211,7 +158,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Get Count
+	// getNameCount
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// Belirtilen segmentten sonra kaç adet segmentin olduğunu verir.
@@ -219,7 +166,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getCount($get = '')
+	public function getNameCount($get = '')
 	{
 		$segArr = $this->segmentArray();
 		
@@ -234,7 +181,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Get All
+	// getNameAll
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// Belirtilen segmentten sonra tüm segmentleri verir.
@@ -242,7 +189,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getAll($get = '')
+	public function getNameAll($get = '')
 	{
 		$segArr = $this->segmentArray();
 		
@@ -266,7 +213,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Get Index
+	// getByIndex
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// Belirtilen segment indekslerine göre aralık almak için kullanılır.
@@ -275,7 +222,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// @param numeric $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getIndex($get = 1, $index = 1)
+	public function getByIndex($get = 1, $index = 1)
 	{
 		if( ! is_numeric($get) )
 		{
@@ -312,7 +259,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		
 		for( $i = $get; $i < $index; $i++ )
 		{
-			$uri .= $segArr[$i].'/';
+			$uri .= htmlspecialchars($segArr[$i], ENT_QUOTES, "utf-8").'/';
 		}
 		
 		return rtrim($uri, '/');
@@ -328,7 +275,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getName($get = '', $index = '')
+	public function getByName($get = '', $index = '')
 	{
 		if( ! is_scalar($get) )
 		{
