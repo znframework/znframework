@@ -86,7 +86,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		$this->config = $config;
 		
-		$dsn = 'host='.$this->config['host'];
+		$dsn = 'host='.$this->config['host'].' ';
 		
 		if( ! empty($this->config['port']) ) 		$dsn .= 'port='.$this->config['port'].' ';
 		if( ! empty($this->config['database']) ) 	$dsn .= 'dbname='.$this->config['database'].' ';

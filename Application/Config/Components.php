@@ -86,9 +86,10 @@ $config['Components']['calendar'] = array
 	
 	'prevName' 		=> '<<', 
 	'nextName' 		=> '>>',
-
+	
 	'dayType'   	=> 'short',
-	'monthType' 	=> 'long',
+	'monthType' 	=> 'long',	
+	'type'			=> 'classic', // classic, ajax
 
 	'class' => array
 	(

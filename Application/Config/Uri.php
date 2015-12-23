@@ -14,7 +14,7 @@
 // Index.php
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanımı: Url de yer alan index.php uzantısını kaldırmak için kullanılır.		  
+// Genel Kullanımı: Url de yer alan index.php uzantısının görünüm durumunu ayalarmak için kullanılır.		  
 // Değer false olursa url'lerde index.php uzantısı görünmez.								  
 // Parametreler: true, false.															  
 // Varsayılan: true				                 										  					
