@@ -33,6 +33,17 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	protected $style;
 	
 	//----------------------------------------------------------------------------------------------------
+	// type
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Tip sınıf bilgisi
+	//
+	// @var  string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $type = 'classic';
+	
+	//----------------------------------------------------------------------------------------------------
 	// Month Names
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -240,6 +251,19 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		return $this;
 	}
 	
+	public function type($type = 'ajax')
+	{
+		if( ! is_string($type) )
+		{
+			Error::set('Error', 'stringParameter', '1.(type)');
+			return $this;
+		}
+		
+		$this->type = $type;
+		
+		return $this;
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Link Names
 	//----------------------------------------------------------------------------------------------------
@@ -414,10 +438,36 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		
 		$eol  = eol();
 		
+		$url = suffix($this->url);
+		
+		$pcyear   = ($month == 1 ? $year - 1 : $year);
+		$pcmonth  = ( $month - 1 == 0  ? 12  : $month - 1 );
+		$ncyear   = ($month == 12 ? $year + 1 : $year);
+		$ncmonth  = ( $month + 1 == 13 ? 1 : $month + 1);
+		
+		$prevDate = $pcyear . "/". $pcmonth;
+		$nextDate = $ncyear . "/". $ncmonth;
+		
+		if( $this->type === 'ajax' )
+		{
+			$prevUrl  = '#cdate='.$prevDate;
+			$nextUrl  = '#cdate='.$nextDate;
+			$prevAttr = ' ctype="ajax" cyear="'.$pcyear.'" cmonth="'.$pcmonth.'"';
+			$nextAttr = ' ctype="ajax" cyear="'.$ncyear.'" cmonth="'.$ncmonth.'"';
+		}
+		else
+		{
+			
+			$prevUrl  = $url.$prevDate;
+			$nextUrl  = $url.$nextDate;
+			$prevAttr = '';
+			$nextAttr = '';
+		}
+		
 		// Önceki linki oluşturuluyor.
-		$prev = "<a href='". suffix($this->url) . ($month == 1 ? $year - 1 : $year). "/". ( $month - 1 == 0  ? 12  : $month - 1 ) ."' {$buttonClass}{$buttonStyle}>$this->prev</a>";
+		$prev = "<a href='". $prevUrl ."' {$buttonClass}{$buttonStyle}{$prevAttr}>$this->prev</a>";
 		// Sonraki linki oluşturuluyor.
-		$next = "<a href='". suffix($this->url) . ($month == 12 ? $year + 1 : $year). "/". ( $month + 1 == 13 ? 1 : $month + 1) ."' {$buttonClass}{$buttonStyle}>$this->next</a>";
+		$next = "<a href='". $nextUrl ."' {$buttonClass}{$buttonStyle}{$nextAttr}>$this->next</a>";
 			 
 		$str  = "<table{$tableClass}{$tableStyle}>".$eol;
 		// Ay - Tarih Satırı
@@ -565,6 +615,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	protected function _defaultVariables()
 	{
 		$this->css 			= NULL;
+		$this->type			= 'classic';
 		$this->style 		= NULL;
 		$this->monthNames 	= NULL;
 		$this->dayNames 	= NULL;

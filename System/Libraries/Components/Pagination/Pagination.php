@@ -190,7 +190,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('Error', 'stringParameter', 'ajax');
+			Error::set('Error', 'stringParameter', '1.(type)');
 			return $this;
 		}
 		
