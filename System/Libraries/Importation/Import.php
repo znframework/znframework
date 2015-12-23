@@ -470,7 +470,6 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		$randomPageVariable = isset($head['bodyPage']) ? $head['bodyPage'] : $masterPageSet['bodyPage'];	
 		$headPage 			= isset($head['headPage']) ? $head['headPage'] : $masterPageSet['headPage'];
-		$footPage 			= isset($head['footPage']) ? $head['footPage'] : $masterPageSet['footPage'];
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
