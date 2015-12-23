@@ -251,6 +251,16 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Takvimin kullanım türünü belirlemek içindir.
+	// 
+	// @param  string $type
+	// @return this
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function type($type = 'ajax')
 	{
 		if( ! is_string($type) )
