@@ -125,11 +125,11 @@ trait DatabaseTrait
 			// pdo => Pdo		
 			$driver = ucfirst($config['driver']);
 		
-			// Sub driver kullanılırken driver->subdriver
+			// Sub driver kullanılırken driver:subdriver
 			// kullanımı için böyle bir kontrol yapılmaktadır.
-			if( strpos($driver, '->') )
+			if( strpos($driver, ':') )
 			{
-				$subDrivers = explode('->', $driver);
+				$subDrivers = explode(':', $driver);
 				$driver  = $subDrivers[0];
 			}
 			

@@ -116,9 +116,9 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		$this->config = $config;
 		
-		if( strstr($this->config['driver'], '->') )
+		if( strstr($this->config['driver'], ':') )
 		{
-			$subdrivers = explode('->', $this->config['driver']);
+			$subdrivers = explode(":", $this->config['driver']);
 			$this->select_driver  = $subdrivers[1];
 		}
 		
