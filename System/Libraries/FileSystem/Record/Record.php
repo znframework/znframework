@@ -76,7 +76,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// Ayarlar alınıyor...
 		$this->config     = Config::get('Record');
 		// Ana dizin belirleniyor...
-		$this->znrDir     = STORAGE_DIR.'ZNRecords/';
+		$this->znrDir     = STORAGE_DIR.'Records/';
 		// Güvenlik eki olşturuluyor...
 		$this->secureFix .= eol();
 		
@@ -128,13 +128,13 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// ZNRecords/ ana dizini yoksa oluştur.
 		if( ! is_dir($this->znrDir) )
 		{
-			Folder::create($this->znrDir, 0777, true);	
+			Folder::create($this->znrDir, 0644, true);	
 		}
 		
 		// Dahan nce bu dizinden yoksa oluştur.
 		if( ! is_dir($this->znrDir.$recordName) )
 		{
-			Folder::create($this->znrDir.$recordName, 0777, true);
+			Folder::create($this->znrDir.$recordName, 0644, true);
 		}
 		else
 		{

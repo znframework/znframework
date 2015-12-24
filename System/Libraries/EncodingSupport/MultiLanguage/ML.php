@@ -45,7 +45,7 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 		// Eğer dizin mevcut değilse oluşturulması sağlanıyor.
 		if( ! is_dir($this->appdir) )
 		{
-			Folder::create($this->appdir, 0777);	
+			Folder::create($this->appdir, 0644);	
 		}
 			
 		// Aktif dil dosyasının yolu belirtiliyor.

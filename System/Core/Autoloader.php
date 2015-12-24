@@ -524,7 +524,7 @@ class Autoloader
 						
 						if( ! is_dir($dir) )
 						{
-							mkdir($dir, 0777, true);
+							mkdir($dir, 0644, true);
 						}
 						
 						// Oluşturulacak dizinin var olup olmadığı
@@ -532,7 +532,7 @@ class Autoloader
 						if( ! is_dir($newDir) )
 						{
 							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
-							mkdir($newDir, 0777, true);
+							mkdir($newDir, 0644, true);
 						}
 						
 						$path = suffix($newDir).$classInfo['class'].'.php';

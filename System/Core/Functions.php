@@ -839,7 +839,7 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 	
 	if( ! is_dir($logDir) )
 	{
-		Folder::create($logDir, 0777);	
+		Folder::create($logDir, 0644);	
 	}
 	
 	if( is_file($logDir.suffix($destination, $extension)) )
