@@ -188,7 +188,7 @@ class SybaseDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -199,12 +199,20 @@ class SybaseDriver implements DatabaseDriverInterface
 		
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$info = sybase_fetch_field($this->query, $i);
+			$info      = sybase_fetch_field($this->query, $i);
+			$fieldName = $info->name;
 			
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= $info->name;
-			$columns[$i]->type		= $info->type;
-			$columns[$i]->maxLength	= $info->max_length;
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $info->type;
+			$columns[$fieldName]->maxLength		= $info->max_length;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

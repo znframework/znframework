@@ -187,14 +187,14 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
 			return false;
 		}
 		
-		static $data_types = array
+		static $dataTypes = array
 		(
 			SQLITE3_INTEGER	=> 'integer',
 			SQLITE3_FLOAT	=> 'float',
@@ -207,12 +207,20 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{	
-			$type 					= $this->query->columnType($i);
+			$type 		= $this->query->columnType($i);
+			$fieldName 	= $this->query->columnName($i);
 			
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= $this->result_id->columnName($i);		
-			$columns[$i]->type		= isset($data_types[$type]) ? $data_types[$type] : $type;
-			$columns[$i]->maxLength	= NULL;
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
+			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

@@ -205,7 +205,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -214,12 +214,21 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		foreach (sqlsrv_field_metadata($this->query) as $i => $field)
+		foreach( sqlsrv_field_metadata($this->query) as $field )
 		{
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= $field['Name'];
-			$columns[$i]->type		= $field['Type'];
-			$columns[$i]->maxLength	= $field['Size'];
+			$fieldName = $field['Name'];
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $field['Type'];
+			$columns[$fieldName]->maxLength		= $field['Size'];
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

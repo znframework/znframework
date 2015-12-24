@@ -217,7 +217,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -228,10 +228,19 @@ class PostgreDriver implements DatabaseDriverInterface
 		
 		for( $i = 0, $c = $this->numFields(); $i < $c; $i++ )
 		{
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= pg_field_name($this->query, $i);
-			$columns[$i]->type		= pg_field_type($this->query, $i);
-			$columns[$i]->maxLength	= pg_field_size($this->query, $i);
+			$fieldName = pg_field_name($this->query, $i);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= pg_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= pg_field_size($this->query, $i);
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

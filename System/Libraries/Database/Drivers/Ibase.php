@@ -214,7 +214,7 @@ class IbaseDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -225,12 +225,20 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$info = ibase_field_info($this->query, $i);
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $info['name'];
-			$columns[$i]->type			= $info['type'];
-			$columns[$i]->maxLength		= $info['length'];
-			$columns[$i]->primaryKey	= false;
+			$info      = ibase_field_info($this->query, $i);
+			$fieldName = $info['name'];
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $info['type'];
+			$columns[$fieldName]->maxLength		= $info['length'];
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

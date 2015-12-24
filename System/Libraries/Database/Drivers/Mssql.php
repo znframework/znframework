@@ -206,7 +206,7 @@ class MssqlDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -218,11 +218,20 @@ class MssqlDriver implements DatabaseDriverInterface
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
 			$field = mssql_fetch_field($this->query, $i);
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $field->name;
-			$columns[$i]->type			= $field->type;
-			$columns[$i]->maxLength		= $field->max_length;
-			$columns[$i]->primaryKey	= false;
+			
+			$fieldName = $field->name;
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $field->type;
+			$columns[$fieldName]->maxLength		= $field->max_length;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

@@ -2031,14 +2031,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu sonucunda tabloya ait sütun bilgilerini almak için kullanılır.	  |
 	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	| Parametreler: Tek parametresi vardır. İsteğe bağlıdır.                                  |
 	|          																				  |
 	| Örnek Kullanım: ->columnData();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{ 
-		return $this->db->columnData(); 
+		return $this->db->columnData($col); 
 	}
 	
 	/******************************************************************************************

@@ -194,7 +194,7 @@ class SqliteDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -205,10 +205,19 @@ class SqliteDriver implements DatabaseDriverInterface
 		
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= sqlite_field_name($this->query, $i);
-			$columns[$i]->type		= NULL;
-			$columns[$i]->maxLength	= NULL;
+			$fieldName = sqlite_field_name($this->query, $i);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type		 	= NULL;
+			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;

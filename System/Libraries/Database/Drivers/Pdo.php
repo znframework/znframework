@@ -257,32 +257,35 @@ class PdoDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
 			return false;
 		}
 		
-		try
+		$columns = array();
+		
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns = array();
+			$field     = $this->query->getColumnMeta($i);
+			$fieldName = $field['name'];
 			
-			for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
-			{
-				$field = $this->query->getColumnMeta($i);
-				$columns[$i]				= new stdClass();
-				$columns[$i]->name			= $field['name'];
-				$columns[$i]->type			= $field['native_type'];
-				$columns[$i]->maxLength		= ($field['len'] > 0) ? $field['len'] : NULL;
-				$columns[$i]->primaryKey	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
-			}
-			return $columns;
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $field['native_type'];
+			$columns[$fieldName]->maxLength		= ($field['len'] > 0) ? $field['len'] : NULL;
+			$columns[$fieldName]->primaryKey	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
+			$columns[$fieldName]->default		= NULL;
 		}
-		catch (Exception $e)
+		
+		if( isset($columns[$col]) )
 		{
-			return false;
+			return $columns[$col];
 		}
+		
+		return $columns;
+	
 	}
 	
 	/******************************************************************************************
