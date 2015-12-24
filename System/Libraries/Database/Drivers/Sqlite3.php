@@ -194,7 +194,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		static $dataTypes = array
+		$dataTypes = array
 		(
 			SQLITE3_INTEGER	=> 'integer',
 			SQLITE3_FLOAT	=> 'float',
