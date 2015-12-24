@@ -98,9 +98,11 @@ class PostgreDriver implements DatabaseDriverInterface
 			$dsn = $this->config['dsn'];	
 		}
 		
+		$dsn = rtrim($dsn);
+		
 		$this->connect = ( $this->config['pconnect'] === true )
-					     ? pg_pconnect(rtrim($dsn))
-						 : pg_connect(rtrim($dsn));
+					     ? pg_pconnect($dsn)
+						 : pg_connect($dsn);
 		
 		if( empty($this->connect) ) 
 		{
@@ -201,41 +203,12 @@ class PostgreDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function insertId()
 	{
-		$version = pg_version($this->connect);
-		
-		$version = isset($version['server']) ? $version['server'] : 0;
-		$table	 = (func_num_args() > 0) ? func_get_arg(0) : NULL;
-		$column	 = (func_num_args() > 1) ? func_get_arg(1) : NULL;
-		
-		if( $table === NULL && $v >= '8.1' )
+		if( empty($this->query) ) 
 		{
-			$sql = 'SELECT LASTVAL() AS ins_id';
-		}
-		elseif( $table !== NULL )
-		{
-			if( $column !== NULL && $version >= '8.0' )
-			{
-				$sql   = 'SELECT pg_get_serial_sequence(\''.$table."', '".$column."') AS seq";
-				$query = $this->query($sql);
-				$query = $query->row();
-				$seq   = $query->seq;
-			}
-			else
-			{
-				$seq = $table;
-			}
-			
-			$sql = 'SELECT CURRVAL(\''.$seq."') AS ins_id";
-		}
-		else
-		{
-			return pg_last_oid($this->query);
+			return false;
 		}
 		
-		$query = $this->query($sql);
-		$query = $query->row();
-		
-		return (int) $query->ins_id;
+		return pg_last_oid($this->query);
 	}
 	
 	/******************************************************************************************
