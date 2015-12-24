@@ -398,7 +398,7 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = ibase_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -421,7 +421,7 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = ibase_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -442,7 +442,7 @@ class IbaseDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = ibase_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

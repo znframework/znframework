@@ -347,8 +347,8 @@ class MysqliDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
-		$fields = mysqli_fetch_fields($this->query);
+		$columns    = array();
+		$fields     = mysqli_fetch_fields($this->query);
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
@@ -392,7 +392,7 @@ class MysqliDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysqli_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -415,7 +415,7 @@ class MysqliDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysqli_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -434,7 +434,7 @@ class MysqliDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			$data = mysqli_fetch_assoc($this->query);
+			$data = $this->fetchAssoc();
 			
 			return (object)$data;
 		}

@@ -380,7 +380,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlsrv_fetch_array($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -403,7 +403,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -424,7 +424,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

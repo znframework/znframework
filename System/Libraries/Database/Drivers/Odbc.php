@@ -364,7 +364,7 @@ class OdbcDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = odbc_fetch_array($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -387,7 +387,7 @@ class OdbcDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = odbc_fetch_array($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -408,7 +408,7 @@ class OdbcDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = odbc_fetch_array($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

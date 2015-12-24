@@ -398,7 +398,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = fbsql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -421,7 +421,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = fbsql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -442,7 +442,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = fbsql_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

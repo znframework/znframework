@@ -381,7 +381,7 @@ class MssqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mssql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -404,7 +404,7 @@ class MssqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mssql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -425,7 +425,7 @@ class MssqlDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = mssql_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

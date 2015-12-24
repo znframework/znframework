@@ -370,7 +370,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetchArray(SQLITE3_ASSOC))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = (object)$data;
 		}
@@ -393,7 +393,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetchArray(SQLITE3_ASSOC))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = $data;
 		}
@@ -415,7 +415,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = $this->query->fetchArray(SQLITE3_ASSOC);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

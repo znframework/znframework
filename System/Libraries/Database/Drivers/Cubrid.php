@@ -403,7 +403,7 @@ class CubridDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = cubrid_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -426,7 +426,7 @@ class CubridDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = cubrid_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -447,7 +447,7 @@ class CubridDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = cubrid_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

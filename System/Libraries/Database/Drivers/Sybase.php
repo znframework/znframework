@@ -365,7 +365,7 @@ class SybaseDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sybase_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -388,7 +388,7 @@ class SybaseDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sybase_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -409,7 +409,7 @@ class SybaseDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = sybase_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

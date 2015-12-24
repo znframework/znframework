@@ -369,7 +369,7 @@ class SqliteDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlite_fetch_array($this->query))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = (object)$data;
 		}
@@ -392,7 +392,7 @@ class SqliteDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlite_fetch_array($this->query))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = $data;
 		}
@@ -413,7 +413,7 @@ class SqliteDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = sqlite_fetch_array($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

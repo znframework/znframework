@@ -430,7 +430,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetch(PDO::FETCH_ASSOC))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -453,7 +453,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetch(PDO::FETCH_ASSOC))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -475,7 +475,7 @@ class PdoDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = $this->query->fetch(PDO::FETCH_ASSOC);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

@@ -425,7 +425,7 @@ class PostgreDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = pg_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -448,7 +448,7 @@ class PostgreDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = pg_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -469,7 +469,7 @@ class PostgreDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = pg_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

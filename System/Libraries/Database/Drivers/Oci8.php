@@ -409,7 +409,7 @@ class Oci8Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = oci_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -432,7 +432,7 @@ class Oci8Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = oci_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -453,7 +453,7 @@ class Oci8Driver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = oci_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

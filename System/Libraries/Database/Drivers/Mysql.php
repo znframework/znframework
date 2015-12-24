@@ -388,7 +388,7 @@ class MysqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -411,7 +411,7 @@ class MysqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -432,7 +432,7 @@ class MysqlDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = mysql_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}
