@@ -68,6 +68,14 @@ class MysqlDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('mysql_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Mysql'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -78,8 +86,8 @@ class MysqlDriver implements DatabaseDriverInterface
 	{
 		$this->config  = $config;
 		$this->connect = ( $this->config['pconnect'] === true)
-						 ? @mysql_pconnect($this->config['host'], $this->config['user'], $this->config['password'])
-						 : @mysql_connect($this->config['host'], $this->config['user'], $this->config['password']);
+						 ? mysql_pconnect($this->config['host'], $this->config['user'], $this->config['password'])
+						 : mysql_connect($this->config['host'], $this->config['user'], $this->config['password']);
 							
 		if( empty($this->connect) ) 
 		{

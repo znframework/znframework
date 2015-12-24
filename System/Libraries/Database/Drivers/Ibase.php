@@ -76,6 +76,14 @@ class IbaseDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('ibase_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'InterBase(ibase)'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -86,14 +94,14 @@ class IbaseDriver implements DatabaseDriverInterface
 	{
 		$this->config = $config;
 		$this->connect =	( $this->config['pconnect'] === true ) 
-							? @ibase_pconnect
+							? ibase_pconnect
 							  (
 								$this->config['host'].':'.$this->config['database'], 
 								$this->config['user'], 
 								$this->config['password'], 
 								$this->config['charset']
 							  )
-							: @ibase_connect
+							: ibase_connect
 							  (
 								$this->config['host'].':'.$this->config['database'], 
 								$this->config['user'], 

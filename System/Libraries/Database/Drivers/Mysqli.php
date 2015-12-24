@@ -68,6 +68,14 @@ class MysqliDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('mysqli_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Mysqli'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************

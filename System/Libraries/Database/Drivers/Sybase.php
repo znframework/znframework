@@ -68,6 +68,14 @@ class SybaseDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('sybase_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Sybase'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************

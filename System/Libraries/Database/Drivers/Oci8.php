@@ -68,6 +68,14 @@ class Oci8Driver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('oci_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Oracle 8'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************

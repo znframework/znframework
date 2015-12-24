@@ -72,7 +72,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! function_exists('pg_connect') )
 		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'postgre'));	
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Postgre'));	
 		}	
 	}
 	

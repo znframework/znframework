@@ -67,6 +67,14 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	);
 	
 	use DatabaseDriverTrait;
+	
+	public function __construct()
+	{
+		if( ! function_exists('sqlsrv_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQL Server'));	
+		}	
+	}
 
 	/******************************************************************************************
 	* CONNECT                                                                                 *

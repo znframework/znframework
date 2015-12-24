@@ -68,6 +68,14 @@ class OdbcDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('odbc_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Microsoft Access(ODBC)'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************

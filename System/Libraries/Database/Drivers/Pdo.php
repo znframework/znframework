@@ -106,6 +106,14 @@ class PdoDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! class_exists('PDO') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'PDO'));	
+		}
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
