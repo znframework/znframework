@@ -29,7 +29,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	 */
 	protected $statements = array
 	(
-		'autoIncrement' => 'AUTO_INCREMENT',
+		'autoIncrement' => 'BIGSERIAL',
 		'primaryKey'	=> 'PRIMARY KEY',
 		'foreignKey'	=> 'FOREIGN KEY',
 		'unique'		=> 'UNIQUE',
@@ -55,8 +55,8 @@ class PostgreDriver implements DatabaseDriverInterface
 		'double'		=> 'DOUBLE PRECISION',
 		'float'			=> 'NUMERIC',
 		'char'			=> 'CHARACTER',
-		'varChar'		=> 'VARCHAR',
-		'tinyText'		=> 'VARCHAR(255)',
+		'varChar'		=> 'CHARACTER VARYING',
+		'tinyText'		=> 'CHARACTER VARYING(255)',
 		'text'			=> 'TEXT',
 		'mediumText'	=> 'TEXT',
 		'longText'		=> 'TEXT',
