@@ -253,14 +253,12 @@ class PostgreDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for( $i = 0, $c = $this->num_fields(); $i < $c; $i++ )
+		for( $i = 0, $c = $this->numFields(); $i < $c; $i++ )
 		{
-			$info = pg_field_name($this->query, $i);
-			
 			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= $info->column_name;
-			$columns[$i]->type		= $info->data_type;
-			$columns[$i]->maxLength	= $info->character_maximum_length;
+			$columns[$i]->name		= pg_field_name($this->query, $i);
+			$columns[$i]->type		= pg_field_type($this->query, $i);
+			$columns[$i]->maxLength	= pg_field_size($this->query, $i);
 		}
 		
 		return $columns;

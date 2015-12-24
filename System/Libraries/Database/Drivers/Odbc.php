@@ -205,7 +205,7 @@ class OdbcDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $index = 1, $c = $this->num_fields(); $i < $c; $i++, $index++)
+		for ($i = 0, $index = 1, $c = $this->numFields(); $i < $c; $i++, $index++)
 		{
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= odbc_field_name($this->query, $index);

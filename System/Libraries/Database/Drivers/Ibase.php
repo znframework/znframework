@@ -223,7 +223,7 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
 			$info = ibase_field_info($this->query, $i);
 			$columns[$i]				= new stdClass();

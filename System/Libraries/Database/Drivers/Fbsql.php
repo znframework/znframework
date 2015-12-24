@@ -233,7 +233,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
 			$columns[$i]				= new stdClass();
 			$columns[$i]->name			= fbsql_field_name($this->query, $i);

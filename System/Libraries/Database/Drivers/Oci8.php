@@ -245,7 +245,7 @@ class Oci8Driver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 1, $c = $this->num_fields(); $i <= $c; $i++)
+		for ($i = 1, $c = $this->numFields(); $i <= $c; $i++)
 		{
 			$field				= new stdClass();
 			$field->name		= oci_field_name($this->query, $i);
