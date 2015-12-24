@@ -33,29 +33,28 @@ class PDOSqlsrvDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
 		$dsn  = 'sqlsrv:Server=';
-			if( ! empty($this->config['server']) ) 
-			{
-				$dsn .= $this->config['server'];
-			}
-			elseif( ! empty($this->config['host']) ) 
-			{
-				$dsn .= $this->config['server'];
-			}
-			else 
-			{
-				$dsn .= '127.0.0.1';
-			}
-			
-			$dsn .= ( ! empty($this->config['port']) ) 
-					? ','.$this->config['port'] 
-					: '';
-			
-			$dsn .= ( ! empty($this->config['database'])) 
-			        ? ';Database='.$this->config['database'] 
-					: '';
+		
+		if( ! empty($this->config['server']) ) 
+		{
+			$dsn .= $this->config['server'];
+		}
+		elseif( ! empty($this->config['host']) ) 
+		{
+			$dsn .= $this->config['server'];
+		}
+		else 
+		{
+			$dsn .= '127.0.0.1';
+		}
+		
+		$dsn .= ( ! empty($this->config['port']) ) 
+				? ','.$this->config['port'] 
+				: '';
+		
+		$dsn .= ( ! empty($this->config['database'])) 
+				? ';Database='.$this->config['database'] 
+				: '';
 	
 		return $dsn;
 	}	

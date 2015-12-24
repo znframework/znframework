@@ -33,9 +33,7 @@ class PDOIbmDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
-		$dsn  = 'DRIVER:{IBM DB2 ODBC DRIVER}'.
+		$dsn  = 'DRIVER:{IBM DB2 ODBC DRIVER}';
 			
 		$dsn .= ( ! empty($this->config['database']) ) 
 				? ';DATABASE='.$this->config['database'] 

@@ -33,9 +33,7 @@ class PDOPgsqlDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
-		$dsn  = 'pgsql:host='.
+		$dsn  = 'pgsql:host=';
 			
 		$dsn .= ( empty($this->config['host']) ) 
 				? '127.0.0.1' 

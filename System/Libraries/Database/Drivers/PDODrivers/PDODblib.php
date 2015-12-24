@@ -33,8 +33,6 @@ class PDODblibDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
 		$dsn  = 'dblib:host='.( empty($this->config['host']) ) 
 							  ? '127.0.0.1' 
 							  : $this->config['host'];

@@ -33,9 +33,7 @@ class PDOOciDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
-		$dsn  = 'oci:dbname='.
+		$dsn  = 'oci:dbname=';
 			
 		$dsn .= ( empty($this->config['host']) ) 
 				? ';dbname=127.0.0.1' 
