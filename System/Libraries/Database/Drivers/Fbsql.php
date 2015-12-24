@@ -86,8 +86,8 @@ class FbsqlDriver implements DatabaseDriverInterface
 	{
 		$this->config  = $config;
 	    $this->connect = ( $this->config['pconnect'] === true )
-						 ? fbsql_pconnect($this->config['host'], $this->config['user'], $this->config['password'])
-						 : fbsql_connect($this->config['host'], $this->config['user'], $this->config['password']);
+						 ? @fbsql_pconnect($this->config['host'], $this->config['user'], $this->config['password'])
+						 : @fbsql_connect($this->config['host'], $this->config['user'], $this->config['password']);
 		
 		if( empty($this->connect) ) 
 		{

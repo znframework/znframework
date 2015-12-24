@@ -91,8 +91,8 @@ class MssqlDriver implements DatabaseDriverInterface
 					: $this->config['host'];
 		
 		$this->connect = 	( $this->config['pconnect'] === true )
-							? mssql_pconnect($server, $this->config['user'], $this->config['password'])
-							: mssql_connect($server, $this->config['user'], $this->config['password']);
+							? @mssql_pconnect($server, $this->config['user'], $this->config['password'])
+							: @mssql_connect($server, $this->config['user'], $this->config['password']);
 		
 		if( empty($this->connect) ) 
 		{

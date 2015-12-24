@@ -101,8 +101,8 @@ class PostgreDriver implements DatabaseDriverInterface
 		$dsn = rtrim($dsn);
 		
 		$this->connect = ( $this->config['pconnect'] === true )
-					     ? pg_pconnect($dsn)
-						 : pg_connect($dsn);
+					     ? @pg_pconnect($dsn)
+						 : @pg_connect($dsn);
 		
 		if( empty($this->connect) ) 
 		{

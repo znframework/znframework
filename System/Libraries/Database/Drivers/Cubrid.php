@@ -86,13 +86,13 @@ class CubridDriver implements DatabaseDriverInterface
 	{
 	   $this->config  = $config;
 	   $this->connect = ( empty($this->config['user']) )
-						? cubrid_connect
+						? @cubrid_connect
 						  (
 							$this->config['host'], 
 							$this->config['port'], 
 							$this->config['database']
 						  )
-						: cubrid_connect
+						: @cubrid_connect
 						  (
 							$this->config['host'], 
 							$this->config['port'], 

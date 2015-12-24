@@ -86,8 +86,8 @@ class SqliteDriver implements DatabaseDriverInterface
 	{
 		$this->config = $config;
 		$this->connect = 	( $this->config['pconnect'] === true )
-							? sqlite_popen($this->config['database'], 0666, $error)
-							: sqlite_open($this->config['database'], 0666, $error);
+							? @sqlite_popen($this->config['database'], 0666, $error)
+							: @sqlite_open($this->config['database'], 0666, $error);
 		
 		
 		if( ! empty($error) ) 

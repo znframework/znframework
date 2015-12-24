@@ -86,8 +86,8 @@ class MysqlDriver implements DatabaseDriverInterface
 	{
 		$this->config  = $config;
 		$this->connect = ( $this->config['pconnect'] === true)
-						 ? mysql_pconnect($this->config['host'], $this->config['user'], $this->config['password'])
-						 : mysql_connect($this->config['host'], $this->config['user'], $this->config['password']);
+						 ? @mysql_pconnect($this->config['host'], $this->config['user'], $this->config['password'])
+						 : @mysql_connect($this->config['host'], $this->config['user'], $this->config['password']);
 							
 		if( empty($this->connect) ) 
 		{
