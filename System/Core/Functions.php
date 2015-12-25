@@ -834,7 +834,7 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 		$destination = str_replace(' ', '-', $subject);
 	}
 	
-	$logDir    = APPDIR.'Logs/';
+	$logDir    = STORAGE_DIR.'Logs/';
 	$extension = '.log';
 	
 	if( ! is_dir($logDir) )
