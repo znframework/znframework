@@ -1101,7 +1101,7 @@ class __USE_STATIC_ACCESS__JS
 	//----------------------------------------------------------------------------------------------------
 	public function define($varname  = '', $value = '', $operator = '=')
 	{
-		return CRLF.'var '.$varname.' '.$operator.' '.suffix($value, ';');
+		return CRLF.'var '.$varname.' '.$operator.' '.suffix(trim($value, CRLF), ';');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
