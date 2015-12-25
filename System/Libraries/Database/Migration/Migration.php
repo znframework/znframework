@@ -298,7 +298,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( ! is_file($file) )
 		{	
-			$eol  = eol();
+			$eol  = EOL;
 			$str  = '<?php'.$eol;
 			$str .= 'class '.$this->classFix.$name.' extends '.$this->extendsFix.$eol;
 			$str .= '{'.$eol;

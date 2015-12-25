@@ -332,7 +332,7 @@ class JQAction
 	{
 		$combineEffect = func_get_args();
 		
-		$event  = eol().JQ::selector($this->selector);
+		$event  = EOL.JQ::selector($this->selector);
 		$event .= $this->complete();
 		
 		if( ! empty($combineEffect) ) foreach($combineEffect as $effect)

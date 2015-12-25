@@ -100,7 +100,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	{		
 		$this->ready = $ready;
 		
-		$eol     = eol();
+		$eol     = EOL;
 		$script  = "";
 		
 		if( $jqueryCdn === true ) 
@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	public function close()
 	{	
 		$script = "";
-		$eol    = eol();
+		$eol    = EOL;
 		
 		if( $this->ready === true )
 		{

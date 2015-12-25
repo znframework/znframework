@@ -404,7 +404,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	{
 		if( ! empty($page) )
 		{
-			$eol    = eol();
+			$eol    = EOL;
 			$return = '';
 			
 			// Tek bir üst sayfa kullanımı için.
@@ -458,7 +458,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	
 		$this->parameters = array();
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		//-----------------------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -786,7 +786,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	******************************************************************************************/
 	public function font()
 	{	
-		$eol	   = eol();
+		$eol	   = EOL;
 		$str       = "<style type='text/css'>".$eol;
 		$args      = $this->_parameters(func_get_args(), 'fonts');		
 		$lastParam = $args->lastParam;
@@ -918,7 +918,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	public function style()
 	{
 		$str       = '';	
-		$eol	   = eol();	
+		$eol	   = EOL;	
 		$args      = $this->_parameters(func_get_args(), 'styles');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -994,7 +994,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	public function script()
 	{
 		$str 	   = '';	
-		$eol	   = eol();	
+		$eol	   = EOL;	
 		$args      = $this->_parameters(func_get_args(), 'scripts');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -1081,7 +1081,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 
 		$this->parameters = array();
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		$randomPageVariableExtension = extension($randomPageVariable);
 		$randomPageVariableBaseUrl   = baseUrl($randomPageVariable);
@@ -1221,7 +1221,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		$this->parameters = array();
 	
-		$eol = eol();
+		$eol = EOL;
 		
 		$return = '';
 		

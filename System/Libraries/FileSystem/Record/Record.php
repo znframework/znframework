@@ -78,7 +78,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// Ana dizin belirleniyor...
 		$this->znrDir     = STORAGE_DIR.'Records/';
 		// Güvenlik eki olşturuluyor...
-		$this->secureFix .= eol();
+		$this->secureFix .= EOL;
 		
 		$recordName = $this->config['record'];
 		$recordDir  = $this->_recordName($recordName);

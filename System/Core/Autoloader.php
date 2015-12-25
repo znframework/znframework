@@ -179,7 +179,7 @@ class Autoloader
 			isset($configClassMap['classes']) ? $configClassMap['classes'] : array()
 		);
 		
-		$eol  = eol();
+		$eol  = EOL;
 		
 		// Config/ClassMap.php 
 		$path = CONFIG_DIR.'ClassMap.php';
@@ -469,7 +469,7 @@ class Autoloader
 		
 		$staticAccessDirectory = SYSTEM_DIR.'StaticAccess/';
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		if( ! empty($files) ) foreach( $files as $v )
 		{

@@ -446,7 +446,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		// ÖNCEKİ VE SONRAKİ LİNKLERİ İÇİN	STYLE		
 		$buttonStyle = ( isset($this->style['links']) ) ? ' style="'.$this->style['links'].'"' : '';
 		
-		$eol  = eol();
+		$eol  = EOL;
 		
 		$url = suffix($this->url);
 		

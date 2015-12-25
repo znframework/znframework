@@ -665,7 +665,7 @@ class JQEvent
 	{
 		$combineEvent = func_get_args();
 		
-		$event  = eol().JQ::selector($this->selector);
+		$event  = EOL.JQ::selector($this->selector);
 		$event .= $this->complete();
 		if( ! empty($combineEvent))foreach($combineEvent as $e)
 		{			

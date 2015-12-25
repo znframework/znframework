@@ -71,7 +71,7 @@ class JQAjax
 			$url = siteUrl($url);	
 		}
 		
-		$this->sets['url'] = "\turl:\"$url\",".eol();
+		$this->sets['url'] = "\turl:\"$url\",".EOL;
 		
 		return $this;	
 	}
@@ -94,7 +94,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['data'] = "\tdata:$data,".eol();
+		$this->sets['data'] = "\tdata:$data,".EOL;
 		
 		return $this;	
 	}
@@ -117,7 +117,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['headers'] = "\theaders:$headers,".eol();
+		$this->sets['headers'] = "\theaders:$headers,".EOL;
 		
 		return $this;	
 	}
@@ -143,7 +143,7 @@ class JQAjax
 		// Mantıklasal veri metinsel veriye dönüştürülüyor.
 		$ifModified = $this->_boolToStr($ifModified);
 		
-		$this->sets['ifModified'] = "\tifModified:$ifModified,".eol();
+		$this->sets['ifModified'] = "\tifModified:$ifModified,".EOL;
 		
 		return $this;	
 	}
@@ -168,7 +168,7 @@ class JQAjax
 		
 		$isLocal = $this->_boolToStr($isLocal);
 		
-		$this->sets['isLocal'] = "\tisLocal:$isLocal,".eol();
+		$this->sets['isLocal'] = "\tisLocal:$isLocal,".EOL;
 		
 		return $this;	
 	}
@@ -193,7 +193,7 @@ class JQAjax
 		}
 		
 		$mimeType = $this->_boolToStr($mimeType);
-		$this->sets['mimeType'] = "\tmimeType:$mimeType,".eol();
+		$this->sets['mimeType'] = "\tmimeType:$mimeType,".EOL;
 		
 		return $this;	
 	}
@@ -223,7 +223,7 @@ class JQAjax
 			return $this;
 		}
 		
-		$this->sets['jsonp'] = "\tjsonp:$jsonp,".eol();
+		$this->sets['jsonp'] = "\tjsonp:$jsonp,".EOL;
 		
 		return $this;	
 	}
@@ -251,7 +251,7 @@ class JQAjax
 			$jsonpCallback = "\"$jsonpCallback\"";
 		}
 		
-		$this->sets['jsonpCallback'] = "\tjsonpCallback:$jsonpCallback,".eol();
+		$this->sets['jsonpCallback'] = "\tjsonpCallback:$jsonpCallback,".EOL;
 		
 		return $this;	
 	}
@@ -274,7 +274,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['type'] = "\tdataType:\"$type\",".eol();
+		$this->sets['type'] = "\tdataType:\"$type\",".EOL;
 		
 		return $this;
 	}
@@ -290,7 +290,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['password'] = "\tpassword:\"$password\",".eol();
+		$this->sets['password'] = "\tpassword:\"$password\",".EOL;
 		
 		return $this;
 	}
@@ -306,7 +306,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['username'] = "\tusername:\"$username\",".eol();
+		$this->sets['username'] = "\tusername:\"$username\",".EOL;
 		
 		return $this;
 	}
@@ -323,7 +323,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['method'] = "\tmethod:\"$method\",".eol();
+		$this->sets['method'] = "\tmethod:\"$method\",".EOL;
 		
 		return $this;
 	}
@@ -350,7 +350,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['scriptCharset'] = "\tscriptCharset:\"$scriptCharset\",".eol();
+		$this->sets['scriptCharset'] = "\tscriptCharset:\"$scriptCharset\",".EOL;
 		
 		return $this;
 	}
@@ -367,7 +367,7 @@ class JQAjax
 		}
 		
 		$traditional = $this->_boolToStr($traditional);
-		$this->sets['traditional'] = "\ttraditional:$traditional,".eol();
+		$this->sets['traditional'] = "\ttraditional:$traditional,".EOL;
 		
 		return $this;
 	}
@@ -384,7 +384,7 @@ class JQAjax
 		}
 		
 		$processData = $this->_boolToStr($processData);
-		$this->sets['processData'] = "\tprocessData:$processData,".eol();
+		$this->sets['processData'] = "\tprocessData:$processData,".EOL;
 		
 		return $this;
 	}
@@ -401,7 +401,7 @@ class JQAjax
 		}
 		
 		$cache = $this->_boolToStr($cache);
-		$this->sets['cache'] = "\tcache:$cache,".eol();
+		$this->sets['cache'] = "\tcache:$cache,".EOL;
 		
 		return $this;
 	}
@@ -417,7 +417,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['xhrFields'] = "\txhrFields:$xhrFields,".eol();
+		$this->sets['xhrFields'] = "\txhrFields:$xhrFields,".EOL;
 		
 		return $this;
 	}
@@ -433,7 +433,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['context'] = "\tcontext:$context,".eol();
+		$this->sets['context'] = "\tcontext:$context,".EOL;
 		
 		return $this;
 	}
@@ -449,7 +449,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['accepts'] = "\taccepts:$accepts,".eol();
+		$this->sets['accepts'] = "\taccepts:$accepts,".EOL;
 		
 		return $this;
 	}
@@ -465,7 +465,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['contents'] = "\tcontents:$contents,".eol();
+		$this->sets['contents'] = "\tcontents:$contents,".EOL;
 		
 		return $this;
 	}
@@ -482,7 +482,7 @@ class JQAjax
 		}
 		
 		$async = $this->_boolToStr($async);
-		$this->sets['async'] = "\tasync:$async,".eol();
+		$this->sets['async'] = "\tasync:$async,".EOL;
 		
 		return $this;
 	}
@@ -499,7 +499,7 @@ class JQAjax
 		}
 		
 		$crossDomain = $this->_boolToStr($crossDomain);
-		$this->sets['crossDomain'] = "\tcrossDomain:$crossDomain,".eol();
+		$this->sets['crossDomain'] = "\tcrossDomain:$crossDomain,".EOL;
 		
 		return $this;
 	}
@@ -515,7 +515,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['timeout'] = "\ttimeout:$timeout,".eol();
+		$this->sets['timeout'] = "\ttimeout:$timeout,".EOL;
 		
 		return $this;
 	}
@@ -533,7 +533,7 @@ class JQAjax
 		}
 		
 		$globals = $this->_boolToStr($globals);
-		$this->sets['globals'] = "\tglobal:$globals,".eol();
+		$this->sets['globals'] = "\tglobal:$globals,".EOL;
 		
 		return $this;
 	}
@@ -559,7 +559,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$this->sets['contentType'] = "\tcontentType:$contentType,".eol();
+		$this->sets['contentType'] = "\tcontentType:$contentType,".EOL;
 		
 		return $this;
 	}
@@ -572,7 +572,7 @@ class JQAjax
 			return $this;	
 		}
 		
-		$eol = eol();	
+		$eol = EOL;	
 		
 		$statusCode = $eol."\t$name:".$eol."\t{";
 		
@@ -635,7 +635,7 @@ class JQAjax
 			return $this;
 		}
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		$this->functions[$name] = $eol."\t$name:function($params)".$eol."\t{".$eol."\t\t$codes".$eol."\t}";
 	}
@@ -707,7 +707,7 @@ class JQAjax
 			return $this;
 		}
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		$this->callbacks[$name] = $eol.".$name(function($params)".$eol."{".$eol."\t$codes".$eol."})";
 	}	
@@ -786,7 +786,7 @@ class JQAjax
 			$this->method('post');
 		} 
 		
-		$eol  = eol();
+		$eol  = EOL;
 		$ajax = '';
 		
 		if( ! empty($this->sets) ) foreach( $this->sets as $val )

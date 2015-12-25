@@ -859,7 +859,7 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 		}
 	}
 
-	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.eol();
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.EOL;
 	error_log($message, 3, $logDir.suffix($destination, $extension));
 }
 
@@ -875,7 +875,7 @@ function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = Config::get('Cache');
-	$eol    = eol();
+	$eol    = EOL;
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.

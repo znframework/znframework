@@ -245,7 +245,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			return $this->db->backup($fileName);
 		}
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		if( $tables === '*' )
 		{

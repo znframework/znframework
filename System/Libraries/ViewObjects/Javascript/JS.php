@@ -1101,7 +1101,7 @@ class __USE_STATIC_ACCESS__JS
 	//----------------------------------------------------------------------------------------------------
 	public function define($varname  = '', $value = '', $operator = '=')
 	{
-		return CRLF.'var '.$varname.' '.$operator.' '.suffix(trim($value, CRLF), ';');
+		return EOL.'var '.$varname.' '.$operator.' '.suffix(trim($value, EOL), ';');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1152,7 +1152,7 @@ class __USE_STATIC_ACCESS__JS
 	//----------------------------------------------------------------------------------------------------
 	protected function _clause($type = '', $condition = '', $code = '')
 	{
-		$eol = eol();
+		$eol = EOL;
 		return $this->_jsFunc($type, $condition, false)."{".$code."}";
 	}
 	

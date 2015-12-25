@@ -235,7 +235,7 @@ class JQAnimate
 	{
 		$combineAnimation = func_get_args();
 		
-		$animate  = eol()."\t".JQ::selector($this->selector);
+		$animate  = EOL."\t".JQ::selector($this->selector);
 		
 		$animate .= $this->complete();
 		
@@ -244,7 +244,7 @@ class JQAnimate
 			$animate .= $animation;
 		}
 	
-		$animate .= ";".eol();
+		$animate .= ";".EOL;
 			
 		return $this->_tag($animate);
 	}

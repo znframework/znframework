@@ -256,8 +256,8 @@ class CSSShadow
 	******************************************************************************************/	
 	public function create($type = 'box')
 	{
-		$str  = $this->selector."{".eol();	
-		$str .= $this->attr.eol();
+		$str  = $this->selector."{".EOL;	
+		$str .= $this->attr.EOL;
 		
 		if( isset($this->params['type']) )
 		{
@@ -272,20 +272,20 @@ class CSSShadow
 		
 		if( $type === 'box' )
 		{ 
-			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".eol();
+			$shadow = "$type-shadow:$x $y $blur $diffusion $color;".EOL;
 		}
 		else
 		{
-			$shadow = "$type-shadow:$x $y $blur $color;".eol();	
+			$shadow = "$type-shadow:$x $y $blur $color;".EOL;	
 		}
 		
 		$browser = '';	
 				
 		foreach($this->browsers as $val)
 		{
-			$str .= $val.$shadow.eol();
+			$str .= $val.$shadow.EOL;
 		}
-		$str .= "}".eol();
+		$str .= "}".EOL;
 		
 		$this->_defaultVariable();
 		

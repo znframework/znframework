@@ -33,7 +33,7 @@ class CSSTransition
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-property:$property;".eol());
+		$this->transitions .= $this->_transitions("transition-property:$property;".EOL);
 		
 		return $this;
 	}
@@ -62,7 +62,7 @@ class CSSTransition
 			$duration = $duration."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-duration:$duration;".eol());
+		$this->transitions .= $this->_transitions("transition-duration:$duration;".EOL);
 		
 		return $this;
 	}
@@ -91,7 +91,7 @@ class CSSTransition
 			$delay = $delay."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-delay:$delay;".eol());
+		$this->transitions .= $this->_transitions("transition-delay:$delay;".EOL);
 		
 		return $this;
 	}
@@ -115,7 +115,7 @@ class CSSTransition
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("transition-timing-function:$easing;".eol());
+		$this->transitions .= $this->_transitions("transition-timing-function:$easing;".EOL);
 		
 		return $this;
 	}

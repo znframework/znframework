@@ -796,7 +796,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$_attributes['method'] = 'post';
 		}
 		
-		$return = '<form'.$this->attributes($_attributes).'>'.eol();
+		$return = '<form'.$this->attributes($_attributes).'>'.EOL;
 		
 		$this->settings = array();	
 		
@@ -816,7 +816,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	******************************************************************************************/	
 	public function close()
 	{
-		return '</form>'.eol();
+		return '</form>'.EOL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1106,7 +1106,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		$this->settings = array();	
 		
-		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.eol();
+		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
 	}
 	
 	/******************************************************************************************
@@ -1349,10 +1349,10 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			{
 				$select = "";
 			}
-			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.eol();
+			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.EOL;
 		}
 		
-		$selectbox .= '</select>'.eol();	
+		$selectbox .= '</select>'.EOL;	
 		
 		$this->settings = array();	
 		
@@ -1472,11 +1472,11 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		// 1. parametre dizi ise
 		if( is_array($name) ) foreach( $name as $key => $val )
 		{
-			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.eol();	
+			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.EOL;	
 		}
 		else
 		{
-			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.eol();
+			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.EOL;
 		}
 		
 		$this->settings = array();	

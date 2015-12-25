@@ -204,7 +204,7 @@ trait JqueryTrait
 		}
 		else
 		{
-			$object = eol()."\"$array\"";	
+			$object = EOL."\"$array\"";	
 		}
 		
 		return $object;
