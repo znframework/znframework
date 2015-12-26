@@ -334,8 +334,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function renameColumn()
 	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
+		return 'RENAME COLUMN TO'; 
 	}
 	
 	/******************************************************************************************
@@ -346,8 +345,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function modifyColumn()
 	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
+		return 'ALTER COLUMN '; 
 	}
 	
 	/******************************************************************************************

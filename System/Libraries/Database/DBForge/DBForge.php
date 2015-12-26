@@ -616,6 +616,16 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$con = NULL;
 		
+		if( stristr($renameColumn, 'TO') )
+		{
+			$renameColumn = str_ireplace('TO', '', $renameColumn);
+			$to = ' TO ';	
+		}
+		else
+		{
+			$to = '';	
+		}
+		
 		foreach( $condition as $column => $values )
 		{
 			$colvals = '';
@@ -632,7 +642,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 				$colvals .= ' '.$values;
 			}
 			
-			$con .= $renameColumn.$column.$colvals.',';
+			$con .= $renameColumn.$column.$to.$colvals.',';
 		}		
 		
 		$con = substr($con, 0 , -1);

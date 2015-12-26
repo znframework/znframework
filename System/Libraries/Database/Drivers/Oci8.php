@@ -328,7 +328,7 @@ class Oci8Driver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function renameColumn()
 	{ 
-		return 'RENAME COLUMN '; 
+		return 'RENAME COLUMN TO'; 
 	}
 	
 	/******************************************************************************************
