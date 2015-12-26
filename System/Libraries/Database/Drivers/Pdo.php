@@ -108,7 +108,7 @@ class PdoDriver implements DatabaseDriverInterface
 	
 	public function __construct()
 	{
-		if( ! class_exists('PDO') )
+		if( ! extension_loaded('PDO') )
 		{
 			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'PDO'));	
 		}

@@ -14,7 +14,7 @@ class MemcacheDriver implements CacheInterface
 	{
 		if( $this->isSupported() === false )
 		{
-			die(lang('Cache', 'unsupported', 'Memcache'));
+			die(getErrorMessage('Cache', 'unsupported', 'Memcache'));
 		}	
 	}
 		
@@ -36,7 +36,7 @@ class MemcacheDriver implements CacheInterface
 		
 		if( empty($connect) )
 		{
-			die(lang('Cache', 'unsupported', 'Memcache'));
+			die(getErrorMessage('Cache', 'unsupported', 'Memcache'));
 		}
 		
 		return true;

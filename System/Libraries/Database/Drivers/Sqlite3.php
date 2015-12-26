@@ -70,7 +70,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	
 	public function __construct()
 	{
-		if( ! class_exists('SQLite3') )
+		if( ! extension_loaded('SQLite3') )
 		{
 			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQLite3'));	
 		}	

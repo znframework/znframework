@@ -14,7 +14,7 @@ class WincacheDriver implements CacheInterface
 	{
 		if( $this->isSupported() === false )
 		{
-			die(lang('Cache', 'unsupported', 'Wincache'));
+			die(getErrorMessage('Cache', 'unsupported', 'Wincache'));
 		}	
 	}
 	

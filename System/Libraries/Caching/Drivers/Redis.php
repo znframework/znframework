@@ -30,7 +30,7 @@ class RedisDriver implements CacheInterface
 	{
 		if( $this->isSupported() === false )
 		{
-			die(lang('Cache', 'unsupported', 'Redis'));
+			die(getErrorMessage('Cache', 'unsupported', 'Redis'));
 		}	
 	}
 	
@@ -62,19 +62,19 @@ class RedisDriver implements CacheInterface
 			}
 			if ( empty($success) )
 			{
-				die(lang('Cache', 'connectionRefused', 'Connection'));
+				die(getErrorMessage('Cache', 'connectionRefused', 'Connection'));
 			}
 		}
 		catch( RedisException $e )
 		{
-			die(lang('Cache', 'connectionRefused', $e->getMessage()));
+			die(getErrorMessage('Cache', 'connectionRefused', $e->getMessage()));
 		}
 		
 		if( isset($config['password']) )
 		{
 			if ( ! $this->redis->auth($config['password']))
 			{
-				die(lang('Cache', 'authenticationFailed'));
+				die(getErrorMessage('Cache', 'authenticationFailed'));
 			}
 		}
 
