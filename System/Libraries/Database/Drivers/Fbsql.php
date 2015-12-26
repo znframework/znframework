@@ -317,7 +317,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function renameColumn()
 	{ 
-		return 'RENAME COLUMN ';
+		return 'RENAME COLUMN TO';
 	}
 	
 	/******************************************************************************************
