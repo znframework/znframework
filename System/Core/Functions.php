@@ -859,7 +859,7 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 		}
 	}
 
-	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.EOL;
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}')." | Message: ".$message.EOL;
 	error_log($message, 3, $logDir.suffix($destination, $extension));
 }
 
