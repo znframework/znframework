@@ -36,7 +36,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	
 	public function __construct($config = array())
 	{
-		$this->config = Config::get('Ftp');	
+		$this->config = Config::get('Services', 'ftp');	
 		
 		$this->connect($config);
 	}

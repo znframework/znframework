@@ -73,7 +73,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config = Config::get('Migration');
+		$this->config = Config::get('Database', 'migrationTable');
 		$this->path   = MODELS_DIR.'Migrations/';
 		
 		if( ! is_dir($this->path) )

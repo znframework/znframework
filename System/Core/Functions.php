@@ -1030,7 +1030,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
-	$uploadSet = Config::get('Upload');		
+	$uploadSet = Config::get('FileSystem', 'upload');		
 	
 	if( ! empty($uploadSet['setHtaccessFile']) )
 	{
@@ -1043,7 +1043,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
 	//-----------------------SESSION SETTINGS-------------------------------------------------
-	$sessionSet = Config::get('Session');	
+	$sessionSet = Config::get('Services', 'session');	
 			
 	if( ! empty($sessionSet['setHtaccessFile']) )
 	{

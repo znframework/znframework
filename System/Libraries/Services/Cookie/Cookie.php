@@ -64,7 +64,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		Session::start();
 		
-		$this->config = Config::get("Cookie");	
+		$this->config = Config::get('Services', 'cookie');	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

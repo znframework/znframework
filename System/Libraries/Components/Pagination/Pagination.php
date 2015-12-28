@@ -335,17 +335,18 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
-		$this->totalRows 	= $config['totalRows'];
-		$this->start 	    = $config['start'];
-		$this->limit 		= $config['limit'];
-		$this->countLinks 	= $config['countLinks'];
-		$this->class 		= array_merge($configs['class'], $config['class']);
-		$this->style 		= array_merge($configs['style'], $config['style']);
-		$this->prevTag 		= $config['prevName'];
-		$this->nextTag 		= $config['nextName'];
-		$this->firstTag 	= $config['firstName'];
-		$this->lastTag 		= $config['lastName'];
-		$this->type 	    = $config['type'];
+		if( ! empty($config['totalRows']) )  $this->totalRows 	= $config['totalRows'];
+		if( ! empty($config['start']) ) 	 $this->start 	    = $config['start'];
+		if( ! empty($config['limit']) ) 	 $this->limit 		= $config['limit'];
+		if( ! empty($config['countLinks']) ) $this->countLinks 	= $config['countLinks'];	
+		if( ! empty($config['prevName']) ) 	 $this->prevTag 	= $config['prevName'];
+		if( ! empty($config['nextName']) ) 	 $this->nextTag 	= $config['nextName'];
+		if( ! empty($config['firstName']) )  $this->firstTag  	= $config['firstName'];
+		if( ! empty($config['lastName']) ) 	 $this->lastTag 	= $config['lastName'];
+		if( ! empty($config['type']) ) 	 	 $this->type 	    = $config['type'];
+		
+		$this->class = array_merge($configs['class'], ( ! empty($config['class']) ? $config['class'] : array()) );
+		$this->style = array_merge($configs['style'], ( ! empty($config['style']) ? $config['style'] : array()) );
 		
 		if( isset($config['url']) && $this->type !== 'ajax' )			
 		{

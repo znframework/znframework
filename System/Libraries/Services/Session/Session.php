@@ -50,9 +50,9 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		Config::iniSet(Config::get('Session','settings'));
+		$this->config = Config::get('Services', 'session');
 		
-		$this->config = Config::get('Session');
+		Config::iniSet($this->config['settings']);
 		
 		$this->start();
 	}

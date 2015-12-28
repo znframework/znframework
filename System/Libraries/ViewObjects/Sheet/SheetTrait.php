@@ -45,7 +45,7 @@ trait SheetTrait
 	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct($tag = false)
 	{
-		$this->browsers = Config::get('Css3', 'browsers');	
+		$this->browsers = Config::get('ViewObjects', 'css3')['browsers'];	
 		
 		$this->tag = $tag;
 	}

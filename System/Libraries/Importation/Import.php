@@ -477,7 +477,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/		
 		$docType = isset($head['docType']) ? $head['docType'] : $masterPageSet["docType"];
 		
-		$header  = Config::get('Doctype', $docType).$eol;
+		$header  = Config::get('ViewObjects', 'doctype')[$docType].$eol;
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.$eol;
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -766,7 +766,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		(
 			'arguments' => $arguments,
 			'lastParam' => $lastParam,
-			'cdnLinks'  => array_change_key_case(Config::get('Cdn', $cdn))
+			'cdnLinks'  => array_change_key_case(Config::get('ViewObjects', 'cdn')[$cdn])
 		);
 	}
 	
@@ -846,7 +846,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}
 			
 			// FARKLI FONTLAR
-			$differentSet = Config::get('Font', 'differentFontExtensions');
+			$differentSet = Config::get('ViewObjects', 'font')['differentFontExtensions'];
 			
 			if( ! empty($differentSet) )
 			{			
@@ -1103,7 +1103,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{	
 			$return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
 		}
-		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $randomPageVariableExtension) )
+		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('ViewObjects', 'font')['differentFontExtensions']), $randomPageVariableExtension) )
 		{			
 			$return = '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;				
 		}

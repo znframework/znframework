@@ -46,7 +46,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	
 	public function __construct($config = array())
 	{
-		$this->config = Config::get('Http');	
+		$this->config = Config::get('Services', 'http');	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

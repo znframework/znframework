@@ -306,11 +306,11 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function __construct($driver = '')
 	{		
-		$this->email = Driver::run('Email', $driver);
+		$this->email = Driver::run(array('Services' => 'email'), $driver);
 		
 		$this->driver = ! empty($driver)
 						? $driver
-						: Config::get('Email', 'driver');
+						: Config::get('Services', 'email')['driver'];
 	
 		$this->settings();
 	}
@@ -365,7 +365,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			return $this;
 		}
 		
-		$config = Config::get('Email');
+		$config = Config::get('Services', 'email');
 		
 		$smtpConfig    = $config['smtp'];
 		$generalConfig = $config['general'];
