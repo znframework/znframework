@@ -29,7 +29,7 @@ class __USE_STATIC_ACCESS__Driver
 		}
 		else
 		{
-			$config  = Config::get(strtolower($library));
+			$config  = Config::get($library);
 		}
 		
 		$driver  = ! empty($driver)
