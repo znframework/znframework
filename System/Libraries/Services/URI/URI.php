@@ -345,6 +345,22 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	}
 	
 	/******************************************************************************************
+	* SEGMENT COUNT                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|    																					  |
+	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
+	| Örnek Kullanım: totalSegments(); // 4                                                   |
+	|          																				  |
+	******************************************************************************************/
+	public function segmentCount()
+	{
+		return $this->totalSegments();
+	}
+	
+	/******************************************************************************************
 	* SEGMENT                                                                                 *
 	*******************************************************************************************
 	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
