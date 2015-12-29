@@ -201,7 +201,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	| 1. string var @string => Temizleme yapılacak metin.           					      |
 	| 2. string var @type => Tırnak işaretleri.           					                  |
 	******************************************************************************************/	
-	public function htmlEncode($string = '', $type = 'quotes')
+	public function htmlEncode($string = '', $type = 'quotes', $encoding = 'utf-8')
 	{
 		if( ! is_string($string)) 
 		{
@@ -226,7 +226,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 			$tp = ENT_COMPAT;
 		}
 		
-		return htmlspecialchars(trim($string), $tp);
+		return htmlspecialchars(trim($string), $tp, $encoding);
 	}
 	
 	

@@ -427,6 +427,95 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* WHERE GROUP                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	protected function _whereHavingGroup($conditions = array())
+	{
+		$getLast = Arrays::getLast($conditions);
+		
+		if( is_string($getLast) )
+		{
+			$conjunction = $getLast;
+			$conditions  = Arrays::removeLast($conditions);
+		}
+		else
+		{
+			$conjunction = '';	
+		}
+		
+		$whereGroup = '';
+		
+		if( is_array($conditions) ) foreach( $conditions as $column )
+		{
+			$col     = isset( $column[0] ) ? $column[0] : '';
+			$value   = isset( $column[1] ) ? $column[1] : '';
+			$logical = isset( $column[2] ) ? $column[2] : '';
+			
+			$whereGroup .= $this->_whereHaving($col, $value, $logical);
+		}
+		
+		return ' ( '.$whereGroup.' ) '.$conjunction.' ';
+	}
+	
+	/******************************************************************************************
+	* WHERE  GROUP                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function whereGroup()
+	{
+		$this->where .= $this->_whereHavingGroup(func_get_args());
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* WHERE  GROUP                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function havingGroup()
+	{
+		$this->having .= $this->_whereHavingGroup(func_get_args());
+		
+		return $this;
+	}
 	
 	/******************************************************************************************
 	* HAVING                                                                                  *
@@ -448,6 +537,59 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$this->having .= $this->_whereHaving($column, $value, $logical);
 		
 		return $this;
+	}
+	
+	/******************************************************************************************
+	* PROTECTED                                                                               *
+	******************************************************************************************/
+	protected function _whereHavingConjuctionControl($type)
+	{
+		if( ! empty($this->$type) )
+		{
+			switch( strtolower(substr(trim($this->$type), -3)) )
+			{
+				case 'and' :
+				case 'xor' :
+				case 'not' :
+				$this->$type = substr(trim($this->$type), 0, -3);		
+			}
+			
+			switch( strtolower(substr(trim($this->$type), -2)) )
+			{
+				case 'or' :
+				case '||' :
+				case '&&' :
+				$this->$type = substr(trim($this->$type), 0, -2);
+			}
+			
+			switch( strtolower(substr(trim($this->$type), -1)) )
+			{
+				case '!' :
+				$this->$type = substr(trim($this->$type), 0, -1);
+			}		
+				
+			$return = ' WHERE '.$this->$type; 
+			
+			$this->$type = NULL;
+			
+			return $return;
+		}	
+	}
+	
+	/******************************************************************************************
+	* WHERE                                                                                   *
+	******************************************************************************************/
+	protected function _where()
+	{
+		return $this->_whereHavingConjuctionControl('where');
+	}
+	
+	/******************************************************************************************
+	* HAVING                                                                                  *
+	******************************************************************************************/
+	protected function _having()
+	{
+		return $this->_whereHavingConjuctionControl('having');
 	}
 	
 	/******************************************************************************************

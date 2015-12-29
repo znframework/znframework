@@ -102,7 +102,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 				
 				for( $i = 1; $i <= $index; $i++ )
 				{
-					$return .= htmlspecialchars($segArr[$segVal + $i], ENT_QUOTES, "utf-8")."/";
+					$return .= $segArr[$segVal + $i]."/";
 				}
 				
 				$return = substr($return,0,-1);
@@ -120,7 +120,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			
 			if( isset($segArr[$segVal + $index]) ) 
 			{
-				return htmlspecialchars($segArr[$segVal + $index], ENT_QUOTES, "utf-8"); 
+				return $segArr[$segVal + $index]; 
 			}		
 			else 
 			{
@@ -136,13 +136,11 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// Uri işlemleri için oluşturulmuştur.
 	protected function _cleanPath()
 	{
-		$pathInfo = htmlspecialchars(requestUri(), ENT_QUOTES, "utf-8");
-		
 		// ----------------------------------------------------------------------
 		
 		// URL YÖNLENDİRİLİYOR...
 		
-		$pathInfo = routeUri($pathInfo);
+		$pathInfo = routeUri(Security::htmlEncode(requestUri()));
 		
 		
 		if(  strstr($pathInfo, getLang()) )
@@ -201,7 +199,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			
 			for( $i = 1; $i < count($segArr) - $segVal; $i++ )
 			{
-				$return .= htmlspecialchars($segArr[$segVal + $i], ENT_QUOTES, "utf-8")."/";
+				$return .= $segArr[$segVal + $i]."/";
 			}
 			
 			$return = substr($return, 0, -1);
@@ -259,7 +257,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		
 		for( $i = $get; $i < $index; $i++ )
 		{
-			$uri .= htmlspecialchars($segArr[$i], ENT_QUOTES, "utf-8").'/';
+			$uri .= $segArr[$i].'/';
 		}
 		
 		return rtrim($uri, '/');
@@ -299,7 +297,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 
 		for($i = $getVal; $i <= $indexVal; $i++)
 		{
-			$return .= htmlspecialchars($segArr[$i], ENT_QUOTES, "utf-8")."/";
+			$return .= $segArr[$i]."/";
 		}
 		
 		return substr($return, 0, -1);
@@ -435,7 +433,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		
 		if( isset( $part[$seg]) ) 
 		{
-			return htmlspecialchars($part[$seg], ENT_QUOTES, "utf-8"); 
+			return Security::htmlEncode($part[$seg]); 
 		}
 		else 
 		{
@@ -462,10 +460,14 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	
 		if( count($str) > 1 ) 
 		{
-			return htmlspecialchars($str[count($str) - 1], ENT_QUOTES, "utf-8");	
+			$return = $str[count($str) - 1];	
+		}
+		else
+		{
+			$return = $str[0];	
 		}
 		
-		return htmlspecialchars($str[0], ENT_QUOTES, "utf-8");	
+		return Security::htmlEncode($return);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
