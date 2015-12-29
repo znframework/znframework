@@ -864,6 +864,84 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 }
 
 //----------------------------------------------------------------------------------------------------
+// createRobotsFile()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function createRobotsFile()
+{	
+	$rules = Config::get('Robots', 'rules');
+	
+	$robots = '';
+	
+	if( isArray($rules) ) foreach( $rules as $key => $val )
+	{
+		if( ! is_numeric($key) ) // Tekli Kullanım
+		{
+			switch( $key )
+			{
+				case 'userAgent' :
+					$robots .= ! empty( $val ) ? 'User-agent: '.$val.EOL : '';
+				break;	
+				
+				case 'allow'    :
+				case 'disallow' :
+					if( ! empty($val) ) foreach( $val as $v )
+					{
+						$robots .= ucfirst($key).': '.$v.EOL;	
+					}		
+				break;
+			}
+		}
+		else
+		{
+			if( isArray($val) ) foreach( $val as $r => $v) // Çoklu Kullanım
+			{
+				switch( $r )
+				{
+					case 'userAgent' :
+						$robots .= ! empty( $v ) ? 'User-agent: '.$v.EOL : '';
+					break;	
+					
+					case 'allow'    :
+					case 'disallow' :
+						if( ! empty($v) ) foreach( $v as $vr )
+						{
+							$robots .= ucfirst($r).': '.$vr.EOL;	
+						}		
+					break;
+				}
+			}	
+		}
+	}
+	
+	// Robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
+	if( file_exists('Robots.txt') )
+	{
+		$getContents = file_get_contents('Robots.txt');
+	}
+	else
+	{
+		$getContents = '';
+	}
+	// Robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
+	if( trim($robots) === trim($getContents) ) 
+	{
+		return false;
+	}
+	
+	if( ! file_put_contents('Robots.txt', trim($robots)) )
+	{
+		Error::set('Error', 'fileNotWrite', 'Robots.txt');
+	}
+	
+	unset( $robots );	
+}
+
+//----------------------------------------------------------------------------------------------------
 // createHtaccessFile()
 //----------------------------------------------------------------------------------------------------
 //
