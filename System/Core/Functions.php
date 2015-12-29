@@ -918,24 +918,24 @@ function createRobotsFile()
 		}
 	}
 	
-	// Robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
-	if( file_exists('Robots.txt') )
+	// robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
+	if( file_exists('robots.txt') )
 	{
-		$getContents = file_get_contents('Robots.txt');
+		$getContents = file_get_contents('robots.txt');
 	}
 	else
 	{
 		$getContents = '';
 	}
-	// Robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
+	// robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
 	if( trim($robots) === trim($getContents) ) 
 	{
 		return false;
 	}
 	
-	if( ! file_put_contents('Robots.txt', trim($robots)) )
+	if( ! file_put_contents('robots.txt', trim($robots)) )
 	{
-		Error::set('Error', 'fileNotWrite', 'Robots.txt');
+		Error::set('Error', 'fileNotWrite', 'robots.txt');
 	}
 	
 	unset( $robots );	
