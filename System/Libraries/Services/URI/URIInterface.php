@@ -98,10 +98,23 @@ interface URIInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|    																					  |
 	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: totalSegments(); // 4                                                  |
+	| Örnek Kullanım: totalSegments(); // 4                                                   |
 	|          																				  |
 	******************************************************************************************/
 	public function totalSegments();
+	
+	/******************************************************************************************
+	* SEGMENT COUNT                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|    																					  |
+	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
+	| Örnek Kullanım: totalSegments(); // 4                                                   |
+	|          																				  |
+	******************************************************************************************/
+	public function segmentCount();
 	
 	/******************************************************************************************
 	* SEGMENT                                                                                 *

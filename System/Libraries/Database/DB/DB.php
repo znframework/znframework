@@ -546,26 +546,29 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! empty($this->$type) )
 		{
-			switch( strtolower(substr(trim($this->$type), -3)) )
+			$trim  = trim($this->$type);
+			$lower = strtolower($trim);
+			
+			switch( substr($lower, -3) )
 			{
 				case 'and' :
 				case 'xor' :
 				case 'not' :
-				$this->$type = substr(trim($this->$type), 0, -3);		
+				$this->$type = substr($trim, 0, -3);		
 			}
 			
-			switch( strtolower(substr(trim($this->$type), -2)) )
+			switch( substr($lower, -2) )
 			{
 				case 'or' :
 				case '||' :
 				case '&&' :
-				$this->$type = substr(trim($this->$type), 0, -2);
+				$this->$type = substr($trim, 0, -2);
 			}
 			
-			switch( strtolower(substr(trim($this->$type), -1)) )
+			switch( substr($lower, -1) )
 			{
 				case '!' :
-				$this->$type = substr(trim($this->$type), 0, -1);
+				$this->$type = substr($trim, 0, -1);
 			}		
 				
 			$return = ' WHERE '.$this->$type; 
