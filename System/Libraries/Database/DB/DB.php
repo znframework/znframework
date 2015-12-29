@@ -904,56 +904,6 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	}
 	
 	/******************************************************************************************
-	* WHERE                                                                                   *
-	******************************************************************************************/
-	protected function _where()
-	{
-		if( ! empty($this->where) )
-		{
-			if( strtolower(substr(trim($this->where), -2)) === 'or' )
-			{
-				$this->where = substr(trim($this->where), 0, -2);
-			}
-			
-			if( strtolower(substr(trim($this->where), -3)) === 'and' )
-			{
-				$this->where = substr(trim($this->where), 0, -3);		
-			}
-				
-			$return = ' WHERE '.$this->where; 
-			
-			$this->where = NULL;
-			
-			return $return;
-		}	
-	}
-	
-	/******************************************************************************************
-	* HAVING                                                                                  *
-	******************************************************************************************/
-	protected function _having()
-	{
-		if( ! empty($this->having) ) 
-		{
-			if( strtolower(substr(trim($this->having), -2)) === 'or' )
-			{
-				$this->having = substr(trim($this->having), 0, -2);
-			}
-			
-			if( strtolower(substr(trim($this->having), -3)) === 'and' )
-			{
-				$this->having = substr(trim($this->having), 0, -3);	
-			}
-			
-			$return = ' HAVING '.$this->having;
-			
-			$this->having = NULL;
-			
-			return $return;
-		}
-	}
-	
-	/******************************************************************************************
 	* SELECT                                                                                  *
 	******************************************************************************************/
 	protected function _resetSelectQuery()
