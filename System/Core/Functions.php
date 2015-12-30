@@ -282,6 +282,11 @@ function baseUrl($uri = '', $index = 0)
 //----------------------------------------------------------------------------------------------------	
 function prevUrl()
 {
+	if( ! isset($_SERVER['HTTP_REFERER']) )
+	{
+		return false;
+	}
+	
  	$str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "", $_SERVER['HTTP_REFERER']);
 	
 	if( currentLang() )
@@ -408,6 +413,11 @@ function basePath($uri = '', $index = 0)
 //----------------------------------------------------------------------------------------------------	
 function prevPath($isPath = true)
 {
+	if( ! isset($_SERVER['HTTP_REFERER']) )
+	{
+		return false;
+	}
+	
 	if( ! is_bool($isPath) ) 
 	{
 		$isPath = true;
