@@ -1278,7 +1278,14 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	public function option($key = '', $value = '')
 	{
-		$this->settings['option'][$key] = $value;
+		if( is_array($key) )
+		{
+			$this->settings['option'] = $key;	
+		}
+		else
+		{
+			$this->settings['option'][$key] = $value;
+		}
 		
 		return $this;
 	}
