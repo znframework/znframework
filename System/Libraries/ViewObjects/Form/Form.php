@@ -618,7 +618,16 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	public function attr($attr = array())
 	{
-		$this->settings['attr'] = array_merge($this->settings['attr'], $attr);
+		if( isset($this->settings['attr']) && is_array($this->settings['attr']) )
+		{
+			$settings = $this->settings['attr'];	
+		}
+		else
+		{
+			$settings = array();	
+		}
+		
+		$this->settings['attr'] = array_merge($settings, $attr);
 		
 		return $this;
 	}
@@ -1470,6 +1479,8 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$value = $this->settings['attr']['value'];
 		}
 		
+		$this->settings = array();
+		
 		$hiddens = NULL;
 		
 		$value = ( ! empty($value) ) 
@@ -1485,8 +1496,6 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		{
 			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.EOL;
 		}
-		
-		$this->settings = array();	
 		
 		return $hiddens;
 	}	

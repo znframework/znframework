@@ -380,7 +380,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @value = Köprünün görünen değeri.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function anchor($url = '', $value = '', $_attributes = '')
+	public function anchor($url = '', $value = '', $_attributes = array())
 	{
 		if( ! is_string($url) )
 		{

@@ -183,7 +183,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		
 		if( empty($name) ) 
 		{
-			return array_map('Security::htmlEncode', $input);
+			return $input;
 		}
 		// ---------------------------------------------------------------------------
 			
