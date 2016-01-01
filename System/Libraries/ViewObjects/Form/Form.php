@@ -1096,9 +1096,9 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	******************************************************************************************/	
 	public function textArea($name = "", $value = "", $_attributes = '')
 	{
-		if( isset($this->settings['attr']['name']) )
+		if( ! isset($this->settings['attr']['name']) && ! empty($name) )
 		{
-			$name = $this->settings['attr']['name'];
+			$this->settings['attr']['name'] = $name;
 		}
 		
 		if( isset($this->settings['attr']['value']) )
