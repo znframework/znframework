@@ -18,9 +18,9 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	| Genel Kullanım: Belirtilen ayraçlara göre diziyi özel bir veri tipine çeviriyor.        |
 	|															                              |
 	******************************************************************************************/	
-	public function encode($data = '')
+	public function encode($data = '', $type = 'unescaped_unicode')
 	{
-		return json_encode($data);
+		return json_encode($data, Convert::toConstant($type, 'JSON_'));
 	}
 	
 	/******************************************************************************************
