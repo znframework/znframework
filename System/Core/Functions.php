@@ -23,13 +23,15 @@
 //----------------------------------------------------------------------------------------------------
 function getLang()
 {
-	if( Session::select("lang") === false ) 
+	$systemLanguageData = md5("SystemLanguageData");
+	
+	if( Session::select($systemLanguageData) === false ) 
 	{
-		return Session::insert("lang", Config::get('Language', 'default'));
+		return Session::insert($systemLanguageData, Config::get('Language', 'default'));
 	}
 	else
 	{ 
-		return Session::select("lang");
+		return Session::select($systemLanguageData);
 	}
 }
 
@@ -54,7 +56,7 @@ function setLang($l = '')
 		$l = Config::get('Language', 'default');	
 	}
 	
-	Session::insert("lang", $l);
+	Session::insert(md5("SystemLanguageData"), $l);
 }
 
 //----------------------------------------------------------------------------------------------------

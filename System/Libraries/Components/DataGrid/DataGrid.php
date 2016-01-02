@@ -10,19 +10,21 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	protected $config  = array();
-	protected $columns = array();
-	protected $columnData = array();
-	protected $rows    = array();
-	protected $type    = 'classic';
-	protected $query   = '';
-	protected $pagination = '';
-	protected $processColumn = 'id';
-	protected $processEditable = 'id';
+	protected $config 			= array();
+	protected $columns 			= array();
+	protected $columnData 		= array();
+	protected $rows    			= array();
+	protected $type    			= 'classic';
+	protected $query   			= '';
+	protected $pagination 		= '';
+	protected $processColumn 	= 'id';
+	protected $processEditable  = false;
+	protected $prowData		    = '';
 	
 	public function __construct()
 	{
-		$this->config = Config::get('Components', 'datagrid');	
+		$this->config   = Config::get('Components', 'datagrid');	
+		$this->prowData = md5('SystemPaginationRowData');
 	}
 	
 	public function columns($columns = array())
@@ -110,7 +112,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		if( $prow !== 'undefined' )
 		{
-			Session::insert('prow', $prow);
+			Session::insert($this->prowData, $prow);
 		}
 		
 		$editId      		= Method::post('editId');
@@ -128,7 +130,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{	
 			if( $prow === 'undefined' )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 			
 			$newAddData = array();
@@ -150,7 +152,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{	
 			if( $prow === 'undefined' )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 			
 			DB::where($processColumn.' = ', $deleteId)->delete($this->table);
@@ -160,7 +162,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{	
 			if( $prow === 'undefined' )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 			
 			DB::limit($prow, $this->limit)->delete($this->table);
@@ -170,7 +172,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{	
 			if( $prow === 'undefined' )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 			
 			DB::delete($this->table);
@@ -185,7 +187,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{	
 			if( $prow === 'undefined' )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 			
 			$newUpdateData = array();
@@ -207,7 +209,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{
 			if( $prow === 'undefined' )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 		}
 		
@@ -221,9 +223,9 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		if( stristr('desc|asc', Method::post('sorting')) )
 		{
-			if( Session::select('prow') )
+			if( Session::select($this->prowData) )
 			{
-				$prow = Session::select('prow');
+				$prow = Session::select($this->prowData);
 			}
 			
 			DB::orderBy(Method::post('column'), Method::post('sorting'));	
@@ -283,9 +285,9 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			
 			if( $editId !== 'undefined' && $row[$processColumn] == $editId )
 			{
-				if( Session::select('prow') )
+				if( Session::select($this->prowData) )
 				{
-					$prow = Session::select('prow');
+					$prow = Session::select($this->prowData);
 				}
 					
 				$row = DB::where($processColumn.' = ', $editId)->get($this->table)->row();
@@ -378,7 +380,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	
 		$this->_table();	
 		
-		Session::delete('prow');
+		Session::delete($this->prowData);
 		
 		return $this->_ajaxTable();
 	}

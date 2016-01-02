@@ -85,7 +85,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		
 		// Sepettin daha önce oluşturulup oluşturulmadığına göre işlemler gerçekleştiriliyor.
-		if( $sessionCart = Session::select('cart') )
+		if( $sessionCart = Session::select(md5('SystemCartData')) )
 		{
 			$this->items = $sessionCart;
 		}
@@ -94,7 +94,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		
 		Session::insert('cart', $this->items);
 		
-		$this->items = Session::select('cart');
+		$this->items = Session::select(md5('SystemCartData'));
 		
 		return $this->items;
 	}
@@ -109,7 +109,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function selectItems()
 	{
-		if( $sessionCart = Session::select('cart') )
+		if( $sessionCart = Session::select(md5('SystemCartData')) )
 		{
 			return $this->items = $sessionCart;
 		}
@@ -145,7 +145,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			return Error::set('Error', 'emptyParameter', 'code');
 		}
 		
-		$this->items = ( $sessionCart = Session::select('cart') ) 
+		$this->items = ( $sessionCart = Session::select(md5('SystemCartData')) ) 
 		               ? $sessionCart 
 					   : '';
 		
@@ -187,7 +187,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function totalItems()
 	{
-		if( $sessionCart = Session::select('cart') )
+		if( $sessionCart = Session::select(md5('SystemCartData')) )
 		{
 			$this->items = $sessionCart;
 			$total_items = 0;
@@ -220,7 +220,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function totalPrices()
 	{
-		$this->items = ( $sessionSelect = Session::select('cart') ) 
+		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
 					   : '';
 		
@@ -290,7 +290,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			return Error::set('Cart', 'updateArrayParameterError');
 		}	
 		
-		$this->items = ( $sessionSelect = Session::select('cart') ) 
+		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
 					   : '';
 		
@@ -363,7 +363,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			return Error::set('Cart', 'deleteCodeError');	
 		}
 
-		$this->items = ( $sessionSelect = Session::select('cart') ) 
+		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
 					   : '';
 		
@@ -407,7 +407,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function deleteItems()
 	{
-		Session::delete('cart');
+		Session::delete(md5('SystemCartData'));
 	}
 	
 	/******************************************************************************************

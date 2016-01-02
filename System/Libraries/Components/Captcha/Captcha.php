@@ -534,10 +534,12 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		}
 		
 		$set = Config::get('Components', 'captcha');
-	
-		Session::insert('captchaCode', substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
 		
-		if( $sessionCaptchaCode = Session::select('captchaCode') )
+		$systemCaptchaCodeData = md5('SystemCaptchaCodeData');
+	
+		Session::insert($systemCaptchaCodeData, substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
+		
+		if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
 		{
 			if( ! isset($set["width"]) ) $set["width"] 								= 100;
 			if( ! isset($set["height"]) ) $set["height"] 							= 30;
@@ -699,7 +701,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function getCode()
 	{
-		return Session::select('captchaCode');
+		return Session::select(md5('SystemCaptchaCodeData'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
