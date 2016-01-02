@@ -1537,6 +1537,8 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$name = suffix($name, '[]');
 		}
 		
+		$this->settings = array();
+		
 		return $this->_input($name, '', $_attributes, 'file');
 	}
 	

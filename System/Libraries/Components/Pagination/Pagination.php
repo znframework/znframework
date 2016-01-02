@@ -557,7 +557,10 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			// -------------------------------------------------------------------------
 			// LAST TAG 
 			// -------------------------------------------------------------------------
-			$pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) ) - 1;
+			$mod 	   = ( $this->totalRows % $this->limit ); 
+			$outNumber = ( $mod == 0 ? $this->limit : 0 );
+			
+			$pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) ) - $outNumber;
 			$lastTagNum        = $this->url.$pageRowNumber;
 			$lastTagStyleClass = $lastTagClass.$lastTagStyle;
 			

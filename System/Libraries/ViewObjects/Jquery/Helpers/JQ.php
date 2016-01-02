@@ -50,7 +50,14 @@ class __USE_STATIC_ACCESS__JQ
 		}
 		else
 		{
-			$code = "\"".$this->_nailConvert($selector)."\"";	
+			if( $selector[0] === ':' )
+			{
+				$code = substr($selector, 1);
+			}
+			else
+			{
+				$code = "\"".$this->_nailConvert($selector)."\"";
+			}
 		}
 		
 		return "$($code)";

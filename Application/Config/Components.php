@@ -189,3 +189,112 @@ $config['Components']['terminal'] = array
 	'textType' 		=> 'Consolas, monospace', 
 	'textSize' 		=> '12px'
 );
+
+//----------------------------------------------------------------------------------------------------
+// DataGrid
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Ön tanımlı grid ayarı yapmak için kullanılır.			  	  					  						
+//
+//----------------------------------------------------------------------------------------------------
+$config['Components']['datagrid'] = array
+(
+	//------------------------------------------------------------------------------------------------
+	// Button Names
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: DataGrid'de yer alan butonların isimlerini düzenlemek için kullanılır.  	  					  						
+	//
+	//------------------------------------------------------------------------------------------------
+	'buttonNames' => array
+	(
+		'add'    		=> lang('DataGrid', 'addButton'),
+		'edit'   		=> lang('DataGrid', 'editButton'),
+		'update'   		=> lang('DataGrid', 'updateButton'),
+		'save'   		=> lang('DataGrid', 'saveButton'),
+		'delete' 		=> lang('DataGrid', 'deleteButton'),
+		'deleteCurrent' => lang('DataGrid', 'deleteCurrentName'),
+		'deleteAll' 	=> lang('DataGrid', 'deleteAllName')
+	),
+	
+	//------------------------------------------------------------------------------------------------
+	// Cdn Links
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: Uzaktan jquery, jqueryui ve bootstrap'a ait css dosyalarının kullanım 
+	// durumları ayarlanır. Mevcut sayfanızda zaten bir jquery dosyası dahil ediliyorsa aşağıdaki
+	// değerler false olarak ayarlanmalıdır.  	  					  						
+	//
+	//------------------------------------------------------------------------------------------------
+	'cdn' => array
+	(
+		'jquery'    => true,
+		'jqueryUi'  => false,
+		'bootstrap' => false
+	),
+	
+	//------------------------------------------------------------------------------------------------
+	// Attributes
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: Grid'de yer alan buton ve linklere ait attibute yani özellik eklemek
+	// için kullanılır.	  	  					  						
+	//
+	//------------------------------------------------------------------------------------------------
+	'attributes' 	=> array
+	(
+		'table'  		=> array('width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'),
+		'columns'  		=> array('style' => 'text-decoration:none; color:#0085B2'),
+		'search' 		=> array('style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
+		'add'	 		=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
+		'deleteCurrent' => array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
+		'deleteAll' 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
+		'delete' 		=> array('style' => 'text-decoration:none; color:red; font-weight:bold'),
+		'edit'	 		=> array('style' => 'text-decoration:none; color:#0085B2; font-weight:bold'),
+		'update'	 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
+		'save'	 	    => array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
+		'listTables'	=> array(),
+	),
+	
+	//------------------------------------------------------------------------------------------------
+	// Colors
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: Grid'de yer alan yapıların renklerini düzenlemek için kullanılır.	  	  					  						
+	//
+	//------------------------------------------------------------------------------------------------
+	'colors' => array
+	(
+		'rowOrder' => array('single' => '#fff', 'double' => '#E6F9FF')
+	),
+	
+	//------------------------------------------------------------------------------------------------
+	// Pagination
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: Yukardaki ayarlar aynen geçerlidir. Sadece Datagrid için farklı bir.
+	// sayfalama görünümü dizayn edilmek istenirse yukarıdaki ayarların kullanımı değişmeyecek
+	// şekilde kullanılabilir. Ortak bir sayfalama tasarımı kullanıyorsa zaten sayfalama ayarlarının
+	// yukarıdaki mevcut ayarlarından yapılması tavsiye edilir.	  	  					  						
+	//
+	//------------------------------------------------------------------------------------------------
+	'pagination' => array
+	(
+		'style' => array
+		(
+			'links' => 'color:#0085B2;
+						width:20px; height:20px; 
+						text-align:center; 
+						padding-top:4px; 
+						display:inline-block; 
+						background:white; 
+						border:solid 1px #ddd; 
+						border-radius: 4px;
+						-webkit-border-radius: 4px;
+						-moz-border-radius: 4px;
+						text-decoration:none;',
+						
+			'current' => 'font-weight:bold;'
+		)
+	)
+);
