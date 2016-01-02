@@ -54,29 +54,47 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
-	protected function generateInput($input = 'text', $name = '', $value = array(), $selected = '', $attr = array(), $disabled = false)
+	protected function generateInput($input = 'text', $name = '', $value = array(), $selected = '')
 	{
-		if( $disabled === true )
+		
+		$attrs = $this->config['attributes']['inputs'];
+		
+		switch( $input )
 		{
-			Form::disabled();
+			case 'textarea' :
+				return Form::textarea($name, $value, $attrs['textarea']);
+			break;
+			
+			case 'select' :
+				return Form::select($name, $value, $selected, $attrs['select']);
+			break;
+			
+			case 'text' :
+				return Form::text($name, $value, $attrs['text']);
+			break;
+			
+			case 'radio' :
+			
+				if( ! empty($value) )
+				{
+					Form::checked();	
+				}
+			
+				return Form::radio($name, $value, $attrs['radio']);
+			break;
+			
+			case 'checkbox' :
+				
+				if( ! empty($value) )
+				{
+					Form::checked();	
+				}	
+
+				return Form::checkbox($name, $value, $attrs['checkbox']);
+			break;
 		}
 		
-		if( empty($attr) )
-		{
-			$attr = $this->config['attributes']['search'];	
-		}
-		
-		if( $input === 'textarea' )
-		{
-			return Form::textarea($name, $value, $attr);
-		}
-		
-		if( $input === 'select' )
-		{
-			return Form::select($name, $value, $selected, $attr);
-		}	
-		
-		return Form::input($input, $name, $value, $attr);
+		return Form::text($name, $value, $attrs['text']);
 	}
 	
 	protected function _table()
@@ -243,7 +261,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				}
 				else
 				{
-					$input = $this->generateInput((isset($attr['input']) ? $attr['input'] : 'text'), 'insert'.$column, '', '', (isset($attr['attr']) ? $attr['attr'] : ''));
+					$input = $this->generateInput((isset($attr['input']) ? $attr['input'] : 'text'), 'insert'.$column);
 				}
 				
 				$table .= '<td>'.$input.'</td>';
@@ -280,7 +298,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 					}
 					else
 					{
-						$input  = $this->generateInput((isset($attr['input']) ? $attr['input'] : 'text'), 'update'.$column, $row->$column, '', (isset($attr['attr']) ? $attr['attr'] : ''));
+						$input  = $this->generateInput((isset($attr['input']) ? $attr['input'] : 'text'), 'update'.$column, $row->$column);
 					}
 					
 					$table .= '<td>'.$input.'</td>';
@@ -354,10 +372,10 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 			if( isArray($columns) ) foreach( $columns as $column )
 			{
-				$this->columns[$column] = array('name' => str_replace('_', ' ', Strings::pascalCase($column)), 'input' => 'text');	
+				$this->columns[$column] = array('alias' => str_replace('_', ' ', Strings::pascalCase($column)), 'input' => 'text');	
 			}
 		}
-		
+	
 		$this->_table();	
 		
 		Session::delete('prow');
@@ -412,7 +430,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				array('column' => $column, 'type' => 'order')
 			);
 		
-			$table .= '<td>'.Html::anchor('#column='.$column, Html::strong($attr['name']), $columnsAttr).'</td>';
+			$table .= '<td>'.Html::anchor('#column='.$column, Html::strong($attr['alias']), $columnsAttr).'</td>';
 		}	
 		
 		$table .= '<td align="right"><span'.Html::attributes($this->config['attributes']['columns']).'>'.Html::strong(lang('DataGrid', 'processLabel')).'</span></td>';
@@ -457,21 +475,25 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$table .= JS::defineFunc('javaScriptDataGridFunction', 'selector', $ajax);
 		
-		$table .= 'javaScriptDataGridFunction(this);';
+		$func   = JS::func('javaScriptDataGridFunction', 'this');
 		
-		$table .= Jquery::event()->on('"click"', '"a[DGDeleteButton=\"delete\"]"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$callback = JQ::callback('e', $func);
 		
-		$table .= Jquery::event()->on('"click"', '"a[DGEditButton=\"edit\"]"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= $func;
 		
-		$table .= Jquery::event()->on('"click"', '"input[DGUpdateButton=\"update\"]"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= Jquery::event()->on('"click"', '"a[DGDeleteButton=\"delete\"]"', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"input[DGSaveButton=\"save\"]"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= Jquery::event()->on('"click"', '"a[DGEditButton=\"edit\"]"', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"#datagridAdd"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= Jquery::event()->on('"click"', '"input[DGUpdateButton=\"update\"]"', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"#datagridDeleteCurrent"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= Jquery::event()->on('"click"', '"input[DGSaveButton=\"save\"]"', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"#datagridDeleteAll"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= Jquery::event()->on('"click"', '"#datagridAdd"', $callback)->create();
+		
+		$table .= Jquery::event()->on('"click"', '"#datagridDeleteCurrent"', $callback)->create();
+		
+		$table .= Jquery::event()->on('"click"', '"#datagridDeleteAll"', $callback)->create();
 		
 		$table .= JS::define('sorting', '"asc"');
 		
@@ -489,13 +511,13 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			
 			JQ::val('#datagridColumnNameHidden', JQ::attr('this', '"column"', false)).
 			
-			'javaScriptDataGridFunction(this);'
+			$func
 		))
 		->create();	
 		
-		$table .= Jquery::event()->on('"click"', '"a[ptype=\"ajax\"]"', JQ::callback('e', 'javaScriptDataGridFunction(this)'))->create();
+		$table .= Jquery::event()->on('"click"', '"a[ptype=\"ajax\"]"', $callback)->create();
 		
-		$table .= Jquery::event()->keyUp('#datagridSearch', 'javaScriptDataGridFunction(this)');
+		$table .= Jquery::event()->keyUp('#datagridSearch', $func);
 		
 		$table .= Script::close();
 		

@@ -1110,7 +1110,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( isset($this->settings['attr']) )
 		{
-			$_attributes = $this->settings['attr'];
+			$_attributes = array_merge($_attributes, $this->settings['attr']);
 		}
 		
 		$this->settings = array();	
