@@ -18,3 +18,5 @@ $lang['DataGrid']['addButton']    		= 'Yeni Ekle';
 $lang['DataGrid']['deleteCurrentName'] 	= 'Bu Sayfayı Sil';
 $lang['DataGrid']['deleteAllName']     	= 'Tüm Sayfayı Sil';
 $lang['DataGrid']['totalRowsText']     	= 'Toplam Kayıt Sayısı';
+$lang['DataGrid']['searchHolder']     	= 'Arama...';
+$lang['DataGrid']['inputsHolder']       = 'Veri girin!';

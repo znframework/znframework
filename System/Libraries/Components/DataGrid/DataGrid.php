@@ -56,7 +56,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
-	protected function generateInput($input = 'text', $name = '', $value = array(), $selected = '')
+	protected function generateInput($input = 'text', $name = '', $value = '', $selected = '')
 	{
 		
 		$attrs = $this->config['attributes']['inputs'];
@@ -72,7 +72,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			break;
 			
 			case 'text' :
-				return Form::text($name, $value, $attrs['text']);
+				return Form::placeholder($this->config['placeHolders']['inputs'])->text($name, $value, $attrs['text']);
 			break;
 			
 			case 'radio' :
@@ -415,7 +415,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$table .= '<tr><td colspan="'.(count($columns) + 2).'">';
 		$table .= Form::hidden('datagridSortingHidden');
 		$table .= Form::hidden('datagridColumnNameHidden');
-		$table .= Form::placeholder('Search')->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search');
+		$table .= Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search');
 		$table .= Form::attr($addAttr)->id('datagridAdd')->button('datagridAdd', $buttonNames['add']);	
 		$table .= Form::attr($deleteCurrentAttr)->id('datagridDeleteCurrent')->button('datagridDeleteCurrent', $buttonNames['deleteCurrent']);
 		$table .= Form::attr($deleteAllAttr)->id('datagridDeleteAll')->button('datagridDeleteAll', $buttonNames['deleteAll']);
