@@ -301,7 +301,7 @@ function prevUrl()
 }
 
 //----------------------------------------------------------------------------------------------------
-// hostName()
+// hostUrl()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sitenin bulunduğu sunucunun adresini verir.
@@ -309,7 +309,7 @@ function prevUrl()
 // Dönen Değerler: Bir önceki gelinen sayfanın url adresini döndürür. http://sunucuadi/
 //          																				  
 //----------------------------------------------------------------------------------------------------	
-function hostName($uri = "")
+function hostUrl($uri = "")
 {	
 	if( ! is_string($uri) ) 
 	{

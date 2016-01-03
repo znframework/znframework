@@ -18,6 +18,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	protected $processColumn 	= 'id';
 	protected $processEditable  = false;
 	protected $prowData		    = '';
+	protected $limit  		    = 20;
 	
 	public function __construct()
 	{
@@ -47,7 +48,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
-	public function limit($limit = '')
+	public function limit($limit = 20)
 	{
 		$this->limit = $limit;
 		
