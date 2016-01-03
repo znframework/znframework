@@ -395,7 +395,7 @@ class __USE_STATIC_ACCESS__JQ
 	//----------------------------------------------------------------------------------------------------
 	public function prop($selector = '', $params = array(), $comma = true)
 	{
-		return $this->combine($selector, 'attr', $params, '', $comma);
+		return $this->combine($selector, 'prop', $params, '', $comma);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

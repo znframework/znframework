@@ -213,8 +213,22 @@ $config['Components']['datagrid'] = array
 		'update'   		=> lang('DataGrid', 'updateButton'),
 		'save'   		=> lang('DataGrid', 'saveButton'),
 		'delete' 		=> lang('DataGrid', 'deleteButton'),
-		'deleteCurrent' => lang('DataGrid', 'deleteCurrentName'),
+		'deleteSelected'=> lang('DataGrid', 'deleteSelectedName'),
 		'deleteAll' 	=> lang('DataGrid', 'deleteAllName')
+	),
+	
+	//------------------------------------------------------------------------------------------------
+	// Button Names
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: DataGrid'de yer Arama ve yeni ekle veri kutularının var sayılan input
+	// bilgisini değiştirmek için kullanılır.  	  					  						
+	//
+	//------------------------------------------------------------------------------------------------
+	'placeHolders' => array
+	(
+		'search'    => lang('DataGrid', 'searchHolder'),
+		'inputs'   	=> lang('DataGrid', 'inputsHolder'),
 	),
 	
 	//------------------------------------------------------------------------------------------------
@@ -246,13 +260,13 @@ $config['Components']['datagrid'] = array
 		'table'  		=> array('width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'),
 		'columns'  		=> array('style' => 'text-decoration:none; color:#0085B2'),
 		'search' 		=> array('style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
-		'add'	 		=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
-		'deleteCurrent' => array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
-		'deleteAll' 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
-		'delete' 		=> array('style' => 'text-decoration:none; color:red; font-weight:bold'),
+		'add'	 		=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
+		'deleteSelected'=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
+		'deleteAll' 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
+		'save'	 	    => array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
+		'update'	 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
+		'delete' 		=> array('style' => 'text-decoration:none; color:red; font-weight:bold; pointer:'),
 		'edit'	 		=> array('style' => 'text-decoration:none; color:#0085B2; font-weight:bold'),
-		'update'	 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
-		'save'	 	    => array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2;'),
 		'listTables'	=> array(),
 		'inputs'		=> array
 		(

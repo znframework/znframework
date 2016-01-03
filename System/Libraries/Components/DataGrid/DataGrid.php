@@ -14,8 +14,6 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	protected $columns 			= array();
 	protected $columnData 		= array();
 	protected $rows    			= array();
-	protected $type    			= 'classic';
-	protected $query   			= '';
 	protected $pagination 		= '';
 	protected $processColumn 	= 'id';
 	protected $processEditable  = false;
@@ -154,7 +152,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			{
 				$prow = Session::select($this->prowData);
 			}
-			
+						
 			DB::where($processColumn.' = ', $deleteId)->delete($this->table);
 		}
 		
@@ -165,7 +163,12 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$prow = Session::select($this->prowData);
 			}
 			
-			DB::limit($prow, $this->limit)->delete($this->table);
+			$deleteColumns = $datas['datagridDeleteColumns'];
+			
+			if( ! empty($deleteColumns) ) foreach( $deleteColumns as $key )
+			{
+				DB::where($processColumn.' = ', $key)->delete($this->table);
+			}
 		}
 		
 		if( $deleteAllId !== 'undefined' )
@@ -253,7 +256,8 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			);
 				
 			$table .= '<tr>';
-			$table .= '<td>0</td>';
+			$table .= '<td width="20">N/A</td>';
+			$table .= '<td width="20">N/A</td>';
 			
 			if( isArray($columns) ) foreach( $columns as $column => $attr)
 			{
@@ -281,6 +285,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$orderColor = ( $no % 2 === 1 ) ? $orderColorArray['single'] : $orderColorArray['double'];
 			
 			$table .= '<tr bgcolor="'.$orderColor.'">';
+			$table .= '<td>'.Form::checkbox('datagridDeleteColumns[]', $row[$processColumn], array('checkboxType' => 'datagrid')).'</td>';
 			$table .= '<td>'.$no.'</td>';
 			
 			if( $editId !== 'undefined' && $row[$processColumn] == $editId )
@@ -399,7 +404,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$deleteCurrentAttr = array_merge
 		(
-			$this->config['attributes']['deleteCurrent'], 
+			$this->config['attributes']['deleteSelected'], 
 			array('DGDeleteCurrentButton' => 'deleteCurrent', 'DGDeleteCurrentId' => 'deleteCurrent')
 		);
 		
@@ -417,13 +422,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$table .= Form::hidden('datagridColumnNameHidden');
 		$table .= Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search');
 		$table .= Form::attr($addAttr)->id('datagridAdd')->button('datagridAdd', $buttonNames['add']);	
-		$table .= Form::attr($deleteCurrentAttr)->id('datagridDeleteCurrent')->button('datagridDeleteCurrent', $buttonNames['deleteCurrent']);
+		$table .= Form::attr($deleteCurrentAttr)->id('datagridDeleteCurrent')->button('datagridDeleteCurrent', $buttonNames['deleteSelected']);
 		$table .= Form::attr($deleteAllAttr)->id('datagridDeleteAll')->button('datagridDeleteAll', $buttonNames['deleteAll']);
 		$table .= '</td></tr>';	   
 		$table .= '<tr>';	
 		
-		$table .= '<td>#</td>';
-			
+		$table .= '<td width="20">'.Form::id('datagridSelectAll')->checkbox('datagridSelectAll').'</td>';
+		$table .= '<td width="20">#</td>';
+
 		if( isArray($columns) ) foreach( $columns as $column => $attr )
 		{
 			$columnsAttr = array_merge
@@ -475,13 +481,15 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		)
 		->send();	
 		
+		$table .= JS::define('checking', '1');
+		
 		$table .= JS::defineFunc('javaScriptDataGridFunction', 'selector', $ajax);
 		
 		$func   = JS::func('javaScriptDataGridFunction', 'this');
 		
 		$callback = JQ::callback('e', $func);
 		
-		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func));
+		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func.JQ::prop('#datagridSelectAll', array('checked', ':false')).' checking = 1; '));
 		
 		$table .= $func;
 		
@@ -498,6 +506,20 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$table .= Jquery::event()->on('click', '#datagridDeleteCurrent', $confirm)->create();
 		
 		$table .= Jquery::event()->on('click', '#datagridDeleteAll', $confirm)->create();
+		
+	
+		
+		$table .= Jquery::event()->change
+		(
+			'#datagridSelectAll', 
+			JS::ifClause
+			(
+				'checking == 1', 
+				JQ::prop('input[checkboxtype="datagrid"]', array('checked', ':true')).' checking = 0;', 
+				JQ::prop('input[checkboxtype="datagrid"]', array('checked', ':false')).' checking = 1;'
+			)
+			
+		);
 		
 		$table .= JS::define('sorting', '"asc"');
 		
