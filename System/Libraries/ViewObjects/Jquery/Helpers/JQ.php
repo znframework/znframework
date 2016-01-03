@@ -22,6 +22,40 @@ class __USE_STATIC_ACCESS__JQ
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// String Control
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Metnin string olup olmadığı ayırt etmek için kullanılır. Parametre başında : nokta ile belirtilirse
+	// verinin string olmadığı hiç bir şey belirtilmezse string veri olduğu anlaşılır. Bu durumda
+	// metin için başına ve sonuna tırnak işaretleri kullanmanız gerekmez.
+	//
+	// @param  string $code
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function stringControl($code = '')
+	{
+		if( $code[0] === ':' )
+		{
+			$return = substr($code, 1);
+		}
+		elseif( $code[0] === '"' || $code[0] === "'" )
+		{
+			$return = $code;	
+		}
+		elseif( $this->_isKeySelector($code) || $this->_isFunc($code) || $this->_isJquery($code) )
+		{
+			$return = $code;
+		}
+		else
+		{
+			$return = "\"".$this->_nailConvert($code)."\"";
+		}	
+		
+		return $return;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// Selector
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -43,22 +77,8 @@ class __USE_STATIC_ACCESS__JQ
 		{
 			$selector = 'this';	
 		}
-		
-		if( $this->_isKeySelector($selector) )
-		{
-			$code = $selector;	
-		}
-		else
-		{
-			if( $selector[0] === ':' )
-			{
-				$code = substr($selector, 1);
-			}
-			else
-			{
-				$code = "\"".$this->_nailConvert($selector)."\"";
-			}
-		}
+
+		$code = $this->stringControl($selector);
 		
 		return "$($code)";
 	}

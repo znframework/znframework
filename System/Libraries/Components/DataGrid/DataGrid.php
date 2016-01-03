@@ -64,7 +64,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		switch( $input )
 		{
 			case 'textarea' :
-				return Form::textarea($name, $value, $attrs['textarea']);
+				return Form::placeholder($this->config['placeHolders']['inputs'])->textarea($name, $value, $attrs['textarea']);
 			break;
 			
 			case 'select' :
@@ -259,7 +259,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			{
 				if( $column === $processColumn  && $this->processEditable === false )
 				{
-					$input = '';	
+					$input = 'N/A';	
 				}
 				else
 				{
@@ -453,25 +453,25 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		(
 			'data', 
 			//JS::alert('data.test').
-			JQ::html('tbody[datagrid="result"]', 'data.grid').
-			JQ::html('td[datagrid="pagination"]', 'data.pagination').
-			JQ::html('td[datagrid="totalRows"]', 'data.totalRows')
+			JQ::html('tbody[datagrid="result"]', ':data.grid').
+			JQ::html('td[datagrid="pagination"]', ':data.pagination').
+			JQ::html('td[datagrid="totalRows"]', ':data.totalRows')
 		)
 		->dataType('json')
 		->data
 		(
 			JQ::serialize('#datagridForm', '', false).' + 
-			\'&search=\'          + '.JQ::val('#datagridSearch', '', false).' + 
-			\'&sorting=\'         + '.JQ::val('#datagridSortingHidden', '', false).' +
-		    \'&column=\'          + '.JQ::val('#datagridColumnNameHidden', '', false).' +
-			\'&editId=\'          + '.JQ::attr(':selector', '"DGEditId"', false).' + 
-			\'&deleteId=\'        + '.JQ::attr(':selector', '"DGDeleteId"', false).' + 
-			\'&updateId=\'        + '.JQ::attr(':selector', '"DGUpdateId"', false).' + 
-			\'&saveId=\'          + '.JQ::attr(':selector', '"DGSaveId"', false).' + 
-			\'&addId=\'        	  + '.JQ::attr(':selector', '"DGAddId"', false).' +
-			\'&deleteCurrentId=\' + '.JQ::attr(':selector', '"DGDeleteCurrentId"', false).' +
-			\'&deleteAllId=\'     + '.JQ::attr(':selector', '"DGDeleteAllId"', false).' +
-			\'&prow=\'            + '.JQ::attr(':selector', '"prow"', false)
+			"&search="          + '.JQ::val('#datagridSearch', '', false).' + 
+			"&sorting="         + '.JQ::val('#datagridSortingHidden', '', false).' +
+		    "&column="          + '.JQ::val('#datagridColumnNameHidden', '', false).' +
+			"&editId="          + '.JQ::attr(':selector', '"DGEditId"', false).' + 
+			"&deleteId="        + '.JQ::attr(':selector', '"DGDeleteId"', false).' + 
+			"&updateId="        + '.JQ::attr(':selector', '"DGUpdateId"', false).' + 
+			"&saveId="          + '.JQ::attr(':selector', '"DGSaveId"', false).' + 
+			"&addId="        	+ '.JQ::attr(':selector', '"DGAddId"', false).' +
+			"&deleteCurrentId=" + '.JQ::attr(':selector', '"DGDeleteCurrentId"', false).' +
+			"&deleteAllId="     + '.JQ::attr(':selector', '"DGDeleteAllId"', false).' +
+			"&prow="            + '.JQ::attr(':selector', '"prow"', false)
 		)
 		->send();	
 		
@@ -481,25 +481,27 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$callback = JQ::callback('e', $func);
 		
+		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func));
+		
 		$table .= $func;
 		
-		$table .= Jquery::event()->on('"click"', '"a[DGDeleteButton=\"delete\"]"', $callback)->create();
+		$table .= Jquery::event()->on('click', 'a[DGDeleteButton="delete"]', $confirm)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"a[DGEditButton=\"edit\"]"', $callback)->create();
+		$table .= Jquery::event()->on('click', 'a[DGEditButton="edit"]', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"input[DGUpdateButton=\"update\"]"', $callback)->create();
+		$table .= Jquery::event()->on('click', 'input[DGUpdateButton="update"]', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"input[DGSaveButton=\"save\"]"', $callback)->create();
+		$table .= Jquery::event()->on('click', 'input[DGSaveButton="save"]', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"#datagridAdd"', $callback)->create();
+		$table .= Jquery::event()->on('click', '#datagridAdd', $callback)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"#datagridDeleteCurrent"', $callback)->create();
+		$table .= Jquery::event()->on('click', '#datagridDeleteCurrent', $confirm)->create();
 		
-		$table .= Jquery::event()->on('"click"', '"#datagridDeleteAll"', $callback)->create();
+		$table .= Jquery::event()->on('click', '#datagridDeleteAll', $confirm)->create();
 		
 		$table .= JS::define('sorting', '"asc"');
 		
-		$table .= Jquery::event()->on('"click"', '"a[type=\"order\"]"', JQ::callback
+		$table .= Jquery::event()->on('click', 'a[type="order"]', JQ::callback
 		(
 			'e', 
 			JS::ifClause
@@ -509,15 +511,15 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				'sorting = "asc";'
 			).
 			
-			JQ::val('#datagridSortingHidden', 'sorting').
+			JQ::val('#datagridSortingHidden', ':sorting').
 			
-			JQ::val('#datagridColumnNameHidden', JQ::attr('this', '"column"', false)).
+			JQ::val('#datagridColumnNameHidden', JQ::attr('this', 'column', false)).
 			
 			$func
 		))
 		->create();	
 		
-		$table .= Jquery::event()->on('"click"', '"a[ptype=\"ajax\"]"', $callback)->create();
+		$table .= Jquery::event()->on('click', 'a[ptype="ajax"]', $callback)->create();
 		
 		$table .= Jquery::event()->keyUp('#datagridSearch', $func);
 		

@@ -44,12 +44,10 @@ trait JqueryTrait
 	{
 		if( $nail === '"')
 		{
-			return str_replace('"', "'", $str);
+			$str = str_replace('"', "'", $str);
 		}
-		else
-		{
-			return str_replace( "'", '"', $str);
-		}
+		
+		return $str;
 	}
 	
 	/******************************************************************************************
@@ -178,6 +176,28 @@ trait JqueryTrait
 	}
 	
 	/******************************************************************************************
+	* IS JQUERY                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Parametrenin fonksiyon olup olmadığı kontrol ediliyor. 	    		  |
+	
+	  @param array $array
+	  
+	  @return string
+	|          																				  |
+	******************************************************************************************/
+	protected function _isJquery($data)
+	{
+		if( preg_match('/(\$|jQuery)(\.\w+)*\(.*\)/i', $data) )
+		{
+			return true;	
+		}
+		else
+		{
+			return false;	
+		}
+	}
+	
+	/******************************************************************************************
 	* OBJECT                                                                                  *
 	*******************************************************************************************
 	| Genel Kullanım: Parametrenin veri türüne göre object türe dönüştürülme yapılır. 		  |
@@ -230,7 +250,7 @@ trait JqueryTrait
 			{
 				if( ! empty($v) )
 				{
-					$implode .= $v.",";
+					$implode .= JQ::stringControl($v).",";
 				}
 			}
 			
@@ -240,7 +260,7 @@ trait JqueryTrait
 		{
 			if( ! empty($array) )
 			{
-				$implode = $array;
+				$implode = JQ::stringControl($array);
 			}	
 		}
 		

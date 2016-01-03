@@ -20,3 +20,4 @@ $lang['DataGrid']['deleteAllName']     	= 'Delete All Page';
 $lang['DataGrid']['totalRowsText']     	= 'Total Number of Records';
 $lang['DataGrid']['searchHolder']     	= 'Search...';
 $lang['DataGrid']['inputsHolder']       = 'Enter the data!';
+$lang['DataGrid']['areYouSure']         = 'Are you sure you want to do this operation?';

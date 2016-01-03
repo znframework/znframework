@@ -1158,7 +1158,7 @@ class __USE_STATIC_ACCESS__JS
 	//----------------------------------------------------------------------------------------------------
 	public function confirm($code = '', $true = '', $false = '')
 	{
-		 $confirm = $this->_jsFunc('confirm', $code, false);
+		 $confirm = $this->_jsFunc('confirm', JQ::stringControl($code), false);
 		 
 		 if( empty($true) )
 		 {
