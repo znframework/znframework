@@ -15,6 +15,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	protected $columnData 		= array();
 	protected $rows    			= array();
 	protected $joins   			= array();
+	protected $whereJoins		= array();
 	protected $joinTables  		= array();
 	protected $aliasColumns		= array();
 	protected $pagination 		= '';
@@ -58,18 +59,18 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
-	public function join($table = '', $joinTable = '')
+	public function joins($tables = array())
 	{
-		$this->joins[$table] = $joinTable;
-		
-		$tableEx = explode('.', $table);
-		
-		$this->joinTables[$tableEx[0]] = $tableEx[1]; 
-		
-		if( empty($this->joinTables[$this->table]) )
+		$this->joins = $tables;
+			
+		if( ! empty($tables) ) foreach( $tables as $table => $column)
 		{
-			$this->joinTables[$this->table] = $this->processColumn; 
+			$tableEx = explode('.', $table);
+			$this->joinTables[$tableEx[0]] = $tableEx[1]; 
+			$this->whereJoins[$tableEx[0]] = $column;
 		}
+		
+		$this->joinTables[$this->table] = $this->processColumn; 
 		
 		return $this;
 	}
@@ -173,19 +174,23 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$prow = Session::select($this->prowData);
 			}
 			
-			$data['test'] = Json::encode($this->joinTables);
+			$data['test'] = Json::encode($this->whereJoins);
 			
-			if( ! empty($this->joinTables) )
+			$pcol = $processColumn;
+						
+			if( ! empty($this->whereJoins) )
 			{
-				foreach( $this->joinTables as $table => $column )
+				$pcol = $this->joinTables[$this->table];
+
+				foreach( $this->whereJoins as $table => $column )
 				{
-					DB::where($column.' = ', $deleteId)->delete($table);
+					$row = DB::where($pcol.' =', $deleteId)->get($this->table)->row();
+					
+					DB::where($pcol.' = ', $row->$column)->delete($table);
 				}		
-			}
-			else
-			{			
-				DB::where($processColumn.' = ', $deleteId)->delete($this->table);
 			}	
+			
+			DB::where($pcol.' = ', $deleteId)->delete($this->table);
 		}
 		
 		if( $deleteCurrentId !== 'undefined' )
@@ -197,9 +202,23 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			
 			$deleteColumns = $datas['datagridDeleteColumns'];
 			
+			$pcol = $processColumn;
+			
 			if( ! empty($deleteColumns) ) foreach( $deleteColumns as $key )
-			{
-				DB::where($processColumn.' = ', $key)->delete($this->table);
+			{				
+				if( ! empty($this->whereJoins) )
+				{
+					$pcol = $this->joinTables[$this->table];
+	
+					foreach( $this->whereJoins as $table => $column )
+					{
+						$row = DB::where($pcol.' =', $key)->get($this->table)->row();
+						
+						DB::where($pcol.' = ', $row->$column)->delete($table);
+					}		
+				}	
+				
+				DB::where($pcol.' = ', $key)->delete($this->table);
 			}
 		}
 		
@@ -280,7 +299,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$query     = $this->_query();	
 		$rows      = $query->resultArray();
 		$totalRows = $query->totalRows();
-
+		
 		$totalRowsText = lang('DataGrid', 'totalRowsText').': '.$totalRows.' / '.DB::totalRows(true);
 		
 		$paginationSettings = array_merge($this->config['pagination'], array('start' => $prow, 'type' => 'ajax'));
@@ -424,7 +443,13 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			foreach( $this->columns as $column => $attr )
 			{
 				$columns .= $column.' as '.$attr['alias'].',';	
-				$newsColumns[$attr['alias']] = array('alias' => $attr['alias'], 'input' => isset($attr['input']) ? $attr['input'] : 'text', 'title' => $attr['title']);	
+				$newsColumns[$attr['alias']] = array
+				(
+					'alias' => $attr['alias'], 
+					'input' => isset($attr['input']) ? $attr['input'] : 'text', 
+					'title' => isset($attr['title']) ? $attr['title'] : $this->_title($column)
+				);
+				
 				$this->aliasColumns[$attr['alias']] = $column;
 			} 
 			
@@ -437,6 +462,11 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		}
 		
 		return false;
+	}
+	
+	protected function _title($column)
+	{
+		return str_replace('_', ' ', Strings::pascalCase($column))	;
 	}
 	
 	protected function _query()
@@ -462,7 +492,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 			if( isArray($columns) ) foreach( $columns as $column )
 			{
-				$this->columns[$column] = array('alias' => $column, 'title' => str_replace('_', ' ', Strings::pascalCase($column)), 'input' => 'text');	
+				$this->columns[$column] = array('alias' => $column, 'title' => $this->_title($column), 'input' => 'text');	
 			}
 		}
 		
@@ -521,7 +551,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				array('column' => $column, 'type' => 'order')
 			);
 		
-			$table .= '<td>'.Html::anchor('#column='.$column, Html::strong($attr['title']), $columnsAttr).'</td>';
+			$table .= '<td>'.Html::anchor('#column='.$column, Html::strong($this->_title($column)), $columnsAttr).'</td>';
 		}	
 		
 		$table .= '<td align="right"><span'.Html::attributes($this->config['attributes']['columns']).'>'.Html::strong(lang('DataGrid', 'processLabel')).'</span></td>';

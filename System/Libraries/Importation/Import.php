@@ -427,6 +427,38 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		return false;
 	}
 	
+	protected function _links($masterPageSet, $head, $type)
+	{
+		$header = '';
+		
+		if( ! empty($masterPageSet[$type]) && is_array($masterPageSet[$type]) )
+		{		
+			$masterPageSet[$type][] = true;			
+			$header .= $this->$type($masterPageSet[$type]);
+		}
+		else
+		{
+			$header .= $this->$type($masterPageSet[$type], true);
+		}
+		
+		if( isset($head[$type]) )
+		{	
+			if( is_string($head[$type]) )
+			{
+				$headLinks = array($head[$type], true);	
+			}
+			else
+			{
+				$head[$type][] = true;
+				
+				$headLinks = $head[$type];
+			}
+						
+			$header .= $this->$type($headLinks);
+		}
+		
+		return $header;
+	}
 	
 	/******************************************************************************************
 	* MASTERPAGE                                                                              *
@@ -564,17 +596,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Fontlar dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( ! empty($masterPageSet["font"]) )
-		{		
-			$masterPageSet['font'][] = true;			
-			$header .= $this->font($masterPageSet["font"], true);
-		}
-		
-		if( isset($head['font']) )
-		{	
-			$head['font'][] = true;				
-			$header .= $this->font($head['font'], true);
-		}
+		$header .= $this->_links($masterPageSet, $head, 'font');
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -582,17 +604,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Javascript kodları dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( is_array($masterPageSet['script']) )
-		{
-			$masterPageSet['script'][] = true;
-			$header .= $this->script($masterPageSet['script'], true);
-		}
-		
-		if( isset($head['script']) )
-		{
-			$head['script'][] = true;
-			$header .= $this->script($head['script'], true);
-		}
+		$header .= $this->_links($masterPageSet, $head, 'script');
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -600,17 +612,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Stiller dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( is_array($masterPageSet['style']) )
-		{
-			$masterPageSet['style'][] = true;
-			$header .= $this->style($masterPageSet['style']);
-		}
-		
-		if( isset($head['style']) )
-		{
-			$head['style'][] = true;
-			$header .= $this->style($head['style']);
-		}
+		$header .= $this->_links($masterPageSet, $head, 'style');
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -620,7 +622,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		$browserIcon  = isset($head['browserIcon']) ? $head['browserIcon'] : $masterPageSet["browserIcon"];
 					  
-		if( ! empty($browserIcon) ) 
+		if( ! empty($browserIcon) && is_file($browserIcon) ) 
 		{
 			$header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
 		}
@@ -701,7 +703,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
 		$backgroundImage  = isset($head['backgroundImage']) ? $head['backgroundImage'] : $masterPageSet["backgroundImage"];			  
-		$bgImage 	 	  = ! empty($backgroundImage) ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"' : '';
+		$bgImage 	 	  = ( ! empty($backgroundImage) && is_file($backgroundImage) ) ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"' : '';
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
