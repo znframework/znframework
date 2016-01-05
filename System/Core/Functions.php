@@ -338,9 +338,9 @@ function currentPath($isPath = true)
 	
 	$currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
 	
-	if( $currentPagePath[0] === "/" )
+	if( isset($currentPagePath[0]) && $currentPagePath[0] === "/" )
 	{
-		$currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath)-1);
+		$currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
 	}
 	
 	if( $isPath === true )
