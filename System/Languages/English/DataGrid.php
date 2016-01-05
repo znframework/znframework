@@ -21,3 +21,4 @@ $lang['DataGrid']['totalRowsText']     	= 'Total Number of Records';
 $lang['DataGrid']['searchHolder']     	= 'Search...';
 $lang['DataGrid']['inputsHolder']       = 'Enter the data!';
 $lang['DataGrid']['areYouSure']         = 'Are you sure you want to do this operation?';
+$lang['DataGrid']['noData']             = 'No data will be shown!';

@@ -21,3 +21,4 @@ $lang['DataGrid']['totalRowsText']     	= 'Toplam Kayıt Sayısı';
 $lang['DataGrid']['searchHolder']     	= 'Arama...';
 $lang['DataGrid']['inputsHolder']       = 'Veri girin!';
 $lang['DataGrid']['areYouSure']         = 'Bu işlemi yapmak istediğinizden emin misiniz?';
+$lang['DataGrid']['noData']             = 'Gösterilecek veri bulunamadı!';
