@@ -207,6 +207,11 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 			return Error::set('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']");
 		}
 		
+		if( $value === false )
+		{
+			return $input[$name];
+		}
+		
 		return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
 	}
 }
