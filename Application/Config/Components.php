@@ -272,9 +272,9 @@ $config['Components']['datagrid'] = array
 		(
 			'text' 		=> array('style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
 			'textarea' 	=> array('style' => 'height:60px; width:250px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
-			'radio' 	=> '',
-			'checkbox' 	=> '',
-			'select' 	=> ''
+			'radio' 	=> array(),
+			'checkbox' 	=> array(),
+			'select' 	=> array()
 		)
 	),
 	

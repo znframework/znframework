@@ -10,26 +10,117 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Config
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Ayarlar
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $config 			= array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Columns
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Sütunlar
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $columns 			= array();
-	protected $columnData 		= array();
-	protected $rows    			= array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Joins
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Birleştirmeler
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $joins   			= array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Where Tables
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Tabloların nelere göre birleştirildiği
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $whereJoins		= array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Join Tables
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Birleştirilen tablolar
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $joinTables  		= array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Alias Columns
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Takma isim verilmiş sütunlar
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $aliasColumns		= array();
-	protected $pagination 		= '';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Process Column
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string -> İşlem yapılan sütun
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $processColumn 	= 'id';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Process Editable
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var boolean -> İşlem yapılan sütunun düzenlenip düzenlenemeyeceği
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $processEditable  = false;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Prow Data
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string -> Aktif sayfalama numarası
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $prowData		    = '';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Limit
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string -> Tek bir sayfada gösterilecek kayıt miktarı
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $limit  		    = 20;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
 		$this->config   = Config::get('Components', 'datagrid');	
 		$this->prowData = md5('SystemPaginationRowData');
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Columns
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  array $columns -> Grid'de gösterilecek sütunlar
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function columns($columns = array())
 	{
 		$this->columns = $columns;
@@ -37,6 +128,15 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Process Columns
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $column   -> İşlem yapılacak sütun adı
+	// @param  bool   $editable -> Bu sütunun düzenlenebilir olup olmayacağı
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function processColumn($column = 'id', $editable = false)
 	{
 		$this->processColumn   = $column;	
@@ -45,6 +145,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Table
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $table -> İşlem yapılacak esas tablo
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function table($table = '')
 	{
 		$this->table = $table;
@@ -52,6 +160,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Limit
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  numeric $limit -> Tek bir sayfada görüntülenecek kayıt sayısı.
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function limit($limit = 20)
 	{
 		$this->limit = $limit;
@@ -59,6 +175,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Table
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  array $tables -> Birleştirilecek tablolar dizisi
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function joins($tables = array())
 	{
 		$this->joins = $tables;
@@ -75,6 +199,17 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Generate Input
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $input    -> Input nesnesi türü
+	// @param  string $name     -> Input isim bilgisi
+	// @param  mixed  $value    -> Input değer bilgisi
+	// @parma  mixed  $selected -> Inputun seçili değeri
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function generateInput($input = 'text', $name = '', $value = '', $selected = '')
 	{
 		
@@ -118,6 +253,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return Form::text($name, $value, $attrs['text']);
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Table
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void 
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _table()
 	{
 		if( Http::isAjax() === false )
@@ -403,8 +546,20 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 							$newUpdateData[$this->aliasColumns[$key]] = $val;
 						}
 					}
+								
+					$row = DB::where($this->joinTables[$table].' = ', $updateId)->get($table);
 					
-					DB::where($this->joinTables[$table].' = ', $updateId)->update($table, $newUpdateData);		
+					$tr = $row->totalRows();
+					
+					if( $tr === 0 )
+					{	
+						$newUpdateData[$this->joinTables[$table]] = $updateId;
+						DB::insert($table, $newUpdateData);
+					}
+					else
+					{
+						DB::where($this->joinTables[$table].' = ', $updateId)->update($table, $newUpdateData);	
+					}
 				}		
 			}
 			//--------------------------------------------------------------------------------------------
@@ -605,6 +760,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		echo Json::encode($data); exit;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Columns
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string void
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _columns()
 	{
 		if( ! empty($this->columns) && ! empty($this->joins) )
@@ -636,11 +799,27 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return false;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Title
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $column
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _title($column)
 	{
 		return str_replace('_', ' ', Strings::pascalCase($column))	;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Query
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _query()
 	{
 		if( ! empty($this->joins) ) foreach( $this->joins as $key => $val )
@@ -653,6 +832,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		return DB::get($this->table);
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Create
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function create()
 	{
 		if( empty($this->columns) )
@@ -660,8 +847,6 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$query   = $this->_query();
 			$columns = $query->columns();	
 			
-			$this->columnData = $query->columnData();
-		
 			if( isArray($columns) ) foreach( $columns as $column )
 			{
 				$this->columns[$column] = array('alias' => $column, 'title' => $this->_title($column), 'input' => 'text');	
@@ -672,9 +857,21 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		Session::delete($this->prowData);
 		
-		return $this->_ajaxTable();
+		$return = $this->_ajaxTable();
+		
+		$this->_defaultVariables();
+		
+		return $return;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Ajax Table
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void   -> Ajax tablosu
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _ajaxTable()
 	{	
 		$columns = $this->columns;
@@ -737,10 +934,12 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$table .= '<tr><td datagrid="pagination" colspan="'.((count($columns)) + 2).'"></td><td align="right" datagrid="totalRows"></td></tr>';
 		$table .= '</table>'.EOL;
 		$table .= Form::close();
+		
 		if( $this->config['cdn']['bootstrap'] === true )
 		{
 			$table .= Import::style('bootstrap', true);
 		}
+		
 		$table .= Script::open(true, $this->config['cdn']['jquery'], $this->config['cdn']['jqueryUi']);
 		
 		$ajax = Jquery::ajax()->success
@@ -836,5 +1035,26 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$table .= Script::close();
 		
 		return $table;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Config
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _defaultVariables()
+	{
+		$config 			= array();
+		$columns 			= array();
+		$joins   			= array();
+		$whereJoins			= array();
+		$joinTables  		= array();
+		$aliasColumns		= array();
+		$processColumn 		= 'id';
+		$processEditable  	= false;
+		$prowData		    = '';
+		$limit  		    = 20;	
 	}
 }
