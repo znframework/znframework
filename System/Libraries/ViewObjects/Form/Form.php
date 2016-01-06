@@ -1317,11 +1317,11 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	|	 </select>   		      															  |
 	|          																				  |
 	******************************************************************************************/	
-	public function select($name = '', $options = array(), $selected = '', $_attributes = '', $multiple = false)
+	public function select($name = '', $options = array(), $selected = '', $_attributes = array(), $multiple = false)
 	{
 		if( isset($this->settings['attr']) )
 		{
-			$_attributes = $this->settings['attr'];
+			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
 		}
 		
 		if( isset($this->settings['option']) )

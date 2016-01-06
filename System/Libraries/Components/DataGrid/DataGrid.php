@@ -33,7 +33,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	public function columns($columns = array())
 	{
 		$this->columns = $columns;
-		
+		$this->realColumns = $columns;
 		return $this;
 	}
 	
@@ -145,37 +145,106 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$processColumn = $this->processColumn;
 		
+		//------------------------------------------------------------------------------------------------
+		// Insert
+		//------------------------------------------------------------------------------------------------
+		//
+		// Ekleme işlemi yapılmaktadır. 
+		//
+		//------------------------------------------------------------------------------------------------
 		if( $saveId !== 'undefined' )
 		{	
 			if( $prow === 'undefined' )
 			{
 				$prow = Session::select($this->prowData);
 			}
-			
-			$newAddData = array();
-			
-			foreach( $datas as $key => $val )
-			{
-				$key = str_replace('insert', '', $key);
+
+			//--------------------------------------------------------------------------------------------
+			// Multi Insert: Çoklu ekleme işlem yapılmaktadır.
+			//--------------------------------------------------------------------------------------------
+			if( ! empty($this->whereJoins) )
+			{	
+				$this->_columns();
 				
-				if( isset($columns[$key]) && $processColumn !== $key )
+				$whereJoins = $this->whereJoins;
+	
+				$newAddData = array();	
+				
+				foreach( $datas as $key => $val )
 				{
-					$newAddData[$key] = $val;
+					$key = str_replace('insert', '', $key);
+						
+					$t = explode('.', $this->aliasColumns[$key])[0];
+					
+					if( $t === $this->table && ! empty($this->aliasColumns[$key]) && $processColumn !== $key )
+					{
+						$newAddData[$this->aliasColumns[$key]] = $val;
+					}
+				}
+				
+				DB::insert($this->table, $newAddData);
+				
+				$lastInsertId = DB::insertId();
+				
+				foreach( $whereJoins as $table => $column)
+				{	
+					$newAddData = array();	
+					
+					if( ! empty($this->joinTables[$table]) )
+					{
+						$newAddData[$this->joinTables[$table]] = $lastInsertId;
+					}
+					
+					foreach( $datas as $key => $val )
+					{
+						$key = str_replace('insert', '', $key);
+						
+						$t = explode('.', $this->aliasColumns[$key])[0];
+						
+						if( $t === $table && ! empty($this->aliasColumns[$key]) && $processColumn !== $key )
+						{
+							$newAddData[$this->aliasColumns[$key]] = $val;
+						}
+					}
+					
+					DB::insert($table, $newAddData);		
 				}	
 			}
-		
-			DB::insert($this->table, $newAddData);
+			//--------------------------------------------------------------------------------------------
+			// Single Insert: Tekil ekleme işlem yapılmaktadır.
+			//--------------------------------------------------------------------------------------------
+			else
+			{
+				$newAddData = array();
+				
+				foreach( $datas as $key => $val )
+				{
+					$key = str_replace('insert', '', $key);
+						
+					if( isset($columns[$key]) && $processColumn !== $key )
+					{
+						$newAddData[$key] = $val;
+					}
+				}
+				
+				DB::insert($this->table, $newAddData);	
+			}
 		}
 		
+		//------------------------------------------------------------------------------------------------
+		// Delete Current
+		//------------------------------------------------------------------------------------------------
+		//
+		// Belirtilen kayıtı silme işlemi yapılmaktadır. 
+		//
+		//------------------------------------------------------------------------------------------------
 		if( $deleteId !== 'undefined' )
 		{	
 			if( $prow === 'undefined' )
 			{
 				$prow = Session::select($this->prowData);
 			}
-			
-			$data['test'] = Json::encode($this->whereJoins);
-			
+		
 			$pcol = $processColumn;
 						
 			if( ! empty($this->whereJoins) )
@@ -186,13 +255,20 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				{
 					$row = DB::where($pcol.' =', $deleteId)->get($this->table)->row();
 					
-					DB::where($pcol.' = ', $row->$column)->delete($table);
+					DB::where($this->joinTables[$table].' = ', $row->$column)->delete($table);
 				}		
 			}	
 			
 			DB::where($pcol.' = ', $deleteId)->delete($this->table);
 		}
 		
+		//------------------------------------------------------------------------------------------------
+		// Delete Select
+		//------------------------------------------------------------------------------------------------
+		//
+		// Seçilen kayıtları silme işlemi yapılmaktadır. 
+		//
+		//------------------------------------------------------------------------------------------------
 		if( $deleteCurrentId !== 'undefined' )
 		{	
 			if( $prow === 'undefined' )
@@ -214,7 +290,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 					{
 						$row = DB::where($pcol.' =', $key)->get($this->table)->row();
 						
-						DB::where($pcol.' = ', $row->$column)->delete($table);
+						DB::where($this->joinTables[$table].' = ', $row->$column)->delete($table);
 					}		
 				}	
 				
@@ -222,6 +298,13 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			}
 		}
 		
+		//------------------------------------------------------------------------------------------------
+		// Delete All
+		//------------------------------------------------------------------------------------------------
+		//
+		// Tüm kayıtı silme işlemi yapılmaktadır. 
+		//
+		//------------------------------------------------------------------------------------------------
 		if( $deleteAllId !== 'undefined' )
 		{	
 			if( $prow === 'undefined' )
@@ -229,13 +312,50 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$prow = Session::select($this->prowData);
 			}
 			
-			DB::delete($this->table);
+			if( ! empty($this->whereJoins) )
+			{
+				$result = $this->_query();
+				
+				$deleteRows = $result->result();
+				
+				$pcol = $processColumn;
+				
+				if( ! empty($deleteRows) ) foreach( $deleteRows as $r )
+				{				
+					$key = $r->$processColumn;
+					
+					if( ! empty($this->whereJoins) )
+					{
+						$pcol = $this->joinTables[$this->table];
+		
+						foreach( $this->whereJoins as $table => $column )
+						{
+							$row = DB::where($pcol.' =', $key)->get($this->table)->row();
+							
+							DB::where($this->joinTables[$table].' = ', $row->$column)->delete($table);
+						}		
+					}	
+					
+					DB::where($pcol.' = ', $key)->delete($this->table);
+				}			
+			}
+			else
+			{
+				DB::delete($this->table);
+			}
 			
-			$data['grid']       = '<tr><td colspan="'.(count($columns) + 3).'">'.lang('DataGrid', 'noData').'</td></tr>';
+			$data['grid'] = '<tr><td colspan="'.(count($columns) + 3).'">'.lang('DataGrid', 'noData').'</td></tr>';
 			
 			echo Json::encode($data); exit;
 		}
 		
+		//------------------------------------------------------------------------------------------------
+		// Update
+		//------------------------------------------------------------------------------------------------
+		//
+		// Güncelleme işlemi yapılmaktadır. 
+		//
+		//------------------------------------------------------------------------------------------------
 		if( $updateId !== 'undefined' )
 		{	
 			if( $prow === 'undefined' )
@@ -243,31 +363,72 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$prow = Session::select($this->prowData);
 			}
 			
-			$newUpdateData = array();
-			
-			foreach( $datas as $key => $val )
+			//--------------------------------------------------------------------------------------------
+			// Multi Update: Birleştirilmiş tablolar için güncelleme işlemi
+			//--------------------------------------------------------------------------------------------
+			if( ! empty($this->whereJoins) )
 			{
-				$key = str_replace('update', '', $key);
+				$this->_columns();
 				
-				if( isset($columns[$key]) )
+				$whereJoins = $this->whereJoins;
+	
+				$newUpdateData = array();	
+				
+				foreach( $datas as $key => $val )
 				{
-					$newUpdateData[$key] = $val;
-				}	
-			}
-			
-			if( ! empty($this->joins) )
-			{
-				foreach( $this->joins as $column => $table )
-				{
+					$key = str_replace('update', '', $key);
+						
+					$t = explode('.', $this->aliasColumns[$key])[0];
 					
-				}	
+					if( $t === $this->table && ! empty($this->aliasColumns[$key]) && $processColumn !== $key )
+					{
+						$newUpdateData[$this->aliasColumns[$key]] = $val;
+					}
+				}
+				
+				DB::where($this->aliasColumns[$processColumn].' = ', $updateId)->update($this->table, $newUpdateData);
+	
+				foreach( $whereJoins as $table => $column)
+				{	
+					$newUpdateData = array();	
+					
+					foreach( $datas as $key => $val )
+					{
+						$key = str_replace('update', '', $key);
+						
+						$t = explode('.', $this->aliasColumns[$key])[0];
+						
+						if( $t === $table && ! empty($this->aliasColumns[$key]) && $processColumn !== $key )
+						{
+							$newUpdateData[$this->aliasColumns[$key]] = $val;
+						}
+					}
+					
+					DB::where($this->joinTables[$table].' = ', $updateId)->update($table, $newUpdateData);		
+				}		
 			}
+			//--------------------------------------------------------------------------------------------
+			// Single Update: tekil tablolar için güncelleme işlemi
+			//--------------------------------------------------------------------------------------------
 			else
 			{
+				$newUpdateData = array();
+			
+				foreach( $datas as $key => $val )
+				{
+					$key = str_replace('update', '', $key);
+					
+					if( isset($columns[$key]) )
+					{
+						$newUpdateData[$key] = $val;
+					}	
+				}
+			
 				DB::where($processColumn.' = ', $updateId)->update($this->table, $newUpdateData);
 			}
 		}
 		
+
 		if( $editId !== 'undefined' )
 		{
 			if( $prow === 'undefined' )
@@ -356,8 +517,19 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				{
 					$prow = Session::select($this->prowData);
 				}
+				
+				if( ! empty($this->whereJoins) )
+				{
+					DB::where($this->aliasColumns[$processColumn].' = ', $editId);
+				
+					$result = $this->_query();
 					
-				$row = DB::where($processColumn.' = ', $editId)->get($this->table)->row();
+					$row = $result->row();
+				}	
+				else
+				{
+					$row = DB::where($processColumn.' = ', $editId)->get($this->table)->row();	
+				}
 			
 				if( isArray($columns) ) foreach( $columns as $column => $attr)
 				{
@@ -440,7 +612,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$newsColumns = array();
 			$columns = '';
 			
-			foreach( $this->columns as $column => $attr )
+			foreach( $this->realColumns as $column => $attr )
 			{
 				$columns .= $column.' as '.$attr['alias'].',';	
 				$newsColumns[$attr['alias']] = array
@@ -547,11 +719,14 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		{
 			$columnsAttr = array_merge
 			(
+
 				$this->config['attributes']['columns'],
 				array('column' => $column, 'type' => 'order')
 			);
-		
-			$table .= '<td>'.Html::anchor('#column='.$column, Html::strong($this->_title($column)), $columnsAttr).'</td>';
+			
+			$title = isset($attr['title']) ? $attr['title'] : $this->_title($column);
+			
+			$table .= '<td>'.Html::anchor('#column='.$column, Html::strong($title), $columnsAttr).'</td>';
 		}	
 		
 		$table .= '<td align="right"><span'.Html::attributes($this->config['attributes']['columns']).'>'.Html::strong(lang('DataGrid', 'processLabel')).'</span></td>';
