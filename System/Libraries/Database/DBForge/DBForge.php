@@ -10,6 +10,8 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	protected $extras;
+	
 	//----------------------------------------------------------------------------------------------------
 	// Common
 	//----------------------------------------------------------------------------------------------------
@@ -92,6 +94,13 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	// Table Manipulation Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 	
+	public function extras($extras = '')
+	{
+		$this->extras = $extras;
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* CREATE TABLE                                                                            *
 	*******************************************************************************************
@@ -110,8 +119,10 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		{
 			// Table yöntemi tanımlanmış ise
 			// 1. parametre, 2. parametre olarak kullanılsın
+			$extras    = $condition;
 			$condition = $table;
-			$table = $this->table; 
+			$table     = $this->table; 
+			
 			$this->table = NULL;
 		}
 		else
@@ -123,6 +134,13 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		{
 			$condition = $this->column;
 			$this->column = NULL;
+		}
+		
+		if( ! empty($this->extras) )
+		{
+			$extras = $this->extras;
+			
+			$this->extras = NULL;	
 		}
 		
 		if( ! is_string($table) || empty($table) ) 
