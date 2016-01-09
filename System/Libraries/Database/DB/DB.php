@@ -422,7 +422,23 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function where($column = '', $value = '', $logical = '')
 	{
-		$this->where .= $this->_whereHaving($column, $value, $logical);
+		if( isArray($column) )
+		{
+			$columns = func_get_args();
+			
+			foreach( $columns as $col )
+			{
+				$c = isset($col[0]) ? $col[0] : '';
+				$v = isset($col[1]) ? $col[1] : '';
+				$l = isset($col[2]) ? $col[2] : '';
+				
+				$this->where .= $this->_whereHaving($c, $v, $l);	
+			}
+		}
+		else
+		{
+			$this->where .= $this->_whereHaving($column, $value, $logical);
+		}
 		
 		return $this;
 	}
@@ -468,7 +484,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			$whereGroup .= $this->_whereHaving($col, $value, $logical);
 		}
 		
-		return ' ( '.$whereGroup.' ) '.$conjunction.' ';
+		return ' ( '.$this->_whereHavingConjuctionClean($whereGroup).' ) '.$conjunction.' ';
 	}
 	
 	/******************************************************************************************
@@ -576,6 +592,39 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			$this->$type = NULL;
 			
 			return $return;
+		}	
+	}
+	
+	/******************************************************************************************
+	* PROTECTED                                                                               *
+	******************************************************************************************/
+	protected function _whereHavingConjuctionClean($str)
+	{
+		if( ! empty($str) )
+		{
+			$str = strtolower(trim($str));
+			
+			switch( substr($str, -3) )
+			{
+				case 'and' :
+				case 'xor' :
+				case 'not' :
+				return substr($str, 0, -3);		
+			}
+			
+			switch( substr($str, -2) )
+			{
+				case 'or' :
+				case '||' :
+				case '&&' :
+				return substr($str, 0, -2);
+			}
+			
+			switch( substr($str, -1) )
+			{
+				case '!' :
+				return substr($str, 0, -1);
+			}		
 		}	
 	}
 	
@@ -1175,10 +1224,81 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public function characterSet($set = '')
+	public function characterSet($set = '', $return = false)
 	{ 
-		$this->characterSet = 'CHARACTER SET '.$set.' ';
-		return $this; 
+		$string = 'CHARACTER SET '.$set.' ';
+		
+		if( $return === false )
+		{
+			$this->characterSet = $string;
+			return $this; 
+		}
+		else
+		{
+			return $string;	
+		}
+	}
+	
+	/******************************************************************************************
+	* CHARACTER SET                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki CHARACTER SET komutunun kullanımıdır.	         	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public function cset($set = '')
+	{ 
+		if( empty($set) )
+		{
+			$set = $this->config['charset'];
+		}
+		
+		return $this->characterSet($set, true);
+	}
+	
+	/******************************************************************************************
+	* CHARACTER SET                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki CHARACTER SET komutunun kullanımıdır.	         	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public function collate($set = '')
+	{ 
+		if( empty($set) )
+		{
+			$set = $this->config['collation'];
+		}
+		
+		return 'COLLATE '.$set.' ';
+	}
+	
+	
+	/******************************************************************************************
+	* CHARACTER SET                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki CHARACTER SET komutunun kullanımıdır.	         	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public function encoding($charset = 'utf8', $collate = 'utf8_general_ci')
+	{ 
+		$encoding = '';
+		
+		if( ! empty($charset) )
+		{
+			$encoding .= $this->cset($charset);
+		}
+		
+		if( ! empty($collate) )
+		{
+			$encoding .= $this->collate($collate);
+		}
+		
+		return $encoding;
 	}
 	
 	/******************************************************************************************

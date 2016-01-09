@@ -104,7 +104,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| Örnek Kullanım: $this->dbforge->createTable('OrnekTablo', array('id' => 'int(11)'));   |
 	|          																				  |
 	******************************************************************************************/
-	public function createTable($table = '', $condition = array())
+	public function createTable($table = '', $condition = array(), $extras = '')
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -155,8 +155,21 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 			
 			$column .= $key.' '.$values.',';
 		}
+		
+		if( isArray($extras) )
+		{
+			$extraCodes = ' '.implode(' ', $extras).';';
+		}
+		elseif( is_string($extras) )
+		{
+			$extraCodes = ' '.$extras.';';	
+		}
+		else
+		{
+			$extraCodes = '';	
+		}
 
-		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')';
+		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$extraCodes;
 	
 		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
