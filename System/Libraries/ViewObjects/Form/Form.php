@@ -1350,21 +1350,36 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( $name !== '' )
 		{
-			$_attributes['name'] ="name";	
+			$_attributes['name'] = $name;	
 		}
 				  
 		$selectbox = '<select'.$this->attributes($_attributes).'>';
 		
 		if( is_array($options) ) foreach( $options as $key => $value )
 		{
-			if( $selected == $key ) 
+			if( is_array($selected) )
 			{
-				$select = 'selected="selected"'; 
+				if( in_array($key, $selected) ) 
+				{
+					$select = 'selected="selected"'; 
+				}
+				else 
+				{
+					$select = "";
+				}
 			}
-			else 
+			else
 			{
-				$select = "";
+				if( $selected == $key ) 
+				{
+					$select = 'selected="selected"'; 
+				}
+				else 
+				{
+					$select = "";
+				}
 			}
+			
 			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.EOL;
 		}
 		
