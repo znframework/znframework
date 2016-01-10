@@ -101,6 +101,33 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	protected $limit  		    = 20;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Order By
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Sıralama
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $orderBy  		= array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Order By
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string -> Gruplama
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $groupBy  		= '';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Where
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array -> Koşul
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $where     		= array();
+	
+	//----------------------------------------------------------------------------------------------------
 	// Construct
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -171,6 +198,52 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	public function limit($limit = 20)
 	{
 		$this->limit = $limit;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Order By
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $column -> Sıralama sütunu.
+	// @param  string $order  -> Sıralama türü.
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function orderBy($column = '', $order = 'DESC')
+	{
+		$this->orderBy[$column] = $order;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Group By
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $column -> Gruplama sütunu.
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function groupBy($column = '')
+	{
+		$this->groupBy = $column;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Where
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  array  args -> koşul oluşturmak için kullanılır.
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function where()
+	{
+		$this->where[] = func_get_args();
 		
 		return $this;
 	}
@@ -609,6 +682,15 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			
 			DB::orderBy(Method::post('column'), Method::post('sorting'));	
 		}
+		else
+		{
+			$orderBy = $this->orderBy;
+
+			if( ! empty($orderBy) )
+			{
+				DB::orderBy(key($orderBy), current($orderBy));
+			}	
+		}
 		
 		DB::limit($prow, $this->limit);
 		
@@ -822,9 +904,23 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _query()
 	{
+		if( ! empty($this->where) ) foreach( $this->where as $where )
+		{
+			$column  = isset($where[0]) ? $where[0] : '';
+			$value   = isset($where[1]) ? $where[1] : '';
+			$logical = isset($where[2]) ? $where[2] : '';
+			
+			DB::where($column, $value, $logical);
+		}
+		
 		if( ! empty($this->joins) ) foreach( $this->joins as $key => $val )
 		{
 			DB::leftJoin($key, prefix($val, $this->table.'.'));
+		}
+		
+		if( ! empty($this->groupBy) )
+		{
+			DB::groupBy($this->groupBy);	
 		}
 
 		DB::select($this->_columns());
@@ -945,7 +1041,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$ajax = Jquery::ajax()->success
 		(
 			'data', 
-			//JS::alert('data.test').
+			JS::alert('data.test').
 			JQ::html('tbody[datagrid="result"]', ':data.grid').
 			JQ::html('td[datagrid="pagination"]', ':data.pagination').
 			JQ::html('td[datagrid="totalRows"]', ':data.totalRows')
@@ -1046,15 +1142,18 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariables()
 	{
-		$config 			= array();
-		$columns 			= array();
-		$joins   			= array();
-		$whereJoins			= array();
-		$joinTables  		= array();
-		$aliasColumns		= array();
-		$processColumn 		= 'id';
-		$processEditable  	= false;
-		$prowData		    = '';
-		$limit  		    = 20;	
+		$this->config 			= array();
+		$this->columns 			= array();
+		$this->joins   			= array();
+		$this->whereJoins		= array();
+		$this->joinTables  		= array();
+		$this->aliasColumns		= array();
+		$this->processColumn 	= 'id';
+		$this->processEditable  = false;
+		$this->prowData		    = '';
+		$this->limit  		    = 20;
+		$this->orderBy  		= array();	
+		$this->groupBy  		= '';	
+		$this->where   	     	= array();
 	}
 }
