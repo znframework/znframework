@@ -92,7 +92,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		
 		array_push($this->items, $product);
 		
-		Session::insert('cart', $this->items);
+		Session::insert(md5('SystemCartData'), $this->items);
 		
 		$this->items = Session::select(md5('SystemCartData'));
 		
@@ -335,7 +335,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$i++;
 		}
 		
-		Session::insert('cart', $this->items);
+		Session::insert(md5('SystemCartData'), $this->items);
 	}
 	
 	/******************************************************************************************
@@ -394,7 +394,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$i++;
 		}
 		
-		Session::insert('cart', $this->items);		
+		Session::insert(md5('SystemCartData'), $this->items);		
 	}
 	
 	/******************************************************************************************
