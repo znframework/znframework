@@ -43,13 +43,13 @@ $config['User']['encode'] = 'super';
 //----------------------------------------------------------------------------------------------------
 $config['User']['matching'] = array
 (
-	'table'   => 'uyeler',
+	'table'   => '',
 	
 	'columns' => array
 	(
-		'username'   => 'kullanici_adi', // Kullanımı zorunludur.
-		'password'   => 'sifre', // Kullanımı zorunludur.
-		'email'      => 'eposta', // Kullanımı görecelidir.
+		'username'   => '', // Kullanımı zorunludur.
+		'password'   => '', // Kullanımı zorunludur.
+		'email'      => '', // Kullanımı görecelidir.
 		'active'     => '', // İsteğe bağlı.
 		'banned'     => '', // İsteğe bağlı.
 		'activation' => ''  // İsteğe bağlı.
