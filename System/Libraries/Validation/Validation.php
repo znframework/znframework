@@ -619,8 +619,12 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			$pm = "";
 			$pm = $config['oldPassword'];
-	
-			if( Encode::super($edit) != $pm )
+			
+			$encodeType = Config::get('User', 'encode');	
+			
+			$encode = ! empty($encodeType) ? Encode::type($edit, $encodeType) ? $edit; 
+			
+			if( $encode != $pm )
 			{ 
 				$oldPasswordMatch = lang('Validation', 'oldPasswordMatch',$viewName);
 				$messages[$i] 		= $oldPasswordMatch.'<br>'; $i++;

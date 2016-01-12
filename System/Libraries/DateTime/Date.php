@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface, DateInterface
+class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	// DATE CLASS
