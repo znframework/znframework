@@ -858,18 +858,17 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this; 
 	}
 	
-	/******************************************************************************************
-	* GET                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerini tamamlamak için oluşturulmuştur.				      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. [ string var @table ] => Tablo ismi.form() yöntemine alternatif olarak kullanılabilir|
-	|          																				  |
-	| Örnek Kullanım: ->get('OrnekTablo');        											  |
-	|          																				  |
-	******************************************************************************************/
-	public function get($table = '')
+	//----------------------------------------------------------------------------------------------------
+	// Get
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sorguyu tamamlamak için kullanılır.
+	//
+	// @param  string $table  -> Tablo adı.
+	// @return string $return -> Sorgunun dönüş türü. object, string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function get($table = '', $return = 'object')
 	{
 		if( ! is_string($table) ) 
 		{
@@ -948,8 +947,15 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Sorguyu Temizle
 		$this->_resetSelectQuery();
 		
+		$secureQueryBuilder = $this->_querySecurity($queryBuilder);
+		
+		if( $return === 'string' )
+		{
+			return $secureQueryBuilder;	
+		}
+		
 		// Sorgu
-		$this->db->query($this->_querySecurity($queryBuilder), $this->secure);
+		$this->db->query($secureQueryBuilder, $this->secure);
 		
 		// Sorguyu Dizesini Döndür.
 		return $this;
@@ -995,6 +1001,58 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	// Select Deyimleri Bitiş
 	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get String
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sorguyunun çalıştırılmadan metinsel çıktısını almak için kullanılır.
+	//
+	// @param  string $table -> Tablo adı.
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getString($table = '')
+	{
+		return $this->get($table, 'string');	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Alias
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Veriye takma ad vermek için kullanılır.
+	//
+	// @param  string $string   -> Metin.
+	// @param  string $alias    -> Takma ad.
+	// @param  bool   $brackets -> Parantezlerin olup olmayacağı.
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alias($string = '', $alias = '', $brackets = false)
+	{
+		if( $brackets === true)
+		{
+			$string = DB::brackets($string);
+		}
+		
+		return $string.' AS '.$alias;	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Brackets
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Verinin başına ve sonuna parantez eklemek için kullanılır.
+	//
+	// @param  string $string   -> Metin.
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function brackets($string = '')
+	{
+		return ' ( '.$string.' ) ';
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Fonksiyonları Başlangıç
