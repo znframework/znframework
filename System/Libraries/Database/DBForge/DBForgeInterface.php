@@ -48,7 +48,7 @@ interface DBForgeInterface
 	| Örnek Kullanım: $this->dbforge->createTable('OrnekTablo', array('id' => 'int(11)'));   |
 	|          																				  |
 	******************************************************************************************/
-	public function createTable($table, $condition);
+	public function createTable($table, $condition, $extras);
 	
 	/******************************************************************************************
 	* DROP TABLE                                                                              *

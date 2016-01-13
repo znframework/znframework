@@ -40,6 +40,16 @@ trait JqueryTrait
 		return $code;
 	}
 	
+	protected function _nailConvert($str, $nail = '"')
+	{
+		if( $nail === '"')
+		{
+			$str = str_replace('"', "'", $str);
+		}
+		
+		return $str;
+	}
+	
 	/******************************************************************************************
 	* SELECTOR                                                                                *
 	*******************************************************************************************
@@ -144,52 +154,6 @@ trait JqueryTrait
 	}
 	
 	/******************************************************************************************
-	* IS BOOL                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Parametrenin string mantıksal veri olup olmadığı kontrol ediliyor. 	  |
-	
-	  @param string $data
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	protected function _isBool($data)
-	{
-		$data = strtolower($data);
-		
-		if( $data === "true" || $data === "false" )
-		{
-			return true;	
-		}
-		else
-		{
-			return false;	
-		}
-	}
-	
-	/******************************************************************************************
-	* IS JSON                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Parametrenin Json ver türü olup olmadığı kontrol ediliyor.    		  |
-	
-	  @param string $data
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	protected function _isJson($data)
-	{
-		if( preg_match('/\{.+\:.+\}/', $data) )
-		{
-			return true;	
-		}
-		else
-		{
-			return false;	
-		}
-	}
-	
-	/******************************************************************************************
 	* IS FUNC                                                                                 *
 	*******************************************************************************************
 	| Genel Kullanım: Parametrenin fonksiyon olup olmadığı kontrol ediliyor. 	    		  |
@@ -202,6 +166,28 @@ trait JqueryTrait
 	protected function _isFunc($data)
 	{
 		if( preg_match('/function.*\(.*\)/', $data) )
+		{
+			return true;	
+		}
+		else
+		{
+			return false;	
+		}
+	}
+	
+	/******************************************************************************************
+	* IS JQUERY                                                                               *
+	*******************************************************************************************
+	| Genel Kullanım: Parametrenin fonksiyon olup olmadığı kontrol ediliyor. 	    		  |
+	
+	  @param array $array
+	  
+	  @return string
+	|          																				  |
+	******************************************************************************************/
+	protected function _isJquery($data)
+	{
+		if( preg_match('/(\$|jQuery)(\.\w+)*\(.*\)/i', $data) )
 		{
 			return true;	
 		}
@@ -231,14 +217,14 @@ trait JqueryTrait
 			$object .= "{";
 			if( ! empty($array)) foreach($array as $k => $v)
 			{
-				$object .= $k.":".$this->_isCode($v).", ";
+				$object .= $k.":".$v.", ";
 			}
 			$object  = substr($object, 0, -2);
 			$object .= "}";
 		}
 		else
 		{
-			$object = eol()."\"$array\"";	
+			$object = EOL."\"$array\"";	
 		}
 		
 		return $object;
@@ -264,7 +250,7 @@ trait JqueryTrait
 			{
 				if( ! empty($v) )
 				{
-					$implode .= $this->_isCode($v).",";
+					$implode .= JQ::stringControl($v).",";
 				}
 			}
 			
@@ -274,36 +260,10 @@ trait JqueryTrait
 		{
 			if( ! empty($array) )
 			{
-				$implode = $this->_isCode($array);
+				$implode = JQ::stringControl($array);
 			}	
 		}
 		
 		return $implode;
-	}
-	
-	/******************************************************************************************
-	* CDE                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Parametrenin ne tür veri içerdiğinin kontrolü yapılır. 	    		  |
-	
-	  @param string $code
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	protected function _isCode($code)
-	{
-		$cd = '';
-		
-		if( is_numeric($code) || $this->_isBool($code) || $this->_isJson($code) || $this->_isFunc($code) ) 
-		{
-			$cd = $code;
-		}
-		else 
-		{
-			$cd = "\"$code\"";
-		}
-		
-		return $cd;
 	}
 }

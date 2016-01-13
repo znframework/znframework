@@ -68,6 +68,14 @@ class OdbcDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('odbc_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Microsoft Access(ODBC)'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -196,7 +204,7 @@ class OdbcDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -205,14 +213,21 @@ class OdbcDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $index = 1, $c = $this->num_fields(); $i < $c; $i++, $index++)
+		for ($i = 0, $index = 1, $c = $this->numFields(); $i < $c; $i++, $index++)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= odbc_field_name($this->query, $index);
-			$columns[$i]->type			= odbc_field_type($this->query, $index);
-			$columns[$i]->maxLength		= odbc_field_len($this->query, $index);
-			$columns[$i]->primaryKey	= 0;
-			$columns[$i]->default		= '';
+			$fieldName = odbc_field_name($this->query, $index);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= odbc_field_type($this->query, $index);
+			$columns[$fieldName]->maxLength		= odbc_field_len($this->query, $index);
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -357,7 +372,7 @@ class OdbcDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = odbc_fetch_array($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -380,7 +395,7 @@ class OdbcDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = odbc_fetch_array($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -401,7 +416,7 @@ class OdbcDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = odbc_fetch_array($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

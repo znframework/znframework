@@ -81,7 +81,14 @@ class Config
 		{
 			if( ! empty(self::$setConfigs[$file]) ) foreach( self::$setConfigs[$file] as $k => $v )
 			{
-				self::$config[$file][$k] = self::$setConfigs[$file][$k];
+				if( isset(self::$config[$file][$k]) && is_array(self::$config[$file][$k]) )
+				{
+					self::$config[$file][$k] = array_merge(self::$config[$file][$k], self::$setConfigs[$file][$k]);
+				}
+				else
+				{
+					self::$config[$file][$k] = self::$setConfigs[$file][$k];
+				}
 			}
 		}
 		

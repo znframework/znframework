@@ -68,6 +68,14 @@ class Oci8Driver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('oci_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Oracle 8'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -236,7 +244,7 @@ class Oci8Driver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -245,13 +253,21 @@ class Oci8Driver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 1, $c = $this->num_fields(); $i <= $c; $i++)
+		for ($i = 1, $c = $this->numFields(); $i <= $c; $i++)
 		{
-			$field				= new stdClass();
-			$field->name		= oci_field_name($this->query, $i);
-			$field->type		= oci_field_type($this->query, $i);
-			$field->maxLength	= oci_field_size($this->query, $i);
-			$columns[] 			= $field;
+			$fieldName = oci_field_name($this->query, $i);
+			
+			$columns[$fieldName] 		    	= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= oci_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= oci_field_size($this->query, $i);
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -312,7 +328,7 @@ class Oci8Driver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function renameColumn()
 	{ 
-		return 'RENAME COLUMN '; 
+		return 'RENAME COLUMN TO'; 
 	}
 	
 	/******************************************************************************************
@@ -401,7 +417,7 @@ class Oci8Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = oci_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -424,7 +440,7 @@ class Oci8Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = oci_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -445,7 +461,7 @@ class Oci8Driver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = oci_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

@@ -76,6 +76,14 @@ class IbaseDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('ibase_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'InterBase(ibase)'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -214,7 +222,7 @@ class IbaseDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -223,14 +231,22 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$info = ibase_field_info($this->query, $i);
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $info['name'];
-			$columns[$i]->type			= $info['type'];
-			$columns[$i]->maxLength		= $info['length'];
-			$columns[$i]->primaryKey	= false;
+			$info      = ibase_field_info($this->query, $i);
+			$fieldName = $info['name'];
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $info['type'];
+			$columns[$fieldName]->maxLength		= $info['length'];
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -390,7 +406,7 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = ibase_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -413,7 +429,7 @@ class IbaseDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = ibase_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -434,7 +450,7 @@ class IbaseDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = ibase_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

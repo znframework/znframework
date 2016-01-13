@@ -62,12 +62,9 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
+		Session::start();
 		
-		$this->config = Config::get("Cookie");	
+		$this->config = Config::get('Services', 'cookie');	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

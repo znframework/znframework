@@ -23,18 +23,15 @@
 //----------------------------------------------------------------------------------------------------
 function getLang()
 {
-	if( ! isset($_SESSION) ) 
-	{
-		session_start();
-	}
+	$systemLanguageData = md5("SystemLanguageData");
 	
-	if( ! isset($_SESSION[md5("lang")]) ) 
+	if( Session::select($systemLanguageData) === false ) 
 	{
-		return $_SESSION[md5("lang")] = Config::get('Language', 'default');
+		return Session::insert($systemLanguageData, Config::get('Language', 'default'));
 	}
 	else
 	{ 
-		return $_SESSION[md5("lang")];
+		return Session::select($systemLanguageData);
 	}
 }
 
@@ -59,12 +56,7 @@ function setLang($l = '')
 		$l = Config::get('Language', 'default');	
 	}
 	
-	if( ! isset($_SESSION) ) 
-	{
-		session_start();
-	}
-	
-	$_SESSION[md5("lang")] = $l;
+	Session::insert(md5("SystemLanguageData"), $l);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -166,11 +158,6 @@ function lang($file = '', $str = '', $changed = '')
 //----------------------------------------------------------------------------------------------------
 function currentLang()
 {
-	if( ! isset($_SESSION) ) 
-	{
-		session_start();
-	}
-	
 	if( ! Config::get("Uri","lang") ) 
 	{
 		return false;
@@ -297,6 +284,11 @@ function baseUrl($uri = '', $index = 0)
 //----------------------------------------------------------------------------------------------------	
 function prevUrl()
 {
+	if( ! isset($_SERVER['HTTP_REFERER']) )
+	{
+		return false;
+	}
+	
  	$str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "", $_SERVER['HTTP_REFERER']);
 	
 	if( currentLang() )
@@ -309,7 +301,7 @@ function prevUrl()
 }
 
 //----------------------------------------------------------------------------------------------------
-// hostName()
+// hostUrl()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sitenin bulunduğu sunucunun adresini verir.
@@ -317,7 +309,7 @@ function prevUrl()
 // Dönen Değerler: Bir önceki gelinen sayfanın url adresini döndürür. http://sunucuadi/
 //          																				  
 //----------------------------------------------------------------------------------------------------	
-function hostName($uri = "")
+function hostUrl($uri = "")
 {	
 	if( ! is_string($uri) ) 
 	{
@@ -346,9 +338,9 @@ function currentPath($isPath = true)
 	
 	$currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
 	
-	if( $currentPagePath[0] === "/" )
+	if( isset($currentPagePath[0]) && $currentPagePath[0] === "/" )
 	{
-		$currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath)-1);
+		$currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
 	}
 	
 	if( $isPath === true )
@@ -423,6 +415,11 @@ function basePath($uri = '', $index = 0)
 //----------------------------------------------------------------------------------------------------	
 function prevPath($isPath = true)
 {
+	if( ! isset($_SERVER['HTTP_REFERER']) )
+	{
+		return false;
+	}
+	
 	if( ! is_bool($isPath) ) 
 	{
 		$isPath = true;
@@ -514,14 +511,9 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 	
 	if( ! empty($data) )
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
 		foreach( $data as $k => $v )
 		{
-			$_SESSION[md5('redirect:'.$k)] = $v;	
+			Session::insert('redirect:'.$k, $v);	
 		}		
 	}
 	
@@ -549,21 +541,14 @@ function redirect($url = '', $time = 0, $data = array(), $exit = true)
 //----------------------------------------------------------------------------------------------------
 function redirectData($k = '')
 {
-	if( ! is_string($k) ) 
+	if( ! is_scalar($k) ) 
 	{
 		return false;
 	}
 	
-	if( ! isset($_SESSION) ) 
+	if( $data = Session::select('redirect:'.$k) ) 
 	{
-		session_start();
-	}
-	
-	$data = md5('redirect:'.$k);
-	
-	if( isset($_SESSION[$data]) ) 
-	{
-		return $_SESSION[$data];
+		return $data;
 	}
 	else
 	{
@@ -584,21 +569,11 @@ function redirectDeleteData($data = '')
 {
 	if( is_array($data) ) foreach( $data as $v )
 	{
-		$v = md5('redirect:'.$v);
-	
-		if( isset($_SESSION[$v]) )
-		{
-			unset($_SESSION[$v]);
-		}	
+		Session::delete('redirect:'.$v);	
 	}
 	else
 	{
-		$data = md5('redirect:'.$data);
-		
-		if( isset($_SESSION[$data]) )
-		{
-			unset($_SESSION[$data]);
-		}
+		Session::delete('redirect:'.$data);
 	}
 }
 
@@ -871,12 +846,12 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 		$destination = str_replace(' ', '-', $subject);
 	}
 	
-	$logDir    = APPDIR.'Logs/';
+	$logDir    = STORAGE_DIR.'Logs/';
 	$extension = '.log';
 	
 	if( ! is_dir($logDir) )
 	{
-		Folder::create($logDir, 0777);	
+		Folder::create($logDir, 0644);	
 	}
 	
 	if( is_file($logDir.suffix($destination, $extension)) )
@@ -896,8 +871,86 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 		}
 	}
 
-	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.date('d.m.Y h:i:s')." | Message: ".$message.eol();
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}')." | Message: ".$message.EOL;
 	error_log($message, 3, $logDir.suffix($destination, $extension));
+}
+
+//----------------------------------------------------------------------------------------------------
+// createRobotsFile()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function createRobotsFile()
+{	
+	$rules = Config::get('Robots', 'rules');
+	
+	$robots = '';
+	
+	if( isArray($rules) ) foreach( $rules as $key => $val )
+	{
+		if( ! is_numeric($key) ) // Tekli Kullanım
+		{
+			switch( $key )
+			{
+				case 'userAgent' :
+					$robots .= ! empty( $val ) ? 'User-agent: '.$val.EOL : '';
+				break;	
+				
+				case 'allow'    :
+				case 'disallow' :
+					if( ! empty($val) ) foreach( $val as $v )
+					{
+						$robots .= ucfirst($key).': '.$v.EOL;	
+					}		
+				break;
+			}
+		}
+		else
+		{
+			if( isArray($val) ) foreach( $val as $r => $v) // Çoklu Kullanım
+			{
+				switch( $r )
+				{
+					case 'userAgent' :
+						$robots .= ! empty( $v ) ? 'User-agent: '.$v.EOL : '';
+					break;	
+					
+					case 'allow'    :
+					case 'disallow' :
+						if( ! empty($v) ) foreach( $v as $vr )
+						{
+							$robots .= ucfirst($r).': '.$vr.EOL;	
+						}		
+					break;
+				}
+			}	
+		}
+	}
+	
+	// robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
+	if( file_exists('robots.txt') )
+	{
+		$getContents = file_get_contents('robots.txt');
+	}
+	else
+	{
+		$getContents = '';
+	}
+	// robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
+	if( trim($robots) === trim($getContents) ) 
+	{
+		return false;
+	}
+	
+	if( ! file_put_contents('robots.txt', trim($robots)) )
+	{
+		Error::set('Error', 'fileNotWrite', 'robots.txt');
+	}
+	
+	unset( $robots );	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -912,7 +965,7 @@ function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = Config::get('Cache');
-	$eol    = eol();
+	$eol    = EOL;
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
@@ -1062,12 +1115,12 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
 		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.$eol;
-		$htaccess .= "</IfModule>";
+		$htaccess .= "</IfModule>".$eol;
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
-	$uploadSet = Config::get('Upload');		
+	$uploadSet = Config::get('FileSystem', 'upload');		
 	
 	if( ! empty($uploadSet['setHtaccessFile']) )
 	{
@@ -1080,7 +1133,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
 	//-----------------------SESSION SETTINGS-------------------------------------------------
-	$sessionSet = Config::get('Session');	
+	$sessionSet = Config::get('Services', 'session');	
 			
 	if( ! empty($sessionSet['setHtaccessFile']) )
 	{

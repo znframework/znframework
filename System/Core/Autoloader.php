@@ -179,7 +179,7 @@ class Autoloader
 			isset($configClassMap['classes']) ? $configClassMap['classes'] : array()
 		);
 		
-		$eol  = eol();
+		$eol  = EOL;
 		
 		// Config/ClassMap.php 
 		$path = CONFIG_DIR.'ClassMap.php';
@@ -228,10 +228,7 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
 		// ----------------------------------------------------------------------------------------	
-		if( ! file_put_contents($path, $classMapPage, FILE_APPEND) )
-		{
-			die(getErrorMessage('Error', 'fileNotWrite', $path));
-		}
+		file_put_contents($path, $classMapPage, FILE_APPEND);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -472,7 +469,7 @@ class Autoloader
 		
 		$staticAccessDirectory = SYSTEM_DIR.'StaticAccess/';
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		if( ! empty($files) ) foreach( $files as $v )
 		{
@@ -527,7 +524,7 @@ class Autoloader
 						
 						if( ! is_dir($dir) )
 						{
-							mkdir($dir, 0777, true);
+							mkdir($dir, 0644, true);
 						}
 						
 						// Oluşturulacak dizinin var olup olmadığı
@@ -535,7 +532,7 @@ class Autoloader
 						if( ! is_dir($newDir) )
 						{
 							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
-							mkdir($newDir, 0777, true);
+							mkdir($newDir, 0644, true);
 						}
 						
 						$path = suffix($newDir).$classInfo['class'].'.php';
@@ -554,10 +551,7 @@ class Autoloader
 							$classContent .= "\t".'}'.$eol;
 							$classContent .= '}';
 						
-							if( ! file_put_contents($path, $classContent) );
-							{
-								die(getErrorMessage('Error', 'fileNotWrite', $path));
-							}
+							file_put_contents($path, $classContent);
 						}
 						
 						$classes['classes'][strtolower($newClassName)] = $path;

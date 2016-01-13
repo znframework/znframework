@@ -68,6 +68,14 @@ class MysqlDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('mysql_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Mysql'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -212,7 +220,7 @@ class MysqlDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -221,13 +229,21 @@ class MysqlDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= mysql_field_name($this->query, $i);
-			$columns[$i]->type			= mysql_field_type($this->query, $i);
-			$columns[$i]->maxLength		= mysql_field_len($this->query, $i);
-			$columns[$i]->primaryKey	= (int) (strpos(mysql_field_flags($this->query, $i), 'primary_key') !== false);
+			$fieldName = mysql_field_name($this->query, $i);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= mysql_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= mysql_field_len($this->query, $i);
+			$columns[$fieldName]->primaryKey	= (int) (stripos(mysql_field_flags($this->query, $i), 'primary_key') !== false);
+			$columns[$fieldName]->default		= '';
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -380,7 +396,7 @@ class MysqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -403,7 +419,7 @@ class MysqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -424,7 +440,7 @@ class MysqlDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = mysql_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

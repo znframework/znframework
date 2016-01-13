@@ -74,11 +74,11 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	public function __construct()
 	{
 		// Ayarlar alınıyor...
-		$this->config     = Config::get('Record');
+		$this->config     = Config::get('FileSystem', 'record');
 		// Ana dizin belirleniyor...
-		$this->znrDir     = STORAGE_DIR.'ZNRecords/';
+		$this->znrDir     = STORAGE_DIR.'Records/';
 		// Güvenlik eki olşturuluyor...
-		$this->secureFix .= eol();
+		$this->secureFix .= EOL;
 		
 		$recordName = $this->config['record'];
 		$recordDir  = $this->_recordName($recordName);
@@ -128,13 +128,13 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// ZNRecords/ ana dizini yoksa oluştur.
 		if( ! is_dir($this->znrDir) )
 		{
-			Folder::create($this->znrDir, 0777, true);	
+			Folder::create($this->znrDir, 0644, true);	
 		}
 		
 		// Dahan nce bu dizinden yoksa oluştur.
 		if( ! is_dir($this->znrDir.$recordName) )
 		{
-			Folder::create($this->znrDir.$recordName, 0777, true);
+			Folder::create($this->znrDir.$recordName, 0644, true);
 		}
 		else
 		{
@@ -393,6 +393,21 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	}
 	
 	/******************************************************************************************
+	* JSON                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu sonucu kayıt bilgilerini verir.     			   		          |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: ->resultJson();              			                                  |
+	|          																				  |
+	******************************************************************************************/
+	public function resultJson()
+	{ 
+		return json_encode($this->result());	
+	}
+	
+	/******************************************************************************************
 	* RESULT ARRAY                                                                        	  *
 	*******************************************************************************************
 	| Genel Kullanım: Array veri türünde sonuçları listeler.  							      |
@@ -488,6 +503,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! empty($this->table) )
 		{
+
 			$data  = $table;
 			$table = $this->table;	
 			$this->table = NULL;

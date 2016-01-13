@@ -126,7 +126,7 @@ $config['Masterpage']['plugin'] = array
 // yazmanız yeterlidir.								  			 					 	  	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['font'] = array();
+$config['Masterpage']['font'] = array(); // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Style
@@ -138,7 +138,7 @@ $config['Masterpage']['font'] = array();
 // dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.							  	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['style'] = array();
+$config['Masterpage']['style'] = array(); // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Script
@@ -148,7 +148,7 @@ $config['Masterpage']['style'] = array();
 // Resources/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.	      	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['script'] = array();
+$config['Masterpage']['script'] = array(); // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Title

@@ -68,6 +68,14 @@ class MysqliDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('mysqli_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Mysqli'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -214,24 +222,31 @@ class MysqliDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
 			return false;
 		}
 		
-		$columns = array();
-		$field_data = mysqli_fetch_fields($this->query);
+		$columns   = array();
+		$fieldData = mysqli_fetch_fields($this->query);
 		
-		for ($i = 0, $c = count($field_data); $i < $c; $i++)
+		for ($i = 0, $c = count($fieldData); $i < $c; $i++)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $field_data[$i]->name;
-			$columns[$i]->type			= $field_data[$i]->type;
-			$columns[$i]->maxLength		= $field_data[$i]->max_length;
-			$columns[$i]->primaryKey	= (int) ($field_data[$i]->flags & 2);
-			$columns[$i]->default		= $field_data[$i]->def;
+			$fieldName = $fieldData[$i]->name;
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $fieldData[$i]->type;
+			$columns[$fieldName]->maxLength		= $fieldData[$i]->max_length;
+			$columns[$fieldName]->primaryKey	= (int) ($fieldData[$i]->flags & 2);
+			$columns[$fieldName]->default		= $fieldData[$i]->def;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -340,8 +355,8 @@ class MysqliDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
-		$fields = mysqli_fetch_fields($this->query);
+		$columns    = array();
+		$fields     = mysqli_fetch_fields($this->query);
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
@@ -385,7 +400,7 @@ class MysqliDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysqli_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -408,7 +423,7 @@ class MysqliDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mysqli_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -427,7 +442,7 @@ class MysqliDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			$data = mysqli_fetch_assoc($this->query);
+			$data = $this->fetchAssoc();
 			
 			return (object)$data;
 		}

@@ -235,7 +235,7 @@ class JQAnimate
 	{
 		$combineAnimation = func_get_args();
 		
-		$animate  = eol()."\t".JQ::selector($this->selector);
+		$animate  = EOL."\t".JQ::selector($this->selector);
 		
 		$animate .= $this->complete();
 		
@@ -244,7 +244,7 @@ class JQAnimate
 			$animate .= $animation;
 		}
 	
-		$animate .= ";".eol();
+		$animate .= ";".EOL;
 			
 		return $this->_tag($animate);
 	}
@@ -261,9 +261,9 @@ class JQAnimate
 	******************************************************************************************/
 	protected function _defaultVariable()
 	{
-		if( ! empty($this->easing)) 	$this->easing = array();
-		if( ! empty($this->callback))  	$this->callback = '';
-		if($this->selector !== 'this')  $this->selector = 'this';
-		if( ! empty($this->attr))  		$this->attr = '';
+		$this->easing = array();
+		$this->callback = '';
+		$this->selector = 'this';
+		$this->attr = '';
 	}
 }

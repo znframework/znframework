@@ -10,6 +10,16 @@
 //
 //----------------------------------------------------------------------------------------------------
 
+
+//----------------------------------------------------------------------------------------------------
+// Migraion Table                                                                   
+//----------------------------------------------------------------------------------------------------
+//
+// Migration işlemlerinin yapılacağı tablo adı.			      				     			 	  		  
+//
+//----------------------------------------------------------------------------------------------------
+$config['Database']['migrationTable'] = 'migrations';
+
 //----------------------------------------------------------------------------------------------------
 // Driver                                                                           	      
 //----------------------------------------------------------------------------------------------------
@@ -19,9 +29,12 @@
 // Drivers: mysql , mysqli , pdo , odbc , mssql , sqlite , postgre , sqlsrv , sqlite3 , 	  
 // oci8 , ibase , cubrid , fbsql , sybase												  				
 // PDO Sub Drivers = 4d , cubrid , dblib , firebird , ibm , informix , mysql , oci , 	  
-// odbc , pgsql , sqlite , sqlsrv														  
+// odbc , pgsql , sqlite , sqlsrv		
+//												  
 // Pdo Driver Seçili ise alt sürülerini kullanmak için  									  
-// pdo->subdriver. Örnek: pdo->mysql , pdo->dblib			 							  					
+// pdo:subdriver. 
+// Örnek: pdo:mysql , pdo:dblib		
+// Eğer sadece pdo yazılırsa varsayılan olarak pdo::mysql geçerli olcaktır.	 							  					
 //
 //----------------------------------------------------------------------------------------------------
 $config['Database']['driver'] 		= 'mysqli';

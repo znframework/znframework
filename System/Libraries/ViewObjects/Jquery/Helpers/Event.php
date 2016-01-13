@@ -182,6 +182,20 @@ class JQEvent
 		return $this->create();
 	}
 	
+	/* Ready Event
+	 * Params: string @selector, string @callback 
+	 * 
+	 * @selector: ready, @callback: 'alert("example");'
+	 * 
+	 * 'ready', 'function(e){alert("example");}'
+	 */
+	public function ready($selector = '', $callback = '')
+	{
+		$this->_event('ready', $selector, $callback);
+		
+		return $this->create();
+	}
+	
 	/* Unload Event
 	 * Params: string @selector, string @callback 
 	 * 
@@ -651,7 +665,7 @@ class JQEvent
 	{
 		$combineEvent = func_get_args();
 		
-		$event  = eol().JQ::selector($this->selector);
+		$event  = EOL.JQ::selector($this->selector);
 		$event .= $this->complete();
 		if( ! empty($combineEvent))foreach($combineEvent as $e)
 		{			
@@ -670,9 +684,10 @@ class JQEvent
 	 */
 	protected function _defaultVariable()
 	{
-		if($this->selector !== 'this') 	$this->selector = 'this';
-		if($this->type !== '')  		$this->type		= '';
-		if($this->callback !== '')  	$this->callback = '';
-		if($this->property !== 'bind')  $this->property 	= 'bind';
+		$this->selector = 'this';
+		$this->type		= '';
+		$this->callback = '';
+		$this->property = 'bind';
+		$this->params   = '';
 	}
 }

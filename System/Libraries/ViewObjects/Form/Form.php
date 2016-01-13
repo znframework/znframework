@@ -618,7 +618,16 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	public function attr($attr = array())
 	{
-		$this->settings['attr'] = array_merge($this->settings['attr'], $attr);
+		if( isset($this->settings['attr']) && is_array($this->settings['attr']) )
+		{
+			$settings = $this->settings['attr'];	
+		}
+		else
+		{
+			$settings = array();	
+		}
+		
+		$this->settings['attr'] = array_merge($settings, $attr);
 		
 		return $this;
 	}
@@ -796,7 +805,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$_attributes['method'] = 'post';
 		}
 		
-		$return = '<form'.$this->attributes($_attributes).'>'.eol();
+		$return = '<form'.$this->attributes($_attributes).'>'.EOL;
 		
 		$this->settings = array();	
 		
@@ -816,7 +825,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	******************************************************************************************/	
 	public function close()
 	{
-		return '</form>'.eol();
+		return '</form>'.EOL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1087,9 +1096,9 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	******************************************************************************************/	
 	public function textArea($name = "", $value = "", $_attributes = '')
 	{
-		if( isset($this->settings['attr']['name']) )
+		if( ! isset($this->settings['attr']['name']) && ! empty($name) )
 		{
-			$name = $this->settings['attr']['name'];
+			$this->settings['attr']['name'] = $name;
 		}
 		
 		if( isset($this->settings['attr']['value']) )
@@ -1101,12 +1110,12 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( isset($this->settings['attr']) )
 		{
-			$_attributes = $this->settings['attr'];
+			$_attributes = array_merge($_attributes, $this->settings['attr']);
 		}
 		
 		$this->settings = array();	
 		
-		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.eol();
+		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
 	}
 	
 	/******************************************************************************************
@@ -1278,7 +1287,14 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	public function option($key = '', $value = '')
 	{
-		$this->settings['option'][$key] = $value;
+		if( is_array($key) )
+		{
+			$this->settings['option'] = $key;	
+		}
+		else
+		{
+			$this->settings['option'][$key] = $value;
+		}
 		
 		return $this;
 	}
@@ -1301,11 +1317,11 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	|	 </select>   		      															  |
 	|          																				  |
 	******************************************************************************************/	
-	public function select($name = '', $options = array(), $selected = '', $_attributes = '', $multiple = false)
+	public function select($name = '', $options = array(), $selected = '', $_attributes = array(), $multiple = false)
 	{
 		if( isset($this->settings['attr']) )
 		{
-			$_attributes = $this->settings['attr'];
+			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
 		}
 		
 		if( isset($this->settings['option']) )
@@ -1334,25 +1350,40 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( $name !== '' )
 		{
-			$_attributes['name'] ="name";	
+			$_attributes['name'] = $name;	
 		}
 				  
 		$selectbox = '<select'.$this->attributes($_attributes).'>';
 		
 		if( is_array($options) ) foreach( $options as $key => $value )
 		{
-			if( $selected == $key ) 
+			if( is_array($selected) )
 			{
-				$select = 'selected="selected"'; 
+				if( in_array($key, $selected) ) 
+				{
+					$select = 'selected="selected"'; 
+				}
+				else 
+				{
+					$select = "";
+				}
 			}
-			else 
+			else
 			{
-				$select = "";
+				if( $selected == $key ) 
+				{
+					$select = 'selected="selected"'; 
+				}
+				else 
+				{
+					$select = "";
+				}
 			}
-			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.eol();
+			
+			$selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.EOL;
 		}
 		
-		$selectbox .= '</select>'.eol();	
+		$selectbox .= '</select>'.EOL;	
 		
 		$this->settings = array();	
 		
@@ -1463,6 +1494,8 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$value = $this->settings['attr']['value'];
 		}
 		
+		$this->settings = array();
+		
 		$hiddens = NULL;
 		
 		$value = ( ! empty($value) ) 
@@ -1472,14 +1505,12 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		// 1. parametre dizi ise
 		if( is_array($name) ) foreach( $name as $key => $val )
 		{
-			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.eol();	
+			$hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.EOL;	
 		}
 		else
 		{
-			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.eol();
+			$hiddens = 	'<input type="hidden" name="'.$name.'" id="'.$name.'" '.$value.'>'.EOL;
 		}
-		
-		$this->settings = array();	
 		
 		return $hiddens;
 	}	
@@ -1520,6 +1551,8 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$_attributes['multiple'] = 'multiple';	
 			$name = suffix($name, '[]');
 		}
+		
+		$this->settings = array();
 		
 		return $this->_input($name, '', $_attributes, 'file');
 	}

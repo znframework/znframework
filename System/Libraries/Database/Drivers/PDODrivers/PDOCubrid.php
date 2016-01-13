@@ -33,8 +33,6 @@ class PDOCubridDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
 		$dsn  = 'cubrid:host='.( empty($this->config['host']) ) 
 							   ? '127.0.0.1' 
 							   : $this->config['host'];

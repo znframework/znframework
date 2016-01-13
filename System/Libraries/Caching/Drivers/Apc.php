@@ -14,7 +14,7 @@ class ApcDriver implements CacheInterface
 	{
 		if( $this->isSupported() === false )
 		{
-			die(lang('Cache', 'unsupported', 'Apc'));
+			die(getErrorMessage('Cache', 'unsupported', 'Apc'));
 		}	
 	}
 	

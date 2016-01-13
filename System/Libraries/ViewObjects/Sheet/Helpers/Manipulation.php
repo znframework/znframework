@@ -39,9 +39,9 @@ class CSSManipulation
 			return Error::set('Error', 'arrayParameter', 'attr');	
 		}
 
-		$str  = $this->selector."{".eol();	
-		$str .= $this->_attr($attr).eol();
-		$str .= "}".eol();
+		$str  = $this->selector."{".EOL;	
+		$str .= $this->_attr($attr).EOL;
+		$str .= "}".EOL;
 		
 		$this->_defaultVariable();
 		

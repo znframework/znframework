@@ -47,6 +47,11 @@ class Exceptions extends Exception implements ExceptionsInterface
 	******************************************************************************************/	
 	public static function table($no = '', $msg = '', $file = '', $line = '')
 	{
+		$lang    = lang('Error');
+		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
+		
+		report('GeneralError', $message, 'GeneralError');
+		
 		echo self::_template($msg, $file, $line);  
 	}
 	

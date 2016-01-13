@@ -125,6 +125,6 @@ trait HyperTextTrait
 		
 		$this->settings = array();	
 		
-		return '<input type="'.$type.'"'.Html::attributes($_attributes).'>'.eol();
+		return '<input type="'.$type.'"'.Html::attributes($_attributes).'>'.EOL;
 	}
 }

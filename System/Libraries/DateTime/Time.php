@@ -51,6 +51,23 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// Convert
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Tarih bilgisini dönüştürmek için kullanılır.
+	//
+	// @param  string $date
+	// @param  string $format
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function convert($date = '', $format = 'd-m-Y H:i:s')
+	{
+		return strftime($this->_convert('setTimeFormatChars', $format), strtotime($date));	
+	}
+
+	
+	//----------------------------------------------------------------------------------------------------
 	// Standart
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -83,13 +100,7 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 		{
 			return Error::set('Error', 'stringParameter', 'exp');
 		}
-		
-		$chars = $this->config['setTimeFormatChars'];
-		
-		$chars = Arrays::multikey($chars);
-		
-		$setExp = str_ireplace(array_keys($chars), array_values($chars), $exp);
 
-		return strftime($setExp);
+		return strftime($this->_convert('setTimeFormatChars', $exp));
 	}
 }

@@ -33,9 +33,7 @@ class PDOFirebirdDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
-		$dsn  = 'firebird:'.
+		$dsn  = 'firebird:';
 			
 		$dsn .= ( ! empty($this->config['database']) ) 
 				? 'dbname='.$this->config['database'] 

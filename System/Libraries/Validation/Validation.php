@@ -582,12 +582,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		
 		if( in_array('captcha', $config) )
 		{ 
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
-			if( $edit != $_SESSION[md5('captchaCode')] )
+			if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
 			{ 
 				$securityCode 		= lang('Validation', 'captchaCode',$viewName);
 				$messages[$i] 		= $securityCode.'<br>'; $i++;
@@ -624,8 +619,12 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			$pm = "";
 			$pm = $config['oldPassword'];
-	
-			if( Encode::super($edit) != $pm )
+			
+			$encodeType = Config::get('User', 'encode');	
+			
+			$encode = ! empty($encodeType) ? Encode::type($edit, $encodeType) ? $edit; 
+			
+			if( $encode != $pm )
 			{ 
 				$oldPasswordMatch = lang('Validation', 'oldPasswordMatch',$viewName);
 				$messages[$i] 		= $oldPasswordMatch.'<br>'; $i++;

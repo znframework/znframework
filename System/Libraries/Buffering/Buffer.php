@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	//----------------------------------------------------------------------------------------------------
 	// Data Manipulation Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
-
+	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
 	//----------------------------------------------------------------------------------------------------
@@ -127,17 +127,19 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 			return false;
 		}
 		
+		$systemObData = md5('OB_DATAS_'.$name);
+		
 		if( is_callable($data) )
 		{
-			return Session::insert('OB_DATAS_'.$name, $this->func($data, $params));	
+			return Session::insert($systemObData, $this->func($data, $params));	
 		}
 		elseif( file_exists($data) )
 		{
-			return Session::insert('OB_DATAS_'.$name, $this->file($data));	
+			return Session::insert($systemObData, $this->file($data));	
 		}
 		else
 		{
-			return Session::insert('OB_DATAS_'.$name, $data);
+			return Session::insert($systemObData, $data);
 		}
 	}
 	
@@ -156,7 +158,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 			return Error::set('Error', 'valueParameter', 'name');	
 		}
 		
-		return Session::select('OB_DATAS_'.$name);
+		return Session::select(md5('OB_DATAS_'.$name));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -174,7 +176,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 			return Error::set('Error', 'valueParameter', 'name');		
 		}
 		
-		return Session::delete('OB_DATAS_'.$name);
+		return Session::delete(md5('OB_DATAS_'.$name));
 	}
 	
 	//----------------------------------------------------------------------------------------------------

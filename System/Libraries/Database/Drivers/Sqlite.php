@@ -68,6 +68,14 @@ class SqliteDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('sqlite_open') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQLite'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -80,6 +88,7 @@ class SqliteDriver implements DatabaseDriverInterface
 		$this->connect = 	( $this->config['pconnect'] === true )
 							? @sqlite_popen($this->config['database'], 0666, $error)
 							: @sqlite_open($this->config['database'], 0666, $error);
+		
 		
 		if( ! empty($error) ) 
 		{
@@ -194,7 +203,7 @@ class SqliteDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -203,12 +212,21 @@ class SqliteDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= sqlite_field_name($this->query, $i);
-			$columns[$i]->type		= NULL;
-			$columns[$i]->maxLength	= NULL;
+			$fieldName = sqlite_field_name($this->query, $i);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type		 	= NULL;
+			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -360,7 +378,7 @@ class SqliteDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlite_fetch_array($this->query))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = (object)$data;
 		}
@@ -383,7 +401,7 @@ class SqliteDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlite_fetch_array($this->query))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = $data;
 		}
@@ -404,7 +422,7 @@ class SqliteDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = sqlite_fetch_array($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

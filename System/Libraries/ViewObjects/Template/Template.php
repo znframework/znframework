@@ -55,7 +55,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			return Error::set('Error', 'stringParameter', 'string');	
 		}
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		// Veri dizisi boş değilse işlemleri gerçekleştir.
 		if( ! empty($data) ) 

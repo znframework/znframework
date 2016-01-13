@@ -68,7 +68,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	
 	public function __construct()
 	{
-		Config::iniSet(Config::get('Upload','settings'));	
+		Config::iniSet(Config::get('FileSystem', 'upload')['settings']);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -368,6 +368,11 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	// Setting Methods Bitiş
 	//----------------------------------------------------------------------------------------------------
 	
+	protected function _encode()
+	{
+		return substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';	
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Start Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
@@ -460,17 +465,21 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 				
 				$nm = $name[$index];
 				
-				if( $this->settings['encryption'] ) 
-				{
-					if( ! isset($this->settings['prefix']) )
-					{
-						$encryption = substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';
-					}
-				}
-				
 				if( $this->settings['convertName'] === true )
 				{
 					 $nm = Convert::urlWord($nm);	
+				}
+				
+				if( $this->settings['encryption'] ) 
+				{
+					$encryption = $this->_encode();
+				}
+				else
+				{
+					if( is_file($root.'/'.$nm) )
+					{
+						$encryption = $this->_encode();
+					}	
 				}
 				
 				$target = $root.'/'.$encryption.$nm;
@@ -500,14 +509,6 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}	
 		else
 		{	
-			if( $this->settings['encryption'] ) 
-			{
-				if( ! isset($this->settings['prefix']) )
-				{
-					$encryption = substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';
-				}
-			}
-			
 			if( $this->settings['convertName'] === true )
 			{
 				 $name = Convert::urlWord($name);	
@@ -524,8 +525,19 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 				$this->manuelError = 10; 
 				return false;
 			}
-
-
+			
+			if( $this->settings['encryption'] ) 
+			{
+				$encryption = $this->_encode();
+			}
+			else
+			{
+				if( is_file($root.'/'.$name) )
+				{
+					$encryption = $this->_encode();
+				}	
+			}
+		
 			$target = $root.'/'.$encryption.$name;
 			
 			$this->encodeName = $encryption.$name;

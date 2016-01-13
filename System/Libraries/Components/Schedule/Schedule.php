@@ -44,7 +44,7 @@ class __USE_STATIC_ACCESS__Schedule implements ScheduleInterface
 	{
 		static $start;
 		
-		$eof 	 = eol();
+		$eof 	 = EOL;
 		$output  = '';
 		$attrs 	 = '';
 		$tab 	 = str_repeat("\t", $start);

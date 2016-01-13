@@ -94,7 +94,7 @@ interface DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData();
+	public function columnData($col);
 	
 	/******************************************************************************************
 	* BACKUP                                                                                  *

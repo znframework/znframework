@@ -68,6 +68,14 @@ class MssqlDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('mssql_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Microsoft SQL(Mssql)'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -206,7 +214,7 @@ class MssqlDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -215,14 +223,23 @@ class MssqlDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
 			$field = mssql_fetch_field($this->query, $i);
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= $field->name;
-			$columns[$i]->type			= $field->type;
-			$columns[$i]->maxLength		= $field->max_length;
-			$columns[$i]->primaryKey	= false;
+			
+			$fieldName = $field->name;
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $field->type;
+			$columns[$fieldName]->maxLength		= $field->max_length;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -372,7 +389,7 @@ class MssqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mssql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -395,7 +412,7 @@ class MssqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = mssql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -416,7 +433,7 @@ class MssqlDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = mssql_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

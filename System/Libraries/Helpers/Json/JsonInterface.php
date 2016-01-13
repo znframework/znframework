@@ -23,7 +23,7 @@ interface JsonInterface
 	| Genel Kullanım: Belirtilen ayraçlara göre diziyi özel bir veri tipine çeviriyor.        |
 	|															                              |
 	******************************************************************************************/	
-	public function encode($data);
+	public function encode($data, $type);
 	
 	/******************************************************************************************
 	* DECODE                                                                                  *

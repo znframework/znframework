@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------------------------------
-// UPLOAD 
+// LOG 
 //----------------------------------------------------------------------------------------------------
 //
 // Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,32 +11,29 @@
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------
-// Set Htaccess File
+// Create File                                                              		  
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanımı: Değişiklik yapılan ini ayarlarını .htacess dosyasına eklesin mi?		  
-// true olması durumunda alttaki ayarlar .htaccess  dosyasına eklenir.					  
-// false olması durumunda alttaki ayarlar ini_set() yöntemi ile set edilmeye çalışılır.    					
-//
+// Genel Kullanım: Ana dizine robots.txt dosyası oluşturmak içindir.			  														  																	
+//   					  
 //----------------------------------------------------------------------------------------------------
-$config['Upload']['setHtaccessFile'] = false;
+$config['Robots']['createFile'] = false;
 
 //----------------------------------------------------------------------------------------------------
-// Settings
+// Rules
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanımı: Kullanılabilir ini dosya yükleme ayarları.						      					
+// Genel Kullanım: Kurallar oluşturmak için kullanılır. Rules dizisi içerisinde sınırsız sayıda
+// dizilerden oluşan kurallar kullanılabilir. Her bir dizi elemanı için user-agent, allow ve 
+// disallow ayarlanabilir. Birden fazla user-agent kullanılacaksa eleman sayısı artırılabilir.
 //
+// Çoklu Kullanım: array( array('userAgent' => '*', ...), array('userAgent' => '*') ) Dizi türü
+// Tekli Kullanım: array( 'userAgent' => '*' ) Dizge türü 
+//	     					  										  				
 //----------------------------------------------------------------------------------------------------
-$config['Upload']['settings'] = array
+$config['Robots']['rules'] = array
 (
-	'file_uploads' 				=> '', 	// "1"
-	'post_max_size' 			=> '',  // "8M"
-	'upload_max_filesize' 		=> '',  // "2M"
-	'upload_tmp_dir' 			=> '',  // NULL
-	'max_input_nesting_level' 	=> '',	// 64
-	'max_input_vars' 			=> '',	// 1000
-	'max_file_uploads' 			=> '',	// 20	
-	'max_input_time' 			=> '',	// "-1"
-	'max_execution_time' 		=> ''	// "30"
+	'userAgent' => '*',
+	'allow'     => array(),
+	'disallow'  => array()	
 );

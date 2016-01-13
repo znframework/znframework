@@ -50,14 +50,14 @@ class CSSTransform
 	protected function _transform($data)
 	{
 		$str  = '';
-		$str .= $this->selector."{".eol();	
+		$str .= $this->selector."{".EOL;	
 		
 		foreach($this->browsers as $val)
 		{
-			$str .= $val."transform:$data;".eol();
+			$str .= $val."transform:$data;".EOL;
 		}
 		
-		$str .= "}".eol();
+		$str .= "}".EOL;
 		
 		return $str;
 	}

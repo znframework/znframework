@@ -33,9 +33,7 @@ class PDOInformixDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
-		$dsn  = 'informix:host='.
+		$dsn  = 'informix:host=';
 			
 		$dsn .= ( empty($this->config['host']) ) 	
 				? '127.0.0.1' 

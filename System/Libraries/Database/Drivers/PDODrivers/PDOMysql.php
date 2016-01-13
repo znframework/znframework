@@ -33,9 +33,7 @@ class PDOMysqlDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
-		$dsn  = 'mysql:host='.
+		$dsn  = 'mysql:host=';
 			
 		$dsn .= ( empty($this->config['host']) ) 
 				? '127.0.0.1' 

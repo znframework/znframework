@@ -422,11 +422,116 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function where($column = '', $value = '', $logical = '')
 	{
-		$this->where .= $this->_whereHaving($column, $value, $logical);
+		if( isArray($column) )
+		{
+			$columns = func_get_args();
+			
+			foreach( $columns as $col )
+			{
+				$c = isset($col[0]) ? $col[0] : '';
+				$v = isset($col[1]) ? $col[1] : '';
+				$l = isset($col[2]) ? $col[2] : '';
+				
+				$this->where .= $this->_whereHaving($c, $v, $l);	
+			}
+		}
+		else
+		{
+			$this->where .= $this->_whereHaving($column, $value, $logical);
+		}
 		
 		return $this;
 	}
 	
+	/******************************************************************************************
+	* WHERE GROUP                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	protected function _whereHavingGroup($conditions = array())
+	{
+		$getLast = Arrays::getLast($conditions);
+		
+		if( is_string($getLast) )
+		{
+			$conjunction = $getLast;
+			$conditions  = Arrays::removeLast($conditions);
+		}
+		else
+		{
+			$conjunction = '';	
+		}
+		
+		$whereGroup = '';
+		
+		if( is_array($conditions) ) foreach( $conditions as $column )
+		{
+			$col     = isset( $column[0] ) ? $column[0] : '';
+			$value   = isset( $column[1] ) ? $column[1] : '';
+			$logical = isset( $column[2] ) ? $column[2] : '';
+			
+			$whereGroup .= $this->_whereHaving($col, $value, $logical);
+		}
+		
+		return ' ( '.$this->_whereHavingConjuctionClean($whereGroup).' ) '.$conjunction.' ';
+	}
+	
+	/******************************************************************************************
+	* WHERE  GROUP                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function whereGroup()
+	{
+		$this->where .= $this->_whereHavingGroup(func_get_args());
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
+	* WHERE  GROUP                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function havingGroup()
+	{
+		$this->having .= $this->_whereHavingGroup(func_get_args());
+		
+		return $this;
+	}
 	
 	/******************************************************************************************
 	* HAVING                                                                                  *
@@ -448,6 +553,95 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$this->having .= $this->_whereHaving($column, $value, $logical);
 		
 		return $this;
+	}
+	
+	/******************************************************************************************
+	* PROTECTED                                                                               *
+	******************************************************************************************/
+	protected function _whereHavingConjuctionControl($type)
+	{
+		if( ! empty($this->$type) )
+		{
+			$trim  = trim($this->$type);
+			$lower = strtolower($trim);
+			
+			switch( substr($lower, -3) )
+			{
+				case 'and' :
+				case 'xor' :
+				case 'not' :
+				$this->$type = substr($trim, 0, -3);		
+			}
+			
+			switch( substr($lower, -2) )
+			{
+				case 'or' :
+				case '||' :
+				case '&&' :
+				$this->$type = substr($trim, 0, -2);
+			}
+			
+			switch( substr($lower, -1) )
+			{
+				case '!' :
+				$this->$type = substr($trim, 0, -1);
+			}		
+				
+			$return = ' WHERE '.$this->$type; 
+			
+			$this->$type = NULL;
+			
+			return $return;
+		}	
+	}
+	
+	/******************************************************************************************
+	* PROTECTED                                                                               *
+	******************************************************************************************/
+	protected function _whereHavingConjuctionClean($str)
+	{
+		if( ! empty($str) )
+		{
+			$str = strtolower(trim($str));
+			
+			switch( substr($str, -3) )
+			{
+				case 'and' :
+				case 'xor' :
+				case 'not' :
+				return substr($str, 0, -3);		
+			}
+			
+			switch( substr($str, -2) )
+			{
+				case 'or' :
+				case '||' :
+				case '&&' :
+				return substr($str, 0, -2);
+			}
+			
+			switch( substr($str, -1) )
+			{
+				case '!' :
+				return substr($str, 0, -1);
+			}		
+		}	
+	}
+	
+	/******************************************************************************************
+	* WHERE                                                                                   *
+	******************************************************************************************/
+	protected function _where()
+	{
+		return $this->_whereHavingConjuctionControl('where');
+	}
+	
+	/******************************************************************************************
+	* HAVING                                                                                  *
+	******************************************************************************************/
+	protected function _having()
+	{
+		return $this->_whereHavingConjuctionControl('having');
 	}
 	
 	/******************************************************************************************
@@ -540,7 +734,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'OUTER');
+		$this->_join($table, $otherColumn, $operator, 'OUTER');
 		
 		return $this;
 	}
@@ -556,7 +750,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'LEFT');
+		$this->_join($table, $otherColumn, $operator, 'LEFT');
 		
 		return $this;
 	}
@@ -572,7 +766,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
 	{
-		$this->_join($table, $column, $otherColumn, $operator, 'RIGHT');
+		$this->_join($table, $otherColumn, $operator, 'RIGHT');
 		
 		return $this;
 	}
@@ -664,18 +858,17 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this; 
 	}
 	
-	/******************************************************************************************
-	* GET                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerini tamamlamak için oluşturulmuştur.				      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. [ string var @table ] => Tablo ismi.form() yöntemine alternatif olarak kullanılabilir|
-	|          																				  |
-	| Örnek Kullanım: ->get('OrnekTablo');        											  |
-	|          																				  |
-	******************************************************************************************/
-	public function get($table = '')
+	//----------------------------------------------------------------------------------------------------
+	// Get
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sorguyu tamamlamak için kullanılır.
+	//
+	// @param  string $table  -> Tablo adı.
+	// @return string $return -> Sorgunun dönüş türü. object, string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function get($table = '', $return = 'object')
 	{
 		if( ! is_string($table) ) 
 		{
@@ -754,61 +947,18 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Sorguyu Temizle
 		$this->_resetSelectQuery();
 		
+		$secureQueryBuilder = $this->_querySecurity($queryBuilder);
+		
+		if( $return === 'string' )
+		{
+			return $secureQueryBuilder;	
+		}
+		
 		// Sorgu
-		$this->db->query($this->_querySecurity($queryBuilder), $this->secure);
+		$this->db->query($secureQueryBuilder, $this->secure);
 		
 		// Sorguyu Dizesini Döndür.
 		return $this;
-	}
-	
-	/******************************************************************************************
-	* WHERE                                                                                   *
-	******************************************************************************************/
-	protected function _where()
-	{
-		if( ! empty($this->where) )
-		{
-			if( strtolower(substr(trim($this->where), -2)) === 'or' )
-			{
-				$this->where = substr(trim($this->where), 0, -2);
-			}
-			
-			if( strtolower(substr(trim($this->where), -3)) === 'and' )
-			{
-				$this->where = substr(trim($this->where), 0, -3);		
-			}
-				
-			$return = ' WHERE '.$this->where; 
-			
-			$this->where = NULL;
-			
-			return $return;
-		}	
-	}
-	
-	/******************************************************************************************
-	* HAVING                                                                                  *
-	******************************************************************************************/
-	protected function _having()
-	{
-		if( ! empty($this->having) ) 
-		{
-			if( strtolower(substr(trim($this->having), -2)) === 'or' )
-			{
-				$this->having = substr(trim($this->having), 0, -2);
-			}
-			
-			if( strtolower(substr(trim($this->having), -3)) === 'and' )
-			{
-				$this->having = substr(trim($this->having), 0, -3);	
-			}
-			
-			$return = ' HAVING '.$this->having;
-			
-			$this->having = NULL;
-			
-			return $return;
-		}
 	}
 	
 	/******************************************************************************************
@@ -851,6 +1001,58 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	// Select Deyimleri Bitiş
 	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get String
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sorguyunun çalıştırılmadan metinsel çıktısını almak için kullanılır.
+	//
+	// @param  string $table -> Tablo adı.
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getString($table = '')
+	{
+		return $this->get($table, 'string');	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Alias
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Veriye takma ad vermek için kullanılır.
+	//
+	// @param  string $string   -> Metin.
+	// @param  string $alias    -> Takma ad.
+	// @param  bool   $brackets -> Parantezlerin olup olmayacağı.
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alias($string = '', $alias = '', $brackets = false)
+	{
+		if( $brackets === true)
+		{
+			$string = DB::brackets($string);
+		}
+		
+		return $string.' AS '.$alias;	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Brackets
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Verinin başına ve sonuna parantez eklemek için kullanılır.
+	//
+	// @param  string $string   -> Metin.
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function brackets($string = '')
+	{
+		return ' ( '.$string.' ) ';
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Fonksiyonları Başlangıç
@@ -1080,10 +1282,81 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public function characterSet($set = '')
+	public function characterSet($set = '', $return = false)
 	{ 
-		$this->characterSet = 'CHARACTER SET '.$set.' ';
-		return $this; 
+		$string = 'CHARACTER SET '.$set.' ';
+		
+		if( $return === false )
+		{
+			$this->characterSet = $string;
+			return $this; 
+		}
+		else
+		{
+			return $string;	
+		}
+	}
+	
+	/******************************************************************************************
+	* CHARACTER SET                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki CHARACTER SET komutunun kullanımıdır.	         	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public function cset($set = '')
+	{ 
+		if( empty($set) )
+		{
+			$set = $this->config['charset'];
+		}
+		
+		return $this->characterSet($set, true);
+	}
+	
+	/******************************************************************************************
+	* CHARACTER SET                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki CHARACTER SET komutunun kullanımıdır.	         	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public function collate($set = '')
+	{ 
+		if( empty($set) )
+		{
+			$set = $this->config['collation'];
+		}
+		
+		return 'COLLATE '.$set.' ';
+	}
+	
+	
+	/******************************************************************************************
+	* CHARACTER SET                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sorgusundaki CHARACTER SET komutunun kullanımıdır.	         	  |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	******************************************************************************************/
+	public function encoding($charset = 'utf8', $collate = 'utf8_general_ci')
+	{ 
+		$encoding = '';
+		
+		if( ! empty($charset) )
+		{
+			$encoding .= $this->cset($charset);
+		}
+		
+		if( ! empty($collate) )
+		{
+			$encoding .= $this->collate($collate);
+		}
+		
+		return $encoding;
 	}
 	
 	/******************************************************************************************
@@ -2031,14 +2304,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu sonucunda tabloya ait sütun bilgilerini almak için kullanılır.	  |
 	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	| Parametreler: Tek parametresi vardır. İsteğe bağlıdır.                                  |
 	|          																				  |
 	| Örnek Kullanım: ->columnData();                			                              |
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{ 
-		return $this->db->columnData(); 
+		return $this->db->columnData($col); 
 	}
 	
 	/******************************************************************************************
@@ -2061,12 +2334,13 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sorgularına göre sayfalama verilerini oluşturur.	          |
 	  
-	  @param  array $settings
-	  @param  bool $output
+	  @param  string $url
+	  @param  array  $settings
+	  @param  bool   $output
 	  @return array veya object
 	|          																				  |
 	******************************************************************************************/
-	public function pagination($settings = array(), $output = true)
+	public function pagination($url = '', $settings = array(), $output = true)
 	{ 
 		if( ! is_array($settings) )
 		{
@@ -2079,6 +2353,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$settings['totalRows'] = $this->totalRows(true);
 		$settings['limit']     = isset($limit) ? $limit : 10;
 		$settings['start']     = isset($start) ? $start : NULL;
+		
+		if( ! empty($url) )
+		{
+			$settings['url'] = $url;	
+		}
 		
 		$return = $output === true
 		        ? Pagination::create(NULL, $settings) 

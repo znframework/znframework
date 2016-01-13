@@ -46,4 +46,21 @@ trait DateTimeTrait
 		
 		setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Convert
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $config
+	// @return string $change
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _convert($config, $change)
+	{
+		$chars = $this->config[$config];
+		
+		$chars = Arrays::multikey($chars);
+		
+		return str_ireplace(array_keys($chars), array_values($chars), $change);
+	}
 }

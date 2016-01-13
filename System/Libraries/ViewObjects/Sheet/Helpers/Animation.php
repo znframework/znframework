@@ -33,7 +33,7 @@ class CSSAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-name:$name;".eol());
+		$this->transitions .= $this->_transitions("animation-name:$name;".EOL);
 		
 		return $this;
 	}
@@ -57,7 +57,7 @@ class CSSAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-direction:$direction;".eol());
+		$this->transitions .= $this->_transitions("animation-direction:$direction;".EOL);
 		
 		return $this;
 	}
@@ -81,7 +81,7 @@ class CSSAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-play-state:$status;".eol());
+		$this->transitions .= $this->_transitions("animation-play-state:$status;".EOL);
 		
 		return $this;
 	}
@@ -105,7 +105,7 @@ class CSSAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".eol());
+		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".EOL);
 		
 		return $this;
 	}
@@ -129,7 +129,7 @@ class CSSAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".eol());
+		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".EOL);
 		
 		return $this;
 	}
@@ -158,7 +158,7 @@ class CSSAnimation
 			$duration = $duration."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-duration:$duration;".eol());
+		$this->transitions .= $this->_transitions("animation-duration:$duration;".EOL);
 		
 		return $this;
 	}
@@ -187,7 +187,7 @@ class CSSAnimation
 			$delay = $delay."s";	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-delay:$delay;".eol());
+		$this->transitions .= $this->_transitions("animation-delay:$delay;".EOL);
 		
 		return $this;
 	}
@@ -211,7 +211,7 @@ class CSSAnimation
 			return $this;	
 		}
 		
-		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".eol());
+		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".EOL);
 		
 		return $this;
 	}

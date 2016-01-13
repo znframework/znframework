@@ -20,7 +20,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	
 	public function __construct()
 	{
-		if( ! isset($_SESSION) ) session_start();
+		Session::start();
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -85,19 +85,16 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		
 		// Sepettin daha önce oluşturulup oluşturulmadığına göre işlemler gerçekleştiriliyor.
-		if( isset($_SESSION[md5('cart')]) )
+		if( $sessionCart = Session::select(md5('SystemCartData')) )
 		{
-			$this->items = $_SESSION[md5('cart')];
-			array_push($this->items, $product);
-			$_SESSION[md5('cart')] = $this->items;
-		}
-		else
-		{
-			array_push($this->items, $product);
-			$_SESSION[md5('cart')] = $this->items;
+			$this->items = $sessionCart;
 		}
 		
-		$this->items = $_SESSION[md5('cart')];
+		array_push($this->items, $product);
+		
+		Session::insert(md5('SystemCartData'), $this->items);
+		
+		$this->items = Session::select(md5('SystemCartData'));
 		
 		return $this->items;
 	}
@@ -112,10 +109,9 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function selectItems()
 	{
-		if( isset($_SESSION[md5('cart')]) )
+		if( $sessionCart = Session::select(md5('SystemCartData')) )
 		{
-			$this->items = $_SESSION[md5('cart')];
-			return $this->items;	
+			return $this->items = $sessionCart;
 		}
 		else
 		{
@@ -149,8 +145,8 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			return Error::set('Error', 'emptyParameter', 'code');
 		}
 		
-		$this->items = ( isset($_SESSION[md5('cart')]) ) 
-		               ? $_SESSION[md5('cart')] 
+		$this->items = ( $sessionCart = Session::select(md5('SystemCartData')) ) 
+		               ? $sessionCart 
 					   : '';
 		
 		if( empty($this->items) ) 
@@ -191,9 +187,9 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function totalItems()
 	{
-		if( isset($_SESSION[md5('cart')]) )
+		if( $sessionCart = Session::select(md5('SystemCartData')) )
 		{
-			$this->items = $_SESSION[md5('cart')];
+			$this->items = $sessionCart;
 			$total_items = 0;
 			
 			if( ! empty($this->items) ) foreach( $this->items as $item )
@@ -224,8 +220,8 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function totalPrices()
 	{
-		$this->items = ( isset($_SESSION[md5('cart')]) ) 
-				       ? $_SESSION[md5('cart')] 
+		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
+				       ? $sessionSelect
 					   : '';
 		
 		if( empty($this->items) )
@@ -241,8 +237,12 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$quantity  = isset($values['quantity']) 
 					   ? $values['quantity'] 
 					   : 1;
-					   
-			$total    += $values['price'] * $quantity;
+			
+			$price = isset($values['price'])
+			       ? $values['price']
+				   : 0;
+			
+			$total    += $price * $quantity;
 		}
 		
 		return $total;
@@ -290,8 +290,8 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			return Error::set('Cart', 'updateArrayParameterError');
 		}	
 		
-		$this->items = ( isset($_SESSION[md5('cart')]) ) 
-		               ? $_SESSION[md5('cart')] 
+		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
+				       ? $sessionSelect
 					   : '';
 		
 		if( empty($this->items) ) 
@@ -335,7 +335,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$i++;
 		}
 		
-		$_SESSION[md5('cart')] = $this->items;
+		Session::insert(md5('SystemCartData'), $this->items);
 	}
 	
 	/******************************************************************************************
@@ -363,8 +363,8 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			return Error::set('Cart', 'deleteCodeError');	
 		}
 
-		$this->items = ( isset($_SESSION[md5('cart')]) ) 
-		               ? $_SESSION[md5('cart')] 
+		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
+				       ? $sessionSelect
 					   : '';
 		
 		if( empty($this->items) ) 
@@ -394,7 +394,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$i++;
 		}
 		
-		$_SESSION[md5('cart')] = $this->items;		
+		Session::insert(md5('SystemCartData'), $this->items);		
 	}
 	
 	/******************************************************************************************
@@ -407,10 +407,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function deleteItems()
 	{
-		if( isset($_SESSION[md5('cart')]) )
-		{
-			unset($_SESSION[md5('cart')]);
-		}
+		Session::delete(md5('SystemCartData'));
 	}
 	
 	/******************************************************************************************

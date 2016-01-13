@@ -120,7 +120,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 		if( ! empty($version) )  $this->version  = $version;
 		if( ! empty($encoding) ) $this->encoding = $encoding;
 		
-		$xml  ='<?xml version="'.$this->version.'" encoding="'.$this->encoding.'"?>'.eol();
+		$xml  ='<?xml version="'.$this->version.'" encoding="'.$this->encoding.'"?>'.EOL;
 		$xml .= $this->_document($data, '', 0);	
 		
 		return $xml;
@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 	{
 		static $start;
 		
-		$eof 	 = eol();
+		$eof 	 = EOL;
 		$output  = '';
 		$tab 	 = str_repeat("\t", $start);
 		

@@ -16,6 +16,8 @@ interface PaginationInterface
 	
 	public function limit($limit);
 	
+	public function type($type);
+	
 	public function totalRows($totalRows);
 	
 	public function countLinks($countLinks);

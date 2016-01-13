@@ -33,8 +33,6 @@ class PDOSqliteDriver
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = '';
-		
 		$dsn = 'sqlite:';
 			
 		if( ! empty($this->config['database']) )

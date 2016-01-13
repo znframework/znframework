@@ -92,7 +92,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	******************************************************************************************/
 	public function open()
 	{		
-		$script = "<style type=\"$this->type\">".eol();
+		$script = "<style type=\"$this->type\">".EOL;
 		
 		return $script;
 	}
@@ -107,7 +107,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	******************************************************************************************/
 	public function close()
 	{	
-		$script =  '</style>'.eol();
+		$script =  '</style>'.EOL;
 		return $script;
 	}	
 }

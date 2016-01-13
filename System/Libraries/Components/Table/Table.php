@@ -108,11 +108,9 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 		$colNo = 1;
 		$rowNo = 1;
 		$table = '';
-		$eol   = eol();
+		$eol   = EOL;
 		
 		$elements = func_get_args();
-		
-		
 		
 		foreach($elements as $key => $element)
 		{

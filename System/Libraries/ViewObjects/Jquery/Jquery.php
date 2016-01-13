@@ -120,7 +120,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	{
 		$combineFunction = func_get_args();
 		
-		$complete  = eol().JQ::selector($this->selector);
+		$complete  = EOL.JQ::selector($this->selector);
 		
 		$complete .= $this->complete();		
 			

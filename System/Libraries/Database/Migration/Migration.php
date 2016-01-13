@@ -73,12 +73,12 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config = Config::get('Migration');
+		$this->config = Config::get('Database');
 		$this->path   = MODELS_DIR.'Migrations/';
 		
 		if( ! is_dir($this->path) )
 		{
-			library('Folder', 'create', array($this->path, 0777));	
+			library('Folder', 'create', array($this->path, 0644));	
 		}
 		
 		$this->tbl = isset(static::$table)
@@ -245,7 +245,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		$table   = $this->_tableName();
 		$version = $this->_getVersion();
 		
-		DB::insert($this->config['table'], array('name' => $table, 'type' => $type, 'version' => $version, 'date' => Date::set('Ymdhis')));
+		DB::insert($this->config['migrationTable'], array('name' => $table, 'type' => $type, 'version' => $version, 'date' => Date::set('Ymdhis')));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -298,7 +298,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( ! is_file($file) )
 		{	
-			$eol  = eol();
+			$eol  = EOL;
 			$str  = '<?php'.$eol;
 			$str .= 'class '.$this->classFix.$name.' extends '.$this->extendsFix.$eol;
 			$str .= '{'.$eol;
@@ -391,7 +391,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _create()
 	{
-		$table   = $this->config['table'];
+		$table   = $this->config['migrationTable'];
 		
 		DBForge::createTable('IF NOT EXISTS '.$table, array
 		(

@@ -248,17 +248,15 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 			
 		}
 		// ------------------------------------------------------------------------
-		
-		$db = uselib('DB');
-		
+
 		foreach($conditions as $key => $values)
 		{
 			// Tekrarlayan verileri engelle.
-			$db->distinct();
+			DB::distinct();
 			
 			foreach($values as $keys)
 			{	
-				$db->where($keys.$operator, $str, 'OR');
+				DB::where($keys.$operator, $str, 'OR');
 				
 				// Filter dizisi boş değilse
 				// Filtrelere göre verileri çek
@@ -271,28 +269,27 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 						// Ve bağlaçlı filter kullanılmışsa
 						if( $exval[2] === "and" )
 						{
-							$db->where("$exval[0] ", $exval[1], 'AND');	
+							DB::where("$exval[0] ", $exval[1], 'AND');	
 						}
 						
 						// Veya bağlaçlı or_filter kullanılmışsa
 						if( $exval[2] === "or" )
 						{
-							$db->where("$exval[0] ", $exval[1], 'OR');
+							DB::where("$exval[0] ", $exval[1], 'OR');
 						}
 					}	
 				}
 			}
 			
 			// Sonuçları getir.
-			$db->get($key);
+			DB::get($key);
 			
 			// Sonuçları result dizisine yazdır.
-			$this->result[$key] = $db->result();
+			$this->result[$key] = DB::result();
 		}
 		
 		$result = $this->result;
 		
-		$db->close();
 		// Değişkenleri sıfırla
 		$this->result = NULL;
 		$this->type   = NULL;

@@ -22,31 +22,38 @@ class __USE_STATIC_ACCESS__JQ
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Property
+	// String Control
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @var  string
+	// Metnin string olup olmadığı ayırt etmek için kullanılır. Parametre başında : nokta ile belirtilirse
+	// verinin string olmadığı hiç bir şey belirtilmezse string veri olduğu anlaşılır. Bu durumda
+	// metin için başına ve sonuna tırnak işaretleri kullanmanız gerekmez.
+	//
+	// @param  string $code
+	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $property = '';
-	
-	//----------------------------------------------------------------------------------------------------
-	// Func
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var  string
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $func = '';
-	
-	//----------------------------------------------------------------------------------------------------
-	// Attr
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var  string
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $attr = '';
+	public function stringControl($code = '')
+	{
+		if( $code[0] === ':' )
+		{
+			$return = substr($code, 1);
+		}
+		elseif( $code[0] === '"' || $code[0] === "'" )
+		{
+			$return = $code;	
+		}
+		elseif( $this->_isKeySelector($code) || $this->_isFunc($code) || $this->_isJquery($code) )
+		{
+			$return = $code;
+		}
+		else
+		{
+			$return = "\"".$this->_nailConvert($code)."\"";
+		}	
+		
+		return $return;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Selector
@@ -70,15 +77,8 @@ class __USE_STATIC_ACCESS__JQ
 		{
 			$selector = 'this';	
 		}
-		
-		if( $this->_isKeySelector($selector) )
-		{
-			$code = $selector;	
-		}
-		else
-		{
-			$code = "\"$selector\"";	
-		}
+
+		$code = $this->stringControl($selector);
 		
 		return "$($code)";
 	}
@@ -169,7 +169,14 @@ class __USE_STATIC_ACCESS__JQ
 			$params[] = array($this->func('e', $callback));
 		}
 		
-		return $this->selector($selector).$this->property($property, $params, $comma);		   
+		$select = '';
+		
+		if( ! empty($selector) )
+		{
+			$select = $this->selector($selector);	
+		}
+		
+		return $select.$this->property($property, $params, $comma);		   
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -373,6 +380,38 @@ class __USE_STATIC_ACCESS__JQ
 	public function attr($selector = '', $params = array(), $comma = true)
 	{
 		return $this->combine($selector, 'attr', $params, '', $comma);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Prop
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param mixed  $params
+	// @param bool   $comma false
+	//  
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function prop($selector = '', $params = array(), $comma = true)
+	{
+		return $this->combine($selector, 'prop', $params, '', $comma);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// removeAttr
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param mixed  $params
+	// @param bool   $comma false
+	//  
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function removeAttr($selector = '', $params = array(), $comma = true)
+	{
+		return $this->combine($selector, 'removeAttr', $params, '', $comma);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

@@ -67,6 +67,14 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	);
 	
 	use DatabaseDriverTrait;
+	
+	public function __construct()
+	{
+		if( ! function_exists('sqlsrv_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQL Server'));	
+		}	
+	}
 
 	/******************************************************************************************
 	* CONNECT                                                                                 *
@@ -205,7 +213,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -214,12 +222,21 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		foreach (sqlsrv_field_metadata($this->query) as $i => $field)
+		foreach( sqlsrv_field_metadata($this->query) as $field )
 		{
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= $field['Name'];
-			$columns[$i]->type		= $field['Type'];
-			$columns[$i]->maxLength	= $field['Size'];
+			$fieldName = $field['Name'];
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $field['Type'];
+			$columns[$fieldName]->maxLength		= $field['Size'];
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -281,7 +298,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function renameColumn()
 	{ 
-		return 'RENAME COLUMN '; 
+		return 'RENAME COLUMN TO'; 
 	}
 	
 	/******************************************************************************************
@@ -371,7 +388,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlsrv_fetch_array($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -394,7 +411,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -415,7 +432,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

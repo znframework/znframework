@@ -106,6 +106,14 @@ class PdoDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! extension_loaded('PDO') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'PDO'));	
+		}
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -116,9 +124,9 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		$this->config = $config;
 		
-		if( strstr($this->config['driver'], '->') )
+		if( strstr($this->config['driver'], ':') )
 		{
-			$subdrivers = explode('->', $this->config['driver']);
+			$subdrivers = explode(":", $this->config['driver']);
 			$this->select_driver  = $subdrivers[1];
 		}
 		
@@ -257,32 +265,35 @@ class PdoDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
 			return false;
 		}
 		
-		try
+		$columns = array();
+		
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns = array();
+			$field     = $this->query->getColumnMeta($i);
+			$fieldName = $field['name'];
 			
-			for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-			{
-				$field = $this->query->getColumnMeta($i);
-				$columns[$i]				= new stdClass();
-				$columns[$i]->name			= $field['name'];
-				$columns[$i]->type			= $field['native_type'];
-				$columns[$i]->maxLength		= ($field['len'] > 0) ? $field['len'] : NULL;
-				$columns[$i]->primaryKey	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
-			}
-			return $columns;
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= $field['native_type'];
+			$columns[$fieldName]->maxLength		= ($field['len'] > 0) ? $field['len'] : NULL;
+			$columns[$fieldName]->primaryKey	= (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
+			$columns[$fieldName]->default		= NULL;
 		}
-		catch (Exception $e)
+		
+		if( isset($columns[$col]) )
 		{
-			return false;
+			return $columns[$col];
 		}
+		
+		return $columns;
+	
 	}
 	
 	/******************************************************************************************
@@ -427,7 +438,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetch(PDO::FETCH_ASSOC))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -450,7 +461,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetch(PDO::FETCH_ASSOC))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -472,7 +483,7 @@ class PdoDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = $this->query->fetch(PDO::FETCH_ASSOC);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

@@ -68,6 +68,14 @@ class CubridDriver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! function_exists('cubrid_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Cubrid'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -227,7 +235,7 @@ class CubridDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -236,14 +244,23 @@ class CubridDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= cubrid_field_name($this->query, $i);
-			$columns[$i]->type			= cubrid_field_type($this->query, $i);
-			$columns[$i]->maxLength		= cubrid_field_len($this->query, $i);
-			$columns[$i]->primaryKey	= (int) (strpos(cubrid_field_flags($this->query, $i), 'primary_key') !== false);
+			$fieldName = cubrid_field_name($this->query, $i);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= cubrid_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= cubrid_field_len($this->query, $i);
+			$columns[$fieldName]->primaryKey	= (int) (stripos(cubrid_field_flags($this->query, $i), 'primary_key') !== false);
+			$columns[$fieldName]->default		= NULL;
 		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
+		}
+		
 		return $columns;
 	}
 	
@@ -394,7 +411,7 @@ class CubridDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = cubrid_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -417,7 +434,7 @@ class CubridDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = cubrid_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -438,7 +455,7 @@ class CubridDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = cubrid_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

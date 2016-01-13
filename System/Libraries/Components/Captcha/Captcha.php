@@ -29,13 +29,6 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct()
-	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -530,19 +523,23 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function create($img = false, $configs = array())
-	{
-		$configs = array_merge($this->sets, $configs);
+	{	
+		$config  = Config::get('Components', 'captcha');
+		
+		$configs = array_merge($config, $this->sets, $configs);
 		
 		if( ! empty($configs) )
 		{
-			Config::set('Captcha', $configs);
+			Config::set('Components', 'captcha', $configs);
 		}
 		
-		$set = Config::get("Captcha");
+		$set = Config::get('Components', 'captcha');
 		
-		$_SESSION[md5('captchaCode')] = substr(md5(rand(0,999999999999999)),-($set['charLength']));	
+		$systemCaptchaCodeData = md5('SystemCaptchaCodeData');
+	
+		Session::insert($systemCaptchaCodeData, substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
 		
-		if( isset($_SESSION[md5('captchaCode')]) )
+		if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
 		{
 			if( ! isset($set["width"]) ) $set["width"] 								= 100;
 			if( ! isset($set["height"]) ) $set["height"] 							= 30;
@@ -610,7 +607,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 			//----------------------------------------------------------------------------------------------------------------------
 			
 			// Resim üzerinde görüntülenecek kod bilgisi.
-			@imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"],  $_SESSION[md5('captchaCode')], $fontColor);
+			@imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"], $sessionCaptchaCode, $fontColor);
 			
 			// GRID --------------------------------------------------------------------------------------
 			if( $set["grid"] === true )
@@ -704,14 +701,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function getCode()
 	{
-		if( isset($_SESSION[md5('captchaCode')]) )
-		{
-			return $_SESSION[md5('captchaCode')];
-		}
-		else
-		{
-			return false;	
-		}
+		return Session::select(md5('SystemCaptchaCodeData'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------

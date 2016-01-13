@@ -68,6 +68,14 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	
 	use DatabaseDriverTrait;
 	
+	public function __construct()
+	{
+		if( ! extension_loaded('SQLite3') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQLite3'));	
+		}	
+	}
+	
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -187,14 +195,14 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
 			return false;
 		}
 		
-		static $data_types = array
+		$dataTypes = array
 		(
 			SQLITE3_INTEGER	=> 'integer',
 			SQLITE3_FLOAT	=> 'float',
@@ -205,14 +213,22 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{	
-			$type 					= $this->query->columnType($i);
+			$type 		= $this->query->columnType($i);
+			$fieldName 	= $this->query->columnName($i);
 			
-			$columns[$i]			= new stdClass();
-			$columns[$i]->name		= $this->result_id->columnName($i);		
-			$columns[$i]->type		= isset($data_types[$type]) ? $data_types[$type] : $type;
-			$columns[$i]->maxLength	= NULL;
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
+			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->primaryKey	= NULL;
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -362,7 +378,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetchArray(SQLITE3_ASSOC))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = (object)$data;
 		}
@@ -385,7 +401,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = $this->query->fetchArray(SQLITE3_ASSOC))
+		while($data = $this->fetchAssoc())
 		{
 			$rows[] = $data;
 		}
@@ -407,7 +423,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = $this->query->fetchArray(SQLITE3_ASSOC);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

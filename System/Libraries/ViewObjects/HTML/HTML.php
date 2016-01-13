@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 			$src = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.eol();
+		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.EOL;
 	}
 	
 	// HTML5 içerik eklenebilir medya nesneleri için.
@@ -122,7 +122,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 			$content = '';
 		}
 		
-		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.$content."</$type>".eol();
+		return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.$content."</$type>".EOL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -380,7 +380,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @value = Köprünün görünen değeri.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function anchor($url = '', $value = '', $_attributes = '')
+	public function anchor($url = '', $value = '', $_attributes = array())
 	{
 		if( ! is_string($url) )
 		{
@@ -900,7 +900,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	******************************************************************************************/ 
 	public function keygen($_attributes = '')
 	{
-		return '<keygen'.$this->attributes($_attributes).'>'.eol();
+		return '<keygen'.$this->attributes($_attributes).'>'.EOL;
 	}
 	
 	/******************************************************************************************
@@ -1032,7 +1032,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 			$content = '';
 		}
 		
-		return '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".eol();
+		return '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".EOL;
 	}	
 	
 	//----------------------------------------------------------------------------------------------------

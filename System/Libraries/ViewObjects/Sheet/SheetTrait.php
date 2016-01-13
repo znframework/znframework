@@ -45,7 +45,7 @@ trait SheetTrait
 	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct($tag = false)
 	{
-		$this->browsers = Config::get('Css3', 'browsers');	
+		$this->browsers = Config::get('ViewObjects', 'css3')['browsers'];	
 		
 		$this->tag = $tag;
 	}
@@ -141,7 +141,7 @@ trait SheetTrait
 			$transitions .= "$val$data";
 		}
 		
-		return eol().$transitions;
+		return EOL.$transitions;
 	}
 	
 	/******************************************************************************************
@@ -173,7 +173,7 @@ trait SheetTrait
 		$combineTransitions = func_get_args();
 		
 		$str  = $this->selector."{";	
-		if( ! empty($this->attr) ) $str .= eol().$this->attr.eol();
+		if( ! empty($this->attr) ) $str .= EOL.$this->attr.EOL;
 		$str .= $this->complete();
 		
 		if( ! empty($combineTransitions) ) foreach( $combineTransitions as $transition )
@@ -181,7 +181,7 @@ trait SheetTrait
 			$str .= $transition;
 		}
 	
-		$str .= "}".eol();
+		$str .= "}".EOL;
 		
 		return $this->_tag($str);
 	}

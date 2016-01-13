@@ -404,7 +404,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	{
 		if( ! empty($page) )
 		{
-			$eol    = eol();
+			$eol    = EOL;
 			$return = '';
 			
 			// Tek bir üst sayfa kullanımı için.
@@ -427,6 +427,38 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		return false;
 	}
 	
+	protected function _links($masterPageSet, $head, $type)
+	{
+		$header = '';
+		
+		if( ! empty($masterPageSet[$type]) && is_array($masterPageSet[$type]) )
+		{		
+			$masterPageSet[$type][] = true;			
+			$header .= $this->$type($masterPageSet[$type]);
+		}
+		else
+		{
+			$header .= $this->$type($masterPageSet[$type], true);
+		}
+		
+		if( isset($head[$type]) )
+		{	
+			if( is_string($head[$type]) )
+			{
+				$headLinks = array($head[$type], true);	
+			}
+			else
+			{
+				$head[$type][] = true;
+				
+				$headLinks = $head[$type];
+			}
+						
+			$header .= $this->$type($headLinks);
+		}
+		
+		return $header;
+	}
 	
 	/******************************************************************************************
 	* MASTERPAGE                                                                              *
@@ -458,7 +490,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	
 		$this->parameters = array();
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		//-----------------------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -470,7 +502,6 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		$randomPageVariable = isset($head['bodyPage']) ? $head['bodyPage'] : $masterPageSet['bodyPage'];	
 		$headPage 			= isset($head['headPage']) ? $head['headPage'] : $masterPageSet['headPage'];
-		$footPage 			= isset($head['footPage']) ? $head['footPage'] : $masterPageSet['footPage'];
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -478,7 +509,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/		
 		$docType = isset($head['docType']) ? $head['docType'] : $masterPageSet["docType"];
 		
-		$header  = Config::get('Doctype', $docType).$eol;
+		$header  = Config::get('ViewObjects', 'doctype')[$docType].$eol;
 		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.$eol;
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -565,17 +596,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Fontlar dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( ! empty($masterPageSet["font"]) )
-		{		
-			$masterPageSet['font'][] = true;			
-			$header .= $this->font($masterPageSet["font"], true);
-		}
-		
-		if( isset($head['font']) )
-		{	
-			$head['font'][] = true;				
-			$header .= $this->font($head['font'], true);
-		}
+		$header .= $this->_links($masterPageSet, $head, 'font');
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -583,17 +604,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Javascript kodları dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( is_array($masterPageSet['script']) )
-		{
-			$masterPageSet['script'][] = true;
-			$header .= $this->script($masterPageSet['script'], true);
-		}
-		
-		if( isset($head['script']) )
-		{
-			$head['script'][] = true;
-			$header .= $this->script($head['script'], true);
-		}
+		$header .= $this->_links($masterPageSet, $head, 'script');
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -601,17 +612,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Stiller dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		if( is_array($masterPageSet['style']) )
-		{
-			$masterPageSet['style'][] = true;
-			$header .= $this->style($masterPageSet['style']);
-		}
-		
-		if( isset($head['style']) )
-		{
-			$head['style'][] = true;
-			$header .= $this->style($head['style']);
-		}
+		$header .= $this->_links($masterPageSet, $head, 'style');
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -621,7 +622,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		$browserIcon  = isset($head['browserIcon']) ? $head['browserIcon'] : $masterPageSet["browserIcon"];
 					  
-		if( ! empty($browserIcon) ) 
+		if( ! empty($browserIcon) && is_file($browserIcon) ) 
 		{
 			$header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
 		}
@@ -702,7 +703,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// Arkaplan resmi dahil ediliyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
 		$backgroundImage  = isset($head['backgroundImage']) ? $head['backgroundImage'] : $masterPageSet["backgroundImage"];			  
-		$bgImage 	 	  = ! empty($backgroundImage) ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"' : '';
+		$bgImage 	 	  = ( ! empty($backgroundImage) && is_file($backgroundImage) ) ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"' : '';
 		//-----------------------------------------------------------------------------------------------------
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
@@ -767,7 +768,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		(
 			'arguments' => $arguments,
 			'lastParam' => $lastParam,
-			'cdnLinks'  => array_change_key_case(Config::get('Cdn', $cdn))
+			'cdnLinks'  => array_change_key_case(Config::get('ViewObjects', 'cdn')[$cdn])
 		);
 	}
 	
@@ -787,7 +788,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	******************************************************************************************/
 	public function font()
 	{	
-		$eol	   = eol();
+		$eol	   = EOL;
 		$str       = "<style type='text/css'>".$eol;
 		$args      = $this->_parameters(func_get_args(), 'fonts');		
 		$lastParam = $args->lastParam;
@@ -847,7 +848,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}
 			
 			// FARKLI FONTLAR
-			$differentSet = Config::get('Font', 'differentFontExtensions');
+			$differentSet = Config::get('ViewObjects', 'font')['differentFontExtensions'];
 			
 			if( ! empty($differentSet) )
 			{			
@@ -919,7 +920,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	public function style()
 	{
 		$str       = '';	
-		$eol	   = eol();	
+		$eol	   = EOL;	
 		$args      = $this->_parameters(func_get_args(), 'styles');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -995,7 +996,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	public function script()
 	{
 		$str 	   = '';	
-		$eol	   = eol();	
+		$eol	   = EOL;	
 		$args      = $this->_parameters(func_get_args(), 'scripts');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
@@ -1082,7 +1083,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 
 		$this->parameters = array();
 		
-		$eol = eol();
+		$eol = EOL;
 		
 		$randomPageVariableExtension = extension($randomPageVariable);
 		$randomPageVariableBaseUrl   = baseUrl($randomPageVariable);
@@ -1104,7 +1105,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{	
 			$return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
 		}
-		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('Font', 'differentFontExtensions')), $randomPageVariableExtension) )
+		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('ViewObjects', 'font')['differentFontExtensions']), $randomPageVariableExtension) )
 		{			
 			$return = '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;				
 		}
@@ -1222,7 +1223,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		$this->parameters = array();
 	
-		$eol = eol();
+		$eol = EOL;
 		
 		$return = '';
 		

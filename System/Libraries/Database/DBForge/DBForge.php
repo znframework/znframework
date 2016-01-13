@@ -10,6 +10,8 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	protected $extras;
+	
 	//----------------------------------------------------------------------------------------------------
 	// Common
 	//----------------------------------------------------------------------------------------------------
@@ -92,6 +94,13 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	// Table Manipulation Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 	
+	public function extras($extras = '')
+	{
+		$this->extras = $extras;
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* CREATE TABLE                                                                            *
 	*******************************************************************************************
@@ -104,14 +113,16 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| Örnek Kullanım: $this->dbforge->createTable('OrnekTablo', array('id' => 'int(11)'));   |
 	|          																				  |
 	******************************************************************************************/
-	public function createTable($table = '', $condition = array())
+	public function createTable($table = '', $condition = array(), $extras = '')
 	{
 		if( ! empty($this->table) ) 
 		{
 			// Table yöntemi tanımlanmış ise
 			// 1. parametre, 2. parametre olarak kullanılsın
+			$extras    = $condition;
 			$condition = $table;
-			$table = $this->table; 
+			$table     = $this->table; 
+			
 			$this->table = NULL;
 		}
 		else
@@ -123,6 +134,13 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		{
 			$condition = $this->column;
 			$this->column = NULL;
+		}
+		
+		if( ! empty($this->extras) )
+		{
+			$extras = $this->extras;
+			
+			$this->extras = NULL;	
 		}
 		
 		if( ! is_string($table) || empty($table) ) 
@@ -155,8 +173,21 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 			
 			$column .= $key.' '.$values.',';
 		}
+		
+		if( isArray($extras) )
+		{
+			$extraCodes = ' '.implode(' ', $extras).';';
+		}
+		elseif( is_string($extras) )
+		{
+			$extraCodes = ' '.$extras.';';	
+		}
+		else
+		{
+			$extraCodes = '';	
+		}
 
-		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')';
+		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$extraCodes;
 	
 		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
@@ -616,6 +647,16 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$con = NULL;
 		
+		if( stristr($renameColumn, 'TO') )
+		{
+			$renameColumn = str_ireplace('TO', '', $renameColumn);
+			$to = ' TO ';	
+		}
+		else
+		{
+			$to = '';	
+		}
+		
 		foreach( $condition as $column => $values )
 		{
 			$colvals = '';
@@ -632,7 +673,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 				$colvals .= ' '.$values;
 			}
 			
-			$con .= $renameColumn.$column.$colvals.',';
+			$con .= $renameColumn.$column.$to.$colvals.',';
 		}		
 		
 		$con = substr($con, 0 , -1);

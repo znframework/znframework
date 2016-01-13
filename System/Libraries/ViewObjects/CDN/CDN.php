@@ -39,7 +39,7 @@ class __USE_STATIC_ACCESS__CDN implements CDNInterface
 			return Error::set('Error', 'stringParameter', 'symbolName');
 		}
 		
-		$data = array_change_key_case(Config::get('Cdn', $configName));
+		$data = array_change_key_case(Config::get('ViewObjects', 'cdn')[$configName]);
 		
 		$name = strtolower($name);
 

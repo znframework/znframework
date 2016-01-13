@@ -65,6 +65,8 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	public function __construct()
 	{
 		$this->config = Config::get('User');	
+		
+		Session::start();
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -165,15 +167,17 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
-		$userConfig			= $this->config;	
-		$joinTables  		= $userConfig['joinTables'];
-		$joinColumn  		= $userConfig['joinColumn'];	
-		$usernameColumn  	= $userConfig['usernameColumn'];
-		$passwordColumn  	= $userConfig['passwordColumn'];
-		$emailColumn  	    = $userConfig['emailColumn'];
-		$tableName 			= $userConfig['tableName'];
-		$activeColumn 		= $userConfig['activeColumn'];
-		$activationColumn 	= $userConfig['activationColumn'];
+		$userConfig			= $this->config;
+		$getColumns 		= $userConfig['matching']['columns'];
+		$getJoining 		= $userConfig['joining'];
+		$tableName 			= $userConfig['matching']['table'];
+		$joinTables  		= $getJoining['tables'];
+		$joinColumn  		= $getJoining['column'];	
+		$usernameColumn  	= $getColumns['username'];
+		$passwordColumn  	= $getColumns['password'];
+		$emailColumn  	    = $getColumns['email'];
+		$activeColumn 		= $getColumns['active'];
+		$activationColumn 	= $getColumns['activation'];
 		// ------------------------------------------------------------------------------
 		
 		// Kullanıcı adı veya şifre sütunu belirtilmemişse 
@@ -193,13 +197,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		$loginUsername  = $data[$usernameColumn];
 		$loginPassword  = $data[$passwordColumn];	
-		$encodePassword = Encode::super($loginPassword);	
+		$encodeType     = $userConfig['encode'];
+		$encodePassword = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;	
 		
-		$db = uselib('DB');
-		
-		$usernameControl = $db->where($usernameColumn.' =', $loginUsername)
-							  ->get($tableName)
-							  ->totalRows();
+		$usernameControl = DB::where($usernameColumn.' =', $loginUsername)
+							 ->get($tableName)
+							 ->totalRows();
 		
 		// Daha önce böyle bir kullanıcı
 		// yoksa kullanıcı kaydetme işlemini başlat.
@@ -207,20 +210,20 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		{
 			$data[$passwordColumn] = $encodePassword;
 			
-			if( ! $db->insert($tableName , $data) )
+			if( ! DB::insert($tableName , $data) )
 			{
 				return Error::set('User', 'registerUnknownError');
 			}	
 
 			if( ! empty($joinTables) )
 			{	
-				$joinCol = $db->where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
+				$joinCol = DB::where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
 				
 				foreach( $joinTables as $table => $joinColumn )
 				{
 					$joinData[$table][$joinTables[$table]] = $joinCol;
 					
-					$db->insert($table, $joinData[$table]);	
+					DB::insert($table, $joinData[$table]);	
 				}	
 			}
 		
@@ -398,15 +401,19 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			}
 					
 			$userConfig = $this->config;	
-			$joinTables = $userConfig['joinTables'];
-			$jc 		= $userConfig['joinColumn'];
-			$pc 		= $userConfig['passwordColumn'];
-			$uc 		= $userConfig['usernameColumn'];	
-			$tn 		= $userConfig['tableName'];
+			$getColumns = $userConfig['matching']['columns'];
+			$getJoining = $userConfig['joining'];
+			$joinTables = $getJoining['tables'];
+			$jc 		= $getJoining['column'];
+			$pc 		= $getColumns['password'];
+			$uc 		= $getColumns['username'];	
+			$tn 		= $userConfig['matching']['table'];
 			
-			$oldPassword = Encode::super($old);
-			$newPassword = Encode::super($new);
-			$newPasswordAgain = Encode::super($newAgain);
+			$encodeType   = $userConfig['encode'];
+			
+			$oldPassword      = ! empty($encodeType) ? Encode::type($old, $encodeType)      : $old;
+			$newPassword      = ! empty($encodeType) ? Encode::type($new, $encodeType)      : $new;
+			$newPasswordAgain = ! empty($encodeType) ? Encode::type($newAgain, $encodeType) : $newAgain;
 			
 			if( ! empty($joinTables) )
 			{
@@ -434,23 +441,21 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				$data[$pc] = $newPassword;
 				$data[$uc] = $username;
 				
-				$db = uselib('DB');
-				
 				if( ! empty($joinTables) )
 				{
-					$joinCol = $db->where($uc.' =', $username)->get($tn)->row()->$jc;
+					$joinCol = DB::where($uc.' =', $username)->get($tn)->row()->$jc;
 					
 					foreach( $joinTables as $table => $joinColumn )
 					{
 						if( isset($joinData[$table]) )
 						{
-							$db->where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);	
+							DB::where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);	
 						}
 					}	
 				}
 				else
 				{
-					if( ! $db->where($uc.' =', $username)->update($tn, $data) )
+					if( ! DB::where($uc.' =', $username)->update($tn, $data) )
 					{
 						return Error::set('User', 'registerUnknownError');
 					}	
@@ -489,10 +494,11 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
 		$userConfig			= $this->config;	
-		$tableName 			= $userConfig['tableName'];
-		$usernameColumn  	= $userConfig['usernameColumn'];
-		$passwordColumn  	= $userConfig['passwordColumn'];
-		$activationColumn 	= $userConfig['activationColumn'];
+		$getColumns         = $userConfig['matching']['columns'];
+		$tableName 			= $userConfig['matching']['table'];
+		$usernameColumn  	= $getColumns['username'];
+		$passwordColumn  	= $getColumns['password'];
+		$activationColumn 	= $getColumns['activation'];
 		// ------------------------------------------------------------------------------
 		
 		// Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
@@ -502,17 +508,15 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! empty($user) && ! empty($pass) )	
 		{
-			$db = uselib('DB');
-			
-			$row = $db->where($usernameColumn.' =', $user, 'and')
-			          ->where($passwordColumn.' =', $pass)		
-			          ->get($tableName)
-					  ->row();	
+			$row = DB::where($usernameColumn.' =', $user, 'and')
+			         ->where($passwordColumn.' =', $pass)		
+			         ->get($tableName)
+					 ->row();	
 				
 			if( ! empty($row) )
 			{
-				$db->where($usernameColumn.' =', $user)
-				   ->update($tableName, array($activationColumn => '1'));
+				DB::where($usernameColumn.' =', $user)
+				  ->update($tableName, array($activationColumn => '1'));
 				
 				$this->success = lang('User', 'activationComplete');
 				
@@ -566,14 +570,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				? $email 
 				: $user;
 				
-		$sendEmail = uselib('Email');
+		Email::sender($senderInfo['mail'], $senderInfo['name'])
+		     ->receiver($user, $user)
+		     ->subject(lang('User', 'activationProcess'))
+		     ->content($message);
 		
-		$sendEmail->sender($senderInfo['mail'], $senderInfo['name']);
-		$sendEmail->receiver($user, $user);
-		$sendEmail->subject(lang('User', 'activationProcess'));
-		$sendEmail->content($message);
-		
-		if( $sendEmail->send() )
+		if( Email::send() )
 		{
 			$this->success = lang('User', 'activationEmail');
 			return true;
@@ -602,41 +604,34 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function data($tbl = '')
 	{
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
-		
 		$config 		= $this->config;
-		$usernameColumn = $config['usernameColumn'];
+		$usernameColumn = $config['matching']['columns']['username'];
 		
-		if( isset($_SESSION[md5($usernameColumn)]) )
+		if( $sessionUserName = Session::select($usernameColumn) )
 		{
-			$joinTables		= $config['joinTables'];
-			$usernameColumn = $config['usernameColumn'];
-			$joinColumn 	= $config['joinColumn'];
-			$tableName 		= $config['tableName'];
+			$joinTables		= $config['joining']['tables'];
+			$usernameColumn = $config['matching']['columns']['username'];
+			$joinColumn 	= $config['joining']['column'];
+			$tableName 		= $config['matching']['table'];
 			
-			$this->username = $_SESSION[md5($usernameColumn)];
+			$this->username = $sessionUserName;
 			
-			$db = uselib('DB');
-		
-			$r[$tbl] = $db->where($usernameColumn.' =',$this->username)
-					->get($tableName)
-					->row();
+			$r[$tbl] = DB::where($usernameColumn.' =',$this->username)
+					     ->get($tableName)
+					     ->row();
 	
 			if( ! empty($joinTables) )
 			{
-				$joinCol = $db->where($usernameColumn.' =',$this->username)
-							  ->get($tableName)
-							  ->row()
-							  ->$joinColumn;
+				$joinCol = DB::where($usernameColumn.' =',$this->username)
+							 ->get($tableName)
+							 ->row()
+							 ->$joinColumn;
 			
 				foreach( $joinTables as $table => $joinColumn )	
 				{
-					$r[$table] = $db->where($joinColumn.' =', $joinCol)
-									->get($table)
-									->row();
+					$r[$table] = DB::where($joinColumn.' =', $joinCol)
+								   ->get($table)
+								   ->row();
 				}
 			}
 			
@@ -672,16 +667,14 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function activeCount()
 	{
-		$activeColumn 	= $this->config['activeColumn'];	
-		$tableName 		= $this->config['tableName'];
+		$activeColumn 	= $this->config['matching']['columns']['active'];	
+		$tableName 		= $this->config['matching']['table'];
 		
 		if( ! empty($activeColumn) )
 		{
-			$db = uselib('DB');
-			
-			$totalRows = $db->where($activeColumn.' =', 1)
-							 ->get($tableName)
-							 ->totalRows();
+			$totalRows = DB::where($activeColumn.' =', 1)
+						   ->get($tableName)
+						   ->totalRows();
 			
 			if( ! empty($totalRows) )
 			{
@@ -706,16 +699,14 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function bannedCount()
 	{
-		$bannedColumn 	= $this->config['bannedColumn'];	
-		$tableName 		= $this->config['tableName'];
+		$bannedColumn 	= $this->config['matching']['columns']['banned'];	
+		$tableName 		= $this->config['matching']['table'];
 		
 		if( ! empty($bannedColumn) )
 		{	
-			$db = uselib('DB');
-			
-			$totalRows = $db->where($bannedColumn.' =', 1)
-							 ->get($tableName)
-						 	 ->totalRows();
+			$totalRows = DB::where($bannedColumn.' =', 1)
+						   ->get($tableName)
+						   ->totalRows();
 			
 			if( ! empty($totalRows) )
 			{
@@ -740,11 +731,9 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function count()
 	{
-		$tableName = $this->config['tableName'];
+		$tableName = $this->config['matching']['table'];
 		
-		$db = uselib('DB');
-		
-		$totalRows = $db->get($tableName)->totalRows();
+		$totalRows = DB::get($tableName)->totalRows();
 		
 		if( ! empty($totalRows) )
 		{
@@ -854,27 +843,30 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 
 		$username = $un;
-		$password = Encode::super($pw);
+		
+		$userConfig	= $this->config;
+		
+		$encodeType = $userConfig['encode'];
+		
+		$password = ! empty($encodeType) ? Encode::type($pw, $encodeType) : $pw;
 		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
-		// ------------------------------------------------------------------------------
-		$userConfig			= $this->config;	
-		$passwordColumn  	= $userConfig['passwordColumn'];
-		$usernameColumn  	= $userConfig['usernameColumn'];
-		$emailColumn  		= $userConfig['emailColumn'];
-		$tableName 			= $userConfig['tableName'];
-		$bannedColumn 		= $userConfig['bannedColumn'];
-		$activeColumn 		= $userConfig['activeColumn'];
-		$activationColumn 	= $userConfig['activationColumn'];
+		// ------------------------------------------------------------------------------	
+		$tableName 			= $userConfig['matching']['table'];
+		$getColumns         = $userConfig['matching']['columns'];
+		$passwordColumn  	= $getColumns['password'];
+		$usernameColumn  	= $getColumns['username'];
+		$emailColumn  		= $getColumns['email'];
+		$bannedColumn 		= $getColumns['banned'];
+		$activeColumn 		= $getColumns['active'];
+		$activationColumn 	= $getColumns['activation'];
 		// ------------------------------------------------------------------------------
 		
-		$db = uselib('DB');
-		
-		$r = $db->where($usernameColumn.' =', $username)
-			    ->get($tableName)
-				->row();
+		$r = DB::where($usernameColumn.' =', $username)
+			   ->get($tableName)
+			   ->row();
 		
 		if( ! isset($r->$passwordColumn) )
 		{
@@ -908,27 +900,20 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				return Error::set('User', 'activationError');
 			}
 			
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
-			$_SESSION[md5($usernameColumn)] = $username; 
-			
-			session_regenerate_id();
+			Session::insert($usernameColumn, $username); 
 			
 			if( Method::post($rememberMe) || ! empty($rememberMe) )
 			{
-				if( Cookie::select(md5($usernameColumn)) != $username )
+				if( Cookie::select($usernameColumn) != $username )
 				{					
-					Cookie::insert(md5($usernameColumn), $username);
-					Cookie::insert(md5($passwordColumn), $password);
+					Cookie::insert($usernameColumn, $username);
+					Cookie::insert($passwordColumn, $password);
 				}
 			}
 			
 			if( ! empty($activeColumn) )
 			{		
-				$db->where($usernameColumn.' =', $username)->update($tableName, array($activeColumn  => 1));
+				DB::where($usernameColumn.' =', $username)->update($tableName, array($activeColumn  => 1));
 			}
 			
 			$this->success = lang('User', 'loginSuccess');
@@ -961,32 +946,25 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$time = 0;
 		}
 
-		$config    = $this->config;
-		$username  = $config['usernameColumn'];
-		$tableName = $config['tableName'];
-		
+		$config     = $this->config;
+		$getColumns = $config['matching']['columns'];
+		$tableName  = $config['matching']['table'];
+		$username   = $getColumns['username'];
+		$password   = $getColumns['password'];
+		$active     = $getColumns['active'];
+	
 		if( isset($this->data($tableName)->$username) )
 		{
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
-			if( $config['activeColumn'] )
+			if( $active )
 			{	
-				$db = uselib('DB');
-				
-				$db->where($config['usernameColumn'].' =', $this->data($tableName)->$username)
-				   ->update($config['tableName'], array($config['activeColumn'] => 0));
+				DB::where($username.' =', $this->data($tableName)->$username)
+				  ->update($tableName, array($active => 0));
 			}
 			
-			Cookie::delete(md5($config['usernameColumn']));
-			Cookie::delete(md5($config['passwordColumn']));	
+			Cookie::delete($username);
+			Cookie::delete($password );	
 			
-			if( isset($_SESSION[md5($config['usernameColumn'])]) ) 
-			{
-				unset($_SESSION[md5($config['usernameColumn'])]);
-			}
+			Session::delete($username);
 			
 			redirect($redirectUrl, $time);
 		}
@@ -1002,24 +980,23 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function isLogin()
 	{
-		$config    = $this->config;
-		$username  = $config['usernameColumn'];
-		$tableName = $config['tableName'];
-		$password  = $config['passwordColumn']; 
+		$config     = $this->config;
+		$getColumns = $config['matching']['columns'];
+		$tableName  = $config['matching']['table'];
+		$username   = $getColumns['username'];
+		$password   = $getColumns['password']; 
 		
-		$cUsername = Cookie::select(md5($username));
-		$cPassword = Cookie::select(md5($password));
+		$cUsername = Cookie::select($username);
+		$cPassword = Cookie::select($password);
 		
 		$result = '';
 		
 		if( ! empty($cUsername) && ! empty($cPassword) )
-		{
-			$db = uselib('DB');
-			
-			$result = $db->where($username.' =', $cUsername, 'and')
-						 ->where($password.' =', $cPassword)
-						 ->get($tableName)
-						 ->totalRows();
+		{	
+			$result = DB::where($username.' =', $cUsername, 'and')
+						->where($password.' =', $cPassword)
+						->get($tableName)
+						->totalRows();
 		}
 		
 		if( isset($this->data($tableName)->$username) )
@@ -1028,12 +1005,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		elseif( ! empty($result) )
 		{
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
-			
-			$_SESSION[md5($username)] = $cUsername;
+			Session::insert($username, $cUsername);
 			
 			$isLogin = true;	
 		}
@@ -1106,25 +1078,25 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
 		// ------------------------------------------------------------------------------
 		$userConfig		= $this->config;	
-		$usernameColumn = $userConfig['usernameColumn'];
-		$passwordColumn = $userConfig['passwordColumn'];				
-		$emailColumn  	= $userConfig['emailColumn'];		
-		$tableName 		= $userConfig['tableName'];	
+		$tableName 		= $userConfig['matching']['table'];	
 		$senderInfo 	= $userConfig['emailSenderInfo'];
-		// ------------------------------------------------------------------------------
+		$getColumns     = $userConfig['matching']['columns'];
+		$usernameColumn = $getColumns['username'];
+		$passwordColumn = $getColumns['password'];				
+		$emailColumn  	= $getColumns['email'];		
 		
-		$db = uselib('DB');
+		// ------------------------------------------------------------------------------
 		
 		if( ! empty($emailColumn) )
 		{
-			$db->where($emailColumn.' =', $email);
+			DB::where($emailColumn.' =', $email);
 		}
 		else
 		{
-			$db->where($usernameColumn.' =', $email);
+			DB::where($usernameColumn.' =', $email);
 		}
 		
-		$row = $db->get($tableName)->row();
+		$row = DB::get($tableName)->row();
 		
 		$result = "";
 		
@@ -1135,8 +1107,10 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				$returnLinkPath = siteUrl($returnLinkPath);
 			}
 			
+			$encodeType     = $userConfig['encode'];
+			
 			$newPassword    = Encode::create(10);
-			$encodePassword = Encode::super($newPassword);
+			$encodePassword = ! empty($encodeType) ? Encode::type($newPassword, $encodeType) : $newPassword;
 			
 			$templateData = array
 			(
@@ -1146,25 +1120,24 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			);
 
 			$message   = Import::template('UserEmail/ForgotPassword', $templateData, true);	
-			$sendEmail = uselib('Email');
 			
-			$sendEmail->sender($senderInfo['mail'], $senderInfo['name']);
-			$sendEmail->receiver($email, $email);
-			$sendEmail->subject(lang('User', 'newYourPassword'));
-			$sendEmail->content($message);
+			Email::sender($senderInfo['mail'], $senderInfo['name'])
+			     ->receiver($email, $email)
+			     ->subject(lang('User', 'newYourPassword'))
+			     ->content($message);
 			
-			if( $sendEmail->send() )
+			if( Email::send() )
 			{
 				if( ! empty($emailColumn) )
 				{
-					$db->where($emailColumn.' =', $email);
+					DB::where($emailColumn.' =', $email);
 				}
 				else
 				{
-					$db->where($usernameColumn.' =', $email);
+					DB::where($usernameColumn.' =', $email);
 				}
 				
-				if( $db->update($tableName, array($passwordColumn => $encodePassword)) )
+				if( DB::update($tableName, array($passwordColumn => $encodePassword)) )
 				{
 					$this->success = lang('User', 'forgotPasswordSuccess');
 					

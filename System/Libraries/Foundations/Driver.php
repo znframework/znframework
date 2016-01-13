@@ -23,7 +23,14 @@ class __USE_STATIC_ACCESS__Driver
 	******************************************************************************************/
 	public function run($library = '', $driver = '')
 	{	
-		$config  = Config::get(ucwords(strtolower($library)));
+		if( is_array($library) )
+		{
+			$config  = Config::get(key($library), current($library));
+		}
+		else
+		{
+			$config  = Config::get($library);
+		}
 		
 		$driver  = ! empty($driver)
 				   ? $driver
@@ -33,9 +40,7 @@ class __USE_STATIC_ACCESS__Driver
 		{	
 			$drv = ucwords($driver).'Driver';
 			
-			$var = new $drv;
-			
-			return $var;
+			return uselib($drv);
 		}	
 		else
 		{

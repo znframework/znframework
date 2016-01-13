@@ -46,7 +46,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	
 	public function __construct($config = array())
 	{
-		$this->config = Config::get('Http');	
+		$this->config = Config::get('Services', 'http');	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -57,6 +57,25 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Is Ajax
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function isAjax()
+	{
+		if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
+		{
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Code

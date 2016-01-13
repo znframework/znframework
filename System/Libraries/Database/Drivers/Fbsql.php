@@ -67,6 +67,14 @@ class FbsqlDriver implements DatabaseDriverInterface
 	);
 	
 	use DatabaseDriverTrait;
+	
+	public function __construct()
+	{
+		if( ! function_exists('fbsql_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'FrontBase(Fbsql)'));	
+		}	
+	}
 		
 	/******************************************************************************************
 	* CONNECT                                                                                 *
@@ -224,7 +232,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function columnData()
+	public function columnData($col = '')
 	{
 		if( empty($this->query) ) 
 		{
@@ -233,13 +241,21 @@ class FbsqlDriver implements DatabaseDriverInterface
 		
 		$columns = array();
 		
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
+		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
-			$columns[$i]				= new stdClass();
-			$columns[$i]->name			= fbsql_field_name($this->query, $i);
-			$columns[$i]->type			= fbsql_field_type($this->query, $i);
-			$columns[$i]->maxLength		= fbsql_field_len($this->query, $i);
-			$columns[$i]->primaryKey	= (int) (strpos(fbsql_field_flags($this->query, $i), 'primary_key') !== false);
+			$fieldName = fbsql_field_name($this->query, $i);
+			
+			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]->name			= $fieldName;
+			$columns[$fieldName]->type			= fbsql_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= fbsql_field_len($this->query, $i);
+			$columns[$fieldName]->primaryKey	= (int) (stripos(fbsql_field_flags($this->query, $i), 'primary_key') !== false);
+			$columns[$fieldName]->default		= NULL;
+		}
+		
+		if( isset($columns[$col]) )
+		{
+			return $columns[$col];
 		}
 		
 		return $columns;
@@ -301,7 +317,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function renameColumn()
 	{ 
-		return 'RENAME COLUMN ';
+		return 'RENAME COLUMN TO';
 	}
 	
 	/******************************************************************************************
@@ -390,7 +406,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = fbsql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = (object)$data;
 		}
@@ -413,7 +429,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 		
 		$rows = array();
 		
-		while($data = fbsql_fetch_assoc($this->query))
+		while( $data = $this->fetchAssoc() )
 		{
 			$rows[] = $data;
 		}
@@ -434,7 +450,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$data = fbsql_fetch_assoc($this->query);
+		$data = $this->fetchAssoc();
 		
 		return (object)$data;
 	}

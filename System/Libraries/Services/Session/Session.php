@@ -50,14 +50,11 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		Config::iniSet(Config::get('Session','settings'));
+		$this->config = Config::get('Services', 'session');
 		
-		$this->config = Config::get('Session');
+		Config::iniSet($this->config['settings']);
 		
-		if( ! isset($_SESSION) ) 
-		{
-			session_start();
-		}
+		$this->start();
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -197,6 +194,24 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	public function selectAll()
 	{
 		return $_SESSION;	
+	}
+	
+	/******************************************************************************************
+	* START                                                                                  *
+	*******************************************************************************************
+	| Genel Kullanım: Session oturumu başlatmak için kullanılır        .				      |
+	|															                              |
+	| Parametreler: Herhangi bir parametresi yoktur.                                          |
+	|          																				  |
+	| Örnek Kullanım: start();       										              |
+	|          																				  |
+	******************************************************************************************/
+	public function start()
+	{
+		if( ! isset($_SESSION) ) 
+		{
+			session_start();
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
