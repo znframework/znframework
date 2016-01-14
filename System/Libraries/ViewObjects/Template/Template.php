@@ -125,9 +125,10 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			'/\$\(\"\s*\<(.*?)\>\s*\"\)/i' 						=> '$("#$1")',
 			
 			// IF - ELSE - ENDIF
-			'/@(if)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	=> '<?php $1$2: ?>',
+			'/@(if)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	    => '<?php $1$2: ?>',
 			'/\s*@(elseif)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  => '<?php $1$2: ?>',
-			'/\s*@(endif)/' 			=> '<?php $1 ?>',
+			'/@(else)/'  	 									    => '<?php $1: ?>',
+			'/\s*@(endif)/' 								        => '<?php $1 ?>',
 			
 			// FOREACH - ENDFOREACH
 			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	 => '<?php $1$2: ?>',
