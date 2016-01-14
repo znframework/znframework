@@ -66,7 +66,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			foreach( $data as $key => $val )
 			{
 				// Eleman dizi değilse değiştirme işlemi gerçekleştir.
-				if( ! is_array($val) )
+				if( is_scalar($val) )
 				{
 					$key = $this->ldel.$space.$key.$space.$this->rdel;
 					
@@ -108,11 +108,14 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			}
 		}
 		
-		$regexChar      = '(([^@]|(\'|\").*?(\'|\"))*)';
+		$regexChar      = '(([^@])*)';
 		$htmlRegexChar  = '.*?';
 		
 		$pattern = array
 		(
+			// SYMBOL AT
+			'/(\w)@/' => "$1([symbol:at])",
+			
 			// HTML
 			'/\s*\#end(\w+)/i' 									=> '</$1>',
 			'/\#\#(\!*\w+)\s*\(('.$htmlRegexChar.')\)/i' 		=> '<$1 $2>',
@@ -125,12 +128,13 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			'/\$\(\"\s*\<(.*?)\>\s*\"\)/i' 						=> '$("#$1")',
 			
 			// IF - ELSE - ENDIF
-			'/@(if)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	=> '<?php $1$2: ?>',
+			'/@(if)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	    => '<?php $1$2: ?>',
 			'/\s*@(elseif)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  => '<?php $1$2: ?>',
-			'/\s*@(endif)/' 			=> '<?php $1 ?>',
+			'/@(else)/'  	 									    => '<?php $1: ?>',
+			'/\s*@(endif)/' 								        => '<?php $1 ?>',
 			
 			// FOREACH - ENDFOREACH
-			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	 => '<?php $1$2: ?>',
+			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	=> '<?php $1$2: ?>',
 			'/\s*@(endforeach)/'   		=> '<?php $1 ?>',
 			
 			// FOR - ENDFOR
@@ -167,6 +171,9 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			
 			// PHP TAGS
 			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'		=> '<?php $1 ?>',
+			
+			// SYMBOL AT
+			'/\(\[symbol\:at\]\)/' => '@'
 		);
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
