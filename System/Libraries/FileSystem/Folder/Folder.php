@@ -323,8 +323,15 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 				// Kopyalama işlemini başlat.
 				if( is_array($this->files($source)) )foreach( $this->files($source) as $val )
 				{
-					@copy($source."/".$val, $target."/".$val);
-					$this->copy($source."/".$val, $target."/".$val);
+					$sourceDir = $source."/".$val;
+					$targetDir = $target."/".$val;
+					
+					if( is_file($sourceDir) )
+					{
+						copy($sourceDir, $targetDir);
+					}
+					
+					$this->copy($sourceDir, $targetDir);
 				}							
 			}		
 		}
