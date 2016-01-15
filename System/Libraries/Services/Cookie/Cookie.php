@@ -286,9 +286,18 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 		
 		if( ! isset($this->encode['name']) )
 		{
-			if( $cookieConfig["encode"] === true )
+			$encode = $cookieConfig["encode"];
+			
+			if( $encode === true )
 			{
 				$this->name = md5($this->name);
+			}
+			elseif( is_string($encode) )
+			{
+				if( isHash($encode) )
+				{
+					$this->name = hash($encode, $this->name);		
+				}	
 			}
 		}
 		
@@ -352,9 +361,18 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 		}
 		else
 		{
-			if( $this->config['encode'] === true )
+			$encode = $this->config['encode'];
+			
+			if( $encode === true )
 			{
 				$name = md5($name);
+			}
+			elseif( is_string($encode) )
+			{
+				if( isHash($encode) )
+				{
+					$name = hash($encode, $name);		
+				}	
 			}
 		}
 		
@@ -444,9 +462,18 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 		}
 		else
 		{
-			if( $cookieConfig["encode"] === true )
+			$encode = $cookieConfig["encode"];
+			
+			if( $encode === true )
 			{
 				$name = md5($name);
+			}
+			elseif( is_string($encode) )
+			{
+				if( isHash($encode) )
+				{
+					$name = hash($encode, $name);		
+				}	
 			}
 		}
 		

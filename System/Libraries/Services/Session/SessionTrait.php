@@ -117,11 +117,11 @@ trait SessionTrait
 	// @param string $hash
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode($hash = '')
+	public function decode($name = '')
 	{
-		if( ! isHash($hash))
+		if( ! isHash($name))
 		{
-			Error::set('Error', 'hashParameter', 'hash');
+			Error::set('Error', 'hashParameter', 'name');
 			return $this;	
 		}
 		
