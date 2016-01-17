@@ -812,7 +812,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _groupBy()
 	{
-		return ' GROUP BY '.rtrim($this->groupBy, ', ');	
+		if( ! empty($this->groupBy) )
+		{
+			return ' GROUP BY '.rtrim($this->groupBy, ', ');	
+		}
+		
+		return false;
 	}
 	
 	/******************************************************************************************
@@ -854,7 +859,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _orderBy()
 	{
-		return ' ORDER BY '.rtrim($this->orderBy, ', ');	
+		if( ! empty($this->orderBy) )
+		{
+			return ' ORDER BY '.rtrim($this->orderBy, ', ');	
+		}
+		
+		return false;
 	}
 	
 	/******************************************************************************************
