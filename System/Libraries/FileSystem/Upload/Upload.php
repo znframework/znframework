@@ -66,6 +66,14 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	 */
 	protected $encodeName;
 	
+	/* Path Değişkeni
+	 *  
+	 * Dosya Yol bilgisini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $path;
+	
 	public function __construct()
 	{
 		Config::iniSet(Config::get('FileSystem', 'upload')['settings']);	
@@ -426,7 +434,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		
 		$this->file = $fileName;
 
-		$root = $rootDir;
+		$root = suffix($rootDir, '/');
 		
 		if( ! isset($_FILES[$fileName]['name']) ) 
 		{ 
@@ -476,15 +484,16 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 				}
 				else
 				{
-					if( is_file($root.'/'.$nm) )
+					if( is_file($root.$nm) )
 					{
 						$encryption = $this->_encode();
 					}	
 				}
 				
-				$target = $root.'/'.$encryption.$nm;
+				$target = $root.$encryption.$nm;
 				
 				$this->encodeName[] = $encryption.$nm;
+				$this->path[] = $target;
 				
 				if( isset($this->settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
@@ -532,15 +541,17 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 			}
 			else
 			{
-				if( is_file($root.'/'.$name) )
+				if( is_file($root.$name) )
 				{
 					$encryption = $this->_encode();
 				}	
 			}
 		
-			$target = $root.'/'.$encryption.$name;
+			$target = $root.$encryption.$name;
 			
 			$this->encodeName = $encryption.$name;
+			
+			$this->path = $target;
 			
 			if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
@@ -596,6 +607,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 				'size' 		 => $_FILES[$this->file]['size'],
 				'tmpName' 	 => $_FILES[$this->file]['tmp_name'],
 				'error' 	 => $_FILES[$this->file]['error'],
+				'path'		 => $this->path,
 				'encodeName' => $this->encodeName
 			);
 		
