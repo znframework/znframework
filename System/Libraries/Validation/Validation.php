@@ -622,7 +622,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			
 			$encodeType = Config::get('User', 'encode');	
 			
-			$encode = ! empty($encodeType) ? Encode::type($edit, $encodeType) ? $edit; 
+			$encode = ! empty($encodeType) ? Encode::type($edit, $encodeType) : $edit; 
 			
 			if( $encode != $pm )
 			{ 
