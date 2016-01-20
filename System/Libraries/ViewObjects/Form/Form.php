@@ -759,7 +759,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| 3. text 		 	=> text/plain      											          |
 	|          																				  |
 	******************************************************************************************/	
-	public function open($name = '', $_attributes = '')
+	public function open($name = '', $_attributes = array())
 	{
 		if( isset($this->settings['attr']['name']) )
 		{
@@ -850,7 +850,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="button" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function button($name = "", $value = "", $_attributes = '')
+	public function button($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'button');
 	}
@@ -869,7 +869,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="reset" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function reset($name = "", $value = "", $_attributes = '')
+	public function reset($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'reset');
 	}	
@@ -888,7 +888,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="submit" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function submit($name = "", $value = "", $_attributes = '')
+	public function submit($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'submit');
 	}
@@ -907,7 +907,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="radio" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function radio($name = "", $value = "", $_attributes = '')
+	public function radio($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'radio');
 	}
@@ -926,7 +926,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="checkbox" name="nesne" value="Değer" style="color:red">       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public function checkBox($name = "", $value = "", $_attributes = '')
+	public function checkBox($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'checkbox');
 	}
@@ -953,7 +953,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="date" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/
-	public function date($name = "", $value = "", $_attributes = '')
+	public function date($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'date');
 	}
@@ -972,7 +972,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="time" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public function time($name = "", $value = "", $_attributes = '')
+	public function time($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'time');
 	}
@@ -991,7 +991,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="datetime" name="nesne" value="Değer" style="color:red">       		  | 
 	|          																				  |
 	******************************************************************************************/
-	public function datetime($name = "", $value = "", $_attributes = '')
+	public function datetime($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'datetime');
 	}
@@ -1010,7 +1010,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="datetime-local" name="nesne" value="Değer" style="color:red">       	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function datetimeLocal($name = "", $value = "", $_attributes = '')
+	public function datetimeLocal($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'datetime-local');
 	}
@@ -1029,7 +1029,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="week" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public function week($name = "", $value = "", $_attributes = '')
+	public function week($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'week');
 	}
@@ -1048,7 +1048,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="month" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public function month($name = "", $value = "", $_attributes = '')
+	public function month($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'month');
 	}
@@ -1075,7 +1075,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="text" name="nesne" value="Değer" style="color:red">       			  |
 	|          																				  |
 	******************************************************************************************/	
-	public function text($name = "", $value = "", $_attributes = '')
+	public function text($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'text');
 	}
@@ -1094,7 +1094,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <textarea name="nesne" style="color:red">Değer</textarea>				       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public function textArea($name = "", $value = "", $_attributes = '')
+	public function textArea($name = "", $value = "", $_attributes = array())
 	{
 		if( ! isset($this->settings['attr']['name']) && ! empty($name) )
 		{
@@ -1110,7 +1110,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( isset($this->settings['attr']) )
 		{
-			$_attributes = array_merge($_attributes, $this->settings['attr']);
+			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
 		}
 		
 		$this->settings = array();	
@@ -1132,7 +1132,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="search" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public function search($name = "", $value = "", $_attributes = '')
+	public function search($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'search');
 	}
@@ -1151,7 +1151,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type='password' name="nesne" value="Değer" style="color:red">       		  |
 	|          																				  |
 	******************************************************************************************/	
-	public function password($name = "", $value = "", $_attributes = '')
+	public function password($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'password');
 	}
@@ -1178,7 +1178,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="email" name="nesne" value="Değer" style="color:red">       			  |
 	|          																				  |
 	******************************************************************************************/	
-	public function email($name = '', $value = '', $_attributes = '')
+	public function email($name = '', $value = '', $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'email');
 	}
@@ -1197,7 +1197,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="tel" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public function tel($name = "", $value = "", $_attributes = '')
+	public function tel($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'tel');
 	}
@@ -1216,7 +1216,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="url" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/	
-	public function number($name = "", $value = "", $_attributes = '')
+	public function number($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'number');
 	}
@@ -1235,7 +1235,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="url" name="nesne" value="Değer" style="color:red">       			      | 
 	|          																				  |
 	******************************************************************************************/	
-	public function url($name = "", $value = "", $_attributes = '')
+	public function url($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'url');
 	}
@@ -1408,7 +1408,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	|	 </select>   		      															  |
 	|          																				  |
 	******************************************************************************************/	
-	public function multiSelect($name = '', $options = array(), $selected = '', $_attributes = '')
+	public function multiSelect($name = '', $options = array(), $selected = '', $_attributes = array())
 	{
 		return $this->select($name, $options, $selected, $_attributes, true);
 	}
@@ -1435,7 +1435,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="range" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public function range($name = "", $value = "", $_attributes = '')
+	public function range($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'range');
 	}
@@ -1454,7 +1454,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="image" name="nesne" value="Değer" style="color:red">       	          | 
 	|          																				  |
 	******************************************************************************************/
-	public function image($name = "", $value = "", $_attributes = '')
+	public function image($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'image');
 	}
@@ -1529,13 +1529,8 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="file" name="nesne" value="Değer" style="color:red">       		      |
 	|          																				  |
 	******************************************************************************************/	
-	public function file($name = "", $multiple = false, $_attributes = '')
+	public function file($name = "", $multiple = false, $_attributes = array())
 	{
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = $this->settings['attr'];
-		}
-		
 		if( ! empty($this->settings['attr']['multiple']) )
 		{
 			$multiple = true;
@@ -1548,8 +1543,13 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( $multiple === true )
 		{
-			$_attributes['multiple'] = 'multiple';	
+			$this->settings['attr']['multiple'] = 'multiple';	
 			$name = suffix($name, '[]');
+		}
+
+		if( isset($this->settings['attr']) )
+		{
+			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
 		}
 		
 		$this->settings = array();
@@ -1571,7 +1571,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| // <input type="color" name="nesne" value="Değer" style="color:red">       			  | 
 	|          																				  |
 	******************************************************************************************/
-	public function color($name = "", $value = "", $_attributes = '')
+	public function color($name = "", $value = "", $_attributes = array())
 	{
 		return $this->_input($name, $value, $_attributes, 'color');
 	}
