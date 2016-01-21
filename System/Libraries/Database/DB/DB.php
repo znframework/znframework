@@ -777,23 +777,47 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Genel Kullanım: Sorgu işlemlerinde GROUP BY kullanımıdır.			                	  |
 	|															                              |
 	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @condition => Kümelemeyi oluşturacak veri parametresi.                    |
+	| 1. args var @condition => Kümelemeyi oluşturacak veri parametresi.                      |
 	|          																				  |
 	| Örnek Kullanım: ->groupBy('id')  // GROUP BY id								          |
 	|          																				  |
 	******************************************************************************************/
 	public function groupBy($condition = '')
 	{ 
-		if( ! is_string($condition) ) 
+		$args  = func_get_args();
+
+		if( count($args) === 1 ) 
 		{
-			Error::set('Error', 'stringParameter', 'condition'); 
+			$this->groupBy .= $args[0].', ' ;
 		}
 		else
 		{
-			$this->groupBy = ' GROUP BY '.$condition.' ' ;
+			
+			if( ! empty($args) ) foreach( $args as $val )
+			{
+				$this->groupBy .= $val.', ';	
+			}	
 		}
 		
 		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Group By
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _groupBy()
+	{
+		if( ! empty($this->groupBy) )
+		{
+			return ' GROUP BY '.rtrim($this->groupBy, ', ');	
+		}
+		
+		return false;
 	}
 	
 	/******************************************************************************************
@@ -802,7 +826,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Genel Kullanım: Sorgu işlemlerinde ORDER BY kullanımıdır.			                	  |
 	|															                              |
 	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @condition => Kümelemeyi oluşturacak veri parametresi.                    |
+	| 1. mixed  var @condition => Kümelemeyi oluşturacak veri parametresi.                    |
 	| 1. string var @type => Sıralama türü.                    								  |
 	|          																				  |
 	| Örnek Kullanım: ->orderBy('id', 'desc')  // ORDER BY id DESC							  |
@@ -810,16 +834,37 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function orderBy($condition = '', $type = '')
 	{ 
-		if( ! is_string($condition) || ! is_string($type) ) 
+		if( is_string($condition) ) 
 		{
-			Error::set('Error', 'stringParameter', 'condition, type'); 
+			$this->orderBy .= $condition.' '.$type.', ';  
 		}
 		else
 		{
-			$this->orderBy = ' ORDER BY '.$condition.' '.$type.' ';  
+			if( ! empty($condition) ) foreach( $condition as $key => $val )
+			{
+				$this->orderBy .= $key.' '.$val.', ';	
+			}	
 		}
 		
 		return $this; 
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Order By
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _orderBy()
+	{
+		if( ! empty($this->orderBy) )
+		{
+			return ' ORDER BY '.rtrim($this->orderBy, ', ');	
+		}
+		
+		return false;
 	}
 	
 	/******************************************************************************************
@@ -926,9 +971,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 								  $this->table.
 								  $this->join.
 								  $this->_where().
-								  $this->groupBy.
+								  $this->_groupBy().
 								  $this->_having().
-								  $this->orderBy;
+								  $this->_orderBy();
 		
 		$extras = $this->procedure.
 		          $this->outFile.
@@ -1951,7 +1996,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		                $table.
 						$set.
 						$this->_where().
-						$this->orderBy.
+						$this->_orderBy().
 						$this->limit;
 		
 		$this->_resetUpdateQuery();
@@ -2012,7 +2057,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 					   $this->table.
 					   $this->partition.
 					   $this->_where().
-					   $this->orderBy.
+					   $this->_orderBy().
 					   $this->limit;
 	
 		$this->_resetDeleteQuery();

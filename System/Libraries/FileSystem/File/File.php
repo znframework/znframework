@@ -586,7 +586,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 			}
 			else
 			{
-				@mkdir(suffix($target).$zipFile);
+				@mkdir(suffix($target).$zipFile, 0777, true);
 			}
 		}
 	}

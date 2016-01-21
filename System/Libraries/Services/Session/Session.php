@@ -115,9 +115,18 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	
 		if( ! isset($this->encode['name']))
 		{
-			if($sessionConfig["encode"] === true)
+			$encode = $sessionConfig["encode"];
+			
+			if( $encode === true )
 			{
 				$this->name = md5($this->name);
+			}
+			elseif( is_string($encode) )
+			{
+				if( isHash($encode) )
+				{
+					$this->name = hash($encode, $this->name);		
+				}	
 			}
 		}
 		
@@ -165,9 +174,18 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 		}
 		else
 		{
-			if( $this->config['encode'] === true )
+			$encode = $this->config['encode'];
+			
+			if( $encode === true )
 			{
 				$name = md5($name);
+			}
+			elseif( is_string($encode) )
+			{
+				if( isHash($encode) )
+				{
+					$name = hash($encode, $name);		
+				}	
 			}
 		}
 		
@@ -241,9 +259,18 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 		}
 		else
 		{
-			if( $sessionConfig["encode"] === true )
+			$encode = $sessionConfig["encode"];
+			
+			if( $encode === true )
 			{
 				$name = md5($name);
+			}
+			elseif( is_string($encode) )
+			{
+				if( isHash($encode) )
+				{
+					$name = hash($encode, $name);		
+				}	
 			}
 		}
 		
