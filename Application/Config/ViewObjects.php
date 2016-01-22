@@ -79,7 +79,8 @@ $config['ViewObjects']['cdn'] = array
 		'jquery'    => 'https://code.jquery.com/jquery-latest.js',
 		'jqueryUi'  => 'https://code.jquery.com/ui/1.11.3/jquery-ui.js',
 		'bootstrap' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
-		'bootlint'  => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js'
+		'bootlint'  => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js',
+		'angular'   => 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js'
 	),
 	
 	//----------------------------------------------------------------------------------------------------

@@ -49,16 +49,11 @@ $config['Masterpage']['docType'] = 'xhtml1Transitional';
 // Genel Kullanım: Sayfanın dil kodlaması varsayılarn:utf-8.			  			 	      
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['contentCharset'] = array('utf-8');
-
-//----------------------------------------------------------------------------------------------------
-// Content Language
-//----------------------------------------------------------------------------------------------------
-//
-// Genel Kullanım: Sayfanın dil içeriği varsayılan:tr.			  			 	           
-//
-//----------------------------------------------------------------------------------------------------
-$config['Masterpage']['contentLanguage'] = 'tr';
+$config['Masterpage']['content'] = array
+(
+	'language' => 'tr',
+	'charset'  => array('utf-8')
+);
 
 //----------------------------------------------------------------------------------------------------
 // Browser Icon
@@ -83,11 +78,16 @@ $config['Masterpage']['backgroundImage'] = '';
 // Body Attributes
 //----------------------------------------------------------------------------------------------------
 // 
-// Genel Kullanım: <body> tagına özellik değer çifti eklemek istediğiniz zaman kullanabilirsiniz.
+// Genel Kullanım: <html>, <head> ve <body> taglarına özellik değer çifti eklemek istediğiniz zaman kullanabilirsiniz.
 // array('id' => 'body', 'name' => 'Body') -- <body id="body" name="Body">								  			  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['bodyAttributes'] = array();
+$config['Masterpage']['attributes'] = array
+(
+	'html' => array(),
+	'head' => array(),
+	'body' => array()
+); 
 
 //----------------------------------------------------------------------------------------------------
 // Theme

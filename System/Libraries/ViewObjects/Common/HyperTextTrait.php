@@ -49,12 +49,14 @@ trait HyperTextTrait
 			{
 				if( is_numeric($key) )
 				{
-					$key = $values;
+					$attribute .= ' '.$values;
 				}
-				
-				if( ! empty($key) )
+				else
 				{
-					$attribute .= ' '.$key.'="'.$values.'"';
+					if( ! empty($key) )
+					{
+						$attribute .= ' '.$key.'="'.$values.'"';
+					}
 				}
 			}	
 		}
