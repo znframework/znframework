@@ -176,6 +176,34 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// attributes()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array $attributes
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function attributes($attributes = array())
+	{
+		Config::set('Masterpage', 'attributes', $attributes);
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// content()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array $content
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function content($content = array())
+	{
+		Config::set('Masterpage', 'content', $content);
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// Setting Methods Bitiş
 	//----------------------------------------------------------------------------------------------------
 		
@@ -510,12 +538,17 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		$docType = isset($head['docType']) ? $head['docType'] : $masterPageSet["docType"];
 		
 		$header  = Config::get('ViewObjects', 'doctype')[$docType].$eol;
-		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml">'.$eol;
+		
+		$htmlAttributes = isset($head['attributes']['html']) ? $head['attributes']['html'] : $masterPageSet['attributes']['html'];
+		
+		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml"'.Html::attributes($htmlAttributes).'>'.$eol;
+		
+		$headAttributes = isset($head['attributes']['head']) ? $head['attributes']['head'] : $masterPageSet['attributes']['head'];
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-		$header .= '<head>'.$eol;
+		$header .= '<head'.Html::attributes($headAttributes).'>'.$eol;
 		
-		$contentCharset = isset($head['contentCharset']) ? $head['contentCharset'] : $masterPageSet["contentCharset"];
+		$contentCharset = isset($head['content']['charset']) ? $head['content']['charset'] : $masterPageSet['content']['charset'];
 					  
 		if( is_array($contentCharset) )
 		{
@@ -529,7 +562,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.$eol;	
 		}
 		
-		$contentLanguage = isset($head['contentLanguage']) ? $head['contentLanguage'] : $masterPageSet["contentLanguage"];
+		$contentLanguage = isset($head['content']['language']) ? $head['content']['language'] : $masterPageSet['content']['language'];
 		
 		$header .= '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.$eol;
 			
@@ -708,7 +741,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
 		
-		$bodyAttributes = isset($head['bodyAttributes']) ? $head['bodyAttributes'] : $masterPageSet["bodyAttributes"];
+		$bodyAttributes = isset($head['attributes']['body']) ? $head['attributes']['body'] : $masterPageSet['attributes']['body'];
 		
 		$header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
 	
