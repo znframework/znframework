@@ -1343,6 +1343,33 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		$this->headers		= array();
 		$this->addHeader('Date', $this->_getDate());
 		$this->attachments  = array();
+		$this->senderMail	= '';
+		$this->senderName	= '';
+		$this->charset 		= 'UTF-8';
+		$this->contentType  = 'plain';
+		$this->cc			= NULL;
+		$this->bcc			= NULL;
+		$this->smtpHost		= '';
+		$this->smtpUser		= '';
+		$this->smtpPassword	= '';
+		$this->smtpEncode   = '';
+		$this->smtpPort	    = 587;
+		$this->smtpTimeout	= 10;
+		$this->smtpAuth		= true;
+		$this->smtpDsn		= false;
+		$this->smtpKeepAlive = false;
+		$this->mimeVersion	= '1.0';
+		$this->boundary		= '';
+		$this->attachBoundary	= '';
+		$this->altContent		= ''; 
+		$this->multiPart	= 'mixed';
+		$this->priority 	= 3;
+		$this->encodingType = '8bit';
+		$this->to 			= array();
+		$this->replyTo 		= array();
+		$this->from			= NULL;
+		$this->email		= NULL;
+		$this->driver 		= NULL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
