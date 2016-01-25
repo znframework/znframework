@@ -1287,7 +1287,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			$header .= 'Content-Type: multipart/'.$this->multiPart.'; boundary="'.$this->boundary.'"'.$this->crlf.$this->crlf;
 			$body 	.= $this->_mimeMessage().$this->crlf;
 			$body 	.= '--'.$this->boundary.$this->crlf;
-			$body 	.= 'Content-Type: text/plain; charset='.$this->charset.$this->crlf;
+			$body 	.= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->crlf;
 			$body 	.= 'Content-Transfer-Encoding: '.$this->encodingType.$this->crlf.$this->crlf;
 			$body 	.= $this->message.$this->crlf.$this->crlf;
 	
