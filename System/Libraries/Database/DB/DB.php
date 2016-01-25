@@ -505,7 +505,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function whereGroup()
 	{
-		$this->where .= $this->_whereHavingGroup(func_get_args());
+		$args = func_get_args();
+		
+		if( isset($args[0][0]) && is_array($args[0][0]) )
+		{
+			$args = $args[0];	
+		}
+		
+		$this->where .= $this->_whereHavingGroup($args);
 		
 		return $this;
 	}
@@ -528,7 +535,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function havingGroup()
 	{
-		$this->having .= $this->_whereHavingGroup(func_get_args());
+		$args = func_get_args();
+		
+		if( isset($args[0][0]) && is_array($args[0][0]) )
+		{
+			$args = $args[0];	
+		}
+		
+		$this->having .= $this->_whereHavingGroup($args);
 		
 		return $this;
 	}
@@ -626,6 +640,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				return substr($str, 0, -1);
 			}		
 		}	
+		
+		return $str;
 	}
 	
 	/******************************************************************************************
