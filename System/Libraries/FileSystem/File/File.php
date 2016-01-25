@@ -573,10 +573,12 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		{
 			$zipFile = zip_entry_name($zipContent);
 			
-			if( strpos($zipFile, '.') )
+			$targetPath = suffix($target).$zipFile;
+			
+			$isDir = mb_substr($targetPath, -1, 1);
+			
+			if( $isDir !== '/' )
 			{
-				$targetPath = suffix($target).$zipFile;
-				
 				touch($targetPath);
 				
 				if( ! file_put_contents($targetPath, zip_entry_read($zipContent)) )
@@ -586,7 +588,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 			}
 			else
 			{
-				@mkdir(suffix($target).$zipFile, 0777, true);
+				mkdir($targetPath , 0777, true);
 			}
 		}
 	}
