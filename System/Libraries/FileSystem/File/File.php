@@ -559,6 +559,9 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		{
 			$target = '';
 		}
+		
+		$source = suffix($source, '.zip');
+		
 		if( ! file_exists($source) )
 		{
 			return Error::set('File', 'notFoundError', $source);
@@ -575,20 +578,23 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 			
 			$targetPath = suffix($target).$zipFile;
 			
-			$isDir = mb_substr($targetPath, -1, 1);
-			
-			if( $isDir !== '/' )
+			if( ! file_exists($targetPath) )
 			{
-				touch($targetPath);
+				$isDir = mb_substr($targetPath, -1, 1);
 				
-				if( ! file_put_contents($targetPath, zip_entry_read($zipContent)) )
+				if( $isDir !== '/' )
 				{
-					return Error::set('Error', 'fileNotWrite', $targetPath);
+					touch($targetPath);
+					
+					if( ! file_put_contents($targetPath, zip_entry_read($zipContent)) )
+					{
+						return Error::set('Error', 'fileNotWrite', $targetPath);
+					}
 				}
-			}
-			else
-			{
-				mkdir($targetPath , 0777, true);
+				else
+				{
+					mkdir($targetPath , 0777, true);
+				}
 			}
 		}
 	}
