@@ -461,6 +461,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	protected function _whereHavingGroup($conditions = array())
 	{
+		if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
+		{
+			$conditions = $conditions[0];	
+		}
+		
 		$getLast = Arrays::getLast($conditions);
 		
 		if( is_string($getLast) )
@@ -506,12 +511,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	public function whereGroup()
 	{
 		$args = func_get_args();
-		
-		if( isset($args[0][0]) && is_array($args[0][0]) )
-		{
-			$args = $args[0];	
-		}
-		
+
 		$this->where .= $this->_whereHavingGroup($args);
 		
 		return $this;
@@ -536,11 +536,6 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	public function havingGroup()
 	{
 		$args = func_get_args();
-		
-		if( isset($args[0][0]) && is_array($args[0][0]) )
-		{
-			$args = $args[0];	
-		}
 		
 		$this->having .= $this->_whereHavingGroup($args);
 		
