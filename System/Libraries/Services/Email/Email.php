@@ -710,6 +710,36 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	// Send Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
+	//----------------------------------------------------------------------------------------------------
+	// Protected To
+	//----------------------------------------------------------------------------------------------------
+	public function _to($to = '', $name = '', $type = 'to')
+	{
+		if( is_array($to) )
+		{
+			if( ! empty($to) ) foreach( $to as $key => $val )
+			{
+				if( isEmail($key) )
+				{
+					$this->$type[$key] = $val;
+				}
+			}	
+		}
+		else
+		{
+			if( isEmail($to) )
+			{
+				$this->$type[$to] = $name;
+			}
+			else
+			{
+				Error::set('Error', 'emailParameter', '1.('.$type.')');	
+			}
+		}
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* TO                                                                                      *
 	*******************************************************************************************
@@ -722,14 +752,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function to($to = '', $name = '')
 	{
-		if( isEmail($to) )
-		{
-			$this->to[$to] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(to)');	
-		}
+		$this->_to($to, $name, 'to');
 		
 		return $this;
 	}
@@ -762,14 +785,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function replyTo($replyTo = '', $name = '')
 	{
-		if( isEmail($replyTo) )
-		{
-			$this->replyTo[$replyTo] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(replyTo)');	
-		}
+		$this->_to($replyTo, $name, 'replyTo');
 		
 		return $this;
 	}
@@ -786,14 +802,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function cc($cc = '', $name = '')
 	{
-		if( isEmail($cc) )
-		{
-			$this->cc[$cc] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(cc)');	
-		}
+		$this->_to($cc, $name, 'cc');
 		
 		return $this;
 	}
@@ -809,14 +818,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function bcc($bcc = '', $name = '')
 	{
-		if( isEmail($bcc) )
-		{
-			$this->bcc[$bcc] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(bcc)');	
-		}
+		$this->_to($bcc, $name, 'bcc');
 		
 		return $this;
 	}
