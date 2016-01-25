@@ -405,6 +405,40 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	}
 	
 	/******************************************************************************************
+	* Protedted Where Having                                                                  *
+	******************************************************************************************/
+	public function _wh($column = '', $value = '', $logical = '', $type = 'where')
+	{
+		if( isArray($column) )
+		{
+			$columns = func_get_args();
+			
+			if( isset($columns[0][0]) && is_array($columns[0][0]) )
+			{
+				$columns = $columns[0];	
+			}
+			
+			foreach( $columns as $col )
+			{
+				if( is_array($col) )
+				{
+					$c = isset($col[0]) ? $col[0] : '';
+					$v = isset($col[1]) ? $col[1] : '';
+					$l = isset($col[2]) ? $col[2] : '';
+				
+					$this->$type .= $this->_whereHaving($c, $v, $l);	
+				}
+			}
+		}
+		else
+		{
+			$this->$type .= $this->_whereHaving($column, $value, $logical);
+		}
+		
+		return $this;
+	}
+	
+	/******************************************************************************************
 	* WHERE                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
@@ -422,23 +456,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function where($column = '', $value = '', $logical = '')
 	{
-		if( isArray($column) )
-		{
-			$columns = func_get_args();
-			
-			foreach( $columns as $col )
-			{
-				$c = isset($col[0]) ? $col[0] : '';
-				$v = isset($col[1]) ? $col[1] : '';
-				$l = isset($col[2]) ? $col[2] : '';
-				
-				$this->where .= $this->_whereHaving($c, $v, $l);	
-			}
-		}
-		else
-		{
-			$this->where .= $this->_whereHaving($column, $value, $logical);
-		}
+		$this->_wh($column, $value, $logical, __FUNCTION__);
 		
 		return $this;
 	}
@@ -559,7 +577,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function having($column = '', $value = '', $logical = '')
 	{
-		$this->having .= $this->_whereHaving($column, $value, $logical);
+		$this->_wh($column, $value, $logical, __FUNCTION__);
 		
 		return $this;
 	}
@@ -596,7 +614,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				$this->$type = substr($trim, 0, -1);
 			}		
 				
-			$return = ' WHERE '.$this->$type; 
+			$return = ' '.strtoupper($type).' '.$this->$type; 
 			
 			$this->$type = NULL;
 			
