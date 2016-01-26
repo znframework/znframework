@@ -481,21 +481,30 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
 		{
-			$conditions = $conditions[0];	
+			$con         = Arrays::getLast($conditions);
+			$conditions  = $conditions[0];	
 		}
 		
 		$getLast = Arrays::getLast($conditions);
 		
-		if( is_string($getLast) )
+		
+		if( is_string($con) )
 		{
-			$conjunction = $getLast;
-			$conditions  = Arrays::removeLast($conditions);
+			$conjunction = $con;	
 		}
 		else
 		{
-			$conjunction = '';	
+			if( is_string($getLast) )
+			{
+				$conjunction = $getLast;
+				$conditions  = Arrays::removeLast($conditions);
+			}
+			else
+			{
+				$conjunction = '';	
+			}
 		}
-		
+				
 		$whereGroup = '';
 		
 		if( is_array($conditions) ) foreach( $conditions as $column )
