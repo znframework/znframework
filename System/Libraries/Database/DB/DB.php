@@ -3008,6 +3008,24 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this->db->statements(__FUNCTION__, $constraint, $type);
 	}
 	
+	/******************************************************************************************
+	* DEFAULT VALUE                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: DEFAULT kullanımının karşılığıdır.         	  						  |
+	
+	  @return NOT NULL
+	|          																				  |
+	******************************************************************************************/
+	public function defaultValue($default = '', $type = false)
+	{
+		if( ! is_numeric($default) )
+		{
+			$default = presuffix($default, '"');	
+		}
+		
+		return $this->db->statements('default', $default, $type);
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Variable Types Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
