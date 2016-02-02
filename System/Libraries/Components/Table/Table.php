@@ -112,6 +112,11 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 		
 		$elements = func_get_args();
 		
+		if( isset($elements[0][0]) && is_array($elements[0][0]))
+		{
+			$elements = $elements[0];	
+		}
+		
 		foreach($elements as $key => $element)
 		{
 			$table .= $eol."\t".'<tr>'.$eol;
