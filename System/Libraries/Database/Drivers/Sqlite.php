@@ -35,7 +35,8 @@ class SqliteDriver implements DatabaseDriverInterface
 		'unique'		=> 'UNIQUE',
 		'null'			=> 'NULL',
 		'notNull'		=> 'NOT NULL',
-		'constraint'	=> 'CONSTRAINT'
+		'constraint'	=> 'CONSTRAINT',
+		'default'		=> 'DEFAULT'
 	);
 	
 	/* Variable Types Değişkeni

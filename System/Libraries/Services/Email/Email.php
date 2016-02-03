@@ -710,6 +710,36 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	// Send Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
+	//----------------------------------------------------------------------------------------------------
+	// Protected To
+	//----------------------------------------------------------------------------------------------------
+	public function _to($to = '', $name = '', $type = 'to')
+	{
+		if( is_array($to) )
+		{
+			if( ! empty($to) ) foreach( $to as $key => $val )
+			{
+				if( isEmail($key) )
+				{
+					$this->$type[$key] = $val;
+				}
+			}	
+		}
+		else
+		{
+			if( isEmail($to) )
+			{
+				$this->$type[$to] = $name;
+			}
+			else
+			{
+				Error::set('Error', 'emailParameter', '1.('.$type.')');	
+			}
+		}
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* TO                                                                                      *
 	*******************************************************************************************
@@ -722,14 +752,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function to($to = '', $name = '')
 	{
-		if( isEmail($to) )
-		{
-			$this->to[$to] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(to)');	
-		}
+		$this->_to($to, $name, 'to');
 		
 		return $this;
 	}
@@ -762,14 +785,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function replyTo($replyTo = '', $name = '')
 	{
-		if( isEmail($replyTo) )
-		{
-			$this->replyTo[$replyTo] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(replyTo)');	
-		}
+		$this->_to($replyTo, $name, 'replyTo');
 		
 		return $this;
 	}
@@ -786,14 +802,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function cc($cc = '', $name = '')
 	{
-		if( isEmail($cc) )
-		{
-			$this->cc[$cc] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(cc)');	
-		}
+		$this->_to($cc, $name, 'cc');
 		
 		return $this;
 	}
@@ -809,14 +818,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function bcc($bcc = '', $name = '')
 	{
-		if( isEmail($bcc) )
-		{
-			$this->bcc[$bcc] = $name;
-		}
-		else
-		{
-			Error::set('Error', 'emailParameter', '1.(bcc)');	
-		}
+		$this->_to($bcc, $name, 'bcc');
 		
 		return $this;
 	}
@@ -1287,7 +1289,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			$header .= 'Content-Type: multipart/'.$this->multiPart.'; boundary="'.$this->boundary.'"'.$this->crlf.$this->crlf;
 			$body 	.= $this->_mimeMessage().$this->crlf;
 			$body 	.= '--'.$this->boundary.$this->crlf;
-			$body 	.= 'Content-Type: text/plain; charset='.$this->charset.$this->crlf;
+			$body 	.= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->crlf;
 			$body 	.= 'Content-Transfer-Encoding: '.$this->encodingType.$this->crlf.$this->crlf;
 			$body 	.= $this->message.$this->crlf.$this->crlf;
 	
@@ -1343,6 +1345,33 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		$this->headers		= array();
 		$this->addHeader('Date', $this->_getDate());
 		$this->attachments  = array();
+		$this->senderMail	= '';
+		$this->senderName	= '';
+		$this->charset 		= 'UTF-8';
+		$this->contentType  = 'plain';
+		$this->cc			= NULL;
+		$this->bcc			= NULL;
+		$this->smtpHost		= '';
+		$this->smtpUser		= '';
+		$this->smtpPassword	= '';
+		$this->smtpEncode   = '';
+		$this->smtpPort	    = 587;
+		$this->smtpTimeout	= 10;
+		$this->smtpAuth		= true;
+		$this->smtpDsn		= false;
+		$this->smtpKeepAlive = false;
+		$this->mimeVersion	= '1.0';
+		$this->boundary		= '';
+		$this->attachBoundary	= '';
+		$this->altContent		= ''; 
+		$this->multiPart	= 'mixed';
+		$this->priority 	= 3;
+		$this->encodingType = '8bit';
+		$this->to 			= array();
+		$this->replyTo 		= array();
+		$this->from			= NULL;
+		$this->email		= NULL;
+		$this->driver 		= NULL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------

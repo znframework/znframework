@@ -459,13 +459,18 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	{
 		$header = '';
 		
-		if( ! empty($masterPageSet[$type]) && is_array($masterPageSet[$type]) )
+		if( empty($masterPageSet[$type]) )
+		{
+			return false;	
+		}
+		
+		if( is_array($masterPageSet[$type]) )
 		{		
 			$masterPageSet[$type][] = true;			
 			$header .= $this->$type($masterPageSet[$type]);
 		}
 		else
-		{
+		{ 
 			$header .= $this->$type($masterPageSet[$type], true);
 		}
 		
