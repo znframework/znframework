@@ -72,15 +72,13 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	******************************************************************************************/
 	public function contents($path = '')
 	{
-		if( ! is_string($path) || ! is_file($path) ) 
+		if( ! is_string($path) ) 
 		{
 			Error::set('Error', 'stringParameter', 'path');
-			Error::set('Error', 'fileParameter', 'path');
 			
 			return false;
 		}
 		
-		// Dosya içeriğini getir.
 		return file_get_contents($path);
 	}
 	
