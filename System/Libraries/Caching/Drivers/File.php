@@ -27,7 +27,7 @@ class FileDriver implements CacheInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			Forder::create($this->path, 0644);	
+			Folder::create($this->path, 0644);	
 		}	
 	}
 	/******************************************************************************************
