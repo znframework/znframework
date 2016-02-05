@@ -60,6 +60,7 @@ class RedisDriver implements CacheInterface
 			{
 				$success = $this->redis->connect($config['host'], $config['port'], $config['timeout']);
 			}
+			
 			if ( empty($success) )
 			{
 				die(getErrorMessage('Cache', 'connectionRefused', 'Connection'));
@@ -167,13 +168,15 @@ class RedisDriver implements CacheInterface
 		{
 			return false;
 		}
+		
 		if( isset($this->serialized[$key]) )
 		{
 			$this->serialized[$key] = NULL;
 			
 			$this->redis->sRemove('ZNRedisSerialized', $key);
 		}
-		return TRUE;
+		
+		return true;
 	}
 	
 	/******************************************************************************************

@@ -35,7 +35,7 @@ class ApcDriver implements CacheInterface
 		
 		$data = apc_fetch($key, $success);
 		
-		if ( $success === true )
+		if( $success === true )
 		{
 			return ( is_array($data) )
 				   ? unserialize($data[0])
@@ -188,7 +188,7 @@ class ApcDriver implements CacheInterface
 	******************************************************************************************/
 	public function isSupported()
 	{
-		if ( ! extension_loaded('apc') || ! ini_get('apc.enabled') )
+		if( ! extension_loaded('apc') || ! ini_get('apc.enabled') )
 		{
 			return Error::set('Cache', 'unsupported', 'Apc');
 		}
