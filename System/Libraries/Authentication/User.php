@@ -606,6 +606,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	{
 		$config 		= $this->config;
 		$usernameColumn = $config['matching']['columns']['username'];
+		$passwordColumn = $config['matching']['columns']['password'];
 		
 		if( $sessionUserName = Session::select($usernameColumn) )
 		{
@@ -614,15 +615,18 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$joinColumn 	= $config['joining']['column'];
 			$tableName 		= $config['matching']['table'];
 			
-			$this->username = $sessionUserName;
+			$this->username  = $sessionUserName;
+			$sessionPassword = Session::select($passwordColumn);
 			
-			$r[$tbl] = DB::where($usernameColumn.' =',$this->username)
+			$r[$tbl] = DB::where($usernameColumn.' = ', $this->username, 'and')
+						 ->where($passwordColumn.' = ', $sessionPassword)
 					     ->get($tableName)
 					     ->row();
 	
 			if( ! empty($joinTables) )
 			{
-				$joinCol = DB::where($usernameColumn.' =',$this->username)
+				$joinCol = DB::where($usernameColumn.' = ', $this->username, 'and')
+						     ->where($passwordColumn.' = ', $sessionPassword)
 							 ->get($tableName)
 							 ->row()
 							 ->$joinColumn;
@@ -901,6 +905,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			}
 			
 			Session::insert($usernameColumn, $username); 
+			Session::insert($passwordColumn, $password);
 			
 			if( Method::post($rememberMe) || ! empty($rememberMe) )
 			{
