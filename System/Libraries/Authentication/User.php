@@ -64,9 +64,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config = Config::get('User');	
-		
-		Session::start();
+		$this->config = Config::get('User');
 	}
 	
 	//----------------------------------------------------------------------------------------------------

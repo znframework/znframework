@@ -76,6 +76,27 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 			return false;
 		}
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get Lang
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getLang($default = 'tr')
+	{
+		$languages = Config::get('Language');
+		
+		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+		
+		if( isset($languages[$lang]) )
+		{
+			return strtolower($lang);
+		}
+	
+		return $default;
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Code

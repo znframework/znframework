@@ -18,11 +18,6 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	 */
 	private $items = array();
 	
-	public function __construct()
-	{
-		Session::start();
-	}
-	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
 	//----------------------------------------------------------------------------------------------------
