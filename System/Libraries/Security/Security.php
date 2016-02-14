@@ -346,8 +346,8 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		
 		$nailChars = array
 		(
-			"'" => "&#145;",
-			'"' => "&#147;"
+			"'" => "&#39;",
+			'"' => "&#34;"
 		);
 		
 		$str = str_replace(array_values($nailChars), array_keys($nailChars), $str);
