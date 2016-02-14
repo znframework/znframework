@@ -87,7 +87,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	//----------------------------------------------------------------------------------------------------
 	public function browserLang($default = 'tr')
 	{
-		$languages = Config::get('Language');
+		$languages = Config::get('Language', 'shortCodes');
 		
 		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
 		

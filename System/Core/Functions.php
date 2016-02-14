@@ -75,7 +75,7 @@ function lang($file = '', $str = '', $changed = '')
 	}
 	
 	$key 		= removeExtension($file, 'php');
-	$file 		= Config::get('Language', getLang()).'/'.suffix($file, '.php');
+	$file 		= Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
 	$langDir    = restorationPath(LANGUAGES_DIR.$file);
 	$sysLangDir = SYSTEM_LANGUAGES_DIR.$file;
 	
