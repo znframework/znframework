@@ -27,7 +27,7 @@ class FileDriver implements CacheInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			Forder::create($this->path, 0644);	
+			Folder::create($this->path, 0644);	
 		}	
 	}
 	/******************************************************************************************
@@ -147,13 +147,13 @@ class FileDriver implements CacheInterface
 	{
 		$data = $this->_select($key);
 		
-		if ($data === FALSE)
+		if( $data === false )
 		{
 			$data = array('data' => 0, 'ttl' => 60);
 		}
-		elseif ( ! is_numeric($data['data']))
+		elseif( ! is_numeric($data['data']) )
 		{
-			return FALSE;
+			return false;
 		}
 		
 		$newValue = $data['data'] - $decrement;
@@ -214,7 +214,7 @@ class FileDriver implements CacheInterface
 		{
 			$mtime = filemtime($this->path.$key);
 			
-			if ( ! isset($data['ttl']))
+			if( ! isset($data['ttl']) )
 			{
 				return false;
 			}
@@ -245,7 +245,7 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	protected function _select($key)
 	{
-		if ( ! file_exists($this->path.$key))
+		if( ! file_exists($this->path.$key) )
 		{
 			return false;
 		}

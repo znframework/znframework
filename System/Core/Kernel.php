@@ -94,6 +94,38 @@ define('CURRENT_CFURI', CURRENT_CFPATH);
 //----------------------------------------------------------------------------------------------------
 define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 
+//----------------------------------------------------------------------------------------------------
+// Fonksiyon Yükleme İşlemleri
+//----------------------------------------------------------------------------------------------------
+$starting = Config::get('Starting');
+
+if( $starting['autoload']['status'] === true ) 
+{
+	$startingAutoload = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+	
+	//------------------------------------------------------------------------------------------------
+	// Otomatik Olarak Yüklenen Fonksiyonlar
+	//------------------------------------------------------------------------------------------------
+	if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
+	{
+		$file = restorationPath(suffix($file, '.php'));
+		
+		if( is_file($file) )
+		{
+			require_once $file;
+		}
+	}
+}	
+
+//----------------------------------------------------------------------------------------------------
+// El ile Yüklenen Fonksiyonlar
+//----------------------------------------------------------------------------------------------------
+if( ! empty($starting['handload']) )
+{
+	Import::handload($starting['handload']);
+}
+//----------------------------------------------------------------------------------------------------
+
 // SAYFA KONTROLÜ YAPILIYOR...
 // -------------------------------------------------------------------------------
 //  Sayfa bilgisine erişilmişse sayfa dahil edilir.

@@ -76,6 +76,28 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 			return false;
 		}
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Browser Lang
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $default tr
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function browserLang($default = 'tr')
+	{
+		$languages = Config::get('Language', 'shortCodes');
+		
+		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+		
+		if( isset($languages[$lang]) )
+		{
+			return strtolower($lang);
+		}
+	
+		return $default;
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Code

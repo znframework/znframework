@@ -23,7 +23,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	 protected $sets;
+	protected $sets;
 	 
 	use CallUndefinedMethodTrait;
 	
@@ -266,7 +266,12 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	******************************************************************************************/	
 	public function getProsize($width = 0, $height = 0)
 	{
-		return Image::getProsize($width, $height);
+		if( ! isset($this->sets['filePath']) )
+		{
+			return false;	
+		}
+		
+		return Image::getProsize($this->sets['filePath'], $width, $height);
 	}
 	
 	/******************************************************************************************

@@ -225,32 +225,35 @@ trait DatabaseTrait
 	|          																				  |
 	******************************************************************************************/
 	public function differentConnection($connectName = '')
-	{
-		if( ! is_string($connectName) ) 
-		{
-			return Error::set('Error', 'stringParameter', 'connectName');
-		}
-		
-		$config = $this->config;
+	{	
+		$config 		 = $this->config;
 		$configDifferent = $config['differentConnection'];
 		
-		if( ! isset($configDifferent[$connectName]) ) 
+		if( is_string($connectName) && isset($configDifferent[$connectName]) ) 
 		{
-			return Error::set('Error', 'emptyParameter', 'connectName');
+			$connection = $configDifferent[$connectName];
+		}
+		elseif( is_array($connectName) )
+		{
+			$connection = $connectName;	
+		}
+		else
+		{
+			return Error::set('Error', 'emptyParameter', 'connectName');	
 		}
 		
 		foreach($config as $key => $val)
 		{
 			if( $key !== 'differentConnection' )
 			{
-				if( ! isset($configDifferent[$connectName][$key]) )
+				if( ! isset($connection[$key]) )
 				{
-					$configDifferent[$connectName][$key] = $val;
+					$connection[$key] = $val;
 				}
 			}
 		}
 		
-		return new self($configDifferent[$connectName]);
+		return new self($connection);
 	}
 	
 	/******************************************************************************************

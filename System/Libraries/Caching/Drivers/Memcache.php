@@ -201,7 +201,7 @@ class MemcacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function isSupported()
 	{
-		if ( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
+		if( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
 		{
 			return Error::set('Cache', 'unsupported', 'Memcache');
 		}
