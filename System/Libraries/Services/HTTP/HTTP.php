@@ -78,13 +78,14 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Get Lang
+	// Browser Lang
 	//----------------------------------------------------------------------------------------------------
 	// 
+	// @param string $default tr
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getLang($default = 'tr')
+	public function browserLang($default = 'tr')
 	{
 		$languages = Config::get('Language');
 		
