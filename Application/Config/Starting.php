@@ -15,7 +15,7 @@
 //----------------------------------------------------------------------------------------------------
 //
 // Functions/Autoloader/ dizininde bulunan dosyalar otomatik olarak dahil edilir.
-// Bunu kapatmak için aşağıdaki status ayarına ait değer false açmak için true olarak ayarlanır.
+// Bunu kapatmak için aşağıdaki status ayarına ait değer false, açmak için true olarak ayarlanır.
 // Dizin içi dizinlerde de arama yapılması istenirse recursive true olarak ayarlanır.					  
 //											     			 	  						  
 //----------------------------------------------------------------------------------------------------
