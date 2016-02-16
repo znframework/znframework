@@ -10,13 +10,40 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Config Değişkeni
-	 *  
-	 * Güvenlik ayar bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Config
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $config;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Nail Chars
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $nailChars = array
+	(
+		"'" => "&#39;",
+		'"' => "&#34;"
+	);
+	
+	//----------------------------------------------------------------------------------------------------
+	// PHP Tag Chars
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $phpTagChars = array
+	(
+		'<?' => '&#60;&#63;',
+		'?>' => '&#63;&#62;'
+	);
 	
 	public function __construct()
 	{
@@ -279,13 +306,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
-		$phpTagChars = array
-		(
-			'<?' => '&#60;&#63;',
-			'?>' => '&#63;&#62;'
-		);
-		
-		return str_replace(array_keys($phpTagChars), array_values($phpTagChars), $str);
+		return str_replace(array_keys($this->phpTagChars), array_values($this->phpTagChars), $str);
 	}
 	
 	// Function: phpTagDecode()
@@ -300,13 +321,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 			return Error::set('Error', 'stringParameter', 'str');
 		}
 		
-		$phpTagChars = array
-		(
-			'<?' => '&#60;&#63;',
-			'?>' => '&#63;&#62;'
-		);
-		
-		return str_replace(array_values($phpTagChars), array_keys($phpTagChars), $str);
+		return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
 	}
 	
 	// Function: nailEncode()
@@ -320,14 +335,8 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		{
 			return Error::set('Error', 'stringParameter', 'str');
 		}
-		
-		$nailChars = array
-		(
-			"'" => "&#145;",
-			'"' => "&#147;"
-		);
-		
-		$str = str_replace(array_keys($nailChars), array_values($nailChars), $str);
+	
+		$str = str_replace(array_keys($this->nailChars), array_values($this->nailChars), $str);
 		
 		return $str;
 	}
@@ -343,14 +352,8 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		{
 			return Error::set('Error', 'stringParameter', 'str');
 		}
-		
-		$nailChars = array
-		(
-			"'" => "&#145;",
-			'"' => "&#147;"
-		);
-		
-		$str = str_replace(array_values($nailChars), array_keys($nailChars), $str);
+	
+		$str = str_replace(array_values($this->nailChars), array_keys($this->nailChars), $str);
 		
 		return $str;
 	}

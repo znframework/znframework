@@ -87,6 +87,11 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	//----------------------------------------------------------------------------------------------------
 	public function browserLang($default = 'tr')
 	{
+		if( ! is_string($default)) 
+		{
+			return Error::set('Error', 'stringParameter', '1.(default)');
+		}
+		
 		$languages = Config::get('Language', 'shortCodes');
 		
 		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
@@ -108,6 +113,11 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	//----------------------------------------------------------------------------------------------------
 	public function code($code = 200)
 	{
+		if( ! is_scalar($code)) 
+		{
+			return Error::set('Error', 'scalarParameter', '1.(code)');
+		}
+		
 		$messages = Arrays::multikey($this->config['messages']);
 		
 		if( isset($messages[$code]) )
