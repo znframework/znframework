@@ -1695,6 +1695,36 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this->db->exec($this->_querySecurity($query), $secure);
 	}
 	
+	/******************************************************************************************
+	* MULTI QUERY                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Standart veritabanı sorgusu kullanmak için oluşturulmuştur.			  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @query  => SQL SORGULARI yazılır.							              |
+	| 2. string var @secure  => Sorgu güvenliği içindir.						              |
+	|          																				  |
+	| Örnek Kullanım: $this->db->multiQuery('DROP TABLE OrnekTablo');        			      |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query = '', $secure = array())
+	{
+		if( ! is_string($query) || empty($query) ) 
+		{
+			Error::set('Error', 'stringParameter', 'query');
+			Error::set('Error', 'emptyParameter', 'query');
+			
+			return false;	
+		}
+		
+		if( isset($this->secure) )
+		{
+			$secure = $this->secure;	
+		}
+		
+		return $this->db->multiQuery($this->_querySecurity($query), $secure);
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Simple Query Bitiş
 	//----------------------------------------------------------------------------------------------------

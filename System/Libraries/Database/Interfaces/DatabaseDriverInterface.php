@@ -33,6 +33,14 @@ interface DatabaseDriverInterface
 	public function exec($query, $security);
 	
 	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security);
+	
+	/******************************************************************************************
 	* QUERY                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |

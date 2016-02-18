@@ -123,6 +123,17 @@ class MysqlDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security = NULL)
+	{
+		return $this->query($query, $security);
+	}
+	
+	/******************************************************************************************
 	* QUERY                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
@@ -388,7 +399,7 @@ class MysqlDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function result($type = 'object')
+	public function result()
 	{
 		if( empty($this->query) ) 
 		{
@@ -399,14 +410,7 @@ class MysqlDriver implements DatabaseDriverInterface
 		
 		while( $data = $this->fetchAssoc() )
 		{
-			$data = array_map('Security::injectionDecode', $data);
-			
-			if( $type === 'object' )
-			{
-				$data = (object)$data;
-			}
-			
-			$rows[] = $data;
+			$rows[] = (object)$data;
 		}
 		
 		return $rows;
@@ -420,7 +424,19 @@ class MysqlDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function resultArray()
 	{
-		return $this->result('array');
+		if( empty($this->query) ) 
+		{
+			return false;
+		}
+		
+		$rows = array();
+		
+		while( $data = $this->fetchAssoc() )
+		{
+			$rows[] = $data;
+		}
+		
+		return $rows;
 	}
 	
 	/******************************************************************************************
