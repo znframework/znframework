@@ -380,7 +380,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
 	|          																				  |
 	******************************************************************************************/
-	public function result()
+	public function result($type = 'object')
 	{
 		if( empty($this->query) ) 
 		{
@@ -391,7 +391,14 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		
 		while( $data = $this->fetchAssoc() )
 		{
-			$rows[] = (object)$data;
+			$data = array_map('Security::injectionDecode', $data);
+			
+			if( $type === 'object' )
+			{
+				$data = (object)$data;
+			}
+			
+			$rows[] = $data;
 		}
 		
 		return $rows;
@@ -405,19 +412,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function resultArray()
 	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
+		return $this->result('array');
 	}
 	
 	/******************************************************************************************

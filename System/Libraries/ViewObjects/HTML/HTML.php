@@ -146,7 +146,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 			return Error::set('Error', 'valueParameter', 'str');
 		}
 		
-		return '<bold'.$this->attributes($attributes).'>'.$str.'</bold>';
+		return '<b'.$this->attributes($attributes).'>'.$str.'</b>';
 	}
 	
 	// Function: strong()

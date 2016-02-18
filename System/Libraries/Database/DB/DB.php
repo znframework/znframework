@@ -1044,6 +1044,36 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Escape String
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Tırnak işaretlerinin başına \ işareti ekler.
+	//
+	// @param  string $data
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function escapeString($data = '')
+	{
+		return $this->db->realEscapeString($data);	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Real Escape String
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Tırnak işaretlerinin başına \ işareti ekler.
+	//
+	// @param  string $data
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function realEscapeString($data = '')
+	{
+		return $this->db->realEscapeString($data);	
+	}
+	
 	/******************************************************************************************
 	* SELECT                                                                                  *
 	******************************************************************************************/
@@ -1931,6 +1961,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		{
 			$data .= $key.",";
 			
+			$value = $this->db->realEscapeString($value);
+			
 			if( $value !== '?' )
 			{
 				$values .= "'".$value."'".",";
@@ -1952,7 +1984,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		               ' ('.substr($data, 0, -1).') VALUES ('.substr($values, 0, -1).')';
 
 		$this->_resetInsertQuery();
-		
+
 		return $this->db->query($this->_querySecurity($insertQuery), $this->secure);
 	}
 	
@@ -2023,6 +2055,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		foreach( $set as $key => $value )
 		{
+			$value = $this->db->realEscapeString($value);
+			
 			$data .= $key.'='."'".$value."'".',';
 		}
 		
