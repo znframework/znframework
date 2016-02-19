@@ -144,7 +144,8 @@ trait DatabaseTrait
 	
 	protected function nailEncode($data)
 	{
-		return str_replace("'", "&#39;", $data);	
+		$quote = str_replace("'", "&#39;", $data);	
+		return str_replace("\&#39;", "\'", $quote);
 	}
 	
 	/******************************************************************************************
