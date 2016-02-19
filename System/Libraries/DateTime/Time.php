@@ -51,6 +51,23 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// Calculate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Tarihler arasında hesaplama yapmak için kullanılır.
+	//
+	// @param  string input
+	// @param  string calculate
+	// @param  string output
+	// @return mixed
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function calculate($input = '', $calculate = '', $output = '%Y-%m-%d')
+	{		
+		return Date::calculate($input, $calculate, $output, 'setTimeFormatChars');
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// Convert
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -61,7 +78,7 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert($date = '', $format = 'd-m-Y H:i:s')
+	public function convert($date = '', $format = '%d-%B-%Y %A, %H:%M:%S')
 	{
 		return strftime($this->_convert('setTimeFormatChars', $format), strtotime($date));	
 	}

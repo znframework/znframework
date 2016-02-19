@@ -44,6 +44,33 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 	{		
 		return date("d.m.o");
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Calculate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Tarihler arasında hesaplama yapmak için kullanılır.
+	//
+	// @param  string input
+	// @param  string calculate
+	// @param  string output
+	// @return mixed
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function calculate($input = '', $calculate = '', $output = 'Y-m-d', $charType = 'setDateFormatChars')
+	{	
+		if( preg_match('/^[0-9]/', $input) )
+		{
+			return date($output, strtotime($calculate, strtotime($input)));
+		}
+		else
+		{	
+			$input  = $this->_convert($charType, $input);
+			$output = $this->_convert($charType, $output);
+		
+			return date($output, strtotime($calculate, strtotime(date($input))));
+		}
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Convert
