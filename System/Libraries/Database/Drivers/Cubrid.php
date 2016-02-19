@@ -452,7 +452,7 @@ class CubridDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', cubrid_fetch_array($this->query));
+			return cubrid_fetch_array($this->query);
 		}
 		else
 		{
@@ -470,7 +470,7 @@ class CubridDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)cubrid_fetch_assoc($this->query));
+			return cubrid_fetch_assoc($this->query);
 		}
 		else
 		{

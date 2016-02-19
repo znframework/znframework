@@ -480,7 +480,7 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', $this->query->fetch(PDO::FETCH_BOTH));
+			return $this->query->fetch(PDO::FETCH_BOTH);
 		}
 		else
 		{
@@ -498,7 +498,7 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)$this->query->fetch(PDO::FETCH_ASSOC));
+			return $this->query->fetch(PDO::FETCH_ASSOC);
 		}
 		else
 		{

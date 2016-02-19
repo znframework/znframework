@@ -437,7 +437,7 @@ class MysqlDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', mysql_fetch_array($this->query));
+			return mysql_fetch_array($this->query);
 		}
 		else
 		{
@@ -455,7 +455,7 @@ class MysqlDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)mysql_fetch_assoc($this->query));
+			return mysql_fetch_assoc($this->query);
 		}
 		else
 		{

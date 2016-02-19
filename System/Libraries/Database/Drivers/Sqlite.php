@@ -420,7 +420,7 @@ class SqliteDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', sqlite_fetch_array($this->query));
+			return sqlite_fetch_array($this->query);
 		}
 		else
 		{
@@ -438,7 +438,7 @@ class SqliteDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)sqlite_fetch_array($this->query));
+			return sqlite_fetch_array($this->query);
 		}
 		else
 		{

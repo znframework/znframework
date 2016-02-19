@@ -426,7 +426,7 @@ class MssqlDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', mssql_fetch_array($this->query));
+			return mssql_fetch_array($this->query);
 		}
 		else
 		{
@@ -444,7 +444,7 @@ class MssqlDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)mssql_fetch_assoc($this->query));
+			return mssql_fetch_assoc($this->query);
 		}
 		else
 		{

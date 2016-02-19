@@ -1991,7 +1991,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		{
 			$data .= $key.",";
 			
-			$value = $this->db->realEscapeString($value);
+			$value = Security::nailEncode($value);
 			
 			if( $value !== '?' )
 			{
@@ -2085,7 +2085,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		foreach( $set as $key => $value )
 		{
-			$value = $this->db->realEscapeString($value);
+			$value = Security::nailEncode($value);
 			
 			$data .= $key.'='."'".$value."'".',';
 		}

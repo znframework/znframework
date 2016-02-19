@@ -419,7 +419,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', $this->query->fetchArray(SQLITE3_BOTH));
+			return $this->query->fetchArray(SQLITE3_BOTH);
 		}
 		else
 		{
@@ -437,7 +437,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)$this->query->fetchArray(SQLITE3_ASSOC));
+			return $this->query->fetchArray(SQLITE3_ASSOC);
 		}
 		else
 		{

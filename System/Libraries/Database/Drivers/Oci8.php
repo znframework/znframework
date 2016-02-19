@@ -455,7 +455,7 @@ class Oci8Driver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', oci_fetch_array($this->query));
+			return oci_fetch_array($this->query);
 		}
 		else
 		{
@@ -473,7 +473,7 @@ class Oci8Driver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)oci_fetch_assoc($this->query));
+			return oci_fetch_assoc($this->query);
 		}
 		else
 		{

@@ -443,7 +443,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', fbsql_fetch_array($this->query));
+			return fbsql_fetch_array($this->query);
 		}
 		else
 		{
@@ -461,7 +461,7 @@ class FbsqlDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)fbsql_fetch_assoc($this->query));
+			return fbsql_fetch_assoc($this->query);
 		}
 		else
 		{

@@ -460,7 +460,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', pg_fetch_array($this->query));
+			return pg_fetch_array($this->query);
 		}
 		else
 		{
@@ -478,7 +478,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)pg_fetch_assoc($this->query));
+			return pg_fetch_assoc($this->query);
 		}
 		else
 		{

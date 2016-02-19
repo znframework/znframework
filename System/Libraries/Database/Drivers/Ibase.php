@@ -443,7 +443,7 @@ class IbaseDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', ibase_fetch_array($this->query));
+			return ibase_fetch_array($this->query);
 		}
 		else
 		{
@@ -461,7 +461,7 @@ class IbaseDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)ibase_fetch_assoc($this->query));
+			return ibase_fetch_assoc($this->query);
 		}
 		else
 		{

@@ -426,7 +426,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', sqlsrv_fetch_array($this->query, SQLSRV_FETCH_BOTH));
+			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_BOTH);
 		}
 		else
 		{
@@ -444,7 +444,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC));
+			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC);
 		}
 		else
 		{

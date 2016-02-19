@@ -410,7 +410,7 @@ class SybaseDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', sybase_fetch_array($this->query));
+			return sybase_fetch_array($this->query);
 		}
 		else
 		{
@@ -428,7 +428,7 @@ class SybaseDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)sybase_fetch_assoc($this->query));
+			return sybase_fetch_assoc($this->query);
 		}
 		else
 		{

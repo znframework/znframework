@@ -409,7 +409,7 @@ class OdbcDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', odbc_fetch_array($this->query));
+			return odbc_fetch_array($this->query);
 		}
 		else
 		{
@@ -427,7 +427,7 @@ class OdbcDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return array_map('stripslashes', (array)odbc_fetch_array($this->query));
+			return odbc_fetch_array($this->query);
 		}
 		else
 		{
