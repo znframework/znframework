@@ -386,70 +386,6 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* RESULT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
-	|          																				  |
-	******************************************************************************************/
-	public function result()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = (object)$data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* RESULT ARRAY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
-	|          																				  |
-	******************************************************************************************/
-	public function resultArray()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* ROW                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu tek bir kayıt bilgisini verir.              | 
-	|          																				  |
-	******************************************************************************************/
-	public function row()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$data = $this->fetchAssoc();
-		
-		return (object)$data;
-	}
-	
-	/******************************************************************************************
 	* REAL STRING ESCAPE                                                                      *
 	*******************************************************************************************
 	| Genel Kullanım: Bu sürücü için bu kullanım desteklenmediği için. aşağıdaki yöntemden	  |
@@ -490,7 +426,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_BOTH);
+			return array_map('stripslashes', sqlsrv_fetch_array($this->query, SQLSRV_FETCH_BOTH));
 		}
 		else
 		{
@@ -508,7 +444,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC);
+			return array_map('stripslashes', (array)sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC));
 		}
 		else
 		{

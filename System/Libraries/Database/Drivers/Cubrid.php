@@ -409,70 +409,6 @@ class CubridDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* RESULT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
-	|          																				  |
-	******************************************************************************************/
-	public function result()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = (object)$data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* RESULT ARRAY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
-	|          																				  |
-	******************************************************************************************/
-	public function resultArray()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* ROW                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu tek bir kayıt bilgisini verir.              | 
-	|          																				  |
-	******************************************************************************************/
-	public function row()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$data = $this->fetchAssoc();
-		
-		return (object)$data;
-	}
-	
-	/******************************************************************************************
 	* REAL STRING ESCAPE                                                                      *
 	*******************************************************************************************
 	| Genel Kullanım: Bu sürücü için real_escape_string kullanımıdır. 			              | 
@@ -516,7 +452,7 @@ class CubridDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return cubrid_fetch_array($this->query);
+			return array_map('stripslashes', cubrid_fetch_array($this->query));
 		}
 		else
 		{
@@ -534,7 +470,7 @@ class CubridDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return cubrid_fetch_assoc($this->query);
+			return array_map('stripslashes', (array)cubrid_fetch_assoc($this->query));
 		}
 		else
 		{
