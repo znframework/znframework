@@ -42,35 +42,7 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function current($clock = NULL)
 	{		
-		return date("d.m.o");
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Calculate
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// Tarihler arasında hesaplama yapmak için kullanılır.
-	//
-	// @param  string input
-	// @param  string calculate
-	// @param  string output
-	// @return mixed
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function calculate($input = '', $calculate = '', $output = 'Y-m-d', $charType = 'setDateFormatChars')
-	{	
-		$output = $this->_convert($charType, $output);
-		
-		if( preg_match('/^[0-9]/', $input) )
-		{
-			return date($output, strtotime($calculate, strtotime($input)));
-		}
-		else
-		{	
-			$input  = $this->_convert($charType, $input);
-		
-			return date($output, strtotime($calculate, strtotime(date($input))));
-		}
+		return $this->_datetime("d.m.o");
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -86,7 +58,7 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function convert($date = '', $format = 'd-m-Y H:i:s')
 	{
-		return date($this->_convert('setDateFormatChars', $format), strtotime($date));	
+		return $this->_datetime($format, strtotime($date));	
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -101,26 +73,6 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function standart()
 	{		
-		return date("d.F.o l, H:i:s");
-	}
-
-	//----------------------------------------------------------------------------------------------------
-	// Set
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// Tarih ve saat ayarlamaları yapmak için kullanılır.	
-	//
-	// @param  string exp
-	// @return string
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function set($exp = 'H:i:s')
-	{
-		if( ! is_string($exp) ) 
-		{
-			return Error::set('Error', 'stringParameter', 'exp');
-		}
-		
-		return date($this->_convert('setDateFormatChars', $exp));
+		return $this->_datetime("d.F.o l, H:i:s");
 	}
 }
