@@ -59,6 +59,8 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function calculate($input = '', $calculate = '', $output = 'Y-m-d', $charType = 'setDateFormatChars')
 	{	
+		$output = $this->_convert($charType, $output);
+		
 		if( preg_match('/^[0-9]/', $input) )
 		{
 			return date($output, strtotime($calculate, strtotime($input)));
@@ -66,7 +68,6 @@ class __USE_STATIC_ACCESS__Date implements DateTimeCommonInterface
 		else
 		{	
 			$input  = $this->_convert($charType, $input);
-			$output = $this->_convert($charType, $output);
 		
 			return date($output, strtotime($calculate, strtotime(date($input))));
 		}
