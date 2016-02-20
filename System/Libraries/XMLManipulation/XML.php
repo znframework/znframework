@@ -231,7 +231,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 		}
 		else
 		{
-			return Error::set('Error', 'fileNotFound', $file);	
+			return Errors::set('Error', 'fileNotFound', $file);	
 		}
 	}
 	

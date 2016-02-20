@@ -114,7 +114,7 @@ if( $composer === true )
 	{
 		report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 		
-		die(Error::message('Error', 'fileNotFound', $path));
+		die(Errors::message('Error', 'fileNotFound', $path));
 	}
 }
 elseif( is_file($composer) )
@@ -125,6 +125,6 @@ elseif( ! empty($composer) )
 {
 	report('Error', lang('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
 	
-	die(Error::message('Error', 'fileNotFound', $composer));
+	die(Errors::message('Error', 'fileNotFound', $composer));
 }
 //----------------------------------------------------------------------------------------------------	

@@ -203,7 +203,7 @@ class MemcacheDriver implements CacheInterface
 	{
 		if( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
 		{
-			return Error::set('Cache', 'unsupported', 'Memcache');
+			return Errors::set('Cache', 'unsupported', 'Memcache');
 		}
 		
 		return $this->connect();

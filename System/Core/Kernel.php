@@ -171,7 +171,7 @@ if( is_file($isFile) )
 				report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');	
 					
 				// Hatayı ekrana yazdır.
-				die(Error::message('Error', 'callUserFuncArrayError', $function));
+				die(Errors::message('Error', 'callUserFuncArrayError', $function));
 			}
 		}
 	}
@@ -188,7 +188,7 @@ else
 		report('Error', lang('Error', 'notIsFileError', $isFile), 'SystemNotIsFileError');
 		
 		// Hatayı ekrana yazdır.
-		die(Error::message('Error', 'notIsFileError', $isFile));
+		die(Errors::message('Error', 'notIsFileError', $isFile));
 	}		
 }
 
@@ -213,7 +213,7 @@ else
 	// Yakalanan son hata log dosyasına kaydediliyor.
 	//
 	//------------------------------------------------------------------------------------------------
-	if(  Config::get('Log', 'createFile') === true && $errorLast = Error::last() )
+	if(  Config::get('Log', 'createFile') === true && $errorLast = Errors::last() )
 	{
 		$lang    = lang('Error');
 		$message = $lang['line']   .':'.$errorLast['line'].', '.

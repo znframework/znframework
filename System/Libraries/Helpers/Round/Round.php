@@ -36,7 +36,7 @@ class __USE_STATIC_ACCESS__Round implements RoundInterface
 	{
 		if( ! is_numeric($number) || empty($number) ) 
 		{
-			return Error::set('Error', 'numericParameter', 'number');
+			return Errors::set('Error', 'numericParameter', 'number');
 		}
 		
 		if( ! is_numeric($count) ) 

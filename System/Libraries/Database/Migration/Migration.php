@@ -129,7 +129,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}	
 		else
 		{
-			$this->error = Error::set(DBForge::error(), true);	
+			$this->error = Errors::set(DBForge::error(), true);	
 		}
 	}
 	
@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}	
 		else
 		{
-			$this->error = Error::set(DBForge::error(), true);	
+			$this->error = Errors::set(DBForge::error(), true);	
 		}
 	}
 	
@@ -167,7 +167,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = Error::set(DBForge::error(), true);	
+			$this->error = Errors::set(DBForge::error(), true);	
 		}
 	}
 
@@ -186,7 +186,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = Error::set(DBForge::error(), true);	
+			$this->error = Errors::set(DBForge::error(), true);	
 		}
 	}
 	
@@ -205,7 +205,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = Error::set(DBForge::error(), true);	
+			$this->error = Errors::set(DBForge::error(), true);	
 		}
 	}
 	
@@ -224,7 +224,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = Error::set(DBForge::error(), true);	
+			$this->error = Errors::set(DBForge::error(), true);	
 		}
 	}
 	
@@ -331,7 +331,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			return Error::set('File', 'alreadyFileError', $file);	
+			return Errors::set('File', 'alreadyFileError', $file);	
 		}
 	}
 	
@@ -378,7 +378,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		}
 		else
 		{
-			return Error::set('Folder', 'notFoundError', $this->path);	
+			return Errors::set('Folder', 'notFoundError', $this->path);	
 		}
 	}
 	
@@ -463,7 +463,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( (int)$numeric > 999 || (int)$numeric < 0 )
 		{
-			return Error::set('Error', 'invalidVersion', $numeric);
+			return Errors::set('Error', 'invalidVersion', $numeric);
 		}
 	
 		switch( $length )

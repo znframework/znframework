@@ -138,7 +138,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		if( ! in_array($this->select_driver, $this->pdo_subdrivers) )
 		{
-			die(Error::message('Database', 'driverError', $this->select_driver));		
+			die(Errors::message('Database', 'driverError', $this->select_driver));		
 		}
 		
 		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	

@@ -123,7 +123,7 @@ trait DateTimeTrait
 	{	
 		if( ! is_string($exp) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'exp');
+			return Errors::set('Error', 'stringParameter', 'exp');
 		}
 
 		return $this->_datetime($exp);

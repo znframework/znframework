@@ -154,7 +154,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', 'url');	
+			Errors::set('Error', 'stringParameter', 'url');	
 		}
 		
 		return $this;
@@ -164,7 +164,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($start) )
 		{
-			Error::set('Error', 'numericParameter', 'start');
+			Errors::set('Error', 'numericParameter', 'start');
 			return $this;
 		}
 		
@@ -177,7 +177,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($limit) )
 		{
-			Error::set('Error', 'numericParameter', 'limit');
+			Errors::set('Error', 'numericParameter', 'limit');
 			return $this;
 		}
 		
@@ -190,7 +190,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('Error', 'stringParameter', '1.(type)');
+			Errors::set('Error', 'stringParameter', '1.(type)');
 			return $this;
 		}
 		
@@ -203,7 +203,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($totalRows) )
 		{
-			Error::set('Error', 'numericParameter', 'totalRows');
+			Errors::set('Error', 'numericParameter', 'totalRows');
 			return $this;
 		}
 		
@@ -216,7 +216,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($countLinks) )
 		{
-			Error::set('Error', 'numericParameter', 'countLinks');
+			Errors::set('Error', 'numericParameter', 'countLinks');
 			return $this;
 		}
 		
@@ -258,7 +258,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_array($css) )
 		{
-			Error::set('Error', 'arrayParameter', 'css');
+			Errors::set('Error', 'arrayParameter', 'css');
 			return $this;	
 		}
 		
@@ -271,7 +271,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_array($style) )
 		{
-			Error::set('Error', 'arrayParameter', 'style');
+			Errors::set('Error', 'arrayParameter', 'style');
 			return $this;	
 		}
 		
@@ -327,7 +327,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
 		if( ! is_array($config) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'config');	
+			return Errors::set('Error', 'arrayParameter', 'config');	
 		}
 		
 		$configs = $this->config; 

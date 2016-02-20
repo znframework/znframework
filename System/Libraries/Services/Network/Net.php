@@ -52,7 +52,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) || ! is_string($type) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host) & 2.(type)');	
+			return Errors::set('Error', 'stringParameter', '1.(host) & 2.(type)');	
 		}
 		
 		return checkdnsrr($this->cleanHttp($host), $type);
@@ -75,7 +75,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host)');	
+			return Errors::set('Error', 'stringParameter', '1.(host)');	
 		}
 
 		$dns = dns_get_record($this->cleanHttp($host), Convert::toConstant($type, 'DNS_'), $auth, $add, $raw);
@@ -102,7 +102,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host)');	
+			return Errors::set('Error', 'stringParameter', '1.(host)');	
 		}
 	
 		$mx = getmxrr($this->cleanHttp($host), $mxhosts, $weight);
@@ -130,18 +130,18 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host)');	
+			return Errors::set('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		if( ! is_numeric($port) )
 		{
-			return Error::set('Error', 'numericParameter', '2.(port)');	
+			return Errors::set('Error', 'numericParameter', '2.(port)');	
 		}
 		
 		$socket = fsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 		
-		Error::set($errno);
-		Error::set($errstr);
+		Errors::set($errno);
+		Errors::set($errstr);
 		
 		return $socket;
 	}
@@ -156,18 +156,18 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host)');	
+			return Errors::set('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		if( ! is_numeric($port) )
 		{
-			return Error::set('Error', 'numericParameter', '2.(port)');	
+			return Errors::set('Error', 'numericParameter', '2.(port)');	
 		}
 		
 		$socket = pfsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 		
-		Error::set($errno);
-		Error::set($errstr);
+		Errors::set($errno);
+		Errors::set($errstr);
 		
 		return $socket;
 	}
@@ -182,7 +182,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($ip) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(ip)');	
+			return Errors::set('Error', 'stringParameter', '1.(ip)');	
 		}
 		
 		return gethostbyaddr($ip);
@@ -198,7 +198,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host)');	
+			return Errors::set('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		return gethostbyname($this->cleanHttp($host));
@@ -214,7 +214,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(host)');	
+			return Errors::set('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		return gethostbynamel($this->cleanHttp($host));
@@ -230,7 +230,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($name) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(name)');	
+			return Errors::set('Error', 'stringParameter', '1.(name)');	
 		}
 		
 		return getprotobyname($name);
@@ -246,7 +246,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_numeric($number) )
 		{
-			return Error::set('Error', 'numericParameter', '1.(number)');	
+			return Errors::set('Error', 'numericParameter', '1.(number)');	
 		}
 		
 		return getprotobynumber($number);
@@ -262,7 +262,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($service) || ! is_string($protocol) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(service) & 2.(protocol)');	
+			return Errors::set('Error', 'stringParameter', '1.(service) & 2.(protocol)');	
 		}
 		
 		return getservbyname($service, $protocol);
@@ -278,12 +278,12 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_numeric($port) )
 		{
-			return Error::set('Error', 'numericParameter', '1.(port)');	
+			return Errors::set('Error', 'numericParameter', '1.(port)');	
 		}
 		
 		if( ! is_string($protocol) )
 		{
-			return Error::set('Error', 'stringParameter', '2.(protocol)');	
+			return Errors::set('Error', 'stringParameter', '2.(protocol)');	
 		}
 		
 		return getservbyport($port, $protocol);
@@ -321,7 +321,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($chr) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(chr)');	
+			return Errors::set('Error', 'stringParameter', '1.(chr)');	
 		}
 		
 		return inet_ntop($chr);
@@ -337,7 +337,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($addr) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(addr)');	
+			return Errors::set('Error', 'stringParameter', '1.(addr)');	
 		}
 		
 		return inet_pton($addr);
@@ -353,7 +353,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_string($ip) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(ip)');	
+			return Errors::set('Error', 'stringParameter', '1.(ip)');	
 		}
 		
 		return ip2long($ip);
@@ -369,7 +369,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	{
 		if( ! is_numeric($numberAddress) )
 		{
-			return Error::set('Error', 'numericParameter', '1.(numberAddress)');	
+			return Errors::set('Error', 'numericParameter', '1.(numberAddress)');	
 		}
 		
 		return long2ip($numberAddress);

@@ -90,7 +90,7 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 						report('Error', lang('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
 								
 						// Hatayı ekrana yazdır.
-						die(Error::message('Error', 'callUserFuncArrayError', $functionRun));
+						die(Errors::message('Error', 'callUserFuncArrayError', $functionRun));
 					}
 					else
 					{

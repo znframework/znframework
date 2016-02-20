@@ -54,7 +54,7 @@ class JQEvent
 	{
 		if( ! is_string($selector) || ! is_string($callback) )
 		{
-			Error::set('Error', 'stringParameter', 'selector & callback');	
+			Errors::set('Error', 'stringParameter', 'selector & callback');	
 		}
 		
 		$this->property = $type;
@@ -458,7 +458,7 @@ class JQEvent
 	{
 		if( ! is_string($type))
 		{
-			Error::set('Error', 'stringParameter', 'type');
+			Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		

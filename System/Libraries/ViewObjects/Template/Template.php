@@ -52,7 +52,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		// Parametre konrolleri sağlanıyor.
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', 'string');	
+			return Errors::set('Error', 'stringParameter', 'string');	
 		}
 		
 		$eol = EOL;
@@ -188,7 +188,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		$content = ob_get_contents(); 
 		ob_end_clean(); 
 		
-		if( $lastError = Error::last() )
+		if( $lastError = Errors::last() )
 		{
 			Exceptions::table('', $lastError['message'], '', $lastError['line']);
 		}

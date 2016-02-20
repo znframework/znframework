@@ -61,7 +61,7 @@ class JQAjax
 	{
 		if( ! is_string($url) )
 		{
-			Error::set('Error', 'stringParameter', '1.(url)');
+			Errors::set('Error', 'stringParameter', '1.(url)');
 			return $this;	
 		}
 		
@@ -90,7 +90,7 @@ class JQAjax
 	{
 		if( ! is_scalar($data) )
 		{
-			Error::set('Error', 'valueParameter', '1.(data)');
+			Errors::set('Error', 'valueParameter', '1.(data)');
 			return $this;	
 		}
 		
@@ -113,7 +113,7 @@ class JQAjax
 	{
 		if( ! is_scalar($headers) )
 		{
-			Error::set('Error', 'valueParameter', '1.(headers)');
+			Errors::set('Error', 'valueParameter', '1.(headers)');
 			return $this;	
 		}
 		
@@ -136,7 +136,7 @@ class JQAjax
 	{
 		if( ! is_scalar($ifModified) )
 		{
-			Error::set('Error', 'valueParameter', '1.(isModified)');
+			Errors::set('Error', 'valueParameter', '1.(isModified)');
 			return $this;	
 		}
 		
@@ -162,7 +162,7 @@ class JQAjax
 	{
 		if( ! is_scalar($isLocal) )
 		{
-			Error::set('Error', 'valueParameter', '1.(isLocal)');
+			Errors::set('Error', 'valueParameter', '1.(isLocal)');
 			return $this;	
 		}
 		
@@ -188,7 +188,7 @@ class JQAjax
 	{
 		if( ! is_scalar($mimeType) )
 		{
-			Error::set('Error', 'valueParameter', 'mimeType');
+			Errors::set('Error', 'valueParameter', 'mimeType');
 			return $this;	
 		}
 		
@@ -242,7 +242,7 @@ class JQAjax
 	{
 		if( ! is_scalar($jsonpCallback) )
 		{
-			Error::set('Error', 'valueParameter', 'jsonpCallback');
+			Errors::set('Error', 'valueParameter', 'jsonpCallback');
 			return $this;	
 		}
 		
@@ -270,7 +270,7 @@ class JQAjax
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('Error', 'stringParameter', 'type');
+			Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		
@@ -286,7 +286,7 @@ class JQAjax
 	{
 		if( ! is_string($password) )
 		{
-			Error::set('Error', 'stringParameter', 'password');
+			Errors::set('Error', 'stringParameter', 'password');
 			return $this;	
 		}
 		
@@ -302,7 +302,7 @@ class JQAjax
 	{
 		if( ! is_string($username) )
 		{
-			Error::set('Error', 'stringParameter', 'username');
+			Errors::set('Error', 'stringParameter', 'username');
 			return $this;	
 		}
 		
@@ -319,7 +319,7 @@ class JQAjax
 	{
 		if( ! is_string($method) )
 		{
-			Error::set('Error', 'stringParameter', 'method');
+			Errors::set('Error', 'stringParameter', 'method');
 			return $this;	
 		}
 		
@@ -346,7 +346,7 @@ class JQAjax
 	{
 		if( ! isCharset($scriptCharset) )
 		{
-			Error::set('Error', 'charsetParameter', 'scriptCharset');
+			Errors::set('Error', 'charsetParameter', 'scriptCharset');
 			return $this;	
 		}
 		
@@ -362,7 +362,7 @@ class JQAjax
 	{
 		if( ! is_scalar($traditional) )
 		{
-			Error::set('Error', 'valueParameter', 'traditional');
+			Errors::set('Error', 'valueParameter', 'traditional');
 			return $this;	
 		}
 		
@@ -379,7 +379,7 @@ class JQAjax
 	{
 		if( ! is_scalar($processData) )
 		{
-			Error::set('Error', 'valueParameter', 'processData');
+			Errors::set('Error', 'valueParameter', 'processData');
 			return $this;	
 		}
 		
@@ -396,7 +396,7 @@ class JQAjax
 	{
 		if( ! is_scalar($cache) )
 		{
-			Error::set('Error', 'valueParameter', 'cache');
+			Errors::set('Error', 'valueParameter', 'cache');
 			return $this;	
 		}
 		
@@ -413,7 +413,7 @@ class JQAjax
 	{
 		if( ! is_string($xhrFields) )
 		{
-			Error::set('Error', 'stringParameter', 'xhrFields');
+			Errors::set('Error', 'stringParameter', 'xhrFields');
 			return $this;	
 		}
 		
@@ -429,7 +429,7 @@ class JQAjax
 	{
 		if( ! is_scalar($context) )
 		{
-			Error::set('Error', 'valueParameter', 'context');
+			Errors::set('Error', 'valueParameter', 'context');
 			return $this;	
 		}
 		
@@ -445,7 +445,7 @@ class JQAjax
 	{
 		if( ! is_string($accepts) )
 		{
-			Error::set('Error', 'stringParameter', 'accepts');
+			Errors::set('Error', 'stringParameter', 'accepts');
 			return $this;	
 		}
 		
@@ -461,7 +461,7 @@ class JQAjax
 	{
 		if( ! is_string($contents) )
 		{
-			Error::set('Error', 'stringParameter', 'contents');
+			Errors::set('Error', 'stringParameter', 'contents');
 			return $this;	
 		}
 		
@@ -477,7 +477,7 @@ class JQAjax
 	{
 		if( ! is_scalar($async) )
 		{
-			Error::set('Error', 'valueParameter', 'async');
+			Errors::set('Error', 'valueParameter', 'async');
 			return $this;	
 		}
 		
@@ -494,7 +494,7 @@ class JQAjax
 	{
 		if( ! is_scalar($crossDomain) )
 		{
-			Error::set('Error', 'valueParameter', 'crossDomain');
+			Errors::set('Error', 'valueParameter', 'crossDomain');
 			return $this;	
 		}
 		
@@ -511,7 +511,7 @@ class JQAjax
 	{
 		if( ! is_scalar($timeout) )
 		{
-			Error::set('Error', 'valueParameter', 'timeout');
+			Errors::set('Error', 'valueParameter', 'timeout');
 			return $this;	
 		}
 		
@@ -528,7 +528,7 @@ class JQAjax
 	{
 		if( ! is_scalar($globals) )
 		{
-			Error::set('Error', 'valueParameter', 'globals');
+			Errors::set('Error', 'valueParameter', 'globals');
 			return $this;	
 		}
 		
@@ -555,7 +555,7 @@ class JQAjax
 		}
 		else
 		{
-			Error::set('Error', 'valueParameter', 'contentType');
+			Errors::set('Error', 'valueParameter', 'contentType');
 			return $this;	
 		}
 		
@@ -568,7 +568,7 @@ class JQAjax
 	{
 		if( ! is_array($codes) )
 		{
-			Error::set('Error', 'arrayParameter', 'codes');
+			Errors::set('Error', 'arrayParameter', 'codes');
 			return $this;	
 		}
 		
@@ -631,7 +631,7 @@ class JQAjax
 	{
 		if( ! is_string($params) || ! is_string($codes) )
 		{
-			Error::set('Error', 'stringParameter', 'params & codes');
+			Errors::set('Error', 'stringParameter', 'params & codes');
 			return $this;
 		}
 		
@@ -768,7 +768,7 @@ class JQAjax
 	{
 		if( ! is_string($url) || ! is_string($data) )
 		{
-			return Error::set('Error', 'stringParameter', 'url & data');
+			return Errors::set('Error', 'stringParameter', 'url & data');
 		}
 		
 		if( ! empty($url) )

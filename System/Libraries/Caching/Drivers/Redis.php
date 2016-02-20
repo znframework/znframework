@@ -277,7 +277,7 @@ class RedisDriver implements CacheInterface
 	{
 		if( ! extension_loaded('redis') )
 		{
-			return Error::set('Cache', 'unsupported', 'Redis');
+			return Errors::set('Cache', 'unsupported', 'Redis');
 		}
 		
 		return $this->connect();

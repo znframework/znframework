@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	{
 		if( ! is_scalar($data) || empty($data) ) 
 		{
-			return Error::set('Error', 'valueParameter', 'data');
+			return Errors::set('Error', 'valueParameter', 'data');
 		}
 		
 		if( ! is_scalar($additional) )
@@ -194,7 +194,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	{
 		if( ! is_scalar($data) || empty($data) ) 
 		{
-			return Error::set('Error', 'valueParameter', 'data');
+			return Errors::set('Error', 'valueParameter', 'data');
 		}
 		
 		$projectKey = $this->config['projectKey'];
@@ -244,14 +244,14 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Error::set('Error', 'scalarParameter', '1.(data)');
+			return Errors::set('Error', 'scalarParameter', '1.(data)');
 		}
 		
 		$algos = array('golden', 'super');
 		
 		if( ! isHash($type) && ! in_array($type, $algos) )
 		{
-			return Error::set('Error', 'hashParameter', '2.(type)');	
+			return Errors::set('Error', 'hashParameter', '2.(type)');	
 		}
 		
 		if( in_array($type, $algos) )

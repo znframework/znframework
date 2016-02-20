@@ -60,7 +60,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 	{
 		if( ! is_array($settings) )
 		{
-			return Error::set('Error', 'arrayParameter', 'settings');	
+			return Errors::set('Error', 'arrayParameter', 'settings');	
 		}
 		
 		$configs = Config::get('Components', 'terminal');

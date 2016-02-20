@@ -89,7 +89,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	{
 		if( ! is_string($default)) 
 		{
-			return Error::set('Error', 'stringParameter', '1.(default)');
+			return Errors::set('Error', 'stringParameter', '1.(default)');
 		}
 		
 		$languages = Config::get('Language', 'shortCodes');
@@ -115,7 +115,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	{
 		if( ! is_scalar($code)) 
 		{
-			return Error::set('Error', 'scalarParameter', '1.(code)');
+			return Errors::set('Error', 'scalarParameter', '1.(code)');
 		}
 		
 		$messages = Arrays::multikey($this->config['messages']);
@@ -181,7 +181,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		}
 		else
 		{
-			Error::set(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
+			Errors::set(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
 		}
 		
 		return $this;

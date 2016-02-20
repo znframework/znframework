@@ -64,13 +64,13 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			return Error::set('Error', 'emptyParameter', 'product');	
+			return Errors::set('Error', 'emptyParameter', 'product');	
 		}
 		
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			return Error::set('Error', 'arrayParameter', 'product');	
+			return Errors::set('Error', 'arrayParameter', 'product');	
 		}
 		
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -110,7 +110,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		else
 		{
-			return Error::set('Cart', 'noDataError');
+			return Errors::set('Cart', 'noDataError');
 		}
 	}
 	
@@ -137,7 +137,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{
 		if( empty($code) ) 
 		{
-			return Error::set('Error', 'emptyParameter', 'code');
+			return Errors::set('Error', 'emptyParameter', 'code');
 		}
 		
 		$this->items = ( $sessionCart = Session::select(md5('SystemCartData')) ) 
@@ -196,7 +196,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		else
 		{
-			Error::set('Cart', 'noDataError');
+			Errors::set('Cart', 'noDataError');
 			return 0;	
 		}
 	}
@@ -221,7 +221,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		
 		if( empty($this->items) )
 		{
-			Error::set('Cart', 'noDataError');
+			Errors::set('Cart', 'noDataError');
 			return 0;	
 		}
 		
@@ -272,17 +272,17 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{	
 		if( empty($code) )
 		{
-			return Error::set('Cart', 'updateCodeError');
+			return Errors::set('Cart', 'updateCodeError');
 		}
 		
 		if( empty($data) )
 		{
-			return Error::set('Cart', 'updateParameterEmptyError');
+			return Errors::set('Cart', 'updateParameterEmptyError');
 		}
 		
 		if( ! is_array($data) )
 		{
-			return Error::set('Cart', 'updateArrayParameterError');
+			return Errors::set('Cart', 'updateArrayParameterError');
 		}	
 		
 		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
@@ -355,7 +355,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{		
 		if( empty($code) )
 		{
-			return Error::set('Cart', 'deleteCodeError');	
+			return Errors::set('Cart', 'deleteCodeError');	
 		}
 
 		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
@@ -424,7 +424,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return Error::set('Error', 'numericParameter', 'money');
+			return Errors::set('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 

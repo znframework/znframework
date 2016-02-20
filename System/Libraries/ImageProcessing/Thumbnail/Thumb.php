@@ -55,7 +55,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_string($file) )
 		{
-			Error::set('Error', 'stringParameter', 'file');
+			Errors::set('Error', 'stringParameter', 'file');
 			return $this;	
 		}
 	
@@ -82,7 +82,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($quality) )
 		{
-			Error::set('Error', 'numericParameter', 'quality');
+			Errors::set('Error', 'numericParameter', 'quality');
 			return $this;	
 		}
 	
@@ -110,7 +110,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Error::set('Error', 'numericParameter', 'x & y');
+			Errors::set('Error', 'numericParameter', 'x & y');
 			return $this;	
 		}
 	
@@ -143,7 +143,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Error::set('Error', 'numericParameter', 'width & height');
+			Errors::set('Error', 'numericParameter', 'width & height');
 			return $this;	
 		}
 	
@@ -177,7 +177,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Error::set('Error', 'numericParameter', 'width & height');
+			Errors::set('Error', 'numericParameter', 'width & height');
 			return $this;	
 		}
 	
@@ -211,7 +211,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Error::set('Error', 'numericParameter', 'width & height');
+			Errors::set('Error', 'numericParameter', 'width & height');
 			return $this;	
 		}
 	

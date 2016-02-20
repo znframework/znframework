@@ -184,7 +184,7 @@ class WincacheDriver implements CacheInterface
 	{
 		if ( ! extension_loaded('wincache') || ! ini_get('wincache.ucenabled') )
 		{
-			return Error::set('Cache', 'unsupported', 'Wincache');
+			return Errors::set('Cache', 'unsupported', 'Wincache');
 		}
 		
 		return true;

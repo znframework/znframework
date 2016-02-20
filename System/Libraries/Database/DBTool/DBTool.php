@@ -322,7 +322,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 		
 		if( ! file_put_contents($path.$fileName, $return) )
 		{
-			Error::set('Error', 'fileNotWrite', $path.$fileName);
+			Errors::set('Error', 'fileNotWrite', $path.$fileName);
 		}
 		
 		return lang('Database', 'backupTablesSuccess');

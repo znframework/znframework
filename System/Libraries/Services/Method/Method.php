@@ -97,7 +97,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'name');
+			return Errors::set('Error', 'stringParameter', 'name');
 		}
 		// ---------------------------------------------------------------------------
 		
@@ -122,7 +122,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 	{
 		if( ! is_string($fileName) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'fileName');
+			return Errors::set('Error', 'stringParameter', 'fileName');
 		}
 		
 		if( ! is_string($type) ) 
@@ -132,7 +132,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		
 		if( empty($fileName) ) 
 		{
-			return Error::set('Error', 'emptyVariable', '@fileName');
+			return Errors::set('Error', 'emptyVariable', '@fileName');
 		}
 		
 		return $_FILES[$fileName][$type];
@@ -150,7 +150,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 	{
 		if( ! is_scalar($input) || ! is_scalar($name) ) 
 		{
-			return Error::set('Error', 'scalarParameter', '1.(input) && 2.(name)');
+			return Errors::set('Error', 'scalarParameter', '1.(input) && 2.(name)');
 		}
 		
 		switch( $input )
@@ -178,7 +178,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'name');
+			return Errors::set('Error', 'stringParameter', 'name');
 		}
 		
 		if( empty($name) ) 
@@ -204,7 +204,7 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 		// böyle bir veri yoksa
 		if( empty($input[$name]) ) 
 		{
-			return Error::set('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']");
+			return Errors::set('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']");
 		}
 		
 		if( $value === false )
