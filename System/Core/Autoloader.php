@@ -476,8 +476,6 @@ class Autoloader
 			// Sadece .php uzantılı dosyalar için işlem yap.
 			if( is_file($v) )
 			{
-				$classEx = explode('/', $v);
-				
 				// Sınıf isimleri ve yolları oluşturuluyor...
 				$classInfo = self::tokenClassFileInfo($v);
 				

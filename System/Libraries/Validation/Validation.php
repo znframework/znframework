@@ -42,6 +42,20 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	 */
 	protected $settings = array();
 	
+	/* Messages Değişkeni
+	 *  
+	 * Mesajlar bilgisini tutar.
+	 *
+	 */
+	protected $messages = array();
+	
+	/* Index Değişkeni
+	 *  
+	 * Sıra bilgisini tutar.
+	 *
+	 */
+	protected $index = 0;
+	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
 	//----------------------------------------------------------------------------------------------------
@@ -431,6 +445,34 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// phone()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function phone()
+	{
+		$this->settings['config'][] = 'phone';
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// alpha()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alpha()
+	{
+		$this->settings['config'][] = 'alpha';
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// captcha()
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -442,6 +484,22 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		$this->settings['config']['captcha'] = $captcha;
 		
 		return $this;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// _messages()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $type
+	// @param string $name
+	// @param string $viewName
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _messages($type, $name, $viewName)
+	{
+		$message = lang('Validation', $type, $viewName);
+		$this->messages[$this->index] = $message.'<br>'; $this->index++;
+		$this->error[$name] = $message;
 	}
 	
 	/******************************************************************************************
@@ -518,16 +576,12 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 					? $name 
 					: $viewName;
 
-		$messages = array();
-		
 		$edit = $this->_methodType($name, $met);
 		
 		if( ! isset($edit) ) 
 		{
 			return false;	
 		}
-		
-		$i = 0;
 		
 		// kenar boşluklarını kaldırır.
 		if( in_array('trim',$config) ) 
@@ -570,10 +624,8 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		if( in_array('required', $config) )
 		{ 
 			if( empty($edit) )
-			{ 		
-				$required 			= lang('Validation', 'required',$viewName);
-				$messages[$i] 		= $required.'<br>'; $i++;
-				$this->error[$name] = $required;
+			{ 	
+				$this->_messages('required', $name, $viewName);	
 			} 
 		}
 		
@@ -582,11 +634,14 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		
 		if( in_array('captcha', $config) )
 		{ 
-			if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
+			if( ! isset($_SESSION) ) 
+			{
+				session_start();
+			}
+			
+			if( $edit != $_SESSION[md5('captchaCode')] )
 			{ 
-				$securityCode 		= lang('Validation', 'captchaCode',$viewName);
-				$messages[$i] 		= $securityCode.'<br>'; $i++;
-				$this->error[$name] = $securityCode;
+				$this->_messages('captchaCode', $name, $viewName);	
 			} 
 		}
 		
@@ -597,9 +652,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			
 			if( $edit != $pm )
 			{ 
-				$passwordMatch 	= lang('Validation', 'passwordMatch',$viewName);
-				$messages[$i] 		= $passwordMatch.'<br>'; $i++;
-				$this->error[$name] = $passwordMatch;
+				$this->_messages('passwordMatch', $name, $viewName);
 			} 
 		}
 		
@@ -609,9 +662,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			
 			if( $edit != $pm )
 			{ 
-				$passwordMatch 	= lang('Validation', 'dataMatch',$viewName);
-				$messages[$i] 		= $passwordMatch.'<br>'; $i++;
-				$this->error[$name] = $passwordMatch;
+				$this->_messages('dataMatch', $name, $viewName);
 			} 
 		}
 		
@@ -619,16 +670,10 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			$pm = "";
 			$pm = $config['oldPassword'];
-			
-			$encodeType = Config::get('User', 'encode');	
-			
-			$encode = ! empty($encodeType) ? Encode::type($edit, $encodeType) : $edit; 
-			
-			if( $encode != $pm )
+	
+			if( Encode::super($edit) != $pm )
 			{ 
-				$oldPasswordMatch = lang('Validation', 'oldPasswordMatch',$viewName);
-				$messages[$i] 		= $oldPasswordMatch.'<br>'; $i++;
-				$this->error[$name] = $oldPasswordMatch;
+				$this->_messages('oldPasswordMatch', $name, $viewName);
 			} 
 		}
 		
@@ -637,9 +682,25 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! is_numeric($edit) )
 			{ 
-				$numeric 			= lang('Validation', 'numeric',$viewName);
-				$messages[$i] 		= $numeric.'<br>'; $i++;
-				$this->error[$name] = $numeric;
+				$this->_messages('numeric', $name, $viewName);
+			} 
+		}
+		
+		// verinin telefon bilgisi olup olmadığı kontrol edilir.
+		if( in_array('phone', $config) )
+		{ 
+			if( ! preg_match('/^[0-9]{3}[0-9]{4}[0-9]{4}$/', $edit) )
+			{ 
+				$this->_messages('phone', $name, $viewName);
+			} 
+		}
+		
+		// verinin telefon bilgisi olup olmadığı kontrol edilir.
+		if( in_array('alpha', $config) )
+		{ 
+			if( ! ctype_alpha($edit) )
+			{ 
+				$this->_messages('alpha', $name, $viewName);
 			} 
 		}
 		
@@ -648,9 +709,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! $this->email($edit) )
 			{ 
-				$email 				= lang('Validation', 'email',$viewName);
-				$messages[$i] 		= $email.'<br>';  $i++;
-				$this->error[$name] = $email;
+				$this->_messages('email', $name, $viewName);
 			} 
 		}
 		
@@ -658,9 +717,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! $this->url($edit) )
 			{ 
-				$url 				= lang('Validation', 'url',$viewName);
-				$messages[$i] 		= $url.'<br>';  $i++;
-				$this->error[$name] = $url;
+				$this->_messages('url', $name, $viewName);
 			} 
 		}
 		
@@ -668,9 +725,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! $this->identity($edit) )
 			{ 
-				$identity 			= lang('Validation', 'identity',$viewName);
-				$messages[$i] 		= $identity.'<br>';  $i++;
-				$this->error[$name] = $identity;
+				$this->_messages('identity', $name, $viewName);
 			} 
 		}
 		
@@ -679,9 +734,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{
 			if( $this->specialChar($edit) )
 			{ 
-				$noSpecialChar 	= lang('Validation', 'noSpecialChar',$viewName);
-				$messages[$i] 		= $noSpecialChar.'<br>';  $i++;
-				$this->error[$name] = $noSpecialChar;
+				$this->_messages('noSpecialChar', $name, $viewName);
 			} 
 		}
 		
@@ -690,9 +743,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! $this->maxchar($edit, $config['maxchar']) )
 			{ 
-				$maxchar 			= lang('Validation', 'maxchar',array("%"=>$viewName, "#" => $config['maxchar']));
-				$messages[$i] 		= $maxchar.'<br>';  $i++;
-				$this->error[$name] = $maxchar;
+				$this->_messages('maxchar', $name, array("%"=>$viewName, "#" => $config['maxchar']));
 			} 
 		}
 		
@@ -701,9 +752,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{	
 			if( ! $this->minchar($edit, $config['minchar']) )
 			{ 
-				$minchar 			= lang('Validation', 'minchar',array("%"=>$viewName, "#" => $config['minchar']));
-				$messages[$i] 		= $minchar.'<br>'; $i++;
-				$this->error[$name] = $minchar;
+				$this->_messages('minchar', $name, array("%"=>$viewName, "#" => $config['minchar']));
 			} 
 		}
 		
@@ -711,14 +760,26 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! preg_match($config['pattern'], $edit) )
 			{ 
-				$pattern 			= lang('Validation', 'pattern', $viewName);
-				$messages[$i] 		= $pattern.'<br>';  $i++;
-				$this->error[$name] = $pattern;
+				$this->_messages('pattern', $name, $viewName);
 			} 
 		}
 		
 		// kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
-		array_push($this->errors, $messages);	
+		array_push($this->errors, $this->messages);	
+		
+		$this->_defaultVariables();
+	}
+	
+	/* PROTECTED Default Variables Fonksiyonu
+	 *  
+	 * Değişkenlerin sıfırlanması
+	 * için oluşturulmuştur.
+	 *
+	 */
+	protected function _defaultVariables()
+	{
+		$this->messages = array();
+		$this->index    = 0;
 	}
 	
 	/* PROTECTED Method Type Fonksiyonu
