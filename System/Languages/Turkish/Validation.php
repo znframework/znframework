@@ -19,6 +19,7 @@ $lang['Validation']['identity']         = '% alanı geçersiz kimlik bilgisidir!
 $lang['Validation']['noSpecialChar']    = '% alanı özel karakter içeremez!';
 $lang['Validation']['numeric']          = '% alanı sadece sayılardan oluşmalıdır!';
 $lang['Validation']['alpha']            = '% alanı sadece harflerden oluşmalıdır!';
+$lang['Validation']['alnum']            = '% alanı sadece sayı ve harflerden oluşmalıdır!';
 $lang['Validation']['phone']            = '% alanı sadece telefon bilgisi içermelidir!';
 $lang['Validation']['maxchar']          = '% alanı en fazla # karakterden oluşmalıdır!';
 $lang['Validation']['minchar']          = '% alanı en az # karakterden oluşmalıdır!';

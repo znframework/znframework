@@ -473,6 +473,20 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// alnum()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alnum()
+	{
+		$this->settings['config'][] = 'alnum';
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// captcha()
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -695,12 +709,21 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			} 
 		}
 		
-		// verinin telefon bilgisi olup olmadığı kontrol edilir.
+		// verinin alfabetik karakter bilgisi olup olmadığı kontrol edilir.
 		if( in_array('alpha', $config) )
 		{ 
 			if( ! ctype_alpha($edit) )
 			{ 
 				$this->_messages('alpha', $name, $viewName);
+			} 
+		}
+		
+		// verinin alfabetik ve sayısal veri olup olmadığı kontrol edilir.
+		if( in_array('alnum', $config) )
+		{ 
+			if( ! preg_match('/\w+/',$edit) )
+			{ 
+				$this->_messages('alnum', $name, $viewName);
 			} 
 		}
 		
