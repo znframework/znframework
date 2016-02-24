@@ -710,7 +710,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		// verinin telefon bilgisi olup olmadığı kontrol edilir.
 		if( in_array('phone', $config) )
 		{ 
-			if( ! preg_match('/^[0-9]{10,12}$/', $edit) )
+			if( ! preg_match('/\+*[0-9]{10,14}$/', $edit) )
 			{ 
 				$this->_messages('phone', $name, $viewName);
 			} 
