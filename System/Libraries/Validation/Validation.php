@@ -448,12 +448,19 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	// phone()
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param void
+	// @param string $design
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phone()
+	public function phone($design = '')
 	{
-		$this->settings['config'][] = 'phone';
+		if( empty($design) )
+		{
+			$this->settings['config'][] = 'phone';
+		}
+		else
+		{
+			$this->settings['config']['phone'] = $design;
+		}
 		
 		return $this;
 	}
@@ -703,10 +710,24 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		// verinin telefon bilgisi olup olmadığı kontrol edilir.
 		if( in_array('phone', $config) )
 		{ 
-			if( ! preg_match('/^[0-9]{3}[0-9]{4}[0-9]{4}$/', $edit) )
+			if( ! preg_match('/^[0-9]{10,12}$/', $edit) )
 			{ 
 				$this->_messages('phone', $name, $viewName);
 			} 
+		}
+		// verinin belirtilen desende telefon bilgisi olup olmadığı kontrol edilir.
+		if( isset($config['phone']) )
+		{ 
+			$phoneData = $config['phone'];		
+			$phoneData = preg_replace('/([^\*])/', 'key:$1', $phoneData);			
+			$phoneData = '/'.str_replace(array('*', 'key:'), array('[0-9]', '\\'), $phoneData).'/';
+			
+			if( ! preg_match($phoneData, $edit) )
+			{ 
+				$this->_messages('phone', $name, $viewName);
+			} 
+		
+		
 		}
 		
 		// verinin alfabetik karakter bilgisi olup olmadığı kontrol edilir.
