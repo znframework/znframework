@@ -660,7 +660,22 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		
 		$errorNo = $_FILES[$this->file]['error'];	
-		$errorNo = is_array($errorNo) ? $errorNo[0] : $errorNo;
+		
+		if( is_array($errorNo) )
+		{
+			$errno = 0;
+			
+			foreach( $errorNo as $no )
+			{
+				if( ! empty($no) )
+				{
+					$errno = $no;
+					break;
+				}	
+			}
+			
+			$errorNo = $errno;
+		}
 		
 		$this->errors = array
 		(
