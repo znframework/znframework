@@ -659,8 +659,8 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 			return lang('Upload', 'unknownError');
 		}
 		
-		$errorNo = $_FILES[$this->file]['error'];
-		//$errorNo = $this->manuelError;
+		$errorNo = $_FILES[$this->file]['error'];	
+		$errorNo = is_array($errorNo) ? $errorNo[0] : $errorNo;
 		
 		$this->errors = array
 		(
