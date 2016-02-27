@@ -36,6 +36,20 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
+	// exclude()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param mixed $value
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function exclude($exclude = '')
+	{
+		$this->settings['exclude'] = $exclude;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// name()
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -1327,6 +1341,16 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		if( isset($this->settings['option']) )
 		{
 			$options = $this->settings['option'];
+		}
+		
+		if( isset($this->settings['exclude']) )
+		{
+			$exclude = $this->settings['exclude'];
+			
+			if( ! empty($exclude) ) foreach( $exclude as $key => $val )
+			{
+				unset($options[$val]); 
+			}
 		}
 		
 		if( isset($this->settings['selectedKey']) )
