@@ -44,6 +44,11 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	public function exclude($exclude = '')
 	{
+		if( is_scalar($exclude) )
+		{
+			$exclude[] = $exclude;	
+		}
+		
 		$this->settings['exclude'] = $exclude;
 		
 		return $this;
