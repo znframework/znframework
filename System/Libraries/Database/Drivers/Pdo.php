@@ -192,8 +192,7 @@ class PdoDriver implements DatabaseDriverInterface
 	public function query($query, $security = array())
 	{
 		$this->query = $this->connect->prepare($query);
-		$this->query->execute($security);
-		return $this->query;
+		return $this->query->execute($security);
 	}
 	
 	/******************************************************************************************

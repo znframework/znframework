@@ -104,7 +104,7 @@ trait SessionTrait
 			return $this;		
 		}
 		
-		$this->encode['name'] = $name;
+		$this->encode['name']  = $name;
 		$this->encode['value'] = $value;
 		
 		return $this;

@@ -133,8 +133,7 @@ class OdbcDriver implements DatabaseDriverInterface
 	public function query($query, $security = array())
 	{
 		$this->query = odbc_prepare($this->connect, $query);
-		odbc_execute($this->query, $security);
-		return $this->query;
+		return odbc_execute($this->query, $security);
 	}
 	
 	/******************************************************************************************

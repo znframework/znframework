@@ -42,7 +42,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	// @param mixed $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function exclude($exclude = '')
+	public function exclude($exclude = array())
 	{
 		if( is_scalar($exclude) )
 		{

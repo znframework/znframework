@@ -167,9 +167,7 @@ class Oci8Driver implements DatabaseDriverInterface
 	public function query($query, $security = array())
 	{
 		$this->query = oci_parse($this->connect, $query);
-		oci_execute($this->query);
-		
-		return $this->query;
+		return oci_execute($this->query);
 	}
 	
 	/******************************************************************************************
