@@ -128,13 +128,13 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// ZNRecords/ ana dizini yoksa oluştur.
 		if( ! is_dir($this->znrDir) )
 		{
-			Folder::create($this->znrDir, 0644, true);	
+			Folder::create($this->znrDir, 0755, true);	
 		}
 		
 		// Dahan nce bu dizinden yoksa oluştur.
 		if( ! is_dir($this->znrDir.$recordName) )
 		{
-			Folder::create($this->znrDir.$recordName, 0644, true);
+			Folder::create($this->znrDir.$recordName, 0755, true);
 		}
 		else
 		{

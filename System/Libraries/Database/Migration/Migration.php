@@ -78,7 +78,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			library('Folder', 'create', array($this->path, 0644));	
+			library('Folder', 'create', array($this->path, 0755));	
 		}
 		
 		$this->tbl = isset(static::$table)
