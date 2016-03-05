@@ -39,7 +39,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	// exclude()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param mixed $value
+	// @param mixed $exclude
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function exclude($exclude = array())
@@ -50,6 +50,24 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		}
 		
 		$this->settings['exclude'] = $exclude;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// order()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Arrays::order() yönteminde kullanılan type ve flags parametreleri aynen geçerlidir.
+ 	//
+	// @param string $type:desc
+	// @param string $flags:regular
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function order($type = 'desc', $flags = 'regular')
+	{
+		$this->settings['order']['type']  = $type;
+		$this->settings['order']['flags'] = $flags;
 		
 		return $this;
 	}
@@ -1356,6 +1374,11 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			{
 				unset($options[$val]); 
 			}
+		}
+		
+		if( isset($this->settings['order']['type']) )
+		{
+			$options = Arrays::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);	
 		}
 		
 		if( isset($this->settings['selectedKey']) )
