@@ -298,6 +298,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	 */
 	private $unlimitedQuery;
 	
+	/* Dublicate Check Değişkeni
+	 *  
+	 * Ekleme yapılacak verilerin kontrolünü
+	 * yapmak için oluşturulmuştur.
+	 *
+	 */
+	private $duplicateCheck;
+	
 	//----------------------------------------------------------------------------------------------------
 	// Common
 	//----------------------------------------------------------------------------------------------------
@@ -1041,6 +1049,27 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$this->db->query($secureQueryBuilder, $this->secure);
 		
 		// Sorguyu Dizesini Döndür.
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Duplicate Check
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function duplicateCheck()
+	{
+		$this->duplicateCheck = func_get_args();
+		
+		if( empty($this->duplicateCheck) )
+		{
+			$this->duplicateCheck[0] = '*';
+		}
+		
 		return $this;
 	}
 	
@@ -1987,10 +2016,28 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		$data = ""; $values = "";
 		
+		$duplicateCheckWhere = array();
+		
 		foreach( $datas as $key => $value )
 		{
 			$data .= $key.",";
 			
+			if( ! empty($this->duplicateCheck) )
+			{
+				if( $this->duplicateCheck[0] !== '*' )
+				{
+					if( in_array($key, $this->duplicateCheck) )	
+					{
+						$duplicateCheckWhere[] = array($key.' = ', $value, 'and');	
+					}
+				}
+				else
+				{
+					$duplicateCheckWhere[] = array($key.' = ', $value, 'and');	
+				}
+			
+			}
+					
 			$value = $this->nailEncode($value);
 			
 			if( $value !== '?' )
@@ -2000,6 +2047,17 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			else
 			{
 				$values .= $value.",";
+			}
+		}
+		
+		if( ! empty($duplicateCheckWhere) )
+		{
+			$duplicateCheckColumn = $this->duplicateCheck; 
+			
+			if( $this->where($duplicateCheckWhere)->get($table)->totalRows() )
+			{
+				$this->duplicateCheck = NULL;
+				return Errors::set('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));	
 			}
 		}
 			
@@ -2030,6 +2088,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$this->partition       = NULL;
 		$this->ignore     	   = NULL;
 		$this->delayed		   = NULL;
+		$this->duplicateCheck  = NULL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------

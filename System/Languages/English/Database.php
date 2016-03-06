@@ -27,6 +27,7 @@ $lang['Database']['numericParameterError']     = '% parameter should contain num
 $lang['Database']['arrayParameterError']       = '% parameter should contain array data type!';
 $lang['Database']['arrayStringParameterError'] = '%  parameter should contain array or string data type!';
 $lang['Database']['driverError']               = '`%` driver not found!';
+$lang['Database']['duplicateCheckError']       = '`%` Column or Columns could not be added because it has the same value as before!';
 $lang['Database']['optimizeTablesSuccess']     = 'The optimization process was completed successfully.';
 $lang['Database']['backupTablesSuccess']       = 'The backup process was completed successfully.';
 $lang['Database']['repairTablesSuccess']       = 'The repair process was completed successfully.';
