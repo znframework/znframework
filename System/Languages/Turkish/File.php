@@ -13,3 +13,4 @@ $lang['File']['notFoundError']       = '`%` dosyası bulunamadı!';
 $lang['File']['alreadyFileError']    = '`%` dosyası zaten var!';
 $lang['File']['remoteUploadError']   = '`%` dosyası sunucuya yüklenemiyor!';
 $lang['File']['remoteDownloadError'] = '`%` dosyası sunucudan indirilemiyor!';
+$lang['File']['zipExtractError']     = '`%` dosyası çıkartılamıyor!';

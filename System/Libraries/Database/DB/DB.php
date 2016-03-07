@@ -298,7 +298,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	 */
 	private $unlimitedQuery;
 	
-	/* Dublicate Check Değişkeni
+	/* Duplicate Check Değişkeni
 	 *  
 	 * Ekleme yapılacak verilerin kontrolünü
 	 * yapmak için oluşturulmuştur.

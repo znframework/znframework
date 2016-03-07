@@ -553,9 +553,15 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		{
 			return Errors::set('Error', 'stringParameter', 'source');
 		}
+		
 		if( ! is_string($target) ) 
 		{
 			$target = '';
+		}
+		
+		if( empty($target) )
+		{
+			$target = removeExtension($source);	
 		}
 		
 		$source = suffix($source, '.zip');
@@ -566,34 +572,18 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		// ----------------------------------------------------------------------------
 		
-		// Kaynak zip dosyası açılıyor.
-		$zip = zip_open($source);
+		$zip = new ZipArchive;
 		
-		// Zip dosyası okunuyor.
-		while( $zipContent = zip_read($zip) )
+		if( $zip->open($source) === true ) 
 		{
-			$zipFile = zip_entry_name($zipContent);
+			$zip->extractTo($target);
+			$zip->close();
 			
-			$targetPath = suffix($target).$zipFile;
-			
-			if( ! file_exists($targetPath) )
-			{
-				$isDir = mb_substr($targetPath, -1, 1);
-				
-				if( $isDir !== '/' )
-				{
-					touch($targetPath);
-					
-					if( ! file_put_contents($targetPath, zip_entry_read($zipContent)) )
-					{
-						return Errors::set('Error', 'fileNotWrite', $targetPath);
-					}
-				}
-				else
-				{
-					mkdir($targetPath , 0777, true);
-				}
-			}
+			return true;
+		} 
+		else 
+		{
+			return Errors::set('File', 'zipExtractError', $target);
 		}
 	}
 	
