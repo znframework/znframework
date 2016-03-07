@@ -48,19 +48,21 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Output
+	// Array To XLS File
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param array  $data
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function output($data = array(), $file = 'excel.xls')
+	public function arrayToXLSFile($data = array(), $file = 'excel.xls')
 	{
 		if( ! empty($this->fileName) )
 		{
 			$file = $this->fileName;	
 		}
+		
+		$file = suffix($file, '.xls');
 		
 		header("Content-Disposition: attachment; filename=\"$file\"");
 		header("Content-Type: application/vnd.ms-excel;");
@@ -80,5 +82,53 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 		}
 		
 		fclose($output);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// CSV To Array
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $file
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function csvToArray($file = '')
+	{
+		if( ! is_string($file) ) 
+		{
+			return Errors::set('Error', 'stringParameter', 'file');
+		}
+		
+		if( ! empty($this->fileName) )
+		{
+			$file = $this->fileName;	
+		}
+		
+		$file = suffix($file, '.csv');
+		
+		if( ! file_exists($file) )
+		{
+			return Errors::set('File', 'notFoundError', $file);
+		}
+		
+		$row  = 1;
+		$rows = array();
+		
+		if( ($resource = fopen($file, "r") ) !== false ) 
+		{
+			while( ($data = fgetcsv($resource, 1000, ",")) !== false ) 
+			{
+				$num = count($data);
+			
+				$row++;
+				for( $c = 0; $c < $num; $c++ ) 
+				{
+					$rows[] = explode(';', $data[$c]);
+				}
+			}
+			 
+			fclose($resource);
+		 }	
+		 
+		 return $rows;
 	}
 }
