@@ -20,6 +20,19 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
 	// Output
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -57,9 +70,20 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	//----------------------------------------------------------------------------------------------------
 	public function arrayToXLSFile($data = array(), $file = 'excel.xls')
 	{
+		if( ! is_array($data) ) 
+		{
+			return Errors::set('Error', 'arrayParameter', '1.(data)');
+		}
+		
+		if( ! is_string($file) ) 
+		{
+			return Errors::set('Error', 'stringParameter', '2.(file)');
+		}
+		
 		if( ! empty($this->fileName) )
 		{
-			$file = $this->fileName;	
+			$file = $this->fileName;
+			$this->fileName = NULL;	
 		}
 		
 		$file = suffix($file, '.xls');
@@ -71,14 +95,15 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 		
 		if( ! empty($this->rows) )
 		{
-			$data = $this->rows;	
+			$data = $this->rows;
+			$this->rows = NULL;	
 		}
 		
 		$output = fopen("php://output", 'w');
 		
 		foreach( $data as $column )
 		{
-			fputcsv($output, $column,"\t");
+			fputcsv($output, $column, "\t");
 		}
 		
 		fclose($output);
@@ -95,12 +120,13 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	{
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'file');
+			return Errors::set('Error', 'stringParameter', '1.(file)');
 		}
 		
 		if( ! empty($this->fileName) )
 		{
 			$file = $this->fileName;	
+			$this->fileName = NULL;	
 		}
 		
 		$file = suffix($file, '.csv');
