@@ -298,6 +298,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	 */
 	private $unlimitedQuery;
 	
+	/* Duplicate Check Değişkeni
+	 *  
+	 * Ekleme yapılacak verilerin kontrolünü
+	 * yapmak için oluşturulmuştur.
+	 *
+	 */
+	private $duplicateCheck;
+	
 	//----------------------------------------------------------------------------------------------------
 	// Common
 	//----------------------------------------------------------------------------------------------------
@@ -376,7 +384,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', 'table');	
+			Errors::set('Error', 'stringParameter', 'table');	
 		}
 		
 		return $this;
@@ -389,7 +397,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
 		{
-			Error::set('Error', 'stringParameter', 'column, value, logical');
+			Errors::set('Error', 'stringParameter', 'column, value, logical');
 		}
 		else
 		{
@@ -700,7 +708,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($table) || ! is_string($condition) || ! is_string($type) ) 
 		{
-			Error::set('Error', 'stringParameter', 'table, condition, type');
+			Errors::set('Error', 'stringParameter', 'table, condition, type');
 		}
 		else
 		{
@@ -734,12 +742,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( empty($table) )
 		{
-			Error::set('Error', 'emptyVariable', 'table');	
+			Errors::set('Error', 'emptyVariable', 'table');	
 		}
 		
 		if( empty($column) )
 		{
-			Error::set('Error', 'emptyVariable', 'column');	
+			Errors::set('Error', 'emptyVariable', 'column');	
 		}
 		
 		$this->join($table, $condition, $type);
@@ -955,7 +963,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($table) ) 
 		{
-			Error::set('Error', 'stringParameter', 'table');
+			Errors::set('Error', 'stringParameter', 'table');
 			
 			return $this;
 		}
@@ -1042,6 +1050,57 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		// Sorguyu Dizesini Döndür.
 		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Duplicate Check
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param string $column
+	// @param string $otherColumn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function duplicateCheck()
+	{
+		$this->duplicateCheck = func_get_args();
+		
+		if( empty($this->duplicateCheck) )
+		{
+			$this->duplicateCheck[0] = '*';
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Escape String
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Tırnak işaretlerinin başına \ işareti ekler.
+	//
+	// @param  string $data
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function escapeString($data = '')
+	{
+		return $this->db->realEscapeString($data);	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Real Escape String
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Tırnak işaretlerinin başına \ işareti ekler.
+	//
+	// @param  string $data
+	// @return string 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function realEscapeString($data = '')
+	{
+		return $this->db->realEscapeString($data);	
 	}
 	
 	/******************************************************************************************
@@ -1609,8 +1668,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Error::set('Error', 'stringParameter', 'query');
-			Error::set('Error', 'emptyParameter', 'query');
+			Errors::set('Error', 'stringParameter', 'query');
+			Errors::set('Error', 'emptyParameter', 'query');
 		}
 		else
 		{
@@ -1651,8 +1710,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Error::set('Error', 'stringParameter', 'query');
-			Error::set('Error', 'emptyParameter', 'query');
+			Errors::set('Error', 'stringParameter', 'query');
+			Errors::set('Error', 'emptyParameter', 'query');
 			
 			return false;	
 		}
@@ -1663,6 +1722,36 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		
 		return $this->db->exec($this->_querySecurity($query), $secure);
+	}
+	
+	/******************************************************************************************
+	* MULTI QUERY                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Standart veritabanı sorgusu kullanmak için oluşturulmuştur.			  |
+	|															                              |
+	| Parametreler: Tek parametresi vardır.                                                   |
+	| 1. string var @query  => SQL SORGULARI yazılır.							              |
+	| 2. string var @secure  => Sorgu güvenliği içindir.						              |
+	|          																				  |
+	| Örnek Kullanım: $this->db->multiQuery('DROP TABLE OrnekTablo');        			      |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query = '', $secure = array())
+	{
+		if( ! is_string($query) || empty($query) ) 
+		{
+			Errors::set('Error', 'stringParameter', 'query');
+			Errors::set('Error', 'emptyParameter', 'query');
+			
+			return false;	
+		}
+		
+		if( isset($this->secure) )
+		{
+			$secure = $this->secure;	
+		}
+		
+		return $this->db->multiQuery($this->_querySecurity($query), $secure);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1757,8 +1846,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			Error::set('Error', 'stringParameter', 'table');
-			Error::set('Error', 'emptyParameter', 'table');
+			Errors::set('Error', 'stringParameter', 'table');
+			Errors::set('Error', 'emptyParameter', 'table');
 		}
 		else
 		{
@@ -1831,9 +1920,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
-			Error::set('Error', 'stringParameter', 'table');
-			Error::set('Error', 'emptyParameter', 'columns');
-			Error::set('Error', 'numericParameter', 'incdec');
+			Errors::set('Error', 'stringParameter', 'table');
+			Errors::set('Error', 'emptyParameter', 'columns');
+			Errors::set('Error', 'numericParameter', 'incdec');
 			
 			return false;
 		}
@@ -1917,19 +2006,39 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'table');
+			return Errors::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($datas) || empty($datas) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'datas');
+			return Errors::set('Error', 'arrayParameter', 'datas');
 		}
 		
 		$data = ""; $values = "";
 		
+		$duplicateCheckWhere = array();
+		
 		foreach( $datas as $key => $value )
 		{
 			$data .= $key.",";
+			
+			if( ! empty($this->duplicateCheck) )
+			{
+				if( $this->duplicateCheck[0] !== '*' )
+				{
+					if( in_array($key, $this->duplicateCheck) )	
+					{
+						$duplicateCheckWhere[] = array($key.' = ', $value, 'and');	
+					}
+				}
+				else
+				{
+					$duplicateCheckWhere[] = array($key.' = ', $value, 'and');	
+				}
+			
+			}
+					
+			$value = $this->nailEncode($value);
 			
 			if( $value !== '?' )
 			{
@@ -1938,6 +2047,17 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			else
 			{
 				$values .= $value.",";
+			}
+		}
+		
+		if( ! empty($duplicateCheckWhere) )
+		{
+			$duplicateCheckColumn = $this->duplicateCheck; 
+			
+			if( $this->where($duplicateCheckWhere)->get($table)->totalRows() )
+			{
+				$this->duplicateCheck = NULL;
+				return Errors::set('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));	
 			}
 		}
 			
@@ -1952,7 +2072,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		               ' ('.substr($data, 0, -1).') VALUES ('.substr($values, 0, -1).')';
 
 		$this->_resetInsertQuery();
-		
+
 		return $this->db->query($this->_querySecurity($insertQuery), $this->secure);
 	}
 	
@@ -1968,6 +2088,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		$this->partition       = NULL;
 		$this->ignore     	   = NULL;
 		$this->delayed		   = NULL;
+		$this->duplicateCheck  = NULL;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -2011,18 +2132,20 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'table');
+			return Errors::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($set) || empty($set) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'set');
+			return Errors::set('Error', 'arrayParameter', 'set');
 		}
 
 		$data = '';
 		
 		foreach( $set as $key => $value )
 		{
+			$value = $this->nailEncode($value);
+			
 			$data .= $key.'='."'".$value."'".',';
 		}
 		
@@ -2084,7 +2207,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($this->table) || empty($this->table) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'table');
+			return Errors::set('Error', 'stringParameter', 'table');
 		}
 		
 		$deleteQuery = 'DELETE '.
@@ -2427,7 +2550,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{ 
 		if( ! is_array($settings) )
 		{
-			Error::set('Error', 'arrayParameter', '1.(settings)');	
+			Errors::set('Error', 'arrayParameter', '1.(settings)');	
 		} 
 	
 		$limit = $this->pagination['limit'];
@@ -3757,7 +3880,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_scalar($value) || ! is_string($type) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'value, type');
+			return Errors::set('Error', 'stringParameter', 'value, type');
 		}
 		
 		$operator = $this->db->operator(__FUNCTION__);

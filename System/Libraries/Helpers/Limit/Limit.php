@@ -37,7 +37,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'str');
+			return Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! is_numeric($limit) ) 
@@ -92,7 +92,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'str');
+			return Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! is_numeric($limit) )

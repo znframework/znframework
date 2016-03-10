@@ -54,7 +54,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('Error', 'stringParameter', 'type');
+			Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		

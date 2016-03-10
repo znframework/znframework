@@ -47,12 +47,12 @@ class __USE_STATIC_ACCESS__Download implements DownloadInterface
 	{
 		if( ! is_string($file) )
 		{
-			return Error::set('Download', 'stringParameterError');	
+			return Errors::set('Download', 'stringParameterError');	
 		}
 		
 		if( ! file_exists($file) )
 		{
-			return Error::set('Download', 'emptyParameterError');
+			return Errors::set('Download', 'emptyParameterError');
 		}
 		
 		// İndirilecek dosyanın yolu ile adını ayırmak için 

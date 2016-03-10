@@ -42,12 +42,7 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function current($clock = '%H:%M:%S')
 	{
-		if( ! is_string($clock) ) 
-		{
-			return Error::set('Error', 'stringParameter', 'clock');
-		}
-		
-		return strftime($clock);	
+		return $this->_datetime("%H:%M:%S");
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -61,12 +56,11 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert($date = '', $format = 'd-m-Y H:i:s')
+	public function convert($date = '', $format = '%d-%B-%Y %A, %H:%M:%S')
 	{
-		return strftime($this->_convert('setTimeFormatChars', $format), strtotime($date));	
+		return $this->_datetime($format, strtotime($date));	
 	}
 
-	
 	//----------------------------------------------------------------------------------------------------
 	// Standart
 	//----------------------------------------------------------------------------------------------------
@@ -82,25 +76,5 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 		// Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
 		// Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
 		return strftime("%d %B %Y %A, %H:%M:%S");
-	}
-
-	//----------------------------------------------------------------------------------------------------
-	// Set
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// Tarih ve saat ayarlamaları yapmak için kullanılır.	
-	//
-	// @param  string exp
-	// @return string
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function set($exp = '')
-	{	
-		if( ! is_string($exp) ) 
-		{
-			return Error::set('Error', 'stringParameter', 'exp');
-		}
-
-		return strftime($this->_convert('setTimeFormatChars', $exp));
 	}
 }

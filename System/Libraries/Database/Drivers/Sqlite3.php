@@ -111,6 +111,17 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security = NULL)
+	{
+		return $this->query($query, $security);
+	}
+	
+	/******************************************************************************************
 	* QUERY                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
@@ -153,30 +164,6 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	public function transCommit()
 	{
 		return $this->connect->exec('END TRANSACTION');
-	}
-	
-	/******************************************************************************************
-	* LIST DATABASES                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listDatabases()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
-	}
-	
-	/******************************************************************************************
-	* LIST TABLES                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listTables()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
 	}
 	
 	/******************************************************************************************
@@ -236,18 +223,6 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* BACKUP                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function backup($filename = '')
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
 	* TRUNCATE                                                                                *
 	*******************************************************************************************
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş truncate yöntemidir.           | 
@@ -256,54 +231,6 @@ class Sqlite3Driver implements DatabaseDriverInterface
 	public function truncate($table = '')
 	{ 
 		return 'DELETE FROM '.$table; 
-	}
-	
-	/******************************************************************************************
-	* ADD COLUMN                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function addColumn()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* DROP COLUMN                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function dropColumn()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* RENAME COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir. 				  				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function renameColumn()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* MODIFY COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function modifyColumn()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
 	}
 	
 	/******************************************************************************************
@@ -362,71 +289,6 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		{
 			return 0;
 		}
-	}
-	
-	/******************************************************************************************
-	* RESULT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
-	|          																				  |
-	******************************************************************************************/
-	public function result()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while($data = $this->fetchAssoc())
-		{
-			$rows[] = (object)$data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* RESULT ARRAY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
-	|          																				  |
-	******************************************************************************************/
-	public function resultArray()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while($data = $this->fetchAssoc())
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
-	
-	}
-	
-	/******************************************************************************************
-	* ROW                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu tek bir kayıt bilgisini verir.              | 
-	|          																				  |
-	******************************************************************************************/
-	public function row()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$data = $this->fetchAssoc();
-		
-		return (object)$data;
 	}
 	
 	/******************************************************************************************

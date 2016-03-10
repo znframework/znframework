@@ -127,6 +127,17 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security = NULL)
+	{
+		return $this->query($query, $security);
+	}
+	
+	/******************************************************************************************
 	* QUERY                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
@@ -169,30 +180,6 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	public function transCommit()
 	{
 		return sqlsrv_commit($this->connect);
-	}
-	
-	/******************************************************************************************
-	* LIST DATABASES                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listDatabases()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
-	}
-	
-	/******************************************************************************************
-	* LIST TABLES                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listTables()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
 	}
 	
 	/******************************************************************************************
@@ -244,54 +231,6 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* BACKUP                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function backup($filename = '')
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* TRUNCATE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  |
-	|          																				  |
-	******************************************************************************************/		
-	public function truncate($table = '')
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* ADD COLUMN                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function addColumn()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* DROP COLUMN                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function dropColumn()
-	{
-		// Ön tanımlı sorgu kullanıyor. 
-		return false; 
-	}
-	
-	/******************************************************************************************
 	* RENAME COLUMN                                                                           *
 	*******************************************************************************************
 	| Genel Kullanım: Bu sürücü için rename column kullanımıdır. 				  			  | 
@@ -300,18 +239,6 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	public function renameColumn()
 	{ 
 		return 'RENAME COLUMN TO'; 
-	}
-	
-	/******************************************************************************************
-	* MODIFY COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function modifyColumn()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
 	}
 	
 	/******************************************************************************************
@@ -372,70 +299,6 @@ class SqlsrvDriver implements DatabaseDriverInterface
 		{
 			return 0;	
 		}
-	}
-	
-	/******************************************************************************************
-	* RESULT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
-	|          																				  |
-	******************************************************************************************/
-	public function result()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = (object)$data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* RESULT ARRAY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
-	|          																				  |
-	******************************************************************************************/
-	public function resultArray()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* ROW                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu tek bir kayıt bilgisini verir.              | 
-	|          																				  |
-	******************************************************************************************/
-	public function row()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$data = $this->fetchAssoc();
-		
-		return (object)$data;
 	}
 	
 	/******************************************************************************************

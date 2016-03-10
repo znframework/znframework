@@ -314,7 +314,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		if( ! is_string($randomPageVariable) )
 		{
-			return Error::set('Error', 'stringParameter', 'randomPageVariable');
+			return Errors::set('Error', 'stringParameter', 'randomPageVariable');
 		}
 		
 		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateExtension) )
@@ -347,7 +347,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		else
 		{
-			return Error::set('Error', 'fileNotFound', $randomPageVariable);	
+			return Errors::set('Error', 'fileNotFound', $randomPageVariable);	
 		}
 	}
 	
@@ -409,7 +409,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		else
 		{
-			return Error::set('Error', 'fileNotFound', $page);	
+			return Errors::set('Error', 'fileNotFound', $page);	
 		}
 	}
 	
@@ -1130,7 +1130,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		if( ! is_file($randomPageVariable) ) 
 		{
-			return Error::set('Error', 'fileParameter', '1.(randomPageVariable)');
+			return Errors::set('Error', 'fileParameter', '1.(randomPageVariable)');
 		}
 		
 		$randomPageVariable = restorationPath($randomPageVariable);
@@ -1244,7 +1244,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	{
 		if( ! is_string($packages)  ) 
 		{
-			Error::set('Error', 'stringParameter', 'packages');
+			Errors::set('Error', 'stringParameter', 'packages');
 			
 			return false;
 		}

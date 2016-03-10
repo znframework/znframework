@@ -157,7 +157,7 @@ class __USE_STATIC_ACCESS__Vars implements VarsInterface
 	{
 		if( ! is_resource($resource) )
 		{
-			return Error::set('Error', 'resourceParameter', '1.(resource)');	
+			return Errors::set('Error', 'resourceParameter', '1.(resource)');	
 		}
 		
 		return get_resource_type($resource);		

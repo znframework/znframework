@@ -74,7 +74,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	{
 		if( ! is_string($property) )
 		{
-			Error::set('Error', 'stringParameter', 'property');
+			Errors::set('Error', 'stringParameter', 'property');
 			return $this;	
 		}
 		

@@ -40,7 +40,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) || ! is_string($pattern) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string) & 2.(pattern)');	
+			return Errors::set('Error', 'stringParameter', '1.(string) & 2.(pattern)');	
 		}
 		
 		return mb_split($pattern, $string, $limit);
@@ -93,7 +93,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		mb_parse_str($string, $result);
@@ -115,12 +115,12 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '2.($encoding)');	
+			return Errors::set('Error', 'charsetParameter', '2.($encoding)');	
 		}
 		
 		return mb_check_encoding($string, $encoding);
@@ -141,12 +141,12 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '3.($encoding)');	
+			return Errors::set('Error', 'charsetParameter', '3.($encoding)');	
 		}
 		
 		return mb_convert_case($string, Convert::toConstant($flag, 'MB_CASE_'), $encoding);
@@ -167,12 +167,12 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 
 		if( ! isCharset($toEncoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '2.(toEncoding)');	
+			return Errors::set('Error', 'charsetParameter', '2.(toEncoding)');	
 		}
 		
 		return mb_convert_encoding($string, $toEncoding, $fromEncoding);
@@ -191,7 +191,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 
 		return mb_decode_mimeheader($string);
@@ -210,12 +210,12 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '2.(encoding)');	
+			return Errors::set('Error', 'charsetParameter', '2.(encoding)');	
 		}
 
 		return mb_encode_mimeheader($string, $encoding, $transferEncoding, $crlf, $indent);
@@ -236,17 +236,17 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		if( ! is_array($convertMap) )
 		{
-			return Error::set('Error', 'arrayParameter', '2.(convertMap)');	
+			return Errors::set('Error', 'arrayParameter', '2.(convertMap)');	
 		}
 		
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '3.(encoding)');	
+			return Errors::set('Error', 'charsetParameter', '3.(encoding)');	
 		}
 
 		return mb_decode_numericentity($string, $convertMap, $encoding);
@@ -267,17 +267,17 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		if( ! is_array($convertMap) )
 		{
-			return Error::set('Error', 'arrayParameter', '2.(convertMap)');	
+			return Errors::set('Error', 'arrayParameter', '2.(convertMap)');	
 		}
 		
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '3.(encoding)');	
+			return Errors::set('Error', 'charsetParameter', '3.(encoding)');	
 		}
 
 		return mb_encode_numericentity($string, $convertMap, $encoding);
@@ -298,17 +298,17 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		if( ! is_array($encodingList) )
 		{
-			return Error::set('Error', 'arrayParameter', '2.(encodingList)');	
+			return Errors::set('Error', 'arrayParameter', '2.(encodingList)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return Error::set('Error', 'booleanParameter', '3.(strict)');	
+			return Errors::set('Error', 'booleanParameter', '3.(strict)');	
 		}
 
 		return mb_detect_encoding($string, $encodingList, $strict);
@@ -341,7 +341,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! isCharset($string) )
 		{
-			return Error::set('Error', 'charsetParameter', '1.(string)');	
+			return Errors::set('Error', 'charsetParameter', '1.(string)');	
 		}
 
 		return mb_encoding_aliases($string);
@@ -360,7 +360,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(string)');	
+			return Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return mb_get_info($string);
@@ -384,7 +384,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($type) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(type)');	
+			return Errors::set('Error', 'stringParameter', '1.(type)');	
 		}
 		
 		return mb_http_input($type);
@@ -403,7 +403,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'charsetParameter', '1.(encoding)');	
+			return Errors::set('Error', 'charsetParameter', '1.(encoding)');	
 		}
 		
 		return mb_http_output($encoding);
@@ -422,7 +422,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($lang) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(lang)');	
+			return Errors::set('Error', 'stringParameter', '1.(lang)');	
 		}
 		
 		return mb_language($lang);
@@ -456,12 +456,12 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! is_string($contents) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(contents)');	
+			return Errors::set('Error', 'stringParameter', '1.(contents)');	
 		}
 		
 		if( ! is_numeric($status) )
 		{
-			return Error::set('Error', 'numericParameter', '2.(status)');	
+			return Errors::set('Error', 'numericParameter', '2.(status)');	
 		}
 		
 		return mb_output_handler($contents, $status);
@@ -480,7 +480,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(encoding)');	
+			return Errors::set('Error', 'stringParameter', '1.(encoding)');	
 		}
 		
 		return mb_preferred_mime_name($encoding);

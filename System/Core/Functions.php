@@ -851,7 +851,7 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 	
 	if( ! is_dir($logDir) )
 	{
-		Folder::create($logDir, 0644);	
+		Folder::create($logDir, 0755);	
 	}
 	
 	if( is_file($logDir.suffix($destination, $extension)) )
@@ -947,7 +947,7 @@ function createRobotsFile()
 	
 	if( ! file_put_contents('robots.txt', trim($robots)) )
 	{
-		Error::set('Error', 'fileNotWrite', 'robots.txt');
+		Errors::set('Error', 'fileNotWrite', 'robots.txt');
 	}
 	
 	unset( $robots );	
@@ -1197,7 +1197,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	
 	if( ! file_put_contents('.htaccess', trim($htaccess)) )
 	{
-		Error::set('Error', 'fileNotWrite', '.htaccess');
+		Errors::set('Error', 'fileNotWrite', '.htaccess');
 	}
 	
 	unset( $htaccess );	

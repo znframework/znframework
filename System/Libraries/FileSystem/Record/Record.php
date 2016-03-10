@@ -122,23 +122,23 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! is_string($recordName) || empty($recordName) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(recordName)');
+			return Errors::set('Error', 'stringParameter', '1.(recordName)');
 		}
 		
 		// ZNRecords/ ana dizini yoksa oluştur.
 		if( ! is_dir($this->znrDir) )
 		{
-			Folder::create($this->znrDir, 0644, true);	
+			Folder::create($this->znrDir, 0755, true);	
 		}
 		
 		// Dahan nce bu dizinden yoksa oluştur.
 		if( ! is_dir($this->znrDir.$recordName) )
 		{
-			Folder::create($this->znrDir.$recordName, 0644, true);
+			Folder::create($this->znrDir.$recordName, 0755, true);
 		}
 		else
 		{
-			return Error::set('File', 'alreadyFileError', $this->znrDir.$recordName);	
+			return Errors::set('File', 'alreadyFileError', $this->znrDir.$recordName);	
 		}
 	}
 	
@@ -151,12 +151,12 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! is_string($tableName) || empty($tableName) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(tableName)');
+			return Errors::set('Error', 'stringParameter', '1.(tableName)');
 		}
 		
 		if( empty($this->selectRecord) )
 		{
-			return Error::set('Error', 'emptyVariable', '@this->selectRecord');
+			return Errors::set('Error', 'emptyVariable', '@this->selectRecord');
 		}
 		
 		$tableName = $this->_tableName($tableName);
@@ -168,7 +168,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		}
 		else
 		{
-			return Error::set('File', 'alreadyFileError', $tableName);	
+			return Errors::set('File', 'alreadyFileError', $tableName);	
 		}
 	}
 	
@@ -189,7 +189,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! is_string($recordName) || empty($recordName) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(recordName)');
+			return Errors::set('Error', 'stringParameter', '1.(recordName)');
 		}
 		
 		$this->selectRecord = $this->_recordName($recordName);
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// Belirtilen kayıt dizini yoksa NULL değeri atar.
 		if( ! is_dir($this->selectRecord) )
 		{
-			Error::set('Error', 'dirNotFound', $this->selectRecord);
+			Errors::set('Error', 'dirNotFound', $this->selectRecord);
 			$this->selectRecord = NULL;
 			
 			return false;
@@ -217,7 +217,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! is_string($table) || empty($table) )
 		{
-			Error::set('Error', 'stringParameter', '1.(table)');
+			Errors::set('Error', 'stringParameter', '1.(table)');
 			return $this;
 		}
 	
@@ -226,7 +226,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		// Böyle bir tablo yoksa hata mesajı oluşturur.
 		if( ! is_file($this->table) )
 		{
-			Error::set('Error', 'fileNotFound', $table);	
+			Errors::set('Error', 'fileNotFound', $table);	
 		}
 		
 		return $this;
@@ -241,7 +241,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! is_numeric($where) || empty($where) )
 		{
-			Error::set('Error', 'numericParameter', '1.(where)');
+			Errors::set('Error', 'numericParameter', '1.(where)');
 			
 			return $this;
 		}
@@ -260,13 +260,13 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	{
 		if( ! is_string($table) )
 		{
-			Error::set('Error', 'stringParameter', '1.(table)');
+			Errors::set('Error', 'stringParameter', '1.(table)');
 			return $this;
 		}
 		
 		if( ! is_numeric($where) )
 		{
-			Error::set('Error', 'numericParameter', '2.(where)');
+			Errors::set('Error', 'numericParameter', '2.(where)');
 			return $this;
 		}
 		
@@ -300,19 +300,19 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			Error::set('Error', 'stringParameter', '1.(table)');
+			Errors::set('Error', 'stringParameter', '1.(table)');
 			return $this;
 		}
 		
 		if( ! is_file($table) )
 		{
-			Error::set('Error', 'fileNotFound', $table);	
+			Errors::set('Error', 'fileNotFound', $table);	
 			return $this;
 		}
 		
 		if( ! is_numeric($where) )
 		{
-			Error::set('Error', 'numericParameter', '2.(where)');
+			Errors::set('Error', 'numericParameter', '2.(where)');
 			return $this;
 		}
 		
@@ -347,7 +347,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! is_scalar($where) )
 		{
-			return Error::set('Error', 'valueParameter', '1.(where)');
+			return Errors::set('Error', 'valueParameter', '1.(where)');
 		}
 		
 		if( $where === 'first' )
@@ -459,17 +459,17 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(table)');
+			return Errors::set('Error', 'stringParameter', '1.(table)');
 		}
 		
 		if( ! is_file($table) )
 		{
-			return Error::set('Error', 'fileNotFound', '1.(table)');
+			return Errors::set('Error', 'fileNotFound', '1.(table)');
 		}
 		
 		if( empty($where) )
 		{
-			return Error::set('Error', 'emptyParameter', '3.(where)');	
+			return Errors::set('Error', 'emptyParameter', '3.(where)');	
 		}
 		
 		$oldData = $this->_secureDecodeData(file_get_contents($table), true);
@@ -481,7 +481,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 
 			if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
 			{
-				return Error::set('Error', 'fileNotWrite', $table);
+				return Errors::set('Error', 'fileNotWrite', $table);
 			}
 		}
 	}
@@ -515,12 +515,12 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(table)');
+			return Errors::set('Error', 'stringParameter', '1.(table)');
 		}
 		
 		if( ! is_file($table) )
 		{
-			return Error::set('Error', 'fileNotFound', '1.(table)');
+			return Errors::set('Error', 'fileNotFound', '1.(table)');
 		}
 		
 		$oldData = $this->_secureDecodeData(file_get_contents($table), true);
@@ -543,12 +543,12 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! is_file($table) )
 		{
-			return Error::set('Error', 'fileNotFound', '1.(table)');	
+			return Errors::set('Error', 'fileNotFound', '1.(table)');	
 		}
 		
 		if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
 		{
-			return Error::set('Error', 'fileNotWrite', $table);
+			return Errors::set('Error', 'fileNotWrite', $table);
 		}
 	}
 	
@@ -585,17 +585,17 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(table)');
+			return Errors::set('Error', 'stringParameter', '1.(table)');
 		}
 		
 		if( ! is_file($table) )
 		{
-			return Error::set('Error', 'fileNotFound', '1.(table)');
+			return Errors::set('Error', 'fileNotFound', '1.(table)');
 		}
 		
 		if( ! is_numeric($where) )
 		{
-			return Error::set('Error', 'numericParameter', '2.(where)');
+			return Errors::set('Error', 'numericParameter', '2.(where)');
 		}
 
 		$oldData = $this->_secureDecodeData(file_get_contents($table), true);
@@ -614,7 +614,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		
 		if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
 		{
-			return Error::set('Error', 'fileNotWrite', $table);
+			return Errors::set('Error', 'fileNotWrite', $table);
 		}
 	}	
 	

@@ -46,7 +46,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($message) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(message)');	
+			return Errors::set('Error', 'stringParameter', '1.(message)');	
 		}
 	
 		return gettext($message);
@@ -83,7 +83,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($msgId1) || ! is_string($msgId2) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(msgId1) & 2.(msgId2)');	
+			return Errors::set('Error', 'stringParameter', '1.(msgId1) & 2.(msgId2)');	
 		}
 	
 		return ngettext($msgId1, $msgId2, $count);
@@ -103,7 +103,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($domain) || ! is_string($message) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(domain) & 2.(message)');	
+			return Errors::set('Error', 'stringParameter', '1.(domain) & 2.(message)');	
 		}
 	
 		return dgettext($domain, $message);
@@ -125,7 +125,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($domain) || ! is_string($msgId1) || ! is_string($msgId2) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(domain) & 2.(msgId1) & 3.(msgId2)');	
+			return Errors::set('Error', 'stringParameter', '1.(domain) & 2.(msgId1) & 3.(msgId2)');	
 		}
 	
 		return dngettext($domain, $msgId1, $msgId2, $count);
@@ -146,7 +146,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($domain) || ! is_string($message) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(domain) & 2.(message)');	
+			return Errors::set('Error', 'stringParameter', '1.(domain) & 2.(message)');	
 		}
 	
 		return dcgettext($domain, $message, $category);
@@ -169,7 +169,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($domain) || ! is_string($msgId1) || ! is_string($msgId2) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(domain) & 2.(msgId1) & 3.(msgId2)');	
+			return Errors::set('Error', 'stringParameter', '1.(domain) & 2.(msgId1) & 3.(msgId2)');	
 		}
 	
 		return dcngettext($domain, $msgId1, $msgId2, $count, $category);
@@ -189,7 +189,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($domain) || ! is_string($codeset) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(domain) & 2.(codeset)');	
+			return Errors::set('Error', 'stringParameter', '1.(domain) & 2.(codeset)');	
 		}
 	
 		return bind_textdomain_codeset($domain, $codeset);
@@ -209,7 +209,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($domain) || ! is_string($directory) )
 		{
-			return Error::set('Error', 'stringParameter', '1.(domain) & 2.(directory)');	
+			return Errors::set('Error', 'stringParameter', '1.(domain) & 2.(directory)');	
 		}
 	
 		return bindtextdomain($domain, $directory);
@@ -228,7 +228,7 @@ class __USE_STATIC_ACCESS__GT implements GTInterface
 	{
 		if( ! is_string($textDomain))
 		{
-			return Error::set('Error', 'stringParameter', '1.(textDomain)');	
+			return Errors::set('Error', 'stringParameter', '1.(textDomain)');	
 		}
 	
 		return textdomain($textDomain);

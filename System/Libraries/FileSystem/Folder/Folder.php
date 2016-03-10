@@ -65,7 +65,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			Error::set('Folder', 'alreadyFileError', $name);
+			Errors::set('Folder', 'alreadyFileError', $name);
 		}
 	}
 	
@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			return Error::set('Folder', 'alreadyFileError', $name);
+			return Errors::set('Folder', 'alreadyFileError', $name);
 		}
 	}
 	
@@ -142,7 +142,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			Error::set('Folder', 'notFoundError', $name);
+			Errors::set('Folder', 'notFoundError', $name);
 		}
 	}
 	
@@ -164,11 +164,11 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'name');
+			return Errors::set('Error', 'stringParameter', 'name');
 		}
 		if( ! file_exists($name) )
 		{
-			return Error::set('Folder', 'notFoundError', $name);	
+			return Errors::set('Folder', 'notFoundError', $name);	
 		}
 		// ----------------------------------------------------------------------------
 
@@ -225,7 +225,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($dir) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'dir');
+			return Errors::set('Error', 'stringParameter', 'dir');
 		}
 		if( ! is_string($extension) ) 
 		{
@@ -261,7 +261,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			return Error::set('Error', 'fileDirParameter', 'dir');
+			return Errors::set('Error', 'fileDirParameter', 'dir');
 		}	
 	}
 	
@@ -290,17 +290,17 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($source) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'source');
+			return Errors::set('Error', 'stringParameter', 'source');
 		}
 		
 		if( ! is_string($target) )
 		{
-			return Error::set('Error', 'stringParameter', 'target');
+			return Errors::set('Error', 'stringParameter', 'target');
 		}
 		
 		if( ! file_exists($source) )
 		{
-			return Error::set('Folder', 'notFoundError', $source);
+			return Errors::set('Folder', 'notFoundError', $source);
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -374,7 +374,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		else
 		{
-			return Error::set('Folder', 'alreadyFileError', $name);
+			return Errors::set('Folder', 'alreadyFileError', $name);
 		}
 	}
 	/******************************************************************************************
@@ -397,7 +397,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------	
 		if( ! is_string($path) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'path');	
+			return Errors::set('Error', 'stringParameter', 'path');	
 		}
 		if( ! is_string($extension) ) 
 		{
@@ -405,7 +405,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}		
 		if( is_file($path) )
 		{
-			return Error::set('Folder', 'parameterError', $path);		
+			return Errors::set('Folder', 'parameterError', $path);		
 		}
 		// ----------------------------------------------------------------------------
 		
@@ -455,7 +455,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		else
 		{
 			// 1. parametre dizin değilse false değeri döndür.
-			return Error::set('Error', 'dirParameter', 'path');	
+			return Errors::set('Error', 'dirParameter', 'path');	
 		}
 		
 	}	
@@ -477,7 +477,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($pattern) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'pattern');	
+			return Errors::set('Error', 'stringParameter', 'pattern');	
 		}
 		
 		if( $allFiles === true )

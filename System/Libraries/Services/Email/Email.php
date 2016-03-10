@@ -361,7 +361,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	{
 		if( ! is_array($settings) )
 		{
-			Error::set('Error', 'emailParameter', '1.(settings)');	
+			Errors::set('Error', 'emailParameter', '1.(settings)');	
 			return $this;
 		}
 		
@@ -423,7 +423,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'charsetParameter', '1.(charset)');	
+			Errors::set('Error', 'charsetParameter', '1.(charset)');	
 		}
 		
 		return $this;
@@ -523,7 +523,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'scalarParameter', '1.(host)');	
+			Errors::set('Error', 'scalarParameter', '1.(host)');	
 		}
 		
 		return $this;
@@ -548,7 +548,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'scalarParameter', '1.(user)');	
+			Errors::set('Error', 'scalarParameter', '1.(user)');	
 		}
 		
 		return $this;
@@ -571,7 +571,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'booleanParameter', '1.(dsn)');	
+			Errors::set('Error', 'booleanParameter', '1.(dsn)');	
 		}
 		
 		return $this;
@@ -596,7 +596,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'scalarParameter', '1.(pass)');	
+			Errors::set('Error', 'scalarParameter', '1.(pass)');	
 		}
 		
 		return $this;
@@ -621,7 +621,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'numericParameter', '1.(port)');	
+			Errors::set('Error', 'numericParameter', '1.(port)');	
 		}
 		
 		return $this;
@@ -646,7 +646,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'numericParameter', '1.(timeout)');	
+			Errors::set('Error', 'numericParameter', '1.(timeout)');	
 		}
 		
 		return $this;
@@ -671,7 +671,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'booleanParameter', '1.(keepAlive)');	
+			Errors::set('Error', 'booleanParameter', '1.(keepAlive)');	
 		}
 		
 		return $this;
@@ -696,7 +696,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', '1.(encode)');	
+			Errors::set('Error', 'stringParameter', '1.(encode)');	
 		}
 		
 		return $this;
@@ -733,7 +733,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			}
 			else
 			{
-				Error::set('Error', 'emailParameter', '1.('.$type.')');	
+				Errors::set('Error', 'emailParameter', '1.('.$type.')');	
 			}
 		}
 		
@@ -837,7 +837,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	{
 		if( ! isEmail($from) )
 		{
-			Error::set('Error', 'emailParameter', '1.(from)');
+			Errors::set('Error', 'emailParameter', '1.(from)');
 			return $this;	
 		}
 		
@@ -888,7 +888,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', '1.(subject)');	
+			Errors::set('Error', 'stringParameter', '1.(subject)');	
 		}
 		
 		return $this;
@@ -911,7 +911,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', '1.(message)');	
+			Errors::set('Error', 'stringParameter', '1.(message)');	
 		}
 		
 		return $this;
@@ -962,12 +962,12 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		{
 			if( strpos($file, '://') === false && ! file_exists($file) )
 			{
-				return Error::set('Email', 'attachmentMissing', $file);
+				return Errors::set('Email', 'attachmentMissing', $file);
 			}
 			
 			if( ! $fp = @fopen($file, 'rb') )
 			{
-				return Error::set('Email', 'attachmentUnreadable', $file);
+				return Errors::set('Email', 'attachmentUnreadable', $file);
 			}
 			
 			$fileContent = stream_get_contents($fp);
@@ -1039,7 +1039,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			}
 			else
 			{
-				return Error::set('Email', 'noFrom');
+				return Errors::set('Email', 'noFrom');
 			}
 		}
 		
@@ -1094,7 +1094,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		
 		if( empty($send) )
 		{
-			return Error::set('Email', 'noSend');
+			return Errors::set('Email', 'noSend');
 		}
 		
 		$this->_defaultVariables();

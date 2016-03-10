@@ -72,7 +72,7 @@ class JQAnimate
 		}
 		else
 		{
-			Error::set('Error', 'valueParameter', 'duration');
+			Errors::set('Error', 'valueParameter', 'duration');
 		}
 		
 		return $this;
@@ -100,7 +100,7 @@ class JQAnimate
 		}
 		else
 		{
-			Error::set('Error', 'valueParameter', 'queue');
+			Errors::set('Error', 'valueParameter', 'queue');
 			return $this;
 		}
 		
@@ -123,7 +123,7 @@ class JQAnimate
 	{
 		if( ! is_array($attr) )
 		{
-			Error::set('Error', 'arrayParameter', 'attr');
+			Errors::set('Error', 'arrayParameter', 'attr');
 			return $this;	
 		}
 		

@@ -138,7 +138,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		if( ! in_array($this->select_driver, $this->pdo_subdrivers) )
 		{
-			die(Error::message('Database', 'driverError', $this->select_driver));		
+			die(Errors::message('Database', 'driverError', $this->select_driver));		
 		}
 		
 		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	
@@ -173,6 +173,17 @@ class PdoDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security = NULL)
+	{
+		return $this->query($query, $security);
+	}
+	
+	/******************************************************************************************
 	* QUERY                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
@@ -181,8 +192,7 @@ class PdoDriver implements DatabaseDriverInterface
 	public function query($query, $security = array())
 	{
 		$this->query = $this->connect->prepare($query);
-		$this->query->execute($security);
-		return $this->query;
+		return $this->query->execute($security);
 	}
 	
 	/******************************************************************************************
@@ -216,30 +226,6 @@ class PdoDriver implements DatabaseDriverInterface
 	public function transCommit()
 	{
 		return $this->connect->commit();
-	}
-	
-	/******************************************************************************************
-	* LIST DATABASES                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listDatabases()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
-	}
-	
-	/******************************************************************************************
-	* LIST TABLES                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listTables()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
 	}
 	
 	/******************************************************************************************
@@ -298,76 +284,6 @@ class PdoDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* BACKUP                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function backup($filename = '')
-	{ 
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* TRUNCATE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  |  
-	|          																				  |
-	******************************************************************************************/	
-	public function truncate($table = '')
-	{
-		// Ön tanımlı sorgu kullanıyor. 
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* ADD COLUMN                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function addColumn()
-	{
-		// Ön tanımlı sorgu kullanıyor. 
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* DROP COLUMN                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function dropColumn()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* RENAME COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function renameColumn()
-	{
-		// Ön tanımlı sorgu kullanıyor. 
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* MODIFY COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function modifyColumn()
-	{ 
-		return false; 
-	}
-	
-	/******************************************************************************************
 	* NUM ROWS                                                                                *
 	*******************************************************************************************
 	| Genel Kullanım: Bu sürücü için toplam kayıt sayısı bilgisini verir.                	  | 
@@ -422,71 +338,6 @@ class PdoDriver implements DatabaseDriverInterface
 		{
 			return 0;
 		}
-	}
-	
-	/******************************************************************************************
-	* RESULT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
-	|          																				  |
-	******************************************************************************************/
-	public function result()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = (object)$data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* RESULT ARRAY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
-	|          																				  |
-	******************************************************************************************/
-	public function resultArray()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
-	
-	}
-	
-	/******************************************************************************************
-	* ROW                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu tek bir kayıt bilgisini verir.              | 
-	|          																				  |
-	******************************************************************************************/
-	public function row()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$data = $this->fetchAssoc();
-		
-		return (object)$data;
 	}
 	
 	/******************************************************************************************

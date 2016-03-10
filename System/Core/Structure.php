@@ -129,7 +129,7 @@ class Structure
 				report('Error', lang('Error', 'controllerNameError', $pageControl), 'ControllerNameError');
 				
 				// Hatayı ekrana yazdır.
-				die(Error::message('Error', 'controllerNameError', $pageControl));
+				die(Errors::message('Error', 'controllerNameError', $pageControl));
 			}
 		}
 	

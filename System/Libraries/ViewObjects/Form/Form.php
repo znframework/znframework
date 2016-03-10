@@ -36,6 +36,43 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
+	// exclude()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param mixed $exclude
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function exclude($exclude = array())
+	{
+		if( is_scalar($exclude) )
+		{
+			$exclude[] = $exclude;	
+		}
+		
+		$this->settings['exclude'] = $exclude;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// order()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Arrays::order() yönteminde kullanılan type ve flags parametreleri aynen geçerlidir.
+ 	//
+	// @param string $type:desc
+	// @param string $flags:regular
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function order($type = 'desc', $flags = 'regular')
+	{
+		$this->settings['order']['type']  = $type;
+		$this->settings['order']['flags'] = $flags;
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// name()
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -1327,6 +1364,21 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		if( isset($this->settings['option']) )
 		{
 			$options = $this->settings['option'];
+		}
+		
+		if( isset($this->settings['exclude']) )
+		{
+			$exclude = $this->settings['exclude'];
+			
+			if( ! empty($exclude) ) foreach( $exclude as $key => $val )
+			{
+				unset($options[$val]); 
+			}
+		}
+		
+		if( isset($this->settings['order']['type']) )
+		{
+			$options = Arrays::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);	
 		}
 		
 		if( isset($this->settings['selectedKey']) )

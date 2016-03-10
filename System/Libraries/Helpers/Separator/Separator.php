@@ -58,7 +58,7 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'data');
+			return Errors::set('Error', 'arrayParameter', 'data');
 		}
 		
 		if( ! is_string($key) ) 
@@ -115,12 +115,12 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($word) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'word');
+			return Errors::set('Error', 'stringParameter', 'word');
 		}
 		
 		if( empty($word) ) 
 		{
-			return Error::set('Error', 'emptyParameter', 'word');
+			return Errors::set('Error', 'emptyParameter', 'word');
 		}
 		
 		if( ! is_string($key) ) 

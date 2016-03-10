@@ -118,7 +118,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	{
 		if( ! is_array($set) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'set');
+			return Errors::set('Error', 'arrayParameter', 'set');
 		}
 
 		$this->settingStatus = true;
@@ -216,7 +216,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set('Error', 'booleanParameter', 'convert');	
+			Errors::set('Error', 'booleanParameter', 'convert');	
 		}
 		
 		return $this;
@@ -266,7 +266,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set('Error', 'valueParameter', 'prefix');		
+			Errors::set('Error', 'valueParameter', 'prefix');		
 		}
 		
 		return $this;
@@ -291,7 +291,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set('Error', 'numericParameter', 'maxsize');		
+			Errors::set('Error', 'numericParameter', 'maxsize');		
 		}
 		
 		return $this;
@@ -316,7 +316,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set('Error', 'numericParameter', 'encodeLength');		
+			Errors::set('Error', 'numericParameter', 'encodeLength');		
 		}
 		
 		return $this;
@@ -341,7 +341,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', 'target');		
+			Errors::set('Error', 'stringParameter', 'target');		
 		}
 		
 		return $this;
@@ -366,7 +366,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Error::set('Error', 'stringParameter', 'source');	
+			Errors::set('Error', 'stringParameter', 'source');	
 		}
 		
 		return $this;
@@ -411,7 +411,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		
 		if( ! is_string($fileName) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'fileName');
+			return Errors::set('Error', 'stringParameter', 'fileName');
 		}
 		
 		if( ! is_string($rootDir) ) 
@@ -659,8 +659,23 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 			return lang('Upload', 'unknownError');
 		}
 		
-		$errorNo = $_FILES[$this->file]['error'];
-		//$errorNo = $this->manuelError;
+		$errorNo = $_FILES[$this->file]['error'];	
+		
+		if( is_array($errorNo) )
+		{
+			$errno = 0;
+			
+			foreach( $errorNo as $no )
+			{
+				if( ! empty($no) )
+				{
+					$errno = $no;
+					break;
+				}	
+			}
+			
+			$errorNo = $errno;
+		}
 		
 		$this->errors = array
 		(

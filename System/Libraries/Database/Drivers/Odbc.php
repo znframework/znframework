@@ -114,6 +114,17 @@ class OdbcDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security = NULL)
+	{
+		return $this->query($query, $security);
+	}
+	
+	/******************************************************************************************
 	* QUERY                                                                                   *
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
@@ -122,8 +133,7 @@ class OdbcDriver implements DatabaseDriverInterface
 	public function query($query, $security = array())
 	{
 		$this->query = odbc_prepare($this->connect, $query);
-		odbc_execute($this->query, $security);
-		return $this->query;
+		return odbc_execute($this->query, $security);
 	}
 	
 	/******************************************************************************************
@@ -164,42 +174,6 @@ class OdbcDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* LIST DATABASES                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listDatabases()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
-	}
-	
-	/******************************************************************************************
-	* LIST TABLES                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
-	|          																				  |
-	******************************************************************************************/
-	public function listTables()
-	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
-	}
-	
-	/******************************************************************************************
-	* INSERT ID                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function insertId()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
 	* COLUMN DATA                                                                             *
 	*******************************************************************************************
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş yöntemdir.                	  | 
@@ -235,47 +209,14 @@ class OdbcDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* BACKUP                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function backup($filename = '')
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
 	* TRUNCATE                                                                                *
 	*******************************************************************************************
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş truncate yöntemidir.           | 
 	|          																				  |
 	******************************************************************************************/	
-	public function truncate($table = ''){ return 'DELETE FROM '.$table; }
-	
-	/******************************************************************************************
-	* ADD COLUMN                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function addColumn()
+	public function truncate($table = '')
 	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
-	}
-	
-	/******************************************************************************************
-	* DROP COLUMN                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.                				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function dropColumn()
-	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
+		return 'DELETE FROM '.$table; 
 	}
 	
 	/******************************************************************************************
@@ -284,18 +225,9 @@ class OdbcDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş rename column yöntemidir.      | 
 	|          																				  |
 	******************************************************************************************/
-	public function renameColumn(){ return 'RENAME COLUMN '; }
-	
-	/******************************************************************************************
-	* MODIFY COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function modifyColumn()
+	public function renameColumn()
 	{ 
-		// Ön tanımlı sorgu kullanıyor.
-		return false; 
+		return 'RENAME COLUMN '; 
 	}
 	
 	/******************************************************************************************
@@ -356,70 +288,6 @@ class OdbcDriver implements DatabaseDriverInterface
 		{
 			return 0;	
 		}
-	}
-	
-	/******************************************************************************************
-	* RESULT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini verir.                	  | 
-	|          																				  |
-	******************************************************************************************/
-	public function result()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = (object)$data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* RESULT ARRAY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu kayıtlar bilgisini dizi olarak verir.       | 
-	|          																				  |
-	******************************************************************************************/
-	public function resultArray()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$rows = array();
-		
-		while( $data = $this->fetchAssoc() )
-		{
-			$rows[] = $data;
-		}
-		
-		return $rows;
-	}
-	
-	/******************************************************************************************
-	* ROW                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için sorgu sonucu tek bir kayıt bilgisini verir.              | 
-	|          																				  |
-	******************************************************************************************/
-	public function row()
-	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		$data = $this->fetchAssoc();
-		
-		return (object)$data;
 	}
 	
 	/******************************************************************************************

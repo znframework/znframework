@@ -154,7 +154,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			
 		if( ! is_array($data) ) 
 		{
-			return Error::set('Error', 'arrayParameter', '1.(data)');
+			return Errors::set('Error', 'arrayParameter', '1.(data)');
 		}
 		if( ! is_string($activationReturnLink) ) 
 		{
@@ -190,7 +190,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
-			return Error::set('User', 'registerUsernameError');
+			return Errors::set('User', 'registerUsernameError');
 		}
 		
 		$loginUsername  = $data[$usernameColumn];
@@ -210,7 +210,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			
 			if( ! DB::insert($tableName , $data) )
 			{
-				return Error::set('User', 'registerUnknownError');
+				return Errors::set('User', 'registerUnknownError');
 			}	
 
 			if( ! empty($joinTables) )
@@ -256,7 +256,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		else
 		{
-			return Error::set('User', 'registerError');
+			return Errors::set('User', 'registerError');
 		}
 	}
 	
@@ -370,17 +370,17 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			// Parametreler kontrol ediliyor.--------------------------------------------------
 			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
 			{
-				Error::set('Error', 'stringParameter', '1.(old)');
-				Error::set('Error', 'stringParameter', '2.(new)');
-				Error::set('Error', 'arrayParameter', '4.(data)');
+				Errors::set('Error', 'stringParameter', '1.(old)');
+				Errors::set('Error', 'stringParameter', '2.(new)');
+				Errors::set('Error', 'arrayParameter', '4.(data)');
 				
 				return false;
 			}
 				
 			if( empty($old) || empty($new) ) 
 			{
-				Error::set('Error', 'emptyParameter', '1.(old)');
-				Error::set('Error', 'emptyParameter', '2.(new)');
+				Errors::set('Error', 'emptyParameter', '1.(old)');
+				Errors::set('Error', 'emptyParameter', '2.(new)');
 				
 				return false;
 			}
@@ -428,11 +428,11 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 			if( $oldPassword != $password )
 			{
-				return Error::set('User', 'oldPasswordError');	
+				return Errors::set('User', 'oldPasswordError');	
 			}
 			elseif( $newPassword != $newPasswordAgain )
 			{
-				return Error::set('User', 'passwordNotMatchError');
+				return Errors::set('User', 'passwordNotMatchError');
 			}
 			else
 			{
@@ -455,7 +455,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				{
 					if( ! DB::where($uc.' =', $username)->update($tn, $data) )
 					{
-						return Error::set('User', 'registerUnknownError');
+						return Errors::set('User', 'registerUnknownError');
 					}	
 				}
 				
@@ -522,12 +522,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			}	
 			else
 			{
-				return Error::set('User', 'activationCompleteError');
+				return Errors::set('User', 'activationCompleteError');
 			}				
 		}
 		else
 		{
-			return Error::set('User', 'activationCompleteError');
+			return Errors::set('User', 'activationCompleteError');
 		}
 	}
 	
@@ -580,7 +580,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		else
 		{	
-			return Error::set('User', 'emailError');
+			return Errors::set('User', 'emailError');
 		}
 	}
 	
@@ -831,12 +831,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! is_string($un) ) 
 		{
-			return Error::set('Error', 'stringParameter', '1.(username)');
+			return Errors::set('Error', 'stringParameter', '1.(username)');
 		}
 		
 		if( ! is_string($pw) ) 
 		{
-			return Error::set('Error', 'stringParameter', '2.(password)');
+			return Errors::set('Error', 'stringParameter', '2.(password)');
 		}
 		
 		if( ! is_scalar($rememberMe) ) 
@@ -872,7 +872,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! isset($r->$passwordColumn) )
 		{
-			return Error::set('User', 'loginError');
+			return Errors::set('User', 'loginError');
 		}
 				
 		$passwordControl   = $r->$passwordColumn;
@@ -894,12 +894,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		{
 			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
-				return Error::set('User', 'bannedError');
+				return Errors::set('User', 'bannedError');
 			}
 			
 			if( ! empty($activationColumn) && empty($activationControl) )
 			{
-				return Error::set('User', 'activationError');
+				return Errors::set('User', 'activationError');
 			}
 			
 			Session::insert($usernameColumn, $username); 
@@ -924,7 +924,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		else
 		{
-			return Error::set('User', 'loginError');
+			return Errors::set('User', 'loginError');
 		}
 	}
 	
@@ -1068,7 +1068,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! is_string($email) ) 
 		{
-			return Error::set('Error', 'stringParameter', '1.(email)');
+			return Errors::set('Error', 'stringParameter', '1.(email)');
 		}
 		
 		if( ! is_string($returnLinkPath) ) 
@@ -1147,16 +1147,16 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 					return true;
 				}
 				
-				return Error::set('Database', 'updateError');
+				return Errors::set('Database', 'updateError');
 			}
 			else
 			{	
-				return Error::set('User', 'emailError');
+				return Errors::set('User', 'emailError');
 			}
 		}
 		else
 		{
-			return Error::set('User', 'forgotPasswordError');
+			return Errors::set('User', 'forgotPasswordError');
 		}
 	}
 	

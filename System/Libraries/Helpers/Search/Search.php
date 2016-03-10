@@ -59,13 +59,13 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
 		if( ! is_string($column) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'column');
+			return Errors::set('Error', 'stringParameter', 'column');
 		}
 		
 		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
 		if( ! is_scalar($value) ) 
 		{
-			return Error::set('Error', 'valueParameter', 'value');
+			return Errors::set('Error', 'valueParameter', 'value');
 		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
@@ -179,12 +179,12 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'conditions');
+			return Errors::set('Error', 'arrayParameter', 'conditions');
 		}
 		
 		if( ! is_scalar($word) ) 
 		{
-			return Error::set('Error', 'valueParameter', 'word');
+			return Errors::set('Error', 'valueParameter', 'word');
 		}
 		
 		if( ! empty($this->type) )
@@ -320,7 +320,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		{	
 			if( ! is_scalar($searchWord) ) 
 			{
-				return Error::set('Error', 'valueParameter', 'searchWord');
+				return Errors::set('Error', 'valueParameter', 'searchWord');
 			}
 			
 			if( $output === 'str' || $output === 'string' ) 

@@ -41,7 +41,7 @@ class __USE_STATIC_ACCESS__Symbol implements SymbolInterface
 	{
 		if( ! is_string($symbolName) ) 
 		{
-			return Error::set('Error', 'stringParameter', 'symbolName');
+			return Errors::set('Error', 'stringParameter', 'symbolName');
 		}
 		
 		$symbol = Config::get('Symbols', $symbolName);

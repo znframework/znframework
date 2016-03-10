@@ -45,7 +45,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! isRealNumeric($poss) ) 
@@ -111,7 +111,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! isRealNumeric($poss) ) 
@@ -190,7 +190,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $count <= 1 )
@@ -227,7 +227,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $count <= 1 )
@@ -264,7 +264,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! is_array($element) )
@@ -291,7 +291,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! is_array($element) )
@@ -318,7 +318,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		$newArray = array();
@@ -408,7 +408,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		}
 		else 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 	}
 	
@@ -424,7 +424,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return Error::set('Error', 'arrayParameter', 'array');
+			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $keyval === "val" || $keyval === "value" )
@@ -462,7 +462,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( $count <= 1 )
@@ -490,7 +490,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( $count <= 1 )
@@ -518,12 +518,12 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_string($type) )
 		{
-			return Error::set('Error', 'stringParameter', '2.(type)');	
+			return Errors::set('Error', 'stringParameter', '2.(type)');	
 		}
 
 		$flags = Convert::toConstant($flags, 'SORT_');
@@ -575,7 +575,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($data) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(data)');	
+			return Errors::set('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return count($data);	
@@ -594,7 +594,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($data) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(data)');	
+			return Errors::set('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return array_chunk($data, $portionCount, $preserveKeys);	
@@ -612,7 +612,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($keys) || ! is_array($values) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(keys) & 2.(values)');	
+			return Errors::set('Error', 'arrayParameter', '1.(keys) & 2.(values)');	
 		}
 		
 		return array_combine($keys, $values);	
@@ -630,7 +630,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		$return = array_count_values($array);	
@@ -661,7 +661,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_flip($array);	
@@ -739,12 +739,12 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($preserveKeys) )
 		{
-			return Error::set('Error', 'booleanParameter', '2.(preserveKeys)');	
+			return Errors::set('Error', 'booleanParameter', '2.(preserveKeys)');	
 		}
 		
 		return array_reverse($array, $preserveKeys);
@@ -761,7 +761,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_product($array);
@@ -778,7 +778,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_sum($array);
@@ -796,12 +796,12 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_numeric($countRequest) )
 		{
-			return Error::set('Error', 'numericParameter', '2.(countRequest)');	
+			return Errors::set('Error', 'numericParameter', '2.(countRequest)');	
 		}
 		
 		return array_rand($array, $countRequest);
@@ -820,12 +820,12 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return Error::set('Error', 'booleanParameter', '3.(strict)');	
+			return Errors::set('Error', 'booleanParameter', '3.(strict)');	
 		}
 		
 		return array_search($element, $array, $strict);
@@ -844,12 +844,12 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return Error::set('Error', 'booleanParameter', '3.(strict)');	
+			return Errors::set('Error', 'booleanParameter', '3.(strict)');	
 		}
 		
 		return in_array($element, $array, $strict);
@@ -867,7 +867,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_key_exists($key, $array);
@@ -887,7 +887,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_slice($array, $start, $length, $preserveKeys);
@@ -907,7 +907,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		array_splice($array, $start, $length, $newElement);
@@ -927,7 +927,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return Error::set('Error', 'arrayParameter', '1.(array)');	
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_unique($array, Convert::toConstant($flags, 'SORT_'));
@@ -946,7 +946,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	{
 		if( ! is_numeric($start) || ! is_numeric($end) || ! is_numeric($step) )
 		{
-			return Error::set('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)');	
+			return Errors::set('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)');	
 		}
 		
 		return range($start, $end, $step);

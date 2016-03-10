@@ -193,7 +193,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_string($day) || ! is_string($month) )	
 		{
-			Error::set('Error', 'stringParameter', 'day | month');
+			Errors::set('Error', 'stringParameter', 'day | month');
 			
 			return $this;	
 		}
@@ -219,7 +219,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_array($css) )
 		{
-			Error::set('Error', 'arrayParameter', 'css');
+			Errors::set('Error', 'arrayParameter', 'css');
 			return $this;	
 		}
 		
@@ -242,7 +242,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_array($style) )
 		{
-			Error::set('Error', 'arrayParameter', 'style');
+			Errors::set('Error', 'arrayParameter', 'style');
 			return $this;	
 		}
 		
@@ -265,7 +265,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_string($type) )
 		{
-			Error::set('Error', 'stringParameter', '1.(type)');
+			Errors::set('Error', 'stringParameter', '1.(type)');
 			return $this;
 		}
 		
@@ -290,7 +290,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! ( is_string($prev) && is_string($next) ) )	
 		{
-			Error::set('Error', 'stringParameter', 'prev | next');
+			Errors::set('Error', 'stringParameter', 'prev | next');
 			return $this;	
 		}
 		
