@@ -71,7 +71,6 @@ $config['Colors'] = array
 	'turquoise'			=> '64|224|208',
 	'mediumturquoise'	=> '72|209|204',
 	'darkturquoise'		=> '0|206|209',
-	'lightseagreen'		=> '32|178|170',
 	'darkcyan'			=> '0|139|139',
 	'teal'				=> '0|128|128',
 	
@@ -84,7 +83,6 @@ $config['Colors'] = array
 	'green'				=> '0|128|0',
 	'darkgreen'			=> '0|100|0',
 	'greenyellow'		=> '173|255|47',
-	'yellowgreen'		=> '54|205|50',
 	'springgreen'		=> '0|255|127',
 	'mediumspringgreen'	=> '0|250|154',
 	'lightgreen'		=> '144|238|144',
@@ -136,7 +134,6 @@ $config['Colors'] = array
 	'palegoldenrod'		=> '238|232|170',
 	'khaki'				=> '240|230|140',
 	'darkkhaki'			=> '189|183|107',
-	'greenyellow'		=> '173|255|47',
 	'yellowgreen'		=> '154|205|50',
 	
 	// Pembe Türleri
