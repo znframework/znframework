@@ -660,7 +660,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 				session_start();
 			}
 			
-			if( $edit != $_SESSION[md5('captchaCode')] )
+			if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
 			{ 
 				$this->_messages('captchaCode', $name, $viewName);	
 			} 
