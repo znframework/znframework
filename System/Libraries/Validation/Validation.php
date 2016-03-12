@@ -655,10 +655,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		
 		if( in_array('captcha', $config) )
 		{ 
-			if( ! isset($_SESSION) ) 
-			{
-				session_start();
-			}
+			Session::start();
 			
 			if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
 			{ 

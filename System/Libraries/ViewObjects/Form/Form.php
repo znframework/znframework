@@ -416,8 +416,6 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		$this->settings = array();	
 		
-		$this->validator($name);
-		
 		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
 	}
 	
@@ -646,8 +644,6 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		$this->settings = array();	
 		
-		$this->validator($name);
-		
 		return $selectbox;
 	}
 	
@@ -814,9 +810,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		}
 		
 		$this->settings = array();
-		
-		$this->validator($name);
-		
+
 		return $this->_input($name, '', $_attributes, 'file');
 	}
 	
