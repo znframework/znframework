@@ -100,7 +100,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	******************************************************************************************/
 	public function casing($str = '', $type = 'lower', $encoding = "utf-8")
 	{
-		return Covert::stringCase($str, $type, $encoding);
+		return Convert::stringCase($str, $type, $encoding);
 	}
 
 	/******************************************************************************************
@@ -593,7 +593,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	}
 	
 	/******************************************************************************************
-	* REPATE                                                                     			  *
+	* REPEAT                                                                     			  *
 	*******************************************************************************************
 	| Genel Kullanım: Bir dizgeyi yineler.					        		 	          	  |
 	
@@ -610,6 +610,70 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 		}
 		
 		return str_repeat($string, $count);
+	}
+	
+	/******************************************************************************************
+	* PAD                                                                     			      *
+	*******************************************************************************************
+	| Genel Kullanım: Bir dizgeyi istenilen yöne doğru belirtilen dizge ile uzatır.        	  |
+	
+	  @param  scalar	$string
+	  @param  numeric	$count 1
+	  @param  string 	$chars 1
+	  @param  string 	$type right, left
+	  @return string
+	|          																				  |
+	******************************************************************************************/
+	public function pad($string = '', $count = 1, $chars = ' ', $type = 'right')
+	{
+		if( ! is_scalar($string) ) 
+		{
+			return Errors::set('Error', 'scalarParameter', '1.(string)');
+		}
+		
+		return str_pad($string, $count, $chars, Convert::toConstant($type, 'STR_PAD_'));
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Chunk
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $string
+	// @param numeric $length
+	// @param string  $end
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function chunk($string = '', $length = 76, $end = "\r\n")
+	{
+		if( ! is_scalar($string) ) 
+		{
+			return Errors::set('Error', 'scalarParameter', '1.(string)');
+		}
+		
+		$arrayChunk = array_chunk(preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY), $length);
+	
+		$string = "";
+		
+		foreach( $arrayChunk as $chunk ) 
+		{
+			$string .= implode("", $chunk) . $end;
+		}
+		
+		return $string;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Divide
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $string
+	// @param string  $seperator
+	// @param numeric $index
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function divide($str = '', $separator = "|", $index = 0)
+	{
+		return divide($str, $separator, $index);
 	}
 	
 	/******************************************************************************************
