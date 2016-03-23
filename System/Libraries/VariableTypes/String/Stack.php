@@ -377,16 +377,16 @@ class __USE_STATIC_ACCESS__Stack
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Chunk
+	// Apportion
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param numeric $length
 	// @param string  $end
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function chunk($length = 76, $end = "\r\n")
+	public function apportion($length = 76, $end = "\r\n")
 	{
-		$this->data = Strings::chunk($this->data, $length, $end);
+		$this->data = Strings::apportion($this->data, $length, $end);
 			
 		return $this;
 	}

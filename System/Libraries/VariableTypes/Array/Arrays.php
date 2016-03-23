@@ -951,4 +951,23 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		
 		return range($start, $end, $step);
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Column
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param mixed   $columnKey
+	// @param mixed	  $indexKey						  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function column($array = array(), $columnKey = 0, $indexKey = NULL)
+	{
+		if( ! is_array($array) )
+		{
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
+		}
+		
+		return array_column($array, $columnKey, $indexKey);
+	}
 }
