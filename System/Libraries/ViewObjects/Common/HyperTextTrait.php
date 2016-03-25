@@ -33,18 +33,34 @@ trait HyperTextTrait
 	use ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// FormElementsTrait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// elements ...
+	//
+	//----------------------------------------------------------------------------------------------------
+	use FormElementsTrait;
+	
+	//----------------------------------------------------------------------------------------------------
 	// Attributes
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes = '')
+	public function attributes($attributes = array())
 	{
 		$attribute = '';
 		
 		if( is_array($attributes) )
 		{
+			if( ! empty($this->settings['attr']) )
+			{
+				$attributes = array_merge($attributes, $this->settings['attr']);	
+				
+				$this->settings['attr'] = array();						
+			}
+
 			foreach( $attributes as $key => $values )
 			{
 				if( is_numeric($key) )
@@ -60,7 +76,7 @@ trait HyperTextTrait
 				}
 			}	
 		}
-		
+	
 		return $attribute;	
 	}
 	
@@ -88,12 +104,7 @@ trait HyperTextTrait
 			unset($this->settings['attr']['type']);
 		}
 		
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = $this->settings['attr'];
-		}
-		
-		$this->settings = array();	
+		$this->settings['attr'] = array();	
 		
 		return $this->_input($name, $value, $_attributes, $type);
 	}
@@ -119,14 +130,7 @@ trait HyperTextTrait
 		{
 			$_attributes['value'] = $value;
 		}
-		
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = array_merge($this->settings['attr'], (array)$_attributes);
-		}
-		
-		$this->settings = array();	
-		
-		return '<input type="'.$type.'"'.Html::attributes($_attributes).'>'.EOL;
+
+		return '<input type="'.$type.'"'.$this->attributes($_attributes).'>'.EOL;
 	}
 }

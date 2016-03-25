@@ -225,12 +225,13 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param  string $for
-	// @param  string $form
 	// @param  string $value
+	// @param  string $form
+	// @param  array  $_attributes
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function label($for = '', $form = '', $value = '')
+	public function label($for = '', $value = '', $form = '', $_attributes = array())
 	{
 		if( ! empty($for) ) 
 		{
@@ -242,7 +243,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 			$form = ' form="'.$form.'"';
 		}
 		
-		return '<label'.$for.$form.'>'.$value.'</label>';
+		return '<label'.$for.$form.$this->attributes($_attributes).'>'.$value.'</label>';
 	}
 	
 	/******************************************************************************************

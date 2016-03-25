@@ -31,15 +31,6 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	//----------------------------------------------------------------------------------------------------
 	use HyperTextTrait;
 	
-	//----------------------------------------------------------------------------------------------------
-	// FormElementsTrait
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// elements ...
-	//
-	//----------------------------------------------------------------------------------------------------
-	use FormElementsTrait;
-	
 	/******************************************************************************************
 	* OPEN                                                                                    *
 	*******************************************************************************************
@@ -65,16 +56,6 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		if( isset($this->settings['attr']['name']) )
 		{
 			$name = $this->settings['attr']['name'];
-		}
-		
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = $this->settings['attr'];
-		}
-		
-		if( isset($this->settings['enctype']) )
-		{
-			$_attributes['enctype'] = $this->settings['enctype'];
 		}
 		
 		// Enctype için 3 parametre kullamı.
@@ -106,9 +87,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$_attributes['method'] = 'post';
 		}
 		
-		$return = '<form'.$this->attributes($_attributes).'>'.EOL;
-		
-		$this->settings = array();	
+		$return = '<form'.$this->attributes($_attributes).'>'.EOL;	
 		
 		return $return;
 	}
@@ -405,16 +384,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		if( isset($this->settings['attr']['value']) )
 		{
 			$value = $this->settings['attr']['value'];
-			
-			unset($this->settings['attr']['value']);
 		}
-		
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
-		}
-		
-		$this->settings = array();	
 		
 		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
 	}
@@ -444,6 +414,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	| Genel Kullanım: Html <input type='password'> tagının kullanımıdır.    				  |
 	|															                              |
 	| Parametreler: 3 parametresi vardır.		                                              |
+
 	| 1. string var @name => Form nesnesinin ismi belirtilir.	  				              |
 	| 2. string var @name => Form nesnesinin değerini belirtilir.	  				          |
 	| 3. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
@@ -561,11 +532,6 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	******************************************************************************************/	
 	public function select($name = '', $options = array(), $selected = '', $_attributes = array(), $multiple = false)
 	{
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
-		}
-		
 		if( isset($this->settings['option']) )
 		{
 			$options = $this->settings['option'];
@@ -803,15 +769,8 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$this->settings['attr']['multiple'] = 'multiple';	
 			$name = suffix($name, '[]');
 		}
-
-		if( isset($this->settings['attr']) )
-		{
-			$_attributes = array_merge((array)$_attributes, $this->settings['attr']);
-		}
 		
-		$this->settings = array();
-
-		return $this->_input($name, '', $_attributes, 'file');
+		return $this->_input($name, '', $this->attributes($_attributes), 'file');
 	}
 	
 	/******************************************************************************************
