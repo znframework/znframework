@@ -245,6 +245,11 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			return $this->db->backup($fileName);
 		}
 		
+		if( $path === STORAGE_DIR )
+		{
+			$path .= 'DatabaseBackup';
+		}
+		
 		$eol = EOL;
 		
 		if( $tables === '*' )
@@ -320,7 +325,12 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			$fileName = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
 		}
 		
-		if( ! file_put_contents($path.$fileName, $return) )
+		if( ! is_dir($path) )
+		{
+			mkdir($path, 0755, true);	
+		}
+		
+		if( ! file_put_contents(suffix($path).$fileName, $return) )
 		{
 			Errors::set('Error', 'fileNotWrite', $path.$fileName);
 		}

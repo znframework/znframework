@@ -713,7 +713,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	//----------------------------------------------------------------------------------------------------
 	// Protected To
 	//----------------------------------------------------------------------------------------------------
-	public function _to($to = '', $name = '', $type = 'to')
+	protected function _to($to = '', $name = '', $type = 'to')
 	{
 		if( is_array($to) )
 		{
