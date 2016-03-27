@@ -139,7 +139,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function bold($str = '', $attributes = "")
+	public function bold($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -155,7 +155,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function strong($str = '', $attributes = "")
+	public function strong($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -171,7 +171,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function italic($str = '', $attributes = "")
+	public function italic($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -441,7 +441,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function parag($str = '', $attributes = "")
+	public function parag($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -457,7 +457,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function overLine($str = '', $attributes = "")
+	public function overLine($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -473,7 +473,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function overText($str = '', $attributes = "")
+	public function overText($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -489,7 +489,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function underLine($str = '', $attributes = "")
+	public function underLine($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -505,7 +505,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function underText($str = '', $attributes = "")
+	public function underText($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -521,7 +521,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function font($str = '', $attributes = "")
+	public function font($str = '', $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -583,7 +583,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @type = Uygulanacak olan başlık etiketinin türü. h1, h2, h3...
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function heading($str = '', $type = 3, $attributes = "")
+	public function heading($str = '', $type = 3, $attributes = array())
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -613,7 +613,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Html etiketinin uygulanacağı veri. Örnek: veri
 	// @attributes = Etikete uygulanacak özellik değer çiftleri. array("id" => "12")
 	// Dönen Değer: <strong id="12>veri</strong>
-	public function element($element = '', $str = '', $attributes = "")
+	public function element($element = '', $str = '', $attributes = array())
 	{
 		if( ! is_scalar($element) ) 
 		{

@@ -285,6 +285,7 @@ $config['ClassMap']['classes']['formelementstrait'] = 'System/Libraries/ViewObje
 $config['ClassMap']['classes']['forminterface'] = 'System/Libraries/ViewObjects/Form/FormInterface.php';
 $config['ClassMap']['classes']['__use_static_access__html'] = 'System/Libraries/ViewObjects/HTML/HTML.php';
 $config['ClassMap']['classes']['html'] = 'System/StaticAccess/ViewObjects/HTML/__USE_STATIC_ACCESS__HTML.php';
+$config['ClassMap']['classes']['htmlelementstrait'] = 'System/Libraries/ViewObjects/HTML/HTMLElementsTrait.php';
 $config['ClassMap']['classes']['htmlinterface'] = 'System/Libraries/ViewObjects/HTML/HTMLInterface.php';
 $config['ClassMap']['classes']['__use_static_access__js'] = 'System/Libraries/ViewObjects/Javascript/JS.php';
 $config['ClassMap']['classes']['js'] = 'System/StaticAccess/ViewObjects/Javascript/__USE_STATIC_ACCESS__JS.php';

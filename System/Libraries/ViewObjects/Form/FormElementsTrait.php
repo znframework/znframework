@@ -9,17 +9,6 @@ trait FormElementsTrait
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// $settings
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Ayarları tutmak için
-	//
-	// @var array
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $settings = array();
 		
 	//----------------------------------------------------------------------------------------------------
 	// Setting Methods Başlangıç
@@ -71,7 +60,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function name($name = '')
 	{
-		$this->settings['attr']['name'] = $name;
+		$this->_element(__FUNCTION__, $name);
 		
 		return $this;
 	}
@@ -85,7 +74,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function addClass($class = '')
 	{
-		$this->settings['attr']['class'] = $class;
+		$this->_element(__FUNCTION__, $class);
 		
 		return $this;
 	}
@@ -99,7 +88,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function placeholder($value = '')
 	{
-		$this->settings['attr']['placeholder'] = $value;
+		$this->_element(__FUNCTION__, $value);
 		
 		return $this;
 	}
@@ -113,7 +102,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function rows($value = '')
 	{
-		$this->settings['attr']['rows'] = $value;
+		$this->_element(__FUNCTION__, $value);
 		
 		return $this;
 	}
@@ -127,7 +116,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function style($value = '')
 	{
-		$this->settings['attr']['style'] = $value;
+		$this->_element(__FUNCTION__, $value);
 		
 		return $this;
 	}
@@ -141,7 +130,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function max($max = '')
 	{
-		$this->settings['attr']['max'] = $max;
+		$this->_element(__FUNCTION__, $max);
 		
 		return $this;
 	}
@@ -155,7 +144,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function min($min = '')
 	{
-		$this->settings['attr']['min'] = $min;
+		$this->_element(__FUNCTION__, $min);
 		
 		return $this;
 	}
@@ -169,7 +158,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function maxLength($maxlength = '')
 	{
-		$this->settings['attr']['maxlength'] = $maxlength;
+		$this->_element(__FUNCTION__, $maxlength);
 		
 		return $this;
 	}
@@ -183,7 +172,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function width($width = '')
 	{
-		$this->settings['attr']['width'] = $width;
+		$this->_element(__FUNCTION__, $width);
 		
 		return $this;
 	}
@@ -197,7 +186,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function height($height = '')
 	{
-		$this->settings['attr']['height'] = $height;
+		$this->_element(__FUNCTION__, $height);
 		
 		return $this;
 	}
@@ -211,7 +200,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function align($align = '')
 	{
-		$this->settings['attr']['align'] = $align;
+		$this->_element(__FUNCTION__, $align);
 		
 		return $this;
 	}
@@ -225,7 +214,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function required()
 	{
-		$this->settings['attr']['required'] = "required";
+		$this->_element(__FUNCTION__, __FUNCTION__);
 		
 		return $this;
 	}
@@ -239,7 +228,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function autoFocus()
 	{
-		$this->settings['attr']['autofocus'] = "autofocus";
+		$this->_element(__FUNCTION__, __FUNCTION__);
 		
 		return $this;
 	}
@@ -253,7 +242,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function disabled()
 	{
-		$this->settings['attr']['disabled'] = "disabled";
+		$this->_element(__FUNCTION__, __FUNCTION__);
 		
 		return $this;
 	}
@@ -267,7 +256,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function readOnly()
 	{
-		$this->settings['attr']['readonly'] = "readonly";
+		$this->_element(__FUNCTION__, __FUNCTION__);
 		
 		return $this;
 	}
@@ -281,21 +270,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function vspace($vspace = '')
 	{
-		$this->settings['attr']['vspace'] = $vspace;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// title()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $vspace
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function title($title = '')
-	{
-		$this->settings['attr']['title'] = $title;
+		$this->_element(__FUNCTION__, $vspace);
 		
 		return $this;
 	}
@@ -307,9 +282,9 @@ trait FormElementsTrait
 	// @param string $step
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alt($step = '')
+	public function step($step = '')
 	{
-		$this->settings['attr']['step'] = $step;
+		$this->_element(__FUNCTION__, $step);
 		
 		return $this;
 	}
@@ -323,7 +298,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function border($border = '')
 	{
-		$this->settings['attr']['border'] = $border;
+		$this->_element(__FUNCTION__, $border);
 		
 		return $this;
 	}
@@ -335,9 +310,9 @@ trait FormElementsTrait
 	// @param string $wrap
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function src($wrap = '')
+	public function wrap($wrap = '')
 	{
-		$this->settings['attr']['wrap'] = $wrap;
+		$this->_element(__FUNCTION__, $wrap);
 		
 		return $this;
 	}
@@ -351,7 +326,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function cols($cols = '')
 	{
-		$this->settings['attr']['cols'] = $cols;
+		$this->_element(__FUNCTION__, $cols);
 		
 		return $this;
 	}
@@ -365,7 +340,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function size($size = '')
 	{
-		$this->settings['attr']['size'] = $size;
+		$this->_element(__FUNCTION__, $size);
 		
 		return $this;
 	}
@@ -379,7 +354,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function role($role = '')
 	{
-		$this->settings['attr']['role'] = $role;
+		$this->_element(__FUNCTION__, $role);
 		
 		return $this;
 	}
@@ -393,7 +368,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function draggable($draggable = '')
 	{
-		$this->settings['attr']['draggable'] = $draggable;
+		$this->_element(__FUNCTION__, $draggable);
 		
 		return $this;
 	}
@@ -407,7 +382,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function dropzone($dropzone = '')
 	{
-		$this->settings['attr']['dropzone'] = $dropzone;
+		$this->_element(__FUNCTION__, $dropzone);
 		
 		return $this;
 	}
@@ -421,7 +396,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onBlur($onblur = '')
 	{
-		$this->settings['attr']['onblur'] = $onblur;
+		$this->_element(__FUNCTION__, $onblur);
 		
 		return $this;
 	}
@@ -435,7 +410,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onChange($onchange = '')
 	{
-		$this->settings['attr']['onchange'] = $onchange;
+		$this->_element(__FUNCTION__, $onchange);
 		
 		return $this;
 	}
@@ -449,7 +424,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onClick($onclick = '')
 	{
-		$this->settings['attr']['onclick'] = $onclick;
+		$this->_element(__FUNCTION__, $onclick);
 		
 		return $this;
 	}
@@ -463,7 +438,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onDblClick($ondblclick = '')
 	{
-		$this->settings['attr']['ondblclick'] = $ondblclick;
+		$this->_element(__FUNCTION__, $ondblclick);
 		
 		return $this;
 	}
@@ -477,7 +452,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onFocus($focus = '')
 	{
-		$this->settings['attr']['onfocus'] = $focus;
+		$this->_element(__FUNCTION__, $focus);
 		
 		return $this;
 	}
@@ -491,7 +466,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onKeyDown($onkeydown = '')
 	{
-		$this->settings['attr']['onkeydown'] = $onkeydown;
+		$this->_element(__FUNCTION__, $onkeydown);
 		
 		return $this;
 	}
@@ -505,7 +480,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onKeyPress($onkeypress = '')
 	{
-		$this->settings['attr']['onkeypress'] = $onkeypress;
+		$this->_element(__FUNCTION__, $onkeypress);
 		
 		return $this;
 	}
@@ -519,7 +494,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onKeyUp($onkeyup = '')
 	{
-		$this->settings['attr']['onkeyup'] = $onkeyup;
+		$this->_element(__FUNCTION__, $onkeyup);
 		
 		return $this;
 	}
@@ -533,7 +508,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onMouseDown($onmousedown = '')
 	{
-		$this->settings['attr']['onmousedown'] = $onmousedown;
+		$this->_element(__FUNCTION__, $onmousedown);
 		
 		return $this;
 	}
@@ -547,7 +522,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onMouseMove($onmousemove = '')
 	{
-		$this->settings['attr']['onmousemove'] = $onmousemove;
+		$this->_element(__FUNCTION__, $onmousemove);
 		
 		return $this;
 	}
@@ -561,7 +536,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onMouseOut($onmouseout = '')
 	{
-		$this->settings['attr']['onmouseout'] = $onmouseout;
+		$this->_element(__FUNCTION__, $onmouseout);
 		
 		return $this;
 	}
@@ -575,7 +550,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onMouseOver($onmouseover = '')
 	{
-		$this->settings['attr']['onmouseover'] = $onmouseover;
+		$this->_element(__FUNCTION__, $onmouseover);
 		
 		return $this;
 	}
@@ -589,7 +564,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onMouseUp($onmouseup = '')
 	{
-		$this->settings['attr']['onmouseup'] = $onmouseup;
+		$this->_element(__FUNCTION__, $onmouseup);
 		
 		return $this;
 	}
@@ -603,7 +578,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function onSelect($onselect = '')
 	{
-		$this->settings['attr']['onselect'] = $onselect;
+		$this->_element(__FUNCTION__, $onselect);
 		
 		return $this;
 	}
@@ -617,7 +592,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function value($value = '')
 	{
-		$this->settings['attr']['value'] = $value;
+		$this->_element(__FUNCTION__, $value);
 		
 		return $this;
 	}
@@ -631,7 +606,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function id($id = '')
 	{
-		$this->settings['attr']['id'] = $id;
+		$this->_element(__FUNCTION__, $id);
 		
 		return $this;
 	}
@@ -671,7 +646,7 @@ trait FormElementsTrait
 	{
 		if( $checked === true )
 		{		
-			$this->settings['attr']['checked'] = "checked";
+			$this->_element(__FUNCTION__, __FUNCTION__);
 		}
 	
 		return $this;
@@ -689,7 +664,7 @@ trait FormElementsTrait
 	{
 		if( $selected === true )
 		{
-			$this->settings['attr']['selected'] = "selected";
+			$this->_element(__FUNCTION__, __FUNCTION__);
 		}
 		
 		return $this;
@@ -707,7 +682,7 @@ trait FormElementsTrait
 	{
 		if( $multiple === true )
 		{
-			$this->settings['attr']['multiple'] = "multiple";
+			$this->_element(__FUNCTION__, __FUNCTION__);
 		}
 		
 		return $this;
@@ -725,13 +700,13 @@ trait FormElementsTrait
 	// enctype()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  void
+	// @param  string $enctype
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function enctype($enctype = '')
 	{
-		$this->settings['attr']['enctype'] = $enctype;
+		$this->_element(__FUNCTION__, $enctype);
 		
 		return $this;
 	}
@@ -746,7 +721,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function method($method = '')
 	{
-		$this->settings['attr']['method'] = $method;
+		$this->_element(__FUNCTION__, $method);
 		
 		return $this;
 	}
@@ -755,13 +730,12 @@ trait FormElementsTrait
 	// action()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  string $method
-	// @return string
+	// @param string $action
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function action($action = '')
 	{
-		$this->settings['attr']['action'] = isUrl($action) ? $action : siteUrl($action);
+		$this->_element(__FUNCTION__, ( isUrl($action) ? $action : siteUrl($action) ));
 		
 		return $this;
 	}
@@ -770,13 +744,12 @@ trait FormElementsTrait
 	// selectedKey()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  void
-	// @return string
+	// @param string $key
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function selectedKey($key = '')
 	{
-		$this->settings['selectedKey'] = $key;
+		$this->_element(__FUNCTION__, $key);
 		
 		return $this;
 	}
@@ -785,13 +758,12 @@ trait FormElementsTrait
 	// selectedValue()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  void
-	// @return string
+	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function selectedValue($value = '')
 	{
-		$this->settings['selectedValue'] = $value;
+		$this->_element(__FUNCTION__, $value);
 		
 		return $this;
 	}
@@ -800,7 +772,8 @@ trait FormElementsTrait
 	// option()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param array $attr
+	// @param mixed  $key
+	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function option($key = '', $value = '')
@@ -821,12 +794,12 @@ trait FormElementsTrait
 	// type()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $id
+	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function type($type = '')
 	{
-		$this->settings['attr']['type'] = $type;
+		$this->_element(__FUNCTION__, $type);
 		
 		return $this;
 	}
