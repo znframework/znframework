@@ -456,10 +456,12 @@ class Autoloader
 			
 		// Dizin parametreleri / eki içermiyorsa 
 		// dizin bilgisinin sonuna / ekini ekle.
-		$directory 	    = suffix($directory); 
-		$baseDirectory  = suffix($baseDirectory); 
-		$configClassMap = Config::get('ClassMap');
-		
+		$directory 	         = suffix($directory); 
+		$baseDirectory       = suffix($baseDirectory); 
+		$configClassMap      = Config::get('ClassMap');
+		$configAutoloader    = Config::get('Autoloader');
+		$directoryPermission = $configAutoloader['directoryPermission'];
+
 		$files = glob($directory.'*');	
 		$files = array_diff
 		(
@@ -522,7 +524,7 @@ class Autoloader
 						
 						if( ! is_dir($dir) )
 						{
-							mkdir($dir, 0755, true);
+							mkdir($dir, $directoryPermission, true);
 						}
 						
 						// Oluşturulacak dizinin var olup olmadığı
@@ -530,7 +532,7 @@ class Autoloader
 						if( ! is_dir($newDir) )
 						{
 							// StaticAccess/ dizini içi sınıf dizini oluşturuluyor...
-							mkdir($newDir, 0755, true);
+							mkdir($newDir, $directoryPermission, true);
 						}
 						
 						$path = suffix($newDir).$classInfo['class'].'.php';

@@ -1,5 +1,5 @@
-<?php	
-class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
+<?php
+class __USE_STATIC_ACCESS__Collection
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,6 +11,15 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
+	// Protected Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $data = array();
+	
+	//----------------------------------------------------------------------------------------------------
 	// Call Undefined Method                                                                       
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,13 +29,36 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control                                                                      
+	// Error Control
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
 	//
 	// error()
-	//																						  
+	// success()
+	//
 	//----------------------------------------------------------------------------------------------------
 	use ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function data($data = '')
+	{
+		if( ! is_array($data) ) 
+		{
+			return Errors::set('Error', 'arrayParameter', '1.(data)');
+		}
+		
+		$this->data = $data;
+		
+		return $this;
+	}	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pos Change                                                                       
@@ -35,63 +67,16 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// Genel Kullanım: Herhangi bir dizi indeksini, istenilen başka bir dizi indeksine 		  
 	// eklemeye yarar.  															              
 	//																						  
-	// Parametreler: 3 parametresi vardır.                                              		  
-	// 1. array var @array => İşlem yapılıcak dizi.							  				  
-	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
-	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
+	// Parametreler: 3 parametresi vardır.                                              		  					  				  
+	// 1. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
+	// 2. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function posChange($array = '', $poss = '', $changePos = '')
+	public function posChange($poss = '', $changePos = '')
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( ! isRealNumeric($poss) ) 
-		{
-			$poss = array_search($poss, $array);
-		}
-		
-		if( ! isRealNumeric($changePos) ) 
-		{
-			$changePos = array_search($changePos, $array);
-		}
-		
-		$pos = $poss;
-		
-		$lastArray = array();
-		
-		if( $pos > $changePos ) 
-		{ 
-			$pos = $changePos; 
-			$changePos = $poss;
-		}
-
-		for( $i = 0; $i < count($array); $i++ )
-		{		
-			if( $i < $pos )
-			{
-				$lastArray[$i] = $array[$i];
-			}
-			else
-			{			
-				if( $i < $changePos )
-				{
-					$lastArray[$i] = $array[$i + 1];
-				}
-				elseif( $i == $changePos )
-				{
-					$lastArray[$i] = $array[$pos];
-				}
-				else
-				{
-					$lastArray[$i] = $array[$i];
-				}	
-			}
-		}
-		
-		return $lastArray;
+		 $this->data = Arrays::posChange($this->data, $poss, $changePos);
+		 
+		 return $this;
 	}
 
 	
@@ -101,282 +86,101 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//
 	// Genel Kullanım: Dizi elementlarını kendi içlerinde yer değiştirmek için kullanılır. 	  
 	//																						  
-	// Parametreler: 3 parametresi vardır.                                              		  
-	// 1. array var @array => İşlem yapılıcak dizi.							  				  
-	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
-	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
+	// Parametreler: 3 parametresi vardır.                                              		  						  				  
+	// 1. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
+	// 2. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function posReverse($array = '', $poss = '', $changePos = '')
+	public function posReverse($poss = '', $changePos = '')
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( ! isRealNumeric($poss) ) 
-		{
-			$poss = array_search($poss, $array);
-		}
-		if( ! isRealNumeric($changePos) ) 
-		{
-			$changePos = array_search($changePos, $array);
-		}
-		
-		$pos = $poss;
-		
-		$lastArray = array();
-		
-		if( $pos > $changePos ) 
-		{ 
-			$pos = $changePos; 
-			$changePos = $poss;
-		}
-
-		for( $i = 0; $i < count($array); $i++ )
-		{
-			if( $i == $pos )
-			{	
-				$element = $array[$i];
-				$lastArray[$i] = "";
-			}
-			elseif( $i == $changePos )
-			{
-				$changeElement = $array[$i];
-				$lastArray[$i] = "";
-			}
-			else 
-			{
-				$lastArray[$i] = $array[$i];	
-			}
-		}
-		
-		if( isset($changeElement) )
-		{
-			$lastArray[$pos] = $changeElement;
-		}
-		
-		if( isset($element) )
-		{
-			$lastArray[$changePos] = $element;
-		}
-		
-		return $lastArray;
+		 $this->data = Arrays::posReverse($this->data, $poss, $changePos);
+		 
+		 return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Casing
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array  $array
 	// @param string $type  : lower, upper, title
 	// @param string $keyval: all, key, val	                          								  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function casing($array = array(), $type = 'lower', $keyval = 'all')
+	public function casing($type = 'lower', $keyval = 'all')
 	{
-		return Convert::arrayCase($array, $type, $keyval);
+		$this->data = Arrays::casing($this->data, $type, $keyval);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Remove Last
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $count							  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeLast($array = array(), $count = 1)
+	public function removeLast($count = 1)
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( $count <= 1 )
-		{
-			array_pop($array);
-		}
-		else
-		{
-			$arrayCount =  count($array);
-			
-			for($i = 1; $i <= $count; $i++)
-			{
-				array_pop($array);
-				
-				if( $i === $arrayCount )
-				{
-					break;
-				}
-			}	
-		}
-		
-		return $array;
+		$this->data = Arrays::removeLast($this->data, $count);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Remove First
 	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array		
+	//		
 	// @param numeric $count			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeFirst($array = array(), $count = 1)
+	public function removeFirst($count = 1)
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( $count <= 1 )
-		{
-			array_shift($array);
-		}
-		else
-		{
-			$arrayCount =  count($array);
-			
-			for($i = 1; $i <= $count; $i++)
-			{
-				array_shift($array);
-				
-				if( $i === $arrayCount )
-				{
-					break;
-				}
-			}	
-		}
-		
-		return $array;
+		$this->data = Arrays::removeFirst($this->data, $count);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add First
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addFirst($array = array(), $element = '')
+	public function addFirst($element = '')
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( ! is_array($element) )
-		{
-			array_unshift($array, $element);	
-		}
-		else
-		{
-			$array = array_merge($element, $array);
-		}
-		
-		return $array;
+		$this->data = Arrays::addFirst($this->data, $element);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Last
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addLast($array = array(), $element = array())
+	public function addLast($element = array())
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( ! is_array($element) )
-		{
-			array_push($array, $element);	
-		}
-		else
-		{
-			$array = array_merge($array, $element);
-		}
-		
-		return $array;
+		$this->data = Arrays::addLast($this->data, $element);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete Element
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $object						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteElement($array = array(), $object = '')
+	public function deleteElement($object = '')
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		$newArray = array();
-		
-		if( ! is_array($object) )
-		{
-			if( isset($array[$object]) )
-			{			
-				foreach( $array as $k => $v )
-				{
-					if( $k !== $object )
-					{
-						$newArray[$k] = $v;
-					}	
-				}	
-						
-				return $newArray;	
-			}
-			else
-			{
-				if( is_numeric($object) )
-				{
-					for( $i=0; $i<count($array); $i++ )
-					{
-						if($i !== $object)
-						{
-							$newArray[] = $array[$i];		
-						}	
-					}				
-					
-					return $newArray;
-				}
-				else
-				{
-					foreach( $array as $k => $v )
-					{			
-						if( $v !== $object )
-						{
-							$newArray[] = $array[$k];		
-						}	
-					}	
-					
-					return $newArray;
-				} 	
-			}
-		}
-		else
-		{
-			foreach( $array as $k => $v )
-			{			
-				if( ! in_array($k, $object) && ! in_array($v, $object) )
-				{
-					$newArray[] = $v;	
-				}			
-			}	
-			
-			return $newArray;
-		}
+		$this->data = Arrays::deleteElement($this->data, $object);
+		 
+		return $this;
 	}
 	
 	
@@ -384,299 +188,191 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// Multikey
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array  $array
 	// @param string $keySplit:|						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function multikey($array = array(), $keySplit = "|")
+	public function multikey($keySplit = "|")
 	{
-		$newArray = array();
-		
-		if( is_array($array) ) 
-		{
-			foreach( $array as $k => $v )
-			{
-				$keys = explode($keySplit, $k);
-				
-				foreach( $keys as $val )
-				{
-					$newArray[$val] = $v;	
-				}		
-			}
-			
-			return $newArray;
-		}
-		else 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
+		$this->data = Arrays::multikey($this->data, $keySplit);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Keyval
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array  $array
 	// @param string $keyval: val/value, key, vals/values, keys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyval($array = array(), $keyval = "val")
+	public function keyval($keyval = "val")
 	{
-		if( ! is_array($array) ) 
-		{
-			return Errors::set('Error', 'arrayParameter', 'array');
-		}
-		
-		if( $keyval === "val" || $keyval === "value" )
-		{
-			return current($array);
-		}
-		elseif( $keyval === "key" )
-		{
-			return key($array);
-		}
-		elseif( $keyval === "vals" || $keyval === "values" )
-		{
-			return array_values($array);
-		}
-		elseif( $keyval === "keys" )
-		{
-			return array_keys($array);
-		}
-		else
-		{
-			return current($array);
-		}
+		$this->data = Arrays::keyval($this->data, $keyval);
+		 
+		return $this;
 	}
 		
 	//----------------------------------------------------------------------------------------------------
 	// Get Last
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $count
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getLast($array = array(), $count = 1, $preserveKey = false)
+	public function getLast($count = 1, $preserveKey = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( $count <= 1 )
-		{
-			$array = end($array);
-		}
-		else
-		{
-			return $this->section($array, -$count, NULL, $preserveKey);
-		}
-		
-		return $array;
+		$this->data = Arrays::getLast($this->data, $count, $preserveKey);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get First
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $count
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getFirst($array = array(), $count = 1, $preserveKey = false)
+	public function getFirst($count = 1, $preserveKey = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( $count <= 1 )
-		{
-			$array = $array[0];
-		}
-		else
-		{
-			return $this->section($array, 0, $count, $preserveKey);
-		}
-		
-		return $array;
+		$this->data = Arrays::getFirst($this->data, $count, $preserveKey);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array  $array
 	// @param string $type :desc, asc...
 	// @param string $flags:regular						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function order($array = array(), $type = '', $flags = 'regular')
+	public function order($type = '', $flags = 'regular')
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( ! is_string($type) )
-		{
-			return Errors::set('Error', 'stringParameter', '2.(type)');	
-		}
-
-		$flags = Convert::toConstant($flags, 'SORT_');
-		
-		switch($type)
-		{	
-			case 'desc' 		: arsort($array, $flags); 	break;
-			case 'asc'  		: asort($array, $flags);  	break;			
-			case 'asckey'  		: ksort($array, $flags);  	break;
-			case 'desckey' 		: krsort($array, $flags); 	break;
-			case 'insens' 		: natcasesort($array);    	break;	
-			case 'natural' 		: natsort($array);		   	break;
-			case 'reverse' 		: rsort($array, $flags);  	break;
-			case 'userassoc' 	: uasort($array, $flags); 	break;
-			case 'userkey' 		: uksort($array, $flags); 	break;
-			case 'user' 		: usort($array, $flags);  	break;
-			case 'random' 		: shuffle($array);  		break;
-			default				: sort($array, $flags);	
-		}
-		
-		return $array;
+		$this->data = Arrays::getFirst($this->data, $type, $flags);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Object Data
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array					  
+	// @param void					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function objectData($data = array())
+	public function objectData()
 	{
-		if( ! is_array($data) )
-		{
-			return $data;	
-		}
-		
-		return json_encode($data);		
+		$this->data = Arrays::objectData($this->data);
+		 
+		return $this;		
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Length
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array						  
+	// @param void						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function length($data = array())
+	public function length()
 	{
-		if( ! is_array($data) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(data)');	
-		}
-		
-		return count($data);	
+		$this->data = Arrays::length($this->data);
+		 
+		return $this;	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Apportion
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $portionCount
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function apportion($data = array(), $portionCount = 1, $preserveKeys = false)
+	public function apportion($portionCount = 1, $preserveKeys = false)
 	{
-		if( ! is_array($data) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(data)');	
-		}
-		
-		return array_chunk($data, $portionCount, $preserveKeys);	
+		$this->data = Arrays::apportion($this->data, $portionCount, $preserveKeys);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Combine
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $keys
 	// @param array $values					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function combine($keys = array(), $values = array())
+	public function combine($values = array())
 	{
-		if( ! is_array($keys) || ! is_array($values) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(keys) & 2.(values)');	
-		}
-		
-		return array_combine($keys, $values);	
+		$this->data = Arrays::combine($this->data, $values);
+		 
+		return $this;	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Count Same Values
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function countSameValues($array = array(), $key = NULL)
+	public function countSameValues($key = NULL)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		$return = array_count_values($array);	
-		
-		if( ! empty($key) )
-		{
-			if( isset($return[$key]) )
-			{
-				return $return[$key];	
-			}
-			else
-			{
-				return false;	
-			}
-		}
-		
-		return $return;
+		$this->data = Arrays::countSameValues($this->data, $key);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Flip
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array					  
+	// @param void					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function flip($array = array())
+	public function flip()
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		return array_flip($array);	
+		$this->data = Arrays::flip($this->data);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Transform
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array					  
+	// @param void					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function transform($array = array())
+	public function transform()
 	{
-		return $this->flip($array);	
+		$this->data = Arrays::combine($this->data);
+		 
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Arguments
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $args				  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	protected function _arguments($args)
+	{
+		$newArgs[0] = $this->data;
+		
+		foreach( $args as $key => $arg )
+		{
+			$newArgs[($key + 1)] = $arg;
+		}
+		
+		return $newArgs;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -688,7 +384,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function implementCallback()
 	{
-		return Functions::callArray('array_map', func_get_args());
+		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments(func_get_args()));
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -700,7 +398,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function recursiveMerge()
 	{
-		return Functions::callArray('array_merge_recursive', func_get_args());
+		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments(func_get_args()));
+		
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -712,7 +412,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function merge()
 	{
-		return Functions::callArray('array_merge', func_get_args());
+		$this->data = Functions::callArray('array_merge', $this->_arguments(func_get_args()));
+		
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -724,213 +426,155 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function intersect()
 	{
-		return Functions::callArray('array_intersect', func_get_args());
+		$this->data = Functions::callArray('array_intersect', $this->_arguments(func_get_args()));
+		
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Reverse
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function reverse($array = array(), $preserveKeys = false)
+	public function reverse($preserveKeys = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( ! is_bool($preserveKeys) )
-		{
-			return Errors::set('Error', 'booleanParameter', '2.(preserveKeys)');	
-		}
-		
-		return array_reverse($array, $preserveKeys);
+		$this->data = Arrays::reverse($this->data, $preserveKeys);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Product
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array					  
+	// @param void					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function product($array = array())
+	public function product()
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		return array_product($array);
+		$this->data = Arrays::product($this->data);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Sum
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array					  
+	// @param void					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function sum($array = array())
+	public function sum()
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		return array_sum($array);
+		$this->data = Arrays::sum($this->data);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Random
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $countRequest					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function random($array = array(), $countRequest = 1)
+	public function random($countRequest = 1)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( ! is_numeric($countRequest) )
-		{
-			return Errors::set('Error', 'numericParameter', '2.(countRequest)');	
-		}
-		
-		return array_rand($array, $countRequest);
+		$this->data = Arrays::random($this->data, $countRequest);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Search
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $element
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function search($array = array(), $element = '', $strict = false)
+	public function search($element = '', $strict = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( ! is_bool($strict) )
-		{
-			return Errors::set('Error', 'booleanParameter', '3.(strict)');	
-		}
-		
-		return array_search($element, $array, $strict);
+		$this->data = Arrays::search($this->data, $element, $strict);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Value Exists
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $element
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function valueExists($array = array(), $element = '', $strict = false)
+	public function valueExists($element = '', $strict = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		if( ! is_bool($strict) )
-		{
-			return Errors::set('Error', 'booleanParameter', '3.(strict)');	
-		}
-		
-		return in_array($element, $array, $strict);
+		$this->data = Arrays::valueExists($this->data, $element, $strict);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Key Exists
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array $array
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyExists($array = array(), $key = '')
+	public function keyExists($key = '')
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		return array_key_exists($key, $array);
+		$this->data = Arrays::keyExists($this->data, $key);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Section
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $start
 	// @param numeric $length
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function section($array = array(), $start = 0, $length = NULL, $preserveKeys = false)
+	public function section($start = 0, $length = NULL, $preserveKeys = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		return array_slice($array, $start, $length, $preserveKeys);
+		$this->data = Arrays::section($this->data, $start, $length, $preserveKeys);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Resection
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param numeric $start
 	// @param numeric $length
 	// @param mixed	  $newElement						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function resection($array = array(), $start = 0, $length = NULL, $newElement = NULL)
+	public function resection($start = 0, $length = NULL, $newElement = NULL)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		array_splice($array, $start, $length, $newElement);
-		
-		return $array;
+		$this->data = Arrays::resection($this->data, $start, $length, $newElement);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete Recurrent
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array  $array
 	// @param string $flags					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteRecurrent($array = array(), $flags = 'string')
+	public function deleteRecurrent($flags = 'string')
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
-		
-		return array_unique($array, Convert::toConstant($flags, 'SORT_'));
+		$this->data = Arrays::deleteRecurrent($this->data, $flags);
+		 
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -944,30 +588,40 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function series($start = 0, $end = 0, $step = 1)
 	{
-		if( ! is_numeric($start) || ! is_numeric($end) || ! is_numeric($step) )
-		{
-			return Errors::set('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)');	
-		}
-		
-		return range($start, $end, $step);
+		$this->data = Arrays::series($start, $end, $step);
+		 
+		return $this;
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Column
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param array   $array
 	// @param mixed   $columnKey
 	// @param mixed	  $indexKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function column($array = array(), $columnKey = 0, $indexKey = NULL)
+	public function column($columnKey = 0, $indexKey = false)
 	{
-		if( ! is_array($array) )
-		{
-			return Errors::set('Error', 'arrayParameter', '1.(array)');	
-		}
+		$this->data = Arrays::column($this->data, $columnKey, $indexKey);
+		 
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function get()
+	{
+		$data = $this->data;
 		
-		return array_column($array, $columnKey, $indexKey);
+		$this->data = array();
+		
+		return $data;
 	}
 }

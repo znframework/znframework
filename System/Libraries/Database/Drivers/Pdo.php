@@ -437,13 +437,13 @@ class PdoDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function affectedRows()
 	{
-		if( ! empty($this->connect) )
+		if( ! empty($this->query) )
 		{
-			return false;
+			return $this->query->rowCount();
 		}
 		else
 		{
-			return false;	
+			return 0;	
 		}
 	}
 	

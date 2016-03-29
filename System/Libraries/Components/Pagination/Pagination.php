@@ -401,7 +401,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// Sayfalama başlangıç parametresi boş ise
 		// Uri bilgisindeki son segmenti
 		// başlangıç değeri olarak ayarla
-		if( empty($start) ) 
+		if( empty($start) && ! is_numeric($start) ) 
 		{	
 			// Eğer son segmen sayısal bir veri değilse
 			// Başlangıç değerini 0 olarak ayarla.
