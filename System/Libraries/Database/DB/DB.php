@@ -2489,13 +2489,13 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			if( $printable < 0 )
 			{
 				return isset( $result[count($result) + $printable] )
-					   ? $result[count($result) + $printable]
+					   ? (object) $result[count($result) + $printable]
 					   : false;
 			}
 			else
 			{
 				return isset( $result[$printable] )
-				       ? $result[$printable]
+				       ? (object) $result[$printable]
 					   : false;
 			}
 		}
