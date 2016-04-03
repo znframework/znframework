@@ -770,7 +770,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$name = suffix($name, '[]');
 		}
 		
-		return $this->_input($name, '', $this->attributes($_attributes), 'file');
+		return $this->_input($name, '', $_attributes, 'file');
 	}
 	
 	/******************************************************************************************
