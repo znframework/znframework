@@ -439,6 +439,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				$value = presuffix($this->db->realEscapeString($value), "'");
 			}
 			
+			if( Chars::isAlnum(trim($column)) )
+			{
+				$column .= ' = ';	
+			}
+			
 			return ' '.$column.' '.$value.' '.$logical.' ';
 		}
 		
@@ -520,6 +525,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	protected function _whereHavingGroup($conditions = array())
 	{
+		$con = array();
+		
 		if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
 		{
 			$con         = Arrays::getLast($conditions);
@@ -527,8 +534,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		
 		$getLast = Arrays::getLast($conditions);
-		
-		
+			
 		if( is_string($con) )
 		{
 			$conjunction = $con;	
