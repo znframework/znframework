@@ -318,3 +318,6 @@ $config['ClassMap']['classes']['templateinterface'] = 'System/Libraries/ViewObje
 $config['ClassMap']['classes']['__use_static_access__xml'] = 'System/Libraries/XMLManipulation/XML.php';
 $config['ClassMap']['classes']['xml'] = 'System/StaticAccess/XMLManipulation/__USE_STATIC_ACCESS__XML.php';
 $config['ClassMap']['classes']['xmlinterface'] = 'System/Libraries/XMLManipulation/XMLInterface.php';
+$config['ClassMap']['classes']['__use_static_access__dbuser'] = 'System/Libraries/Database/DBUser/DBUser.php';
+$config['ClassMap']['classes']['dbuser'] = 'System/StaticAccess/Database/DBUser/__USE_STATIC_ACCESS__DBUser.php';
+$config['ClassMap']['classes']['dbuserinterface'] = 'System/Libraries/Database/DBUser/DBUserInterface.php';

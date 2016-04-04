@@ -439,7 +439,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				$value = presuffix($this->db->realEscapeString($value), "'");
 			}
 			
-			if( Chars::isAlnum(trim($column)) )
+			if( preg_match('/^\w+$/', trim($column)) )
 			{
 				$column .= ' = ';	
 			}
