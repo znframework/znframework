@@ -721,7 +721,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			{
 				if( isEmail($key) )
 				{
-					$this->$type[$key] = $val;
+					$this->{$type}[$key] = $val;
 				}
 			}	
 		}
@@ -729,7 +729,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		{
 			if( isEmail($to) )
 			{
-				$this->$type[$to] = $name;
+				$this->{$type}[$to] = $name;
 			}
 			else
 			{
