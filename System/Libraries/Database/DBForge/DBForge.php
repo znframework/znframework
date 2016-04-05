@@ -51,14 +51,21 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| Örnek Kullanım: $this->dbforge->createDatabase('OrnekVeritabani')        			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function createDatabase($dbname = '')
+	public function createDatabase($dbname = '', $extras = '')
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
 			return Errors::set('Error', 'stringParameter', 'dbname');
 		}
+		
+		if( ! empty($this->extras) )
+		{
+			$extras = $this->extras;
+			
+			$this->extras = NULL;	
+		}
 
-		$query  = 'CREATE DATABASE '.$dbname;	
+		$query  = 'CREATE DATABASE '.$dbname.$this->_extras($extras);	
 		
 		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
@@ -99,6 +106,27 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		$this->extras = $extras;
 		
 		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _extras()
+	//----------------------------------------------------------------------------------------------------
+	protected function _extras($extras)
+	{
+		if( isArray($extras) )
+		{
+			$extraCodes = ' '.implode(' ', $extras).';';
+		}
+		elseif( is_string($extras) )
+		{
+			$extraCodes = ' '.$extras.';';	
+		}
+		else
+		{
+			$extraCodes = '';	
+		}
+		
+		return $extraCodes;
 	}
 	
 	/******************************************************************************************
@@ -156,7 +184,6 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		$keys = array_keys($condition);
 		
 		$column = "";
-		
 
 		foreach( $condition as $key => $value )
 		{
@@ -174,20 +201,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 			$column .= $key.' '.$values.',';
 		}
 		
-		if( isArray($extras) )
-		{
-			$extraCodes = ' '.implode(' ', $extras).';';
-		}
-		elseif( is_string($extras) )
-		{
-			$extraCodes = ' '.$extras.';';	
-		}
-		else
-		{
-			$extraCodes = '';	
-		}
-
-		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$extraCodes;
+		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$this->_extras($extras);
 	
 		return $this->db->exec($this->_querySecurity($query), $this->secure);
 	}
