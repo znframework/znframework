@@ -44,6 +44,24 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	protected $name 	  	  = NULL;
 	
 	//----------------------------------------------------------------------------------------------------
+	// $members
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $members 	  	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $groups
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $groups 	  	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
 	// $host
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -157,9 +175,27 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function name($name = 'USER()')
 	{
-		$this->name = $this->_stringQuote($name);	
+		if( $get = $this->db->name($name) )
+		{ 
+			$this->name = $get;
+		}
+		else
+		{
+			$this->name = $this->_stringQuote($name);	
+		}
+		
 		
 		return $this;
+	}
+	
+	protected function _name($name = '')
+	{
+		if( ! empty($this->name) )
+		{
+			return $this->name;	
+		}
+		
+		return $name;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -198,6 +234,69 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 		}
 		
 		return false;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// password()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function password($authString = '')
+	{
+		if( $get = $this->db->password($authString) )
+		{
+			$this->identified = $get;
+		}
+		else
+		{
+			$this->identifiedBy($authString);
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// groups()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function groups($authString = '')
+	{
+		if( $get = $this->db->groups($authString) )
+		{
+			$this->groups = $get;
+		}
+		else
+		{
+			$this->groups = $authString;
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// members()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function members($authString = '')
+	{
+		if( $get = $this->db->members($authString) )
+		{
+			$this->members = $get;
+		}
+		else
+		{
+			$this->members = $authString;
+		}
+		
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -475,7 +574,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _process($name = 'USER()', $type = 'ALTER USER', $grantType = '', $grantSelect = '')
 	{
-		$grant     = '';
+		$grant = '';
 		
 		if( $type === 'GRANT' || $type === 'REVOKE' )
 		{	
@@ -516,7 +615,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	
 		$this->_resetQuery();
 
-		return $this->db->query($this->_querySecurity($query), $this->secure);
+		return $this->_runQuery($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -528,6 +627,13 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function alter($name = 'USER()')
 	{
+		if( $query = $this->db->alter($this->_name($name)) )
+		{
+			$this->_resetQuery();
+
+			return $this->_runQuery($query);
+		}
+		
 		return $this->_process($name, 'ALTER USER');
 	}
 	
@@ -540,6 +646,13 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function create($name = 'USER()')
 	{
+		if( $query = $this->db->create($this->_name($name), $this->identified, $this->groups, $this->members) )
+		{
+			$this->_resetQuery();
+
+			return $this->_runQuery($query);
+		}
+		
 		return $this->_process($name, 'CREATE USER');
 	}
 	
@@ -552,6 +665,13 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function drop($name = 'USER()')
 	{
+		if( $query = $this->db->drop($this->_name($name), $this->identified))
+		{
+			$this->_resetQuery();
+
+			return $this->_runQuery($query);
+		}
+		
 		return $this->_process($name, 'DROP USER');
 	}
 	
@@ -595,7 +715,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	{
 		$query = ' RENAME USER '.$this->_stringQuote($oldName).' TO '.$this->_stringQuote($newName);
 		
-		return $this->db->query($this->_querySecurity($query), $this->secure);
+		return $this->_runQuery($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -635,7 +755,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 		
 		$this->_resetQuery();
 		
-		return $this->db->query($this->_querySecurity($query), $this->secure);
+		return $this->_runQuery($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -648,6 +768,8 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	protected function _resetQuery()
 	{
 		$this->name				= NULL;
+		$this->members			= NULL;
+		$this->groups			= NULL;
 		$this->host				= NULL;
 		$this->identified 		= NULL;
 		$this->required 		= NULL;

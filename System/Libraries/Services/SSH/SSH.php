@@ -1,5 +1,5 @@
 <?php
-class __USE_STATIC_ACCESS__FTP implements FTPInterface
+class __USE_STATIC_ACCESS__SSH implements SSHInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -17,7 +17,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	// @const string
 	//
 	//----------------------------------------------------------------------------------------------------
-	const CONFIG_NAME  = 'Services:ftp';
+	const CONFIG_NAME  = 'Services:ssh';
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected $connect
@@ -38,6 +38,15 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	protected $login = NULL;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Protected $command
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @const string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $command = '';
+	
+	//----------------------------------------------------------------------------------------------------
 	// __construct()
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -46,6 +55,11 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($config = array())
 	{
+		if( ! function_exists('ssh2_connect') )
+		{
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SSH(Secure Shell)'));	
+		}
+		
 		$this->config($config);
 		$this->connect();
 	}
@@ -92,7 +106,9 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{	
 		if( ! is_array($config) )
 		{
-			return Errors::set('Error', 'arrayParameter', 'config');
+			Errors::set('Error', 'arrayParameter', 'config');
+			
+			return $this;
 		}
 		
 		if( ! empty($config) )
@@ -104,32 +120,46 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 		$config = $this->config;
 	
 		// ----------------------------------------------------------------------------
-		// FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
+		// SSH BAĞLANTI AYARLARI YAPILANDIRILIYOR
 		// ----------------------------------------------------------------------------
-		$host     = $config['host'];			
-		$port     = $config['port'];		
-		$timeout  = $config['timeout'];		
-		$user     = $config['user'];			
-		$password = $config['password'];		
-		$ssl 	  = $config['sslConnect'];	
+		$host      = $config['host'];			
+		$port      = $config['port'];	
+		$user      = $config['user'];			
+		$password  = $config['password'];		
+		$methods   = $config['methods'];		
+		$callbacks = $config['callbacks'];		
 		// ----------------------------------------------------------------------------
 	
 		// Bağlantı türü ayarına göre ssl veya normal
 		// bağlatı yapılıp yapılmayacağı belirlenir.
-		$this->connect =  	( $ssl === false ) 
-							? @ftp_connect($host, $port, $timeout)
-							: @ftp_ssl_connect($host, $port, $timeout);
-							
-		if( empty($this->connect) ) 
+		if(  ! empty($methods) && ! empty($callbacks))
 		{
-			return Errors::set('Error', 'emptyVariable', '@this->connect');
+			$this->connect = ssh2_connect($host, $post, $methods, $callbacks);			
+		}
+		elseif( ! empty($methods) )
+		{
+			$this->connect = ssh2_connect($host, $post, $methods);	
+		}
+		else
+		{
+			$this->connect = ssh2_connect($host, $post);	
 		}
 		
-		$this->login = @ftp_login($this->connect, $user, $password);
+		if( empty($this->connect) ) 
+		{
+			Errors::set('Error', 'emptyVariable', '@this->connect');
+			
+			return $this;
+		}
+		
+		if( ! empty($user) )
+		{
+			$this->login = ssh2_auth_password($this->connect, $user, $password);
+		}
 		
 		if( empty($this->login) )
 		{
-			return false;
+			Errors::set('Error', 'emptyVariable', '@this->login');
 		}
 		
 		return $this;
@@ -146,7 +176,102 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	{
 		if( ! empty($this->connect) )
 		{
-			@ftp_close($this->connect);
+			ssh2_exec($this->connect, 'exit');
+			$this->connect = NULL;
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// command()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------	
+	public function command($command = '')
+	{
+		$this->command .= $command.' ';
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// run()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------	
+	public function run($command = '')
+	{
+		if( ! empty($this->connect) )
+		{
+			if( ! empty($this->command) )
+			{
+				$command = rtrim($this->command);
+			}
+			
+			$this->_defaultVaribles();
+			
+			return ssh2_exec($this->connect, $command);
+		}
+		
+		return false;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// upload()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $localPath : empty
+	// @param string $remotePath: empty
+	//
+	//----------------------------------------------------------------------------------------------------	
+	public function upload($localPath = '', $remotePath = '')
+	{
+		if( ! is_string($localPath) || ! is_string($remotePath) ) 
+		{
+			Errors::set('Error', 'stringParameter', 'localPath');
+			Errors::set('Error', 'stringParameter', 'remotePath');
+			
+			return false;
+		}
+		
+		if( @ssh2_scp_send($this->connect, $localPath, $remotePath) )
+		{
+			return true;
+		}
+		else
+		{
+			return Errors::set('File', 'remoteUploadError', $localPath);	
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// dowload()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $remotePath: empty
+	// @param string $localPath : empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function download($remotePath = '', $localPath = '')
+	{
+		if( ! is_string($localPath) || ! is_string($remotePath) ) 
+		{
+			Errors::set('Error', 'stringParameter', 'remotePath');
+			Errors::set('Error', 'stringParameter', 'localPath');
+			
+			return false;
+		}
+		
+		if( @ssh2_scp_recv($this->connect, $remotePath, $localPath) )
+		{
+			return true;
+		}
+		else
+		{
+			return Errors::set('File', 'remoteDownloadError', $localPath);
 		}
 	}
 	
@@ -157,14 +282,14 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder($path = '')
+	public function createFolder($path = '', $mode = 0777, $recursive = true)
 	{
 		if( ! is_string($path) ) 
 		{
 			return Errors::set('Error', 'stringParameter', 'path');	
 		}
 		
-		if( @ftp_mkdir($this->connect, $path) )
+		if( @ssh2_sftp_mkdir($this->connect, $path, $mode, $recursive) )
 		{
 			return true;
 		}
@@ -188,7 +313,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 			return Errors::set('Error', 'stringParameter', 'path');	
 		}
 		
-		if( @ftp_rmdir($this->connect, $path) )
+		if( @ssh2_sftp_rmdir($this->connect, $path) )
 		{
 			return true;
 		}
@@ -197,30 +322,6 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 			return Errors::set('Folder', 'notFoundError', $path);	
 		}
 	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// changeFolder()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $path: empty
-	//
-	//----------------------------------------------------------------------------------------------------	
-	public function changeFolder($path = '')
-	{
-		if( ! is_string($path) ) 
-		{
-			return Errors::set('Error', 'stringParameter', 'path');
-		}
-	
-		if( @ftp_chdir($this->connect, $path) )
-		{
-			return true;
-		}
-		else
-		{
-			return Errors::set('Folder', 'changeFolderError', $path);
-		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -241,7 +342,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 			return false;	
 		}
 		
-		if( @ftp_rename($this->connect, $oldName, $newName) )
+		if( @ssh2_sftp_rename($this->connect, $oldName, $newName) )
 		{
 			return true;
 		}
@@ -265,81 +366,13 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 			return Errors::set('Error', 'stringParameter', 'path');
 		}
 		
-		if( @ftp_delete($this->connect, $path) )
+		if( @ssh2_sftp_unlink($this->connect, $path) )
 		{
 			return true;
 		}
 		else
 		{
 			return Errors::set('File', 'notFoundError', $path);	
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// upload()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $localPath : empty
-	// @param string $remotePath: empty
-	// @param string $type      : binary, ascii
-	//
-	//----------------------------------------------------------------------------------------------------	
-	public function upload($localPath = '', $remotePath = '', $type = 'ascii')
-	{
-		if( ! is_string($localPath) || ! is_string($remotePath) ) 
-		{
-			Errors::set('Error', 'stringParameter', 'localPath');
-			Errors::set('Error', 'stringParameter', 'remotePath');
-			
-			return false;
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'ascii';	
-		}
-		
-		if( @ftp_put($this->connect, $remotePath, $localPath, Convert::toConstant($type, 'FTP_')) )
-		{
-			return true;
-		}
-		else
-		{
-			return Errors::set('File', 'remoteUploadError', $localPath);	
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// dowload()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $remotePath: empty
-	// @param string $localPath : empty
-	// @param string $type      : binary, ascii
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function download($remotePath = '', $localPath = '', $type = 'ascii')
-	{
-		if( ! is_string($localPath) || ! is_string($remotePath) ) 
-		{
-			Errors::set('Error', 'stringParameter', 'remotePath');
-			Errors::set('Error', 'stringParameter', 'localPath');
-			
-			return false;
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'ascii';	
-		}
-		
-		if( @ftp_get($this->connect, $localPath, $remotePath, Convert::toConstant($type, 'FTP_')) )
-		{
-			return true;
-		}
-		else
-		{
-			return Errors::set('File', 'remoteDownloadError', $localPath);
 		}
 	}
 	
@@ -363,7 +396,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 			$type = 0755;
 		}
 		
-		if( @ftp_chmod($this->connect, $type, $path) )
+		if( @ssh2_sftp_chmod($this->connect, $path, $type) )
 		{
 			return true;
 		}
@@ -374,123 +407,15 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// files()
+	// Protected _defaultVaribles()
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $path     : empty
-	// @param string $extension: empty
+	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function files($path = '', $extension = '')
+	public function _defaultVaribles()
 	{
-		if( ! is_string($path) )
-		{
-			return Errors::set('Error', 'stringParameter', 'path');		
-		}
-
-		$list = @ftp_nlist($this->connect, $path);
-	
-		if( ! empty($list) ) foreach( $list as $file )
-		{
-			if( $file !== '.' && $file !== '..' )
-			{				
-				if( ! empty($extension) && $extension !== 'dir' )
-				{
-					if( extension($file) === $extension )
-					{
-						$files[] = $file;	
-					}
-				}
-				else
-				{
-					if( $extension === 'dir' )
-					{
-						$extens = extension($file);
-						
-						if( empty($extens) )
-						{
-							$files[] = $file;	
-						}
-					}
-					else
-					{
-						$files[] = $file;
-					}
-				}
-			}	
-		}
-		
-		if( ! empty($files) )
-		{
-			return $files;
-		}
-		else
-		{
-			return Errors::set('Error', 'emptyVariable', '@files');	
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// fileSize()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $path   : empty
-	// @param string $type   : b, kb, mb, gb
-	// @param int    $decimal: 2
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function fileSize($path = '', $type = 'b', $decimal = 2)
-	{
-		if( ! is_string($path) ) 
-		{
-			return Errors::set('Error', 'stringParameter', 'path');		
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'b';	
-		}
-		
-		$size = 0;
-		
-		$extension = extension($path);
-		
-		if( ! empty($extension) )
-		{
-			$size = @ftp_size($this->connect, $path);
-		}
-		else
-		{
-			if( $this->files($path) )
-			{
-				foreach($this->files($path) as $val)
-				{	
-					$size += @ftp_size($this->connect, $path."/".$val);	
-				}
-				$size += @ftp_size($this->connect, $path);
-			}
-			else
-			{
-				$size += @ftp_size($this->connect, $path);
-			}	
-		}
-		
-		if( $type === "b" ) 
-		{
-			return  $size;
-		}
-		if( $type === "kb" )
-		{
-			return round($size / 1024, $decimal);
-		}
-		if( $type === "mb" )
-		{
-			return round($size / (1024 * 1024), $decimal);
-		}
-		if( $type === "gb" )
-		{
-			return round($size / (1024 * 1024 * 1024), $decimal);
-		}
+		$this->command = '';	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

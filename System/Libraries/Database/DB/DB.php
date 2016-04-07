@@ -1717,6 +1717,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				$secure = $this->secure;
 			}
 			
+			
 			$this->db->query($this->_querySecurity($query), $secure);
 			
 			if( ! empty($this->transStart) ) 
@@ -1893,10 +1894,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			$table = "'".$this->prefix.trim($table)."'";
 	
 			$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
-			
-			$secure = $this->secure;
-			
-			$this->db->query($this->_querySecurity($query), $secure);
+		
+			$this->_runQuery($query);
 		}
 
 		return $this;
@@ -2112,7 +2111,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		$this->_resetInsertQuery();
 
-		return $this->db->query($this->_querySecurity($insertQuery), $this->secure);
+		return $this->_runQuery($insertQuery);
 	}
 	
 	/******************************************************************************************
@@ -2201,7 +2200,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		$this->_resetUpdateQuery();
 		
-		return $this->db->query($this->_querySecurity($updateQuery), $this->secure);	
+		return $this->_runQuery($updateQuery);	
 	}
 	
 	/******************************************************************************************
@@ -2262,7 +2261,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	
 		$this->_resetDeleteQuery();
 		
-		return $this->db->query($this->_querySecurity($deleteQuery), $this->secure);
+		return $this->_runQuery($deleteQuery);
 	}
 	
 	/******************************************************************************************
