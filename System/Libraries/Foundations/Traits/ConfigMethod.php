@@ -37,14 +37,14 @@ trait ConfigMethodTrait
 		}
 		else
 		{
-			$getConfigName = self::CONFIG_NAME;	
+			$getConfigName = defined('self::CONFIG_NAME') ? self::CONFIG_NAME : NULL;	
 		}
 		
 		// İsim bilgisi tanımlanmamışsa ön tanımlı olarak 
 		// Sınıf ismini dosya ve ayar ismi olarak kullan.
-		if( ! isset($getConfigName) )
+		if( empty($getConfigName) )
 		{
-			$file = divide(__CLASS__, '\\', -1); 
+			$file = divide(str_replace(STATIC_ACCESS, '', __CLASS__), '\\', -1); 
 			
 			if( ! empty($settings) )
 			{

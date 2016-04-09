@@ -10,6 +10,15 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Const CONFIG_NAME
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @const string
+	//
+	//----------------------------------------------------------------------------------------------------
+	const CONFIG_NAME  = 'Components:pagination';
+	
 	protected $settings     = array();
 	
 	/* Total Rows Değişkeni
@@ -19,15 +28,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	 * Varsayılan:0
 	 */
 	protected $totalRows 	= 50;
-	
-	/* Config Değişkeni
-	 *  
-	 * Ayarlar bilgisini
-	 * tutması için oluşturulmuştur.
-	 * Varsayılan:0
-	 */
-	protected $config 		= array();
-	
+
 	/* Start Değişkeni
 	 *  
 	 * Başlangıç bilgisini
@@ -116,6 +117,15 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	protected $url  		= CURRENT_CFPATH;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ConfigMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
 	// Call Method
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -143,7 +153,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	
 	public function __construct()
 	{
-		$this->config = Config::get('Components', 'pagination');	
+		$this->config();	
 	}
 
 	public function url($url = '')

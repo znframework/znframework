@@ -134,15 +134,15 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		// bağlatı yapılıp yapılmayacağı belirlenir.
 		if(  ! empty($methods) && ! empty($callbacks))
 		{
-			$this->connect = ssh2_connect($host, $post, $methods, $callbacks);			
+			$this->connect = ssh2_connect($host, $port, $methods, $callbacks);			
 		}
 		elseif( ! empty($methods) )
 		{
-			$this->connect = ssh2_connect($host, $post, $methods);	
+			$this->connect = ssh2_connect($host, $port, $methods);	
 		}
 		else
 		{
-			$this->connect = ssh2_connect($host, $post);	
+			$this->connect = ssh2_connect($host, $port);	
 		}
 		
 		if( empty($this->connect) ) 
