@@ -347,7 +347,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		$string = highlight_string($str, true);
 		// ----------------------------------------------------------------------------------------------
 	
-		$string = Security::phpTagEncode(Security::htmlDecode($string));
+		$string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
 		
 		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>'), $string);
     }

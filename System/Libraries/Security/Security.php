@@ -36,6 +36,19 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		'?>' => '&#63;&#62;'
 	);
 	
+	//----------------------------------------------------------------------------------------------------
+	// PHP Tag Chars
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $scriptTagChars = array
+	(
+		'/\<script(.*?)\>/i'  => '&#60;script$1&#62;',
+		'/\<\/script\>/i'     => '&#60;/script&#62;'
+	);
+	
 	public function __construct()
 	{
 		$this->config();	
@@ -329,6 +342,36 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		}
 		
 		return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
+	}
+	
+	// Function: scriptTagEncode()
+	// İşlev: Script taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public function scriptTagEncode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return Errors::set('Error', 'stringParameter', 'str');
+		}
+		
+		return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
+	}
+	
+	// Function: scriptTagDecode()
+	// İşlev: Script taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public function scriptTagDecode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return Errors::set('Error', 'stringParameter', 'str');
+		}
+		
+		return $this->htmlDecode($str);
 	}
 	
 	// Function: nailEncode()

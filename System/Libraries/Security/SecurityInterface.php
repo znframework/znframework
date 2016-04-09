@@ -94,6 +94,20 @@ interface SecurityInterface
 	// Dönen Değer: Şifrelenmiş bilgi.
 	public function phpTagDecode($str);
 	
+		// Function: scriptTagEncode()
+	// İşlev: Script taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public function scriptTagEncode($str);
+	
+	// Function: scriptTagDecode()
+	// İşlev: Script taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public function scriptTagDecode($str);
+	
 	// Function: nailEncode()
 	// İşlev: Tırnak işaretlerini numerik koda dönüştürmek çevirir.
 	// Parametreler
