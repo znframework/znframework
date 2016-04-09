@@ -333,12 +333,12 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		$keyword    = ! empty( $settings['keyword'] ) ? $settings['keyword'] : '#a71d5d';
 		$string     = ! empty( $settings['string'] )  ? $settings['string']  : '#183691';
 		
-		$background = ! empty( $settings['background'] )   ? 'background-color:'.$settings['background'] : '';
+		$background = ! empty( $settings['background'] )   ? $settings['background'] : '';
 		
-		ini_set("highlight.comment", "$comment; $fontFamily; $fontSize; $background;");
-		ini_set("highlight.default", "$default; $fontFamily; $fontSize; $background;");
-		ini_set("highlight.keyword", "$keyword; $fontFamily; $fontSize; $background;");
-		ini_set("highlight.string",  "$string;  $fontFamily; $fontSize; $background;");	
+		ini_set("highlight.comment", "$comment; $fontFamily; $fontSize;");
+		ini_set("highlight.default", "$default; $fontFamily; $fontSize;");
+		ini_set("highlight.keyword", "$keyword; $fontFamily; $fontSize;");
+		ini_set("highlight.string",  "$string;  $fontFamily; $fontSize;");	
 		ini_set("highlight.html",    "$htmlFontColor; $htmlFontFamily; $htmlFontSize;");
 		
 		// ----------------------------------------------------------------------------------------------
@@ -347,7 +347,9 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		$string = highlight_string($str, true);
 		// ----------------------------------------------------------------------------------------------
 	
-		return Security::phpTagEncode(Security::htmlDecode($string));
+		$string = Security::phpTagEncode(Security::htmlDecode($string));
+		
+		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>'), $string);
     }
 	
 	/******************************************************************************************
