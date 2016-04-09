@@ -3,6 +3,8 @@ namespace Cubrid;
 
 trait UserTrait
 {
+	use \Driver\UserTrait;
+	
 	public function name($name = '')
 	{
 		return $name;
@@ -23,13 +25,13 @@ trait UserTrait
 		return $members;
 	}
 	
-	public function create($user = '', $password = '', $groups = '', $members = '')
+	public function create($user = '', $parameters = array())
 	{
 		return 'CREATE USER '.
 		        $user.
-				( ! empty($password) ? ' PASSWORD '.$password : '' ).
-				( ! empty($groups)   ? ' GROUPS '.$groups     : '' ).
-				( ! empty($members)  ? ' MEMBERS '.$members   : '' );
+				( ! empty($parameters[0]) ? ' PASSWORD '.$parameters[0] : '' ).
+				( ! empty($parameters[1]) ? ' GROUPS '.$parameters[1]   : '' ).
+				( ! empty($parameters[2]) ? ' MEMBERS '.$parameters[2]  : '' );
 	}
 	
 	public function drop($user = '')
@@ -37,28 +39,8 @@ trait UserTrait
 		return 'DROP USER '.$user;
 	}
 	
-	public function alter($user = '', $password = '')
+	public function alter($user = '', $parameters = array())
 	{
-		return 'ALTER USER '.$user.( ! empty($password) ? ' PASSWORD '.$password : '' );
-	}
-	
-	public function grant()
-	{
-		return false;	
-	}
-	
-	public function revoke()
-	{
-		return false;	
-	}
-	
-	public function setPassword()
-	{
-		return false;	
-	}
-	
-	public function rename()
-	{
-		return false;	
+		return 'ALTER USER '.$user.( ! empty($parameters[0]) ? ' PASSWORD '.$parameters[0] : '' );
 	}
 }

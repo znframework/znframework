@@ -44,22 +44,13 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	protected $name 	  	  = NULL;
 	
 	//----------------------------------------------------------------------------------------------------
-	// $members
+	// $parameters
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @var string
+	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $members 	  	  = NULL;
-	
-	//----------------------------------------------------------------------------------------------------
-	// $groups
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @var string
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $groups 	  	  = NULL;
+	protected $parameters 	  = array();
 	
 	//----------------------------------------------------------------------------------------------------
 	// $host
@@ -247,7 +238,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	{
 		if( $get = $this->db->password($authString) )
 		{
-			$this->identified = $get;
+			$this->parameters[0] = $get;
 		}
 		else
 		{
@@ -268,11 +259,11 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	{
 		if( $get = $this->db->groups($authString) )
 		{
-			$this->groups = $get;
+			$this->parameters[1] = $get;
 		}
 		else
 		{
-			$this->groups = $authString;
+			$this->parameters[1] = $authString;
 		}
 		
 		return $this;
@@ -289,11 +280,32 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	{
 		if( $get = $this->db->members($authString) )
 		{
-			$this->members = $get;
+			$this->parameters[2] = $get;
 		}
 		else
 		{
-			$this->members = $authString;
+			$this->parameters[2] = $authString;
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// schema()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function schema($authString = '')
+	{
+		if( $get = $this->db->schema($authString) )
+		{
+			$this->parameters[0] = $get;
+		}
+		else
+		{
+			$this->parameters[0] = $authString;
 		}
 		
 		return $this;
@@ -410,7 +422,35 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function with()
 	{
-		$this->with = ' WITH ';
+		if( $get = $this->db->with() )
+		{
+			$this->parameters[0] = $get;
+		}
+		else
+		{
+			$this->with = ' WITH ';
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// with()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function option($name = '', $value = '')
+	{
+		if( $get = $this->db->option($name, $value) )
+		{
+			$this->parameters[1] = $get;
+		}
+		else
+		{
+			$this->parameters[1] = '';
+		}
 		
 		return $this;
 	}
@@ -563,6 +603,90 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// firstName()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function firstName($authString = '')
+	{
+		if( $get = $this->db->firstName($authString) )
+		{
+			$this->parameters[1] = $get;
+		}
+		else
+		{
+			$this->parameters[1] = $authString;
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// middleName()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function middleName($authString = '')
+	{
+		if( $get = $this->db->middleName($authString) )
+		{
+			$this->parameters[2] = $get;
+		}
+		else
+		{
+			$this->parameters[2] = $authString;
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// lastName()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function lastName($authString = '')
+	{
+		if( $get = $this->db->lastName($authString) )
+		{
+			$this->parameters[3] = $get;
+		}
+		else
+		{
+			$this->parameters[3] = $authString;
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// adminRole()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authString: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function adminRole($authString = 'GRANT')
+	{
+		if( $get = $this->db->adminRole($authString) )
+		{
+			$this->parameters[4] = $get;
+		}
+		else
+		{
+			$this->parameters[4] = $authString;
+		}
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// Protected _process()
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -625,9 +749,14 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alter($name = 'USER()')
+	public function alter($name = 'USER()', $schema = '')
 	{
-		if( $query = $this->db->alter($this->_name($name)) )
+		if( ! empty($schema) )
+		{
+			$this->parameters[0] = $schema;	
+		}
+		
+		if( $query = $this->db->alter($this->_name($name), $this->parameters) )
 		{
 			$this->_resetQuery();
 
@@ -636,7 +765,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 		
 		return $this->_process($name, 'ALTER USER');
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// create()
 	//----------------------------------------------------------------------------------------------------
@@ -644,9 +773,14 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($name = 'USER()')
+	public function create($name = 'USER()', $schema = '')
 	{
-		if( $query = $this->db->create($this->_name($name), $this->identified, $this->groups, $this->members) )
+		if( ! empty($schema) )
+		{
+			$this->parameters[0] = $schema;	
+		}
+		
+		if( $query = $this->db->create($this->_name($name), $this->parameters) )
 		{
 			$this->_resetQuery();
 
@@ -663,9 +797,14 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function drop($name = 'USER()')
+	public function drop($name = 'USER()', $type = '')
 	{
-		if( $query = $this->db->drop($this->_name($name), $this->identified))
+		if( ! empty($type) )
+		{
+			$this->parameters[0] = $type;	
+		}
+		
+		if( $query = $this->db->drop($this->_name($name), $this->parameters))
 		{
 			$this->_resetQuery();
 
@@ -768,8 +907,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	protected function _resetQuery()
 	{
 		$this->name				= NULL;
-		$this->members			= NULL;
-		$this->groups			= NULL;
+		$this->parameters		= array();
 		$this->host				= NULL;
 		$this->identified 		= NULL;
 		$this->required 		= NULL;

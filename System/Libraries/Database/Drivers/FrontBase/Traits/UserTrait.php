@@ -1,60 +1,38 @@
 <?php
-namespace Fbsql;
+namespace Fbase;
 
 trait UserTrait
 {
+	use \Driver\UserTrait;
+	
+	public function schema($name = '')
+	{
+		return $name;
+	}
+	
 	public function name($name = '')
 	{
-		return false;
+		return $name;
 	}
 	
-	public function password($password = '')
+	public function create($user = '', $parameters = array())
 	{
-		return false;
+		return 'CREATE USER '.
+				$user.
+				( ! empty($parameters[0]) ? ' DEFAULT SCHEMA '.$parameters[0] : '' );
 	}
 	
-	public function groups($groups = '')
+	public function drop($user = '', $parameters = array())
 	{
-		return false;
+		return 'DROP USER '.
+				$user.
+				( ! empty($parameters[0]) ? ' '.$parameters[0] : ' RESTRICT' );
 	}
 	
-	public function members($members = '')
+	public function alter($user = '', $parameters = array())
 	{
-		return false;
-	}
-	
-	public function create($user = '', $password = '', $groups = '', $members = '')
-	{
-		return false;
-	}
-	
-	public function drop($user = '')
-	{
-		return false;
-	}
-	
-	public function alter($user = '', $password = '')
-	{
-		return false;
-	}
-	
-	public function grant()
-	{
-		return false;	
-	}
-	
-	public function revoke()
-	{
-		return false;	
-	}
-	
-	public function setPassword()
-	{
-		return false;	
-	}
-	
-	public function rename()
-	{
-		return false;	
+		return 'ALERT USER '.
+				$user.
+				' SET DEFAULT SCHEMA '.$parameters[0];
 	}
 }

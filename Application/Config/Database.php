@@ -27,7 +27,7 @@ $config['Database']['migrationTable'] = 'migrations';
 // Genel Kullanım: // İşlev:Mysql bağlantı türünü belirlemek için kullanılır.		   	  
 // Parametre:Metinsel türde bağlantı türü girilir.										  
 // Drivers: mysql , mysqli , pdo , odbc , mssql , sqlite , postgre , sqlsrv , sqlite3 , 	  
-// oci8 , ibase , cubrid , fbsql , sybase												  				
+// oci8 , ibase , cubrid , fbase , sybase												  				
 // PDO Sub Drivers = 4d , cubrid , dblib , firebird , ibm , informix , mysql , oci , 	  
 // odbc , pgsql , sqlite , sqlsrv		
 //												  

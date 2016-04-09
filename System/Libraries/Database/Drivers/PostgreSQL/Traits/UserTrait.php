@@ -3,58 +3,52 @@ namespace Postgre;
 
 trait UserTrait
 {
+	use \Driver\UserTrait;
+	
+	protected $postgreQuoteOptions = array
+	(
+		'PASSWORD',
+		'VALID UNTIL'
+	);
+	
 	public function name($name = '')
 	{
-		return false;
+		return $name;
 	}
 	
-	public function password($password = '')
+	public function with($with = 'WITH')
 	{
-		return false;
+		return $with;
 	}
 	
-	public function groups($groups = '')
+	public function option($option = '', $value = '')
 	{
-		return false;
+		if( ! empty($this->postgreQuoteOptions[strtoupper($option)]) )
+		{
+			$value = presuffix($value, '\'');	
+		}
+		
+		return $option.' '.$value;
 	}
 	
-	public function members($members = '')
+	public function create($user = '', $parameters = array())
 	{
-		return false;
+		return 'CREATE USER '.
+		        $user.
+				( ! empty($parameters[0]) ? ' '.$parameters[0] : '' ).
+				( ! empty($parameters[1]) ? ' '.$parameters[1] : '' );
 	}
 	
-	public function create($user = '', $password = '', $groups = '', $members = '')
+	public function drop($user = '')
 	{
-		return false;
+		return 'DROP USER '.$user;
 	}
 	
-	public function drop($user)
+	public function alter($user = '', $parameters = array())
 	{
-		return false;
-	}
-	
-	public function alter($user = '', $password = '')
-	{
-		return false;
-	}
-	
-	public function grant()
-	{
-		return false;	
-	}
-	
-	public function revoke()
-	{
-		return false;	
-	}
-	
-	public function setPassword()
-	{
-		return false;	
-	}
-	
-	public function rename()
-	{
-		return false;	
+		return 'ALTER USER '.
+		        $user.
+				( ! empty($parameters[0]) ? ' '.$parameters[0] : '' ).
+				( ! empty($parameters[1]) ? ' '.$parameters[1] : '' );
 	}
 }
