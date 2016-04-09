@@ -10,21 +10,7 @@ class PDOSqliteDriver implements Pdo\SubDriverInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Config Değişkeni
-	 *  
-	 * Veritabanı ayarlar bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	protected $config;
-	
-	/******************************************************************************************
-	* CONSTRUCT     	                                                                      *
-	******************************************************************************************/
-	public function __construct()
-	{
-		$this->config = Config::get('Database');	
-	}
+	use Pdo\SubDriverTrait;
 	
 	/******************************************************************************************
 	* DNS       		                                                                      *
