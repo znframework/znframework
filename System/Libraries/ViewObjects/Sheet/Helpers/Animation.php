@@ -1,5 +1,7 @@
 <?php
-class CSSAnimation
+namespace Sheet;
+
+class Animation
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,9 +12,9 @@ class CSSAnimation
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use SheetTrait;
+	use \SheetTrait;
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 
 	/******************************************************************************************
 	* ANIMATION NAME                                                                          *
@@ -29,7 +31,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($name) )
 		{
-			Errors::set('Error', 'valueParameter', 'name');
+			\Errors::set('Error', 'valueParameter', 'name');
 			return $this;	
 		}
 		
@@ -53,7 +55,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($direction) )
 		{
-			Errors::set('Error', 'valueParameter', 'direction');
+			\Errors::set('Error', 'valueParameter', 'direction');
 			return $this;	
 		}
 		
@@ -77,7 +79,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($status) )
 		{
-			Errors::set('Error', 'valueParameter', 'status');
+			\Errors::set('Error', 'valueParameter', 'status');
 			return $this;	
 		}
 		
@@ -101,7 +103,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($fill) )
 		{
-			Errors::set('Error', 'valueParameter', 'fill');
+			\Errors::set('Error', 'valueParameter', 'fill');
 			return $this;	
 		}
 		
@@ -125,7 +127,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($repeat) )
 		{
-			Errors::set('Error', 'valueParameter', 'repeat');
+			\Errors::set('Error', 'valueParameter', 'repeat');
 			return $this;	
 		}
 		
@@ -149,7 +151,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($duration) )
 		{
-			Errors::set('Error', 'valueParameter', 'duration');
+			\Errors::set('Error', 'valueParameter', 'duration');
 			return $this;	
 		}
 		
@@ -178,7 +180,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($delay) )
 		{
-			Errors::set('Error', 'valueParameter', 'delay');
+			\Errors::set('Error', 'valueParameter', 'delay');
 			return $this;	
 		}
 		
@@ -207,7 +209,7 @@ class CSSAnimation
 	{
 		if( ! is_scalar($easing) )
 		{
-			Errors::set('Error', 'valueParameter', 'easing');
+			\Errors::set('Error', 'valueParameter', 'easing');
 			return $this;	
 		}
 		

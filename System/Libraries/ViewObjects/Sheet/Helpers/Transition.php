@@ -1,5 +1,7 @@
 <?php
-class CSSTransition
+namespace Sheet;
+
+class Transition
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,9 +12,9 @@ class CSSTransition
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use SheetTrait;
+	use \SheetTrait;
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* TRANSITION PROPERTY                                                                     *
@@ -29,7 +31,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($property))
 		{
-			Errors::set('Error', 'valueParameter', 'property');
+			\Errors::set('Error', 'valueParameter', 'property');
 			return $this;	
 		}
 		
@@ -53,7 +55,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($duration))
 		{
-			Errors::set('Error', 'valueParameter', 'duration');
+			\Errors::set('Error', 'valueParameter', 'duration');
 			return $this;	
 		}
 		
@@ -82,7 +84,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($delay) )
 		{
-			Errors::set('Error', 'valueParameter', 'delay');
+			\Errors::set('Error', 'valueParameter', 'delay');
 			return $this;	
 		}
 		
@@ -111,7 +113,7 @@ class CSSTransition
 	{
 		if( ! is_scalar($easing))
 		{
-			Errors::set('Error', 'valueParameter', 'easing');
+			\Errors::set('Error', 'valueParameter', 'easing');
 			return $this;	
 		}
 		

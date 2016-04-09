@@ -339,7 +339,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use VariableTypesTrait;
+	use DB\VariableTypesTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Statements
@@ -350,7 +350,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use StatementsTrait;
+	use DB\StatementsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Functions
@@ -361,7 +361,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use FunctionsTrait;
+	use DB\FunctionsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Deyimleri Başlangıç

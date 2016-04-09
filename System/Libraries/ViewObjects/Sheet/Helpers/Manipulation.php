@@ -1,5 +1,7 @@
 <?php
-class CSSManipulation
+namespace Sheet;
+
+class Manipulation
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,9 +12,9 @@ class CSSManipulation
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use SheetTrait;
+	use \SheetTrait;
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* Manipulation Değişkeni
 	 *  
@@ -36,7 +38,7 @@ class CSSManipulation
 	{		
 		if( ! is_array($attr) )
 		{
-			return Errors::set('Error', 'arrayParameter', 'attr');	
+			return \Errors::set('Error', 'arrayParameter', 'attr');	
 		}
 
 		$str  = $this->selector."{".EOL;	
@@ -64,7 +66,7 @@ class CSSManipulation
 		if( is_string($file) )
 		{
 			$this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
-			$this->manipulation['file'] = File::contents($this->manipulation['filename']);
+			$this->manipulation['file'] = \File::contents($this->manipulation['filename']);
 		}
 		
 		return $this;	
@@ -113,7 +115,7 @@ class CSSManipulation
 	{
 		if( ! is_string($selector) )
 		{
-			return Errors::set('Error', 'stringParameter', 'selector');
+			return \Errors::set('Error', 'stringParameter', 'selector');
 		}
 		
 		$space = '\s*';
@@ -143,8 +145,8 @@ class CSSManipulation
 	{
 		if( ! is_string($selector) || ! is_array($attr) )
 		{
-			Errors::set('Error', 'stringParameter', 'selector');	
-			Errors::set('Error', 'arrayParameter', 'attr');
+			\Errors::set('Error', 'stringParameter', 'selector');	
+			\Errors::set('Error', 'arrayParameter', 'attr');
 			
 			return false;
 		}	
@@ -157,7 +159,7 @@ class CSSManipulation
 		
 		$output = str_replace($output, $value , $file);
 		
-		File::write($this->manipulation['filename'], $output);
+		\File::write($this->manipulation['filename'], $output);
 	}
 	
 	// Değişkenler varsayılan ayarlarına getiriliyor.

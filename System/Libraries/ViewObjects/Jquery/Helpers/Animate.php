@@ -1,5 +1,7 @@
 <?php
-class JQAnimate
+namespace Jquery;
+
+class Animate
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,7 +12,7 @@ class JQAnimate
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use JqueryTrait;
+	use \JqueryTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -19,7 +21,7 @@ class JQAnimate
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* Easing Variables
 	 * Easing 
@@ -72,7 +74,7 @@ class JQAnimate
 		}
 		else
 		{
-			Errors::set('Error', 'valueParameter', 'duration');
+			\Errors::set('Error', 'valueParameter', 'duration');
 		}
 		
 		return $this;
@@ -100,7 +102,7 @@ class JQAnimate
 		}
 		else
 		{
-			Errors::set('Error', 'valueParameter', 'queue');
+			\Errors::set('Error', 'valueParameter', 'queue');
 			return $this;
 		}
 		
@@ -123,7 +125,7 @@ class JQAnimate
 	{
 		if( ! is_array($attr) )
 		{
-			Errors::set('Error', 'arrayParameter', 'attr');
+			\Errors::set('Error', 'arrayParameter', 'attr');
 			return $this;	
 		}
 		
@@ -214,7 +216,7 @@ class JQAnimate
 	{
 		$attr = array();
 		
-		$animate = JQ::property('animate', array($this->attr, $this->callback, $this->_object($this->easing)));
+		$animate = \JQ::property('animate', array($this->attr, $this->callback, $this->_object($this->easing)));
 		
 		$this->_defaultVariable();
 		
@@ -235,7 +237,7 @@ class JQAnimate
 	{
 		$combineAnimation = func_get_args();
 		
-		$animate  = EOL."\t".JQ::selector($this->selector);
+		$animate  = EOL."\t".\JQ::selector($this->selector);
 		
 		$animate .= $this->complete();
 		

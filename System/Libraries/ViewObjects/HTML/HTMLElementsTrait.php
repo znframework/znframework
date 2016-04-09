@@ -1,5 +1,7 @@
 <?php
-trait HTMLElementsTrait
+namespace HTML;
+
+trait ElementsTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//

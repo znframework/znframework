@@ -1,5 +1,7 @@
 <?php
-class CSSShadow
+namespace Sheet;
+
+class Shadow
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,9 +12,9 @@ class CSSShadow
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use SheetTrait;
+	use \SheetTrait;
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* Params Değişkeni
 	 *  
@@ -37,7 +39,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Errors::set('Error', 'valueParameter', 'val');
+			\Errors::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -84,7 +86,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Errors::set('Error', 'valueParameter', 'val');
+			\Errors::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -131,7 +133,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Errors::set('Error', 'valueParameter', 'val');
+			\Errors::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -160,7 +162,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val) )
 		{
-			Errors::set('Error', 'valueParameter', 'val');
+			\Errors::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -208,7 +210,7 @@ class CSSShadow
 	{
 		if( ! is_scalar($val))
 		{
-			Errors::set('Error', 'valueParameter', 'val');
+			\Errors::set('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -237,7 +239,7 @@ class CSSShadow
 	{
 		if( ! is_string($val))
 		{
-			Errors::set('Error', 'stringParameter', 'val');
+			\Errors::set('Error', 'stringParameter', 'val');
 			return $this;	
 		}
 		

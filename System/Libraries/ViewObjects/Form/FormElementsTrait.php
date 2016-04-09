@@ -1,5 +1,7 @@
 <?php
-trait FormElementsTrait
+namespace Form;
+
+trait ElementsTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//
