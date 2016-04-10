@@ -321,25 +321,29 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 			return false;	
 		}
 		
-		$fontFamily = ! empty( $settings['font']['family'] ) ? 'font-family:'.$settings['font']['family'] : 'font-family:Consolas';
-		$fontSize   = ! empty( $settings['font']['size'] )   ? 'font-size:'.$settings['font']['size'] : 'font-size:12px';
+		$phpFamily 	    = ! empty( $settings['php:family'] ) ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
+		$phpSize   	    = ! empty( $settings['php:size'] )   ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
+		$phpStyle   	= ! empty( $settings['php:style'] )  ? $settings['php:style'] : '';		
+		$htmlFamily 	= ! empty( $settings['html:family'] ) ? 'font-family:'.$settings['html:family'] : '';
+		$htmlSize   	= ! empty( $settings['html:size'] )   ? 'font-size:'.$settings['html:size'] : '';
+		$htmlColor  	= ! empty( $settings['html:color'] )  ? $settings['html:color'] : '';
+		$htmlStyle 		= ! empty( $settings['html:style'] )  ? $settings['html:style'] : '';		
+		$comment    	= ! empty( $settings['comment:color'] ) ? $settings['comment:color'] : '#969896';
+		$commentStyle	= ! empty( $settings['comment:style'] ) ? $settings['comment:style'] : '';
+		$default    	= ! empty( $settings['default:color'] ) ? $settings['default:color'] : '#000000';
+		$defaultStyle   = ! empty( $settings['default:style'] ) ? $settings['default:style'] : '';
+		$keyword    	= ! empty( $settings['keyword:color'] ) ? $settings['keyword:color'] : '#a71d5d';
+		$keywordStyle   = ! empty( $settings['keyword:style'] ) ? $settings['keyword:style'] : '';
+		$string     	= ! empty( $settings['string:color'] )  ? $settings['string:color']  : '#183691';
+		$stringStyle	= ! empty( $settings['string:style'] )  ? $settings['string:style']  : '';	
+		$background 	= ! empty( $settings['background'] )   ? $settings['background'] : '';	
+		$tags       	= isset( $settings['tags'] )  ? $settings['tags']  : true;
 		
-		$htmlFontFamily = ! empty( $settings['html']['family'] ) ? 'font-family:'.$settings['html']['family'] : 'font-family:Arial';
-		$htmlFontSize   = ! empty( $settings['html']['size'] )   ? 'font-size:'.$settings['html']['size'] : 'font-size:12px';
-		$htmlFontColor  = ! empty( $settings['html']['color'] )  ? $settings['html']['color'] : '#000000';
-		
-		$comment    = ! empty( $settings['comment'] ) ? $settings['comment'] : '#969896';
-		$default    = ! empty( $settings['default'] ) ? $settings['default'] : '#000000';
-		$keyword    = ! empty( $settings['keyword'] ) ? $settings['keyword'] : '#a71d5d';
-		$string     = ! empty( $settings['string'] )  ? $settings['string']  : '#183691';
-		
-		$background = ! empty( $settings['background'] )   ? $settings['background'] : '';
-		
-		ini_set("highlight.comment", "$comment; $fontFamily; $fontSize;");
-		ini_set("highlight.default", "$default; $fontFamily; $fontSize;");
-		ini_set("highlight.keyword", "$keyword; $fontFamily; $fontSize;");
-		ini_set("highlight.string",  "$string;  $fontFamily; $fontSize;");	
-		ini_set("highlight.html",    "$htmlFontColor; $htmlFontFamily; $htmlFontSize;");
+		ini_set("highlight.comment", "$comment; $phpFamily; $phpSize; $phpStyle; $commentStyle");
+		ini_set("highlight.default", "$default; $phpFamily; $phpSize; $phpStyle; $defaultStyle");
+		ini_set("highlight.keyword", "$keyword; $phpFamily; $phpSize; $phpStyle; $keywordStyle ");
+		ini_set("highlight.string",  "$string;  $phpFamily; $phpSize; $phpStyle; $stringStyle");	
+		ini_set("highlight.html",    "$htmlColor; $htmlFamily; $htmlSize; $htmlStyle");
 		
 		// ----------------------------------------------------------------------------------------------
 		// HIGHLIGHT
@@ -349,7 +353,11 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	
 		$string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
 		
-		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>'), $string);
+		$tagArray = $tags === true 
+		          ? array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>') 
+		          : array('<div style="'.$background.'">', '</div>');
+		
+		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), $tagArray, $string);
     }
 	
 	/******************************************************************************************
