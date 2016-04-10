@@ -49,6 +49,19 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		'/\<\/script\>/i'     => '&#60;/script&#62;'
 	);
 	
+	//----------------------------------------------------------------------------------------------------
+	// PHP Tag Chars
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $scriptTagCharsDecode = array
+	(
+		'/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
+		'/\&\#60\;\/script\&\#62\;/i'	 => '</script>'
+	);
+	
 	public function __construct()
 	{
 		$this->config();	
@@ -371,7 +384,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 			return Errors::set('Error', 'stringParameter', 'str');
 		}
 		
-		return $this->htmlDecode($str);
+		return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
 	}
 	
 	// Function: nailEncode()
