@@ -140,7 +140,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		
 		// URL YÖNLENDİRİLİYOR...
 		
-		$pathInfo = routeUri(Security::htmlEncode(requestUri()));
+		$pathInfo = Security::htmlEncode(requestUri());
 		
 		
 		if(  strstr($pathInfo, getLang()) )

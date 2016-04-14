@@ -76,7 +76,7 @@ trait ElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function addClass($class = '')
 	{
-		$this->_element(__FUNCTION__, $class);
+		$this->_element('class', $class);
 		
 		return $this;
 	}

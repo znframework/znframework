@@ -57,11 +57,12 @@ interface MLInterface
 	| Genel Kullanım: Dil dosyasın yer alan istenilen kelimeye erişmek için kullanılır.  	  |
 	
 	  @param mixed  $key
+	  @param mixed  $convert
 	  
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function select($key);
+	public function select($key, $convert);
 	
 	/******************************************************************************************
 	* LANG                                                                                    *

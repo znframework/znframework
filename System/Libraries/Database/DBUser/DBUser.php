@@ -98,6 +98,15 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	protected $with 		  = NULL;
 	
 	//----------------------------------------------------------------------------------------------------
+	// $lock
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $lock 		  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
 	// $resource
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -488,10 +497,6 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 		{
 			$resource  = $this->resources[$resource];
 		}
-		else
-		{
-			// Errors::set()	
-		}
 		
 		$this->resource = ' '.$resource.' '.$count.' ';
 		
@@ -736,6 +741,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 				 $this->grantOption.
 				 $this->resource.
 				 $this->passwordExpire;
+				 $this->lock;
 	
 		$this->_resetQuery();
 
@@ -907,6 +913,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	protected function _resetQuery()
 	{
 		$this->name				= NULL;
+		$this->lock				= NULL;
 		$this->parameters		= array();
 		$this->host				= NULL;
 		$this->identified 		= NULL;
