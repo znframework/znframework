@@ -1,5 +1,7 @@
 <?php
-trait FormElementsTrait
+namespace Form;
+
+trait ElementsTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -74,7 +76,7 @@ trait FormElementsTrait
 	//----------------------------------------------------------------------------------------------------
 	public function addClass($class = '')
 	{
-		$this->_element(__FUNCTION__, $class);
+		$this->_element('class', $class);
 		
 		return $this;
 	}

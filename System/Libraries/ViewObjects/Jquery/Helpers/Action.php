@@ -1,5 +1,7 @@
 <?php
-class JQAction
+namespace Jquery;
+
+class Action
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,7 +12,7 @@ class JQAction
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use JqueryTrait;
+	use \JqueryTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -19,7 +21,7 @@ class JQAction
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* 
 	 * Özellik belirteci.
@@ -113,7 +115,7 @@ class JQAction
 	{
 		if( ! is_string($type))
 		{
-			Errors::set('Error', 'stringParameter', 'type');
+			\Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		
@@ -311,7 +313,7 @@ class JQAction
 	******************************************************************************************/
 	public function complete()
 	{
-		$event = JQ::property($this->type, array($this->speed, $this->easing, $this->callback));
+		$event = \JQ::property($this->type, array($this->speed, $this->easing, $this->callback));
 		
 		$this->_defaultVariable();
 		
@@ -332,7 +334,7 @@ class JQAction
 	{
 		$combineEffect = func_get_args();
 		
-		$event  = EOL.JQ::selector($this->selector);
+		$event  = EOL.\JQ::selector($this->selector);
 		$event .= $this->complete();
 		
 		if( ! empty($combineEffect) ) foreach($combineEffect as $effect)

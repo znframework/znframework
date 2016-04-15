@@ -1,5 +1,7 @@
 <?php
-class CSSTransform
+namespace Sheet;
+
+class Transform
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,9 +12,9 @@ class CSSTransform
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use SheetTrait;
+	use \SheetTrait;
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* Transforms Değişkeni
 	 *  
@@ -102,7 +104,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($argument) )
 		{
-			Errors::set('Error', 'valueParameter', 'argument');
+			\Errors::set('Error', 'valueParameter', 'argument');
 			return $this;
 		}
 		
@@ -135,7 +137,7 @@ class CSSTransform
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Errors::set('Error', 'numericParameter', 'x & y');
+			\Errors::set('Error', 'numericParameter', 'x & y');
 			return $this;
 		}
 		
@@ -159,7 +161,7 @@ class CSSTransform
 	{	
 		if( ! is_numeric($x) )
 		{
-			Errors::set('Error', 'numericParameter', 'x');
+			\Errors::set('Error', 'numericParameter', 'x');
 			return $this;
 		}
 		
@@ -183,7 +185,7 @@ class CSSTransform
 	{
 		if( ! is_numeric($y) )
 		{
-			Errors::set('Error', 'numericParameter', 'y');
+			\Errors::set('Error', 'numericParameter', 'y');
 			return $this;
 		}
 		
@@ -208,7 +210,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) || ! is_scalar($y) )
 		{
-			Errors::set('Error', 'valueParameter', 'x & y');
+			\Errors::set('Error', 'valueParameter', 'x & y');
 			return $this;
 		}
 		
@@ -241,7 +243,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) )
 		{
-			Errors::set('Error', 'valueParameter', 'x');
+			\Errors::set('Error', 'valueParameter', 'x');
 			return $this;
 		}
 		
@@ -270,7 +272,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($y) )
 		{
-			Errors::set('Error', 'valueParameter', 'y');
+			\Errors::set('Error', 'valueParameter', 'y');
 			return $this;
 		}
 		
@@ -300,7 +302,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) || ! is_scalar($y) )
 		{
-			Errors::set('Error', 'valueParameter', 'x & y');
+			\Errors::set('Error', 'valueParameter', 'x & y');
 			return $this;
 		}
 		
@@ -343,7 +345,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($x) )
 		{
-			Errors::set('Error', 'valueParameter', 'x');
+			\Errors::set('Error', 'valueParameter', 'x');
 			return $this;
 		}
 		
@@ -372,7 +374,7 @@ class CSSTransform
 	{
 		if( ! is_scalar($y) )
 		{
-			Errors::set('Error', 'valueParameter', 'y');
+			\Errors::set('Error', 'valueParameter', 'y');
 			return $this;
 		}
 		

@@ -970,4 +970,60 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		
 		return array_column($array, $columnKey, $indexKey);
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// excluding
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param array   $excluding					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function excluding($array = array(), $excluding = array())
+	{
+		if( ! is_array($array) )
+		{
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
+		}
+		
+		$newArray = array();
+		
+		foreach( $array as $key => $val )
+		{
+			if( ! in_array($val, $excluding) && ! in_array($key, $excluding) )
+			{
+				$newArray[$key] = $val;
+			}	
+		}
+		
+		return $newArray;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// including
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array   $array
+	// @param array   $excluding					  
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function including($array = array(), $including = array())
+	{
+		if( ! is_array($array) )
+		{
+			return Errors::set('Error', 'arrayParameter', '1.(array)');	
+		}
+		
+		$newArray = array();
+		
+		foreach( $array as $key => $val )
+		{
+			if( in_array($val, $including) || in_array($key, $including) )
+			{
+				$newArray[$key] = $val;
+			}	
+		}
+		
+		return $newArray;
+	}
 }

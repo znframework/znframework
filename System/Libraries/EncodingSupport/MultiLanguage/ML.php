@@ -195,14 +195,27 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function select($key = '')
+	public function select($key = '', $convert = '')
 	{
 		$read = File::read($this->lang);
 		
 		$array = Json::decodeArray($read);
 		
-		return isset($array[$key]) ? $array[$key] : '';
-		       
+		$return = '';
+		
+		if( isset($array[$key]) )
+		{ 
+			if( is_array($convert) )
+			{
+				$return = str_replace(array_keys($convert), array_values($convert), $array[$key]);
+			}
+			else
+			{
+				$return = str_replace('%', $convert, $array[$key]);
+			}
+		}
+		
+		return $return;       
 	}
 	
 	/******************************************************************************************

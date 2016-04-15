@@ -17,6 +17,15 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	/* Not: Büyük-küçük harf duyarlılığı yoktur.
 	/***********************************************************************************/
 	
+	//----------------------------------------------------------------------------------------------------
+	// Const CONFIG_NAME
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @const string
+	//
+	//----------------------------------------------------------------------------------------------------
+	const CONFIG_NAME  = 'Services:cookie';
+	
 	/* Time Değişkeni
 	 *  
 	 * Çerez süre bilgisini tutması
@@ -64,7 +73,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 	{
 		Session::start();
 		
-		$this->config = Config::get('Services', 'cookie');	
+		$this->config();
 	}
 	
 	//----------------------------------------------------------------------------------------------------

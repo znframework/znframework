@@ -25,6 +25,25 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	//----------------------------------------------------------------------------------------------------
 	use ErrorControlTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// anchor
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $data
+	// @param string $type: short, long
+	// @param array  $attributes
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function anchor($data = '', $type = 'short', $attributes = array())
+	{
+		return preg_replace
+		(
+			'/(((https?|ftp)\:\/\/)(\w+\.)*(\w+)\.\w+\/*\S*)/xi', 
+			'<a href="$1"'.Html::attributes($attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
+			$data
+		);
+	}
+	
 	/******************************************************************************************
 	* CHAR                                                                                    *
 	*******************************************************************************************
@@ -302,114 +321,43 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 			return false;	
 		}
 		
-		// ----------------------------------------------------------------------------------------------
-		// AYARLAR
-		// ----------------------------------------------------------------------------------------------
-		$textSize 		= isset($settings['textSize'])      ? $settings['textSize']     : '14px';	
-		$color 			= isset($settings['color']) 		? $settings['color'] 		: '#000';
-		$keywordColor 	= isset($settings['keywordColor'])  ? $settings['keywordColor'] : '#060';
-		$variableColor 	= isset($settings['variableColor']) ? $settings['variableColor']: '#06F';
-		$commentColor	= isset($settings['commentColor'])  ? $settings['commentColor'] : '#999';
-		$constantColor	= isset($settings['constantColor']) ? $settings['constantColor']: '#933';
-		$functionColor	= isset($settings['functionColor']) ? $settings['functionColor']: '#00F';
-		$tagColor		= isset($settings['tagColor']) 	    ? $settings['tagColor'] 	: 'red';
-		// ----------------------------------------------------------------------------------------------
+		$phpFamily 	    = ! empty( $settings['php:family'] ) ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
+		$phpSize   	    = ! empty( $settings['php:size'] )   ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
+		$phpStyle   	= ! empty( $settings['php:style'] )  ? $settings['php:style'] : '';		
+		$htmlFamily 	= ! empty( $settings['html:family'] ) ? 'font-family:'.$settings['html:family'] : '';
+		$htmlSize   	= ! empty( $settings['html:size'] )   ? 'font-size:'.$settings['html:size'] : '';
+		$htmlColor  	= ! empty( $settings['html:color'] )  ? $settings['html:color'] : '';
+		$htmlStyle 		= ! empty( $settings['html:style'] )  ? $settings['html:style'] : '';		
+		$comment    	= ! empty( $settings['comment:color'] ) ? $settings['comment:color'] : '#969896';
+		$commentStyle	= ! empty( $settings['comment:style'] ) ? $settings['comment:style'] : '';
+		$default    	= ! empty( $settings['default:color'] ) ? $settings['default:color'] : '#000000';
+		$defaultStyle   = ! empty( $settings['default:style'] ) ? $settings['default:style'] : '';
+		$keyword    	= ! empty( $settings['keyword:color'] ) ? $settings['keyword:color'] : '#a71d5d';
+		$keywordStyle   = ! empty( $settings['keyword:style'] ) ? $settings['keyword:style'] : '';
+		$string     	= ! empty( $settings['string:color'] )  ? $settings['string:color']  : '#183691';
+		$stringStyle	= ! empty( $settings['string:style'] )  ? $settings['string:style']  : '';	
+		$background 	= ! empty( $settings['background'] )   ? $settings['background'] : '';	
+		$tags       	= isset( $settings['tags'] )  ? $settings['tags']  : true;
+		
+		ini_set("highlight.comment", "$comment; $phpFamily; $phpSize; $phpStyle; $commentStyle");
+		ini_set("highlight.default", "$default; $phpFamily; $phpSize; $phpStyle; $defaultStyle");
+		ini_set("highlight.keyword", "$keyword; $phpFamily; $phpSize; $phpStyle; $keywordStyle ");
+		ini_set("highlight.string",  "$string;  $phpFamily; $phpSize; $phpStyle; $stringStyle");	
+		ini_set("highlight.html",    "$htmlColor; $htmlFamily; $htmlSize; $htmlStyle");
 		
 		// ----------------------------------------------------------------------------------------------
 		// HIGHLIGHT
 		// ----------------------------------------------------------------------------------------------
 		$string = highlight_string($str, true);
 		// ----------------------------------------------------------------------------------------------
+	
+		$string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
 		
-		// ----------------------------------------------------------------------------------------------
-		// FONKSIYONLAR
-		// ----------------------------------------------------------------------------------------------	
-		$definedFunctions   = get_defined_functions();
-		$definedFunctions   = $definedFunctions['internal'];	
-		$functionMatch   	= array();
+		$tagArray = $tags === true 
+		          ? array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>') 
+		          : array('<div style="'.$background.'">', '</div>');
 		
-		foreach($definedFunctions as $v)
-		{
-			$functionMatch['<span style="color: #0000BB">'.$v] = '<span style="color: '.$functionColor.'">'.$v;	
-		}
-		
-		$string = str_replace(array_keys($functionMatch), array_values($functionMatch), $string);
-		// ----------------------------------------------------------------------------------------------
-		
-		// ----------------------------------------------------------------------------------------------
-		// ANAHTAR KELİMELER
-		// ----------------------------------------------------------------------------------------------	
-		$keywordsLower = array
-		(
-			'__halt_compiler', 'abstract', 'and', 'array', 'as', 'break', 'callable', 'case', 'catch', 'class', 'clone', 'const', 
-			'continue', 'declare', 'default', 'die', 'do', 'echo', 'else', 'elseif', 'empty', 'enddeclare', 'endfor', 'endforeach', 
-			'endif', 'endswitch', 'endwhile', 'eval', 'exit', 'extends', 'final', 'for', 'foreach', 'function', 'global', 'goto', 
-			'if', 'implements', 'include', 'include_once', 'instanceof', 'insteadof', 'interface', 'isset', 'list', 'namespace', 
-			'new', 'or', 'print', 'private', 'protected', 'public', 'require', 'require_once', 'return', 'static', 'switch', 'throw', 
-			'trait', 'try', 'unset', 'use', 'var', 'while', 'xor', 'true', 'false', 'null'
-		);
-		
-		$keywordsUpper = array_map('strtoupper', $keywordsLower);
-		
-		$keywords = array_merge($keywordsLower, $keywordsUpper);
-		
-		$keywordsMatch = array();
-		
-		foreach( $keywords as $v )
-		{
-			$keywordsMatch['<span style="color: #0000BB">'.$v] = '<span style="color: '.$keywordColor.'">'.$v;	
-		}
-		
-		$string = str_replace(array_keys($keywordsMatch), array_values($keywordsMatch), $string);
-		// ----------------------------------------------------------------------------------------------
-		
-		// ----------------------------------------------------------------------------------------------
-		// SİHİRLİ SABİTLER
-		// ----------------------------------------------------------------------------------------------	
-		$magicConstants = array('__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__');
-		
-		$constantsMatch = array();
-		
-		foreach( $magicConstants as $v )
-		{
-			$constantsMatch['<span style="color: '.$functionColor.'">'.$v] = '<span style="color: '.$constantColor.'">'.$v;	
-		}
-		
-		$string = str_replace(array_keys($constantsMatch), array_values($constantsMatch), $string);
-		// ----------------------------------------------------------------------------------------------
-		
-		// ----------------------------------------------------------------------------------------------
-		// DEĞİŞKENLER
-		// ----------------------------------------------------------------------------------------------		
-		preg_match_all('/\$\w+/', $string, $match);
-
-		$variableMatch = array();
-		
-		foreach( array_unique($match[0]) as $v )
-		{
-			$variableMatch[$v] = '<span style="color: '.$variableColor.'">'.$v.'</span>';	
-		}
-		
-		$string = str_replace(array_keys($variableMatch), array_values($variableMatch), $string);
-		// ----------------------------------------------------------------------------------------------
-		
-		$change = array
-		(
-			// Yorum Satırı
-			'#FF8000' => $commentColor,
-			
-			// Düz Yazı
-			'#0000BB' => $color,
-			
-			// PHP Tag Renkleri
-			'<span style="color: '.$color.'">&lt;?php' => '<span style="color: '.$tagColor.'">&lt;?php</span>',
-			'<span style="color: '.$color.'">?&gt;'	  => '<span style="color: '.$tagColor.'">?&gt;</span>',
-			
-			// Keywords
-			'#007700' => $keywordColor,
-		);
-		
-		return '<span style="font-size:'.$textSize.';">'.str_replace(array_keys($change), array_values($change), $string).'</span>';
+		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), $tagArray, $string);
     }
 	
 	/******************************************************************************************

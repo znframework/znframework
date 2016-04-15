@@ -11,15 +11,6 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Config
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @var array
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $config;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Nail Chars
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -45,11 +36,53 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		'?>' => '&#63;&#62;'
 	);
 	
+	//----------------------------------------------------------------------------------------------------
+	// PHP Tag Chars
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $scriptTagChars = array
+	(
+		'/\<script(.*?)\>/i'  => '&#60;script$1&#62;',
+		'/\<\/script\>/i'     => '&#60;/script&#62;'
+	);
+	
+	//----------------------------------------------------------------------------------------------------
+	// PHP Tag Chars
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $scriptTagCharsDecode = array
+	(
+		'/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
+		'/\&\#60\;\/script\&\#62\;/i'	 => '</script>'
+	);
+	
 	public function __construct()
 	{
-		$this->config = Config::get('Security');	
+		$this->config();	
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ConfigMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
 	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
@@ -322,6 +355,36 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		}
 		
 		return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
+	}
+	
+	// Function: scriptTagEncode()
+	// İşlev: Script taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public function scriptTagEncode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return Errors::set('Error', 'stringParameter', 'str');
+		}
+		
+		return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
+	}
+	
+	// Function: scriptTagDecode()
+	// İşlev: Script taglarını numerik koda çevirir.
+	// Parametreler
+	// @str = Şifrelenecek data.
+	// Dönen Değer: Şifrelenmiş bilgi.
+	public function scriptTagDecode($str = '')
+	{
+		if( ! is_string($str) || empty($str) ) 
+		{
+			return Errors::set('Error', 'stringParameter', 'str');
+		}
+		
+		return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
 	}
 	
 	// Function: nailEncode()

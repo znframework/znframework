@@ -635,6 +635,18 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			$edit = Security::injectionEncode($edit);
 		}
 		
+		// Script tag kullanımı engellemek için kullanılır.
+		if( in_array('script' ,$config) )
+		{
+			$edit = Security::scriptTagEncode($edit);		
+		}
+		
+		// PHP tag kullanımı engellemek için kullanılır.
+		if( in_array('php' ,$config) )
+		{
+			$edit = Security::phpTagEncode($edit);		
+		}
+		
 		// Süzgeç sonrası validation::nval() yönteminin yeni değeri
 		$this->nval[$name] = $edit;
 		

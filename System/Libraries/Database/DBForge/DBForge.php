@@ -51,16 +51,23 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| Örnek Kullanım: $this->dbforge->createDatabase('OrnekVeritabani')        			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function createDatabase($dbname = '')
+	public function createDatabase($dbname = '', $extras = '')
 	{
 		if( ! is_string($dbname) || empty($dbname) ) 
 		{
 			return Errors::set('Error', 'stringParameter', 'dbname');
 		}
-
-		$query  = 'CREATE DATABASE '.$dbname;	
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		if( ! empty($this->extras) )
+		{
+			$extras = $this->extras;
+			
+			$this->extras = NULL;	
+		}
+
+		$query  = 'CREATE DATABASE '.$dbname.$this->_extras($extras);	
+		
+		return $this->_runExecQuery($query);
 	}
 	
 	/******************************************************************************************
@@ -83,7 +90,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = 'DROP DATABASE '.$dbname;	
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -99,6 +106,27 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		$this->extras = $extras;
 		
 		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _extras()
+	//----------------------------------------------------------------------------------------------------
+	protected function _extras($extras)
+	{
+		if( isArray($extras) )
+		{
+			$extraCodes = ' '.implode(' ', $extras).';';
+		}
+		elseif( is_string($extras) )
+		{
+			$extraCodes = ' '.$extras.';';	
+		}
+		else
+		{
+			$extraCodes = '';	
+		}
+		
+		return $extraCodes;
 	}
 	
 	/******************************************************************************************
@@ -156,7 +184,6 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		$keys = array_keys($condition);
 		
 		$column = "";
-		
 
 		foreach( $condition as $key => $value )
 		{
@@ -174,22 +201,9 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 			$column .= $key.' '.$values.',';
 		}
 		
-		if( isArray($extras) )
-		{
-			$extraCodes = ' '.implode(' ', $extras).';';
-		}
-		elseif( is_string($extras) )
-		{
-			$extraCodes = ' '.$extras.';';	
-		}
-		else
-		{
-			$extraCodes = '';	
-		}
-
-		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$extraCodes;
+		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$this->_extras($extras);
 	
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	/******************************************************************************************
@@ -224,7 +238,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = 'DROP TABLE '.$table;
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	/******************************************************************************************
@@ -318,7 +332,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = 'ALTER TABLE '.$name.' RENAME TO '.$this->prefix.$newName;
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	/******************************************************************************************
@@ -359,7 +373,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = $truncate.$table;
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -445,7 +459,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = 'ALTER TABLE '.$table.' '.$con.';';
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	/******************************************************************************************
@@ -502,7 +516,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		{
 			$query  = 'ALTER TABLE '.$table.' '.$dropColumn.$column.';';
 			
-			return $this->db->exec($this->_querySecurity($query), $this->secure);	
+			return $this->_runExecQuery($query);
 		}
 		else
 		{
@@ -510,7 +524,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 			{
 				$query  = 'ALTER TABLE '.$table.' '.$dropColumn.$col.';';
 				
-				$this->db->exec($this->_querySecurity($query), $this->secure);
+				$this->_runExecQuery($query);
 			}
 			
 			return true;
@@ -592,7 +606,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = 'ALTER TABLE '.$table.' '.$con.';';
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	/******************************************************************************************
@@ -680,7 +694,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 		
 		$query  = 'ALTER TABLE '.$table.' '.$con.';';
 		
-		return $this->db->exec($this->_querySecurity($query), $this->secure);
+		return $this->_runExecQuery($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

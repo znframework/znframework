@@ -9,15 +9,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	/* Config Değişkeni
-	 *  
-	 * FTP ayar bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected $config;
-	
+
 	/* Permission Değişkeni
 	 *  
 	 * Config/Permission.php dosyasındaki ayar
@@ -34,8 +26,17 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	
 	public function __construct()
 	{
-		$this->config = Config::get('Permission');	
+		$this->config();	
 	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method

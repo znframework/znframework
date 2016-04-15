@@ -339,7 +339,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use VariableTypesTrait;
+	use DB\VariableTypesTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Statements
@@ -350,7 +350,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use StatementsTrait;
+	use DB\StatementsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Functions
@@ -361,7 +361,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use FunctionsTrait;
+	use DB\FunctionsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Deyimleri Başlangıç
@@ -437,6 +437,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			if( $value !== '' )
 			{
 				$value = presuffix($this->db->realEscapeString($value), "'");
+			}
+			
+			if( preg_match('/^\w+$/', trim($column)) )
+			{
+				$column .= ' = ';	
 			}
 			
 			return ' '.$column.' '.$value.' '.$logical.' ';
@@ -520,6 +525,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	protected function _whereHavingGroup($conditions = array())
 	{
+		$con = array();
+		
 		if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
 		{
 			$con         = Arrays::getLast($conditions);
@@ -527,8 +534,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		
 		$getLast = Arrays::getLast($conditions);
-		
-		
+			
 		if( is_string($con) )
 		{
 			$conjunction = $con;	
@@ -1711,6 +1717,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				$secure = $this->secure;
 			}
 			
+			
 			$this->db->query($this->_querySecurity($query), $secure);
 			
 			if( ! empty($this->transStart) ) 
@@ -1887,10 +1894,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			$table = "'".$this->prefix.trim($table)."'";
 	
 			$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
-			
-			$secure = $this->secure;
-			
-			$this->db->query($this->_querySecurity($query), $secure);
+		
+			$this->_runQuery($query);
 		}
 
 		return $this;
@@ -2106,7 +2111,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		$this->_resetInsertQuery();
 
-		return $this->db->query($this->_querySecurity($insertQuery), $this->secure);
+		return $this->_runQuery($insertQuery);
 	}
 	
 	/******************************************************************************************
@@ -2195,7 +2200,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		$this->_resetUpdateQuery();
 		
-		return $this->db->query($this->_querySecurity($updateQuery), $this->secure);	
+		return $this->_runQuery($updateQuery);	
 	}
 	
 	/******************************************************************************************
@@ -2256,7 +2261,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	
 		$this->_resetDeleteQuery();
 		
-		return $this->db->query($this->_querySecurity($deleteQuery), $this->secure);
+		return $this->_runQuery($deleteQuery);
 	}
 	
 	/******************************************************************************************

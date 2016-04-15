@@ -1,5 +1,7 @@
 <?php
-class JQAjax
+namespace Jquery;
+
+class Ajax
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,7 +12,7 @@ class JQAjax
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use JqueryTrait;
+	use \JqueryTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -19,7 +21,7 @@ class JQAjax
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* 
 	 * Fonksiyon blokları 
@@ -61,7 +63,7 @@ class JQAjax
 	{
 		if( ! is_string($url) )
 		{
-			Errors::set('Error', 'stringParameter', '1.(url)');
+			\Errors::set('Error', 'stringParameter', '1.(url)');
 			return $this;	
 		}
 		
@@ -90,7 +92,7 @@ class JQAjax
 	{
 		if( ! is_scalar($data) )
 		{
-			Errors::set('Error', 'valueParameter', '1.(data)');
+			\Errors::set('Error', 'valueParameter', '1.(data)');
 			return $this;	
 		}
 		
@@ -113,7 +115,7 @@ class JQAjax
 	{
 		if( ! is_scalar($headers) )
 		{
-			Errors::set('Error', 'valueParameter', '1.(headers)');
+			\Errors::set('Error', 'valueParameter', '1.(headers)');
 			return $this;	
 		}
 		
@@ -136,7 +138,7 @@ class JQAjax
 	{
 		if( ! is_scalar($ifModified) )
 		{
-			Errors::set('Error', 'valueParameter', '1.(isModified)');
+			\Errors::set('Error', 'valueParameter', '1.(isModified)');
 			return $this;	
 		}
 		
@@ -162,7 +164,7 @@ class JQAjax
 	{
 		if( ! is_scalar($isLocal) )
 		{
-			Errors::set('Error', 'valueParameter', '1.(isLocal)');
+			\Errors::set('Error', 'valueParameter', '1.(isLocal)');
 			return $this;	
 		}
 		
@@ -188,7 +190,7 @@ class JQAjax
 	{
 		if( ! is_scalar($mimeType) )
 		{
-			Errors::set('Error', 'valueParameter', 'mimeType');
+			\Errors::set('Error', 'valueParameter', 'mimeType');
 			return $this;	
 		}
 		
@@ -242,7 +244,7 @@ class JQAjax
 	{
 		if( ! is_scalar($jsonpCallback) )
 		{
-			Errors::set('Error', 'valueParameter', 'jsonpCallback');
+			\Errors::set('Error', 'valueParameter', 'jsonpCallback');
 			return $this;	
 		}
 		
@@ -270,7 +272,7 @@ class JQAjax
 	{
 		if( ! is_string($type) )
 		{
-			Errors::set('Error', 'stringParameter', 'type');
+			\Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		
@@ -286,7 +288,7 @@ class JQAjax
 	{
 		if( ! is_string($password) )
 		{
-			Errors::set('Error', 'stringParameter', 'password');
+			\Errors::set('Error', 'stringParameter', 'password');
 			return $this;	
 		}
 		
@@ -302,7 +304,7 @@ class JQAjax
 	{
 		if( ! is_string($username) )
 		{
-			Errors::set('Error', 'stringParameter', 'username');
+			\Errors::set('Error', 'stringParameter', 'username');
 			return $this;	
 		}
 		
@@ -319,7 +321,7 @@ class JQAjax
 	{
 		if( ! is_string($method) )
 		{
-			Errors::set('Error', 'stringParameter', 'method');
+			\Errors::set('Error', 'stringParameter', 'method');
 			return $this;	
 		}
 		
@@ -346,7 +348,7 @@ class JQAjax
 	{
 		if( ! isCharset($scriptCharset) )
 		{
-			Errors::set('Error', 'charsetParameter', 'scriptCharset');
+			\Errors::set('Error', 'charsetParameter', 'scriptCharset');
 			return $this;	
 		}
 		
@@ -362,7 +364,7 @@ class JQAjax
 	{
 		if( ! is_scalar($traditional) )
 		{
-			Errors::set('Error', 'valueParameter', 'traditional');
+			\Errors::set('Error', 'valueParameter', 'traditional');
 			return $this;	
 		}
 		
@@ -379,7 +381,7 @@ class JQAjax
 	{
 		if( ! is_scalar($processData) )
 		{
-			Errors::set('Error', 'valueParameter', 'processData');
+			\Errors::set('Error', 'valueParameter', 'processData');
 			return $this;	
 		}
 		
@@ -396,7 +398,7 @@ class JQAjax
 	{
 		if( ! is_scalar($cache) )
 		{
-			Errors::set('Error', 'valueParameter', 'cache');
+			\Errors::set('Error', 'valueParameter', 'cache');
 			return $this;	
 		}
 		
@@ -413,7 +415,7 @@ class JQAjax
 	{
 		if( ! is_string($xhrFields) )
 		{
-			Errors::set('Error', 'stringParameter', 'xhrFields');
+			\Errors::set('Error', 'stringParameter', 'xhrFields');
 			return $this;	
 		}
 		
@@ -429,7 +431,7 @@ class JQAjax
 	{
 		if( ! is_scalar($context) )
 		{
-			Errors::set('Error', 'valueParameter', 'context');
+			\Errors::set('Error', 'valueParameter', 'context');
 			return $this;	
 		}
 		
@@ -445,7 +447,7 @@ class JQAjax
 	{
 		if( ! is_string($accepts) )
 		{
-			Errors::set('Error', 'stringParameter', 'accepts');
+			\Errors::set('Error', 'stringParameter', 'accepts');
 			return $this;	
 		}
 		
@@ -461,7 +463,7 @@ class JQAjax
 	{
 		if( ! is_string($contents) )
 		{
-			Errors::set('Error', 'stringParameter', 'contents');
+			\Errors::set('Error', 'stringParameter', 'contents');
 			return $this;	
 		}
 		
@@ -477,7 +479,7 @@ class JQAjax
 	{
 		if( ! is_scalar($async) )
 		{
-			Errors::set('Error', 'valueParameter', 'async');
+			\Errors::set('Error', 'valueParameter', 'async');
 			return $this;	
 		}
 		
@@ -494,7 +496,7 @@ class JQAjax
 	{
 		if( ! is_scalar($crossDomain) )
 		{
-			Errors::set('Error', 'valueParameter', 'crossDomain');
+			\Errors::set('Error', 'valueParameter', 'crossDomain');
 			return $this;	
 		}
 		
@@ -511,7 +513,7 @@ class JQAjax
 	{
 		if( ! is_scalar($timeout) )
 		{
-			Errors::set('Error', 'valueParameter', 'timeout');
+			\Errors::set('Error', 'valueParameter', 'timeout');
 			return $this;	
 		}
 		
@@ -528,7 +530,7 @@ class JQAjax
 	{
 		if( ! is_scalar($globals) )
 		{
-			Errors::set('Error', 'valueParameter', 'globals');
+			\Errors::set('Error', 'valueParameter', 'globals');
 			return $this;	
 		}
 		
@@ -555,7 +557,7 @@ class JQAjax
 		}
 		else
 		{
-			Errors::set('Error', 'valueParameter', 'contentType');
+			\Errors::set('Error', 'valueParameter', 'contentType');
 			return $this;	
 		}
 		
@@ -568,7 +570,7 @@ class JQAjax
 	{
 		if( ! is_array($codes) )
 		{
-			Errors::set('Error', 'arrayParameter', 'codes');
+			\Errors::set('Error', 'arrayParameter', 'codes');
 			return $this;	
 		}
 		
@@ -631,7 +633,7 @@ class JQAjax
 	{
 		if( ! is_string($params) || ! is_string($codes) )
 		{
-			Errors::set('Error', 'stringParameter', 'params & codes');
+			\Errors::set('Error', 'stringParameter', 'params & codes');
 			return $this;
 		}
 		
@@ -768,7 +770,7 @@ class JQAjax
 	{
 		if( ! is_string($url) || ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', 'url & data');
+			return \Errors::set('Error', 'stringParameter', 'url & data');
 		}
 		
 		if( ! empty($url) )

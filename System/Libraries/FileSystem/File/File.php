@@ -591,6 +591,55 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	// Zip Extract Method Bitiş
 	//----------------------------------------------------------------------------------------------------
 	
+	public function createZip($path = '', $data = array())
+	{			
+		$zip = new ZipArchive();
+
+		$zipPath = suffix($path, ".zip");
+		
+		if( file_exists($zipPath) ) 
+		{	
+			unlink($zipPath); 	
+		}
+
+		if( $zip->open($zipPath, ZIPARCHIVE::CREATE) !== true ) 
+		{
+			return Errors::set('File', 'zipExtractError', $zipPath);
+		}
+		
+		$status = '';
+			
+		if( ! empty($data) ) foreach( $data as $key => $val )
+		{		
+			if( is_numeric($key) )
+			{
+				$file = $val;
+				$fileName = NULL;	
+			}
+			else
+			{
+				$file = $key;
+				$fileName = $val;	
+			}
+				
+			if( is_dir($file) )
+			{
+				$allFiles = Folder::allFiles($file, true);
+				
+				foreach( $allFiles as $f )
+				{
+					$status = $zip->addFile($f, $f);
+				}	
+			}
+			else
+			{
+				$status = $zip->addFile($file, $fileName);
+			}
+		}	
+		
+		return $zip->close();	
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
