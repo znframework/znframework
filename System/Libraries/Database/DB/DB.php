@@ -370,7 +370,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// createTrigger()
 	// order()
 	// event()
-	// time()
+	// when()
+	// body()
 	//
 	//----------------------------------------------------------------------------------------------------
 	use DB\TriggerTrait;

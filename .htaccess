@@ -1,0 +1,3 @@
+<ifmodule mod_headers.c>
+Options -Indexes
+</ifmodule>

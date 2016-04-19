@@ -33,7 +33,7 @@ $config['Htaccess']['createFile'] = true;
 // .htaccess dosyasında ini ayarları yapılabilsin mi?   									  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['setFile'] = false;
+$config['Htaccess']['setFile'] = true;
 
 //----------------------------------------------------------------------------------------------------
 // Settings
@@ -50,5 +50,5 @@ $config['Htaccess']['setFile'] = false;
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['settings'] = array
 (
-	 // 'ifmodule mod_headers.c' => array('Header set Connection keep-alive')
+	 'ifmodule mod_headers.c' => array('Options -Indexes')
 );

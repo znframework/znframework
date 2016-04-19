@@ -17,7 +17,7 @@
 // Genel Kullanım: Ana dizine robots.txt dosyası oluşturmak içindir.			  														  																	
 //   					  
 //----------------------------------------------------------------------------------------------------
-$config['Robots']['createFile'] = false;
+$config['Robots']['createFile'] = true;
 
 //----------------------------------------------------------------------------------------------------
 // Rules
@@ -35,5 +35,5 @@ $config['Robots']['rules'] = array
 (
 	'userAgent' => '*',
 	'allow'     => array(),
-	'disallow'  => array()	
+	'disallow'  => array('/System/')	
 );
