@@ -985,6 +985,11 @@ function ipv4()
 	  	$ip = $_SERVER['REMOTE_ADDR'];
 	}
  
+	if( $ip === '::1')
+ 	{
+		$ip = '127.0.0.1';	
+	}
+	
 	return $ip;
 }
 
