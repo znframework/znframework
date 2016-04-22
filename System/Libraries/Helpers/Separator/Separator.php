@@ -22,7 +22,7 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 	 * Anahtar ve değerler asındaki ayraç
 	 * Varsayılan:|?-++-?|
 	 */
-	private $seperator = "|?-++-?|";
+	private $separator = "|?-++-?|";
 	
 	use CallUndefinedMethodTrait;
 	
@@ -39,21 +39,16 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 	//----------------------------------------------------------------------------------------------------
 	use ErrorControlTrait;
 	
-	/******************************************************************************************
-	* ENCODE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen ayraçlara göre diziyi özel bir veri tipine çeviriyor.        |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                              	      |
-	| 1. array var @data => Özel veriye çevrilecek dizi parametresi.        	  			  |
-	| 2. [ string var @key ] => Anahtar değer ayracı. Varsayılan:+-?||?-+	                  |
-	| 3. [ string var @seperator ] => Parametre ayracı. Varsayılan:|?-++-?|	                  |
-	|          																				  |
-	| Örnek Kullanım: encode(array(1 => 1, 2 => 2));        	  					          |
-	| // 1+-?||?-+1|?-++-?|2+-?||?-+2     													  |
-	|          																				  |
-	******************************************************************************************/	
-	public function encode($data = array(), $key = '', $seperator = '')
+	//----------------------------------------------------------------------------------------------------
+	// Encode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array  $data
+	// @param string $key
+	// @param string $separator
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function encode($data = array(), $key = '', $separator = '')
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
@@ -66,9 +61,9 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 			$key = '';
 		}
 		
-		if( ! is_string($seperator) ) 
+		if( ! is_string($separator) ) 
 		{
-			$seperator = '';
+			$separator = '';
 		}
 		
 		$word = '';
@@ -80,37 +75,31 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		}
 		
 		// @seperator parametresi boş ise ön tanımlı ayracı kullan.
-		if( empty($seperator) ) 
+		if( empty($separator) ) 
 		{
-			$seperator = $this->seperator;
+			$separator = $this->separator;
 		}
 		// -----------------------------------------------------------------------------
 		
 		// Özel veri tipine çevirme işlemini başlat.
 		foreach($data as $k => $v)
 		{
-			$word .= $k.$key.$v.$seperator;	
+			$word .= $k.$key.$v.$separator;	
 		}
 		
-		return substr($word, 0, -(strlen($seperator)));
+		return substr($word, 0, -(strlen($separator)));
 	}
 	
-	/******************************************************************************************
-	* DECODE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Özel veriyi Object veri türüne çevirir.        						  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                              	      |
-	| 1. array var @data => Object veri türüne çevrilecek özel veri.        	  			  |
-	| 2. [ string var @key ] => Anahtar değer ayracı. Varsayılan:+-?||?-+	                  |
-	| 3. [ string var @seperator ] => Parametre ayracı. Varsayılan:|?-++-?|	                  |
-	|          																				  |
-	| Örnek Kullanım: decode('1+-?||?-+1|?-++-?|2+-?||?-+2 ');        	  					  |
-	| //  (object)array(1 => 1, 2 => 2)   													  |
-	|          																				  |
-	******************************************************************************************/	
-
-	public function decode($word = '', $key = '', $seperator = '')
+	//----------------------------------------------------------------------------------------------------
+	// Decode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $word
+	// @param string $key
+	// @param string $separator
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function decode($word = '', $key = '', $separator = '')
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_string($word) ) 
@@ -128,9 +117,9 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 			$key = '';
 		}
 		
-		if( ! is_string($seperator) ) 
+		if( ! is_string($separator) ) 
 		{
-			$seperator = '';
+			$separator = '';
 		}
 		
 		if( empty($key) ) 
@@ -138,13 +127,13 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 			$key = $this->key;
 		}
 		
-		if( empty($seperator) ) 
+		if( empty($separator) ) 
 		{
-			$seperator = $this->seperator;
+			$separator = $this->separator;
 		}
 		// -----------------------------------------------------------------------------
 		
-		$keyval = explode($seperator, $word);
+		$keyval = explode($separator, $word);
 		$splits = array();
 		$object = array();
 		
@@ -159,5 +148,19 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		}
 		
 		return (object)$object;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Decode Array
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $word
+	// @param string $key
+	// @param string $separator
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function decodeArray($word = '', $key = '', $separator = '')
+	{
+		return (array)$this->decode($word, $key, $separator);
 	}
 }

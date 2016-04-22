@@ -61,14 +61,14 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Array To XLS File
+	// Array To XLS
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param array  $data
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLSFile($data = array(), $file = 'excel.xls')
+	public function arrayToXLS($data = array(), $file = 'excel.xls')
 	{
 		if( ! is_array($data) ) 
 		{
@@ -116,7 +116,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function csvToArray($file = '')
+	public function CSVToArray($file = '')
 	{
 		if( ! is_string($file) ) 
 		{
