@@ -40,6 +40,18 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 	use ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Protected Security
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _security($data = '')
+	{
+		return str_replace(array($this->key, $this->separator), '', $data);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
 	// Encode
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -82,12 +94,12 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		// -----------------------------------------------------------------------------
 		
 		// Özel veri tipine çevirme işlemini başlat.
-		foreach($data as $k => $v)
+		foreach( $data as $k => $v )
 		{
-			$word .= $k.$key.$v.$separator;	
+			$word .= $this->_security($k).$key.$this->_security($v).$separator;	
 		}
 		
-		return substr($word, 0, -(strlen($separator)));
+		return mb_substr($word, 0, -(mb_strlen($separator)));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
