@@ -143,9 +143,9 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		$pathInfo = Security::htmlEncode(requestUri());
 		
 		
-		if(  strstr($pathInfo, getLang()) )
+		if(  strstr($pathInfo, currentLang()) )
 		{
-			$pathInfo = str_replace(getLang().'/', '', $pathInfo);
+			$pathInfo = str_replace(currentLang().'/', '', $pathInfo);
 		}
 		
 		return $pathInfo;
@@ -423,7 +423,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			$negative += 1; 
 		}
 		
-		if( strstr($requestUri, getLang()) ) 
+		if( strstr($requestUri, currentLang()) ) 
 		{ 
 			$seg      += 1; 
 			$negative += 1; 
