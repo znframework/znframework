@@ -773,23 +773,42 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	// rowCount()
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param  string $file empty
+	// @param  string $file      /
+	// @param  bool   $recursive true
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rowCount($file = '')
+	public function rowCount($file = '/', $recursive = true)
 	{
 		if( ! is_string($file) ) 
 		{
 			return Errors::set('Error', 'stringParameter', '1.(file)');
 		}
 		
-		if( ! file_exists($file) )
+		if( is_file($file) )
+		{
+			return count( file($file) );
+		}
+		elseif( is_dir($file) )
+		{
+			$files =  Folder::allFiles($file, $recursive);
+			
+			$rowCount = 0;
+			
+			foreach( $files as $f )
+			{
+				if( is_file($f) )
+				{
+					$rowCount += count( file($f) );	
+				}
+			}
+			
+			return $rowCount;
+		}
+		else
 		{
 			return Errors::set('File', 'notFoundError', $file);
 		}
-		
-		return count( file($file) );	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

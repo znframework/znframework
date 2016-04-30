@@ -213,6 +213,15 @@ interface FileInterface
 	public function zipExtract($source, $target);
 	
 	
+	//----------------------------------------------------------------------------------------------------
+	// createZip()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $path empty
+	// @param  array  $data empty
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function createZip($path, $data);
 	
 	/******************************************************************************************
@@ -251,9 +260,10 @@ interface FileInterface
 	// rowCount()
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param  string $file empty
+	// @param  string $file      /
+	// @param  bool   $recursive true
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rowCount($file);
+	public function rowCount($file, $recursive);
 }
