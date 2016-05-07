@@ -19,24 +19,24 @@ class PDOOciDriver implements Pdo\SubDriverInterface
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = 'oci:dbname=';
+		$dsn  = 'oci:';
 			
-		$dsn .= ( empty($this->config['host']) ) 
-				? ';dbname=127.0.0.1' 
-				: 'dbname=//'.$this->config['host'];
+		$dsn .= ( ! empty($this->config['host']) ) 
+				? 'dbname=//'.$this->config['host']
+				: '';
 				
 		$dsn .= ( ! empty($this->config['database']) ) 
-				? ';dbname='.$this->config['database'] 
+				? 'dbname='.$this->config['database']
 				: '';
 				
 		$dsn .= ( ! empty($this->config['port']) ) 
-				? ':'.$this->config['port'] 
-				: '';
+				? ':'.$this->config['port'].';' 
+				: ';';
 		
 		$dsn .= ( ! empty($this->config['charset']) ) 
-				? ';charset='.$this->config['charset'] 
+				? 'charset='.$this->config['charset'] 
 				: '';
 		
-		return $dsn;
+		return rtrim($dsn, ';');
 	}	
 }

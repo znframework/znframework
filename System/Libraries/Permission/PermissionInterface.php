@@ -10,40 +10,42 @@ interface PermissionInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* PROCESS                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Nesnelere yetki vermek için oluşturulmuştur.                            |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. numeric var @role_id => Yetkilerin uygulanacağı rol numarası.                        |
-	| 2. string var @process => Yetkinin uygulanacağı nesnenin yetki ismi.                    |
-	| 3. string var @process => Yetkinin uygulanacağı nesne.                   				  |
-	|          																				  |
-	| NOT: Yetkiler Config/Permission.php dosyasından ayarlanmaktadır.         				  |
-	|          																				  |
-	| Örnek Kullanım: process(4, 'guncelle', '<input type="button">');        	  			  |
-	|          																				  |
-	| Yukarıda yapılan işlem rol id'si 4 olan kullanıcı için yetki ismi guncelle olan		  |
-	| nesneni bu kullanıcıya görüntülenip görüntülenmeyeceğidir. Eğer yetkisi rol id'si		  |
-	| için izin verilmişse bu nesneyi görecektir. Aksi halde bu nesne yine bu kullanıcı için  |
-	| görüntülenmeyecektir.         														  |
-	|          																				  |
-	******************************************************************************************/	
+	//----------------------------------------------------------------------------------------------------
+	// start()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $roleId : 0
+	// @param string  $process: empty 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function start($roleId, $process);
+	
+	//----------------------------------------------------------------------------------------------------
+	// end()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function end();
+	
+	//----------------------------------------------------------------------------------------------------
+	// process()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $roleId : 0
+	// @param string  $process: empty 
+	// @param string  $object : empty
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function process($roleId, $process, $object);
 	
-	/******************************************************************************************
-	* PAGE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Sayfalara yetki vermek için oluşturulmuştur.                            |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. numeric var @role_id => Yetkilerin uygulanacağı rol numarası.                        |
-	|          																				  |
-	| NOT: Yetkiler Config/Permission.php dosyasından ayarlanmaktadır.         				  |
-	|          																				  |
-	| Örnek Kullanım: page(4);        	  			  									      |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// page()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $roleId : 0
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function page($roleId);	
 }

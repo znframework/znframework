@@ -3,10 +3,10 @@
 // COLORS 
 //----------------------------------------------------------------------------------------------------
 //
-// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-// Site       : www.zntr.net
-// Lisans     : The MIT License
-// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.znframework.com
+// License    : The MIT License
+// Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ $config['Colors'] = array
 (
 	'transparent'		=> '0|0|0|127',
 	
-	// Kırmızı Türleri
+	// Red Types
 	'lightsalmon' 		=> '255|160|122',
 	'salmon'	 		=> '250|128|114',
 	'darksalmon'		=> '233|150|122',
@@ -36,7 +36,7 @@ $config['Colors'] = array
 	'orangered'			=> '255|69|0',
 	'palevioletred'		=> '219|112|147',
 	
-	// Mavi Türleri
+	// Blue Types
 	'aliceblue'			=> '240|248|255',
 	'lavender'			=> '230|230|250',
 	'powderblue'		=> '176|224|230',
@@ -61,7 +61,7 @@ $config['Colors'] = array
 	'blueviolet'		=> '138|43|226',
 	'indigo'			=> '75|0|130',
 	
-	// Cam Göbeği Türleri 
+	// Light Cyan Types 
 	'lightcyan'			=> '224|255|255',
 	'cyan'				=> '0|255|255',
 	'aqua'				=> '0|255|255',
@@ -74,7 +74,7 @@ $config['Colors'] = array
 	'darkcyan'			=> '0|139|139',
 	'teal'				=> '0|128|128',
 	
-	// Yeşil Türleri
+	// Green Types
 	'lawngreen'			=> '124|252|0',
 	'chartreuse'		=> '127|255|0',
 	'limegreen'			=> '50|205|50',
@@ -95,7 +95,7 @@ $config['Colors'] = array
 	'darkolivegreen'	=> '85|107|47',
 	'olivedrab'			=> '107|142|35',
 	
-	// Gri Türleri
+	// Grey Types
 	'gainsboro'			=> '220|220|220',
 	'lightgray'			=> '211|211|211',
 	'lightgrey'			=> '211|211|211',
@@ -114,7 +114,7 @@ $config['Colors'] = array
 	'darkslategrey'		=> '47|79|79',
 	'black' 			=> '0|0|0',
 	
-	// Sarı Türleri
+	// Yellow Types
 	'lightyellow'		=> '255|255|224',
 	'lightyellow1'		=> '255|255|204',
 	'lightyellow2'		=> '255|255|153',
@@ -136,13 +136,13 @@ $config['Colors'] = array
 	'darkkhaki'			=> '189|183|107',
 	'yellowgreen'		=> '154|205|50',
 	
-	// Pembe Türleri
+	// Pink Types
 	'pink'				=> '255|192|203',
 	'lightpink'			=> '255|182|193',
 	'hotpink'			=> '255|105|180',
 	'deeppink'			=> '255|20|147',
 	
-	// Mor Türleri
+	// Purple  Types
 	'thistle'			=> '216|191|216',
 	'plum'				=> '221|160|221',
 	'violet'			=> '238|130|238',
@@ -156,16 +156,16 @@ $config['Colors'] = array
 	'darkmagenta'		=> '139|0|139',
 	'purple'			=> '128|0|128',
 	
-	// Turuncu Türleri
+	// Orange Types
 	'coral'				=> '255|127|80',
 	'gold'				=> '255|215|0',
 	'orange'			=> '255|165|0',
 	'darkorange'		=> '255|140|0',
 	
-	// Bordo Türleri
+	// Brown Types
 	'brown'				=> '165|42|42',
 	
-	// Beyaz Türleri
+	// White Types
 	'white' 			=> '255|255|255',
 	'snow' 				=> '255|250|250',
 	'honeydew' 			=> '240|255|240',

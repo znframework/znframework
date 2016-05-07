@@ -24,6 +24,15 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	 */
 	protected $result;
 	
+	//----------------------------------------------------------------------------------------------------
+	// protected $content
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $content;
+	
 	public function __construct()
 	{
 		$this->config();	
@@ -60,26 +69,55 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	//----------------------------------------------------------------------------------------------------
 	use ErrorControlTrait;
 	
-	/******************************************************************************************
-	* PROCESS                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Nesnelere yetki vermek için oluşturulmuştur.                            |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. numeric var @role_id => Yetkilerin uygulanacağı rol numarası.                        |
-	| 2. string var @process => Yetkinin uygulanacağı nesnenin yetki ismi.                    |
-	| 3. string var @process => Yetkinin uygulanacağı nesne.                   				  |
-	|          																				  |
-	| NOT: Yetkiler Config/Permission.php dosyasından ayarlanmaktadır.         				  |
-	|          																				  |
-	| Örnek Kullanım: process(4, 'guncelle', '<input type="button">');        	  			  |
-	|          																				  |
-	| Yukarıda yapılan işlem rol id'si 4 olan kullanıcı için yetki ismi guncelle olan		  |
-	| nesneni bu kullanıcıya görüntülenip görüntülenmeyeceğidir. Eğer yetkisi rol id'si		  |
-	| için izin verilmişse bu nesneyi görecektir. Aksi halde bu nesne yine bu kullanıcı için  |
-	| görüntülenmeyecektir.         														  |
-	|          																				  |
-	******************************************************************************************/	
+	//----------------------------------------------------------------------------------------------------
+	// start()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $roleId : 0
+	// @param string  $process: empty 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function start($roleId = 0, $process = '')
+	{
+		$this->content = $this->process($roleId, $process, 'object');
+	
+		ob_start();
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// end()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function end()
+	{
+		if( ! empty($this->content) )
+		{
+			$content = ob_get_contents();
+		}
+		else
+		{
+			$content = '';	
+		}
+		
+		ob_end_clean();
+		
+		$this->content = NULL;
+		
+		echo $content;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// process()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $roleId : 0
+	// @param string  $process: empty 
+	// @param string  $object : empty
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function process($roleId = '', $process = '', $object = '')
 	{
 		// Parametrelerin kontrolleri yapılıyor.
@@ -197,19 +235,13 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 
 	}
 	
-	/******************************************************************************************
-	* PAGE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Sayfalara yetki vermek için oluşturulmuştur.                            |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. numeric var @role_id => Yetkilerin uygulanacağı rol numarası.                        |
-	|          																				  |
-	| NOT: Yetkiler Config/Permission.php dosyasından ayarlanmaktadır.         				  |
-	|          																				  |
-	| Örnek Kullanım: page(4);        	  			  									      |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// page()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $roleId : 0
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function page($roleId = '6')
 	{
 		if( ! is_numeric($roleId) ) 

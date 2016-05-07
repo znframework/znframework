@@ -19,22 +19,22 @@ class PDOCubridDriver implements Pdo\SubDriverInterface
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = 'cubrid:host='.( empty($this->config['host']) ) 
-							   ? '127.0.0.1' 
-							   : $this->config['host'];
+		$dsn  = 'cubrid:'.( ! empty($this->config['host']) ) 
+							   ? 'host='.$this->config['host'].';'
+							   : '';
 			
 		$dsn .= ( ! empty($this->config['database']) ) 
-				? ';dbname='.$this->config['database'] 
+				? 'dbname='.$this->config['database'].';' 
 				: '';
 				
 		$dsn .= ( ! empty($this->config['port']) ) 
-				? ';port='.$this->config['port'] 
+				? 'port='.$this->config['port'].';' 
 				: '';
 				
 		$dsn .= ( ! empty($this->config['charset']) ) 
-				? ';charset='.$this->config['charset'] 
+				? 'charset='.$this->config['charset'] 
 				: '';
 		
-		return $dsn;
+		return rtrim($dsn, ';');
 	}	
 }

@@ -460,3 +460,5 @@ $config['ClassMap']['namespaces']['sheet\manipulation'] = 'manipulation';
 $config['ClassMap']['namespaces']['sheet\shadow'] = 'shadow';
 $config['ClassMap']['namespaces']['sheet\transform'] = 'transform';
 $config['ClassMap']['namespaces']['sheet\transition'] = 'transition';
+$config['ClassMap']['classes']['db\triggertrait'] = 'System/Libraries/Database/DB/Traits/TriggerTrait.php';
+$config['ClassMap']['namespaces']['db\triggertrait'] = 'triggertrait';

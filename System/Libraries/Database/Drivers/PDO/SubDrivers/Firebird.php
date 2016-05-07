@@ -22,17 +22,17 @@ class PDOFirebirdDriver implements Pdo\SubDriverInterface
 		$dsn  = 'firebird:';
 			
 		$dsn .= ( ! empty($this->config['database']) ) 
-				? 'dbname='.$this->config['database'] 
-				: 'dbname='.$this->config['host'];
+				? 'dbname='.$this->config['database'].';'
+				: 'dbname='.$this->config['host'].';';
 				
 		$dsn .= ( ! empty($this->config['charset']) ) 
-				? ';charset='.$this->config['charset'] 
+				? 'charset='.$this->config['charset'].';'
 				: '';
 				
 		$dsn .= ( ! empty($this->config['role']) ) 
-				? ';role='.$this->config['role'] 
+				? 'role='.$this->config['role'] 
 				: '';
 		
-		return $dsn;
+		return rtrim($dsn, ';');
 	}	
 }

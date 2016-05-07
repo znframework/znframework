@@ -41,13 +41,19 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	//----------------------------------------------------------------------------------------------------
 	public function mtrim($str = '')
 	{
-		if( ! is_string($str) ) 
+		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(str)');
+			return Errors::set('Error', 'scalarParameter', '1.(str)');
 		}
 		
-		$str = preg_replace('/\s+/', '', $str);
-		$str = preg_replace('/&nbsp;/', '', $str);
+		$str = preg_replace(array
+		(
+			'/\s+/',
+			'/&nbsp;/',
+			"/\n/",
+			"/\r/",
+			"/\t/"
+		), array('', '', '', '', ''), $str);
 		
 		return $str;
 	}	

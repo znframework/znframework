@@ -19,29 +19,29 @@ class PDOInformixDriver implements Pdo\SubDriverInterface
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = 'informix:host=';
+		$dsn  = 'informix:';
 			
-		$dsn .= ( empty($this->config['host']) ) 	
-				? '127.0.0.1' 
-				: $this->config['host'];
+		$dsn .= ( ! empty($this->config['host']) ) 	
+				? 'host='.$this->config['host'].';'
+				: '';
 				
 		$dsn .= ( ! empty($this->config['database']) ) 
-				? ';database='.$this->config['database'] 
+				? 'database='.$this->config['database'].';' 
 				: '';
 				
 		$dsn .= ( ! empty($this->config['service']) ) 
-				? ';service='.$this->config['service'] 
-				: $this->config['port'];
+				? 'service='.$this->config['service'].';' 
+				: $this->config['port'].';';
 				
 		$dsn .= ( ! empty($this->config['server']) ) 
-				? ';server='.$this->config['server'] 
+				? 'server='.$this->config['server'].';' 
 				: '';
 				
 		$dsn .= ( ! empty($this->config['protocol']) ) 
-				? ';protocol='.$this->config['server'] 
-				: 'onsoctcp';
+				? 'protocol='.$this->config['server'].';' 
+				: 'onsoctcp;';
 
-		$dsn .= ';EnableScrollableCursors=1';
+		$dsn .= 'EnableScrollableCursors=1';
 		
 		return $dsn;
 	}	
