@@ -136,18 +136,8 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// Uri işlemleri için oluşturulmuştur.
 	protected function _cleanPath()
 	{
-		// ----------------------------------------------------------------------
-		
-		// URL YÖNLENDİRİLİYOR...
-		
 		$pathInfo = Security::htmlEncode(requestUri());
-		
-		
-		if(  strstr($pathInfo, currentLang()) )
-		{
-			$pathInfo = str_replace(currentLang().'/', '', $pathInfo);
-		}
-		
+	
 		return $pathInfo;
 	}
 	

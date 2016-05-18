@@ -1,0 +1,11 @@
+# Functions
+	Updated requestUri()
+	Updated currentUrl()
+	Updated createHtaccessFile()
+	Updated setLang() and getLang() methods.
+	
+# URI Library
+	Updated.
+
+# ZN Library
+	Added version constant.
