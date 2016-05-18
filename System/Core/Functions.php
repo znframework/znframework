@@ -23,11 +23,31 @@
 //----------------------------------------------------------------------------------------------------
 function getLang()
 {
-	$systemLanguageData = md5("SystemLanguageData");
+	$systemLanguageData        = md5("SystemLanguageData");
+	$defaultSystemLanguageData = md5("DefaultSystemLanguageData");
+	
+	$default = Config::get('Language', 'default');
+	
+	if( ! Session::select($defaultSystemLanguageData) )
+	{
+		Session::insert($defaultSystemLanguageData, $default);
+	}
+	else
+	{
+		if( Session::select($defaultSystemLanguageData) !== $default )	
+		{
+			Session::insert($defaultSystemLanguageData, $default);
+			Session::insert($systemLanguageData, $default);
+			
+			return $default;
+		}
+	}
 	
 	if( Session::select($systemLanguageData) === false ) 
 	{
-		return Session::insert($systemLanguageData, Config::get('Language', 'default'));
+		Session::insert($systemLanguageData, $default);
+		
+		return $default; 
 	}
 	else
 	{ 
@@ -173,13 +193,20 @@ function currentLang()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Açık olan sayfanın o anki url adresini döndürür.
-// Parametreler: Yok.
+// Parametreler: @param string $fix: empty
 // Dönen Değerler: Sayfanın aktif url adresini döndürür.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function currentUrl()
+function currentUrl($fix = '')
 {
-	return sslStatus().host().cleanInjection($_SERVER['REQUEST_URI']);
+	$currentUrl = sslStatus().host().cleanInjection($_SERVER['REQUEST_URI']);
+
+	if( ! empty($fix) )
+	{
+		return rtrim(suffix($currentUrl), $fix).$fix;	
+	}
+
+	return $currentUrl;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -754,18 +781,23 @@ function currentUri()
 //----------------------------------------------------------------------------------------------------
 function requestUri()
 {
-	$requestUri = ( server('currentPath') ) 
-	               ? substr(server('currentPath'), 1) 
-				   : currentUri();
+	$requestUri = currentUri()
+	            ? str_replace('index.php/', '', currentUri()) 
+				: substr(server('currentPath'), 1);
 	
 	if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
 	{
 			$requestUri = substr($requestUri, 0, -1);
 	}
 	
-	$requestUri = routeUri($requestUri);
+	$requestUri = cleanInjection(routeUri($requestUri));
 	
-	return str_replace(suffix(getLang()), '', cleanInjection($requestUri));
+	if( currentLang() && stripos($requestUri, suffix(currentLang())) === 0 )
+	{
+		return substr($requestUri, strlen(suffix(currentLang())));
+	}
+
+	return $requestUri;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -1109,12 +1141,15 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! Config::get('Uri','index.php') )
 	{
+		$indexSuffix = Config::get('Uri','indexSuffix');
+		$flag		 = ! empty($indexSuffix) ? 'QSA' : 'L';
+		
 		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
 		$htaccess .= "RewriteEngine On".$eol;
 		$htaccess .= "RewriteBase /".$eol;
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
 		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
-		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].Config::get('Uri','indexSuffix').'/$1 [L]'.$eol;
+		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
 		$htaccess .= "</IfModule>".$eol;
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
