@@ -44,6 +44,19 @@ $config['Services']['ssh'] = array
 	'callbacks' 	=> array()  // Geri çağrım işlevleri belirtilir.	
 );
 
+//----------------------------------------------------------------------------------------------------
+// Crontab
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Crontab ile ilgili ayarlar yer alır.         						  
+//
+//----------------------------------------------------------------------------------------------------
+$config['Services']['crontab'] = array
+(
+	'driver' => 'exec', 				// exec, shell_exec, system, ssh	
+	'path'	 => '/usr/local/bin/php',	// Default Path
+	'debug'	 => false					// true, false	 
+);
 
 //----------------------------------------------------------------------------------------------------
 // Cookie
@@ -230,7 +243,7 @@ $config['Services']['email'] = array
 	// @driver -> pipe (popen yöntemini kullanır).
 	//         																				  
 	//------------------------------------------------------------------------------------------------
-	'driver' => 'mail',
+	'driver' => 'smtp',
 	
 	//------------------------------------------------------------------------------------------------
 	// Smtp
@@ -244,7 +257,7 @@ $config['Services']['email'] = array
 		'host'			=> '',
 		'user'			=> '',
 		'password'		=> '',
-		'port'			=> 587,
+		'port'			=> 567,
 		'keepAlive'		=> false,
 		'timeout'		=> 10,
 		'encode'		=> '',	// empty, tls, ssl
@@ -265,7 +278,7 @@ $config['Services']['email'] = array
 		'senderName'    => '', // Ön tanımlı gönderen ismi.
 		'priority'	   	=> 3,		// 1, 2, 3, 4, 5
 		'charset'		=> 'UTF-8',
-		'contentType'	=> 'plain',  // plain, html
+		'contentType'	=> 'html',  // plain, html
 		'multiPart'		=> 'mixed', // mixed, related, alternative
 		'xMailer'		=> 'ZN',
 		'encoding'		=> '8bit',

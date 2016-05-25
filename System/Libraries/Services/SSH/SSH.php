@@ -220,7 +220,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 				$command = rtrim($this->command);
 			}
 			
-			$this->_defaultVaribles();
+			$this->_defaultVariables();
 			
 			$this->stream = ssh2_exec($this->connect, $command);
 			
@@ -443,13 +443,13 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected _defaultVaribles()
+	// Protected _defaultVariables()
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function _defaultVaribles()
+	public function _defaultVariables()
 	{
 		$this->command = '';	
 	}

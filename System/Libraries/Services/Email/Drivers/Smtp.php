@@ -23,7 +23,7 @@ class SmtpDriver implements EmailDriverInterface
 	 *
 	 * @var string \r\n
 	 */
-	protected $crlf 	= "\r\n";
+	protected $lf = "\n";
 	
 	/* 
 	 * Soket bağlantı bilgisini
@@ -292,7 +292,7 @@ class SmtpDriver implements EmailDriverInterface
 	
 	protected function _setData($data)
 	{
-		$data .= $this->crlf;
+		$data .= $this->lf;
 		
 		for( $written = $timestamp = 0, $length = strlen($data); $written < $length; $written += $result )
 		{

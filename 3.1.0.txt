@@ -1,0 +1,19 @@
+# Index.php
+	Added REAL_BASE_DIR constant.
+
+# SSH Library
+	Updated protected _defaultVariables() name.
+	
+# Crontab Library(New)
+	Added Crontab Library.
+	Added Services Crontab Config.
+
+# Email Library
+	Edited Library.
+	Edited SMTP Driver.
+	
+# Services Config
+	Changed default settings of e-mail.
+	
+# ZN Libary
+	Updated VERSION constant.
