@@ -467,3 +467,5 @@ $config['ClassMap']['classes']['crontab'] = 'System/StaticAccess/Services/Cronta
 $config['ClassMap']['classes']['crontabinterface'] = 'System/Libraries/Services/Crontab/CrontabInterface.php';
 $config['ClassMap']['classes']['crontab\intervaltrait'] = 'System/Libraries/Services/Crontab/IntervalTrait.php';
 $config['ClassMap']['namespaces']['crontab\intervaltrait'] = 'intervaltrait';
+$config['ClassMap']['classes']['url'] = 'System/Libraries/Services/URL/URL.php';
+$config['ClassMap']['classes']['urlinterface'] = 'System/Libraries/Services/URL/URLInterface.php';

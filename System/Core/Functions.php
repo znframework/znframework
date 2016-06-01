@@ -942,7 +942,7 @@ function createRobotsFile()
 		}
 		else
 		{
-			if( isArray($val) ) foreach( $val as $r => $v) // Çoklu Kullanım
+			if( isArray($val) ) foreach( $val as $r => $v ) // Çoklu Kullanım
 			{
 				switch( $r )
 				{

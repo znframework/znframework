@@ -257,7 +257,7 @@ $config['Services']['email'] = array
 		'host'			=> '',
 		'user'			=> '',
 		'password'		=> '',
-		'port'			=> 567,
+		'port'			=> 587,
 		'keepAlive'		=> false,
 		'timeout'		=> 10,
 		'encode'		=> '',	// empty, tls, ssl
@@ -274,16 +274,16 @@ $config['Services']['email'] = array
 	//------------------------------------------------------------------------------------------------
 	'general' => array
 	(
-		'senderMail'    => '', // Ön tanımlı gönderen e-posta adresi.
-		'senderName'    => '', // Ön tanımlı gönderen ismi.
-		'priority'	   	=> 3,		// 1, 2, 3, 4, 5
-		'charset'		=> 'UTF-8',
+		'senderMail'    => '', 		// Default Sender E-mail Address.
+		'senderName'    => '', 		// Default Sender Name.
+		'priority'	   	=> 3, 		// 1, 2, 3, 4, 5
+		'charset'		=> 'UTF-8', // Charset Type
 		'contentType'	=> 'html',  // plain, html
 		'multiPart'		=> 'mixed', // mixed, related, alternative
 		'xMailer'		=> 'ZN',
-		'encoding'		=> '8bit',
-		'mimeVersion'	=> '1.0',
-		'mailPath'		=> '/usr/sbin/sendmail'
+		'encoding'		=> '8bit',	// 8bit, 7bit
+		'mimeVersion'	=> '1.0',	// MIME Version
+		'mailPath'		=> '/usr/sbin/sendmail'	// Default Mail Path
 	)
 );
 
