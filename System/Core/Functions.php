@@ -214,10 +214,10 @@ function currentUrl($fix = '')
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sitenin url adresini döndürür baseUrl() den farkı bazı Config ayarları
-// ile eklenen dil, ssl ve index.php gibi ekleride url adresinde barındırır.
+// ile eklenen dil, ssl ve zeroneed.php gibi ekleride url adresinde barındırır.
 // Parametreler: $uri = Site url adresine uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin url adresini verir.
-// Dönen Değerler: Sitenin url adresini verir. http://www.example.com/index.php/
+// Dönen Değerler: Sitenin url adresini verir. http://www.example.com/zeroneed.php/
 //          																				  
 //----------------------------------------------------------------------------------------------------
 function siteUrl($uri = '', $index = 0)
@@ -259,7 +259,7 @@ function siteUrl($uri = '', $index = 0)
 // baseUrl()
 //----------------------------------------------------------------------------------------------------
 //
-// İşlev: Sitenin kök url adresini döndürür. Configten eklenen dil veya index.php gibi ekler ilave edilmez.
+// İşlev: Sitenin kök url adresini döndürür. Configten eklenen dil veya zeroneed.php gibi ekler ilave edilmez.
 // Parametreler: $uri = Site kök url adresine uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin kök url adresini verir.
 // Dönen Değerler: Sitenin kök url adresini verir. http://www.example.com/
@@ -391,7 +391,7 @@ function currentPath($isPath = true)
 // basePath()
 //----------------------------------------------------------------------------------------------------
 //
-// İşlev: Sitenin kök yolunu döndürür. Configten eklenen dil veya index.php gibi ekler ilave edilmez.
+// İşlev: Sitenin kök yolunu döndürür. Configten eklenen dil veya zeroneed.php gibi ekler ilave edilmez.
 // Parametreler: $uri = Site kök yoluna uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin kök yolunu verir.
 // Dönen Değerler: Sitenin kök yolunu verir. znframework/
@@ -782,7 +782,7 @@ function currentUri()
 function requestUri()
 {
 	$requestUri = currentUri()
-	            ? str_replace('index.php/', '', currentUri()) 
+	            ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
 				: substr(server('currentPath'), 1);
 	
 	if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
@@ -812,7 +812,7 @@ function routeUri($requestUri = '')
 {
 	if( Config::get('Route','openPage') )
 	{
-			if( $requestUri === 'index.php' || empty($requestUri) || $requestUri === getLang() ) 
+			if( $requestUri === DIRECTORY_INDEX || empty($requestUri) || $requestUri === getLang() ) 
 			{
 				$requestUri = Config::get('Route','openPage');
 			}
@@ -1139,7 +1139,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	$htaccess = $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 	
 	//-----------------------URI INDEX PHP----------------------------------------------------	
-	if( ! Config::get('Uri','index.php') )
+	if( ! Config::get('Uri', DIRECTORY_INDEX) )
 	{
 		$indexSuffix = Config::get('Uri','indexSuffix');
 		$flag		 = ! empty($indexSuffix) ? 'QSA' : 'L';
@@ -1296,9 +1296,9 @@ function sslStatus()
 //----------------------------------------------------------------------------------------------------
 function indexStatus()
 {
-	if( Config::get('Uri','index.php') ) 
+	if( Config::get('Uri', DIRECTORY_INDEX) ) 
 	{
-		return 'index.php/'; 
+		return DIRECTORY_INDEX.'/'; 
 	}
 	else
 	{ 

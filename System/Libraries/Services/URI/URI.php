@@ -407,7 +407,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 			$negative += 1; 
 		}
 		
-		if( strstr($requestUri, 'index.php') ) 
+		if( strstr($requestUri, DIRECTORY_INDEX) ) 
 		{ 
 			$seg      += 1; 
 			$negative += 1; 

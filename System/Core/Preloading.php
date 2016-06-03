@@ -17,7 +17,7 @@
 // @return Uygulamanın bulunduğu dizinin yolu.
 //
 //----------------------------------------------------------------------------------------------------
-$baseDir = explode("index.php", $_SERVER['SCRIPT_NAME']);
+$baseDir = explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME']);
 
 if( isset($baseDir[0]) )
 {
