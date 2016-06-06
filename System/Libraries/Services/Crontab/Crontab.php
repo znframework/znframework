@@ -339,8 +339,6 @@ class __USE_STATIC_ACCESS__Crontab implements CrontabInterface
 				$command = $cmd;	
 			}
 			
-			echo $command;
-			
 			return $this->_exec($command);
 		}
 		else
