@@ -114,31 +114,31 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		$pattern = array
 		(
 			// SYMBOL AT
-			'/(\w)@/' 																	=> "$1([symbol:at])",
+			'/(\w)@/' 											  => "$1([symbol:at])",
 			
 			// PRINTABLE FUNCTIONS
-			'/@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/s' 						=> '<?php echo $1 ?>',		
+			'/@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/s' => '<?php echo $1 ?>',		
 			
 			// FUNCTIONS
-			'/@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/s'  						=> '<?php $1 ?>',
+			'/@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/s'  => '<?php $1 ?>',
 			
 			// PRINTABLE VARIABLES
-			'/@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/s' 	 					=> '<?php echo $1 ?>',
+			'/@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/s'   => '<?php echo $1 ?>',
 			
 			// COMMENTS
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'			 						=> '<!--$1-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'		      => '<!--$1-->',
 			
 			// HTMLENTITES PRINT
-			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'									=> '<?php echo htmlentities($1) ?>',
+			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'			  => '<?php echo htmlentities($1) ?>',
 			
 			// PRINT
-			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'										=> '<?php echo $1 ?>',
+			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'				  => '<?php echo $1 ?>',
 			
 			// PHP TAGS
-			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'										=> '<?php $1 ?>',
+			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'				  => '<?php $1 ?>',
 			
 			// SYMBOL AT
-			'/\(\[symbol\:at\]\)/' 														=> '@'
+			'/\(\[symbol\:at\]\)/' 								  => '@'
 		);
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);

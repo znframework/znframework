@@ -1072,7 +1072,6 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$ajax = Jquery::ajax()->success
 		(
 			'data', 
-			JS::alert('data.test').
 			JQ::html('tbody[datagrid="result"]', ':data.grid').
 			JQ::html('td[datagrid="pagination"]', ':data.pagination').
 			JQ::html('td[datagrid="totalRows"]', ':data.totalRows')
@@ -1120,8 +1119,6 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$table .= Jquery::event()->on('click', '#datagridDeleteCurrent', $confirm)->create();
 		
 		$table .= Jquery::event()->on('click', '#datagridDeleteAll', $confirm)->create();
-		
-	
 		
 		$table .= Jquery::event()->change
 		(
