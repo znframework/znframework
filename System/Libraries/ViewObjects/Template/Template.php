@@ -126,7 +126,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			'/@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/s'   => '<?php echo $1 ?>',
 			
 			// COMMENTS
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'		      => '<!--$1-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'			  => '<!--$1-->',
 			
 			// HTMLENTITES PRINT
 			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'			  => '<?php echo htmlentities($1) ?>',
