@@ -10,22 +10,6 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Left Delimiter Değişkeni
-	 *  
-	 * Ayırıcı başlangıç karakteri bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected $ldel = '{';
-	
-	/* Right Delimiter Değişkeni
-	 *  
-	 * Ayırıcı bitiş karakteri bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected $rdel = '}';
-	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
 	//----------------------------------------------------------------------------------------------------
@@ -54,60 +38,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		{
 			return Errors::set('Error', 'stringParameter', 'string');	
 		}
-		
-		$eol = EOL;
-		
-		// Veri dizisi boş değilse işlemleri gerçekleştir.
-		if( ! empty($data) ) 
-		{
-			$space = '\s*';
-			$all   = '.*';
-		
-			foreach( $data as $key => $val )
-			{
-				// Eleman dizi değilse değiştirme işlemi gerçekleştir.
-				if( is_scalar($val) )
-				{
-					$key = $this->ldel.$space.$key.$space.$this->rdel;
-					
-					$string = preg_replace('/'.$key.'/', $val, $string);	
-				}
-				else
-				{
-					$allString = '';
-					$newResult = '';
-		
-					if( ! empty($val) )
-					{
-						
-						$kstart = $this->ldel.$space.$key.$space.$this->rdel;
-						$kend   = $this->ldel.$space.'\/'.$space.$key.$space.$this->rdel;
-						
-						preg_match('/'.$kstart.$all.$kend.'/s', $string, $result);
-						
-						if( ! empty($result) )
-						{
-							// Bloğu değiştirme ve çoğalatma
-							// işlemi gerçekleştir.
-							foreach( $result as $res )
-							{
-								// Değiştirme işlemlerini gerçekleştir.
-								foreach( $data[$key] as $item )
-								{
-									$newResult = preg_replace('/'.$kstart.'/', '', $res);
-									$newResult = preg_replace('/'.$kend.'/', '', $newResult);	
-									
-									$allString .= $this->data($newResult, $item).$eol;
-								}
-								
-								$string = str_replace($res, $allString, $string);
-							}
-						}
-					}
-				}
-			}
-		}
-		
+
 		$htmlRegexChar  	   = '.*?';
 		$functionVarExpression = '\w+(::|\$|\-\>|\w|[0-9]|\[.*?\]|\{.*?\})*';
 		
@@ -161,27 +92,4 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			return $content;
 		}
 	}	
-	
-	/******************************************************************************************
-	* DELIMITER                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Ayrıştırma karakterlerini değiştirmek için kullanılır.			      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @ldel => Başlangıç ayrıştırıcı karakteri. Varsayılan:{					  |
-	| 2. string var @4del => Bitiş ayrıştırıcı karakteri. Varsayılan:}	     				  |
-	|          																				  |
-	| Örnek Kullanım: ->delimiter('[', ']') 		  	 		         					  |
-	|          																				  |
-	******************************************************************************************/
-	public function delimiter($ldel = "{", $rdel = "}")
-	{
-		if( is_string($ldel) && is_string($rdel) )
-		{
-			$this->ldel = '\\'.$ldel;
-			$this->rdel = '\\'.$rdel;	
-		}
-		
-		return $this;
-	}
 }
