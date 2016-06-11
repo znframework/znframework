@@ -108,37 +108,36 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			}
 		}
 		
-		$regexChar             = '(([^@])*)';
 		$htmlRegexChar  	   = '.*?';
 		$functionVarExpression = '\w+(::|\$|\-\>|\w|[0-9]|\[.*?\]|\{.*?\})*';
 		
 		$pattern = array
 		(
 			// DECISION STRUCTURES & LOOPS	
-			'/@(endif|endforeach|endfor|endwhile|break|continue)/' 		=> '<?php $1 ?>',	
-			'/@(elseif|if|foreach|for|while)\s*\(('.$regexChar.')\)/'	=> '<?php $1($2): ?>',
-			'/@else/' 													=> '<?php else: ?>',
+			'/@(endif|endforeach|endfor|endwhile|break|continue)/' 			=> '<?php $1 ?>',	
+			'/@(elseif|if|foreach|for|while)\s*\(('.$htmlRegexChar.')\)/'	=> '<?php $1($2): ?>',
+			'/@else/' 														=> '<?php else: ?>',
 			
 			// PRINTABLE FUNCTIONS
-			'/@@(\$*'.$functionVarExpression.'\s*\('.$regexChar.'\))/' 	=> '<?php echo $1 ?>',		
+			'/@@(\$*'.$functionVarExpression.'\s*\('.$htmlRegexChar.'\))/' 	=> '<?php echo $1 ?>',		
 			
 			// FUNCTIONS
-			'/@(\$*'.$functionVarExpression.'\s*\('.$regexChar.'\))/'  	=> '<?php $1 ?>',
+			'/@(\$*'.$functionVarExpression.'\s*\('.$htmlRegexChar.'\))/' 	=> '<?php $1 ?>',
 		
 			// PRINTABLE VARIABLES
-			'/@(\$'.$functionVarExpression.')/'   	  					=> '<?php echo $1 ?>',
+			'/@(\$'.$functionVarExpression.')/'   	  						=> '<?php echo $1 ?>',
 			
 			// COMMENTS
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 		=> '<!--$1-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 			=> '<!--$1-->',
 			
 			// HTMLENTITES PRINT
-			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/'			  		=> '<?php echo htmlentities($1) ?>',
+			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/'			  			=> '<?php echo htmlentities($1) ?>',
 			
 			// PRINT
-			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/'				  		=> '<?php echo $1 ?>',
+			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/'				  			=> '<?php echo $1 ?>',
 			
 			// PHP TAGS
-			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'				  		=> '<?php $1 ?>',
+			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'				  			=> '<?php $1 ?>',
 		);
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
