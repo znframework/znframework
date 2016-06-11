@@ -108,72 +108,37 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			}
 		}
 		
-		$regexChar      = '(([^@])*)';
-		$htmlRegexChar  = '.*?';
+		$regexChar             = '(([^@])*)';
+		$htmlRegexChar  	   = '.*?';
+		$functionVarExpression = '\w+(::|\$|\-\>|\w|[0-9]|\[.*?\]|\{.*?\})*';
 		
 		$pattern = array
 		(
-			// SYMBOL AT
-			'/(\w)@/' => "$1([symbol:at])",
-			
-			// HTML
-			'/\s*\#end(\w+)/i' 									=> '</$1>',
-			'/\#\#(\!*\w+)\s*\(('.$htmlRegexChar.')\)/i' 		=> '<$1 $2>',
-			'/\s*\#\#(\w+)/i'									=> '</$1>',
-			'/\#(\!*\w+)\s*\(('.$htmlRegexChar.')(\s*\,\s*('.$htmlRegexChar.'))*\)/i' => '<$1 $4>$2</$1>',
-			'/\#(\!*\w+)\s*(\[('.$htmlRegexChar.')\])*\s*/i'	=> '<$1 $3>',
-			'/\<(\!*\w+)\s+\>/i' 								=> '<$1>',	
-			// Jquery Kodlarının Ayırt Edilmesi İçin
-			'/\$\(\'\s*\<(.*?)\>\s*\'\)/i' 						=> '$(\'#$1\')',
-			'/\$\(\"\s*\<(.*?)\>\s*\"\)/i' 						=> '$("#$1")',
-			
-			// IF - ELSE - ENDIF
-			'/@(if)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	    => '<?php $1$2: ?>',
-			'/\s*@(elseif)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  => '<?php $1$2: ?>',
-			'/@(else)/'  	 									    => '<?php $1: ?>',
-			'/\s*@(endif)/' 								        => '<?php $1 ?>',
-			
-			// FOREACH - ENDFOREACH
-			'/@(foreach)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	=> '<?php $1$2: ?>',
-			'/\s*@(endforeach)/'   		=> '<?php $1 ?>',
-			
-			// FOR - ENDFOR
-			'/@(for)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/'  	=> '<?php $1$2: ?>',
-			'/\s*@(endfor)/' 			=> '<?php $1 ?>',
-			
-			// WHILE - ENDWHILE
-			'/@(while)\s*(\('.$htmlRegexChar.'\))'.$eol.'\s*/' => '<?php $1$2: ?>',
-			'/\s*@(endswhile)/' 		=> '<?php $1 ?>',			
-			
-			// KEYWORDS
-			'/@(break)/'  	 => '<?php $1 ?>',
-			'/@(continue)/'  => '<?php $1 ?>',
-			'/@(default)/'   => '<?php $1: ?>',
+			// DECISION STRUCTURES & LOOPS	
+			'/@(endif|endforeach|endfor|endwhile|break|continue)/' 		=> '<?php $1 ?>',	
+			'/@(elseif|if|foreach|for|while)\s*\(('.$regexChar.')\)/'	=> '<?php $1($2): ?>',
+			'/@else/' 													=> '<?php else: ?>',
 			
 			// PRINTABLE FUNCTIONS
-			'/@@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/' => '<?php echo $1 ?>',		
+			'/@@(\$*'.$functionVarExpression.'\s*\('.$regexChar.'\))/' 	=> '<?php echo $1 ?>',		
 			
 			// FUNCTIONS
-			'/@((\w+|\$|::|\s*\-\>\s*)*\s*\('.$regexChar.'\))/'  => '<?php $1 ?>',
-			
-			
+			'/@(\$*'.$functionVarExpression.'\s*\('.$regexChar.'\))/'  	=> '<?php $1 ?>',
+		
 			// PRINTABLE VARIABLES
-			'/@(\$\w+(\$|::|\s*\-\>\s*|\('.$regexChar.'\))*)/' 	 => '<?php echo $1 ?>',
+			'/@(\$'.$functionVarExpression.')/'   	  					=> '<?php echo $1 ?>',
 			
 			// COMMENTS
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 => '<!--$1-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/'			 		=> '<!--$1-->',
 			
 			// HTMLENTITES PRINT
-			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/'	=> '<?php echo htmlentities($1) ?>',
+			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/'			  		=> '<?php echo htmlentities($1) ?>',
 			
 			// PRINT
-			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/'		=> '<?php echo $1 ?>',
+			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/'				  		=> '<?php echo $1 ?>',
 			
 			// PHP TAGS
-			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'		=> '<?php $1 ?>',
-			
-			// SYMBOL AT
-			'/\(\[symbol\:at\]\)/' => '@'
+			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/'				  		=> '<?php $1 ?>',
 		);
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
