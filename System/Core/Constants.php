@@ -26,7 +26,7 @@ define('CONFIG_DIR', APPDIR.'Config/');
 // @return Configuration/
 //
 //----------------------------------------------------------------------------------------------------
-define('CONFIGURATION_DIR', 'Configuration/'); 
+define('CONFIGURATION_DIR', 'Configurations/'); 
 
 //----------------------------------------------------------------------------------------------------
 // STORAGE_DIR

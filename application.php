@@ -30,7 +30,7 @@ $application['mode'] = 'Development';
 // Bu işlemler Restoration:directory ayarı içinde geçerlidir.
 //
 //----------------------------------------------------------------------------------------------------
-$application['directory'] = 'Application';
+$application['directory'] = 'Local';
 
 //----------------------------------------------------------------------------------------------------
 // Benchmarking Test                                                                  
@@ -52,7 +52,7 @@ $application['benchmark'] = false;
 $application['restoration'] = array
 (
 	// Uygulamanın restore edileceği dizini belirtilir.	
-	'directory'  => 'Restoration',
+	'directory'  => 'Local',
 	
 	// Uygulama üzerinde restore işlemlerinin yapıldığı makinelere ait ip adresleri belirtilir.
 	'machinesIP' => array(),
