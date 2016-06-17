@@ -12,7 +12,22 @@ $application['mode'] = 'Development';
 // Application Directory                                                                  
 //----------------------------------------------------------------------------------------------------
 //
-// Uygulamanın çalışcağı dizini belirtilir.				     			 	  		  
+// Uygulamanın çalışcağı dizini belirtilir.		
+// Eğer birden fazla uygulama aynı dizin üzerinde çalıştırılacaksa bu ayarı dizi biçiminde 
+// kullanabilirsiniz. 
+//
+// Kullanımlar
+// String: Uygulamanın çalıştırılacağı dizin.
+// Array : Birden fazla uygulama çalıştırılacaksa hostname => appdir şeklinde anahtar değer içeren
+// dizi kullanılır.
+//
+// array
+// (
+//     'www.hostname.xxx' => 'HostApp',
+//     'localhost'        => 'Application'
+// )	     			 	  		  
+//
+// Bu işlemler Restoration:directory ayarı içinde geçerlidir.
 //
 //----------------------------------------------------------------------------------------------------
 $application['directory'] = 'Application';

@@ -17,7 +17,7 @@
 // Genel Kullanımı: Url de yer alan zeroneed.php uzantısının görünüm durumunu ayalarmak için kullanılır.		  
 // Değer false olursa url'lerde zeroneed.php uzantısı görünmez.								  
 // Parametreler: true, false.															  
-// Varsayılan: false				                 										  					
+// Varsayılan: true				                 										  					
 //
 //----------------------------------------------------------------------------------------------------
 $config['Uri'][DIRECTORY_INDEX] = false;
