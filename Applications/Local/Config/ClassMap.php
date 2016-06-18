@@ -469,3 +469,5 @@ $config['ClassMap']['namespaces']['sheet\manipulation'] = 'manipulation';
 $config['ClassMap']['namespaces']['sheet\shadow'] = 'shadow';
 $config['ClassMap']['namespaces']['sheet\transform'] = 'transform';
 $config['ClassMap']['namespaces']['sheet\transition'] = 'transition';
+$config['ClassMap']['classes']['validation\validatetrait'] = 'System/Libraries/Validation/ValidateTrait.php';
+$config['ClassMap']['namespaces']['validation\validatetrait'] = 'validatetrait';
