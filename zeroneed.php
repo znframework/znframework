@@ -85,8 +85,7 @@ require_once 'System/Core/Preloading.php';
 //----------------------------------------------------------------------------------------------------
 //  Uygulama Dizini
 //----------------------------------------------------------------------------------------------------
-$appdir     = $application['directory'];
-$appbasedir = 'Applications/';
+$appdir = $application['directory'];
 
 if( is_array($appdir) )
 {
@@ -95,34 +94,14 @@ if( is_array($appdir) )
 		echo 'Invalid Application Directory Name or Hostname! Check application.php file located in the directory settings.'; exit;
 	}
 	
-	define('APPDIR', suffix($appbasedir.$appdir[host()]));
-}
-else
-{
-	define('APPDIR', suffix($appbasedir.$appdir));
+	$appdir = $appdir[host()];
 }
 
 //----------------------------------------------------------------------------------------------------
-
+//  Applications & Restorasyons Directories
 //----------------------------------------------------------------------------------------------------
-//  Restorasyon Dizini
-//----------------------------------------------------------------------------------------------------
-$resdir     = $application['restoration']['directory'];
-$resbasedir = 'Restorations/';
-
-if( is_array($resdir) )
-{
-	if( empty($resdir[host()]) )
-	{
-		echo 'Invalid Restoration Directory Name or Hostname! Check application.php file located in the Restoration:directory settings.'; exit;
-	}
-	
-	define('APPDIR', suffix($resbasedir.$resdir[host()]));
-}
-else
-{
-	define('RESDIR', suffix($resbasedir.$resdir));
-}
+define('APPDIR', suffix('Applications/'.$appdir));
+define('RESDIR', suffix('Restorations/'.$appdir));
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------

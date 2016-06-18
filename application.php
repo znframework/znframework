@@ -46,14 +46,11 @@ $application['benchmark'] = false;
 // Restoration                                                                 
 //----------------------------------------------------------------------------------------------------
 //
-// Uygulamanın restore edileceği dizini belirtilir.				     			 	  		  
+// Restorasyon ayarları.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $application['restoration'] = array
 (
-	// Uygulamanın restore edileceği dizini belirtilir.	
-	'directory'  => 'Local',
-	
 	// Uygulama üzerinde restore işlemlerinin yapıldığı makinelere ait ip adresleri belirtilir.
 	'machinesIP' => array(),
 	
