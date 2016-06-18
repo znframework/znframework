@@ -1,1 +1,0 @@
-{{ Form::addclass('test')->id('1')->style('naber')->text('test', 'Value') }}
