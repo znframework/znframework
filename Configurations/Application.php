@@ -6,7 +6,7 @@
 // Uygulama modu belirtilir. Kullanılabilir modlar: publication, restoration, development				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$application['mode'] = 'Development';
+$config['Application']['mode'] = 'Development';
 
 //----------------------------------------------------------------------------------------------------
 // Application Directory                                                                  
@@ -30,7 +30,7 @@ $application['mode'] = 'Development';
 // Bu işlemler Restoration:directory ayarı içinde geçerlidir.
 //
 //----------------------------------------------------------------------------------------------------
-$application['directory'] = 'Local';
+$config['Application']['directory'] = 'Local';
 
 //----------------------------------------------------------------------------------------------------
 // Benchmarking Test                                                                  
@@ -40,7 +40,7 @@ $application['directory'] = 'Local';
 // ve yüklenme zamanını gösteren bir tablo gösterilir.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$application['benchmark'] = false;
+$config['Application']['benchmark'] = false;
 
 //----------------------------------------------------------------------------------------------------
 // Restoration                                                                 
@@ -49,7 +49,7 @@ $application['benchmark'] = false;
 // Restorasyon ayarları.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$application['restoration'] = array
+$config['Application']['restoration'] = array
 (
 	// Uygulama üzerinde restore işlemlerinin yapıldığı makinelere ait ip adresleri belirtilir.
 	'machinesIP' => array(),
@@ -69,4 +69,4 @@ $application['restoration'] = array
 // Varsayılan açılış sayfası ayarlanır.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$application['directoryIndex'] = 'zeroneed.php';
+$config['Application']['directoryIndex'] = 'zeroneed.php';
