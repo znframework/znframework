@@ -190,6 +190,9 @@ class Autoloader
 		if( ! is_file($path) )
 		{
 			$classMapPage  = '<?php'.$eol;
+			$classMapPage .= '//----------------------------------------------------------------------------------------------------'.$eol;
+			$classMapPage .= '// This file automatically created and updated'.$eol;
+			$classMapPage .= '//----------------------------------------------------------------------------------------------------'.$eol.$eol;
 		}
 		else
 		{
@@ -224,6 +227,8 @@ class Autoloader
 				$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
 			}
 		}
+		
+		$classMapPage .= $eol.'//----------------------------------------------------------------------------------------------------';
 	
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.

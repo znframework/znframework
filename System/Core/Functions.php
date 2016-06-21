@@ -1146,7 +1146,11 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HTACCESS SET-----------------------------------------------------	
 	
 	// Htaccess dosyasına eklenecek veriler birleştiriliyor...
-	$htaccess = $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
+	
+	$htaccess  = '#----------------------------------------------------------------------------------------------------'.$eol;
+	$htaccess .= '# This file automatically created and updated'.$eol;
+	$htaccess .= '#----------------------------------------------------------------------------------------------------'.$eol.$eol;
+	$htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 	
 	//-----------------------URI INDEX PHP----------------------------------------------------	
 	if( ! Config::get('Uri', DIRECTORY_INDEX) )
@@ -1257,14 +1261,16 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	// .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
 	if( file_exists('.htaccess') )
 	{
-		$getContents = trim(rtrim(file_get_contents('.htaccess'), $eol));
+		$getContents = trim(file_get_contents('.htaccess'));
 	}
 	else
 	{
 		$getContents = '';
 	}
 	
-	$htaccess = trim(rtrim($htaccess, $eol));
+	$htaccess .= '#----------------------------------------------------------------------------------------------------';
+	
+	$htaccess = trim($htaccess);
 	
 	// $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
 	if( $htaccess === $getContents ) 

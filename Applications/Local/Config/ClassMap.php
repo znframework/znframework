@@ -1,4 +1,8 @@
 <?php
+//----------------------------------------------------------------------------------------------------
+// This file automatically created and updated
+//----------------------------------------------------------------------------------------------------
+
 $config['ClassMap']['classes']['__use_static_access__user'] = 'System/Libraries/Authentication/User.php';
 $config['ClassMap']['classes']['user'] = 'System/StaticAccess/Authentication/__USE_STATIC_ACCESS__User.php';
 $config['ClassMap']['classes']['userinterface'] = 'System/Libraries/Authentication/UserInterface.php';
@@ -313,6 +317,7 @@ $config['ClassMap']['classes']['urlinterface'] = 'System/Libraries/Services/URL/
 $config['ClassMap']['classes']['__use_static_access__cart'] = 'System/Libraries/ShoppingCart/Cart.php';
 $config['ClassMap']['classes']['cart'] = 'System/StaticAccess/ShoppingCart/__USE_STATIC_ACCESS__Cart.php';
 $config['ClassMap']['classes']['cartinterface'] = 'System/Libraries/ShoppingCart/CartInterface.php';
+$config['ClassMap']['classes']['validation\validatetrait'] = 'System/Libraries/Validation/ValidateTrait.php';
 $config['ClassMap']['classes']['__use_static_access__validation'] = 'System/Libraries/Validation/Validation.php';
 $config['ClassMap']['classes']['validation'] = 'System/StaticAccess/Validation/__USE_STATIC_ACCESS__Validation.php';
 $config['ClassMap']['classes']['validationinterface'] = 'System/Libraries/Validation/ValidationInterface.php';
@@ -458,6 +463,7 @@ $config['ClassMap']['namespaces']['sybase\tooltrait'] = 'tooltrait';
 $config['ClassMap']['namespaces']['sybase\usertrait'] = 'usertrait';
 $config['ClassMap']['namespaces']['driver\usertrait'] = 'usertrait';
 $config['ClassMap']['namespaces']['crontab\intervaltrait'] = 'intervaltrait';
+$config['ClassMap']['namespaces']['validation\validatetrait'] = 'validatetrait';
 $config['ClassMap']['namespaces']['form\elementstrait'] = 'elementstrait';
 $config['ClassMap']['namespaces']['html\elementstrait'] = 'elementstrait';
 $config['ClassMap']['namespaces']['jquery\action'] = 'action';
@@ -469,5 +475,5 @@ $config['ClassMap']['namespaces']['sheet\manipulation'] = 'manipulation';
 $config['ClassMap']['namespaces']['sheet\shadow'] = 'shadow';
 $config['ClassMap']['namespaces']['sheet\transform'] = 'transform';
 $config['ClassMap']['namespaces']['sheet\transition'] = 'transition';
-$config['ClassMap']['classes']['validation\validatetrait'] = 'System/Libraries/Validation/ValidateTrait.php';
-$config['ClassMap']['namespaces']['validation\validatetrait'] = 'validatetrait';
+
+//----------------------------------------------------------------------------------------------------
