@@ -31,6 +31,32 @@ $config['Route']['openPage']	= 'home';
 $config['Route']['show404']		= '';
 
 //----------------------------------------------------------------------------------------------------
+// Error Document
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanımı: Hatalı istek yapıldığında hangi URI'ye gidileceği ayarlanır.   	
+// 
+// setHtaccessFile: Rotaların .htaccess dosyasına eklenip eklenmeyeceğidir.
+// routes         : Karşılaşılan hata numarsına göre hangi URI'lerin çalıştırılacağıdır. 				
+//
+//----------------------------------------------------------------------------------------------------
+$config['Route']['errorDocument'] = array
+(
+	// Rotaların .htaccess dosyasına eklenip eklenmeyeceğidir.
+	'setHtaccessFile' => true,	
+	
+	// Karşılaşılan hata numarsına göre hangi URI'lerin çalıştırılacağıdır.
+	'routes' => array
+	(
+		'400' => 'bad-request/code/400',
+		'401' => 'bad-request/code/401',
+		'403' => 'bad-request/code/403',
+		'404' => 'bad-request/code/404',
+		'500' => 'bad-request/code/500'
+	)
+);
+
+//----------------------------------------------------------------------------------------------------
 // Pattern Type
 //----------------------------------------------------------------------------------------------------
 //

@@ -733,7 +733,16 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	}
 	
 	$str  = "<div style=\"$style\">";
-	$str .= lang($langFile, $errorMsg, $ex);
+	
+	if( $errorMsg !== true )
+	{
+		$str .= lang($langFile, $errorMsg, $ex);
+	}
+	else
+	{	
+		$str .= $langFile;
+	}
+	
 	$str .= '</div><br>';
 	
 	return $str;
@@ -1153,6 +1162,30 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= "</IfModule>".$eol;
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
+	
+	//-----------------------ERROR REQUEST----------------------------------------------------	
+	$errorDocument = Config::get('Route', 'errorDocument');
+	
+	if( $errorDocument['setHtaccessFile'] === true )
+	{
+		foreach( $errorDocument['routes'] as $code => $route )
+		{
+			if( ! empty($route) )
+			{
+				if( strpos($route, '/') === 0 )
+				{
+					$routeType = $route;
+				}
+				else
+				{
+					$routeType = siteUrl($route);
+				}
+				
+				$htaccess .= 'ErrorDocument '.$code.' '.$routeType.$eol;
+			}
+		}
+	}
+	//-----------------------ERROR REQUEST----------------------------------------------------
 	
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	$uploadSet = Config::get('FileSystem', 'upload');		

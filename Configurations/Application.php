@@ -19,15 +19,15 @@ $config['Application']['mode'] = 'Development';
 // Kullanımlar
 // String: Uygulamanın çalıştırılacağı dizin.
 // Array : Birden fazla uygulama çalıştırılacaksa hostname => appdir şeklinde anahtar değer içeren
-// dizi kullanılır.
+// dizi kullanılır. Dizideki anatarlar host adından değerler ise o hostun hangi uygulama dizini
+// çalıştıracağını gösterir. Hostu yanlış yazıyorsanız Controllerin herhangi birindehost() yöntemini 
+// kullanarak host adını öğrenebilirsiniz.
 //
 // array
 // (
 //     'www.hostname.xxx' => 'HostApp',
-//     'localhost'        => 'Application'
+//     'localhost'        => 'Local'
 // )	     			 	  		  
-//
-// Bu işlemler Restoration:directory ayarı içinde geçerlidir.
 //
 //----------------------------------------------------------------------------------------------------
 $config['Application']['directory'] = 'Local';
@@ -46,7 +46,8 @@ $config['Application']['benchmark'] = false;
 // Restoration                                                                 
 //----------------------------------------------------------------------------------------------------
 //
-// Restorasyon ayarları.				     			 	  		  
+// Restorasyon işlemlerini başlatmak için yukarıdaki Application:mode ayarını 'Restoration' olarak
+// ayarlamanı gerekmektedir. Bu ayarlamadan sonra aşağıdaki ayarları yapabilirsiniz.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Application']['restoration'] = array

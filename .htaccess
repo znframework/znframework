@@ -10,3 +10,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$  /develop/zeroneed.php/$1 [L]
 </IfModule>
+ErrorDocument 400 http://localhost/develop/bad-request/code/400
+ErrorDocument 401 http://localhost/develop/bad-request/code/401
+ErrorDocument 403 http://localhost/develop/bad-request/code/403
+ErrorDocument 404 http://localhost/develop/bad-request/code/404
+ErrorDocument 500 http://localhost/develop/bad-request/code/500
