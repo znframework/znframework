@@ -35,5 +35,11 @@ $config['Robots']['rules'] = array
 (
 	'userAgent' => '*',
 	'allow'     => array(),
-	'disallow'  => array('/System/')	
+	'disallow'  => array
+	(
+		'/Applications/', 
+		'/Configurations/', 
+		'/Restorations/', 
+		'/System/'
+	)	
 );

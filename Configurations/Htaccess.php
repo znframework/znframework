@@ -50,6 +50,5 @@ $config['Htaccess']['setFile'] = true;
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['settings'] = array
 (
-	 'ifmodule mod_headers.c' => array('Options -Indexes'),
-	 'DirectoryIndex '.DIRECTORY_INDEX
+	 'ifmodule mod_headers.c' => array('Options -Indexes')
 );

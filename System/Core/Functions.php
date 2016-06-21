@@ -1007,6 +1007,7 @@ function createHtaccessFile()
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = Config::get('Cache');
 	$eol    = EOL;
+	$tab	= HT;
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
@@ -1014,14 +1015,14 @@ function createHtaccessFile()
 	if( $config['modGzip']['status'] === true ) 
 	{
 		$modGzip = '<ifModule mod_gzip.c>
-mod_gzip_on Yes
-mod_gzip_dechunk Yes
-mod_gzip_item_include file .('.$config['modGzip']['includedFileExtension'].')$
-mod_gzip_item_include handler ^cgi-script$
-mod_gzip_item_include mime ^text/.*
-mod_gzip_item_include mime ^application/x-javascript.*
-mod_gzip_item_exclude mime ^image/.*
-mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+'.$tab.'mod_gzip_on Yes
+'.$tab.'mod_gzip_dechunk Yes
+'.$tab.'mod_gzip_item_include file .('.$config['modGzip']['includedFileExtension'].')$
+'.$tab.'mod_gzip_item_include handler ^cgi-script$
+'.$tab.'mod_gzip_item_include mime ^text/.*
+'.$tab.'mod_gzip_item_include mime ^application/x-javascript.*
+'.$tab.'mod_gzip_item_exclude mime ^image/.*
+'.$tab.'mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 </ifModule>'.$eol.$eol;
 	}
 	else
@@ -1116,11 +1117,11 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 					{
 						if( ! is_numeric($k) )
 						{
-							$htaccessSettingsStr .= "$k $v".$eol;
+							$htaccessSettingsStr .= $tab."$k $v".$eol;
 						}
 						else
 						{
-							$htaccessSettingsStr .= $v.$eol;
+							$htaccessSettingsStr .= $tab.$v.$eol;
 						}
 					}
 					
@@ -1154,12 +1155,12 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$flag		 = ! empty($indexSuffix) ? 'QSA' : 'L';
 		
 		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
-		$htaccess .= "RewriteEngine On".$eol;
-		$htaccess .= "RewriteBase /".$eol;
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
-		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
-		$htaccess .= "</IfModule>".$eol;
+		$htaccess .= $tab."RewriteEngine On".$eol;
+		$htaccess .= $tab."RewriteBase /".$eol;
+		$htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-f".$eol;
+		$htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-d".$eol;
+		$htaccess .= $tab.'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
+		$htaccess .= "</IfModule>".$eol.$eol;
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
@@ -1184,10 +1185,15 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 				$htaccess .= 'ErrorDocument '.$code.' '.$routeType.$eol;
 			}
 		}
+		
+		$htaccess .= $eol;
 	}
 	//-----------------------ERROR REQUEST----------------------------------------------------
 	
-	//-----------------------UPLOAD SETTINGS--------------------------------------------------
+	//-----------------------DIRECTORY INDEX--------------------------------------------------
+	$htaccess .= 'DirectoryIndex '.DIRECTORY_INDEX.$eol.$eol;	
+	//-----------------------DIRECTORY INDEX--------------------------------------------------
+	
 	$uploadSet = Config::get('FileSystem', 'upload');		
 	
 	if( ! empty($uploadSet['setHtaccessFile']) )
@@ -1236,7 +1242,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( $v !== '' )
 			{
-				$sets .= "php_value $k $v".$eol;		 
+				$sets .= $tab."php_value $k $v".$eol;		 
 			}			
 		}
 		
@@ -1251,14 +1257,17 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	// .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
 	if( file_exists('.htaccess') )
 	{
-		$getContents = file_get_contents('.htaccess');
+		$getContents = trim(rtrim(file_get_contents('.htaccess'), $eol));
 	}
 	else
 	{
 		$getContents = '';
 	}
+	
+	$htaccess = trim(rtrim($htaccess, $eol));
+	
 	// $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
-	if( trim($htaccess) === trim($getContents) ) 
+	if( $htaccess === $getContents ) 
 	{
 		return false;
 	}

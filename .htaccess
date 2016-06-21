@@ -1,12 +1,13 @@
 <ifmodule mod_headers.c>
-Options -Indexes
+	Options -Indexes
 </ifmodule>
 
-DirectoryIndex zeroneed.php
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$  /develop/zeroneed.php/$1 [L]
+	RewriteEngine On
+	RewriteBase /
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$  /develop/zeroneed.php/$1 [L]
 </IfModule>
+
+DirectoryIndex zeroneed.php
