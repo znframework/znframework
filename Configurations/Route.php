@@ -43,7 +43,7 @@ $config['Route']['show404']		= '';
 $config['Route']['errorDocument'] = array
 (
 	// Rotaların .htaccess dosyasına eklenip eklenmeyeceğidir.
-	'setHtaccessFile' => true,	
+	'setHtaccessFile' => false,	
 	
 	// Karşılaşılan hata numarsına göre hangi URI'lerin çalıştırılacağıdır.
 	'routes' => array
