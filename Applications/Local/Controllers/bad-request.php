@@ -12,7 +12,10 @@
 //--------------------------------------------------------------------------------------------------------
 Route::run('code', function($code = '')
 {
-	report('BadRequest', Http::code($code) ,'BadRequest');
+	$message = Http::code($code);
+	$title   = 'BadRequest';
+	
+	report($title, $message ,$title);
 		
-	die(Errors::message(Http::code($code), true));
+	die(Errors::message($message, true));
 });
