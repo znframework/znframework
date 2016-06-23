@@ -571,7 +571,9 @@ class Autoloader
 						$classContent .= "\t".'}'.$eol;
 						$classContent .= '}';
 						
-						if( strlen($classContent) !== strlen(file_get_contents($path)) )
+						$fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0; 
+						
+						if( strlen($classContent) !== $fileContentLength )
 						{
 							file_put_contents($path, $classContent);
 						}
