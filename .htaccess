@@ -14,6 +14,8 @@
 	RewriteRule ^(.*)$  /zeroneed/zeroneed.php/$1 [L]
 </IfModule>
 
+ErrorDocument 403 /zeroneed/zeroneed.php
+
 DirectoryIndex zeroneed.php
 
 #----------------------------------------------------------------------------------------------------

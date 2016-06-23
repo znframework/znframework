@@ -1169,29 +1169,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
 	//-----------------------ERROR REQUEST----------------------------------------------------	
-	$errorDocument = Config::get('Route', 'errorDocument');
-	
-	if( $errorDocument['setHtaccessFile'] === true )
-	{
-		foreach( $errorDocument['routes'] as $code => $route )
-		{
-			if( ! empty($route) )
-			{
-				if( strpos($route, '/') === 0 )
-				{
-					$routeType = $route;
-				}
-				else
-				{
-					$routeType = siteUrl($route);
-				}
-				
-				$htaccess .= 'ErrorDocument '.$code.' '.$routeType.$eol;
-			}
-		}
-		
-		$htaccess .= $eol;
-	}
+	$htaccess .= 'ErrorDocument 403 '.BASE_DIR.DIRECTORY_INDEX.$eol.$eol;	
 	//-----------------------ERROR REQUEST----------------------------------------------------
 	
 	//-----------------------DIRECTORY INDEX--------------------------------------------------
