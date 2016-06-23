@@ -211,7 +211,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		
 		if( ! empty($color) )
 		{
-			$this->sets['borderColor'] = $color;
+			$this->sets['borderColor'] = $this->_convertColor($color);
 		}
 		
 		return $this;
@@ -237,7 +237,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 
 		if( ! empty($color) )
 		{
-			$this->sets['borderColor'] = $color;
+			$this->sets['borderColor'] = $this->_convertColor($color);
 		}
 		
 		return $this;
@@ -263,7 +263,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		
 		if( ! empty($color) )
 		{
-			$this->sets['bgColor'] = $color;
+			$this->sets['bgColor'] = $this->_convertColor($color);
 		}
 		
 		return $this;
@@ -399,7 +399,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		
 		if( ! empty($color) )
 		{
-			$this->sets['textColor'] = $color;
+			$this->sets['textColor'] = $this->_convertColor($color);
 		}
 		
 		return $this;
@@ -470,7 +470,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		
 		if( ! empty($color) )
 		{
-			$this->sets['gridColor'] = $color;
+			$this->sets['gridColor'] = $this->_convertColor($color);
 		}
 		
 		return $this;
@@ -496,7 +496,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 
 		if( ! empty($color) )
 		{		
-			$this->sets['gridColor'] = $color;
+			$this->sets['gridColor'] = $this->_convertColor($color);
 		}
 		
 		return $this;
@@ -738,4 +738,21 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	// Get Code Method Bitiş
 	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Color
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _convertColor($color = '')
+	{
+		if( $convert = Config::get('Colors', $color) )
+		{
+			return $convert;	
+		}
+		
+		return $color;
+	}
 }

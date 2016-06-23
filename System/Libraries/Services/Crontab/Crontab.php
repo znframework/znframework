@@ -1,5 +1,5 @@
-<?php	
-interface ArraysInterface
+<?php
+class __USE_STATIC_ACCESS__Crontab implements CrontabInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,414 +11,620 @@ interface ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Pos Change                                                                       
+	// Const CONFIG_NAME
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @const string
 	//
-	// Genel Kullanım: Herhangi bir dizi indeksini, istenilen başka bir dizi indeksine 		  
-	// eklemeye yarar.  															              
-	//																						  
-	// Parametreler: 3 parametresi vardır.                                              		  
-	// 1. array var @array => İşlem yapılıcak dizi.							  				  
-	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
-	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function posChange($array, $poss, $changePos);
-
+	const CONFIG_NAME  = 'Services:crontab';
 	
 	//----------------------------------------------------------------------------------------------------
-	// Pos Reverse
+	// Call Undefined Method
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
 	//
-	// Genel Kullanım: Dizi elementlarını kendi içlerinde yer değiştirmek için kullanılır. 	  
-	//																						  
-	// Parametreler: 3 parametresi vardır.                                              		  
-	// 1. array var @array => İşlem yapılıcak dizi.							  				  
-	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
-	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
-	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function posReverse($array, $poss, $changePos);
+	use CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Casing
+	// Config Method
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
 	//
-	// @param array  $array
-	// @param string $type  : lower, upper, title
-	// @param string $keyval: all, key, val	                          								  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function casing($array, $type, $keyval);
+	use ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Remove Last
+	// Error Control
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
 	//
-	// @param array   $array
-	// @param numeric $count							  
-	//																						  
+	// error()
+	// success()
+	//
 	//----------------------------------------------------------------------------------------------------
-	public function removeLast($array, $count);
+	use ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Remove First
+	// Crontab Interval 
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// comands
 	//
-	// @param array   $array		
-	// @param numeric $count			  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeFirst($array, $count);
+	use Crontab\IntervalTrait;	
 	
 	//----------------------------------------------------------------------------------------------------
-	// Add First
+	// Command
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
 	//
-	// @param array $array
-	// @param mixed $element						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addFirst($array, $element);
+	protected $command;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Add Last
+	// Type
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
 	//
-	// @param array $array
-	// @param mixed $element						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addLast($array, $element);
+	protected $type;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Delete Element
+	// Path
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
 	//
-	// @param array $array
-	// @param mixed $object						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteElement($array, $object);
+	protected $path;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Multikey
+	// Callback
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var callback
 	//
-	// @param array  $array
-	// @param string $keySplit:|						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function multikey($array, $keySplit);
+	protected $callback;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Keyval
+	// After
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var callback
 	//
-	// @param array  $array
-	// @param string $keyval: val/value, key, vals/values, keys						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyval($array, $keyval);
+	protected $after;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Before
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var callback
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $before;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Driver
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $driver;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Debug
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var boolean: false
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $debug = false;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Driver
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $crontabDir = '';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Jobs
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $jobs = array();
+	
+	//----------------------------------------------------------------------------------------------------
+	// Constructor
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __costruct()
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function __construct()
+	{
+		$this->config();
 		
-	//----------------------------------------------------------------------------------------------------
-	// Get Last
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array
-	// @param numeric $count
-	// @param bool	  $preserveKey						  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function getLast($array, $count, $preserverKey);
+		$this->driver     = $this->config['driver'];	
+		
+		$this->debug 	  = $this->config['debug'] === true 
+						  ? $this->config['debug']
+						  : false;
+			
+		$this->crontabDir = str_replace('/', DIRECTORY_SEPARATOR, REAL_BASE_DIR.STORAGE_DIR.'Crontab'.DIRECTORY_SEPARATOR);
+		
+		if( $this->driver !== 'ssh' && ! function_exists($this->driver) )
+		{
+			die( getErrorMessage('Error', 'undefinedFunctionExtension', $this->driver) );	
+		}
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Get First
+	// Driver
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $driver: empty
+	// @return object
 	//
-	// @param array   $array
-	// @param numeric $count
-	// @param bool	  $preserveKey						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getFirst($array, $count, $preserverKey);
+	public function driver($driver = '')
+	{
+		$this->driver = $driver;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Order
+	// Connect
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $path: empty
+	// @return object
 	//
-	// @param array  $array
-	// @param string $type :desc, asc...
-	// @param string $flags:regular						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function order($array, $type, $flags);
+	public function connect($config = array())
+	{
+		SSH::connect($config);
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Object Data
+	// Path
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $path: empty
+	// @return object
 	//
-	// @param array   $array					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function objectData($data);
+	public function path($path = '')
+	{
+		if( empty($path) )
+		{
+			$path = $this->config['path'];	
+		}
+		
+		$this->path = $path;
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Length
+	// Roster
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return string
 	//
-	// @param array   $array						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function length($data);
+	public function roster()
+	{
+		return $this->_exec('crontab -l');
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Apportion
+	// Create File
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $name: crontab.txt
+	// @return object
 	//
-	// @param array   $array
-	// @param numeric $portionCount
-	// @param bool	  $preserveKeys						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function apportion($data, $portionCount, $preserveKeys);
+	public function createFile($name = 'crontab.txt')
+	{
+		if( ! is_dir($this->crontabDir) )
+		{
+			Folder::create($this->crontabDir);
+		}
+		else
+		{
+			$cronFile = $this->crontabDir.$name;
+			
+			if( ! is_file($cronFile) )
+			{
+				$command = 'crontab -l > '.$cronFile.' && [ -f '.$cronFile.' ] || > '.$cronFile;
+ 
+				return $this->_exec($command);
+			}
+		}
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Combine
+	// Delete File
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $name: crontab.txt
+	// @return object
 	//
-	// @param array $keys
-	// @param array $values					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function combine($keys, $values);
+	public function deleteFile($name = 'crontab.txt')
+	{
+		$cronFile = $this->crontabDir.$name;
+			
+		if( is_file($cronFile) )
+		{
+			$command = 'rm '.$cronFile;
+
+			return $this->_exec($command);
+		}
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Count Same Values
+	// Remove
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $name: crontab.txt
+	// @return object
 	//
-	// @param array $array
-	// @param mixed $key					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function countSameValues($array, $key);
+	public function remove($name = 'crontab.txt')
+	{
+		$this->deleteFile($name);
+		
+		return $this->_exec('crontab -r');
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Flip
+	// Add
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return object
 	//
-	// @param array   $array					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function flip($array);
+	public function add()
+	{		
+		$command = $this->_command();
+		
+		$this->_defaultVariables();
+		
+		$this->jobs[] = $command;
+		
+		return $this;
+	}	
 	
 	//----------------------------------------------------------------------------------------------------
-	// Transform
+	// Run
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $cmd: empty
+	// @return string
 	//
-	// @param array   $array					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function transform($array);
+	public function run($cmd = '')
+	{
+		$command = '';	
+		
+		if( empty($this->jobs) )
+		{	
+			$command = $this->_command();
+			
+			if( ! empty($cmd) )
+			{
+				$command = $cmd;	
+			}
+			
+			return $this->_exec($command);
+		}
+		else
+		{
+			$jobs = $this->jobs;
+			
+			$this->jobs = array();	
+			
+			foreach( $jobs as $job )
+			{
+				$this->_exec($job);	
+			}	
+			
+			return true;
+		}	
+	}	
 	
 	//----------------------------------------------------------------------------------------------------
-	// Implement Callback(Map)
+	// Protected Exec
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $command: empty
+	// @return string
 	//
-	// @param ...args				  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function implementCallback();
+	protected function _exec($command)
+	{
+		$driver  = $this->driver;
+		
+		Buffer::select('before');
+		
+		Buffer::select('callback');
+		
+		$return = $driver === 'ssh'
+		 		? SSH::run($command)
+				: $driver($command);
+		
+		Buffer::select('after');
+		
+		return $return;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Map
+	// Protected Command Fix
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $command: empty
+	// @return string
 	//
-	// @param ...args				  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function map();
+	protected function _commandFix($command = '')
+	{
+		if( strlen($command) === 1 )
+		{
+			return prefix($command, '-');	
+		}
+		
+		return $command;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Recursive Merge
+	// Debug
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  bool   $status: true
+	// @return object
 	//
-	// @param ...args				  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function recursiveMerge();
+	public function debug($status = true)
+	{
+		$this->debug = $status;
+		
+		return $this;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Command
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $command: empty
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function command($command = '')
+	{
+		$fix = '';
+		
+		$command = str_replace('-', '', $command);
+		$command = preg_replace('/\s+/', ' ', $command);
+		
+		if( strstr($command, ' ') )
+		{
+			$commands = explode(' ', $command);
+			
+			$commandJoin = '';
+			
+			foreach( $commands as $cmd )
+			{
+				$commandJoin .= $this->_commandFix($cmd).' ';	
+			}
+			
+			$this->command = rtrim($commandJoin, ' ');
+		}
+		else
+		{
+			$this->command = $this->_commandFix($command);
+		}
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Merge
+	// Callback
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  function $callback: empty
+	// @return object
 	//
-	// @param ...args			  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function merge();
+	public function callback($callback = '')
+	{
+		Buffer::insert('callback', $callback);
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Intersect
+	// After
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  function $callback: empty
+	// @return object
 	//
-	// @param ...args			  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function intersect();
+	public function after($callback = '')
+	{
+		Buffer::insert('after', $callback);
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Reverse
+	// Before
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  function $callback: empty
+	// @return object
 	//
-	// @param array   $array
-	// @param bool	  $preserveKeys						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function reverse($array, $preserveKeys);
+	public function before($callback = '')
+	{
+		Buffer::insert('before', $callback);
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Product
+	// File
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $file: empty
+	// @return string
 	//
-	// @param array   $array					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function product($array);
+	public function file($file = '')
+	{
+		$this->type = REAL_BASE_DIR.$file;
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Sum
+	// Url
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $file: empty
+	// @param  bool   $type: wget, get, curl
+	// @return string
 	//
-	// @param array   $array					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function sum($array);
+	public function url($url = '')
+	{
+		if( ! isUrl($url) )
+		{
+			$url = siteUrl($url);
+		}
+		
+		$this->type = $url;
+		
+		return $this;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Random
+	// Protected Date Time
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return string
 	//
-	// @param array   $array
-	// @param numeric $countRequest					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function random($array, $countRequest);
+	protected function _datetime()
+	{
+		if( $this->interval !== '* * * * *' )
+		{
+			$interval = $this->interval.' ';	
+		}
+		else
+		{
+			$interval = ( isset( $this->minute )    ? $this->minute    : '*').' '.
+			   			( isset( $this->hour )      ? $this->hour 	   : '*').' '.
+			   			( isset( $this->dayNumber ) ? $this->dayNumber : '*').' '.
+			   			( isset( $this->month )   	? $this->month	   : '*').' '.
+			   			( isset( $this->day ) 		? $this->day       : '*').' ';
+		}
+		
+		$this->_intervalDefaultVariables();
+		
+		return $interval;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Search
+	// Protected Date Time
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return string
 	//
-	// @param array $array
-	// @param mixed $element
-	// @param bool	$strict						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function search($array, $element, $strict);
+	protected function _command()
+	{
+		$datetimeFormat = $this->_datetime();
+		$type			= $this->type;
+		$path			= $this->path;
+		$command		= $this->command; 	
+		$debug			= $this->debug;	
+		
+		$match = '(\*|[0-9]{1,2}|\*\/[0-9]{1,2}|[0-9]{1,2}\s*\-\s*[0-9]{1,2}|(([0-9]{1,2})*\s*\,\s*[0-9]{1,2})+)\s+';
+		
+		if( ! preg_match('/^'.$match.$match.$match.$match.$match.'$/', $datetimeFormat) )
+		{
+			return Errors::set('Services', 'crontabTimeFormatError');
+		}
+		else
+		{
+			return $datetimeFormat.
+				   ( ! empty($path)    ? $path.' ' 	  : '' ).
+				   ( ! empty($command) ? $command.' ' : '' ).
+				   ( ! empty($type)    ? $type.' ' 	  : '' ).
+				   ( $debug === true   ? '>> '.$this->crontabDir.'debug.log 2>&1' : '' );
+		}	   
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Value Exists
+	// Protected Date Time
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return void
 	//
-	// @param array $array
-	// @param mixed $element
-	// @param bool	$strict						  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function valueExists($array, $element, $strict);
+	protected function _defaultVariables()
+	{
+		$this->type  	= NULL;
+		$this->path 	= NULL;
+		$this->command 	= NULL;	
+		$this->callback = NULL;	
+		$this->after 	= NULL;	
+		$this->before	= NULL;	
+		$this->debug 	= false;	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Key Exists
+	// Protected Date Time
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return void
 	//
-	// @param array $array
-	// @param mixed $key					  
-	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyExists($array, $key);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Section
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array
-	// @param numeric $start
-	// @param numeric $length
-	// @param bool	  $preserveKey						  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function section($array, $start, $length, $preserveKeys);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Resection
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array
-	// @param numeric $start
-	// @param numeric $length
-	// @param mixed	  $newElement						  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function resection($array, $start, $length, $newElement);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Delete Recurrent
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array  $array
-	// @param string $flags					  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function deleteRecurrent($array, $flags);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Series
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param numeric $start
-	// @param numeric $end
-	// @param numeric $count						  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function series($start, $end, $step);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Column
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array
-	// @param mixed   $columnKey
-	// @param mixed	  $indexKey						  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function column($array, $columnKey, $indexKey);
-	
-	//----------------------------------------------------------------------------------------------------
-	// excluding
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array
-	// @param array   $excluding					  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function excluding($array, $excluding);
-	
-	//----------------------------------------------------------------------------------------------------
-	// including
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array   $array
-	// @param array   $excluding					  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function including($array, $including);
-	
-	//----------------------------------------------------------------------------------------------------
-	// each
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array    $array
-	// @param callable $callable				  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	public function each($array, $callable);
+	protected function _intervalDefaultVariables()
+	{
+		$this->interval	 = '* * * * *';
+		$this->minute    = '*';
+	    $this->hour		 = '*';
+	    $this->dayNumber = '*';
+	  	$this->month	 = '*';
+	   	$this->day		 = '*';
+	}
 }

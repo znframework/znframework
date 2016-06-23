@@ -17,9 +17,9 @@
 // Genel Kullanım: .htaccess dosyasının oluşturulup oluşturulmayacağına karar verir.		  
 // Parametreler: true veya false															  
 // Varsayılan: true																		  
-// Url'de index.php ekini kullanmak istemiyorsanız ve .htaccess yönlendirmesi			  
+// Url'de zeroneed.php ekini kullanmak istemiyorsanız ve .htaccess yönlendirmesi			  
 // sunucunuzda aktifse bu değeri true yapıp bu dosyanın oluşmasını sağlayın.				  
-// Bu işlem dışında Config/Uri.php dosyasındaki index.php ayarını false 					  
+// Bu işlem dışında Config/Uri.php dosyasındaki zeroneed.php ayarını false 					  
 // durumuna getirmeyi unutmayın.      												      
 //
 //----------------------------------------------------------------------------------------------------

@@ -190,6 +190,9 @@ class Autoloader
 		if( ! is_file($path) )
 		{
 			$classMapPage  = '<?php'.$eol;
+			$classMapPage .= '//----------------------------------------------------------------------------------------------------'.$eol;
+			$classMapPage .= '// This file automatically created and updated'.$eol;
+			$classMapPage .= '//----------------------------------------------------------------------------------------------------'.$eol.$eol;
 		}
 		else
 		{
@@ -224,6 +227,8 @@ class Autoloader
 				$classMapPage .= '$config[\'ClassMap\'][\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
 			}
 		}
+		
+		$classMapPage .= $eol.'//----------------------------------------------------------------------------------------------------';
 	
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
@@ -537,20 +542,39 @@ class Autoloader
 						
 						$path = suffix($newDir).$classInfo['class'].'.php';
 						
-						// Oluşturulacak dosyanın var olup olmadığı
-						// kontrol ediliyor...
-						if( ! file_exists($path) )	
-						{	
-							// Statik sınıf içeriği oluşturuluyor....
-							$classContent  = '<?php'.$eol;
-							$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
-							$classContent .= '{'.$eol;	
-							$classContent .= "\t".'public static function getClassName()'.$eol;
-							$classContent .= "\t".'{'.$eol;
-							$classContent .= "\t\t".'return __CLASS__;'.$eol;
-							$classContent .= "\t".'}'.$eol;
-							$classContent .= '}';
+						// Sabit kontrolü yapılıyor.		
+						$getFileContent = file_get_contents($v);
 						
+						preg_match_all('/const\s+(\w+)\s+\=\s+(.*?);/i', $getFileContent, $match);
+						
+						$const = ! empty($match[1]) ? $match[1] : array();
+						$value = ! empty($match[2]) ? $match[2] : array();
+						
+						$constants = '';
+						
+						if( ! empty($const) ) 
+						{
+							foreach( $const as $key => $c )
+							{
+								$constants .= "\tconst ".$c.' = '.$value[$key].';'.$eol.$eol;
+							}
+						}
+	
+						// Statik sınıf içeriği oluşturuluyor....
+						$classContent  = '<?php'.$eol;
+						$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
+						$classContent .= '{'.$eol;	
+						$classContent .= $constants;
+						$classContent .= "\t".'public static function getClassName()'.$eol;
+						$classContent .= "\t".'{'.$eol;
+						$classContent .= "\t\t".'return __CLASS__;'.$eol;
+						$classContent .= "\t".'}'.$eol;
+						$classContent .= '}';
+						
+						$fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0; 
+						
+						if( strlen($classContent) !== $fileContentLength )
+						{
 							file_put_contents($path, $classContent);
 						}
 						

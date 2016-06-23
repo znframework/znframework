@@ -23,18 +23,4 @@ interface TemplateInterface
 	|          																				  |
 	******************************************************************************************/
 	public function data($string, $data);
-	
-	/******************************************************************************************
-	* DELIMITER                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Ayrıştırma karakterlerini değiştirmek için kullanılır.			      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @ldel => Başlangıç ayrıştırıcı karakteri. Varsayılan:{					  |
-	| 2. string var @4del => Bitiş ayrıştırıcı karakteri. Varsayılan:}	     				  |
-	|          																				  |
-	| Örnek Kullanım: ->delimiter('[', ']') 		  	 		         					  |
-	|          																				  |
-	******************************************************************************************/
-	public function delimiter($ldel, $rdel);
 }

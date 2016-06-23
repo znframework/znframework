@@ -44,16 +44,21 @@ class Config
 	{
 		global $config;
 		
-		$path = CONFIG_DIR.suffix($file,".php");
+		$path = restorationPath(CONFIG_DIR.suffix($file,".php"));
 		
 		if( ! is_file($path) ) 
 		{
-			return false;
+			$path = CONFIGURATIONS_DIR.suffix($file,".php");
+			
+			if( ! is_file($path) ) 
+			{
+				return false;
+			}
 		}
 		
 		if( ! isImport($path) ) 
 		{
-			require_once restorationPath($path);
+			require_once $path;
 			
 			self::$config = $config;
 		}

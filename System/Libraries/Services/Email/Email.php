@@ -68,9 +68,9 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	 * Satır sonu karakter bilgisini
 	 * tutması için oluşturulmuştur.
 	 *
-	 * @var string \r\n
+	 * @var string \n
 	 */
-	protected $crlf = "\r\n";
+	protected $lf = "\n";
 	
 	/*  
 	 * SMTP sunucu bilgisini
@@ -158,24 +158,6 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	 * @var string
 	 */
 	protected $boundary	= '';
-	
-	/*  
-	 * Sınır bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 * @var string
-	 */
-	protected $attachBoundary	= '';
-	
-	/*
-	 *  
-	 * Alternatif mesaj bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 * @var string
-	 * Not: Sadece html içerikli göndrimide kullanılabilir.
-	 */ 
-	protected $altContent		= ''; 
 	
 	/*  
 	 * Sınır bilgisini
@@ -941,23 +923,23 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	  @param string $file
 	  @param string $disposition
 	  @param string $newName
-	  @param string $mime application/octet-stream
+	  @param string $mime
 	  @return array
 	|          																				  |
 	******************************************************************************************/
-	public function attachment($file = '', $disposition = '', $newName = NULL, $mime = 'application/octet-stream')
+	public function attachment($file = '', $disposition = '', $newName = NULL, $mime = '')
 	{
 		$mimeTypes = Config::get('MimeTypes');
 		
 		$mime = ! empty($mimeTypes[$mime])
 				? $mimeTypes[$mime]
-				: 'application/octet-stream';
+				: $mime;
 		
 		if( is_array($mime) )
 		{
 			$mime = $mime[0];	
 		} 
-		
+	
 		if( $mime === '' )
 		{
 			if( strpos($file, '://') === false && ! file_exists($file) )
@@ -971,14 +953,14 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			}
 			
 			$fileContent = stream_get_contents($fp);
-			
+	
 			fclose($fp);
 		}
 		else
 		{
 			$fileContent =& $file;
 		}
-		
+	
 		$this->attachments[] = array
 		(
 			'name'			=> array($file, $newName),
@@ -1159,7 +1141,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	protected function _mimeMessage()
 	{
-		return lang('Email', 'mimeMessage', $this->crlf);
+		return lang('Email', 'mimeMessage', $this->lf);
 	}
 	
 	/******************************************************************************************
@@ -1179,7 +1161,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			
 			if( ! empty($val) )
 			{
-				$this->header .= $key.': '.$val.$this->crlf;
+				$this->header .= $key.': '.$val.$this->lf;
 			}
 		}	
 	}
@@ -1261,8 +1243,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	protected function _boundary()
 	{
-		$this->boundary 	  = 'ALTERNATIVE_BOUNDARY-'.md5(uniqid());
-		$this->attachBoundary = 'ATTACHMENT_BOUNDARY_'.md5(uniqid());
+		$this->boundary = 'BOUNDARY_'.md5(uniqid(time()));
 	}
 	
 	/******************************************************************************************
@@ -1282,17 +1263,16 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		
 		$body = ''; $header = '';
 		
-		$header .= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->crlf;
-		
 		if( in_array($this->multiPart, $this->multiParts) && ! empty($this->attachments) ) 
 		{
-			$header .= 'Content-Type: multipart/'.$this->multiPart.'; boundary="'.$this->boundary.'"'.$this->crlf.$this->crlf;
-			$body 	.= $this->_mimeMessage().$this->crlf;
-			$body 	.= '--'.$this->boundary.$this->crlf;
-			$body 	.= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->crlf;
-			$body 	.= 'Content-Transfer-Encoding: '.$this->encodingType.$this->crlf.$this->crlf;
-			$body 	.= $this->message.$this->crlf.$this->crlf;
-	
+			$header .= 'Content-Type: multipart/'.$this->multiPart.'; boundary="'.$this->boundary.'"';
+			
+			$body 	.= $this->_mimeMessage().$this->lf.$this->lf;
+			$body   .= '--'.$this->boundary.$this->lf;
+			$body 	.= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->lf;
+			$body 	.= 'Content-Transfer-Encoding: '.$this->encodingType.$this->lf.$this->lf;
+			$body 	.= $this->message.$this->lf.$this->lf;
+		
 			$attachment = array();
 			
 			for( $i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++ )
@@ -1302,23 +1282,27 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 							? basename($filename) 
 							: $this->attachments[$i]['name'][1];
 							
-				$attachment[$z++] = '--'.$this->boundary.$this->crlf.
-									'Content-type: '.$this->attachments[$i]['type'].'; name="'.$basename.'"'.$this->crlf.
-									'Content-Disposition: '.$this->attachments[$i]['disposition'].';'.$this->crlf.
-									'Content-Transfer-Encoding: base64'.$this->crlf.
+				$attachment[$z++] = '--'.$this->boundary.$this->lf.
+									'Content-Type: '.$this->attachments[$i]['type'].'; name="'.$basename.'"'.$this->lf.
+									'Content-Disposition: '.$this->attachments[$i]['disposition'].';'.$this->lf.
+									'Content-Transfer-Encoding: base64'.$this->lf.
 									( empty($this->attachments[$i]['cid'] ) 
 									? '' 
-									: 'Content-ID: <'.$this->attachments[$i]['cid'].'>'.$this->crlf);
+									: 'Content-ID: <'.$this->attachments[$i]['cid'].'>'.$this->lf);
 									
 				$attachment[$z++] = $this->attachments[$i]['content'];
 			}
 
-			$body .= implode($this->crlf, $attachment).$this->crlf.'--'.$this->boundary.'--';
+			$body .= implode($this->lf, $attachment).$this->lf.'--'.$this->boundary.'--';
+		}
+		else
+		{
+			$header .= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->lf;
 		}
 		
 		if( $this->driver === 'smtp' )
 		{			
-			$this->message = $header.$this->crlf.$this->crlf.$body.$this->message.$this->crlf.$this->crlf;
+			$this->message = $header.$this->lf.$this->lf.$body.$this->message.$this->lf.$this->lf;
 		}
 		else
 		{
@@ -1362,8 +1346,6 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		$this->smtpKeepAlive = false;
 		$this->mimeVersion	= '1.0';
 		$this->boundary		= '';
-		$this->attachBoundary	= '';
-		$this->altContent		= ''; 
 		$this->multiPart	= 'mixed';
 		$this->priority 	= 3;
 		$this->encodingType = '8bit';

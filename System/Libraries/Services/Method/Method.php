@@ -212,6 +212,15 @@ class __USE_STATIC_ACCESS__Method implements MethodInterface
 			return $input[$name];
 		}
 		
-		return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
+		if( is_scalar($input[$name]) )
+		{
+			return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
+		}
+		elseif( is_array($input[$name]) )
+		{
+			return array_map('Security::htmlEncode', $input[$name]);
+		}
+		
+		return $input[$name];
 	}
 }

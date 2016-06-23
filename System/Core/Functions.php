@@ -214,10 +214,10 @@ function currentUrl($fix = '')
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sitenin url adresini döndürür baseUrl() den farkı bazı Config ayarları
-// ile eklenen dil, ssl ve index.php gibi ekleride url adresinde barındırır.
+// ile eklenen dil, ssl ve zeroneed.php gibi ekleride url adresinde barındırır.
 // Parametreler: $uri = Site url adresine uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin url adresini verir.
-// Dönen Değerler: Sitenin url adresini verir. http://www.example.com/index.php/
+// Dönen Değerler: Sitenin url adresini verir. http://www.example.com/zeroneed.php/
 //          																				  
 //----------------------------------------------------------------------------------------------------
 function siteUrl($uri = '', $index = 0)
@@ -259,7 +259,7 @@ function siteUrl($uri = '', $index = 0)
 // baseUrl()
 //----------------------------------------------------------------------------------------------------
 //
-// İşlev: Sitenin kök url adresini döndürür. Configten eklenen dil veya index.php gibi ekler ilave edilmez.
+// İşlev: Sitenin kök url adresini döndürür. Configten eklenen dil veya zeroneed.php gibi ekler ilave edilmez.
 // Parametreler: $uri = Site kök url adresine uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin kök url adresini verir.
 // Dönen Değerler: Sitenin kök url adresini verir. http://www.example.com/
@@ -391,7 +391,7 @@ function currentPath($isPath = true)
 // basePath()
 //----------------------------------------------------------------------------------------------------
 //
-// İşlev: Sitenin kök yolunu döndürür. Configten eklenen dil veya index.php gibi ekler ilave edilmez.
+// İşlev: Sitenin kök yolunu döndürür. Configten eklenen dil veya zeroneed.php gibi ekler ilave edilmez.
 // Parametreler: $uri = Site kök yoluna uri eki ekler, $index = Girilen sayısal negatif değer kadar 
 // üst dizinin kök yolunu verir.
 // Dönen Değerler: Sitenin kök yolunu verir. znframework/
@@ -733,7 +733,16 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	}
 	
 	$str  = "<div style=\"$style\">";
-	$str .= lang($langFile, $errorMsg, $ex);
+	
+	if( $errorMsg !== true )
+	{
+		$str .= lang($langFile, $errorMsg, $ex);
+	}
+	else
+	{	
+		$str .= $langFile;
+	}
+	
 	$str .= '</div><br>';
 	
 	return $str;
@@ -782,7 +791,7 @@ function currentUri()
 function requestUri()
 {
 	$requestUri = currentUri()
-	            ? str_replace('index.php/', '', currentUri()) 
+	            ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
 				: substr(server('currentPath'), 1);
 	
 	if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
@@ -812,7 +821,7 @@ function routeUri($requestUri = '')
 {
 	if( Config::get('Route','openPage') )
 	{
-			if( $requestUri === 'index.php' || empty($requestUri) || $requestUri === getLang() ) 
+			if( $requestUri === DIRECTORY_INDEX || empty($requestUri) || $requestUri === getLang() ) 
 			{
 				$requestUri = Config::get('Route','openPage');
 			}
@@ -942,7 +951,7 @@ function createRobotsFile()
 		}
 		else
 		{
-			if( isArray($val) ) foreach( $val as $r => $v) // Çoklu Kullanım
+			if( isArray($val) ) foreach( $val as $r => $v ) // Çoklu Kullanım
 			{
 				switch( $r )
 				{
@@ -998,6 +1007,7 @@ function createHtaccessFile()
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$config = Config::get('Cache');
 	$eol    = EOL;
+	$tab	= HT;
 	
 	//-----------------------GZIP-------------------------------------------------------------
 	// mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
@@ -1005,14 +1015,14 @@ function createHtaccessFile()
 	if( $config['modGzip']['status'] === true ) 
 	{
 		$modGzip = '<ifModule mod_gzip.c>
-mod_gzip_on Yes
-mod_gzip_dechunk Yes
-mod_gzip_item_include file .('.$config['modGzip']['includedFileExtension'].')$
-mod_gzip_item_include handler ^cgi-script$
-mod_gzip_item_include mime ^text/.*
-mod_gzip_item_include mime ^application/x-javascript.*
-mod_gzip_item_exclude mime ^image/.*
-mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+'.$tab.'mod_gzip_on Yes
+'.$tab.'mod_gzip_dechunk Yes
+'.$tab.'mod_gzip_item_include file .('.$config['modGzip']['includedFileExtension'].')$
+'.$tab.'mod_gzip_item_include handler ^cgi-script$
+'.$tab.'mod_gzip_item_include mime ^text/.*
+'.$tab.'mod_gzip_item_include mime ^application/x-javascript.*
+'.$tab.'mod_gzip_item_exclude mime ^image/.*
+'.$tab.'mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
 </ifModule>'.$eol.$eol;
 	}
 	else
@@ -1107,11 +1117,11 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 					{
 						if( ! is_numeric($k) )
 						{
-							$htaccessSettingsStr .= "$k $v".$eol;
+							$htaccessSettingsStr .= $tab."$k $v".$eol;
 						}
 						else
 						{
-							$htaccessSettingsStr .= $v.$eol;
+							$htaccessSettingsStr .= $tab.$v.$eol;
 						}
 					}
 					
@@ -1136,25 +1146,36 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HTACCESS SET-----------------------------------------------------	
 	
 	// Htaccess dosyasına eklenecek veriler birleştiriliyor...
-	$htaccess = $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
+	
+	$htaccess  = '#----------------------------------------------------------------------------------------------------'.$eol;
+	$htaccess .= '# This file automatically created and updated'.$eol;
+	$htaccess .= '#----------------------------------------------------------------------------------------------------'.$eol.$eol;
+	$htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 	
 	//-----------------------URI INDEX PHP----------------------------------------------------	
-	if( ! Config::get('Uri','index.php') )
+	if( ! Config::get('Uri', DIRECTORY_INDEX) )
 	{
 		$indexSuffix = Config::get('Uri','indexSuffix');
 		$flag		 = ! empty($indexSuffix) ? 'QSA' : 'L';
 		
 		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
-		$htaccess .= "RewriteEngine On".$eol;
-		$htaccess .= "RewriteBase /".$eol;
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-f".$eol;
-		$htaccess .= "RewriteCond %{REQUEST_FILENAME} !-d".$eol;
-		$htaccess .= 'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
-		$htaccess .= "</IfModule>".$eol;
+		$htaccess .= $tab."RewriteEngine On".$eol;
+		$htaccess .= $tab."RewriteBase /".$eol;
+		$htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-f".$eol;
+		$htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-d".$eol;
+		$htaccess .= $tab.'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
+		$htaccess .= "</IfModule>".$eol.$eol;
 	}
 	//-----------------------URI INDEX PHP----------------------------------------------------
 	
-	//-----------------------UPLOAD SETTINGS--------------------------------------------------
+	//-----------------------ERROR REQUEST----------------------------------------------------	
+	$htaccess .= 'ErrorDocument 403 '.BASE_DIR.DIRECTORY_INDEX.$eol.$eol;	
+	//-----------------------ERROR REQUEST----------------------------------------------------
+	
+	//-----------------------DIRECTORY INDEX--------------------------------------------------
+	$htaccess .= 'DirectoryIndex '.DIRECTORY_INDEX.$eol.$eol;	
+	//-----------------------DIRECTORY INDEX--------------------------------------------------
+	
 	$uploadSet = Config::get('FileSystem', 'upload');		
 	
 	if( ! empty($uploadSet['setHtaccessFile']) )
@@ -1203,7 +1224,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		{
 			if( $v !== '' )
 			{
-				$sets .= "php_value $k $v".$eol;		 
+				$sets .= $tab."php_value $k $v".$eol;		 
 			}			
 		}
 		
@@ -1218,14 +1239,19 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	// .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
 	if( file_exists('.htaccess') )
 	{
-		$getContents = file_get_contents('.htaccess');
+		$getContents = trim(file_get_contents('.htaccess'));
 	}
 	else
 	{
 		$getContents = '';
 	}
+	
+	$htaccess .= '#----------------------------------------------------------------------------------------------------';
+	
+	$htaccess = trim($htaccess);
+	
 	// $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
-	if( trim($htaccess) === trim($getContents) ) 
+	if( $htaccess === $getContents ) 
 	{
 		return false;
 	}
@@ -1296,9 +1322,9 @@ function sslStatus()
 //----------------------------------------------------------------------------------------------------
 function indexStatus()
 {
-	if( Config::get('Uri','index.php') ) 
+	if( Config::get('Uri', DIRECTORY_INDEX) ) 
 	{
-		return 'index.php/'; 
+		return DIRECTORY_INDEX.'/'; 
 	}
 	else
 	{ 

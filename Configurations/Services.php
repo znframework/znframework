@@ -44,6 +44,19 @@ $config['Services']['ssh'] = array
 	'callbacks' 	=> array()  // Geri çağrım işlevleri belirtilir.	
 );
 
+//----------------------------------------------------------------------------------------------------
+// Crontab
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Crontab ile ilgili ayarlar yer alır.         						  
+//
+//----------------------------------------------------------------------------------------------------
+$config['Services']['crontab'] = array
+(
+	'driver' => 'exec', 				// exec, shell_exec, system, ssh	
+	'path'	 => '/usr/local/bin/php',	// Default Path
+	'debug'	 => false					// true, false	 
+);
 
 //----------------------------------------------------------------------------------------------------
 // Cookie
@@ -230,7 +243,7 @@ $config['Services']['email'] = array
 	// @driver -> pipe (popen yöntemini kullanır).
 	//         																				  
 	//------------------------------------------------------------------------------------------------
-	'driver' => 'mail',
+	'driver' => 'smtp',
 	
 	//------------------------------------------------------------------------------------------------
 	// Smtp
@@ -261,16 +274,16 @@ $config['Services']['email'] = array
 	//------------------------------------------------------------------------------------------------
 	'general' => array
 	(
-		'senderMail'    => '', // Ön tanımlı gönderen e-posta adresi.
-		'senderName'    => '', // Ön tanımlı gönderen ismi.
-		'priority'	   	=> 3,		// 1, 2, 3, 4, 5
-		'charset'		=> 'UTF-8',
-		'contentType'	=> 'plain',  // plain, html
+		'senderMail'    => '', 		// Default Sender E-mail Address.
+		'senderName'    => '', 		// Default Sender Name.
+		'priority'	   	=> 3, 		// 1, 2, 3, 4, 5
+		'charset'		=> 'UTF-8', // Charset Type
+		'contentType'	=> 'html',  // plain, html
 		'multiPart'		=> 'mixed', // mixed, related, alternative
 		'xMailer'		=> 'ZN',
-		'encoding'		=> '8bit',
-		'mimeVersion'	=> '1.0',
-		'mailPath'		=> '/usr/sbin/sendmail'
+		'encoding'		=> '8bit',	// 8bit, 7bit
+		'mimeVersion'	=> '1.0',	// MIME Version
+		'mailPath'		=> '/usr/sbin/sendmail'	// Default Mail Path
 	)
 );
 

@@ -11,27 +11,27 @@
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------
-// Index.php
+// Directory Index
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanımı: Url de yer alan index.php uzantısının görünüm durumunu ayalarmak için kullanılır.		  
-// Değer false olursa url'lerde index.php uzantısı görünmez.								  
+// Genel Kullanımı: Url de yer alan zeroneed.php uzantısının görünüm durumunu ayalarmak için kullanılır.		  
+// Değer false olursa url'lerde zeroneed.php uzantısı görünmez.								  
 // Parametreler: true, false.															  
 // Varsayılan: true				                 										  					
 //
 //----------------------------------------------------------------------------------------------------
-$config['Uri']['index.php'] 	= true;
+$config['Uri'][DIRECTORY_INDEX] = false;
 
 //----------------------------------------------------------------------------------------------------
 // Index Suffix
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanımı: .htaccess dosyasında index.php bölümü sonuna ? ekler				      
+// Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler				      
 // Parametreler: "", ?																	  
 // Varsayılan: "".				                 										  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Uri']['indexSuffix']  = '';
+$config['Uri']['indexSuffix']   = '';
 
 //----------------------------------------------------------------------------------------------------
 // Lang

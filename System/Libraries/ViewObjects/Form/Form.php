@@ -64,19 +64,11 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		// 3. text 		 	=> text/plain      											           
 		if( isset($_attributes['enctype']) )
 		{
-			switch( $_attributes['enctype'] )
+			$enctype = $_attributes['enctype'];
+			
+			if( isset($this->enctypes[$enctype]) )
 			{
-				case "multipart" : 
-					$_attributes['enctype'] = 'multipart/form-data'; 					
-				break;
-				
-				case "application" : 
-					$_attributes['enctype'] = 'application/x-www-form-urlencoded';	
-				break;
-				
-				case "text" : 
-					$_attributes['enctype'] = 'text/plain'; 							
-				break;
+				$_attributes['enctype'] = $this->enctypes[$enctype];
 			}
 		}
 		
@@ -512,6 +504,20 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		return $this->_input($name, $value, $_attributes, 'url');
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// table()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $table
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function table($table = '')
+	{
+		$this->table = $table;
+		
+		return $this;
+	}
+	
 	/******************************************************************************************
 	* SELECT                                                                                  *
 	*******************************************************************************************
@@ -532,6 +538,42 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	******************************************************************************************/	
 	public function select($name = '', $options = array(), $selected = '', $_attributes = array(), $multiple = false)
 	{
+		if( ! empty($this->settings['table']) || ! empty($this->settings['query']) )
+		{	
+			$key     = key($options);
+			$current = current($options);
+			
+			$options = Arrays::removeFirst($options);
+	
+			if( ! empty($this->settings['table']) )
+			{
+				$table = $this->settings['table'];
+				
+				if( strstr($table, ':') )
+				{
+					$tableEx = explode(':', $tableEx);	
+					$table   = $tableEx[1];  
+					$db		 = $tableEx[0];
+					
+					$db = DB::differentConnection($db);
+					$result = $db->select($current, $key)->get($table)->result();
+				}
+				else
+				{
+					$result = DB::select($current, $key)->get($table)->result();	
+				}
+			}
+			else
+			{
+				$result = DB::query($this->settings['query'])->result();	
+			}
+					
+			foreach( $result as $row )
+			{
+				$options[$row->$key] = $row->$current;	
+			}
+		}
+	
 		if( isset($this->settings['option']) )
 		{
 			$options = $this->settings['option'];
@@ -539,12 +581,12 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( isset($this->settings['exclude']) )
 		{
-			$exclude = $this->settings['exclude'];
-			
-			if( ! empty($exclude) ) foreach( $exclude as $key => $val )
-			{
-				unset($options[$val]); 
-			}
+			$options = Arrays::excluding($options, $this->settings['exclude']);
+		}
+		
+		if( isset($this->settings['include']) )
+		{
+			$options = Arrays::including($options, $this->settings['include']);
 		}
 		
 		if( isset($this->settings['order']['type']) )

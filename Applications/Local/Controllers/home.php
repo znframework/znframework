@@ -2,7 +2,7 @@
 class Home extends Controller
 {	
     //--------------------------------------------------------------------------------------------------------
-    // Called URL: http://example.com/index.php/home/main
+    // Called URL: http://example.com/zeroneed.php/home/main
     //--------------------------------------------------------------------------------------------------------
     public function main($params = '')
     {	
@@ -20,7 +20,7 @@ class Home extends Controller
     }	
 	
     //--------------------------------------------------------------------------------------------------------
-    // Executed URL: http://example.com/index.php/home/test
+    // Executed URL: http://example.com/zeroneed.php/home/test
     //--------------------------------------------------------------------------------------------------------
     public function test()
     {
