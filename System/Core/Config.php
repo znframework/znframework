@@ -48,7 +48,7 @@ class Config
 		
 		if( ! is_file($path) ) 
 		{
-			$path = CONFIGURATIONS_DIR.suffix($file,".php");
+			$path = COMMON_CONFIG_DIR.suffix($file,".php");
 			
 			if( ! is_file($path) ) 
 			{

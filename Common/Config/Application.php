@@ -56,7 +56,7 @@ $config['Application']['restoration'] = array
 	'machinesIP' => array(),
 	
 	// Çalışmayan, hata oluşmuş kullanıcıların karşılasması istenmeyen sayfalar belirtilir.	
-	'pages'		 => array(),
+	'pages'      => array(),
 	
 	// Restoration Pages ayarına belirtilmiş sayfalarından herhangi birine istek yapıldığında
 	// bu ayarın belirtildiği sayfaya yönlendirilir.

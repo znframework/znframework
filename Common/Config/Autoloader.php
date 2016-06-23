@@ -44,6 +44,8 @@ $config['Autoloader']['directoryPermission'] = 0755;
 $config['Autoloader']['classMap'] = array
 (
 	LIBRARIES_DIR,
+	COMMON_LIBRARIES_DIR,
 	MODELS_DIR,
+	COMMON_MODELS_DIR,
 	SYSTEM_LIBRARIES_DIR
 );

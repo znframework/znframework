@@ -94,10 +94,11 @@ function lang($file = '', $str = '', $changed = '')
 		return false;
 	}
 	
-	$key 		= removeExtension($file, 'php');
-	$file 		= Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
-	$langDir    = restorationPath(LANGUAGES_DIR.$file);
-	$sysLangDir = SYSTEM_LANGUAGES_DIR.$file;
+	$key 		   = removeExtension($file, 'php');
+	$file 		   = Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
+	$langDir       = restorationPath(LANGUAGES_DIR.$file);
+	$sysLangDir    = SYSTEM_LANGUAGES_DIR.$file;
+	$commonLangDir = COMMON_LANGUAGES_DIR.$file;
 	
 	global $lang;
 	
@@ -108,6 +109,10 @@ function lang($file = '', $str = '', $changed = '')
 	elseif( is_file($sysLangDir) )
 	{
 		require_once($sysLangDir);	
+	}
+	elseif( is_file($commonLangDir) )
+	{
+		require_once($commonLangDir);	
 	}
 	
 	// Belirtilen anahtar dahil edilen

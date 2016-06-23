@@ -101,14 +101,28 @@ $starting = Config::get('Starting');
 
 if( $starting['autoload']['status'] === true ) 
 {
-	$startingAutoload = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+	$startingAutoload 		= Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+	$commonStartingAutoload = Folder::allFiles(COMMON_AUTOLOAD_DIR, $starting['autoload']['recursive']);
 	
 	//------------------------------------------------------------------------------------------------
-	// Otomatik Olarak Yüklenen Fonksiyonlar
+	// Yerel Otomatik Olarak Yüklenen Fonksiyonlar
 	//------------------------------------------------------------------------------------------------
 	if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
 	{
 		$file = restorationPath(suffix($file, '.php'));
+		
+		if( is_file($file) )
+		{
+			require_once $file;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	// Ortak Otomatik Olarak Yüklenen Fonksiyonlar
+	//------------------------------------------------------------------------------------------------
+	if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
+	{
+		$file = suffix($file, '.php');
 		
 		if( is_file($file) )
 		{

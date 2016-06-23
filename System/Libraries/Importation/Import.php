@@ -276,11 +276,17 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 
 		if( ! empty($args) ) foreach( $args as $file )
 		{
-			$file =  restorationPath(HANDLOAD_DIR.suffix($file, '.php'));
-		
+			$suffix     = suffix($file, '.php');
+			$commonFile = COMMON_HANDLOAD_DIR.$suffix ;
+			$file 		= restorationPath(HANDLOAD_DIR.$suffix);
+			
 			if( is_file($file) )
 			{
-				require_once $file;
+				require_once $file; // Yerel Dosya
+			}
+			elseif( is_file($commonFile) )
+			{
+				require_once($commonFile); // Ortak Dosya
 			}
 		}
 	}
@@ -404,6 +410,10 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			return $return;
 		}
 		elseif( $return = $this->page($page, $data, $obGetContents, TEMPLATES_DIR) ) 
+		{
+			return $return;
+		}
+		elseif( $return = $this->page($page, $data, $obGetContents, COMMON_TEMPLATES_DIR) ) 
 		{
 			return $return;
 		}
@@ -846,6 +856,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$fontFile = restorationPath(FONTS_DIR.$font);		
 			$baseUrl  = baseUrl($fontFile);
 			
+			if( ! is_file($fontFile) )
+			{
+				$fontFile = COMMON_FONTS_DIR.$font;
+			}
+			
 			if( extension($fontFile) )
 			{
 				if( is_file($fontFile) )
@@ -972,6 +987,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}	
 			
 			$styleFile = restorationPath(STYLES_DIR.suffix($style,".css"));
+			
+			if( ! is_file($styleFile) )
+			{
+				$styleFile = COMMON_STYLES_DIR.suffix($style, ".css");
+			}
 		
 			if( ! in_array("style_".$style, $this->isImport) )
 			{					
@@ -1048,6 +1068,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}
 			
 			$scriptFile = restorationPath(SCRIPTS_DIR.suffix($script, ".js"));
+			
+			if( ! is_file($scriptFile) )
+			{
+				$scriptFile = COMMON_SCRIPTS_DIR.suffix($script, ".js");
+			}
 			
 			if( ! in_array("script_".$script, $this->isImport) )
 			{
@@ -1215,7 +1240,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			$return = '';
 			
-			if( ! empty($packages) ) foreach($packages as $package)
+			if( ! empty($packages) ) foreach( $packages as $package )
 			{
 				$return .= $this->_package($dir.$package, $recursive, true);
 			}	
@@ -1265,6 +1290,14 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		$return = '';
 		
+		$commonPackages = str_replace(RESOURCES_DIR, COMMON_RESOURCES_DIR, $packages);
+		
+		// Common Directory
+		if( ! is_dir($packages) )
+		{
+			$packages = $commonPackages;	
+		}
+		
 		if( is_dir($packages) )
 		{
 			$packageFiles = Folder::allFiles(suffix($packages), $recursive);
@@ -1294,7 +1327,13 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		elseif( is_file($packages) )
 		{
+			// Local Directory
 			return $this->something($packages, '', $getContents);	
+		}
+		elseif( is_file($commonPackages) )
+		{
+			// Common Directory
+			return $this->something($commonPackages, '', $getContents);	
 		}
 	}
 	
