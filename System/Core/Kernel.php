@@ -109,11 +109,14 @@ if( $starting['autoload']['status'] === true )
 	//------------------------------------------------------------------------------------------------
 	if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
 	{
-		$file = restorationPath(suffix($file, '.php'));
-		
-		if( is_file($file) )
+		if( extension($file) === 'php' )
 		{
-			require_once $file;
+			$file = restorationPath($file);
+			
+			if( is_file($file) )
+			{
+				require_once $file;
+			}
 		}
 	}
 	
@@ -122,11 +125,16 @@ if( $starting['autoload']['status'] === true )
 	//------------------------------------------------------------------------------------------------
 	if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
 	{
-		$file = suffix($file, '.php');
-		
-		if( is_file($file) )
+		if( extension($file) === 'php' )
 		{
-			require_once $file;
+			// Aynı dosya hem yerel de hemde genelde mevcutsa
+			// genel dizindeki dosya dikkate alınmaz.
+			$commonIsSameExistsFile = str_ireplace(COMMON_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
+			
+			if( ! is_file($commonIsSameExistsFile) && is_file($file) )
+			{
+				require_once $file;
+			}
 		}
 	}
 }	
