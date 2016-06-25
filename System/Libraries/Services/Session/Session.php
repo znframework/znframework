@@ -61,7 +61,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	{
 		$this->config();
 		
-		Config::iniSet($this->config['settings']);
+		Config::iniSet(Config::get('Htaccess', 'session')['settings']);
 		
 		$this->start();
 	}

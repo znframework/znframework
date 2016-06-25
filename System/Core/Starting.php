@@ -62,7 +62,7 @@ if( APPMODE !== 'publication' )
 //----------------------------------------------------------------------------------------------------
 // INI Ayarlarını Yapılandırma İşlemi
 //----------------------------------------------------------------------------------------------------
-$iniSet = Config::get('Ini', 'settings');
+$iniSet = Config::get('Htaccess', 'ini')['settings'];
 
 if( ! empty($iniSet) ) 
 {

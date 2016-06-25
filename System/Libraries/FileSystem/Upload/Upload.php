@@ -76,7 +76,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	
 	public function __construct()
 	{
-		Config::iniSet(Config::get('FileSystem', 'upload')['settings']);	
+		Config::iniSet(Config::get('Htaccess', 'upload')['settings']);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

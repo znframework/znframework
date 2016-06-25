@@ -183,7 +183,7 @@ function lang($file = '', $str = '', $changed = '')
 //----------------------------------------------------------------------------------------------------
 function currentLang()
 {
-	if( ! Config::get("Uri","lang") ) 
+	if( ! Config::get('Uri','lang') ) 
 	{
 		return false;
 	}
@@ -861,7 +861,7 @@ function routeUri($requestUri = '')
 //----------------------------------------------------------------------------------------------------
 function cleanInjection($string = "")
 {
-	$urlInjectionChangeChars = Config::get("Security", 'urlChangeChars');
+	$urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
 
 	if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
 	{		
@@ -1010,7 +1010,9 @@ function createRobotsFile()
 function createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
-	$config = Config::get('Cache');
+	$htaccessSettings = Config::get('Htaccess');
+	
+	$config = $htaccessSettings['cache'];
 	$eol    = EOL;
 	$tab	= HT;
 	
@@ -1044,13 +1046,13 @@ function createHtaccessFile()
 		$exp = '';
 		foreach($config['modExpires']['fileTypeTime'] as $type => $value)
 		{
-			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
+			$exp .= $tab.'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
 		}
 		
 		$modExpires = '<ifModule mod_expires.c>
-ExpiresActive On
-ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
-'.$exp.'
+'.$tab.'ExpiresActive On
+'.$tab.'ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
+'.rtrim($exp, $eol).'
 </ifModule>'.$eol.$eol;
 	}
 	else
@@ -1067,15 +1069,15 @@ ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 		$fmatch = '';
 		foreach( $config['modHeaders']['fileExtensionTimeAccess'] as $type => $value )
 		{
-			$fmatch .= '<filesMatch "\.('.$type.')$">
-Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
-</filesMatch>'.$eol;
+			$fmatch .= $tab.'<filesMatch "\.('.$type.')$">
+'.$tab.$tab.'Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
+'.$tab.'</filesMatch>'.$eol;
 		}
 		
 		$modHeaders = '<ifModule mod_headers.c>
-'.$fmatch.'
+'.rtrim($fmatch, $eol).'
 </ifModule>
-'.$eol.$eol;
+'.$eol;
 	}
 	else
 	{
@@ -1084,15 +1086,14 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADERS----------------------------------------------------------
 	
 	//-----------------------HEADER SET-------------------------------------------------------
-	$headerSet = Config::get("Headers");
-	
-	if( ! empty($headerSet['setHtaccessFile']) )
+
+	if( $htaccessSettings['headers']['status'] === true )
 	{
 		$headersIniSet  = "<ifModule mod_expires.c>".$eol;	
 		
-		foreach( $headerSet['iniSet'] as $val )
+		foreach( $htaccessSettings['headers']['settings'] as $val )
 		{
-			$headersIniSet .= "$val".$eol;
+			$headersIniSet .= $tab."$val".$eol;
 		}
 		
 		$headersIniSet .= "</ifModule>".$eol.$eol;
@@ -1104,9 +1105,8 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADER SET-------------------------------------------------------
 	
 	//-----------------------HTACCESS SET-----------------------------------------------------	
-	$htaccessSettings = Config::get("Htaccess");
 	
-	if( ! empty($htaccessSettings['setFile']) )
+	if( ! empty($htaccessSettings['settings']) )
 	{
 		$htaccessSettingsStr = '';
 		
@@ -1157,10 +1157,10 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	$htaccess .= '#----------------------------------------------------------------------------------------------------'.$eol.$eol;
 	$htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 	
-	//-----------------------URI INDEX PHP----------------------------------------------------	
-	if( ! Config::get('Uri', DIRECTORY_INDEX) )
+	//-----------------------URI ZERONEED PHP----------------------------------------------------	
+	if( ! $htaccessSettings['uri'][DIRECTORY_INDEX] )
 	{
-		$indexSuffix = Config::get('Uri','indexSuffix');
+		$indexSuffix = $htaccessSettings['uri']['indexSuffix'];
 		$flag		 = ! empty($indexSuffix) ? 'QSA' : 'L';
 		
 		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
@@ -1171,7 +1171,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= $tab.'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
 		$htaccess .= "</IfModule>".$eol.$eol;
 	}
-	//-----------------------URI INDEX PHP----------------------------------------------------
+	//-----------------------URI ZERONEED PHP----------------------------------------------------
 	
 	//-----------------------ERROR REQUEST----------------------------------------------------	
 	$htaccess .= 'ErrorDocument 403 '.BASE_DIR.DIRECTORY_INDEX.$eol.$eol;	
@@ -1181,11 +1181,9 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	$htaccess .= 'DirectoryIndex '.DIRECTORY_INDEX.$eol.$eol;	
 	//-----------------------DIRECTORY INDEX--------------------------------------------------
 	
-	$uploadSet = Config::get('FileSystem', 'upload');		
-	
-	if( ! empty($uploadSet['setHtaccessFile']) )
+	if( ! empty($uploadSet['status']) )
 	{
-		$uploadSettings = $uploadSet['settings'];
+		$uploadSettings = $htaccessSettings['upload'];
 	}
 	else
 	{
@@ -1194,11 +1192,10 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
 	//-----------------------SESSION SETTINGS-------------------------------------------------
-	$sessionSet = Config::get('Services', 'session');	
-			
-	if( ! empty($sessionSet['setHtaccessFile']) )
+		
+	if( ! empty($htaccessSettings['session']['status']) )
 	{
-		$sessionSettings = $sessionSet['settings'];
+		$sessionSettings = $htaccessSettings['session']['settings'];
 	}
 	else
 	{
@@ -1206,12 +1203,10 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	}
 	//-----------------------SESSION SETTINGS-------------------------------------------------
 	
-	//-----------------------INI SETTINGS-----------------------------------------------------	
-	$iniSet = Config::get('Ini');	
-		
-	if( ! empty($iniSet['setHtaccessFile']) )
+	//-----------------------INI SETTINGS-----------------------------------------------------		
+	if( $htaccessSettings['ini']['status'] === true )
 	{
-		$iniSettings = $iniSet['settings'];
+		$iniSettings = $htaccessSettings['ini']['settings'];
 	}
 	else
 	{
@@ -1327,7 +1322,7 @@ function sslStatus()
 //----------------------------------------------------------------------------------------------------
 function indexStatus()
 {
-	if( Config::get('Uri', DIRECTORY_INDEX) ) 
+	if( Config::get('Htaccess', 'uri')[DIRECTORY_INDEX] ) 
 	{
 		return DIRECTORY_INDEX.'/'; 
 	}

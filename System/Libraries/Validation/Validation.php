@@ -177,7 +177,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
 		if( in_array('nc', $config) )
 		{
-			$secnc = Config::get("Security", 'ncEncode');
+			$secnc = Config::get('Security', 'ncEncode');
 			$edit  = Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
