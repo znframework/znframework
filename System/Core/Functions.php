@@ -810,6 +810,11 @@ function requestUri()
 	{
 		return substr($requestUri, strlen(suffix(currentLang())));
 	}
+	
+	if( INTERNAL_DIR )
+	{
+		$requestUri = str_ireplace(suffix(INTERNAL_DIR), '', $requestUri);
+	}
 
 	return $requestUri;
 }
