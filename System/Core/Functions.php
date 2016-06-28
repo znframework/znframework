@@ -806,8 +806,12 @@ function _requestUri()
 	
 	$requestUri	= _cleanInjection(_routeUri($requestUri));
 	$requestUri = _cleanURIPrefix($requestUri, currentLang());
-	$requestUri = _cleanURIPrefix($requestUri, INTERNAL_DIR);
-
+	
+	if( defined('INTERNAL_DIR') )
+	{
+		$requestUri = _cleanURIPrefix($requestUri, INTERNAL_DIR);
+	}
+	
 	return $requestUri;
 }
 

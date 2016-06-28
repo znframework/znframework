@@ -57,10 +57,6 @@ if( is_dir(APPLICATIONS_DIR.$internalDir) )
 {
 	define('INTERNAL_DIR', $internalDir);	
 }
-else
-{
-	define('INTERNAL_DIR', '');	
-}
 
 //----------------------------------------------------------------------------------------------------
 // STATIC_ACCESS

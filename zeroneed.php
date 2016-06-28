@@ -129,7 +129,7 @@ if( is_array($appdir) && ! empty($appdir[host()]) )
 {
 	$appdir = $appdir[host()];
 }
-elseif( INTERNAL_DIR )
+elseif( defined('INTERNAL_DIR') )
 {
 	$appdir = INTERNAL_DIR;
 }
