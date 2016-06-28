@@ -133,12 +133,22 @@ elseif( defined('INTERNAL_DIR') )
 {
 	$appdir = INTERNAL_DIR;
 }
+else
+{
+	$appdir = 'Local';	
+}
+
 //----------------------------------------------------------------------------------------------------
 //  Applications & Restorasyons Directories
 //----------------------------------------------------------------------------------------------------
 define('APPDIR', suffix(APPLICATIONS_DIR.$appdir));
 define('RESDIR', suffix(RESTORATIONS_DIR.$appdir));
 //----------------------------------------------------------------------------------------------------
+
+if( ! is_dir(APPDIR) )
+{
+	exit('"'.$appdir.'" Application Directory Not Found!');
+}
 
 //----------------------------------------------------------------------------------------------------
 // Benchmarking Test
