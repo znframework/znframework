@@ -941,7 +941,7 @@ function _requestUri()
 function _cleanURIPrefix($uri, $cleanData)
 {
 	$suffixData = suffix($cleanData);
-	
+
 	if( ! empty($cleanData) && stripos($uri, $suffixData) === 0 )
 	{
 		$uri = substr($uri, strlen($suffixData));
@@ -966,7 +966,16 @@ function _routeUri($requestUri = '')
 		
 		if( defined('INTERNAL_DIR') )
 		{
-			$internalDir = INTERNAL_DIR;	
+			$configAppdir = Config::get('Application', 'directory');
+			
+			if( is_array($configAppdir) )
+			{
+				$internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : INTERNAL_DIR;
+			}
+			else
+			{
+				$internalDir = INTERNAL_DIR;	
+			}
 		}
 		
 		if

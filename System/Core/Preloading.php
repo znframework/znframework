@@ -53,6 +53,11 @@ $internalDir = ( ! empty($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['P
 
 global $application;
 
+if( is_array($application['directory']) )
+{
+	$internalDir = ! empty($application['directory'][$internalDir]) ? $application['directory'][$internalDir] : '';
+}
+
 if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
 {
 	define('INTERNAL_DIR', $internalDir);	
