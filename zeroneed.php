@@ -109,7 +109,7 @@ switch( APPMODE )
 	//------------------------------------------------------------------------------------------------
 	// Farklı bir kullanım hatası
 	//------------------------------------------------------------------------------------------------
-	default: echo 'Invalid Application Mode! Available Options: development, restoration or publication'; exit;
+	default: exit('Invalid Application Mode! Available Options: development, restoration or publication');
 	//------------------------------------------------------------------------------------------------
 }	
 //----------------------------------------------------------------------------------------------------
@@ -125,13 +125,8 @@ require_once CORE_DIR.'Preloading.php';
 //----------------------------------------------------------------------------------------------------
 $appdir = $application['directory'];
 
-if( is_array($appdir) )
+if( is_array($appdir) && ! empty($appdir[host()]) )
 {
-	if( empty($appdir[host()]) )
-	{
-		echo 'Invalid Application Directory Name or Hostname! Check application.php file located in the directory settings.'; exit;
-	}
-	
 	$appdir = $appdir[host()];
 }
 elseif( INTERNAL_DIR )
