@@ -753,6 +753,122 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	return $str;
 }
 
+//----------------------------------------------------------------------------------------------------
+// report()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function report($subject = 'unknown', $message = '', $destination = '', $time = '')
+{
+	if( ! Config::get('Log', 'createFile')) 
+	{
+		return false;
+	}
+	
+	if( $destination === '' )
+	{
+		$destination = str_replace(' ', '-', $subject);
+	}
+	
+	$logDir    = STORAGE_DIR.'Logs/';
+	$extension = '.log';
+	
+	if( ! is_dir($logDir) )
+	{
+		Folder::create($logDir, 0755);	
+	}
+	
+	if( is_file($logDir.suffix($destination, $extension)) )
+	{
+		if( empty($time) ) 
+		{
+			$time = Config::get('Log', 'fileTime');
+		}
+		
+		$createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
+		$endDate    = strtotime("$time", strtotime($createDate));
+		$endDate    = date('Y.m.d', $endDate);
+		
+		if( date('Y.m.d')  >  $endDate )
+		{
+			File::delete($logDir.suffix($destination, $extension));
+		}
+	}
+
+	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}')." | Message: ".$message.EOL;
+	error_log($message, 3, $logDir.suffix($destination, $extension));
+}
+
+//----------------------------------------------------------------------------------------------------
+// headers()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function headers($header = '')
+{
+	if( empty($header) )
+	{
+		return false;
+	}
+	
+	if( ! is_array($header) )
+	{
+		 header($header);
+	}
+	else 
+	{
+		if( isset($header) ) foreach( $header as $k => $v )
+		{
+			header($v);
+		}
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+// sslStatus()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function sslStatus()
+{
+	if( Config::get('Uri','ssl') )
+	{ 
+		return 'https://'; 
+	}
+	else
+	{ 
+		return 'http://';	
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+// indexStatus()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function indexStatus()
+{
+	if( Config::get('Htaccess', 'uri')[DIRECTORY_INDEX] ) 
+	{
+		return DIRECTORY_INDEX.'/'; 
+	}
+	else
+	{ 
+		return '';	
+	}
+}
 //------------------------------------SYSTEM AND USER FUNCTIONS END-----------------------------------
 
 
@@ -846,12 +962,25 @@ function _routeUri($requestUri = '')
 {
 	if( Config::get('Route','openPage') )
 	{
-			if( $requestUri === DIRECTORY_INDEX || empty($requestUri) || $requestUri === getLang() ) 
-			{
-				$requestUri = Config::get('Route','openPage');
-			}
+		$internalDir = NULL;
+		
+		if( defined('INTERNAL_DIR') )
+		{
+			$internalDir = INTERNAL_DIR;	
+		}
+		
+		if
+		( 	
+			$requestUri === DIRECTORY_INDEX || 	 				 
+			$requestUri === getLang() 		|| 
+			$requestUri === $internalDir    ||
+			empty($requestUri) 
+		) 
+		{
+			$requestUri = Config::get('Route','openPage');	
+		}
 	}
-			
+		
 	$config      = Config::get('Route');
 	$uriChange   = $config['changeUri'];
 	$patternType = $config['patternType'];
@@ -890,55 +1019,6 @@ function _cleanInjection($string = "")
 	
 	return $string;
 	
-}
-
-//----------------------------------------------------------------------------------------------------
-// report()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function report($subject = 'unknown', $message = '', $destination = '', $time = '')
-{
-	if( ! Config::get('Log', 'createFile')) 
-	{
-		return false;
-	}
-	
-	if( $destination === '' )
-	{
-		$destination = str_replace(' ', '-', $subject);
-	}
-	
-	$logDir    = STORAGE_DIR.'Logs/';
-	$extension = '.log';
-	
-	if( ! is_dir($logDir) )
-	{
-		Folder::create($logDir, 0755);	
-	}
-	
-	if( is_file($logDir.suffix($destination, $extension)) )
-	{
-		if( empty($time) ) 
-		{
-			$time = Config::get('Log', 'fileTime');
-		}
-		
-		$createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
-		$endDate    = strtotime("$time", strtotime($createDate));
-		$endDate    = date('Y.m.d', $endDate);
-		
-		if( date('Y.m.d')  >  $endDate )
-		{
-			File::delete($logDir.suffix($destination, $extension));
-		}
-	}
-
-	$message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}')." | Message: ".$message.EOL;
-	error_log($message, 3, $logDir.suffix($destination, $extension));
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -1282,73 +1362,5 @@ function _createHtaccessFile()
 	}
 	
 	unset( $htaccess );	
-}
-
-//----------------------------------------------------------------------------------------------------
-// headers()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function headers($header = '')
-{
-	if( empty($header) )
-	{
-		return false;
-	}
-	
-	if( ! is_array($header) )
-	{
-		 header($header);
-	}
-	else 
-	{
-		if( isset($header) ) foreach( $header as $k => $v )
-		{
-			header($v);
-		}
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-// sslStatus()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function sslStatus()
-{
-	if( Config::get('Uri','ssl') )
-	{ 
-		return 'https://'; 
-	}
-	else
-	{ 
-		return 'http://';	
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-// indexStatus()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function indexStatus()
-{
-	if( Config::get('Htaccess', 'uri')[DIRECTORY_INDEX] ) 
-	{
-		return DIRECTORY_INDEX.'/'; 
-	}
-	else
-	{ 
-		return '';	
-	}
 }
 //------------------------------------SYSTEM FUNCTIONS END--------------------------------------------
