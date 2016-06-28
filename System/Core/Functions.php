@@ -204,7 +204,7 @@ function currentLang()
 //----------------------------------------------------------------------------------------------------
 function currentUrl($fix = '')
 {
-	$currentUrl = sslStatus().host().cleanInjection($_SERVER['REQUEST_URI']);
+	$currentUrl = sslStatus().host()._cleanInjection($_SERVER['REQUEST_URI']);
 
 	if( ! empty($fix) )
 	{
@@ -257,7 +257,7 @@ function siteUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang())._cleanInjection($uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -302,7 +302,7 @@ function baseUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.restorationPath(cleanInjection($uri));
+	return sslStatus().$host.$newBaseDir.restorationPath(_cleanInjection($uri));
 }	
 	
 //----------------------------------------------------------------------------------------------------
@@ -329,7 +329,7 @@ function prevUrl()
 		$str   = str_replace($strEx[0]."/", "", $str);	
 	}
 	
-	return siteUrl(cleanInjection($str));	
+	return siteUrl(_cleanInjection($str));	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ function hostUrl($uri = "")
 		return false;
 	}
 	
-	return sslStatus().suffix(host()).cleanInjection($uri);
+	return sslStatus().suffix(host())._cleanInjection($uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -433,7 +433,7 @@ function basePath($uri = '', $index = 0)
 		}
 	}
 	
-	return cleanInjection($newBaseDir.$uri);
+	return _cleanInjection($newBaseDir.$uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -786,14 +786,14 @@ function currentUri()
 }
 
 //----------------------------------------------------------------------------------------------------
-// requestUri()
+// _requestUri()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function requestUri()
+function _requestUri()
 {
 	$requestUri = currentUri()
 	            ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
@@ -804,30 +804,41 @@ function requestUri()
 			$requestUri = substr($requestUri, 0, -1);
 	}
 	
-	$requestUri = cleanInjection(routeUri($requestUri));
-	
-	if( currentLang() && stripos($requestUri, suffix(currentLang())) === 0 )
-	{
-		return substr($requestUri, strlen(suffix(currentLang())));
-	}
-	
-	if( INTERNAL_DIR )
-	{
-		$requestUri = str_ireplace(suffix(INTERNAL_DIR), '', $requestUri);
-	}
+	$requestUri	= _cleanInjection(_routeUri($requestUri));
+	$requestUri = _cleanURIPrefix($requestUri, currentLang());
+	$requestUri = _cleanURIPrefix($requestUri, INTERNAL_DIR);
 
 	return $requestUri;
 }
 
 //----------------------------------------------------------------------------------------------------
-// routeUri()
+// _cleanURIPrefix()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _cleanURIPrefix($uri, $cleanData)
+{
+	$suffixData = suffix($cleanData);
+	
+	if( ! empty($cleanData) && stripos($uri, $suffixData) === 0 )
+	{
+		$uri = substr($uri, strlen($suffixData));
+	}
+	
+	return $uri;
+}
+
+//----------------------------------------------------------------------------------------------------
+// _routeUri()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function routeUri($requestUri = '')
+function _routeUri($requestUri = '')
 {
 	if( Config::get('Route','openPage') )
 	{
@@ -857,14 +868,14 @@ function routeUri($requestUri = '')
 }
 
 //----------------------------------------------------------------------------------------------------
-// cleanInjection()
+// _cleanInjection()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function cleanInjection($string = "")
+function _cleanInjection($string = "")
 {
 	$urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
 
@@ -927,14 +938,14 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 }
 
 //----------------------------------------------------------------------------------------------------
-// createRobotsFile()
+// _createRobotsFile()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function createRobotsFile()
+function _createRobotsFile()
 {	
 	$rules = Config::get('Robots', 'rules');
 	
@@ -1005,14 +1016,14 @@ function createRobotsFile()
 }
 
 //----------------------------------------------------------------------------------------------------
-// createHtaccessFile()
+// _createHtaccessFile()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function createHtaccessFile()
+function _createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$htaccessSettings = Config::get('Htaccess');

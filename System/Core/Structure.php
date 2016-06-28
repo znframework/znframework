@@ -71,7 +71,7 @@ class Structure
 		// @var string	  
 		//         																				  
 		//------------------------------------------------------------------------------------------------
-		$requestUri 	= requestUri();
+		$requestUri 	= _requestUri();
 		
 		//------------------------------------------------------------------------------------------------
 		//  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
