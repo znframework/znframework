@@ -133,7 +133,7 @@ elseif( defined('INTERNAL_DIR') )
 {
 	$appdir = INTERNAL_DIR;
 }
-else
+elseif( is_array($appdir) )
 {
 	$appdir = 'Local';	
 }
