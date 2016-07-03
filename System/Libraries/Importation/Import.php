@@ -1293,7 +1293,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		$commonPackages = str_replace(RESOURCES_DIR, COMMON_RESOURCES_DIR, $packages);
 		
 		// Common Directory
-		if( ! is_dir($packages) )
+		if( ! is_dir($packages) && ! is_file($packages) )
 		{
 			$packages = $commonPackages;	
 		}
@@ -1329,11 +1329,6 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			// Local Directory
 			return $this->something($packages, '', $getContents);	
-		}
-		elseif( is_file($commonPackages) )
-		{
-			// Common Directory
-			return $this->something($commonPackages, '', $getContents);	
 		}
 	}
 	
