@@ -1289,11 +1289,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		$eol = EOL;
 		
 		$return = '';
-<<<<<<< HEAD
 		
-=======
-	
->>>>>>> origin/develop
 		// Common Directory
 		if( ! is_dir($packages) && ! is_file($packages) )
 		{
