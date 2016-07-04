@@ -1289,13 +1289,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		$eol = EOL;
 		
 		$return = '';
-		
-		$commonPackages = str_replace(RESOURCES_DIR, COMMON_RESOURCES_DIR, $packages);
-		
+	
 		// Common Directory
 		if( ! is_dir($packages) && ! is_file($packages) )
 		{
-			$packages = $commonPackages;	
+			$packages = str_replace(RESOURCES_DIR, COMMON_RESOURCES_DIR, $packages);	
 		}
 		
 		if( is_dir($packages) )
