@@ -44,7 +44,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct($config = array())
+	public function __construct($config = [])
 	{
 		$this->config($config);
 		$this->connect();
@@ -88,7 +88,7 @@ class __USE_STATIC_ACCESS__FTP implements FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function connect($config = array())
+	public function connect($config = [])
 	{	
 		if( ! is_array($config) )
 		{

@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	 * için oluşturulmuştur.
 	 *
 	 */
-	private $items = array();
+	private $items = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -59,7 +59,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	| isimlendirmeler keyfidir. Yani isteğe bağlıdır.        								  |
 	|          																				  |
 	******************************************************************************************/
-	public function insertItem($product = array())
+	public function insertItem($product = [])
 	{
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
@@ -268,7 +268,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	| olarak güncelle işlemidir.         												      |
 	|          																				  |
 	******************************************************************************************/
-	public function updateItem($code = '', $data = array())
+	public function updateItem($code = '', $data = [])
 	{	
 		if( empty($code) )
 		{
@@ -435,7 +435,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		$moneyFormat = '';
 		$money  	 = round($money, 2);
 		$str_ex 	 = explode(".",$money);
-		$join   	 = array();
+		$join   	 = [];
 		$str    	 = strrev($str_ex[0]);
 		
 		for( $i = 0; $i < strlen($str); $i++ )

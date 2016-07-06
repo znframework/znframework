@@ -71,7 +71,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	// @return callable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function func($func = '', $params = array())
+	public function func($func = '', $params = [])
 	{
 		if( ! is_callable($func) || ! is_array($params) )
 		{
@@ -106,7 +106,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	// func() yönteminin takma adıdır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($func = '', $params = array())
+	public function callback($func = '', $params = [])
 	{
 		return $this->func($func, $params);
 	}
@@ -129,7 +129,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($name = '', $data = '', $params = array())
+	public function insert($name = '', $data = '', $params = [])
 	{
 		if( ! is_scalar($name) || ! is_array($params) )
 		{

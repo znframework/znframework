@@ -102,7 +102,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 	// Dosya uzantısı kontrol ediliyor.
 	private function isImageFile($file)
 	{
-		$extensions = array('jpg', 'jpeg', 'png', 'gif');
+		$extensions = ['jpg', 'jpeg', 'png', 'gif'];
 		
 		if( in_array(extension($file), $extensions))
 		{
@@ -185,7 +185,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 	| 9. quality  => Resmin kalitesini ayarlamak için kullanılır.                             |
 	|          																				  |
 	******************************************************************************************/	
-	public function thumb($fpath = '', $set = array())
+	public function thumb($fpath = '', $set = [])
 	{
 		// Parametre kontrolleri yapılıyor -------------------------------------------
 		if( ! is_string($fpath) ) 
@@ -194,7 +194,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		}
 		if( ! is_array($set) )
 		{
-			$set = array();
+			$set = [];
 		}
 		// ---------------------------------------------------------------------------
 		

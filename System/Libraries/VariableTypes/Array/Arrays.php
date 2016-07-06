@@ -60,7 +60,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		
 		$pos = $poss;
 		
-		$lastArray = array();
+		$lastArray = [];
 		
 		if( $pos > $changePos ) 
 		{ 
@@ -125,7 +125,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 		
 		$pos = $poss;
 		
-		$lastArray = array();
+		$lastArray = [];
 		
 		if( $pos > $changePos ) 
 		{ 
@@ -173,7 +173,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param string $keyval: all, key, val	                          								  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function casing($array = array(), $type = 'lower', $keyval = 'all')
+	public function casing($array = [], $type = 'lower', $keyval = 'all')
 	{
 		return Convert::arrayCase($array, $type, $keyval);
 	}
@@ -186,7 +186,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param numeric $count							  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeLast($array = array(), $count = 1)
+	public function removeLast($array = [], $count = 1)
 	{
 		if( ! is_array($array) ) 
 		{
@@ -223,7 +223,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param numeric $count			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeFirst($array = array(), $count = 1)
+	public function removeFirst($array = [], $count = 1)
 	{
 		if( ! is_array($array) ) 
 		{
@@ -260,7 +260,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addFirst($array = array(), $element = '')
+	public function addFirst($array = [], $element = '')
 	{
 		if( ! is_array($array) ) 
 		{
@@ -287,7 +287,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addLast($array = array(), $element = array())
+	public function addLast($array = [], $element = [])
 	{
 		if( ! is_array($array) ) 
 		{
@@ -314,14 +314,14 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed $object						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteElement($array = array(), $object = '')
+	public function deleteElement($array = [], $object = '')
 	{
 		if( ! is_array($array) ) 
 		{
 			return Errors::set('Error', 'arrayParameter', 'array');
 		}
 		
-		$newArray = array();
+		$newArray = [];
 		
 		if( ! is_array($object) )
 		{
@@ -388,9 +388,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param string $keySplit:|						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function multikey($array = array(), $keySplit = "|")
+	public function multikey($array = [], $keySplit = "|")
 	{
-		$newArray = array();
+		$newArray = [];
 		
 		if( is_array($array) ) 
 		{
@@ -420,7 +420,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param string $keyval: val/value, key, vals/values, keys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyval($array = array(), $keyval = "val")
+	public function keyval($array = [], $keyval = "val")
 	{
 		if( ! is_array($array) ) 
 		{
@@ -458,7 +458,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getLast($array = array(), $count = 1, $preserveKey = false)
+	public function getLast($array = [], $count = 1, $preserveKey = false)
 	{
 		if( ! is_array($array) )
 		{
@@ -486,7 +486,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getFirst($array = array(), $count = 1, $preserveKey = false)
+	public function getFirst($array = [], $count = 1, $preserveKey = false)
 	{
 		if( ! is_array($array) )
 		{
@@ -514,7 +514,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param string $flags:regular						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function order($array = array(), $type = '', $flags = 'regular')
+	public function order($array = [], $type = '', $flags = 'regular')
 	{
 		if( ! is_array($array) )
 		{
@@ -554,7 +554,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function objectData($data = array())
+	public function objectData($data = [])
 	{
 		if( ! is_array($data) )
 		{
@@ -571,7 +571,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $array						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function length($data = array())
+	public function length($data = [])
 	{
 		if( ! is_array($data) )
 		{
@@ -590,7 +590,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function apportion($data = array(), $portionCount = 1, $preserveKeys = false)
+	public function apportion($data = [], $portionCount = 1, $preserveKeys = false)
 	{
 		if( ! is_array($data) )
 		{
@@ -608,7 +608,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array $values					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function combine($keys = array(), $values = array())
+	public function combine($keys = [], $values = [])
 	{
 		if( ! is_array($keys) || ! is_array($values) )
 		{
@@ -626,7 +626,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function countSameValues($array = array(), $key = NULL)
+	public function countSameValues($array = [], $key = NULL)
 	{
 		if( ! is_array($array) )
 		{
@@ -657,7 +657,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function flip($array = array())
+	public function flip($array = [])
 	{
 		if( ! is_array($array) )
 		{
@@ -674,7 +674,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function transform($array = array())
+	public function transform($array = [])
 	{
 		return $this->flip($array);	
 	}
@@ -747,7 +747,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function reverse($array = array(), $preserveKeys = false)
+	public function reverse($array = [], $preserveKeys = false)
 	{
 		if( ! is_array($array) )
 		{
@@ -769,7 +769,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function product($array = array())
+	public function product($array = [])
 	{
 		if( ! is_array($array) )
 		{
@@ -786,7 +786,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function sum($array = array())
+	public function sum($array = [])
 	{
 		if( ! is_array($array) )
 		{
@@ -804,7 +804,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param numeric $countRequest					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function random($array = array(), $countRequest = 1)
+	public function random($array = [], $countRequest = 1)
 	{
 		if( ! is_array($array) )
 		{
@@ -828,7 +828,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function search($array = array(), $element = '', $strict = false)
+	public function search($array = [], $element = '', $strict = false)
 	{
 		if( ! is_array($array) )
 		{
@@ -852,7 +852,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function valueExists($array = array(), $element = '', $strict = false)
+	public function valueExists($array = [], $element = '', $strict = false)
 	{
 		if( ! is_array($array) )
 		{
@@ -875,7 +875,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyExists($array = array(), $key = '')
+	public function keyExists($array = [], $key = '')
 	{
 		if( ! is_array($array) )
 		{
@@ -895,7 +895,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function section($array = array(), $start = 0, $length = NULL, $preserveKeys = false)
+	public function section($array = [], $start = 0, $length = NULL, $preserveKeys = false)
 	{
 		if( ! is_array($array) )
 		{
@@ -915,7 +915,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed	  $newElement						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function resection($array = array(), $start = 0, $length = NULL, $newElement = NULL)
+	public function resection($array = [], $start = 0, $length = NULL, $newElement = NULL)
 	{
 		if( ! is_array($array) )
 		{
@@ -935,7 +935,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param string $flags					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteRecurrent($array = array(), $flags = 'string')
+	public function deleteRecurrent($array = [], $flags = 'string')
 	{
 		if( ! is_array($array) )
 		{
@@ -973,7 +973,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param mixed	  $indexKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function column($array = array(), $columnKey = 0, $indexKey = NULL)
+	public function column($array = [], $columnKey = 0, $indexKey = NULL)
 	{
 		if( ! is_array($array) )
 		{
@@ -991,14 +991,14 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function excluding($array = array(), $excluding = array())
+	public function excluding($array = [], $excluding = [])
 	{
 		if( ! is_array($array) )
 		{
 			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
-		$newArray = array();
+		$newArray = [];
 		
 		foreach( $array as $key => $val )
 		{
@@ -1019,14 +1019,14 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function including($array = array(), $including = array())
+	public function including($array = [], $including = [])
 	{
 		if( ! is_array($array) )
 		{
 			return Errors::set('Error', 'arrayParameter', '1.(array)');	
 		}
 		
-		$newArray = array();
+		$newArray = [];
 		
 		foreach( $array as $key => $val )
 		{
@@ -1047,7 +1047,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param callable $callable				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function each($array = array(), $callable = '')
+	public function each($array = [], $callable = '')
     {
         foreach( $array as $k => $v ) 
 		{

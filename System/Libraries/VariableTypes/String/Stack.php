@@ -240,7 +240,7 @@ class __USE_STATIC_ACCESS__Stack
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function placement($delimiter = '?', $array = array())
+	public function placement($delimiter = '?', $array = [])
 	{
 		$this->data = Strings::placement($this->data, $delimiter, $array);
 		

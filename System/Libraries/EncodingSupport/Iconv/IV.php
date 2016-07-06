@@ -184,7 +184,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeEncode($fieldName = '', $fieldValue = '', $preferences = array())
+	public function mimeEncode($fieldName = '', $fieldValue = '', $preferences = [])
 	{
 		if( ! is_string($fieldName) || ! is_string($fieldValue) )
 		{

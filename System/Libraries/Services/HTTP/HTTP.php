@@ -208,7 +208,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;
 
-		$this->settings = array();
+		$this->settings = [];
 		
 		switch( $input )
 		{
@@ -234,7 +234,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;   
 		$value = isset($this->settings['value']) ? $this->settings['value'] : $value;
 		
-		$this->settings = array();
+		$this->settings = [];
 		
 		switch( $input )
 		{
@@ -258,7 +258,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;
 		
-		$this->settings = array();
+		$this->settings = [];
 		
 		switch( $input )
 		{

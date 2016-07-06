@@ -15,21 +15,21 @@ trait UserTrait
 		return $name;
 	}
 	
-	public function create($user = '', $parameters = array())
+	public function create($user = '', $parameters = [])
 	{
 		return 'CREATE USER '.
 				$user.
 				( ! empty($parameters[0]) ? ' DEFAULT SCHEMA '.$parameters[0] : '' );
 	}
 	
-	public function drop($user = '', $parameters = array())
+	public function drop($user = '', $parameters = [])
 	{
 		return 'DROP USER '.
 				$user.
 				( ! empty($parameters[0]) ? ' '.$parameters[0] : ' RESTRICT' );
 	}
 	
-	public function alter($user = '', $parameters = array())
+	public function alter($user = '', $parameters = [])
 	{
 		return 'ALERT USER '.
 				$user.

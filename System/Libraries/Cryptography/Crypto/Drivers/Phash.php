@@ -14,7 +14,7 @@ class PhashDriver implements CryptoInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(getErrorMessage('Error', 'invalidVersion', array('%' => 'password_', '#' => '5.5.0')));		
+			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'password_', '#' => '5.5.0']));		
 		}	
 	}
 	
@@ -29,13 +29,13 @@ class PhashDriver implements CryptoInterface
 		die(getErrorMessage('Error', 'undefinedFunction', "PhashDriver::$method()"));	
 	}
 	
-	public function encrypt($data = '', $settings = array())
+	public function encrypt($data = '', $settings = [])
 	{
 		// Bu sürücü tarafından desteklenmemektedir.
 		return lang('Error', 'notSupport');
 	}
 	
-	public function decrypt($data = '', $settings = array())
+	public function decrypt($data = '', $settings = [])
 	{
 		// Bu sürücü tarafından desteklenmemektedir.
 		return lang('Error', 'notSupport');

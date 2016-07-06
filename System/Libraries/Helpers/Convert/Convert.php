@@ -34,7 +34,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	// @param array  $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function anchor($data = '', $type = 'short', $attributes = array())
+	public function anchor($data = '', $type = 'short', $attributes = [])
 	{
 		return preg_replace
 		(
@@ -93,7 +93,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		for( $i = 32; $i <= 255; $i++ )
 		{
 			$hexRemaining = ( $i % 16 );
-			$hexRemaining = str_replace( array(10, 11, 12, 13, 14, 15), array('A', 'B', 'C', 'D', 'E', 'F'), $hexRemaining );
+			$hexRemaining = str_replace( [10, 11, 12, 13, 14, 15], ['A', 'B', 'C', 'D', 'E', 'F'], $hexRemaining );
 			$hex 		  = ( floor( $i / 16) ).$hexRemaining;
 			
 			if( $hex[0] == '0' ) 
@@ -216,7 +216,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	  @param string $keyval all, key, val/value
 	|																						  |
 	******************************************************************************************/
-	public function arrayCase($array = array(), $type = 'lower', $keyval = 'all')
+	public function arrayCase($array = [], $type = 'lower', $keyval = 'all')
 	{
 		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
 		{
@@ -257,7 +257,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 			$arrayVals = array_map($caseType, $arrayVals);		
 		}
 		
-		$newArray = array();
+		$newArray = [];
 		
 		for($i = 0; $i < count($array); $i++)
 		{
@@ -311,7 +311,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	| Örnek Kullanım: highLight('echo 1;');  											  	  |
 	|       																				  |
 	******************************************************************************************/
-	public function highLight($str = '', $settings = array())
+	public function highLight($str = '', $settings = [])
 	{
 		if( ! is_string($str) || ! is_array($settings) )
 		{
@@ -354,10 +354,10 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		$string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
 		
 		$tagArray = $tags === true 
-		          ? array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>') 
-		          : array('<div style="'.$background.'">', '</div>');
+		          ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
+		          : ['<div style="'.$background.'">', '</div>'];
 		
-		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), $tagArray, $string);
+		return str_replace(['&#60;&#63;php', '&#63;&#62;'], $tagArray, $string);
     }
 	
 	/******************************************************************************************

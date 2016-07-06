@@ -89,7 +89,7 @@ trait DatabaseTrait
 	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function __construct($config = array())
+	public function __construct($config = [])
 	{
 		$this->db = $this->run();
 
@@ -189,7 +189,7 @@ trait DatabaseTrait
 	//----------------------------------------------------------------------------------------------------
 	protected function nailEncode($data)
 	{
-		return str_replace(array("'", "\&#39;", "\\&#39;"), "&#39;", $data);	
+		return str_replace(["'", "\&#39;", "\\&#39;"], "&#39;", $data);	
 	}
 	
 	/******************************************************************************************
@@ -317,7 +317,7 @@ trait DatabaseTrait
 	| Örnek Kullanım: ->secure(array(':x' => '1', ':y' => 2))				  				  |
 	|          																				  |
 	******************************************************************************************/
-	public function secure($data = array())
+	public function secure($data = [])
 	{
 		if( ! is_array($data) ) 
 		{
@@ -342,7 +342,7 @@ trait DatabaseTrait
 		{
 			$secure = $this->secure;
 			
-			$secureParams = array();
+			$secureParams = [];
 			
 			if( is_numeric(key($secure)) )
 			{	
@@ -388,7 +388,7 @@ trait DatabaseTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	private function _math($type, $args = array())
+	private function _math($type, $args = [])
 	{
 		$type    = strtoupper($type);
 		$getLast = Arrays::getLast($args);

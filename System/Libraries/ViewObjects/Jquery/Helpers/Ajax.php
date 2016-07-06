@@ -30,7 +30,7 @@ class Ajax
 	 *
 	 * @var array
 	 */
-	protected $functions = array();
+	protected $functions = [];
 	
 	/* 
 	 * Ayar blokları
@@ -39,7 +39,7 @@ class Ajax
 	 *
 	 * @var array
 	 */
-	protected $sets = array();
+	protected $sets = [];
 	
 	/* Dönüş fonksiyon blokları
 	 *
@@ -47,7 +47,7 @@ class Ajax
 	 *
 	 * @var array 
 	 */
-	protected $callbacks = array();
+	protected $callbacks = [];
 
 	/******************************************************************************************
 	* URL                                                                                     *
@@ -566,7 +566,7 @@ class Ajax
 		return $this;
 	}
 	
-	protected function _object($name, $codes = array())
+	protected function _object($name, $codes = [])
 	{
 		if( ! is_array($codes) )
 		{
@@ -608,7 +608,7 @@ class Ajax
 	// To use parameters :::::    param1, param2->codes...   ::::: function(param1, param2){codes}
 	// -> parameters and codes is seperators
 	// array(404 => 'data->alert(data);', 403 => 'data->alert(data);')
-	public function statusCode($codes = array())
+	public function statusCode($codes = [])
 	{
 		$this->_object('statusCode', $codes);
 			
@@ -621,7 +621,7 @@ class Ajax
 	// To use parameters :::::    param1, param2->codes...   ::::: function(param1, param2){codes}
 	// -> parameters and codes is seperators
 	// array('C1' => 'alert('c1');', C2 => 'param1, param2->alert('c2');') 
-	public function converters($codes = array())
+	public function converters($codes = [])
 	{
 		$this->_object('converters', $codes);
 			
@@ -838,8 +838,8 @@ class Ajax
 	// DEFAULT VARIABLES
 	protected function _defaultVariable()
 	{
-		$this->functions = array();
-		$this->sets 	 = array();
-		$this->callbacks = array();
+		$this->functions = [];
+		$this->sets 	 = [];
+		$this->callbacks = [];
 	}
 }

@@ -81,12 +81,12 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 	******************************************************************************************/
 	public function insert($app = '', $key = '', $data = '')
 	{
-		$datas = array();
+		$datas = [];
 		
 		// Daha önce bir dil dosyası oluşturulmamışsa oluştur.
 		if( ! is_file($this->lang) )
 		{
-			File::write($this->appdir.$app.$this->extension, Json::encode(array()));	
+			File::write($this->appdir.$app.$this->extension, Json::encode([]));	
 		}
 		
 		// Json ile veriler diziye çevriliyor.
@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 	******************************************************************************************/
 	public function delete($app = '', $key = '')
 	{
-		$datas = array();
+		$datas = [];
 		
 		// Dosya mevcutsa verileri al.
 		if( is_file($this->lang) )

@@ -313,7 +313,7 @@ class Action
 	******************************************************************************************/
 	public function complete()
 	{
-		$event = \JQ::property($this->type, array($this->speed, $this->easing, $this->callback));
+		$event = \JQ::property($this->type, [$this->speed, $this->easing, $this->callback]);
 		
 		$this->_defaultVariable();
 		

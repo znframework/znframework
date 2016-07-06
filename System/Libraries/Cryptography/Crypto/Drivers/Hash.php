@@ -21,7 +21,7 @@ class HashDriver implements CryptoInterface
 		die(getErrorMessage('Error', 'undefinedFunction', "HashDriver::$method()"));	
 	}
 
-	public function encrypt($data = '', $settings = array())
+	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : Config::get('Encode', 'projectKey'); 
@@ -29,7 +29,7 @@ class HashDriver implements CryptoInterface
 		return base64_encode(trim(hash_hmac($cipher, $data, $key)));
 	}
 	
-	public function decrypt($data = '', $settings = array())
+	public function decrypt($data = '', $settings = [])
 	{
 		// Bu sürücü tarafından desteklenmemektedir.
 		return lang('Error', 'notSupport');

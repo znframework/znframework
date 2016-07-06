@@ -22,7 +22,7 @@ class Shadow
 	 * verileri tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $params = array();
+	protected $params = [];
 	
 	/******************************************************************************************
 	* X                                                                                       *
@@ -301,7 +301,7 @@ class Shadow
 	protected function _defaultVariable()
 	{
 		if( ! empty($this->attr) ) 			$this->attr = NULL;
-		if( ! empty($this->params) )		$this->params = array();
+		if( ! empty($this->params) )		$this->params = [];
 		if( $this->selector !== 'this' )  	$this->selector = 'this';
 	}
 }

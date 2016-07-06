@@ -17,7 +17,7 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $route = array();
+	protected $route = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Change
@@ -26,7 +26,7 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 	// @param array $route
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change($route = array())
+	public function change($route = [])
 	{
 		if( is_array($route) )
 		{
@@ -46,7 +46,7 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 	//  @return mixed
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function run($functionName = '', $functionRun = '', $route = array())
+	public function run($functionName = '', $functionRun = '', $route = [])
 	{
 		if( ! empty($this->route) )
 		{

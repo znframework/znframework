@@ -96,7 +96,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function property($property = '', $params = array(), $comma = false)
+	public function property($property = '', $params = [], $comma = false)
 	{
 		if( ! is_string($property) || empty($property) )
 		{
@@ -166,7 +166,7 @@ class __USE_STATIC_ACCESS__JQ
 	{
 		if( ! empty($callback) )
 		{
-			$params[] = array($this->func('e', $callback));
+			$params[] = [$this->func('e', $callback)];
 		}
 		
 		$select = '';
@@ -192,7 +192,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function serialize($selector = '', $params = array(), $comma = true)
+	public function serialize($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'serialize', $params, '', $comma);
 	}
@@ -210,7 +210,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function serializeArray($selector = '', $params = array(), $comma = true)
+	public function serializeArray($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'serializeArray', $params, '', $comma);
 	}
@@ -224,7 +224,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toJson($params = array(), $comma = true)
+	public function toJson($params = [], $comma = true)
 	{
 		return '$'.$this->property('toJSON', $params, $comma);
 	}
@@ -238,7 +238,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getJson($params = array(), $comma = true)
+	public function getJson($params = [], $comma = true)
 	{
 		return '$'.$this->property('getJSON', $params, $comma);
 	}
@@ -252,7 +252,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getScript($params = array(), $comma = true)
+	public function getScript($params = [], $comma = true)
 	{
 		return '$'.$this->property('getScript', $params, $comma);
 	}
@@ -266,7 +266,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function param($params = array(), $comma = true)
+	public function param($params = [], $comma = true)
 	{
 		return '$'.$this->property('param', $params, $comma);
 	}
@@ -280,7 +280,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function noConflict($params = array(), $comma = true)
+	public function noConflict($params = [], $comma = true)
 	{
 		return '$'.$this->property('noConflict', $params, $comma);
 	}
@@ -329,7 +329,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function text($selector = '', $params = array(), $comma = true)
+	public function text($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'text', $params, '', $comma);
 	}
@@ -345,7 +345,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function val($selector = '', $params = array(), $comma = true)
+	public function val($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'val', $params, '', $comma);
 	}
@@ -361,7 +361,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function html($selector = '', $params = array(), $comma = true)
+	public function html($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'html', $params, '', $comma);
 	}
@@ -377,7 +377,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attr($selector = '', $params = array(), $comma = true)
+	public function attr($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'attr', $params, '', $comma);
 	}
@@ -393,7 +393,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prop($selector = '', $params = array(), $comma = true)
+	public function prop($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'prop', $params, '', $comma);
 	}
@@ -409,7 +409,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function removeAttr($selector = '', $params = array(), $comma = true)
+	public function removeAttr($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'removeAttr', $params, '', $comma);
 	}
@@ -425,7 +425,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function append($selector = '', $params = array(), $comma = true)
+	public function append($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'append', $params, '', $comma);
 	}
@@ -441,7 +441,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prepend($selector = '', $params = array(), $comma = true)
+	public function prepend($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'prepend', $params, '', $comma);
 	}
@@ -457,7 +457,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function after($selector = '', $params = array(), $comma = true)
+	public function after($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'after', $params, '', $comma);
 	}
@@ -473,7 +473,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function before($selector = '', $params = array(), $comma = true)
+	public function before($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'before', $params, '', $comma);
 	}
@@ -489,7 +489,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remove($selector = '', $params = array(), $comma = true)
+	public function remove($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'remove', $params, '', $comma);
 	}
@@ -505,7 +505,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function free($selector = '', $params = array(), $comma = true)
+	public function free($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'empty', $params, '', $comma);
 	}
@@ -521,7 +521,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addClass($selector = '', $params = array(), $comma = true)
+	public function addClass($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'addClass', $params, '', $comma);
 	}
@@ -537,7 +537,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function removeClass($selector = '', $params = array(), $comma = true)
+	public function removeClass($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'removeClass', $params, '', $comma);
 	}
@@ -553,7 +553,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toggleClass($selector = '', $params = array(), $comma = true)
+	public function toggleClass($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'toggleClass', $params, '', $comma);
 	}
@@ -569,7 +569,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css($selector = '', $params = array(), $comma = true)
+	public function css($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'css', $params, '', $comma);
 	}
@@ -585,7 +585,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($selector = '', $params = array(), $comma = true)
+	public function width($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'width', $params, '', $comma);
 	}
@@ -601,7 +601,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($selector = '', $params = array(), $comma = true)
+	public function height($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'height', $params, '', $comma);
 	}
@@ -617,7 +617,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerWidth($selector = '', $params = array(), $comma = true)
+	public function innerWidth($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'innerWidth', $params, '', $comma);
 	}
@@ -633,7 +633,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerHeight($selector = '', $params = array(), $comma = true)
+	public function innerHeight($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'innerHeight', $params, '', $comma);
 	}
@@ -649,7 +649,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerWidth($selector = '', $params = array(), $comma = true)
+	public function outerWidth($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'outerWidth', $params, '', $comma);
 	}
@@ -665,7 +665,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerHeight($selector = '', $params = array(), $comma = true)
+	public function outerHeight($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'outerHeight', $params, '', $comma);
 	}
@@ -681,7 +681,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function parent($selector = '', $params = array(), $comma = true)
+	public function parent($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'parent', $params, '', $comma);
 	}
@@ -697,7 +697,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function parents($selector = '', $params = array(), $comma = true)
+	public function parents($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'parents', $params, '', $comma);
 	}
@@ -713,7 +713,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function parentsUntil($selector = '', $params = array(), $comma = true)
+	public function parentsUntil($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'parentsUntil', $params, '', $comma);
 	}
@@ -729,7 +729,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function children($selector = '', $params = array(), $comma = true)
+	public function children($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'children', $params, '', $comma);
 	}
@@ -745,7 +745,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function find($selector = '', $params = array(), $comma = true)
+	public function find($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'find', $params, '', $comma);
 	}
@@ -761,7 +761,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function siblings($selector = '', $params = array(), $comma = true)
+	public function siblings($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'siblings', $params, '', $comma);
 	}
@@ -777,7 +777,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function next($selector = '', $params = array(), $comma = true)
+	public function next($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'next', $params, '', $comma);
 	}
@@ -793,7 +793,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nextAll($selector = '', $params = array(), $comma = true)
+	public function nextAll($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'nextAll', $params, '', $comma);
 	}
@@ -809,7 +809,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nextUntil($selector = '', $params = array(), $comma = true)
+	public function nextUntil($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'nextUntil', $params, '', $comma);
 	}
@@ -825,7 +825,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prev($selector = '', $params = array(), $comma = true)
+	public function prev($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'prev', $params, '', $comma);
 	}
@@ -841,7 +841,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prevAll($selector = '', $params = array(), $comma = true)
+	public function prevAll($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'prevAll', $params, '', $comma);
 	}
@@ -857,7 +857,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prevUntil($selector = '', $params = array(), $comma = true)
+	public function prevUntil($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'prevUntil', $params, '', $comma);
 	}
@@ -873,7 +873,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function first($selector = '', $params = array(), $comma = true)
+	public function first($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'first', $params, '', $comma);
 	}
@@ -889,7 +889,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function last($selector = '', $params = array(), $comma = true)
+	public function last($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'last', $params, '', $comma);
 	}
@@ -905,7 +905,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function eq($selector = '', $params = array(), $comma = true)
+	public function eq($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'eq', $params, '', $comma);
 	}
@@ -921,7 +921,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function filter($selector = '', $params = array(), $comma = true)
+	public function filter($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'filter', $params, '', $comma);
 	}
@@ -937,7 +937,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function not($selector = '', $params = array(), $comma = true)
+	public function not($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'not', $params, '', $comma);
 	}
@@ -953,7 +953,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function load($selector = '', $params = array(), $comma = true)
+	public function load($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'load', $params, '', $comma);
 	}
@@ -969,7 +969,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($selector = '', $params = array(), $comma = true)
+	public function data($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'data', $params, '', $comma);
 	}
@@ -985,7 +985,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function each($selector = '', $params = array(), $comma = true)
+	public function each($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'each', $params, '', $comma);
 	}
@@ -1001,7 +1001,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function index($selector = '', $params = array(), $comma = true)
+	public function index($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'index', $params, '', $comma);
 	}
@@ -1017,7 +1017,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function removeData($selector = '', $params = array(), $comma = true)
+	public function removeData($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'removeData', $params, '', $comma);
 	}
@@ -1033,7 +1033,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($selector = '', $params = array(), $comma = true)
+	public function size($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'size', $params, '', $comma);
 	}
@@ -1049,7 +1049,7 @@ class __USE_STATIC_ACCESS__JQ
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toArray($selector = '', $params = array(), $comma = true)
+	public function toArray($selector = '', $params = [], $comma = true)
 	{
 		return $this->combine($selector, 'toArray', $params, '', $comma);
 	}

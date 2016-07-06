@@ -20,7 +20,7 @@ class __USE_STATIC_ACCESS__Redirect implements RedirectInterface
 	protected $redirect = array
 	(
 		'time'	 => 0,
-		'data'	 => array() 
+		'data'	 => [] 
 	);
 	
 	//----------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class __USE_STATIC_ACCESS__Redirect implements RedirectInterface
 		$time = $this->redirect['time'];
 	    $data = $this->redirect['data'];
 		
-		$this->redirect = array();
+		$this->redirect = [];
 		
 		return redirect($action, $time, $data);
 	}
@@ -75,7 +75,7 @@ class __USE_STATIC_ACCESS__Redirect implements RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($data = array())
+	public function data($data = [])
 	{
 		$this->redirect['data'] = $data;
 		
@@ -89,7 +89,7 @@ class __USE_STATIC_ACCESS__Redirect implements RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($data = array())
+	public function insert($data = [])
 	{
 		$this->redirect['data'] = $data;
 		

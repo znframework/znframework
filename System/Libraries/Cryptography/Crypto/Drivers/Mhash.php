@@ -21,7 +21,7 @@ class MhashDriver implements CryptoInterface
 		die(getErrorMessage('Error', 'undefinedFunction', "MhashDriver::$method()"));	
 	}
 
-	public function encrypt($data = '', $settings = array())
+	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : Config::get('Encode', 'projectKey'); 
@@ -32,7 +32,7 @@ class MhashDriver implements CryptoInterface
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}
 	
-	public function decrypt($data = '', $settings = array())
+	public function decrypt($data = '', $settings = [])
 	{
 		// Bu sürücü tarafından desteklenmemektedir.
 		return lang('Error', 'notSupport');

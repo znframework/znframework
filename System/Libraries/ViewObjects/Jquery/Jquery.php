@@ -70,7 +70,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	  @return $this
 	|          																				  |
 	******************************************************************************************/
-	public function property($property = '', $attr = array())
+	public function property($property = '', $attr = [])
 	{
 		if( ! is_string($property) )
 		{
@@ -161,7 +161,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function ajax($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Ajax', array($tag, $jq, $jqui));
+		return uselib('Jquery\Ajax', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -173,7 +173,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function action($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Action', array($tag, $jq, $jqui));
+		return uselib('Jquery\Action', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function animate($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Animate', array($tag, $jq, $jqui));
+		return uselib('Jquery\Animate', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -197,6 +197,6 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function event($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Event', array($tag, $jq, $jqui));
+		return uselib('Jquery\Event', [$tag, $jq, $jqui]);
 	}
 }

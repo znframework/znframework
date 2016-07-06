@@ -29,7 +29,7 @@ class Animate
 	 *
 	 * 
 	 */
-	protected $easing = array();
+	protected $easing = [];
 		
 	/* Attributes Variables
 	 * Attributes 
@@ -121,7 +121,7 @@ class Animate
 	  @return $this
 	|          																				  |
 	******************************************************************************************/
-	public function attr($attr = array())
+	public function attr($attr = [])
 	{
 		if( ! is_array($attr) )
 		{
@@ -161,7 +161,7 @@ class Animate
 	  @return $this
 	|          																				  |
 	******************************************************************************************/
-	public function specialEasing($specialEasing = array())
+	public function specialEasing($specialEasing = [])
 	{	
 		$this->easing['specialEasing'] = $this->_object($specialEasing);	
 		
@@ -214,9 +214,9 @@ class Animate
 	******************************************************************************************/
 	public function complete()
 	{
-		$attr = array();
+		$attr = [];
 		
-		$animate = \JQ::property('animate', array($this->attr, $this->callback, $this->_object($this->easing)));
+		$animate = \JQ::property('animate', [$this->attr, $this->callback, $this->_object($this->easing)]);
 		
 		$this->_defaultVariable();
 		
@@ -263,7 +263,7 @@ class Animate
 	******************************************************************************************/
 	protected function _defaultVariable()
 	{
-		$this->easing = array();
+		$this->easing = [];
 		$this->callback = '';
 		$this->selector = 'this';
 		$this->attr = '';

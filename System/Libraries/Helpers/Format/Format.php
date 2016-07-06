@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 		
 		$strEx = explode(".",$money);
 		
-		$join = array();
+		$join = [];
 		
 		$str = strrev($strEx[0]);
 		

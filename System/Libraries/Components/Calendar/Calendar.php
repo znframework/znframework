@@ -222,7 +222,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css($css = array())
+	public function css($css = [])
 	{
 		if( ! is_array($css) )
 		{
@@ -245,7 +245,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style($style = array())
+	public function style($style = [])
 	{
 		if( ! is_array($style) )
 		{
@@ -328,7 +328,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function settings($settings = array())
+	public function settings($settings = [])
 	{
 		Config::set('Components', 'calendar', $settings);
 		

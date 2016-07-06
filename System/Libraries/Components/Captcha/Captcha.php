@@ -28,7 +28,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// @var  array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $sets = array();
+	protected $sets = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Construct
@@ -279,13 +279,13 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgImage($image = array())
+	public function bgImage($image = [])
 	{
 		if( ! empty($image) )
 		{
 			if( is_string($image) )
 			{
-				$this->sets['background'] = array($image);
+				$this->sets['background'] = [$image];
 			}
 			elseif( is_array($image) )
 			{
@@ -553,7 +553,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// @return midex
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($img = false, $configs = array())
+	public function create($img = false, $configs = [])
 	{	
 		$config  = $this->config;
 		
@@ -585,7 +585,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 			if( ! isset($set['gridSpace']["x"]) ) $set['gridSpace']["x"] 			= 12; 
 			if( ! isset($set['gridSpace']["y"]) ) $set['gridSpace']["y"] 			= 4; 
 			if( ! isset($set['gridColor']) ) $set['gridColor']						= "240|240|240";
-			if( ! isset($set["background"]) ) $set["background"]					= array();
+			if( ! isset($set["background"]) ) $set["background"]					= [];
 			
 			// 0-255 arasında değer alacak renk kodları için
 			// 0|20|155 gibi bir kullanım için aşağıda

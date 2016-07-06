@@ -26,7 +26,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Sütunlar
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $columns 			= array();
+	protected $columns 			= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Joins
@@ -35,7 +35,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Birleştirmeler
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $joins   			= array();
+	protected $joins   			= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where Tables
@@ -44,7 +44,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Tabloların nelere göre birleştirildiği
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $whereJoins		= array();
+	protected $whereJoins		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Join Tables
@@ -53,7 +53,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Birleştirilen tablolar
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $joinTables  		= array();
+	protected $joinTables  		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Alias Columns
@@ -62,7 +62,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Takma isim verilmiş sütunlar
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $aliasColumns		= array();
+	protected $aliasColumns		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Process Column
@@ -107,7 +107,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Sıralama
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $orderBy  		= array();
+	protected $orderBy  		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -125,7 +125,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Koşul
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $where     		= array();
+	protected $where     		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Config Method
@@ -179,7 +179,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns($columns = array())
+	public function columns($columns = [])
 	{
 		$this->columns = $columns;
 		$this->realColumns = $columns;
@@ -287,7 +287,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function joins($tables = array())
+	public function joins($tables = [])
 	{
 		$this->joins = $tables;
 			
@@ -415,7 +415,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				
 				$whereJoins = $this->whereJoins;
 	
-				$newAddData = array();	
+				$newAddData = [];	
 				
 				foreach( $datas as $key => $val )
 				{
@@ -435,7 +435,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				
 				foreach( $whereJoins as $table => $column)
 				{	
-					$newAddData = array();	
+					$newAddData = [];	
 					
 					if( ! empty($this->joinTables[$table]) )
 					{
@@ -462,7 +462,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			//--------------------------------------------------------------------------------------------
 			else
 			{
-				$newAddData = array();
+				$newAddData = [];
 				
 				foreach( $datas as $key => $val )
 				{
@@ -619,7 +619,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				
 				$whereJoins = $this->whereJoins;
 	
-				$newUpdateData = array();	
+				$newUpdateData = [];	
 				
 				foreach( $datas as $key => $val )
 				{
@@ -637,7 +637,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	
 				foreach( $whereJoins as $table => $column)
 				{	
-					$newUpdateData = array();	
+					$newUpdateData = [];	
 					
 					foreach( $datas as $key => $val )
 					{
@@ -671,7 +671,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			//--------------------------------------------------------------------------------------------
 			else
 			{
-				$newUpdateData = array();
+				$newUpdateData = [];
 			
 				foreach( $datas as $key => $val )
 				{
@@ -731,7 +731,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$totalRowsText = lang('DataGrid', 'totalRowsText').': '.$totalRows.' / '.DB::totalRows(true);
 		
-		$paginationSettings = array_merge($this->config['pagination'], array('start' => $prow, 'type' => 'ajax'));
+		$paginationSettings = array_merge($this->config['pagination'], ['start' => $prow, 'type' => 'ajax']);
 		
 		$pagination = DB::pagination('', $paginationSettings);	
 		$table      = $this->table;
@@ -743,7 +743,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$saveAttr = array_merge
 			(
 				$this->config['attributes']['save'], 
-				array('DGSaveButton' => 'save', 'DGSaveId' => 'save')
+				['DGSaveButton' => 'save', 'DGSaveId' => 'save']
 			);
 				
 			$table .= '<tr>';
@@ -776,7 +776,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$orderColor = ( $no % 2 === 1 ) ? $orderColorArray['single'] : $orderColorArray['double'];
 			
 			$table .= '<tr bgcolor="'.$orderColor.'">';
-			$table .= '<td>'.Form::checkbox('datagridDeleteColumns[]', $row[$processColumn], array('checkboxType' => 'datagrid')).'</td>';
+			$table .= '<td>'.Form::checkbox('datagridDeleteColumns[]', $row[$processColumn], ['checkboxType' => 'datagrid']).'</td>';
 			$table .= '<td>'.$no.'</td>';
 			
 			if( $editId !== 'undefined' && $row[$processColumn] == $editId )
@@ -816,7 +816,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$updateAttr = array_merge
 				(
 					$this->config['attributes']['update'], 
-					array('DGUpdateButton' => 'update', 'DGUpdateId' => $row->$processColumn)
+					['DGUpdateButton' => 'update', 'DGUpdateId' => $row->$processColumn]
 				);
 				
 				$table .= '<td align="right">'.Form::button('update', $this->config['buttonNames']['update'], $updateAttr).'</td>';
@@ -831,13 +831,13 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$editAttr = array_merge
 				(
 					$this->config['attributes']['edit'], 
-					array('DGEditButton' => 'edit', 'DGEditId' => $row[$processColumn])
+					['DGEditButton' => 'edit', 'DGEditId' => $row[$processColumn]]
 				);
 				
 				$addAttr  = array_merge
 				(
 					$this->config['attributes']['delete'], 
-					array('DGDeleteButton' => 'delete', 'DGDeleteId' => $row[$processColumn])
+					['DGDeleteButton' => 'delete', 'DGDeleteId' => $row[$processColumn]]
 				);
 				
 				$table .= '<td align="right">'.Html::anchor
@@ -885,7 +885,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	{
 		if( ! empty($this->columns) && ! empty($this->joins) )
 		{
-			$newsColumns = array();
+			$newsColumns = [];
 			$columns = '';
 			
 			foreach( $this->realColumns as $column => $attr )
@@ -976,7 +976,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			
 			if( isArray($columns) ) foreach( $columns as $column )
 			{
-				$this->columns[$column] = array('alias' => $column, 'title' => $this->_title($column), 'input' => 'text');	
+				$this->columns[$column] = ['alias' => $column, 'title' => $this->_title($column), 'input' => 'text'];	
 			}
 		}
 		
@@ -1008,19 +1008,19 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$addAttr = array_merge
 		(
 			$this->config['attributes']['add'], 
-			array('DGAddButton' => 'add', 'DGAddId' => 'add')
+			['DGAddButton' => 'add', 'DGAddId' => 'add']
 		);
 		
 		$deleteCurrentAttr = array_merge
 		(
 			$this->config['attributes']['deleteSelected'], 
-			array('DGDeleteCurrentButton' => 'deleteCurrent', 'DGDeleteCurrentId' => 'deleteCurrent')
+			['DGDeleteCurrentButton' => 'deleteCurrent', 'DGDeleteCurrentId' => 'deleteCurrent']
 		);
 		
 		$deleteAllAttr = array_merge
 		(
 			$this->config['attributes']['deleteAll'], 
-			array('DGDeleteAllButton' => 'deleteAll', 'DGDeleteAllId' => 'deleteAll')
+			['DGDeleteAllButton' => 'deleteAll', 'DGDeleteAllId' => 'deleteAll']
 		);
 		
 		$table  = Form::id('datagridForm')->open();
@@ -1102,7 +1102,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$callback = JQ::callback('e', $func);
 		
-		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func.JQ::prop('#datagridSelectAll', array('checked', ':false')).' checking = 1; '));
+		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func.JQ::prop('#datagridSelectAll', ['checked', ':false']).' checking = 1; '));
 		
 		$table .= $func;
 		
@@ -1126,8 +1126,8 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			JS::ifClause
 			(
 				'checking == 1', 
-				JQ::prop('input[checkboxtype="datagrid"]', array('checked', ':true')).' checking = 0;', 
-				JQ::prop('input[checkboxtype="datagrid"]', array('checked', ':false')).' checking = 1;'
+				JQ::prop('input[checkboxtype="datagrid"]', ['checked', ':true']).' checking = 0;', 
+				JQ::prop('input[checkboxtype="datagrid"]', ['checked', ':false']).' checking = 1;'
 			)
 			
 		);
@@ -1170,18 +1170,18 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariables()
 	{
-		$this->config 			= array();
-		$this->columns 			= array();
-		$this->joins   			= array();
-		$this->whereJoins		= array();
-		$this->joinTables  		= array();
-		$this->aliasColumns		= array();
+		$this->config 			= [];
+		$this->columns 			= [];
+		$this->joins   			= [];
+		$this->whereJoins		= [];
+		$this->joinTables  		= [];
+		$this->aliasColumns		= [];
 		$this->processColumn 	= 'id';
 		$this->processEditable  = false;
 		$this->prowData		    = '';
 		$this->limit  		    = 20;
-		$this->orderBy  		= array();	
+		$this->orderBy  		= [];	
 		$this->groupBy  		= '';	
-		$this->where   	     	= array();
+		$this->where   	     	= [];
 	}
 }

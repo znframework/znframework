@@ -245,7 +245,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 			return Errors::set('Error', 'scalarParameter', '1.(data)');
 		}
 		
-		$algos = array('golden', 'super');
+		$algos = ['golden', 'super'];
 		
 		if( ! isHash($type) && ! in_array($type, $algos) )
 		{

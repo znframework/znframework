@@ -36,7 +36,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 	 * Aramayı başlatmadan önce filtre uygulamak için
 	 * tanımlanmış dizi değişken
 	 */
-	private $filter = array();
+	private $filter = [];
 	
 	use CallUndefinedMethodTrait;
 	
@@ -174,7 +174,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 	| inside, starting, ending, equal, auto 												  |
 	|          																				  |
 	******************************************************************************************/	
-	public function get($conditions = array(), $word = '', $type = 'auto')
+	public function get($conditions = [], $word = '', $type = 'auto')
 	{
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
@@ -294,7 +294,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		$this->result = NULL;
 		$this->type   = NULL;
 		$this->word   = NULL;
-		$this->filter = array();
+		$this->filter = [];
 		
 		// Sonuçları object veri türünde döndür.
 		return (object)$result;	

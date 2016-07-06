@@ -59,7 +59,7 @@ trait HyperTextTrait
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $settings = array();
+	protected $settings = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Attributes
@@ -68,7 +68,7 @@ trait HyperTextTrait
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes = array())
+	public function attributes($attributes = [])
 	{
 		$attribute = '';
 		
@@ -78,7 +78,7 @@ trait HyperTextTrait
 			{
 				$attributes = array_merge($attributes, $this->settings['attr']);	
 				
-				$this->settings['attr'] = array();						
+				$this->settings['attr'] = [];						
 			}
 
 			foreach( $attributes as $key => $values )
@@ -124,7 +124,7 @@ trait HyperTextTrait
 			unset($this->settings['attr']['type']);
 		}
 		
-		$this->settings['attr'] = array();	
+		$this->settings['attr'] = [];	
 		
 		return $this->_input($name, $value, $_attributes, $type);
 	}
@@ -139,7 +139,7 @@ trait HyperTextTrait
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _input($name = "", $value = "", $_attributes = array(), $type = '')
+	protected function _input($name = "", $value = "", $_attributes = [], $type = '')
 	{
 		if( $name !== '' )
 		{

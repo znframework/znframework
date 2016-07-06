@@ -141,7 +141,7 @@ trait JqueryTrait
 	******************************************************************************************/
 	protected function _isKeySelector($data)
 	{
-		$keyword  = array('document', 'this', 'window');
+		$keyword  = ['document', 'this', 'window'];
 		
 		if( in_array($data, $keyword) )
 		{
@@ -240,7 +240,7 @@ trait JqueryTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	protected function _params($array = array())
+	protected function _params($array = [])
 	{
 		$implode = '';
 		

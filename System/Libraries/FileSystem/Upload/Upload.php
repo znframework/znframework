@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private $settings = array();
+	private $settings = [];
 	
 	/* File Değişkeni
 	 *  
@@ -76,7 +76,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	
 	public function __construct()
 	{
-		Config::iniSet(Config::get('FileSystem', 'upload')['settings']);	
+		Config::iniSet(Config::get('Htaccess', 'upload')['settings']);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	| // Kullanmak için: Sayısal türde miktar belirtilir. Örnek: 10 * 1024 => 10 KB			  |
 	|          																				  |
 	******************************************************************************************/
-	public function settings($set = array())
+	public function settings($set = [])
 	{
 		if( ! is_array($set) ) 
 		{
@@ -611,7 +611,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 				'encodeName' => $this->encodeName
 			);
 		
-			$values = array();
+			$values = [];
 			
 			if( ! is_array($_FILES[$this->file]['name']) ) foreach( $datas as $key => $val )
 			{

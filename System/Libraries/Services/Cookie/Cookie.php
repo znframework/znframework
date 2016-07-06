@@ -365,7 +365,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 			if(isHash($this->encode['name']))
 			{
 				$name = hash($this->encode['name'], $name);		
-				$this->encode = array();	
+				$this->encode = [];	
 			}		
 		}
 		else
@@ -466,7 +466,7 @@ class __USE_STATIC_ACCESS__Cookie implements SessionInterface, CookieInterface
 			if( isHash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);	
-				$this->encode = array();	
+				$this->encode = [];	
 			}		
 		}
 		else

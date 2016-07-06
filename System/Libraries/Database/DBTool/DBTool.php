@@ -62,7 +62,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			return false;
 		}
 		
-		$newDatabases = array();
+		$newDatabases = [];
 		
 		foreach( $this->db->result() as $databases )
 		{
@@ -107,7 +107,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 			return false;
 		}
 		
-		$newTables = array();
+		$newTables = [];
 		
 		foreach( $this->db->result() as $tables )
 		{
@@ -254,7 +254,7 @@ class __USE_STATIC_ACCESS__DBTool implements DBToolInterface, DatabaseInterface
 		
 		if( $tables === '*' )
 		{
-			$tables = array();
+			$tables = [];
 			
 			$this->db->query('SHOW TABLES');
 			

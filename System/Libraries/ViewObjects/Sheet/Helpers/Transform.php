@@ -22,7 +22,7 @@ class Transform
 	 * verileri tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $transforms = array();
+	protected $transforms = [];
 	
 	// Protected Params Fonkisyonu
 	// Css yöntemleri için oluşturulmuştur.
@@ -414,6 +414,6 @@ class Transform
 	protected function _defaultVariable()
 	{
 		if( $this->selector !== 'this' ) $this->selector = 'this';
-		if( ! empty($this->transforms) ) $this->transforms = array();
+		if( ! empty($this->transforms) ) $this->transforms = [];
 	}
 }

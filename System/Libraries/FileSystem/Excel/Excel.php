@@ -39,7 +39,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	// @param array  $rows
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rows($rows = array())
+	public function rows($rows = [])
 	{
 		$this->rows = $rows;
 		
@@ -68,7 +68,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLS($data = array(), $file = 'excel.xls')
+	public function arrayToXLS($data = [], $file = 'excel.xls')
 	{
 		if( ! is_array($data) ) 
 		{
@@ -137,7 +137,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 		}
 		
 		$row  = 1;
-		$rows = array();
+		$rows = [];
 		
 		if( ($resource = fopen($file, "r") ) !== false ) 
 		{

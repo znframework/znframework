@@ -22,7 +22,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	 *
 	 * @var array 
   	 */
-	 protected $options = array();
+	 protected $options = [];
 
 	
 	public function __construct()
@@ -71,7 +71,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 		
 		curl_setopt_array($this->init, $this->options);
 
-		$this->options = array();
+		$this->options = [];
 		
 		if( is_resource($this->init) )
 		{
@@ -95,7 +95,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(getErrorMessage('Error', 'invalidVersion', array('%' => 'curl_escape', '#' => '5.5.0')));	
+			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'curl_escape', '#' => '5.5.0']));	
 		}
 		
 		if( ! is_resource($this->init) )
@@ -120,7 +120,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(getErrorMessage('Error', 'invalidVersion', array('%' => 'curl_unescape', '#' => '5.5.0')));	
+			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'curl_unescape', '#' => '5.5.0']));	
 		}
 		
 		if( ! is_resource($this->init) )
@@ -203,7 +203,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(Errors::message('Error', 'invalidVersion', array('%' => 'curl_pause', '#' => '5.5.0')));	
+			die(Errors::message('Error', 'invalidVersion', ['%' => 'curl_pause', '#' => '5.5.0']));	
 		}
 		
 		if( ! empty($this->init) )
@@ -226,7 +226,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(Errors::message('Error', 'invalidVersion', array('%' => 'curl_reset', '#' => '5.5.0')));	
+			die(Errors::message('Error', 'invalidVersion', ['%' => 'curl_reset', '#' => '5.5.0']));	
 		}
 		
 		if( ! empty($this->init) )
@@ -291,7 +291,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(Errors::message('Error', 'invalidVersion', array('%' => 'curl_version', '#' => '5.5.0')));	
+			die(Errors::message('Error', 'invalidVersion', ['%' => 'curl_version', '#' => '5.5.0']));	
 		}
 		
 		if( ! is_numeric($errno) )

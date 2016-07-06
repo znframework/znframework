@@ -31,7 +31,7 @@ trait QueryTrait
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
 	|          																				  |
 	******************************************************************************************/	
-	public function query($query, $security = array())
+	public function query($query, $security = [])
 	{
 		$this->query = $this->connect->query($query);
 		return $this->query;

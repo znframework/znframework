@@ -46,14 +46,12 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 			return Errors::set('Error', 'scalarParameter', '1.(str)');
 		}
 		
-		$str = preg_replace(array
+		$str = preg_replace
 		(
-			'/\s+/',
-			'/&nbsp;/',
-			"/\n/",
-			"/\r/",
-			"/\t/"
-		), array('', '', '', '', ''), $str);
+			['/\s+/', '/&nbsp;/', "/\n/", "/\r/", "/\t/"], 
+			['', '', '', '', ''], 
+			$str
+		);
 		
 		return $str;
 	}	
@@ -318,7 +316,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function placement($str = '', $delimiter = '?', $array = array())
+	public function placement($str = '', $delimiter = '?', $array = [])
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{

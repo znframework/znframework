@@ -14,7 +14,7 @@ class ZlibDriver implements CompressInterface
 	{
 		if( ! isPhpVersion('5.4.0') )
 		{
-			die(getErrorMessage('Error', 'invalidVersion', array('%' => 'zlib_', '#' => '5.4.0')));		
+			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'zlib_', '#' => '5.4.0']));		
 		}	
 	}
 	

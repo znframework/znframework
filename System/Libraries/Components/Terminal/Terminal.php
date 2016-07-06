@@ -87,7 +87,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 	| Örnek Kullanım: Terminal::run('cmd');        	  										  |
 	|          																				  |
 	******************************************************************************************/
-	public function run($terminalType = 'php', $settings = array())
+	public function run($terminalType = 'php', $settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -111,9 +111,9 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 		
 		if( ! isset($_SESSION['persistCommands']) || ! isset($_SESSION['commands']) ) 
 		{
-			$_SESSION['persistCommands']  = array();
-			$_SESSION['commands'] 		  = array();
-			$_SESSION['commandResponses'] = array();
+			$_SESSION['persistCommands']  = [];
+			$_SESSION['commands'] 		  = [];
+			$_SESSION['commandResponses'] = [];
 		}
 		
 		$togglingPersist = false;
@@ -130,7 +130,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 		}
 		
 		$previousCommands = '';
-		$response = array();
+		$response = [];
 		
 		if( ! empty($_SESSION['persistCommands']) ) foreach( $_SESSION['persistCommands'] as $index => $persist ) 
 		{
@@ -299,7 +299,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 		<script type="text/javascript">
 			
 			<?php
-				$singleQuoteCancelledCommands = array();
+				$singleQuoteCancelledCommands = [];
 				
 				if( ! empty( $_SESSION['commands'] ) ) 
 				{

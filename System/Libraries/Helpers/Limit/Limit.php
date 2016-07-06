@@ -68,7 +68,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 			$str = strip_tags($str);
 		}
 		
-		$str = str_replace(array("\n","\r","&nbsp;"), " ", $str);
+		$str = str_replace(["\n","\r","&nbsp;"], " ", $str);
 		
 		preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/', $str, $matches);
 	
@@ -122,7 +122,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 			$str = strip_tags($str);
 		}
 		
-		$str = preg_replace("/\s+/", ' ', str_replace(array("\r\n", "\r", "\n", "&nbsp;"), ' ', $str));
+		$str = preg_replace("/\s+/", ' ', str_replace(["\r\n", "\r", "\n", "&nbsp;"], ' ', $str));
 	
 		if( mb_strlen($str, $encoding) <= $limit )
 		{

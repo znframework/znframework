@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $isImport = array();
+	protected $isImport = [];
 	
 	/* Parameters Değişkeni
 	 *  
@@ -25,7 +25,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	 */
 	protected $parameters = array
 	(
-		'data'   => array(),
+		'data'   => [],
 		'usable' => false 
 	);
 	
@@ -98,7 +98,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($data = array())
+	public function data($data = [])
 	{
 		$this->parameters['data'] = $data;
 		
@@ -168,7 +168,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var string $title
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function meta($meta = array())
+	public function meta($meta = [])
 	{
 		Config::set('Masterpage', 'meta', $meta);
 		
@@ -182,7 +182,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes = array())
+	public function attributes($attributes = [])
 	{
 		Config::set('Masterpage', 'attributes', $attributes);
 		
@@ -196,7 +196,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var array $content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content($content = array())
+	public function content($content = [])
 	{
 		Config::set('Masterpage', 'content', $content);
 		
@@ -276,11 +276,17 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 
 		if( ! empty($args) ) foreach( $args as $file )
 		{
-			$file =  restorationPath(HANDLOAD_DIR.suffix($file, '.php'));
-		
+			$suffix     = suffix($file, '.php');
+			$commonFile = COMMON_HANDLOAD_DIR.$suffix ;
+			$file 		= restorationPath(HANDLOAD_DIR.$suffix);
+			
 			if( is_file($file) )
 			{
-				require_once $file;
+				require_once $file; // Yerel Dosya
+			}
+			elseif( is_file($commonFile) )
+			{
+				require_once($commonFile); // Ortak Dosya
 			}
 		}
 	}
@@ -310,7 +316,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomDataVariable = $this->parameters['data'];
 		}
 
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		if( ! is_string($randomPageVariable) )
 		{
@@ -407,6 +413,10 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			return $return;
 		}
+		elseif( $return = $this->page($page, $data, $obGetContents, COMMON_TEMPLATES_DIR) ) 
+		{
+			return $return;
+		}
 		else
 		{
 			return Errors::set('Error', 'fileNotFound', $page);	
@@ -478,7 +488,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{	
 			if( is_string($head[$type]) )
 			{
-				$headLinks = array($head[$type], true);	
+				$headLinks = [$head[$type], true];	
 			}
 			else
 			{
@@ -509,7 +519,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| kullanılır.	        															      |
 	|          																				  |
 	******************************************************************************************/
-	public function masterPage($randomDataVariable = array(), $head = array())
+	public function masterPage($randomDataVariable = [], $head = [])
 	{	
 		if( ! empty($this->parameters['headData']) )
 		{
@@ -521,7 +531,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomDataVariable = $this->parameters['data'];
 		}
 	
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		$eol = EOL;
 		
@@ -791,7 +801,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			$lastParam = $this->parameters['usable'];
 			
-			$this->parameters = array();
+			$this->parameters = [];
 		}
 		else
 		{
@@ -845,6 +855,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			$fontFile = restorationPath(FONTS_DIR.$font);		
 			$baseUrl  = baseUrl($fontFile);
+			
+			if( ! is_file($fontFile) )
+			{
+				$fontFile = COMMON_FONTS_DIR.$font;
+			}
 			
 			if( extension($fontFile) )
 			{
@@ -972,6 +987,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}	
 			
 			$styleFile = restorationPath(STYLES_DIR.suffix($style,".css"));
+			
+			if( ! is_file($styleFile) )
+			{
+				$styleFile = COMMON_STYLES_DIR.suffix($style, ".css");
+			}
 		
 			if( ! in_array("style_".$style, $this->isImport) )
 			{					
@@ -1049,6 +1069,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			$scriptFile = restorationPath(SCRIPTS_DIR.suffix($script, ".js"));
 			
+			if( ! is_file($scriptFile) )
+			{
+				$scriptFile = COMMON_SCRIPTS_DIR.suffix($script, ".js");
+			}
+			
 			if( ! in_array("script_".$script, $this->isImport) )
 			{
 				if( is_file($scriptFile) )
@@ -1119,7 +1144,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomDataVariable = $this->parameters['data'];
 		}
 
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		$eol = EOL;
 		
@@ -1215,7 +1240,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			$return = '';
 			
-			if( ! empty($packages) ) foreach($packages as $package)
+			if( ! empty($packages) ) foreach( $packages as $package )
 			{
 				$return .= $this->_package($dir.$package, $recursive, true);
 			}	
@@ -1259,11 +1284,17 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$recursive = $this->parameters['recursive'];
 		}
 		
-		$this->parameters = array();
+		$this->parameters = [];
 	
 		$eol = EOL;
 		
 		$return = '';
+		
+		// Common Directory
+		if( ! is_dir($packages) && ! is_file($packages) )
+		{
+			$packages = str_replace(RESOURCES_DIR, COMMON_RESOURCES_DIR, $packages);	
+		}
 		
 		if( is_dir($packages) )
 		{
@@ -1294,6 +1325,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		elseif( is_file($packages) )
 		{
+			// Local Directory
 			return $this->something($packages, '', $getContents);	
 		}
 	}

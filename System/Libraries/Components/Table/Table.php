@@ -17,7 +17,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $attr = array();
+	protected $attr = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -61,7 +61,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attr($attributes = array())
+	public function attr($attributes = [])
 	{
 		if( ! is_array($attributes))
 		{
@@ -363,7 +363,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style($_attributes = array())
+	public function style($_attributes = [])
 	{
 		$attribute = "";
 		
@@ -440,7 +440,7 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 		$table .= '</table>';
 		
 		if( ! empty($this->table)) $this->table = NULL;
-		if( ! empty($this->attr))  $this->attr = array();
+		if( ! empty($this->attr))  $this->attr = [];
 		
 		return $table;
 	}	

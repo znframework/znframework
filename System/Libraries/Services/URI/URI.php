@@ -136,7 +136,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// Uri işlemleri için oluşturulmuştur.
 	protected function _cleanPath()
 	{
-		$pathInfo = Security::htmlEncode(requestUri());
+		$pathInfo = Security::htmlEncode(_requestUri());
 	
 		return $pathInfo;
 	}
@@ -305,7 +305,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|    																					  |
 	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segmentArray(); // array('test', 'zntr', 'yerli', 'framework')         |
+	| Örnek Kullanım: segmentArray; // array('test', 'zntr', 'yerli', 'framework')         |
 	|          																				  |
 	******************************************************************************************/
 	public function segmentArray()
@@ -328,7 +328,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	public function totalSegments()
 	{
 		$segmentEx     = explode("/", $this->_cleanPath());	
-		$segmentEx     = array_diff($segmentEx, array(""," "));
+		$segmentEx     = array_diff($segmentEx, ["", " "]);
 		$totalSegments = count($segmentEx);
 		
 		return $totalSegments;

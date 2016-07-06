@@ -88,7 +88,7 @@ class MysqliDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($config = array())
+	public function connect($config = [])
 	{
 		$this->config = $config;
 		
@@ -144,7 +144,7 @@ class MysqliDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns   = array();
+		$columns   = [];
 		$fieldData = mysqli_fetch_fields($this->query);
 		
 		for ($i = 0, $c = count($fieldData); $i < $c; $i++)
@@ -198,7 +198,7 @@ class MysqliDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns    = array();
+		$columns    = [];
 		$fields     = mysqli_fetch_fields($this->query);
 		$num_fields = $this->numFields();
 		

@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $errors 	= array();
+	protected $errors 	= [];
 	
 	/* Error Değişkeni
 	 *  
@@ -24,7 +24,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $error  	= array();
+	protected $error  	= [];
 	
 	/* New Value Değişkeni
 	 *  
@@ -33,14 +33,14 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $nval 	= array();
+	protected $nval 	= [];
 	
 	/* Messages Değişkeni
 	 *  
 	 * Mesajlar bilgisini tutar.
 	 *
 	 */
-	protected $messages = array();
+	protected $messages = [];
 	
 	/* Index Değişkeni
 	 *  
@@ -116,7 +116,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	| .																						  |
 	|  >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı bilgi için ZNTR.NET<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   |    																				  |
 	******************************************************************************************/
-	public function rules($name = '', $config = array(), $viewName = '', $met = 'post')
+	public function rules($name = '', $config = [], $viewName = '', $met = 'post')
 	{
 		if( ! empty($this->settings['name']) )
 		{
@@ -153,7 +153,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			$config = array_merge($config, $this->settings['pattern']);
 		}
 		
-		$this->settings = array();
+		$this->settings = [];
 
 		// sistemte validation için oluşturulmuş dil dosyası yükleniyor.
 
@@ -177,7 +177,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
 		if( in_array('nc', $config) )
 		{
-			$secnc = Config::get("Security", 'ncEncode');
+			$secnc = Config::get('Security', 'ncEncode');
 			$edit  = Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
@@ -293,7 +293,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			$phoneData = $config['phone'];		
 			$phoneData = preg_replace('/([^\*])/', 'key:$1', $phoneData);			
-			$phoneData = '/'.str_replace(array('*', 'key:'), array('[0-9]', '\\'), $phoneData).'/';
+			$phoneData = '/'.str_replace(['*', 'key:'], ['[0-9]', '\\'], $phoneData).'/';
 			
 			if( ! preg_match($phoneData, $edit) )
 			{ 
@@ -360,7 +360,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! $this->maxchar($edit, $config['maxchar']) )
 			{ 
-				$this->_messages('maxchar', $name, array("%"=>$viewName, "#" => $config['maxchar']));
+				$this->_messages('maxchar', $name, ["%" => $viewName, "#" => $config['maxchar']]);
 			} 
 		}
 		
@@ -369,7 +369,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{	
 			if( ! $this->minchar($edit, $config['minchar']) )
 			{ 
-				$this->_messages('minchar', $name, array("%"=>$viewName, "#" => $config['minchar']));
+				$this->_messages('minchar', $name, ["%" => $viewName, "#" => $config['minchar']]);
 			} 
 		}
 		
@@ -395,7 +395,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	 */
 	protected function _defaultVariables()
 	{
-		$this->messages = array();
+		$this->messages = [];
 		$this->index    = 0;
 	}
 	
@@ -515,7 +515,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			if( count($this->errors) > 0 )
 			{
 				$result = '';
-				$resultArray = array();
+				$resultArray = [];
 				
 				foreach( $this->errors as $key => $value )
 				{

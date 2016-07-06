@@ -80,7 +80,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function encrypt($data = '',  $settings = array())
+	public function encrypt($data = '',  $settings = [])
 	{
 		if( ! is_scalar($data) )
 		{
@@ -114,7 +114,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function decrypt($data = '', $settings = array())
+	public function decrypt($data = '', $settings = [])
 	{
 		if( ! is_scalar($data) )
 		{

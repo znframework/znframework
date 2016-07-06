@@ -38,7 +38,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	| // <audio src="http://www.ornek.com/kaynak" name="nesne">İçerik</audio>				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function audio($src = "", $content = "", $attributes = array(""))
+	public function audio($src = "", $content = "", $attributes = [])
 	{
 		return $this->_mediaContent($src, $content, $_attributes, 'audio');
 	}
@@ -57,7 +57,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	| // <video src="http://www.ornek.com/kaynak" name="nesne">İçerik</video>				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function video($src = "", $content = "", $attributes = array())
+	public function video($src = "", $content = "", $attributes = [])
 	{
 		return $this->_mediaContent($src, $content, $_attributes, 'video');
 	}
@@ -93,7 +93,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	| // <source src="http://www.ornek.com/kaynak" name="nesne">							  | 
 	|          																				  |
 	******************************************************************************************/
-	public function source($src = "", $_attributes = array())
+	public function source($src = "", $_attributes = [])
 	{
 		return $this->_media($src, $_attributes, 'source');
 	}
@@ -139,7 +139,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function bold($str = '', $attributes = array())
+	public function bold($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -155,7 +155,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function strong($str = '', $attributes = array())
+	public function strong($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -171,7 +171,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function italic($str = '', $attributes = array())
+	public function italic($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -231,7 +231,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function label($for = '', $value = '', $form = '', $_attributes = array())
+	public function label($for = '', $value = '', $form = '', $_attributes = [])
 	{
 		if( ! empty($for) ) 
 		{
@@ -381,7 +381,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @value = Köprünün görünen değeri.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function anchor($url = '', $value = '', $_attributes = array())
+	public function anchor($url = '', $value = '', $_attributes = [])
 	{
 		if( ! is_string($url) )
 		{
@@ -441,7 +441,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function parag($str = '', $attributes = array())
+	public function parag($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -457,7 +457,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function overLine($str = '', $attributes = array())
+	public function overLine($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -473,7 +473,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function overText($str = '', $attributes = array())
+	public function overText($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -489,7 +489,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function underLine($str = '', $attributes = array())
+	public function underLine($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -505,7 +505,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function underText($str = '', $attributes = array())
+	public function underText($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -521,7 +521,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function font($str = '', $attributes = array())
+	public function font($str = '', $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -583,7 +583,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @type = Uygulanacak olan başlık etiketinin türü. h1, h2, h3...
 	// @attributes = Etikete özellik değer çifti eklemek için kullanılır.
 	// Dönen Değer: Etiketin uygulanmış hali.
-	public function heading($str = '', $type = 3, $attributes = array())
+	public function heading($str = '', $type = 3, $attributes = [])
 	{
 		if( ! is_scalar($str) ) 
 		{
@@ -613,7 +613,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Html etiketinin uygulanacağı veri. Örnek: veri
 	// @attributes = Etikete uygulanacak özellik değer çiftleri. array("id" => "12")
 	// Dönen Değer: <strong id="12>veri</strong>
-	public function element($element = '', $str = '', $attributes = array())
+	public function element($element = '', $str = '', $attributes = [])
 	{
 		if( ! is_scalar($element) ) 
 		{
@@ -642,7 +642,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// @str = Özelliklerin uygulanacağı metin.
 	// @array = Uygulanacak html etikeleri. array("b", "i" => array("id" => 2))
 	// Dönen Değer: Etiketlerin uygulanmış hali.
-	public function multiAttr($str = '', $array = array())
+	public function multiAttr($str = '', $array = [])
 	{
 		if( ! is_scalar($str) ) 
 		{

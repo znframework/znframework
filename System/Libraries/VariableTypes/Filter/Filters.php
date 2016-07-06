@@ -120,7 +120,7 @@ class __USE_STATIC_ACCESS__Filters implements FiltersInterface
 	| Genel Kullanım: Harici değişkenleri alır ve isteğe bağlı olarak filtreler.		      |
 	|          																				  |
 	******************************************************************************************/
-	public function inputArray($type = 'post', $definition = array(), $addEmpty = true)
+	public function inputArray($type = 'post', $definition = [], $addEmpty = true)
 	{		
 		return filter_input_array($this->_inputConstant($type), $definition, $addEmpty);	
 	}
@@ -131,7 +131,7 @@ class __USE_STATIC_ACCESS__Filters implements FiltersInterface
 	| Genel Kullanım: Harici değişkenleri alır ve isteğe bağlı olarak filtreler.		      |
 	|          																				  |
 	******************************************************************************************/
-	public function varArray($data = array(), $definition = NULL, $addEmpty = true)
+	public function varArray($data = [], $definition = NULL, $addEmpty = true)
 	{		
 		if( ! is_array($data) )
 		{

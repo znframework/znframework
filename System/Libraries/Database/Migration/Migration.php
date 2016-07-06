@@ -78,12 +78,12 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			library('Folder', 'create', array($this->path, 0755));	
+			library('Folder', 'create', [$this->path, 0755]);	
 		}
 		
 		$this->tbl = isset(static::$table)
 				   ? static::$table	
-				   : FALSE;
+				   : false;
 		
 		$this->_create();
 		
@@ -121,7 +121,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable($data = array())
+	public function createTable($data = [])
 	{
 		if( DBForge::createTable($this->_tableName(), $data) )
 		{
@@ -159,7 +159,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($column = array())
+	public function addColumn($column = [])
 	{
 		if( DBForge::addColumn($this->_tableName(), $column) )	
 		{
@@ -178,7 +178,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($column = array())
+	public function dropColumn($column = [])
 	{
 		if( DBForge::dropColumn($this->_tableName(), $column) )
 		{
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($column = array())
+	public function modifyColumn($column = [])
 	{
 		if( DBForge::modifyColumn($this->_tableName(), $column) )
 		{
@@ -245,7 +245,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		$table   = $this->_tableName();
 		$version = $this->_getVersion();
 		
-		DB::insert($this->config['migrationTable'], array('name' => $table, 'type' => $type, 'version' => $version, 'date' => Date::set('Ymdhis')));
+		DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => Date::set('Ymdhis')]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -395,10 +395,10 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		DBForge::createTable('IF NOT EXISTS '.$table, array
 		(
-			'name'	  => array( DB::varchar(512), DB::notNull() ),
-			'type'    => array( DB::varchar(256), DB::notNull() ),
-			'version' => array( DB::varchar(3), DB::notNull() ),
-			'date' 	  => array( DB::varchar(15), DB::notNull() )
+			'name'	  => [DB::varchar(512), DB::notNull()],
+			'type'    => [DB::varchar(256), DB::notNull()],
+			'version' => [DB::varchar(3),   DB::notNull()],
+			'date' 	  => [DB::varchar(15),  DB::notNull()]
 		));
 	}
 	

@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $parameters 	  = array();
+	protected $parameters 	  = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// $host
@@ -914,7 +914,7 @@ class __USE_STATIC_ACCESS__DBUser implements DBUserInterface
 	{
 		$this->name				= NULL;
 		$this->lock				= NULL;
-		$this->parameters		= array();
+		$this->parameters		= [];
 		$this->host				= NULL;
 		$this->identified 		= NULL;
 		$this->required 		= NULL;

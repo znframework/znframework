@@ -34,7 +34,7 @@ class __USE_STATIC_ACCESS__Net implements NetInterface
 	******************************************************************************************/
 	protected function cleanHttp($host)
 	{
-		return str_ireplace(array('http://', 'https://'), '', $host);	
+		return str_ireplace(['http://', 'https://'], '', $host);	
 	}
 	
 	/******************************************************************************************

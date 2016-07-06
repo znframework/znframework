@@ -94,10 +94,11 @@ function lang($file = '', $str = '', $changed = '')
 		return false;
 	}
 	
-	$key 		= removeExtension($file, 'php');
-	$file 		= Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
-	$langDir    = restorationPath(LANGUAGES_DIR.$file);
-	$sysLangDir = SYSTEM_LANGUAGES_DIR.$file;
+	$key 		   = removeExtension($file, 'php');
+	$file 		   = Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
+	$langDir       = restorationPath(LANGUAGES_DIR.$file);
+	$sysLangDir    = SYSTEM_LANGUAGES_DIR.$file;
+	$commonLangDir = COMMON_LANGUAGES_DIR.$file;
 	
 	global $lang;
 	
@@ -108,6 +109,10 @@ function lang($file = '', $str = '', $changed = '')
 	elseif( is_file($sysLangDir) )
 	{
 		require_once($sysLangDir);	
+	}
+	elseif( is_file($commonLangDir) )
+	{
+		require_once($commonLangDir);	
 	}
 	
 	// Belirtilen anahtar dahil edilen
@@ -148,7 +153,7 @@ function lang($file = '', $str = '', $changed = '')
 		// yer alan değerleri ata.
 		if( ! empty($changed) )
 		{
-			$values = array();
+			$values = [];
 			
 			foreach( $changed as $key => $value )
 			{
@@ -178,7 +183,7 @@ function lang($file = '', $str = '', $changed = '')
 //----------------------------------------------------------------------------------------------------
 function currentLang()
 {
-	if( ! Config::get("Uri","lang") ) 
+	if( ! Config::get('Uri','lang') ) 
 	{
 		return false;
 	}
@@ -199,7 +204,7 @@ function currentLang()
 //----------------------------------------------------------------------------------------------------
 function currentUrl($fix = '')
 {
-	$currentUrl = sslStatus().host().cleanInjection($_SERVER['REQUEST_URI']);
+	$currentUrl = sslStatus().host()._cleanInjection($_SERVER['REQUEST_URI']);
 
 	if( ! empty($fix) )
 	{
@@ -252,7 +257,7 @@ function siteUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang())._cleanInjection($uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -297,7 +302,7 @@ function baseUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.restorationPath(cleanInjection($uri));
+	return sslStatus().$host.$newBaseDir.restorationPath(_cleanInjection($uri));
 }	
 	
 //----------------------------------------------------------------------------------------------------
@@ -324,7 +329,7 @@ function prevUrl()
 		$str   = str_replace($strEx[0]."/", "", $str);	
 	}
 	
-	return siteUrl(cleanInjection($str));	
+	return siteUrl(_cleanInjection($str));	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -343,7 +348,7 @@ function hostUrl($uri = "")
 		return false;
 	}
 	
-	return sslStatus().suffix(host()).cleanInjection($uri);
+	return sslStatus().suffix(host())._cleanInjection($uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -428,7 +433,7 @@ function basePath($uri = '', $index = 0)
 		}
 	}
 	
-	return cleanInjection($newBaseDir.$uri);
+	return _cleanInjection($newBaseDir.$uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -520,11 +525,11 @@ function filePath($file = "", $removeUrl = "")
 //
 // İşlev: Yönlendirme yapmak için kullanılır.
 // Parametreler: $url = yönlendirme yapılacak adres, $time = Yönlendirme süresi
-// $data = array() yönlendirilecek sayfaya veri gönderme, $exit = true 
+// $data = [] yönlendirilecek sayfaya veri gönderme, $exit = true 
 // Dönen Değerler: Yok.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function redirect($url = '', $time = 0, $data = array(), $exit = true)
+function redirect($url = '', $time = 0, $data = [], $exit = true)
 {	
 	if( ! is_string($url) || empty($url) ) 
 	{
@@ -611,7 +616,7 @@ function redirectDeleteData($data = '')
 // Kütüphane kullanımı için oluşturulmuştur.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function library($class = NULL, $function = NULL, $parameters = array())
+function library($class = NULL, $function = NULL, $parameters = [])
 {
 	if( empty($class) || empty($function) ) 
 	{
@@ -622,12 +627,12 @@ function library($class = NULL, $function = NULL, $parameters = array())
 	
 	if( ! is_array($parameters) ) 
 	{
-		$parameters = array($parameters);
+		$parameters = [$parameters];
 	}
 	
-	if( is_callable(array($var, $function)) )
+	if( is_callable([$var, $function]) )
 	{
-		return call_user_func_array( array($var, $function), $parameters );
+		return call_user_func_array( [$var, $function], $parameters );
 	}
 	else
 	{
@@ -642,7 +647,7 @@ function library($class = NULL, $function = NULL, $parameters = array())
 // Genel Kullanım: Herhangi bir sınıfı kullanmak için oluşturulmuştur.					  
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function uselib($class = '', $parameters = array())
+function uselib($class = '', $parameters = [])
 {
 	if( ! class_exists($class) )
 	{
@@ -722,7 +727,7 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	}
 	else
 	{
-		$newArray = array();
+		$newArray = [];
 		
 		if( ! empty($ex) ) foreach( $ex as $k => $v )
 		{
@@ -746,125 +751,6 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	$str .= '</div><br>';
 	
 	return $str;
-}
-
-//------------------------------------SYSTEM AND USER FUNCTIONS END-----------------------------------
-
-
-//------------------------------------SYSTEM FUNCTIONS START------------------------------------------
-
-//----------------------------------------------------------------------------------------------------
-// currentUri()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function currentUri()
-{
-	if( BASE_DIR !== '/' )
-	{
-		$cu = str_replace(BASE_DIR, '', $_SERVER['REQUEST_URI']);
-	}
-	else
-	{
-		$cu = substr($_SERVER['REQUEST_URI'], 1);
-	}
-	
-	if( indexStatus() ) 
-	{
-		$cu = str_replace(indexStatus(), '', $cu);
-	}
-	
-	return $cu;
-}
-
-//----------------------------------------------------------------------------------------------------
-// requestUri()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function requestUri()
-{
-	$requestUri = currentUri()
-	            ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
-				: substr(server('currentPath'), 1);
-	
-	if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
-	{
-			$requestUri = substr($requestUri, 0, -1);
-	}
-	
-	$requestUri = cleanInjection(routeUri($requestUri));
-	
-	if( currentLang() && stripos($requestUri, suffix(currentLang())) === 0 )
-	{
-		return substr($requestUri, strlen(suffix(currentLang())));
-	}
-
-	return $requestUri;
-}
-
-//----------------------------------------------------------------------------------------------------
-// routeUri()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function routeUri($requestUri = '')
-{
-	if( Config::get('Route','openPage') )
-	{
-			if( $requestUri === DIRECTORY_INDEX || empty($requestUri) || $requestUri === getLang() ) 
-			{
-				$requestUri = Config::get('Route','openPage');
-			}
-	}
-			
-	$config      = Config::get('Route');
-	$uriChange   = $config['changeUri'];
-	$patternType = $config['patternType'];
-		
-	if( ! empty($uriChange) ) foreach( $uriChange as $key => $val )
-	{	
-		if( $patternType === 'classic' )
-		{
-			$requestUri = preg_replace(presuffix($key).'xi', $val, $requestUri);
-		}
-		else
-		{
-			$requestUri = Regex::replace($key, $val, $requestUri, 'xi');
-		}
-	}
-	
-	return $requestUri;
-}
-
-//----------------------------------------------------------------------------------------------------
-// cleanInjection()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function cleanInjection($string = "")
-{
-	$urlInjectionChangeChars = Config::get("Security", 'urlChangeChars');
-
-	if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
-	{		
-		$string = preg_replace(presuffix($key).'xi', $val, $string);
-	}
-	
-	return $string;
-	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -917,14 +803,242 @@ function report($subject = 'unknown', $message = '', $destination = '', $time = 
 }
 
 //----------------------------------------------------------------------------------------------------
-// createRobotsFile()
+// headers()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function createRobotsFile()
+function headers($header = '')
+{
+	if( empty($header) )
+	{
+		return false;
+	}
+	
+	if( ! is_array($header) )
+	{
+		 header($header);
+	}
+	else 
+	{
+		if( isset($header) ) foreach( $header as $k => $v )
+		{
+			header($v);
+		}
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+// sslStatus()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function sslStatus()
+{
+	if( Config::get('Uri','ssl') )
+	{ 
+		return 'https://'; 
+	}
+	else
+	{ 
+		return 'http://';	
+	}
+}
+
+//----------------------------------------------------------------------------------------------------
+// indexStatus()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function indexStatus()
+{
+	if( Config::get('Htaccess', 'uri')[DIRECTORY_INDEX] ) 
+	{
+		return DIRECTORY_INDEX.'/'; 
+	}
+	else
+	{ 
+		return '';	
+	}
+}
+//------------------------------------SYSTEM AND USER FUNCTIONS END-----------------------------------
+
+
+//------------------------------------SYSTEM FUNCTIONS START------------------------------------------
+
+//----------------------------------------------------------------------------------------------------
+// currentUri()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function currentUri()
+{
+	if( BASE_DIR !== '/' )
+	{
+		$cu = str_replace(BASE_DIR, '', $_SERVER['REQUEST_URI']);
+	}
+	else
+	{
+		$cu = substr($_SERVER['REQUEST_URI'], 1);
+	}
+	
+	if( indexStatus() ) 
+	{
+		$cu = str_replace(indexStatus(), '', $cu);
+	}
+	
+	return $cu;
+}
+
+//----------------------------------------------------------------------------------------------------
+// _requestUri()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _requestUri()
+{
+	$requestUri = currentUri()
+	            ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
+				: substr(server('currentPath'), 1);
+	
+	if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
+	{
+			$requestUri = substr($requestUri, 0, -1);
+	}
+	
+	$requestUri	= _cleanInjection(_routeUri($requestUri));
+	$requestUri = _cleanURIPrefix($requestUri, currentLang());
+	
+	if( defined('INTERNAL_DIR') )
+	{
+		$requestUri = _cleanURIPrefix($requestUri, INTERNAL_DIR);
+	}
+	
+	return $requestUri;
+}
+
+//----------------------------------------------------------------------------------------------------
+// _cleanURIPrefix()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _cleanURIPrefix($uri, $cleanData)
+{
+	$suffixData = suffix($cleanData);
+
+	if( ! empty($cleanData) && stripos($uri, $suffixData) === 0 )
+	{
+		$uri = substr($uri, strlen($suffixData));
+	}
+	
+	return $uri;
+}
+
+//----------------------------------------------------------------------------------------------------
+// _routeUri()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _routeUri($requestUri = '')
+{
+	if( Config::get('Route','openPage') )
+	{
+		$internalDir = NULL;
+		
+		if( defined('INTERNAL_DIR') )
+		{
+			$configAppdir = Config::get('Application', 'directory');
+			
+			if( is_array($configAppdir) )
+			{
+				$internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : INTERNAL_DIR;
+			}
+			else
+			{
+				$internalDir = INTERNAL_DIR;	
+			}
+		}
+		
+		if
+		( 	
+			$requestUri === DIRECTORY_INDEX || 	 				 
+			$requestUri === getLang() 		|| 
+			$requestUri === $internalDir    ||
+			empty($requestUri) 
+		) 
+		{
+			$requestUri = Config::get('Route','openPage');	
+		}
+	}
+		
+	$config      = Config::get('Route');
+	$uriChange   = $config['changeUri'];
+	$patternType = $config['patternType'];
+		
+	if( ! empty($uriChange) ) foreach( $uriChange as $key => $val )
+	{	
+		if( $patternType === 'classic' )
+		{
+			$requestUri = preg_replace(presuffix($key).'xi', $val, $requestUri);
+		}
+		else
+		{
+			$requestUri = Regex::replace($key, $val, $requestUri, 'xi');
+		}
+	}
+	
+	return $requestUri;
+}
+
+//----------------------------------------------------------------------------------------------------
+// _cleanInjection()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _cleanInjection($string = "")
+{
+	$urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
+
+	if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
+	{		
+		$string = preg_replace(presuffix($key).'xi', $val, $string);
+	}
+	
+	return $string;
+	
+}
+
+//----------------------------------------------------------------------------------------------------
+// _createRobotsFile()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _createRobotsFile()
 {	
 	$rules = Config::get('Robots', 'rules');
 	
@@ -995,17 +1109,19 @@ function createRobotsFile()
 }
 
 //----------------------------------------------------------------------------------------------------
-// createHtaccessFile()
+// _createHtaccessFile()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function createHtaccessFile()
+function _createHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
-	$config = Config::get('Cache');
+	$htaccessSettings = Config::get('Htaccess');
+	
+	$config = $htaccessSettings['cache'];
 	$eol    = EOL;
 	$tab	= HT;
 	
@@ -1039,13 +1155,13 @@ function createHtaccessFile()
 		$exp = '';
 		foreach($config['modExpires']['fileTypeTime'] as $type => $value)
 		{
-			$exp .= 'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
+			$exp .= $tab.'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
 		}
 		
 		$modExpires = '<ifModule mod_expires.c>
-ExpiresActive On
-ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
-'.$exp.'
+'.$tab.'ExpiresActive On
+'.$tab.'ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
+'.rtrim($exp, $eol).'
 </ifModule>'.$eol.$eol;
 	}
 	else
@@ -1062,15 +1178,15 @@ ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
 		$fmatch = '';
 		foreach( $config['modHeaders']['fileExtensionTimeAccess'] as $type => $value )
 		{
-			$fmatch .= '<filesMatch "\.('.$type.')$">
-Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
-</filesMatch>'.$eol;
+			$fmatch .= $tab.'<filesMatch "\.('.$type.')$">
+'.$tab.$tab.'Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
+'.$tab.'</filesMatch>'.$eol;
 		}
 		
 		$modHeaders = '<ifModule mod_headers.c>
-'.$fmatch.'
+'.rtrim($fmatch, $eol).'
 </ifModule>
-'.$eol.$eol;
+'.$eol;
 	}
 	else
 	{
@@ -1079,15 +1195,14 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADERS----------------------------------------------------------
 	
 	//-----------------------HEADER SET-------------------------------------------------------
-	$headerSet = Config::get("Headers");
-	
-	if( ! empty($headerSet['setHtaccessFile']) )
+
+	if( $htaccessSettings['headers']['status'] === true )
 	{
 		$headersIniSet  = "<ifModule mod_expires.c>".$eol;	
 		
-		foreach( $headerSet['iniSet'] as $val )
+		foreach( $htaccessSettings['headers']['settings'] as $val )
 		{
-			$headersIniSet .= "$val".$eol;
+			$headersIniSet .= $tab."$val".$eol;
 		}
 		
 		$headersIniSet .= "</ifModule>".$eol.$eol;
@@ -1099,9 +1214,8 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	//-----------------------HEADER SET-------------------------------------------------------
 	
 	//-----------------------HTACCESS SET-----------------------------------------------------	
-	$htaccessSettings = Config::get("Htaccess");
 	
-	if( ! empty($htaccessSettings['setFile']) )
+	if( ! empty($htaccessSettings['settings']) )
 	{
 		$htaccessSettingsStr = '';
 		
@@ -1152,10 +1266,10 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	$htaccess .= '#----------------------------------------------------------------------------------------------------'.$eol.$eol;
 	$htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 	
-	//-----------------------URI INDEX PHP----------------------------------------------------	
-	if( ! Config::get('Uri', DIRECTORY_INDEX) )
+	//-----------------------URI ZERONEED PHP----------------------------------------------------	
+	if( ! $htaccessSettings['uri'][DIRECTORY_INDEX] )
 	{
-		$indexSuffix = Config::get('Uri','indexSuffix');
+		$indexSuffix = $htaccessSettings['uri']['indexSuffix'];
 		$flag		 = ! empty($indexSuffix) ? 'QSA' : 'L';
 		
 		$htaccess .= "<IfModule mod_rewrite.c>".$eol;
@@ -1166,7 +1280,7 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 		$htaccess .= $tab.'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
 		$htaccess .= "</IfModule>".$eol.$eol;
 	}
-	//-----------------------URI INDEX PHP----------------------------------------------------
+	//-----------------------URI ZERONEED PHP----------------------------------------------------
 	
 	//-----------------------ERROR REQUEST----------------------------------------------------	
 	$htaccess .= 'ErrorDocument 403 '.BASE_DIR.DIRECTORY_INDEX.$eol.$eol;	
@@ -1176,41 +1290,36 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 	$htaccess .= 'DirectoryIndex '.DIRECTORY_INDEX.$eol.$eol;	
 	//-----------------------DIRECTORY INDEX--------------------------------------------------
 	
-	$uploadSet = Config::get('FileSystem', 'upload');		
-	
-	if( ! empty($uploadSet['setHtaccessFile']) )
+	if( ! empty($uploadSet['status']) )
 	{
-		$uploadSettings = $uploadSet['settings'];
+		$uploadSettings = $htaccessSettings['upload'];
 	}
 	else
 	{
-		$uploadSettings = array();
+		$uploadSettings = [];
 	}
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
 	//-----------------------SESSION SETTINGS-------------------------------------------------
-	$sessionSet = Config::get('Services', 'session');	
-			
-	if( ! empty($sessionSet['setHtaccessFile']) )
+		
+	if( ! empty($htaccessSettings['session']['status']) )
 	{
-		$sessionSettings = $sessionSet['settings'];
+		$sessionSettings = $htaccessSettings['session']['settings'];
 	}
 	else
 	{
-		$sessionSettings = array();
+		$sessionSettings = [];
 	}
 	//-----------------------SESSION SETTINGS-------------------------------------------------
 	
-	//-----------------------INI SETTINGS-----------------------------------------------------	
-	$iniSet = Config::get('Ini');	
-		
-	if( ! empty($iniSet['setHtaccessFile']) )
+	//-----------------------INI SETTINGS-----------------------------------------------------		
+	if( $htaccessSettings['ini']['status'] === true )
 	{
-		$iniSettings = $iniSet['settings'];
+		$iniSettings = $htaccessSettings['ini']['settings'];
 	}
 	else
 	{
-		$iniSettings = array();
+		$iniSettings = [];
 	}
 	//-----------------------INI SETTINGS-----------------------------------------------------	
 	
@@ -1265,70 +1374,44 @@ Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 }
 
 //----------------------------------------------------------------------------------------------------
-// headers()
+// _startingContoller()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function headers($header = '')
+function _startingContoller($startController = '', $param = [])
 {
-	if( empty($header) )
-	{
-		return false;
-	}
+	$controllerEx = explode(':', $startController);
+		
+	$controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
+	$controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
+	$controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
+	$controllerClass = divide($controllerPath, '/', -1);
 	
-	if( ! is_array($header) )
+	if( is_file($controllerFile) )
 	{
-		 header($header);
-	}
-	else 
-	{
-		if( isset($header) ) foreach( $header as $k => $v )
+		require_once($controllerFile);
+		
+		if( ! is_callable(array(new $controllerClass, $controllerFunc)) )
 		{
-			header($v);
+			// Hatayı rapor et.
+			report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');	
+				
+			// Hatayı ekrana yazdır.
+			die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
 		}
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-// sslStatus()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function sslStatus()
-{
-	if( Config::get('Uri','ssl') )
-	{ 
-		return 'https://'; 
-	}
+		
+		return library($controllerClass, $controllerFunc, $param);
+	}	
 	else
-	{ 
-		return 'http://';	
-	}
-}
-
-//----------------------------------------------------------------------------------------------------
-// indexStatus()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function indexStatus()
-{
-	if( Config::get('Uri', DIRECTORY_INDEX) ) 
 	{
-		return DIRECTORY_INDEX.'/'; 
-	}
-	else
-	{ 
-		return '';	
+		// Hatayı rapor et.
+		report('Error', lang('Error', 'notIsFileError', $controllerFile), 'SystemNotIsFileError');
+		
+		// Hatayı ekrana yazdır.
+		die(Errors::message('Error', 'notIsFileError', $controllerFile));	
 	}
 }
 //------------------------------------SYSTEM FUNCTIONS END--------------------------------------------

@@ -19,7 +19,7 @@ class Config
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	private static $setConfigs = array();
+	private static $setConfigs = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// $config
@@ -30,7 +30,7 @@ class Config
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	private static $config = array();
+	private static $config = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// _config()
@@ -48,7 +48,7 @@ class Config
 		
 		if( ! is_file($path) ) 
 		{
-			$path = CONFIGURATIONS_DIR.suffix($file,".php");
+			$path = COMMON_CONFIG_DIR.suffix($file,".php");
 			
 			if( ! is_file($path) ) 
 			{
@@ -217,7 +217,7 @@ class Config
 		}
 		else
 		{
-			$keys = array();
+			$keys = [];
 			
 			foreach( $key as $k )
 			{
