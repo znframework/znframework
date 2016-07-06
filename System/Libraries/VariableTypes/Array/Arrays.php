@@ -688,7 +688,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function implementCallback(...$args)
 	{
-		return Functions::callArray('array_map', $args);
+		return $this->map(...$args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -700,7 +700,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function map(...$args)
 	{
-		return Functions::callArray('array_map', $args);
+		return array_map(...$args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -712,7 +712,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function recursiveMerge(...$args)
 	{
-		return Functions::callArray('array_merge_recursive', $args);
+		return array_merge_recursive(...$args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -724,7 +724,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function merge(...$args)
 	{
-		return Functions::callArray('array_merge', $args);
+		return array_merge(...$args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -736,7 +736,7 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	//----------------------------------------------------------------------------------------------------
 	public function intersect(...$args)
 	{
-		return Functions::callArray('array_intersect', $args);
+		return array_intersect(...$args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

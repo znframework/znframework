@@ -357,25 +357,6 @@ class __USE_STATIC_ACCESS__Collection
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected Arguments
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array $args				  
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	protected function _arguments($args)
-	{
-		$newArgs[0] = $this->data;
-		
-		foreach( $args as $key => $arg )
-		{
-			$newArgs[($key + 1)] = $arg;
-		}
-		
-		return $newArgs;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Implement Callback
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -384,7 +365,7 @@ class __USE_STATIC_ACCESS__Collection
 	//----------------------------------------------------------------------------------------------------
 	public function implementCallback(...$args)
 	{
-		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments($args));
+		$this->data = array_merge_recursive($this->data, ...$args);
 		 
 		return $this;
 	}
@@ -398,7 +379,7 @@ class __USE_STATIC_ACCESS__Collection
 	//----------------------------------------------------------------------------------------------------
 	public function recursiveMerge(...$args)
 	{
-		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments($args));
+		$this->data = array_merge_recursive($this->data, ...$args);
 		
 		return $this;
 	}
@@ -412,7 +393,7 @@ class __USE_STATIC_ACCESS__Collection
 	//----------------------------------------------------------------------------------------------------
 	public function merge(...$args)
 	{
-		$this->data = Functions::callArray('array_merge', $this->_arguments($args));
+		$this->data = array_merge($this->data, ...$args);
 		
 		return $this;
 	}
@@ -426,7 +407,7 @@ class __USE_STATIC_ACCESS__Collection
 	//----------------------------------------------------------------------------------------------------
 	public function intersect(...$args)
 	{
-		$this->data = Functions::callArray('array_intersect', $this->_arguments($args));
+		$this->data = array_intersect($this->data, ...$args);
 		
 		return $this;
 	}
