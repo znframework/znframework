@@ -357,7 +357,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		          ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
 		          : ['<div style="'.$background.'">', '</div>'];
 		
-		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), $tagArray, $string);
+		return str_replace(['&#60;&#63;php', '&#63;&#62;'], $tagArray, $string);
     }
 	
 	/******************************************************************************************

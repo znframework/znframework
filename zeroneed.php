@@ -200,12 +200,12 @@ if( $benchmark === true )
 	//------------------------------------------------------------------------------------------------
 	//  Benchmark Performans Sonuç Tablosu
 	//------------------------------------------------------------------------------------------------
-	$benchmarkData  = array
-	(
+	$benchmarkData  = 
+	[
 		'elapsedTime'	 => $elapsedTime,
 		'memoryUsage'	 => $memoryUsage,
 		'maxMemoryUsage' => $maxMemoryUsage
-	);	
+	];	
 	
 	$benchResult    = Import::template('BenchmarkTable', $benchmarkData, true);
 	//------------------------------------------------------------------------------------------------

@@ -288,7 +288,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function __construct($driver = '')
 	{		
-		$this->email = Driver::run(array('Services' => 'email'), $driver);
+		$this->email = Driver::run(['Services' => 'email'], $driver);
 		
 		$this->driver = ! empty($driver)
 						? $driver
@@ -441,7 +441,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	public function addHeader($header = '', $value = '')
 	{
-		$this->headers[$header] = str_replace(array("\n", "\r"), '', $value);
+		$this->headers[$header] = str_replace(["\n", "\r"], '', $value);
 		
 		return $this;
 	}
@@ -1177,7 +1177,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	******************************************************************************************/
 	protected function _getMessageId()
 	{
-		$from = str_replace(array('>', '<'), '', $this->headers['Return-Path']);
+		$from = str_replace(['>', '<'], '', $this->headers['Return-Path']);
 		
 		return '<'.uniqid('').strstr($from, '@').'>';
 	}

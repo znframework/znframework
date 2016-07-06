@@ -48,7 +48,7 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _security($data = '')
 	{
-		return str_replace(array($this->key, $this->separator), '', $data);
+		return str_replace([$this->key, $this->separator], '', $data);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

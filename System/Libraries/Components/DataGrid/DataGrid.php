@@ -743,7 +743,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$saveAttr = array_merge
 			(
 				$this->config['attributes']['save'], 
-				array('DGSaveButton' => 'save', 'DGSaveId' => 'save')
+				['DGSaveButton' => 'save', 'DGSaveId' => 'save']
 			);
 				
 			$table .= '<tr>';
@@ -816,7 +816,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$updateAttr = array_merge
 				(
 					$this->config['attributes']['update'], 
-					array('DGUpdateButton' => 'update', 'DGUpdateId' => $row->$processColumn)
+					['DGUpdateButton' => 'update', 'DGUpdateId' => $row->$processColumn]
 				);
 				
 				$table .= '<td align="right">'.Form::button('update', $this->config['buttonNames']['update'], $updateAttr).'</td>';
@@ -831,13 +831,13 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				$editAttr = array_merge
 				(
 					$this->config['attributes']['edit'], 
-					array('DGEditButton' => 'edit', 'DGEditId' => $row[$processColumn])
+					['DGEditButton' => 'edit', 'DGEditId' => $row[$processColumn]]
 				);
 				
 				$addAttr  = array_merge
 				(
 					$this->config['attributes']['delete'], 
-					array('DGDeleteButton' => 'delete', 'DGDeleteId' => $row[$processColumn])
+					['DGDeleteButton' => 'delete', 'DGDeleteId' => $row[$processColumn]]
 				);
 				
 				$table .= '<td align="right">'.Html::anchor
@@ -1008,19 +1008,19 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		$addAttr = array_merge
 		(
 			$this->config['attributes']['add'], 
-			array('DGAddButton' => 'add', 'DGAddId' => 'add')
+			['DGAddButton' => 'add', 'DGAddId' => 'add']
 		);
 		
 		$deleteCurrentAttr = array_merge
 		(
 			$this->config['attributes']['deleteSelected'], 
-			array('DGDeleteCurrentButton' => 'deleteCurrent', 'DGDeleteCurrentId' => 'deleteCurrent')
+			['DGDeleteCurrentButton' => 'deleteCurrent', 'DGDeleteCurrentId' => 'deleteCurrent']
 		);
 		
 		$deleteAllAttr = array_merge
 		(
 			$this->config['attributes']['deleteAll'], 
-			array('DGDeleteAllButton' => 'deleteAll', 'DGDeleteAllId' => 'deleteAll')
+			['DGDeleteAllButton' => 'deleteAll', 'DGDeleteAllId' => 'deleteAll']
 		);
 		
 		$table  = Form::id('datagridForm')->open();
