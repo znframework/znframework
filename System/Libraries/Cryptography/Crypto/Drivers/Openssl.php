@@ -40,7 +40,7 @@ class OpensslDriver implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function encrypt($data = '', $settings = array())
+	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'aes-128';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->keySize($cipher); 
@@ -65,7 +65,7 @@ class OpensslDriver implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function decrypt($data = '', $settings = array())
+	public function decrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'aes-128';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->keySize($cipher); 

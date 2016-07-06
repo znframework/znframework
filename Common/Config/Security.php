@@ -18,20 +18,20 @@
 // istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.			      						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Security']['ncEncode'] = array 
-(
-		'bad_chars' => array
-		(
+$config['Security']['ncEncode'] =  
+[
+		'bad_chars' => 
+		[
 			'<!--',
 			'-->',
 			'<?',
 			'?>',
 			'<', 
 			'>'
-		), // string veya array
+		], // string veya array
 		
 		'change_bad_chars' => '[badchars]' // string veya array
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Url Change Chars
@@ -50,12 +50,12 @@ $config['Security']['ncEncode'] = array
 // Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.		
 //	     					  				
 //----------------------------------------------------------------------------------------------------
-$config['Security']['urlChangeChars'] = array
-(
+$config['Security']['urlChangeChars'] = 
+[
 	'<' 	=> '',
 	'>' 	=> ''
 	// 'old_chars' => 'change_new_chars'
-); 
+]; 
 
 //----------------------------------------------------------------------------------------------------
 // File Bad Chars
@@ -64,8 +64,8 @@ $config['Security']['urlChangeChars'] = array
 // Genel Kullanımı: Dosya isimlerinde tehlike yaratacak karater listesi.			          					
 //
 //----------------------------------------------------------------------------------------------------
-$config['Security']['fileBadChars'] = array
-(
+$config['Security']['fileBadChars'] = 
+[
 	'<!--', '-->', '<', '>', '"', "'", '&', '?', '$', '#', '{', '}', '[', ']', '=', ';', '../', '%20', '&22',
 	'%3c', 		// <
 	'%3e',		// >
@@ -77,7 +77,7 @@ $config['Security']['fileBadChars'] = array
 	'%3f',		// ?
 	'%3b',		// ;
 	'%3d'		// =
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Url Bad Chars
@@ -86,13 +86,13 @@ $config['Security']['fileBadChars'] = array
 // Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.			          	  					
 //
 //----------------------------------------------------------------------------------------------------
-$config['Security']['urlBadChars'] = array
-(
+$config['Security']['urlBadChars'] = 
+[
 	'"', "'", '<', '>', "?", '&',
 	':', '=', '{', '}', '[', '/',
     ']', '(', ')', ';', '$', '#',
 	'\\', '../', '%20', '&22'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Injection Bad Chars
@@ -101,10 +101,10 @@ $config['Security']['urlBadChars'] = array
 // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          					
 //
 //----------------------------------------------------------------------------------------------------
-$config['Security']['injectionBadChars'] = array
-(
+$config['Security']['injectionBadChars'] = 
+[
 	'or.+\=' => '',
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Script Bad Chars
@@ -113,8 +113,8 @@ $config['Security']['injectionBadChars'] = array
 // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Security']['scriptBadChars'] = array
-(
+$config['Security']['scriptBadChars'] = 
+[
 	'document\.cookie'	=> 'document&#46;cookie',
 	'document\.write' 	=> 'document&#46;write',
 	'\.parentNode' 		=> '&#46;parentNode',
@@ -122,7 +122,7 @@ $config['Security']['scriptBadChars'] = array
 	'\-moz\-binding' 	=> '&#150;moz&#150;binding',
 	'<' 				=> '&#60;',
 	'>' 				=> '&#62;',
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Regex Bad Chars
@@ -131,8 +131,8 @@ $config['Security']['scriptBadChars'] = array
 // Genel Kullanımı: Düzenli ifadelerde tehlikeye neden olacak karater listesi.			  					
 //
 //----------------------------------------------------------------------------------------------------
-$config['Security']['regexBadChars'] = array
-(
+$config['Security']['regexBadChars'] = 
+[
 	"([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?",
 	'(document|(document\.)?window)\.(location|on\w*)',
 	'expression\s*(\(|&\#40;)', 
@@ -142,4 +142,4 @@ $config['Security']['regexBadChars'] = array
 	'wscript\s*:',
 	'jscript\s*:',
 	'vbs\s*:',		
-);
+];

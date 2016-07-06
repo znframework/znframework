@@ -16,7 +16,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $isImport = array();
+	protected $isImport = [];
 	
 	/* Parameters Değişkeni
 	 *  
@@ -25,7 +25,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	 */
 	protected $parameters = array
 	(
-		'data'   => array(),
+		'data'   => [],
 		'usable' => false 
 	);
 	
@@ -98,7 +98,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($data = array())
+	public function data($data = [])
 	{
 		$this->parameters['data'] = $data;
 		
@@ -168,7 +168,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var string $title
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function meta($meta = array())
+	public function meta($meta = [])
 	{
 		Config::set('Masterpage', 'meta', $meta);
 		
@@ -182,7 +182,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes = array())
+	public function attributes($attributes = [])
 	{
 		Config::set('Masterpage', 'attributes', $attributes);
 		
@@ -196,7 +196,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// @var array $content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content($content = array())
+	public function content($content = [])
 	{
 		Config::set('Masterpage', 'content', $content);
 		
@@ -316,7 +316,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomDataVariable = $this->parameters['data'];
 		}
 
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		if( ! is_string($randomPageVariable) )
 		{
@@ -519,7 +519,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| kullanılır.	        															      |
 	|          																				  |
 	******************************************************************************************/
-	public function masterPage($randomDataVariable = array(), $head = array())
+	public function masterPage($randomDataVariable = [], $head = [])
 	{	
 		if( ! empty($this->parameters['headData']) )
 		{
@@ -531,7 +531,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomDataVariable = $this->parameters['data'];
 		}
 	
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		$eol = EOL;
 		
@@ -801,7 +801,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			$lastParam = $this->parameters['usable'];
 			
-			$this->parameters = array();
+			$this->parameters = [];
 		}
 		else
 		{
@@ -1144,7 +1144,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$randomDataVariable = $this->parameters['data'];
 		}
 
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		$eol = EOL;
 		
@@ -1284,7 +1284,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			$recursive = $this->parameters['recursive'];
 		}
 		
-		$this->parameters = array();
+		$this->parameters = [];
 	
 		$eol = EOL;
 		

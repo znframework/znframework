@@ -63,7 +63,7 @@ trait DatabaseDriverTrait
 			return false;
 		}
 		
-		$rows = array();
+		$rows = [];
 		
 		while( $data = $this->fetchAssoc() )
 		{

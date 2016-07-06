@@ -17,7 +17,7 @@ trait ConfigMethodTrait
 	// @var array      		     		 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	protected $config = array();
+	protected $config = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// config()                                                                       
@@ -28,7 +28,7 @@ trait ConfigMethodTrait
 	// @return object 	        		     		 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function config($settings = array(), $path = '')
+	public function config($settings = [], $path = '')
 	{
 		// Yol parametre olarak belirtilirse bu veri kullan.
 		if( ! empty( $path) )

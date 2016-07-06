@@ -38,7 +38,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım: call_user_func_array().									 	          |
 	|          																				  |
 	******************************************************************************************/
-	public function callArray($callback = '', $params = array())
+	public function callArray($callback = '', $params = [])
 	{
 		if( ! is_callable($callback) )
 		{
@@ -70,7 +70,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım: forward_static_call_array().								 	          |
 	|          																				  |
 	******************************************************************************************/
-	public function staticCallArray($callback = '', $params = array())
+	public function staticCallArray($callback = '', $params = [])
 	{
 		if( ! is_callable($callback) )
 		{

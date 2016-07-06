@@ -19,7 +19,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:pagination';
 	
-	protected $settings     = array();
+	protected $settings     = [];
 	
 	/* Total Rows Değişkeni
 	 *  
@@ -67,7 +67,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	 * bilgisini tutması için oluşturulmuştur.
 	 * 
 	 */
-	protected $class		= array();
+	protected $class		= [];
 	
 	/* Style Dizi Değişkeni
 	 *  
@@ -75,7 +75,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	 * bilgisini tutması için oluşturulmuştur.
 	 * 
 	 */
-	protected $style		= array();
+	protected $style		= [];
 	
 	/* First Tag Değişkeni
 	 *  
@@ -264,7 +264,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		return $this;
 	}
 	
-	public function css($css = array())
+	public function css($css = [])
 	{
 		if( ! is_array($css) )
 		{
@@ -277,7 +277,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		return $this;
 	}
 	
-	public function style($style = array())
+	public function style($style = [])
 	{
 		if( ! is_array($style) )
 		{
@@ -332,7 +332,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	// 6.last     => Son butonunu görteren linke stil veya sınıf eklenmesi için kullanılır.   
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings($config = array())
+	public function settings($config = [])
 	{
 		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
 		if( ! is_array($config) ) 
@@ -355,8 +355,8 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		if( ! empty($config['lastName']) ) 	 $this->lastTag 	= $config['lastName'];
 		if( ! empty($config['type']) ) 	 	 $this->type 	    = $config['type'];
 		
-		$this->class = array_merge($configs['class'], ( ! empty($config['class']) ? $config['class'] : array()) );
-		$this->style = array_merge($configs['style'], ( ! empty($config['style']) ? $config['style'] : array()) );
+		$this->class = array_merge($configs['class'], ( ! empty($config['class']) ? $config['class'] : []) );
+		$this->style = array_merge($configs['style'], ( ! empty($config['style']) ? $config['style'] : []) );
 		
 		if( isset($config['url']) && $this->type !== 'ajax' )			
 		{
@@ -391,7 +391,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	// Create Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
-	public function create($start = NULL, $settings = array())
+	public function create($start = NULL, $settings = [])
 	{
 		$settings = array_merge($this->config, $this->settings, $settings);
 		

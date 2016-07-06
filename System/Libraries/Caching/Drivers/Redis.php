@@ -24,7 +24,7 @@ class RedisDriver implements CacheInterface
 	 * barındırmak için oluşturulmuştur.
 	 *
 	 */
-	protected $serialized = array();
+	protected $serialized = [];
 	
 	public function __construct()
 	{
@@ -40,7 +40,7 @@ class RedisDriver implements CacheInterface
 	| Genel Kullanım: Nesne tanımlaması ve ön bellek ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($settings = array())
+	public function connect($settings = [])
 	{
 		$config = Config::get('Cache', 'driverSettings');
 		

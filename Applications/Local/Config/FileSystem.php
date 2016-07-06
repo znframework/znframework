@@ -17,7 +17,4 @@
 // Genel Kullanım: Kayıtların oluşturulacağı dizin.			     						
 //
 //----------------------------------------------------------------------------------------------------
-$config['FileSystem']['record'] = array
-(
-	'record' => 'Test'
-);
+$config['FileSystem']['record'] = ['record' => 'Test'];

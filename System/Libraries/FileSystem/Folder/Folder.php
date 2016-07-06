@@ -239,7 +239,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 			
 			$dir = suffix($dir);
 			
-			$filesInfo = array();
+			$filesInfo = [];
 			
 			foreach($files as $file)
 			{
@@ -409,7 +409,7 @@ class __USE_STATIC_ACCESS__Folder implements FolderInterface
 		}
 		// ----------------------------------------------------------------------------
 		
-		$files = array();
+		$files = [];
 		
 		// 1. Parametre boş ise bu parametreyi aktif dizin olarak belirle.
 		if( empty($path) )

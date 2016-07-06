@@ -21,8 +21,8 @@
 // Not: Daha çok accent_converter() yöntemi ile birlikte kullanılmaktadır.				  
 //
 //----------------------------------------------------------------------------------------------------
-$config['ForeignChars']['accentChars'] = array
-(
+$config['ForeignChars']['accentChars'] = 
+[
 	'ä|æ|ǽ' 														=> 'ae',
 	'œ' 															=> 'oe',
 	'Ä' 															=> 'Ae',
@@ -109,7 +109,7 @@ $config['ForeignChars']['accentChars'] = array
 	'ю' 															=> 'yu',
 	'Я' 															=> 'Ya',
 	'я' 															=> 'ya'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Numerical Codes
@@ -122,8 +122,8 @@ $config['ForeignChars']['accentChars'] = array
 // Not: Daha çok Converter.php aracı ile birlikte kullanılmaktadır.				          
 //
 //----------------------------------------------------------------------------------------------------
-$config['ForeignChars']['numericalCodes'] = array
-(
+$config['ForeignChars']['numericalCodes'] = 
+[
 	'À'	=> '&#192;',
 	'Ā'	=> '&#256;',
 	'ā'	=> '&#257;',
@@ -516,4 +516,4 @@ $config['ForeignChars']['numericalCodes'] = array
 	'Ȥ' => '&#548;',
 	'ȥ' => '&#549;',
 	'ɀ' => '&#576;',
-);
+];

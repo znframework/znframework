@@ -17,8 +17,8 @@
 // Genel Kullanımı: Ön tanımlı sayfalama ayarı yapmak için kullanılır.			  	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Components']['pagination'] = array
-(
+$config['Components']['pagination'] =
+[
 	'prevName' 		=> '<', 
 	'nextName' 		=> '>',
 	'firstName'		=> '<<',
@@ -30,26 +30,26 @@ $config['Components']['pagination'] = array
 	'countLinks' 	=> 10,
 	'type'			=> 'classic', // classic, ajax
 	
-	'class' => array
-	(
+	'class' =>
+	[
 		'current' 	=> '',
 		'links' 	=> '',
 		'prev'		=> '',
 		'next'		=> '',
 		'last'		=> '',
 		'first'		=> ''
-	),
+	],
 	
-	'style' => array
-	(
+	'style' => 
+	[
 		'current' 	=> '',
 		'links' 	=> '',
 		'prev'		=> '',
 		'next'		=> '',
 		'last'		=> '',
 		'first'		=> ''
-	),
-);
+	],
+];
 
 //----------------------------------------------------------------------------------------------------
 // Captcha
@@ -58,21 +58,21 @@ $config['Components']['pagination'] = array
 // Genel Kullanımı: Ön tanımlı güvenlik kodu ayarı yapmak için kullanılır.			  	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Components']['captcha'] = array
-(
+$config['Components']['captcha'] =
+[
 	'charLength' 	=> '6',  
 	'bgColor' 		=>'80|80|80',
-	'background'	=> array(),
+	'background'	=> [],
 	'textColor'		=> '255|255|255',
 	'border' 		=> false,
 	'borderColor' 	=> '0|0|0',
 	'width' 		=> '180',
 	'height' 		=> '40',
-	'imageString' 	=> array('size' => '5', 'x' => '65', 'y' => '13'),
+	'imageString' 	=> ['size' => '5', 'x' => '65', 'y' => '13'],
 	'grid' 			=> true, 
-	'gridSpace' 	=> array('x' => 12, 'y' => 4),
+	'gridSpace' 	=> ['x' => 12, 'y' => 4],
 	'gridColor' 	=> '50|50|50'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Calendar
@@ -81,9 +81,8 @@ $config['Components']['captcha'] = array
 // Genel Kullanımı: Ön tanımlı takvim ayarı yapmak için kullanılır.			  	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Components']['calendar'] = array
-(
-	
+$config['Components']['calendar'] =
+[	
 	'prevName' 		=> '<<', 
 	'nextName' 		=> '>>',
 	
@@ -91,86 +90,86 @@ $config['Components']['calendar'] = array
 	'monthType' 	=> 'long',	
 	'type'			=> 'classic', // classic, ajax
 
-	'class' => array
-	(
+	'class' => 
+	[
 		'table' 	=> '',
 		'monthName' => '',
 		'dayName' 	=> '',
 		'days' 		=> '',
 		'links' 	=> '',
 		'current' 	=> '',
-	),
+	],
 	
-	'style' => array
-	(
+	'style' => 
+	[
 		'table' 	=> '',
 		'monthName' => '',
 		'dayName' 	=> '',
 		'days' 		=> '',
 		'links' 	=> '',
 		'current' 	=> '',
-	),
+	],
 	
-	'monthNames' => array
-	(
-		'tr' => array
-				(
-					'Ocak' 		=> 'Oca', 
-					'Şubat' 	=> 'Şub', 
-					'Mart' 		=> 'Mar', 
-					'Nisan' 	=> 'Nis', 
-					'Mayıs' 	=> 'May', 
-					'Haziran' 	=> 'Haz', 
-					'Temmuz' 	=> 'Tem', 
-					'Ağustos' 	=> 'Ağu', 
-					'Eylül' 	=> 'Eyl', 
-					'Ekim' 		=> 'Eki', 
-					'Kasım'		=> 'Kas', 
-					'Aralık' 	=> 'Ara'
-				),
+	'monthNames' => 
+	[
+		'tr' => 
+		[
+			'Ocak' 		=> 'Oca', 
+			'Şubat' 	=> 'Şub', 
+			'Mart' 		=> 'Mar', 
+			'Nisan' 	=> 'Nis', 
+			'Mayıs' 	=> 'May', 
+			'Haziran' 	=> 'Haz', 
+			'Temmuz' 	=> 'Tem', 
+			'Ağustos' 	=> 'Ağu', 
+			'Eylül' 	=> 'Eyl', 
+			'Ekim' 		=> 'Eki', 
+			'Kasım'		=> 'Kas', 
+			'Aralık' 	=> 'Ara'
+		],
 					
-		'en' => array
-				(
-					'Janury'	=> 'Jan', 
-					'February'	=> 'Feb', 
-					'March'		=> 'Mar', 
-					'April'		=> 'Apr', 
-					'May'		=> 'May', 
-					'June'		=> 'Jun', 
-					'July'		=> 'Jul', 
-					'August'	=> 'Aug', 
-					'September'	=> 'Sep', 
-					'October'	=> 'Oct', 
-					'November'	=> 'Nov', 
-					'December'	=> 'Dec'
-				)
-	),
+		'en' => 
+		[
+			'Janury'	=> 'Jan', 
+			'February'	=> 'Feb', 
+			'March'		=> 'Mar', 
+			'April'		=> 'Apr', 
+			'May'		=> 'May', 
+			'June'		=> 'Jun', 
+			'July'		=> 'Jul', 
+			'August'	=> 'Aug', 
+			'September'	=> 'Sep', 
+			'October'	=> 'Oct', 
+			'November'	=> 'Nov', 
+			'December'	=> 'Dec'
+		]
+	],
 	
-	'dayNames' => array
-	(
-		'tr' => array
-				(
-					'Pazartesi' => 'Pzt', 
-					'Salı'		=> 'Sal',	 	
-					'Çarşamba'	=> 'Çar', 
-					'Perşembe'	=> 'Per', 
-					'Cuma'		=> 'Cum', 
-					'Cumartesi'	=> 'Cts', 
-					'Pazar'		=> 'Paz'
-				),
+	'dayNames' =>
+	[
+		'tr' => 
+		[
+			'Pazartesi' => 'Pzt', 
+			'Salı'		=> 'Sal',	 	
+			'Çarşamba'	=> 'Çar', 
+			'Perşembe'	=> 'Per', 
+			'Cuma'		=> 'Cum', 
+			'Cumartesi'	=> 'Cts', 
+			'Pazar'		=> 'Paz'
+		],
 					
-		'en' => array
-				(
-					'Monday'	=> 'Mon', 
-					'Tuesday'	=> 'Tue', 
-					'Wednesday'	=> 'Wed', 
-					'Thursday'	=> 'Thu', 
-					'Friday'	=> 'Fri', 
-					'Saturday'	=> 'Sat', 
-					'Sunday'	=> 'Sun'
-				)
-	)
-);	
+		'en' => 
+		[
+			'Monday'	=> 'Mon', 
+			'Tuesday'	=> 'Tue', 
+			'Wednesday'	=> 'Wed', 
+			'Thursday'	=> 'Thu', 
+			'Friday'	=> 'Fri', 
+			'Saturday'	=> 'Sat', 
+			'Sunday'	=> 'Sun'
+		]
+	]
+];	
 
 //----------------------------------------------------------------------------------------------------
 // Terminal
@@ -179,8 +178,8 @@ $config['Components']['calendar'] = array
 // Genel Kullanımı: Ön tanımlı konsol ayarı yapmak için kullanılır.			  	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Components']['terminal'] = array
-(
+$config['Components']['terminal'] =
+[
 	'width' 		=> '800px', 
 	'height' 		=> '350px', 
 	'bgColor' 		=> '#000', 
@@ -188,7 +187,7 @@ $config['Components']['terminal'] = array
 	'textColor' 	=> '#ccc', 
 	'textType' 		=> 'Consolas, monospace', 
 	'textSize' 		=> '12px'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // DataGrid
@@ -197,8 +196,8 @@ $config['Components']['terminal'] = array
 // Genel Kullanımı: Ön tanımlı grid ayarı yapmak için kullanılır.			  	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Components']['datagrid'] = array
-(
+$config['Components']['datagrid'] =
+[
 	//------------------------------------------------------------------------------------------------
 	// Button Names
 	//------------------------------------------------------------------------------------------------
@@ -206,8 +205,8 @@ $config['Components']['datagrid'] = array
 	// Genel Kullanımı: DataGrid'de yer alan butonların isimlerini düzenlemek için kullanılır.  	  					  						
 	//
 	//------------------------------------------------------------------------------------------------
-	'buttonNames' => array
-	(
+	'buttonNames' =>
+	[
 		'add'    		=> lang('DataGrid', 'addButton'),
 		'edit'   		=> lang('DataGrid', 'editButton'),
 		'update'   		=> lang('DataGrid', 'updateButton'),
@@ -215,7 +214,7 @@ $config['Components']['datagrid'] = array
 		'delete' 		=> lang('DataGrid', 'deleteButton'),
 		'deleteSelected'=> lang('DataGrid', 'deleteSelectedName'),
 		'deleteAll' 	=> lang('DataGrid', 'deleteAllName')
-	),
+	],
 	
 	//------------------------------------------------------------------------------------------------
 	// Button Names
@@ -225,11 +224,11 @@ $config['Components']['datagrid'] = array
 	// bilgisini değiştirmek için kullanılır.  	  					  						
 	//
 	//------------------------------------------------------------------------------------------------
-	'placeHolders' => array
-	(
+	'placeHolders' =>
+	[
 		'search'    => lang('DataGrid', 'searchHolder'),
 		'inputs'   	=> lang('DataGrid', 'inputsHolder'),
-	),
+	],
 	
 	//------------------------------------------------------------------------------------------------
 	// Cdn Links
@@ -240,12 +239,12 @@ $config['Components']['datagrid'] = array
 	// değerler false olarak ayarlanmalıdır.  	  					  						
 	//
 	//------------------------------------------------------------------------------------------------
-	'cdn' => array
-	(
+	'cdn' => 
+	[
 		'jquery'    => true,
 		'jqueryUi'  => false,
 		'bootstrap' => false
-	),
+	],
 	
 	//------------------------------------------------------------------------------------------------
 	// Attributes
@@ -255,28 +254,28 @@ $config['Components']['datagrid'] = array
 	// için kullanılır.	  	  					  						
 	//
 	//------------------------------------------------------------------------------------------------
-	'attributes' 	=> array
-	(
-		'table'  		=> array('width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'),
-		'columns'  		=> array('style' => 'text-decoration:none; color:#0085B2'),
-		'search' 		=> array('style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
-		'add'	 		=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
-		'deleteSelected'=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
-		'deleteAll' 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
-		'save'	 	    => array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
-		'update'	 	=> array('style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'),
-		'delete' 		=> array('style' => 'text-decoration:none; color:red; font-weight:bold; pointer:'),
-		'edit'	 		=> array('style' => 'text-decoration:none; color:#0085B2; font-weight:bold'),
-		'listTables'	=> array(),
-		'inputs'		=> array
-		(
-			'text' 		=> array('style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
-			'textarea' 	=> array('style' => 'height:60px; width:250px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'),
-			'radio' 	=> array(),
-			'checkbox' 	=> array(),
-			'select' 	=> array()
-		)
-	),
+	'attributes' 	=> 
+	[
+		'table'  		=> ['width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'],
+		'columns'  		=> ['style' => 'text-decoration:none; color:#0085B2'],
+		'search' 		=> ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
+		'add'	 		=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+		'deleteSelected'=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+		'deleteAll' 	=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+		'save'	 	    => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+		'update'	 	=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+		'delete' 		=> ['style' => 'text-decoration:none; color:red; font-weight:bold; pointer:'],
+		'edit'	 		=> ['style' => 'text-decoration:none; color:#0085B2; font-weight:bold'],
+		'listTables'	=> [],
+		'inputs'		=> 
+		[
+			'text' 		=> ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
+			'textarea' 	=> ['style' => 'height:60px; width:250px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
+			'radio' 	=> [],
+			'checkbox' 	=> [],
+			'select' 	=> []
+		]
+	],
 	
 	//------------------------------------------------------------------------------------------------
 	// Colors
@@ -285,10 +284,10 @@ $config['Components']['datagrid'] = array
 	// Genel Kullanımı: Grid'de yer alan yapıların renklerini düzenlemek için kullanılır.	  	  					  						
 	//
 	//------------------------------------------------------------------------------------------------
-	'colors' => array
-	(
-		'rowOrder' => array('single' => '#fff', 'double' => '#E6F9FF')
-	),
+	'colors' =>
+	[
+		'rowOrder' => ['single' => '#fff', 'double' => '#E6F9FF']
+	],
 	
 	//------------------------------------------------------------------------------------------------
 	// Pagination
@@ -300,10 +299,10 @@ $config['Components']['datagrid'] = array
 	// yukarıdaki mevcut ayarlarından yapılması tavsiye edilir.	  	  					  						
 	//
 	//------------------------------------------------------------------------------------------------
-	'pagination' => array
-	(
-		'style' => array
-		(
+	'pagination' =>
+	[
+		'style' =>
+		[
 			'links' => 'color:#0085B2;
 						width:20px; height:20px; 
 						text-align:center; 
@@ -317,6 +316,6 @@ $config['Components']['datagrid'] = array
 						text-decoration:none;',
 						
 			'current' => 'font-weight:bold;'
-		)
-	)
-);
+		]
+	]
+];

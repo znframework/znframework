@@ -30,24 +30,24 @@ $config['Cache']['driver'] = 'file';
 // Drivers: apc, memcache, wincache								 	 					  	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Cache']['driverSettings'] = array
-(
-	'memcache' => array
-	(
+$config['Cache']['driverSettings'] = 
+[
+	'memcache' => 
+	[
 		'host'	 => '127.0.0.1',
 		'port' 	 => '11211',
 		'weight' => '1',
-	),
+	],
 	
-	'redis' => array
-	(
+	'redis' => 
+	[
 		'password' 	  => NULL,
 		'socketType' => 'tcp',
 		'host' 		  => '127.0.0.1',	
 		'port' 		  => 6379,
 		'timeout' 	  => 0
-	)
-);
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // OB Gzhandler                                                                        	

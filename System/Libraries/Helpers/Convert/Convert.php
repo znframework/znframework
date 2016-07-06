@@ -34,7 +34,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	// @param array  $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function anchor($data = '', $type = 'short', $attributes = array())
+	public function anchor($data = '', $type = 'short', $attributes = [])
 	{
 		return preg_replace
 		(
@@ -216,7 +216,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	  @param string $keyval all, key, val/value
 	|																						  |
 	******************************************************************************************/
-	public function arrayCase($array = array(), $type = 'lower', $keyval = 'all')
+	public function arrayCase($array = [], $type = 'lower', $keyval = 'all')
 	{
 		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
 		{
@@ -257,7 +257,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 			$arrayVals = array_map($caseType, $arrayVals);		
 		}
 		
-		$newArray = array();
+		$newArray = [];
 		
 		for($i = 0; $i < count($array); $i++)
 		{
@@ -311,7 +311,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	| Örnek Kullanım: highLight('echo 1;');  											  	  |
 	|       																				  |
 	******************************************************************************************/
-	public function highLight($str = '', $settings = array())
+	public function highLight($str = '', $settings = [])
 	{
 		if( ! is_string($str) || ! is_array($settings) )
 		{

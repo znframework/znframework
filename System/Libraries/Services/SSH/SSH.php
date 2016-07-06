@@ -62,7 +62,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct($config = array())
+	public function __construct($config = [])
 	{
 		if( ! function_exists('ssh2_connect') )
 		{
@@ -111,7 +111,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function connect($config = array())
+	public function connect($config = [])
 	{	
 		if( ! is_array($config) )
 		{

@@ -17,7 +17,7 @@ class __USE_STATIC_ACCESS__Collection
 	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $data = array();
+	protected $data = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Undefined Method                                                                       
@@ -162,7 +162,7 @@ class __USE_STATIC_ACCESS__Collection
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addLast($element = array())
+	public function addLast($element = [])
 	{
 		$this->data = Arrays::addLast($this->data, $element);
 		 
@@ -307,7 +307,7 @@ class __USE_STATIC_ACCESS__Collection
 	// @param array $values					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function combine($values = array())
+	public function combine($values = [])
 	{
 		$this->data = Arrays::combine($this->data, $values);
 		 
@@ -615,7 +615,7 @@ class __USE_STATIC_ACCESS__Collection
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function excluding($excluding = array())
+	public function excluding($excluding = [])
 	{
 		$this->data = Arrays::excluding($this->data, $excluding);
 		 
@@ -629,7 +629,7 @@ class __USE_STATIC_ACCESS__Collection
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function including($including = array())
+	public function including($including = [])
 	{
 		$this->data = Arrays::including($this->data, $including);
 		 
@@ -662,7 +662,7 @@ class __USE_STATIC_ACCESS__Collection
 	{
 		$data = $this->data;
 		
-		$this->data = array();
+		$this->data = [];
 		
 		return $data;
 	}

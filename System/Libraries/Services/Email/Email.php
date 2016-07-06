@@ -189,7 +189,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	 *
 	 * @var array
 	 */
-	protected $headers = array();
+	protected $headers = [];
 	
 	/* 
 	 * Başlık bilgilerini
@@ -227,21 +227,21 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $attachments = array();
+	protected $attachments = [];
 	
 	/* 
 	 * Alıcı bilgisi.
 	 * 
 	 * @var array
 	 */ 
-	protected $to = array();
+	protected $to = [];
 	
 	/* 
 	 * Alıcı bilgisi.
 	 * 
 	 * @var array
 	 */ 
-	protected $replyTo = array();
+	protected $replyTo = [];
 	
 	/* 
 	 * Alıcı bilgisi.
@@ -339,7 +339,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	| Örnek Kullanım: settings(array('wordWrap' => true));       							  |
 	|          																				  |
 	******************************************************************************************/
-	public function settings($settings = array())
+	public function settings($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -1273,7 +1273,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 			$body 	.= 'Content-Transfer-Encoding: '.$this->encodingType.$this->lf.$this->lf;
 			$body 	.= $this->message.$this->lf.$this->lf;
 		
-			$attachment = array();
+			$attachment = [];
 			
 			for( $i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++ )
 			{
@@ -1326,9 +1326,9 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		$this->subject		= '';
 		$this->message		= '';
 		$this->header		= '';
-		$this->headers		= array();
+		$this->headers		= [];
 		$this->addHeader('Date', $this->_getDate());
-		$this->attachments  = array();
+		$this->attachments  = [];
 		$this->senderMail	= '';
 		$this->senderName	= '';
 		$this->charset 		= 'UTF-8';
@@ -1349,8 +1349,8 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 		$this->multiPart	= 'mixed';
 		$this->priority 	= 3;
 		$this->encodingType = '8bit';
-		$this->to 			= array();
-		$this->replyTo 		= array();
+		$this->to 			= [];
+		$this->replyTo 		= [];
 		$this->from			= NULL;
 		$this->email		= NULL;
 		$this->driver 		= NULL;

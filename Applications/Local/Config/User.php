@@ -41,20 +41,20 @@ $config['User']['encode'] = 'super';
 //               şekilde veri türü seçilmelidir. 															  	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['User']['matching'] = array
-(
+$config['User']['matching'] =
+[
 	'table'   => '',
 	
-	'columns' => array
-	(
+	'columns' => 
+	[
 		'username'   => '', // Kullanımı zorunludur.
 		'password'   => '', // Kullanımı zorunludur.
 		'email'      => '', // Kullanımı görecelidir.
 		'active'     => '', // İsteğe bağlı.
 		'banned'     => '', // İsteğe bağlı.
 		'activation' => ''  // İsteğe bağlı.
-	)
-);
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // Joining
@@ -69,11 +69,11 @@ $config['User']['matching'] = array
 //         kullanılır. 	  					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['User']['joining'] = array
-(
+$config['User']['joining'] = 
+[
 	'column' => '',
-	'tables' => array()
-);
+	'tables' => []
+];
 
 //----------------------------------------------------------------------------------------------------
 // Email Sender Info
@@ -87,8 +87,8 @@ $config['User']['joining'] = array
 // mail: Gönderici e-posta adresi.					  						
 //
 //----------------------------------------------------------------------------------------------------
-$config['User']['emailSenderInfo'] = array
-(
+$config['User']['emailSenderInfo'] = 
+[
 	'name' => '',
 	'mail' => ''
-);
+];

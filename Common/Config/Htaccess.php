@@ -44,11 +44,11 @@ $config['Htaccess']['createFile'] = true;
 // Varsayılan: "".	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['uri'] = array
-(
+$config['Htaccess']['uri'] = 
+[
 	DIRECTORY_INDEX  => false,
 	'indexSuffix'    => ''
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Headers
@@ -56,18 +56,18 @@ $config['Htaccess']['uri'] = array
 //
 // Genel Kullanım: Bu bölümün aktif olabilmesi için yukarıdaki ayar true ayarlanmalıdır.   
 // İşlev: .htaccess dosyasına header ayarları eklemek için kullanılır.				      
-// Parametreler: array() dizi değerler alır.									              
-// Varsayılan: array() 
+// Parametreler: [] dizi değerler alır.									              
+// Varsayılan: [] 
 //     															      
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['headers'] = array
-(
+$config['Htaccess']['headers'] = 
+[
 	'status'   => false,
-	'settings' => array
-	(
+	'settings' => 
+	[
 		'Header set Connection keep-alive'
-	)
-);
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // Upload
@@ -76,11 +76,11 @@ $config['Htaccess']['headers'] = array
 // Genel Kullanım: Dosya yükleme ile ilgili ayarlar yer alır.			     						
 //
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['upload'] = array
-(
+$config['Htaccess']['upload'] = 
+[
 	'status'   => false,
-	'settings' => array
-	(
+	'settings' => 
+	[
 		'file_uploads' 				=> '', 	// "1"
 		'post_max_size' 			=> '',  // "8M"
 		'upload_max_filesize' 		=> '',  // "2M"
@@ -90,8 +90,8 @@ $config['Htaccess']['upload'] = array
 		'max_file_uploads' 			=> '',	// 20	
 		'max_input_time' 			=> '',	// "-1"
 		'max_execution_time' 		=> ''	// "30"
-	)
-);
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // Session
@@ -100,11 +100,11 @@ $config['Htaccess']['upload'] = array
 // Genel Kullanım: Oturum ayarları yapılır.	         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['session'] = array
-(
+$config['Htaccess']['session'] = 
+[
 	'status'   => false,
-	'settings' => array
-	(
+	'settings' => 
+	[
 		'session.save_path'					=> '', // NULL
 		'session.name' 						=> '', // PHPSESSID
 		'session.save_handler'				=> '', // files
@@ -134,8 +134,8 @@ $config['Htaccess']['session'] = array
 		'session.upload_progress.name'		=> '', // PHP_SESSION_UPLOAD_PROGRESS
 		'session.upload_progress.freq' 		=> '', // 1%
 		'session.upload_progress.min_freq'  => ''  // 1
-	)
-);
+	]
+];
 
 
 //----------------------------------------------------------------------------------------------------
@@ -168,23 +168,23 @@ $config['Htaccess']['session'] = array
 // erişim yöntemi ile belleğe alınacağı belirtilir.  
 //            
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['cache'] = array
-(
-	'modGzip' => array
-	(
+$config['Htaccess']['cache'] = 
+[
+	'modGzip' => 
+	[
 		// Ön bellekleme durumu.
 		'status' => false,
 		// Ön belleğe alınacak dahil edilebilir dosya uzantıları.
 		'includedFileExtension' => 'html?|txt|css|js|php|pl'
-	),
+	],
 	
-	'modExpires' => array
-	(
+	'modExpires' => 
+	[
 		// Ön bellekleme durumu.
 		'status' => false,
 		// Ön belleğe alınacak dahil edilebilir dosya uzantıları.
-		'fileTypeTime' => array
-		(
+		'fileTypeTime' => 
+		[
 			'text/html' 				=> 1,		// 1 Saniye
 			'image/gif' 				=> 2592000,	// 1 Ay
 			'image/jpeg' 				=> 2592000,	// 1 Ay
@@ -192,26 +192,26 @@ $config['Htaccess']['cache'] = array
 			'text/css' 					=> 604800, 	// 1 Hafta
 			'text/javascript' 			=> 216000, 	// 2.5 Gün
 			'application/x-javascript' 	=> 216000	// 2.5 Gün
-		),
+		],
 		'defaultTime' => 1 // 1 Saniye
-	),
+	],
 	
-	'modHeaders' => array
-	(
+	'modHeaders' => 
+	[
 		// Ön bellekleme durumu.
 		'status' => false,
 		
-		'fileExtensionTimeAccess' => array
-		(
+		'fileExtensionTimeAccess' => 
+		[
 			// Ön belleğe alınacak uzantılar    => Ön bellekleme süresi   , Erişim yöntemi
-			'ico|pdf|flv|jpg|jpeg|png|gif|swf' 	=> array('time' => 2592000, 'access' => 'public'),
-			'css' 								=> array('time' => 604800, 	'access' => 'public'),
-			'js' 								=> array('time' => 216000, 	'access' => 'private'),
-			'xml|txt'							=> array('time' => 216000, 	'access' => 'public, must-revalidate'),
-			'html|htm|php' 						=> array('time' => 1, 		'access' => 'private, must-revalidate')
-		)
-	)
-); 
+			'ico|pdf|flv|jpg|jpeg|png|gif|swf' 	=> ['time' => 2592000,  'access' => 'public'],
+			'css' 								=> ['time' => 604800,   'access' => 'public'],
+			'js' 								=> ['time' => 216000, 	'access' => 'private'],
+			'xml|txt'							=> ['time' => 216000, 	'access' => 'public, must-revalidate'],
+			'html|htm|php' 						=> ['time' => 1, 		'access' => 'private, must-revalidate']
+		]
+	]
+]; 
 
 //----------------------------------------------------------------------------------------------------
 // INI
@@ -222,11 +222,11 @@ $config['Htaccess']['cache'] = array
 // Örnek: upload_max_filesize => "10M" 						      						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['ini'] = array
-(
+$config['Htaccess']['ini'] = 
+[
 	'status'   => false,
-	'settings' => array()
-);
+	'settings' => []
+];
 
 //----------------------------------------------------------------------------------------------------
 // Settings
@@ -241,7 +241,7 @@ $config['Htaccess']['ini'] = array
 // İkinci parametre ise bu aralıkta olması gereken kodlar.  							      
 //
 //----------------------------------------------------------------------------------------------------
-$config['Htaccess']['settings'] = array
-(
-	 'ifmodule mod_headers.c' => array('Options -Indexes')
-);
+$config['Htaccess']['settings'] = 
+[
+	 'ifmodule mod_headers.c' => ['Options -Indexes']
+];

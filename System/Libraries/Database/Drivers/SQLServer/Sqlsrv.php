@@ -88,7 +88,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($config = array())
+	public function connect($config = [])
 	{
 		$this->config = $config;
 		
@@ -146,7 +146,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		
 		foreach( sqlsrv_field_metadata($this->query) as $field )
 		{
@@ -210,7 +210,7 @@ class SqlsrvDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)

@@ -15,7 +15,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	 * Config/Permission.php dosyasındaki ayar
 	 * bilgilerini tutması için oluşturulmuştur.
 	 */
-	protected $permission = array();
+	protected $permission = [];
 	
 	/* Result Değişkeni
 	 *  

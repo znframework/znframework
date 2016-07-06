@@ -279,4 +279,4 @@ $config['Database']['collation'] 	= 'utf8_general_ci'; // String
 // )     
 //	    										              		  			  	
 //----------------------------------------------------------------------------------------------------
-$config['Database']['differentConnection'] = array(); // String
+$config['Database']['differentConnection'] = []; // String

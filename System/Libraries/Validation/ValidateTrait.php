@@ -17,7 +17,7 @@ trait ValidateTrait
 	 * Ayarlar bilgisini tutar.
 	 *
 	 */
-	protected $settings = array();
+	protected $settings = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// name()

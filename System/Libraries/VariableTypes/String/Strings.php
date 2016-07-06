@@ -318,7 +318,7 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function placement($str = '', $delimiter = '?', $array = array())
+	public function placement($str = '', $delimiter = '?', $array = [])
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{

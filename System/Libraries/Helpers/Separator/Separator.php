@@ -60,7 +60,7 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 	// @param string $separator
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($data = array(), $key = '', $separator = '')
+	public function encode($data = [], $key = '', $separator = '')
 	{
 		// Parametre kontrolleri yapılıyor. -------------------------------------------
 		if( ! is_array($data) ) 
@@ -146,8 +146,8 @@ class __USE_STATIC_ACCESS__Separator implements SeparatorInterface
 		// -----------------------------------------------------------------------------
 		
 		$keyval = explode($separator, $word);
-		$splits = array();
-		$object = array();
+		$splits = [];
+		$object = [];
 		
 		if( is_array($keyval) ) foreach( $keyval as $v )
 		{

@@ -185,7 +185,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 	| 9. quality  => Resmin kalitesini ayarlamak için kullanılır.                             |
 	|          																				  |
 	******************************************************************************************/	
-	public function thumb($fpath = '', $set = array())
+	public function thumb($fpath = '', $set = [])
 	{
 		// Parametre kontrolleri yapılıyor -------------------------------------------
 		if( ! is_string($fpath) ) 
@@ -194,7 +194,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 		}
 		if( ! is_array($set) )
 		{
-			$set = array();
+			$set = [];
 		}
 		// ---------------------------------------------------------------------------
 		

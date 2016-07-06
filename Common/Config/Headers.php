@@ -20,7 +20,7 @@
 // Varsayılan: "content-type: text/html; charset=utf-8"     								  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Headers']['settings'] = array
-(
+$config['Headers']['settings'] =
+[
 	'content-type: text/html; charset=utf-8'
-);
+];

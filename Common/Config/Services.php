@@ -17,15 +17,15 @@
 // Genel Kullanım: Ftp bağlantı ayarları yapılır.	         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['ftp'] = array
-(
+$config['Services']['ftp'] = 
+[
 	'host' 			=> '',   // Bağlantının sağlanacağı host bilgisi
 	'user' 			=> '',   // Sunucu kullanıcı adı.
 	'password' 		=> '',   // Sunucu kullanıcı şifresi.
 	'timeout' 		=> 90,   // Sunucu bağlantı zaman aşımı süresi.
 	'port' 			=> 21,   // Bağlantı port numarası.
 	'sslConnect' 	=> false // SSL kullanılarak sunucu bağlantısı kurulsun mu?.	
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // SSH
@@ -34,15 +34,15 @@ $config['Services']['ftp'] = array
 // Genel Kullanım: Ftp bağlantı ayarları yapılır.	         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['ssh'] = array
-(
-	'host' 			=> '',      // Bağlantının sağlanacağı host bilgisi
-	'user' 			=> '',      // Bağlantı kullanıcı adı.
-	'password' 		=> '',      // Bağlantı kullanıcı şifresi.
-	'port' 			=> 22,      // Bağlantı port numarası.
-	'methods' 		=> array(), // Yöntemler belirtilir.
-	'callbacks' 	=> array()  // Geri çağrım işlevleri belirtilir.	
-);
+$config['Services']['ssh'] = 
+[
+	'host' 			=> '',  // Bağlantının sağlanacağı host bilgisi
+	'user' 			=> '',  // Bağlantı kullanıcı adı.
+	'password' 		=> '',  // Bağlantı kullanıcı şifresi.
+	'port' 			=> 22,  // Bağlantı port numarası.
+	'methods' 		=> [], 	// Yöntemler belirtilir.
+	'callbacks' 	=> []  	// Geri çağrım işlevleri belirtilir.	
+];
 
 //----------------------------------------------------------------------------------------------------
 // Crontab
@@ -51,12 +51,12 @@ $config['Services']['ssh'] = array
 // Genel Kullanım: Crontab ile ilgili ayarlar yer alır.         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['crontab'] = array
-(
+$config['Services']['crontab'] = 
+[
 	'driver' => 'exec', 				// exec, shell_exec, system, ssh	
 	'path'	 => '/usr/local/bin/php',	// Default Path
 	'debug'	 => false					// true, false	 
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Cookie
@@ -65,8 +65,8 @@ $config['Services']['crontab'] = array
 // Genel Kullanım: Çerez ayarları yapılır.	         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['cookie'] = array
-(
+$config['Services']['cookie'] = 
+[
 	//------------------------------------------------------------------------------------------------
 	// Encode                                                                             	  
 	//------------------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ $config['Services']['cookie'] = array
 	//
 	//------------------------------------------------------------------------------------------------
 	'httpOnly' => true // Boolean
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Session
@@ -146,8 +146,8 @@ $config['Services']['cookie'] = array
 // Genel Kullanım: Oturum ayarları yapılır.	         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['session'] = array
-(
+$config['Services']['session'] = 
+[
 	//------------------------------------------------------------------------------------------------
 	// Encode
 	//------------------------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ $config['Services']['session'] = array
 	//
 	//------------------------------------------------------------------------------------------------
 	'regenerate' => true,
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Email
@@ -178,8 +178,8 @@ $config['Services']['session'] = array
 // Genel Kullanım: Oturum ayarları yapılır.	         						  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['email'] = array
-(
+$config['Services']['email'] = 
+[
 	//------------------------------------------------------------------------------------------------
 	// Driver
 	//------------------------------------------------------------------------------------------------
@@ -201,8 +201,8 @@ $config['Services']['email'] = array
 	// SMTP ayarlarını yapılandırmak için kulanılan ayarlar dizisidir.                         
 	//         																				  
 	//------------------------------------------------------------------------------------------------
-	'smtp' => array
-	(
+	'smtp' => 
+	[
 		'host'			=> '',
 		'user'			=> '',
 		'password'		=> '',
@@ -212,7 +212,7 @@ $config['Services']['email'] = array
 		'encode'		=> '',	// empty, tls, ssl
 		'dsn'			=> false,
 		'auth'			=> true
-	),
+	],
 	
 	//------------------------------------------------------------------------------------------------
 	// General
@@ -221,8 +221,8 @@ $config['Services']['email'] = array
 	// Genel e-posta ayarlarını yapılandırmak için kulanılan ayarlar dizisidir.                
 	//         																				  
 	//------------------------------------------------------------------------------------------------
-	'general' => array
-	(
+	'general' => 
+	[
 		'senderMail'    => '', 		// Default Sender E-mail Address.
 		'senderName'    => '', 		// Default Sender Name.
 		'priority'	   	=> 3, 		// 1, 2, 3, 4, 5
@@ -233,8 +233,8 @@ $config['Services']['email'] = array
 		'encoding'		=> '8bit',	// 8bit, 7bit
 		'mimeVersion'	=> '1.0',	// MIME Version
 		'mailPath'		=> '/usr/sbin/sendmail'	// Default Mail Path
-	)
-);
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // Http                                                                          	  	  
@@ -243,10 +243,10 @@ $config['Services']['email'] = array
 // Genel Kullanım: Http mesaj listesi yer alır.	      			  							  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Services']['http'] = array
-(
-	'messages' => array
-	(
+$config['Services']['http'] = 
+[
+	'messages' => 
+	[
 		//1XX Information
 		'100|continue' 				=> '100 Continue',
 		'101|switchProtocols' 		=> '101 Switching Protocols',
@@ -299,5 +299,5 @@ $config['Services']['http'] = array
 		'504|gatewayTimeout' 		=> '504 Gateway Timeout',
 		'505|versionNotSupported' 	=> '505 HTTP Version Not Supported',
 		'511|authRequired' 			=> '511 Network Authentication Required'
-	)
-);
+	]
+];

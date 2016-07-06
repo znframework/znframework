@@ -115,7 +115,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 	// @return string
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function build($data = array(), $version = '', $encoding = '')
+	public function build($data = [], $version = '', $encoding = '')
 	{
 		if( ! empty($version) )  $this->version  = $version;
 		if( ! empty($encoding) ) $this->encoding = $encoding;
@@ -307,8 +307,8 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 		xml_parse_into_struct($parser, $xml, $tags);
 		xml_parser_free($parser);
 		
-		$elements = array();  
-		$stack    = array();
+		$elements = [];  
+		$stack    = [];
 		
 		if( ! empty($tags) ) foreach( $tags as $tag ) 
 		{
@@ -325,21 +325,21 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 					
 					if( $tag['type'] === 'open' ) 
 					{ 
-						$elements[$index]->child = array();
+						$elements[$index]->child = [];
 						$stack[count($stack)]       = &$elements;
 						$elements 					= &$elements[$index]->child;
 					}
 				}
 				else
 				{
-					$elements[$index] 			  	= array();
+					$elements[$index] 			  	= [];
 					$elements[$index]['name'] 	  	= isset( $tag['tag'] ) 		  ? $tag['tag'] 	   : '';
 					$elements[$index]['content']    = isset( $tag['value'] ) 	  ? $tag['value'] 	   : '';
 					$elements[$index]['attr']       = isset( $tag['attributes'] ) ? $tag['attributes'] : '';
 					
 					if( $tag['type'] === 'open' ) 
 					{ 
-						$elements[$index]['child'] = array();
+						$elements[$index]['child'] = [];
 						$stack[count($stack)]      = &$elements;
 						$elements 				   = &$elements[$index]['child'];
 					}

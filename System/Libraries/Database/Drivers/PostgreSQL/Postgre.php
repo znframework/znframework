@@ -88,7 +88,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($config = array())
+	public function connect($config = [])
 	{
 		$this->config = $config;
 		
@@ -150,7 +150,7 @@ class PostgreDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		
 		for( $i = 0, $c = $this->numFields(); $i < $c; $i++ )
 		{
@@ -225,7 +225,7 @@ class PostgreDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)

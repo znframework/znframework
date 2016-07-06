@@ -37,15 +37,15 @@
 // Tek bir sayfaya izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.	
 //	  
 //----------------------------------------------------------------------------------------------------
-$config['Permission']['page'] = array
-(
+$config['Permission']['page'] =
+[
 	//'1' => 'any',
 	//'2' => 'any',
-	//'3' => array('noperm' => array('sayfa1', 'sayfa2')),
-	//'4' => array('perm' => array('sayfa3', 'sayfa4')),
-	//'5' => array('noperm' => array('sayfa5', 'sayfa6')),
+	//'3' => ['noperm' 	=> ['sayfa1', 'sayfa2']],
+	//'4' => ['perm' 	=> ['sayfa3', 'sayfa4']],
+	//'5' => ['noperm' 	=> ['sayfa5', 'sayfa6']],
 	//'6' => 'all'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Process
@@ -59,12 +59,12 @@ $config['Permission']['page'] = array
 // Tek bir nesneye izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.		  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Permission']['process'] = array
-(
+$config['Permission']['process'] =
+[
 	//'1' => 'any',
 	//'2' => 'any',
-	//'3' => array('noperm' => array('yetki1', 'yetki2')),
-	//'4' => array('perm' => array('yetki3', 'yetki4')),
-	//'5' => array('noperm' => array('yetki5', 'yetki6')),
+	//'3' => ['noperm' 	=> ['yetki1', 'yetki2']],
+	//'4' => ['noperm' 	=> ['yetki3', 'yetki4']],
+	//'5' => ['noperm' 	=> ['yetki5', 'yetki6']],
 	//'6' => 'all'
-);
+];

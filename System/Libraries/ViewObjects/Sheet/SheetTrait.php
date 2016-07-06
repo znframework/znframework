@@ -71,7 +71,7 @@ trait SheetTrait
 	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
 	|          																				  |
 	******************************************************************************************/
-	private function _attr($_attributes = array())
+	private function _attr($_attributes = [])
 	{
 		$attribute = '';
 		if( is_array($_attributes) )
@@ -101,7 +101,7 @@ trait SheetTrait
 	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
 	|          																				  |
 	******************************************************************************************/
-	public function attr($_attributes = array())
+	public function attr($_attributes = [])
 	{
 		$this->attr = $this->_attr($_attributes);
 		return $this;

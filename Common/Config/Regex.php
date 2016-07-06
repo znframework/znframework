@@ -18,8 +18,8 @@
 // değişiklikler yapılmıştır.					  										  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Regex']['regexChars'] = array
-(
+$config['Regex']['regexChars'] = 
+[
 	'{nonWord}' 		=> '\W+',
 	'{word}' 			=> '\w+',
 	'{nonNumeric}' 		=> '\D',
@@ -41,7 +41,7 @@ $config['Regex']['regexChars'] = array
 	'{tab}'				=> '\t',
 	'{esc}'				=> '\e',
 	'{hex}'				=> '\x'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Setting Chars
@@ -51,14 +51,14 @@ $config['Regex']['regexChars'] = array
 // ilgili aşağıdaki değişiklikler yapılmıştır 											  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Regex']['settingChars'] = array
-(
+$config['Regex']['settingChars'] = 
+[
 	'{insens}' 			=> 'i',
 	'{generic}' 		=> 'g',
 	'{each}' 			=> 's',
 	'{multiline}'		=> 'm', 
 	'{inspace}' 		=> 'x'
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Special Chars
@@ -68,8 +68,8 @@ $config['Regex']['settingChars'] = array
 // kullanmak için aşağıdaki değişiklikler yapılmıştır.									  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Regex']['specialChars'] = array
-(
+$config['Regex']['specialChars'] = 
+[
 	'.' 				=> '\.',
 	'^' 				=> '\^',
 	'$' 				=> '\$',
@@ -78,4 +78,4 @@ $config['Regex']['specialChars'] = array
 	'?' 				=> '\?',
 	'|' 				=> '\|',
 	'/' 				=> '\/'
-);
+];

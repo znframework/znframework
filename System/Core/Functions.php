@@ -153,7 +153,7 @@ function lang($file = '', $str = '', $changed = '')
 		// yer alan değerleri ata.
 		if( ! empty($changed) )
 		{
-			$values = array();
+			$values = [];
 			
 			foreach( $changed as $key => $value )
 			{
@@ -525,11 +525,11 @@ function filePath($file = "", $removeUrl = "")
 //
 // İşlev: Yönlendirme yapmak için kullanılır.
 // Parametreler: $url = yönlendirme yapılacak adres, $time = Yönlendirme süresi
-// $data = array() yönlendirilecek sayfaya veri gönderme, $exit = true 
+// $data = [] yönlendirilecek sayfaya veri gönderme, $exit = true 
 // Dönen Değerler: Yok.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function redirect($url = '', $time = 0, $data = array(), $exit = true)
+function redirect($url = '', $time = 0, $data = [], $exit = true)
 {	
 	if( ! is_string($url) || empty($url) ) 
 	{
@@ -616,7 +616,7 @@ function redirectDeleteData($data = '')
 // Kütüphane kullanımı için oluşturulmuştur.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function library($class = NULL, $function = NULL, $parameters = array())
+function library($class = NULL, $function = NULL, $parameters = [])
 {
 	if( empty($class) || empty($function) ) 
 	{
@@ -647,7 +647,7 @@ function library($class = NULL, $function = NULL, $parameters = array())
 // Genel Kullanım: Herhangi bir sınıfı kullanmak için oluşturulmuştur.					  
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function uselib($class = '', $parameters = array())
+function uselib($class = '', $parameters = [])
 {
 	if( ! class_exists($class) )
 	{
@@ -727,7 +727,7 @@ function getErrorMessage($langFile = '', $errorMsg = '', $ex = '')
 	}
 	else
 	{
-		$newArray = array();
+		$newArray = [];
 		
 		if( ! empty($ex) ) foreach( $ex as $k => $v )
 		{
@@ -1296,7 +1296,7 @@ function _createHtaccessFile()
 	}
 	else
 	{
-		$uploadSettings = array();
+		$uploadSettings = [];
 	}
 	//-----------------------UPLOAD SETTINGS--------------------------------------------------
 	
@@ -1308,7 +1308,7 @@ function _createHtaccessFile()
 	}
 	else
 	{
-		$sessionSettings = array();
+		$sessionSettings = [];
 	}
 	//-----------------------SESSION SETTINGS-------------------------------------------------
 	
@@ -1319,7 +1319,7 @@ function _createHtaccessFile()
 	}
 	else
 	{
-		$iniSettings = array();
+		$iniSettings = [];
 	}
 	//-----------------------INI SETTINGS-----------------------------------------------------	
 	
@@ -1371,5 +1371,47 @@ function _createHtaccessFile()
 	}
 	
 	unset( $htaccess );	
+}
+
+//----------------------------------------------------------------------------------------------------
+// _startingContoller()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _startingContoller($startController = '', $param = [])
+{
+	$controllerEx = explode(':', $startController);
+		
+	$controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
+	$controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : '';
+	$controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
+	$controllerClass = divide($controllerPath, '/', -1);
+	
+	if( is_file($controllerFile) )
+	{
+		require_once($controllerFile);
+		
+		if( ! is_callable(array(new $controllerClass, $controllerFunc)) )
+		{
+			// Hatayı rapor et.
+			report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');	
+				
+			// Hatayı ekrana yazdır.
+			die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
+		}
+		
+		return library($controllerClass, $controllerFunc, $param);
+	}	
+	else
+	{
+		// Hatayı rapor et.
+		report('Error', lang('Error', 'notIsFileError', $controllerFile), 'SystemNotIsFileError');
+		
+		// Hatayı ekrana yazdır.
+		die(Errors::message('Error', 'notIsFileError', $controllerFile));	
+	}
 }
 //------------------------------------SYSTEM FUNCTIONS END--------------------------------------------

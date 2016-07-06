@@ -33,7 +33,7 @@ trait ElementsTrait
 	// @param mixed $exclude
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function excluding($exclude = array())
+	public function excluding($exclude = [])
 	{
 		if( is_scalar($exclude) )
 		{
@@ -52,7 +52,7 @@ trait ElementsTrait
 	// @param mixed $exclude
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function including($include = array())
+	public function including($include = [])
 	{
 		if( is_scalar($include) )
 		{
@@ -677,7 +677,7 @@ trait ElementsTrait
 	// @param array $attr
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attr($attr = array())
+	public function attr($attr = [])
 	{
 		if( isset($this->settings['attr']) && is_array($this->settings['attr']) )
 		{
@@ -685,7 +685,7 @@ trait ElementsTrait
 		}
 		else
 		{
-			$settings = array();	
+			$settings = [];	
 		}
 		
 		$this->settings['attr'] = array_merge($settings, $attr);

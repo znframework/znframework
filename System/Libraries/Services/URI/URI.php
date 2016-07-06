@@ -305,7 +305,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|    																					  |
 	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segmentArray(); // array('test', 'zntr', 'yerli', 'framework')         |
+	| Örnek Kullanım: segmentArray; // array('test', 'zntr', 'yerli', 'framework')         |
 	|          																				  |
 	******************************************************************************************/
 	public function segmentArray()

@@ -178,7 +178,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 			if( isHash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);		
-				$this->encode = array();	
+				$this->encode = [];	
 			}		
 		}
 		else
@@ -263,7 +263,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 			if( isHash($this->encode['name']) )
 			{
 				$name = hash($this->encode['name'], $name);	
-				$this->encode = array();	
+				$this->encode = [];	
 			}		
 		}
 		else

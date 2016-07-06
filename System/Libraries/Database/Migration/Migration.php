@@ -121,7 +121,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable($data = array())
+	public function createTable($data = [])
 	{
 		if( DBForge::createTable($this->_tableName(), $data) )
 		{
@@ -159,7 +159,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($column = array())
+	public function addColumn($column = [])
 	{
 		if( DBForge::addColumn($this->_tableName(), $column) )	
 		{
@@ -178,7 +178,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($column = array())
+	public function dropColumn($column = [])
 	{
 		if( DBForge::dropColumn($this->_tableName(), $column) )
 		{
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// @param array $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($column = array())
+	public function modifyColumn($column = [])
 	{
 		if( DBForge::modifyColumn($this->_tableName(), $column) )
 		{

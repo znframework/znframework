@@ -25,7 +25,7 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function switchCase($switch = '', $conditions = array(), $return = false)
+	public function switchCase($switch = '', $conditions = [], $return = false)
 	{
 		$case = ' CASE '.$switch;
 		

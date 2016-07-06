@@ -99,6 +99,37 @@ define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 //----------------------------------------------------------------------------------------------------
 $starting = Config::get('Starting');
 
+//----------------------------------------------------------------------------------------------------
+// Starting Controllers
+//----------------------------------------------------------------------------------------------------
+$startController = $starting['controller'];
+	
+if( ! empty($startController) )
+{
+	// Tek Kontrolcü
+	if( is_string($startController) )
+	{
+		_startingContoller($startController);	
+	}
+	elseif( is_array($startController) )
+	{
+		// Çoklu Kontrolcü
+		foreach( $startController as $key => $val )
+		{
+			if( is_numeric($key) )
+			{
+				// Parametresiz
+				_startingContoller($val);	
+			}	
+			else
+			{
+				// Parametreli
+				_startingContoller($key, $val);	
+			}
+		}	
+	}
+}
+
 if( $starting['autoload']['status'] === true ) 
 {
 	$startingAutoload 		= Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
@@ -164,22 +195,20 @@ if( is_file($isFile) )
 	// -------------------------------------------------------------------------------
 	if( class_exists($page, false) )
 	{
-		$var = new $page;
-		
 		// -------------------------------------------------------------------------------
 		//  Varsayılan açılış Fonksiyonu. index ya da main kullanılabilir.
 		// -------------------------------------------------------------------------------
-		if( strtolower($function) === 'index' && ! is_callable(array($var, $function)) )
+		if( strtolower($function) === 'index' && ! is_callable(array($page, $function)) )
 		{
 			$function = 'main';	
 		}	
-		
+
 		// -------------------------------------------------------------------------------
 		// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
 		// -------------------------------------------------------------------------------	
-		if( is_callable(array($var, $function)) )
+		if( is_callable(array($page, $function)) )
 		{
-			call_user_func_array( array($var, $function), $parameters);
+			library($page, $function, $parameters);
 		}
 		else
 		{
@@ -213,7 +242,6 @@ else
 		die(Errors::message('Error', 'notIsFileError', $isFile));
 	}		
 }
-
 
 //----------------------------------------------------------------------------------------------------
 // Restore Error Handler

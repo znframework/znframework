@@ -17,8 +17,8 @@
 // Genel Kullanım: Renk isimlerine göre 0-255 lik değerlerine yer verilmiştir. 	  		  
 //											     			 	  						  
 //----------------------------------------------------------------------------------------------------
-$config['Colors'] = array
-(
+$config['Colors'] = 
+[
 	'transparent'		=> '0|0|0|127',
 	
 	// Red Types
@@ -180,4 +180,4 @@ $config['Colors'] = array
 	'ivory' 			=> '255|255|240',
 	'antiquewhite' 		=> '250|235|215',
 	'linen' 			=> '250|240|230'
-);
+];

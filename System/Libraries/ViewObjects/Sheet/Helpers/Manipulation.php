@@ -34,7 +34,7 @@ class Manipulation
 	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
 	|          																				  |
 	******************************************************************************************/
-	public function attr($attr = array())
+	public function attr($attr = [])
 	{		
 		if( ! is_array($attr) )
 		{
@@ -141,7 +141,7 @@ class Manipulation
 	| Örnek Kullanım: ->setSelector('.test', array('color' => 'red'));			 		      |
 	|          																				  |
 	******************************************************************************************/
-	public function setSelector($selector = '', $attr = array())
+	public function setSelector($selector = '', $attr = [])
 	{
 		if( ! is_string($selector) || ! is_array($attr) )
 		{

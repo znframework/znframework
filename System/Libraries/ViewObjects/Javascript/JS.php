@@ -1293,7 +1293,7 @@ class __USE_STATIC_ACCESS__JS
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function switchClause($condition = '', $cases = array())
+	public function switchClause($condition = '', $cases = [])
 	{
 		$clause = '';
 		
@@ -1312,7 +1312,7 @@ class __USE_STATIC_ACCESS__JS
 			}
 			else
 			{
-				$multiple = isset($code[0]) ?  $code[0] : array();
+				$multiple = isset($code[0]) ?  $code[0] : [];
 				$mcode    = isset($code[1]) ?  $code[1] : '';
 				
 				if( ! empty($multiple) ) foreach( $multiple as $val )

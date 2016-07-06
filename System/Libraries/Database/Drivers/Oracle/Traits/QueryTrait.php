@@ -34,7 +34,7 @@ trait QueryTrait
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
 	|          																				  |
 	******************************************************************************************/
-	public function query($query, $security = array())
+	public function query($query, $security = [])
 	{
 		$this->query = oci_parse($this->connect, $query);
 		return oci_execute($this->query);

@@ -26,7 +26,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Sütunlar
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $columns 			= array();
+	protected $columns 			= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Joins
@@ -35,7 +35,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Birleştirmeler
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $joins   			= array();
+	protected $joins   			= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where Tables
@@ -44,7 +44,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Tabloların nelere göre birleştirildiği
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $whereJoins		= array();
+	protected $whereJoins		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Join Tables
@@ -53,7 +53,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Birleştirilen tablolar
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $joinTables  		= array();
+	protected $joinTables  		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Alias Columns
@@ -62,7 +62,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Takma isim verilmiş sütunlar
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $aliasColumns		= array();
+	protected $aliasColumns		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Process Column
@@ -107,7 +107,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Sıralama
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $orderBy  		= array();
+	protected $orderBy  		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -125,7 +125,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @var array -> Koşul
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $where     		= array();
+	protected $where     		= [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Config Method
@@ -179,7 +179,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns($columns = array())
+	public function columns($columns = [])
 	{
 		$this->columns = $columns;
 		$this->realColumns = $columns;
@@ -287,7 +287,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function joins($tables = array())
+	public function joins($tables = [])
 	{
 		$this->joins = $tables;
 			
@@ -415,7 +415,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				
 				$whereJoins = $this->whereJoins;
 	
-				$newAddData = array();	
+				$newAddData = [];	
 				
 				foreach( $datas as $key => $val )
 				{
@@ -435,7 +435,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				
 				foreach( $whereJoins as $table => $column)
 				{	
-					$newAddData = array();	
+					$newAddData = [];	
 					
 					if( ! empty($this->joinTables[$table]) )
 					{
@@ -462,7 +462,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			//--------------------------------------------------------------------------------------------
 			else
 			{
-				$newAddData = array();
+				$newAddData = [];
 				
 				foreach( $datas as $key => $val )
 				{
@@ -619,7 +619,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 				
 				$whereJoins = $this->whereJoins;
 	
-				$newUpdateData = array();	
+				$newUpdateData = [];	
 				
 				foreach( $datas as $key => $val )
 				{
@@ -637,7 +637,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	
 				foreach( $whereJoins as $table => $column)
 				{	
-					$newUpdateData = array();	
+					$newUpdateData = [];	
 					
 					foreach( $datas as $key => $val )
 					{
@@ -671,7 +671,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			//--------------------------------------------------------------------------------------------
 			else
 			{
-				$newUpdateData = array();
+				$newUpdateData = [];
 			
 				foreach( $datas as $key => $val )
 				{
@@ -885,7 +885,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	{
 		if( ! empty($this->columns) && ! empty($this->joins) )
 		{
-			$newsColumns = array();
+			$newsColumns = [];
 			$columns = '';
 			
 			foreach( $this->realColumns as $column => $attr )
@@ -1170,18 +1170,18 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariables()
 	{
-		$this->config 			= array();
-		$this->columns 			= array();
-		$this->joins   			= array();
-		$this->whereJoins		= array();
-		$this->joinTables  		= array();
-		$this->aliasColumns		= array();
+		$this->config 			= [];
+		$this->columns 			= [];
+		$this->joins   			= [];
+		$this->whereJoins		= [];
+		$this->joinTables  		= [];
+		$this->aliasColumns		= [];
 		$this->processColumn 	= 'id';
 		$this->processEditable  = false;
 		$this->prowData		    = '';
 		$this->limit  		    = 20;
-		$this->orderBy  		= array();	
+		$this->orderBy  		= [];	
 		$this->groupBy  		= '';	
-		$this->where   	     	= array();
+		$this->where   	     	= [];
 	}
 }

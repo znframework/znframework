@@ -18,7 +18,7 @@ trait ToolTrait
 			return false;
 		}
 		
-		$newDatabases = array();
+		$newDatabases = [];
 		
 		foreach( $this->result() as $databases )
 		{
@@ -46,7 +46,7 @@ trait ToolTrait
 			return false;
 		}
 		
-		$newTables = array();
+		$newTables = [];
 		
 		foreach( $this->result() as $tables )
 		{

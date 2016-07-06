@@ -67,7 +67,7 @@ trait SessionTrait
 	 * Çerez şifreleme bilgisini tutması
 	 * için oluşturulumuştur.
 	 */
-	protected $encode = array();
+	protected $encode = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Name
@@ -176,7 +176,7 @@ trait SessionTrait
 	{
 		$this->name 	  = NULL;
 		$this->value 	  = NULL;
-		$this->encode     = array();
+		$this->encode     = [];
 		$this->regenerate = true;
 	}
 }

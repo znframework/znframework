@@ -70,7 +70,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	  @return $this
 	|          																				  |
 	******************************************************************************************/
-	public function property($property = '', $attr = array())
+	public function property($property = '', $attr = [])
 	{
 		if( ! is_string($property) )
 		{

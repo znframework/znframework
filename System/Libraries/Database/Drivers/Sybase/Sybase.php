@@ -88,7 +88,7 @@ class SybaseDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($config = array())
+	public function connect($config = [])
 	{
 		$this->config = $config;
 		$this->connect = 	( $this->config['pconnect'] === true )
@@ -116,7 +116,7 @@ class SybaseDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
@@ -170,7 +170,7 @@ class SybaseDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)

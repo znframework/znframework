@@ -141,7 +141,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| Örnek Kullanım: $this->dbforge->createTable('OrnekTablo', array('id' => 'int(11)'));   |
 	|          																				  |
 	******************************************************************************************/
-	public function createTable($table = '', $condition = array(), $extras = '')
+	public function createTable($table = '', $condition = [], $extras = '')
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -255,7 +255,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function alterTable($table = '', $condition = array())
+	public function alterTable($table = '', $condition = [])
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -399,7 +399,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/	
-	public function addColumn($table = '', $condition = array())
+	public function addColumn($table = '', $condition = [])
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -546,7 +546,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/	
-	public function modifyColumn($table = '', $condition = array())
+	public function modifyColumn($table = '', $condition = [])
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -624,7 +624,7 @@ class __USE_STATIC_ACCESS__DBForge implements DBForgeInterface, DatabaseInterfac
 	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function renameColumn($table = '', $condition = array())
+	public function renameColumn($table = '', $condition = [])
 	{
 		if( ! empty($this->table) ) 
 		{

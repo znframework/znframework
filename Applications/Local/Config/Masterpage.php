@@ -49,11 +49,11 @@ $config['Masterpage']['docType'] = 'xhtml1Transitional';
 // Genel Kullanım: Sayfanın dil kodlaması varsayılarn:utf-8.			  			 	      
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['content'] = array
-(
+$config['Masterpage']['content'] =
+[
 	'language' => 'tr',
-	'charset'  => array('utf-8')
-);
+	'charset'  => ['utf-8']
+];
 
 //----------------------------------------------------------------------------------------------------
 // Browser Icon
@@ -82,12 +82,12 @@ $config['Masterpage']['backgroundImage'] = '';
 // array('id' => 'body', 'name' => 'Body') -- <body id="body" name="Body">								  			  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['attributes'] = array
-(
-	'html' => array(),
-	'head' => array(),
-	'body' => array()
-); 
+$config['Masterpage']['attributes'] =
+[
+	'html' => [],
+	'head' => [],
+	'body' => []
+]; 
 
 //----------------------------------------------------------------------------------------------------
 // Theme
@@ -96,11 +96,11 @@ $config['Masterpage']['attributes'] = array
 // Genel Kullanım: Resources/Themes/ içindeki dahil edilmek istenen tema belirtilir.	      	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['theme'] = array
-(
+$config['Masterpage']['theme'] = 
+[
 	'name' 		=> '',
 	'recursive' => false
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Plugin
@@ -109,11 +109,11 @@ $config['Masterpage']['theme'] = array
 // Genel Kullanım: Resources/Plugins/ içindeki dahil edilmek istenen eklentiler belirtilir.	      	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['plugin'] = array
-(
+$config['Masterpage']['plugin'] =
+[
 	'name' 		=> '',
 	'recursive' => false
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Font
@@ -126,7 +126,7 @@ $config['Masterpage']['plugin'] = array
 // yazmanız yeterlidir.								  			 					 	  	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['font'] = array(); // string veya array
+$config['Masterpage']['font'] = []; // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Style
@@ -138,7 +138,7 @@ $config['Masterpage']['font'] = array(); // string veya array
 // dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.							  	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['style'] = array(); // string veya array
+$config['Masterpage']['style'] = []; // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Script
@@ -148,7 +148,7 @@ $config['Masterpage']['style'] = array(); // string veya array
 // Resources/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.	      	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['script'] = array(); // string veya array
+$config['Masterpage']['script'] = []; // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Title
@@ -170,8 +170,8 @@ $config['Masterpage']['title'] 	= '';
 // Aşağıdaki taglar ön tanımlı meta taglarıdır.  									      
 //																					      
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['meta'] = array
-(
+$config['Masterpage']['meta'] =
+[
 	'name:description'		=> '', 
 	'name:author'			=> '',
 	'name:designer'			=> '',
@@ -184,8 +184,8 @@ $config['Masterpage']['meta'] = array
 	'name:revisit-after'	=> '',
 	'http:cache-control' 	=> '',
 	'http:refresh'			=> '',
-	'name:robots'			=> array()
-);
+	'name:robots'			=> []
+];
 
 //----------------------------------------------------------------------------------------------------
 // Data
@@ -195,4 +195,4 @@ $config['Masterpage']['meta'] = array
 // dizi elemanı olarak yazmanız yeterlidir.	  											  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['data'] = array();
+$config['Masterpage']['data'] = [];

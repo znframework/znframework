@@ -27,8 +27,8 @@ $config['Language']['default'] = 'en';
 // çağrılacağı dizini belirtir.	     								  					  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Language']['shortCodes'] = array
-(
+$config['Language']['shortCodes'] = 
+[
 	'ad' => 'Catalan',
 	'ae' => 'Arabic',
 	'af' => 'Persian',
@@ -263,4 +263,4 @@ $config['Language']['shortCodes'] = array
 	'za' => 'Afrikaans',
 	'zm' => 'English',
 	'zw' => 'English'
-);
+];

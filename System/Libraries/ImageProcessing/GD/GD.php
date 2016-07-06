@@ -50,7 +50,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	 *
 	 * @var array
 	 */
-	protected $result = array();
+	protected $result = [];
 	
 	use CallUndefinedMethodTrait;
 	
@@ -91,7 +91,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function thumb($filePath = '', $settings = array())
+	public function thumb($filePath = '', $settings = [])
 	{
 		return Image::thumb($filePath, $settings);	
 	}
@@ -280,7 +280,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function jpegToWbmp($jpegFile = '', $wbmpFile = '', $settings = array())
+	public function jpegToWbmp($jpegFile = '', $wbmpFile = '', $settings = [])
 	{
 		if( is_file($jpegFile) && is_string($wbmpFile))
 		{
@@ -311,7 +311,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function pngToWbmp($pngFile = '', $wbmpFile = '', $settings = array())
+	public function pngToWbmp($pngFile = '', $wbmpFile = '', $settings = [])
 	{
 		if( is_file($pngFile) && is_string($wbmpFile))
 		{
@@ -403,7 +403,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function arc($settings = array())
+	public function arc($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -448,7 +448,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function ellipse($settings = array())
+	public function ellipse($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -486,7 +486,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function polygon($settings = array())
+	public function polygon($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -522,7 +522,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function rectangle($settings = array())
+	public function rectangle($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -563,7 +563,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function fill($settings = array())
+	public function fill($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -590,7 +590,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function fillArea($settings = array())
+	public function fillArea($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -660,7 +660,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function char($char = '', $settings = array())
+	public function char($char = '', $settings = [])
 	{
 		if( ! is_scalar($char) || ! is_array($settings) )
 		{
@@ -699,7 +699,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function text($text = '', $settings = array())
+	public function text($text = '', $settings = [])
 	{
 		if( ! is_scalar($text) || ! is_array($settings) )
 		{
@@ -974,7 +974,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function convolution($matrix = array(), $div = 0, $offset = 0)
+	public function convolution($matrix = [], $div = 0, $offset = 0)
 	{
 		if( ! is_array($matrix) )
 		{
@@ -1023,7 +1023,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function copy($source = '', $settings = array())
+	public function copy($source = '', $settings = [])
 	{
 		if( ! is_resource($source) )
 		{
@@ -1055,7 +1055,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function mix($source = '', $settings = array())
+	public function mix($source = '', $settings = [])
 	{
 		if( ! is_resource($source) )
 		{
@@ -1089,7 +1089,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function mixGray($source = '', $settings = array())
+	public function mixGray($source = '', $settings = [])
 	{
 		if( ! is_resource($source) )
 		{
@@ -1122,7 +1122,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function resample($source = '', $settings = array())
+	public function resample($source = '', $settings = [])
 	{
 		if( ! is_resource($source) )
 		{
@@ -1156,7 +1156,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function resize($source = '', $settings = array())
+	public function resize($source = '', $settings = [])
 	{
 		if( ! is_resource($source) )
 		{
@@ -1189,7 +1189,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return resource
 	|          																				  |
 	******************************************************************************************/
-	public function crop($settings = array())
+	public function crop($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -1232,7 +1232,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return bool
 	|          																				  |
 	******************************************************************************************/
-	public function line($settings = array())
+	public function line($settings = [])
 	{
 		if( ! is_array($settings) )
 		{
@@ -1452,7 +1452,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return object
 	|          																				  |
 	******************************************************************************************/
-	public function pixel($settings = array())
+	public function pixel($settings = [])
 	{
 		$x   = isset($settings['x'])     ? $settings['x'] : 0;
 		$y   = isset($settings['y'])     ? $settings['y'] : 0;
@@ -1473,7 +1473,7 @@ class __USE_STATIC_ACCESS__GD implements GDInterface
 	  @return object
 	|          																				  |
 	******************************************************************************************/
-	public function style($style = array())
+	public function style($style = [])
 	{
 		imagesetstyle($this->canvas, $style);
 		

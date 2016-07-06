@@ -18,8 +18,8 @@
 // kullanabilmek için symbol::name() yönteminden yararlanılır.	  						  					
 //
 //----------------------------------------------------------------------------------------------------
-$config['Symbols'] = array
-(
+$config['Symbols'] = 
+[
 	'copyright' 			=> '&copy;',		//©
 	'register' 				=> '&#174;',		//®
 	'euro'					=> '&#8364;',		//€
@@ -72,4 +72,4 @@ $config['Symbols'] = array
 	'rightArrow'			=> '&rarr;',		//→
 	'doubleHeadedArrow'		=> '&harr;',		//↔
 	'notSymbol'				=> '&not;'			//¬
-);
+];

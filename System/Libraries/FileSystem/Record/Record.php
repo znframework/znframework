@@ -58,6 +58,13 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	 */
 	protected $where;
 	
+	/* Result Array Değişkeni
+	 *
+	 * Sonuçları dizi türünde tutar.
+	 *
+	 */
+	protected $resultArray;
+	
 	/* Secure Fix Değişkeni
 	 *  
 	 * Kayıt güvenliği eki bilgisini
@@ -437,7 +444,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Kayıtları güncellemek için kullanılmaktadır.   					      |
 	******************************************************************************************/	
-	public function update($table = '', $data = array(), $where = 0)
+	public function update($table = '', $data = [], $where = 0)
 	{
 		// Parametreler kaydırılıyor...
 		if( ! empty($this->table) )
@@ -499,7 +506,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Kayıt eklemek için kullanılır.			   							      |
 	******************************************************************************************/	
-	public function insert($table = '', $data = array())
+	public function insert($table = '', $data = [])
 	{
 		if( ! empty($this->table) )
 		{
@@ -538,7 +545,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		else
 		{
 			// Daha önce kayıt oluşturulmamışsa.
-      		$oldData = array(1 => $data);
+      		$oldData = [1 => $data];
 		}
 		
 		if( ! is_file($table) )
@@ -608,7 +615,7 @@ class __USE_STATIC_ACCESS__Record  implements RecordInterface
 		{
 			if( empty($where) )
 			{
-				$oldData = array();	
+				$oldData = [];	
 			}
 		}
 		

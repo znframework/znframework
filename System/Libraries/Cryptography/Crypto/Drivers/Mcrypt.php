@@ -32,7 +32,7 @@ class McryptDriver implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function encrypt($data = '', $settings = array())
+	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'des';
 		$cipher = str_replace('-', '_', $cipher);
@@ -62,7 +62,7 @@ class McryptDriver implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function decrypt($data = '', $settings = array())
+	public function decrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'des';
 		$cipher = str_replace('-', '_', $cipher);

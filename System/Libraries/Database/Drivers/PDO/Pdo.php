@@ -126,7 +126,7 @@ class PdoDriver implements DatabaseDriverInterface
 	| Genel Kullanım: Nesne tanımlaması ve veritabanı ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($config = array())
+	public function connect($config = [])
 	{
 		$this->config = $config;
 		
@@ -197,7 +197,7 @@ class PdoDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		
 		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
 		{
@@ -245,7 +245,7 @@ class PdoDriver implements DatabaseDriverInterface
 			return false;
 		}
 		
-		$columns = array();
+		$columns = [];
 		
 		$total_columns = $this->numFields();
 		

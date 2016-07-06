@@ -31,7 +31,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 	| Örnek Kullanım: ->data('test', array('test' => 'deneme'))         					  |
 	|          																				  |
 	******************************************************************************************/
-	public function data($string = '', $data = array())
+	public function data($string = '', $data = [])
 	{
 		// Parametre konrolleri sağlanıyor.
 		if( ! is_string($string) )

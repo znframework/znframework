@@ -31,15 +31,15 @@ $config['Robots']['createFile'] = true;
 // Tekli Kullanım: array( 'userAgent' => '*' ) Dizge türü 
 //	     					  										  				
 //----------------------------------------------------------------------------------------------------
-$config['Robots']['rules'] = array
-(
+$config['Robots']['rules'] = 
+[
 	'userAgent' => '*',
-	'allow'     => array(),
-	'disallow'  => array
-	(
+	'allow'     => [],
+	'disallow'  => 
+	[
 		'/Applications/', 
 		'/Configurations/', 
 		'/Restorations/', 
 		'/System/'
-	)	
-);
+	]	
+];

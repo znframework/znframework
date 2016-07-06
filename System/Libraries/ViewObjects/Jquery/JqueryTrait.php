@@ -240,7 +240,7 @@ trait JqueryTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	protected function _params($array = array())
+	protected function _params($array = [])
 	{
 		$implode = '';
 		

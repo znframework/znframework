@@ -26,7 +26,7 @@ class __USE_STATIC_ACCESS__Schedule implements ScheduleInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($data = array())
+	public function create($data = [])
 	{ 			
 		return $this->_element($data, '', 0);
 	}

@@ -131,7 +131,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function register($data = array(), $autoLogin = false, $activationReturnLink = '')
+	public function register($data = [], $autoLogin = false, $activationReturnLink = '')
 	{
 		if( isset($this->parameters['column']) )
 		{
@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$activationReturnLink = $this->parameters['returnLink'];
 		}
 			
-		$this->parameters = array();
+		$this->parameters = [];
 			
 		if( ! is_array($data) ) 
 		{
@@ -337,7 +337,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($old = '', $new = '', $newAgain = '', $data = array())
+	public function update($old = '', $new = '', $newAgain = '', $data = [])
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
@@ -363,7 +363,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				$data = $this->parameters['column'];
 			}
 			
-			$this->parameters = array();
+			$this->parameters = [];
 		
 			// Parametreler kontrol ediliyor.--------------------------------------------------
 			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
@@ -825,7 +825,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$rememberMe = $this->parameters['remember'];
 		}
 		
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		if( ! is_string($un) ) 
 		{
@@ -1062,7 +1062,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$returnLinkPath = $this->parameters['returnLink'];
 		}
 			
-		$this->parameters = array();
+		$this->parameters = [];
 		
 		if( ! is_string($email) ) 
 		{

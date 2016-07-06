@@ -139,7 +139,7 @@ define('FF', "\f");
 // isResmac()
 //----------------------------------------------------------------------------------------------------
 //
-// İşlev: Config/Repear.php dosyasında yer alan machines = array() dizisi içerisinde ip numarası veya
+// İşlev: Config/Repear.php dosyasında yer alan machines = [] dizisi içerisinde ip numarası veya
 // numaralarının o anki modeminizin ip'si ile eşleşip eşleşmediğini kontrol eder. Böylece site içi
 // tadilat yapılan bilgisayar ile diğer kullanıcı bilgisayarlarının ayırt edilmesi sağlanır.
 // Parametreler: Yok.
@@ -431,7 +431,7 @@ function isCharset($charset = '')
 }
 
 //----------------------------------------------------------------------------------------------------
-// isArray()
+// is[]
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Parametrenin boş değil ve dizi olup olmadığını kontrol eder.
@@ -439,7 +439,7 @@ function isCharset($charset = '')
 // Dönen Değerler: Bool.
 //
 //----------------------------------------------------------------------------------------------------
-function isArray($array = array())
+function isArray($array = [])
 {
 	if( ! empty($array) && is_array($array) )
 	{
@@ -472,7 +472,7 @@ function charsetList()
 // dizi içeriğinin düzenli çıktısını almak için kullanılır.			  																				                                   							
 //
 //----------------------------------------------------------------------------------------------------
-function output($data = '', $settings = array(), $content = false)
+function output($data = '', $settings = [], $content = false)
 {	
 	// ----------------------------------------------------------------------------------------------
 	// AYARLAR
@@ -496,7 +496,7 @@ function output($data = '', $settings = array(), $content = false)
 		return $output;	
 	}
 }	
-function _output($data = '', $tab = '', $start = 0, $settings = array())
+function _output($data = '', $tab = '', $start = 0, $settings = [])
 {
 	static $start;
 	
@@ -582,7 +582,7 @@ function _output($data = '', $tab = '', $start = 0, $settings = array())
 // 2. array var @vars => Yazdırılacak veri içine değişken değeri göndermek için kullanılır.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function write($data = '', $vars = array())
+function write($data = '', $vars = [])
 {
 	if( ! is_scalar($data) )
 	{
@@ -592,7 +592,7 @@ function write($data = '', $vars = array())
 
 	if( ! empty($data) && is_array($vars) )
 	{
-		$varsArray = array();
+		$varsArray = [];
 		
 		foreach( $vars as $k => $v )
 		{
@@ -613,7 +613,7 @@ function write($data = '', $vars = array())
 // sonra bir alt satıra geçer.								  					          														                              
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function writeLine($data = '', $vars = array(), $brCount = 1)
+function writeLine($data = '', $vars = [], $brCount = 1)
 {
 	echo write($data, $vars).str_repeat("<br>", $brCount);
 }

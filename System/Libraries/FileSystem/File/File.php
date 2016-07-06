@@ -591,7 +591,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	// Zip Extract Method Bitiş
 	//----------------------------------------------------------------------------------------------------
 	
-	public function createZip($path = '', $data = array())
+	public function createZip($path = '', $data = [])
 	{			
 		$zip = new ZipArchive();
 

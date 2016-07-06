@@ -536,9 +536,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
 	|          																				  |
 	******************************************************************************************/
-	protected function _whereHavingGroup($conditions = array())
+	protected function _whereHavingGroup($conditions = [])
 	{
-		$con = array();
+		$con = [];
 		
 		if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
 		{
@@ -1716,7 +1716,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->query('SELECT * FROM OrnekTablo');        					  |
 	|          																				  |
 	******************************************************************************************/
-	public function query($query = '', $secure = array())
+	public function query($query = '', $secure = [])
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
@@ -1759,7 +1759,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->execQuery('DROP TABLE OrnekTablo');        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function execQuery($query = '', $secure = array())
+	public function execQuery($query = '', $secure = [])
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
@@ -1789,7 +1789,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->multiQuery('DROP TABLE OrnekTablo');        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function multiQuery($query = '', $secure = array())
+	public function multiQuery($query = '', $secure = [])
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
@@ -1927,7 +1927,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->increment('OrnekTablo', 'Hit')				  				          |
 	|          																				  |
 	******************************************************************************************/
-	public function increment($table = '', $columns = array(), $increment = 1)
+	public function increment($table = '', $columns = [], $increment = 1)
 	{
 		return $this->_incdec($table, $columns, $increment, 'increment');
 	}
@@ -1945,7 +1945,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->decrement('OrnekTablo', 'Hit')				  				          |
 	|          																				  |
 	******************************************************************************************/
-	public function decrement($table = '', $columns = array(), $decrement = 1)
+	public function decrement($table = '', $columns = [], $decrement = 1)
 	{
 		return $this->_incdec($table, $columns, $decrement, 'decrement');
 	}
@@ -1953,7 +1953,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	/******************************************************************************************
 	* PROTECTED INCREMENT VE DECREMENT                                                        *
 	******************************************************************************************/
-	protected function _incdec($table = '', $columns = array(), $incdec = 0, $type = '')
+	protected function _incdec($table = '', $columns = [], $incdec = 0, $type = '')
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -2036,7 +2036,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->insert('OrnekTablo', array('id' => '1', 'name' => 'zntr'));  |
 	|          																				  |
 	******************************************************************************************/
-	public function insert($table = '', $datas = array())
+	public function insert($table = '', $datas = [])
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -2067,7 +2067,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		$data = ""; $values = "";
 		
-		$duplicateCheckWhere = array();
+		$duplicateCheckWhere = [];
 		
 		foreach( $datas as $key => $value )
 		{
@@ -2162,7 +2162,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->update('OrnekTablo', array('id' => '1', 'name' => 'zntr'));  |
 	|          																				  |
 	******************************************************************************************/
-	public function update($table = '', $set = array())
+	public function update($table = '', $set = [])
 	{
 		if( ! empty($this->table) ) 
 		{
@@ -2597,7 +2597,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	  @return array veya object
 	|          																				  |
 	******************************************************************************************/
-	public function pagination($url = '', $settings = array(), $output = true)
+	public function pagination($url = '', $settings = [], $output = true)
 	{ 
 		if( ! is_array($settings) )
 		{

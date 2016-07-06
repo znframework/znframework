@@ -25,7 +25,7 @@ class PipeDriver implements EmailDriverInterface
 		}	
 	}
 	
-	public function send($to, $subject, $message, $headers = NULL, $settings = array())
+	public function send($to, $subject, $message, $headers = NULL, $settings = [])
 	{
 		$returnPath = $settings['mailPath'].' -oi -f '.$settings['from'].' -t -r '.$settings['returnPath'];
 		

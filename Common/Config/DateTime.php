@@ -29,11 +29,11 @@ $config['DateTime']['timeZone'] = 'Europe/Istanbul';
 // setDate() yöntemi haric diğer yöntemler için kullanılır.							      				
 //
 //----------------------------------------------------------------------------------------------------
-$config['DateTime']['setLocale'] = array(
-
+$config['DateTime']['setLocale'] = 
+[
 	'charset'  => 'tr_TR.UTF-8',
 	'language' => 'turkish',	
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Set Time Format Chars
@@ -48,8 +48,8 @@ $config['DateTime']['setLocale'] = array(
 // hepsini karşılığı %a özel ifadesidir.						      						  				
 //
 //----------------------------------------------------------------------------------------------------
-$config['DateTime']['setTimeFormatChars'] = array
-(
+$config['DateTime']['setTimeFormatChars'] = 
+[
 	'{shortDayName}|{shortDay}|{SD}' 							=> '%a',
 	'{dayName}|{day}|{D}' 										=> '%A',
 	'{dayNumber0}|{dayNum0}|{DN0}' 								=> '%d',
@@ -76,7 +76,7 @@ $config['DateTime']['setTimeFormatChars'] = array
 	'{clock}' 													=> '%X',	
 	'{dateTime}' 												=> '%c',
 	'{date}' 													=> '%x'
-);
+];
 
 
 //----------------------------------------------------------------------------------------------------
@@ -92,8 +92,8 @@ $config['DateTime']['setTimeFormatChars'] = array
 // hepsini karşılığı D özel ifadesidir.						      						  				
 //
 //----------------------------------------------------------------------------------------------------
-$config['DateTime']['setDateFormatChars'] = array
-(
+$config['DateTime']['setDateFormatChars'] =
+[
 	'{shortDayName}|{shortDay}|{SD}' 							=> 'D',
 	'{dayName}|{day}|{D}' 										=> 'l',
 	'{dayNumber0}|{dayNum0}|{DN0}' 								=> 'd',
@@ -124,4 +124,4 @@ $config['DateTime']['setDateFormatChars'] = array
 	'{iso}|{ISO}' 												=> 'c',
 	'{rfc}|{RFC}' 												=> 'r',
 	'{unix}|{UNIX}' 											=> 'U'																										
-);
+];

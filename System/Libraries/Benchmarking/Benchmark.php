@@ -19,7 +19,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	// @var  array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $tests = array();
+	protected $tests = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Memtests
@@ -30,7 +30,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	// @var  array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $memtests = array();
+	protected $memtests = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Memtests
@@ -41,7 +41,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	// @var  array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $usedtests = array();
+	protected $usedtests = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Test Count

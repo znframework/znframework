@@ -106,8 +106,8 @@ class Autoloader
 			unlink($path);
 		}
 		
-		Config::set('ClassMap', 'classes'   , array());
-		Config::set('ClassMap', 'namespaces', array());
+		Config::set('ClassMap', 'classes'   , []);
+		Config::set('ClassMap', 'namespaces', []);
 		
 		return self::createClassMap();
 	}
@@ -175,8 +175,8 @@ class Autoloader
 		
 		$classArray = array_diff_key
 		(
-			isset($classMaps['classes'])      ? $classMaps['classes']      : array(), 
-			isset($configClassMap['classes']) ? $configClassMap['classes'] : array()
+			isset($classMaps['classes'])      ? $classMaps['classes']      : [], 
+			isset($configClassMap['classes']) ? $configClassMap['classes'] : []
 		);
 		
 		$eol  = EOL;
@@ -211,8 +211,8 @@ class Autoloader
 		
 		$namespaceArray = array_diff_key
 		(
-			isset($classMaps['namespaces']) ? $classMaps['namespaces'] : array(), 
-			isset($configClassMap['namespaces']) ? $configClassMap['namespaces'] : array()
+			isset($classMaps['namespaces']) ? $classMaps['namespaces'] : [], 
+			isset($configClassMap['namespaces']) ? $configClassMap['namespaces'] : []
 		);
 		
 		// ----------------------------------------------------------------------------------------
@@ -263,10 +263,10 @@ class Autoloader
 		// sayısından fazla ise değişkenden veri çekiliyor. Böylecede
 		// sayfanın yenilenmesine gerek kalmadan çağrılan sınıfın bilgisi
 		// ClassMap.php dosyasına eklenmiş oluyor.
-		$classes    = array_merge(isset($classMap['classes']) ? $classMap['classes'] : array(), (array)self::$classes);
+		$classes    = array_merge(isset($classMap['classes']) ? $classMap['classes'] : [], (array)self::$classes);
 
 		// Yukarıdaki mantık isim alanlarının kullanımı içinde geçerlidir.
-		$namespaces = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : array(), (array)self::$namespaces);
+		$namespaces = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : [], (array)self::$namespaces);
 		
 		$path 	   = '';
 		$namespace = '';
@@ -334,7 +334,7 @@ class Autoloader
 		
 		// Dosya içeriğini al ve tarama yap.
 		$tokens    = token_get_all(file_get_contents($fileName));
-		$classInfo = array();
+		$classInfo = [];
 		
 		$i = 0;
 		$ns = '';
@@ -417,7 +417,7 @@ class Autoloader
 		
 		// Dosya içeriğini al ve tarama yap.
 		$tokens = token_get_all(file_get_contents($fileName));
-		$info   = array();
+		$info   = [];
 		
 		$i = 0;
 		
@@ -471,7 +471,7 @@ class Autoloader
 		$files = array_diff
 		(
 			$files, 
-			isset($configClassMap['classes']) ? $configClassMap['classes'] : array()
+			isset($configClassMap['classes']) ? $configClassMap['classes'] : []
 		);
 		
 		$staticAccessDirectory = SYSTEM_DIR.'StaticAccess/';
@@ -547,8 +547,8 @@ class Autoloader
 						
 						preg_match_all('/const\s+(\w+)\s+\=\s+(.*?);/i', $getFileContent, $match);
 						
-						$const = ! empty($match[1]) ? $match[1] : array();
-						$value = ! empty($match[2]) ? $match[2] : array();
+						$const = ! empty($match[1]) ? $match[1] : [];
+						$value = ! empty($match[2]) ? $match[2] : [];
 						
 						$constants = '';
 						

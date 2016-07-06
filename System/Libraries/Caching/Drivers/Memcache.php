@@ -24,7 +24,7 @@ class MemcacheDriver implements CacheInterface
 	| Genel Kullanım: Nesne tanımlaması ve ön bellek ayarları çalıştırılıyor.				  |
 	|          																				  |
 	******************************************************************************************/
-	public function connect($settings = array())
+	public function connect($settings = [])
 	{	
 		$config = Config::get('Cache', 'driverSettings');
 		

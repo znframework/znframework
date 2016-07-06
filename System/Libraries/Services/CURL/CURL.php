@@ -22,7 +22,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	 *
 	 * @var array 
   	 */
-	 protected $options = array();
+	 protected $options = [];
 
 	
 	public function __construct()
@@ -71,7 +71,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 		
 		curl_setopt_array($this->init, $this->options);
 
-		$this->options = array();
+		$this->options = [];
 		
 		if( is_resource($this->init) )
 		{

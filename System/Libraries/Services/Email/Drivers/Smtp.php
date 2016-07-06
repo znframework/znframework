@@ -42,7 +42,7 @@ class SmtpDriver implements EmailDriverInterface
 	  @return object
 	|          																				  |
 	******************************************************************************************/
-	public function __construct($to = '', $subject = '', $body = '', $headers = '', $settings = array())
+	public function __construct($to = '', $subject = '', $body = '', $headers = '', $settings = [])
 	{
 		$this->to 		  = $to;
 		$this->subject    = $subject;
@@ -61,7 +61,7 @@ class SmtpDriver implements EmailDriverInterface
 		$this->encode     = isset($settings['encode'])    ? $settings['encode'] 	: '';
 		$this->keepAlive  = isset($settings['keepAlive']) ? $settings['keepAlive'] 	: '';
 		$this->dsn		  = isset($settings['dsn'])       ? $settings['dsn'] 		: '';
-		$this->tos		  = isset($settings['tos'])       ? $settings['tos'] 		: array();
+		$this->tos		  = isset($settings['tos'])       ? $settings['tos'] 		: [];
 	}
 	
 	public function sendEmail()

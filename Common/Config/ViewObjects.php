@@ -17,8 +17,8 @@
 // Genel Kullanım: Css3 kütüphanesi ile ilgili gerekli ayarları içerir.					  			  
 //
 //----------------------------------------------------------------------------------------------------
-$config['ViewObjects']['css3'] = array
-(
+$config['ViewObjects']['css3'] = 
+[
 	//------------------------------------------------------------------------------------------------
 	// Browser                                                                            	  
 	//------------------------------------------------------------------------------------------------
@@ -30,8 +30,8 @@ $config['ViewObjects']['css3'] = array
 	// Örnek: box-shadow, -ms-box-shadow, -moz-box-shadow, -webkit-box-shadow				  
 	//
 	//------------------------------------------------------------------------------------------------
-	'browsers' => array('', '-o-', '-ms-', '-moz-', '-webkit-')
-);
+	'browsers' => ['', '-o-', '-ms-', '-moz-', '-webkit-']
+];
 
 //----------------------------------------------------------------------------------------------------
 // Font
@@ -40,8 +40,8 @@ $config['ViewObjects']['css3'] = array
 // Genel Kullanım: Fontlarla ilgili ayarlar yer alır.   										     					  
 //
 //----------------------------------------------------------------------------------------------------
-$config['ViewObjects']['font'] = array
-(
+$config['ViewObjects']['font'] = 
+[
 	//------------------------------------------------------------------------------------------------
 	// Different Font Extensions
 	//------------------------------------------------------------------------------------------------
@@ -52,8 +52,8 @@ $config['ViewObjects']['font'] = array
 	// yeterlidir.	 												     					  
 	//
 	//------------------------------------------------------------------------------------------------
-	'differentFontExtensions' => array()
-);
+	'differentFontExtensions' => []
+];
 
 //----------------------------------------------------------------------------------------------------
 // Cdn
@@ -62,8 +62,8 @@ $config['ViewObjects']['font'] = array
 // Genel Kullanım: Uzaktan linklerin kullanımına yönelik ayarları içerir.           	      										  
 //
 //----------------------------------------------------------------------------------------------------
-$config['ViewObjects']['cdn'] = array
-(
+$config['ViewObjects']['cdn'] = 
+[
 	//----------------------------------------------------------------------------------------------------
 	// Script                                                                     	  	  
 	//----------------------------------------------------------------------------------------------------
@@ -74,14 +74,14 @@ $config['ViewObjects']['cdn'] = array
 	// Örnek Kullanım: Import::script('style');									     		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'scripts' => array
-	(
+	'scripts' => 
+	[
 		'jquery'    => 'https://code.jquery.com/jquery-latest.js',
 		'jqueryUi'  => 'https://code.jquery.com/ui/1.11.3/jquery-ui.js',
 		'bootstrap' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
 		'bootlint'  => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js',
 		'angular'   => 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js'
-	),
+	],
 	
 	//----------------------------------------------------------------------------------------------------
 	// Style                                                                     	  	  
@@ -93,11 +93,11 @@ $config['ViewObjects']['cdn'] = array
 	// Örnek Kullanım: Import::style('style');									     		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'styles' => array
-	(
+	'styles' => 
+	[
 		'bootstrap' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
 		'awesome'   => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'
-	),
+	],
 	
 	//----------------------------------------------------------------------------------------------------
 	// Font                                                                     	  	  
@@ -107,10 +107,10 @@ $config['ViewObjects']['cdn'] = array
 	// Import::font('anahtar') ile direk import ettirebilirsiniz.						     		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'fonts' => array
-	(
+	'fonts' => 
+	[
 		// 'font1' => 'http://xx.xx.xxx/image/font1.ttf'
-	),
+	],
 	
 	//----------------------------------------------------------------------------------------------------
 	// Image                                                                     	  	  
@@ -121,10 +121,10 @@ $config['ViewObjects']['cdn'] = array
 	// Html::image(CND::image('image1'));								     		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'images' => array
-	(
+	'images' => 
+	[
 		// 'image1' => 'http://xx.xx.xxx/image/image1.jpg'
-	),
+	],
 	
 	//----------------------------------------------------------------------------------------------------
 	// File                                                                     	  	  
@@ -135,11 +135,11 @@ $config['ViewObjects']['cdn'] = array
 	// File::contents(CND::file('anahtar'));					     		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'files' => array
-	(
+	'files' => 
+	[
 		// 'file1' => 'http://xx.xx.xxx/files/file1.txt'
-	)
-);
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // Doctype                                                                         	  	  
@@ -148,8 +148,8 @@ $config['ViewObjects']['cdn'] = array
 // Genel Kullanım: Döküman türleri listesi.      			  							  
 //
 //----------------------------------------------------------------------------------------------------
-$config['ViewObjects']['doctype'] = array
-(
+$config['ViewObjects']['doctype'] = 
+[
 	'xhtml1Strict'			=> '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//TR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
 	'xhtml1Transitional'	=> '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//TR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
 	'xhtml1Frameset' 		=> '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//TR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">',
@@ -158,5 +158,5 @@ $config['ViewObjects']['doctype'] = array
 	'html4Transitional' 	=> '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//TR" "http://www.w3.org/TR/html4/loose.dtd">',
 	'html4Frameset'			=> '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//TR" "http://www.w3.org/TR/html4/frameset.dtd">',
 	'html5'					=> '<!DOCTYPE html>'
-);
+];
 

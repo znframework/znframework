@@ -147,7 +147,7 @@ class __USE_STATIC_ACCESS__Crontab implements CrontabInterface
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $jobs = array();
+	protected $jobs = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Constructor
@@ -197,7 +197,7 @@ class __USE_STATIC_ACCESS__Crontab implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect($config = array())
+	public function connect($config = [])
 	{
 		SSH::connect($config);
 		
@@ -345,7 +345,7 @@ class __USE_STATIC_ACCESS__Crontab implements CrontabInterface
 		{
 			$jobs = $this->jobs;
 			
-			$this->jobs = array();	
+			$this->jobs = [];	
 			
 			foreach( $jobs as $job )
 			{

@@ -25,7 +25,7 @@ trait UserTrait
 		return $members;
 	}
 	
-	public function create($user = '', $parameters = array())
+	public function create($user = '', $parameters = [])
 	{
 		return 'CREATE USER '.
 		        $user.
@@ -39,7 +39,7 @@ trait UserTrait
 		return 'DROP USER '.$user;
 	}
 	
-	public function alter($user = '', $parameters = array())
+	public function alter($user = '', $parameters = [])
 	{
 		return 'ALTER USER '.$user.( ! empty($parameters[0]) ? ' PASSWORD '.$parameters[0] : '' );
 	}

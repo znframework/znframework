@@ -50,18 +50,18 @@ $config['Application']['benchmark'] = false;
 // ayarlamanı gerekmektedir. Bu ayarlamadan sonra aşağıdaki ayarları yapabilirsiniz.				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Application']['restoration'] = array
-(
+$config['Application']['restoration'] = 
+[
 	// Uygulama üzerinde restore işlemlerinin yapıldığı makinelere ait ip adresleri belirtilir.
-	'machinesIP' => array(),
+	'machinesIP' => [],
 	
 	// Çalışmayan, hata oluşmuş kullanıcıların karşılasması istenmeyen sayfalar belirtilir.	
-	'pages'      => array(),
+	'pages'      => [],
 	
 	// Restoration Pages ayarına belirtilmiş sayfalarından herhangi birine istek yapıldığında
 	// bu ayarın belirtildiği sayfaya yönlendirilir.
 	'routePage'  => ''
-);
+];
 
 //----------------------------------------------------------------------------------------------------
 // Directory Index                                                                  
