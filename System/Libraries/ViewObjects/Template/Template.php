@@ -44,34 +44,34 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		$pattern = 
 		[
 			// @ SYMBOL
-			'/\/@/' 															=> '+[symbol??at]+',
+			'/\/@/'                                                             => '+[symbol??at]+',
 			
 			// DECISION STRUCTURES & LOOPS	
-			'/@(endif|endforeach|endfor|endwhile|break|continue)\:/' 			=> '<?php $1 ?>',	
-			'/@(elseif|if|else|foreach|for|while)\s*('.$htmlRegexChar.')\:/s'	=> '<?php $1$2: ?>',
+			'/@(endif|endforeach|endfor|endwhile|break|continue)\:/'            => '<?php $1 ?>',	
+			'/@(elseif|if|else|foreach|for|while)\s*('.$htmlRegexChar.')\:/s'   => '<?php $1$2: ?>',
 					
 			// PRINTABLE VARIABLES
-			'/@\$('.$htmlRegexChar.')\:/s'   	  								=> '<?php echo $$1 ?>',
+			'/@\$('.$htmlRegexChar.')\:/s'                                      => '<?php echo $$1 ?>',
 			
 			// PRINTABLE FUNCTIONS
-			'/@@('.$htmlRegexChar.')\:/s' 										=> '<?php echo $1 ?>',		
+			'/@@('.$htmlRegexChar.')\:/s'                                       => '<?php echo $1 ?>',		
 			
 			// FUNCTIONS
-			'/@('.$htmlRegexChar.')\:/s'										=> '<?php $1 ?>',
+			'/@('.$htmlRegexChar.')\:/s'                                        => '<?php $1 ?>',
 			
-			'/\+\[symbol\?\?at\]\+/'											=> '@',
+			'/\+\[symbol\?\?at\]\+/'                                            => '@',
 					
 			// COMMENTS
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'			 				=> '<!--$1-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'                         => '<!--$1-->',
 			
 			// HTMLENTITES PRINT
-			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'			  				=> '<?php echo htmlentities($1) ?>',
+			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'                         => '<?php echo htmlentities($1) ?>',
 			
 			// PRINT
-			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'				  				=> '<?php echo $1 ?>',
+			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'                             => '<?php echo $1 ?>',
 			
 			// PHP TAGS
-			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'				  				=> '<?php $1 ?>',
+			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'                             => '<?php $1 ?>',
 		];
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
