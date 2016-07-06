@@ -632,7 +632,7 @@ function library($class = NULL, $function = NULL, $parameters = [])
 	
 	if( is_callable([$var, $function]) )
 	{
-		return call_user_func_array( [$var, $function], $parameters );
+		return call_user_func_array([$var, $function], $parameters);
 	}
 	else
 	{
@@ -1370,7 +1370,7 @@ function _startingContoller($startController = '', $param = [])
 	{
 		require_once($controllerFile);
 		
-		if( ! is_callable(array(new $controllerClass, $controllerFunc)) )
+		if( ! is_callable([$controllerClass, $controllerFunc]) )
 		{
 			// Hatayı rapor et.
 			report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');	

@@ -198,7 +198,7 @@ if( is_file($isFile) )
 		// -------------------------------------------------------------------------------
 		//  Varsayılan açılış Fonksiyonu. index ya da main kullanılabilir.
 		// -------------------------------------------------------------------------------
-		if( strtolower($function) === 'index' && ! is_callable(array($page, $function)) )
+		if( strtolower($function) === 'index' && ! is_callable([$page, $function]) )
 		{
 			$function = 'main';	
 		}	
@@ -206,7 +206,7 @@ if( is_file($isFile) )
 		// -------------------------------------------------------------------------------
 		// Sınıf ve yöntem bilgileri geçerli ise sayfayı çalıştır.
 		// -------------------------------------------------------------------------------	
-		if( is_callable(array($page, $function)) )
+		if( is_callable([$page, $function]) )
 		{
 			uselib($page)->$function(...$parameters);
 		}
