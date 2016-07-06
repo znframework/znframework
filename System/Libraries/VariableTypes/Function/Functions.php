@@ -59,9 +59,9 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım: call_user_func().									 	         		  |
 	|          																				  |
 	******************************************************************************************/
-	public function call()
+	public function call(...$args)
 	{
-		return $this->callArray('call_user_func', func_get_args());	
+		return $this->callArray('call_user_func', $args);	
 	}
 	
 	/******************************************************************************************
@@ -91,9 +91,9 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım: call_user_func().				  							 	          |
 	|          																				  |
 	******************************************************************************************/
-	public function staticCall()
+	public function staticCall(...$args)
 	{
-		return $this->callArray('forward_static_call', func_get_args());	
+		return $this->callArray('forward_static_call', $args);	
 	}
 	
 	/******************************************************************************************
@@ -102,9 +102,9 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım: register_shutdown_function().		    		     		 	          |
 	|          																				  |
 	******************************************************************************************/
-	public function shutdown()
+	public function shutdown(...$args)
 	{
-		return $this->callArray('register_shutdown_function', func_get_args());	
+		return $this->callArray('register_shutdown_function', $args);	
 	}
 	
 	/******************************************************************************************
@@ -113,9 +113,9 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım:Her tikte çalıştırılacak işlevi tanımlar.		     	 	          |
 	|          																				  |
 	******************************************************************************************/
-	public function tick()
+	public function tick(...$args)
 	{
-		return $this->callArray('register_tick_function', func_get_args());	
+		return $this->callArray('register_tick_function', $args);	
 	}
 	
 	/******************************************************************************************
@@ -124,9 +124,9 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	| Genel Kullanım: unregister_tick_function().   		 			     	 	          |
 	|          																				  |
 	******************************************************************************************/
-	public function untick()
+	public function untick(...$args)
 	{
-		return $this->callArray('unregister_tick_function', func_get_args());	
+		return $this->callArray('unregister_tick_function', $args);	
 	}
 
 	/******************************************************************************************

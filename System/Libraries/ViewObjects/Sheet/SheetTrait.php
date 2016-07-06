@@ -168,9 +168,9 @@ trait SheetTrait
 	| Örnek Kullanım: ->create() 		  									  	 			  |
 	|          																				  |
 	******************************************************************************************/
-	public function create()
+	public function create(...$args)
 	{
-		$combineTransitions = func_get_args();
+		$combineTransitions = $args;
 		
 		$str  = $this->selector."{";	
 		if( ! empty($this->attr) ) $str .= EOL.$this->attr.EOL;

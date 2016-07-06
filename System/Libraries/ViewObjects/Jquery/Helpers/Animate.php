@@ -233,9 +233,9 @@ class Animate
 	  @return $string
 	|          																				  |
 	******************************************************************************************/
-	public function create()
+	public function create(...$args)
 	{
-		$combineAnimation = func_get_args();
+		$combineAnimation = $args;
 		
 		$animate  = EOL."\t".\JQ::selector($this->selector);
 		

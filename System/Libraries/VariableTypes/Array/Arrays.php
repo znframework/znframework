@@ -686,9 +686,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function implementCallback()
+	public function implementCallback(...$args)
 	{
-		return Functions::callArray('array_map', func_get_args());
+		return Functions::callArray('array_map', $args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -698,9 +698,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function map()
+	public function map(...$args)
 	{
-		return Functions::callArray('array_map', func_get_args());
+		return Functions::callArray('array_map', $args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -710,9 +710,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function recursiveMerge()
+	public function recursiveMerge(...$args)
 	{
-		return Functions::callArray('array_merge_recursive', func_get_args());
+		return Functions::callArray('array_merge_recursive', $args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -722,9 +722,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function merge()
+	public function merge(...$args)
 	{
-		return Functions::callArray('array_merge', func_get_args());
+		return Functions::callArray('array_merge', $args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -734,9 +734,9 @@ class __USE_STATIC_ACCESS__Arrays implements ArraysInterface
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function intersect()
+	public function intersect(...$args)
 	{
-		return Functions::callArray('array_intersect', func_get_args());
+		return Functions::callArray('array_intersect', $args);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

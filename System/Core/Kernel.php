@@ -175,7 +175,7 @@ if( $starting['autoload']['status'] === true )
 //----------------------------------------------------------------------------------------------------
 if( ! empty($starting['handload']) )
 {
-	Import::handload($starting['handload']);
+	Import::handload(...$starting['handload']);
 }
 //----------------------------------------------------------------------------------------------------
 
@@ -208,7 +208,7 @@ if( is_file($isFile) )
 		// -------------------------------------------------------------------------------	
 		if( is_callable(array($page, $function)) )
 		{
-			library($page, $function, $parameters);
+			uselib($page)->$function(...$parameters);
 		}
 		else
 		{

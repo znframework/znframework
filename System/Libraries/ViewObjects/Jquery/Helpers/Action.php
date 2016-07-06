@@ -330,9 +330,9 @@ class Action
 	  @return $string
 	|          																				  |
 	******************************************************************************************/
-	public function create()
+	public function create(...$args)
 	{
-		$combineEffect = func_get_args();
+		$combineEffect = $args;
 		
 		$event  = EOL.\JQ::selector($this->selector);
 		$event .= $this->complete();

@@ -79,9 +79,9 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	  @return this
 	|          																				  |
 	******************************************************************************************/
-	public function library()
+	public function library(...$libraries)
 	{
-		Import::script(func_get_args());
+		Import::script(...$libraries);
 		
 		return $this;
 	}

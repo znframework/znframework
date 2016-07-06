@@ -116,9 +116,9 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	  @return $string
 	|          																				  |
 	******************************************************************************************/
-	public function create()
+	public function create(...$args)
 	{
-		$combineFunction = func_get_args();
+		$combineFunction = $args;
 		
 		$complete  = EOL.JQ::selector($this->selector);
 		

@@ -154,9 +154,9 @@ trait ValidateTrait
 	// @param args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function validate()
+	public function validate(...$args)
 	{
-		$this->settings['validate'] = func_get_args();
+		$this->settings['validate'] = $args;
 		
 		return $this;
 	}
@@ -168,9 +168,9 @@ trait ValidateTrait
 	// @param args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function secure()
+	public function secure(...$args)
 	{
-		$this->settings['secure'] = func_get_args();
+		$this->settings['secure'] = $args;
 		
 		return $this;
 	}

@@ -478,10 +478,10 @@ class Event
 	 *
 	 * .bind('click', '', '') 
 	 */
-	public function bind()
+	public function bind(...$args)
 	{
 		$this->property = 'bind';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -495,10 +495,10 @@ class Event
 	 *
 	 * .unbind('click', '', '') 
 	 */
-	public function unbind()
+	public function unbind(...$args)
 	{
 		$this->property = 'unbind';
-		$this->params = func_get_args();
+		$this->params   = $args;
 	
 		return $this;	
 	}
@@ -512,10 +512,10 @@ class Event
 	 *
 	 * .trigger('click', '', '') 
 	 */
-	public function trigger()
+	public function trigger(...$args)
 	{
 		$this->property = 'trigger';
-		$this->params = func_get_args();
+		$this->params   = $args;
 	
 		return $this;	
 	}
@@ -529,10 +529,10 @@ class Event
 	 *
 	 * .triggerHandler('click', '', '') 
 	 */
-	public function triggerHandler()
+	public function triggerHandler(...$args)
 	{
 		$this->property = 'triggerHandler';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -546,10 +546,10 @@ class Event
 	 *
 	 * .delegate('click', '', '') 
 	 */
-	public function delegate()
+	public function delegate(...$args)
 	{
 		$this->property = 'delegate';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -563,10 +563,10 @@ class Event
 	 *
 	 * .one('click', '', '') 
 	 */
-	public function one()
+	public function one(...$args)
 	{
 		$this->property = 'one';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -580,10 +580,10 @@ class Event
 	 *
 	 * .on('click', '', '') 
 	 */
-	public function on()
+	public function on(...$args)
 	{
 		$this->property = 'on';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -597,10 +597,10 @@ class Event
 	 *
 	 * .off('click', '', '') 
 	 */
-	public function off()
+	public function off(...$args)
 	{
 		$this->property = 'off';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -614,10 +614,10 @@ class Event
 	 *
 	 * .live('click', '', '') 
 	 */
-	public function live()
+	public function live(...$args)
 	{
 		$this->property = 'live';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -631,10 +631,10 @@ class Event
 	 *
 	 * .die('click', '', '') 
 	 */
-	public function remove()
+	public function remove(...$args)
 	{
 		$this->property = 'die';
-		$this->params = func_get_args();
+		$this->params   = $args;
 		
 		return $this;	
 	}
@@ -663,9 +663,9 @@ class Event
 	 * Jquery script creating
 	 *
 	 */
-	public function create()
+	public function create(...$args)
 	{
-		$combineEvent = func_get_args();
+		$combineEvent = $args;
 		
 		$event  = EOL.\JQ::selector($this->selector);
 		$event .= $this->complete();

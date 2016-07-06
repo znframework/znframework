@@ -75,10 +75,8 @@ class Transform
 	| Örnek Kullanım: ->matrix(0, 1, 1, 0, 20, 50) 						 		 		  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function matrix()
+	public function matrix(...$arguments)
 	{
-		$arguments = func_get_args();
-		
 		if( isset($arguments[0]) && is_array($arguments[0]) )
 		{
 			$arguments = $arguments[0];	

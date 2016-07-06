@@ -75,9 +75,9 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	| Örnek Kullanım: ->library('stil1', 'stil2' ... 'stilN')			  					  |
 	|          																				  |
 	******************************************************************************************/
-	public function library()
+	public function library(...$libraries)
 	{
-		Import::style(func_get_args());
+		Import::style(...$libraries);
 		
 		return $this;
 	}

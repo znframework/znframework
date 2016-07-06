@@ -66,9 +66,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ifElse()
+	public function ifElse(...$args)
 	{
-		$math = $this->_math('IF', func_get_args());
+		$math = $this->_math('IF', $args);
 		
 		if( $math->return === true )
 		{
@@ -91,9 +91,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ifNull()
+	public function ifNull(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -116,9 +116,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function nullIf()
+	public function nullIf(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -156,9 +156,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function abs()
+	public function abs(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 	
 		if( $math->return === true )
 		{
@@ -182,9 +182,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function mod()
+	public function mod(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -207,9 +207,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function acos()
+	public function acos(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -232,9 +232,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function asin()
+	public function asin(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -257,9 +257,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function atan()
+	public function atan(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -282,9 +282,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function atan2()
+	public function atan2(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -307,9 +307,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ceil()
+	public function ceil(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -332,9 +332,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ceiling()
+	public function ceiling(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -357,9 +357,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function cos()
+	public function cos(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -382,9 +382,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function cot()
+	public function cot(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -407,9 +407,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function crc32()
+	public function crc32(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -432,9 +432,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function degrees()
+	public function degrees(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -457,9 +457,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function exp()
+	public function exp(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -482,9 +482,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function floor()
+	public function floor(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -507,9 +507,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ln()
+	public function ln(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -532,9 +532,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function log10()
+	public function log10(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -557,9 +557,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function log2()
+	public function log2(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -582,9 +582,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function log()
+	public function log(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -607,9 +607,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function pi()
+	public function pi(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -632,9 +632,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function pow()
+	public function pow(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -657,9 +657,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function power()
+	public function power(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -682,9 +682,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function radians()
+	public function radians(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -707,9 +707,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function rand()
+	public function rand(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -732,9 +732,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function raund()
+	public function raund(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -757,9 +757,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sign()
+	public function sign(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -782,9 +782,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sin()
+	public function sin(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -807,9 +807,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sqrt()
+	public function sqrt(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -832,9 +832,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function tan()
+	public function tan(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -911,9 +911,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ascii()
+	public function ascii(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -936,9 +936,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function charLength()
+	public function charLength(...$args)
 	{
-		$math = $this->_math('CHAR_LENGTH', func_get_args());
+		$math = $this->_math('CHAR_LENGTH', $args);
 		
 		if( $math->return === true )
 		{
@@ -961,9 +961,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function field()
+	public function field(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -986,9 +986,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function format()
+	public function format(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1011,9 +1011,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function lower()
+	public function lower(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1036,9 +1036,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function upper()
+	public function upper(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1061,9 +1061,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function length()
+	public function length(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1086,9 +1086,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ltrim()
+	public function ltrim(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1111,9 +1111,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function substring()
+	public function substring(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1136,9 +1136,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ord()
+	public function ord(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1161,9 +1161,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function position()
+	public function position(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1186,9 +1186,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function quote()
+	public function quote(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1211,9 +1211,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function repeat()
+	public function repeat(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1236,10 +1236,10 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function rtrim()
+	public function rtrim(...$args)
 
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1262,9 +1262,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function soundex()
+	public function soundex(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1287,9 +1287,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function space()
+	public function space(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1312,9 +1312,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function substr()
+	public function substr(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1337,9 +1337,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function substringIndex()
+	public function substringIndex(...$args)
 	{
-		$math = $this->_math('SUBSTRING_INDEX', func_get_args());
+		$math = $this->_math('SUBSTRING_INDEX', $args);
 		
 		if( $math->return === true )
 		{
@@ -1362,9 +1362,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function trim()
+	public function trim(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1387,9 +1387,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function ucase()
+	public function ucase(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1412,9 +1412,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function lcase()
+	public function lcase(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1445,9 +1445,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function benchmark()
+	public function benchmark(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1470,9 +1470,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function charset()
+	public function charset(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1495,9 +1495,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function coercibility()
+	public function coercibility(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1520,9 +1520,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function user()
+	public function user(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1545,9 +1545,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function collation()
+	public function collation(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1570,9 +1570,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function connectionId()
+	public function connectionId(...$args)
 	{
-		$math = $this->_math('CONNECTION_ID', func_get_args());
+		$math = $this->_math('CONNECTION_ID', $args);
 		
 		if( $math->return === true )
 		{
@@ -1595,9 +1595,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function currentUser()
+	public function currentUser(...$args)
 	{
-		$math = $this->_math('CURRENT_USER', func_get_args());
+		$math = $this->_math('CURRENT_USER', $args);
 		
 		if( $math->return === true )
 		{
@@ -1620,9 +1620,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function database()
+	public function database(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1645,9 +1645,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function schema()
+	public function schema(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1670,9 +1670,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function lastInsertId()
+	public function lastInsertId(...$args)
 	{
-		$math = $this->_math('LAST_INSERT_ID', func_get_args());
+		$math = $this->_math('LAST_INSERT_ID', $args);
 		
 		if( $math->return === true )
 		{
@@ -1695,9 +1695,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function systemUser()
+	public function systemUser(...$args)
 	{
-		$math = $this->_math('SYSTEM_USER', func_get_args());
+		$math = $this->_math('SYSTEM_USER', $args);
 		
 		if( $math->return === true )
 		{
@@ -1720,9 +1720,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sessionUser()
+	public function sessionUser(...$args)
 	{
-		$math = $this->_math('SESSION_USER', func_get_args());
+		$math = $this->_math('SESSION_USER', $args);
 		
 		if( $math->return === true )
 		{
@@ -1745,9 +1745,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function rowCount()
+	public function rowCount(...$args)
 	{
-		$math = $this->_math('ROW_COUNT', func_get_args());
+		$math = $this->_math('ROW_COUNT', $args);
 		
 		if( $math->return === true )
 		{
@@ -1770,9 +1770,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function versionInfo()
+	public function versionInfo(...$args)
 	{
-		$math = $this->_math('VERSION', func_get_args());
+		$math = $this->_math('VERSION', $args);
 		
 		if( $math->return === true )
 		{
@@ -1804,9 +1804,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function avg()
+	public function avg(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 	
 		if( $math->return === true )
 		{
@@ -1830,9 +1830,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function min()
+	public function min(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1856,9 +1856,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function max()
+	public function max(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1882,9 +1882,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function count()
+	public function count(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1908,9 +1908,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function sum()
+	public function sum(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{
@@ -1934,9 +1934,9 @@ trait FunctionsTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function variance()
+	public function variance(...$args)
 	{
-		$math = $this->_math(__FUNCTION__, func_get_args());
+		$math = $this->_math(__FUNCTION__, $args);
 		
 		if( $math->return === true )
 		{

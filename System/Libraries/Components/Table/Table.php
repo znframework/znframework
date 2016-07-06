@@ -103,14 +103,12 @@ class __USE_STATIC_ACCESS__Table implements TableInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content()
+	public function content(...$elements)
 	{	
 		$colNo = 1;
 		$rowNo = 1;
 		$table = '';
 		$eol   = EOL;
-		
-		$elements = func_get_args();
 		
 		if( isset($elements[0][0]) && is_array($elements[0][0]))
 		{

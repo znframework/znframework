@@ -438,9 +438,8 @@ trait DatabaseTrait
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function func()
+	public function func(...$args)
 	{
-		$args  = func_get_args();
 		$array = Arrays::removeFirst($args);
 		$math  = $this->_math(isset($args[0]) ? mb_strtoupper($args[0]) : false, $array);
 	

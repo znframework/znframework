@@ -382,9 +382,9 @@ class __USE_STATIC_ACCESS__Collection
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function implementCallback()
+	public function implementCallback(...$args)
 	{
-		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments(func_get_args()));
+		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments($args));
 		 
 		return $this;
 	}
@@ -396,9 +396,9 @@ class __USE_STATIC_ACCESS__Collection
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function recursiveMerge()
+	public function recursiveMerge(...$args)
 	{
-		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments(func_get_args()));
+		$this->data = Functions::callArray('array_merge_recursive', $this->_arguments($args));
 		
 		return $this;
 	}
@@ -410,9 +410,9 @@ class __USE_STATIC_ACCESS__Collection
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function merge()
+	public function merge(...$args)
 	{
-		$this->data = Functions::callArray('array_merge', $this->_arguments(func_get_args()));
+		$this->data = Functions::callArray('array_merge', $this->_arguments($args));
 		
 		return $this;
 	}
@@ -424,9 +424,9 @@ class __USE_STATIC_ACCESS__Collection
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function intersect()
+	public function intersect(...$args)
 	{
-		$this->data = Functions::callArray('array_intersect', $this->_arguments(func_get_args()));
+		$this->data = Functions::callArray('array_intersect', $this->_arguments($args));
 		
 		return $this;
 	}

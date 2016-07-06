@@ -272,9 +272,9 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where()
+	public function where(...$args)
 	{
-		$this->where[] = func_get_args();
+		$this->where[] = $args;
 		
 		return $this;
 	}

@@ -668,31 +668,7 @@ function uselib($class = '', $parameters = [])
 			zn::$use = new stdClass();	
 		}
 
-		switch( count($parameters) )
-		{
-			// Parametre yoksa
-			case 0 : zn::$use->$class = new $class; break;
-	
-			// 1 parametre için
-			case 1 : zn::$use->$class = new $class($parameters[0]); break;
-			
-			// 2 parametre için
-			case 2 : zn::$use->$class = new $class($parameters[0], $parameters[1]); break;
-			
-			// 3 parametre için
-			case 3 : zn::$use->$class = new $class($parameters[0], $parameters[1], $parameters[2]); break;
-	
-			// 4 parametre için
-			case 4 : zn::$use->$class = new $class($parameters[0], $parameters[1], $parameters[2], $parameters[3]); break;
-				
-			// 5 parametre için
-			case 5 : zn::$use->$class = new $class($parameters[0], $parameters[1], $parameters[2], $parameters[3], $parameters[4]); break;
-			
-			// Daha fazla parametre için
-			// next 5.6.0
-			// default: zn::$use->$class = new $class(...$parameters);
-		
-		}
+		zn::$use->$class = new $class(...$parameters);
 	}
 	
 	return zn::$use->$class;	
@@ -1403,7 +1379,7 @@ function _startingContoller($startController = '', $param = [])
 			die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
 		}
 		
-		return library($controllerClass, $controllerFunc, $param);
+		return uselib($controllerClass)->$controllerFunc(...$param);
 	}	
 	else
 	{

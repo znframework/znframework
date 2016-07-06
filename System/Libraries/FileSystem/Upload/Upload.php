@@ -185,10 +185,8 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	| Örnek Kullanım: ->extension('exe', 'jpg', 'gif')            							  |
 	|          																				  |
 	******************************************************************************************/
-	public function extensions()
+	public function extensions(...$args)
 	{
-		$args = func_get_args();
-		
 		if( ! empty($args ) )
 		{
 			$this->settings['extensions'] = implode('|', $args);

@@ -97,10 +97,8 @@ trait TriggerTrait
 	// @param mixed $args: BEGIN $arg1; $arg2; .... $arg3; END;
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function body()
+	public function body(...$args)
 	{
-		$args = func_get_args();
-		
 		if( is_array($args[0]) )
 		{
 			$args = $args[0];	

@@ -391,19 +391,14 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->select('col1, col2 ...')        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function select($condition = '*')
+	public function select(...$condition)
 	{
-		if( ! is_string($condition) ) 
+		if( empty($condition) ) 
 		{
-			$condition = '*';
+			$condition[0] = '*';
 		}
 		
-		$args = func_get_args();
-		
-		if( count($args) > 1 )
-		{
-			$condition = rtrim(implode(',', $args), ',');
-		}
+		$condition = rtrim(implode(',', $condition), ',');
 		
 		$this->select = ' '.$condition.' ';
 		
@@ -595,10 +590,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
 	|          																				  |
 	******************************************************************************************/
-	public function whereGroup()
+	public function whereGroup(...$args)
 	{
-		$args = func_get_args();
-
 		$this->where .= $this->_whereHavingGroup($args);
 		
 		return $this;
@@ -620,10 +613,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
 	|          																				  |
 	******************************************************************************************/
-	public function havingGroup()
+	public function havingGroup(...$args)
 	{
-		$args = func_get_args();
-		
 		$this->having .= $this->_whereHavingGroup($args);
 		
 		return $this;
@@ -880,22 +871,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->groupBy('id')  // GROUP BY id								          |
 	|          																				  |
 	******************************************************************************************/
-	public function groupBy($condition = '')
+	public function groupBy(...$args)
 	{ 
-		$args  = func_get_args();
-
-		if( count($args) === 1 ) 
-		{
-			$this->groupBy .= $args[0].', ' ;
-		}
-		else
-		{
-			
-			if( ! empty($args) ) foreach( $args as $val )
-			{
-				$this->groupBy .= $val.', ';	
-			}	
-		}
+		$this->groupBy .= implode(',', $args).', ';	
 		
 		return $this;
 	}
@@ -1113,9 +1091,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function duplicateCheck()
+	public function duplicateCheck(...$args)
 	{
-		$this->duplicateCheck = func_get_args();
+		$this->duplicateCheck = $args;
 		
 		if( empty($this->duplicateCheck) )
 		{
@@ -1420,9 +1398,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public function partition()
+	public function partition(...$args)
 	{ 
-		$this->partition = $this->_math(__FUNCTION__, func_get_args())->args;
+		$this->partition = $this->_math(__FUNCTION__, $args)->args;
 		return $this; 
 	}
 	
@@ -1434,9 +1412,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|          																				  |
 	******************************************************************************************/
-	public function procedure()
+	public function procedure(...$args)
 	{ 
-		$this->procedure = $this->_math(__FUNCTION__, func_get_args())->args;
+		$this->procedure = $this->_math(__FUNCTION__, $args)->args;
 		return $this; 
 	}
 	

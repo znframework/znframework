@@ -265,15 +265,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
 	|          																				  |
 	******************************************************************************************/
-	public function handload()
+	public function handload(...$args)
 	{
-		$args = func_get_args();
-		
-		if( isset($args[0]) && is_array($args[0]) )
-		{
-			$args = $args[0];
-		}
-
 		if( ! empty($args) ) foreach( $args as $file )
 		{
 			$suffix     = suffix($file, '.php');
@@ -474,15 +467,18 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			return false;	
 		}
 		
-		if( is_array($masterPageSet[$type]) )
-		{		
-			$masterPageSet[$type][] = true;			
-			$header .= $this->$type($masterPageSet[$type]);
+		$params = $masterPageSet[$type];
+		
+		if( ! is_array($params) )
+		{
+			$params = [$params, true];
 		}
 		else
-		{ 
-			$header .= $this->$type($masterPageSet[$type], true);
+		{
+			$params[] = true;	
 		}
+		
+		$header .= $this->$type(...$params);
 		
 		if( isset($head[$type]) )
 		{	
@@ -790,13 +786,8 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// Font Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 	
-	public function _parameters($arguments, $cdn)
+	protected function _parameters($arguments, $cdn)
 	{
-		if( isset($arguments[0]) && is_array($arguments[0]) )
-		{
-			$arguments = $arguments[0];
-		}
-		
 		if( ! empty($this->parameters['usable']) )
 		{
 			$lastParam = $this->parameters['usable'];
@@ -834,11 +825,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::font(array('f1', 'f2' ... 'fN'));        				          |
 	|          																				  |
 	******************************************************************************************/
-	public function font()
+	public function font(...$fonts)
 	{	
 		$eol	   = EOL;
 		$str       = "<style type='text/css'>".$eol;
-		$args      = $this->_parameters(func_get_args(), 'fonts');		
+		$args      = $this->_parameters($fonts, 'fonts');		
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
 		$links     = $args->cdnLinks;
@@ -970,11 +961,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::style(array('s1', 's2' ... 'sN'));        				      |
 	|          																				  |
 	******************************************************************************************/
-	public function style()
+	public function style(...$styles)
 	{
 		$str       = '';	
 		$eol	   = EOL;	
-		$args      = $this->_parameters(func_get_args(), 'styles');	
+		$args      = $this->_parameters($styles, 'styles');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
 		$links     = $args->cdnLinks;
@@ -1051,11 +1042,11 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	| Örnek Kullanım: Import::script(script('s1', 's2' ... 'sN'));        				      |
 	|          																				  |
 	******************************************************************************************/
-	public function script()
+	public function script(...$scripts)
 	{
 		$str 	   = '';	
 		$eol	   = EOL;	
-		$args      = $this->_parameters(func_get_args(), 'scripts');	
+		$args      = $this->_parameters($scripts, 'scripts');	
 		$lastParam = $args->lastParam;
 		$arguments = $args->arguments;	
 		$links     = $args->cdnLinks;
