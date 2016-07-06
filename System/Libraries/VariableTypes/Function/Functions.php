@@ -61,7 +61,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	******************************************************************************************/
 	public function call(...$args)
 	{
-		return $this->callArray('call_user_func', $args);	
+		return call_user_func(...$args);
 	}
 	
 	/******************************************************************************************
@@ -93,7 +93,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	******************************************************************************************/
 	public function staticCall(...$args)
 	{
-		return $this->callArray('forward_static_call', $args);	
+		return forward_static_call(...$args);	
 	}
 	
 	/******************************************************************************************
@@ -104,7 +104,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	******************************************************************************************/
 	public function shutdown(...$args)
 	{
-		return $this->callArray('register_shutdown_function', $args);	
+		return register_shutdown_function(...$args);	
 	}
 	
 	/******************************************************************************************
@@ -115,7 +115,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	******************************************************************************************/
 	public function tick(...$args)
 	{
-		return $this->callArray('register_tick_function', $args);	
+		return register_tick_function(...$args);
 	}
 	
 	/******************************************************************************************
@@ -126,7 +126,7 @@ class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
 	******************************************************************************************/
 	public function untick(...$args)
 	{
-		return $this->callArray('unregister_tick_function', $args);	
+		return unregister_tick_function(...$args);
 	}
 
 	/******************************************************************************************
