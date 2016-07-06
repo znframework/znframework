@@ -294,7 +294,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function detect($string = '', $encodingList = array('ASCII', 'UTF-8'), $strict = false)
+	public function detect($string = '', $encodingList = ['ASCII', 'UTF-8'], $strict = false)
 	{
 		if( ! is_string($string) )
 		{
@@ -323,7 +323,7 @@ class __USE_STATIC_ACCESS__MB implements MBInterface
 	  @return mixed  
 	|														                                  |
 	******************************************************************************************/
-	public function detectOrder($encodingList = array('ASCII', 'UTF-8'))
+	public function detectOrder($encodingList = ['ASCII', 'UTF-8'])
 	{
 		return mb_detect_order($encodingList);
 	}

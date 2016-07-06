@@ -328,7 +328,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	public function totalSegments()
 	{
 		$segmentEx     = explode("/", $this->_cleanPath());	
-		$segmentEx     = array_diff($segmentEx, array(""," "));
+		$segmentEx     = array_diff($segmentEx, ["", " "]);
 		$totalSegments = count($segmentEx);
 		
 		return $totalSegments;

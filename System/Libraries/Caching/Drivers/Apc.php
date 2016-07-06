@@ -66,7 +66,7 @@ class ApcDriver implements CacheInterface
 		return apc_store
 		(
 			$key,
-			$compressed === true ? $var : array(serialize($var), time(), $time),
+			$compressed === true ? $var : [serialize($var), time(), $time],
 			$time
 		);
 	}

@@ -173,7 +173,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	 *
 	 * @var string related, mixed ve alternative
 	 */
-	protected $multiParts	= array('related', 'alternative', 'mixed');
+	protected $multiParts	= ['related', 'alternative', 'mixed'];
 	
 	/* 
 	 * X-Mailer bilgisini
@@ -205,7 +205,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	 *
 	 * @var array
 	 */
-	protected $priorityTypes = array(1 => '1 (Highest)', 2 => '2 (High)', 3 => '3 (Normal)', 4 => '4 (Low)',5 => '5 (Lowest)');
+	protected $priorityTypes = [1 => '1 (Highest)', 2 => '2 (High)', 3 => '3 (Normal)', 4 => '4 (Low)',5 => '5 (Lowest)'];
 	
 	/* 
 	 * Öncelik bilgisini
@@ -963,7 +963,7 @@ class __USE_STATIC_ACCESS__Email implements EmailInterface
 	
 		$this->attachments[] = array
 		(
-			'name'			=> array($file, $newName),
+			'name'			=> [$file, $newName],
 			'disposition'	=> empty($disposition) ? 'attachment' : $disposition,
 			'type'			=> $mime,
 			'content'		=> chunk_split(base64_encode($fileContent))

@@ -142,7 +142,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 		
 		if( ! isset($xml[0]) )
 		{
-			$xml = array($xml);
+			$xml = [$xml];
 			$start = 0;
 		}
 	

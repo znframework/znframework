@@ -731,7 +731,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$totalRowsText = lang('DataGrid', 'totalRowsText').': '.$totalRows.' / '.DB::totalRows(true);
 		
-		$paginationSettings = array_merge($this->config['pagination'], array('start' => $prow, 'type' => 'ajax'));
+		$paginationSettings = array_merge($this->config['pagination'], ['start' => $prow, 'type' => 'ajax']);
 		
 		$pagination = DB::pagination('', $paginationSettings);	
 		$table      = $this->table;
@@ -776,7 +776,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			$orderColor = ( $no % 2 === 1 ) ? $orderColorArray['single'] : $orderColorArray['double'];
 			
 			$table .= '<tr bgcolor="'.$orderColor.'">';
-			$table .= '<td>'.Form::checkbox('datagridDeleteColumns[]', $row[$processColumn], array('checkboxType' => 'datagrid')).'</td>';
+			$table .= '<td>'.Form::checkbox('datagridDeleteColumns[]', $row[$processColumn], ['checkboxType' => 'datagrid']).'</td>';
 			$table .= '<td>'.$no.'</td>';
 			
 			if( $editId !== 'undefined' && $row[$processColumn] == $editId )
@@ -976,7 +976,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			
 			if( isArray($columns) ) foreach( $columns as $column )
 			{
-				$this->columns[$column] = array('alias' => $column, 'title' => $this->_title($column), 'input' => 'text');	
+				$this->columns[$column] = ['alias' => $column, 'title' => $this->_title($column), 'input' => 'text'];	
 			}
 		}
 		
@@ -1102,7 +1102,7 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 		
 		$callback = JQ::callback('e', $func);
 		
-		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func.JQ::prop('#datagridSelectAll', array('checked', ':false')).' checking = 1; '));
+		$confirm  = JQ::callback('e', JS::confirm(lang('DataGrid', 'areYouSure'), $func.JQ::prop('#datagridSelectAll', ['checked', ':false']).' checking = 1; '));
 		
 		$table .= $func;
 		
@@ -1126,8 +1126,8 @@ class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
 			JS::ifClause
 			(
 				'checking == 1', 
-				JQ::prop('input[checkboxtype="datagrid"]', array('checked', ':true')).' checking = 0;', 
-				JQ::prop('input[checkboxtype="datagrid"]', array('checked', ':false')).' checking = 1;'
+				JQ::prop('input[checkboxtype="datagrid"]', ['checked', ':true']).' checking = 0;', 
+				JQ::prop('input[checkboxtype="datagrid"]', ['checked', ':false']).' checking = 1;'
 			)
 			
 		);

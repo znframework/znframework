@@ -102,7 +102,7 @@ class __USE_STATIC_ACCESS__Image implements ImageInterface
 	// Dosya uzantısı kontrol ediliyor.
 	private function isImageFile($file)
 	{
-		$extensions = array('jpg', 'jpeg', 'png', 'gif');
+		$extensions = ['jpg', 'jpeg', 'png', 'gif'];
 		
 		if( in_array(extension($file), $extensions))
 		{

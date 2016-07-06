@@ -117,7 +117,7 @@ class FileDriver implements CacheInterface
 		
 		if( $data === false )
 		{
-			$data = array('data' => 0, 'ttl' => 60);
+			$data = ['data' => 0, 'ttl' => 60];
 		}
 		elseif( ! is_numeric($data['data']) )
 		{
@@ -149,7 +149,7 @@ class FileDriver implements CacheInterface
 		
 		if( $data === false )
 		{
-			$data = array('data' => 0, 'ttl' => 60);
+			$data = ['data' => 0, 'ttl' => 60];
 		}
 		elseif( ! is_numeric($data['data']) )
 		{

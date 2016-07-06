@@ -293,7 +293,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			$phoneData = $config['phone'];		
 			$phoneData = preg_replace('/([^\*])/', 'key:$1', $phoneData);			
-			$phoneData = '/'.str_replace(array('*', 'key:'), array('[0-9]', '\\'), $phoneData).'/';
+			$phoneData = '/'.str_replace(['*', 'key:'], ['[0-9]', '\\'], $phoneData).'/';
 			
 			if( ! preg_match($phoneData, $edit) )
 			{ 
@@ -360,7 +360,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{ 
 			if( ! $this->maxchar($edit, $config['maxchar']) )
 			{ 
-				$this->_messages('maxchar', $name, array("%"=>$viewName, "#" => $config['maxchar']));
+				$this->_messages('maxchar', $name, ["%" => $viewName, "#" => $config['maxchar']]);
 			} 
 		}
 		
@@ -369,7 +369,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		{	
 			if( ! $this->minchar($edit, $config['minchar']) )
 			{ 
-				$this->_messages('minchar', $name, array("%"=>$viewName, "#" => $config['minchar']));
+				$this->_messages('minchar', $name, ["%" => $viewName, "#" => $config['minchar']]);
 			} 
 		}
 		

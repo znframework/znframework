@@ -488,7 +488,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{	
 			if( is_string($head[$type]) )
 			{
-				$headLinks = array($head[$type], true);	
+				$headLinks = [$head[$type], true];	
 			}
 			else
 			{

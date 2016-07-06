@@ -627,12 +627,12 @@ function library($class = NULL, $function = NULL, $parameters = [])
 	
 	if( ! is_array($parameters) ) 
 	{
-		$parameters = array($parameters);
+		$parameters = [$parameters];
 	}
 	
-	if( is_callable(array($var, $function)) )
+	if( is_callable([$var, $function]) )
 	{
-		return call_user_func_array( array($var, $function), $parameters );
+		return call_user_func_array( [$var, $function], $parameters );
 	}
 	else
 	{

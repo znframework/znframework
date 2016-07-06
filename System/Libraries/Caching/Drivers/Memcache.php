@@ -80,7 +80,7 @@ class MemcacheDriver implements CacheInterface
 	{
 		if( $compressed !== true )
 		{
-			$var = array($var, time(), $time);
+			$var = [$var, time(), $time];
 		}
 		
 		return memcache_set($key, $var, 0, $time);

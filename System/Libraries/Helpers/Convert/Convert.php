@@ -93,7 +93,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		for( $i = 32; $i <= 255; $i++ )
 		{
 			$hexRemaining = ( $i % 16 );
-			$hexRemaining = str_replace( array(10, 11, 12, 13, 14, 15), array('A', 'B', 'C', 'D', 'E', 'F'), $hexRemaining );
+			$hexRemaining = str_replace( [10, 11, 12, 13, 14, 15], ['A', 'B', 'C', 'D', 'E', 'F'], $hexRemaining );
 			$hex 		  = ( floor( $i / 16) ).$hexRemaining;
 			
 			if( $hex[0] == '0' ) 
@@ -354,8 +354,8 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		$string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
 		
 		$tagArray = $tags === true 
-		          ? array('<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>') 
-		          : array('<div style="'.$background.'">', '</div>');
+		          ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
+		          : ['<div style="'.$background.'">', '</div>'];
 		
 		return str_replace(array('&#60;&#63;php', '&#63;&#62;'), $tagArray, $string);
     }

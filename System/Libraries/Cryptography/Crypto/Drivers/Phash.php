@@ -14,7 +14,7 @@ class PhashDriver implements CryptoInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(getErrorMessage('Error', 'invalidVersion', array('%' => 'password_', '#' => '5.5.0')));		
+			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'password_', '#' => '5.5.0']));		
 		}	
 	}
 	

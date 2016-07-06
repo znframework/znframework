@@ -155,7 +155,7 @@ class __USE_STATIC_ACCESS__JS
 		$param[] = $p2;
 		$param[] = $p3;
 		$param[] = $p4;
-		return $this->_jsFunc("Array($str).splice", implode(",", array_diff($param, array(''))), $comma);
+		return $this->_jsFunc("Array($str).splice", implode(",", array_diff($param, [''])), $comma);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

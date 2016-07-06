@@ -285,7 +285,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		{
 			if( is_string($image) )
 			{
-				$this->sets['background'] = array($image);
+				$this->sets['background'] = [$image];
 			}
 			elseif( is_array($image) )
 			{

@@ -183,7 +183,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$joinData = $data;
 			$data 	  = isset($data[$tableName])
 				  	  ? $data[$tableName]
-			      	  : array($tableName);
+			      	  : [$tableName];
 		}
 		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
@@ -416,7 +416,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				$joinData = $data;
 				$data     = isset($data[$tn])
 					      ? $data[$tn]
-					      : array($tn);	
+					      : [$tn];	
 			}
 		
 			$username = $this->data($tn)->$uc;
@@ -512,7 +512,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			if( ! empty($row) )
 			{
 				DB::where($usernameColumn.' =', $user)
-				  ->update($tableName, array($activationColumn => '1'));
+				  ->update($tableName, [$activationColumn => '1']);
 				
 				$this->success = lang('User', 'activationComplete');
 				
@@ -914,7 +914,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			
 			if( ! empty($activeColumn) )
 			{		
-				DB::where($usernameColumn.' =', $username)->update($tableName, array($activeColumn  => 1));
+				DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
 			}
 			
 			$this->success = lang('User', 'loginSuccess');
@@ -959,7 +959,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			if( $active )
 			{	
 				DB::where($username.' =', $this->data($tableName)->$username)
-				  ->update($tableName, array($active => 0));
+				  ->update($tableName, [$active => 0]);
 			}
 			
 			Cookie::delete($username);
@@ -1138,7 +1138,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 					DB::where($usernameColumn.' =', $email);
 				}
 				
-				if( DB::update($tableName, array($passwordColumn => $encodePassword)) )
+				if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
 				{
 					$this->success = lang('User', 'forgotPasswordSuccess');
 					

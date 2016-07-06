@@ -288,7 +288,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	 * tutmak için oluşturulmuştur.
 	 *
 	 */
-	private $pagination = array('start' => 0, 'limit' => 0);
+	private $pagination = ['start' => 0, 'limit' => 0];
 	
 	/* Unlimited Query Değişkeni
 	 *  
@@ -1988,7 +1988,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		else
 		{
-			$newColumns = array($columns => "$columns + $incdec");	
+			$newColumns = [$columns => "$columns + $incdec"];	
 		}
 
 		if( ! empty($this->where) ) 
@@ -2079,12 +2079,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 				{
 					if( in_array($key, $this->duplicateCheck) )	
 					{
-						$duplicateCheckWhere[] = array($key.' = ', $value, 'and');	
+						$duplicateCheckWhere[] = [$key.' = ', $value, 'and'];	
 					}
 				}
 				else
 				{
-					$duplicateCheckWhere[] = array($key.' = ', $value, 'and');	
+					$duplicateCheckWhere[] = [$key.' = ', $value, 'and'];	
 				}
 			
 			}
@@ -2620,7 +2620,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		        ? Pagination::create(NULL, $settings) 
 				: $settings;
 		
-		$this->pagination = array('start' => 0, 'limit' => 0);
+		$this->pagination = ['start' => 0, 'limit' => 0];
 		
 		return $return;
 	}

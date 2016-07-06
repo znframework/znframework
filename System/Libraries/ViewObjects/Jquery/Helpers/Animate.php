@@ -216,7 +216,7 @@ class Animate
 	{
 		$attr = [];
 		
-		$animate = \JQ::property('animate', array($this->attr, $this->callback, $this->_object($this->easing)));
+		$animate = \JQ::property('animate', [$this->attr, $this->callback, $this->_object($this->easing)]);
 		
 		$this->_defaultVariable();
 		

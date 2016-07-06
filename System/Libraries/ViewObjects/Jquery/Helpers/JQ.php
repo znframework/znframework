@@ -166,7 +166,7 @@ class __USE_STATIC_ACCESS__JQ
 	{
 		if( ! empty($callback) )
 		{
-			$params[] = array($this->func('e', $callback));
+			$params[] = [$this->func('e', $callback)];
 		}
 		
 		$select = '';

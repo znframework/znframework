@@ -46,14 +46,12 @@ class __USE_STATIC_ACCESS__Strings implements StringsInterface
 			return Errors::set('Error', 'scalarParameter', '1.(str)');
 		}
 		
-		$str = preg_replace(array
+		$str = preg_replace
 		(
-			'/\s+/',
-			'/&nbsp;/',
-			"/\n/",
-			"/\r/",
-			"/\t/"
-		), array('', '', '', '', ''), $str);
+			['/\s+/', '/&nbsp;/', "/\n/", "/\r/", "/\t/"], 
+			['', '', '', '', ''], 
+			$str
+		);
 		
 		return $str;
 	}	

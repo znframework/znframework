@@ -38,7 +38,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	| // <audio src="http://www.ornek.com/kaynak" name="nesne">İçerik</audio>				  | 
 	|          																				  |
 	******************************************************************************************/
-	public function audio($src = "", $content = "", $attributes = array(""))
+	public function audio($src = "", $content = "", $attributes = [])
 	{
 		return $this->_mediaContent($src, $content, $_attributes, 'audio');
 	}
