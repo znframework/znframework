@@ -39,37 +39,40 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 			return Errors::set('Error', 'stringParameter', 'string');	
 		}
 
-		$htmlRegexChar  	   = '.*?';
-		$functionVarExpression = '\w+(::|\$|\-\>|\w|[0-9]|\[.*?\]|\{.*?\})*';
+		$htmlRegexChar = '.*?';
 		
-		$pattern = array
-		(
+		$pattern = 
+		[
+			// @ SYMBOL
+			'/\/@/' 															=> '+[symbol??at]+',
+			
 			// DECISION STRUCTURES & LOOPS	
-			'/@(endif|endforeach|endfor|endwhile|break|continue)/' 			=> '<?php $1 ?>',	
-			'/@(elseif|if|foreach|for|while)\s*\(('.$htmlRegexChar.')\)/s'	=> '<?php $1($2): ?>',
-			'/@else/' 														=> '<?php else: ?>',
+			'/@(endif|endforeach|endfor|endwhile|break|continue)\:/' 			=> '<?php $1 ?>',	
+			'/@(elseif|if|else|foreach|for|while)\s*('.$htmlRegexChar.')\:/s'	=> '<?php $1$2: ?>',
+					
+			// PRINTABLE VARIABLES
+			'/@\$('.$htmlRegexChar.')\:/s'   	  								=> '<?php echo $$1 ?>',
 			
 			// PRINTABLE FUNCTIONS
-			'/@@(\$*'.$functionVarExpression.'\s*\('.$htmlRegexChar.'\))/s' => '<?php echo $1 ?>',		
+			'/@@('.$htmlRegexChar.')\:/s' 										=> '<?php echo $1 ?>',		
 			
 			// FUNCTIONS
-			'/@(\$*'.$functionVarExpression.'\s*\('.$htmlRegexChar.'\))/s' 	=> '<?php $1 ?>',
-		
-			// PRINTABLE VARIABLES
-			'/@(\$'.$functionVarExpression.')/s'   	  						=> '<?php echo $1 ?>',
+			'/@('.$htmlRegexChar.')\:/s'										=> '<?php $1 ?>',
 			
+			'/\+\[symbol\?\?at\]\+/'											=> '@',
+					
 			// COMMENTS
-			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'			 			=> '<!--$1-->',
+			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'			 				=> '<!--$1-->',
 			
 			// HTMLENTITES PRINT
-			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'			  			=> '<?php echo htmlentities($1) ?>',
+			'/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s'			  				=> '<?php echo htmlentities($1) ?>',
 			
 			// PRINT
-			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'				  			=> '<?php echo $1 ?>',
+			'/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'				  				=> '<?php echo $1 ?>',
 			
 			// PHP TAGS
-			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'				  			=> '<?php $1 ?>',
-		);
+			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'				  				=> '<?php $1 ?>',
+		];
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);
 		
