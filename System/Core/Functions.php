@@ -1386,7 +1386,7 @@ function _startingContoller($startController = '', $param = [])
 	$controllerEx = explode(':', $startController);
 		
 	$controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
-	$controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : '';
+	$controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
 	$controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
 	$controllerClass = divide($controllerPath, '/', -1);
 	
