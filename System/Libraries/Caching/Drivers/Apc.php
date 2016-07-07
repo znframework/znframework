@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Caching\Drivers;
+
+use ZN\Caching\CacheInterface;
+
 class ApcDriver implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -190,7 +194,7 @@ class ApcDriver implements CacheInterface
 	{
 		if( ! extension_loaded('apc') || ! ini_get('apc.enabled') )
 		{
-			return Errors::set('Cache', 'unsupported', 'Apc');
+			return \Errors::set('Cache', 'unsupported', 'Apc');
 		}
 		
 		return true;

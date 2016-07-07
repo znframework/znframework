@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Compression\Drivers;
+
+use ZN\Compression\CompressInterface;
+
 class LZFDriver implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -46,7 +50,7 @@ class LZFDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		return lzf_compress($data);
@@ -62,7 +66,7 @@ class LZFDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 
 		return lzf_decompress($data);

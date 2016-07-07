@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Components;
+
 class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -39,7 +41,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -48,7 +50,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -61,7 +63,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* PROTECTED CLEAR COMMAND                                                                 *
@@ -91,7 +93,7 @@ class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
 	{
 		if( ! is_array($settings) )
 		{
-			return Errors::set('Error', 'arrayParameter', 'settings');	
+			return \Errors::set('Error', 'arrayParameter', 'settings');	
 		}
 		
 		$configs = $this->config;

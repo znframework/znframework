@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ErrorHandling;
+
 interface ErrorsInterface
 {	
 	//----------------------------------------------------------------------------------------------------
@@ -16,7 +18,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Kütüphaneler içinde oluşan hataları kaydetmek için kullanılır.          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function set($errorMessage);
+	public function set($errorMessage);
 	
 	/******************************************************************************************
 	* GET ARRAY     	                                                                      *
@@ -24,7 +26,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Sınıfların kullanımında oluşmuş hatalarını dizi tipinde döndürür.       |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getArray($className, $methodName);
+	public function getArray($className, $methodName);
 	
 	/******************************************************************************************
 	* GET STRING     	                                                                      *
@@ -32,7 +34,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Sınıfların kullanımında oluşmuş hatalarını metinsel tipinde döndürür.   |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getString($className, $methodName);
+	public function getString($className, $methodName);
 	
 	/******************************************************************************************
 	* PUBLIC GET TEMPLATE                                                                     *
@@ -40,7 +42,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Sınıfların kullanımında oluşmuş hatalarını metinsel tipinde döndürür.   |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getTable($className, $methodName);
+	public function getTable($className, $methodName);
 	
 	/******************************************************************************************
 	* GET           	                                                                      *
@@ -48,7 +50,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Oluşmuş hatalarını metinsel veya dizi tipinde döndürür.   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function get($className, $methodName, $type);
+	public function get($className, $methodName, $type);
 	
 	/******************************************************************************************
 	* MESSAGE	                                                                              *
@@ -56,7 +58,7 @@ interface ErrorsInterface
 	| Genel Kullanım: getErrorMessage() yönteminin aynısıdır.  								  |
 	|															                              |
 	******************************************************************************************/	
-	public static function message($langFile, $errorMsg, $ex);
+	public function message($langFile, $errorMsg, $ex);
 	
 	/******************************************************************************************
 	* LAST		                                                                              *
@@ -64,7 +66,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Son oluşan hata hakkında bilgi verir.						   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function last($type);
+	public function last($type);
 	
 	/******************************************************************************************
 	* LOG	           	                                                                      *
@@ -72,7 +74,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Bir yerlere bir hata iletisi gönderir.					   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function log($message, $type, $destination, $header);
+	public function log($message, $type, $destination, $header);
 	
 	/******************************************************************************************
 	* REPORT                                                                                  *
@@ -80,7 +82,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Hangi PHP hatalarının raporlanacağını tanımlar.					      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function report($level);
+	public function report($level);
 		
 	/******************************************************************************************
 	* SET HANDLER 		                                                                      *
@@ -88,7 +90,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function handler($handler, $errorTypes);
+	public function handler($handler, $errorTypes);
 	
 	/******************************************************************************************
 	* TRIGGER    		                                                                      *
@@ -96,7 +98,7 @@ interface ErrorsInterface
 	| Genel Kullanım: Kullanıcı seviyesinde bir hata/uyarı/bilgi iletisi üretir.			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function trigger($msg, $errorType);
+	public function trigger($msg, $errorType);
 	
 	/******************************************************************************************
 	* RESTORE HANDLER                                                                         *
@@ -104,5 +106,5 @@ interface ErrorsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function restore();
+	public function restore();
 }

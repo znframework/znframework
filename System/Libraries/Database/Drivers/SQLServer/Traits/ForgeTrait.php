@@ -1,5 +1,5 @@
 <?php
-namespace Sqlsrv;
+namespace ZN\Database\Drivers\SQLServer\Traits;
 
 trait ForgeTrait
 {

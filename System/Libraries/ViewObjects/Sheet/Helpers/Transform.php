@@ -1,5 +1,7 @@
 <?php
-namespace Sheet;
+namespace ZN\ViewObjects\Sheet\Helpers;
+
+use ZN\ViewObjects\SheetTrait;
 
 class Transform
 {
@@ -12,7 +14,7 @@ class Transform
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \SheetTrait;
+	use SheetTrait;
 	
 	use \CallUndefinedMethodTrait;
 	

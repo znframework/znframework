@@ -1,4 +1,6 @@
 <?php
+namespace ZN\VariableTypes;
+
 class __USE_STATIC_ACCESS__Regex implements RegexInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -20,7 +22,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	
 	public function __construct()
 	{
-		$this->config = Config::get('Regex');	
+		$this->config = \Config::get('Regex');	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	// __call()
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -43,7 +45,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* MATCH                                                                                   *
@@ -72,8 +74,8 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			Errors::set('Error', 'stringParameter', '1.(pattern)');
-			Errors::set('Error', 'stringParameter', '2.(str)');	
+			\Errors::set('Error', 'stringParameter', '1.(pattern)');
+			\Errors::set('Error', 'stringParameter', '2.(str)');	
 			
 			return false;
 		}	
@@ -113,8 +115,8 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			Errors::set('Error', 'stringParameter', '1.(pattern)');
-			Errors::set('Error', 'stringParameter', '2.(str)');	
+			\Errors::set('Error', 'stringParameter', '1.(pattern)');
+			\Errors::set('Error', 'stringParameter', '2.(str)');	
 			
 			return false;
 		}	
@@ -155,9 +157,9 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($rep) || ! is_string($str) ) 
 		{
-			Errors::set('Error', 'stringParameter', '1.(pattern)');
-			Errors::set('Error', 'stringParameter', '2.(rep)');
-			Errors::set('Error', 'stringParameter', '3.(str)');	
+			\Errors::set('Error', 'stringParameter', '1.(pattern)');
+			\Errors::set('Error', 'stringParameter', '2.(rep)');
+			\Errors::set('Error', 'stringParameter', '3.(str)');	
 			
 			return false;
 		}
@@ -186,7 +188,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Errors::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "(".$str.")";
@@ -210,7 +212,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Errors::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "{".$str."}";
@@ -234,7 +236,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Errors::set('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "[".$str."]";
@@ -252,7 +254,7 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return preg_quote($data, $delimiter);
@@ -270,9 +272,9 @@ class __USE_STATIC_ACCESS__Regex implements RegexInterface
 		
 		// Config/Regex.php dosyasından düzenlenmiş karakter 
 		// listeleri alınıyor.
-		$regexChars   = Arrays::multikey($this->config['regexChars']);
+		$regexChars   = \Arrays::multikey($this->config['regexChars']);
 		
-		$settingChars = Arrays::multikey($this->config['settingChars']);
+		$settingChars = \Arrays::multikey($this->config['settingChars']);
 		// --------------------------------------------------------------------------------------------
 		
 		$pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);	

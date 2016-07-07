@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class MssqlDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class MssqlDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Mssql\QueryTrait;
-	use Mssql\ForgeTrait;
-	use Mssql\ToolTrait;
-	use Mssql\UserTrait;
+	use MicrosoftSQL\Traits\QueryTrait;
+	use MicrosoftSQL\Traits\ForgeTrait;
+	use MicrosoftSQL\Traits\ToolTrait;
+	use MicrosoftSQL\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -154,7 +156,7 @@ class MssqlDriver implements DatabaseDriverInterface
 			
 			$fieldName = $field->name;
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= $field->type;
 			$columns[$fieldName]->maxLength		= $field->max_length;
@@ -261,7 +263,7 @@ class MssqlDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		return Security::escapeStringEncode($data);
+		return \Security::escapeStringEncode($data);
 	}
 	
 	/******************************************************************************************

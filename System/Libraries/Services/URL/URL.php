@@ -1,5 +1,7 @@
 <?php
-class URL implements URLInterface
+namespace ZN\Services;
+
+class __USE_STATIC_ACCESS__URL implements URLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -17,7 +19,7 @@ class URL implements URLInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -30,7 +32,7 @@ class URL implements URLInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Base Constant
@@ -176,7 +178,7 @@ class URL implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function base($uri = '', $index = 0)
+	public function base($uri = '', $index = 0)
 	{
 		return baseUrl($uri, $index);
 	}
@@ -190,7 +192,7 @@ class URL implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function site($uri = '', $index = 0)
+	public function site($uri = '', $index = 0)
 	{
 		return siteUrl($uri, $index);
 	}
@@ -203,7 +205,7 @@ class URL implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function current($fix = '')
+	public function current($fix = '')
 	{
 		return currentUrl($fix);
 	}
@@ -216,7 +218,7 @@ class URL implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function host($uri = '')
+	public function host($uri = '')
 	{
 		return hostUrl($uri);
 	}
@@ -229,7 +231,7 @@ class URL implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function prev()
+	public function prev()
 	{
 		return prevUrl();
 	}
@@ -243,7 +245,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function base64Decode($data = '', $strict = false)
+	public function base64Decode($data = '', $strict = false)
 	{
 		return base64_decode($data, $strict);
 	}
@@ -256,7 +258,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function base64Encode($data = '')
+	public function base64Encode($data = '')
 	{	
 		return base64_encode($data);
 	}
@@ -284,7 +286,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function metaTags($fileName = '', $useIncludePath = false)
+	public function metaTags($fileName = '', $useIncludePath = false)
 	{
 		return get_meta_tags($fileName, $useIncludePath);
 	}
@@ -300,9 +302,9 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function buildQuery($data = '', $numericPrefix = NULL, $separator = NULL, $enctype = 'RFC1738')
+	public function buildQuery($data = '', $numericPrefix = NULL, $separator = NULL, $enctype = 'RFC1738')
 	{
-		return http_build_query($data, $numericPrefix, $separator, Convert::toConstant($enctype, 'PHP_QUERY_'));	
+		return http_build_query($data, $numericPrefix, $separator, \Convert::toConstant($enctype, 'PHP_QUERY_'));	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -314,7 +316,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function parse($url = '', $component = 1)
+	public function parse($url = '', $component = 1)
 	{
 		return parse_url($url, $component);
 	}
@@ -327,7 +329,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function rawDecode($str = '')
+	public function rawDecode($str = '')
 	{
 		return rawurldecode($str);
 	}
@@ -340,7 +342,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function rawEncode($str = '')
+	public function rawEncode($str = '')
 	{
 		return rawurlencode($str);
 	}
@@ -353,7 +355,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function decode($str = '')
+	public function decode($str = '')
 	{
 		return urldecode($str);
 	}
@@ -366,7 +368,7 @@ class URL implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function encode($str = '')
+	public function encode($str = '')
 	{
 		return urlencode($str);
 	}

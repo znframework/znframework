@@ -1,5 +1,7 @@
 <?php
-class PdoDriver implements DatabaseDriverInterface
+namespace ZN\Database\Drivers;
+
+class PDODriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -105,12 +107,12 @@ class PdoDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Pdo\QueryTrait;
-	use Pdo\ForgeTrait;
-	use Pdo\ToolTrait;
-	use Pdo\UserTrait;
+	use PDO\Traits\QueryTrait;
+	use PDO\Traits\ForgeTrait;
+	use PDO\Traits\ToolTrait;
+	use PDO\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -143,7 +145,7 @@ class PdoDriver implements DatabaseDriverInterface
 		
 		if( ! in_array($this->select_driver, $this->pdo_subdrivers) )
 		{
-			die(Errors::message('Database', 'driverError', $this->select_driver));		
+			die(\Errors::message('Database', 'driverError', $this->select_driver));		
 		}
 		
 		$this-> connect = $this->_sub_drivers($this->config['user'], $this->config['password']); 	
@@ -204,7 +206,7 @@ class PdoDriver implements DatabaseDriverInterface
 			$field     = $this->query->getColumnMeta($i);
 			$fieldName = $field['name'];
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= $field['native_type'];
 			$columns[$fieldName]->maxLength		= ($field['len'] > 0) ? $field['len'] : NULL;
@@ -323,7 +325,7 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetch(PDO::FETCH_BOTH);
+			return $this->query->fetch(\PDO::FETCH_BOTH);
 		}
 		else
 		{
@@ -341,7 +343,7 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetch(PDO::FETCH_ASSOC);
+			return $this->query->fetch(\PDO::FETCH_ASSOC);
 		}
 		else
 		{
@@ -409,7 +411,7 @@ class PdoDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->connect) ) 
 		{
-			return $this->connect->getAttribute(PDO::ATTR_SERVER_VERSION);
+			return $this->connect->getAttribute(\PDO::ATTR_SERVER_VERSION);
 		}
 		else
 		{
@@ -420,17 +422,18 @@ class PdoDriver implements DatabaseDriverInterface
 	// Alt sürücüler nesne oluşturulma işlemi.
 	private function _sub_drivers($usr, $pass)
 	{
-		$driver = 'PDO'.ucfirst($this->select_driver).'Driver';
+		$driver = 'ZN\Database\Drivers\PDO\SubDrivers\PDO'.$this->select_driver.'Driver';
 		
 		$this->sub_driver = new $driver;
-		
+	
 		try
 		{
-			return new PDO($this->sub_driver->dsn(), $usr, $pass);
+			return new \PDO($this->sub_driver->dsn(), $usr, $pass);
 		}
 		catch(PDOException $e)
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
+		
 	}
 }

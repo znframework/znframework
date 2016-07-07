@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services;
+
 class __USE_STATIC_ACCESS__SSH implements SSHInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -80,7 +82,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Config Method
@@ -89,7 +91,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -102,7 +104,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// connect()
@@ -115,7 +117,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{	
 		if( ! is_array($config) )
 		{
-			Errors::set('Error', 'arrayParameter', 'config');
+			\Errors::set('Error', 'arrayParameter', 'config');
 			
 			return $this;
 		}
@@ -156,7 +158,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		
 		if( empty($this->connect) ) 
 		{
-			Errors::set('Error', 'emptyVariable', '@this->connect');
+			\Errors::set('Error', 'emptyVariable', '@this->connect');
 			
 			return $this;
 		}
@@ -168,7 +170,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		
 		if( empty($this->login) )
 		{
-			Errors::set('Error', 'emptyVariable', '@this->login');
+			\Errors::set('Error', 'emptyVariable', '@this->login');
 		}
 		
 		return $this;
@@ -267,8 +269,8 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'localPath');
-			Errors::set('Error', 'stringParameter', 'remotePath');
+			\Errors::set('Error', 'stringParameter', 'localPath');
+			\Errors::set('Error', 'stringParameter', 'remotePath');
 			
 			return false;
 		}
@@ -279,7 +281,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{
-			return Errors::set('File', 'remoteUploadError', $localPath);	
+			return \Errors::set('File', 'remoteUploadError', $localPath);	
 		}
 	}
 	
@@ -295,8 +297,8 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'remotePath');
-			Errors::set('Error', 'stringParameter', 'localPath');
+			\Errors::set('Error', 'stringParameter', 'remotePath');
+			\Errors::set('Error', 'stringParameter', 'localPath');
 			
 			return false;
 		}
@@ -307,7 +309,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{
-			return Errors::set('File', 'remoteDownloadError', $localPath);
+			return \Errors::set('File', 'remoteDownloadError', $localPath);
 		}
 	}
 	
@@ -322,7 +324,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'path');	
+			return \Errors::set('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ssh2_sftp_mkdir($this->connect, $path, $mode, $recursive) )
@@ -331,7 +333,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{
-			return Errors::set('Folder', 'alreadyFileError', $path);
+			return \Errors::set('Folder', 'alreadyFileError', $path);
 		}
 	}
 	
@@ -346,7 +348,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'path');	
+			return \Errors::set('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ssh2_sftp_rmdir($this->connect, $path) )
@@ -355,7 +357,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{
-			return Errors::set('Folder', 'notFoundError', $path);	
+			return \Errors::set('Folder', 'notFoundError', $path);	
 		}
 	
 	}
@@ -372,8 +374,8 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($oldName) || ! is_string($newName) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'oldName');
-			Errors::set('Error', 'stringParameter', 'newName');
+			\Errors::set('Error', 'stringParameter', 'oldName');
+			\Errors::set('Error', 'stringParameter', 'newName');
 			
 			return false;	
 		}
@@ -384,7 +386,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{
-			return Errors::set('Folder', 'changeFolderNameError', $oldName);	
+			return \Errors::set('Folder', 'changeFolderNameError', $oldName);	
 		}
 	}
 	
@@ -399,7 +401,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'path');
+			return \Errors::set('Error', 'stringParameter', 'path');
 		}
 		
 		if( @ssh2_sftp_unlink($this->connect, $path) )
@@ -408,7 +410,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{
-			return Errors::set('File', 'notFoundError', $path);	
+			return \Errors::set('File', 'notFoundError', $path);	
 		}
 	}
 	
@@ -424,7 +426,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 	{
 		if( ! is_string($path) )
 		{
-			return Errors::set('Error', 'stringParameter', 'path');		
+			return \Errors::set('Error', 'stringParameter', 'path');		
 		}
 		
 		if( ! is_numeric($type) )
@@ -438,7 +440,7 @@ class __USE_STATIC_ACCESS__SSH implements SSHInterface
 		}
 		else
 		{ 
-			return Errors::set('Error', 'emptyVariable', '@this->connect');	
+			return \Errors::set('Error', 'emptyVariable', '@this->connect');	
 		}
 	}
 	

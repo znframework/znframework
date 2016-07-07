@@ -1,4 +1,6 @@
 <?php
+namespace ZN\DateTime;
+
 trait DateTimeTrait
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ trait DateTimeTrait
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Construct
@@ -40,7 +42,7 @@ trait DateTimeTrait
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config = Config::get('DateTime');
+		$this->config = \Config::get('DateTime');
 		
 		date_default_timezone_set($this->config['timeZone']);	
 		
@@ -123,7 +125,7 @@ trait DateTimeTrait
 	{	
 		if( ! is_string($exp) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'exp');
+			return \Errors::set('Error', 'stringParameter', 'exp');
 		}
 
 		return $this->_datetime($exp);
@@ -143,7 +145,7 @@ trait DateTimeTrait
 		
 		$chars = $this->config[$config];
 		
-		$chars = Arrays::multikey($chars);
+		$chars = \Arrays::multikey($chars);
 		
 		return str_ireplace(array_keys($chars), array_values($chars), $change);
 	}
@@ -176,7 +178,7 @@ trait DateTimeTrait
 		
 		$className = $this->_classname();
 		
-		$func = $className === 'Date' ? 'date' : 'strftime';
+		$func = $className === 'ZN\DateTime\Date' ? 'date' : 'strftime';
 		
 		return $func($this->_convert($format), $timestamp);
 	}

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Components;
+
 class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -123,7 +125,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -132,7 +134,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -145,7 +147,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
@@ -164,7 +166,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		}
 		else
 		{
-			Errors::set('Error', 'stringParameter', 'url');	
+			\Errors::set('Error', 'stringParameter', 'url');	
 		}
 		
 		return $this;
@@ -174,7 +176,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($start) )
 		{
-			Errors::set('Error', 'numericParameter', 'start');
+			\Errors::set('Error', 'numericParameter', 'start');
 			return $this;
 		}
 		
@@ -187,7 +189,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($limit) )
 		{
-			Errors::set('Error', 'numericParameter', 'limit');
+			\Errors::set('Error', 'numericParameter', 'limit');
 			return $this;
 		}
 		
@@ -200,7 +202,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_string($type) )
 		{
-			Errors::set('Error', 'stringParameter', '1.(type)');
+			\Errors::set('Error', 'stringParameter', '1.(type)');
 			return $this;
 		}
 		
@@ -213,7 +215,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($totalRows) )
 		{
-			Errors::set('Error', 'numericParameter', 'totalRows');
+			\Errors::set('Error', 'numericParameter', 'totalRows');
 			return $this;
 		}
 		
@@ -226,7 +228,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_numeric($countLinks) )
 		{
-			Errors::set('Error', 'numericParameter', 'countLinks');
+			\Errors::set('Error', 'numericParameter', 'countLinks');
 			return $this;
 		}
 		
@@ -268,7 +270,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_array($css) )
 		{
-			Errors::set('Error', 'arrayParameter', 'css');
+			\Errors::set('Error', 'arrayParameter', 'css');
 			return $this;	
 		}
 		
@@ -281,7 +283,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 	{
 		if( ! is_array($style) )
 		{
-			Errors::set('Error', 'arrayParameter', 'style');
+			\Errors::set('Error', 'arrayParameter', 'style');
 			return $this;	
 		}
 		
@@ -337,7 +339,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
 		if( ! is_array($config) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', 'config');	
+			return \Errors::set('Error', 'arrayParameter', 'config');	
 		}
 		
 		$configs = $this->config; 
@@ -415,7 +417,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 		{	
 			// Eğer son segmen sayısal bir veri değilse
 			// Başlangıç değerini 0 olarak ayarla.
-			if( ! is_numeric(Uri::segment(-1)) )
+			if( ! is_numeric(\Uri::segment(-1)) )
 			{ 
 				$startPage = 0; 
 			}
@@ -423,7 +425,7 @@ class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
 			{ 
 				// Son segment sayısal veri ise
 				// başlangıç değeri olarak ayarla
-				$startPage = Uri::segment(-1);
+				$startPage = \Uri::segment(-1);
 			}
 		}
 		else 

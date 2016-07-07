@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\VariableTypes;
+
 interface JsonInterface
 {
 	/***********************************************************************************/

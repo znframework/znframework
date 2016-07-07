@@ -1,5 +1,7 @@
 <?php
-class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
+namespace ZN\ViewObjects;
+
+class __USE_STATIC_ACCESS__Script implements Common\ViewObjectsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -31,7 +33,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -44,7 +46,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* TYPE                                                                                    *
@@ -60,7 +62,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	{
 		if( ! is_string($type) )
 		{
-			Errors::set('Error', 'stringParameter', 'type');
+			\Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		
@@ -81,7 +83,7 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 	******************************************************************************************/
 	public function library(...$libraries)
 	{
-		Import::script(...$libraries);
+		\Import::script(...$libraries);
 		
 		return $this;
 	}
@@ -105,12 +107,12 @@ class __USE_STATIC_ACCESS__Script implements ViewObjectsInterface
 		
 		if( $jqueryCdn === true ) 
 		{
-			$script .= Import::script('jquery', true);
+			$script .= \Import::script('jquery', true);
 		}
 		
 		if( $jqueryUiCdn === true ) 
 		{
-			$script .= Import::script('jqueryUi', true);
+			$script .= \Import::script('jqueryUi', true);
 		}
 		
 		$script .= "<script type=\"$this->type\">".$eol;

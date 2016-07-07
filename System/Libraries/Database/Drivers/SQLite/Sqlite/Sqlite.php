@@ -1,5 +1,7 @@
 <?php
-class SqliteDriver implements DatabaseDriverInterface
+namespace ZN\Database\Drivers;
+
+class SQLiteDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -67,12 +69,12 @@ class SqliteDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'DATETIME'
 	);
 	
-	use Sqlite\QueryTrait;
-	use Sqlite\ForgeTrait;
-	use Sqlite\ToolTrait;
-	use Sqlite\UserTrait;
+	use SQLite\Traits\QueryTrait;
+	use SQLite\Traits\ForgeTrait;
+	use SQLite\Traits\ToolTrait;
+	use SQLite\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -139,7 +141,7 @@ class SqliteDriver implements DatabaseDriverInterface
 		{
 			$fieldName = sqlite_field_name($this->query, $i);
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type		 	= NULL;
 			$columns[$fieldName]->maxLength		= NULL;

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class MysqlDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class MysqlDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Mysql\QueryTrait;
-	use Mysql\ForgeTrait;
-	use Mysql\ToolTrait;
-	use Mysql\UserTrait;
+	use MySQL\Traits\QueryTrait;
+	use MySQL\Traits\ForgeTrait;
+	use MySQL\Traits\ToolTrait;
+	use MySQL\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -153,7 +155,7 @@ class MysqlDriver implements DatabaseDriverInterface
 		{
 			$fieldName = mysql_field_name($this->query, $i);
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= mysql_field_type($this->query, $i);
 			$columns[$fieldName]->maxLength		= mysql_field_len($this->query, $i);

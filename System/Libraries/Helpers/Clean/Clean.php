@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Clean implements CleanInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Clean implements CleanInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* DATA                                                                                    *

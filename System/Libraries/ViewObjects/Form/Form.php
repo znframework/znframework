@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 class __USE_STATIC_ACCESS__Form implements FormInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -29,7 +31,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 	// _input()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use HyperTextTrait;
+	use Common\HyperTextTrait;
 	
 	/******************************************************************************************
 	* OPEN                                                                                    *
@@ -543,7 +545,7 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 			$key     = key($options);
 			$current = current($options);
 			
-			$options = Arrays::removeFirst($options);
+			$options = \Arrays::removeFirst($options);
 	
 			if( ! empty($this->settings['table']) )
 			{
@@ -555,17 +557,17 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 					$table   = $tableEx[1];  
 					$db		 = $tableEx[0];
 					
-					$db = DB::differentConnection($db);
+					$db = \DB::differentConnection($db);
 					$result = $db->select($current, $key)->get($table)->result();
 				}
 				else
 				{
-					$result = DB::select($current, $key)->get($table)->result();	
+					$result = \DB::select($current, $key)->get($table)->result();	
 				}
 			}
 			else
 			{
-				$result = DB::query($this->settings['query'])->result();	
+				$result = \DB::query($this->settings['query'])->result();	
 			}
 					
 			foreach( $result as $row )
@@ -581,17 +583,17 @@ class __USE_STATIC_ACCESS__Form implements FormInterface
 		
 		if( isset($this->settings['exclude']) )
 		{
-			$options = Arrays::excluding($options, $this->settings['exclude']);
+			$options = \Arrays::excluding($options, $this->settings['exclude']);
 		}
 		
 		if( isset($this->settings['include']) )
 		{
-			$options = Arrays::including($options, $this->settings['include']);
+			$options = \Arrays::including($options, $this->settings['include']);
 		}
 		
 		if( isset($this->settings['order']['type']) )
 		{
-			$options = Arrays::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);	
+			$options = \Arrays::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);	
 		}
 		
 		if( isset($this->settings['selectedKey']) )

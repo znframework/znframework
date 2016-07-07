@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Compression\Drivers;
+
+use ZN\Compression\CompressInterface;
+
 class GZDriver implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -26,19 +30,19 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');	
+			return \Errors::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '2.(data)');	
+			return \Errors::set('Error', 'valueParameter', '2.(data)');	
 		}
 		
 		$open = gzopen($file, $mode);
 		
 		if( empty($open) )
 		{
-			return Errors::set('Error', 'fileNotFound', $file);	
+			return \Errors::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = gzwrite($open, $data, strlen($data));
@@ -58,19 +62,19 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');	
+			return \Errors::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(length)');	
+			return \Errors::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		$open = gzopen($file, $mode);
 		
 		if( empty($open) )
 		{
-			return Errors::set('Error', 'fileNotFound', $file);	
+			return \Errors::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = gzread($open, $length);
@@ -90,12 +94,12 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($level) || ! is_numeric($encoding) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
+			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
 		}
 		
 		return gzcompress($data, $level, $encoding);
@@ -111,12 +115,12 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(length)');	
+			return \Errors::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return gzuncompress($data, $length);
@@ -138,12 +142,12 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($level) || ! is_numeric($encoding) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
+			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
 		}
 		
 		return gzencode($data, $level, $encoding);
@@ -159,12 +163,12 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(length)');	
+			return \Errors::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return gzdecode($data, $length);
@@ -180,12 +184,12 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($level) || ! is_numeric($encoding) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
+			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
 		}
 		
 		return gzdeflate($data, $level, $encoding);
@@ -201,12 +205,12 @@ class GZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(length)');	
+			return \Errors::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return gzinflate($data, $length);

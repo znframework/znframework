@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 trait JqueryTrait
 {
 	/* 
@@ -34,7 +36,7 @@ trait JqueryTrait
 	{
 		if( $this->tag === true )
 		{
-			return Script::open(true, $this->jqueryCdn, $this->jqueryUiCdn).$code.Script::close();
+			return \Script::open(true, $this->jqueryCdn, $this->jqueryUiCdn).$code.\Script::close();
 		}
 		
 		return $code;
@@ -80,7 +82,7 @@ trait JqueryTrait
 	******************************************************************************************/
 	public function callback($params = '', $callback = '')
 	{
-		$this->callback = JQ::func($params, $callback);
+		$this->callback = \JQ::func($params, $callback);
 		
 		return $this;
 	}
@@ -250,7 +252,7 @@ trait JqueryTrait
 			{
 				if( ! empty($v) )
 				{
-					$implode .= JQ::stringControl($v).",";
+					$implode .= \JQ::stringControl($v).",";
 				}
 			}
 			
@@ -260,7 +262,7 @@ trait JqueryTrait
 		{
 			if( ! empty($array) )
 			{
-				$implode = JQ::stringControl($array);
+				$implode = \JQ::stringControl($array);
 			}	
 		}
 		

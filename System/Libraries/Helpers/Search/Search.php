@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Search implements SearchInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -38,7 +40,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 	 */
 	private $filter = [];
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -51,7 +53,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	// filter ve or_filter için.
 	protected function _filter($column = '', $value = '', $type)
@@ -59,13 +61,13 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
 		if( ! is_string($column) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'column');
+			return \Errors::set('Error', 'stringParameter', 'column');
 		}
 		
 		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
 		if( ! is_scalar($value) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'value');
+			return \Errors::set('Error', 'valueParameter', 'value');
 		}
 		
 		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
@@ -179,12 +181,12 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		// Parametreler kontrol ediliyor. -----------------------------------------
 		if( ! is_array($conditions) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', 'conditions');
+			return \Errors::set('Error', 'arrayParameter', 'conditions');
 		}
 		
 		if( ! is_scalar($word) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'word');
+			return \Errors::set('Error', 'valueParameter', 'word');
 		}
 		
 		if( ! empty($this->type) )
@@ -220,26 +222,26 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 			}
 			else
 			{
-				$str = DB::like($word, 'inside');
+				$str = \DB::like($word, 'inside');
 			}
 		}
 		
 		// İçerisinde Geçen
 		if( $type === "inside" ) 
 		{
-			$str = DB::like($word, 'inside');
+			$str = \DB::like($word, 'inside');
 		}
 		
 		// İle Başlayan
 		if( $type === "starting" ) 
 		{
-			$str = DB::like($word, 'starting');
+			$str = \DB::like($word, 'starting');
 		}
 		
 		// İle Biten
 		if( $type === "ending" ) 
 		{
-			$str = DB::like($word, 'ending');
+			$str = \DB::like($word, 'ending');
 		}
 		
 		if( $type === 'equal')
@@ -252,11 +254,11 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		foreach($conditions as $key => $values)
 		{
 			// Tekrarlayan verileri engelle.
-			DB::distinct();
+			\DB::distinct();
 			
 			foreach($values as $keys)
 			{	
-				DB::where($keys.$operator, $str, 'OR');
+				\DB::where($keys.$operator, $str, 'OR');
 				
 				// Filter dizisi boş değilse
 				// Filtrelere göre verileri çek
@@ -269,23 +271,23 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 						// Ve bağlaçlı filter kullanılmışsa
 						if( $exval[2] === "and" )
 						{
-							DB::where("$exval[0] ", $exval[1], 'AND');	
+							\DB::where("$exval[0] ", $exval[1], 'AND');	
 						}
 						
 						// Veya bağlaçlı or_filter kullanılmışsa
 						if( $exval[2] === "or" )
 						{
-							DB::where("$exval[0] ", $exval[1], 'OR');
+							\DB::where("$exval[0] ", $exval[1], 'OR');
 						}
 					}	
 				}
 			}
 			
 			// Sonuçları getir.
-			DB::get($key);
+			\DB::get($key);
 			
 			// Sonuçları result dizisine yazdır.
-			$this->result[$key] = DB::result();
+			$this->result[$key] = \DB::result();
 		}
 		
 		$result = $this->result;
@@ -320,7 +322,7 @@ class __USE_STATIC_ACCESS__Search implements SearchInterface
 		{	
 			if( ! is_scalar($searchWord) ) 
 			{
-				return Errors::set('Error', 'valueParameter', 'searchWord');
+				return \Errors::set('Error', 'valueParameter', 'searchWord');
 			}
 			
 			if( $output === 'str' || $output === 'string' ) 

@@ -1,4 +1,6 @@
 <?php	
+namespace ZN\Database\Drivers;
+
 interface DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------

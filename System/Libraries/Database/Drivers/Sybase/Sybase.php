@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class SybaseDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class SybaseDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Sybase\QueryTrait;
-	use Sybase\ForgeTrait;
-	use Sybase\ToolTrait;
-	use Sybase\UserTrait;
+	use Sybase\Traits\QueryTrait;
+	use Sybase\Traits\ForgeTrait;
+	use Sybase\Traits\ToolTrait;
+	use Sybase\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -123,7 +125,7 @@ class SybaseDriver implements DatabaseDriverInterface
 			$info      = sybase_fetch_field($this->query, $i);
 			$fieldName = $info->name;
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= $info->type;
 			$columns[$fieldName]->maxLength		= $info->max_length;
@@ -208,7 +210,7 @@ class SybaseDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		return Security::escapeStringEncode($data);
+		return \Security::escapeStringEncode($data);
 	}
 	
 	/******************************************************************************************

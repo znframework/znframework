@@ -1,5 +1,5 @@
 <?php
-namespace Pdo;
+namespace ZN\Database\Drivers\PDO;
 
 trait SubDriverTrait
 {

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\FileSystem;
+
 class __USE_STATIC_ACCESS__Download implements DownloadInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ class __USE_STATIC_ACCESS__Download implements DownloadInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -30,7 +32,7 @@ class __USE_STATIC_ACCESS__Download implements DownloadInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* START                                                                                   *
@@ -47,12 +49,12 @@ class __USE_STATIC_ACCESS__Download implements DownloadInterface
 	{
 		if( ! is_string($file) )
 		{
-			return Errors::set('Download', 'stringParameterError');	
+			return \Errors::set('Download', 'stringParameterError');	
 		}
 		
 		if( ! file_exists($file) )
 		{
-			return Errors::set('Download', 'emptyParameterError');
+			return \Errors::set('Download', 'emptyParameterError');
 		}
 		
 		// İndirilecek dosyanın yolu ile adını ayırmak için 

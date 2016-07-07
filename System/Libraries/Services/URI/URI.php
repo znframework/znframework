@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services;
+
 class __USE_STATIC_ACCESS__URI implements URIInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Get Method Başlangıç
@@ -136,7 +138,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	// Uri işlemleri için oluşturulmuştur.
 	protected function _cleanPath()
 	{
-		$pathInfo = Security::htmlEncode(_requestUri());
+		$pathInfo = \Security::htmlEncode(_requestUri());
 	
 		return $pathInfo;
 	}
@@ -368,7 +370,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 	{
 		if( ! is_numeric($seg) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'seg');
+			return \Errors::set('Error', 'numericParameter', 'seg');
 		}
 		
 		$ok = $seg;
@@ -439,7 +441,7 @@ class __USE_STATIC_ACCESS__URI implements URIInterface
 		
 		if( isset( $part[$seg]) ) 
 		{
-			return Security::htmlEncode($part[$seg]); 
+			return \Security::htmlEncode($part[$seg]); 
 		}
 		else 
 		{

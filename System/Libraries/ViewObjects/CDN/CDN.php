@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 class __USE_STATIC_ACCESS__CDN implements CDNInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__CDN implements CDNInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__CDN implements CDNInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Image
@@ -36,10 +38,19 @@ class __USE_STATIC_ACCESS__CDN implements CDNInterface
 	{
 		if( ! is_string($name) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'symbolName');
+			return \Errors::set('Error', 'stringParameter', 'symbolName');
 		}
 		
-		$data = array_change_key_case(Config::get('ViewObjects', 'cdn')[$configName]);
+		$config = \Config::get('ViewObjects', 'cdn');
+		
+		$configData = ! empty($config[$configName]) ? $config[$configName] : '';
+		
+		if( empty($configData) )
+		{
+			return false;	
+		}
+		
+		$data = array_change_key_case($configData);
 		
 		$name = strtolower($name);
 

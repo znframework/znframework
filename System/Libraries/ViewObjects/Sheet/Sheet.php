@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Style Sheet Trait
@@ -28,6 +30,8 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
 	
+	protected $namespace = 'ZN\ViewObjects\Sheet\Helpers\\';
+	
 	//----------------------------------------------------------------------------------------------------
 	// Animation
 	//----------------------------------------------------------------------------------------------------
@@ -37,7 +41,7 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function animation($tag = false)
 	{
-		return uselib('Sheet\Animation', [$tag]);
+		return uselib($this->namespace.'Animation', [$tag]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -49,7 +53,7 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function manipulation()
 	{
-		return uselib('Sheet\Manipulation');
+		return uselib($this->namespace.'Manipulation');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -61,7 +65,7 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function shadow($tag = false)
 	{
-		return uselib('Sheet\Shadow', [$tag]);
+		return uselib($this->namespace.'Shadow', [$tag]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -73,7 +77,7 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function transform($tag = false)
 	{
-		return uselib('Sheet\Transform', [$tag]);
+		return uselib($this->namespace.'Transform', [$tag]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -85,6 +89,6 @@ class __USE_STATIC_ACCESS__Sheet implements SheetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function transition($tag = false)
 	{
-		return uselib('Sheet\Transition', [$tag]);
+		return uselib($this->namespace.'Transition', [$tag]);
 	}
 }

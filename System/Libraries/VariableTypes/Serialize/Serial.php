@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\VariableTypes;
+
 class __USE_STATIC_ACCESS__Serial implements SerialInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Serial implements SerialInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* SERIAL                                                                                  *
@@ -33,7 +35,7 @@ class __USE_STATIC_ACCESS__Serial implements SerialInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		if( $array === false )
@@ -56,7 +58,7 @@ class __USE_STATIC_ACCESS__Serial implements SerialInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return (object) unserialize($data);
@@ -72,7 +74,7 @@ class __USE_STATIC_ACCESS__Serial implements SerialInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return unserialize($data);

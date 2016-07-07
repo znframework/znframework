@@ -1,4 +1,6 @@
 <?php
+namespace ZN\DateTime;
+
 class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -42,7 +44,7 @@ class __USE_STATIC_ACCESS__Time implements DateTimeCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function current($clock = '%H:%M:%S')
 	{
-		return $this->_datetime("%H:%M:%S");
+		return $this->_datetime($clock);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

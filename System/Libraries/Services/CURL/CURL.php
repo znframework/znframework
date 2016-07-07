@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\Services;
+
 class __USE_STATIC_ACCESS__CURL implements CURLInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -33,7 +35,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 		}	
 	}
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* INIT		                                                                              *
@@ -100,7 +102,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 		
 		if( ! is_resource($this->init) )
 		{
-			return Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_escape($this->init, $str);
@@ -125,7 +127,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 		
 		if( ! is_resource($this->init) )
 		{
-			return Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_unescape($this->init, $str);
@@ -145,10 +147,10 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! is_resource($this->init) )
 		{
-			return Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
 		}
 		
-		return curl_getinfo($this->init, Convert::toConstant($opt, 'CURLINFO_'));
+		return curl_getinfo($this->init, \Convert::toConstant($opt, 'CURLINFO_'));
 	}
 	
 	/******************************************************************************************
@@ -163,7 +165,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! is_resource($this->init) )
 		{
-			return Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_error($this->init);
@@ -183,7 +185,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! is_resource($this->init) )
 		{
-			return Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_errno($this->init);
@@ -203,7 +205,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(Errors::message('Error', 'invalidVersion', ['%' => 'curl_pause', '#' => '5.5.0']));	
+			die(\Errors::message('Error', 'invalidVersion', ['%' => 'curl_pause', '#' => '5.5.0']));	
 		}
 		
 		if( ! empty($this->init) )
@@ -226,7 +228,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(Errors::message('Error', 'invalidVersion', ['%' => 'curl_reset', '#' => '5.5.0']));	
+			die(\Errors::message('Error', 'invalidVersion', ['%' => 'curl_reset', '#' => '5.5.0']));	
 		}
 		
 		if( ! empty($this->init) )
@@ -248,7 +250,7 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	******************************************************************************************/
 	public function option($options = 0, $value = '')
 	{		
-		$this->options[Convert::toConstant($options, 'CURLOPT_')] = $value;
+		$this->options[\Convert::toConstant($options, 'CURLOPT_')] = $value;
 		
 		return $this;
 	}
@@ -291,12 +293,12 @@ class __USE_STATIC_ACCESS__CURL implements CURLInterface
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(Errors::message('Error', 'invalidVersion', ['%' => 'curl_version', '#' => '5.5.0']));	
+			die(\Errors::message('Error', 'invalidVersion', ['%' => 'curl_version', '#' => '5.5.0']));	
 		}
 		
 		if( ! is_numeric($errno) )
 		{
-			return Errors::set('Error', 'numericParameter', '1.(errno)');
+			return \Errors::set('Error', 'numericParameter', '1.(errno)');
 		}
 		
 		return curl_strerror($errno);

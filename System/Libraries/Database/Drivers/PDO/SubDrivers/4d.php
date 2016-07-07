@@ -1,5 +1,10 @@
 <?php
-class PDO4dDriver implements Pdo\SubDriverInterface
+namespace ZN\Database\Drivers\PDO\SubDrivers;
+
+use ZN\Database\Drivers\PDO\SubDriverInterface;
+use ZN\Database\Drivers\PDO\SubDriverTrait;
+
+class PDO4dDriver implements SubDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,7 +15,7 @@ class PDO4dDriver implements Pdo\SubDriverInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use Pdo\SubDriverTrait;
+	use SubDriverTrait;
 	
 	/******************************************************************************************
 	* DNS       		                                                                      *

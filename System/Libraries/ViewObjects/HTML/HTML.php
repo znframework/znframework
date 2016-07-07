@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -18,7 +20,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	// _input()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use HyperTextTrait;
+	use Common\HyperTextTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Media Methods Başlangıç
@@ -143,7 +145,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<b'.$this->attributes($attributes).'>'.$str.'</b>';
@@ -159,7 +161,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<strong'.$this->attributes($attributes).'>'.$str.'</strong>';
@@ -175,7 +177,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<em'.$this->attributes($attributes).'>'.$str.'</em>';
@@ -191,7 +193,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_string($src) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'src');
+			return \Errors::set('Error', 'stringParameter', 'src');
 		}
 		
 		if( ! isUrl($src) ) 
@@ -385,12 +387,12 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_string($url) )
 		{
-			return Errors::set('Error', 'valueParameter', 'url');
+			return \Errors::set('Error', 'valueParameter', 'url');
 		}
 		
 		if( ! is_scalar($value) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'value');
+			return \Errors::set('Error', 'valueParameter', 'value');
 		}
 		
 		if( ! isUrl($url) && ! strstr($url, '#'))
@@ -416,12 +418,12 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_string($mail) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'mail');
+			return \Errors::set('Error', 'stringParameter', 'mail');
 		}
 		
 		if( ! isEmail($mail) ) 
 		{
-			return Errors::set('Error', 'emailParameter', 'mail');
+			return \Errors::set('Error', 'emailParameter', 'mail');
 		}
 		
 		return '<a'.$this->attributes($_attributes).' href="mailto:'.$mail.'">'.$mail.'</a>';	
@@ -445,7 +447,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return	'<p'.$this->attributes($attributes).'>'.$str.'</p>';
@@ -461,7 +463,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<del'.$this->attributes($attributes).'>'.$str.'</del>';
@@ -477,7 +479,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<sup'.$this->attributes($attributes).'>'.$str.'</sup>';
@@ -493,7 +495,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<u'.$this->attributes($attributes).'>'.$str.'</u>';
@@ -509,7 +511,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<sub'.$this->attributes($attributes).'>'.$str.'</sub>';
@@ -525,7 +527,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<font'.$this->attributes($attributes).'>'.$str.'</font>';
@@ -587,7 +589,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		if( ! is_numeric($type) ) 
@@ -617,12 +619,12 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($element) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'element');	
+			return \Errors::set('Error', 'valueParameter', 'element');	
 		}
 		
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		return '<'.$element.$this->attributes($attributes).'>'.$str.'</'.$element.'>';
@@ -646,7 +648,7 @@ class __USE_STATIC_ACCESS__HTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'str');
+			return \Errors::set('Error', 'valueParameter', 'str');
 		}
 		
 		if( is_array($array) )

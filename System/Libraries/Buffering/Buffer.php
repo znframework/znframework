@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\Buffering;
+
 class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -30,7 +32,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Take Methods Başlangıç
@@ -48,7 +50,7 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return Errors::set('Error', 'fileParameter', 'file');	
+			return \Errors::set('Error', 'fileParameter', 'file');	
 		}
 		
 		ob_start();
@@ -75,8 +77,8 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_callable($func) || ! is_array($params) )
 		{
-			Errors::set('Error', 'callableParameter', 'func');	
-			Errors::set('Error', 'arrayParameter', 'params');
+			\Errors::set('Error', 'callableParameter', 'func');	
+			\Errors::set('Error', 'arrayParameter', 'params');
 			
 			return false;	
 		}
@@ -133,8 +135,8 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_scalar($name) || ! is_array($params) )
 		{
-			Errors::set('Error', 'valueParameter', 'name');
-			Errors::set('Error', 'arrayParameter', 'params');	
+			\Errors::set('Error', 'valueParameter', 'name');
+			\Errors::set('Error', 'arrayParameter', 'params');	
 			
 			return false;
 		}
@@ -143,15 +145,15 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 		
 		if( is_callable($data) )
 		{
-			return Session::insert($systemObData, $this->func($data, $params));	
+			return \Session::insert($systemObData, $this->func($data, $params));	
 		}
 		elseif( file_exists($data) )
 		{
-			return Session::insert($systemObData, $this->file($data));	
+			return \Session::insert($systemObData, $this->file($data));	
 		}
 		else
 		{
-			return Session::insert($systemObData, $data);
+			return \Session::insert($systemObData, $data);
 		}
 	}
 	
@@ -167,10 +169,10 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_scalar($name) )
 		{
-			return Errors::set('Error', 'valueParameter', 'name');	
+			return \Errors::set('Error', 'valueParameter', 'name');	
 		}
 		
-		return Session::select(md5('OB_DATAS_'.$name));
+		return \Session::select(md5('OB_DATAS_'.$name));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -185,10 +187,10 @@ class __USE_STATIC_ACCESS__Buffer implements BufferInterface
 	{
 		if( ! is_scalar($name) )
 		{
-			return Errors::set('Error', 'valueParameter', 'name');		
+			return \Errors::set('Error', 'valueParameter', 'name');		
 		}
 		
-		return Session::delete(md5('OB_DATAS_'.$name));
+		return \Session::delete(md5('OB_DATAS_'.$name));
 	}
 	
 	//----------------------------------------------------------------------------------------------------

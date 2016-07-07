@@ -1,4 +1,8 @@
 <?php
+namespace ZN\ViewObjects\Jquery\Helpers;
+
+use ZN\ViewObjects\JqueryTrait;
+
 class __USE_STATIC_ACCESS__JQ
 {
 	//----------------------------------------------------------------------------------------------------
@@ -19,7 +23,7 @@ class __USE_STATIC_ACCESS__JQ
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// String Control
@@ -69,7 +73,7 @@ class __USE_STATIC_ACCESS__JQ
 	{
 		if( ! isChar($selector) )
 		{
-			Errors::set('Error', 'valueParameter', 'selector');
+			\Errors::set('Error', 'valueParameter', 'selector');
 			return $this;	
 		}
 		
@@ -100,7 +104,7 @@ class __USE_STATIC_ACCESS__JQ
 	{
 		if( ! is_string($property) || empty($property) )
 		{
-			return Errors::set('Error', 'stringParameter', 'property');	
+			return \Errors::set('Error', 'stringParameter', 'property');	
 		}
 
 		return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Format implements FormatInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	// Function: byte_formatter()
 	// İşlev: Girilen sayısal veriyi bayt biçimine çevirir.
@@ -36,12 +38,12 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	{
 		if( ! is_numeric($bytes) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'bytes');
+			return \Errors::set('Error', 'numericParameter', 'bytes');
 		}
 		
 		if( ! is_numeric($precision) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'precision');		
+			return \Errors::set('Error', 'numericParameter', 'precision');		
 		}
 		
 		if( ! is_bool($unit) ) 
@@ -134,7 +136,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'money');
+			return \Errors::set('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 
@@ -196,7 +198,7 @@ class __USE_STATIC_ACCESS__Format implements FormatInterface
 	{
 		if( ! is_numeric($count) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'count');
+			return \Errors::set('Error', 'numericParameter', 'count');
 		}
 		
 		if( ! is_string($type) ) 

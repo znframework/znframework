@@ -1,5 +1,5 @@
 <?php
-namespace Cubrid;
+namespace ZN\Database\Drivers\Cubrid\Traits;
 
 trait ForgeTrait
 {

@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\ShoppingCart;
+
 class __USE_STATIC_ACCESS__Cart implements CartInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -25,7 +27,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -38,7 +40,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* INSERT ITEM                                                                             *
@@ -64,13 +66,13 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			return Errors::set('Error', 'emptyParameter', 'product');	
+			return \Errors::set('Error', 'emptyParameter', 'product');	
 		}
 		
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			return Errors::set('Error', 'arrayParameter', 'product');	
+			return \Errors::set('Error', 'arrayParameter', 'product');	
 		}
 		
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -80,16 +82,16 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		
 		// Sepettin daha önce oluşturulup oluşturulmadığına göre işlemler gerçekleştiriliyor.
-		if( $sessionCart = Session::select(md5('SystemCartData')) )
+		if( $sessionCart = \Session::select(md5('SystemCartData')) )
 		{
 			$this->items = $sessionCart;
 		}
 		
 		array_push($this->items, $product);
 		
-		Session::insert(md5('SystemCartData'), $this->items);
+		\Session::insert(md5('SystemCartData'), $this->items);
 		
-		$this->items = Session::select(md5('SystemCartData'));
+		$this->items = \Session::select(md5('SystemCartData'));
 		
 		return $this->items;
 	}
@@ -104,13 +106,13 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function selectItems()
 	{
-		if( $sessionCart = Session::select(md5('SystemCartData')) )
+		if( $sessionCart = \Session::select(md5('SystemCartData')) )
 		{
 			return $this->items = $sessionCart;
 		}
 		else
 		{
-			return Errors::set('Cart', 'noDataError');
+			return \Errors::set('Cart', 'noDataError');
 		}
 	}
 	
@@ -137,10 +139,10 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{
 		if( empty($code) ) 
 		{
-			return Errors::set('Error', 'emptyParameter', 'code');
+			return \Errors::set('Error', 'emptyParameter', 'code');
 		}
 		
-		$this->items = ( $sessionCart = Session::select(md5('SystemCartData')) ) 
+		$this->items = ( $sessionCart = \Session::select(md5('SystemCartData')) ) 
 		               ? $sessionCart 
 					   : '';
 		
@@ -182,7 +184,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function totalItems()
 	{
-		if( $sessionCart = Session::select(md5('SystemCartData')) )
+		if( $sessionCart = \Session::select(md5('SystemCartData')) )
 		{
 			$this->items = $sessionCart;
 			$total_items = 0;
@@ -196,7 +198,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 		}
 		else
 		{
-			Errors::set('Cart', 'noDataError');
+			\Errors::set('Cart', 'noDataError');
 			return 0;	
 		}
 	}
@@ -215,13 +217,13 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function totalPrices()
 	{
-		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
+		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
 					   : '';
 		
 		if( empty($this->items) )
 		{
-			Errors::set('Cart', 'noDataError');
+			\Errors::set('Cart', 'noDataError');
 			return 0;	
 		}
 		
@@ -272,20 +274,20 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{	
 		if( empty($code) )
 		{
-			return Errors::set('Cart', 'updateCodeError');
+			return \Errors::set('Cart', 'updateCodeError');
 		}
 		
 		if( empty($data) )
 		{
-			return Errors::set('Cart', 'updateParameterEmptyError');
+			return \Errors::set('Cart', 'updateParameterEmptyError');
 		}
 		
 		if( ! is_array($data) )
 		{
-			return Errors::set('Cart', 'updateArrayParameterError');
+			return \Errors::set('Cart', 'updateArrayParameterError');
 		}	
 		
-		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
+		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
 					   : '';
 		
@@ -330,7 +332,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$i++;
 		}
 		
-		Session::insert(md5('SystemCartData'), $this->items);
+		\Session::insert(md5('SystemCartData'), $this->items);
 	}
 	
 	/******************************************************************************************
@@ -355,10 +357,10 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{		
 		if( empty($code) )
 		{
-			return Errors::set('Cart', 'deleteCodeError');	
+			return \Errors::set('Cart', 'deleteCodeError');	
 		}
 
-		$this->items = ( $sessionSelect = Session::select(md5('SystemCartData')) ) 
+		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
 					   : '';
 		
@@ -389,7 +391,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 			$i++;
 		}
 		
-		Session::insert(md5('SystemCartData'), $this->items);		
+		\Session::insert(md5('SystemCartData'), $this->items);		
 	}
 	
 	/******************************************************************************************
@@ -402,7 +404,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	******************************************************************************************/
 	public function deleteItems()
 	{
-		Session::delete(md5('SystemCartData'));
+		\Session::delete(md5('SystemCartData'));
 	}
 	
 	/******************************************************************************************
@@ -424,7 +426,7 @@ class __USE_STATIC_ACCESS__Cart implements CartInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'money');
+			return \Errors::set('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 

@@ -1,9 +1,11 @@
 <?php
-namespace Postgre;
+namespace ZN\Database\Drivers\Postgre\Traits;
+
+use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 
 trait UserTrait
 {
-	use \Driver\UserTrait;
+	use CommonUserTrait;
 	
 	protected $postgreQuoteOptions = array
 	(

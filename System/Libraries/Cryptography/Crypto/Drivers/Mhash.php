@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Cryptography\Drivers;
+
+use ZN\Cryptography\CryptoInterface;
+
 class MhashDriver implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -24,10 +28,10 @@ class MhashDriver implements CryptoInterface
 	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
-	 	$key    = isset($settings['key'])    ? $settings['key']    : Config::get('Encode', 'projectKey'); 
+	 	$key    = isset($settings['key'])    ? $settings['key']    : \Config::get('Encode', 'projectKey'); 
 		
 		// MHASH_ ön eki ilave ediliyor.
-		$cipher = Convert::toConstant($cipher, 'MHASH_');
+		$cipher = \Convert::toConstant($cipher, 'MHASH_');
 		
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}

@@ -1,9 +1,11 @@
 <?php
-namespace Cubrid;
+namespace ZN\Database\Drivers\Cubrid\Traits;
+
+use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 
 trait UserTrait
 {
-	use \Driver\UserTrait;
+	use CommonUserTrait;
 	
 	public function name($name = '')
 	{

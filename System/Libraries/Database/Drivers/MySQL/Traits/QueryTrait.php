@@ -1,5 +1,5 @@
 <?php
-namespace Mysql;
+namespace ZN\Database\Drivers\MySQL\Traits;
 
 trait QueryTrait
 {

@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\Security;
+
 class __USE_STATIC_ACCESS__Security implements SecurityInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -74,7 +76,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -83,7 +85,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -96,7 +98,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* NC ENCODE                                                                               *
@@ -116,7 +118,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Errors::set('Error', 'stringParameter', 'string');
+			return \Errors::set('Error', 'stringParameter', 'string');
 		}
 	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
@@ -129,7 +131,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		
 		if( ! is_array($badWords) ) 
 		{
-			return $string = Regex::replace($badWords, $changeChar, $string, 'xi');
+			return $string = \Regex::replace($badWords, $changeChar, $string, 'xi');
 		}
 		
 		$ch = '';
@@ -150,7 +152,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 				}
 			}
 			
-			$string = Regex::replace($value, $ch, $string, 'xi');
+			$string = \Regex::replace($value, $ch, $string, 'xi');
 		}
 	
 		return $string;
@@ -171,7 +173,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Errors::set('Error', 'stringParameter', 'string');
+			return \Errors::set('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['injectionBadChars'];
@@ -208,7 +210,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string))
 		{ 
-			return Errors::set('Error', 'stringParameter', 'string');
+			return \Errors::set('Error', 'stringParameter', 'string');
 		}
 		
 		return stripslashes(trim($string));
@@ -227,7 +229,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Errors::set('Error', 'stringParameter', 'string');
+			return \Errors::set('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['scriptBadChars'];
@@ -265,7 +267,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return Errors::set('Error', 'stringParameter', 'string');
+			return \Errors::set('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -303,7 +305,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($string) )
 		{
-			return Errors::set('Error', 'stringParameter', 'string');
+			return \Errors::set('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -336,7 +338,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		return str_replace(array_keys($this->phpTagChars), array_values($this->phpTagChars), $str);
@@ -351,7 +353,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
@@ -366,7 +368,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
@@ -381,7 +383,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
@@ -396,7 +398,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 	
 		$str = str_replace(array_keys($this->nailChars), array_values($this->nailChars), $str);
@@ -413,7 +415,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 	
 		$str = str_replace(array_values($this->nailChars), array_keys($this->nailChars), $str);
@@ -430,7 +432,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -447,7 +449,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -464,7 +466,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'data');
+			return \Errors::set('Error', 'stringParameter', 'data');
 		}	
 		
 		return addslashes($data);
@@ -479,7 +481,7 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'data');
+			return \Errors::set('Error', 'stringParameter', 'data');
 		}	
 		
 		return stripslashes($data);

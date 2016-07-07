@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Components;
+
 class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -134,7 +136,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -143,7 +145,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -156,7 +158,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
@@ -200,7 +202,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_string($day) || ! is_string($month) )	
 		{
-			Errors::set('Error', 'stringParameter', 'day | month');
+			\Errors::set('Error', 'stringParameter', 'day | month');
 			
 			return $this;	
 		}
@@ -226,7 +228,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_array($css) )
 		{
-			Errors::set('Error', 'arrayParameter', 'css');
+			\Errors::set('Error', 'arrayParameter', 'css');
 			return $this;	
 		}
 		
@@ -249,7 +251,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_array($style) )
 		{
-			Errors::set('Error', 'arrayParameter', 'style');
+			\Errors::set('Error', 'arrayParameter', 'style');
 			return $this;	
 		}
 		
@@ -272,7 +274,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! is_string($type) )
 		{
-			Errors::set('Error', 'stringParameter', '1.(type)');
+			\Errors::set('Error', 'stringParameter', '1.(type)');
 			return $this;
 		}
 		
@@ -297,7 +299,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	{
 		if( ! ( is_string($prev) && is_string($next) ) )	
 		{
-			Errors::set('Error', 'stringParameter', 'prev | next');
+			\Errors::set('Error', 'stringParameter', 'prev | next');
 			return $this;	
 		}
 		
@@ -330,7 +332,7 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function settings($settings = [])
 	{
-		Config::set('Components', 'calendar', $settings);
+		\Config::set('Components', 'calendar', $settings);
 		
 		return $this;
 	}
@@ -368,22 +370,22 @@ class __USE_STATIC_ACCESS__Calendar implements CalendarInterface
 		// yıl bilgisini tutmaktadır.
 		if( $month === NULL && $year === NULL ) 
 		{
-			if( ! is_numeric(Uri::segment(-1)) )
+			if( ! is_numeric(\Uri::segment(-1)) )
 			{ 
 				$month = $today['mon']; 
 			}
 			else
 			{ 
-				$month = Uri::segment(-1);
+				$month = \Uri::segment(-1);
 			}
 			
-			if( ! is_numeric(Uri::segment(-2)) )
+			if( ! is_numeric(\Uri::segment(-2)) )
 			{ 
 				$year = $today['year']; 
 			}
 			else
 			{ 
-				$year = Uri::segment(-2);
+				$year = \Uri::segment(-2);
 			}
 		}
 		else 

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\DateTime;
+
 interface DateTimeCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------

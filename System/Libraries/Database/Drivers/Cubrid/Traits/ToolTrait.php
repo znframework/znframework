@@ -1,5 +1,5 @@
 <?php
-namespace Cubrid;
+namespace ZN\Database\Drivers\Cubrid\Traits;
 
 trait ToolTrait
 {
@@ -19,5 +19,17 @@ trait ToolTrait
 		{
 			return false;
 		}
+	}
+	
+	/******************************************************************************************
+	* LIST TABLES                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
+	|          																				  |
+	******************************************************************************************/
+	public function listTables()
+	{
+		// Ön tanımlı sorgu kullanıyor.
+		return false;
 	}
 }

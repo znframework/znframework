@@ -1,5 +1,5 @@
 <?php
-namespace Sybase;
+namespace ZN\Database\Drivers\Sybase\Traits;
 
 trait QueryTrait
 {

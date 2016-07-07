@@ -1,5 +1,5 @@
 <?php
-namespace Fbsql;
+namespace ZN\Database\Drivers\FrontBase\Traits;
 
 trait ToolTrait
 {

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\FileSystem;
+
 class __USE_STATIC_ACCESS__File implements FileInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -30,7 +32,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Read Methods Başlangıç
@@ -49,8 +51,8 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file) || ! is_file($file) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'file');
-			Errors::set('Error', 'fileParameter', 'file');
+			\Errors::set('Error', 'stringParameter', 'file');
+			\Errors::set('Error', 'fileParameter', 'file');
 			
 			return false;
 		}
@@ -74,7 +76,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'path');
+			\Errors::set('Error', 'stringParameter', 'path');
 			
 			return false;
 		}
@@ -102,15 +104,15 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file) || ! is_file($file) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'file');
-			Errors::set('Error', 'fileParameter', 'file');
+			\Errors::set('Error', 'stringParameter', 'file');
+			\Errors::set('Error', 'fileParameter', 'file');
 			
 			return false;
 		}
 		
 		if( ! is_scalar($data) || empty($data) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'data');
+			return \Errors::set('Error', 'valueParameter', 'data');
 		}
 
 		// Dosyadan gereli veriyi çek.
@@ -151,8 +153,8 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || is_dir($file) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'file');
-			Errors::set('Error', 'fileParameter', 'data');
+			\Errors::set('Error', 'stringParameter', 'file');
+			\Errors::set('Error', 'fileParameter', 'data');
 			
 			return false;
 		}
@@ -160,12 +162,12 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_scalar($data) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'data');
+			return \Errors::set('Error', 'valueParameter', 'data');
 		}
 
 		if( ! file_put_contents($file, $data) )
 		{
-			return Errors::set('Error', 'fileNotWrite', $file);
+			return \Errors::set('Error', 'fileNotWrite', $file);
 		}
 		
 		return true;
@@ -188,20 +190,20 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolleri yapılıyor.
 		if( ! is_string($file) || is_dir($file) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'file');
-			Errors::set('Error', 'fileParameter', 'file');
+			\Errors::set('Error', 'stringParameter', 'file');
+			\Errors::set('Error', 'fileParameter', 'file');
 			
 			return false;
 		}
 		
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', 'data');
+			return \Errors::set('Error', 'valueParameter', 'data');
 		}
 		
 		if( ! file_put_contents($file, $data, FILE_APPEND) )
 		{
-			return Errors::set('Error', 'fileNotWrite', $file);
+			return \Errors::set('Error', 'fileNotWrite', $file);
 		}
 		
 		return true;
@@ -231,8 +233,8 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($name) || is_dir($name) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'name');
-			Errors::set('Error', 'fileParameter', 'name');
+			\Errors::set('Error', 'stringParameter', 'name');
+			\Errors::set('Error', 'fileParameter', 'name');
 			
 			return false;
 		}
@@ -245,7 +247,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		else
 		{
 			// Dosya mevcutsa hatayı rapor et.
-			return Errors::set('File', 'alreadyFileError', $name);	
+			return \Errors::set('File', 'alreadyFileError', $name);	
 		}
 	}
 	
@@ -272,12 +274,12 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($name) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'name');
+			return \Errors::set('Error', 'stringParameter', 'name');
 		}
 		
 		if( ! is_file($name)) 
 		{
-			return Errors::set('File', 'notFoundError', $name);	
+			return \Errors::set('File', 'notFoundError', $name);	
 		}
 		else 
 		{
@@ -311,7 +313,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_file($file) )
 		{
-			return Errors::set('Error', 'fileParameter', 'file');
+			return \Errors::set('Error', 'fileParameter', 'file');
 		}
 		
 		return (object)array
@@ -349,7 +351,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolleri yapılıyor. --------------------------------------------
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'file');
+			return \Errors::set('Error', 'stringParameter', 'file');
 		}
 		if( ! is_string($type) ) 
 		{
@@ -357,7 +359,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		if( ! file_exists($file) )
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 		// ------------------------------------------------------------------------------
 		
@@ -372,7 +374,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		else
 		{
-			$folderFiles = Folder::files($file);
+			$folderFiles = \Folder::files($file);
 			// Dizin içerisinde dosyalar mevcut ise 
 			if( $folderFiles )
 			{
@@ -430,7 +432,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'file');
+			return \Errors::set('Error', 'stringParameter', 'file');
 		}
 		if( ! is_string($type) ) 
 		{
@@ -438,7 +440,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		if( ! file_exists($file) )
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 		
 		// Dosyanın oluşturulma tarihi
@@ -463,7 +465,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'file');
+			return \Errors::set('Error', 'stringParameter', 'file');
 		}
 		if( ! is_string($type) ) 
 		{
@@ -471,7 +473,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		if( ! file_exists($file) )
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 		
 		// Dosyanın son değiştirilme tarihi
@@ -490,7 +492,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file))
 		{
-			return Errors::set('Error', 'stringParameter', 'file');
+			return \Errors::set('Error', 'stringParameter', 'file');
 		}
 		
 		if( function_exists('posix_getpwuid') )
@@ -513,7 +515,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file))
 		{
-			return Errors::set('Error', 'stringParameter', 'file');	
+			return \Errors::set('Error', 'stringParameter', 'file');	
 		}
 		
 		if( function_exists('posix_getgrgid') )
@@ -551,7 +553,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($source) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'source');
+			return \Errors::set('Error', 'stringParameter', 'source');
 		}
 		
 		if( ! is_string($target) ) 
@@ -568,11 +570,11 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		
 		if( ! file_exists($source) )
 		{
-			return Errors::set('File', 'notFoundError', $source);
+			return \Errors::set('File', 'notFoundError', $source);
 		}
 		// ----------------------------------------------------------------------------
 		
-		$zip = new ZipArchive;
+		$zip = new \ZipArchive;
 		
 		if( $zip->open($source) === true ) 
 		{
@@ -583,7 +585,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		} 
 		else 
 		{
-			return Errors::set('File', 'zipExtractError', $target);
+			return \Errors::set('File', 'zipExtractError', $target);
 		}
 	}
 	
@@ -593,7 +595,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	
 	public function createZip($path = '', $data = [])
 	{			
-		$zip = new ZipArchive();
+		$zip = new \ZipArchive();
 
 		$zipPath = suffix($path, ".zip");
 		
@@ -602,9 +604,9 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 			unlink($zipPath); 	
 		}
 
-		if( $zip->open($zipPath, ZIPARCHIVE::CREATE) !== true ) 
+		if( $zip->open($zipPath, \ZIPARCHIVE::CREATE) !== true ) 
 		{
-			return Errors::set('File', 'zipExtractError', $zipPath);
+			return \Errors::set('File', 'zipExtractError', $zipPath);
 		}
 		
 		$status = '';
@@ -624,7 +626,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 				
 			if( is_dir($file) )
 			{
-				$allFiles = Folder::allFiles($file, true);
+				$allFiles = \Folder::allFiles($file, true);
 				
 				foreach( $allFiles as $f )
 				{
@@ -655,15 +657,15 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_scalar($oldName) || ! is_scalar($newName)  ) 
 		{
-			Errors::set('Error', 'valueParameter', 'oldName');
-			Errors::set('Error', 'valueParameter', 'newName');
+			\Errors::set('Error', 'valueParameter', 'oldName');
+			\Errors::set('Error', 'valueParameter', 'newName');
 			
 			return false;
 		}
 		
 		if( ! file_exists($oldName) )
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 	
 		return rename($oldName, $newName);
@@ -693,7 +695,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_bool($real) ) 
 		{
-			return Errors::set('Error', 'booleanParameter', 'real');
+			return \Errors::set('Error', 'booleanParameter', 'real');
 		}
 		
 		if( ! file_exists($fileName) )
@@ -722,7 +724,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($name) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'name');
+			return \Errors::set('Error', 'stringParameter', 'name');
 		}
 		if( ! is_numeric($permission) ) 
 		{
@@ -730,7 +732,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		if( ! file_exists($name) )
 		{
-			return Errors::set('File', 'notFoundError', $name);
+			return \Errors::set('File', 'notFoundError', $name);
 		}
 		else
 		{
@@ -750,17 +752,17 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		// Parametre kontrolü yapılıyor.
 		if( ! is_string($file) || is_dir($file) || ! is_numeric($limit) || ! is_string($mode) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'file');
-			Errors::set('Error', 'dirParameter', 'file');
-			Errors::set('Error', 'numericParameter', 'limit');
-			Errors::set('Error', 'stringParameter', 'mode');
+			\Errors::set('Error', 'stringParameter', 'file');
+			\Errors::set('Error', 'dirParameter', 'file');
+			\Errors::set('Error', 'numericParameter', 'limit');
+			\Errors::set('Error', 'stringParameter', 'mode');
 			
 			return false;
 		}
 		
 		if( ! file_exists($file) )
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 	
 		$fileOpen  = fopen($file, $mode);
@@ -782,7 +784,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 	{
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');
+			return \Errors::set('Error', 'stringParameter', '1.(file)');
 		}
 		
 		if( is_file($file) )
@@ -791,7 +793,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		elseif( is_dir($file) )
 		{
-			$files =  Folder::allFiles($file, $recursive);
+			$files =  \Folder::allFiles($file, $recursive);
 			
 			$rowCount = 0;
 			
@@ -807,7 +809,7 @@ class __USE_STATIC_ACCESS__File implements FileInterface
 		}
 		else
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 	}
 	

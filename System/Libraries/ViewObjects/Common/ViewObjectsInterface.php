@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects\Common;
+
 interface ViewObjectsInterface
 {
 	//----------------------------------------------------------------------------------------------------

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 trait SheetTrait
 {
 	//----------------------------------------------------------------------------------------------------
@@ -45,7 +47,7 @@ trait SheetTrait
 	// Config/Css3.php dosyasından ayarlar alınıyor.
 	public function __construct($tag = false)
 	{
-		$this->browsers = Config::get('ViewObjects', 'css3')['browsers'];	
+		$this->browsers = \Config::get('ViewObjects', 'css3')['browsers'];	
 		
 		$this->tag = $tag;
 	}
@@ -54,7 +56,7 @@ trait SheetTrait
 	{
 		if( $this->tag === true )
 		{
-			return Style::open().$code.Style::close();
+			return \Style::open().$code.\Style::close();
 		}
 		
 		return $code;
@@ -122,7 +124,7 @@ trait SheetTrait
 	{
 		if( ! isChar($selector) )
 		{
-			Errors::set('Error', 'valueParameter', 'selector');
+			\Errors::set('Error', 'valueParameter', 'selector');
 			return $this;	
 		}
 

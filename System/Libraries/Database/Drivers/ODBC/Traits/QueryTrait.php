@@ -1,5 +1,5 @@
 <?php
-namespace Odbc;
+namespace ZN\Database\Drivers\ODBC\Traits;
 
 trait QueryTrait
 {

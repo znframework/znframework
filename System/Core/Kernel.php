@@ -25,7 +25,7 @@
 // @return Aktif çalıştırılan kontrolcü dosyasının yol bilgisi.
 //
 //----------------------------------------------------------------------------------------------------
-$datas 		= Structure::data();
+$datas 		= ZN\Core\Structure::data();
 $parameters = $datas['parameters'];
 $page       = $datas['page'];
 $isFile     = $datas['file'];

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class OdbcDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class OdbcDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Odbc\QueryTrait;
-	use Odbc\ForgeTrait;
-	use Odbc\ToolTrait;
-	use Odbc\UserTrait;
+	use ODBC\Traits\QueryTrait;
+	use ODBC\Traits\ForgeTrait;
+	use ODBC\Traits\ToolTrait;
+	use ODBC\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -126,7 +128,7 @@ class OdbcDriver implements DatabaseDriverInterface
 		{
 			$fieldName = odbc_field_name($this->query, $index);
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= odbc_field_type($this->query, $index);
 			$columns[$fieldName]->maxLength		= odbc_field_len($this->query, $index);
@@ -233,7 +235,7 @@ class OdbcDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		return Security::escapeStringEncode($data);
+		return \Security::escapeStringEncode($data);
 	}
 	
 	/******************************************************************************************

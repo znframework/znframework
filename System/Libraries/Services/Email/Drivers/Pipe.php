@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services\Drivers;
+
 class PipeDriver implements EmailDriverInterface
 {
 	/***********************************************************************************/
@@ -33,7 +35,7 @@ class PipeDriver implements EmailDriverInterface
 		
 		if( empty($open) )
 		{
-			return Errors::set('Email', 'sendFailureSendmail');
+			return \Errors::set('Email', 'sendFailureSendmail');
 		}
 		
 		@fputs($open, $headers);
@@ -43,8 +45,8 @@ class PipeDriver implements EmailDriverInterface
 		
 		if( $status !== 0 )
 		{
-			Errors::set('Email', 'exitStatus', $status);
-			Errors::set('Email', 'noSocket');
+			\Errors::set('Email', 'exitStatus', $status);
+			\Errors::set('Email', 'noSocket');
 			
 			return false;
 		}

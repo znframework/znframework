@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Compression\Drivers;
+
+use ZN\Compression\CompressInterface;
+
 class BZDriver implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -26,19 +30,19 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');	
+			return \Errors::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '2.(data)');	
+			return \Errors::set('Error', 'valueParameter', '2.(data)');	
 		}
 		
 		$open = bzopen($file, 'w');
 		
 		if( empty($open) )
 		{
-			return Errors::set('Error', 'fileNotFound', $file);	
+			return \Errors::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = bzwrite($open, $data, strlen($data));
@@ -58,19 +62,19 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');	
+			return \Errors::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(length)');	
+			return \Errors::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		$open = bzopen($file, 'r');
 		
 		if( empty($open) )
 		{
-			return Errors::set('Error', 'fileNotFound', $file);	
+			return \Errors::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = bzread($open, $length);
@@ -90,12 +94,12 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($blockSize) || ! is_numeric($workFactor) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(blockSize) & 3.(workFactor)');	
+			return \Errors::set('Error', 'numericParameter', '2.(blockSize) & 3.(workFactor)');	
 		}
 		
 		return bzcompress($data, $blockSize, $workFactor);
@@ -111,12 +115,12 @@ class BZDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($small) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(small)');	
+			return \Errors::set('Error', 'numericParameter', '2.(small)');	
 		}
 		
 		return bzdecompress($data, $small);

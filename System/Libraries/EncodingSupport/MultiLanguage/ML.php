@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\EncodingSupport;
+
 class __USE_STATIC_ACCESS__ML implements MLInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -45,14 +47,14 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 		// Eğer dizin mevcut değilse oluşturulması sağlanıyor.
 		if( ! is_dir($this->appdir) )
 		{
-			Folder::create($this->appdir, 0755);	
+			\Folder::create($this->appdir, 0755);	
 		}
 			
 		// Aktif dil dosyasının yolu belirtiliyor.
 		$this->lang   = $this->appdir.getLang().$this->extension;
 	}
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -65,7 +67,7 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* INSERT                                                                                  *
@@ -86,11 +88,11 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 		// Daha önce bir dil dosyası oluşturulmamışsa oluştur.
 		if( ! is_file($this->lang) )
 		{
-			File::write($this->appdir.$app.$this->extension, Json::encode([]));	
+			\File::write($this->appdir.$app.$this->extension, \Json::encode([]));	
 		}
 		
 		// Json ile veriler diziye çevriliyor.
-		$datas = Json::decodeArray(File::read($this->lang));	
+		$datas = \Json::decodeArray(\File::read($this->lang));	
 		
 		if( ! empty($datas) )
 		{
@@ -115,7 +117,7 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 		// Aksi halde herhangi bir işlem yapma.
 		if( count($json) > count($datas) )
 		{
-			return File::write($this->appdir.$app.$this->extension, Json::encode($json));
+			return \File::write($this->appdir.$app.$this->extension, \Json::encode($json));
 		}
 		else
 		{
@@ -141,7 +143,7 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 		// Dosya mevcutsa verileri al.
 		if( is_file($this->lang) )
 		{
-			$datas = Json::decodeArray(File::read($this->lang));		
+			$datas = \Json::decodeArray(\File::read($this->lang));		
 		}
 		
 		if( ! empty($datas) )
@@ -164,7 +166,7 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 		}
 		
 		// Dosyayı yeniden yaz.
-		return File::write($this->appdir.$app.$this->extension, Json::encode($json));
+		return \File::write($this->appdir.$app.$this->extension, \Json::encode($json));
 	}
 	
 	/******************************************************************************************
@@ -197,9 +199,9 @@ class __USE_STATIC_ACCESS__ML implements MLInterface
 	******************************************************************************************/
 	public function select($key = '', $convert = '')
 	{
-		$read = File::read($this->lang);
+		$read = \File::read($this->lang);
 		
-		$array = Json::decodeArray($read);
+		$array = \Json::decodeArray($read);
 		
 		$return = '';
 		

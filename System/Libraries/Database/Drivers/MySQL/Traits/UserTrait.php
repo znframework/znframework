@@ -1,7 +1,9 @@
 <?php
-namespace Mysql;
+namespace ZN\Database\Drivers\MySQL\Traits;
+
+use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 
 trait UserTrait
 {
-	use \Driver\UserTrait;
+	use CommonUserTrait;
 }

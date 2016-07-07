@@ -1,5 +1,7 @@
 <?php
-class Errors implements ErrorsInterface
+namespace ZN\ErrorHandling;
+
+class __USE_STATIC_ACCESS__Errors implements ErrorsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -16,7 +18,7 @@ class Errors implements ErrorsInterface
 	 * tutması için oluşturulmuştur.
 	 *
 	 */
-	private static $errors;
+	private $errors;
 	
 	/******************************************************************************************
 	* SET            	                                                                      *
@@ -24,7 +26,7 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Kütüphaneler içinde oluşan hataları kaydetmek için kullanılır.          |
 	|          																				  |
 	******************************************************************************************/	
-	public static function set($errorMessage = '', $output = false, $object = '')
+	public function set($errorMessage = '', $output = false, $object = '')
 	{
 		//------------------------------------------------------------------------------------------------
 		// 2. Parametre metinsel değer alırsa lang() yönteminden verinin çağrılmasını sağlar.
@@ -52,9 +54,9 @@ class Errors implements ErrorsInterface
 			  ? $info[1]['file']
 			  : ( isset($info[5]['file']) ? $info[5]['file'] : false );
 	
-		self::$errors[strtolower($className)][strtolower($methodName)]['message'][] = $errorMessage;
-		self::$errors[strtolower($className)][strtolower($methodName)]['line'][]    = $line; 
-		self::$errors[strtolower($className)][strtolower($methodName)]['file'][]    = $file; 
+		$this->errors[strtolower($className)][strtolower($methodName)]['message'][] = $errorMessage;
+		$this->errors[strtolower($className)][strtolower($methodName)]['line'][]    = $line; 
+		$this->errors[strtolower($className)][strtolower($methodName)]['file'][]    = $file; 
 		
 		report(ucfirst($className.'Error'), $errorMessage, ucfirst($className).'Library');
 	
@@ -67,27 +69,27 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Sınıfların kullanımında oluşmuş hatalarını dizi tipinde döndürür.       |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getArray($className = '', $methodName = '')
+	public function getArray($className = '', $methodName = '')
 	{
 		$className  = strtolower($className);
 		$methodName = strtolower($methodName);
 	
-		if( isset(self::$errors[$className]) )
+		if( isset($this->errors[$className]) )
 		{
-			if( isset(self::$errors[$className][$methodName]['message']) )
+			if( isset($this->errors[$className][$methodName]['message']) )
 			{
-				return self::$errors[$className][$methodName]['message']; 
+				return $this->errors[$className][$methodName]['message']; 
 			}
 			else
 			{
-				return self::$errors[$className];	
+				return $this->errors[$className];	
 			}
 		}
 		else
 		{
-			if( ! empty(self::$errors) )
+			if( ! empty($this->errors) )
 			{
-				return self::$errors;	
+				return $this->errors;	
 			}
 			else
 			{
@@ -102,18 +104,18 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Sınıfların kullanımında oluşmuş hatalarını metinsel tipinde döndürür.   |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getString($className = '', $methodName = '')
+	public function getString($className = '', $methodName = '')
 	{
 		$className  = strtolower($className);
 		$methodName = strtolower($methodName);
 
-		if( isset(self::$errors[$className]) )
+		if( isset($this->errors[$className]) )
 		{
 			$string = '';
 			
-			if( isset(self::$errors[$className][$methodName]['message']) )
+			if( isset($this->errors[$className][$methodName]['message']) )
 			{
-				foreach( self::$errors[$className][$methodName]['message'] as $error )
+				foreach( $this->errors[$className][$methodName]['message'] as $error )
 				{
 					$string .= ucfirst($className)."::".$methodName." : $error<br>";
 				} 
@@ -122,9 +124,9 @@ class Errors implements ErrorsInterface
 			}
 			else
 			{
-				foreach( self::$errors[$className] as $key => $error )
+				foreach( $this->errors[$className] as $key => $error )
 				{	
-					if( isset(self::$errors[$className][$key]['message']) ) foreach( self::$errors[$className][$key]['message'] as $v )
+					if( isset($this->errors[$className][$key]['message']) ) foreach( $this->errors[$className][$key]['message'] as $v )
 					{
 						$string .= ucfirst($className)."::".$key." : $v<br>";	
 					}
@@ -145,16 +147,16 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Sınıfların kullanımında oluşmuş hatalarını metinsel tipinde döndürür.   |
 	|          																				  |
 	******************************************************************************************/	
-	public static function getTable($className = '', $methodName = '')
+	public function getTable($className = '', $methodName = '')
 	{
 		$data = array
 		(
-			'errors'	 => self::$errors,
+			'errors'	 => $this->errors,
 			'className'  => strtolower($className),
 			'methodName' => strtolower($methodName),
 		);
 		
-		return Import::template('ErrorTable', $data, true);
+		return \Import::template('ErrorTable', $data, true);
 	}
 	
 	/******************************************************************************************
@@ -163,19 +165,19 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Oluşmuş hatalarını metinsel veya dizi tipinde döndürür.   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function get($className = '', $methodName = '', $type = 'string')
+	public function get($className = '', $methodName = '', $type = 'string')
 	{
 		if( strtolower($type) === 'table')
 		{
-			return self::getTable($className, $methodName);
+			return $this->getTable($className, $methodName);
 		}
 		elseif( strtolower($type) === 'string')
 		{
-			return self::getString($className, $methodName);
+			return $this->getString($className, $methodName);
 		}
 		else
 		{
-			return self::getArray($className, $methodName);
+			return $this->getArray($className, $methodName);
 		}	
 	}
 	
@@ -185,7 +187,7 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: getErrorMessage() yönteminin aynısıdır.  								  |
 	|															                              |
 	******************************************************************************************/	
-	public static function message($langFile = '', $errorMsg = '', $ex = '')
+	public function message($langFile = '', $errorMsg = '', $ex = '')
 	{
 		return getErrorMessage($langFile, $errorMsg, $ex);
 	}
@@ -196,7 +198,7 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Son oluşan hata hakkında bilgi verir.						   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function last($type = NULL)
+	public function last($type = NULL)
 	{
 		return errorReport($type);
 	}
@@ -207,16 +209,16 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Bir yerlere bir hata iletisi gönderir.					   			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function log($message = '', $type = 0, $destination = '', $header = '')
+	public function log($message = '', $type = 0, $destination = '', $header = '')
 	{
 		if( ! is_string($message) || ! is_string($destination) )
 		{
-			return self::set(lang('Error', 'stringParameter', '1.(message) & 3.(destination)'));	
+			return $this->set(lang('Error', 'stringParameter', '1.(message) & 3.(destination)'));	
 		}
 		
 		if( ! is_numeric($type) )
 		{
-			return self::set(lang('Error', 'numericParameter', '2.(type)'));	
+			return $this->set(lang('Error', 'numericParameter', '2.(type)'));	
 		}
 		
 		return error_log($message, $type, $destination, $header);
@@ -228,11 +230,11 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Hangi PHP hatalarının raporlanacağını tanımlar.					      |
 	|          																				  |
 	******************************************************************************************/	
-	public static function report($level = 0)
+	public function report($level = 0)
 	{
 		if( ! is_numeric($level) )
 		{
-			return self::set(lang('Error', 'numericParameter', '1.(level)'));	
+			return $this->set(lang('Error', 'numericParameter', '1.(level)'));	
 		}
 		
 		if( ! empty($level) )
@@ -250,11 +252,11 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function handler($handler = 0, $errorTypes = 0)
+	public function handler($handler = 0, $errorTypes = 0)
 	{
 		if( ! is_callable($handler) )
 		{
-			return self::set(lang('Error', 'callableParameter', '1.(handler)'));	
+			return $this->set(lang('Error', 'callableParameter', '1.(handler)'));	
 		}
 		
 		if( empty($errorTypes) )
@@ -271,11 +273,11 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Kullanıcı seviyesinde bir hata/uyarı/bilgi iletisi üretir.			  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function trigger($msg = '', $errorType = E_USER_NOTICE)
+	public function trigger($msg = '', $errorType = E_USER_NOTICE)
 	{
 		if( ! is_string($msg) )
 		{
-			return self::set(lang('Error', 'stringParameter', '1.(msg)'));	
+			return $this->set(lang('Error', 'stringParameter', '1.(msg)'));	
 		}
 
 		return trigger_error ($msg, $errorType);
@@ -287,7 +289,7 @@ class Errors implements ErrorsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function restore()
+	public function restore()
 	{
 		return restore_error_handler();
 	}

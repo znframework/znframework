@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Limit implements LimitInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	// Function: word_limiter()
 	// İşlev: Bir metinin kaç kelime ile sınırlanacağını belirler.
@@ -37,7 +39,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! is_numeric($limit) ) 
@@ -92,7 +94,7 @@ class __USE_STATIC_ACCESS__Limit implements LimitInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! is_numeric($limit) )

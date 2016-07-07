@@ -1,5 +1,7 @@
 <?php
-class Sqlite3Driver implements DatabaseDriverInterface
+namespace ZN\Database\Drivers;
+
+class SQLite3Driver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -67,12 +69,12 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		'timeStamp'		=> 'DATETIME'
 	);
 	
-	use Sqlite3\QueryTrait;
-	use Sqlite3\ForgeTrait;
-	use Sqlite3\ToolTrait;
-	use Sqlite3\UserTrait;
+	use SQLite3\Traits\QueryTrait;
+	use SQLite3\Traits\ForgeTrait;
+	use SQLite3\Traits\ToolTrait;
+	use SQLite3\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -95,8 +97,8 @@ class Sqlite3Driver implements DatabaseDriverInterface
 		try
 		{
 			$this->connect = 	( ! empty($this->config['password']) )
-							 	? new SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
-							  	: new SQLite3($this->config['database']);
+							 	? new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
+							  	: new \SQLite3($this->config['database']);
 		}	
 		catch(Exception $e)
 		{
@@ -144,7 +146,7 @@ class Sqlite3Driver implements DatabaseDriverInterface
 			$type 		= $this->query->columnType($i);
 			$fieldName 	= $this->query->columnName($i);
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
 			$columns[$fieldName]->maxLength		= NULL;

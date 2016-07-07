@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Components;
+
 class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -59,7 +61,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -68,7 +70,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -81,7 +83,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
@@ -101,7 +103,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($param) )
 		{
-			Errors::set('Error', 'numericParameter', 'param');
+			\Errors::set('Error', 'numericParameter', 'param');
 			return $this;	
 		}
 		
@@ -127,7 +129,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($param) )
 		{
-			Errors::set('Error', 'numericParameter', 'param');
+			\Errors::set('Error', 'numericParameter', 'param');
 			return $this;	
 		}
 		
@@ -171,9 +173,8 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	public function length($param = 0)
 	{
 		if( ! is_numeric($param) )
-
 		{
-			Errors::set('Error', 'numericParameter', 'param');
+			\Errors::set('Error', 'numericParameter', 'param');
 			return $this;	
 		}
 		
@@ -201,8 +202,8 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_bool($is) || ! is_string($color) )
 		{
-			Errors::set('Error', 'booleanParameter', 'is');
-			Errors::set('Error', 'stringParameter', 'color');
+			\Errors::set('Error', 'booleanParameter', 'is');
+			\Errors::set('Error', 'stringParameter', 'color');
 			
 			return $this;	
 		}
@@ -231,7 +232,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Errors::set('Error', 'stringParameter', 'color');
+			\Errors::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 
@@ -257,7 +258,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Errors::set('Error', 'stringParameter', 'color');
+			\Errors::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 		
@@ -335,7 +336,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($size) )
 		{
-			Errors::set('Error', 'numericParameter', 'size');
+			\Errors::set('Error', 'numericParameter', 'size');
 			return $this;
 		}
 		
@@ -362,7 +363,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Errors::set('Error', 'numericParameter', 'x | y');
+			\Errors::set('Error', 'numericParameter', 'x | y');
 			return $this;
 		}
 
@@ -393,7 +394,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Errors::set('Error', 'stringParameter', 'color');
+			\Errors::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 		
@@ -422,7 +423,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($size) || ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Errors::set('Error', 'numericParameter', 'size | x | y');
+			\Errors::set('Error', 'numericParameter', 'size | x | y');
 			return $this;
 		}
 		
@@ -460,8 +461,8 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_bool($is) || ! is_string($color) )
 		{
-			Errors::set('Error', 'booleanParameter', 'is');
-			Errors::set('Error', 'stringParameter', 'color');
+			\Errors::set('Error', 'booleanParameter', 'is');
+			\Errors::set('Error', 'stringParameter', 'color');
 			
 			return $this;	
 		}
@@ -490,7 +491,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_string($color) )
 		{
-			Errors::set('Error', 'stringParameter', 'color');
+			\Errors::set('Error', 'stringParameter', 'color');
 			return $this;	
 		}
 
@@ -517,7 +518,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Errors::set('Error', 'numericParameter', 'x | y');
+			\Errors::set('Error', 'numericParameter', 'x | y');
 			return $this;
 		}
 
@@ -561,16 +562,16 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 		
 		if( ! empty($configs) )
 		{
-			Config::set('Components', 'captcha', $configs);
+			\Config::set('Components', 'captcha', $configs);
 		}
 		
-		$set = Config::get('Components', 'captcha');
+		$set = \Config::get('Components', 'captcha');
 		
 		$systemCaptchaCodeData = md5('SystemCaptchaCodeData');
 	
-		Session::insert($systemCaptchaCodeData, substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
+		\Session::insert($systemCaptchaCodeData, substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
 		
-		if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
+		if( $sessionCaptchaCode = \Session::select($systemCaptchaCodeData) )
 		{
 			if( ! isset($set["width"]) ) $set["width"] 								= 100;
 			if( ! isset($set["height"]) ) $set["height"] 							= 30;
@@ -732,7 +733,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function getCode()
 	{
-		return Session::select(md5('SystemCaptchaCodeData'));
+		return \Session::select(md5('SystemCaptchaCodeData'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -748,7 +749,7 @@ class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _convertColor($color = '')
 	{
-		if( $convert = Config::get('Colors', $color) )
+		if( $convert = \Config::get('Colors', $color) )
 		{
 			return $convert;	
 		}

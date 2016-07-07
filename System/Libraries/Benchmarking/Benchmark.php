@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\Benchmarking;
+
 class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -61,7 +63,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -74,7 +76,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Test Methods Başlangıç
@@ -92,7 +94,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($test)) 
 		{
-			return Errors::set('Error', 'stringParameter', 'test');
+			return \Errors::set('Error', 'stringParameter', 'test');
 		}
 		
 		// Kaç test kullanıldığını hesaplamak için
@@ -129,7 +131,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($test) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'test');
+			return \Errors::set('Error', 'stringParameter', 'test');
 		}
 		
 		$test = $test."_end";
@@ -162,7 +164,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{   
 		if( ! is_string($result) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'result');
+			return \Errors::set('Error', 'stringParameter', 'result');
 		}
 		if( ! is_numeric($decimal) ) 
 		{
@@ -194,7 +196,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($result) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'result');
+			return \Errors::set('Error', 'stringParameter', 'result');
 		}
 		
 		if( empty($result) )
@@ -223,7 +225,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($result) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'result');
+			return \Errors::set('Error', 'stringParameter', 'result');
 		}
 		
 		if( empty($result) )
@@ -252,7 +254,7 @@ class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
 	{
 		if( ! is_string($result) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'result');
+			return \Errors::set('Error', 'stringParameter', 'result');
 		}
 		
 		$resend  = $result."_end";

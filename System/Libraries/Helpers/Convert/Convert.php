@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// anchor
@@ -39,7 +41,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		return preg_replace
 		(
 			'/(((https?|ftp)\:\/\/)(\w+\.)*(\w+)\.\w+\/*\S*)/xi', 
-			'<a href="$1"'.Html::attributes($attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
+			'<a href="$1"'.\Html::attributes($attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
 			$data
 		);
 	}
@@ -75,10 +77,10 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'string');
+			return \Errors::set('Error', 'valueParameter', 'string');
 		}
 		
-		$string = self::accent($string);
+		$string = $this->accent($string);
 		
 		if( ! is_string($type) ) 
 		{
@@ -129,14 +131,14 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{	
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		// Config/ForeignChars.php dosyasından
 		// kullanılacak karakter listesini al.
-		$accent = Config::get('ForeignChars', 'accentChars');
+		$accent = \Config::get('ForeignChars', 'accentChars');
 		
-		$accent = Arrays::multikey($accent);
+		$accent = \Arrays::multikey($accent);
 		
 		return str_replace(array_keys($accent), array_values($accent), $str); 
 	} 
@@ -159,7 +161,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 	
 		if( ! is_string($splitWord) ) 
@@ -167,9 +169,9 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 			$splitWord = "-";
 		}	
 		
-		$badChars = Config::get('Security', 'urlBadChars');
+		$badChars = \Config::get('Security', 'urlBadChars');
 		
-		$str = self::accent($str);
+		$str = $this->accent($str);
 		$str = str_replace($badChars, '', $str);
 		$str = preg_replace("/\s+/", ' ', $str);
 		$str = str_replace("&nbsp;", '', $str);
@@ -200,7 +202,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		return mb_convert_case($str, $this->toConstant($type, 'MB_CASE_'), $encoding);	
@@ -220,9 +222,9 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
 		{
-			Errors::set('Error', 'arrayParameter', 'array');
-			Errors::set('Error', 'stringParameter', 'type');
-			Errors::set('Error', 'stringParameter', 'keyval');
+			\Errors::set('Error', 'arrayParameter', 'array');
+			\Errors::set('Error', 'stringParameter', 'type');
+			\Errors::set('Error', 'stringParameter', 'keyval');
 			
 			return false;	
 		}
@@ -285,13 +287,13 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'str');
+			return \Errors::set('Error', 'stringParameter', 'str');
 		}
 		
 		if( ! isCharset($fromCharset) || ! isCharset($toCharset) ) 
 		{
-			Errors::set('Error', 'charsetParameter', 'fromCharset');
-			Errors::set('Error', 'charsetParameter', 'toCharset');
+			\Errors::set('Error', 'charsetParameter', 'fromCharset');
+			\Errors::set('Error', 'charsetParameter', 'toCharset');
 			
 			return false;
 		}
@@ -315,8 +317,8 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_string($str) || ! is_array($settings) )
 		{
-			Errors::set('Error', 'stringParameter', 'str');
-			Errors::set('Error', 'arrayParameter', 'settings');
+			\Errors::set('Error', 'stringParameter', 'str');
+			\Errors::set('Error', 'arrayParameter', 'settings');
 			
 			return false;	
 		}
@@ -351,7 +353,7 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 		$string = highlight_string($str, true);
 		// ----------------------------------------------------------------------------------------------
 	
-		$string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
+		$string = \Security::scriptTagEncode(\Security::phpTagEncode(\Security::htmlDecode($string)));
 		
 		$tagArray = $tags === true 
 		          ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
@@ -532,12 +534,12 @@ class __USE_STATIC_ACCESS__Convert implements ConvertInterface
 	{
 		if( ! is_scalar($var) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(var)');	
+			return \Errors::set('Error', 'valueParameter', '1.(var)');	
 		}
 		
 		if( ! is_string($prefix) || ! is_string($suffix) )
 		{
-			return Errors::set('Error', 'stringParameter', '2.(prefix) & 2.(suffix)');	
+			return \Errors::set('Error', 'stringParameter', '2.(prefix) & 2.(suffix)');	
 		}
 			
 		if( defined(strtoupper($prefix.$var.$suffix)) )

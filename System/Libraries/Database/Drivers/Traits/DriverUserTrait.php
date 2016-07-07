@@ -1,5 +1,5 @@
 <?php
-namespace Driver;
+namespace ZN\Database\Drivers\Traits;
 
 trait UserTrait
 {

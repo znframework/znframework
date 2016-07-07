@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Round implements RoundInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Round implements RoundInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__Round implements RoundInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	// Function: data()
 	// İşlev: Sayıları yuvarlamak için kullanılır.
@@ -36,7 +38,7 @@ class __USE_STATIC_ACCESS__Round implements RoundInterface
 	{
 		if( ! is_numeric($number) || empty($number) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'number');
+			return \Errors::set('Error', 'numericParameter', 'number');
 		}
 		
 		if( ! is_numeric($count) ) 

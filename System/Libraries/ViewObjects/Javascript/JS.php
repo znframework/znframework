@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects\Javascript;
+
 class __USE_STATIC_ACCESS__JS
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__JS
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Js Func
@@ -1173,7 +1175,7 @@ class __USE_STATIC_ACCESS__JS
 	//----------------------------------------------------------------------------------------------------
 	public function confirm($code = '', $true = '', $false = '')
 	{
-		 $confirm = $this->_jsFunc('confirm', JQ::stringControl($code), false);
+		 $confirm = $this->_jsFunc('confirm', \JQ::stringControl($code), false);
 		 
 		 if( empty($true) )
 		 {

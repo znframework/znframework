@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 class __USE_STATIC_ACCESS__Template implements TemplateInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* DATA                                                                                    *
@@ -36,7 +38,7 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		// Parametre konrolleri sağlanıyor.
 		if( ! is_string($string) )
 		{
-			return Errors::set('Error', 'stringParameter', 'string');	
+			return \Errors::set('Error', 'stringParameter', 'string');	
 		}
 
 		$htmlRegexChar = '.*?';
@@ -86,9 +88,9 @@ class __USE_STATIC_ACCESS__Template implements TemplateInterface
 		$content = ob_get_contents(); 
 		ob_end_clean(); 
 		
-		if( $lastError = Errors::last() )
+		if( $lastError = \Errors::last() )
 		{
-			Exceptions::table('', $lastError['message'], '', $lastError['line']);
+			\Exceptions::table('', $lastError['message'], '', $lastError['line']);
 		}
 		else
 		{

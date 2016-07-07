@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\EncodingSupport;
+
 class __USE_STATIC_ACCESS__IV implements IVInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* CONVERT                     	                                                          *
@@ -40,14 +42,14 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{	
 		if( ! is_string($string) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Errors::set('Error', 'stringParameter', '1.(string)');	
 		}
 		
-		$toEncodingFirst = Arrays::getFirst(explode('//', $toEncoding));
+		$toEncodingFirst = \Arrays::getFirst(explode('//', $toEncoding));
 		
 		if( ! isCharset($fromEncoding) || ! isCharset($toEncodingFirst) )
 		{
-			return Errors::set('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
+			return \Errors::set('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
 		}
 		
 		return iconv($fromEncoding, $toEncoding, $string);
@@ -80,7 +82,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($type) || empty($type) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(type)');	
+			return \Errors::set('Error', 'stringParameter', '1.(type)');	
 		}
 		
 		return iconv_get_encoding($type.'_encoding');
@@ -100,12 +102,12 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($type) || empty($type) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(type)');	
+			return \Errors::set('Error', 'stringParameter', '1.(type)');	
 		}
 		
 		if( ! isCharset($charset) )
 		{
-			return Errors::set('Error', 'charsetParameter', '2.(charset)');
+			return \Errors::set('Error', 'charsetParameter', '2.(charset)');
 		}
 		
 		return iconv_set_encoding($type.'_encoding', $charset);
@@ -126,12 +128,12 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($encodedHeaders) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(encodedHeaders)');	
+			return \Errors::set('Error', 'stringParameter', '1.(encodedHeaders)');	
 		}
 		
 		if( ! is_numeric($mode) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(mode)');
+			return \Errors::set('Error', 'numericParameter', '2.(mode)');
 		}
 		
 		if( $charset === NULL )
@@ -157,12 +159,12 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($encodedHeader) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(encodedHeader)');	
+			return \Errors::set('Error', 'stringParameter', '1.(encodedHeader)');	
 		}
 		
 		if( ! is_numeric($mode) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(mode)');
+			return \Errors::set('Error', 'numericParameter', '2.(mode)');
 		}
 		
 		if( $charset === NULL )
@@ -188,7 +190,7 @@ class __USE_STATIC_ACCESS__IV implements IVInterface
 	{
 		if( ! is_string($fieldName) || ! is_string($fieldValue) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(fieldName) & 2.(fieldValue)');	
+			return \Errors::set('Error', 'stringParameter', '1.(fieldName) & 2.(fieldValue)');	
 		}
 	
 		return iconv_mime_encode($fieldName, $fieldValue, $preferences);

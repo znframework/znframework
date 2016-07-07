@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Cryptography;
+
 class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -31,7 +33,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($driver = '')
 	{
-		$this->crypto = Driver::run('Encode', $driver);
+		$this->crypto = \Driver::run('Encode', $driver);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -41,7 +43,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -54,7 +56,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Driver Method
@@ -63,7 +65,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	// driver()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DriverMethodTrait;
+	use \DriverMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encrypt Method Başlangıç
@@ -84,12 +86,12 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'scalarParameter', '1.(data)');	
+			return \Errors::set('Error', 'scalarParameter', '1.(data)');	
 		}
 		
 		if( ! is_array($settings) )
 		{
-			return Errors::set('Error', 'arrayParameter', '2.(settings)');	
+			return \Errors::set('Error', 'arrayParameter', '2.(settings)');	
 		}
 		
 		return $this->crypto->encrypt($data,  $settings);
@@ -118,12 +120,12 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'scalarParameter', '1.(data)');	
+			return \Errors::set('Error', 'scalarParameter', '1.(data)');	
 		}
 		
 		if( ! is_array($settings) )
 		{
-			return Errors::set('Error', 'arrayParameter', '2.(settings)');	
+			return \Errors::set('Error', 'arrayParameter', '2.(settings)');	
 		}
 		
 		return $this->crypto->decrypt($data,  $settings);
@@ -151,7 +153,7 @@ class __USE_STATIC_ACCESS__Crypto implements CryptoInterface
 	{
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '1.(length)');	
+			return \Errors::set('Error', 'numericParameter', '1.(length)');	
 		}
 		
 		return $this->crypto->keygen($length);

@@ -1,5 +1,5 @@
 <?php
-namespace Form;
+namespace ZN\ViewObjects\Form;
 
 trait ElementsTrait
 {

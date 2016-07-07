@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Importation;
+
 class __USE_STATIC_ACCESS__Import implements ImportInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -44,7 +46,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -57,7 +59,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Setting Methods Başlangıç
@@ -128,7 +130,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function body($body = '')
 	{
-		Config::set('Masterpage', 'bodyPage', $body);
+		\Config::set('Masterpage', 'bodyPage', $body);
 		
 		return $this;
 	}
@@ -142,7 +144,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function head($head = '')
 	{
-		Config::set('Masterpage', 'headPage', $head);
+		\Config::set('Masterpage', 'headPage', $head);
 		
 		return $this;
 	}
@@ -156,7 +158,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function title($title = '')
 	{
-		Config::set('Masterpage', 'title', $title);
+		\Config::set('Masterpage', 'title', $title);
 		
 		return $this;
 	}
@@ -170,7 +172,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function meta($meta = [])
 	{
-		Config::set('Masterpage', 'meta', $meta);
+		\Config::set('Masterpage', 'meta', $meta);
 		
 		return $this;
 	}
@@ -184,7 +186,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function attributes($attributes = [])
 	{
-		Config::set('Masterpage', 'attributes', $attributes);
+		\Config::set('Masterpage', 'attributes', $attributes);
 		
 		return $this;
 	}
@@ -198,7 +200,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function content($content = [])
 	{
-		Config::set('Masterpage', 'content', $content);
+		\Config::set('Masterpage', 'content', $content);
 		
 		return $this;
 	}
@@ -313,7 +315,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		if( ! is_string($randomPageVariable) )
 		{
-			return Errors::set('Error', 'stringParameter', 'randomPageVariable');
+			return \Errors::set('Error', 'stringParameter', 'randomPageVariable');
 		}
 		
 		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateExtension) )
@@ -346,7 +348,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		else
 		{
-			return Errors::set('Error', 'fileNotFound', $randomPageVariable);	
+			return \Errors::set('Error', 'fileNotFound', $randomPageVariable);	
 		}
 	}
 	
@@ -365,7 +367,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	******************************************************************************************/
 	protected function _template($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
 	{
-		$return = Template::data($this->_page($page, $data, true, $randomPageDir), $data);
+		$return = \Template::data($this->_page($page, $data, true, $randomPageDir), $data);
 			
 		if( $obGetContents === true )
 		{
@@ -412,7 +414,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		}
 		else
 		{
-			return Errors::set('Error', 'fileNotFound', $page);	
+			return \Errors::set('Error', 'fileNotFound', $page);	
 		}
 	}
 	
@@ -534,7 +536,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		//-----------------------------------------------------------------------------------------------------
 		// Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		//-----------------------------------------------------------------------------------------------------
-		$masterPageSet = Config::get('Masterpage');
+		$masterPageSet = \Config::get('Masterpage');
 		
 		//-----------------------------------------------------------------------------------------------------
 		// Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -548,16 +550,16 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/		
 		$docType = isset($head['docType']) ? $head['docType'] : $masterPageSet["docType"];
 		
-		$header  = Config::get('ViewObjects', 'doctype')[$docType].$eol;
+		$header  = \Config::get('ViewObjects', 'doctype')[$docType].$eol;
 		
 		$htmlAttributes = isset($head['attributes']['html']) ? $head['attributes']['html'] : $masterPageSet['attributes']['html'];
 		
-		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml"'.Html::attributes($htmlAttributes).'>'.$eol;
+		$header	.= '<html xmlns="http://www.w3.org/1999/xhtml"'.\Html::attributes($htmlAttributes).'>'.$eol;
 		
 		$headAttributes = isset($head['attributes']['head']) ? $head['attributes']['head'] : $masterPageSet['attributes']['head'];
 		
 		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-		$header .= '<head'.Html::attributes($headAttributes).'>'.$eol;
+		$header .= '<head'.\Html::attributes($headAttributes).'>'.$eol;
 		
 		$contentCharset = isset($head['content']['charset']) ? $head['content']['charset'] : $masterPageSet['content']['charset'];
 					  
@@ -754,7 +756,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		$bodyAttributes = isset($head['attributes']['body']) ? $head['attributes']['body'] : $masterPageSet['attributes']['body'];
 		
-		$header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
+		$header .= '<body'.\Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
 	
 		echo $header;
 		
@@ -807,7 +809,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		(
 			'arguments' => $arguments,
 			'lastParam' => $lastParam,
-			'cdnLinks'  => array_change_key_case(Config::get('ViewObjects', 'cdn')[$cdn])
+			'cdnLinks'  => array_change_key_case(\Config::get('ViewObjects', 'cdn')[$cdn])
 		);
 	}
 	
@@ -892,7 +894,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			}
 			
 			// FARKLI FONTLAR
-			$differentSet = Config::get('ViewObjects', 'font')['differentFontExtensions'];
+			$differentSet = \Config::get('ViewObjects', 'font')['differentFontExtensions'];
 			
 			if( ! empty($differentSet) )
 			{			
@@ -1146,7 +1148,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		if( ! is_file($randomPageVariable) ) 
 		{
-			return Errors::set('Error', 'fileParameter', '1.(randomPageVariable)');
+			return \Errors::set('Error', 'fileParameter', '1.(randomPageVariable)');
 		}
 		
 		$randomPageVariable = restorationPath($randomPageVariable);
@@ -1159,7 +1161,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{	
 			$return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
 		}
-		elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('ViewObjects', 'font')['differentFontExtensions']), $randomPageVariableExtension) )
+		elseif( stristr('svg|woff|otf|ttf|'.implode('|', \Config::get('ViewObjects', 'font')['differentFontExtensions']), $randomPageVariableExtension) )
 		{			
 			$return = '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;				
 		}
@@ -1260,7 +1262,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	{
 		if( ! is_string($packages)  ) 
 		{
-			Errors::set('Error', 'stringParameter', 'packages');
+			\Errors::set('Error', 'stringParameter', 'packages');
 			
 			return false;
 		}
@@ -1289,7 +1291,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		
 		if( is_dir($packages) )
 		{
-			$packageFiles = Folder::allFiles(suffix($packages), $recursive);
+			$packageFiles = \Folder::allFiles(suffix($packages), $recursive);
 			
 			if( ! empty($packageFiles) ) 
 			{

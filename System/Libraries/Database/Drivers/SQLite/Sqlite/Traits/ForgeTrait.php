@@ -1,5 +1,5 @@
 <?php
-namespace Sqlite;
+namespace ZN\Database\Drivers\SQLite\Traits;
 
 trait ForgeTrait
 {

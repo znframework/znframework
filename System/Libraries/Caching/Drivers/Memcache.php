@@ -1,4 +1,8 @@
 <?php	
+namespace ZN\Caching\Drivers;
+
+use ZN\Caching\CacheInterface;
+
 class MemcacheDriver implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -26,7 +30,7 @@ class MemcacheDriver implements CacheInterface
 	******************************************************************************************/
 	public function connect($settings = [])
 	{	
-		$config = Config::get('Cache', 'driverSettings');
+		$config = \Config::get('Cache', 'driverSettings');
 		
 		$config = ! empty($settings)
 				  ? $settings
@@ -203,7 +207,7 @@ class MemcacheDriver implements CacheInterface
 	{
 		if( ! extension_loaded('memcached') && ! extension_loaded('memcache') )
 		{
-			return Errors::set('Cache', 'unsupported', 'Memcache');
+			return \Errors::set('Cache', 'unsupported', 'Memcache');
 		}
 		
 		return $this->connect();

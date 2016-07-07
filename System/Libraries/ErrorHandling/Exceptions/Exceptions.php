@@ -1,5 +1,7 @@
 <?php
-class Exceptions extends Exception implements ExceptionsInterface
+namespace ZN\ErrorHandling;
+
+class __USE_STATIC_ACCESS__Exceptions extends \Exception implements ExceptionsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -27,7 +29,7 @@ class Exceptions extends Exception implements ExceptionsInterface
 	| Genel Kullanım: Hata tablosu.     													  |
 	|          																				  |
 	******************************************************************************************/	
-	private static function _template($msg, $file, $line)
+	private function _template($msg, $file, $line)
 	{
 		$exceptionData = array
 		(
@@ -36,7 +38,7 @@ class Exceptions extends Exception implements ExceptionsInterface
 			'line'    => $line
 		);
 		
-		return Import::template('ExceptionTable', $exceptionData, true);
+		return \Import::template('ExceptionTable', $exceptionData, true);
 	}
 	
 	/******************************************************************************************
@@ -45,14 +47,14 @@ class Exceptions extends Exception implements ExceptionsInterface
 	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
 	|          																				  |
 	******************************************************************************************/	
-	public static function table($no = '', $msg = '', $file = '', $line = '')
+	public function table($no = '', $msg = '', $file = '', $line = '')
 	{
 		$lang    = lang('Error');
 		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 		
 		report('GeneralError', $message, 'GeneralError');
 		
-		echo self::_template($msg, $file, $line);  
+		echo $this->_template($msg, $file, $line);  
 	}
 	
 	/******************************************************************************************
@@ -61,7 +63,7 @@ class Exceptions extends Exception implements ExceptionsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function restore()
+	public function restore()
 	{
 		return restore_exception_handler();
 	}
@@ -72,11 +74,11 @@ class Exceptions extends Exception implements ExceptionsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function handler($handler = 0)
+	public function handler($handler = 0)
 	{
 		if( ! is_callable($handler) )
 		{
-			return self::set(lang('Error', 'callableParameter', '1.(handler)'));	
+			return $this->set(lang('Error', 'callableParameter', '1.(handler)'));	
 		}
 
 		return set_exception_handler($handler);

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Core;
+
 class Autoloader
 {	
 	//----------------------------------------------------------------------------------------------------
@@ -421,7 +423,7 @@ class Autoloader
 		
 		$i = 0;
 		
-		$type = Convert::toConstant($type, 'T_');
+		$type = \Convert::toConstant($type, 'T_');
 		
 		foreach( $tokens as $token )
 		{
@@ -600,4 +602,4 @@ class Autoloader
 // Nesne çağrımında otomatik devreye girerek sınıfın yüklenmesini sağlar.
 //
 //----------------------------------------------------------------------------------------------------
-spl_autoload_register('Autoloader::run');
+  spl_autoload_register('ZN\Core\Autoloader::run');

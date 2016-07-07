@@ -1,4 +1,8 @@
 <?php	
+namespace ZN\Caching\Drivers;
+
+use ZN\Caching\CacheInterface;
+
 class RedisDriver implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -42,13 +46,13 @@ class RedisDriver implements CacheInterface
 	******************************************************************************************/
 	public function connect($settings = [])
 	{
-		$config = Config::get('Cache', 'driverSettings');
+		$config =  \Config::get('Cache', 'driverSettings');
 		
 		$config = ! empty($settings)
 				  ? $settings
 				  : $config['redis'];	
 		
-		$this->redis = new Redis();
+		$this->redis = new \Redis();
 		
 		try
 		{
@@ -277,7 +281,7 @@ class RedisDriver implements CacheInterface
 	{
 		if( ! extension_loaded('redis') )
 		{
-			return Errors::set('Cache', 'unsupported', 'Redis');
+			return \Errors::set('Cache', 'unsupported', 'Redis');
 		}
 		
 		return $this->connect();

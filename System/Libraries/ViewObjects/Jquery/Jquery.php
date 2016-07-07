@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ViewObjects;
+
 class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -19,7 +21,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -32,15 +34,16 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
+	
+	protected $namespace = 'ZN\ViewObjects\Jquery\Helpers\\';
 	
 	/* Property Variables
 	 * Property 
 	 * css, attr, val
 	 *
 	 * $.css(), .attr(), .val()
-	 */
-	 
+	 */	 
 	protected $property = '';
 	
 	/* Property Queue Variables
@@ -74,7 +77,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	{
 		if( ! is_string($property) )
 		{
-			Errors::set('Error', 'stringParameter', 'property');
+			\Errors::set('Error', 'stringParameter', 'property');
 			return $this;	
 		}
 		
@@ -82,7 +85,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 
 		$this->attr = $attr;
 		
-		$this->propertyQueue .= JQ::property($property, $attr);
+		$this->propertyQueue .= \JQ::property($property, $attr);
 
 		return $this;
 	}
@@ -120,7 +123,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	{
 		$combineFunction = $args;
 		
-		$complete  = EOL.JQ::selector($this->selector);
+		$complete  = EOL.\JQ::selector($this->selector);
 		
 		$complete .= $this->complete();		
 			
@@ -161,7 +164,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function ajax($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Ajax', [$tag, $jq, $jqui]);
+		return uselib($this->namespace.'Ajax', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -173,7 +176,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function action($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Action', [$tag, $jq, $jqui]);
+		return uselib($this->namespace.'Action', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -185,7 +188,7 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function animate($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Animate', [$tag, $jq, $jqui]);
+		return uselib($this->namespace.'Animate', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -197,6 +200,6 @@ class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	public function event($tag = false, $jq = false, $jqui = false)
 	{
-		return uselib('Jquery\Event', [$tag, $jq, $jqui]);
+		return uselib($this->namespace.'Event', [$tag, $jq, $jqui]);
 	}
 }

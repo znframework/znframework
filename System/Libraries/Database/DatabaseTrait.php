@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database;
+
 trait DatabaseTrait
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ trait DatabaseTrait
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* Config Değişkeni
 	 *  
@@ -151,27 +153,24 @@ trait DatabaseTrait
 	******************************************************************************************/
 	private function run()
 	{	
-		$config = Config::get('Database');
+		$config = \Config::get('Database');
 		
 		$this->config = $config;
 		
 		if( isset($config['driver']) ) 
-		{	
-			// Drivere ayarına girilen verinin
-			// ilk harfini büyük yapması isteniyor.
-			// pdo => Pdo		
-			$driver = ucfirst($config['driver']);
+		{		
+			$driver = $config['driver'];
 		
 			// Sub driver kullanılırken driver:subdriver
 			// kullanımı için böyle bir kontrol yapılmaktadır.
 			if( strpos($driver, ':') )
 			{
 				$subDrivers = explode(':', $driver);
-				$driver  = $subDrivers[0];
+				$driver     = $subDrivers[0];
 			}
 			
-			$drv = $driver.'Driver';
-			
+			$drv = 'ZN\Database\Drivers\\'.$driver.'Driver';
+		
 			// Sürüden bir nesne oluşturuluyor.
 			$db = new $drv;
 			
@@ -207,7 +206,7 @@ trait DatabaseTrait
 	{
 		if( ! is_string($table) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'table');
+			\Errors::set('Error', 'stringParameter', 'table');
 		}
 		else
 		{
@@ -234,7 +233,7 @@ trait DatabaseTrait
 	{
 		if( ! is_string($col) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'col');
+			\Errors::set('Error', 'stringParameter', 'col');
 		}
 		
 		$this->column[$col] = $val;
@@ -289,7 +288,7 @@ trait DatabaseTrait
 		}
 		else
 		{
-			return Errors::set('Error', 'emptyParameter', 'connectName');	
+			return \Errors::set('Error', 'emptyParameter', 'connectName');	
 		}
 		
 		foreach($config as $key => $val)
@@ -321,7 +320,7 @@ trait DatabaseTrait
 	{
 		if( ! is_array($data) ) 
 		{
-			Errors::set('Error', 'arrayParameter', 'data');
+			\Errors::set('Error', 'arrayParameter', 'data');
 		}
 		else
 		{
@@ -391,21 +390,21 @@ trait DatabaseTrait
 	private function _math($type, $args = [])
 	{
 		$type    = strtoupper($type);
-		$getLast = Arrays::getLast($args);
+		$getLast = \Arrays::getLast($args);
 		
 		$asparam = ' ';
 		
 		if( $getLast === true )
 		{
-			$args   = Arrays::removeLast($args);
+			$args   = \Arrays::removeLast($args);
 			$return = true;
 			
-			$as     = Arrays::getLast($args);
+			$as     = \Arrays::getLast($args);
 			
 			if( stripos(trim($as), 'as') === 0 )
 			{
 				$asparam .= $as;
-				$args   = Arrays::removeLast($args);
+				$args   = \Arrays::removeLast($args);
 			}
 		}
 		else
@@ -416,7 +415,7 @@ trait DatabaseTrait
 		if( stripos(trim($getLast), 'as') === 0 )
 		{
 			$asparam .= $getLast;
-			$args     = Arrays::removeLast($args);
+			$args     = \Arrays::removeLast($args);
 		}
 		
 		$args = $type.'('.rtrim(implode(',', $args), ',').')'.$asparam;
@@ -440,7 +439,7 @@ trait DatabaseTrait
 	******************************************************************************************/
 	public function func(...$args)
 	{
-		$array = Arrays::removeFirst($args);
+		$array = \Arrays::removeFirst($args);
 		$math  = $this->_math(isset($args[0]) ? mb_strtoupper($args[0]) : false, $array);
 	
 		if( $math->return === true )
@@ -460,7 +459,7 @@ trait DatabaseTrait
 	******************************************************************************************/
 	public function error()
 	{
-		Errors::set($this->db->error()); 
+		\Errors::set($this->db->error()); 
 		return $this->db->error(); 
 	}
 	

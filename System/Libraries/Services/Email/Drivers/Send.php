@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services\Drivers;
+
 class SendDriver implements EmailDriverInterface
 {
 	/***********************************************************************************/

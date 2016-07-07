@@ -1,5 +1,7 @@
 <?php
-namespace Jquery;
+namespace ZN\ViewObjects\Jquery\Helpers;
+
+use ZN\ViewObjects\JqueryTrait;
 
 class Ajax
 {
@@ -12,7 +14,7 @@ class Ajax
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \JqueryTrait;
+	use JqueryTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method

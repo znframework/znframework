@@ -1,5 +1,7 @@
 <?php
-namespace Jquery;
+namespace ZN\ViewObjects\Jquery\Helpers;
+
+use ZN\ViewObjects\JqueryTrait;
 
 class Animate
 {
@@ -12,7 +14,7 @@ class Animate
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \JqueryTrait;
+	use JqueryTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method

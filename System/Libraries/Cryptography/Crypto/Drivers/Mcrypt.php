@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Cryptography\Drivers;
+
+use ZN\Cryptography\CryptoInterface;
+
 class McryptDriver implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -41,10 +45,10 @@ class McryptDriver implements CryptoInterface
 		$iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
 
 		// MCRYPT_ ön eki ilave ediliyor.
-		$cipher = Convert::toConstant($cipher, 'MCRYPT_');
+		$cipher = \Convert::toConstant($cipher, 'MCRYPT_');
 		
 		// MCRYPT_MODE_ ön eki ilave ediliyor.
-		$mode   = Convert::toConstant($mode, 'MCRYPT_MODE_');
+		$mode   = \Convert::toConstant($mode, 'MCRYPT_MODE_');
 		
 		$encode = trim(mcrypt_encrypt($cipher, $key, $data, $mode, $iv));
 		
@@ -71,10 +75,10 @@ class McryptDriver implements CryptoInterface
 		$iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
 		
 		// MCRYPT_ ön eki ilave ediliyor.
-		$cipher = Convert::toConstant($cipher, 'MCRYPT_');
+		$cipher = \Convert::toConstant($cipher, 'MCRYPT_');
 		
 		// MCRYPT_MODE_ ön eki ilave ediliyor.
-		$mode   = Convert::toConstant($mode, 'MCRYPT_MODE_');
+		$mode   = \Convert::toConstant($mode, 'MCRYPT_MODE_');
 		
 		$data = base64_decode($data);
 		
@@ -119,14 +123,14 @@ class McryptDriver implements CryptoInterface
 				
 		);
 		
-		$ciphers = Arrays::multikey($ciphers);
+		$ciphers = \Arrays::multikey($ciphers);
 		
 		if( ! isset($ciphers[$cipher]) )
 		{
 			$ciphers[$cipher] = 8;	
 		}
 		
-		return mb_substr(hash('md5', Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
+		return mb_substr(hash('md5', \Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
 	}
 	
 	/******************************************************************************************
@@ -153,7 +157,7 @@ class McryptDriver implements CryptoInterface
 			'rijndael_256'												=> 32,
 		);
 		
-		$modes = Arrays::multikey($modes);
+		$modes = \Arrays::multikey($modes);
 		
 		$mode = isset($modes[$mode]) ? $modes[$mode] : 8;
 		
@@ -162,6 +166,6 @@ class McryptDriver implements CryptoInterface
 			$mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
 		}
 		
-		return mb_substr(hash('sha1', Config::get('Encode', 'projectKey')), 0, $mode);
+		return mb_substr(hash('sha1', \Config::get('Encode', 'projectKey')), 0, $mode);
 	}
 }

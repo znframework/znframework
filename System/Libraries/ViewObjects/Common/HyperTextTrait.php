@@ -1,4 +1,9 @@
 <?php
+namespace ZN\ViewObjects\Common;
+
+use ZN\ViewObjects\Form\ElementsTrait as FormElementsTrait;
+use ZN\ViewObjects\HTML\ElementsTrait as HTMLElementsTrait;
+
 trait HyperTextTrait
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +22,7 @@ trait HyperTextTrait
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -30,7 +35,7 @@ trait HyperTextTrait
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// FormElementsTrait
@@ -39,7 +44,7 @@ trait HyperTextTrait
 	// elements ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use Form\ElementsTrait;
+	use FormElementsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// HTMLElementsTrait
@@ -48,7 +53,7 @@ trait HyperTextTrait
 	// elements ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use HTML\ElementsTrait;
+	use HTMLElementsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// $settings

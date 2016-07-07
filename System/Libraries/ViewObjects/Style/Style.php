@@ -1,5 +1,7 @@
 <?php
-class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
+namespace ZN\ViewObjects;
+
+class __USE_STATIC_ACCESS__Style implements Common\ViewObjectsInterface
 {
 	/***********************************************************************************/
 	/* STYLE COMPONENT	     	     		                   	                       */
@@ -24,7 +26,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	 */
 	protected $type 	= 'text/css';
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -37,7 +39,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* TYPE                                                                       			  *
@@ -54,7 +56,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	{
 		if( ! is_string($type) )
 		{
-			Errors::set('Error', 'stringParameter', 'type');
+			\Errors::set('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		
@@ -77,7 +79,7 @@ class __USE_STATIC_ACCESS__Style implements ViewObjectsInterface
 	******************************************************************************************/
 	public function library(...$libraries)
 	{
-		Import::style(...$libraries);
+		\Import::style(...$libraries);
 		
 		return $this;
 	}

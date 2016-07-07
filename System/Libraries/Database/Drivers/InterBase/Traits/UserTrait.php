@@ -1,9 +1,11 @@
 <?php
-namespace Ibase;
+namespace ZN\Database\Drivers\InterBase\Traits;
+
+use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 
 trait UserTrait
 {
-	use \Driver\UserTrait;
+	use CommonUserTrait;
 	
 	public function adminRole($role = '')
 	{

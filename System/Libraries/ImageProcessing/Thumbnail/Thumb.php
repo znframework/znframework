@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ImageProcessing;
+
 class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 {
 	/***********************************************************************************/
@@ -25,7 +27,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	 */
 	protected $sets;
 	 
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -38,7 +40,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* PATH                                                                           		  *
@@ -55,7 +57,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_string($file) )
 		{
-			Errors::set('Error', 'stringParameter', 'file');
+			\Errors::set('Error', 'stringParameter', 'file');
 			return $this;	
 		}
 	
@@ -82,7 +84,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($quality) )
 		{
-			Errors::set('Error', 'numericParameter', 'quality');
+			\Errors::set('Error', 'numericParameter', 'quality');
 			return $this;	
 		}
 	
@@ -110,7 +112,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			Errors::set('Error', 'numericParameter', 'x & y');
+			\Errors::set('Error', 'numericParameter', 'x & y');
 			return $this;	
 		}
 	
@@ -143,7 +145,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Errors::set('Error', 'numericParameter', 'width & height');
+			\Errors::set('Error', 'numericParameter', 'width & height');
 			return $this;	
 		}
 	
@@ -177,7 +179,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Errors::set('Error', 'numericParameter', 'width & height');
+			\Errors::set('Error', 'numericParameter', 'width & height');
 			return $this;	
 		}
 	
@@ -211,7 +213,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	{
 		if( ! is_numeric($width) || ! is_numeric($height) )
 		{
-			Errors::set('Error', 'numericParameter', 'width & height');
+			\Errors::set('Error', 'numericParameter', 'width & height');
 			return $this;	
 		}
 	
@@ -245,7 +247,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 			$path = $this->sets['filePath'];	
 		}
 		
-		return Image::thumb($path, $this->sets);
+		return \Image::thumb($path, $this->sets);
 	}
 	
 	/******************************************************************************************
@@ -271,7 +273,7 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 			return false;	
 		}
 		
-		return Image::getProsize($this->sets['filePath'], $width, $height);
+		return \Image::getProsize($this->sets['filePath'], $width, $height);
 	}
 	
 	/******************************************************************************************
@@ -284,6 +286,6 @@ class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
 	******************************************************************************************/
 	public function error()
 	{
-		return Image::error();
+		return \Image::error();
 	}
 }

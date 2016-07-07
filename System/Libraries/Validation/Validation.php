@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Validation;
+
 class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Validate Trait
@@ -65,7 +67,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	// validate functions
 	//
 	//----------------------------------------------------------------------------------------------------
-	use Validation\ValidateTrait;
+	use ValidateTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rules Method Başlangıç
@@ -177,38 +179,38 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		// nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
 		if( in_array('nc', $config) )
 		{
-			$secnc = Config::get('Security', 'ncEncode');
-			$edit  = Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
+			$secnc = \Config::get('Security', 'ncEncode');
+			$edit  = \Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.
 		if( in_array('html' ,$config) )
 		{
-			$edit = Security::htmlEncode($edit);		
+			$edit = \Security::htmlEncode($edit);		
 		}
 		
 		// nail_clean tırnak işaretlerini temizlemek için kullanılır.
 		if( in_array('xss', $config) )
 		{
-			$edit = Security::xssEncode($edit);	
+			$edit = \Security::xssEncode($edit);	
 		}
 		
 		// tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
 		if( in_array('injection', $config) )
 		{
-			$edit = Security::injectionEncode($edit);
+			$edit = \Security::injectionEncode($edit);
 		}
 		
 		// Script tag kullanımı engellemek için kullanılır.
 		if( in_array('script' ,$config) )
 		{
-			$edit = Security::scriptTagEncode($edit);		
+			$edit = \Security::scriptTagEncode($edit);		
 		}
 		
 		// PHP tag kullanımı engellemek için kullanılır.
 		if( in_array('php' ,$config) )
 		{
-			$edit = Security::phpTagEncode($edit);		
+			$edit = \Security::phpTagEncode($edit);		
 		}
 		
 		// Süzgeç sonrası validation::nval() yönteminin yeni değeri
@@ -231,9 +233,9 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		
 		if( in_array('captcha', $config) )
 		{ 
-			Session::start();
+			\Session::start();
 			
-			if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
+			if( $edit != \Session::select(md5('SystemCaptchaCodeData')) )
 			{ 
 				$this->_messages('captchaCode', $name, $viewName);	
 			} 
@@ -265,7 +267,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 			$pm = "";
 			$pm = $config['oldPassword'];
 	
-			if( Encode::super($edit) != $pm )
+			if( \Encode::super($edit) != $pm )
 			{ 
 				$this->_messages('oldPasswordMatch', $name, $viewName);
 			} 
@@ -409,17 +411,17 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( $met === "post" ) 		
 		{
-			return Method::post($name);
+			return \Method::post($name);
 		}
 		
 		if( $met === "get" ) 		
 		{
-			return Method::get($name);
+			return \Method::get($name);
 		}
 		
 		if( $met === "request" ) 	
 		{
-			return Method::request($name);
+			return \Method::request($name);
 		}	
 	}
 	
@@ -433,17 +435,17 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( $met === "post" ) 		
 		{
-			return Method::post($name, $val);
+			return \Method::post($name, $val);
 		}
 		
 		if( $met === "get" ) 		
 		{
-			return Method::get($name, $val);
+			return \Method::get($name, $val);
 		}
 		
 		if( $met === "request" ) 	
 		{
-			return Method::request($name, $val);
+			return \Method::request($name, $val);
 		}	
 	}
 	
@@ -470,7 +472,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($name) ) 
 		{
-			return Errors::set('Error', 'scalarParameter', 'name');
+			return \Errors::set('Error', 'scalarParameter', 'name');
 		}
 		
 		if( isset($this->nval[$name]) )
@@ -562,7 +564,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Errors::set('Error', 'scalarParameter', 'name');
+			return \Errors::set('Error', 'scalarParameter', 'name');
 		}
 
 		if( ! is_string($met) ) 

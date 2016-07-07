@@ -1,5 +1,7 @@
 <?php
-namespace Sheet;
+namespace ZN\ViewObjects\Sheet\Helpers;
+
+use ZN\ViewObjects\SheetTrait;
 
 class Transition
 {
@@ -12,7 +14,7 @@ class Transition
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \SheetTrait;
+	use SheetTrait;
 	
 	use \CallUndefinedMethodTrait;
 	

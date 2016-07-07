@@ -1,7 +1,9 @@
 <?php
-namespace Sqlite3;
+namespace ZN\Database\Drivers\SQLite3\Traits;
+
+use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 
 trait UserTrait
 {
-	use \Driver\UserTrait;
+	use CommonUserTrait;
 }

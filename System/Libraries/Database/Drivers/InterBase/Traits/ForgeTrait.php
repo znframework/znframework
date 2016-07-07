@@ -1,5 +1,5 @@
 <?php
-namespace Ibase;
+namespace ZN\Database\Drivers\InterBase\Traits;
 
 trait ForgeTrait
 {

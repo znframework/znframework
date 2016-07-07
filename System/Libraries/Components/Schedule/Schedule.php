@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Components;
+
 class __USE_STATIC_ACCESS__Schedule implements ScheduleInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__Schedule implements ScheduleInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -62,7 +64,7 @@ class __USE_STATIC_ACCESS__Schedule implements ScheduleInterface
 					$k = 'li';
 				}	
 				
-				$end = "/".Arrays::getFirst(explode(' ', $k));
+				$end = "/".\Arrays::getFirst(explode(' ', $k));
 				
 				if( ! is_array($v) )
 				{			

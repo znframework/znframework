@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Authentication;
+
 class __USE_STATIC_ACCESS__User implements UserInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -63,7 +65,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -76,7 +78,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -85,7 +87,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Register Method Başlangıç
@@ -152,7 +154,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			
 		if( ! is_array($data) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', '1.(data)');
+			return \Errors::set('Error', 'arrayParameter', '1.(data)');
 		}
 		if( ! is_string($activationReturnLink) ) 
 		{
@@ -188,17 +190,17 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
-			return Errors::set('User', 'registerUsernameError');
+			return \Errors::set('User', 'registerUsernameError');
 		}
 		
 		$loginUsername  = $data[$usernameColumn];
 		$loginPassword  = $data[$passwordColumn];	
 		$encodeType     = $userConfig['encode'];
-		$encodePassword = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;	
+		$encodePassword = ! empty($encodeType) ? \Encode::type($loginPassword, $encodeType) : $loginPassword;	
 		
-		$usernameControl = DB::where($usernameColumn.' =', $loginUsername)
-							 ->get($tableName)
-							 ->totalRows();
+		$usernameControl = \DB::where($usernameColumn.' =', $loginUsername)
+							  ->get($tableName)
+							  ->totalRows();
 		
 		// Daha önce böyle bir kullanıcı
 		// yoksa kullanıcı kaydetme işlemini başlat.
@@ -206,20 +208,20 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		{
 			$data[$passwordColumn] = $encodePassword;
 			
-			if( ! DB::insert($tableName , $data) )
+			if( ! \DB::insert($tableName , $data) )
 			{
-				return Errors::set('User', 'registerUnknownError');
+				return \Errors::set('User', 'registerUnknownError');
 			}	
 
 			if( ! empty($joinTables) )
 			{	
-				$joinCol = DB::where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
+				$joinCol = \DB::where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
 				
 				foreach( $joinTables as $table => $joinColumn )
 				{
 					$joinData[$table][$joinTables[$table]] = $joinCol;
 					
-					DB::insert($table, $joinData[$table]);	
+					\DB::insert($table, $joinData[$table]);	
 				}	
 			}
 		
@@ -254,7 +256,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		else
 		{
-			return Errors::set('User', 'registerError');
+			return \Errors::set('User', 'registerError');
 		}
 	}
 	
@@ -368,17 +370,17 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			// Parametreler kontrol ediliyor.--------------------------------------------------
 			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
 			{
-				Errors::set('Error', 'stringParameter', '1.(old)');
-				Errors::set('Error', 'stringParameter', '2.(new)');
-				Errors::set('Error', 'arrayParameter', '4.(data)');
+				\Errors::set('Error', 'stringParameter', '1.(old)');
+				\Errors::set('Error', 'stringParameter', '2.(new)');
+				\Errors::set('Error', 'arrayParameter', '4.(data)');
 				
 				return false;
 			}
 				
 			if( empty($old) || empty($new) ) 
 			{
-				Errors::set('Error', 'emptyParameter', '1.(old)');
-				Errors::set('Error', 'emptyParameter', '2.(new)');
+				\Errors::set('Error', 'emptyParameter', '1.(old)');
+				\Errors::set('Error', 'emptyParameter', '2.(new)');
 				
 				return false;
 			}
@@ -407,9 +409,9 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			
 			$encodeType   = $userConfig['encode'];
 			
-			$oldPassword      = ! empty($encodeType) ? Encode::type($old, $encodeType)      : $old;
-			$newPassword      = ! empty($encodeType) ? Encode::type($new, $encodeType)      : $new;
-			$newPasswordAgain = ! empty($encodeType) ? Encode::type($newAgain, $encodeType) : $newAgain;
+			$oldPassword      = ! empty($encodeType) ? \Encode::type($old, $encodeType)      : $old;
+			$newPassword      = ! empty($encodeType) ? \Encode::type($new, $encodeType)      : $new;
+			$newPasswordAgain = ! empty($encodeType) ? \Encode::type($newAgain, $encodeType) : $newAgain;
 			
 			if( ! empty($joinTables) )
 			{
@@ -426,11 +428,11 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 			if( $oldPassword != $password )
 			{
-				return Errors::set('User', 'oldPasswordError');	
+				return \Errors::set('User', 'oldPasswordError');	
 			}
 			elseif( $newPassword != $newPasswordAgain )
 			{
-				return Errors::set('User', 'passwordNotMatchError');
+				return \Errors::set('User', 'passwordNotMatchError');
 			}
 			else
 			{
@@ -439,21 +441,21 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				
 				if( ! empty($joinTables) )
 				{
-					$joinCol = DB::where($uc.' =', $username)->get($tn)->row()->$jc;
+					$joinCol = \DB::where($uc.' =', $username)->get($tn)->row()->$jc;
 					
 					foreach( $joinTables as $table => $joinColumn )
 					{
 						if( isset($joinData[$table]) )
 						{
-							DB::where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);	
+							\DB::where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);	
 						}
 					}	
 				}
 				else
 				{
-					if( ! DB::where($uc.' =', $username)->update($tn, $data) )
+					if( ! \DB::where($uc.' =', $username)->update($tn, $data) )
 					{
-						return Errors::set('User', 'registerUnknownError');
+						return \Errors::set('User', 'registerUnknownError');
 					}	
 				}
 				
@@ -498,21 +500,21 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		// ------------------------------------------------------------------------------
 		
 		// Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
-		$user = Uri::get('user');
-		$pass = Uri::get('pass');
+		$user = \Uri::get('user');
+		$pass = \Uri::get('pass');
 		// ------------------------------------------------------------------------------
 		
 		if( ! empty($user) && ! empty($pass) )	
 		{
-			$row = DB::where($usernameColumn.' =', $user, 'and')
-			         ->where($passwordColumn.' =', $pass)		
-			         ->get($tableName)
-					 ->row();	
+			$row = \DB::where($usernameColumn.' =', $user, 'and')
+			          ->where($passwordColumn.' =', $pass)		
+			          ->get($tableName)
+					  ->row();	
 				
 			if( ! empty($row) )
 			{
-				DB::where($usernameColumn.' =', $user)
-				  ->update($tableName, [$activationColumn => '1']);
+				\DB::where($usernameColumn.' =', $user)
+				   ->update($tableName, [$activationColumn => '1']);
 				
 				$this->success = lang('User', 'activationComplete');
 				
@@ -520,12 +522,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			}	
 			else
 			{
-				return Errors::set('User', 'activationCompleteError');
+				return \Errors::set('User', 'activationCompleteError');
 			}				
 		}
 		else
 		{
-			return Errors::set('User', 'activationCompleteError');
+			return \Errors::set('User', 'activationCompleteError');
 		}
 	}
 	
@@ -560,25 +562,25 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			'pass' => $pass
 		);
 		
-		$message = Import::template('UserEmail/Activation', $templateData, true);	
+		$message = \Import::template('UserEmail/Activation', $templateData, true);	
 		
 		$user = ! empty($email) 
 				? $email 
 				: $user;
 				
-		Email::sender($senderInfo['mail'], $senderInfo['name'])
-		     ->receiver($user, $user)
-		     ->subject(lang('User', 'activationProcess'))
-		     ->content($message);
+		\Email::sender($senderInfo['mail'], $senderInfo['name'])
+		      ->receiver($user, $user)
+		      ->subject(lang('User', 'activationProcess'))
+		      ->content($message);
 		
-		if( Email::send() )
+		if( \Email::send() )
 		{
 			$this->success = lang('User', 'activationEmail');
 			return true;
 		}
 		else
 		{	
-			return Errors::set('User', 'emailError');
+			return \Errors::set('User', 'emailError');
 		}
 	}
 	
@@ -604,7 +606,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		$usernameColumn = $config['matching']['columns']['username'];
 		$passwordColumn = $config['matching']['columns']['password'];
 		
-		if( $sessionUserName = Session::select($usernameColumn) )
+		if( $sessionUserName = \Session::select($usernameColumn) )
 		{
 			$joinTables		= $config['joining']['tables'];
 			$usernameColumn = $config['matching']['columns']['username'];
@@ -612,26 +614,26 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			$tableName 		= $config['matching']['table'];
 			
 			$this->username  = $sessionUserName;
-			$sessionPassword = Session::select($passwordColumn);
+			$sessionPassword = \Session::select($passwordColumn);
 			
-			$r[$tbl] = DB::where($usernameColumn.' = ', $this->username, 'and')
-						 ->where($passwordColumn.' = ', $sessionPassword)
-					     ->get($tableName)
-					     ->row();
+			$r[$tbl] = \DB::where($usernameColumn.' = ', $this->username, 'and')
+						  ->where($passwordColumn.' = ', $sessionPassword)
+					      ->get($tableName)
+					      ->row();
 	
 			if( ! empty($joinTables) )
 			{
-				$joinCol = DB::where($usernameColumn.' = ', $this->username, 'and')
-						     ->where($passwordColumn.' = ', $sessionPassword)
-							 ->get($tableName)
-							 ->row()
-							 ->$joinColumn;
+				$joinCol = \DB::where($usernameColumn.' = ', $this->username, 'and')
+						      ->where($passwordColumn.' = ', $sessionPassword)
+							  ->get($tableName)
+							  ->row()
+							  ->$joinColumn;
 			
 				foreach( $joinTables as $table => $joinColumn )	
 				{
-					$r[$table] = DB::where($joinColumn.' =', $joinCol)
-								   ->get($table)
-								   ->row();
+					$r[$table] = \DB::where($joinColumn.' =', $joinCol)
+								    ->get($table)
+								    ->row();
 				}
 			}
 			
@@ -672,9 +674,9 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! empty($activeColumn) )
 		{
-			$totalRows = DB::where($activeColumn.' =', 1)
-						   ->get($tableName)
-						   ->totalRows();
+			$totalRows = \DB::where($activeColumn.' =', 1)
+						    ->get($tableName)
+						    ->totalRows();
 			
 			if( ! empty($totalRows) )
 			{
@@ -704,9 +706,9 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! empty($bannedColumn) )
 		{	
-			$totalRows = DB::where($bannedColumn.' =', 1)
-						   ->get($tableName)
-						   ->totalRows();
+			$totalRows = \DB::where($bannedColumn.' =', 1)
+						    ->get($tableName)
+						    ->totalRows();
 			
 			if( ! empty($totalRows) )
 			{
@@ -733,7 +735,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 	{
 		$tableName = $this->config['matching']['table'];
 		
-		$totalRows = DB::get($tableName)->totalRows();
+		$totalRows = \DB::get($tableName)->totalRows();
 		
 		if( ! empty($totalRows) )
 		{
@@ -829,12 +831,12 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! is_string($un) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(username)');
+			return \Errors::set('Error', 'stringParameter', '1.(username)');
 		}
 		
 		if( ! is_string($pw) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '2.(password)');
+			return \Errors::set('Error', 'stringParameter', '2.(password)');
 		}
 		
 		if( ! is_scalar($rememberMe) ) 
@@ -848,7 +850,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		$encodeType = $userConfig['encode'];
 		
-		$password = ! empty($encodeType) ? Encode::type($pw, $encodeType) : $pw;
+		$password = ! empty($encodeType) ? \Encode::type($pw, $encodeType) : $pw;
 		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
@@ -864,13 +866,13 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		$activationColumn 	= $getColumns['activation'];
 		// ------------------------------------------------------------------------------
 		
-		$r = DB::where($usernameColumn.' =', $username)
-			   ->get($tableName)
-			   ->row();
+		$r = \DB::where($usernameColumn.' =', $username)
+			    ->get($tableName)
+			    ->row();
 		
 		if( ! isset($r->$passwordColumn) )
 		{
-			return Errors::set('User', 'loginError');
+			return \Errors::set('User', 'loginError');
 		}
 				
 		$passwordControl   = $r->$passwordColumn;
@@ -892,29 +894,29 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		{
 			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
-				return Errors::set('User', 'bannedError');
+				return \Errors::set('User', 'bannedError');
 			}
 			
 			if( ! empty($activationColumn) && empty($activationControl) )
 			{
-				return Errors::set('User', 'activationError');
+				return \Errors::set('User', 'activationError');
 			}
 			
-			Session::insert($usernameColumn, $username); 
-			Session::insert($passwordColumn, $password);
+			\Session::insert($usernameColumn, $username); 
+			\Session::insert($passwordColumn, $password);
 			
-			if( Method::post($rememberMe) || ! empty($rememberMe) )
+			if( \Method::post($rememberMe) || ! empty($rememberMe) )
 			{
-				if( Cookie::select($usernameColumn) != $username )
+				if( \Cookie::select($usernameColumn) != $username )
 				{					
-					Cookie::insert($usernameColumn, $username);
-					Cookie::insert($passwordColumn, $password);
+					\Cookie::insert($usernameColumn, $username);
+					\Cookie::insert($passwordColumn, $password);
 				}
 			}
 			
 			if( ! empty($activeColumn) )
 			{		
-				DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
+				\DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
 			}
 			
 			$this->success = lang('User', 'loginSuccess');
@@ -922,7 +924,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		else
 		{
-			return Errors::set('User', 'loginError');
+			return \Errors::set('User', 'loginError');
 		}
 	}
 	
@@ -958,14 +960,13 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		{
 			if( $active )
 			{	
-				DB::where($username.' =', $this->data($tableName)->$username)
-				  ->update($tableName, [$active => 0]);
+				\DB::where($username.' =', $this->data($tableName)->$username)
+				   ->update($tableName, [$active => 0]);
 			}
 			
-			Cookie::delete($username);
-			Cookie::delete($password );	
-			
-			Session::delete($username);
+			\Cookie::delete($username);
+			\Cookie::delete($password );			
+			\Session::delete($username);
 			
 			redirect($redirectUrl, $time);
 		}
@@ -987,17 +988,17 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		$username   = $getColumns['username'];
 		$password   = $getColumns['password']; 
 		
-		$cUsername = Cookie::select($username);
-		$cPassword = Cookie::select($password);
+		$cUsername = \Cookie::select($username);
+		$cPassword = \Cookie::select($password);
 		
 		$result = '';
 		
 		if( ! empty($cUsername) && ! empty($cPassword) )
 		{	
-			$result = DB::where($username.' =', $cUsername, 'and')
-						->where($password.' =', $cPassword)
-						->get($tableName)
-						->totalRows();
+			$result = \DB::where($username.' =', $cUsername, 'and')
+						 ->where($password.' =', $cPassword)
+						 ->get($tableName)
+						 ->totalRows();
 		}
 		
 		if( isset($this->data($tableName)->$username) )
@@ -1006,7 +1007,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		}
 		elseif( ! empty($result) )
 		{
-			Session::insert($username, $cUsername);
+			\Session::insert($username, $cUsername);
 			
 			$isLogin = true;	
 		}
@@ -1066,7 +1067,7 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! is_string($email) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(email)');
+			return \Errors::set('Error', 'stringParameter', '1.(email)');
 		}
 		
 		if( ! is_string($returnLinkPath) ) 
@@ -1090,14 +1091,14 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 		
 		if( ! empty($emailColumn) )
 		{
-			DB::where($emailColumn.' =', $email);
+			\DB::where($emailColumn.' =', $email);
 		}
 		else
 		{
-			DB::where($usernameColumn.' =', $email);
+			\DB::where($usernameColumn.' =', $email);
 		}
 		
-		$row = DB::get($tableName)->row();
+		$row = \DB::get($tableName)->row();
 		
 		$result = "";
 		
@@ -1110,8 +1111,8 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 			
 			$encodeType     = $userConfig['encode'];
 			
-			$newPassword    = Encode::create(10);
-			$encodePassword = ! empty($encodeType) ? Encode::type($newPassword, $encodeType) : $newPassword;
+			$newPassword    = \Encode::create(10);
+			$encodePassword = ! empty($encodeType) ? \Encode::type($newPassword, $encodeType) : $newPassword;
 			
 			$templateData = array
 			(
@@ -1120,41 +1121,41 @@ class __USE_STATIC_ACCESS__User implements UserInterface
 				'returnLinkPath' => $returnLinkPath
 			);
 
-			$message   = Import::template('UserEmail/ForgotPassword', $templateData, true);	
+			$message   = \Import::template('UserEmail/ForgotPassword', $templateData, true);	
 			
-			Email::sender($senderInfo['mail'], $senderInfo['name'])
-			     ->receiver($email, $email)
-			     ->subject(lang('User', 'newYourPassword'))
-			     ->content($message);
+			\Email::sender($senderInfo['mail'], $senderInfo['name'])
+			      ->receiver($email, $email)
+			      ->subject(lang('User', 'newYourPassword'))
+			      ->content($message);
 			
-			if( Email::send() )
+			if( \Email::send() )
 			{
 				if( ! empty($emailColumn) )
 				{
-					DB::where($emailColumn.' =', $email);
+					\DB::where($emailColumn.' =', $email);
 				}
 				else
 				{
-					DB::where($usernameColumn.' =', $email);
+					\DB::where($usernameColumn.' =', $email);
 				}
 				
-				if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
+				if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
 				{
 					$this->success = lang('User', 'forgotPasswordSuccess');
 					
 					return true;
 				}
 				
-				return Errors::set('Database', 'updateError');
+				return \Errors::set('Database', 'updateError');
 			}
 			else
 			{	
-				return Errors::set('User', 'emailError');
+				return \Errors::set('User', 'emailError');
 			}
 		}
 		else
 		{
-			return Errors::set('User', 'forgotPasswordError');
+			return \Errors::set('User', 'forgotPasswordError');
 		}
 	}
 	

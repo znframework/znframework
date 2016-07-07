@@ -1,4 +1,8 @@
-<?php	
+<?php
+namespace ZN\Caching\Drivers;
+
+use ZN\Caching\CacheInterface;
+	
 class WincacheDriver implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -184,7 +188,7 @@ class WincacheDriver implements CacheInterface
 	{
 		if ( ! extension_loaded('wincache') || ! ini_get('wincache.ucenabled') )
 		{
-			return Errors::set('Cache', 'unsupported', 'Wincache');
+			return \Errors::set('Cache', 'unsupported', 'Wincache');
 		}
 		
 		return true;

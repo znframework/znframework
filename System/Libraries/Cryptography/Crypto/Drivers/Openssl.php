@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Cryptography\Drivers;
+
+use ZN\Cryptography\CryptoInterface;
+
 class OpensslDriver implements CryptoInterface
 {	
 	//----------------------------------------------------------------------------------------------------
@@ -113,14 +117,14 @@ class OpensslDriver implements CryptoInterface
 			'aes-128' 	=> 16,
 		);
 		
-		$ciphers = Arrays::multikey($ciphers);
+		$ciphers = \Arrays::multikey($ciphers);
 		
 		if( ! isset($ciphers[$cipher]) )
 		{
 			$ciphers[$cipher] = 16;	
 		}
 		
-		return mb_substr(hash('md5', Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
+		return mb_substr(hash('md5', \Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
 	}
 	
 	/******************************************************************************************
@@ -146,7 +150,7 @@ class OpensslDriver implements CryptoInterface
 			'ecb'   => 0
 		);
 		
-		$modes = Arrays::multikey($modes);
+		$modes = \Arrays::multikey($modes);
 		
 		$mode = isset($modes[$mode]) ? $modes[$mode] : 16;
 		
@@ -155,6 +159,6 @@ class OpensslDriver implements CryptoInterface
 			$mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
 		}
 		
-		return mb_substr(hash('sha1', Config::get('Encode', 'projectKey')), 0, $mode);
+		return mb_substr(hash('sha1', \Config::get('Encode', 'projectKey')), 0, $mode);
 	}
 }

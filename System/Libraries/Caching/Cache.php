@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Caching;
+
 class __USE_STATIC_ACCESS__Cache implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -31,7 +33,7 @@ class __USE_STATIC_ACCESS__Cache implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($driver = '')
 	{	
-		$this->cache  = Driver::run('Cache', $driver);
+		$this->cache  = \Driver::run('Cache', $driver);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -41,7 +43,7 @@ class __USE_STATIC_ACCESS__Cache implements CacheInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Driver Method
@@ -50,7 +52,7 @@ class __USE_STATIC_ACCESS__Cache implements CacheInterface
 	// driver()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DriverMethodTrait;
+	use \DriverMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -63,7 +65,7 @@ class __USE_STATIC_ACCESS__Cache implements CacheInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Data Manipulation Methods Başlangıç

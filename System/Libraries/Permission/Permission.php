@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\Permission;
+
 class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -45,7 +47,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -54,7 +56,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -67,7 +69,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// start()
@@ -123,7 +125,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 		// Parametrelerin kontrolleri yapılıyor.
 		if( ! is_numeric($roleId) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'roleId');	
+			return \Errors::set('Error', 'numericParameter', 'roleId');	
 		}
 		if( ! is_scalar($process) ) 
 		{
@@ -246,7 +248,7 @@ class __USE_STATIC_ACCESS__Permission implements PermissionInterface
 	{
 		if( ! is_numeric($roleId) ) 
 		{
-			return Errors::set('Error', 'numericParameter', 'roleId');	
+			return \Errors::set('Error', 'numericParameter', 'roleId');	
 		}
 		
 		$this->permission = $this->config['page'];

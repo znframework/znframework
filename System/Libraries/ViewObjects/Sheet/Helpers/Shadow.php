@@ -1,5 +1,7 @@
 <?php
-namespace Sheet;
+namespace ZN\ViewObjects\Sheet\Helpers;
+
+use ZN\ViewObjects\SheetTrait;
 
 class Shadow
 {
@@ -12,7 +14,7 @@ class Shadow
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \SheetTrait;
+	use SheetTrait;
 	
 	use \CallUndefinedMethodTrait;
 	

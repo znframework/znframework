@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services;
+
 class __USE_STATIC_ACCESS__Session implements SessionInterface
 {
 	/***********************************************************************************/
@@ -61,7 +63,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	{
 		$this->config();
 		
-		Config::iniSet(Config::get('Htaccess', 'session')['settings']);
+		\Config::iniSet(\Config::get('Htaccess', 'session')['settings']);
 		
 		$this->start();
 	}
@@ -89,7 +91,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 		{
 			if( ! isChar($name) )
 			{
-				Errors::set('Error', 'valueParameter', 'name');
+				\Errors::set('Error', 'valueParameter', 'name');
 				return false;
 			}
 			
@@ -170,7 +172,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Errors::set('Error', 'valueParameter', 'name');	
+			return \Errors::set('Error', 'valueParameter', 'name');	
 		}
 		
 		if( isset($this->encode['name']) )
@@ -253,7 +255,7 @@ class __USE_STATIC_ACCESS__Session implements SessionInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return Errors::set('Error', 'valueParameter', 'name');	
+			return \Errors::set('Error', 'valueParameter', 'name');	
 		}	
 		
 		$sessionConfig = $this->config;

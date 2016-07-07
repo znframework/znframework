@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Helpers;
+
 class __USE_STATIC_ACCESS__Filter implements FilterInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Filter implements FilterInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -23,7 +25,7 @@ class __USE_STATIC_ACCESS__Filter implements FilterInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* WORD                                                                                    *
@@ -35,7 +37,7 @@ class __USE_STATIC_ACCESS__Filter implements FilterInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'string');
+			return \Errors::set('Error', 'valueParameter', 'string');
 		}
 		
 		return str_ireplace($badWords, $changeChar, $string);
@@ -49,6 +51,6 @@ class __USE_STATIC_ACCESS__Filter implements FilterInterface
 	******************************************************************************************/
 	public function data($string = '', $badWords = '', $changeChar = '[badwords]')
 	{
-		return self::word($string, $badWords, $changeChar);
+		return $this->word($string, $badWords, $changeChar);
 	}
 }

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class CubridDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class CubridDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Cubrid\QueryTrait;
-	use Cubrid\ForgeTrait;
-	use Cubrid\ToolTrait;
-	use Cubrid\UserTrait;
+	use Cubrid\Traits\QueryTrait;
+	use Cubrid\Traits\ForgeTrait;
+	use Cubrid\Traits\ToolTrait;
+	use Cubrid\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -151,7 +153,7 @@ class CubridDriver implements DatabaseDriverInterface
 		{
 			$fieldName = cubrid_field_name($this->query, $i);
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= cubrid_field_type($this->query, $i);
 			$columns[$fieldName]->maxLength		= cubrid_field_len($this->query, $i);

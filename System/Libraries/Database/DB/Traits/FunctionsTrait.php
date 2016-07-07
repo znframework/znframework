@@ -1,5 +1,5 @@
 <?php
-namespace DB;
+namespace ZN\Database\DB\Traits;
 
 trait FunctionsTrait
 {

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\ErrorHandling;
+
 interface ExceptionsInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -16,7 +18,7 @@ interface ExceptionsInterface
 	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
 	|          																				  |
 	******************************************************************************************/	
-	public static function table($no, $msg, $file, $line);
+	public function table($no, $msg, $file, $line);
 	
 	/******************************************************************************************
 	* RESTORE HANDLER                                                                         *
@@ -24,7 +26,7 @@ interface ExceptionsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function restore();
+	public function restore();
 	
 	/******************************************************************************************
 	* SET HANDLER 		                                                                      *
@@ -32,5 +34,5 @@ interface ExceptionsInterface
 	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
 	|          																				  |
 	******************************************************************************************/	
-	public static function handler($handler);
+	public function handler($handler);
 }

@@ -1,4 +1,6 @@
 <?php	
+namespace ZN\Database;
+
 class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 {	
 	//----------------------------------------------------------------------------------------------------
@@ -73,7 +75,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config = Config::get('Database');
+		$this->config = \Config::get('Database');
 		$this->path   = MODELS_DIR.'Migrations/';
 		
 		if( ! is_dir($this->path) )
@@ -98,7 +100,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -108,7 +110,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	// error()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Forge Methods Başlangıç
@@ -123,13 +125,13 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function createTable($data = [])
 	{
-		if( DBForge::createTable($this->_tableName(), $data) )
+		if( \DBForge::createTable($this->_tableName(), $data) )
 		{
 			$this->_action(__FUNCTION__);	
 		}	
 		else
 		{
-			$this->error = Errors::set(DBForge::error(), true);	
+			$this->error = \Errors::set(\DBForge::error(), true);	
 		}
 	}
 	
@@ -142,13 +144,13 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function dropTable()
 	{
-		if( DBForge::dropTable($this->_tableName()) )
+		if( \DBForge::dropTable($this->_tableName()) )
 		{
 			$this->_action(__FUNCTION__);	
 		}	
 		else
 		{
-			$this->error = Errors::set(DBForge::error(), true);	
+			$this->error = \Errors::set(\DBForge::error(), true);	
 		}
 	}
 	
@@ -161,13 +163,13 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function addColumn($column = [])
 	{
-		if( DBForge::addColumn($this->_tableName(), $column) )	
+		if( \DBForge::addColumn($this->_tableName(), $column) )	
 		{
 			$this->_action(__FUNCTION__);	
 		}
 		else
 		{
-			$this->error = Errors::set(DBForge::error(), true);	
+			$this->error = \Errors::set(\DBForge::error(), true);	
 		}
 	}
 
@@ -180,13 +182,13 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function dropColumn($column = [])
 	{
-		if( DBForge::dropColumn($this->_tableName(), $column) )
+		if( \DBForge::dropColumn($this->_tableName(), $column) )
 		{
 			$this->_action(__FUNCTION__);	
 		}
 		else
 		{
-			$this->error = Errors::set(DBForge::error(), true);	
+			$this->error = \Errors::set(\DBForge::error(), true);	
 		}
 	}
 	
@@ -199,13 +201,13 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function modifyColumn($column = [])
 	{
-		if( DBForge::modifyColumn($this->_tableName(), $column) )
+		if( \DBForge::modifyColumn($this->_tableName(), $column) )
 		{
 			$this->_action(__FUNCTION__);	
 		}
 		else
 		{
-			$this->error = Errors::set(DBForge::error(), true);	
+			$this->error = \Errors::set(\DBForge::error(), true);	
 		}
 	}
 	
@@ -218,13 +220,13 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function truncate()
 	{
-		if( DBForge::truncate($this->_tableName()) )	
+		if( \DBForge::truncate($this->_tableName()) )	
 		{
 			$this->_action(__FUNCTION__);	
 		}
 		else
 		{
-			$this->error = Errors::set(DBForge::error(), true);	
+			$this->error = \Errors::set(\DBForge::error(), true);	
 		}
 	}
 	
@@ -245,7 +247,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		$table   = $this->_tableName();
 		$version = $this->_getVersion();
 		
-		DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => Date::set('Ymdhis')]);
+		\DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -285,7 +287,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 			
 			if( ! is_dir($dir) )
 			{
-				Folder::create($dir);
+				\Folder::create($dir);
 			}
 			
 			$file = $dir.suffix($version, '.php');
@@ -327,11 +329,11 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 			$str .= "\t".'}'.$eol;
 			$str .= '}';
 		
-			return File::write($file, $str);
+			return \File::write($file, $str);
 		}
 		else
 		{
-			return Errors::set('File', 'alreadyFileError', $file);	
+			return \Errors::set('File', 'alreadyFileError', $file);	
 		}
 	}
 	
@@ -352,7 +354,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 			
 			if( $ver === 'all' && is_dir($this->path.$name.$this->versionDir) )
 			{
-				Folder::delete($this->path.$name.$this->versionDir);	
+				\Folder::delete($this->path.$name.$this->versionDir);	
 			}
 		}
 		else
@@ -360,7 +362,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 			$file = $this->path.suffix($name, '.php');
 		}
 		
-		File::delete($file);
+		\File::delete($file);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -374,11 +376,11 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	{
 		if( is_dir($this->path) )
 		{
-			Folder::delete($this->path);	
+			\Folder::delete($this->path);	
 		}
 		else
 		{
-			return Errors::set('Folder', 'notFoundError', $this->path);	
+			return \Errors::set('Folder', 'notFoundError', $this->path);	
 		}
 	}
 	
@@ -393,12 +395,12 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 	{
 		$table   = $this->config['migrationTable'];
 		
-		DBForge::createTable('IF NOT EXISTS '.$table, array
+		\DBForge::createTable('IF NOT EXISTS '.$table, array
 		(
-			'name'	  => [DB::varchar(512), DB::notNull()],
-			'type'    => [DB::varchar(256), DB::notNull()],
-			'version' => [DB::varchar(3),   DB::notNull()],
-			'date' 	  => [DB::varchar(15),  DB::notNull()]
+			'name'	  => [\DB::varchar(512), \DB::notNull()],
+			'type'    => [\DB::varchar(256), \DB::notNull()],
+			'version' => [\DB::varchar(3),   \DB::notNull()],
+			'date' 	  => [\DB::varchar(15),  \DB::notNull()]
 		));
 	}
 	
@@ -463,7 +465,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		
 		if( (int)$numeric > 999 || (int)$numeric < 0 )
 		{
-			return Errors::set('Error', 'invalidVersion', $numeric);
+			return \Errors::set('Error', 'invalidVersion', $numeric);
 		}
 	
 		switch( $length )

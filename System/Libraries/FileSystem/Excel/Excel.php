@@ -1,4 +1,6 @@
 <?php
+namespace ZN\FileSystem;
+
 class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -30,7 +32,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Output
@@ -72,12 +74,12 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	{
 		if( ! is_array($data) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', '1.(data)');
+			return \Errors::set('Error', 'arrayParameter', '1.(data)');
 		}
 		
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '2.(file)');
+			return \Errors::set('Error', 'stringParameter', '2.(file)');
 		}
 		
 		if( ! empty($this->fileName) )
@@ -120,7 +122,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 	{
 		if( ! is_string($file) ) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');
+			return \Errors::set('Error', 'stringParameter', '1.(file)');
 		}
 		
 		if( ! empty($this->fileName) )
@@ -133,7 +135,7 @@ class __USE_STATIC_ACCESS__Excel implements ExcelInterface
 		
 		if( ! file_exists($file) )
 		{
-			return Errors::set('File', 'notFoundError', $file);
+			return \Errors::set('File', 'notFoundError', $file);
 		}
 		
 		$row  = 1;

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Compression;
+
 class __USE_STATIC_ACCESS__Compress implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -31,7 +33,7 @@ class __USE_STATIC_ACCESS__Compress implements CompressInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($driver = '')
 	{	
-		$this->compress = Driver::run('Compress', $driver);
+		$this->compress = \Driver::run('Compress', $driver);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -41,7 +43,7 @@ class __USE_STATIC_ACCESS__Compress implements CompressInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -54,7 +56,7 @@ class __USE_STATIC_ACCESS__Compress implements CompressInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Driver Method
@@ -63,7 +65,7 @@ class __USE_STATIC_ACCESS__Compress implements CompressInterface
 	// driver()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DriverMethodTrait;
+	use \DriverMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Extract Method Başlangıç

@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services;
+
 class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Undefined Method
@@ -65,7 +67,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Ajax
@@ -98,10 +100,10 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	{
 		if( ! is_string($default)) 
 		{
-			return Errors::set('Error', 'stringParameter', '1.(default)');
+			return \Errors::set('Error', 'stringParameter', '1.(default)');
 		}
 		
-		$languages = Config::get('Language', 'shortCodes');
+		$languages = \Config::get('Language', 'shortCodes');
 		
 		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
 		
@@ -124,10 +126,10 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 	{
 		if( ! is_scalar($code)) 
 		{
-			return Errors::set('Error', 'scalarParameter', '1.(code)');
+			return \Errors::set('Error', 'scalarParameter', '1.(code)');
 		}
 		
-		$messages = Arrays::multikey($this->config['messages']);
+		$messages = \Arrays::multikey($this->config['messages']);
 		
 		if( isset($messages[$code]) )
 		{
@@ -190,7 +192,7 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		}
 		else
 		{
-			Errors::set(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
+			\Errors::set(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
 		}
 		
 		return $this;
@@ -212,11 +214,11 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		
 		switch( $input )
 		{
-			case 'post' 	: return Method::post($name); 	 break;
-			case 'get' 		: return Method::get($name); 	 break;
-			case 'env' 		: return Method::env($name); 	 break;
-			case 'server' 	: return Method::server($name);  break;
-			case 'request' 	: return Method::request($name); break;
+			case 'post' 	: return \Method::post($name); 	 break;
+			case 'get' 		: return \Method::get($name); 	 break;
+			case 'env' 		: return \Method::env($name); 	 break;
+			case 'server' 	: return \Method::server($name);  break;
+			case 'request' 	: return \Method::request($name); break;
 		}
 	}
 	
@@ -238,11 +240,11 @@ class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
 		
 		switch( $input )
 		{
-			case 'post' 	: return Method::post($name, $value); 	 break;
-			case 'get' 		: return Method::get($name, $value); 	 break;
-			case 'env' 		: return Method::env($name, $value); 	 break;
-			case 'server' 	: return Method::server($name, $value);  break;
-			case 'request' 	: return Method::request($name, $value); break;
+			case 'post' 	: return \Method::post($name, $value); 	 break;
+			case 'get' 		: return \Method::get($name, $value); 	 break;
+			case 'env' 		: return \Method::env($name, $value); 	 break;
+			case 'server' 	: return \Method::server($name, $value);  break;
+			case 'request' 	: return \Method::request($name, $value); break;
 		}
 	}
 	

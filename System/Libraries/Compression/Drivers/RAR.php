@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Compression\Drivers;
+
+use ZN\Compression\CompressInterface;
+
 class RarDriver implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -20,7 +24,7 @@ class RarDriver implements CompressInterface
 	{
 		if( ! is_file($source) )
 		{
-			return Errors::set('Error', 'fileParameter', '1.(source)');
+			return \Errors::set('Error', 'fileParameter', '1.(source)');
 		}
 		
 		$rarFile = rar_open($source, $password);
@@ -33,7 +37,7 @@ class RarDriver implements CompressInterface
 		}
 		else
 		{
-			return Errors::set('Error', 'emptyVariable', '$list');	
+			return \Errors::set('Error', 'emptyVariable', '$list');	
 		}
 		
 		rar_close($rarFile);

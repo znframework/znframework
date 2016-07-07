@@ -1,5 +1,9 @@
 <?php
-class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
+namespace ZN\Services;
+
+use ZN\Core\Structure;
+
+class __USE_STATIC_ACCESS__Route extends \Controller implements RouteInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -55,7 +59,7 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 		
 		if( is_array($route) && ! empty($route) )
 		{
-			Config::set('Route', 'changeUri', $route);	
+			\Config::set('Route', 'changeUri', $route);	
 		}
 		
 		$datas 		= Structure::data();
@@ -84,17 +88,17 @@ class __USE_STATIC_ACCESS__Route extends Controller implements RouteInterface
 				else
 				{
 					// Sayfa bilgisine erişilemezse hata bildir.
-					if( ! Config::get('Route', 'show404') )
+					if( ! \Config::get('Route', 'show404') )
 					{		
 						// Hatayı rapor et.
 						report('Error', lang('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
 								
 						// Hatayı ekrana yazdır.
-						die(Errors::message('Error', 'callUserFuncArrayError', $functionRun));
+						die(\Errors::message('Error', 'callUserFuncArrayError', $functionRun));
 					}
 					else
 					{
-						redirect(Config::get('Route', 'show404'));
+						redirect(\Config::get('Route', 'show404'));
 					}
 				}
 			}

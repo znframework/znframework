@@ -1,9 +1,11 @@
 <?php
-namespace Fbase;
+namespace ZN\Database\Drivers\FrontBase\Traits;
+
+use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 
 trait UserTrait
 {
-	use \Driver\UserTrait;
+	use CommonUserTrait;
 	
 	public function schema($name = '')
 	{

@@ -1,5 +1,5 @@
 <?php
-namespace HTML;
+namespace ZN\ViewObjects\HTML;
 
 trait ElementsTrait
 {

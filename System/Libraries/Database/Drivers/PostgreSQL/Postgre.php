@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class PostgreDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class PostgreDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Postgre\QueryTrait;
-	use Postgre\ForgeTrait;
-	use Postgre\ToolTrait;
-	use Postgre\UserTrait;
+	use Postgre\Traits\QueryTrait;
+	use Postgre\Traits\ForgeTrait;
+	use Postgre\Traits\ToolTrait;
+	use Postgre\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -156,7 +158,7 @@ class PostgreDriver implements DatabaseDriverInterface
 		{
 			$fieldName = pg_field_name($this->query, $i);
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= pg_field_type($this->query, $i);
 			$columns[$fieldName]->maxLength		= pg_field_size($this->query, $i);

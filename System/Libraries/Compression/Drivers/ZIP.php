@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Compression\Drivers;
+
+use ZN\Compression\CompressInterface;
+
 class ZipDriver implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -18,7 +22,7 @@ class ZipDriver implements CompressInterface
 	******************************************************************************************/
 	public function extract($source = '', $target = '', $password = NULL)
 	{
-		return File::zipExtract($source, $target);
+		return \File::zipExtract($source, $target);
 	}
 	
 	public function write($file = NULL, $data = NULL, $mode = NULL)
@@ -37,14 +41,14 @@ class ZipDriver implements CompressInterface
 	{
 		if( ! is_string($file) || empty($file) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(file)');	
+			return \Errors::set('Error', 'stringParameter', '1.(file)');	
 		}
 		
 		$open = zip_open($file);
 		
 		if( empty($open) )
 		{
-			return Errors::set('Error', 'fileNotFound', $file);	
+			return \Errors::set('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = zip_read($open);

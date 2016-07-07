@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Compression\Drivers;
+
+use ZN\Compression\CompressInterface;
+
 class ZlibDriver implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -58,12 +62,12 @@ class ZlibDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($level) || ! is_numeric($encoding) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
+			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
 		}
 		
 		return zlib_encode($data, $encoding, $level);
@@ -79,12 +83,12 @@ class ZlibDriver implements CompressInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'valueParameter', '1.(data)');	
+			return \Errors::set('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return Errors::set('Error', 'numericParameter', '2.(length)');	
+			return \Errors::set('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return zlib_decode ($data, $length);

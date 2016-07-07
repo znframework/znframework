@@ -1,4 +1,6 @@
 <?php 
+namespace ZN\VariableTypes;
+
 class __USE_STATIC_ACCESS__Json implements JsonInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -10,7 +12,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* ENCODE                                                                                  *
@@ -20,7 +22,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	******************************************************************************************/	
 	public function encode($data = '', $type = 'unescaped_unicode')
 	{
-		return json_encode($data, Convert::toConstant($type, 'JSON_'));
+		return json_encode($data, \Convert::toConstant($type, 'JSON_'));
 	}
 	
 	/******************************************************************************************
@@ -33,7 +35,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, $array, $length);
@@ -49,7 +51,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, false, $length);
@@ -65,7 +67,7 @@ class __USE_STATIC_ACCESS__Json implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Errors::set('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, true, $length);

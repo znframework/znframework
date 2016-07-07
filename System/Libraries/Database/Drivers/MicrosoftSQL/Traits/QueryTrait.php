@@ -1,5 +1,5 @@
 <?php
-namespace Mssql;
+namespace ZN\Database\Drivers\MicrosoftSQL\Traits;
 
 trait QueryTrait
 {

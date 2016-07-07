@@ -1,4 +1,6 @@
 <?php	
+namespace ZN\XMLManipulation;
+
 class __USE_STATIC_ACCESS__XML implements XMLInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -44,7 +46,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -57,7 +59,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Settings Methods Başlangıç
@@ -153,7 +155,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 			$content = isset( $data['content'] ) ?  $data['content'] : '';
 			$child   = isset( $data['child'] )   ?  $data['child']   : '';
 			
-			$output .= "$tab<$name".Html::attributes($attr).">";
+			$output .= "$tab<$name".\Html::attributes($attr).">";
 			
 			if( ! empty($content) )
 			{
@@ -200,7 +202,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 	{
 		$file = suffix($file, $this->extension);
 		
-		return File::write($file, $data);	
+		return \File::write($file, $data);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -227,11 +229,11 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 		
 		if( is_file($file) )
 		{
-			return File::read($file);	
+			return \File::read($file);	
 		}
 		else
 		{
-			return Errors::set('Error', 'fileNotFound', $file);	
+			return \Errors::set('Error', 'fileNotFound', $file);	
 		}
 	}
 	

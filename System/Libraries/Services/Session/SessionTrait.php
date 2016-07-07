@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Services;
+
 trait SessionTrait
 {
 	//----------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ trait SessionTrait
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -30,7 +32,7 @@ trait SessionTrait
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -39,7 +41,7 @@ trait SessionTrait
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	/* Name Değişkeni
 	 *  
@@ -80,7 +82,7 @@ trait SessionTrait
 	{
 		if( ! isChar($name) )
 		{
-			Errors::set('Error', 'valueParameter', 'name');
+			\Errors::set('Error', 'valueParameter', 'name');
 			return $this;
 		}
 		
@@ -101,7 +103,7 @@ trait SessionTrait
 	{
 		if( ! ( isHash($name) || isHash($value) ) )
 		{
-			Errors::set('Error', 'hashParameter', 'name | value');
+			\Errors::set('Error', 'hashParameter', 'name | value');
 			return $this;		
 		}
 		
@@ -122,7 +124,7 @@ trait SessionTrait
 	{
 		if( ! isHash($name))
 		{
-			Errors::set('Error', 'hashParameter', 'name');
+			\Errors::set('Error', 'hashParameter', 'name');
 			return $this;	
 		}
 		
@@ -142,7 +144,7 @@ trait SessionTrait
 	{
 		if( ! is_bool($regenerate) )
 		{
-			Errors::set('Error', 'booleanParameter', 'regenerate');
+			\Errors::set('Error', 'booleanParameter', 'regenerate');
 			return $this;		
 		}
 		

@@ -1,5 +1,5 @@
 <?php
-namespace Crontab;
+namespace ZN\Services\Crontab;
 
 trait IntervalTrait
 {

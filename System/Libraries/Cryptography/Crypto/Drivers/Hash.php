@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Cryptography\Drivers;
+
+use ZN\Cryptography\CryptoInterface;
+
 class HashDriver implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -24,7 +28,7 @@ class HashDriver implements CryptoInterface
 	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
-	 	$key    = isset($settings['key'])    ? $settings['key']    : Config::get('Encode', 'projectKey'); 
+	 	$key    = isset($settings['key'])    ? $settings['key']    : \Config::get('Encode', 'projectKey'); 
 		
 		return base64_encode(trim(hash_hmac($cipher, $data, $key)));
 	}

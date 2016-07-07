@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database\Drivers;
+
 class MysqliDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -67,12 +69,12 @@ class MysqliDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Mysqli\QueryTrait;
-	use Mysqli\ForgeTrait;
-	use Mysqli\ToolTrait;
-	use Mysqli\UserTrait;
+	use MySQLi\Traits\QueryTrait;
+	use MySQLi\Traits\ForgeTrait;
+	use MySQLi\Traits\ToolTrait;
+	use MySQLi\Traits\UserTrait;
 	
-	use DatabaseDriverTrait;
+	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
@@ -151,7 +153,7 @@ class MysqliDriver implements DatabaseDriverInterface
 		{
 			$fieldName = $fieldData[$i]->name;
 			
-			$columns[$fieldName]				= new stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
 			$columns[$fieldName]->type			= $fieldData[$i]->type;
 			$columns[$fieldName]->maxLength		= $fieldData[$i]->max_length;

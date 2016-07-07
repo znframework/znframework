@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Cryptography\Drivers;
+
+use ZN\Cryptography\CryptoInterface;
+
 class PhashDriver implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -43,6 +47,6 @@ class PhashDriver implements CryptoInterface
 	
 	public function keygen($length = 8)
 	{
-		return mb_substr(password_hash(Config::get('Encode', 'projectKey'), PASSWORD_BCRYPT), -$length);
+		return mb_substr(password_hash(\Config::get('Encode', 'projectKey'), PASSWORD_BCRYPT), -$length);
 	}
 }

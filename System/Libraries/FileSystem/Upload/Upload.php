@@ -1,4 +1,6 @@
 <?php
+namespace ZN\FileSystem;
+
 class __USE_STATIC_ACCESS__Upload implements UploadInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -76,7 +78,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	
 	public function __construct()
 	{
-		Config::iniSet(Config::get('Htaccess', 'upload')['settings']);	
+		\Config::iniSet(\Config::get('Htaccess', 'upload')['settings']);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -86,7 +88,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Setting Methods Başlangıç
@@ -118,7 +120,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	{
 		if( ! is_array($set) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', 'set');
+			return \Errors::set('Error', 'arrayParameter', 'set');
 		}
 
 		$this->settingStatus = true;
@@ -214,7 +216,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Errors::set('Error', 'booleanParameter', 'convert');	
+			\Errors::set('Error', 'booleanParameter', 'convert');	
 		}
 		
 		return $this;
@@ -264,7 +266,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Errors::set('Error', 'valueParameter', 'prefix');		
+			\Errors::set('Error', 'valueParameter', 'prefix');		
 		}
 		
 		return $this;
@@ -289,7 +291,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Errors::set('Error', 'numericParameter', 'maxsize');		
+			\Errors::set('Error', 'numericParameter', 'maxsize');		
 		}
 		
 		return $this;
@@ -314,7 +316,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Errors::set('Error', 'numericParameter', 'encodeLength');		
+			\Errors::set('Error', 'numericParameter', 'encodeLength');		
 		}
 		
 		return $this;
@@ -339,7 +341,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Errors::set('Error', 'stringParameter', 'target');		
+			\Errors::set('Error', 'stringParameter', 'target');		
 		}
 		
 		return $this;
@@ -364,7 +366,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		}
 		else
 		{
-			Errors::set('Error', 'stringParameter', 'source');	
+			\Errors::set('Error', 'stringParameter', 'source');	
 		}
 		
 		return $this;
@@ -376,7 +378,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 	
 	protected function _encode()
 	{
-		return substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';	
+		return substr(\Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -409,7 +411,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		
 		if( ! is_string($fileName) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'fileName');
+			return \Errors::set('Error', 'stringParameter', 'fileName');
 		}
 		
 		if( ! is_string($rootDir) ) 
@@ -420,7 +422,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		// Dosyanın yükleneceği dizin yoksa oluşturulur.
 		if( ! is_dir($rootDir) )
 		{
-			Folder::create($rootDir);	
+			\Folder::create($rootDir);	
 		}
 		
 		// Dosya yükleme ayarları yapılmamışsa
@@ -473,7 +475,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 				
 				if( $this->settings['convertName'] === true )
 				{
-					 $nm = Convert::urlWord($nm);	
+					 $nm = \Convert::urlWord($nm);	
 				}
 				
 				if( $this->settings['encryption'] ) 
@@ -518,7 +520,7 @@ class __USE_STATIC_ACCESS__Upload implements UploadInterface
 		{	
 			if( $this->settings['convertName'] === true )
 			{
-				 $name = Convert::urlWord($name);	
+				 $name = \Convert::urlWord($name);	
 			}
 			
 			if( empty($_FILES[$fileName]['name']) ) 

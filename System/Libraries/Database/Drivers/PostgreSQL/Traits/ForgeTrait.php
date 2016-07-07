@@ -1,5 +1,5 @@
 <?php
-namespace Postgre;
+namespace ZN\Database\Drivers\Postgre\Traits;
 
 trait ForgeTrait
 {

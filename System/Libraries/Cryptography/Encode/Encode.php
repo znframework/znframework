@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Cryptography;
+
 class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	// config()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ConfigMethodTrait;
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -39,7 +41,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	// __call()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CallUndefinedMethodTrait;
+	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -52,7 +54,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	// success()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ErrorControlTrait;
+	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encode Method
@@ -192,7 +194,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	{
 		if( ! is_scalar($data) || empty($data) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'data');
+			return \Errors::set('Error', 'valueParameter', 'data');
 		}
 		
 		$projectKey = $this->config['projectKey'];
@@ -242,19 +244,19 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	{
 		if( ! is_scalar($data) )
 		{
-			return Errors::set('Error', 'scalarParameter', '1.(data)');
+			return  \Errors::set('Error', 'scalarParameter', '1.(data)');
 		}
 		
 		$algos = ['golden', 'super'];
 		
 		if( ! isHash($type) && ! in_array($type, $algos) )
 		{
-			return Errors::set('Error', 'hashParameter', '2.(type)');	
+			return \Errors::set('Error', 'hashParameter', '2.(type)');	
 		}
 		
 		if( in_array($type, $algos) )
 		{
-			return Encode::$type($data);	
+			return \Encode::$type($data);	
 		}
 		
 		return hash($type, $data);

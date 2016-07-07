@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Database;
+
 class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 {	
 	//----------------------------------------------------------------------------------------------------
@@ -339,7 +341,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DB\VariableTypesTrait;
+	use DB\Traits\VariableTypesTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Statements
@@ -350,7 +352,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DB\StatementsTrait;
+	use DB\Traits\StatementsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Functions
@@ -361,7 +363,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// ...
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DB\FunctionsTrait;
+	use DB\Traits\FunctionsTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Triggers
@@ -374,7 +376,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	// body()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DB\TriggerTrait;
+	use DB\Traits\TriggerTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Deyimleri Başlangıç
@@ -393,7 +395,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function select(...$condition)
 	{
-		if( empty($condition) ) 
+		if( empty($condition[0]) )
 		{
 			$condition[0] = '*';
 		}
@@ -425,7 +427,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		else
 		{
-			Errors::set('Error', 'stringParameter', 'table');	
+			\Errors::set('Error', 'stringParameter', 'table');	
 		}
 		
 		return $this;
@@ -438,7 +440,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($column) || ! is_scalar($value) || ! is_string($logical) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'column, value, logical');
+			\Errors::set('Error', 'stringParameter', 'column, value, logical');
 		}
 		else
 		{
@@ -537,11 +539,11 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
 		{
-			$con         = Arrays::getLast($conditions);
+			$con         = \Arrays::getLast($conditions);
 			$conditions  = $conditions[0];	
 		}
 		
-		$getLast = Arrays::getLast($conditions);
+		$getLast = \Arrays::getLast($conditions);
 			
 		if( is_string($con) )
 		{
@@ -552,7 +554,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			if( is_string($getLast) )
 			{
 				$conjunction = $getLast;
-				$conditions  = Arrays::removeLast($conditions);
+				$conditions  = \Arrays::removeLast($conditions);
 			}
 			else
 			{
@@ -751,7 +753,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_string($table) || ! is_string($condition) || ! is_string($type) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'table, condition, type');
+			\Errors::set('Error', 'stringParameter', 'table, condition, type');
 		}
 		else
 		{
@@ -785,12 +787,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( empty($table) )
 		{
-			Errors::set('Error', 'emptyVariable', 'table');	
+			\Errors::set('Error', 'emptyVariable', 'table');	
 		}
 		
 		if( empty($column) )
 		{
-			Errors::set('Error', 'emptyVariable', 'column');	
+			\Errors::set('Error', 'emptyVariable', 'column');	
 		}
 		
 		$this->join($table, $condition, $type);
@@ -959,7 +961,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{ 
 		if( $start === NULL )
 		{
-			$start = URI::segment(-1);
+			$start = \URI::segment(-1);
 		}
 		
 		if( ! empty($limit) ) 
@@ -993,7 +995,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($table) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'table');
+			\Errors::set('Error', 'stringParameter', 'table');
 			
 			return $this;
 		}
@@ -1205,7 +1207,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( $brackets === true)
 		{
-			$string = DB::brackets($string);
+			$string = $this->brackets($string);
 		}
 		
 		return $string.' AS '.$alias;	
@@ -1698,8 +1700,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'query');
-			Errors::set('Error', 'emptyParameter', 'query');
+			\Errors::set('Error', 'stringParameter', 'query');
+			\Errors::set('Error', 'emptyParameter', 'query');
 		}
 		else
 		{
@@ -1741,8 +1743,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'query');
-			Errors::set('Error', 'emptyParameter', 'query');
+			\Errors::set('Error', 'stringParameter', 'query');
+			\Errors::set('Error', 'emptyParameter', 'query');
 			
 			return false;	
 		}
@@ -1771,8 +1773,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{
 		if( ! is_string($query) || empty($query) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'query');
-			Errors::set('Error', 'emptyParameter', 'query');
+			\Errors::set('Error', 'stringParameter', 'query');
+			\Errors::set('Error', 'emptyParameter', 'query');
 			
 			return false;	
 		}
@@ -1877,8 +1879,8 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			Errors::set('Error', 'stringParameter', 'table');
-			Errors::set('Error', 'emptyParameter', 'table');
+			\Errors::set('Error', 'stringParameter', 'table');
+			\Errors::set('Error', 'emptyParameter', 'table');
 		}
 		else
 		{
@@ -1949,9 +1951,9 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($table) || empty($columns) || ! is_numeric($incdec) )
 		{
-			Errors::set('Error', 'stringParameter', 'table');
-			Errors::set('Error', 'emptyParameter', 'columns');
-			Errors::set('Error', 'numericParameter', 'incdec');
+			\Errors::set('Error', 'stringParameter', 'table');
+			\Errors::set('Error', 'emptyParameter', 'columns');
+			\Errors::set('Error', 'numericParameter', 'incdec');
 			
 			return false;
 		}
@@ -2035,12 +2037,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'table');
+			return \Errors::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($datas) || empty($datas) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', 'datas');
+			return \Errors::set('Error', 'arrayParameter', 'datas');
 		}
 		
 		$data = ""; $values = "";
@@ -2086,7 +2088,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 			if( $this->where($duplicateCheckWhere)->get($table)->totalRows() )
 			{
 				$this->duplicateCheck = NULL;
-				return Errors::set('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));	
+				return \Errors::set('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));	
 			}
 		}
 			
@@ -2161,12 +2163,12 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($table) || empty($table) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'table');
+			return \Errors::set('Error', 'stringParameter', 'table');
 		}
 		
 		if( ! is_array($set) || empty($set) ) 
 		{
-			return Errors::set('Error', 'arrayParameter', 'set');
+			return \Errors::set('Error', 'arrayParameter', 'set');
 		}
 
 		$data = '';
@@ -2236,7 +2238,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		
 		if( ! is_string($this->table) || empty($this->table) ) 
 		{
-			return Errors::set('Error', 'stringParameter', 'table');
+			return \Errors::set('Error', 'stringParameter', 'table');
 		}
 		
 		$deleteQuery = 'DELETE '.
@@ -2579,7 +2581,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 	{ 
 		if( ! is_array($settings) )
 		{
-			Errors::set('Error', 'arrayParameter', '1.(settings)');	
+			\Errors::set('Error', 'arrayParameter', '1.(settings)');	
 		} 
 	
 		$limit = $this->pagination['limit'];
@@ -2595,7 +2597,7 @@ class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
 		}
 		
 		$return = $output === true
-		        ? Pagination::create(NULL, $settings) 
+		        ? \Pagination::create(NULL, $settings) 
 				: $settings;
 		
 		$this->pagination = ['start' => 0, 'limit' => 0];

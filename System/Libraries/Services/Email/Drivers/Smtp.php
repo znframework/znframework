@@ -1,5 +1,7 @@
 <?php
-class SmtpDriver implements EmailDriverInterface
+namespace ZN\Services\Drivers;
+
+class SMTPDriver implements EmailDriverInterface
 {
 	/***********************************************************************************/
 	/* SMPT LIBRARY							                   	                       */
@@ -87,11 +89,11 @@ class SmtpDriver implements EmailDriverInterface
 		
 		if( ! is_resource($this->connect) )
 		{
-			return Errors::set('Email', 'smtpError', $errno.' '.$errstr);
+			return \Errors::set('Email', 'smtpError', $errno.' '.$errstr);
 		}
 		
 		stream_set_timeout($this->connect, $this->timeout);
-		Errors::set($this->_getData());
+		\Errors::set($this->_getData());
 		
 		if( $this->encode === 'tls' )
 		{
@@ -102,7 +104,7 @@ class SmtpDriver implements EmailDriverInterface
 			
 			if( $crypto !== true )
 			{
-				return Errors::set('Email', 'smtpError', $this->_getData());
+				return \Errors::set('Email', 'smtpError', $this->_getData());
 			}
 		}
 		
@@ -113,7 +115,7 @@ class SmtpDriver implements EmailDriverInterface
 	{
 		if( empty($this->host) )
 		{
-			return Errors::set('Error', 'noHostName');
+			return \Errors::set('Error', 'noHostName');
 		}
 		
 		if( ! $this->_connect() || ! $this->_authLogin() )
@@ -155,11 +157,11 @@ class SmtpDriver implements EmailDriverInterface
 		
 		$reply = $this->_getData();
 		
-		Errors::set($reply);
+		\Errors::set($reply);
 		
 		if( strpos($reply, '250') !== 0 )
 		{
-			return Errors::set('Email', 'smtpError', $reply);
+			return \Errors::set('Email', 'smtpError', $reply);
 		}
 		
 		if( $this->keepAlive )
@@ -183,7 +185,7 @@ class SmtpDriver implements EmailDriverInterface
 		
 		if( $this->user === '' && $this->password === '' )
 		{
-			return Errors::set('Email', 'noSmtpUnpassword');
+			return \Errors::set('Email', 'noSmtpUnpassword');
 		}
 		
 		$this->_setData('AUTH LOGIN');
@@ -195,7 +197,7 @@ class SmtpDriver implements EmailDriverInterface
 		}
 		elseif( strpos($reply, '334') !== 0 )
 		{
-			return Errors::set('Email', 'failedSmtpLogin', $reply);
+			return \Errors::set('Email', 'failedSmtpLogin', $reply);
 		}
 		
 		$this->_setData(base64_encode($this->user));	
@@ -203,7 +205,7 @@ class SmtpDriver implements EmailDriverInterface
 		
 		if( strpos($reply, '334') !== 0 )
 		{
-			return Errors::set('Email', 'smtpAuthUserName', $reply);
+			return \Errors::set('Email', 'smtpAuthUserName', $reply);
 		}
 		
 		$this->_setData(base64_encode($this->password));
@@ -211,7 +213,7 @@ class SmtpDriver implements EmailDriverInterface
 		
 		if( strpos($reply, '235') !== 0 )
 		{
-			return Errors::set('Email', 'smtpAuthPassword', $reply);
+			return \Errors::set('Email', 'smtpAuthPassword', $reply);
 		}
 		
 		return true;
@@ -275,11 +277,11 @@ class SmtpDriver implements EmailDriverInterface
 		
 		$reply = $this->_getData();
 		
-		Errors::set($cmd.': '.$reply);
+		\Errors::set($cmd.': '.$reply);
 		
 		if( (int)substr($reply, 0, 3) !== $resp )
 		{
-			return Errors::set('Email', 'smtpError', $reply);
+			return \Errors::set('Email', 'smtpError', $reply);
 		}
 		
 		if( $cmd === 'quit' )
@@ -305,7 +307,7 @@ class SmtpDriver implements EmailDriverInterface
 		}
 		if( $result === false )
 		{
-			return Errors::set('Email', 'smtpDataFailure', $data);
+			return \Errors::set('Email', 'smtpDataFailure', $data);
 		}
 		
 		return true;

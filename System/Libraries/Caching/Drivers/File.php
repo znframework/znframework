@@ -1,4 +1,8 @@
 <?php
+namespace ZN\Caching\Drivers;
+
+use ZN\Caching\CacheInterface;
+
 class FileDriver implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -27,7 +31,7 @@ class FileDriver implements CacheInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			Folder::create($this->path, 0755);	
+			\Folder::create($this->path, 0755);	
 		}	
 	}
 	/******************************************************************************************
@@ -73,9 +77,9 @@ class FileDriver implements CacheInterface
 			'data'	=> $var
 		);
 		
-		if( File::write($this->path.$key, serialize($datas)) )
+		if( \File::write($this->path.$key, serialize($datas)) )
 		{
-			File::permission($this->path.$key, 0640);
+			\File::permission($this->path.$key, 0640);
 			
 			return true;
 		}
@@ -96,7 +100,7 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	public function delete($key = '')
 	{
-		return File::delete($this->path.$key);
+		return \File::delete($this->path.$key);
 	}
 	
 	/******************************************************************************************
@@ -171,7 +175,7 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	public function clean()
 	{
-		return Folder::delete($this->path);
+		return \Folder::delete($this->path);
 	}
 	
 	/******************************************************************************************
@@ -187,7 +191,7 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	public function info($type = NULL)
 	{
-		return Folder::fileInfo($this->path);
+		return \Folder::fileInfo($this->path);
  	}
 	
 	/******************************************************************************************
@@ -208,7 +212,7 @@ class FileDriver implements CacheInterface
 			return false;
 		}
 		
-		$data = unserialize(File::read($this->path.$key));
+		$data = unserialize(\File::read($this->path.$key));
 		
 		if( is_array($data) )
 		{
@@ -250,11 +254,11 @@ class FileDriver implements CacheInterface
 			return false;
 		}
 
-		$data = unserialize(File::read($this->path.$key));
+		$data = unserialize(\File::read($this->path.$key));
 		
 		if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
 		{
-			File::delete($this->path.$key);
+			\File::delete($this->path.$key);
 			
 			return false;
 		}
