@@ -90,7 +90,7 @@ class __USE_STATIC_ACCESS__Migration implements MigrationInterface
 		$this->_create();
 		
 		$this->classFix   = STATIC_ACCESS.'Migrate';
-		$this->extendsFix = __NAMESPACE__.'\\'.STATIC_ACCESS.'Migration';
+		$this->extendsFix = __CLASS__;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
