@@ -1,5 +1,5 @@
 <?php
-class Clean extends StaticAccess
+class Clean extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class Terminal extends StaticAccess
+class Terminal extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:terminal';
 

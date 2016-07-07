@@ -1,5 +1,5 @@
 <?php
-class Exceptions extends StaticAccess
+class Exceptions extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

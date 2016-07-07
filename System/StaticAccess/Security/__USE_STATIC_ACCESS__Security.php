@@ -1,5 +1,5 @@
 <?php
-class Security extends StaticAccess
+class Security extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

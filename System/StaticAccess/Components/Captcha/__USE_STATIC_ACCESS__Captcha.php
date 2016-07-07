@@ -1,5 +1,5 @@
 <?php
-class Captcha extends StaticAccess
+class Captcha extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:captcha';
 

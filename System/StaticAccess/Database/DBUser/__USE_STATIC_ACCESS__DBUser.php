@@ -1,5 +1,5 @@
 <?php
-class DBUser extends StaticAccess
+class DBUser extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

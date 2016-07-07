@@ -1,5 +1,5 @@
 <?php
-class DBTool extends StaticAccess
+class DBTool extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

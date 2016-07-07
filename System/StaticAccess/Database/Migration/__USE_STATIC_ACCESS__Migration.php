@@ -1,5 +1,5 @@
 <?php
-class Migration extends StaticAccess
+class Migration extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

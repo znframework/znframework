@@ -1,5 +1,5 @@
 <?php
-class Benchmark extends StaticAccess
+class Benchmark extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

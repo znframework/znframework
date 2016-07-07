@@ -1,5 +1,5 @@
 <?php
-class Limit extends StaticAccess
+class Limit extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

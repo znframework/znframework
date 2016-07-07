@@ -1,5 +1,5 @@
 <?php
-class Convert extends StaticAccess
+class Convert extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

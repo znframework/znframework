@@ -1,5 +1,5 @@
 <?php
-class Search extends StaticAccess
+class Search extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

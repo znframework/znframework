@@ -1,5 +1,5 @@
 <?php
-class Crontab extends StaticAccess
+class Crontab extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:crontab';
 

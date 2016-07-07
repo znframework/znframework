@@ -1,5 +1,5 @@
 <?php
-class Validation extends StaticAccess
+class Validation extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

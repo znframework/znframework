@@ -1,5 +1,5 @@
 <?php
-class Separator extends StaticAccess
+class Separator extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class Cart extends StaticAccess
+class Cart extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

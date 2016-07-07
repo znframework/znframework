@@ -211,17 +211,17 @@ $config['ClassMap']['classes']['zn\filesystem\recordinterface'] = 'System/Librar
 $config['ClassMap']['classes']['zn\filesystem\__use_static_access__upload'] = 'System/Libraries/FileSystem/Upload/Upload.php';
 $config['ClassMap']['classes']['upload'] = 'System/StaticAccess/FileSystem/Upload/__USE_STATIC_ACCESS__Upload.php';
 $config['ClassMap']['classes']['zn\filesystem\uploadinterface'] = 'System/Libraries/FileSystem/Upload/UploadInterface.php';
-$config['ClassMap']['classes']['basecontroller'] = 'System/Libraries/Foundations/BaseController.php';
-$config['ClassMap']['classes']['controller'] = 'System/Libraries/Foundations/Controller.php';
-$config['ClassMap']['classes']['__use_static_access__driver'] = 'System/Libraries/Foundations/Driver.php';
+$config['ClassMap']['classes']['zn\foundations\basecontroller'] = 'System/Libraries/Foundations/BaseController.php';
+$config['ClassMap']['classes']['zn\foundations\controller'] = 'System/Libraries/Foundations/Controller.php';
+$config['ClassMap']['classes']['zn\foundations\__use_static_access__driver'] = 'System/Libraries/Foundations/Driver.php';
 $config['ClassMap']['classes']['driver'] = 'System/StaticAccess/Foundations/__USE_STATIC_ACCESS__Driver.php';
-$config['ClassMap']['classes']['model'] = 'System/Libraries/Foundations/Model.php';
-$config['ClassMap']['classes']['restoration'] = 'System/Libraries/Foundations/Restoration.php';
-$config['ClassMap']['classes']['staticaccess'] = 'System/Libraries/Foundations/StaticAccess.php';
-$config['ClassMap']['classes']['callundefinedmethodtrait'] = 'System/Libraries/Foundations/Traits/CallUndefinedMethod.php';
-$config['ClassMap']['classes']['configmethodtrait'] = 'System/Libraries/Foundations/Traits/ConfigMethod.php';
-$config['ClassMap']['classes']['drivermethodtrait'] = 'System/Libraries/Foundations/Traits/DriverMethod.php';
-$config['ClassMap']['classes']['errorcontroltrait'] = 'System/Libraries/Foundations/Traits/ErrorControl.php';
+$config['ClassMap']['classes']['zn\foundations\model'] = 'System/Libraries/Foundations/Model.php';
+$config['ClassMap']['classes']['zn\foundations\restoration'] = 'System/Libraries/Foundations/Restoration.php';
+$config['ClassMap']['classes']['zn\foundations\staticaccess'] = 'System/Libraries/Foundations/StaticAccess.php';
+$config['ClassMap']['classes']['zn\foundations\traits\callundefinedmethodtrait'] = 'System/Libraries/Foundations/Traits/CallUndefinedMethod.php';
+$config['ClassMap']['classes']['zn\foundations\traits\configmethodtrait'] = 'System/Libraries/Foundations/Traits/ConfigMethod.php';
+$config['ClassMap']['classes']['zn\foundations\traits\drivermethodtrait'] = 'System/Libraries/Foundations/Traits/DriverMethod.php';
+$config['ClassMap']['classes']['zn\foundations\traits\errorcontroltrait'] = 'System/Libraries/Foundations/Traits/ErrorControl.php';
 $config['ClassMap']['classes']['zn\helpers\__use_static_access__clean'] = 'System/Libraries/Helpers/Clean/Clean.php';
 $config['ClassMap']['classes']['clean'] = 'System/StaticAccess/Helpers/Clean/__USE_STATIC_ACCESS__Clean.php';
 $config['ClassMap']['classes']['zn\helpers\cleaninterface'] = 'System/Libraries/Helpers/Clean/CleanInterface.php';
@@ -577,6 +577,16 @@ $config['ClassMap']['namespaces']['zn\filesystem\__use_static_access__record'] =
 $config['ClassMap']['namespaces']['zn\filesystem\recordinterface'] = 'recordinterface';
 $config['ClassMap']['namespaces']['zn\filesystem\__use_static_access__upload'] = '__use_static_access__upload';
 $config['ClassMap']['namespaces']['zn\filesystem\uploadinterface'] = 'uploadinterface';
+$config['ClassMap']['namespaces']['zn\foundations\basecontroller'] = 'basecontroller';
+$config['ClassMap']['namespaces']['zn\foundations\controller'] = 'controller';
+$config['ClassMap']['namespaces']['zn\foundations\__use_static_access__driver'] = '__use_static_access__driver';
+$config['ClassMap']['namespaces']['zn\foundations\model'] = 'model';
+$config['ClassMap']['namespaces']['zn\foundations\restoration'] = 'restoration';
+$config['ClassMap']['namespaces']['zn\foundations\staticaccess'] = 'staticaccess';
+$config['ClassMap']['namespaces']['zn\foundations\traits\callundefinedmethodtrait'] = 'callundefinedmethodtrait';
+$config['ClassMap']['namespaces']['zn\foundations\traits\configmethodtrait'] = 'configmethodtrait';
+$config['ClassMap']['namespaces']['zn\foundations\traits\drivermethodtrait'] = 'drivermethodtrait';
+$config['ClassMap']['namespaces']['zn\foundations\traits\errorcontroltrait'] = 'errorcontroltrait';
 $config['ClassMap']['namespaces']['zn\helpers\__use_static_access__clean'] = '__use_static_access__clean';
 $config['ClassMap']['namespaces']['zn\helpers\cleaninterface'] = 'cleaninterface';
 $config['ClassMap']['namespaces']['zn\helpers\__use_static_access__convert'] = '__use_static_access__convert';
@@ -704,4 +714,9 @@ $config['ClassMap']['namespaces']['zn\viewobjects\templateinterface'] = 'templat
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\__use_static_access__xml'] = '__use_static_access__xml';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

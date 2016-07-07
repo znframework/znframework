@@ -1,5 +1,5 @@
 <?php
-class Redirect extends StaticAccess
+class Redirect extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

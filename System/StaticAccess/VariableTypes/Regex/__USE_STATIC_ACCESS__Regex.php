@@ -1,5 +1,5 @@
 <?php
-class Regex extends StaticAccess
+class Regex extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

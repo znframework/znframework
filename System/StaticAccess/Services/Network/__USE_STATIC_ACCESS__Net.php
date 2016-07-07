@@ -1,5 +1,5 @@
 <?php
-class Net extends StaticAccess
+class Net extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

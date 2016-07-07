@@ -1,5 +1,5 @@
 <?php
-class Thumb extends StaticAccess
+class Thumb extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class Vars extends StaticAccess
+class Vars extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

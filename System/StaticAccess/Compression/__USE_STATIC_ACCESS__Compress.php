@@ -1,5 +1,5 @@
 <?php
-class Compress extends StaticAccess
+class Compress extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

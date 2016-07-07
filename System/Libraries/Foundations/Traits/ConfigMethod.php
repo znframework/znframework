@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Foundations\Traits;
+
 trait ConfigMethodTrait
 {
 	//----------------------------------------------------------------------------------------------------
@@ -48,10 +50,10 @@ trait ConfigMethodTrait
 			
 			if( ! empty($settings) )
 			{
-				Config::set($file, $settings);
+				\Config::set($file, $settings);
 			}
 			
-			$this->config = Config::get($file);
+			$this->config = \Config::get($file);
 		}
 		else
 		{
@@ -66,16 +68,16 @@ trait ConfigMethodTrait
 			{
 				if( ! empty($config) )
 				{
-					Config::set($file, $config, $settings);
+					\Config::set($file, $config, $settings);
 				}
 				else
 				{
-					Config::set($file, $settings);	
+					\Config::set($file, $settings);	
 				}
 			}
 			
 			// Yapılandırılmış ayar dosyasının yeni değerleri aktar.
-			$this->config = Config::get($file, $config);
+			$this->config = \Config::get($file, $config);
 		}
 		
 		return $this;

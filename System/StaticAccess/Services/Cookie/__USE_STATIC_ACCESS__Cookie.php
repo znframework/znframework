@@ -1,5 +1,5 @@
 <?php
-class Cookie extends StaticAccess
+class Cookie extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:cookie';
 

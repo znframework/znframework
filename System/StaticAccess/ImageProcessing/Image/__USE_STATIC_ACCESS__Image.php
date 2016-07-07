@@ -1,5 +1,5 @@
 <?php
-class Image extends StaticAccess
+class Image extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

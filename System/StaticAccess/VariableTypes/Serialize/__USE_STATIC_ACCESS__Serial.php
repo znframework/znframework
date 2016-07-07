@@ -1,5 +1,5 @@
 <?php
-class Serial extends StaticAccess
+class Serial extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

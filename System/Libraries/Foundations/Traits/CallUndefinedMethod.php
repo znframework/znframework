@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Foundations\Traits;
+
 trait CallUndefinedMethodTrait
 {
 	//----------------------------------------------------------------------------------------------------

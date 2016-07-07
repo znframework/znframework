@@ -1,5 +1,5 @@
 <?php
-class Json extends StaticAccess
+class Json extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

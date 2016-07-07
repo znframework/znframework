@@ -1,5 +1,5 @@
 <?php
-class DataGrid extends StaticAccess
+class DataGrid extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:datagrid';
 

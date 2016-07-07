@@ -1,5 +1,5 @@
 <?php
-class IV extends StaticAccess
+class IV extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

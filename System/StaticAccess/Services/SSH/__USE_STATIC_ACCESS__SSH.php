@@ -1,5 +1,5 @@
 <?php
-class SSH extends StaticAccess
+class SSH extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:ssh';
 

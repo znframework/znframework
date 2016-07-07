@@ -1,5 +1,5 @@
 <?php
-class HTTP extends StaticAccess
+class HTTP extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:http';
 

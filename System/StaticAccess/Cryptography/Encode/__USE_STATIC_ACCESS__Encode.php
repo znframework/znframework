@@ -1,5 +1,5 @@
 <?php
-class Encode extends StaticAccess
+class Encode extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

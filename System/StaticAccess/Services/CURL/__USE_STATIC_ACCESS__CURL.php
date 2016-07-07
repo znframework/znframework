@@ -1,5 +1,5 @@
 <?php
-class CURL extends StaticAccess
+class CURL extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class Calendar extends StaticAccess
+class Calendar extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:calendar';
 

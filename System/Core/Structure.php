@@ -1,6 +1,8 @@
 <?php 
 namespace ZN\Core;
 
+use ZN\Foundations\Restoration;
+
 class Structure
 {
 	//----------------------------------------------------------------------------------------------------

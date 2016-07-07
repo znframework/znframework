@@ -1,5 +1,5 @@
 <?php
-class Schedule extends StaticAccess
+class Schedule extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -564,7 +564,7 @@ class Autoloader
 	
 						// Statik sınıf içeriği oluşturuluyor....
 						$classContent  = '<?php'.$eol;
-						$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
+						$classContent .= 'class '.$newClassName.' extends ZN\Foundations\StaticAccess'.$eol;
 						$classContent .= '{'.$eol;	
 						$classContent .= $constants;
 						$classContent .= "\t".'public static function getClassName()'.$eol;

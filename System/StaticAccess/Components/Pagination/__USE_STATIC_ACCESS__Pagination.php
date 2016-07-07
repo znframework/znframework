@@ -1,5 +1,5 @@
 <?php
-class Pagination extends StaticAccess
+class Pagination extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:pagination';
 

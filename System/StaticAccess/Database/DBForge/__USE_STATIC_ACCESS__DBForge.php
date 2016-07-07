@@ -1,5 +1,5 @@
 <?php
-class DBForge extends StaticAccess
+class DBForge extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

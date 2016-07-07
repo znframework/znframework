@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Foundations;
+
 class __USE_STATIC_ACCESS__Driver
 {
 	//----------------------------------------------------------------------------------------------------
@@ -25,11 +27,11 @@ class __USE_STATIC_ACCESS__Driver
 	{	
 		if( is_array($library) )
 		{
-			$config  = Config::get(key($library), current($library));
+			$config  = \Config::get(key($library), current($library));
 		}
 		else
 		{
-			$config  = Config::get($library);
+			$config  = \Config::get($library);
 		}
 		
 		$driver  = ! empty($driver)

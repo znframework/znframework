@@ -1,5 +1,5 @@
 <?php
-class GT extends StaticAccess
+class GT extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class ML extends StaticAccess
+class ML extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

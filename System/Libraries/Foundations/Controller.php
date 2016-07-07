@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Foundations;
+
 class Controller
 {
 	//----------------------------------------------------------------------------------------------------
@@ -24,7 +26,7 @@ class Controller
 		// parent::__construct() kodu ilave edilerek Conroller->__construct()
 		// yönteminin çalışması sağlanır.
 		// ---------------------------------------------------------------------
-		zn::$use =& $this;
+		\ZN::$use =& $this;
 		// ---------------------------------------------------------------------
 	}
 		

@@ -1,5 +1,5 @@
 <?php
-class XML extends StaticAccess
+class XML extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

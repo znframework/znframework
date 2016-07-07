@@ -1,5 +1,5 @@
 <?php
-class Upload extends StaticAccess
+class Upload extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

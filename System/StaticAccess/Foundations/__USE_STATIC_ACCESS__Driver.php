@@ -1,5 +1,5 @@
 <?php
-class Driver extends StaticAccess
+class Driver extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

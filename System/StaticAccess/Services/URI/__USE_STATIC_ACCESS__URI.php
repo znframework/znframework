@@ -1,5 +1,5 @@
 <?php
-class URI extends StaticAccess
+class URI extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

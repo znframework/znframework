@@ -54,7 +54,9 @@ $config['Autoloader']['classMap'] =
 // Autoloader Aliases                                                               
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanım: Sınıflara takma isimler vermek için kullanılır. 				     			 	  		  
+// Genel Kullanım: Sınıflara takma isimler vermek için kullanılır.
+//
+// ['aliasName' => 'originName', ...] 				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Autoloader']['aliases'] = [];

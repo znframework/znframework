@@ -1,5 +1,5 @@
 <?php
-class Symbol extends StaticAccess
+class Symbol extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

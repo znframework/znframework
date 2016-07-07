@@ -1,5 +1,5 @@
 <?php
-class Cache extends StaticAccess
+class Cache extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class Download extends StaticAccess
+class Download extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

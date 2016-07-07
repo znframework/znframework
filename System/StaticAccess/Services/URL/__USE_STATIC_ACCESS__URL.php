@@ -1,5 +1,5 @@
 <?php
-class URL extends StaticAccess
+class URL extends ZN\Foundations\StaticAccess
 {
 	const BASE = BASE_URL;
 

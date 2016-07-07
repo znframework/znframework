@@ -1,5 +1,5 @@
 <?php
-class Round extends StaticAccess
+class Round extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

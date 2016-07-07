@@ -1,5 +1,5 @@
 <?php
-class Crypto extends StaticAccess
+class Crypto extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

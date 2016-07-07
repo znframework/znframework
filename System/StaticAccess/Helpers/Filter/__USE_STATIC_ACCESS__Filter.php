@@ -1,5 +1,5 @@
 <?php
-class Filter extends StaticAccess
+class Filter extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

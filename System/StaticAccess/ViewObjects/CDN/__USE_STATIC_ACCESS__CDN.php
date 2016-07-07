@@ -1,5 +1,5 @@
 <?php
-class CDN extends StaticAccess
+class CDN extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

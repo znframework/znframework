@@ -1,5 +1,5 @@
 <?php
-class Buffer extends StaticAccess
+class Buffer extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

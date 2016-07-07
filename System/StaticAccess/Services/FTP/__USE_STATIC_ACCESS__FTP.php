@@ -1,5 +1,5 @@
 <?php
-class FTP extends StaticAccess
+class FTP extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:ftp';
 

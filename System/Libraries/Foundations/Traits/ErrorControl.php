@@ -1,4 +1,6 @@
 <?php
+namespace ZN\Foundations\Traits;
+
 trait ErrorControlTrait
 {
 	/* Error Değişkeni
@@ -34,7 +36,7 @@ trait ErrorControlTrait
 		{	
 			return $this->error;
 		}
-		elseif( $error = Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) )
+		elseif( $error = \Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) )
 		{
 			return $error;	
 		}
@@ -54,7 +56,7 @@ trait ErrorControlTrait
 	//----------------------------------------------------------------------------------------------------
 	public function success()
 	{
-		if( empty($this->error) && ! Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) ) 
+		if( empty($this->error) && ! \Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) ) 
 		{
 			if( ! empty($this->success) )
 			{

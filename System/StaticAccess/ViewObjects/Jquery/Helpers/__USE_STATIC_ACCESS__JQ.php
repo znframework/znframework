@@ -1,5 +1,5 @@
 <?php
-class JQ extends StaticAccess
+class JQ extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

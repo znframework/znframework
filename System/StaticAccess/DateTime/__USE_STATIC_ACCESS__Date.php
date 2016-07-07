@@ -1,5 +1,5 @@
 <?php
-class Date extends StaticAccess
+class Date extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

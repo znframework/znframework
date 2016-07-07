@@ -1,5 +1,5 @@
 <?php
-class Sheet extends StaticAccess
+class Sheet extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,5 +1,5 @@
 <?php
-class Permission extends StaticAccess
+class Permission extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

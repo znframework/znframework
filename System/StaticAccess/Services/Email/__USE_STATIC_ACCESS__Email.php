@@ -1,5 +1,5 @@
 <?php
-class Email extends StaticAccess
+class Email extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

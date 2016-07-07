@@ -1,5 +1,5 @@
 <?php
-class Route extends StaticAccess
+class Route extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
 	{

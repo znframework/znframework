@@ -1,5 +1,5 @@
 <?php
-class Session extends StaticAccess
+class Session extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:session';
 
