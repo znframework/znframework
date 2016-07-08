@@ -50,7 +50,7 @@ class Config
 		
 		if( ! is_file($path) ) 
 		{
-			$path = COMMON_CONFIG_DIR.suffix($file,".php");
+			$path = EXTERNAL_CONFIG_DIR.suffix($file,".php");
 			
 			if( ! is_file($path) ) 
 			{

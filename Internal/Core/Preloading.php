@@ -43,10 +43,10 @@ if( isset($baseDir[0]) )
 }
 
 //----------------------------------------------------------------------------------------------------
-// INTERNAL_DIR
+// URIAPPDIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Internal
+// @return URIAPPDIR
 //
 //----------------------------------------------------------------------------------------------------
 $internalDir = ( ! empty($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'], '/'))[0] : ''); 
@@ -62,7 +62,7 @@ if( is_array($othersapp) )
 
 if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
 {
-	define('INTERNAL_DIR', $internalDir);	
+	define('URIAPPDIR', $internalDir);	
 }
 
 //----------------------------------------------------------------------------------------------------

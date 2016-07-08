@@ -97,8 +97,8 @@ function lang($file = '', $str = '', $changed = '')
 	$key 		   = removeExtension($file, 'php');
 	$file 		   = Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
 	$langDir       = restorationPath(LANGUAGES_DIR.$file);
-	$sysLangDir    = SYSTEM_LANGUAGES_DIR.$file;
-	$commonLangDir = COMMON_LANGUAGES_DIR.$file;
+	$sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
+	$commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
 	
 	global $lang;
 	
@@ -899,9 +899,9 @@ function _requestUri()
 	$requestUri	= _cleanInjection(_routeUri($requestUri));
 	$requestUri = _cleanURIPrefix($requestUri, currentLang());
 	
-	if( defined('INTERNAL_DIR') )
+	if( defined('URIAPPDIR') )
 	{
-		$requestUri = _cleanURIPrefix($requestUri, INTERNAL_DIR);
+		$requestUri = _cleanURIPrefix($requestUri, URIAPPDIR);
 	}
 	
 	return $requestUri;
@@ -940,17 +940,17 @@ function _routeUri($requestUri = '')
 	{
 		$internalDir = NULL;
 		
-		if( defined('INTERNAL_DIR') )
+		if( defined('URIAPPDIR') )
 		{
 			$configAppdir = Config::get('Application', 'directory')['others'];
 			
 			if( is_array($configAppdir) )
 			{
-				$internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : INTERNAL_DIR;
+				$internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : URIAPPDIR;
 			}
 			else
 			{
-				$internalDir = INTERNAL_DIR;	
+				$internalDir = URIAPPDIR;	
 			}
 		}
 		

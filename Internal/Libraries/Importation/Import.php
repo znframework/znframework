@@ -272,7 +272,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		if( ! empty($args) ) foreach( $args as $file )
 		{
 			$suffix     = suffix($file, '.php');
-			$commonFile = COMMON_HANDLOAD_DIR.$suffix ;
+			$commonFile = EXTERNAL_HANDLOAD_DIR.$suffix ;
 			$file 		= restorationPath(HANDLOAD_DIR.$suffix);
 			
 			if( is_file($file) )
@@ -400,7 +400,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 	******************************************************************************************/
 	public function template($page = '', $data = '', $obGetContents = false)
 	{
-		if( $return = $this->page($page, $data, $obGetContents, SYSTEM_TEMPLATES_DIR) ) 
+		if( $return = $this->page($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) ) 
 		{
 			return $return;
 		}
@@ -408,7 +408,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		{
 			return $return;
 		}
-		elseif( $return = $this->page($page, $data, $obGetContents, COMMON_TEMPLATES_DIR) ) 
+		elseif( $return = $this->page($page, $data, $obGetContents, EXTERNAL_TEMPLATES_DIR) ) 
 		{
 			return $return;
 		}
@@ -851,7 +851,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			if( ! is_file($fontFile) )
 			{
-				$fontFile = COMMON_FONTS_DIR.$font;
+				$fontFile = EXTERNAL_FONTS_DIR.$font;
 			}
 			
 			if( extension($fontFile) )
@@ -983,7 +983,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			if( ! is_file($styleFile) )
 			{
-				$styleFile = COMMON_STYLES_DIR.suffix($style, ".css");
+				$styleFile = EXTERNAL_STYLES_DIR.suffix($style, ".css");
 			}
 		
 			if( ! in_array("style_".$style, $this->isImport) )
@@ -1064,7 +1064,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 			
 			if( ! is_file($scriptFile) )
 			{
-				$scriptFile = COMMON_SCRIPTS_DIR.suffix($script, ".js");
+				$scriptFile = EXTERNAL_SCRIPTS_DIR.suffix($script, ".js");
 			}
 			
 			if( ! in_array("script_".$script, $this->isImport) )
@@ -1286,7 +1286,7 @@ class __USE_STATIC_ACCESS__Import implements ImportInterface
 		// Common Directory
 		if( ! is_dir($packages) && ! is_file($packages) )
 		{
-			$packages = str_replace(RESOURCES_DIR, COMMON_RESOURCES_DIR, $packages);	
+			$packages = str_replace(RESOURCES_DIR, EXTERNAL_RESOURCES_DIR, $packages);	
 		}
 		
 		if( is_dir($packages) )

@@ -38,13 +38,13 @@ define('STORAGE_DIR', APPDIR.'Storage/');
 define('RESOURCES_DIR', APPDIR.'Resources/');		
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_RESOURCES_DIR
+// EXTERNAL_RESOURCES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/
+// @return External/Resources/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_RESOURCES_DIR', COMMON_DIR.'Resources/');	
+define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources/');	
 
 //----------------------------------------------------------------------------------------------------
 // STARTING_DIR
@@ -56,13 +56,13 @@ define('COMMON_RESOURCES_DIR', COMMON_DIR.'Resources/');
 define('STARTING_DIR', APPDIR.'Starting/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_STARTING_DIR
+// EXTERNAL_STARTING_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Starting/
+// @return External/Starting/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_STARTING_DIR', COMMON_DIR.'Starting/');	
+define('EXTERNAL_STARTING_DIR', EXTERNAL_DIR.'Starting/');	
 
 //----------------------------------------------------------------------------------------------------
 // AUTOLOAD_DIR
@@ -74,13 +74,13 @@ define('COMMON_STARTING_DIR', COMMON_DIR.'Starting/');
 define('AUTOLOAD_DIR', STARTING_DIR.'Autoload/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_AUTOLOAD_DIR
+// EXTERNAL_AUTOLOAD_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Starting/Autoload/
+// @return External/Starting/Autoload/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_AUTOLOAD_DIR', COMMON_STARTING_DIR.'Autoload/');	
+define('EXTERNAL_AUTOLOAD_DIR', EXTERNAL_STARTING_DIR.'Autoload/');	
 
 //----------------------------------------------------------------------------------------------------
 // HANDLOAD_DIR
@@ -92,22 +92,22 @@ define('COMMON_AUTOLOAD_DIR', COMMON_STARTING_DIR.'Autoload/');
 define('HANDLOAD_DIR', STARTING_DIR.'Handload/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_HANDLOAD_DIR
+// EXTERNAL_HANDLOAD_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Starting/Handload/
+// @return External/Starting/Handload/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_HANDLOAD_DIR', COMMON_STARTING_DIR.'Handload/');		
+define('EXTERNAL_HANDLOAD_DIR', EXTERNAL_STARTING_DIR.'Handload/');		
 
 //----------------------------------------------------------------------------------------------------
-// SYSTEM_LANGUAGES_DIR
+// INTERNAL_LANGUAGES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return System/Languages/
+// @return Internal/Languages/
 //
 //----------------------------------------------------------------------------------------------------
-define('SYSTEM_LANGUAGES_DIR', SYSTEM_DIR.'Languages/');
+define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages/');
 
 //----------------------------------------------------------------------------------------------------
 // LANGUAGES_DIR
@@ -119,22 +119,22 @@ define('SYSTEM_LANGUAGES_DIR', SYSTEM_DIR.'Languages/');
 define('LANGUAGES_DIR', APPDIR.'Languages/'); 
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_LANGUAGES_DIR
+// EXTERNAL_LANGUAGES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Languages/
+// @return External/Languages/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_LANGUAGES_DIR', COMMON_DIR.'Languages/'); 
+define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages/'); 
 
 //----------------------------------------------------------------------------------------------------
-// SYSTEM_LIBRARIES_DIR
+// INTERNAL_LIBRARIES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return System/Libraries/
+// @return Internal/Libraries/
 //
 //----------------------------------------------------------------------------------------------------
-define('SYSTEM_LIBRARIES_DIR', SYSTEM_DIR.'Libraries/');
+define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries/');
 
 //----------------------------------------------------------------------------------------------------
 // LIBRARIES_DIR
@@ -146,13 +146,13 @@ define('SYSTEM_LIBRARIES_DIR', SYSTEM_DIR.'Libraries/');
 define('LIBRARIES_DIR', APPDIR.'Libraries/'); 		
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_LIBRARIES_DIR
+// EXTERNAL_LIBRARIES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Libraries/
+// @return External/Libraries/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_LIBRARIES_DIR', COMMON_DIR.'Libraries/'); 	
+define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries/'); 	
 
 //----------------------------------------------------------------------------------------------------
 // CONTROLLERS_DIR
@@ -173,13 +173,13 @@ define('CONTROLLERS_DIR', APPDIR.'Controllers/');
 define('MODELS_DIR', APPDIR.'Models/'); 
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_MODELS_DIR
+// EXTERNAL_MODELS_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Models/
+// @return External/Models/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_MODELS_DIR', COMMON_DIR.'Models/'); 				
+define('EXTERNAL_MODELS_DIR', EXTERNAL_DIR.'Models/'); 				
 
 //----------------------------------------------------------------------------------------------------
 // VIEWS_DIR
@@ -209,13 +209,13 @@ define('PAGES_DIR', VIEWS_DIR);
 define('FILES_DIR', RESOURCES_DIR.'Files/');
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_FILES_DIR
+// EXTERNAL_FILES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Files/
+// @return External/Resources/Files/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_FILES_DIR', COMMON_RESOURCES_DIR.'Files/');
+define('EXTERNAL_FILES_DIR', EXTERNAL_RESOURCES_DIR.'Files/');
 
 //----------------------------------------------------------------------------------------------------
 // FONTS_DIR
@@ -227,13 +227,13 @@ define('COMMON_FILES_DIR', COMMON_RESOURCES_DIR.'Files/');
 define('FONTS_DIR', RESOURCES_DIR.'Fonts/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_FONTS_DIR
+// EXTERNAL_FONTS_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Fonts/
+// @return External/Resources/Fonts/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_FONTS_DIR', COMMON_RESOURCES_DIR.'Fonts/');	
+define('EXTERNAL_FONTS_DIR', EXTERNAL_RESOURCES_DIR.'Fonts/');	
 
 //----------------------------------------------------------------------------------------------------
 // SCRIPTS_DIR
@@ -245,13 +245,13 @@ define('COMMON_FONTS_DIR', COMMON_RESOURCES_DIR.'Fonts/');
 define('SCRIPTS_DIR', RESOURCES_DIR.'Scripts/'); 	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_SCRIPTS_DIR
+// EXTERNAL_SCRIPTS_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Scripts/
+// @return External/Resources/Scripts/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_SCRIPTS_DIR', COMMON_RESOURCES_DIR.'Scripts/'); 	
+define('EXTERNAL_SCRIPTS_DIR', EXTERNAL_RESOURCES_DIR.'Scripts/'); 	
 
 //----------------------------------------------------------------------------------------------------
 // SCRIPTS_DIR
@@ -263,13 +263,13 @@ define('COMMON_SCRIPTS_DIR', COMMON_RESOURCES_DIR.'Scripts/');
 define('STYLES_DIR', RESOURCES_DIR.'Styles/'); 	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_STYLES_DIR
+// EXTERNAL_STYLES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Styles/
+// @return External/Resources/Styles/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_STYLES_DIR', COMMON_RESOURCES_DIR.'Styles/'); 						
+define('EXTERNAL_STYLES_DIR', EXTERNAL_RESOURCES_DIR.'Styles/'); 						
 
 //----------------------------------------------------------------------------------------------------
 // TEMPLATES_DIR
@@ -281,13 +281,13 @@ define('COMMON_STYLES_DIR', COMMON_RESOURCES_DIR.'Styles/');
 define('TEMPLATES_DIR', RESOURCES_DIR.'Templates/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_TEMPLATES_DIR
+// EXTERNAL_TEMPLATES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Templates/
+// @return External/Resources/Templates/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_TEMPLATES_DIR', COMMON_RESOURCES_DIR.'Templates/');
+define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates/');
 
 //----------------------------------------------------------------------------------------------------
 // THEMES_DIR
@@ -299,13 +299,13 @@ define('COMMON_TEMPLATES_DIR', COMMON_RESOURCES_DIR.'Templates/');
 define('THEMES_DIR', RESOURCES_DIR.'Themes/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_THEMES_DIR
+// EXTERNAL_THEMES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Themes/
+// @return External/Resources/Themes/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_THEMES_DIR', COMMON_RESOURCES_DIR.'Themes/');	
+define('EXTERNAL_THEMES_DIR', EXTERNAL_RESOURCES_DIR.'Themes/');	
 
 //----------------------------------------------------------------------------------------------------
 // PLUGINS_DIR
@@ -317,13 +317,13 @@ define('COMMON_THEMES_DIR', COMMON_RESOURCES_DIR.'Themes/');
 define('PLUGINS_DIR', RESOURCES_DIR.'Plugins/');	
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_PLUGINS_DIR
+// EXTERNAL_PLUGINS_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Plugins/
+// @return External/Resources/Plugins/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_PLUGINS_DIR', COMMON_RESOURCES_DIR.'Plugins/');		
+define('EXTERNAL_PLUGINS_DIR', EXTERNAL_RESOURCES_DIR.'Plugins/');		
 
 //----------------------------------------------------------------------------------------------------
 // UPLOADS_DIR
@@ -335,19 +335,19 @@ define('COMMON_PLUGINS_DIR', COMMON_RESOURCES_DIR.'Plugins/');
 define('UPLOADS_DIR', RESOURCES_DIR.'Uploads/');
 
 //----------------------------------------------------------------------------------------------------
-// COMMON_UPLOADS_DIR
+// EXTERNAL_UPLOADS_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Common/Resources/Uploads/
+// @return External/Resources/Uploads/
 //
 //----------------------------------------------------------------------------------------------------
-define('COMMON_UPLOADS_DIR', COMMON_RESOURCES_DIR.'Uploads/');
+define('EXTERNAL_UPLOADS_DIR', EXTERNAL_RESOURCES_DIR.'Uploads/');
 
 //----------------------------------------------------------------------------------------------------
-// SYSTEM_TEMPLATES_DIR
+// INTERNAL_TEMPLATES_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return System/Templates/
+// @return Internal/Templates/
 //
 //----------------------------------------------------------------------------------------------------
-define('SYSTEM_TEMPLATES_DIR', SYSTEM_DIR.'Templates/');				
+define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates/');				

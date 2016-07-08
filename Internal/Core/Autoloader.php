@@ -476,7 +476,7 @@ class Autoloader
 			isset($configClassMap['classes']) ? $configClassMap['classes'] : []
 		);
 		
-		$staticAccessDirectory = SYSTEM_DIR.'StaticAccess/';
+		$staticAccessDirectory = INTERNAL_DIR.'StaticAccess/';
 		
 		$eol = EOL;
 		

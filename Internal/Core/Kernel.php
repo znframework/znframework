@@ -133,7 +133,7 @@ if( ! empty($startController) )
 if( $starting['autoload']['status'] === true ) 
 {
 	$startingAutoload 		= Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
-	$commonStartingAutoload = Folder::allFiles(COMMON_AUTOLOAD_DIR, $starting['autoload']['recursive']);
+	$commonStartingAutoload = Folder::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
 	
 	//------------------------------------------------------------------------------------------------
 	// Yerel Otomatik Olarak Yüklenen Fonksiyonlar
@@ -160,7 +160,7 @@ if( $starting['autoload']['status'] === true )
 		{
 			// Aynı dosya hem yerel de hemde genelde mevcutsa
 			// genel dizindeki dosya dikkate alınmaz.
-			$commonIsSameExistsFile = str_ireplace(COMMON_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
+			$commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
 			
 			if( ! is_file($commonIsSameExistsFile) && is_file($file) )
 			{
