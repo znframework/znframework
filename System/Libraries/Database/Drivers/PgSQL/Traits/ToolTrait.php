@@ -1,5 +1,5 @@
 <?php
-namespace ZN\Database\Drivers\MicrosoftSQL\Traits;
+namespace ZN\Database\Drivers\PgSQL\Traits;
 
 trait ToolTrait
 {
@@ -11,8 +11,24 @@ trait ToolTrait
 	******************************************************************************************/
 	public function listDatabases()
 	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
+		$this->query('SELECT datname FROM pg_database');
+		
+		if( $this->error() ) 
+		{
+			return false;
+		}
+		
+		$newDatabases = [];
+		
+		foreach( $this->result() as $databases )
+		{
+			foreach( $databases as $db => $database )
+			{
+				$newDatabases[] = $database;
+			}
+		}
+		
+		return $newDatabases;
 	}
 	
 	/******************************************************************************************
@@ -23,7 +39,23 @@ trait ToolTrait
 	******************************************************************************************/
 	public function listTables()
 	{
-		// Ön tanımlı sorgu kullanıyor.
-		return false;
+		$this->query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
+		
+		if( $this->error() ) 
+		{
+			return false;
+		}
+		
+		$newTables = [];
+		
+		foreach( $this->result() as $tables )
+		{
+			foreach( $tables as $tb => $table )
+			{
+				$newTables[] = $table;
+			}
+		}
+		
+		return $newTables;
 	}
 }

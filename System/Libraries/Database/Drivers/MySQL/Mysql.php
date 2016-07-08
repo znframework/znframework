@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database\Drivers;
 
-class MysqlDriver implements DatabaseDriverInterface
+class MySQLDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

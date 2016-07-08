@@ -95,17 +95,17 @@ $config['ClassMap']['classes']['zn\database\drivers\interbase\traits\forgetrait'
 $config['ClassMap']['classes']['zn\database\drivers\interbase\traits\querytrait'] = 'System/Libraries/Database/Drivers/InterBase/Traits/QueryTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\interbase\traits\tooltrait'] = 'System/Libraries/Database/Drivers/InterBase/Traits/ToolTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\interbase\traits\usertrait'] = 'System/Libraries/Database/Drivers/InterBase/Traits/UserTrait.php';
-$config['ClassMap']['classes']['zn\database\drivers\mssqldriver'] = 'System/Libraries/Database/Drivers/MicrosoftSQL/Mssql.php';
-$config['ClassMap']['classes']['zn\database\drivers\microsoftsql\traits\forgetrait'] = 'System/Libraries/Database/Drivers/MicrosoftSQL/Traits/ForgeTrait.php';
-$config['ClassMap']['classes']['zn\database\drivers\microsoftsql\traits\querytrait'] = 'System/Libraries/Database/Drivers/MicrosoftSQL/Traits/QueryTrait.php';
-$config['ClassMap']['classes']['zn\database\drivers\microsoftsql\traits\tooltrait'] = 'System/Libraries/Database/Drivers/MicrosoftSQL/Traits/ToolTrait.php';
-$config['ClassMap']['classes']['zn\database\drivers\microsoftsql\traits\usertrait'] = 'System/Libraries/Database/Drivers/MicrosoftSQL/Traits/UserTrait.php';
-$config['ClassMap']['classes']['zn\database\drivers\mysqldriver'] = 'System/Libraries/Database/Drivers/MySQL/Mysql.php';
+$config['ClassMap']['classes']['zn\database\drivers\mssqldriver'] = 'System/Libraries/Database/Drivers/MsSQL/MsSQL.php';
+$config['ClassMap']['classes']['zn\database\drivers\mssql\traits\forgetrait'] = 'System/Libraries/Database/Drivers/MsSQL/Traits/ForgeTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\mssql\traits\querytrait'] = 'System/Libraries/Database/Drivers/MsSQL/Traits/QueryTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\mssql\traits\tooltrait'] = 'System/Libraries/Database/Drivers/MsSQL/Traits/ToolTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\mssql\traits\usertrait'] = 'System/Libraries/Database/Drivers/MsSQL/Traits/UserTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\mysqldriver'] = 'System/Libraries/Database/Drivers/MySQL/MySQL.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysql\traits\forgetrait'] = 'System/Libraries/Database/Drivers/MySQL/Traits/ForgeTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysql\traits\querytrait'] = 'System/Libraries/Database/Drivers/MySQL/Traits/QueryTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysql\traits\tooltrait'] = 'System/Libraries/Database/Drivers/MySQL/Traits/ToolTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysql\traits\usertrait'] = 'System/Libraries/Database/Drivers/MySQL/Traits/UserTrait.php';
-$config['ClassMap']['classes']['zn\database\drivers\mysqlidriver'] = 'System/Libraries/Database/Drivers/MySQLi/Mysqli.php';
+$config['ClassMap']['classes']['zn\database\drivers\mysqlidriver'] = 'System/Libraries/Database/Drivers/MySQLi/MySQLi.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysqli\traits\forgetrait'] = 'System/Libraries/Database/Drivers/MySQLi/Traits/ForgeTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysqli\traits\querytrait'] = 'System/Libraries/Database/Drivers/MySQLi/Traits/QueryTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\mysqli\traits\tooltrait'] = 'System/Libraries/Database/Drivers/MySQLi/Traits/ToolTrait.php';
@@ -477,10 +477,10 @@ $config['ClassMap']['namespaces']['zn\database\drivers\interbase\traits\querytra
 $config['ClassMap']['namespaces']['zn\database\drivers\interbase\traits\tooltrait'] = 'tooltrait';
 $config['ClassMap']['namespaces']['zn\database\drivers\interbase\traits\usertrait'] = 'usertrait';
 $config['ClassMap']['namespaces']['zn\database\drivers\mssqldriver'] = 'mssqldriver';
-$config['ClassMap']['namespaces']['zn\database\drivers\microsoftsql\traits\forgetrait'] = 'forgetrait';
-$config['ClassMap']['namespaces']['zn\database\drivers\microsoftsql\traits\querytrait'] = 'querytrait';
-$config['ClassMap']['namespaces']['zn\database\drivers\microsoftsql\traits\tooltrait'] = 'tooltrait';
-$config['ClassMap']['namespaces']['zn\database\drivers\microsoftsql\traits\usertrait'] = 'usertrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\mssql\traits\forgetrait'] = 'forgetrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\mssql\traits\querytrait'] = 'querytrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\mssql\traits\tooltrait'] = 'tooltrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\mssql\traits\usertrait'] = 'usertrait';
 $config['ClassMap']['namespaces']['zn\database\drivers\mysqldriver'] = 'mysqldriver';
 $config['ClassMap']['namespaces']['zn\database\drivers\mysql\traits\forgetrait'] = 'forgetrait';
 $config['ClassMap']['namespaces']['zn\database\drivers\mysql\traits\querytrait'] = 'querytrait';
@@ -713,5 +713,30 @@ $config['ClassMap']['namespaces']['zn\viewobjects\__use_static_access__template'
 $config['ClassMap']['namespaces']['zn\viewobjects\templateinterface'] = 'templateinterface';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\__use_static_access__xml'] = '__use_static_access__xml';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\database\drivers\pgsqldriver'] = 'System/Libraries/Database/Drivers/PgSQL/PgSQL.php';
+$config['ClassMap']['classes']['zn\database\drivers\pgsql\traits\forgetrait'] = 'System/Libraries/Database/Drivers/PgSQL/Traits/ForgeTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\pgsql\traits\querytrait'] = 'System/Libraries/Database/Drivers/PgSQL/Traits/QueryTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\pgsql\traits\tooltrait'] = 'System/Libraries/Database/Drivers/PgSQL/Traits/ToolTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\pgsql\traits\usertrait'] = 'System/Libraries/Database/Drivers/PgSQL/Traits/UserTrait.php';
+$config['ClassMap']['namespaces']['zn\database\drivers\pgsqldriver'] = 'pgsqldriver';
+$config['ClassMap']['namespaces']['zn\database\drivers\pgsql\traits\forgetrait'] = 'forgetrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\pgsql\traits\querytrait'] = 'querytrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\pgsql\traits\tooltrait'] = 'tooltrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\pgsql\traits\usertrait'] = 'usertrait';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\database\drivers\pgsqldriver'] = 'System/Libraries/Database/Drivers/PgSQL/PgSQL.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\database\drivers\pgsqldriver'] = 'System/Libraries/Database/Drivers/PgSQL/PgSQL.php';
+$config['ClassMap']['classes']['zn\database\drivers\sqlsrvdriver'] = 'System/Libraries/Database/Drivers/SQLsrv/SQLsrv.php';
+$config['ClassMap']['classes']['zn\database\drivers\sqlsrv\traits\forgetrait'] = 'System/Libraries/Database/Drivers/SQLsrv/Traits/ForgeTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\sqlsrv\traits\querytrait'] = 'System/Libraries/Database/Drivers/SQLsrv/Traits/QueryTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\sqlsrv\traits\tooltrait'] = 'System/Libraries/Database/Drivers/SQLsrv/Traits/ToolTrait.php';
+$config['ClassMap']['classes']['zn\database\drivers\sqlsrv\traits\usertrait'] = 'System/Libraries/Database/Drivers/SQLsrv/Traits/UserTrait.php';
+$config['ClassMap']['namespaces']['zn\database\drivers\sqlsrvdriver'] = 'sqlsrvdriver';
+$config['ClassMap']['namespaces']['zn\database\drivers\sqlsrv\traits\forgetrait'] = 'forgetrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\sqlsrv\traits\querytrait'] = 'querytrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\sqlsrv\traits\tooltrait'] = 'tooltrait';
+$config['ClassMap']['namespaces']['zn\database\drivers\sqlsrv\traits\usertrait'] = 'usertrait';
 
 //----------------------------------------------------------------------------------------------------

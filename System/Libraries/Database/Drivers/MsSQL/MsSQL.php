@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database\Drivers;
 
-class MssqlDriver implements DatabaseDriverInterface
+class MsSQLDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -69,10 +69,10 @@ class MssqlDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use MicrosoftSQL\Traits\QueryTrait;
-	use MicrosoftSQL\Traits\ForgeTrait;
-	use MicrosoftSQL\Traits\ToolTrait;
-	use MicrosoftSQL\Traits\UserTrait;
+	use MsSQL\Traits\QueryTrait;
+	use MsSQL\Traits\ForgeTrait;
+	use MsSQL\Traits\ToolTrait;
+	use MsSQL\Traits\UserTrait;
 	
 	use Traits\DatabaseDriverTrait;
 	

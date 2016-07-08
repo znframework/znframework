@@ -1,5 +1,5 @@
 <?php
-namespace ZN\Database\Drivers\SQLServer\Traits;
+namespace ZN\Database\Drivers\MsSQL\Traits;
 
 trait ToolTrait
 {

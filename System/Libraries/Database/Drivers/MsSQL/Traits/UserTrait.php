@@ -1,5 +1,5 @@
 <?php
-namespace ZN\Database\Drivers\MicrosoftSQL\Traits;
+namespace ZN\Database\Drivers\MsSQL\Traits;
 
 use ZN\Database\Drivers\Traits\UserTrait as CommonUserTrait;
 

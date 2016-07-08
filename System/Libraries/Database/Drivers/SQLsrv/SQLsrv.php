@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database\Drivers;
 
-class PostgreDriver implements DatabaseDriverInterface
+class SQLsrvDriver implements DatabaseDriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -31,7 +31,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	 */
 	protected $statements = array
 	(
-		'autoIncrement' => 'BIGSERIAL',
+		'autoIncrement' => 'IDENTITY(1,1)',
 		'primaryKey'	=> 'PRIMARY KEY',
 		'foreignKey'	=> 'FOREIGN KEY',
 		'unique'		=> 'UNIQUE',
@@ -49,41 +49,41 @@ class PostgreDriver implements DatabaseDriverInterface
 	 */
 	protected $variableTypes = array
 	(
-		'int' 			=> 'INTEGER',
+		'int' 			=> 'INT',
 		'smallInt'		=> 'SMALLINT',
-		'tinyInt'		=> 'SMALLINT',
-		'mediumInt'		=> 'INTEGER',
+		'tinyInt'		=> 'TINYINT',
+		'mediumInt'		=> 'INT',
 		'bigInt'		=> 'BIGINT',
 		'decimal'		=> 'DECIMAL',
 		'double'		=> 'DOUBLE PRECISION',
-		'float'			=> 'NUMERIC',
-		'char'			=> 'CHARACTER',
-		'varChar'		=> 'CHARACTER VARYING',
-		'tinyText'		=> 'CHARACTER VARYING(255)',
-		'text'			=> 'TEXT',
-		'mediumText'	=> 'TEXT',
-		'longText'		=> 'TEXT',
+		'float'			=> 'FLOAT',
+		'char'			=> 'CHAR',
+		'varChar'		=> 'VARCHAR',
+		'tinyText'		=> 'VARCHAR(255)',
+		'text'			=> 'VARCHAR(65535)',
+		'mediumText'	=> 'VARCHAR(16277215)',
+		'longText'		=> 'VARCHAR(16277215)',
 		'date'			=> 'DATE',
-		'dateTime'		=> 'TIMESTAMP',
+		'dateTime'		=> 'DATETIME',
 		'time'			=> 'TIME',
 		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
-	use Postgre\Traits\QueryTrait;
-	use Postgre\Traits\ForgeTrait;
-	use Postgre\Traits\ToolTrait;
-	use Postgre\Traits\UserTrait;
+	use SQLsrv\Traits\QueryTrait;
+	use SQLsrv\Traits\ForgeTrait;
+	use SQLsrv\Traits\ToolTrait;
+	use SQLsrv\Traits\UserTrait;
 	
 	use Traits\DatabaseDriverTrait;
 	
 	public function __construct()
 	{
-		if( ! function_exists('pg_connect') )
+		if( ! function_exists('sqlsrv_connect') )
 		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Postgre'));	
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQL Server'));	
 		}	
 	}
-	
+
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -94,32 +94,31 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		$this->config = $config;
 		
-		$dsn = 'host='.$this->config['host'].' ';
-		
-		if( ! empty($this->config['port']) ) 		$dsn .= 'port='.$this->config['port'].' ';
-		if( ! empty($this->config['database']) ) 	$dsn .= 'dbname='.$this->config['database'].' ';
-		if( ! empty($this->config['user']) ) 		$dsn .= 'user='.$this->config['user'].' ';
-		if( ! empty($this->config['password']) ) 	$dsn .= 'password='.$this->config['password'].' ';
-		
-		if( ! empty($this->config['dsn']) )
+		$server = 	( ! empty($this->config['server']) )
+					? $this->config['server']
+					: $this->config['host'];
+					
+		if( ! empty($this->config['port']) ) 
 		{
-			$dsn = $this->config['dsn'];	
+			$server .= ', '.$this->config['port'];
 		}
 		
-		$dsn = rtrim($dsn);
+		$connection = array
+		(
+			'UID'					=> $this->config['user'],
+			'PWD'					=> $this->config['password'],
+			'Database'				=> $this->config['database'],
+			'ConnectionPooling'		=> 0,
+			'CharacterSet'			=> $this->config['charset'],
+			'Encrypt'				=> $this->config['encode'],
+			'ReturnDatesAsStrings'	=> 1
+		);
 		
-		$this->connect = ( $this->config['pconnect'] === true )
-					     ? @pg_pconnect($dsn)
-						 : @pg_connect($dsn);
+		$this->connect = @sqlsrv_connect($server, $connection);
 		
 		if( empty($this->connect) ) 
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
-		}
-		
-		if( ! empty($this->config['charset']) ) 
-		{
-			pg_set_client_encoding($this->connect, $this->config['charset']);
 		}
 	}
 	
@@ -131,12 +130,9 @@ class PostgreDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function insertId()
 	{
-		if( empty($this->query) ) 
-		{
-			return false;
-		}
-		
-		return pg_last_oid($this->query);
+		$this->query('SELECT @@IDENTITY AS insert_id');
+		$row = $query->row();
+		return $row->insert_id;
 	}
 	
 	/******************************************************************************************
@@ -154,14 +150,14 @@ class PostgreDriver implements DatabaseDriverInterface
 		
 		$columns = [];
 		
-		for( $i = 0, $c = $this->numFields(); $i < $c; $i++ )
+		foreach( sqlsrv_field_metadata($this->query) as $field )
 		{
-			$fieldName = pg_field_name($this->query, $i);
+			$fieldName = $field['Name'];
 			
 			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
-			$columns[$fieldName]->type			= pg_field_type($this->query, $i);
-			$columns[$fieldName]->maxLength		= pg_field_size($this->query, $i);
+			$columns[$fieldName]->type			= $field['Type'];
+			$columns[$fieldName]->maxLength		= $field['Size'];
 			$columns[$fieldName]->primaryKey	= NULL;
 			$columns[$fieldName]->default		= NULL;
 		}
@@ -186,17 +182,6 @@ class PostgreDriver implements DatabaseDriverInterface
 	}
 	
 	/******************************************************************************************
-	* MODIFY COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
-	|          																				  |
-	******************************************************************************************/
-	public function modifyColumn()
-	{ 
-		return 'ALTER COLUMN '; 
-	}
-	
-	/******************************************************************************************
 	* NUM ROWS                                                                                *
 	*******************************************************************************************
 	| Genel Kullanım: Bu sürücü için toplam kayıt sayısı bilgisini verir.                	  | 
@@ -206,7 +191,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return pg_num_rows($this->query);
+			return sqlsrv_num_rows($this->query);
 		}
 		else
 		{
@@ -232,7 +217,7 @@ class PostgreDriver implements DatabaseDriverInterface
 		
 		for($i=0; $i < $num_fields; $i++)
 		{		
-			$columns[] = pg_field_name($this->query, $i);
+			$columns[] = sqlsrv_get_field($this->query, $i);
 		}
 		
 		return $columns;
@@ -248,7 +233,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return pg_num_fields($this->query);
+			return sqlsrv_num_fields($this->query);
 		}
 		else
 		{
@@ -265,7 +250,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		return pg_escape_string($this->connect, $data);
+		return \Security::escapeStringEncode($data);
 	}
 	
 	/******************************************************************************************
@@ -278,7 +263,8 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->connect) )
 		{
-			return pg_last_error($this->connect);
+			$error = sqlsrv_errors(SQLSRV_ERR_ERRORS);
+			return $error['message'];
 		}
 		else
 		{
@@ -296,7 +282,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return pg_fetch_array($this->query);
+			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_BOTH);
 		}
 		else
 		{
@@ -314,7 +300,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return pg_fetch_assoc($this->query);
+			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC);
 		}
 		else
 		{
@@ -332,7 +318,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->query) )
 		{
-			return pg_affected_rows($this->query);
+			return sqlsrv_fetch($this->query, SQLSRV_FETCH_ASSOC);
 		}
 		else
 		{
@@ -350,7 +336,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->connect) )
 		{
-			return pg_affected_rows($this->connect);
+			return sqlsrv_rows_affected($this->connect);
 		}
 		else
 		{
@@ -368,7 +354,7 @@ class PostgreDriver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->connect) ) 
 		{
-			@pg_close($this->connect);
+			@sqlsrv_close($this->connect); 
 		}
 		else 
 		{
@@ -379,15 +365,19 @@ class PostgreDriver implements DatabaseDriverInterface
 	/******************************************************************************************
 	* VERSION                                                                         		  *
 	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir. 		                  | 
+	| Genel Kullanım: Bu sürücü için version yönteminin kullanımıdır. 		                  | 
 	|          																				  |
 	******************************************************************************************/
 	public function version()
 	{
-		// Ön tanımlı sorgu kullanıyor.
-		if( ! empty($this->connect) ) 
+		if( ! empty($this->connect) )
 		{
-			return pg_version($this->connect);
+			$info = sqlsrv_server_info($this->connect);
+			return $info['SQLServerVersion'];
+		}
+		else
+		{
+			return false;
 		}
 	}
 }

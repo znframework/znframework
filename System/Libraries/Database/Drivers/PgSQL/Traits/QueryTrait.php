@@ -1,5 +1,5 @@
 <?php
-namespace ZN\Database\Drivers\SQLServer\Traits;
+namespace ZN\Database\Drivers\PgSQL\Traits;
 
 trait QueryTrait
 {
@@ -11,7 +11,7 @@ trait QueryTrait
 	******************************************************************************************/
 	public function exec($query, $security = NULL)
 	{
-		return sqlsrv_query($this->connect, $query);
+		return pg_query($this->connect, $query);
 	}
 	
 	/******************************************************************************************
@@ -31,9 +31,9 @@ trait QueryTrait
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
 	|          																				  |
 	******************************************************************************************/
-	public function query($query, $security = NULL)
+	public function query($query, $security = [])
 	{
-		$this->query = sqlsrv_query($this->connect, $query);
+		$this->query = pg_query($this->connect, $query);
 		return $this->query;
 	}
 	
@@ -45,7 +45,7 @@ trait QueryTrait
 	******************************************************************************************/
 	public function transStart()
 	{
-		return sqlsrv_begin_transaction($this->connect);
+		return (bool) pg_query($this->connect, 'BEGIN');
 	}
 	
 	/******************************************************************************************
@@ -56,7 +56,7 @@ trait QueryTrait
 	******************************************************************************************/
 	public function transRollback()
 	{
-		return sqlsrv_rollback($this->connect);		 
+		return (bool) pg_query($this->connect, 'ROLLBACK');	 
 	}
 	
 	/******************************************************************************************
@@ -67,6 +67,6 @@ trait QueryTrait
 	******************************************************************************************/
 	public function transCommit()
 	{
-		return sqlsrv_commit($this->connect);
+		return (bool) pg_query($this->connect, 'COMMIT');
 	}
 }
