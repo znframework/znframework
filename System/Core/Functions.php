@@ -942,7 +942,7 @@ function _routeUri($requestUri = '')
 		
 		if( defined('INTERNAL_DIR') )
 		{
-			$configAppdir = Config::get('Application', 'directory');
+			$configAppdir = Config::get('Application', 'directory')['others'];
 			
 			if( is_array($configAppdir) )
 			{

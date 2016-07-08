@@ -23,14 +23,24 @@ $config['Application']['mode'] = 'Development';
 // çalıştıracağını gösterir. Hostu yanlış yazıyorsanız Controllerin herhangi birindehost() yöntemini 
 // kullanarak host adını öğrenebilirsiniz.
 //
-// array
-// (
+// others
+// [
 //     'www.hostname.xxx' => 'HostApp',
 //     'localhost'        => 'Local'
-// )	     			 	  		  
+// ]	     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
-$config['Application']['directory'] = 'Local';
+$config['Application']['directory'] = 
+[
+	// Varsayılan Açılış Dizini
+	'default' => 'Frontend',
+	
+	// Çalıştırılacak Diğer Dizinler
+	'others'  => 
+	[
+		'backend' => 'Backend'
+	]
+];
 
 //----------------------------------------------------------------------------------------------------
 // Benchmarking Test                                                                  

@@ -53,9 +53,11 @@ $internalDir = ( ! empty($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['P
 
 global $application;
 
-if( is_array($application['directory']) )
+$othersapp = $application['directory']['others'];
+
+if( is_array($othersapp) )
 {
-	$internalDir = ! empty($application['directory'][$internalDir]) ? $application['directory'][$internalDir] : '';
+	$internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : '';
 }
 
 if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )

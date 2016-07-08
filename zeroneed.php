@@ -123,7 +123,7 @@ require_once CORE_DIR.'Preloading.php';
 //----------------------------------------------------------------------------------------------------
 //  Uygulama Dizini
 //----------------------------------------------------------------------------------------------------
-$appdir = $application['directory'];
+$appdir = $application['directory']['others'];
 
 if( is_array($appdir) && ! empty($appdir[host()]) )
 {
@@ -135,7 +135,7 @@ elseif( defined('INTERNAL_DIR') )
 }
 elseif( is_array($appdir) )
 {
-	$appdir = 'Local';	
+	$appdir = $application['directory']['default'];	
 }
 
 //----------------------------------------------------------------------------------------------------
