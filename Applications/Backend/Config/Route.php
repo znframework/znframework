@@ -58,7 +58,4 @@ $config['Route']['patternType']	= 'classic';
 // );																				      
 //	      						
 //----------------------------------------------------------------------------------------------------
-$config['Route']['changeUri'] 	= 
-[
-	// '(\b)\/(\b)' => '$1/index/$2' // index ibaresini kaldırmak.
-];
+$config['Route']['changeUri'] 	= [];
