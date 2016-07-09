@@ -78,7 +78,7 @@ define('STATIC_ACCESS', '__USE_STATIC_ACCESS__');
 // HIERARCHY_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return System/Core/Hierarchy.php
+// @return Internal/Core/Hierarchy.php
 //
 //----------------------------------------------------------------------------------------------------
 define('HIERARCHY_DIR', CORE_DIR.'Hierarchy.php');

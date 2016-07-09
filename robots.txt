@@ -1,5 +1,5 @@
 User-agent: *
 Disallow: /Applications/
-Disallow: /Configurations/
+Disallow: /External/
+Disallow: /Internal/
 Disallow: /Restorations/
-Disallow: /System/

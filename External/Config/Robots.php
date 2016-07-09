@@ -38,8 +38,8 @@ $config['Robots']['rules'] =
 	'disallow'  => 
 	[
 		'/Applications/', 
-		'/Configurations/', 
-		'/Restorations/', 
-		'/System/'
+		'/External/', 
+		'/Internal/', 
+		'/Restorations/'
 	]	
 ];
