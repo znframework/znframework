@@ -320,7 +320,7 @@ class __USE_STATIC_ACCESS__XML implements XMLInterface
 			{
 				if( $result === 'object' )
 				{
-					$elements[$index] 	       = new stdClass;
+					$elements[$index] 	       = new \stdClass;
 					$elements[$index]->name	   = isset( $tag['tag'] ) 		? $tag['tag'] 		 : '';
 					$elements[$index]->content = isset( $tag['value'] ) 		? $tag['value'] 	 : '';
 					$elements[$index]->attr    = isset( $tag['attributes'] )  ? $tag['attributes'] : '';

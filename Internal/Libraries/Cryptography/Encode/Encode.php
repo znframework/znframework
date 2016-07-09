@@ -148,7 +148,7 @@ class __USE_STATIC_ACCESS__Encode implements EncodeInterface
 	{
 		if( ! is_scalar($data) || empty($data) ) 
 		{
-			return Errors::set('Error', 'valueParameter', 'data');
+			return \Errors::set('Error', 'valueParameter', 'data');
 		}
 		
 		if( ! is_scalar($additional) )

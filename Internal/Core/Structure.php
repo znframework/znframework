@@ -133,7 +133,7 @@ class Structure
 				report('Error', lang('Error', 'controllerNameError', $pageControl), 'ControllerNameError');
 				
 				// Hatayı ekrana yazdır.
-				die(Errors::message('Error', 'controllerNameError', $pageControl));
+				die(\Errors::message('Error', 'controllerNameError', $pageControl));
 			}
 		}
 	
@@ -142,7 +142,7 @@ class Structure
 		//------------------------------------------------------------------------------------------------
 		if( APPMODE === 'restoration' )
 		{
-			Restoration::mode();
+			\Restoration::mode();
 		}
 		
 		//------------------------------------------------------------------------------------------------
