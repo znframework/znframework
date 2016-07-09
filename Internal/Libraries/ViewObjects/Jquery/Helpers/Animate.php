@@ -182,7 +182,7 @@ class Animate
 	******************************************************************************************/
 	public function step($step = '')
 	{	
-		$this->easing['step'] = JQ::func('now, fx', $step);	
+		$this->easing['step'] = \JQ::func('now, fx', $step);	
 		
 		return $this;
 	}
@@ -199,7 +199,7 @@ class Animate
 	******************************************************************************************/
 	public function comp($comp = '')
 	{	
-		$this->easing['complete'] = JQ::func('', $comp);	
+		$this->easing['complete'] = \JQ::func('', $comp);	
 		
 		return $this;
 	}

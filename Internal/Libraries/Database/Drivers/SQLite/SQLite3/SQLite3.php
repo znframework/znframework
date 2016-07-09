@@ -365,7 +365,7 @@ class SQLite3Driver implements DatabaseDriverInterface
 	{
 		if( ! empty($this->connect) )
 		{
-			$version = SQLite3::version();
+			$version = \SQLite3::version();
 			
 			return $version[$v];
 		}
