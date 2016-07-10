@@ -1146,7 +1146,7 @@ function _applicationContainerDir()
 	
 	$containers = $application['containers'];
 	
-	if( ! empty($containers) )
+	if( ! empty($containers) && defined('URIAPPDIR') )
 	{
 		return ! empty($containers[URIAPPDIR])
 			   ? APPLICATIONS_DIR.suffix($containers[URIAPPDIR])
