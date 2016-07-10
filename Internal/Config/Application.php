@@ -43,6 +43,32 @@ $config['Application']['directory'] =
 ];
 
 //----------------------------------------------------------------------------------------------------
+// Application Containers                                                                  
+//----------------------------------------------------------------------------------------------------
+//
+// Uygulamaların birbirlerini kapsaması üzerine oluşturulmuş ayardır. Bu ayar sayesinde kapsayıcı olarak 
+// belirlenen uygulamadaki yer alan Config/, Languages/, Libraries/, Models/, Resources/ ve Starting/
+// dizinlerini referans göstererek ortak dizinler haline gelmesi sağlanır. Bu ayar kullanılırsa
+// kapsanan dizindeki bu belirtilen dizinler kullanılamaz olup kapsayıcı dizinde yer alan bu dizinler
+// hem kendi hemde kapsanan dizin için ortak dizinler haline gelir.
+// 
+// Örnek
+// [
+//     'Kapsanan' => 'Kapsayan',
+//     'Backend'  => 'Frontend'
+// ]	     			 	  		  
+//
+// Yukarıdaki ayar ile Frontend/ altında bulunan
+// Config/, Languages/, Libraries/, Models/, Resources/ ve Starting/ dizinleri
+// hem Backend hemde Frontend için ortak hale getirilmiş oldu.
+//
+//----------------------------------------------------------------------------------------------------
+$config['Application']['containers'] =
+[
+	// Current => Reference
+];
+
+//----------------------------------------------------------------------------------------------------
 // Benchmarking Test                                                                  
 //----------------------------------------------------------------------------------------------------
 //

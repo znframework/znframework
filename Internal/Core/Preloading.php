@@ -1129,3 +1129,27 @@ function errorReport($type = NULL)
 		}
 	}
 }
+
+//----------------------------------------------------------------------------------------------------
+// _applicationContainerDir()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _applicationContainerDir()
+{
+	global $application;
+	
+	$containers = $application['containers'];
+	
+	if( ! empty($containers) )
+	{
+		return ! empty($containers[URIAPPDIR])
+			   ? APPLICATIONS_DIR.suffix($containers[URIAPPDIR])
+			   : APPDIR;
+	}
+	
+	return APPDIR;
+}
