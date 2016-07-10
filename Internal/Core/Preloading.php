@@ -49,7 +49,9 @@ if( isset($baseDir[0]) )
 // @return URIAPPDIR
 //
 //----------------------------------------------------------------------------------------------------
-$internalDir = ( ! empty($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'], '/'))[0] : ''); 
+$currentPath = server('currentPath');
+
+$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : ''); 
 
 global $application;
 
@@ -1128,4 +1130,28 @@ function errorReport($type = NULL)
 			return false;
 		}
 	}
+}
+
+//----------------------------------------------------------------------------------------------------
+// _applicationContainerDir()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//          																				  
+//----------------------------------------------------------------------------------------------------
+function _applicationContainerDir()
+{
+	global $application;
+	
+	$containers = $application['containers'];
+	
+	if( ! empty($containers) && defined('URIAPPDIR') )
+	{
+		return ! empty($containers[URIAPPDIR])
+			   ? APPLICATIONS_DIR.suffix($containers[URIAPPDIR])
+			   : APPDIR;
+	}
+	
+	return APPDIR;
 }
