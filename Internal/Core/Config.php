@@ -13,6 +13,14 @@ class Config
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
+	// Config Priority
+	//----------------------------------------------------------------------------------------------------
+	// Primary: Internal Config
+	// Secondary: Applications Config
+	// Tertiary: External Config
+	//----------------------------------------------------------------------------------------------------
+	
+	//----------------------------------------------------------------------------------------------------
 	// $setConfigs
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -46,15 +54,15 @@ class Config
 	{
 		global $config;
 		
-		$path = restorationPath(CONFIG_DIR.suffix($file,".php"));
+		$path = restorationPath(INTERNAL_CONFIG_DIR.suffix($file,".php"));
 		
 		if( ! is_file($path) ) 
 		{
-			$path = EXTERNAL_CONFIG_DIR.suffix($file,".php");
+			$path = CONFIG_DIR.suffix($file,".php");
 			
 			if( ! is_file($path) ) 
 			{
-				$path = INTERNAL_CONFIG_DIR.suffix($file,".php");
+				$path = EXTERNAL_CONFIG_DIR.suffix($file,".php");
 				
 				if( ! is_file($path) ) 
 				{
