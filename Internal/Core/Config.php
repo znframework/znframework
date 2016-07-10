@@ -54,7 +54,12 @@ class Config
 			
 			if( ! is_file($path) ) 
 			{
-				return false;
+				$path = INTERNAL_CONFIG_DIR.suffix($file,".php");
+				
+				if( ! is_file($path) ) 
+				{
+					return false;
+				}
 			}
 		}
 		
