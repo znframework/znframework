@@ -17,8 +17,7 @@
 // Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.   
 // Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının       
 // dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir. 			  
-// Örnek: example/vendor/autoload.php													  
-// Örnek: true veya false														          
+// Example: 'example/vendor/autoload.php' / true / false														          
 //
 //----------------------------------------------------------------------------------------------------
 $config['Composer']['autoload'] = false;

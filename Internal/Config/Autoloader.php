@@ -56,7 +56,7 @@ $config['Autoloader']['classMap'] =
 //
 // Genel Kullanım: Sınıflara takma isimler vermek için kullanılır.
 //
-// ['aliasName' => 'originName', ...] 				     			 	  		  
+// Example: ['aliasName' => 'originName', ...] 				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Autoloader']['aliases'] = [];

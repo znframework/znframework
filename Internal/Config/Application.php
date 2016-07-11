@@ -12,30 +12,42 @@ $config['Application']['mode'] = 'Development';
 // Application Directory                                                                  
 //----------------------------------------------------------------------------------------------------
 //
-// Uygulamanın çalışcağı dizini belirtilir.		
-// Eğer birden fazla uygulama aynı dizin üzerinde çalıştırılacaksa bu ayarı dizi biçiminde 
-// kullanabilirsiniz. 
-//
-// Kullanımlar
-// String: Uygulamanın çalıştırılacağı dizin.
-// Array : Birden fazla uygulama çalıştırılacaksa hostname => appdir şeklinde anahtar değer içeren
-// dizi kullanılır. Dizideki anatarlar host adından değerler ise o hostun hangi uygulama dizini
-// çalıştıracağını gösterir. Hostu yanlış yazıyorsanız Controllerin herhangi birindehost() yöntemini 
-// kullanarak host adını öğrenebilirsiniz.
-//
-// others
-// [
-//     'www.hostname.xxx' => 'HostApp',
-//     'localhost'        => 'Local'
-// ]	     			 	  		  
+// Uygulama dizinlerinin kullanımına yönelik ayarlar yer alır.	     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Application']['directory'] = 
 [
-	// Varsayılan Açılış Dizini
+	//------------------------------------------------------------------------------------------------
+	// Default                                                                                  
+	//------------------------------------------------------------------------------------------------
+	//
+	// URI' da herhangi bir uzantı gerektirmeden kullanılması istenilen uygulama dizini belirtilir.
+	// Ön tanımlı olarak Applications/Frontend/ dizini kullanılmıştır.	  								                    														 						
+	//
+	//------------------------------------------------------------------------------------------------
 	'default' => 'Frontend',
 	
-	// Çalıştırılacak Diğer Dizinler
+	//------------------------------------------------------------------------------------------------
+	// Others                                                                                  
+	//------------------------------------------------------------------------------------------------
+	//
+	// Bu ayar 2 formda kullanılır. 
+	//
+	// 1 - Çoklu Domain Kullanımı	
+	// Eğer bir host için birden fazla domain kullanıyorsanız hangi hostun hangi uygulama dizinini
+	// kullanacağını belirtmeniz gerekir.
+	// Example: ['www.example.com' => 'ExampleApp', 'localhost' => 'LocalApp']
+	//
+	// 2 - Takma Ad Kullanımı
+	// Applications/ dizini altında yer alan uygulama dizinine takma ad verip site.com/ dan sonraki
+	// bölüm için uygulama dizinin adı yerine takma adını kullanabilirsiniz.
+	// Applications/UygulamaDizini gibi bir uygulamamız olduğunu varsayarsak normalde bu dizini
+	// çalıştırmak için site.com/UygulamaDizini olarak kullanmamız gerekirdi. Ancak siz buna takma
+	// isim vererek yani ['uygulama-dizini' => 'UygulamaDizini'] şeklinde ayarlarsanız artık
+	// site.com/uygulama-dizini formunda bu uygulamanın çalıştırılmasını sağlayabilirsiniz.
+	// Example:	['panel' => 'Panel']	                    														 						
+	//
+	//------------------------------------------------------------------------------------------------
 	'others'  => 
 	[
 		'backend' => 'Backend'
@@ -61,19 +73,17 @@ $config['Application']['directory'] =
 // Yukarıdaki ayar ile Frontend/ altında bulunan
 // Config/, Languages/, Libraries/, Models/, Resources/ ve Starting/ dizinleri
 // hem Backend hemde Frontend için ortak hale getirilmiş oldu.
+// Example: ['Backend' => 'Frontend', 'TestBackend' => 'TestFrontend', ...]
 //
 //----------------------------------------------------------------------------------------------------
-$config['Application']['containers'] =
-[
-	// Current => Reference
-];
+$config['Application']['containers'] = [];
 
 //----------------------------------------------------------------------------------------------------
 // Benchmarking Test                                                                  
 //----------------------------------------------------------------------------------------------------
 //
 // Bu ayarın true olarak seçilmesi durumunda sistemin açılış hızını
-// ve yüklenme zamanını gösteren bir tablo gösterilir.				     			 	  		  
+// ve yüklenme zamanını gösteren bir tablo gösterilir.	     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Application']['benchmark'] = false;
@@ -88,14 +98,33 @@ $config['Application']['benchmark'] = false;
 //----------------------------------------------------------------------------------------------------
 $config['Application']['restoration'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Machines IP                                                                                  
+	//------------------------------------------------------------------------------------------------
+	//
 	// Uygulama üzerinde restore işlemlerinin yapıldığı makinelere ait ip adresleri belirtilir.
+	// Example: ['215.213.21.32', '10.131.18.21', ...]
+	//
+	//------------------------------------------------------------------------------------------------
 	'machinesIP' => [],
 	
+	//------------------------------------------------------------------------------------------------
+	// Pages                                                                                  
+	//------------------------------------------------------------------------------------------------
 	// Çalışmayan, hata oluşmuş kullanıcıların karşılasması istenmeyen sayfalar belirtilir.	
+	// Example: ['employee/profile', 'home/comments', ...]
+	//
+	//------------------------------------------------------------------------------------------------
 	'pages'      => [],
 	
+	//------------------------------------------------------------------------------------------------
+	// Route Page                                                                                 
+	//------------------------------------------------------------------------------------------------
 	// Restoration Pages ayarına belirtilmiş sayfalarından herhangi birine istek yapıldığında
 	// bu ayarın belirtildiği sayfaya yönlendirilir.
+	// Example: 'restoration/page'
+	//
+	//------------------------------------------------------------------------------------------------
 	'routePage'  => ''
 ];
 

@@ -29,24 +29,32 @@ $config['Htaccess']['createFile'] = true;
 // URI
 //----------------------------------------------------------------------------------------------------
 //
-// Directory Index
-//
-// Genel Kullanımı: Url de yer alan zeroneed.php uzantısının görünüm durumunu ayalarmak için kullanılır.		  
-// Değer false olursa url'lerde zeroneed.php uzantısı görünmez.								  
-// Parametreler: true, false.															  
-// Varsayılan: true				                 										  					
-//
-//
-// Index Suffix
-//
-// Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler				      
-// Parametreler: "", ?																	  
-// Varsayılan: "".	
+// .htaccess dosyasında yer alan zeroneed.php uzantısının kaldırılmasına yönelik ayarlar üzerinde
+// düzenleme yapmayı sağlayan ayarlardır.
 //
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['uri'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Directory Index(zeroneed.php)                                                                                 
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanımı: Url de yer alan zeroneed.php uzantısının görünüm durumunu ayalarmak için kullanılır.		  
+	// Değer false olursa url'lerde zeroneed.php uzantısı görünmez.								  
+	// Parametreler: true, false.															  
+	// Varsayılan: true	
+	//
+	//------------------------------------------------------------------------------------------------
 	DIRECTORY_INDEX  => false,
+	
+	//------------------------------------------------------------------------------------------------
+	// Index Suffix                                                                                
+	//------------------------------------------------------------------------------------------------
+	// Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler				      
+	// Parametreler: "", ?																	  
+	// Varsayılan: "".	
+	//
+	//------------------------------------------------------------------------------------------------
 	'indexSuffix'    => ''
 ];
 
@@ -54,15 +62,28 @@ $config['Htaccess']['uri'] =
 // Headers
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanım: Bu bölümün aktif olabilmesi için yukarıdaki ayar true ayarlanmalıdır.   
-// İşlev: .htaccess dosyasına header ayarları eklemek için kullanılır.				      
-// Parametreler: [] dizi değerler alır.									              
-// Varsayılan: [] 
+// Başlık bilgileri ile ilgili ayarlardır.
 //     															      
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['headers'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Status                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Başlık ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
+	// true olması durumunda settings[] ayarları .htaccess dosyasına kayıt edilir.
+	//
+	//------------------------------------------------------------------------------------------------
 	'status'   => false,
+	
+	//------------------------------------------------------------------------------------------------
+	// Settings                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Sistemin çalışması esnasında kullanılması istenilen başlık bilgisi ayarlarıdır.
+	//
+	//------------------------------------------------------------------------------------------------
 	'settings' => 
 	[
 		'Header set Connection keep-alive'
@@ -78,7 +99,23 @@ $config['Htaccess']['headers'] =
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['upload'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Status                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Dosya yükleme ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
+	// true olması durumunda settings[] ayarları .htaccess dosyasına kayıt edilir.
+	//
+	//------------------------------------------------------------------------------------------------
 	'status'   => false,
+	
+	//------------------------------------------------------------------------------------------------
+	// Settings                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Dosya yükleme ile ilgili ayarlardır.
+	//
+	//------------------------------------------------------------------------------------------------
 	'settings' => 
 	[
 		'file_uploads' 				=> '', 	// "1"
@@ -102,7 +139,23 @@ $config['Htaccess']['upload'] =
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['session'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Status                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Oturum ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
+	// true olması durumunda settings[] ayarları .htaccess dosyasına kayıt edilir.
+	//
+	//------------------------------------------------------------------------------------------------
 	'status'   => false,
+	
+	//------------------------------------------------------------------------------------------------
+	// Settings                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Oturumlarla ilgili ayarlardır.
+	//
+	//------------------------------------------------------------------------------------------------
 	'settings' => 
 	[
 		'session.save_path'					=> '', // NULL
@@ -142,45 +195,45 @@ $config['Htaccess']['session'] =
 // Cache
 //----------------------------------------------------------------------------------------------------
 //
-// Mod Gzip
-//
-// Genel Kullanım: Gzip sıkıştırmayı aktif hale getirmek için kullanılır.                  
-// Parametreler																			  
-// 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.   				  
-// 2-included_file_extension: Hangi uzantılı dosyaların ön belleklemeye dahil edileceğidir.
-// Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')	  
-//
-// Mod Expires
-//
-// Genel Kullanım: Tarayıcı ön belleklemenin aktif hale getirmek için kullanılır.          
-// Parametreler																			  
-// 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  
-// 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.  
-// 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi. 
-// Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))	
-//
-// Mod Headers
-//
-// Genel Kullanım: Header belleklemenin aktif hale getirmek için kullanılır.               
-// Parametreler																			  
-// 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  
-// 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi      
-// erişim yöntemi ile belleğe alınacağı belirtilir.  
+// Ön bellekleme ile ilgili ayarlar yer alır.
 //            
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['cache'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Mod Gzip                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanım: Gzip sıkıştırmayı aktif hale getirmek için kullanılır.                  
+	// Parametreler																			  
+	// 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.   				  
+	// 2-included_file_extension: Hangi uzantılı dosyaların ön belleklemeye dahil edileceğidir.
+	// Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')	  
+	//
+	//------------------------------------------------------------------------------------------------
 	'modGzip' => 
 	[
-		// Ön bellekleme durumu.
+		// true olması durumunda .htaccess dosyasına eklenir.
 		'status' => false,
 		// Ön belleğe alınacak dahil edilebilir dosya uzantıları.
 		'includedFileExtension' => 'html?|txt|css|js|php|pl'
 	],
 	
+	//------------------------------------------------------------------------------------------------
+	// Mod Expires                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanım: Tarayıcı ön belleklemenin aktif hale getirmek için kullanılır.          
+	// Parametreler																			  
+	// 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  
+	// 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.  
+	// 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi. 
+	// Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))	  
+	//
+	//------------------------------------------------------------------------------------------------
 	'modExpires' => 
 	[
-		// Ön bellekleme durumu.
+		// true olması durumunda .htaccess dosyasına eklenir.
 		'status' => false,
 		// Ön belleğe alınacak dahil edilebilir dosya uzantıları.
 		'fileTypeTime' => 
@@ -196,9 +249,20 @@ $config['Htaccess']['cache'] =
 		'defaultTime' => 1 // 1 Saniye
 	],
 	
+	//------------------------------------------------------------------------------------------------
+	// Mod Headers                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Genel Kullanım: Header belleklemenin aktif hale getirmek için kullanılır.               
+	// Parametreler																			  
+	// 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.   		  
+	// 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi      
+	// erişim yöntemi ile belleğe alınacağı belirtilir. 
+	//
+	//------------------------------------------------------------------------------------------------
 	'modHeaders' => 
 	[
-		// Ön bellekleme durumu.
+		// true olması durumunda .htaccess dosyasına eklenir.
 		'status' => false,
 		
 		'fileExtensionTimeAccess' => 
@@ -217,14 +281,30 @@ $config['Htaccess']['cache'] =
 // INI
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanım: .htaccess üzerinden hangi ini ayarlarını yapacaksanız onları 			  
-// yazıyorsunuz. Anahtar kelime => değeri												  
-// Örnek: upload_max_filesize => "10M" 						      						  
+// PHP INI ile ilgili ayarların yapılandırılması içindir.					      						  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['ini'] = 
 [
+	//------------------------------------------------------------------------------------------------
+	// Status                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Ini ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
+	// true olması durumunda settings[] ayarları .htaccess dosyasına kayıt edilir.
+	//
+	//------------------------------------------------------------------------------------------------
 	'status'   => false,
+	
+	//------------------------------------------------------------------------------------------------
+	// Settings                                                                                
+	//------------------------------------------------------------------------------------------------
+	//
+	// Ini ile ilgili ayarlardır. .htaccess üzerinden hangi ini ayarlarını yapacaksanız onları 			  
+	// yazıyorsunuz.												  
+	// Example: [upload_max_filesize => "10M"] 
+	//
+	//------------------------------------------------------------------------------------------------
 	'settings' => []
 ];
 
@@ -234,11 +314,12 @@ $config['Htaccess']['ini'] =
 //
 // Genel Kullanım: Bu yöntemin kullanılabilmesi için yukarıdaki ayarın true olması 		  
 // gerekmektedir. htaccess dosyasına header ayarları eklemek için kullanılır.			  
-// Parametreler: array( '<module>' => array('setting1', 'setting2' ...))				      																  
+// Type: ['module' => ['setting1', 'setting2', ...]]				      																  
 // Bu yöntemi kullanırken < > işaretlerini kullanmayınız.							      
 // Modülü kapatma işlemini kendisi gerçekleştirmektedir.                                   
 // Dizi içerisindeki birinci parametre modül adı ve tip									  
-// İkinci parametre ise bu aralıkta olması gereken kodlar.  							      
+// İkinci parametre ise bu aralıkta olması gereken kodlar.  
+// Example: ['IfModule mod_rewrite.c' => ['RewriteEngine On', 'RewriteBase /', ...]							      
 //
 //----------------------------------------------------------------------------------------------------
 $config['Htaccess']['settings'] = 
