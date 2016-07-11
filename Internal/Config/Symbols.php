@@ -17,6 +17,8 @@
 // Genel Kullanımı: Aşağıda sembollerin listesi yer almaktadır. Bu sembolleri 			  
 // kullanabilmek için symbol::name() yönteminden yararlanılır.	  						  					
 //
+// Example: echo symbol::name('copyright'); Output: ©
+//
 //----------------------------------------------------------------------------------------------------
 $config['Symbols'] = 
 [

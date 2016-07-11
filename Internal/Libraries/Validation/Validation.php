@@ -180,7 +180,7 @@ class __USE_STATIC_ACCESS__Validation implements ValidationInterface
 		if( in_array('nc', $config) )
 		{
 			$secnc = \Config::get('Security', 'ncEncode');
-			$edit  = \Security::ncEncode($edit, $secnc['bad_chars'], $secnc['change_bad_chars']);
+			$edit  = \Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
 		}	
 		
 		// xss_clean genel de xss ataklarını engellemek için kullanılır.

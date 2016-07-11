@@ -125,8 +125,8 @@ class __USE_STATIC_ACCESS__Security implements SecurityInterface
 		if( empty($badWords) )
 		{
 			$secnc      = $this->config['ncEncode'];
-			$badWords   = $secnc['bad_chars'];
-			$changeChar = $secnc['change_bad_chars'];
+			$badWords   = $secnc['badChars'];
+			$changeChar = $secnc['changeBadChars'];
 		}
 		
 		if( ! is_array($badWords) ) 

@@ -20,7 +20,7 @@
 //----------------------------------------------------------------------------------------------------
 $config['Security']['ncEncode'] =  
 [
-		'bad_chars' => 
+		'badChars' => 
 		[
 			'<!--',
 			'-->',
@@ -30,7 +30,7 @@ $config['Security']['ncEncode'] =
 			'>'
 		], // string veya array
 		
-		'change_bad_chars' => '[badchars]' // string veya array
+		'changeBadChars' => '[badchars]' // string veya array
 ];
 
 //----------------------------------------------------------------------------------------------------
