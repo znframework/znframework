@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\XMLManipulation;
 
-class __USE_STATIC_ACCESS__XML implements XMLInterface
+class StaticXML implements XMLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

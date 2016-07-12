@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Cryptography;
 
-class __USE_STATIC_ACCESS__Encode implements EncodeInterface
+class StaticEncode implements EncodeInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

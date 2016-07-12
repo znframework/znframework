@@ -1,7 +1,7 @@
 <?php
 namespace ZN\VariableTypes;
 
-class __USE_STATIC_ACCESS__Strings implements StringsInterface
+class StaticStrings implements StringsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

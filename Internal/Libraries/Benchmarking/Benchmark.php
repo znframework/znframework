@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Benchmarking;
 
-class __USE_STATIC_ACCESS__Benchmark implements BenchmarkInterface
+class StaticBenchmark implements BenchmarkInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

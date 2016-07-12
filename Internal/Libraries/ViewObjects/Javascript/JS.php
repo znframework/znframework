@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects\Javascript;
 
-class __USE_STATIC_ACCESS__JS
+class StaticJS
 {
 	//----------------------------------------------------------------------------------------------------
 	//

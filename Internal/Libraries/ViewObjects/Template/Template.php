@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class __USE_STATIC_ACCESS__Template implements TemplateInterface
+class StaticTemplate implements TemplateInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

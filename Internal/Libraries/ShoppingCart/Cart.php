@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\ShoppingCart;
 
-class __USE_STATIC_ACCESS__Cart implements CartInterface
+class StaticCart implements CartInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
