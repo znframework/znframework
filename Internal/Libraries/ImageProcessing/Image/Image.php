@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ImageProcessing;
 
-class __USE_STATIC_ACCESS__Image implements ImageInterface
+class StaticImage implements ImageInterface
 {
 	/***********************************************************************************/
 	/* IMAGE LIBRARY						                   	                       */

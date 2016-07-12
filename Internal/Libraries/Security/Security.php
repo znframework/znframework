@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Security;
 
-class __USE_STATIC_ACCESS__Security implements SecurityInterface
+class StaticSecurity implements SecurityInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

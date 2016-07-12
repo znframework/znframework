@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class __USE_STATIC_ACCESS__SSH implements SSHInterface
+class StaticSSH implements SSHInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

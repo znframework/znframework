@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class __USE_STATIC_ACCESS__Sheet implements SheetInterface
+class StaticSheet implements SheetInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

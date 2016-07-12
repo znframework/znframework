@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class __USE_STATIC_ACCESS__Pagination implements PaginationInterface
+class StaticPagination implements PaginationInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

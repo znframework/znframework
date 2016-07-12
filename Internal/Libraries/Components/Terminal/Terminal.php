@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class __USE_STATIC_ACCESS__Terminal implements TerminalInterface
+class StaticTerminal implements TerminalInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

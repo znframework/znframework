@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class __USE_STATIC_ACCESS__Script implements Common\ViewObjectsInterface
+class StaticScript implements Common\ViewObjectsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class __USE_STATIC_ACCESS__Captcha implements CaptchaInterface
+class StaticCaptcha implements CaptchaInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
