@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class __USE_STATIC_ACCESS__Limit implements LimitInterface
+class InternalLimit implements LimitInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

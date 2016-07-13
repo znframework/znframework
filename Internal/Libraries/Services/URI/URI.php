@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class __USE_STATIC_ACCESS__URI implements URIInterface
+class InternalURI implements URIInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

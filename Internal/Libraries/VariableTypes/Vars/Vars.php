@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class __USE_STATIC_ACCESS__Vars implements VarsInterface
+class InternalVars implements VarsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

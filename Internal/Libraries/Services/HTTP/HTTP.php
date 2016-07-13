@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class __USE_STATIC_ACCESS__HTTP implements HTTPInterface
+class InternalHTTP implements HTTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

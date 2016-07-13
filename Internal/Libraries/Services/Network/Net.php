@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Services;
 
-class __USE_STATIC_ACCESS__Net implements NetInterface
+class InternalNet implements NetInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

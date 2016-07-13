@@ -14,7 +14,8 @@
 // Default
 //----------------------------------------------------------------------------------------------------
 //
-// Language type: en	     								  		  
+// Sistem ve uygulamanın dilini ayarlamak için kullanılır. Ön tanımlı olarak en ve tr seçenekleri
+// kullanılabilir.	     								  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Language']['default'] = 'en';

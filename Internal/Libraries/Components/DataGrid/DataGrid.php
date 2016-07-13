@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class __USE_STATIC_ACCESS__DataGrid implements DataGridInterface
+class InternalDataGrid implements DataGridInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

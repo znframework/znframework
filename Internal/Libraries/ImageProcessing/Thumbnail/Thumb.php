@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ImageProcessing;
 
-class __USE_STATIC_ACCESS__Thumb implements ThumbInterface
+class InternalThumb implements ThumbInterface
 {
 	/***********************************************************************************/
 	/* THUMBNAIL COMPONENT    	     		                   	                       */

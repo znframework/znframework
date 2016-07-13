@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class __USE_STATIC_ACCESS__Table implements TableInterface
+class InternalTable implements TableInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

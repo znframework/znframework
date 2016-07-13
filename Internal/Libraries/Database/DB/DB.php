@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database;
 
-class __USE_STATIC_ACCESS__DB implements DBInterface, DatabaseInterface
+class InternalDB implements DBInterface, DatabaseInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//

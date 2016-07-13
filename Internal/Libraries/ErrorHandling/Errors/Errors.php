@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ErrorHandling;
 
-class __USE_STATIC_ACCESS__Errors implements ErrorsInterface
+class InternalErrors implements ErrorsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

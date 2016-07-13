@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Buffering;
 
-class __USE_STATIC_ACCESS__Buffer implements BufferInterface
+class InternalBuffer implements BufferInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

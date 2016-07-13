@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Compression;
 
-class __USE_STATIC_ACCESS__Compress implements CompressInterface
+class InternalCompress implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

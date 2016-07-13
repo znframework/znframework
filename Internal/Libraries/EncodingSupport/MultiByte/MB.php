@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class __USE_STATIC_ACCESS__MB implements MBInterface
+class InternalMB implements MBInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Foundations;
 
-class __USE_STATIC_ACCESS__Driver
+class InternalDriver
 {
 	//----------------------------------------------------------------------------------------------------
 	//

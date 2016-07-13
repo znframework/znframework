@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class __USE_STATIC_ACCESS__Jquery implements JqueryInterface
+class InternalJquery implements JqueryInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

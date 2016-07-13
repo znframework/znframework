@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\Database;
 
-class __USE_STATIC_ACCESS__Migration implements MigrationInterface
+class InternalMigration implements MigrationInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//

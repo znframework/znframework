@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ErrorHandling;
 
-class __USE_STATIC_ACCESS__Exceptions extends \Exception implements ExceptionsInterface
+class InternalExceptions extends \Exception implements ExceptionsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

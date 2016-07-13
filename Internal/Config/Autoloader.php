@@ -43,11 +43,11 @@ $config['Autoloader']['directoryPermission'] = 0755;
 //----------------------------------------------------------------------------------------------------
 $config['Autoloader']['classMap'] = 
 [
+	INTERNAL_LIBRARIES_DIR,
 	LIBRARIES_DIR,
 	EXTERNAL_LIBRARIES_DIR,
 	MODELS_DIR,
-	EXTERNAL_MODELS_DIR,
-	INTERNAL_LIBRARIES_DIR
+	EXTERNAL_MODELS_DIR
 ];
 
 //----------------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ $config['Autoloader']['classMap'] =
 //
 // Genel Kullanım: Sınıflara takma isimler vermek için kullanılır.
 //
-// ['aliasName' => 'originName', ...] 				     			 	  		  
+// Example: ['aliasName' => 'originName', ...] 				     			 	  		  
 //
 //----------------------------------------------------------------------------------------------------
 $config['Autoloader']['aliases'] = [];

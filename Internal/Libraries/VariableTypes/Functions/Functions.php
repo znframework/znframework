@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class __USE_STATIC_ACCESS__Functions implements FunctionsInterface
+class InternalFunctions implements FunctionsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
