@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ImageProcessing;
 
-class StaticGD implements GDInterface
+class InternalGD implements GDInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

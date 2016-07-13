@@ -74,7 +74,7 @@ if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
 // @return Static
 //
 //----------------------------------------------------------------------------------------------------
-define('STATIC_ACCESS', 'Static');
+define('STATIC_ACCESS', 'Internal');
 
 //----------------------------------------------------------------------------------------------------
 // HIERARCHY_DIR

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticSession implements SessionInterface
+class InternalSession implements SessionInterface
 {
 	/***********************************************************************************/
 	/* SESSION COMPONENT	   	     		                   	                       */

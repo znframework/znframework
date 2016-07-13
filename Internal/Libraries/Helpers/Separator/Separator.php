@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Helpers;
 
-class StaticSeparator implements SeparatorInterface
+class InternalSeparator implements SeparatorInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticClean implements CleanInterface
+class InternalClean implements CleanInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

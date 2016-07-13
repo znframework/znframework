@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database;
 
-class StaticDBForge implements DBForgeInterface, DatabaseInterface
+class InternalDBForge implements DBForgeInterface, DatabaseInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class StaticSchedule implements ScheduleInterface
+class InternalSchedule implements ScheduleInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

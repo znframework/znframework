@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticConvert implements ConvertInterface
+class InternalConvert implements ConvertInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

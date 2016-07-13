@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class StaticForm implements FormInterface
+class InternalForm implements FormInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

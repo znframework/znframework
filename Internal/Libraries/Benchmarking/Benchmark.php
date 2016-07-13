@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Benchmarking;
 
-class StaticBenchmark implements BenchmarkInterface
+class InternalBenchmark implements BenchmarkInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

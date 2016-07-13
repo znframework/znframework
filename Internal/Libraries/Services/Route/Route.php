@@ -3,7 +3,7 @@ namespace ZN\Services;
 
 use ZN\Core\Structure;
 
-class StaticRoute extends \Controller implements RouteInterface
+class InternalRoute extends \Controller implements RouteInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

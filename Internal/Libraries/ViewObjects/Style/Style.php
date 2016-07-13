@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class StaticStyle implements Common\ViewObjectsInterface
+class InternalStyle implements Common\ViewObjectsInterface
 {
 	/***********************************************************************************/
 	/* STYLE COMPONENT	     	     		                   	                       */

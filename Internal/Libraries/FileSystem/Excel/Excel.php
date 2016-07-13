@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class StaticExcel implements ExcelInterface
+class InternalExcel implements ExcelInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

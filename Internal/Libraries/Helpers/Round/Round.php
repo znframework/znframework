@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticRound implements RoundInterface
+class InternalRound implements RoundInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

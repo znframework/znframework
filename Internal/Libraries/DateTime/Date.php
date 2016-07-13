@@ -1,7 +1,7 @@
 <?php
 namespace ZN\DateTime;
 
-class StaticDate implements DateTimeCommonInterface
+class InternalDate implements DateTimeCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	// DATE CLASS

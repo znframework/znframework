@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class StaticChars implements CharsInterface
+class InternalChars implements CharsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

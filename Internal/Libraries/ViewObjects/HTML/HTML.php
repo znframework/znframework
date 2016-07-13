@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class StaticHTML implements HTMLInterface
+class InternalHTML implements HTMLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

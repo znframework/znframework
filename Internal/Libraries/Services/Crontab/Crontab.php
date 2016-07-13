@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticCrontab implements CrontabInterface
+class InternalCrontab implements CrontabInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

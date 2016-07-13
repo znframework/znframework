@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Services;
 
-class StaticCURL implements CURLInterface
+class InternalCURL implements CURLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

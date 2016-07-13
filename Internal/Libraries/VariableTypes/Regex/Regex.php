@@ -1,7 +1,7 @@
 <?php
 namespace ZN\VariableTypes;
 
-class StaticRegex implements RegexInterface
+class InternalRegex implements RegexInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

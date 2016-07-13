@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Importation;
 
-class StaticImport implements ImportInterface
+class InternalImport implements ImportInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Jquery\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
 
-class StaticJQ
+class InternalJQ
 {
 	//----------------------------------------------------------------------------------------------------
 	//

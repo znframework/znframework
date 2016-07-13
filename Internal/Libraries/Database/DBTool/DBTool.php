@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\Database;
 
-class StaticDBTool implements DBToolInterface, DatabaseInterface
+class InternalDBTool implements DBToolInterface, DatabaseInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//

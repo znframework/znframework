@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticSymbol implements SymbolInterface
+class InternalSymbol implements SymbolInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

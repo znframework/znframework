@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticFormat implements FormatInterface
+class InternalFormat implements FormatInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

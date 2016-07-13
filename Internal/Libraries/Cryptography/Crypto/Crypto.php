@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Cryptography;
 
-class StaticCrypto implements CryptoInterface
+class InternalCrypto implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

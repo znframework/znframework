@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Security;
 
-class StaticSecurity implements SecurityInterface
+class InternalSecurity implements SecurityInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

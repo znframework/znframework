@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class StaticIV implements IVInterface
+class InternalIV implements IVInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

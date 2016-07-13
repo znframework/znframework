@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class StaticArrays implements ArraysInterface
+class InternalArrays implements ArraysInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

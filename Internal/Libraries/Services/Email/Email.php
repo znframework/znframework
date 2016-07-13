@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticEmail implements EmailInterface
+class InternalEmail implements EmailInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

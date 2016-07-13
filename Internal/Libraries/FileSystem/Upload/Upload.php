@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class StaticUpload implements UploadInterface
+class InternalUpload implements UploadInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class StaticFolder implements FolderInterface
+class InternalFolder implements FolderInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

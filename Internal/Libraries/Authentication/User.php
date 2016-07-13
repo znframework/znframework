@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Authentication;
 
-class StaticUser implements UserInterface
+class InternalUser implements UserInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

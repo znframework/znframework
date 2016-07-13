@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class StaticFilters implements FiltersInterface
+class InternalFilters implements FiltersInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
