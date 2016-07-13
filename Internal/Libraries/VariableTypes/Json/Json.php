@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\VariableTypes;
 
-class StaticJson implements JsonInterface
+class InternalJson implements JsonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

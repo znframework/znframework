@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class StaticML implements MLInterface
+class InternalML implements MLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

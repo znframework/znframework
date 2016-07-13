@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class StaticDataGrid implements DataGridInterface
+class InternalDataGrid implements DataGridInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

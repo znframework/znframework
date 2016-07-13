@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class StaticCDN implements CDNInterface
+class InternalCDN implements CDNInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Validation;
 
-class StaticValidation implements ValidationInterface
+class InternalValidation implements ValidationInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

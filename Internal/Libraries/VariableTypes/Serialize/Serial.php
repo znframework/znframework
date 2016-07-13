@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\VariableTypes;
 
-class StaticSerial implements SerialInterface
+class InternalSerial implements SerialInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

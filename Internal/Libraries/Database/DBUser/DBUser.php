@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database;
 
-class StaticDBUser implements DBUserInterface
+class InternalDBUser implements DBUserInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

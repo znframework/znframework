@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Caching;
 
-class StaticCache implements CacheInterface
+class InternalCache implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

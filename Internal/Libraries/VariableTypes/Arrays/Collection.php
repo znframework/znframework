@@ -1,7 +1,7 @@
 <?php
 namespace ZN\VariableTypes;
 
-class StaticCollection
+class InternalCollection
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class StaticRecord  implements RecordInterface
+class InternalRecord  implements RecordInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

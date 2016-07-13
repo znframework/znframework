@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class StaticDownload implements DownloadInterface
+class InternalDownload implements DownloadInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

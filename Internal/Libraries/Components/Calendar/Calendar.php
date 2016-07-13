@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class StaticCalendar implements CalendarInterface
+class InternalCalendar implements CalendarInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

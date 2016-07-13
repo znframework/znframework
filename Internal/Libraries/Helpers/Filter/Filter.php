@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticFilter implements FilterInterface
+class InternalFilter implements FilterInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

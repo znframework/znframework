@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticRedirect implements RedirectInterface
+class InternalRedirect implements RedirectInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

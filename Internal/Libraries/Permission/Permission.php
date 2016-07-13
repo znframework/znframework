@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Permission;
 
-class StaticPermission implements PermissionInterface
+class InternalPermission implements PermissionInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

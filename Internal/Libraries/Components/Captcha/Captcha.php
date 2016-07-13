@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class StaticCaptcha implements CaptchaInterface
+class InternalCaptcha implements CaptchaInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

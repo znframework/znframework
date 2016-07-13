@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticURL implements URLInterface
+class InternalURL implements URLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

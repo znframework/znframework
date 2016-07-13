@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticMethod implements MethodInterface
+class InternalMethod implements MethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

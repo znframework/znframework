@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Foundations;
 
-class UseStaticAccess
+class StaticAccess
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class StaticGT implements GTInterface
+class InternalGT implements GTInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticSearch implements SearchInterface
+class InternalSearch implements SearchInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

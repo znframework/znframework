@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\Database;
 
-class StaticMigration implements MigrationInterface
+class InternalMigration implements MigrationInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//

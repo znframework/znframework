@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class StaticLimit implements LimitInterface
+class InternalLimit implements LimitInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

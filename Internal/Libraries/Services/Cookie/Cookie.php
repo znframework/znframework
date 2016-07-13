@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticCookie implements SessionInterface, CookieInterface
+class InternalCookie implements SessionInterface, CookieInterface
 {
 	/***********************************************************************************/
 	/* COOKIE COMPONENT		     		                   	                           */

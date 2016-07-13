@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticSSH implements SSHInterface
+class InternalSSH implements SSHInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

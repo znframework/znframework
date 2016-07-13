@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class StaticFile implements FileInterface
+class InternalFile implements FileInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

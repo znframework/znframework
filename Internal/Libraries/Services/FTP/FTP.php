@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class StaticFTP implements FTPInterface
+class InternalFTP implements FTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
