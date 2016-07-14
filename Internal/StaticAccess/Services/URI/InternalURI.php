@@ -1,4 +1,8 @@
 <?php
+//----------------------------------------------------------------------------------------------------
+// This file automatically created and updated
+//----------------------------------------------------------------------------------------------------
+
 class URI extends ZN\Foundations\StaticAccess
 {
 	public static function getClassName()
@@ -6,3 +10,5 @@ class URI extends ZN\Foundations\StaticAccess
 		return __CLASS__;
 	}
 }
+
+//----------------------------------------------------------------------------------------------------

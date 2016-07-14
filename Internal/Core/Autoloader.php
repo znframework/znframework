@@ -564,6 +564,9 @@ class Autoloader
 	
 						// Statik sınıf içeriği oluşturuluyor....
 						$classContent  = '<?php'.$eol;
+						$classContent .= '//----------------------------------------------------------------------------------------------------'.$eol;
+						$classContent .= '// This file automatically created and updated'.$eol;
+						$classContent .= '//----------------------------------------------------------------------------------------------------'.$eol.$eol;
 						$classContent .= 'class '.$newClassName.' extends ZN\Foundations\StaticAccess'.$eol;
 						$classContent .= '{'.$eol;	
 						$classContent .= $constants;
@@ -571,7 +574,8 @@ class Autoloader
 						$classContent .= "\t".'{'.$eol;
 						$classContent .= "\t\t".'return __CLASS__;'.$eol;
 						$classContent .= "\t".'}'.$eol;
-						$classContent .= '}';
+						$classContent .= '}'.$eol.$eol;
+						$classContent .= '//----------------------------------------------------------------------------------------------------';
 						
 						$fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0; 
 						

@@ -1,4 +1,8 @@
 <?php
+//----------------------------------------------------------------------------------------------------
+// This file automatically created and updated
+//----------------------------------------------------------------------------------------------------
+
 class HTTP extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Services:http';
@@ -8,3 +12,5 @@ class HTTP extends ZN\Foundations\StaticAccess
 		return __CLASS__;
 	}
 }
+
+//----------------------------------------------------------------------------------------------------

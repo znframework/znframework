@@ -1,4 +1,8 @@
 <?php
+//----------------------------------------------------------------------------------------------------
+// This file automatically created and updated
+//----------------------------------------------------------------------------------------------------
+
 class Pagination extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:pagination';
@@ -8,3 +12,5 @@ class Pagination extends ZN\Foundations\StaticAccess
 		return __CLASS__;
 	}
 }
+
+//----------------------------------------------------------------------------------------------------
