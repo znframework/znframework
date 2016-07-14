@@ -396,9 +396,8 @@ $config['ClassMap']['classes']['zn\viewobjects\sheetinterface'] = 'Internal/Libr
 $config['ClassMap']['classes']['zn\viewobjects\sheettrait'] = 'Internal/Libraries/ViewObjects/Sheet/SheetTrait.php';
 $config['ClassMap']['classes']['zn\viewobjects\internalstyle'] = 'Internal/Libraries/ViewObjects/Style/Style.php';
 $config['ClassMap']['classes']['style'] = 'Internal/StaticAccess/ViewObjects/Style/InternalStyle.php';
-$config['ClassMap']['classes']['zn\viewobjects\internaltemplate'] = 'Internal/Libraries/ViewObjects/Template/Template.php';
-$config['ClassMap']['classes']['template'] = 'Internal/StaticAccess/ViewObjects/Template/InternalTemplate.php';
-$config['ClassMap']['classes']['zn\viewobjects\templateinterface'] = 'Internal/Libraries/ViewObjects/Template/TemplateInterface.php';
+$config['ClassMap']['classes']['zn\viewobjects\templatewizard'] = 'Internal/Libraries/ViewObjects/TemplateWizard/TemplateWizard.php';
+$config['ClassMap']['classes']['zn\viewobjects\templatewizardinterface'] = 'Internal/Libraries/ViewObjects/TemplateWizard/TemplateWizardInterface.php';
 $config['ClassMap']['classes']['zn\xmlmanipulation\internalxml'] = 'Internal/Libraries/XMLManipulation/XML.php';
 $config['ClassMap']['classes']['xml'] = 'Internal/StaticAccess/XMLManipulation/InternalXML.php';
 $config['ClassMap']['classes']['zn\xmlmanipulation\xmlinterface'] = 'Internal/Libraries/XMLManipulation/XMLInterface.php';
@@ -709,9 +708,15 @@ $config['ClassMap']['namespaces']['zn\viewobjects\internalsheet'] = 'internalshe
 $config['ClassMap']['namespaces']['zn\viewobjects\sheetinterface'] = 'sheetinterface';
 $config['ClassMap']['namespaces']['zn\viewobjects\sheettrait'] = 'sheettrait';
 $config['ClassMap']['namespaces']['zn\viewobjects\internalstyle'] = 'internalstyle';
-$config['ClassMap']['namespaces']['zn\viewobjects\internaltemplate'] = 'internaltemplate';
-$config['ClassMap']['namespaces']['zn\viewobjects\templateinterface'] = 'templateinterface';
+$config['ClassMap']['namespaces']['zn\viewobjects\templatewizard'] = 'templatewizard';
+$config['ClassMap']['namespaces']['zn\viewobjects\templatewizardinterface'] = 'templatewizardinterface';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalxml';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
 
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

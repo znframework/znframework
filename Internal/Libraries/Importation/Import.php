@@ -1,6 +1,8 @@
 <?php
 namespace ZN\Importation;
 
+use ZN\ViewObjects\TemplateWizard;
+
 class InternalImport implements ImportInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -31,13 +33,13 @@ class InternalImport implements ImportInterface
 		'usable' => false 
 	);
 	
-	/* Template Değişkeni
+	/* Template Wizard Değişkeni
 	 *  
 	 * Template uzantısı bilgisini
 	 * bilgisini tutması için oluşturulmuştur.
 	 *
 	 */
-	protected $templateExtension = '.template';
+	protected $templateWizardExtension = '.wizard';
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -228,9 +230,9 @@ class InternalImport implements ImportInterface
 	******************************************************************************************/
 	public function page($page = '', $data = '', $obGetContents = false, $randomPageDir = PAGES_DIR)
 	{
-		if( stristr($page, $this->templateExtension) )
+		if( stristr($page, $this->templateWizardExtension) )
 		{
-			return $this->_template($page, $data, $obGetContents, $randomPageDir);
+			return $this->_templateWizard($page, $data, $obGetContents, $randomPageDir);
 		}
 		
 		return $this->_page($page, $data, $obGetContents, $randomPageDir);
@@ -318,7 +320,7 @@ class InternalImport implements ImportInterface
 			return \Errors::set('Error', 'stringParameter', 'randomPageVariable');
 		}
 		
-		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateExtension) )
+		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
 		{
 			$randomPageVariable = suffix($randomPageVariable, '.php');
 		}
@@ -353,7 +355,7 @@ class InternalImport implements ImportInterface
 	}
 	
 	/******************************************************************************************
-	* TEMPLATE                                                                                *
+	* TEMPLATE WIZARD                                                                         *
 	*******************************************************************************************
 	| Genel Kullanım: view.template.php dosyalarını yüklemek ve ayrıştırmak için kullanılır.  |
 	|															                              |
@@ -365,9 +367,9 @@ class InternalImport implements ImportInterface
 	| Örnek Kullanım: Import::page('OrnekSayfa.template');        	  						  |
 	|          																				  |
 	******************************************************************************************/
-	protected function _template($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
+	protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
 	{
-		$return = \Template::data($this->_page($page, $data, true, $randomPageDir), $data);
+		$return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), $data);
 			
 		if( $obGetContents === true )
 		{
