@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-interface TemplateInterface
+interface TemplateWizardInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -24,5 +24,5 @@ interface TemplateInterface
 	| Örnek Kullanım: ->data('test', array('test' => 'deneme'))         					  |
 	|          																				  |
 	******************************************************************************************/
-	public function data($string, $data);
+	public static function data($string, $data);
 }
