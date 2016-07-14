@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalTemplate implements TemplateInterface
+class TemplateWizard implements TemplateWizardInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -33,7 +33,7 @@ class InternalTemplate implements TemplateInterface
 	| Örnek Kullanım: ->data('test', array('test' => 'deneme'))         					  |
 	|          																				  |
 	******************************************************************************************/
-	public function data($string = '', $data = [])
+	public static function data($string = '', $data = [])
 	{
 		// Parametre konrolleri sağlanıyor.
 		if( ! is_string($string) )
