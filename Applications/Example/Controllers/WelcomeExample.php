@@ -16,7 +16,7 @@ class WelcomeExample extends Controller
 			'CacheExample',
 			'CalendarExample',
 			'CaptchaExample',
-			//'DataGridExample',
+			'DataGridExample',
 			//'PaginationExample',
 			//'ScheduleExample',
 			//'TableExample',
