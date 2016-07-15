@@ -4,11 +4,20 @@ class UserExample extends Controller
     public function main($params = '')
     {	
 		$data['title']        = 'User Example';
-		$data['subtitle']     = 'UserExample Functions';
-		$data['text']     	  = '1 - register, 2 - login, 3 - logout, 4 - update';
+		$data['subtitle']     = 'UserExample';
+		$data['examples']     = 
+		[
+			'register',
+			'login',
+			'logout',
+			'update'
+		];
 		
-		$data['requirements'] = '1 - Applications/Example/Config/Database.php dosyasından veritabanı ayarlarını yapın., 
-		2 - www.xxx.xxx/example/UserExample/createTable URL\'sini çalıştırıp veritabanına "user_example" tablosunun oluşturun.';
+		$data['requirements'] = 
+		[
+			'Applications/Example/Config/Database.php dosyasından veritabanı ayarlarını yapın.',
+			'www.xxx.xxx/example/UserExample/createTable URL\'sini çalıştırıp veritabanına "user_example" tablosunun oluşturun.'
+		];
 		
        	Import::view('main', $data); 
     }	
@@ -65,7 +74,7 @@ class UserExample extends Controller
 			{
 				// p1: Veritabanına kaydedilecek veriler.
 				// p2: Kayıt sonra yönlenicek sayfa.
-				echo User::login(Validation::nval('username'), Validation::nval('password'));
+				User::login(Validation::nval('username'), Validation::nval('password'));
 
 				if( ! User::isLogin() )
 				{
@@ -83,6 +92,7 @@ class UserExample extends Controller
 	
 	public function logout()
 	{
+		// p1: çıkış sonrası yönlendirelecek adres belirtilir.
 		User::logout('example/UserExample/login');	
 	}
 	

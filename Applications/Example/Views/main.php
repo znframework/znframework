@@ -10,10 +10,15 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
 
 <body>
 	<p><h4>Requirements(Gereksinimler)</h4></p>
-    <p><?php echo str_replace(', ', '<br>', preg_replace('/([0-9]+\s\-\s)/', '<b>$1</b>', $requirements)); ?></p>
-	<p><h4><?php echo $subtitle = ! empty($subtitle) ? $subtitle : ''; ?></h4></p>
-    <p>Run URL: www.xxx.xxx/<?php echo str_replace(' ', '', $title); ?>/&darr;</p>
-	<p><?php echo str_replace(', ', '<br>', preg_replace('/([0-9]+\s\-\s)/', '<b>$1</b>', $text)); ?></p>
+    <?php foreach( $requirements as $key => $require ): ?>
+    	<?php echo Html::bold($key + 1).' - '.$require.Html::br(); ?>
+    <?php endforeach; ?>
+    
+	<p><h4><?php echo ! empty($subtitle) ? $subtitle.' Functions' : ''; ?></h4></p>
+    <p>Run URL: www.xxx.xxx/<?php echo $subtitle; ?>/&darr;</p>
+	<?php foreach( $examples as $key => $example ): ?>
+    	<?php echo Html::parag(Html::bold($key + 1).' - '.Html::target('blank')->anchor('example/'.$subtitle.'/'.$example, $example)); ?>
+    <?php endforeach; ?>
 </body>
 
 </html>
