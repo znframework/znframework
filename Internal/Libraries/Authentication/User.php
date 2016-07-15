@@ -190,7 +190,7 @@ class InternalUser implements UserInterface
 		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
-			return \Errors::set('User', 'registerUsernameError');
+			return ! $this->error = lang('User', 'registerUsernameError');
 		}
 		
 		$loginUsername  = $data[$usernameColumn];
@@ -210,7 +210,7 @@ class InternalUser implements UserInterface
 			
 			if( ! \DB::insert($tableName , $data) )
 			{
-				return \Errors::set('User', 'registerUnknownError');
+				return ! $this->error = lang('User', 'registerUnknownError');
 			}	
 
 			if( ! empty($joinTables) )
@@ -256,7 +256,7 @@ class InternalUser implements UserInterface
 		}
 		else
 		{
-			return \Errors::set('User', 'registerError');
+			return ! $this->error = lang('User', 'registerError');
 		}
 	}
 	
@@ -428,11 +428,11 @@ class InternalUser implements UserInterface
 		
 			if( $oldPassword != $password )
 			{
-				return \Errors::set('User', 'oldPasswordError');	
+				return ! $this->error = lang('User', 'oldPasswordError');	
 			}
 			elseif( $newPassword != $newPasswordAgain )
 			{
-				return \Errors::set('User', 'passwordNotMatchError');
+				return ! $this->error = lang('User', 'passwordNotMatchError');
 			}
 			else
 			{
@@ -455,12 +455,11 @@ class InternalUser implements UserInterface
 				{
 					if( ! \DB::where($uc.' =', $username)->update($tn, $data) )
 					{
-						return \Errors::set('User', 'registerUnknownError');
+						return ! $this->error = lang('User', 'registerUnknownError');
 					}	
 				}
 				
-				$this->success = lang('User', 'updateProcessSuccess');	
-				return true;	
+				return $this->success = lang('User', 'updateProcessSuccess');		
 			}
 		}
 		else 
@@ -516,18 +515,16 @@ class InternalUser implements UserInterface
 				\DB::where($usernameColumn.' =', $user)
 				   ->update($tableName, [$activationColumn => '1']);
 				
-				$this->success = lang('User', 'activationComplete');
-				
-				return true;
+				return $this->success = lang('User', 'activationComplete');
 			}	
 			else
 			{
-				return \Errors::set('User', 'activationCompleteError');
+				return ! $this->error = lang('User', 'activationCompleteError');
 			}				
 		}
 		else
 		{
-			return \Errors::set('User', 'activationCompleteError');
+			return ! $this->error = lang('User', 'activationCompleteError');
 		}
 	}
 	
@@ -575,12 +572,11 @@ class InternalUser implements UserInterface
 		
 		if( \Email::send() )
 		{
-			$this->success = lang('User', 'activationEmail');
-			return true;
+			return $this->success = lang('User', 'activationEmail');
 		}
 		else
 		{	
-			return \Errors::set('User', 'emailError');
+			return ! $this->error = lang('User', 'emailError');
 		}
 	}
 	
@@ -872,7 +868,7 @@ class InternalUser implements UserInterface
 		
 		if( ! isset($r->$passwordColumn) )
 		{
-			return \Errors::set('User', 'loginError');
+			return ! $this->error = lang('User', 'loginError');
 		}
 				
 		$passwordControl   = $r->$passwordColumn;
@@ -894,12 +890,12 @@ class InternalUser implements UserInterface
 		{
 			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
-				return \Errors::set('User', 'bannedError');
+				return ! $this->error = lang('User', 'bannedError');
 			}
 			
 			if( ! empty($activationColumn) && empty($activationControl) )
 			{
-				return \Errors::set('User', 'activationError');
+				return ! $this->error = lang('User', 'activationError');
 			}
 			
 			\Session::insert($usernameColumn, $username); 
@@ -919,12 +915,11 @@ class InternalUser implements UserInterface
 				\DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
 			}
 			
-			$this->success = lang('User', 'loginSuccess');
-			return true;
+			return $this->success = lang('User', 'loginSuccess');
 		}
 		else
 		{
-			return \Errors::set('User', 'loginError');
+			return ! $this->error = lang('User', 'loginError');
 		}
 	}
 	
@@ -1141,21 +1136,19 @@ class InternalUser implements UserInterface
 				
 				if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
 				{
-					$this->success = lang('User', 'forgotPasswordSuccess');
-					
-					return true;
+					return $this->success = lang('User', 'forgotPasswordSuccess');
 				}
 				
-				return \Errors::set('Database', 'updateError');
+				return ! $this->error = lang('Database', 'updateError');
 			}
 			else
 			{	
-				return \Errors::set('User', 'emailError');
+				return ! $this->error = lang('User', 'emailError');
 			}
 		}
 		else
 		{
-			return \Errors::set('User', 'forgotPasswordError');
+			return ! $this->error = lang('User', 'forgotPasswordError');
 		}
 	}
 	

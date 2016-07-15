@@ -50,7 +50,8 @@ $config['Application']['directory'] =
 	//------------------------------------------------------------------------------------------------
 	'others'  => 
 	[
-		'backend' => 'Backend'
+		'backend' => 'Backend',
+		'example' => 'Example'
 	]
 ];
 
@@ -76,7 +77,10 @@ $config['Application']['directory'] =
 // Example: ['Backend' => 'Frontend', 'TestBackend' => 'TestFrontend', ...]
 //
 //----------------------------------------------------------------------------------------------------
-$config['Application']['containers'] = [];
+$config['Application']['containers'] = 
+[
+	'Backend' => 'Frontend'
+];
 
 //----------------------------------------------------------------------------------------------------
 // Benchmarking Test                                                                  
