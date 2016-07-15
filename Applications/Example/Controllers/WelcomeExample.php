@@ -10,7 +10,8 @@ class WelcomeExample extends Controller
 		$data['text']  = 'Welcome Example Page';
 		$data['examples'] = 
 		[
-			'UserExample'
+			'UserExample',
+			'BenchmarkExample'
 		];
 
         Import::view('welcome-example', $data);

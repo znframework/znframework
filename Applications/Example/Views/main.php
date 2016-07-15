@@ -9,10 +9,12 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
 </head>
 
 <body>
-	<p><h4>Requirements(Gereksinimler)</h4></p>
-    <?php foreach( $requirements as $key => $require ): ?>
-    	<?php echo Html::bold($key + 1).' - '.$require.Html::br(); ?>
-    <?php endforeach; ?>
+	<?php if( ! empty($requirements) ): ?>
+        <p><h4>Requirements(Gereksinimler)</h4></p>
+        <?php foreach( $requirements as $key => $require ): ?>
+            <?php echo Html::bold($key + 1).' - '.$require.Html::br(); ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
     
 	<p><h4><?php echo ! empty($subtitle) ? $subtitle.' Functions' : ''; ?></h4></p>
     <p>Run URL: www.xxx.xxx/<?php echo $subtitle; ?>/&darr;</p>
