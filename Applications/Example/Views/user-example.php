@@ -63,7 +63,9 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
     <?php endif; ?>
     <!-- Update Page -->
     
-     <!-- Update Page -->
+    
+    
+    <!-- Forgot Password Page -->
 	<?php if( URI::get('UserExample') === 'forgotPassword' ): ?>
     
 		<?php echo Form::open('update'); ?>
@@ -74,7 +76,7 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
         <?php echo Form::close(); ?>   
         
     <?php endif; ?>
-    <!-- Update Page -->
+    <!-- Forgot Password Page -->
     
     <p><?php echo ! empty($error) ? $error : ''; ?></p>
 </body>
