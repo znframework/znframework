@@ -19,8 +19,8 @@ class WelcomeExample extends Controller
 			'DataGridExample',
 			'PaginationExample',
 			'ScheduleExample',
-			//'TableExample',
-			//'TerminalExample'
+			'TableExample',
+			'TerminalExample'
 		];
 
         Import::view('welcome-example', $data);
