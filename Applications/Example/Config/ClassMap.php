@@ -714,3 +714,4 @@ $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalx
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
 
 //----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------

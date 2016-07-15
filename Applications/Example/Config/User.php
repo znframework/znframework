@@ -43,12 +43,12 @@ $config['User']['encode'] = 'super';
 //----------------------------------------------------------------------------------------------------
 $config['User']['matching'] =
 [
-	'table'   => '',
+	'table'   => 'user_example',
 	
 	'columns' => 
 	[
-		'username'   => '', // Kullanımı zorunludur.
-		'password'   => '', // Kullanımı zorunludur.
+		'username'   => 'username', // Kullanımı zorunludur.
+		'password'   => 'password', // Kullanımı zorunludur.
 		'email'      => '', // Kullanımı görecelidir.
 		'active'     => '', // İsteğe bağlı.
 		'banned'     => '', // İsteğe bağlı.
