@@ -7,6 +7,7 @@ class UserExample extends Controller
 		$data['subtitle']     = __CLASS__;
 		$data['examples']     = 
 		[
+			'createTable',
 			'register',
 			'login',
 			'logout',

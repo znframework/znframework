@@ -7,9 +7,9 @@ class DataGridExample extends Controller
 		$data['subtitle']     = __CLASS__;
 		$data['examples']     = 
 		[
+			'createTable',
 			'singleDataGrid',
-			'relatedDataGrid',
-			'createTable'
+			'relatedDataGrid'		
 		];
 		
 		$data['requirements'] = 
