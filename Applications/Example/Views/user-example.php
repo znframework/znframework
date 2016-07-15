@@ -20,7 +20,6 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
             <tr><td colspan="2" align="right"><?php echo Form::submit('register', 'Register');?></td></tr>
         </table>
         <?php echo Form::close(); ?>
-        <p><?php echo ! empty($error) ? $error : ''; ?></p>
     
     <?php endif; ?>
     <!-- Register Page -->
@@ -40,10 +39,7 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
             <?php echo Form::close(); ?>   
         <?php else: ?>  
        		Welcome, <?php echo User::data()->username; ?> - <?php echo Html::anchor('example/UserExample/logout', 'Sign Out'); ?>
-        <?php endif; ?>
-        
-        <p><?php echo ! empty($error) ? $error : ''; ?></p>
-     
+     	<?php endif; ?>
     <?php endif; ?>
     <!-- Login Page -->
     
@@ -63,11 +59,24 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
         <?php else: ?>  
        		Please do login, <?php echo Html::anchor('example/UserExample/login', 'Sign Up'); ?>
         <?php endif; ?>
-        
-        <p><?php echo ! empty($error) ? $error : ''; ?></p>
      
     <?php endif; ?>
     <!-- Update Page -->
+    
+     <!-- Update Page -->
+	<?php if( URI::get('UserExample') === 'forgotPassword' ): ?>
+    
+		<?php echo Form::open('update'); ?>
+        <table>
+            <tr><td>E-mail: </td><td><?php echo Form::placeholder('E-mail:')->text('email', Validation::postBack('email'));?></td></tr>
+            <tr><td colspan="2" align="right"><?php echo Form::submit('send', 'Send');?></td></tr>
+        </table>
+        <?php echo Form::close(); ?>   
+        
+    <?php endif; ?>
+    <!-- Update Page -->
+    
+    <p><?php echo ! empty($error) ? $error : ''; ?></p>
 </body>
 
 </html>

@@ -10,13 +10,15 @@ class UserExample extends Controller
 			'register',
 			'login',
 			'logout',
-			'update'
+			'update',
+			'forgotPassword'
 		];
 		
 		$data['requirements'] = 
 		[
 			'Applications/Example/Config/Database.php dosyasından veritabanı ayarlarını yapın.',
-			'www.xxx.xxx/example/UserExample/createTable URL\'sini çalıştırıp veritabanına "user_example" tablosunun oluşturun.'
+			'Şifremi unuttum uygulaması için Internal/Config/Services.php dosyasından e-posta ayarlarını yapın.',
+			'www.xxx.xxx/example/UserExample/createTable URL\'sini çalıştırıp veritabanına "user_example" tablosunun oluşturun.',
 		];
 		
        	Import::view('main', $data); 
@@ -128,6 +130,32 @@ class UserExample extends Controller
 		}
 		
 		Import::view('user-example', $data);
+	}
+	
+	public function forgotPassword()
+	{
+		$data['title'] = 'Forgot Password Example';
+		
+		if( Method::post('send') )
+		{
+			Validation::rules('email', ['email'], 'Email');
+			
+			if( $error = Validation::error('string') )
+			{
+				$data['error'] = $error;	
+			}
+			else
+			{	
+				// p1: Yeni şifrenin gönderileceği e-posta adresi.
+				// p2: E-posta ile gönderilen veride yer alan linke tıklandığında
+				// gidilecek URL.
+				User::forgotPassword(Method::post('email'), 'example/UserExample/login');	
+				
+				$data['error'] = User::error();
+			}
+		}
+		
+		Import::view('user-example', $data);	
 	}
 	
 	public function logout()
