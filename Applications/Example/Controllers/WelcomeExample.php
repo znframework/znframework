@@ -11,7 +11,8 @@ class WelcomeExample extends Controller
 		$data['examples'] = 
 		[
 			'UserExample',
-			'BenchmarkExample'
+			'BenchmarkExample',
+			'BufferExample'
 		];
 
         Import::view('welcome-example', $data);

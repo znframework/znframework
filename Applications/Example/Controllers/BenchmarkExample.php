@@ -4,7 +4,7 @@ class BenchmarkExample extends Controller
     public function main($params = '')
     {	
 		$data['title']        = 'Benchmark Example';
-		$data['subtitle']     = 'BenchmarkExample';
+		$data['subtitle']     = __CLASS__;
 		$data['examples']     = 
 		[
 			'test'
@@ -80,7 +80,6 @@ class BenchmarkExample extends Controller
 		writeLine( 'System Max  Memory Usage' );
 		writeLine( '---------------------------------------------------------------------' );
 		writeLine( 'Max Memory Usage: '.Benchmark::maxMemoryUsage() );
-		writeLine( '---------------------------------------------------------------------' );
-		writeLine();
+		write( '---------------------------------------------------------------------' );
 	}
 }

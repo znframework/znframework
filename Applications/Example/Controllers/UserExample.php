@@ -4,7 +4,7 @@ class UserExample extends Controller
     public function main($params = '')
     {	
 		$data['title']        = 'User Example';
-		$data['subtitle']     = 'UserExample';
+		$data['subtitle']     = __CLASS__;
 		$data['examples']     = 
 		[
 			'register',
