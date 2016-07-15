@@ -3,7 +3,7 @@ class BufferExample extends Controller
 {	
     public function main($params = '')
     {	
-		$data['title']        = 'Buffer Example';
+		$data['title']        = str_replace('Example', ' Example', __CLASS__);
 		$data['subtitle']     = __CLASS__;
 		$data['examples']     = 
 		[

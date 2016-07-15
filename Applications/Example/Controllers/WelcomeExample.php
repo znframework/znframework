@@ -6,14 +6,21 @@ class WelcomeExample extends Controller
     //--------------------------------------------------------------------------------------------------------
     public function main($params = '')
     {	
-        $data['title'] = 'Welcome Example';
+        $data['title'] = str_replace('Example', ' Example', __CLASS__);
 		$data['text']  = 'Welcome Example Page';
 		$data['examples'] = 
 		[
 			'UserExample',
 			'BenchmarkExample',
 			'BufferExample',
-			'CacheExample'
+			'CacheExample',
+			'CalendarExample',
+			'CaptchaExample',
+			//'DataGridExample',
+			//'PaginationExample',
+			//'ScheduleExample',
+			//'TableExample',
+			//'TerminalExample'
 		];
 
         Import::view('welcome-example', $data);

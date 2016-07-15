@@ -3,7 +3,7 @@ class CacheExample extends Controller
 {	
     public function main($params = '')
     {	
-		$data['title']        = 'Cache Example';
+		$data['title']        = str_replace('Example', ' Example', __CLASS__);
 		$data['subtitle']     = __CLASS__;
 		$data['examples']     = 
 		[
