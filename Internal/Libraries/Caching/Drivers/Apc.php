@@ -176,12 +176,12 @@ class ApcDriver implements CacheInterface
 		
 		list($data, $time, $expire) = $stored;
 		
-		return array
-		(
+		return 
+		[
 			'expire' => $time + $expire,
 			'mtime'	 => $time,
 			'data'	 => unserialize($data)
-		);
+		];
 	}
 	
 	/******************************************************************************************

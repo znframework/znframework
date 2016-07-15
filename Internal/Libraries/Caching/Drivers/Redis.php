@@ -261,11 +261,11 @@ class RedisDriver implements CacheInterface
 		
 		if( $data !== false )
 		{
-			return array
-			(
+			return 
+			[
 				'expire' => time() + $this->redis->ttl($key),
 				'data' 	 => $data
-			);
+			];
 		}
 		
 		return false;

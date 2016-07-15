@@ -166,13 +166,13 @@ class WincacheDriver implements CacheInterface
 			$ttl 	  = $stored['ucache_entries'][1]['ttl_seconds'];
 			$hitcount = $stored['ucache_entries'][1]['hitcount'];
 			
-			return array
-			(
+			return
+			[
 				'expire'	=> $ttl - $age,
 				'hitcount'	=> $hitcount,
 				'age'		=> $age,
 				'ttl'		=> $ttl
-			);
+			];
 		}
 		
 		return false;
