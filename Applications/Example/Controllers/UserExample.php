@@ -90,6 +90,46 @@ class UserExample extends Controller
 		Import::view('user-example', $data);	
 	}
 	
+	public function update()
+	{
+		$data['title'] = 'Update Example';
+		
+		if( Method::post('update') )
+		{
+			Validation::rules('oldPassword', ['required', 'xss', 'alnum', 'oldPassword' => User::data()->password], 'Old Password');
+			Validation::rules('newPassword', ['required', 'xss', 'alnum', 'minchar' => 4, 'maxchar' => 8], 'New Password');
+			
+			if( $error = Validation::error('string') )
+			{
+				$data['error'] = $error;	
+			}
+			else
+			{
+				$userData = 
+				[
+					'password' => Validation::nval('newPassword')
+				];
+				
+				// p1: Veritabanına kaydedilecek veriler.
+				// p2: Kayıt sonra yönlenicek sayfa.
+				User::update
+				(
+					Validation::nval('oldPassword'), 
+					Validation::nval('newPassword'), 
+					Validation::nval('newPassword'),
+					$userData
+				);	
+				
+				if( $error = User::error() )
+				{
+					$data['error'] = $error;	
+				}
+			}
+		}
+		
+		Import::view('user-example', $data);
+	}
+	
 	public function logout()
 	{
 		// p1: çıkış sonrası yönlendirelecek adres belirtilir.

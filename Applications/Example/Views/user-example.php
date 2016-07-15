@@ -46,6 +46,28 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
      
     <?php endif; ?>
     <!-- Login Page -->
+    
+    
+    
+    <!-- Update Page -->
+	<?php if( URI::get('UserExample') === 'update' ): ?>
+    
+		<?php if( User::isLogin() ): ?>
+			<?php echo Form::open('update'); ?>
+            <table>
+                <tr><td>Old Password: </td><td><?php echo Form::placeholder('Old Password:')->password('oldPassword', Validation::postBack('oldPassword'));?></td></tr>
+                <tr><td>New Password: </td><td><?php echo Form::placeholder('New Password:')->password('newPassword', Validation::postBack('newPassword'));?></td></tr>
+                <tr><td colspan="2" align="right"><?php echo Form::submit('update', 'Update');?></td></tr>
+            </table>
+            <?php echo Form::close(); ?>   
+        <?php else: ?>  
+       		Please do login, <?php echo Html::anchor('example/UserExample/login', 'Sign Up'); ?>
+        <?php endif; ?>
+        
+        <p><?php echo ! empty($error) ? $error : ''; ?></p>
+     
+    <?php endif; ?>
+    <!-- Update Page -->
 </body>
 
 </html>
