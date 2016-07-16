@@ -41,12 +41,14 @@ class TemplateWizard implements TemplateWizardInterface
 			return \Errors::set('Error', 'stringParameter', 'string');	
 		}
 
-		$htmlRegexChar = '.*?';
+		$htmlRegexChar 	= '.*?';
+		$htmlTagClose 	= "</$1>";
 		
 		$pattern = 
 		[
 			// SPECIAL SYMBOLS
 			'/\/@/'                                                             => '+[symbol??at]+',
+			'/\/#/'                                                             => '+[symbol??dies]+',
 			'/::/'																=> '+[symbol??static]+',
 			'/\/:/'																=> '+[symbol??colon]+',
 			
@@ -78,6 +80,14 @@ class TemplateWizard implements TemplateWizardInterface
 			
 			// PHP TAGS
 			'/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s'                             => '<?php $1 ?>',
+			
+			// HTML TAGS
+			'/\s+\#\#(\w+)/'													=> $htmlTagClose,
+			'/\#(\w+)\s*(\[(.*?)\])*\:/'										=> '<$1 $3>',
+			'/\#(\w+)\s*(\[(.*?)\])*\s+/'										=> '<$1 $3>',
+			'/\#(\w+)\s*(\[(.*?)\])*\s*\(\s*(.*?)\s*\)\:/s'						=> '<$1 $3>$4'.$htmlTagClose,
+			'/\<(\w+)\s+\>/'													=> '<$1>',
+			'/\+\[symbol\?\?dies\]\+/'                                          => '#'
 		];
 			
 		$string = preg_replace(array_keys($pattern), array_values($pattern), $string);

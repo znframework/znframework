@@ -10,7 +10,7 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
 
 <body>
 	<p><h4>Dikkat Edilmesi Gerekenler</h4></p>
-    <p>1 - /@, : gibi symboller şablon sihirbazının kullandığı özel karakterler olduğu içi bu karakterler, normal karakter gibi kullanmak için başına / sembolü getirin. Örnek /@, /: gibi</p>
+    <p>1 - /@, /:, /# gibi symboller şablon sihirbazının kullandığı özel karakterler olduğu içi bu karakterler, normal karakter gibi kullanmak için başına / sembolü getirin. Örnek //@, /: gibi</p>
 	<br />
     
     <p><h4>Değişkenlerin ve Fonksiyonlın Yazdırılması</h4></p>
@@ -40,10 +40,19 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
     @endfor:  
     </p>   
   	<br />
-
+	
 	<p><h4>Sınıfların Kullanımı</h4></p>
     <p>@@Form::id('example')->button('example', 'Example'):</p>  
     <p>{{ output(DB::get('user_example')->result()) }}</p> 
+    <br />
+    <p><h3>HTML Kullanımı v.4.0.0</h3></p>
+    <p><h4>Kapatılan Html Taglarının Kullanımı</h4></p>
+    #p[id="example"] #b Template Wizard Example ##b ##p
+    #p[id="example"](Template Example):
+    
+    <p><h4>Kapatılmayan Html Taglarının Kullanımı</h4></p>
+    #p #input[type="text" name="example" value="Example"]: ##p
+    
 </body>
 
 </html>
