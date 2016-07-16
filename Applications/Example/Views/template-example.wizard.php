@@ -17,6 +17,7 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
     <p>@@baseUrl(CURRENT_PATH):</p>
     <p>{{ baseUrl(CURRENT_PATH) }}</p>
     <p>@$title:</p>
+    <p>{{ $title }}</p>
     <p>Html Entities/: {{{ $title }}}</p>
     <br />
     
