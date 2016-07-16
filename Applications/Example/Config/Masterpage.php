@@ -31,7 +31,7 @@ $config['Masterpage']['headPage'] = ''; // String veya Array veri türü içereb
 // adı bilgisi girilir. Örnek: "body";											  		    
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['bodyPage'] = '';
+$config['Masterpage']['bodyPage'] = 'masterpage-example/masterpage';
 
 //----------------------------------------------------------------------------------------------------
 // Doctype
@@ -138,7 +138,7 @@ $config['Masterpage']['font'] = []; // string veya array
 // dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.							  	
 //
 //----------------------------------------------------------------------------------------------------
-$config['Masterpage']['style'] = []; // string veya array
+$config['Masterpage']['style'] = ['common']; // string veya array
 
 //----------------------------------------------------------------------------------------------------
 // Script

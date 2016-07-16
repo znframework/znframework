@@ -25,7 +25,8 @@ class WelcomeExample extends Controller
 			'CryptoExample',
 			'EncodeExample',
 			'RouteExample',
-			'TemplateWizardExample'
+			'TemplateWizardExample',
+			'MasterpageExample'
 		];
 
         Import::view('welcome-example', $data);
