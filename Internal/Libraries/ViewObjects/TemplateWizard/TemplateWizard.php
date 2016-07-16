@@ -45,8 +45,10 @@ class TemplateWizard implements TemplateWizardInterface
 		
 		$pattern = 
 		[
-			// @ SYMBOL
+			// SPECIAL SYMBOLS
 			'/\/@/'                                                             => '+[symbol??at]+',
+			'/::/'																=> '+[symbol??static]+',
+			'/\/:/'																=> '+[symbol??colon]+',
 			
 			// DECISION STRUCTURES & LOOPS	
 			'/@(endif|endforeach|endfor|endwhile|break|continue)\:/'            => '<?php $1 ?>',	
@@ -62,6 +64,8 @@ class TemplateWizard implements TemplateWizardInterface
 			'/@('.$htmlRegexChar.')\:/s'                                        => '<?php $1 ?>',
 			
 			'/\+\[symbol\?\?at\]\+/'                                            => '@',
+			'/\+\[symbol\?\?static\]\+/'                                        => '::',
+			'/\+\[symbol\?\?colon\]\+/'                                         => ':',
 					
 			// COMMENTS
 			'/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s'                         => '<!--$1-->',
