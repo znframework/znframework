@@ -21,7 +21,8 @@ class WelcomeExample extends Controller
 			'ScheduleExample',
 			'TableExample',
 			'TerminalExample',
-			'CompressExample'
+			'CompressExample',
+			'CryptoExample'
 		];
 
         Import::view('welcome-example', $data);
