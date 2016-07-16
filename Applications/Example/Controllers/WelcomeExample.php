@@ -20,7 +20,8 @@ class WelcomeExample extends Controller
 			'PaginationExample',
 			'ScheduleExample',
 			'TableExample',
-			'TerminalExample'
+			'TerminalExample',
+			'CompressExample'
 		];
 
         Import::view('welcome-example', $data);
