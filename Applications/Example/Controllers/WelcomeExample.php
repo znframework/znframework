@@ -23,7 +23,8 @@ class WelcomeExample extends Controller
 			'TerminalExample',
 			'CompressExample',
 			'CryptoExample',
-			'EncodeExample'
+			'EncodeExample',
+			'RouteExample'
 		];
 
         Import::view('welcome-example', $data);
