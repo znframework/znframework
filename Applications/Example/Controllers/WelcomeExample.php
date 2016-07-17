@@ -26,7 +26,8 @@ class WelcomeExample extends Controller
 			'EncodeExample',
 			'RouteExample',
 			'TemplateWizardExample',
-			'MasterpageExample'
+			'MasterpageExample',
+			'DatabaseExample'
 		];
 
         Import::view('welcome-example', $data);
