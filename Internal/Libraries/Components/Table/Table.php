@@ -131,8 +131,18 @@ class InternalTable implements TableInterface
 					$attr = \Html::attributes($v);
 					$val = $k;
 				}
-			
-				$table .= "\t\t".'<td'.$attr.'>'.$val.'</td>'.$eol;	
+				
+				if( strpos($val, 'th:') === 0 )
+				{
+					$rowType = 'th';
+					$val = substr($val, 3);
+				}
+				else
+				{
+					$rowType = 'td';
+				}
+				
+				$table .= "\t\t".'<'.$rowType.$attr.'>'.$val.'</'.$rowType.'>'.$eol;	
 				$colNo++;
 			}
 		
