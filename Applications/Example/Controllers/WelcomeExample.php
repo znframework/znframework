@@ -28,7 +28,8 @@ class WelcomeExample extends Controller
 			'TemplateWizardExample',
 			'MasterpageExample',
 			'DatabaseExample',
-			'DateTimeExample'
+			'DateTimeExample',
+			'MultiLanguageExample'
 		];
 
         Import::view('welcome-example', $data);

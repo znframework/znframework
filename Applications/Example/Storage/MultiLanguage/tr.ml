@@ -1,0 +1,1 @@
+{"example":"Örnek","application":"Uygulama","turkish":"Türkçe"}

@@ -27,18 +27,19 @@ class InternalML implements MLInterface
 	protected $extension = '.ml';
 	
 	/*
-	 * Dil dosyası yol bilgisini tutar.
+	 * Aktif dil dosyası yol bilgisini tutar.
 	 *
 	 * @var lang
 	 */
 	protected $lang;
 	
-	/******************************************************************************************
-	* CONSTRUCT                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Başlangıç ayarları yapılandırılıyor.									  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Constructor
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __construct()
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
 		// Dil doyalarının yer alacağı dizinin belirtiliyor.
@@ -69,31 +70,30 @@ class InternalML implements MLInterface
 	//----------------------------------------------------------------------------------------------------
 	use \ErrorControlTrait;
 	
-	/******************************************************************************************
-	* INSERT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dil dosyasına kelime eklemek için kullanılır. 						  |
-	
-	  @param string $app 
-	  @param mixed  $key
-	  @param string $data
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Insert
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Dil dosyasına kelime eklemek için kullanılır.
+	// @param string $app 
+	// @param mixed  $key
+	// @param string $data
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function insert($app = '', $key = '', $data = '')
 	{
 		$datas = [];
 		
+		$createFile = $this->_langFile($app);
 		// Daha önce bir dil dosyası oluşturulmamışsa oluştur.
-		if( ! is_file($this->lang) )
+		if( ! is_file($createFile) )
 		{
-			\File::write($this->appdir.$app.$this->extension, \Json::encode([]));	
+			\File::write($createFile, \Json::encode([]));	
 		}
 		
 		// Json ile veriler diziye çevriliyor.
-		$datas = \Json::decodeArray(\File::read($this->lang));	
-		
+		$datas = \Json::decodeArray(\File::read($createFile));	
+
 		if( ! empty($datas) )
 		{
 			$json = $datas;
@@ -115,35 +115,37 @@ class InternalML implements MLInterface
 		
 		// Yeni eklenecek bir veri varsa ekle
 		// Aksi halde herhangi bir işlem yapma.
-		if( count($json) > count($datas) )
+		if( $json !== $datas )
 		{
-			return \File::write($this->appdir.$app.$this->extension, \Json::encode($json));
+			return \File::write($createFile, \Json::encode($json));
 		}
 		else
 		{
 			return false;	
 		}
 	}
-	
-	/******************************************************************************************
-	* DELETE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dil dosyasından kelime silmek için kullanılır. 						  |
-	
-	  @param string $app 
-	  @param mixed  $key
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
+
+	//----------------------------------------------------------------------------------------------------
+	// Delete
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Silinecek dil dosyası.
+	// @param string $app 
+	// @param mixed  $key
+	//
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function delete($app = '', $key = '')
 	{
 		$datas = [];
 		
+		$createFile = $this->_langFile($app);
+		
 		// Dosya mevcutsa verileri al.
-		if( is_file($this->lang) )
+		if( is_file($createFile) )
 		{
-			$datas = \Json::decodeArray(\File::read($this->lang));		
+			$datas = \Json::decodeArray(\File::read($createFile));		
 		}
 		
 		if( ! empty($datas) )
@@ -166,37 +168,55 @@ class InternalML implements MLInterface
 		}
 		
 		// Dosyayı yeniden yaz.
-		return \File::write($this->appdir.$app.$this->extension, \Json::encode($json));
+		return \File::write($createFile, \Json::encode($json));
 	}
 	
-	/******************************************************************************************
-	* UPDATE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dil dosyasında yer alan bir kelimeyi güncellemek için kullanılır.		  |
-	
-	  @param string $app 
-	  @param mixed  $key
-	  @param string $data
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Delete All
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Silinecek dil dosyası.
+	// @param string $app 
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function deleteAll($app = '')
+	{
+		$createFile = $this->appdir.$app.$this->extension;
+		
+		// Dosya mevcutsa verileri al.
+		if( is_file($createFile) )
+		{
+			return \File::delete($createFile);		
+		}
+		
+		return false;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Update
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Dil dosyasında yer alan bir kelimeyi güncellemek için kullanılır.
+	// @param string $app 
+	// @param mixed  $key
+	// @param string $data
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function update($app = '', $key = '', $data = '')
 	{
 		// Güncelleme işlemi ekleme yöntemi ile aynı özelliğe sahiptir.
 		return $this->insert($app, $key, $data);
 	}
 	
-	/******************************************************************************************
-	* SELECT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dil dosyasın yer alan istenilen kelimeye erişmek için kullanılır.  	  |
-	
-	  @param mixed  $key
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Select
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Dil dosyasın yer alan istenilen kelimeye erişmek için kullanılır.
+	// @param mixed $key 
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function select($key = '', $convert = '')
 	{
 		$read = \File::read($this->lang);
@@ -219,19 +239,30 @@ class InternalML implements MLInterface
 		
 		return $return;       
 	}
-	
-	/******************************************************************************************
-	* LANG                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Sayfanın aktif dilini ayarlamak için kullanılır. 						  |
-	
-	  @param string $lang 
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
+
+	//----------------------------------------------------------------------------------------------------
+	// Lang
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sayfanın aktif dilini ayarlamak için kullanılır.
+	// @param string $lang 
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function lang($lang = 'tr')
 	{
 		setLang($lang);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Lang File
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array  $rows
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _langFile($app = '')
+	{
+		return $this->appdir.$app.$this->extension;	
 	}
 }
