@@ -723,3 +723,298 @@ $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinter
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+$config['ClassMap']['namespaces']['zn\encodingsupport\mlpropertiestrait'] = 'mlpropertiestrait';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
+
+//----------------------------------------------------------------------------------------------------

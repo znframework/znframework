@@ -10,6 +10,7 @@ class MultiLanguageExample extends Controller
 			'insert',
 			'select',
 			'selectAll',
+			'table',
 			'update',
 			'delete',
 			'changeLang',
@@ -56,6 +57,11 @@ class MultiLanguageExample extends Controller
 		writeLine('---------------------------All Words---------------------------');		
 		output( ML::selectAll() );
 		writeLine('---------------------------All Words---------------------------');	
+	}
+	
+	public function table()
+	{
+		echo ML::limit(1)->table();	
 	}
 	
 	public function update()

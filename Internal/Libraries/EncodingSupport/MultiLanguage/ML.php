@@ -12,18 +12,31 @@ class InternalML implements MLInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/*
-	 * MultiLanguage/ uygulama dizini bilgisini tutar.
-	 *
-	 * @var string
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Const CONFIG_NAME
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @const string
+	//
+	//----------------------------------------------------------------------------------------------------
+	const CONFIG_NAME  = 'EncodingSupport:ml';
+	
+	//----------------------------------------------------------------------------------------------------
+	// $appdir
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string: NULL
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $appdir;
 	
-	/*
-	 * Dil dosyası uzantı bilgisini tutar.
-	 *
-	 * @var string .ml
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// $extension
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string: .ml
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $extension = '.ml';
 	
 	/*
@@ -42,6 +55,8 @@ class InternalML implements MLInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
+		$this->config();	
+		
 		// Dil doyalarının yer alacağı dizinin belirtiliyor.
 		$this->appdir = STORAGE_DIR.'MultiLanguage/';	
 		
@@ -55,6 +70,32 @@ class InternalML implements MLInterface
 		$this->lang   = $this->appdir.getLang().$this->extension;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// ML Properties Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// url()
+	// limit()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use MLPropertiesTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \ConfigMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Call Undefined Method Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// call()
+	//
+	//----------------------------------------------------------------------------------------------------
 	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
@@ -82,9 +123,18 @@ class InternalML implements MLInterface
 	//----------------------------------------------------------------------------------------------------
 	public function insert($app = '', $key = '', $data = '')
 	{
+		if( empty($app) || empty($key) )
+		{
+			\Errors::set('Error', 'emptyParameter', '1.($app)');
+			\Errors::set('Error', 'emptyParameter', '2.($key)');
+			
+			return false;
+		}
+		
 		$datas = [];
 		
 		$createFile = $this->_langFile($app);
+		
 		// Daha önce bir dil dosyası oluşturulmamışsa oluştur.
 		if( ! is_file($createFile) )
 		{
@@ -265,6 +315,14 @@ class InternalML implements MLInterface
 		return $return;       
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Select All
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  mixed $app 
+	// @return array
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function selectAll($app = NULL)
 	{
 		if( ! is_string($app) )
@@ -300,6 +358,199 @@ class InternalML implements MLInterface
 			
 			return \Json::decodeArray($read);
 		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Table
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  mixed $app 
+	// @return string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function table($app = NULL)
+	{
+		if( \Method::post() )
+		{
+			$keyword   = \Method::post('ML_UPDATE_KEYWORD_HIDDEN');
+			$languages = explode(',', \Method::post('ML_LANGUAGES'));
+			$words     = \Method::post('ML_UPDATE_WORDS');
+			
+			// ADD LANGUAGE
+			if( \Method::post('ML_ADD_ALL_LANGUAGE_SUBMIT') )
+			{
+				$this->insert(\Method::post('ML_ADD_LANGUAGE'), 'example', 'Example');	
+			}
+			
+			// ALL DELETE
+			if( \Method::post('ML_ALL_DELETE_SUBMIT') )
+			{
+				$allDelete = \Method::post('ML_ALL_DELETE_HIDDEN');
+				$this->deleteAll($allDelete);
+			}
+			
+			// ADD
+			if( \Method::post('ML_ADD_KEYWORD_SUBMIT') )
+			{
+				$addWords   = \Method::post('ML_ADD_WORDS');
+				$addKeyword = \Method::post('ML_ADD_KEYWORD');
+				
+				if( ! empty($languages) ) foreach( $languages as $key => $lang )
+				{
+					$this->insert($lang, $addKeyword, $addWords[$key]);	
+				}	
+			}
+			
+			// UPDATE
+			if( \Method::post('ML_UPDATE_KEYWORD_SUBMIT') )
+			{	
+				if( ! empty($languages) ) foreach( $languages as $key => $lang )
+				{
+					$this->update($lang, $keyword, $words[$key]);	
+				}
+			}
+			
+			// DELETE
+			if( \Method::post('ML_DELETE_SUBMIT') )
+			{
+				if( ! empty($languages) ) foreach( $languages as $key => $lang )
+				{
+					$this->delete($lang, $keyword);	
+				}
+			}
+		}
+		
+		$config = $this->config['table'];
+		
+		$attributes 		= $config['attributes'];
+		$pagcon 			= $config['pagination'];
+		$orderColorArray	= $config['colors']['rowOrder'];
+		$placeHolders		= $config['placeHolders'];
+		$buttonNames		= $config['buttonNames'];
+		$title				= $config['title'];
+		
+		$double = ' bgcolor="'.$orderColorArray['double'].'"';
+		$single = ' bgcolor="'.$orderColorArray['single'].'"';
+		
+		
+		
+		$data = $this->selectAll($app);	
+		$languageCount = count($data);
+		
+		$table  = '<table'.\Html::attributes($attributes['table']).'>';
+		$table .= '<thead>';
+		$table .= '<tr'.$single.'><th colspan="'.($languageCount + 4).'">'.$title.'</th></tr>';
+		$table .= '<form name="ML_ADD_LANGUAGE_FORM" method="post">';
+		$table .= '<tr'.$double.'><th>L</th><td colspan="'.($languageCount + 3).'">'.\Form::attr($attributes['textbox'])->placeholder('Add Language')->text('ML_ADD_LANGUAGE').\Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td></tr>';
+		$table .= '</form>';	
+		$table .= '<tr'.$single.'><th>#</th><td><strong>Keywords</strong></td>';
+		
+		$words = [];
+		$formObjects = '';
+		
+		$languages   = implode(',', array_keys($data));
+		$mlLanguages = \Form::hidden('ML_LANGUAGES', $languages);
+		
+		foreach( $data as $lang => $values )
+		{
+			$upperLang = strtoupper($lang);
+			
+			$table .= '<form name="ML_TOP_FORM_'.$upperLang.'" method="post">';
+			$table .= '<td><strong>'.$upperLang.\Form::hidden('ML_ALL_DELETE_HIDDEN', $lang).\Form::attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $buttonNames['delete']).'</strong></td>';		
+			$table .= '</form>';		
+			foreach( $values as $key => $val )
+			{
+				$words[$key][] = $val;
+			}
+			
+			$formObjects .= '<td>'.\Form::attr($attributes['textbox'])->placeholder($upperLang)->text('ML_ADD_WORDS[]').'</td>';
+		}
+		$table .= '<td><strong>Process</strong></td>';
+		$table .= '</tr>';
+		$table .= '</thead>';
+		$table .= '<tbody>';
+		$table .= '<tr'.$double.'>';
+		$table .= '<form name="ML_TOP_FORM" method="post">';
+		$table .= '<th>N</th>';
+		$table .= '<td>'.$mlLanguages.\Form::attr($attributes['textbox'])->placeholder($placeHolders['keyword'])->text('ML_ADD_KEYWORD').'</td>';
+		$table .= $formObjects;
+		$table .= '<td>'.\Form::attr($attributes['add'])->submit('ML_ADD_KEYWORD_SUBMIT', $buttonNames['add']).' '.\Form::attr($attributes['clear'])->reset('ML_ADD_KEYWORD_RESET', $buttonNames['clear']).'</td>';
+		$table .= '</form>';
+		$table .= '</tr>';
+		
+		
+		$limit     = $this->limit;
+		$start     = (int) \URI::segment(-1);
+		$totalRows = count($words);
+		$index     = 1;
+	
+		$words = array_slice($words, $start, $limit);
+		
+		foreach( $words as $key => $val )
+		{
+			$orderColor = ( $index % 2 === 1 ) ? $single : $double;
+			
+			$table .= '<tr'.$orderColor .'>';
+			$table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post">';
+			$table .= '<th>'.$index++.'</th>';
+			$table .= '<td>'.\Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
+			
+			for( $i = 0; $i < $languageCount; $i++ )
+			{
+				$table .= '<td>'.\Form::attr($attributes['textbox'])->text('ML_UPDATE_WORDS[]', ( ! empty($val[$i]) ? $val[$i] : '' )).'</td>';	
+			}
+			
+			$table .= '<td>'.$mlLanguages.\Form::attr($attributes['update'])->submit('ML_UPDATE_KEYWORD_SUBMIT', $buttonNames['update']);
+			$table .= ' ';
+			$table .= \Form::attr($attributes['delete'])->submit('ML_DELETE_SUBMIT', $buttonNames['delete']).'</td>';
+			$table .= '</form>';
+			$table .= '</tr>';	
+		}
+		
+		if( empty($this->url) )
+		{
+			if( defined('URIAPPDIR') )
+			{
+				$othersConfig = \Config::get('Application', 'directory')['others'];
+				
+				if( ! empty($othersConfig[\URI::segment(1)]) )
+				{
+					$preUrl = \URI::segment(1);
+				}
+				else
+				{
+					$preUrl = URIAPPDIR;
+				}
+				
+				$paginationUrl = $preUrl.'/'.CURRENT_CONTROLLER.'/'.CURRENT_CFUNCTION;
+			}
+			else
+			{
+				$paginationUrl = '';	
+			}
+		}
+		else
+		{
+			$paginationUrl = $this->url;	
+		}
+		
+		$pagination = \Pagination::style($pagcon['style'])
+							     ->css($pagcon['class'])
+		                         ->start($start)
+		                         ->totalRows($totalRows)
+								 ->limit($limit)
+								 ->url($paginationUrl)
+								 ->create();
+		
+		if( ! empty($pagination) && ! empty($totalRows) )
+		{
+			$table .= '<tr><th>P</th><td colspan="'.($languageCount + 3).'">'.$pagination.'</td></tr>';	
+		}
+		
+		$table .= '</tbody>';
+		$table .= '</table>';
+	
+		return $table;
 	}
 
 	//----------------------------------------------------------------------------------------------------
