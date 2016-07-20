@@ -427,8 +427,10 @@ class InternalML implements MLInterface
 		$orderColorArray	= $config['colors']['rowOrder'];
 		$placeHolders		= $config['placeHolders'];
 		$buttonNames		= $config['buttonNames'];
-		$title				= $config['title'];
-		$confirmMessage		= $config['confirmMessage'];
+		$title				= $config['labels']['title'];
+		$confirmMessage		= $config['labels']['confirm'];
+		$process			= $config['labels']['process'];
+		$keywords			= $config['labels']['keywords'];
 		
 		$double = ' bgcolor="'.$orderColorArray['double'].'"';
 		$single = ' bgcolor="'.$orderColorArray['single'].'"';
@@ -443,9 +445,9 @@ class InternalML implements MLInterface
 		$table .= '<thead>';
 		$table .= '<tr'.$single.'><th colspan="'.($languageCount + 4).'">'.$title.'</th></tr>';
 		$table .= '<form name="ML_ADD_LANGUAGE_FORM" method="post">';
-		$table .= '<tr'.$double.'><th>L</th><td colspan="'.($languageCount + 3).'">'.\Form::attr($attributes['textbox'])->placeholder('Add Language')->text('ML_ADD_LANGUAGE').\Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td></tr>';
+		$table .= '<tr'.$double.'><th>L</th><td colspan="'.($languageCount + 3).'">'.\Form::attr($attributes['textbox'])->placeholder($placeHolders['addLanguage'])->text('ML_ADD_LANGUAGE').\Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td></tr>';
 		$table .= '</form>';	
-		$table .= '<tr'.$single.'><th>#</th><td><strong>Keywords</strong></td>';
+		$table .= '<tr'.$single.'><th>#</th><td><strong>'.$keywords.'</strong></td>';
 		
 		$words = [];
 		$formObjects = '';
@@ -467,7 +469,7 @@ class InternalML implements MLInterface
 			
 			$formObjects .= '<td>'.\Form::attr($attributes['textbox'])->placeholder($upperLang)->text('ML_ADD_WORDS[]').'</td>';
 		}
-		$table .= '<td><strong>Process</strong></td>';
+		$table .= '<td><strong>'.$process.'</strong></td>';
 		$table .= '</tr>';
 		$table .= '</thead>';
 		$table .= '<tbody>';

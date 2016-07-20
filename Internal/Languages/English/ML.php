@@ -9,10 +9,13 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
-$lang['ML']['keywordPlaceHolder'] 	= 'New Keyword';
-$lang['ML']['addButton'] 			= 'New Add';
-$lang['ML']['updateButton'] 		= 'Update';
-$lang['ML']['deleteButton'] 		= 'Delete';
-$lang['ML']['clearButton'] 			= 'Clear';
-$lang['ML']['title']				= 'Multi Language Data Table';
-$lang['ML']['confirmMessage']		= 'Are you sure you want to do this operation?';
+$lang['ML']['addButton'] 				= 'New Add';
+$lang['ML']['updateButton'] 			= 'Update';
+$lang['ML']['deleteButton'] 			= 'Delete';
+$lang['ML']['clearButton'] 				= 'Clear';
+$lang['ML']['titleLabel']				= 'Multi Language Data Table';
+$lang['ML']['confirmLabel']				= 'Are you sure you want to do this operation?';
+$lang['ML']['keywordsLabel']			= 'Keywords';
+$lang['ML']['processLabel']				= 'Process';
+$lang['ML']['addLanguagePlaceHolder']	= 'Add Language';
+$lang['ML']['keywordPlaceHolder'] 		= 'New Keyword';

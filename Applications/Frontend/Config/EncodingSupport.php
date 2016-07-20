@@ -29,22 +29,19 @@ $config['EncodingSupport']['ml'] =
 	'table' => 
 	[
 		//--------------------------------------------------------------------------------------------
-		// Title
+		// Labels
 		//--------------------------------------------------------------------------------------------
 		//
-		// Genel Kullanımı: Tablonun en üstünde yer alan ifadeyi düzenler.  	  					  						
+		// Genel Kullanımı: Tabloda yer alan açıklamaları düzenler.	  					  						
 		//
 		//--------------------------------------------------------------------------------------------
-		'title' => lang('ML', 'title'),
-		
-		//--------------------------------------------------------------------------------------------
-		// Confirm Message
-		//--------------------------------------------------------------------------------------------
-		//
-		// Genel Kullanımı: Silme ve güncelleme işlemlerinde ekrana gelen uyarı penceresindeki metin.  	  					  						
-		//
-		//--------------------------------------------------------------------------------------------
-		'confirmMessage' => lang('ML', 'confirmMessage'),
+		'labels' => 
+		[
+			'title' 	=> lang('ML', 'titleLabel'),
+			'confirm' 	=> lang('ML', 'confirmLabel'),
+			'process'	=> lang('ML', 'processLabel'),
+			'keywords'	=> lang('ML', 'keywordsLabel'),
+		],
 		
 		//--------------------------------------------------------------------------------------------
 		// Button Names
@@ -71,7 +68,8 @@ $config['EncodingSupport']['ml'] =
 		//--------------------------------------------------------------------------------------------
 		'placeHolders' =>
 		[
-			'keyword'    => lang('ML', 'keywordPlaceHolder')
+			'keyword'     => lang('ML', 'keywordPlaceHolder'),
+			'addLanguage' => lang('ML', 'addLanguagePlaceHolder')
 		],
 		
 		//--------------------------------------------------------------------------------------------
