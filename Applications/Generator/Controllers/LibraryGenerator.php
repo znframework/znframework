@@ -67,7 +67,7 @@ class LibraryGenerator extends Controller
 			],
 			
 			[
-				'title' => 'Model Generator'
+				'title' => 'Library Generator'
 			]
 		);
     }	
