@@ -1,1 +1,1 @@
-{"example":"Examples","application":"Application"}
+{"example":"Example","application":"Application","turkish":"Turkish"}

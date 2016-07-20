@@ -179,17 +179,42 @@ class InternalML implements MLInterface
 	// @param string $app 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll($app = '')
+	public function deleteAll($app = NULL)
 	{
-		$createFile = $this->appdir.$app.$this->extension;
-		
-		// Dosya mevcutsa verileri al.
-		if( is_file($createFile) )
+		if( ! is_string($app) )
 		{
-			return \File::delete($createFile);		
+			if( $app === NULL )
+			{
+				$MLFiles = \Folder::files($this->appdir, 'ml');
+			}
+			elseif( is_array($app) )
+			{
+				$MLFiles = $app;
+			}
+			else
+			{
+				return false;	
+			}
+			
+			$allMLFiles = [];
+			
+			if( ! empty($MLFiles) ) foreach( $MLFiles as $file )
+			{
+				$removeExtension = str_replace('.ml', '', $file);
+				$this->deleteAll($removeExtension);
+			}
 		}
-		
-		return false;
+		else
+		{
+			$createFile = $this->_langFile($app);
+			// Dosya mevcutsa verileri al.
+			if( is_file($createFile) )
+			{
+				return \File::delete($createFile);		
+			}
+			
+			return false;
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -238,6 +263,43 @@ class InternalML implements MLInterface
 		}
 		
 		return $return;       
+	}
+	
+	public function selectAll($app = NULL)
+	{
+		if( ! is_string($app) )
+		{
+			if( $app === NULL )
+			{
+				$MLFiles = \Folder::files($this->appdir, 'ml');
+			}
+			elseif( is_array($app) )
+			{
+				$MLFiles = $app;
+			}
+			else
+			{
+				return false;	
+			}			
+			
+			$allMLFiles = [];
+			
+			if( ! empty($MLFiles) ) foreach( $MLFiles as $file )
+			{
+				$removeExtension = str_replace('.ml', '', $file);
+				$allMLFiles[$removeExtension] = $this->selectAll($removeExtension);
+			}
+			
+			return $allMLFiles;
+		}
+		else
+		{
+			$createFile = $this->_langFile($app);	
+			
+			$read = \File::read($createFile);
+			
+			return \Json::decodeArray($read);
+		}
 	}
 
 	//----------------------------------------------------------------------------------------------------

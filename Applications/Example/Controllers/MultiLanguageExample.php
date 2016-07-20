@@ -9,6 +9,8 @@ class MultiLanguageExample extends Controller
 		[
 			'insert',
 			'select',
+			'selectAll',
+			'dataTable',
 			'update',
 			'delete',
 			'changeLang',
@@ -37,6 +39,24 @@ class MultiLanguageExample extends Controller
 		// Eklenen Kelimeyi Seçmek
 		// p1: kullanılacak kelimeyi tutan anahtar.
 		echo ML::select('turkish');	
+	}
+	
+	public function selectAll()
+	{
+		// Sadece Seçilen Dile Ait Mevcut Kelimeleri Göstermek
+		writeLine('-------------------------English Words-------------------------');
+		output( ML::selectAll('en') );
+		writeLine('-------------------------English Words-------------------------');
+		writeLine();
+		// Seçilen Dillere Ait Mevcut Kelimeleri Göstermek	
+		writeLine('------------------------Selected Words-------------------------');
+		output( ML::selectAll(['en', 'tr']) );
+		writeLine('------------------------Selected Words-------------------------');
+		writeLine();
+		// Tüm Dillere Ait Mevcut Kelimeleri Göstermek	
+		writeLine('---------------------------All Words---------------------------');		
+		output( ML::selectAll() );
+		writeLine('---------------------------All Words---------------------------');	
 	}
 	
 	public function update()
@@ -79,6 +99,14 @@ class MultiLanguageExample extends Controller
 	{
 		// Belirtilen Dile Ait Tüm Verileri Silmek
 		// p1: silinecek dil.
-		ML::deleteAll('en');	
+		ML::deleteAll('en');
+		
+		// Belirtilen Dilleri Silmek
+		// ML::deleteAll(['en', 'tr']);
+		
+		// Tüm Dil Dosyalarını Silmek
+		// ML::deleteAll();	
+		
+		
 	}
 }
