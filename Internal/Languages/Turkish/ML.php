@@ -15,3 +15,4 @@ $lang['ML']['updateButton'] 		= 'Güncelle';
 $lang['ML']['deleteButton'] 		= 'Sil';
 $lang['ML']['clearButton'] 			= 'Temizle';
 $lang['ML']['title']				= 'Çoklu Dil Veri Tablosu';
+$lang['ML']['confirmMessage']		= 'Bu işlemi yapmak istediğinizden emin misiniz?';

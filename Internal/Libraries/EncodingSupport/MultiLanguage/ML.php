@@ -428,10 +428,12 @@ class InternalML implements MLInterface
 		$placeHolders		= $config['placeHolders'];
 		$buttonNames		= $config['buttonNames'];
 		$title				= $config['title'];
+		$confirmMessage		= $config['confirmMessage'];
 		
 		$double = ' bgcolor="'.$orderColorArray['double'].'"';
 		$single = ' bgcolor="'.$orderColorArray['single'].'"';
 		
+		$confirmBox = ' onsubmit="return confirm(\''.$confirmMessage.'\');"';
 		
 		
 		$data = $this->selectAll($app);	
@@ -455,7 +457,7 @@ class InternalML implements MLInterface
 		{
 			$upperLang = strtoupper($lang);
 			
-			$table .= '<form name="ML_TOP_FORM_'.$upperLang.'" method="post">';
+			$table .= '<form name="ML_TOP_FORM_'.$upperLang.'" method="post"'.$confirmBox.'>';
 			$table .= '<td><strong>'.$upperLang.\Form::hidden('ML_ALL_DELETE_HIDDEN', $lang).\Form::attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $buttonNames['delete']).'</strong></td>';		
 			$table .= '</form>';		
 			foreach( $values as $key => $val )
@@ -491,7 +493,7 @@ class InternalML implements MLInterface
 			$orderColor = ( $index % 2 === 1 ) ? $single : $double;
 			
 			$table .= '<tr'.$orderColor .'>';
-			$table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post">';
+			$table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post"'.$confirmBox.'>';
 			$table .= '<th>'.$index++.'</th>';
 			$table .= '<td>'.\Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
 			

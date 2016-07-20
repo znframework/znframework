@@ -15,3 +15,4 @@ $lang['ML']['updateButton'] 		= 'Update';
 $lang['ML']['deleteButton'] 		= 'Delete';
 $lang['ML']['clearButton'] 			= 'Clear';
 $lang['ML']['title']				= 'Multi Language Data Table';
+$lang['ML']['confirmMessage']		= 'Are you sure you want to do this operation?';
