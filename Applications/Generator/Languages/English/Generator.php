@@ -16,3 +16,5 @@ $lang['Generator']['generateModelSuccess'] 			= '`%` model has been successfully
 $lang['Generator']['generateModelNotSuccess'] 		= '`%` model could not be generated successfully!';
 $lang['Generator']['generateMigrationSuccess'] 		= '`%` migration has been successfully generated.';
 $lang['Generator']['generateMigrationNotSuccess'] 	= '`%` migration could not be generated successfully!';
+$lang['Generator']['generateLibrarySuccess'] 		= '`%` library has been successfully generated.';
+$lang['Generator']['generateLibraryNotSuccess'] 	= '`%` library could not be generated successfully!';

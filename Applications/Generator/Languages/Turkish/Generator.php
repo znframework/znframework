@@ -16,3 +16,5 @@ $lang['Generator']['generateModelSuccess'] 			= '`%` modeli başarıyla oluştur
 $lang['Generator']['generateModelNotSuccess'] 		= '`%` modeli oluşturulamadı!';
 $lang['Generator']['generateMigrationSuccess'] 		= '`%` migrasyonu başarıyla oluşturuldu.';
 $lang['Generator']['generateMigrationNotSuccess'] 	= '`%` migrasyonu oluşturulamadı!';
+$lang['Generator']['generateLibrarySuccess'] 		= '`%` kütüphanesi başarıyla oluşturuldu.';
+$lang['Generator']['generateLibraryNotSuccess'] 	= '`%` kütüphanesi oluşturulamadı!';
