@@ -1,0 +1,84 @@
+/* CSS Document */
+#generator
+{
+	border:solid 1px #0085B2;
+	padding:20px;	
+}
+
+#generator #content
+{
+	border:solid 1px #0085B2;
+	padding:20px;	
+}
+
+#generator #title
+{
+	text-align:center;
+	font-family:Arial; 
+	font-size:24px;
+	color:#0085B2; 
+	margin-bottom:20px;
+}
+
+.link-button
+{
+	display:block; 
+	height:30px; 
+	color:#0085B2; 
+	background:none; 
+	border:solid 1px #0085B2; 
+	cursor:pointer; 
+	margin-bottom:10px; 
+	text-align:center; 
+	vertical-align:middle;
+	padding:30px 20px 20px 20px;
+	text-decoration:none;
+	font-family:Arial; 
+	font-size:16px;
+}
+
+.input
+{
+	width:100%;
+	height:40px;	
+	border:solid 1px #0085B2; 
+	font-family:Arial; 
+	font-size:16px;
+	color:#0085B2; 
+	text-indent:10px;
+}
+
+.button
+{
+	width:100%;
+	height:44px;
+	background:#0085B2;	
+	border:solid 1px #0085B2; 
+	font-family:Arial; 
+	font-size:16px;
+	color:#fff; 
+	text-indent:10px;
+	cursor:pointer;
+}
+
+.description
+{
+	width:100%;
+	font-family:Arial; 
+	font-size:14px;
+	color:#999; 
+}
+
+.mb10
+{
+ 	margin-bottom:10px;	
+}
+
+.mb20
+{
+ 	margin-bottom:20px;	
+}
+
+.error{ color: #900; }
+
+.success{ color: #690; }

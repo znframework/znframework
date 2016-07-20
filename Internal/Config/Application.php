@@ -50,8 +50,9 @@ $config['Application']['directory'] =
 	//------------------------------------------------------------------------------------------------
 	'others'  => 
 	[
-		'backend' => 'Backend',
-		'example' => 'Example'
+		'backend'   => 'Backend',
+		'example'   => 'Example',
+		'generator' => 'Generator'
 	]
 ];
 

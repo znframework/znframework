@@ -11,7 +11,7 @@ body{ font-family:Consolas, Monaco, monospace; font-size:14px; }
 <body>
 	<p><h4>Examples(Örnekler)</h4></p>
     <?php foreach( $examples as $key => $example ): ?>
-    	<?php echo Html::parag(Html::bold($key + 1).' - '.Html::target('self')->anchor('example/'.$example, $example)); ?>
+    	<?php echo Html::parag(Html::bold($key + 1).' - '.Html::target('_blank')->anchor('example/'.$example, $example)); ?>
     <?php endforeach; ?>
 	
 </body>
