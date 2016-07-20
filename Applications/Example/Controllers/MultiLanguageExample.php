@@ -10,7 +10,6 @@ class MultiLanguageExample extends Controller
 			'insert',
 			'select',
 			'selectAll',
-			'dataTable',
 			'update',
 			'delete',
 			'changeLang',
