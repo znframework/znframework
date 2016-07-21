@@ -955,7 +955,9 @@ function _routeUri($requestUri = '')
 		
 		if( defined('URIAPPDIR') )
 		{
-			$configAppdir = Config::get('Application', 'directory')['others'];
+			global $application;
+			
+			$configAppdir = $application['directory']['others'];
 			
 			if( is_array($configAppdir) )
 			{

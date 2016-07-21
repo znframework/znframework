@@ -515,7 +515,9 @@ class InternalML implements MLInterface
 		{
 			if( defined('URIAPPDIR') )
 			{
-				$othersConfig = \Config::get('Application', 'directory')['others'];
+				global $application;
+			
+				$othersConfig = $application['directory']['others'];
 				
 				if( ! empty($othersConfig[\URI::segment(1)]) )
 				{
