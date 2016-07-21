@@ -126,7 +126,7 @@ define('RESDIR', suffix(RESTORATIONS_DIR.$appdir));
 
 if( ! is_dir(APPDIR) )
 {
-	exit('"'.$appdir.'" Application Directory Not Found!');
+	trace('["'.$appdir.'"] Application Directory Not Found!');
 }
 
 //----------------------------------------------------------------------------------------------------

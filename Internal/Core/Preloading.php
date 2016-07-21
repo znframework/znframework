@@ -19,7 +19,7 @@
 //----------------------------------------------------------------------------------------------------
 if( ! isPhpVersion('5.6.0') )
 {	
-	trace('Invalid PHP Version! Required PHP version <font color="#990000">`5.6.0`</font> and should be over!');
+	trace('Invalid PHP Version! Required PHP version ["5.6.0"] and should be over!');
 }
 //-----------------------------------------------------------------------------------------------------
 
@@ -1210,7 +1210,7 @@ function internalApplicationMode($mode)
 		//--------------------------------------------------------------------------------------------
 		// Farklı bir kullanım hatası
 		//--------------------------------------------------------------------------------------------
-		default: trace('Invalid Application Mode! Available Options: development, restoration or publication');
+		default: trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
 		//--------------------------------------------------------------------------------------------
 	}	
 	//------------------------------------------------------------------------------------------------	
@@ -1236,6 +1236,8 @@ function trace($message = '', $keys = [])
 		text-align:left;
 		font-size:14px;
 	';
+	
+	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
 	
 	$str  = "<div style=\"$style\">";
 	$str .= $message;
