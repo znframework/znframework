@@ -565,12 +565,10 @@ class InternalML implements MLInterface
 			if( defined('URIAPPDIR') )
 			{
 				global $application;
-			
-				$othersConfig = $application['directory']['others'];
-				
-				if( ! empty($othersConfig[\URI::segment(1)]) )
+		
+				if( defined('CURRENT_URIAPPDIR') )
 				{
-					$preUrl = \URI::segment(1);
+					$preUrl = CURRENT_URIAPPDIR;
 				}
 				else
 				{

@@ -104,7 +104,13 @@ if( is_array($appdir) && ! empty($appdir[host()]) )
 }
 elseif( defined('URIAPPDIR') )
 {
+	$flip   = array_flip($appdir);
 	$appdir = URIAPPDIR;
+			
+	if( ! empty($flip[URIAPPDIR]) )
+	{
+		define('CURRENT_URIAPPDIR', $flip[URIAPPDIR]);
+	}
 }
 elseif( is_array($appdir) )
 {
