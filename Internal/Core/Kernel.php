@@ -109,7 +109,7 @@ if( ! empty($startController) )
 	// Tek Kontrolcü
 	if( is_string($startController) )
 	{
-		_startingContoller($startController);	
+		internalStartingContoller($startController);	
 	}
 	elseif( is_array($startController) )
 	{
@@ -119,12 +119,12 @@ if( ! empty($startController) )
 			if( is_numeric($key) )
 			{
 				// Parametresiz
-				_startingContoller($val);	
+				internalStartingContoller($val);	
 			}	
 			else
 			{
 				// Parametreli
-				_startingContoller($key, $val);	
+				internalStartingContoller($key, $val);	
 			}
 		}	
 	}

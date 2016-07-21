@@ -466,11 +466,11 @@ class InternalImport implements ImportInterface
 	{
 		$header = '';
 		
-		if( empty($masterPageSet[$type]) )
+		if( empty($masterPageSet[$type]) && empty($head[$type]) )
 		{
 			return false;	
 		}
-		
+	
 		$params = $masterPageSet[$type];
 		
 		if( ! is_array($params) )
@@ -497,7 +497,7 @@ class InternalImport implements ImportInterface
 				$headLinks = $head[$type];
 			}
 						
-			$header .= $this->$type($headLinks);
+			$header .= $this->$type(...$headLinks);
 		}
 		
 		return $header;

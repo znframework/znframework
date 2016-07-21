@@ -189,12 +189,12 @@ class MemcacheDriver implements CacheInterface
 		
 		list($data, $time, $expire) = $stored;
 		
-		return array
-		(
+		return 
+		[
 			'expire' => $time + $expire,
 			'mtime'	 => $time,
 			'data'	 => $data
-		);
+		];
 	}
 	
 	/******************************************************************************************

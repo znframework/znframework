@@ -45,13 +45,21 @@ class FileDriver implements CacheInterface
 	| Örnek Kullanım: ->get('nesne');			        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function select($key = '')
+	public function select($key = '', $compressed = false)
 	{
 		$data = $this->_select($key);
+		
+		if( ! empty($data['data']) )
+		{
+			if( $compressed !== false )
+			{
+				$data['data'] = \Compress::driver($compressed)->uncompress($data['data']);
+			}
+			
+			return $data['data'];
+		}
 
-		return ( is_array($data) ) 
-			   ? $data['data'] 
-			   : false;
+		return false;
 	}
 	
 	/******************************************************************************************
@@ -70,6 +78,11 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	public function insert($key = '', $var = '', $time = 60, $compressed = false)
 	{
+		if( $compressed !== false )
+		{
+			$var = \Compress::driver($compressed)->compress($var);
+		}
+		
 		$datas = array
 		(
 			'time'	=> time(),
@@ -191,8 +204,19 @@ class FileDriver implements CacheInterface
 	******************************************************************************************/
 	public function info($type = NULL)
 	{
-		return \Folder::fileInfo($this->path);
- 	}
+		$info = \Folder::fileInfo($this->path);
+ 	
+		if( $type === NULL )
+		{
+			return $info;	
+		}
+		elseif( ! empty($info[$type]) )
+		{
+			return $info[$type];
+		}
+		
+		return false;
+	}
 	
 	/******************************************************************************************
 	* GET METADATA                                                                            *
@@ -223,11 +247,11 @@ class FileDriver implements CacheInterface
 				return false;
 			}
 			
-			return array
-			(
+			return 
+			[
 				'expire' => $mtime + $data['ttl'],
 				'mtime'	 => $mtime
-			);
+			];
 		}
 		
 		return false;
