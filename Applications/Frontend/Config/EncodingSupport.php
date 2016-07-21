@@ -55,7 +55,8 @@ $config['EncodingSupport']['ml'] =
 			'add'    		=> lang('ML', 'addButton'),
 			'update'   		=> lang('ML', 'updateButton'),
 			'delete'   		=> lang('ML', 'deleteButton'),
-			'clear'   		=> lang('ML', 'clearButton')
+			'clear'   		=> lang('ML', 'clearButton'),
+			'search'		=> lang('ML', 'searchButton')
 		],
 		
 		//--------------------------------------------------------------------------------------------
@@ -69,7 +70,8 @@ $config['EncodingSupport']['ml'] =
 		'placeHolders' =>
 		[
 			'keyword'     => lang('ML', 'keywordPlaceHolder'),
-			'addLanguage' => lang('ML', 'addLanguagePlaceHolder')
+			'addLanguage' => lang('ML', 'addLanguagePlaceHolder'),
+			'search'	  => lang('ML', 'searchPlaceHolder')
 		],
 		
 		//--------------------------------------------------------------------------------------------
@@ -83,7 +85,6 @@ $config['EncodingSupport']['ml'] =
 		'attributes' 	=> 
 		[
 			'table'  		=> ['width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'],
-			'search' 		=> ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
 			'add'	 		=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
 			'update'	 	=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
 			'delete'	 	=> ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],

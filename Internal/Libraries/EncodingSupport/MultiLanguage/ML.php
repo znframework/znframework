@@ -370,11 +370,18 @@ class InternalML implements MLInterface
 	//----------------------------------------------------------------------------------------------------
 	public function table($app = NULL)
 	{
+		$searchWord = '';
 		if( \Method::post() )
 		{
 			$keyword   = \Method::post('ML_UPDATE_KEYWORD_HIDDEN');
 			$languages = explode(',', \Method::post('ML_LANGUAGES'));
 			$words     = \Method::post('ML_UPDATE_WORDS');
+			
+			// SEARCH
+			if( \Method::post('ML_SEARCH_SUBMIT') )
+			{
+				$searchWord = \Method::post('ML_SEARCH');	
+			}
 			
 			// ADD LANGUAGE
 			if( \Method::post('ML_ADD_ALL_LANGUAGE_SUBMIT') )
@@ -444,9 +451,16 @@ class InternalML implements MLInterface
 		$table  = '<table'.\Html::attributes($attributes['table']).'>';
 		$table .= '<thead>';
 		$table .= '<tr'.$single.'><th colspan="'.($languageCount + 4).'">'.$title.'</th></tr>';
-		$table .= '<form name="ML_ADD_LANGUAGE_FORM" method="post">';
-		$table .= '<tr'.$double.'><th>L</th><td colspan="'.($languageCount + 3).'">'.\Form::attr($attributes['textbox'])->placeholder($placeHolders['addLanguage'])->text('ML_ADD_LANGUAGE').\Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td></tr>';
-		$table .= '</form>';	
+		$table .= '<tr'.$double.'><th>S/L</th>';
+		$table .= '<td colspan="'.($languageCount + 3).'">';
+		$table .= '<form name="ML_SEARCH_ADD_LANGUAGE_FORM" method="post">';
+		$table .= \Form::attr($attributes['textbox'])->placeholder($placeHolders['search'])->text('ML_SEARCH');
+		$table .= \Form::attr($attributes['add'])->submit('ML_SEARCH_SUBMIT', $buttonNames['search']);
+		$table .= \Form::attr($attributes['textbox'])->placeholder($placeHolders['addLanguage'])->text('ML_ADD_LANGUAGE');
+		$table .= \Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td>';
+		$table .= '</form>';
+		$table .= '</tr>';
+			
 		$table .= '<tr'.$single.'><th>#</th><td><strong>'.$keywords.'</strong></td>';
 		
 		$words = [];
@@ -487,8 +501,43 @@ class InternalML implements MLInterface
 		$start     = (int) \URI::segment(-1);
 		$totalRows = count($words);
 		$index     = 1;
-	
-		$words = array_slice($words, $start, $limit);
+		
+		if( ! empty($searchWord) )
+		{
+			$newWords = [];
+			
+			foreach( $words as $key => $val )
+			{	
+				if( stristr($key, $searchWord) )
+				{
+					$newWords[$key] = $val;
+				}	
+				else
+				{
+					$newValues = [];
+				
+					foreach( $val as $v )
+					{
+						if( stristr($v, $searchWord) )
+						{
+							$newValues[] = $v;
+						}	
+					}
+					
+					if( ! empty($newValues) )
+					{
+						$newWords[$key] = $newValues;	
+					}		
+				}
+			}	
+			
+			$words = $newWords;
+		}
+		
+		if( empty($searchWord) )
+		{
+			$words = array_slice($words, $start, $limit);
+		}
 		
 		foreach( $words as $key => $val )
 		{
@@ -540,13 +589,20 @@ class InternalML implements MLInterface
 			$paginationUrl = $this->url;	
 		}
 		
-		$pagination = \Pagination::style($pagcon['style'])
-							     ->css($pagcon['class'])
-		                         ->start($start)
-		                         ->totalRows($totalRows)
-								 ->limit($limit)
-								 ->url($paginationUrl)
-								 ->create();
+		if( empty($searchWord) )
+		{
+			$pagination = \Pagination::style($pagcon['style'])
+									 ->css($pagcon['class'])
+									 ->start($start)
+									 ->totalRows($totalRows)
+									 ->limit($limit)
+									 ->url($paginationUrl)
+									 ->create();
+		}
+		else
+		{
+			$pagination = '';	
+		}
 		
 		if( ! empty($pagination) && ! empty($totalRows) )
 		{
