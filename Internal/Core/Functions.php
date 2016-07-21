@@ -10,19 +10,6 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------
-// Invalid PHP Version
-//----------------------------------------------------------------------------------------------------
-//
-// Versiyon Kontrolü Yapılıyor.
-//
-//----------------------------------------------------------------------------------------------------
-if( ! isPhpVersion('5.6.0') )
-{	
-	die(getErrorMessage('Error', 'invalidPHPVersion', '5.6.0'));
-}
-//-----------------------------------------------------------------------------------------------------
-
 //----------------------------------SYSTEM AND USER FUNCTIONS START-----------------------------------
 
 //----------------------------------------------------------------------------------------------------
@@ -217,7 +204,7 @@ function currentLang()
 //----------------------------------------------------------------------------------------------------
 function currentUrl($fix = '')
 {
-	$currentUrl = sslStatus().host()._cleanInjection($_SERVER['REQUEST_URI']);
+	$currentUrl = sslStatus().host().internalCleanInjection($_SERVER['REQUEST_URI']);
 
 	if( ! empty($fix) )
 	{
@@ -270,7 +257,7 @@ function siteUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang())._cleanInjection($uri);
+	return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).internalCleanInjection($uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -315,7 +302,7 @@ function baseUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.restorationPath(_cleanInjection($uri));
+	return sslStatus().$host.$newBaseDir.restorationPath(internalCleanInjection($uri));
 }	
 	
 //----------------------------------------------------------------------------------------------------
@@ -342,7 +329,7 @@ function prevUrl()
 		$str   = str_replace($strEx[0]."/", "", $str);	
 	}
 	
-	return siteUrl(_cleanInjection($str));	
+	return siteUrl(internalCleanInjection($str));	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -361,7 +348,7 @@ function hostUrl($uri = "")
 		return false;
 	}
 	
-	return sslStatus().suffix(host())._cleanInjection($uri);
+	return sslStatus().suffix(host()).internalCleanInjection($uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -446,7 +433,7 @@ function basePath($uri = '', $index = 0)
 		}
 	}
 	
-	return _cleanInjection($newBaseDir.$uri);
+	return internalCleanInjection($newBaseDir.$uri);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -891,14 +878,14 @@ function currentUri()
 }
 
 //----------------------------------------------------------------------------------------------------
-// _requestUri()
+// internalRequestURI()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _requestUri()
+function internalRequestURI()
 {
 	$requestUri = currentUri()
 	            ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
@@ -909,25 +896,25 @@ function _requestUri()
 			$requestUri = substr($requestUri, 0, -1);
 	}
 	
-	$requestUri	= _cleanInjection(_routeUri($requestUri));
-	$requestUri = _cleanURIPrefix($requestUri, currentLang());
+	$requestUri	= internalCleanInjection(internalRouteURI($requestUri));
+	$requestUri = internalCleanURIPrefix($requestUri, currentLang());
 	
 	if( defined('URIAPPDIR') )
 	{
-		$requestUri = _cleanURIPrefix($requestUri, URIAPPDIR);
+		$requestUri = internalCleanURIPrefix($requestUri, URIAPPDIR);
 	}
 	
 	return $requestUri;
 }
 
 //----------------------------------------------------------------------------------------------------
-// _cleanURIPrefix()
+// internalCleanURIPrefix()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _cleanURIPrefix($uri, $cleanData)
+function internalCleanURIPrefix($uri, $cleanData)
 {
 	$suffixData = suffix($cleanData);
 
@@ -940,14 +927,14 @@ function _cleanURIPrefix($uri, $cleanData)
 }
 
 //----------------------------------------------------------------------------------------------------
-// _routeUri()
+// internalRouteURI()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _routeUri($requestUri = '')
+function internalRouteURI($requestUri = '')
 {
 	if( Config::get('Route','openPage') )
 	{
@@ -1001,14 +988,14 @@ function _routeUri($requestUri = '')
 }
 
 //----------------------------------------------------------------------------------------------------
-// _cleanInjection()
+// internalCleanInjection()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _cleanInjection($string = "")
+function internalCleanInjection($string = "")
 {
 	$urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
 
@@ -1022,14 +1009,14 @@ function _cleanInjection($string = "")
 }
 
 //----------------------------------------------------------------------------------------------------
-// _createRobotsFile()
+// internalCreateRobotsFile()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _createRobotsFile()
+function internalCreateRobotsFile()
 {	
 	$rules = Config::get('Robots', 'rules');
 	
@@ -1100,14 +1087,14 @@ function _createRobotsFile()
 }
 
 //----------------------------------------------------------------------------------------------------
-// _createHtaccessFile()
+// internalCreateHtaccessFile()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _createHtaccessFile()
+function internalCreateHtaccessFile()
 {	
 	// Cache.php ayar dosyasından ayarlar çekiliyor.
 	$htaccessSettings = Config::get('Htaccess');
@@ -1365,14 +1352,14 @@ function _createHtaccessFile()
 }
 
 //----------------------------------------------------------------------------------------------------
-// _startingContoller()
+// internalStartingContoller()
 //----------------------------------------------------------------------------------------------------
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function _startingContoller($startController = '', $param = [])
+function internalStartingContoller($startController = '', $param = [])
 {
 	$controllerEx = explode(':', $startController);
 		

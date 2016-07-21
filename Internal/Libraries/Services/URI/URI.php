@@ -138,7 +138,7 @@ class InternalURI implements URIInterface
 	// Uri işlemleri için oluşturulmuştur.
 	protected function _cleanPath()
 	{
-		$pathInfo = \Security::htmlEncode(_requestUri());
+		$pathInfo = \Security::htmlEncode(internalRequestURI());
 	
 		return $pathInfo;
 	}
