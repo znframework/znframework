@@ -1226,16 +1226,16 @@ function internalApplicationMode($mode)
 //----------------------------------------------------------------------------------------------------
 function trace($message = '', $keys = [])
 {
-	$style = '
-		border:solid 1px #E1E4E5;
-		background:#FEFEFE;
-		padding:10px;
-		margin-bottom:10px;
-		font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;
-		color:#666;
-		text-align:left;
-		font-size:14px;
-	';
+	$style  = 'border:solid 1px #E1E4E5;';
+	$style .= 'background:#FEFEFE;';
+	$style .= 'padding:10px;';
+	$style .= 'margin-bottom:10px;';
+	$style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+	$style .= 'color:#666;';
+	$style .= 'text-align:left;';
+	$style .= 'font-size:14px;';
+	
+	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
 	
 	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
 	
