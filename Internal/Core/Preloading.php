@@ -1237,8 +1237,6 @@ function trace($message = '', $keys = [])
 	
 	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
 	
-	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
-	
 	$str  = "<div style=\"$style\">";
 	$str .= $message;
 	$str .= '</div>';
