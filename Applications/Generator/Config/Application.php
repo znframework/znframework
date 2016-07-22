@@ -18,5 +18,5 @@ $config['Application'] =
 	// Uygulama modu belirtilir. Kullanılabilir modlar: publication, restoration, development				     			 	  		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'mode' => 'Development',
+	'mode' => 'Publication',
 ];
