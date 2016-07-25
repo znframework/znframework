@@ -3,6 +3,8 @@ class ControllerGenerator extends Controller
 {	
     public function main($params = '')
     {	
+		$types = ['' => 'Normal', 'internal' => 'Internal'];
+		
 		$applicationFolders = Folder::files(APPLICATIONS_DIR, 'dir');
 	
 		$applications[] 	= 'Select Application';
@@ -19,10 +21,9 @@ class ControllerGenerator extends Controller
 		{
 			$application = Method::post('application');
 			$controller  = Method::post('controller');
-			$functions    = explode(',', Method::post('functions'));
+			$functions   = explode(',', Method::post('functions'));
 			
 			Validation::rules('controller', ['required', 'alnum'], 'Controller');
-			Validation::rules('functions', ['required'], 'Functions');
 			
 			if( ! $error = Validation::error('string') )
 			{
@@ -60,7 +61,8 @@ class ControllerGenerator extends Controller
 				[
 					'applications' 	=> $applications,
 					'success'		=> $success,
-					'error'			=> $error
+					'error'			=> $error,
+					'types'			=> $types
 				]
 			],
 			

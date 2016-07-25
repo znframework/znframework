@@ -5,6 +5,9 @@
     <div id="content">
         <div class="mb10 description">Kütüphanenin oluşturulacağı uygulamayı seçin.</div>
         <div class="mb20"><?php echo Form::addClass('input')->select('application', $applications, Validation::postBack('application')); ?></div>
+		
+		<div class="mb10 description">Sınıfın türünü seçin. Örnek: Internal</div>
+        <div class="mb20"><?php echo Form::addClass('input')->select('types', $types, Validation::postBack('types')); ?></div>
         
         <div class="mb10 description">Kütüphane ismini belirleyin. <strong>Örnek: TestController</strong></div>
         <div class="mb20"><?php echo Form::placeholder('Library')->addClass('input')->text('library', Validation::postBack('library')); ?></div>

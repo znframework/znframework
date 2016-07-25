@@ -5,9 +5,15 @@
     <div id="content">
         <div class="mb10 description">Modelin oluşturulacağı uygulamayı seçin.</div>
         <div class="mb20"><?php echo Form::addClass('input')->select('application', $applications, Validation::postBack('application')); ?></div>
+		
+		<div class="mb10 description">Sınıfın türünü seçin. Örnek: Internal</div>
+        <div class="mb20"><?php echo Form::addClass('input')->select('types', $types, Validation::postBack('types')); ?></div>
         
         <div class="mb10 description">Model ismini belirleyin. <strong>Örnek: TestController</strong></div>
         <div class="mb20"><?php echo Form::placeholder('Model')->addClass('input')->text('model', Validation::postBack('model')); ?></div>
+		
+		<div class="mb10 description">Model genişletmesi ekleyin. <strong>Örnek: Model</strong></div>
+        <div class="mb20"><?php echo Form::addClass('input')->select('extends', $extends, Validation::postBack('extends')); ?></div>
         
         <div class="mb10 description">Modelde yer alacak fonksiyonlar belirlenir. Birden fazla fonksiyon oluşturulacaksa aralarına <strong>virgül(,)</strong> koyarak yazın.<br>
         <strong>Örnek: main,example</strong></div>

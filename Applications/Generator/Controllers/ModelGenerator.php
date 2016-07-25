@@ -2,7 +2,11 @@
 class ModelGenerator extends Controller
 {	
     public function main($params = '')
-    {		
+    {	
+		$extendsInput = ['Model' => 'Model', 'Grand' => 'Grand'];
+		
+		$types = ['' => 'Normal', 'Internal' => 'Internal'];
+		
 		$applicationFolders = Folder::files(APPLICATIONS_DIR, 'dir');
 	
 		$applications[] 	= 'Select Application';
@@ -18,11 +22,11 @@ class ModelGenerator extends Controller
 		if( Method::post('generate') )
 		{
 			$application  = Method::post('application');
-			$model		  = Method::post('model');
+			$model		  = Method::post('types').Method::post('model');
+			$extends	  = Method::post('extends');
 			$functions    = explode(',', Method::post('functions'));
 			
 			Validation::rules('model', ['required', 'alnum'], 'Model');
-			Validation::rules('functions', ['required'], 'Functions');
 			
 			if( ! $error = Validation::error('string') )
 			{
@@ -33,6 +37,7 @@ class ModelGenerator extends Controller
 					$classContent = Import::template('Model', 
 					[
 						'class'     => $model,
+						'extends'   => $extends,
 						'functions' => $functions
 					], true);
 				
@@ -59,8 +64,10 @@ class ModelGenerator extends Controller
 				'data' => 
 				[
 					'applications' 	=> $applications,
+					'extends'		=> $extendsInput,
 					'success'		=> $success,
-					'error'			=> $error
+					'error'			=> $error,
+					'types'			=> $types
 				]
 			],
 			

@@ -3,6 +3,8 @@ class LibraryGenerator extends Controller
 {	
     public function main($params = '')
     {		
+		$types = ['' => 'Normal', 'Internal' => 'Internal'];
+		
 		$applicationFolders = Folder::files(APPLICATIONS_DIR, 'dir');
 	
 		$applications[] 	= 'Select Application';
@@ -18,13 +20,10 @@ class LibraryGenerator extends Controller
 		if( Method::post('generate') )
 		{
 			$application  = Method::post('application');
-			$library	  = Method::post('library');
+			$library	  = Method::post('types').Method::post('library');
 			$functions    = explode(',', Method::post('functions'));
 			
 			Validation::rules('library', ['required', 'alnum'], 'Library');
-			Validation::rules('functions', ['required'], 'Functions');
-			
-	
 			
 			if( ! $error = Validation::error('string') )
 			{
@@ -62,7 +61,8 @@ class LibraryGenerator extends Controller
 				[
 					'applications' 	=> $applications,
 					'success'		=> $success,
-					'error'			=> $error
+					'error'			=> $error,
+					'types'			=> $types
 				]
 			],
 			

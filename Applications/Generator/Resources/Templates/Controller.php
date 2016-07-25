@@ -6,12 +6,15 @@ $controller  = "<?php".$eol;
 $controller .= "class {$class} extends Controller".$eol;
 $controller .= "{".$eol;
 
-foreach( $functions as $function )
+if( ! empty($functions) ) foreach( $functions as $function )
 {
-	$controller .= $ht."public function {$function}()".$eol;
-	$controller .= $ht."{".$eol;
-	$controller .= $ht.$ht."// Your codes...".$eol;
-	$controller .= $ht."}".$eol.$eol;
+	if( ! empty($function) )
+	{
+		$controller .= $ht."public function {$function}()".$eol;
+		$controller .= $ht."{".$eol;
+		$controller .= $ht.$ht."// Your codes...".$eol;
+		$controller .= $ht."}".$eol.$eol;
+	}
 }
 
 $controller  = rtrim($controller, $eol);
