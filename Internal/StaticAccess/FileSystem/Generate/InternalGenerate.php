@@ -5,8 +5,6 @@
 
 class Generate extends ZN\Foundations\StaticAccess
 {
-	const table = '';
-
 	public static function getClassName()
 	{
 		return __CLASS__;
