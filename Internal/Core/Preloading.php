@@ -72,7 +72,7 @@ $othersapp = $application['directory']['others'];
 
 if( is_array($othersapp) )
 {
-	$internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : '';
+	$internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
 }
 
 if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )

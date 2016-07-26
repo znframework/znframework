@@ -719,4 +719,12 @@ $config['ClassMap']['namespaces']['zn\viewobjects\templatewizardinterface'] = 't
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalxml';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
 
+//----------------------------------------------------------------------------------------------------$config['ClassMap']['classes']['zn\filesystem\internalgenerate'] = 'Internal/Libraries/FileSystem/Generate/Generate.php';
+$config['ClassMap']['classes']['generate'] = 'Internal/StaticAccess/FileSystem/Generate/InternalGenerate.php';
+$config['ClassMap']['classes']['zn\filesystem\generateinterface'] = 'Internal/Libraries/FileSystem/Generate/GenerateInterface.php';
+$config['ClassMap']['classes']['zn\filesystem\generatepropertiestrait'] = 'Internal/Libraries/FileSystem/Generate/GeneratePropertiesTrait.php';
+$config['ClassMap']['namespaces']['zn\filesystem\internalgenerate'] = 'internalgenerate';
+$config['ClassMap']['namespaces']['zn\filesystem\generateinterface'] = 'generateinterface';
+$config['ClassMap']['namespaces']['zn\filesystem\generatepropertiestrait'] = 'generatepropertiestrait';
+
 //----------------------------------------------------------------------------------------------------
