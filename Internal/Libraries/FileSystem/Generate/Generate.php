@@ -37,10 +37,12 @@ class InternalGenerate implements GenerateInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Model
+	// Protected Object
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $name: empty
+	// @param string $name    : empty
+	// @param string $type    : empty
+	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected function _object($name, $type, $settings)
@@ -57,7 +59,8 @@ class InternalGenerate implements GenerateInterface
 	// Model
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $name: empty
+	// @param string $name    : empty
+	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function model($name = '', $settings = [])
@@ -70,6 +73,7 @@ class InternalGenerate implements GenerateInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param string $name: empty
+	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function controller($name = '', $settings = [])
@@ -82,6 +86,7 @@ class InternalGenerate implements GenerateInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param string $name: empty
+	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function library($name = '', $settings = [])
@@ -95,10 +100,16 @@ class InternalGenerate implements GenerateInterface
 	// 
 	// @param string $name: empty
 	// @param string $type: 'controller', 'model', 'library'
+	// @param string $app : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name = '', $type = 'controller')
+	public function delete($name = '', $type = 'controller', $app = '')
 	{
+		if( ! empty($app) )
+		{
+			$this->settings['application'] = $app;
+		}
+		
 		$file = $this->_path($name, $type);
 		
 		if( is_file($file) )
