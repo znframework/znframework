@@ -159,16 +159,19 @@ class InternalGenerate implements GenerateInterface
 		
 		$controller  = "<?php".$eol;
 		
+		// Object Data
 		if( empty( $this->settings['object']) )
 		{
 			$this->settings['object'] = 'class';
 		}
 		
+		// Namespace Data
 		if( ! empty($this->settings['namespace']) )
 		{
 			$controller .= "namespace ".$this->settings['namespace'].";".$eol.$eol;
 		}
 		
+		// Use Data
 		if( ! empty($this->settings['use']) )
 		{
 			foreach( $this->settings['use'] as $key => $use )
@@ -188,11 +191,13 @@ class InternalGenerate implements GenerateInterface
 		
 		$controller .= $this->settings['object']." ".$name;
 		
+		// Extends Data
 		if( ! empty($this->settings['extends']) )
 		{
 			$controller .= " extends ".$this->settings['extends'];
 		}
 		
+		// Implements Data
 		if( ! empty($this->settings['implements']) )
 		{
 			$controller .= " implements ".( is_array($this->settings['implements']) 
@@ -204,6 +209,7 @@ class InternalGenerate implements GenerateInterface
 		$controller .= ";".$eol;
 		$controller .= "{".$eol;
 		
+		// Traits Data
 		if( ! empty($this->settings['traits']) )
 		{
 			if( is_array($this->settings['traits']) ) foreach( $this->settings['traits'] as $trait )
@@ -218,6 +224,7 @@ class InternalGenerate implements GenerateInterface
 			$controller .= $eol;
 		}
 		
+		// Constants Data
 		if( ! empty($this->settings['constants']) )
 		{
 			foreach( $this->settings['constants'] as $key => $val )
@@ -228,6 +235,7 @@ class InternalGenerate implements GenerateInterface
 			$controller .= $eol;
 		}
 		
+		// Vars Data
 		if( ! empty($this->settings['vars']) )
 		{
 			$var = '';
@@ -246,6 +254,7 @@ class InternalGenerate implements GenerateInterface
 			$controller .= $eol;
 		}
 		
+		// Functions Data
 		if( ! empty($this->settings['functions']) ) foreach( $this->settings['functions'] as $isKey => $function )
 		{
 			if( ! empty($function) )
@@ -301,16 +310,16 @@ class InternalGenerate implements GenerateInterface
 		{
 			if( \File::write($file, $controller) )
 			{
-				return $this->success = getErrorMessage('Generate', 'success', $name);	
+				return $this->success = lang('Generate', 'success', $name);	
 			}	
 			else
 			{
-				return ! $this->error = getErrorMessage('Generate', 'notSuccess', $name);
+				return ! $this->error = lang('Generate', 'notSuccess', $name);
 			}
 		}	
 		else
 		{
-			return ! $this->error = getErrorMessage('File', 'alreadyFileError', $name);	
+			return ! $this->error = lang('File', 'alreadyFileError', $name);	
 		}
 	}
 	
