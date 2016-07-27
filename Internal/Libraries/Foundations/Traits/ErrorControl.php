@@ -87,11 +87,7 @@ trait ErrorControlTrait
 		{
 			return $this->success();
 		}
-		else 
-		{
-			return $this->error();
-		}
-		
-		return false;
+
+		return $this->error();
 	}
 }
