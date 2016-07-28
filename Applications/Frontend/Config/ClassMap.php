@@ -166,6 +166,8 @@ $config['ClassMap']['classes']['zn\database\drivers\sybase\traits\tooltrait'] = 
 $config['ClassMap']['classes']['zn\database\drivers\sybase\traits\usertrait'] = 'Internal/Libraries/Database/Drivers/Sybase/Traits/UserTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\traits\databasedrivertrait'] = 'Internal/Libraries/Database/Drivers/Traits/DriverTrait.php';
 $config['ClassMap']['classes']['zn\database\drivers\traits\usertrait'] = 'Internal/Libraries/Database/Drivers/Traits/DriverUserTrait.php';
+$config['ClassMap']['classes']['zn\database\grand'] = 'Internal/Libraries/Database/Grand/Grand.php';
+$config['ClassMap']['classes']['zn\database\grandinterface'] = 'Internal/Libraries/Database/Grand/GrandInterface.php';
 $config['ClassMap']['classes']['zn\database\internalmigration'] = 'Internal/Libraries/Database/Migration/Migration.php';
 $config['ClassMap']['classes']['migration'] = 'Internal/StaticAccess/Database/Migration/InternalMigration.php';
 $config['ClassMap']['classes']['zn\database\migrationinterface'] = 'Internal/Libraries/Database/Migration/MigrationInterface.php';
@@ -187,6 +189,7 @@ $config['ClassMap']['classes']['zn\encodingsupport\mbinterface'] = 'Internal/Lib
 $config['ClassMap']['classes']['zn\encodingsupport\internalml'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/ML.php';
 $config['ClassMap']['classes']['ml'] = 'Internal/StaticAccess/EncodingSupport/MultiLanguage/InternalML.php';
 $config['ClassMap']['classes']['zn\encodingsupport\mlinterface'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLInterface.php';
+$config['ClassMap']['classes']['zn\encodingsupport\mlpropertiestrait'] = 'Internal/Libraries/EncodingSupport/MultiLanguage/MLPropertiesTrait.php';
 $config['ClassMap']['classes']['zn\errorhandling\internalerrors'] = 'Internal/Libraries/ErrorHandling/Errors/Errors.php';
 $config['ClassMap']['classes']['errors'] = 'Internal/StaticAccess/ErrorHandling/Errors/InternalErrors.php';
 $config['ClassMap']['classes']['zn\errorhandling\errorsinterface'] = 'Internal/Libraries/ErrorHandling/Errors/ErrorsInterface.php';
@@ -205,6 +208,9 @@ $config['ClassMap']['classes']['zn\filesystem\fileinterface'] = 'Internal/Librar
 $config['ClassMap']['classes']['zn\filesystem\internalfolder'] = 'Internal/Libraries/FileSystem/Folder/Folder.php';
 $config['ClassMap']['classes']['folder'] = 'Internal/StaticAccess/FileSystem/Folder/InternalFolder.php';
 $config['ClassMap']['classes']['zn\filesystem\folderinterface'] = 'Internal/Libraries/FileSystem/Folder/FolderInterface.php';
+$config['ClassMap']['classes']['zn\filesystem\internalgenerate'] = 'Internal/Libraries/FileSystem/Generate/Generate.php';
+$config['ClassMap']['classes']['generate'] = 'Internal/StaticAccess/FileSystem/Generate/InternalGenerate.php';
+$config['ClassMap']['classes']['zn\filesystem\generateinterface'] = 'Internal/Libraries/FileSystem/Generate/GenerateInterface.php';
 $config['ClassMap']['classes']['zn\filesystem\internalrecord'] = 'Internal/Libraries/FileSystem/Record/Record.php';
 $config['ClassMap']['classes']['record'] = 'Internal/StaticAccess/FileSystem/Record/InternalRecord.php';
 $config['ClassMap']['classes']['zn\filesystem\recordinterface'] = 'Internal/Libraries/FileSystem/Record/RecordInterface.php';
@@ -546,6 +552,8 @@ $config['ClassMap']['namespaces']['zn\database\drivers\sybase\traits\tooltrait']
 $config['ClassMap']['namespaces']['zn\database\drivers\sybase\traits\usertrait'] = 'usertrait';
 $config['ClassMap']['namespaces']['zn\database\drivers\traits\databasedrivertrait'] = 'databasedrivertrait';
 $config['ClassMap']['namespaces']['zn\database\drivers\traits\usertrait'] = 'usertrait';
+$config['ClassMap']['namespaces']['zn\database\grand'] = 'grand';
+$config['ClassMap']['namespaces']['zn\database\grandinterface'] = 'grandinterface';
 $config['ClassMap']['namespaces']['zn\database\internalmigration'] = 'internalmigration';
 $config['ClassMap']['namespaces']['zn\database\migrationinterface'] = 'migrationinterface';
 $config['ClassMap']['namespaces']['zn\datetime\internaldate'] = 'internaldate';
@@ -560,6 +568,7 @@ $config['ClassMap']['namespaces']['zn\encodingsupport\internalmb'] = 'internalmb
 $config['ClassMap']['namespaces']['zn\encodingsupport\mbinterface'] = 'mbinterface';
 $config['ClassMap']['namespaces']['zn\encodingsupport\internalml'] = 'internalml';
 $config['ClassMap']['namespaces']['zn\encodingsupport\mlinterface'] = 'mlinterface';
+$config['ClassMap']['namespaces']['zn\encodingsupport\mlpropertiestrait'] = 'mlpropertiestrait';
 $config['ClassMap']['namespaces']['zn\errorhandling\internalerrors'] = 'internalerrors';
 $config['ClassMap']['namespaces']['zn\errorhandling\errorsinterface'] = 'errorsinterface';
 $config['ClassMap']['namespaces']['zn\errorhandling\internalexceptions'] = 'internalexceptions';
@@ -572,6 +581,8 @@ $config['ClassMap']['namespaces']['zn\filesystem\internalfile'] = 'internalfile'
 $config['ClassMap']['namespaces']['zn\filesystem\fileinterface'] = 'fileinterface';
 $config['ClassMap']['namespaces']['zn\filesystem\internalfolder'] = 'internalfolder';
 $config['ClassMap']['namespaces']['zn\filesystem\folderinterface'] = 'folderinterface';
+$config['ClassMap']['namespaces']['zn\filesystem\internalgenerate'] = 'internalgenerate';
+$config['ClassMap']['namespaces']['zn\filesystem\generateinterface'] = 'generateinterface';
 $config['ClassMap']['namespaces']['zn\filesystem\internalrecord'] = 'internalrecord';
 $config['ClassMap']['namespaces']['zn\filesystem\recordinterface'] = 'recordinterface';
 $config['ClassMap']['namespaces']['zn\filesystem\internalupload'] = 'internalupload';
@@ -713,10 +724,4 @@ $config['ClassMap']['namespaces']['zn\viewobjects\templatewizardinterface'] = 't
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalxml';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
 
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------

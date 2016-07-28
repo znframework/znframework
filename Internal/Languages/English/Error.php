@@ -52,3 +52,4 @@ $lang['Error']['emptyVariable']				= '`%` variable should contain a value!';
 $lang['Error']['charsetParameter']			= '`%` parameter should contain a valid charset!';
 $lang['Error']['invalidVersion']			= '`%` version information is invalid!';
 $lang['Error']['invalidInput']			    = '`%` input information is invalid!';
+$lang['Error']['invalidPHPVersion']		    = 'Required PHP version `%` and should be over!';

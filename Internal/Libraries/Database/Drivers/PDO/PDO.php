@@ -306,7 +306,7 @@ class PDODriver implements DatabaseDriverInterface
 	{
 		if( isset($this->connect) )
 		{
-			$error = $this->query->errorInfo();
+			$error = $this->connect->errorInfo();
 			return $error[2];
 		}
 		else

@@ -439,7 +439,7 @@ class InternalFolder implements FolderInterface
 					{
 						if( $extension === 'dir' )
 						{
-							if( is_dir($file) )
+							if( is_dir(suffix($path).$file) )
 							{
 								$files[] = $file;	
 							}

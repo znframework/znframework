@@ -33,6 +33,17 @@ trait DateTimeTrait
 	protected $config;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Class Name
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// Sınıf uzantısı
+	//
+	// @var  string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $className = 'ZN\DateTime\Date';
+	
+	//----------------------------------------------------------------------------------------------------
 	// Construct
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -178,7 +189,7 @@ trait DateTimeTrait
 		
 		$className = $this->_classname();
 		
-		$func = $className === 'ZN\DateTime\Date' ? 'date' : 'strftime';
+		$func = $className === $this->className ? 'date' : 'strftime';
 		
 		return $func($this->_convert($format), $timestamp);
 	}
@@ -194,6 +205,6 @@ trait DateTimeTrait
 	{
 		$className = $this->_classname();
 		
-		return $className === 'Date' ? 'setDateFormatChars' : 'setTimeFormatChars';
+		return $className === $this->className ? 'setDateFormatChars' : 'setTimeFormatChars';
 	}
 }

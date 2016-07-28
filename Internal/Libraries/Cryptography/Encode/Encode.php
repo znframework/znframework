@@ -89,10 +89,10 @@ class InternalEncode implements EncodeInterface
 			$chars = "all";
 		}
 		
-		$password   	= '';
+		$password = '';
 		
 		// Şifreleme için kullanılacak karakter listesi.
-		if( $chars === "all" ) 
+		if( $chars === "all" || $chars === 'alnum' ) 
 		{
 			$characters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ";
 		}

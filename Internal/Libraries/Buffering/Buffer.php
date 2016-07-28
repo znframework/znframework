@@ -185,12 +185,22 @@ class InternalBuffer implements BufferInterface
 	//----------------------------------------------------------------------------------------------------
 	public function delete($name = '')
 	{
-		if( ! is_scalar($name) )
+		if( is_array($name) )
 		{
-			return \Errors::set('Error', 'valueParameter', 'name');		
+			foreach( $name as $delete )
+			{
+				\Session::delete(md5('OB_DATAS_'.$delete));
+			}
 		}
+		else
+		{
+			if( ! is_scalar($name) )
+			{
+				return \Errors::set('Error', 'valueParameter', 'name');		
+			}
 		
-		return \Session::delete(md5('OB_DATAS_'.$name));
+			return \Session::delete(md5('OB_DATAS_'.$name));
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------

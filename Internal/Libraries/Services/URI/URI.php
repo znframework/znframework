@@ -138,7 +138,7 @@ class InternalURI implements URIInterface
 	// Uri işlemleri için oluşturulmuştur.
 	protected function _cleanPath()
 	{
-		$pathInfo = \Security::htmlEncode(_requestUri());
+		$pathInfo = \Security::htmlEncode(internalRequestURI());
 	
 		return $pathInfo;
 	}
@@ -373,80 +373,24 @@ class InternalURI implements URIInterface
 			return \Errors::set('Error', 'numericParameter', 'seg');
 		}
 		
-		$ok = $seg;
+		$segments = $this->segmentArray();
 		
-		if( $seg == 0 ) 
+		if( $seg > 0 )
 		{
-			return false;
+			$seg -= 1;	
 		}
-		
-		$segment = 0;
-		
-		if( $seg < 1 )
+		elseif( $seg < 0 )
 		{
-			$segment = $seg;	
+			$count = count($segments);
+			$seg   = $count + $seg;
 		}
 		
-		$part = '';
-		
-		$negative = 0;
-		
-		$requestUri = $_SERVER['REQUEST_URI'];
-		
-		$baseDir    = substr(BASE_DIR,1,-1);
-		
-		if( ! empty($baseDir) ) 
+		if( ! empty($segments[$seg]) )
 		{
-			$baseDirEx = explode("/", $baseDir);
-			
-			$seg  += count($baseDirEx) + 1;
-			
-			$negative += count($baseDirEx) + 1;
-		}
-		else
-		{
-			$seg      += 1; 
-			$negative += 1; 
-		}
-		
-		if( strstr($requestUri, DIRECTORY_INDEX) ) 
-		{ 
-			$seg      += 1; 
-			$negative += 1; 
-		}
-		
-		if( strstr($requestUri, currentLang()) ) 
-		{ 
-			$seg      += 1; 
-			$negative += 1; 
+			return $segments[$seg];
 		}
 	
-		$part = explode('/', $requestUri);
-		
-		$countPart = count($part);
-		
-		if( $segment < 0 )
-		{
-			$seg = $countPart + ($segment);
-		}
-		if( $negative == $seg ) 
-		{
-			return false;
-		}
-		
-		if( $ok > 0 ) 
-		{
-			$seg -= 1;
-		}
-		
-		if( isset( $part[$seg]) ) 
-		{
-			return \Security::htmlEncode($part[$seg]); 
-		}
-		else 
-		{
-			return false;
-		}
+		return false;
 	}	
 	
 	/******************************************************************************************

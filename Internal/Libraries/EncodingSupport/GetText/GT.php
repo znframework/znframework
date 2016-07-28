@@ -134,7 +134,7 @@ class InternalGT implements GTInterface
 	}
 	
 	/******************************************************************************************
-	* EARCH                                                                           *
+	* SEARCH                                                                                  *
 	*******************************************************************************************
 	| Genel Kullanım: Geçerli uygulama alanında bir iletiyi arar. 	    					  | 
 		

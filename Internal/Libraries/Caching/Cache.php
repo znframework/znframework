@@ -76,12 +76,13 @@ class InternalCache implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param  string $key
+	// @param  mixed $expressed
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($key = '')
+	public function select($key = '', $compressed = false)
 	{ 
-		return $this->cache->select($key);
+		return $this->cache->select($key, $compressed);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -165,7 +166,7 @@ class InternalCache implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function info($type = 'user')
+	public function info($type = NULL)
 	{
 		return $this->cache->info($type);
 	}

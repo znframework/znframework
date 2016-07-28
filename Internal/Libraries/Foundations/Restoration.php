@@ -23,10 +23,10 @@ class Restoration
 		// diğer kullanıcı bilgisayarlarında herhangi bir hata ile karşı karşıya
 		// kalmamaları için hata raporlama kapatılıyor.
 		error_reporting(0); 
-		
-		global $application;
+			
 		// Config/Repair.php dosyasında tadilata alınacak sayfalar belirtilir.
 		// Burada ayarlarda belirtilen sayfa isimleri bilgisi alınıyor.
+		global $application;
 		
 		$restoration  		= $application['restoration'];
 		$restorationPages   = $restoration['pages'];

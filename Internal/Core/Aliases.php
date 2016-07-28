@@ -21,6 +21,7 @@ class_alias('ZN\Foundations\Traits\CallUndefinedMethodTrait', 'CallUndefinedMeth
 class_alias('ZN\Foundations\Traits\ConfigMethodTrait', 'ConfigMethodTrait'	);
 class_alias('ZN\Foundations\Traits\DriverMethodTrait', 'DriverMethodTrait');
 class_alias('ZN\Foundations\Traits\ErrorControlTrait', 'ErrorControlTrait');
+class_alias('ZN\Database\Grand', 'Grand');
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------

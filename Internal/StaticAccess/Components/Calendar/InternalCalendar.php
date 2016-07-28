@@ -1,4 +1,8 @@
 <?php
+//----------------------------------------------------------------------------------------------------
+// This file automatically created and updated
+//----------------------------------------------------------------------------------------------------
+
 class Calendar extends ZN\Foundations\StaticAccess
 {
 	const CONFIG_NAME = 'Components:calendar';
@@ -8,3 +12,5 @@ class Calendar extends ZN\Foundations\StaticAccess
 		return __CLASS__;
 	}
 }
+
+//----------------------------------------------------------------------------------------------------

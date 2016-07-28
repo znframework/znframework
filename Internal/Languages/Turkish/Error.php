@@ -54,3 +54,4 @@ $lang['Error']['emptyVariable']			    = '`%` değişkeni bir değer içermelidir
 $lang['Error']['charsetParameter']			= '`%` parametresi geçerli karakter seti içermelidir!';
 $lang['Error']['invalidVersion']			= '`%` geçersiz versiyon bilgisi!';
 $lang['Error']['invalidInput']			    = '`%` geçersiz girdi bilgisi!';
+$lang['Error']['invalidPHPVersion']		    = 'Gerekli PHP sürümü `%` ve üzeri olmalı!';
