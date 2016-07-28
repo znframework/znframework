@@ -1,5 +1,4 @@
 ﻿<h3>Dökümantasyon (Documentation)</h3>
 
-Framework kullanımı ile ilgili dökümantasyona ulaşmak için aşağıdaki bağlantıyı kullanın.<br>
-(For additional documentation regarding use ZN Framework use the following link.)<br>
+For additional documentation regarding use ZN Framework use the following link.<br>
 <a href='http://www.znframework.com/documentation'>Kullanma Kılavuz</a>
