@@ -62,9 +62,7 @@ $config['Applications'] =
 		//------------------------------------------------------------------------------------------------
 		'others'  => 
 		[
-			'backend'   => 'Backend',
-			'example'   => 'Example',
-			'generator' => 'Generator'
+			'backend'   => 'Backend'
 		]
 	],
 	

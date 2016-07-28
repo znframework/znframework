@@ -1,1 +1,0 @@
-<span class="example">This is Header Page!</span><br>
