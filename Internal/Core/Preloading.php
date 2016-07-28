@@ -501,7 +501,7 @@ function output($data = '', $settings = [], $content = false)
 	$globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 	
 	$output  = "<span$globalStyle>";
-	$output .= _output($data, '', 0, $settings);
+	$output .= internalOutput($data, '', 0, $settings);
 	$output .= "</span>";
 	
 	if( $content === false)
@@ -512,81 +512,7 @@ function output($data = '', $settings = [], $content = false)
 	{
 		return $output;	
 	}
-}	
-function _output($data = '', $tab = '', $start = 0, $settings = [])
-{
-	static $start;
-	
-	$lengthColor 	= isset($settings['lengthColor'])  	? $settings['lengthColor']  : 'grey';
-	$keyColor 		= isset($settings['keyColor']) 		? $settings['keyColor']		: '#000';
-	$typeColor 		= isset($settings['typeColor']) 	? $settings['typeColor']	: '#8C2300';
-	$stringColor 	= isset($settings['stringColor']) 	? $settings['stringColor']	: 'red';
-	$numericColor 	= isset($settings['numericColor']) 	? $settings['numericColor']	: 'green';
-	
-	$output = '';
-	$eof 	= '<br>';
-	$tab 	= str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
-	
-	$lengthstyle = ' style="color:'.$lengthColor.'"';
-	$keystyle 	 = ' style="color:'.$keyColor.'"';
-	$typestyle   = ' style="color:'.$typeColor.'"';
-	
-	$vartype = 'array';
-	
-	if( is_object($data) )
-	{
-		$data = (array)$data;
-		$vartype = 'object';
-	}
-	
-	if( ! is_array($data) )
-	{
-		return $data.$eof;	
-	}
-	else
-	{
-		foreach($data as $k => $v)
-		{
-			if( is_object($v) )
-			{
-				$v = (array)$v;
-				$vartype = 'object';
-			}
-			
-			if( ! is_array($v) )
-			{	
-				$valstyle  = ' style="color:'.$numericColor.';"';	
-				
-				$type = gettype($v);
-				
-				if( $type === 'string' )
-				{
-					$v = "'".$v."'";	
-					$valstyle = ' style="color:'.$stringColor.';"';
-					
-					$type = 'string';
-				}
-				elseif( $type === 'boolean' )
-				{
-					$v = ( $v === true )
-						 ? 'true'
-						 : 'false';
-					
-					$type = 'boolean';
-				}
-				
-				$output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>,$eof";
-			}
-			else
-			{
-				$output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof "._output($v, $tab, $start++)." $tab), ".$eof;	
-				$start--;
-			}
-		}
-	}
-	
-	return $output;
-}	
+}
 
 //----------------------------------------------------------------------------------------------------
 // write()
@@ -1242,4 +1168,87 @@ function trace($message = '', $keys = [])
 	$str .= '</div>';
 	
 	exit(write($str, $keys));
+}
+
+//----------------------------------------------------------------------------------------------------
+// internalOutput()
+//----------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//
+//----------------------------------------------------------------------------------------------------
+function internalOutput($data = '', $tab = '', $start = 0, $settings = [])
+{
+    static $start;
+
+    $lengthColor 	= isset($settings['lengthColor'])  	? $settings['lengthColor']  : 'grey';
+    $keyColor 		= isset($settings['keyColor']) 		? $settings['keyColor']		: '#000';
+    $typeColor 		= isset($settings['typeColor']) 	? $settings['typeColor']	: '#8C2300';
+    $stringColor 	= isset($settings['stringColor']) 	? $settings['stringColor']	: 'red';
+    $numericColor 	= isset($settings['numericColor']) 	? $settings['numericColor']	: 'green';
+
+    $output = '';
+    $eof 	= '<br>';
+    $tab 	= str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
+
+    $lengthstyle = ' style="color:'.$lengthColor.'"';
+    $keystyle 	 = ' style="color:'.$keyColor.'"';
+    $typestyle   = ' style="color:'.$typeColor.'"';
+
+    $vartype = 'array';
+
+    if( is_object($data) )
+    {
+        $data = (array)$data;
+        $vartype = 'object';
+    }
+
+    if( ! is_array($data) )
+    {
+        return $data.$eof;
+    }
+    else
+    {
+        foreach($data as $k => $v)
+        {
+            if( is_object($v) )
+            {
+                $v = (array)$v;
+                $vartype = 'object';
+            }
+
+            if( ! is_array($v) )
+            {
+                $valstyle  = ' style="color:'.$numericColor.';"';
+
+                $type = gettype($v);
+
+                if( $type === 'string' )
+                {
+                    $v = "'".$v."'";
+                    $valstyle = ' style="color:'.$stringColor.';"';
+
+                    $type = 'string';
+                }
+                elseif( $type === 'boolean' )
+                {
+                    $v = ( $v === true )
+                        ? 'true'
+                        : 'false';
+
+                    $type = 'boolean';
+                }
+
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>,$eof";
+            }
+            else
+            {
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof "._output($v, $tab, $start++)." $tab), ".$eof;
+                $start--;
+            }
+        }
+    }
+
+    return $output;
 }
