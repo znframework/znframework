@@ -72,7 +72,7 @@ class InternalBuffer implements BufferInterface
 	//----------------------------------------------------------------------------------------------------
 	public function func($func = '', $params = [])
 	{
-	    \Errors::typeHint(['callable' => $func, 'array' => $params]);
+	    \Errors::typeHint(['callable' => $func], ['array' => $params]);
 		
 		ob_start();
 		
@@ -124,7 +124,7 @@ class InternalBuffer implements BufferInterface
 	//----------------------------------------------------------------------------------------------------
 	public function insert($name = NULL, $data = '', $params = [])
 	{
-        \Errors::typeHint(['scalar' => $name, '', 'array' => $params]);
+        \Errors::typeHint(['scalar' => $name], [], ['array' => $params]);
 		
 		$systemObData = md5('OB_DATAS_'.$name);
 		

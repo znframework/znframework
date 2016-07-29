@@ -100,7 +100,7 @@ class InternalCache implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	public function insert($key = NULL, $var = '', $time = 60, $compressed = false)
 	{
-        \Errors::typeHint(['string' => $key, '', 'numeric' => $time]);
+        \Errors::typeHint(['string' => $key], [], ['numeric' => $time]);
 
 		return $this->cache->insert($key, $var, $time, $compressed);
 	}
@@ -139,7 +139,7 @@ class InternalCache implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	public function increment($key = NULL, $increment = 1)
 	{
-        \Errors::typeHint(['string' => $key, 'numeric' => $increment]);
+        \Errors::typeHint(['string' => $key], ['numeric' => $increment]);
 
 		return $this->cache->increment($key, $increment);
 	}
@@ -155,7 +155,7 @@ class InternalCache implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	public function decrement($key = NULL, $decrement = 1)
 	{
-        \Errors::typeHint(['string' => $key, 'numeric' => $decrement]);
+        \Errors::typeHint(['string' => $key], ['numeric' => $decrement]);
 
 		return $this->cache->decrement($key, $decrement);
 	}

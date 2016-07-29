@@ -47,7 +47,8 @@ class InternalErrors implements ErrorsInterface
         'hash'      => 'isHash',
         'charset'   => 'isCharset',
         'scalar'    => 'is_scalar',
-        'value'     => 'isValue'
+        'value'     => 'isValue',
+        'url'		=> 'isUrl'
     ];
 
     //----------------------------------------------------------------------------------------------------
@@ -77,6 +78,11 @@ class InternalErrors implements ErrorsInterface
                     ? $info[$fileNumber]['file'] 
                     : ( isset($info[$defaultNumber]['file']) ? $info[$defaultNumber]['file'] : false );
 
+        if( strstr($className, '\\') )
+        {
+            $className  = divide($className, '\\', -1);
+        }
+
         return 
         [
         	'className'  => $className,
@@ -93,7 +99,7 @@ class InternalErrors implements ErrorsInterface
     // @param array ...$parameters: empty
     //
     //----------------------------------------------------------------------------------------------------
-    public function typeHint($parameters = [])
+    public function typeHint(...$parameters)
     {
         $errors     = '';
         $funcParams = '';
@@ -104,17 +110,15 @@ class InternalErrors implements ErrorsInterface
         $line       = $info['line'];
         $file       = $info['file'];
 
-        if( strstr($className, '\\') )
-        {
-            $className  = divide($className, '\\', -1);
-        }
-
         $index = 1;
-
-        foreach( $parameters as $type => $var )
+    
+        foreach( $parameters as $params )
         {
+        	$type = key($params);
+        	$var  = current($params);
+
             $key         = '$p'.($index);
-            $funcParams .= ( ! is_numeric($type) ? $type : 'mixed').' '.$key.", ";
+            $funcParams .= ( ! empty($type) ? $type : 'mixed').' '.$key.", ";
 
             if( ! empty($this->typeHints[$type]) )
             {
@@ -153,17 +157,10 @@ class InternalErrors implements ErrorsInterface
 		}
 		
 		$info       = $this->_debugBackTrace();
-
         $className  = $info['className'];
         $methodName = $info['methodName'];
         $line       = $info['line'];
         $file       = $info['file'];
-
-        if( strstr($className, '\\') )
-        {
-            $className  = divide($className, '\\', -1);
-        }
-
         $className  = strtolower($className);
         $methodName = strtolower($methodName);
 

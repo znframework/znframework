@@ -156,7 +156,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function elapsedTime($result = NULL, $decimal = 4)
 	{
-        \Errors::typeHint(['string' => $result, 'numeric', $decimal]);
+        \Errors::typeHint(['string' => $result], ['numeric', $decimal]);
 		
 		$resend  = $result."_end";
 		$restart = $result."_start";
