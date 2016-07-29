@@ -57,7 +57,7 @@ class InternalErrors implements ErrorsInterface
     // @param array ...$parameters: empty
     //
     //----------------------------------------------------------------------------------------------------
-    public function typeHint(...$parameters)
+    public function typeHint($parameters = [])
     {
         $errors     = '';
         $funcParams = '';
@@ -73,12 +73,12 @@ class InternalErrors implements ErrorsInterface
             $className  = divide($className, '\\', -1);
         }
 
-        foreach( $parameters as $key => $params )
+        $index = 1;
+
+        foreach( $parameters as $type => $var )
         {
-            $type  = key($params);
-            $var   = current($params);
-            $key   = '$p'.($key + 1);
-            $funcParams .= $type.' '.$key.", ";
+            $key         = '$p'.($index);
+            $funcParams .= ( ! empty($type) ? $type : '').' '.$key.", ";
 
             if( ! empty($this->typeHints[$type]) )
             {
@@ -89,6 +89,8 @@ class InternalErrors implements ErrorsInterface
                     $errors .= '&nbsp;&nbsp;'.lang('Error', 'typeHint', ['&' => $key.':', '%' => '`'.$type.'`']).\Html::br();
                 }
             }
+
+            $index++;
         }
 
         if( ! empty($errors) )

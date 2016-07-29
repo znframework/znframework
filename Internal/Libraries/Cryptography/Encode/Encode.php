@@ -146,7 +146,7 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function golden($data = '', $additional = 'default')
 	{
-	    \Errors::typeHint(['scalar' => $data], ['scalar' => $additional]);
+	    \Errors::typeHint(['scalar' => $data, 'scalar' => $additional]);
 
 		$algo = $this->config['type'];
 

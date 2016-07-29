@@ -19,7 +19,7 @@ interface ErrorsInterface
     // @param array ...$parameters: empty
     //
     //----------------------------------------------------------------------------------------------------
-    public function typeHint(...$parameters);
+    public function typeHint($parameters);
 
 	/******************************************************************************************
 	* SET            	                                                                      *

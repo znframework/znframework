@@ -124,7 +124,7 @@ class InternalBenchmark implements BenchmarkInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function end($test = '')
+	public function end($test = NULL)
 	{
         \Errors::typeHint(['string' => $test]);
 		
@@ -154,9 +154,9 @@ class InternalBenchmark implements BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function elapsedTime($result = '', $decimal = 4)
+	public function elapsedTime($result = NULL, $decimal = 4)
 	{
-        \Errors::typeHint(['string' => $result], ['numeric', $decimal]);
+        \Errors::typeHint(['string' => $result, 'numeric', $decimal]);
 		
 		$resend  = $result."_end";
 		$restart = $result."_start";
@@ -231,7 +231,7 @@ class InternalBenchmark implements BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculatedMemory($result = '')
+	public function calculatedMemory($result = NULL)
 	{
         \Errors::typeHint(['string' => $result]);
 		

@@ -366,12 +366,12 @@ class InternalUser implements UserInterface
 			$this->parameters = [];
 
             \Errors::typeHint
-            (
-                ['string' => $old],
-                ['string' => $new],
-                ['string' => $newAgain],
-                ['array'  => $data]
-            );
+            ([
+                'string' => $old,
+                'string' => $new,
+                'string' => $newAgain,
+                'array'  => $data
+            ]);
 					
 			$userConfig = $this->config;	
 			$getColumns = $userConfig['matching']['columns'];
@@ -802,7 +802,7 @@ class InternalUser implements UserInterface
 		
 		$this->parameters = [];
 
-        \Errors::typeHint(['string' => $un], ['string' => $pw]);
+        \Errors::typeHint(['string' => $un, 'string' => $pw]);
 		
 		if( ! is_scalar($rememberMe) ) 
 		{
@@ -903,7 +903,7 @@ class InternalUser implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function logout($redirectUrl = '', $time = 0)
 	{
-        \Errors::typeHint(['string' => $redirectUrl], ['numeric' => $time]);
+        \Errors::typeHint(['string' => $redirectUrl, 'numeric' => $time]);
 
 		$config     = $this->config;
 		$getColumns = $config['matching']['columns'];
@@ -1021,7 +1021,7 @@ class InternalUser implements UserInterface
 			
 		$this->parameters = [];
 
-        \Errors::typeHint(['email' => $email], ['string' => $returnLinkPath]);
+        \Errors::typeHint(['email' => $email, 'string' => $returnLinkPath]);
 
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
