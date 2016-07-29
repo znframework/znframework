@@ -51,6 +51,42 @@ class InternalErrors implements ErrorsInterface
     ];
 
     //----------------------------------------------------------------------------------------------------
+    // Protected Debug Back Trace
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //----------------------------------------------------------------------------------------------------
+    protected function _debugBackTrace()
+    {
+    	$objectNumber  = 5;
+    	$fileNumber    = 7;
+    	$defaultNumber = 5;
+
+    	$info       = debug_backtrace();
+        $className  = isset($info[$objectNumber]['class']) 
+                    ? str_ireplace(STATIC_ACCESS, '', $info[$objectNumber]['class']) 
+        			: ( isset($info[$defaultNumber]['class']) ? $info[$defaultNumber]['class'] : false );
+        $methodName = isset($info[$objectNumber]['function']) 
+                    ? $info[$objectNumber]['function'] 
+                    : ( isset($info[$objectNumber]['function']) ? $info[$defaultNumber]['function'] : false );
+        $line       = isset($info[$fileNumber]['line']) 
+                    ? $info[$fileNumber]['line'] 
+                    : ( isset($info[$defaultNumber]['line']) ? $info[$defaultNumber]['line'] : false );
+        $file       = isset($info[$fileNumber]['file']) 
+                    ? $info[$fileNumber]['file'] 
+                    : ( isset($info[$defaultNumber]['file']) ? $info[$defaultNumber]['file'] : false );
+
+        return 
+        [
+        	'className'  => $className,
+        	'methodName' => $methodName,
+        	'line'		 => $line,
+        	'file'	     => $file
+        ];
+    }
+
+    //----------------------------------------------------------------------------------------------------
     // Type Hint
     //----------------------------------------------------------------------------------------------------
     //
@@ -61,12 +97,12 @@ class InternalErrors implements ErrorsInterface
     {
         $errors     = '';
         $funcParams = '';
-        $info       = debug_backtrace();
+        $info       = $this->_debugBackTrace();
 
-        $className  = isset($info[4]['class']) ? str_ireplace(STATIC_ACCESS, '', $info[4]['class']) : ( isset($info[5]['class']) ? $info[5]['class'] : false );
-        $methodName = isset($info[4]['function']) ? $info[4]['function'] : ( isset($info[5]['function']) ? $info[5]['function'] : false );
-        $line       = isset($info[6]['line']) ? $info[6]['line'] : ( isset($info[5]['line']) ? $info[5]['line'] : false );
-        $file       = isset($info[6]['file']) ? $info[6]['file'] : ( isset($info[5]['file']) ? $info[5]['file'] : false );
+        $className  = $info['className'];
+        $methodName = $info['methodName'];
+        $line       = $info['line'];
+        $file       = $info['file'];
 
         if( strstr($className, '\\') )
         {
@@ -78,7 +114,7 @@ class InternalErrors implements ErrorsInterface
         foreach( $parameters as $type => $var )
         {
             $key         = '$p'.($index);
-            $funcParams .= ( ! empty($type) ? $type : '').' '.$key.", ";
+            $funcParams .= ( ! is_numeric($type) ? $type : 'mixed').' '.$key.", ";
 
             if( ! empty($this->typeHints[$type]) )
             {
@@ -116,12 +152,12 @@ class InternalErrors implements ErrorsInterface
 			$errorMessage = lang($errorMessage, $output, $object);	
 		}
 		
-		$info = debug_backtrace();
+		$info       = $this->_debugBackTrace();
 
-        $className  = isset($info[4]['class']) ? str_ireplace(STATIC_ACCESS, '', $info[4]['class']) : ( isset($info[5]['class']) ? $info[5]['class'] : false );
-        $methodName = isset($info[4]['function']) ? $info[4]['function'] : ( isset($info[5]['function']) ? $info[5]['function'] : false );
-        $line       = isset($info[6]['line']) ? $info[6]['line'] : ( isset($info[5]['line']) ? $info[5]['line'] : false );
-        $file       = isset($info[6]['file']) ? $info[6]['file'] : ( isset($info[5]['file']) ? $info[5]['file'] : false );
+        $className  = $info['className'];
+        $methodName = $info['methodName'];
+        $line       = $info['line'];
+        $file       = $info['file'];
 
         if( strstr($className, '\\') )
         {
