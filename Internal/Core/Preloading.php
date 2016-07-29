@@ -1244,7 +1244,7 @@ function internalOutput($data = '', $tab = '', $start = 0, $settings = [])
             }
             else
             {
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof "._output($v, $tab, $start++)." $tab), ".$eof;
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, $start++)." $tab), ".$eof;
                 $start--;
             }
         }

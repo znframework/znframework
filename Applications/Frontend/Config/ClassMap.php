@@ -2,7 +2,6 @@
 //----------------------------------------------------------------------------------------------------
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
-
 $config['ClassMap']['classes']['zn\authentication\internaluser'] = 'Internal/Libraries/Authentication/User.php';
 $config['ClassMap']['classes']['user'] = 'Internal/StaticAccess/Authentication/InternalUser.php';
 $config['ClassMap']['classes']['zn\authentication\userinterface'] = 'Internal/Libraries/Authentication/UserInterface.php';
@@ -723,5 +722,3 @@ $config['ClassMap']['namespaces']['zn\viewobjects\templatewizard'] = 'templatewi
 $config['ClassMap']['namespaces']['zn\viewobjects\templatewizardinterface'] = 'templatewizardinterface';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalxml';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
-
-//----------------------------------------------------------------------------------------------------

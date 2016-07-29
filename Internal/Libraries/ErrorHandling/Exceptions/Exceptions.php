@@ -37,7 +37,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			'file'	  => $file,
 			'line'    => $line
 		);
-		
+
 		return \Import::template('ExceptionTable', $exceptionData, true);
 	}
 	
