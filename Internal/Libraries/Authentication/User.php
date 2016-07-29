@@ -151,11 +151,9 @@ class InternalUser implements UserInterface
 		}
 			
 		$this->parameters = [];
-			
-		if( ! is_array($data) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', '1.(data)');
-		}
+
+        \Errors::typeHint(['array' => $data]);
+
 		if( ! is_string($activationReturnLink) ) 
 		{
 			$activationReturnLink = '';
@@ -339,7 +337,7 @@ class InternalUser implements UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($old = '', $new = '', $newAgain = '', $data = [])
+	public function update($old = NULL, $new = NULL, $newAgain = '', $data = [])
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
@@ -354,7 +352,7 @@ class InternalUser implements UserInterface
 			{
 				$new = $this->parameters['newPassword'];
 			}
-			
+
 			if( isset($this->parameters['passwordAgain']) )
 			{
 				$newAgain = $this->parameters['passwordAgain'];
@@ -364,39 +362,16 @@ class InternalUser implements UserInterface
 			{
 				$data = $this->parameters['column'];
 			}
-			
+
 			$this->parameters = [];
-		
-			// Parametreler kontrol ediliyor.--------------------------------------------------
-			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
-			{
-				\Errors::set('Error', 'stringParameter', '1.(old)');
-				\Errors::set('Error', 'stringParameter', '2.(new)');
-				\Errors::set('Error', 'arrayParameter', '4.(data)');
-				
-				return false;
-			}
-				
-			if( empty($old) || empty($new) ) 
-			{
-				\Errors::set('Error', 'emptyParameter', '1.(old)');
-				\Errors::set('Error', 'emptyParameter', '2.(new)');
-				
-				return false;
-			}
-	
-			if( ! is_string($newAgain) ) 
-			{
-				$newAgain = '';
-			}
-			// --------------------------------------------------------------------------------
-		
-			// Şifre tekrar parametresi boş ise
-			// Şifre tekrar parametresini doğru kabul et.
-			if( empty($newAgain) ) 
-			{
-				$newAgain = $new;
-			}
+
+            \Errors::typeHint
+            (
+                ['string' => $old],
+                ['string' => $new],
+                ['string' => $newAgain],
+                ['array'  => $data]
+            );
 					
 			$userConfig = $this->config;	
 			$getColumns = $userConfig['matching']['columns'];
@@ -598,6 +573,8 @@ class InternalUser implements UserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function data($tbl = '')
 	{
+	    \Errors::typeHint(['string' => $tbl]);
+
 		$config 		= $this->config;
 		$usernameColumn = $config['matching']['columns']['username'];
 		$passwordColumn = $config['matching']['columns']['password'];
@@ -824,16 +801,8 @@ class InternalUser implements UserInterface
 		}
 		
 		$this->parameters = [];
-		
-		if( ! is_string($un) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(username)');
-		}
-		
-		if( ! is_string($pw) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '2.(password)');
-		}
+
+        \Errors::typeHint(['string' => $un], ['string' => $pw]);
 		
 		if( ! is_scalar($rememberMe) ) 
 		{
@@ -933,16 +902,8 @@ class InternalUser implements UserInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function logout($redirectUrl = '', $time = 0)
-	{	
-		if( ! is_string($redirectUrl) ) 
-		{
-			$redirectUrl = '';
-		}
-		
-		if( ! is_numeric($time) ) 
-		{
-			$time = 0;
-		}
+	{
+        \Errors::typeHint(['string' => $redirectUrl], ['numeric' => $time]);
 
 		$config     = $this->config;
 		$getColumns = $config['matching']['columns'];
@@ -1059,16 +1020,8 @@ class InternalUser implements UserInterface
 		}
 			
 		$this->parameters = [];
-		
-		if( ! is_string($email) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(email)');
-		}
-		
-		if( ! is_string($returnLinkPath) ) 
-		{
-			$returnLinkPath = '';
-		}
+
+        \Errors::typeHint(['email' => $email], ['string' => $returnLinkPath]);
 
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI

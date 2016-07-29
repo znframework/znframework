@@ -233,7 +233,7 @@ class Autoloader
 		// ----------------------------------------------------------------------------------------
 		// ClassMap verisi yine aynı isimde bir dosya olarak oluşturuluyor.
 		// ----------------------------------------------------------------------------------------	
-		file_put_contents($path, $classMapPage, FILE_APPEND);	
+		file_put_contents($path, rtrim($classMapPage, $eol), FILE_APPEND);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

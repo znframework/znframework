@@ -1,6 +1,8 @@
 <?php
 namespace ZN\ErrorHandling;
 
+use ZN\VariableTypes\InternalArrays;
+
 class InternalErrors implements ErrorsInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -19,7 +21,83 @@ class InternalErrors implements ErrorsInterface
 	 *
 	 */
 	private $errors;
-	
+
+    //----------------------------------------------------------------------------------------------------
+    // Protected Type Hints
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //----------------------------------------------------------------------------------------------------
+    protected $typeHints =
+    [
+        'int'       => 'is_int',
+        'integer'   => 'is_int',
+        'string'    => 'is_string',
+        'numeric'   => 'is_numeric',
+        'array'     => 'is_array',
+        'object'    => 'is_object',
+        'resource'  => 'is_resource',
+        'callable'  => 'is_callable',
+        'file'      => 'is_file',
+        'dir'       => 'is_dir',
+        'boolean'   => 'is_bool',
+        'bool'      => 'is_bool',
+        'email'     => 'isEmail',
+        'hash'      => 'isHash',
+        'charset'   => 'isCharset',
+        'scalar'    => 'is_scalar',
+        'value'     => 'isValue'
+    ];
+
+    //----------------------------------------------------------------------------------------------------
+    // Type Hint
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param array ...$parameters: empty
+    //
+    //----------------------------------------------------------------------------------------------------
+    public function typeHint(...$parameters)
+    {
+        $errors     = '';
+        $funcParams = '';
+        $info       = debug_backtrace();
+
+        $className  = isset($info[4]['class']) ? str_ireplace(STATIC_ACCESS, '', $info[4]['class']) : ( isset($info[5]['class']) ? $info[5]['class'] : false );
+        $methodName = isset($info[4]['function']) ? $info[4]['function'] : ( isset($info[5]['function']) ? $info[5]['function'] : false );
+        $line       = isset($info[6]['line']) ? $info[6]['line'] : ( isset($info[5]['line']) ? $info[5]['line'] : false );
+        $file       = isset($info[6]['file']) ? $info[6]['file'] : ( isset($info[5]['file']) ? $info[5]['file'] : false );
+
+        if( strstr($className, '\\') )
+        {
+            $className  = divide($className, '\\', -1);
+        }
+
+        foreach( $parameters as $key => $params )
+        {
+            $type  = key($params);
+            $var   = current($params);
+            $key   = '$p'.($key + 1);
+            $funcParams .= $type.' '.$key.", ";
+
+            if( ! empty($this->typeHints[$type]) )
+            {
+                $is = $this->typeHints[$type];
+
+                if( ! $is($var) )
+                {
+                    $errors .= '&nbsp;&nbsp;'.lang('Error', 'typeHint', ['&' => $key.':', '%' => '`'.$type.'`']).\Html::br();
+                }
+            }
+        }
+
+        if( ! empty($errors) )
+        {
+            $errors = $className."::".$methodName."(".rtrim($funcParams, ", ").")".\Html::br().$errors;
+            exit(\Exceptions::table('', $errors, $file, $line));
+        }
+    }
+
 	/******************************************************************************************
 	* SET            	                                                                      *
 	*******************************************************************************************
@@ -37,28 +115,26 @@ class InternalErrors implements ErrorsInterface
 		}
 		
 		$info = debug_backtrace();
-	
-		$className = isset($info[1]['class'])
-				   ? str_ireplace(STATIC_ACCESS, '', $info[1]['class'])
-				   : ( isset($info[5]['class']) ? $info[5]['class'] : false );
-		   
-		$methodName = isset($info[1]['function'])
-					? $info[1]['function']
-					: ( isset($info[5]['function']) ? $info[5]['function'] : false );
-					
-		$line = isset($info[1]['line'])
-			  ? $info[1]['line']
-			  : ( isset($info[5]['line']) ? $info[5]['line'] : false );
-			  
-		$file = isset($info[1]['file'])
-			  ? $info[1]['file']
-			  : ( isset($info[5]['file']) ? $info[5]['file'] : false );
-	
-		$this->errors[strtolower($className)][strtolower($methodName)]['message'][] = $errorMessage;
-		$this->errors[strtolower($className)][strtolower($methodName)]['line'][]    = $line; 
-		$this->errors[strtolower($className)][strtolower($methodName)]['file'][]    = $file; 
-		
-		report(ucfirst($className.'Error'), $errorMessage, ucfirst($className).'Library');
+
+        $className  = isset($info[4]['class']) ? str_ireplace(STATIC_ACCESS, '', $info[4]['class']) : ( isset($info[5]['class']) ? $info[5]['class'] : false );
+        $methodName = isset($info[4]['function']) ? $info[4]['function'] : ( isset($info[5]['function']) ? $info[5]['function'] : false );
+        $line       = isset($info[6]['line']) ? $info[6]['line'] : ( isset($info[5]['line']) ? $info[5]['line'] : false );
+        $file       = isset($info[6]['file']) ? $info[6]['file'] : ( isset($info[5]['file']) ? $info[5]['file'] : false );
+
+        if( strstr($className, '\\') )
+        {
+            $className  = divide($className, '\\', -1);
+        }
+
+        $className  = strtolower($className);
+        $methodName = strtolower($methodName);
+
+		$this->errors[$className][$methodName]['message'][] = $errorMessage;
+		$this->errors[$className][$methodName]['line'][]    = $line;
+		$this->errors[$className][$methodName]['file'][]    = $file;
+
+        $className = ucfirst($className);
+		report($className.'Error', $errorMessage, $className.'Library');
 	
 		return $output === true ? $errorMessage : false;
 	}
@@ -108,6 +184,11 @@ class InternalErrors implements ErrorsInterface
 	{
 		$className  = strtolower($className);
 		$methodName = strtolower($methodName);
+
+        if( empty($className) )
+        {
+            return $this->errors;
+        }
 
 		if( isset($this->errors[$className]) )
 		{

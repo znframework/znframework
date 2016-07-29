@@ -146,26 +146,18 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function golden($data = '', $additional = 'default')
 	{
-		if( ! is_scalar($data) || empty($data) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
-		
-		if( ! is_scalar($additional) )
-		{
-			$additional = 'default';
-		}
-	
+	    \Errors::typeHint(['scalar' => $data], ['scalar' => $additional]);
+
 		$algo = $this->config['type'];
-		
+
 		if( ! isHash($algo) )
 		{
-			$algo = 'md5';	
+			$algo = 'md5';
 		}
 		// Ek veri şifreleniyor.
-		
+
 		$additional = hash($algo, $additional);
-		
+
 		// Veri şifreleniyor.
 		$data = hash($algo, $data);
 		
@@ -192,10 +184,7 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function super($data = '')
 	{
-		if( ! is_scalar($data) || empty($data) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
+        \Errors::typeHint(['scalar' => $data]);
 		
 		$projectKey = $this->config['projectKey'];
 		
@@ -223,7 +212,6 @@ class InternalEncode implements EncodeInterface
 		
 		// Veri ve ek yeniden şifreleniyor.
 		return hash($algo, $data.$additional);
-
 	}
 	
 	/******************************************************************************************

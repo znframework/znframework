@@ -90,12 +90,9 @@ class InternalBenchmark implements BenchmarkInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function start($test = '')
+	public function start($test = NULL)
 	{
-		if( ! is_string($test)) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'test');
-		}
+	    \Errors::typeHint(['string' => $test]);
 		
 		// Kaç test kullanıldığını hesaplamak için
 		// test count değişkeni birer birer artırılıyor.
@@ -129,10 +126,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function end($test = '')
 	{
-		if( ! is_string($test) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'test');
-		}
+        \Errors::typeHint(['string' => $test]);
 		
 		$test = $test."_end";
 		
@@ -161,15 +155,8 @@ class InternalBenchmark implements BenchmarkInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function elapsedTime($result = '', $decimal = 4)
-	{   
-		if( ! is_string($result) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'result');
-		}
-		if( ! is_numeric($decimal) ) 
-		{
-			$decimal = 4;
-		}
+	{
+        \Errors::typeHint(['string' => $result], ['numeric', $decimal]);
 		
 		$resend  = $result."_end";
 		$restart = $result."_start";
@@ -194,10 +181,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function usedFiles($result = '')
 	{
-		if( ! is_string($result) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'result');
-		}
+        \Errors::typeHint(['string' => $result]);
 		
 		if( empty($result) )
 		{
@@ -223,10 +207,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function usedFileCount($result = '')
 	{
-		if( ! is_string($result) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'result');
-		}
+        \Errors::typeHint(['string' => $result]);
 		
 		if( empty($result) )
 		{
@@ -252,10 +233,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function calculatedMemory($result = '')
 	{
-		if( ! is_string($result) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'result');
-		}
+        \Errors::typeHint(['string' => $result]);
 		
 		$resend  = $result."_end";
 		$restart = $result."_start";
@@ -290,10 +268,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function memoryUsage($realMemory = false)
 	{
-		if( ! is_bool($realMemory) ) 
-		{
-			$realMemory = false;
-		}
+        \Errors::typeHint(['bool' => $realMemory]);
 		
 		return  memory_get_usage($realMemory);
 	}
@@ -308,10 +283,7 @@ class InternalBenchmark implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function maxMemoryUsage($realMemory = false)
 	{
-		if( ! is_bool($realMemory) ) 
-		{
-			$realMemory = false;
-		}
+        \Errors::typeHint(['bool' => $realMemory]);
 		
 		return  memory_get_peak_usage($realMemory);
 	}
