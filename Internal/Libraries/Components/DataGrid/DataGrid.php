@@ -183,8 +183,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function columns($columns = [])
 	{
-		\Errors::typeHint(['array' => $columns]);
-
 		$this->columns = $columns;
 		$this->realColumns = $columns;
 		return $this;
@@ -201,8 +199,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function processColumn($column = 'id', $editable = false)
 	{
-		\Errors::typeHint(['string' => $column], ['bool' => $editable]);
-
 		$this->processColumn   = $column;	
 		$this->processEditable = $editable;
 		
@@ -219,8 +215,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function table($table = '')
 	{
-		\Errors::typeHint(['string' => $table]);
-
 		$this->table = $table;
 		
 		return $this;
@@ -236,8 +230,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function limit($limit = 20)
 	{
-		\Errors::typeHint(['numeric' => $limit]);
-
 		$this->limit = $limit;
 		
 		return $this;
@@ -254,8 +246,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function orderBy($column = '', $order = 'DESC')
 	{
-		\Errors::typeHint(['string' => $column], ['string' => $order]);
-
 		$this->orderBy[$column] = $order;
 		
 		return $this;
@@ -271,8 +261,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function groupBy($column = '')
 	{
-		\Errors::typeHint(['string' => $column]);
-
 		$this->groupBy = $column;
 		
 		return $this;
@@ -303,8 +291,6 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function joins($tables = [])
 	{
-		\Errors::typeHint(['array' => $tables]);
-
 		$this->joins = $tables;
 			
 		if( ! empty($tables) ) foreach( $tables as $table => $column)

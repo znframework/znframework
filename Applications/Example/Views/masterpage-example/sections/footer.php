@@ -1,0 +1,1 @@
+<br><span class="common">This is Footer Page!</span>

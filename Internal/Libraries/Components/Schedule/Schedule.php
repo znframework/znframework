@@ -29,9 +29,7 @@ class InternalSchedule implements ScheduleInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function create($data = [])
-	{ 
-		\Errors::typeHint(['array' => $data]);
-
+	{ 			
 		return $this->_element($data, '', 0);
 	}
 	

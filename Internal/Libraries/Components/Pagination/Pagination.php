@@ -160,16 +160,25 @@ class InternalPagination implements PaginationInterface
 
 	public function url($url = '')
 	{
-		\Errors::typeHint(['string' => $url]);
-
-		$this->settings['url'] = $url;
+		if( is_string($url) )
+		{
+			$this->settings['url'] = $url;
+		}
+		else
+		{
+			\Errors::set('Error', 'stringParameter', 'url');	
+		}
 		
 		return $this;
 	}
 	
 	public function start($start = 0)
 	{
-		\Errors::typeHint(['numeric' => $start]);
+		if( ! is_numeric($start) )
+		{
+			\Errors::set('Error', 'numericParameter', 'start');
+			return $this;
+		}
 		
 		$this->settings['start'] = $start;
 		
@@ -178,7 +187,11 @@ class InternalPagination implements PaginationInterface
 	
 	public function limit($limit = 10)
 	{
-		\Errors::typeHint(['numeric' => $limit]);
+		if( ! is_numeric($limit) )
+		{
+			\Errors::set('Error', 'numericParameter', 'limit');
+			return $this;
+		}
 		
 		$this->settings['limit'] = $limit;
 		
@@ -187,7 +200,11 @@ class InternalPagination implements PaginationInterface
 	
 	public function type($type = 'ajax')
 	{
-		\Errors::typeHint(['string' => $type]);
+		if( ! is_string($type) )
+		{
+			\Errors::set('Error', 'stringParameter', '1.(type)');
+			return $this;
+		}
 		
 		$this->settings['type'] = $type;
 		
@@ -196,7 +213,11 @@ class InternalPagination implements PaginationInterface
 	
 	public function totalRows($totalRows = 0)
 	{
-		\Errors::typeHint(['numeric' => $totalRows]);
+		if( ! is_numeric($totalRows) )
+		{
+			\Errors::set('Error', 'numericParameter', 'totalRows');
+			return $this;
+		}
 		
 		$this->settings['totalRows'] = $totalRows;
 		
@@ -205,7 +226,11 @@ class InternalPagination implements PaginationInterface
 	
 	public function countLinks($countLinks = 10)
 	{
-		\Errors::typeHint(['numeric' => $countLinks]);
+		if( ! is_numeric($countLinks) )
+		{
+			\Errors::set('Error', 'numericParameter', 'countLinks');
+			return $this;
+		}
 		
 		$this->settings['countLinks'] = $countLinks;
 		
@@ -213,15 +238,7 @@ class InternalPagination implements PaginationInterface
 	}
 	
 	public function linkNames($prev = '[prev]', $next = '[next]', $first = '[first]', $last = '[last]')
-	{
-		\Errors::typeHint
-		(
-			['string' => $prev],
-			['string' => $next],
-			['string' => $first],
-			['string' => $last]
-		);
-
+	{	
 		// ÖNCEKİ BUTONU
 		if( ! empty($prev) )
 		{
@@ -251,7 +268,11 @@ class InternalPagination implements PaginationInterface
 	
 	public function css($css = [])
 	{
-		\Errors::typeHint(['array' => $css]);
+		if( ! is_array($css) )
+		{
+			\Errors::set('Error', 'arrayParameter', 'css');
+			return $this;	
+		}
 		
 		$this->settings['class'] = $css;
 		
@@ -260,7 +281,11 @@ class InternalPagination implements PaginationInterface
 	
 	public function style($style = [])
 	{
-		\Errors::typeHint(['array' => $style]);
+		if( ! is_array($style) )
+		{
+			\Errors::set('Error', 'arrayParameter', 'style');
+			return $this;	
+		}
 		
 		$this->settings['style'] = $style;
 		
@@ -311,7 +336,11 @@ class InternalPagination implements PaginationInterface
 	//----------------------------------------------------------------------------------------------------
 	public function settings($config = [])
 	{
-		\Errors::typeHint(['array' => $config]);
+		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
+		if( ! is_array($config) ) 
+		{
+			return \Errors::set('Error', 'arrayParameter', 'config');	
+		}
 		
 		$configs = $this->config; 
 		
@@ -366,8 +395,6 @@ class InternalPagination implements PaginationInterface
 
 	public function create($start = NULL, $settings = [])
 	{
-		\Errors::typeHint([], ['array' => $settings]);
-
 		$settings = array_merge($this->config, $this->settings, $settings);
 		
 		if( ! empty($settings) )

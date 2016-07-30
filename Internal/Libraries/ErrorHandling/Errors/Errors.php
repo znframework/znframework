@@ -1,8 +1,6 @@
 <?php
 namespace ZN\ErrorHandling;
 
-use ZN\VariableTypes\InternalArrays;
-
 class InternalErrors implements ErrorsInterface
 {
 	//----------------------------------------------------------------------------------------------------
@@ -58,11 +56,11 @@ class InternalErrors implements ErrorsInterface
     // @param void
     //
     //----------------------------------------------------------------------------------------------------
-    protected function _debugBackTrace()
+    public function debugBackTrace($numbers = ['object' => 5, 'file' => 7, 'default' => 5])
     {
-    	$objectNumber  = 5;
-    	$fileNumber    = 7;
-    	$defaultNumber = 5;
+    	$objectNumber  = $numbers['object'];
+    	$fileNumber    = $numbers['file'];
+    	$defaultNumber = $numbers['default'];
 
     	$info       = debug_backtrace();
         $className  = isset($info[$objectNumber]['class']) 
@@ -103,7 +101,7 @@ class InternalErrors implements ErrorsInterface
     {
         $errors     = '';
         $funcParams = '';
-        $info       = $this->_debugBackTrace();
+        $info       = $this->debugBackTrace();
 
         $className  = $info['className'];
         $methodName = $info['methodName'];
@@ -156,7 +154,7 @@ class InternalErrors implements ErrorsInterface
 			$errorMessage = lang($errorMessage, $output, $object);	
 		}
 		
-		$info       = $this->_debugBackTrace();
+		$info       = $this->debugBackTrace();
         $className  = $info['className'];
         $methodName = $info['methodName'];
         $line       = $info['line'];

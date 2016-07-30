@@ -33,8 +33,6 @@ class InternalCrypto implements CryptoInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($driver = '')
 	{
-		\Errors::typeHint(['string' => $driver]);
-
 		$this->crypto = \Driver::run('Encode', $driver);
 	}
 	
@@ -86,7 +84,15 @@ class InternalCrypto implements CryptoInterface
 	******************************************************************************************/
 	public function encrypt($data = '',  $settings = [])
 	{
-		\Errors::typeHint(['scalar' => $data], ['array' => $settings]);
+		if( ! is_scalar($data) )
+		{
+			return \Errors::set('Error', 'scalarParameter', '1.(data)');	
+		}
+		
+		if( ! is_array($settings) )
+		{
+			return \Errors::set('Error', 'arrayParameter', '2.(settings)');	
+		}
 		
 		return $this->crypto->encrypt($data,  $settings);
 	}
@@ -112,7 +118,15 @@ class InternalCrypto implements CryptoInterface
 	******************************************************************************************/
 	public function decrypt($data = '', $settings = [])
 	{
-		\Errors::typeHint(['scalar' => $data], ['array' => $settings]);
+		if( ! is_scalar($data) )
+		{
+			return \Errors::set('Error', 'scalarParameter', '1.(data)');	
+		}
+		
+		if( ! is_array($settings) )
+		{
+			return \Errors::set('Error', 'arrayParameter', '2.(settings)');	
+		}
 		
 		return $this->crypto->decrypt($data,  $settings);
 	}
@@ -130,14 +144,17 @@ class InternalCrypto implements CryptoInterface
 	*******************************************************************************************
 	| Genel Kullanım: Belirtilen uzunlukta anahtar oluşturur.				 		          |
 	
-	  @param int $length = 8
+	  @param string $length = 8
 	  
 	  @return string
 	|          																				  |
 	******************************************************************************************/
 	public function keygen($length = 8)
 	{
-		\Errors::typeHint(['int' => $length]);
+		if( ! is_numeric($length) )
+		{
+			return \Errors::set('Error', 'numericParameter', '1.(length)');	
+		}
 		
 		return $this->crypto->keygen($length);
 	}

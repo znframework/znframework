@@ -48,7 +48,10 @@ class InternalBuffer implements BufferInterface
 	//----------------------------------------------------------------------------------------------------
 	public function file($file = '')
 	{
-	    \Errors::typeHint(['file' => $file]);
+		if( ! file_exists($file) )
+		{
+			return \Errors::set('Error', 'fileParameter', 'file');	
+		}
 		
 		ob_start();
 		
@@ -72,7 +75,13 @@ class InternalBuffer implements BufferInterface
 	//----------------------------------------------------------------------------------------------------
 	public function func($func = '', $params = [])
 	{
-	    \Errors::typeHint(['callable' => $func], ['array' => $params]);
+		if( ! is_callable($func) || ! is_array($params) )
+		{
+			\Errors::set('Error', 'callableParameter', 'func');	
+			\Errors::set('Error', 'arrayParameter', 'params');
+			
+			return false;	
+		}
 		
 		ob_start();
 		
@@ -122,9 +131,15 @@ class InternalBuffer implements BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($name = NULL, $data = '', $params = [])
+	public function insert($name = '', $data = '', $params = [])
 	{
-        \Errors::typeHint(['scalar' => $name], [], ['array' => $params]);
+		if( ! is_scalar($name) || ! is_array($params) )
+		{
+			\Errors::set('Error', 'valueParameter', 'name');
+			\Errors::set('Error', 'arrayParameter', 'params');	
+			
+			return false;
+		}
 		
 		$systemObData = md5('OB_DATAS_'.$name);
 		
@@ -150,9 +165,12 @@ class InternalBuffer implements BufferInterface
 	// @return callable/content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($name = NULL)
+	public function select($name = '')
 	{
-        \Errors::typeHint(['scalar' => $name]);
+		if( ! is_scalar($name) )
+		{
+			return \Errors::set('Error', 'valueParameter', 'name');	
+		}
 		
 		return \Session::select(md5('OB_DATAS_'.$name));
 	}

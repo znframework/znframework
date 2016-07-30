@@ -78,7 +78,16 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function create($count = 6, $chars = 'all')
 	{
-		\Errors::typeHint(['int' => $count], ['string' => $chars]);
+		// Parametre numeric yani sayısal veri içermelidir.
+		if( ! is_numeric($count) ) 
+		{
+			$count = 6;
+		}
+		
+		if( ! is_string($chars) ) 
+		{
+			$chars = "all";
+		}
 		
 		$password = '';
 		
@@ -137,18 +146,26 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function golden($data = '', $additional = 'default')
 	{
-	    \Errors::typeHint(['scalar' => $data, 'scalar' => $additional]);
-
+		if( ! is_scalar($data) || empty($data) ) 
+		{
+			return \Errors::set('Error', 'valueParameter', 'data');
+		}
+		
+		if( ! is_scalar($additional) )
+		{
+			$additional = 'default';
+		}
+	
 		$algo = $this->config['type'];
-
+		
 		if( ! isHash($algo) )
 		{
-			$algo = 'md5';
+			$algo = 'md5';	
 		}
 		// Ek veri şifreleniyor.
-
+		
 		$additional = hash($algo, $additional);
-
+		
 		// Veri şifreleniyor.
 		$data = hash($algo, $data);
 		
@@ -175,7 +192,10 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function super($data = '')
 	{
-        \Errors::typeHint(['scalar' => $data]);
+		if( ! is_scalar($data) || empty($data) ) 
+		{
+			return \Errors::set('Error', 'valueParameter', 'data');
+		}
 		
 		$projectKey = $this->config['projectKey'];
 		
@@ -203,6 +223,7 @@ class InternalEncode implements EncodeInterface
 		
 		// Veri ve ek yeniden şifreleniyor.
 		return hash($algo, $data.$additional);
+
 	}
 	
 	/******************************************************************************************
@@ -221,7 +242,10 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function data($data = '', $type = 'md5')
 	{
-		\Errors::typeHint(['scalar' => $data], ['string' => $type]);
+		if( ! is_scalar($data) )
+		{
+			return  \Errors::set('Error', 'scalarParameter', '1.(data)');
+		}
 		
 		$algos = ['golden', 'super'];
 		
@@ -254,8 +278,6 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function type($data = '', $type = 'md5')
 	{
-		\Errors::typeHint(['scalar' => $data], ['string' => $type]);
-
 		return $this->data($data, $type);
 	}
 }

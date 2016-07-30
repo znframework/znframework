@@ -101,7 +101,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function width($param = 0)
 	{
-		\Errors::typeHint(['numeric' => $param]);
+		if( ! is_numeric($param) )
+		{
+			\Errors::set('Error', 'numericParameter', 'param');
+			return $this;	
+		}
 		
 		if( ! empty($param) )
 		{
@@ -123,7 +127,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function height($param = 0)
 	{
-		\Errors::typeHint(['numeric' => $param]);
+		if( ! is_numeric($param) )
+		{
+			\Errors::set('Error', 'numericParameter', 'param');
+			return $this;	
+		}
 		
 		if( ! empty($param) )
 		{
@@ -164,7 +172,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function length($param = 0)
 	{
-		\Errors::typeHint(['numeric' => $param]);
+		if( ! is_numeric($param) )
+		{
+			\Errors::set('Error', 'numericParameter', 'param');
+			return $this;	
+		}
 		
 		if( ! empty($param) )
 		{
@@ -188,7 +200,13 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function border($is = true, $color = '')
 	{
-		\Errors::typeHint(['bool' => $is], ['string' => $color]);
+		if( ! is_bool($is) || ! is_string($color) )
+		{
+			\Errors::set('Error', 'booleanParameter', 'is');
+			\Errors::set('Error', 'stringParameter', 'color');
+			
+			return $this;	
+		}
 		
 		$this->sets['border'] = $is;
 		
@@ -212,7 +230,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function borderColor($color = '')
 	{
-		\Errors::typeHint(['string' => $color]);
+		if( ! is_string($color) )
+		{
+			\Errors::set('Error', 'stringParameter', 'color');
+			return $this;	
+		}
 
 		if( ! empty($color) )
 		{
@@ -234,7 +256,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function bgColor($color = '')
 	{
-		\Errors::typeHint(['string' => $color]);
+		if( ! is_string($color) )
+		{
+			\Errors::set('Error', 'stringParameter', 'color');
+			return $this;	
+		}
 		
 		if( ! empty($color) )
 		{
@@ -284,9 +310,7 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function background($background = '')
 	{
-		\Errors::typeHint(['string' => $background]);
-
-		if( ! is_file($background) )
+		if( is_string($background) && ! is_file($background) )
 		{
 			$this->bgColor($background);
 		}
@@ -310,7 +334,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function textSize($size = 0)
 	{
-		\Errors::typeHint(['numeric' => $size]);
+		if( ! is_numeric($size) )
+		{
+			\Errors::set('Error', 'numericParameter', 'size');
+			return $this;
+		}
 		
 		if( ! empty($size) )
 		{
@@ -333,7 +361,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function textCoordinate($x = 0, $y = 0)
 	{
-		\Errors::typeHint(['numeric' => $x], ['numeric' => $y]);
+		if( ! is_numeric($x) || ! is_numeric($y) )
+		{
+			\Errors::set('Error', 'numericParameter', 'x | y');
+			return $this;
+		}
 
 		if( ! empty($x) ) 
 		{
@@ -360,7 +392,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function textColor($color = '')
 	{
-		\Errors::typeHint(['string' => $color]);
+		if( ! is_string($color) )
+		{
+			\Errors::set('Error', 'stringParameter', 'color');
+			return $this;	
+		}
 		
 		if( ! empty($color) )
 		{
@@ -385,13 +421,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function text($size = 0, $x = 0, $y = 0, $color = '')
 	{
-		\Errors::typeHint
-		(
-			['numeric' => $size], 
-			['numeric' => $x], 
-			['numeric' => $y], 
-			['string'  => $color]
-		);
+		if( ! is_numeric($size) || ! is_numeric($x) || ! is_numeric($y) )
+		{
+			\Errors::set('Error', 'numericParameter', 'size | x | y');
+			return $this;
+		}
 		
 		if( ! empty($size) )
 		{
@@ -425,7 +459,13 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function grid($is = true, $color = '')
 	{
-		\Errors::typeHint(['bool' => $is], ['string' => $color]);
+		if( ! is_bool($is) || ! is_string($color) )
+		{
+			\Errors::set('Error', 'booleanParameter', 'is');
+			\Errors::set('Error', 'stringParameter', 'color');
+			
+			return $this;	
+		}
 
 		$this->sets['grid'] = $is;
 		
@@ -449,7 +489,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function gridColor($color = '')
 	{
-		\Errors::typeHint(['string' => $color]);
+		if( ! is_string($color) )
+		{
+			\Errors::set('Error', 'stringParameter', 'color');
+			return $this;	
+		}
 
 		if( ! empty($color) )
 		{		
@@ -472,7 +516,11 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function gridSpace($x = 0, $y = 0)
 	{
-		\Errors::typeHint(['numeric' => $x], ['numeric' => $y]);
+		if( ! is_numeric($x) || ! is_numeric($y) )
+		{
+			\Errors::set('Error', 'numericParameter', 'x | y');
+			return $this;
+		}
 
 		if( ! empty($x) ) 
 		{
@@ -508,8 +556,6 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function create($img = false, $configs = [])
 	{	
-		\Errors::typeHint(['bool' => $img], ['array' => $configs]);
-
 		$config  = $this->config;
 		
 		$configs = array_merge($config, $this->sets, $configs);

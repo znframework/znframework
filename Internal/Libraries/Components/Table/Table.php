@@ -65,13 +65,16 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function attr($attributes = [])
 	{
-		\Errors::typeHint(['array' => $attributes]);
+		if( ! is_array($attributes))
+		{
+			\Errors::set('Error', 'arrayParameter', 'attributes');
+			return $this;	
+		}
 		
-		foreach( $attributes as $att => $val )
+		foreach($attributes as $att => $val)
 		{
 			$this->attr[$att] = $val; 
 		}
-
 		return $this;
 	}
 	
@@ -84,12 +87,13 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function align($align = '')
 	{
-		\Errors::typeHint(['string' => $align]);
-		
-		if( ! empty($align) )
+		if( ! is_string($align) )
 		{
-			$this->attr['align'] = $align;	
-		} 
+			\Errors::set('Error', 'stringParameter', 'align');
+			return $this;	
+		}
+		
+		if( ! empty($align)) $this->attr['align'] = $align;
 		
 		return $this;
 	}
@@ -161,16 +165,13 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function cell($spacing = 0, $padding = 0)
 	{
-		\Errors::typeHint(['numeric' => $spacing], ['numeric' => $padding]);
-
-		if( ! empty($spacing) )
+		if( ! is_numeric($spacing) || ! is_numeric($padding) )
 		{
-			$this->attr['cellspacing'] = $spacing;
-		} 
-		if( ! empty($padding) ) 
-		{
-			$this->attr['cellpadding'] = $padding;
+			\Errors::set('Error', 'numericParameter', 'spacing & padding');
+			return $this;	
 		}
+		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
+		if( ! empty($padding) ) $this->attr['cellpadding'] = $padding;
 		
 		return $this;
 	}
@@ -184,12 +185,13 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function cellSpacing($spacing = 0)
 	{
-		\Errors::typeHint(['numeric' => $spacing]);
-		
-		if( ! empty($spacing) ) 
+		if( ! is_numeric($spacing) )
 		{
-			$this->attr['cellspacing'] = $spacing;
+			\Errors::set('Error', 'numericParameter', 'spacing');
+			return $this;	
 		}
+		
+		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
 		
 		return $this;
 	}
@@ -203,13 +205,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function cellPadding($padding = 0)
 	{
-		\Errors::typeHint(['numeric' => $padding]);
-		
-		if( ! empty($padding) )
+		if( ! is_numeric($padding) )
 		{
-			$this->attr['cellpadding'] = $padding;
+			\Errors::set('Error', 'numericParameter', 'padding');
+			return $this;	
 		}
-
+		
+		if( ! empty($padding)) $this->attr['cellpadding'] = $padding;
+		
 		return $this;
 	}
 	
@@ -223,17 +226,20 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function border($border = 0, $color = '')
 	{
-		\Errors::typeHint(['numeric' => $border], ['string' => $color]);
+		if( ! is_numeric($border) )
+		{
+			\Errors::set('Error', 'numericParameter', 'border');
+			return $this;	
+		}
 		
-		if( ! empty($border) )
+		if( ! is_string($color) )
 		{
-			$this->attr['border']      = $border;
+			\Errors::set('Error', 'stringParameter', 'color');
+			return $this;	
 		}
-
-		if( ! empty($color) )
-		{
-			$this->attr['bordercolor'] = $color;
-		}
+		
+		if( ! empty($border) ) $this->attr['border']      = $border;
+		if( ! empty($color) )  $this->attr['bordercolor'] = $color;
 	
 		return $this;
 	}
@@ -247,13 +253,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function borderSize($border = 0)
 	{
-		\Errors::typeHint(['numeric' => $border]);
-		
-		if( ! empty($border) )
+		if( ! is_numeric($border) )
 		{
-			$this->attr['border'] = $border;
+			\Errors::set('Error', 'numericParameter', 'border');
+			return $this;	
 		}
-
+		
+		if( ! empty($border) ) $this->attr['border'] = $border;
+	
 		return $this;
 	}
 	
@@ -266,13 +273,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function borderColor($color = '')
 	{
-		\Errors::typeHint(['string' => $color]);
-
-		if( ! empty($color) )
+		if( ! is_string($color) )
 		{
-			$this->attr['bordercolor'] = $color;
+			\Errors::set('Error', 'stringParameter', 'color');
+			return $this;	
 		}
 
+		if( ! empty($color)) $this->attr['bordercolor'] = $color;
+	
 		return $this;
 	}
 	
@@ -285,13 +293,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function width($width = '')
 	{
-		\Errors::typeHint(['scalar' => $width]);
-		
-		if( ! empty($width) )
+		if( ! is_scalar($width) )
 		{
-			$this->attr['width'] = $width;
+			\Errors::set('Error', 'valueParameter', 'width');
+			return $this;	
 		}
-
+		
+		if( ! empty($width)) $this->attr['width'] = $width;
+		
 		return $this;
 	}
 	
@@ -304,13 +313,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function height($height = '')
 	{
-		\Errors::typeHint(['scalar' => $height]);
-		
-		if( ! empty($height) )
+		if( ! is_scalar($height) )
 		{
-			$this->attr['height'] = $height;
+			\Errors::set('Error', 'valueParameter', 'height');
+			return $this;	
 		}
-
+		
+		if( ! empty($height)) $this->attr['height'] = $height;
+		
 		return $this;
 	}
 	
@@ -324,18 +334,15 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function size($width = '', $height = '')
 	{
-		\Errors::typeHint(['scalar' => $width], ['scalar' => $height]);
+		if( ! is_scalar($height) || ! is_scalar($width) )
+		{
+			\Errors::set('Error', 'valueParameter', 'width & height');
+			return $this;	
+		}
 		
-		if( ! empty($width) )  
-		{
-			$this->attr['width']  = $width;
-		}
-
-		if( ! empty($height) )
-		{
-			$this->attr['height'] = $height;
-		}
-
+		if( ! empty($width) )  $this->attr['width']  = $width;
+		if( ! empty($height) ) $this->attr['height'] = $height;
+		
 		return $this;
 	}
 	
@@ -348,13 +355,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function css($css = '')
 	{
-		\Errors::typeHint(['string' => $css]);
-		
-		if( ! empty($css) )
+		if( ! is_string($css) )
 		{
-			$this->attr['class'] = $css;
+			\Errors::set('Error', 'stringParameter', 'css');
+			return $this;	
 		}
-
+		
+		if( ! empty($css) ) $this->attr['class'] = $css;
+		
 		return $this;
 	}
 	
@@ -368,8 +376,6 @@ class InternalTable implements TableInterface
 	public function style($_attributes = [])
 	{
 		$attribute = "";
-
-		\Errors::typeHint(['array' => $_attributes]);
 		
 		if( is_array($_attributes) )
 		{
@@ -398,13 +404,14 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function background($background = '')
 	{
-		\Errors::typeHint(['string' => $background]);
-		
-		if( ! empty($background) )
+		if( ! is_string($background) )
 		{
-			$this->attr['background'] = $background;
+			\Errors::set('Error', 'stringParameter', 'background');
+			return $this;	
 		}
-
+		
+		if( ! empty($background)) $this->attr['background'] = $background;
+		
 		return $this;
 	}
 	
@@ -417,12 +424,13 @@ class InternalTable implements TableInterface
 	//----------------------------------------------------------------------------------------------------
 	public function bgColor($bgColor = '')
 	{
-		\Errors::typeHint(['string' => $bgColor]);
-		
-		if( ! empty($bgColor) )
+		if( ! is_string($bgColor) )
 		{
-			$this->attr['bgcolor'] = $bgColor;
+			\Errors::set('Error', 'stringParameter', 'bgColor');
+			return $this;	
 		}
+		
+		if( ! empty($bgColor)) $this->attr['bgcolor'] = $bgColor;
 		
 		return $this;
 	}

@@ -176,8 +176,6 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function url($url = '')
 	{
-		\Errors::typeHint(['string' => $url]);
-
 		if( ! isUrl($url) )
 		{
 			$url = siteUrl($url);	
@@ -202,7 +200,12 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function nameType($day = 'short', $month = 'long')
 	{
-		\Errors::typeHint(['string' => $day], ['string' => $month]);
+		if( ! is_string($day) || ! is_string($month) )	
+		{
+			\Errors::set('Error', 'stringParameter', 'day | month');
+			
+			return $this;	
+		}
 		
 		$this->dayNames   = $day;	
 
@@ -223,7 +226,11 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function css($css = [])
 	{
-		\Errors::typeHint(['array' => $css]);
+		if( ! is_array($css) )
+		{
+			\Errors::set('Error', 'arrayParameter', 'css');
+			return $this;	
+		}
 		
 		$this->css = $css;
 		
@@ -242,7 +249,11 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function style($style = [])
 	{
-		\Errors::typeHint(['array' => $style]);
+		if( ! is_array($style) )
+		{
+			\Errors::set('Error', 'arrayParameter', 'style');
+			return $this;	
+		}
 		
 		$this->style = $style;
 		
@@ -261,7 +272,11 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function type($type = 'ajax')
 	{
-		\Errors::typeHint(['string' => $type]);
+		if( ! is_string($type) )
+		{
+			\Errors::set('Error', 'stringParameter', '1.(type)');
+			return $this;
+		}
 		
 		$this->type = $type;
 		
@@ -282,7 +297,11 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function linkNames($prev = '<<', $next = '>>')
 	{
-		\Errors::typeHint(['string' => $prev], ['string' => $next]);
+		if( ! ( is_string($prev) && is_string($next) ) )	
+		{
+			\Errors::set('Error', 'stringParameter', 'prev | next');
+			return $this;	
+		}
 		
 		if( ! empty($prev) )
 		{
@@ -313,8 +332,6 @@ class InternalCalendar implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	public function settings($settings = [])
 	{
-		\Errors::typeHint(['array' => $settings]);
-
 		\Config::set('Components', 'calendar', $settings);
 		
 		return $this;

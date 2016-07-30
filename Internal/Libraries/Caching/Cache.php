@@ -32,7 +32,7 @@ class InternalCache implements CacheInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($driver = '')
-	{
+	{	
 		$this->cache  = \Driver::run('Cache', $driver);
 	}
 	
@@ -80,10 +80,8 @@ class InternalCache implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($key = NULL, $compressed = false)
-	{
-        \Errors::typeHint(['string' => $key]);
-
+	public function select($key = '', $compressed = false)
+	{ 
 		return $this->cache->select($key, $compressed);
 	}
 	
@@ -94,14 +92,12 @@ class InternalCache implements CacheInterface
 	// @param  string $key
 	// @param  variable $var
 	// @param  numeric $time
-	// @param  mixed $compressed
+	// @param  mixed $expressed
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($key = NULL, $var = '', $time = 60, $compressed = false)
+	public function insert($key = '', $var = '', $time = 60, $compressed = false)
 	{
-        \Errors::typeHint(['string' => $key], [], ['numeric' => $time]);
-
 		return $this->cache->insert($key, $var, $time, $compressed);
 	}
 	
@@ -113,10 +109,8 @@ class InternalCache implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($key = NULL)
+	public function delete($key = '')
 	{
-        \Errors::typeHint(['string' => $key]);
-
 		return $this->cache->delete($key);
 	}
 	
@@ -137,10 +131,8 @@ class InternalCache implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($key = NULL, $increment = 1)
+	public function increment($key = '', $increment = 1)
 	{
-        \Errors::typeHint(['string' => $key], ['numeric' => $increment]);
-
 		return $this->cache->increment($key, $increment);
 	}
 	
@@ -153,10 +145,8 @@ class InternalCache implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($key = NULL, $decrement = 1)
+	public function decrement($key = '', $decrement = 1)
 	{
-        \Errors::typeHint(['string' => $key], ['numeric' => $decrement]);
-
 		return $this->cache->decrement($key, $decrement);
 	}
 	
@@ -191,8 +181,6 @@ class InternalCache implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	public function getMetaData($key = '')
 	{
-        \Errors::typeHint(['string' => $key]);
-
 		return $this->cache->getMetaData($key);
 	}
 	
