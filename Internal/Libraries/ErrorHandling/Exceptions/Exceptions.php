@@ -22,16 +22,68 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	{
 		return $this->_template($this->getMessage(), $this->getFile(), $this->getLine());
 	}
+
+	protected function _undefinedVariable($msg)
+	{
+		preg_match
+		(
+			'/^Undefined\svariable\:/xi',
+			$msg,
+			$match
+		);
+	
+		if( empty($match) )
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	protected function _argumentMissed($msg)
+	{
+		$exceptionData = false;
+
+		preg_match
+		(
+			'/^Missing\sargument\s(\d)+\sfor/xi',
+			$msg,
+			$match
+		);
+		
+		$message  = ! empty($match[0]) ? $match[0] : NULL;
+		$argument = ! empty($match[1]) ? $match[1] : NULL;
+
+		if( empty($match) )
+		{
+			return $exceptionData;
+		}
+		
+		$debug = \Errors::debugBackTrace(['object' => 13, 'file' => 13, 'default' => 5]);
+
+		$langMessage1 = $debug['className'].'::'.$debug['methodName'].'() p'.$argument.':';
+
+		$exceptionData = array
+		(
+			'message' => lang('Error', 'emptyParameter', $langMessage1),
+			'file'	  => $debug['file'],
+			'line'    => $debug['line']
+		);
+
+		return $exceptionData;
+	}
 	
 	protected function _argumentPassed($msg)
 	{
+		$exceptionData = false;
+
 		preg_match
 		(
 			'/^Argument\s(\d)+\spassed\sto\s(.*?)::(.*?)\smust\sbe\s\w+\s\w+\s\w+\s(.*?),\s(\w+)\sgiven/xi',
 			$msg,
 			$match
 		);
-
+		
 		$message  = ! empty($match[0]) ? $match[0] : NULL;
 		$argument = ! empty($match[1]) ? $match[1] : NULL;
 		$class    = ! empty($match[2]) ? $match[2] : NULL;
@@ -44,15 +96,24 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return false;
 		}
 
-		return (object)
-		[
-			'message'  => $message,
-			'argument' => $argument,
-			'class'    => $class,
-			'method'   => $method,
-			'type'	   => $type,
-			'data'	   => $data
-		];
+		if( $type !== $data )
+		{
+			$debug = \Errors::debugBackTrace(['object' => 13, 'file' => 13, 'default' => 5]);
+
+			$langMessage1 = $debug['className'].'::'.$method.' p'.$argument.':';
+			$langMessage2 = '`'.$type.'`';
+
+			$exceptionData = array
+			(
+				'message' => lang('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
+				'file'	  => $debug['file'],
+				'line'    => $debug['line'],
+			);
+
+			return $exceptionData;
+		}
+
+		return true;
 	}
 
 	/******************************************************************************************
@@ -70,30 +131,29 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			'line'    => $line
 		);
 
-		$debug = \Errors::debugBackTrace(['object' => 9, 'file' => 9, 'default' => 5]);
 
-		$passed = $this->_argumentPassed($msg);
-		
-		if( ! empty($passed) )	
+		if( $passed = $this->_argumentPassed($msg) )	
 		{
-			if( $passed->type === $passed->data )
+			if( is_array($passed) )
 			{
-				return false;
+				$exceptionData = $passed;
 			}
 			else
 			{
-				$langMessage1 = $debug['className'].'::'.$passed->method.' p'.$passed->argument.':';
-				$langMessage2 = '`'.$passed->type.'`';
-
-				$exceptionData = array
-				(
-					'message' => lang('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
-					'file'	  => $debug['file'],
-					'line'    => $debug['line']
-				);
+				return false;
 			}
 		}
-		
+
+		if( $missed = $this->_argumentMissed($msg) )
+		{
+			$exceptionData = $missed;
+		}
+
+		if( $this->_undefinedVariable($msg) )
+		{
+			return false;
+		}
+
 		return \Import::template('ExceptionTable', $exceptionData, true);
 	}
 		

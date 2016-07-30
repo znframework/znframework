@@ -20,7 +20,7 @@ interface BenchmarkInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function start($test);
+	public function start(String $test);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Test End
@@ -30,7 +30,7 @@ interface BenchmarkInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function end($test);
+	public function end(String $test);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Elapsed Time
@@ -41,7 +41,7 @@ interface BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function elapsedTime($result, $decimal);
+	public function elapsedTime(String $result, $decimal);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Used Files
@@ -51,7 +51,7 @@ interface BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function usedFiles($result);
+	public function usedFiles(String $result);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Used File Count
@@ -61,7 +61,7 @@ interface BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function usedFileCount($result);
+	public function usedFileCount(String $result);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Calculated Memory
@@ -71,7 +71,7 @@ interface BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculatedMemory($result);
+	public function calculatedMemory(String $result);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Memory Usage
@@ -81,7 +81,7 @@ interface BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function memoryUsage($realMemory);
+	public function memoryUsage(Boolean $realMemory);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Max Memory Usage
@@ -91,5 +91,5 @@ interface BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function maxMemoryUsage($realMemory);
+	public function maxMemoryUsage(Boolean $realMemory);
 }
