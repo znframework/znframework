@@ -23,7 +23,7 @@ interface DBInterface
 	| Örnek Kullanım: ->select('col1, col2 ...')        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function select($condition);
+	public function select(...$condition);
 	
 	/******************************************************************************************
 	* FROM                                                                                    *
@@ -56,6 +56,23 @@ interface DBInterface
 	******************************************************************************************/
 	public function where($column, $value, $logical);
 	
+	/******************************************************************************************
+	* WHERE  GROUP                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function whereGroup(...$args);
 	
 	/******************************************************************************************
 	* HAVING                                                                                  *
@@ -73,6 +90,24 @@ interface DBInterface
 	|          																				  |
 	******************************************************************************************/
 	public function having($column, $value, $logical);
+
+	/******************************************************************************************
+	* WHERE  GROUP                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Sorgu işlemlerinde WHERE kullanımı için oluşturulmuştur.				  |
+	|															                              |
+	| Parametreler: Tek array parametresi vardır.                                             |
+	| 1. string var @column => Sütun ve operatör parametresidir.                              |
+	| 2. string var @value => Karşılaştırılacak sütun değeri.                                 |
+	| 3. [ string var @logical ] => Bağlaç bilgisi. AND, OR                                   |
+	|          																				  |
+	| 3. Parametre çoklu koşul gerektiğinde kullanılır.             						  |
+	|          																				  |
+	| Örnek Kullanım: ->where('id >', 2, 'and')->where('id <', 20);		        			  |
+	| Örnek Kullanım: ->where('isim =', 'zntr', 'or')->where('isim = ', 'zn')		          |
+	|          																				  |
+	******************************************************************************************/
+	public function havingGroup(...$args);
 	
 	/******************************************************************************************
 	* JOIN                                                                                    *
@@ -362,7 +397,7 @@ interface DBInterface
 	| Örnek Kullanım: ->groupBy('id')  // GROUP BY id								          |
 	|          																				  |
 	******************************************************************************************/
-	public function groupBy($condition);
+	public function groupBy(...$condition);
 	
 	/******************************************************************************************
 	* ORDER BY                                                                                *

@@ -420,15 +420,10 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function from($table = '')
 	{
-		if( is_string($table) ) 
-		{
-			$this->from      = ' '.$this->prefix.$table.' ';
-			$this->tableName = $this->prefix.$table;
-		}
-		else
-		{
-			\Errors::set('Error', 'stringParameter', 'table');	
-		}
+		\Errors::typeHint(['string' => $table]);
+
+		$this->from      = ' '.$this->prefix.$table.' ';
+		$this->tableName = $this->prefix.$table;
 		
 		return $this;
 	}
@@ -463,7 +458,7 @@ class InternalDB implements DBInterface, DatabaseInterface
 	/******************************************************************************************
 	* Protedted Where Having                                                                  *
 	******************************************************************************************/
-	public function _wh($column = '', $value = '', $logical = '', $type = 'where')
+	protected function _wh($column = '', $value = '', $logical = '', $type = 'where')
 	{
 		if( isArray($column) )
 		{
@@ -512,6 +507,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function where($column = '', $value = '', $logical = '')
 	{
+		\Errors::typeHint([], ['string' => $value], ['string' => $logical]);
+
 		$this->_wh($column, $value, $logical, __FUNCTION__);
 		
 		return $this;
@@ -639,6 +636,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function having($column = '', $value = '', $logical = '')
 	{
+		\Errors::typeHint([], ['string' => $value], ['string' => $logical]);
+
 		$this->_wh($column, $value, $logical, __FUNCTION__);
 		
 		return $this;
@@ -750,18 +749,12 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function join($table = '', $condition = '', $type = '')
 	{
-		// Parametrelerin string kontrolü yapılıyor.
-		if( ! is_string($table) || ! is_string($condition) || ! is_string($type) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'table, condition, type');
-		}
-		else
-		{
-			$table = $this->prefix.$table;
-			$type  = strtoupper($type);
-			
-			$this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
-		}
+		\Errors::typeHint(['string' => $table], ['string' => $condition], ['string' => $type]);
+		
+		$table = $this->prefix.$table;
+		$type  = strtoupper($type);
+		
+		$this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
 		
 		return $this;
 	}
@@ -809,6 +802,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function innerJoin($table = '', $otherColumn = '', $operator = '=')
 	{
+		\Errors::typeHint(['string' => $table], ['string' => $otherColumn], ['string' => $operator]);
+
 		$this->_join($table, $otherColumn, $operator, 'INNER');
 		
 		return $this;
@@ -825,6 +820,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
 	{
+		\Errors::typeHint(['string' => $table], ['string' => $otherColumn], ['string' => $operator]);
+
 		$this->_join($table, $otherColumn, $operator, 'OUTER');
 		
 		return $this;
@@ -841,6 +838,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
 	{
+		\Errors::typeHint(['string' => $table], ['string' => $otherColumn], ['string' => $operator]);
+
 		$this->_join($table, $otherColumn, $operator, 'LEFT');
 		
 		return $this;
@@ -857,6 +856,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
 	{
+		\Errors::typeHint(['string' => $table], ['string' => $otherColumn], ['string' => $operator]);
+
 		$this->_join($table, $otherColumn, $operator, 'RIGHT');
 		
 		return $this;
@@ -912,6 +913,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function orderBy($condition = '', $type = '')
 	{ 
+		\Errors::typeHint([], ['string' => $type]);
+
 		if( is_string($condition) ) 
 		{
 			$this->orderBy .= $condition.' '.$type.', ';  
@@ -959,6 +962,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function limit($start = 0, $limit = 0)
 	{ 
+		\Errors::typeHint([], ['numeric' => $limit]);
+
 		if( $start === NULL )
 		{
 			$start = \URI::segment(-1);
@@ -993,12 +998,7 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function get($table = '', $return = 'object')
 	{
-		if( ! is_string($table) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'table');
-			
-			return $this;
-		}
+		\Errors::typeHint(['string' => $table], ['string' => $return]);
 				
 		if( ! empty($table) ) 
 		{
@@ -1117,6 +1117,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function escapeString($data = '')
 	{
+		\Errors::typeHint(['scalar' => $data]);
+
 		return $this->db->realEscapeString($data);	
 	}
 	
@@ -1132,6 +1134,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function realEscapeString($data = '')
 	{
+		\Errors::typeHint(['scalar' => $data]);
+
 		return $this->db->realEscapeString($data);	
 	}
 	
@@ -1188,6 +1192,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function getString($table = '')
 	{
+		\Errors::typeHint(['string' => $table]);
+
 		return $this->get($table, 'string');	
 	}
 	
@@ -1205,6 +1211,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function alias($string = '', $alias = '', $brackets = false)
 	{
+		\Errors::typeHint(['string' => $string], ['string' => $alias], ['bool' => $brackets]);
+
 		if( $brackets === true)
 		{
 			$string = $this->brackets($string);
@@ -1225,6 +1233,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	//----------------------------------------------------------------------------------------------------
 	public function brackets($string = '')
 	{
+		\Errors::typeHint(['string' => $string]);
+
 		return ' ( '.$string.' ) ';
 	}
 	
@@ -1276,7 +1286,10 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function maxStatementTime($time = '')
 	{ 
-		$this->maxStatementTime = ' MAX_STATEMENT_TIME '.$time.' '; 
+		\Errors::typeHint(['scalar' => $time]);
+
+		$this->maxStatementTime = ' MAX_STATEMENT_TIME '.$time.' ';
+
 		return $this; 
 	}
 	
@@ -1444,7 +1457,10 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function dumpFile($file = '')
 	{ 
+		\Errors::typeHint(['string' => $file]);
+
 		$this->dumpFile = 'INTO DUMPFILE '."'".$file."'".' ';
+
 		return $this; 
 	}
 	
@@ -1458,6 +1474,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function characterSet($set = '', $return = false)
 	{ 
+		\Errors::typeHint(['string' => $set], ['bool' => $return]);
+
 		$string = 'CHARACTER SET '.$set.' ';
 		
 		if( $return === false )
@@ -1481,6 +1499,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function cset($set = '')
 	{ 
+		\Errors::typeHint(['string' => $set]);
+
 		if( empty($set) )
 		{
 			$set = $this->config['charset'];
@@ -1499,6 +1519,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function collate($set = '')
 	{ 
+		\Errors::typeHint(['string' => $set]);
+
 		if( empty($set) )
 		{
 			$set = $this->config['collation'];
@@ -1518,6 +1540,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function encoding($charset = 'utf8', $collate = 'utf8_general_ci')
 	{ 
+		\Errors::typeHint(['string' => $charset], ['string' => $collate]);
+
 		$encoding = '';
 		
 		if( ! empty($charset) )
@@ -1543,12 +1567,15 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function into($varname1 = '', $varname2 = '')
 	{ 
+		\Errors::typeHint(['string' => $varname1], ['string' => $varname2]);
+
 		$this->into = 'INTO '.$varname1.' ';
 		
 		if( ! empty($varname2) ) 
 		{
 			$this->into .= ', '.$varname2.' ';  
 		}
+
 		return $this; 
 	}
 	
@@ -1696,33 +1723,27 @@ class InternalDB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->query('SELECT * FROM OrnekTablo');        					  |
 	|          																				  |
 	******************************************************************************************/
-	public function query($query = '', $secure = [])
+	public function query($query = NULL, $secure = [])
 	{
-		if( ! is_string($query) || empty($query) ) 
+		\Errors::typeHint(['string' => $query], ['array' => $secure]);
+	
+		if( isset($this->secure) )
 		{
-			\Errors::set('Error', 'stringParameter', 'query');
-			\Errors::set('Error', 'emptyParameter', 'query');
+			$secure = $this->secure;
 		}
-		else
+		
+		$this->db->query($this->_querySecurity($query), $secure);
+		
+		if( ! empty($this->transStart) ) 
 		{
-			if( isset($this->secure) )
+			$transError = $this->db->error();
+			
+			if( ! empty($transError) ) 
 			{
-				$secure = $this->secure;
-			}
-			
-			
-			$this->db->query($this->_querySecurity($query), $secure);
-			
-			if( ! empty($this->transStart) ) 
-			{
-				$transError = $this->db->error();
-				
-				if( ! empty($transError) ) 
-				{
-					$this->transError = $transError; 
-				}
+				$this->transError = $transError; 
 			}
 		}
+		
 		
 		return $this;
 	}
@@ -1739,15 +1760,9 @@ class InternalDB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->execQuery('DROP TABLE OrnekTablo');        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function execQuery($query = '', $secure = [])
+	public function execQuery($query = NULL, $secure = [])
 	{
-		if( ! is_string($query) || empty($query) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'query');
-			\Errors::set('Error', 'emptyParameter', 'query');
-			
-			return false;	
-		}
+		\Errors::typeHint(['string' => $query], ['array' => $secure]);
 		
 		if( isset($this->secure) )
 		{
@@ -1755,6 +1770,7 @@ class InternalDB implements DBInterface, DatabaseInterface
 		}
 		
 		return $this->db->exec($this->_querySecurity($query), $secure);
+		
 	}
 	
 	/******************************************************************************************
@@ -1769,15 +1785,9 @@ class InternalDB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: $this->db->multiQuery('DROP TABLE OrnekTablo');        			      |
 	|          																				  |
 	******************************************************************************************/
-	public function multiQuery($query = '', $secure = [])
+	public function multiQuery($query = NULL, $secure = [])
 	{
-		if( ! is_string($query) || empty($query) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'query');
-			\Errors::set('Error', 'emptyParameter', 'query');
-			
-			return false;	
-		}
+		\Errors::typeHint(['string' => $query], ['array' => $secure]);
 		
 		if( isset($this->secure) )
 		{
@@ -1871,6 +1881,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function status($table = '')
 	{
+		\Errors::typeHint(['string' => $table]);
+
 		if( ! empty($this->table) ) 
 		{
 			$table = $this->table; 
@@ -1909,6 +1921,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function increment($table = '', $columns = [], $increment = 1)
 	{
+		\Errors::typeHint([], [], ['numeric' => $increment]);
+
 		return $this->_incdec($table, $columns, $increment, 'increment');
 	}
 	
@@ -1927,6 +1941,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function decrement($table = '', $columns = [], $decrement = 1)
 	{
+		\Errors::typeHint([], [], ['numeric' => $decrement]);
+
 		return $this->_incdec($table, $columns, $decrement, 'decrement');
 	}
 	
@@ -2018,6 +2034,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function insert($table = '', $datas = [])
 	{
+		\Errors::typeHint([], ['array' => $datas]);
+
 		if( ! empty($this->table) ) 
 		{
 			// Table yöntemi tanımlanmış ise
@@ -2144,6 +2162,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function update($table = '', $set = [])
 	{
+		\Errors::typeHint([], ['array' => $set]);
+
 		if( ! empty($this->table) ) 
 		{
 			// Table yöntemi tanımlanmış ise
@@ -2231,6 +2251,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function delete($table = '')
 	{
+		\Errors::typeHint(['string' => $table]);
+
 		if( ! empty($table) ) 
 		{
 			$this->table = $this->prefix.$table; 
@@ -2292,6 +2314,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function totalRows($total = false)
 	{ 
+		\Errors::typeHint(['bool' => $total]);
+
 		if( $total === false )
 		{
 			return $this->db->numRows(); 
@@ -2348,6 +2372,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function result( $type = 'object' )
 	{ 
+		\Errors::typeHint(['string' => $type]);
+
 		if( $type === 'object' )
 		{
 			return $this->db->result();
@@ -2372,7 +2398,7 @@ class InternalDB implements DBInterface, DatabaseInterface
 	| Örnek Kullanım: ->resultJson();              			                                  |
 	|          																				  |
 	******************************************************************************************/
-	public function resultJson( $type = 'object' )
+	public function resultJson()
 	{ 
 		return json_encode($this->db->result());	
 	}
@@ -2432,6 +2458,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function fetch($type = 'assoc')
 	{ 
+		\Errors::typeHint(['string' => $type]);
+
 		if( $type === 'assoc' )
 		{
 			return $this->db->fetchAssoc(); 
@@ -2457,6 +2485,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function fetchRow($printable = false)
 	{ 
+		\Errors::typeHint(['bool' => $printable]);
+
 		$row = $this->db->fetchRow();
 		
 		if( $printable === false )
@@ -2480,6 +2510,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function row($printable = false)
 	{ 
+		\Errors::typeHint(['scalar' => $printable]);
+
 		if( is_numeric($printable) )
 		{
 			$result = $this->db->resultArray(); 
@@ -2548,6 +2580,8 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function columnData($col = '')
 	{ 
+		\Errors::typeHint(['string' => $col]);
+
 		return $this->db->columnData($col); 
 	}
 	
@@ -2579,10 +2613,7 @@ class InternalDB implements DBInterface, DatabaseInterface
 	******************************************************************************************/
 	public function pagination($url = '', $settings = [], $output = true)
 	{ 
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');	
-		} 
+		\Errors::typeHint(['string' => $url], ['array' => $settings], ['bool' => $output]);
 	
 		$limit = $this->pagination['limit'];
 		$start = $this->pagination['start'];

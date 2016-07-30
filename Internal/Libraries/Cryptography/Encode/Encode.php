@@ -78,16 +78,7 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function create($count = 6, $chars = 'all')
 	{
-		// Parametre numeric yani sayısal veri içermelidir.
-		if( ! is_numeric($count) ) 
-		{
-			$count = 6;
-		}
-		
-		if( ! is_string($chars) ) 
-		{
-			$chars = "all";
-		}
+		\Errors::typeHint(['int' => $count], ['string' => $chars]);
 		
 		$password = '';
 		
@@ -230,10 +221,7 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function data($data = '', $type = 'md5')
 	{
-		if( ! is_scalar($data) )
-		{
-			return  \Errors::set('Error', 'scalarParameter', '1.(data)');
-		}
+		\Errors::typeHint(['scalar' => $data], ['string' => $type]);
 		
 		$algos = ['golden', 'super'];
 		
@@ -266,6 +254,8 @@ class InternalEncode implements EncodeInterface
 	******************************************************************************************/
 	public function type($data = '', $type = 'md5')
 	{
+		\Errors::typeHint(['scalar' => $data], ['string' => $type]);
+
 		return $this->data($data, $type);
 	}
 }

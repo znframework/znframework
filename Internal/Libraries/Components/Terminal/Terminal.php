@@ -91,10 +91,7 @@ class InternalTerminal implements TerminalInterface
 	******************************************************************************************/
 	public function run($terminalType = 'php', $settings = [])
 	{
-		if( ! is_array($settings) )
-		{
-			return \Errors::set('Error', 'arrayParameter', 'settings');	
-		}
+		\Errors::typeHint(['string' => $terminalType], ['array' => $settings]);
 		
 		$configs = $this->config;
 		

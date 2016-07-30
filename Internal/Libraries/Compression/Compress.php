@@ -33,6 +33,8 @@ class InternalCompress implements CompressInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($driver = '')
 	{	
+		\Errors::typeHint(['string' => $driver]);
+
 		$this->compress = \Driver::run('Compress', $driver);
 	}
 	
@@ -79,6 +81,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function extract($source = '', $target = '', $password = NULL)
 	{
+		\Errors::typeHint(['string' => $source], ['string' => $target], []);
+
 		return $this->compress->extract($source, $target, $password);
 	}
 	
@@ -98,6 +102,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function write($file = '', $data = '', $mode = 'w')
 	{
+		\Errors::typeHint(['string' => $file], ['scalar' => $data], ['string' => $mode]);
+
 		return $this->compress->write($file, $data, $mode);
 	}
 	
@@ -109,6 +115,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function read($file = '', $length = 1024, $mode = 'r')
 	{
+		\Errors::typeHint(['string' => $file], ['numeric' => $length], ['string' => $mode]);
+
 		return $this->compress->read($file, $length, $mode);
 	}
 	
@@ -128,6 +136,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function compress($data = '', $level = -1, $encoding = ZLIB_ENCODING_DEFLATE)
 	{
+		\Errors::typeHint(['scalar' => $data], ['scalar' => $level], ['scalar' => $encoding]);
+
 		return $this->compress->compress($data, $level, $encoding);
 	}
 	
@@ -139,6 +149,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function uncompress($data = '', $length = 0)
 	{
+		\Errors::typeHint(['scalar' => $data], ['numeric' => $length]);
+
 		return $this->compress->uncompress($data, $length);
 	}
 	
@@ -158,6 +170,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function encode($data = '', $level = -1, $encoding = FORCE_GZIP)
 	{
+		\Errors::typeHint(['scalar' => $data], ['scalar' => $level], ['scalar' => $encoding]);
+
 		return $this->compress->encode($data, $level, $encoding);
 	}
 	
@@ -169,6 +183,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function decode($data = '', $length = 0)
 	{
+		\Errors::typeHint(['scalar' => $data], ['numeric' => $length]);
+
 		return $this->compress->decode($data, $length);
 	}
 	
@@ -188,6 +204,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function deflate($data = '', $level = -1, $encoding = ZLIB_ENCODING_RAW)
 	{
+		\Errors::typeHint(['scalar' => $data], ['scalar' => $level], ['scalar' => $encoding]);
+
 		return $this->compress->deflate($data, $level, $encoding);
 	}
 	
@@ -199,6 +217,8 @@ class InternalCompress implements CompressInterface
 	******************************************************************************************/
 	public function inflate($data = '', $length = 0)
 	{
+		\Errors::typeHint(['scalar' => $data], ['numeric' => $length]);
+
 		return $this->compress->inflate($data, $length);
 	}
 	
