@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Buffering;
 
-class InternalBuffer implements BufferInterface
+class InternalBuffer implements BufferInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -46,11 +46,11 @@ class InternalBuffer implements BufferInterface
 	// @return content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file($file = '')
+	public function file(String $file)
 	{
 		if( ! file_exists($file) )
 		{
-			return \Errors::set('Error', 'fileParameter', 'file');	
+			return ! $this->error = lang('Error', 'fileParameter', 'file');	
 		}
 		
 		ob_start();
@@ -73,14 +73,11 @@ class InternalBuffer implements BufferInterface
 	// @return callable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function func($func = '', $params = [])
+	public function func($func, Array $params = NULL)
 	{
-		if( ! is_callable($func) || ! is_array($params) )
+		if( ! is_callable($func) )
 		{
-			\Errors::set('Error', 'callableParameter', 'func');	
-			\Errors::set('Error', 'arrayParameter', 'params');
-			
-			return false;	
+			return ! $this->error = lang('Error', 'callableParameter', 'func');
 		}
 		
 		ob_start();
@@ -108,7 +105,7 @@ class InternalBuffer implements BufferInterface
 	// func() yönteminin takma adıdır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($func = '', $params = [])
+	public function callback($func, Array $params = NULL)
 	{
 		return $this->func($func, $params);
 	}
@@ -131,21 +128,13 @@ class InternalBuffer implements BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($name = '', $data = '', $params = [])
+	public function insert(String $name, $data, Array $params = NULL)
 	{
-		if( ! is_scalar($name) || ! is_array($params) )
-		{
-			\Errors::set('Error', 'valueParameter', 'name');
-			\Errors::set('Error', 'arrayParameter', 'params');	
-			
-			return false;
-		}
-		
 		$systemObData = md5('OB_DATAS_'.$name);
 		
 		if( is_callable($data) )
 		{
-			return \Session::insert($systemObData, $this->func($data, $params));	
+			return \Session::insert($systemObData, $this->func($data, (array) $params));	
 		}
 		elseif( file_exists($data) )
 		{
@@ -165,13 +154,8 @@ class InternalBuffer implements BufferInterface
 	// @return callable/content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($name = '')
+	public function select(String $name)
 	{
-		if( ! is_scalar($name) )
-		{
-			return \Errors::set('Error', 'valueParameter', 'name');	
-		}
-		
 		return \Session::select(md5('OB_DATAS_'.$name));
 	}
 	
@@ -183,7 +167,7 @@ class InternalBuffer implements BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name = '')
+	public function delete($name)
 	{
 		if( is_array($name) )
 		{
@@ -196,7 +180,7 @@ class InternalBuffer implements BufferInterface
 		{
 			if( ! is_scalar($name) )
 			{
-				return \Errors::set('Error', 'valueParameter', 'name');		
+				return ! $this->error = lang('Error', 'valueParameter', 'name');		
 			}
 		
 			return \Session::delete(md5('OB_DATAS_'.$name));
