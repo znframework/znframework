@@ -20,7 +20,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($key);
+	public function select(String $key);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -33,7 +33,7 @@ interface CacheInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($key, $var, $time, $expressed);
+	public function insert(String $key, $var, $time, $expressed);
 		
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -43,7 +43,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($key);
+	public function delete(String $key);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Increment
@@ -54,7 +54,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($key, $increment);
+	public function increment(String $key, $increment);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Deccrement
@@ -65,7 +65,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($key, $decrement);
+	public function decrement(String $key, $decrement);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Clean
@@ -95,7 +95,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getMetaData($key);
+	public function getMetaData(String $key);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Supported

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Caching;
 
-class InternalCache implements CacheInterface
+class InternalCache implements CacheInterface, \DriverMethodInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,30 +11,6 @@ class InternalCache implements CacheInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Cache
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Sürücü bilgisi 
-	//
-	// @var  string
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $cache;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Construct
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $driver
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function __construct($driver = '')
-	{	
-		$this->cache  = \Driver::run('Cache', $driver);
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -66,6 +42,30 @@ class InternalCache implements CacheInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use \ErrorControlTrait;
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Cache
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sürücü bilgisi 
+	//
+	// @var  string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $cache;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $driver
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function __construct(String $driver = NULL)
+	{	
+		$this->cache  = \Driver::run('Cache', $driver);
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Data Manipulation Methods Başlangıç
@@ -80,7 +80,7 @@ class InternalCache implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($key = '', $compressed = false)
+	public function select(String $key, $compressed = false)
 	{ 
 		return $this->cache->select($key, $compressed);
 	}
@@ -96,7 +96,7 @@ class InternalCache implements CacheInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($key = '', $var = '', $time = 60, $compressed = false)
+	public function insert(String $key, $var, $time = 60, $compressed = false)
 	{
 		return $this->cache->insert($key, $var, $time, $compressed);
 	}
@@ -109,7 +109,7 @@ class InternalCache implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($key = '')
+	public function delete(String $key)
 	{
 		return $this->cache->delete($key);
 	}
@@ -131,7 +131,7 @@ class InternalCache implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($key = '', $increment = 1)
+	public function increment(String $key, $increment = 1)
 	{
 		return $this->cache->increment($key, $increment);
 	}
@@ -145,7 +145,7 @@ class InternalCache implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($key = '', $decrement = 1)
+	public function decrement(String $key, $decrement = 1)
 	{
 		return $this->cache->decrement($key, $decrement);
 	}
@@ -179,7 +179,7 @@ class InternalCache implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getMetaData($key = '')
+	public function getMetaData(String $key)
 	{
 		return $this->cache->getMetaData($key);
 	}

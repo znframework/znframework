@@ -3,7 +3,7 @@ namespace ZN\Caching\Drivers;
 
 use ZN\Caching\CacheInterface;
 
-class MemcacheDriver implements CacheInterface
+class MemcacheDriver
 {
 	//----------------------------------------------------------------------------------------------------
 	//

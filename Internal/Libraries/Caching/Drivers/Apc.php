@@ -3,7 +3,7 @@ namespace ZN\Caching\Drivers;
 
 use ZN\Caching\CacheInterface;
 
-class ApcDriver implements CacheInterface
+class ApcDriver
 {
 	//----------------------------------------------------------------------------------------------------
 	//
