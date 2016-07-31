@@ -116,6 +116,18 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		return true;
 	}
 
+	public function throws($message = '', $key = '', $send = '')
+	{
+		$debug = \Errors::debugBackTrace(['object' => 11, 'file' => 11, 'default' => 5]);
+
+		if( $lang = lang($message, $key, $send) )
+		{
+			$message = $debug['className'].'::'.$debug['methodName'].'() '.$lang;
+		}
+
+		$this->table('', $message, $debug['file'], $debug['line']);
+	}
+
 	/******************************************************************************************
 	* PRIVATE TEMPLATE                                                            			  *
 	*******************************************************************************************
@@ -124,13 +136,22 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	******************************************************************************************/	
 	private function _template($msg, $file, $line)
 	{
+		$debug = \Errors::debugBackTrace(['object' => 10, 'file' => 12, 'default' => 5]);
+
+		$currentFile = str_replace('\\', '/', REAL_BASE_DIR.CURRENT_CFILE);
+
+		if( str_replace('\\', '/', $file) !== $currentFile )
+		{
+			$file = $debug['file'];
+			$line = $debug['line'];
+		}
+
 		$exceptionData = array
 		(
 			'message' => $msg,
 			'file'	  => $file,
 			'line'    => $line
 		);
-
 
 		if( $passed = $this->_argumentPassed($msg) )	
 		{

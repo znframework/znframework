@@ -20,7 +20,7 @@ interface ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLS($data, $file);
+	public function arrayToXLS(Array $data, $file);
 	
 	//----------------------------------------------------------------------------------------------------
 	// CSV To Array
@@ -29,7 +29,7 @@ interface ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function CSVToArray($file);
+	public function CSVToArray(String $file);
 	
 	//----------------------------------------------------------------------------------------------------
 	// fileName
@@ -38,7 +38,7 @@ interface ExcelInterface
 	// @param string $fileName
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fileName($fileName);
+	public function fileName(String $fileName);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Output
@@ -47,5 +47,5 @@ interface ExcelInterface
 	// @param array  $rows
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rows($rows);
+	public function rows(Array $rows);
 }

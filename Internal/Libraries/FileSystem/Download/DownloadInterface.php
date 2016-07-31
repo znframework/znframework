@@ -12,5 +12,5 @@ interface DownloadInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function start($file);
+	public function start(String $file);
 }

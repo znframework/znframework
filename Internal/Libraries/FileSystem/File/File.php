@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalFile implements FileInterface
+class InternalFile implements FileInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -47,17 +47,8 @@ class InternalFile implements FileInterface
 	| 1. string var @file => Okunacak dosyanın yolu.										  |
 	|          																				  |
 	******************************************************************************************/
-	public function read($file = '')
+	public function read(String $file)
 	{
-		if( ! is_string($file) || ! is_file($file) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'file');
-			\Errors::set('Error', 'fileParameter', 'file');
-			
-			return false;
-		}
-		
-		// Dosya içeriğini getir.
 		return file_get_contents($file);
 	}
 	
@@ -72,16 +63,9 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: contents('dizin/dosya.txt');        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function contents($path = '')
+	public function contents(String $file)
 	{
-		if( ! is_string($path) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'path');
-			
-			return false;
-		}
-		
-		return file_get_contents($path);
+		return file_get_contents($file);
 	}
 	
 	/******************************************************************************************
@@ -100,21 +84,8 @@ class InternalFile implements FileInterface
 	| 2. $veri->contents => Aranan veri bulunursa bulunan içerik döner.                       |
 	|          																				  |
 	******************************************************************************************/
-	public function find($file = '', $data = '')
+	public function find(String $file, $data)
 	{
-		if( ! is_string($file) || ! is_file($file) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'file');
-			\Errors::set('Error', 'fileParameter', 'file');
-			
-			return false;
-		}
-		
-		if( ! is_scalar($data) || empty($data) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
-
 		// Dosyadan gereli veriyi çek.
 		$index = strpos(file_get_contents($file), $data);
 		
@@ -148,29 +119,9 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: write('dizin/dosya.txt', 'a');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public function write($file = '', $data = '')
+	public function write(String $file, $data)
 	{
-		// Parametre kontrolü yapılıyor.
-		if( ! is_string($file) || is_dir($file) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'file');
-			\Errors::set('Error', 'fileParameter', 'data');
-			
-			return false;
-		}
-		
-		// Parametre kontrolü yapılıyor.
-		if( ! is_scalar($data) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
-
-		if( ! file_put_contents($file, $data) )
-		{
-			return \Errors::set('Error', 'fileNotWrite', $file);
-		}
-		
-		return true;
+		return file_put_contents($file, $data);
 	}	
 	
 	/******************************************************************************************
@@ -185,28 +136,9 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: append('dizin/dosya.txt', 'b');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public function append($file = '', $data = '')
+	public function append(String $file, $data)
 	{
-		// Parametre kontrolleri yapılıyor.
-		if( ! is_string($file) || is_dir($file) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'file');
-			\Errors::set('Error', 'fileParameter', 'file');
-			
-			return false;
-		}
-		
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
-		
-		if( ! file_put_contents($file, $data, FILE_APPEND) )
-		{
-			return \Errors::set('Error', 'fileNotWrite', $file);
-		}
-		
-		return true;
+		return file_put_contents($file, $data, FILE_APPEND);
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -228,27 +160,16 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: create('dizin/yeniDosya.txt');        						          |
 	|          																				  |
 	******************************************************************************************/
-	public function create($name = '')
+	public function create(String $name)
 	{
-		// Parametre kontrolü yapılıyor.
-		if( ! is_string($name) || is_dir($name) ) 
-		{
-			\Errors::set('Error', 'stringParameter', 'name');
-			\Errors::set('Error', 'fileParameter', 'name');
-			
-			return false;
-		}
 		// Dosya mevcut değilse oluştur.
-		if( ! file_exists($name) )
+		if( ! is_file($name) )
 		{ 
 			// Dosyayı oluştur.
 			@touch($name);
 		}
-		else
-		{
-			// Dosya mevcutsa hatayı rapor et.
-			return \Errors::set('File', 'alreadyFileError', $name);	
-		}
+		
+		return \Exceptions::throws('File', 'alreadyFileError', $name);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -270,20 +191,14 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function delete($name = '')
+	public function delete(String $name)
 	{
-		if( ! is_string($name) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'name');
-		}
-		
 		if( ! is_file($name)) 
 		{
-			return \Errors::set('File', 'notFoundError', $name);	
+			return \Exceptions::throws('File', 'notFoundError', $name);	
 		}
 		else 
 		{
-			// Dosyayı sil.
 			@unlink($name);	
 		}
 	}
@@ -309,11 +224,11 @@ class InternalFile implements FileInterface
 	| Dönen Değerler: basename, size, date, readable, writable, executable, permission        |
 	|          																				  |
 	******************************************************************************************/
-	public function info($file = '')
+	public function info(String $file)
 	{
 		if( ! is_file($file) )
 		{
-			return \Errors::set('Error', 'fileParameter', 'file');
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		return (object)array
@@ -346,20 +261,11 @@ class InternalFile implements FileInterface
 	| 4. gb => giga byte cinsinden değer döndürür.          								  |
 	|          																				  |
 	******************************************************************************************/
-	public function size($file = '', $type = "b", $decimal = 2)
+	public function size(String $file, $type = "b", $decimal = 2)
 	{
-		// Parametre kontrolleri yapılıyor. --------------------------------------------
-		if( ! is_string($file) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'file');
-		}
-		if( ! is_string($type) ) 
-		{
-			$type = "b";
-		}
 		if( ! file_exists($file) )
 		{
-			return \Errors::set('File', 'notFoundError', $file);
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		// ------------------------------------------------------------------------------
 		
@@ -428,19 +334,11 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: createDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function createDate($file = '', $type = "d.m.Y G:i:s")
+	public function createDate(String $file, $type = 'd.m.Y G:i:s')
 	{
-		if( ! is_string($file) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'file');
-		}
-		if( ! is_string($type) ) 
-		{
-			$type = "d.m.Y G:i:s";
-		}
 		if( ! file_exists($file) )
 		{
-			return \Errors::set('File', 'notFoundError', $file);
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		// Dosyanın oluşturulma tarihi
@@ -461,19 +359,11 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: changeDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function changeDate($file = '', $type = "d.m.Y G:i:s")
+	public function changeDate(String $file, $type = 'd.m.Y G:i:s')
 	{
-		if( ! is_string($file) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'file');
-		}
-		if( ! is_string($type) ) 
-		{
-			$type = "d.m.Y G:i:s";
-		}
 		if( ! file_exists($file) )
 		{
-			return \Errors::set('File', 'notFoundError', $file);
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		// Dosyanın son değiştirilme tarihi
@@ -488,11 +378,11 @@ class InternalFile implements FileInterface
 	| Genel Kullanım:  Dosya sahibini döndürür.		  										  |
 	|     														                              |
 	******************************************************************************************/
-	public function owner($file = '')
+	public function owner(String $file)
 	{
-		if( ! is_string($file))
+		if( ! file_exists($file) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'file');
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		if( function_exists('posix_getpwuid') )
@@ -511,11 +401,11 @@ class InternalFile implements FileInterface
 	| Genel Kullanım:  Dosya sahib grubunu döndürür.		  								  |
 	|     														                              |
 	******************************************************************************************/
-	public function group($file = '')
+	public function group(String $file)
 	{
-		if( ! is_string($file))
+		if( ! file_exists($file) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'file');	
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		if( function_exists('posix_getgrgid') )
@@ -548,31 +438,19 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: source('kaynak/dosya.zip', 'hedef/dizin');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public function zipExtract($source = '', $target = '')
+	public function zipExtract(String $source, String $target = NULL)
 	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($source) ) 
+		$source = suffix($source, '.zip');
+
+		if( ! file_exists($source) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'source');
+			return \Exceptions::throws('File', 'notFoundError', $source);
 		}
-		
-		if( ! is_string($target) ) 
-		{
-			$target = '';
-		}
-		
+
 		if( empty($target) )
 		{
 			$target = removeExtension($source);	
 		}
-		
-		$source = suffix($source, '.zip');
-		
-		if( ! file_exists($source) )
-		{
-			return \Errors::set('File', 'notFoundError', $source);
-		}
-		// ----------------------------------------------------------------------------
 		
 		$zip = new \ZipArchive;
 		
@@ -585,7 +463,7 @@ class InternalFile implements FileInterface
 		} 
 		else 
 		{
-			return \Errors::set('File', 'zipExtractError', $target);
+			return \Exceptions::throws('File', 'zipExtractError', $target);
 		}
 	}
 	
@@ -593,7 +471,7 @@ class InternalFile implements FileInterface
 	// Zip Extract Method Bitiş
 	//----------------------------------------------------------------------------------------------------
 	
-	public function createZip($path = '', $data = [])
+	public function createZip(String $path, Array $data)
 	{			
 		$zip = new \ZipArchive();
 
@@ -606,7 +484,7 @@ class InternalFile implements FileInterface
 
 		if( $zip->open($zipPath, \ZIPARCHIVE::CREATE) !== true ) 
 		{
-			return \Errors::set('File', 'zipExtractError', $zipPath);
+			return \Exceptions::throws('File', 'zipExtractError', $zipPath);
 		}
 		
 		$status = '';
@@ -652,20 +530,11 @@ class InternalFile implements FileInterface
 	| Genel Kullanım: Dosyanın ismini değiştirmek için kullanılır.	     				      |											
 	|          																				  |
 	******************************************************************************************/
-	public function rename($oldName = '', $newName = 0)
+	public function rename(String $oldName, String $newName)
 	{
-		// Parametre kontrolü yapılıyor.
-		if( ! is_scalar($oldName) || ! is_scalar($newName)  ) 
-		{
-			\Errors::set('Error', 'valueParameter', 'oldName');
-			\Errors::set('Error', 'valueParameter', 'newName');
-			
-			return false;
-		}
-		
 		if( ! file_exists($oldName) )
 		{
-			return \Errors::set('File', 'notFoundError', $file);
+			return \Exceptions::throws('File', 'notFoundError', $oldName);
 		}
 	
 		return rename($oldName, $newName);
@@ -691,13 +560,8 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function cleanCache($real = false, $fileName = '')
+	public function cleanCache(String $fileName = NULL, $real = false)
 	{
-		if( ! is_bool($real) ) 
-		{
-			return \Errors::set('Error', 'booleanParameter', 'real');
-		}
-		
 		if( ! file_exists($fileName) )
 		{
 			return clearstatcache($real);
@@ -720,25 +584,14 @@ class InternalFile implements FileInterface
 	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
 	|          																				  |
 	******************************************************************************************/
-	public function permission($name = '', $permission = 0755)
+	public function permission(String $file, Integer $permission = NULL)
 	{
-		if( ! is_string($name) ) 
+		if( ! file_exists($file) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'name');
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
-		if( ! is_numeric($permission) ) 
-		{
-			$permission = 0755;
-		}
-		if( ! file_exists($name) )
-		{
-			return \Errors::set('File', 'notFoundError', $name);
-		}
-		else
-		{
-			// Dosyayı yetkilendir.
-			chmod($name, $permission);
-		}
+		
+		chmod($name, ($permission === NULL ? 0755 : $permission) );
 	}
 	
 	/******************************************************************************************
@@ -747,22 +600,11 @@ class InternalFile implements FileInterface
 	| Genel Kullanım: Dosyayı boyutlandırmak için kullanılır.		     				      |											
 	|          																				  |
 	******************************************************************************************/
-	public function limit($file = '', $limit = 0, $mode = 'r+')
+	public function limit(String $file, $limit = 0, $mode = 'r+')
 	{
-		// Parametre kontrolü yapılıyor.
-		if( ! is_string($file) || is_dir($file) || ! is_numeric($limit) || ! is_string($mode) ) 
+		if( ! is_file($file) )
 		{
-			\Errors::set('Error', 'stringParameter', 'file');
-			\Errors::set('Error', 'dirParameter', 'file');
-			\Errors::set('Error', 'numericParameter', 'limit');
-			\Errors::set('Error', 'stringParameter', 'mode');
-			
-			return false;
-		}
-		
-		if( ! file_exists($file) )
-		{
-			return \Errors::set('File', 'notFoundError', $file);
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 	
 		$fileOpen  = fopen($file, $mode);
@@ -780,13 +622,15 @@ class InternalFile implements FileInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rowCount($file = '/', $recursive = true)
+	public function rowCount(String $file = NULL, $recursive = true)
 	{
-		if( ! is_string($file) ) 
+		$file = $file === NULL ? '/' : $file;
+
+		if( ! file_exists($file) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(file)');
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
-		
+
 		if( is_file($file) )
 		{
 			return count( file($file) );

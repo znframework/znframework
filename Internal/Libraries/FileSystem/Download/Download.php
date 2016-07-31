@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalDownload implements DownloadInterface
+class InternalDownload implements DownloadInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -45,16 +45,11 @@ class InternalDownload implements DownloadInterface
 	| Örnek Kullanım: start('document/file.txt')         									  |
 	|          																				  |
 	******************************************************************************************/
-	public function start($file = '')
+	public function start(String $file)
 	{
-		if( ! is_string($file) )
-		{
-			return \Errors::set('Download', 'stringParameterError');	
-		}
-		
 		if( ! file_exists($file) )
 		{
-			return \Errors::set('Download', 'emptyParameterError');
+			return ! $this->error = lang('Error', 'fileParameter', $file);
 		}
 		
 		// İndirilecek dosyanın yolu ile adını ayırmak için 

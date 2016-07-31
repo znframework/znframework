@@ -21,7 +21,7 @@ interface FileInterface
 	| 1. string var @file => Okunacak dosyanın yolu.										  |
 	|          																				  |
 	******************************************************************************************/
-	public function read($file);
+	public function read(String $file);
 	
 	/******************************************************************************************
 	* WRITE                                                                                   *
@@ -35,7 +35,7 @@ interface FileInterface
 	| Örnek Kullanım: write('dizin/dosya.txt', 'a');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public function write($file, $data);
+	public function write(String $file, $data);
 	
 	/******************************************************************************************
 	* CONTENTS                                                                                *
@@ -48,7 +48,7 @@ interface FileInterface
 	| Örnek Kullanım: contents('dizin/dosya.txt');        									  |
 	|          																				  |
 	******************************************************************************************/
-	public function contents($path);
+	public function contents(String $file);
 	
 	/******************************************************************************************
 	* FIND                                                                                    *
@@ -66,7 +66,7 @@ interface FileInterface
 	| 2. $veri->contents => Aranan veri bulunursa bulunan içerik döner.                       |
 	|          																				  |
 	******************************************************************************************/
-	public function find($file, $data);
+	public function find(String $file, $data);
 	
 	/******************************************************************************************
 	* CREATE                                                                                  *
@@ -79,7 +79,7 @@ interface FileInterface
 	| Örnek Kullanım: create('dizin/yeniDosya.txt');        						          |
 	|          																				  |
 	******************************************************************************************/
-	public function create($name);
+	public function create(String $name);
 	
 	/******************************************************************************************
 	* DELETE                                                                                  *
@@ -92,21 +92,7 @@ interface FileInterface
 	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function delete($name);
-	
-	/******************************************************************************************
-	* CLEAN CACHE                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Silinen dosyanın ön bellekten kaldırılması için oluşturulmuştur.        |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. boolean var @real => Gerçek ön bellekten silinip silinemeyeceği.					  |
-	| 1. string var @fileName => Ön bellekten silinmesi istenen dosya.		     			  |
-	|          											  									  |
-	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
-	|          																				  |
-	******************************************************************************************/
-	public function cleanCache($real, $fileName);
+	public function delete(String $name);
 	
 	/******************************************************************************************
 	* APPEND                                                                                  *
@@ -120,7 +106,7 @@ interface FileInterface
 	| Örnek Kullanım: append('dizin/dosya.txt', 'b');        								  |
 	|          																				  |
 	******************************************************************************************/
-	public function append($file, $data);
+	public function append(String $file, $data);
 
 	/******************************************************************************************
 	* PERMISSION                                                                              *
@@ -134,7 +120,7 @@ interface FileInterface
 	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
 	|          																				  |
 	******************************************************************************************/
-	public function permission($name, $permission);
+	public function permission(String $file, Integer $permission);
 	
 	/******************************************************************************************
 	* CREATE DATE                                                                             *
@@ -148,7 +134,7 @@ interface FileInterface
 	| Örnek Kullanım: createDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function createDate($file, $type);
+	public function createDate(String $file, $type);
 	
 	/******************************************************************************************
 	* CHANGE DATE                                                                             *
@@ -162,7 +148,7 @@ interface FileInterface
 	| Örnek Kullanım: changeDate('dizin/dosya.txt', 'd.m.Y');        						  |
 	|          																				  |
 	******************************************************************************************/
-	public function changeDate($file, $type);
+	public function changeDate(String $file, $type);
 	
 	/******************************************************************************************
 	* INFO		                                                                              *
@@ -177,7 +163,7 @@ interface FileInterface
 	| Dönen Değerler: basename, size, date, readable, writable, executable, permission        |
 	|          																				  |
 	******************************************************************************************/
-	public function info($file);
+	public function info(String $file);
 	
 	/******************************************************************************************
 	* SIZE		                                                                              *
@@ -197,7 +183,7 @@ interface FileInterface
 	| 4. gb => giga byte cinsinden değer döndürür.          								  |
 	|          																				  |
 	******************************************************************************************/
-	public function size($file, $type, $decimal);
+	public function size(String $file, $type, $decimal);
 
 	
 	/******************************************************************************************
@@ -212,7 +198,7 @@ interface FileInterface
 	| Örnek Kullanım: source('kaynak/dosya.zip', 'hedef/dizin');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public function zipExtract($source, $target);
+	public function zipExtract(String $source, String $target);
 	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -224,7 +210,7 @@ interface FileInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createZip($path, $data);
+	public function createZip(String $path, Array $data);
 	
 	/******************************************************************************************
 	* LIMIT                                                                                   *
@@ -232,7 +218,7 @@ interface FileInterface
 	| Genel Kullanım: Dosyayı boyutlandırmak için kullanılır.		     				      |											
 	|          																				  |
 	******************************************************************************************/
-	public function limit($file, $limit, $mode);
+	public function limit(String $file, $limit, $mode);
 	
 	/******************************************************************************************
 	* RENAME                                                                                  *
@@ -240,7 +226,21 @@ interface FileInterface
 	| Genel Kullanım: Dosyanın ismini değiştirmek için kullanılır.	     				      |											
 	|          																				  |
 	******************************************************************************************/
-	public function rename($oldName, $newName);	
+	public function rename(String $oldName, String $newName);
+
+	/******************************************************************************************
+	* CLEAN CACHE                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Silinen dosyanın ön bellekten kaldırılması için oluşturulmuştur.        |
+	|															                              |
+	| Parametreler: 2 parametresi vardır.                                                     |
+	| 1. boolean var @real => Gerçek ön bellekten silinip silinemeyeceği.					  |
+	| 1. string var @fileName => Ön bellekten silinmesi istenen dosya.		     			  |
+	|          											  									  |
+	| Örnek Kullanım: $veri = delete('dizin/yeniDosya.txt');        						  |
+	|          																				  |
+	******************************************************************************************/
+	public function cleanCache(String $fileName, $real);	
 	
 	/******************************************************************************************
 	* FILE OWNER                                                                              *
@@ -248,7 +248,7 @@ interface FileInterface
 	| Genel Kullanım:  Dosya sahibini döndürür.		  										  |
 	|     														                              |
 	******************************************************************************************/
-	public function owner($file);
+	public function owner(String $file);
 	
 	/******************************************************************************************
 	* FILE GROUP                                                                              *
@@ -256,7 +256,7 @@ interface FileInterface
 	| Genel Kullanım:  Dosya sahib grubunu döndürür.		  								  |
 	|     														                              |
 	******************************************************************************************/
-	public function group($file);
+	public function group(String $file);
 	
 	//----------------------------------------------------------------------------------------------------
 	// rowCount()
@@ -267,5 +267,5 @@ interface FileInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rowCount($file, $recursive);
+	public function rowCount(String $file, $recursive);
 }

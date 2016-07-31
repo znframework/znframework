@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalExcel implements ExcelInterface
+class InternalExcel implements ExcelInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -41,7 +41,7 @@ class InternalExcel implements ExcelInterface
 	// @param array  $rows
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rows($rows = [])
+	public function rows(Array $rows)
 	{
 		$this->rows = $rows;
 		
@@ -55,7 +55,7 @@ class InternalExcel implements ExcelInterface
 	// @param string $fileName
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fileName($fileName = '')
+	public function fileName(String $fileName)
 	{
 		$this->fileName = suffix($fileName, '.xls');
 		
@@ -70,18 +70,8 @@ class InternalExcel implements ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLS($data = [], $file = 'excel.xls')
+	public function arrayToXLS(Array $data, $file = 'excel.xls')
 	{
-		if( ! is_array($data) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', '1.(data)');
-		}
-		
-		if( ! is_string($file) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '2.(file)');
-		}
-		
 		if( ! empty($this->fileName) )
 		{
 			$file = $this->fileName;
@@ -118,13 +108,8 @@ class InternalExcel implements ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function CSVToArray($file = '')
+	public function CSVToArray(String $file)
 	{
-		if( ! is_string($file) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(file)');
-		}
-		
 		if( ! empty($this->fileName) )
 		{
 			$file = $this->fileName;	
@@ -135,7 +120,7 @@ class InternalExcel implements ExcelInterface
 		
 		if( ! file_exists($file) )
 		{
-			return \Errors::set('File', 'notFoundError', $file);
+			return ! $this->error = lang('File', 'notFoundError', $file);
 		}
 		
 		$row  = 1;
