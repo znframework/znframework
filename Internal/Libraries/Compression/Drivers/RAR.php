@@ -1,7 +1,9 @@
 <?php
 namespace ZN\Compression\Drivers;
 
-class RarDriver extends \CompressAbstract
+use ZN\Compression\CompressAbstract\CompressAbstract;
+
+class RarDriver extends CompressAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

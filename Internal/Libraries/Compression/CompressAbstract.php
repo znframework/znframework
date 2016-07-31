@@ -1,4 +1,6 @@
- <?php
+<?php
+namespace ZN\Compression\CompressAbstract;
+
 abstract class CompressAbstract
 {
  	//----------------------------------------------------------------------------------------------------
