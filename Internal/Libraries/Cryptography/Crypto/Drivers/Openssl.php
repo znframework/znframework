@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoInterface;
+use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
 
-class OpensslDriver implements CryptoInterface
+class OpensslDriver extends CryptoAbstract
 {	
 	//----------------------------------------------------------------------------------------------------
 	//

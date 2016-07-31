@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalMB implements MBInterface
+class InternalMB implements MBInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -38,13 +38,8 @@ class InternalMB implements MBInterface
 	  @return array
 	|														                                  |
 	******************************************************************************************/
-	public function split($string = '', $pattern = '', $limit = -1)
+	public function split(String $string, String $pattern, $limit = -1)
 	{
-		if( ! is_string($string) || ! is_string($pattern) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string) & 2.(pattern)');	
-		}
-		
 		return mb_split($pattern, $string, $limit);
 	}
 	
@@ -60,7 +55,7 @@ class InternalMB implements MBInterface
 	  @return mixed
 	|														                                  |
 	******************************************************************************************/
-	public function search($str = '', $needle = '', $type = "str", $case = true)
+	public function search(String $str, String $needle, $type = "str", $case = true)
 	{
 		return \Strings::search($str, $needle, $type, $case);
 	}
@@ -77,8 +72,13 @@ class InternalMB implements MBInterface
 	  @return string
 	|														                                  |
 	******************************************************************************************/
-	public function section($str = '', $starting = 0, $count = NULL, $encoding = "utf-8")
+	public function section(String $str, $starting = 0, $count = NULL, $encoding = 'UTF-8')
 	{
+		if( ! isCharset($encoding) )
+		{
+			return ! $this->error = lang('Error', 'charsetParameter', '3.($encoding)');	
+		}
+
 		return \Strings::section($str, $starting, $count, $encoding);
 	}
 	
@@ -91,13 +91,8 @@ class InternalMB implements MBInterface
 	  @return array
 	|														                                  |
 	******************************************************************************************/
-	public function parseGet($string = '')
+	public function parseGet(String $string)
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
 		mb_parse_str($string, $result);
 		
 		return $result;
@@ -113,16 +108,11 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function check($string = '', $encoding = 'UTF-8')
+	public function check(String $string, $encoding = 'UTF-8')
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '2.($encoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '2.($encoding)');	
 		}
 		
 		return mb_check_encoding($string, $encoding);
@@ -139,16 +129,11 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function casing($string = '', $flag = 'upper', $encoding = 'UTF-8')
+	public function casing(String $string, $flag = 'upper', $encoding = 'UTF-8')
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '3.($encoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '3.($encoding)');	
 		}
 		
 		return mb_convert_case($string, \Convert::toConstant($flag, 'MB_CASE_'), $encoding);
@@ -165,16 +150,11 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function convert($string = '', $toEncoding = 'UTF-8', $fromEncoding = 'ASCII, UTF-8')
+	public function convert(String $string, $toEncoding = 'UTF-8', $fromEncoding = 'ASCII, UTF-8')
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-
 		if( ! isCharset($toEncoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '2.(toEncoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '2.($toEncoding)');
 		}
 		
 		return mb_convert_encoding($string, $toEncoding, $fromEncoding);
@@ -189,13 +169,8 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeDecode($string = '')
+	public function mimeDecode(String $string)
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-
 		return mb_decode_mimeheader($string);
 	}
 	
@@ -208,16 +183,11 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeEncode($string = '', $encoding = 'UTF-8', $transferEncoding = 'B', $crlf = "\r\n", $indent = 0)
+	public function mimeEncode(String $string, $encoding = 'UTF-8', $transferEncoding = 'B', $crlf = "\r\n", $indent = 0)
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '2.(encoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '2.(encoding)');	
 		}
 
 		return mb_encode_mimeheader($string, $encoding, $transferEncoding, $crlf, $indent);
@@ -234,24 +204,14 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function toEntity($string = '', $convertMap = [], $encoding = 'UTF-8')
+	public function toEntity(String $string, Array $convertMap = NULL, $encoding = 'UTF-8')
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
-		if( ! is_array($convertMap) )
-		{
-			return \Errors::set('Error', 'arrayParameter', '2.(convertMap)');	
-		}
-		
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '3.(encoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '3.(encoding)');	
 		}
 
-		return mb_decode_numericentity($string, $convertMap, $encoding);
+		return mb_decode_numericentity($string, (array) $convertMap, $encoding);
 	}
 	
 	/******************************************************************************************
@@ -265,21 +225,11 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function toNumeric($string = '', $convertMap = [], $encoding = 'UTF-8')
+	public function toNumeric(String $string, Array $convertMap = NULL, $encoding = 'UTF-8')
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
-		if( ! is_array($convertMap) )
-		{
-			return \Errors::set('Error', 'arrayParameter', '2.(convertMap)');	
-		}
-		
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '3.(encoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '3.(encoding)');	
 		}
 
 		return mb_encode_numericentity($string, $convertMap, $encoding);
@@ -296,24 +246,9 @@ class InternalMB implements MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function detect($string = '', $encodingList = ['ASCII', 'UTF-8'], $strict = false)
-	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
-		if( ! is_array($encodingList) )
-		{
-			return \Errors::set('Error', 'arrayParameter', '2.(encodingList)');	
-		}
-		
-		if( ! is_bool($strict) )
-		{
-			return \Errors::set('Error', 'booleanParameter', '3.(strict)');	
-		}
-
-		return mb_detect_encoding($string, $encodingList, $strict);
+	public function detect(String $string, $encodingList = ['ASCII', 'UTF-8'], $strict = false)
+	{	
+		return mb_detect_encoding($string, (array) $encodingList, $strict);
 	}
 	
 	/******************************************************************************************
@@ -327,7 +262,7 @@ class InternalMB implements MBInterface
 	******************************************************************************************/
 	public function detectOrder($encodingList = ['ASCII', 'UTF-8'])
 	{
-		return mb_detect_order($encodingList);
+		return mb_detect_order((array) $encodingList);
 	}
 	
 	/******************************************************************************************
@@ -339,13 +274,8 @@ class InternalMB implements MBInterface
 	  @return array  
 	|														                                  |
 	******************************************************************************************/
-	public function aliases($string = '')
+	public function aliases(String $string = NULL)
 	{
-		if( ! isCharset($string) )
-		{
-			return \Errors::set('Error', 'charsetParameter', '1.(string)');	
-		}
-
 		return mb_encoding_aliases($string);
 	}
 	
@@ -360,11 +290,6 @@ class InternalMB implements MBInterface
 	******************************************************************************************/
 	public function info($string = 'all')
 	{
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
 		return mb_get_info($string);
 	}
 	
@@ -384,11 +309,6 @@ class InternalMB implements MBInterface
 	******************************************************************************************/
 	public function httpInput($type = 'I')
 	{
-		if( ! is_string($type) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(type)');	
-		}
-		
 		return mb_http_input($type);
 	}
 	
@@ -405,7 +325,7 @@ class InternalMB implements MBInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '1.(encoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '1.(encoding)');	
 		}
 		
 		return mb_http_output($encoding);
@@ -422,11 +342,6 @@ class InternalMB implements MBInterface
 	******************************************************************************************/
 	public function lang($lang = 'neutral')
 	{
-		if( ! is_string($lang) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(lang)');	
-		}
-		
 		return mb_language($lang);
 	}
 	
@@ -454,18 +369,8 @@ class InternalMB implements MBInterface
 	  @return string
 	|														                                  |
 	******************************************************************************************/
-	public function outputHandler($contents = '', $status = 0)
+	public function outputHandler(String $contents, $status = 0)
 	{
-		if( ! is_string($contents) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(contents)');	
-		}
-		
-		if( ! is_numeric($status) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(status)');	
-		}
-		
 		return mb_output_handler($contents, $status);
 	}
 	
@@ -482,7 +387,7 @@ class InternalMB implements MBInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(encoding)');	
+			return ! $this->error = lang('Error', 'stringParameter', '1.(encoding)');	
 		}
 		
 		return mb_preferred_mime_name($encoding);

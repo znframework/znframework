@@ -70,7 +70,7 @@ trait DateTimeTrait
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compare($value1 = '', $condition = '', $value2 = '')
+	public function compare(String $value1, String $condition, String $value2)
 	{		
 		$value1 = $this->toNumeric($value1);
 		$value2 = $this->toNumeric($value2);
@@ -88,7 +88,7 @@ trait DateTimeTrait
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toNumeric($dateFormat = '', $now = NULL)
+	public function toNumeric(String $dateFormat, $now = NULL)
 	{
 		if( $now === NULL )
 		{
@@ -110,7 +110,7 @@ trait DateTimeTrait
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculate($input = '', $calculate = '', $output = 'Y-m-d')
+	public function calculate(String $input, String $calculate, $output = 'Y-m-d')
 	{	
 		if( ! preg_match('/^[0-9]/', $input) )
 		{
@@ -132,13 +132,8 @@ trait DateTimeTrait
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function set($exp = '')
+	public function set(String $exp)
 	{	
-		if( ! is_string($exp) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'exp');
-		}
-
 		return $this->_datetime($exp);
 	}
 	

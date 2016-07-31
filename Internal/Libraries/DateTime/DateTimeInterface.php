@@ -34,7 +34,7 @@ interface DateTimeCommonInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toNumeric($date);
+	public function toNumeric(String $date);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Compare
@@ -46,7 +46,7 @@ interface DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compare($value1, $condition, $value2);
+	public function compare(String $value1, String $condition, String $value2);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Calculate
@@ -60,7 +60,7 @@ interface DateTimeCommonInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculate($input, $calculate, $output);
+	public function calculate(String $input, String $calculate, $output);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Convert
@@ -73,7 +73,7 @@ interface DateTimeCommonInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert($date, $format);
+	public function convert(String $date, $format);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Standart
@@ -97,5 +97,5 @@ interface DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function set($exp);
+	public function set(String $exp);
 }

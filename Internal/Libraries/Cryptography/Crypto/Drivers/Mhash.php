@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoInterface;
+use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
 
-class MhashDriver implements CryptoInterface
+class MhashDriver extends CryptoAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,17 +14,6 @@ class MhashDriver implements CryptoInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "MhashDriver::$method()"));	
-	}
-
 	public function encrypt($data = '', $settings = [])
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
@@ -34,12 +23,6 @@ class MhashDriver implements CryptoInterface
 		$cipher = \Convert::toConstant($cipher, 'MHASH_');
 		
 		return base64_encode(trim(mhash($cipher, $data, $key)));
-	}
-	
-	public function decrypt($data = '', $settings = [])
-	{
-		// Bu sürücü tarafından desteklenmemektedir.
-		return lang('Error', 'notSupport');
 	}
 	
 	public function keygen($length = 8)

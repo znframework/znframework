@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoInterface;
+use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
 
-class McryptDriver implements CryptoInterface
+class McryptDriver extends CryptoAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,17 +14,6 @@ class McryptDriver implements CryptoInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "McryptDriver::$method()"));	
-	}
-
 	/******************************************************************************************
 	* ENCRYPT                                                                                 *
 	*******************************************************************************************

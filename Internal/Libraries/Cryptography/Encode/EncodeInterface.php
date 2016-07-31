@@ -43,7 +43,7 @@ interface EncodeInterface
 	| Yukarıdaki kullanımların çıktıları birbirinden farklı olacaktır.      				  |
 	|          																				  |
 	******************************************************************************************/
-	public function golden($data, $additional);	
+	public function golden(String $data, $additional);	
 	
 	/******************************************************************************************
 	* SUPER                                                                                   *
@@ -60,7 +60,7 @@ interface EncodeInterface
 	| Not:Şifre eki Config/Encode.php dosyasında yer alan proje anahtarı bölümündedir.   	  |
 	|          																				  |
 	******************************************************************************************/
-	public function super($data);
+	public function super(String $data);
 	
 	/******************************************************************************************
 	* DATA                                                                                   *
@@ -76,7 +76,7 @@ interface EncodeInterface
 	| Not:Şifreleme türünüz geçerli şifreleme algoritması olmak zorundadır. 			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function data($data, $type);
+	public function data(String $data, $type);
 	
 	/******************************************************************************************
 	* TYPE                                                                                   *
@@ -92,5 +92,5 @@ interface EncodeInterface
 	| Not:Şifreleme türünüz geçerli şifreleme algoritması olmak zorundadır. 			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function type($data, $type);
+	public function type(String $data, $type);
 }

@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoInterface;
+use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
 
-class HashDriver implements CryptoInterface
+class HashDriver extends CryptoAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,17 +13,6 @@ class HashDriver implements CryptoInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "HashDriver::$method()"));	
-	}
 
 	public function encrypt($data = '', $settings = [])
 	{
@@ -32,13 +21,7 @@ class HashDriver implements CryptoInterface
 		
 		return base64_encode(trim(hash_hmac($cipher, $data, $key)));
 	}
-	
-	public function decrypt($data = '', $settings = [])
-	{
-		// Bu sürücü tarafından desteklenmemektedir.
-		return lang('Error', 'notSupport');
-	}
-	
+
 	public function keygen($length = 8)
 	{
 		return hash_pbkdf2('md5', md5(mt_rand()), mcrypt_create_iv($length, MCRYPT_DEV_URANDOM), $length, $length);

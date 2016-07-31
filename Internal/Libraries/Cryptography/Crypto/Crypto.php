@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Cryptography;
 
-class InternalCrypto implements CryptoInterface
+class InternalCrypto implements CryptoInterface, \ErrorControlInterface, \DriverMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,30 +11,6 @@ class InternalCrypto implements CryptoInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Crypto
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Sürücü bilgisi 
-	//
-	// @var  string
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $crypto;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Construct
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $driver
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function __construct($driver = '')
-	{
-		$this->crypto = \Driver::run('Encode', $driver);
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Call Method
@@ -66,6 +42,30 @@ class InternalCrypto implements CryptoInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use \DriverMethodTrait;
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Crypto
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Sürücü bilgisi 
+	//
+	// @var  string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $crypto;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $driver
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function __construct(String $driver = NULL)
+	{
+		$this->crypto = \Driver::run('Encode', $driver);
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encrypt Method Başlangıç
@@ -82,19 +82,9 @@ class InternalCrypto implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function encrypt($data = '',  $settings = [])
+	public function encrypt(String $data,  Array $settings = NULL)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'scalarParameter', '1.(data)');	
-		}
-		
-		if( ! is_array($settings) )
-		{
-			return \Errors::set('Error', 'arrayParameter', '2.(settings)');	
-		}
-		
-		return $this->crypto->encrypt($data,  $settings);
+		return $this->crypto->encrypt($data,  (array) $settings);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -116,19 +106,9 @@ class InternalCrypto implements CryptoInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function decrypt($data = '', $settings = [])
+	public function decrypt(String $data, Array $settings = NULL)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'scalarParameter', '1.(data)');	
-		}
-		
-		if( ! is_array($settings) )
-		{
-			return \Errors::set('Error', 'arrayParameter', '2.(settings)');	
-		}
-		
-		return $this->crypto->decrypt($data,  $settings);
+		return $this->crypto->decrypt($data,  (array) $settings);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -153,7 +133,7 @@ class InternalCrypto implements CryptoInterface
 	{
 		if( ! is_numeric($length) )
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(length)');	
+			return ! $this->error = lang('Error', 'numericParameter', '1.(length)');	
 		}
 		
 		return $this->crypto->keygen($length);

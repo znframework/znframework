@@ -23,7 +23,7 @@ interface MBInterface
 	  @return array
 	|														                                  |
 	******************************************************************************************/
-	public function split($string, $pattern, $limit);
+	public function split(String $string, String $pattern, $limit);
 	
 	/******************************************************************************************
 	* SEARCH                  	                                                              *
@@ -37,7 +37,7 @@ interface MBInterface
 	  @return mixed
 	|														                                  |
 	******************************************************************************************/
-	public function search($str, $needle, $type, $case);
+	public function search(String $str, String $needle, $type, $case);
 	
 	/******************************************************************************************
 	* SECTION                  	                                                              *
@@ -51,7 +51,7 @@ interface MBInterface
 	  @return string
 	|														                                  |
 	******************************************************************************************/
-	public function section($str, $starting, $count, $encoding);
+	public function section(String $str, $starting, $count, $encoding);
 	
 	/******************************************************************************************
 	* PARSE GET             	                                                              *
@@ -62,7 +62,7 @@ interface MBInterface
 	  @return array
 	|														                                  |
 	******************************************************************************************/
-	public function parseGet($string);
+	public function parseGet(String $string);
 	
 	/******************************************************************************************
 	* CHECK                  	                                                              *
@@ -74,7 +74,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function check($string, $encoding);
+	public function check(String $string, $encoding);
 	
 	/******************************************************************************************
 	* CONVERT CASE             	                                                              *
@@ -87,7 +87,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function casing($string, $flag, $encoding);
+	public function casing(String $string, $flag, $encoding);
 	
 	/******************************************************************************************
 	* CONVERT ENCODING         	                                                              *
@@ -100,7 +100,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function convert($string, $toEncoding, $fromEncoding);
+	public function convert(String $string, $toEncoding, $fromEncoding);
 	
 	/******************************************************************************************
 	* MIME DECODE            	                                                              *
@@ -111,7 +111,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeDecode($string);
+	public function mimeDecode(String $string);
 	
 	/******************************************************************************************
 	* MIME ENCODE            	                                                              *
@@ -122,7 +122,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeEncode($string, $encoding, $transferEncoding, $crlf, $indent);
+	public function mimeEncode(String $string, $encoding, $transferEncoding, $crlf, $indent);
 	
 	/******************************************************************************************
 	* TO ENTITY      	 		                                                              *
@@ -135,7 +135,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function toEntity($string, $convertMap, $encoding);
+	public function toEntity(String $string, Array $convertMap, $encoding);
 	
 	/******************************************************************************************
 	* TO NUMERIC            	                                                              *
@@ -148,7 +148,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function toNumeric($string, $convertMap, $encoding);
+	public function toNumeric(String $string, Array $convertMap, $encoding);
 	
 	/******************************************************************************************
 	* DETECT                	                                                              *
@@ -161,7 +161,7 @@ interface MBInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function detect($string, $encodingList, $strict);
+	public function detect(String $string, $encodingList, $strict);
 	
 	/******************************************************************************************
 	* DETECT ORDER          	                                                              *
@@ -183,7 +183,7 @@ interface MBInterface
 	  @return array  
 	|														                                  |
 	******************************************************************************************/
-	public function aliases($string);
+	public function aliases(String $string);
 	
 	/******************************************************************************************
 	* INFO                  	                                                              *
@@ -255,7 +255,7 @@ interface MBInterface
 	  @return string
 	|														                                  |
 	******************************************************************************************/
-	public function outputHandler($contents, $status);
+	public function outputHandler(String $contents, $status);
 	
 	/******************************************************************************************
 	* MIME NAME              	                                                              *

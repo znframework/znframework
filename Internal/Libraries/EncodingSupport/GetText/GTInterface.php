@@ -21,7 +21,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function data($message);
+	public function data(String $message);
 	
 	/******************************************************************************************
 	* LOCALE                 	                                                              *
@@ -47,7 +47,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function datas($msgId1, $msgId2, $count);
+	public function datas(String $msgId1, String $msgId2, $count);
 	
 	/******************************************************************************************
 	* CHANGE                	                                                              *
@@ -59,7 +59,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function change($domain, $message);
+	public function change(String $domain, String $message);
 	
 	/******************************************************************************************
 	* CHANGES                	                                                              *
@@ -73,7 +73,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function changes($domain, $msgId1, $msgId2, $count);
+	public function changes(String $domain, String $msgId1, String $msgId2, $count);
 	
 	/******************************************************************************************
 	* EARCH                                                                           *
@@ -86,7 +86,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function search($domain, $message, $category);
+	public function search(String $domain, String $message, $category);
 	
 	/******************************************************************************************
 	* SEARCHES                                                                         *
@@ -101,7 +101,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function searches($domain, $msgId1, $msgId2, $count, $category);
+	public function searches(String $domain, String $msgId1, String $msgId2, $count, $category);
 	
 	/******************************************************************************************
 	* CODESET            	                                                              *
@@ -113,7 +113,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function codeset($domain, $codeset);
+	public function codeset(String $domain, String $codeset);
 	
 	/******************************************************************************************
 	* BIND DOMAIN              	                                                              *
@@ -125,7 +125,7 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function dir($domain, $directory);
+	public function dir(String $domain, String $directory);
 	
 	/******************************************************************************************
 	* DOMAIN                 	                                                              *
@@ -136,5 +136,5 @@ interface GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function name($textDomain);
+	public function name(String $textDomain);
 }

@@ -20,7 +20,7 @@ interface CryptoInterface
 	// @param array  $settings
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encrypt($data, $settings);
+	public function encrypt(String $data, Array $settings);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decrypt
@@ -30,7 +30,7 @@ interface CryptoInterface
 	// @param array  $settings
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrypt($data, $settings);
+	public function decrypt(String $data, Array $settings);
 
 	//----------------------------------------------------------------------------------------------------
 	// Keygen

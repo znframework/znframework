@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalGT implements GTInterface
+class InternalGT implements GTInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -44,13 +44,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function data($message = '')
+	public function data(String $message)
 	{
-		if( ! is_string($message) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(message)');	
-		}
-	
 		return gettext($message);
 	}
 	
@@ -65,7 +60,7 @@ class InternalGT implements GTInterface
 	  @return bool
 	|														                                  |
 	******************************************************************************************/
-	public function locale($category = '', $locale = '')
+	public function locale($category, $locale)
 	{
 		return setlocale(\Convert::toConstant($category, 'LC_'), $locale);
 	}
@@ -81,13 +76,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function datas($msgId1 = '', $msgId2 = '', $count = 0)
+	public function datas(String $msgId1, String $msgId2, $count = 0)
 	{
-		if( ! is_string($msgId1) || ! is_string($msgId2) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(msgId1) & 2.(msgId2)');	
-		}
-	
 		return ngettext($msgId1, $msgId2, $count);
 	}
 	
@@ -101,13 +91,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function change($domain = '', $message = '')
+	public function change(String $domain, String $message)
 	{
-		if( ! is_string($domain) || ! is_string($message) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(domain) & 2.(message)');	
-		}
-	
 		return dgettext($domain, $message);
 	}
 	
@@ -123,13 +108,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function changes($domain = '', $msgId1 = '', $msgId2 = '', $count = 0)
+	public function changes(String $domain, String $msgId1, String $msgId2, $count = 0)
 	{
-		if( ! is_string($domain) || ! is_string($msgId1) || ! is_string($msgId2) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(domain) & 2.(msgId1) & 3.(msgId2)');	
-		}
-	
 		return dngettext($domain, $msgId1, $msgId2, $count);
 	}
 	
@@ -144,13 +124,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function search($domain = '', $message = '', $category = 0)
+	public function search(String $domain, String $message, $category = 0)
 	{
-		if( ! is_string($domain) || ! is_string($message) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(domain) & 2.(message)');	
-		}
-	
 		return dcgettext($domain, $message, $category);
 	}
 	
@@ -167,13 +142,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function searches($domain = '', $msgId1 = '', $msgId2 = '', $count = 0, $category = 0)
+	public function searches(String $domain, String $msgId1, String $msgId2, $count = 0, $category = 0)
 	{
-		if( ! is_string($domain) || ! is_string($msgId1) || ! is_string($msgId2) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(domain) & 2.(msgId1) & 3.(msgId2)');	
-		}
-	
 		return dcngettext($domain, $msgId1, $msgId2, $count, $category);
 	}
 	
@@ -187,13 +157,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function codeset($domain = '', $codeset = '')
+	public function codeset(String $domain, String $codeset)
 	{
-		if( ! is_string($domain) || ! is_string($codeset) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(domain) & 2.(codeset)');	
-		}
-	
 		return bind_textdomain_codeset($domain, $codeset);
 	}
 	
@@ -207,13 +172,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function dir($domain = '', $directory = '')
+	public function dir(String $domain, String $directory)
 	{
-		if( ! is_string($domain) || ! is_string($directory) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(domain) & 2.(directory)');	
-		}
-	
 		return bindtextdomain($domain, $directory);
 	}
 	
@@ -226,13 +186,8 @@ class InternalGT implements GTInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function name($textDomain = '')
+	public function name(String $textDomain)
 	{
-		if( ! is_string($textDomain))
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(textDomain)');	
-		}
-	
 		return textdomain($textDomain);
 	}
 }

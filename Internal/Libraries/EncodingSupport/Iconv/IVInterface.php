@@ -23,7 +23,7 @@ interface IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function convert($string, $fromEncoding, $toEncoding);
+	public function convert(String $string, String $fromEncoding, String $toEncoding);
 	
 	/******************************************************************************************
 	* ENCODING                                                                                *
@@ -70,7 +70,7 @@ interface IVInterface
 	  @return array  
 	|														                                  |
 	******************************************************************************************/
-	public function mimesDecode($encodedHeaders, $mode, $charset);
+	public function mimesDecode(String $encodedHeaders, $mode, $charset);
 	
 	/******************************************************************************************
 	* MIME DECODE                	                                                          *
@@ -83,7 +83,7 @@ interface IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeDecode($encodedHeader, $mode, $charset);
+	public function mimeDecode(String $encodedHeader, $mode, $charset);
 	
 	/******************************************************************************************
 	* MIME ENCODE                	                                                          *
@@ -96,5 +96,5 @@ interface IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeEncode($fieldName, $fieldValue, $preferences);
+	public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences);
 }

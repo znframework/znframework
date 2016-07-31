@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Cryptography;
 
-class InternalEncode implements EncodeInterface
+class InternalEncode implements EncodeInterface, \ConfigMethodInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -144,18 +144,8 @@ class InternalEncode implements EncodeInterface
 	| Yukarıdaki kullanımların çıktıları birbirinden farklı olacaktır.      				  |
 	|          																				  |
 	******************************************************************************************/
-	public function golden($data = '', $additional = 'default')
+	public function golden(String $data, $additional = 'default')
 	{
-		if( ! is_scalar($data) || empty($data) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
-		
-		if( ! is_scalar($additional) )
-		{
-			$additional = 'default';
-		}
-	
 		$algo = $this->config['type'];
 		
 		if( ! isHash($algo) )
@@ -190,13 +180,8 @@ class InternalEncode implements EncodeInterface
 	| Not:Şifre eki Config/Encode.php dosyasında yer alan proje anahtarı bölümündedir.   	  |
 	|          																				  |
 	******************************************************************************************/
-	public function super($data = '')
+	public function super(String $data)
 	{
-		if( ! is_scalar($data) || empty($data) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'data');
-		}
-		
 		$projectKey = $this->config['projectKey'];
 		
 		$algo = $this->config['type'];
@@ -240,13 +225,8 @@ class InternalEncode implements EncodeInterface
 	| Not:Şifreleme türünüz geçerli şifreleme algoritması olmak zorundadır. 			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function data($data = '', $type = 'md5')
+	public function data(String $data, $type = 'md5')
 	{
-		if( ! is_scalar($data) )
-		{
-			return  \Errors::set('Error', 'scalarParameter', '1.(data)');
-		}
-		
 		$algos = ['golden', 'super'];
 		
 		if( ! isHash($type) && ! in_array($type, $algos) )
@@ -276,7 +256,7 @@ class InternalEncode implements EncodeInterface
 	| Not:Şifreleme türünüz geçerli şifreleme algoritması olmak zorundadır. 			  	  |
 	|          																				  |
 	******************************************************************************************/
-	public function type($data = '', $type = 'md5')
+	public function type(String $data, $type = 'md5')
 	{
 		return $this->data($data, $type);
 	}

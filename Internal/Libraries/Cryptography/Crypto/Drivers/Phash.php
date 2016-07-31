@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoInterface;
+use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
 
-class PhashDriver implements CryptoInterface
+class PhashDriver extends CryptoAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -31,18 +31,6 @@ class PhashDriver implements CryptoInterface
 	public function __call($method = '', $param = '')
 	{	
 		die(getErrorMessage('Error', 'undefinedFunction', "PhashDriver::$method()"));	
-	}
-	
-	public function encrypt($data = '', $settings = [])
-	{
-		// Bu sürücü tarafından desteklenmemektedir.
-		return lang('Error', 'notSupport');
-	}
-	
-	public function decrypt($data = '', $settings = [])
-	{
-		// Bu sürücü tarafından desteklenmemektedir.
-		return lang('Error', 'notSupport');
 	}
 	
 	public function keygen($length = 8)

@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalIV implements IVInterface
+class InternalIV implements IVInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -26,6 +26,8 @@ class InternalIV implements IVInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use \ErrorControlTrait;
+
+	protected $inputs = ['input', 'output', 'internal'];
 	
 	/******************************************************************************************
 	* CONVERT                     	                                                          *
@@ -38,18 +40,13 @@ class InternalIV implements IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function convert($string = '', $fromEncoding = '', $toEncoding = '')
+	public function convert(String $string, String $fromEncoding, String $toEncoding)
 	{	
-		if( ! is_string($string) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
-		}
-		
 		$toEncodingFirst = \Arrays::getFirst(explode('//', $toEncoding));
 		
 		if( ! isCharset($fromEncoding) || ! isCharset($toEncodingFirst) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
+			return ! $this->error = lang('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
 		}
 		
 		return iconv($fromEncoding, $toEncoding, $string);
@@ -80,9 +77,9 @@ class InternalIV implements IVInterface
 	******************************************************************************************/
 	public function getEncoding($type = 'input')
 	{
-		if( ! is_string($type) || empty($type) )
+		if( ! in_array($type, $this->inputs) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(type)');	
+			return ! $this->error = lang('Error', 'invalidInput', $type);	
 		}
 		
 		return iconv_get_encoding($type.'_encoding');
@@ -98,16 +95,16 @@ class InternalIV implements IVInterface
 	  @return bool
 	|														                                  |
 	******************************************************************************************/
-	public function setEncoding($type = '', $charset = '')
+	public function setEncoding($type = 'input', $charset = 'utf-8')
 	{
-		if( ! is_string($type) || empty($type) )
+		if( ! is_array($type, $this->inputs) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(type)');	
+			return ! $this->error = lang('Error', 'invalidInput', $type);	
 		}
 		
 		if( ! isCharset($charset) )
 		{
-			return \Errors::set('Error', 'charsetParameter', '2.(charset)');
+			return ! $this->error = lang('Error', 'charsetParameter', '2.(charset)');
 		}
 		
 		return iconv_set_encoding($type.'_encoding', $charset);
@@ -124,18 +121,8 @@ class InternalIV implements IVInterface
 	  @return array  
 	|														                                  |
 	******************************************************************************************/
-	public function mimesDecode($encodedHeaders = '', $mode = 0, $charset = NULL)
+	public function mimesDecode(String $encodedHeaders, $mode = 0, $charset = NULL)
 	{
-		if( ! is_string($encodedHeaders) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(encodedHeaders)');	
-		}
-		
-		if( ! is_numeric($mode) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(mode)');
-		}
-		
 		if( $charset === NULL )
 		{
 			$charset = ini_get("iconv.internal_encoding");
@@ -155,18 +142,8 @@ class InternalIV implements IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeDecode($encodedHeader = '', $mode = 0, $charset = NULL)
+	public function mimeDecode(String $encodedHeader, $mode = 0, $charset = NULL)
 	{
-		if( ! is_string($encodedHeader) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(encodedHeader)');	
-		}
-		
-		if( ! is_numeric($mode) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(mode)');
-		}
-		
 		if( $charset === NULL )
 		{
 			$charset = ini_get("iconv.internal_encoding");
@@ -186,13 +163,8 @@ class InternalIV implements IVInterface
 	  @return string  
 	|														                                  |
 	******************************************************************************************/
-	public function mimeEncode($fieldName = '', $fieldValue = '', $preferences = [])
+	public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences = NULL)
 	{
-		if( ! is_string($fieldName) || ! is_string($fieldValue) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(fieldName) & 2.(fieldValue)');	
-		}
-	
-		return iconv_mime_encode($fieldName, $fieldValue, $preferences);
+		return iconv_mime_encode($fieldName, $fieldValue, (array) $preferences);
 	}
 }

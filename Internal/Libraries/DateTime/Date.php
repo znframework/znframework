@@ -58,7 +58,7 @@ class InternalDate implements DateTimeCommonInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert($date = '', $format = 'd-m-Y H:i:s')
+	public function convert(String $date, $format = 'd-m-Y H:i:s')
 	{
 		return $this->_datetime($format, strtotime($date));	
 	}
