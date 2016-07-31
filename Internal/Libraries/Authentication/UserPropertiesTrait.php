@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Authentication;
 
-interface UserInterface
+trait UserPropertiesTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,123 +11,154 @@ interface UserInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// Register
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  array 	   $data
-	// @param  bool/string $autoLogin
-	// @param  string      $activationReturnLink
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function register(Array $data, $autoLogin, String$activationReturnLink);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Update
+	// Auto Login
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  string $old
-	// @param  string $new
-	// @param  string $newAgain
-	// @param  array  $data
-	// @return bool
+	// @param  mixed $autoLogin
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update(String $old, String $new, String $newAgain, Array $data);
+	public function autoLogin($autoLogin = true)
+	{
+		$this->parameters['autoLogin'] = $autoLogin;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Login
+	// Return Link
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  string $un
-	// @param  string $pw
-	// @param  bool   $rememberMe
-	// @return bool
+	// @param  string $returnLink
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function login(String $un, String $pw, $rememberMe);
+	public function returnLink(String $returnLink)
+	{
+		$this->parameters['returnLink'] = $returnLink;
+		
+		return $this;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Old Password
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $oldPassword
+	// @return this
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function oldPassword(String $oldPassword)
+	{
+		$this->parameters['oldPassword'] = $oldPassword;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Logout
+	// New Password
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  string  $redirectUrl
-	// @param  numeric $time
-	// @return void
+	// @param  string $Password
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function logout(String $redirectUrl, $time);
+	public function newPassword(String $newPassword)
+	{
+		$this->parameters['newPassword'] = $newPassword;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Is Login
+	// Password Again
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  void
-	// @return bool
+	// @param  string $passwordAgain
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function isLogin();
+	public function passwordAgain(String $passwordAgain)
+	{
+		$this->parameters['passwordAgain'] = $passwordAgain;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Forgot Password
+	// Password Again
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  string $email
-	// @param  string $returnLinkPath
-	// @return bool
+	// @param  string $passwordAgain
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function forgotPassword(String $email, String $returnLinkPath);
+	public function column(String $column, $value)
+	{
+		$this->parameters['column'][$column] = $value;
+		
+		return $this;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Username
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $username
+	// @return this
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function username(String $username)
+	{
+		$this->parameters['username'] = $username;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Activation Complete
+	// Password
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  void
-	// @return bool
+	// @param  string $password
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function activationComplete();
+	public function password(String $password)
+	{
+		$this->parameters['password'] = $password;
+		
+		return $this;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Data
+	// Remember
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  string $tbl
-	// @return object
+	// @param  bool $remember
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $tbl);
-	
+	public function remember($remember = true)
+	{
+		$this->parameters['remember'] = $remember;
+		
+		return $this;
+	}
+
 	//----------------------------------------------------------------------------------------------------
-	// Active Count
+	// Username
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param  void
-	// @return numeric
+	// @param  string $username
+	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function activeCount();
-	
-	//----------------------------------------------------------------------------------------------------
-	// Banned Count
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  void
-	// @return numeric
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function bannedCount();
-	
-	//----------------------------------------------------------------------------------------------------
-	// Count
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  void
-	// @return numeric
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function count();
+	public function email(String $email)
+	{
+		$this->parameters['email'] = $email;
+		
+		return $this;
+	}
 }

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Authentication;
 
-class InternalUser implements UserInterface
+class InternalUser implements UserInterface, UserPropertiesInterface, \ConfigMethodInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,6 +12,46 @@ class InternalUser implements UserInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \ConfigMethodTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// $error
+	// $success
+	//
+	// error()
+	// success()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \ErrorControlTrait;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Call Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// __call()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \CallUndefinedMethodTrait;
+
+	//----------------------------------------------------------------------------------------------------
+	// User Properties
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// User Properties
+	//
+	//----------------------------------------------------------------------------------------------------
+	use UserPropertiesTrait;
+
 	//----------------------------------------------------------------------------------------------------
 	// Protected Username
 	//----------------------------------------------------------------------------------------------------
@@ -59,71 +99,6 @@ class InternalUser implements UserInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Register Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// Auto Login
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  mixed $autoLogin
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function autoLogin($autoLogin = true)
-	{
-		$this->parameters['autoLogin'] = $autoLogin;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Return Link
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $returnLink
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function returnLink($returnLink = '')
-	{
-		$this->parameters['returnLink'] = $returnLink;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Register
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -133,7 +108,7 @@ class InternalUser implements UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function register($data = [], $autoLogin = false, $activationReturnLink = '')
+	public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL)
 	{
 		if( isset($this->parameters['column']) )
 		{
@@ -151,15 +126,6 @@ class InternalUser implements UserInterface
 		}
 			
 		$this->parameters = [];
-			
-		if( ! is_array($data) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', '1.(data)');
-		}
-		if( ! is_string($activationReturnLink) ) 
-		{
-			$activationReturnLink = '';
-		}
 		
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
@@ -261,74 +227,6 @@ class InternalUser implements UserInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Register Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Update Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// Old Password
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $oldPassword
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function oldPassword($oldPassword = '')
-	{
-		$this->parameters['oldPassword'] = $oldPassword;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// New Password
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $Password
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function newPassword($newPassword = '')
-	{
-		$this->parameters['newPassword'] = $newPassword;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Password Again
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $passwordAgain
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function passwordAgain($passwordAgain = true)
-	{
-		$this->parameters['passwordAgain'] = $passwordAgain;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Password Again
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $passwordAgain
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function column($column = '', $value = '')
-	{
-		$this->parameters['column'][$column] = $value;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Update
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -339,12 +237,14 @@ class InternalUser implements UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($old = '', $new = '', $newAgain = '', $data = [])
+	public function update(String $old, String $new, String $newAgain = NULL, Array $data = NULL)
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
 		if( $this->isLogin() )
 		{
+			$data = (array) $data;
+
 			if( isset($this->parameters['oldPassword']) )
 			{
 				$old = $this->parameters['oldPassword'];
@@ -366,30 +266,6 @@ class InternalUser implements UserInterface
 			}
 			
 			$this->parameters = [];
-		
-			// Parametreler kontrol ediliyor.--------------------------------------------------
-			if( ! is_string($old) || ! is_string($new) || ! is_array($data) ) 
-			{
-				\Errors::set('Error', 'stringParameter', '1.(old)');
-				\Errors::set('Error', 'stringParameter', '2.(new)');
-				\Errors::set('Error', 'arrayParameter', '4.(data)');
-				
-				return false;
-			}
-				
-			if( empty($old) || empty($new) ) 
-			{
-				\Errors::set('Error', 'emptyParameter', '1.(old)');
-				\Errors::set('Error', 'emptyParameter', '2.(new)');
-				
-				return false;
-			}
-	
-			if( ! is_string($newAgain) ) 
-			{
-				$newAgain = '';
-			}
-			// --------------------------------------------------------------------------------
 		
 			// Şifre tekrar parametresi boş ise
 			// Şifre tekrar parametresini doğru kabul et.
@@ -472,6 +348,309 @@ class InternalUser implements UserInterface
 	// Update Method Bitiş
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Login
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $un
+	// @param  string $pw
+	// @param  bool   $rememberMe
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function login(String $un, String $pw, $rememberMe = false)
+	{
+		if( isset($this->parameters['username']) )
+		{
+			$un = $this->parameters['username'];
+		}
+		
+		if( isset($this->parameters['password']) )
+		{
+			$pw = $this->parameters['password'];
+		}
+		
+		if( isset($this->parameters['remember']) )
+		{
+			$rememberMe = $this->parameters['remember'];
+		}
+		
+		$this->parameters = [];
+		
+		if( ! is_scalar($rememberMe) ) 
+		{
+			$rememberMe = false;
+		}
+
+		$username = $un;
+		
+		$userConfig	= $this->config;
+		
+		$encodeType = $userConfig['encode'];
+		
+		$password = ! empty($encodeType) ? \Encode::type($pw, $encodeType) : $pw;
+		
+		// ------------------------------------------------------------------------------
+		// CONFIG/USER.PHP AYARLARI
+		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
+		// ------------------------------------------------------------------------------	
+		$tableName 			= $userConfig['matching']['table'];
+		$getColumns         = $userConfig['matching']['columns'];
+		$passwordColumn  	= $getColumns['password'];
+		$usernameColumn  	= $getColumns['username'];
+		$emailColumn  		= $getColumns['email'];
+		$bannedColumn 		= $getColumns['banned'];
+		$activeColumn 		= $getColumns['active'];
+		$activationColumn 	= $getColumns['activation'];
+		// ------------------------------------------------------------------------------
+		
+		$r = \DB::where($usernameColumn.' =', $username)
+			    ->get($tableName)
+			    ->row();
+		
+		if( ! isset($r->$passwordColumn) )
+		{
+			return ! $this->error = lang('User', 'loginError');
+		}
+				
+		$passwordControl   = $r->$passwordColumn;
+		$bannedControl     = '';
+		$activationControl = '';
+		
+		if( ! empty($bannedColumn) )
+		{
+			$banned = $bannedColumn ;
+			$bannedControl = $r->$banned ;
+		}
+		
+		if( ! empty($activationColumn) )
+		{
+			$activationControl = $r->$activationColumn ;			
+		}
+		
+		if( ! empty($r->$usernameColumn) && $passwordControl == $password )
+		{
+			if( ! empty($bannedColumn) && ! empty($bannedControl) )
+			{
+				return ! $this->error = lang('User', 'bannedError');
+			}
+			
+			if( ! empty($activationColumn) && empty($activationControl) )
+			{
+				return ! $this->error = lang('User', 'activationError');
+			}
+			
+			\Session::insert($usernameColumn, $username); 
+			\Session::insert($passwordColumn, $password);
+			
+			if( \Method::post($rememberMe) || ! empty($rememberMe) )
+			{
+				if( \Cookie::select($usernameColumn) != $username )
+				{					
+					\Cookie::insert($usernameColumn, $username);
+					\Cookie::insert($passwordColumn, $password);
+				}
+			}
+			
+			if( ! empty($activeColumn) )
+			{		
+				\DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
+			}
+			
+			return $this->success = lang('User', 'loginSuccess');
+		}
+		else
+		{
+			return ! $this->error = lang('User', 'loginError');
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Logout
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $redirectUrl
+	// @param  numeric $time
+	// @return void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function logout(String $redirectUrl = NULL, $time = 0)
+	{	
+		$config     = $this->config;
+		$getColumns = $config['matching']['columns'];
+		$tableName  = $config['matching']['table'];
+		$username   = $getColumns['username'];
+		$password   = $getColumns['password'];
+		$active     = $getColumns['active'];
+	
+		if( isset($this->data($tableName)->$username) )
+		{
+			if( $active )
+			{	
+				\DB::where($username.' =', $this->data($tableName)->$username)
+				   ->update($tableName, [$active => 0]);
+			}
+			
+			\Cookie::delete($username);
+			\Cookie::delete($password );			
+			\Session::delete($username);
+			
+			redirect($redirectUrl, (int) $time);
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Is Login
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  void
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function isLogin()
+	{
+		$config     = $this->config;
+		$getColumns = $config['matching']['columns'];
+		$tableName  = $config['matching']['table'];
+		$username   = $getColumns['username'];
+		$password   = $getColumns['password']; 
+		
+		$cUsername = \Cookie::select($username);
+		$cPassword = \Cookie::select($password);
+		
+		$result = '';
+		
+		if( ! empty($cUsername) && ! empty($cPassword) )
+		{	
+			$result = \DB::where($username.' =', $cUsername, 'and')
+						 ->where($password.' =', $cPassword)
+						 ->get($tableName)
+						 ->totalRows();
+		}
+		
+		if( isset($this->data($tableName)->$username) )
+		{
+			$isLogin = true;
+		}
+		elseif( ! empty($result) )
+		{
+			\Session::insert($username, $cUsername);
+			
+			$isLogin = true;	
+		}
+		else
+		{
+			$isLogin = false;	
+		}
+				
+		return $isLogin;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Forgot Password
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $email
+	// @param  string $returnLinkPath
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function forgotPassword(String $email = NULL, String $returnLinkPath = NULL)
+	{
+		if( isset($this->parameters['email']) )
+		{
+			$email = $this->parameters['email'];
+		}
+		
+		if( isset($this->parameters['returnLink']) )
+		{
+			$returnLinkPath = $this->parameters['returnLink'];
+		}
+			
+		$this->parameters = [];
+
+		// ------------------------------------------------------------------------------
+		// CONFIG/USER.PHP AYARLARI
+		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
+		// ------------------------------------------------------------------------------
+		$userConfig		= $this->config;	
+		$tableName 		= $userConfig['matching']['table'];	
+		$senderInfo 	= $userConfig['emailSenderInfo'];
+		$getColumns     = $userConfig['matching']['columns'];
+		$usernameColumn = $getColumns['username'];
+		$passwordColumn = $getColumns['password'];				
+		$emailColumn  	= $getColumns['email'];		
+		
+		// ------------------------------------------------------------------------------
+		
+		if( ! empty($emailColumn) )
+		{
+			\DB::where($emailColumn.' =', $email);
+		}
+		else
+		{
+			\DB::where($usernameColumn.' =', $email);
+		}
+		
+		$row = \DB::get($tableName)->row();
+		
+		$result = "";
+		
+		if( isset($row->$usernameColumn) ) 
+		{
+			if( ! isUrl($returnLinkPath) ) 
+			{
+				$returnLinkPath = siteUrl($returnLinkPath);
+			}
+			
+			$encodeType     = $userConfig['encode'];
+			
+			$newPassword    = \Encode::create(10);
+			$encodePassword = ! empty($encodeType) ? \Encode::type($newPassword, $encodeType) : $newPassword;
+			
+			$templateData = array
+			(
+				'usernameColumn' => $row->$usernameColumn,
+				'newPassword'    => $newPassword,
+				'returnLinkPath' => $returnLinkPath
+			);
+
+			$message   = \Import::template('UserEmail/ForgotPassword', $templateData, true);	
+			
+			\Email::sender($senderInfo['mail'], $senderInfo['name'])
+			      ->receiver($email, $email)
+			      ->subject(lang('User', 'newYourPassword'))
+			      ->content($message);
+			
+			if( \Email::send() )
+			{
+				if( ! empty($emailColumn) )
+				{
+					\DB::where($emailColumn.' =', $email);
+				}
+				else
+				{
+					\DB::where($usernameColumn.' =', $email);
+				}
+				
+				if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
+				{
+					return $this->success = lang('User', 'forgotPasswordSuccess');
+				}
+				
+				return ! $this->error = lang('Database', 'updateError');
+			}
+			else
+			{	
+				return ! $this->error = lang('User', 'emailError');
+			}
+		}
+		else
+		{
+			return ! $this->error = lang('User', 'forgotPasswordError');
+		}
+	}
+
 	//----------------------------------------------------------------------------------------------------
 	// Activation Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
@@ -596,7 +775,7 @@ class InternalUser implements UserInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($tbl = '')
+	public function data(String $tbl = NULL)
 	{
 		$config 		= $this->config;
 		$usernameColumn = $config['matching']['columns']['username'];
@@ -745,414 +924,5 @@ class InternalUser implements UserInterface
 	
 	//----------------------------------------------------------------------------------------------------
 	// Info Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Login Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Username
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $username
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function username($username = '')
-	{
-		$this->parameters['username'] = $username;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Password
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $password
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function password($password = '')
-	{
-		$this->parameters['password'] = $password;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Remember
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  bool $remember
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function remember($remember = true)
-	{
-		$this->parameters['remember'] = $remember;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Login
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $un
-	// @param  string $pw
-	// @param  bool   $rememberMe
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function login($un = 'username', $pw = 'password', $rememberMe = false)
-	{
-		if( isset($this->parameters['username']) )
-		{
-			$un = $this->parameters['username'];
-		}
-		
-		if( isset($this->parameters['password']) )
-		{
-			$pw = $this->parameters['password'];
-		}
-		
-		if( isset($this->parameters['remember']) )
-		{
-			$rememberMe = $this->parameters['remember'];
-		}
-		
-		$this->parameters = [];
-		
-		if( ! is_string($un) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(username)');
-		}
-		
-		if( ! is_string($pw) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '2.(password)');
-		}
-		
-		if( ! is_scalar($rememberMe) ) 
-		{
-			$rememberMe = false;
-		}
-
-		$username = $un;
-		
-		$userConfig	= $this->config;
-		
-		$encodeType = $userConfig['encode'];
-		
-		$password = ! empty($encodeType) ? \Encode::type($pw, $encodeType) : $pw;
-		
-		// ------------------------------------------------------------------------------
-		// CONFIG/USER.PHP AYARLARI
-		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
-		// ------------------------------------------------------------------------------	
-		$tableName 			= $userConfig['matching']['table'];
-		$getColumns         = $userConfig['matching']['columns'];
-		$passwordColumn  	= $getColumns['password'];
-		$usernameColumn  	= $getColumns['username'];
-		$emailColumn  		= $getColumns['email'];
-		$bannedColumn 		= $getColumns['banned'];
-		$activeColumn 		= $getColumns['active'];
-		$activationColumn 	= $getColumns['activation'];
-		// ------------------------------------------------------------------------------
-		
-		$r = \DB::where($usernameColumn.' =', $username)
-			    ->get($tableName)
-			    ->row();
-		
-		if( ! isset($r->$passwordColumn) )
-		{
-			return ! $this->error = lang('User', 'loginError');
-		}
-				
-		$passwordControl   = $r->$passwordColumn;
-		$bannedControl     = '';
-		$activationControl = '';
-		
-		if( ! empty($bannedColumn) )
-		{
-			$banned = $bannedColumn ;
-			$bannedControl = $r->$banned ;
-		}
-		
-		if( ! empty($activationColumn) )
-		{
-			$activationControl = $r->$activationColumn ;			
-		}
-		
-		if( ! empty($r->$usernameColumn) && $passwordControl == $password )
-		{
-			if( ! empty($bannedColumn) && ! empty($bannedControl) )
-			{
-				return ! $this->error = lang('User', 'bannedError');
-			}
-			
-			if( ! empty($activationColumn) && empty($activationControl) )
-			{
-				return ! $this->error = lang('User', 'activationError');
-			}
-			
-			\Session::insert($usernameColumn, $username); 
-			\Session::insert($passwordColumn, $password);
-			
-			if( \Method::post($rememberMe) || ! empty($rememberMe) )
-			{
-				if( \Cookie::select($usernameColumn) != $username )
-				{					
-					\Cookie::insert($usernameColumn, $username);
-					\Cookie::insert($passwordColumn, $password);
-				}
-			}
-			
-			if( ! empty($activeColumn) )
-			{		
-				\DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
-			}
-			
-			return $this->success = lang('User', 'loginSuccess');
-		}
-		else
-		{
-			return ! $this->error = lang('User', 'loginError');
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Logout
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string  $redirectUrl
-	// @param  numeric $time
-	// @return void
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function logout($redirectUrl = '', $time = 0)
-	{	
-		if( ! is_string($redirectUrl) ) 
-		{
-			$redirectUrl = '';
-		}
-		
-		if( ! is_numeric($time) ) 
-		{
-			$time = 0;
-		}
-
-		$config     = $this->config;
-		$getColumns = $config['matching']['columns'];
-		$tableName  = $config['matching']['table'];
-		$username   = $getColumns['username'];
-		$password   = $getColumns['password'];
-		$active     = $getColumns['active'];
-	
-		if( isset($this->data($tableName)->$username) )
-		{
-			if( $active )
-			{	
-				\DB::where($username.' =', $this->data($tableName)->$username)
-				   ->update($tableName, [$active => 0]);
-			}
-			
-			\Cookie::delete($username);
-			\Cookie::delete($password );			
-			\Session::delete($username);
-			
-			redirect($redirectUrl, $time);
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Is Login
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  void
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function isLogin()
-	{
-		$config     = $this->config;
-		$getColumns = $config['matching']['columns'];
-		$tableName  = $config['matching']['table'];
-		$username   = $getColumns['username'];
-		$password   = $getColumns['password']; 
-		
-		$cUsername = \Cookie::select($username);
-		$cPassword = \Cookie::select($password);
-		
-		$result = '';
-		
-		if( ! empty($cUsername) && ! empty($cPassword) )
-		{	
-			$result = \DB::where($username.' =', $cUsername, 'and')
-						 ->where($password.' =', $cPassword)
-						 ->get($tableName)
-						 ->totalRows();
-		}
-		
-		if( isset($this->data($tableName)->$username) )
-		{
-			$isLogin = true;
-		}
-		elseif( ! empty($result) )
-		{
-			\Session::insert($username, $cUsername);
-			
-			$isLogin = true;	
-		}
-		else
-		{
-			$isLogin = false;	
-		}
-				
-		return $isLogin;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Login Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Forgot Password Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// Username
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $username
-	// @return this
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function email($email = '')
-	{
-		$this->parameters['email'] = $email;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Forgot Password
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  string $email
-	// @param  string $returnLinkPath
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function forgotPassword($email = '', $returnLinkPath = '')
-	{
-		if( isset($this->parameters['email']) )
-		{
-			$email = $this->parameters['email'];
-		}
-		
-		if( isset($this->parameters['returnLink']) )
-		{
-			$returnLinkPath = $this->parameters['returnLink'];
-		}
-			
-		$this->parameters = [];
-		
-		if( ! is_string($email) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(email)');
-		}
-		
-		if( ! is_string($returnLinkPath) ) 
-		{
-			$returnLinkPath = '';
-		}
-
-		// ------------------------------------------------------------------------------
-		// CONFIG/USER.PHP AYARLARI
-		// Config/User.php dosyasında belirtilmiş ayarlar alınıyor.
-		// ------------------------------------------------------------------------------
-		$userConfig		= $this->config;	
-		$tableName 		= $userConfig['matching']['table'];	
-		$senderInfo 	= $userConfig['emailSenderInfo'];
-		$getColumns     = $userConfig['matching']['columns'];
-		$usernameColumn = $getColumns['username'];
-		$passwordColumn = $getColumns['password'];				
-		$emailColumn  	= $getColumns['email'];		
-		
-		// ------------------------------------------------------------------------------
-		
-		if( ! empty($emailColumn) )
-		{
-			\DB::where($emailColumn.' =', $email);
-		}
-		else
-		{
-			\DB::where($usernameColumn.' =', $email);
-		}
-		
-		$row = \DB::get($tableName)->row();
-		
-		$result = "";
-		
-		if( isset($row->$usernameColumn) ) 
-		{
-			if( ! isUrl($returnLinkPath) ) 
-			{
-				$returnLinkPath = siteUrl($returnLinkPath);
-			}
-			
-			$encodeType     = $userConfig['encode'];
-			
-			$newPassword    = \Encode::create(10);
-			$encodePassword = ! empty($encodeType) ? \Encode::type($newPassword, $encodeType) : $newPassword;
-			
-			$templateData = array
-			(
-				'usernameColumn' => $row->$usernameColumn,
-				'newPassword'    => $newPassword,
-				'returnLinkPath' => $returnLinkPath
-			);
-
-			$message   = \Import::template('UserEmail/ForgotPassword', $templateData, true);	
-			
-			\Email::sender($senderInfo['mail'], $senderInfo['name'])
-			      ->receiver($email, $email)
-			      ->subject(lang('User', 'newYourPassword'))
-			      ->content($message);
-			
-			if( \Email::send() )
-			{
-				if( ! empty($emailColumn) )
-				{
-					\DB::where($emailColumn.' =', $email);
-				}
-				else
-				{
-					\DB::where($usernameColumn.' =', $email);
-				}
-				
-				if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
-				{
-					return $this->success = lang('User', 'forgotPasswordSuccess');
-				}
-				
-				return ! $this->error = lang('Database', 'updateError');
-			}
-			else
-			{	
-				return ! $this->error = lang('User', 'emailError');
-			}
-		}
-		else
-		{
-			return ! $this->error = lang('User', 'forgotPasswordError');
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Forgot Password Method Bitiş
 	//----------------------------------------------------------------------------------------------------
 }

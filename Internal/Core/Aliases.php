@@ -18,9 +18,12 @@ class_alias('ZN\Foundations\Model', 'Model');
 class_alias('ZN\Foundations\Controller', 'Controller');
 class_alias('ZN\Foundations\BaseController', 'BaseController');
 class_alias('ZN\Foundations\Traits\CallUndefinedMethodTrait', 'CallUndefinedMethodTrait');
-class_alias('ZN\Foundations\Traits\ConfigMethodTrait', 'ConfigMethodTrait'	);
+class_alias('ZN\Foundations\Traits\ConfigMethodTrait', 'ConfigMethodTrait');
+class_alias('ZN\Foundations\Traits\ConfigMethodInterface', 'ConfigMethodInterface');
 class_alias('ZN\Foundations\Traits\DriverMethodTrait', 'DriverMethodTrait');
+class_alias('ZN\Foundations\Traits\DriverMethodInterface', 'DriverMethodInterface');
 class_alias('ZN\Foundations\Traits\ErrorControlTrait', 'ErrorControlTrait');
+class_alias('ZN\Foundations\Traits\ErrorControlInterface', 'ErrorControlInterface');
 class_alias('ZN\Database\Grand', 'Grand');
 //----------------------------------------------------------------------------------------------------
 

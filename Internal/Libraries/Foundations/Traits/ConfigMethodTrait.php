@@ -30,7 +30,7 @@ trait ConfigMethodTrait
 	// @return object 	        		     		 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function config($settings = [], $path = '')
+	public function config(Array $settings = NULL, String $path = NULL)
 	{
 		// Yol parametre olarak belirtilirse bu veri kullan.
 		if( ! empty( $path) )
