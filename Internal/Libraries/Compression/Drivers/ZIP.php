@@ -1,9 +1,7 @@
 <?php
 namespace ZN\Compression\Drivers;
 
-use ZN\Compression\CompressInterface;
-
-class ZipDriver implements CompressInterface
+class ZipDriver extends \CompressAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -25,12 +23,6 @@ class ZipDriver implements CompressInterface
 		return \File::zipExtract($source, $target);
 	}
 	
-	public function write($file = NULL, $data = NULL, $mode = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
 	/******************************************************************************************
 	* READ   		                                                                          *
 	*******************************************************************************************
@@ -39,11 +31,6 @@ class ZipDriver implements CompressInterface
 	******************************************************************************************/
 	public function read($file = '', $length = 1024, $mode = 'r')
 	{
-		if( ! is_string($file) || empty($file) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(file)');	
-		}
-		
 		$open = zip_open($file);
 		
 		if( empty($open) )
@@ -56,41 +43,5 @@ class ZipDriver implements CompressInterface
 		zip_close($open);
 		
 		return $return;
-	}
-	
-	public function compress($data = '', $blockSize = NULL, $workFactor = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function uncompress($data = '', $small = 0)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function encode($data = NULL, $level = NULL, $encoding = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function decode($data = NULL, $length = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function deflate($data = NULL, $level = NULL, $encoding = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function inflate($data = NULL, $length = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
 	}
 }

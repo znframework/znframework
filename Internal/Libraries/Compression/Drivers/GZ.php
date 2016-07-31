@@ -1,9 +1,7 @@
 <?php
 namespace ZN\Compression\Drivers;
 
-use ZN\Compression\CompressInterface;
-
-class GZDriver implements CompressInterface
+class GZDriver extends \CompressAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,12 +12,6 @@ class GZDriver implements CompressInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function extract($source = NULL, $target = NULL, $password = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
 	/******************************************************************************************
 	* WRITE   		                                                                          *
 	*******************************************************************************************
@@ -28,16 +20,6 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function write($file = '', $data = '', $mode = 'w')
 	{
-		if( ! is_string($file) || empty($file) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(file)');	
-		}
-		
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '2.(data)');	
-		}
-		
 		$open = gzopen($file, $mode);
 		
 		if( empty($open) )
@@ -60,16 +42,6 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function read($file = '', $length = 1024, $mode = 'r')
 	{
-		if( ! is_string($file) || empty($file) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(file)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		$open = gzopen($file, $mode);
 		
 		if( empty($open) )
@@ -92,16 +64,6 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function compress($data = '', $level = -1, $encoding = ZLIB_ENCODING_DEFLATE)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($level) || ! is_numeric($encoding) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
-		}
-		
 		return gzcompress($data, $level, $encoding);
 	}
 	
@@ -113,23 +75,7 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function uncompress($data = '', $length = 0)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		return gzuncompress($data, $length);
-	}
-	
-	public function optimizedFor()
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;
 	}
 	
 	/******************************************************************************************
@@ -140,16 +86,6 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function encode($data = '', $level = -1, $encoding = FORCE_GZIP)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($level) || ! is_numeric($encoding) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
-		}
-		
 		return gzencode($data, $level, $encoding);
 	}
 	
@@ -161,16 +97,6 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function decode($data = '', $length = 0)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		return gzdecode($data, $length);
 	}
 	
@@ -182,16 +108,6 @@ class GZDriver implements CompressInterface
 	******************************************************************************************/
 	public function deflate($data = '', $level = -1, $encoding = ZLIB_ENCODING_RAW)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($level) || ! is_numeric($encoding) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
-		}
-		
 		return gzdeflate($data, $level, $encoding);
 	}
 	
@@ -202,17 +118,7 @@ class GZDriver implements CompressInterface
 	|          																				  |
 	******************************************************************************************/
 	public function inflate($data = '', $length = 0)
-	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Errors::set('Error', 'numericParameter', '2.(length)');	
-		}
-		
+	{		
 		return gzinflate($data, $length);
 	}
 }

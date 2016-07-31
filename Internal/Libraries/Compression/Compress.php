@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Compression;
 
-class InternalCompress implements CompressInterface
+class InternalCompress implements CompressInterface, \ErrorControlInterface, \DriverMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -31,7 +31,7 @@ class InternalCompress implements CompressInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct($driver = '')
+	public function __construct(String $driver = NULL)
 	{	
 		$this->compress = \Driver::run('Compress', $driver);
 	}
@@ -77,8 +77,13 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Sıkıştırılmış dosyaları çıkartır.								     	  |
 	|          																				  |
 	******************************************************************************************/
-	public function extract($source = '', $target = '', $password = NULL)
+	public function extract(String $source, String $target = NULL, $password = NULL)
 	{
+		if( ! is_file($source) )
+		{
+			return ! $this->error = lang('Error', 'fileParameter', '1.(source)');
+		}
+
 		return $this->compress->extract($source, $target, $password);
 	}
 	
@@ -96,8 +101,13 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Veriyi sıkıştırarak dosyaya yazar.							     	  |
 	|          																				  |
 	******************************************************************************************/
-	public function write($file = '', $data = '', $mode = 'w')
+	public function write(String $file, $data, $mode = 'w')
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '2.(data)');	
+		}
+
 		return $this->compress->write($file, $data, $mode);
 	}
 	
@@ -107,8 +117,13 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Sıkıştırılmış veriyi dosyadan okur.							     	  |
 	|          																				  |
 	******************************************************************************************/
-	public function read($file = '', $length = 1024, $mode = 'r')
+	public function read(String $file, $length = 1024, $mode = 'r')
 	{
+		if( ! is_numeric($length) )
+		{
+			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+		}
+		
 		return $this->compress->read($file, $length, $mode);
 	}
 	
@@ -126,8 +141,13 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Verilen dizgeyi gz kodlamalı olarak sıkıştırır.				     	  |
 	|          																				  |
 	******************************************************************************************/
-	public function compress($data = '', $level = -1, $encoding = ZLIB_ENCODING_DEFLATE)
+	public function compress($data, $level = -1, $encoding = ZLIB_ENCODING_DEFLATE)
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+		}
+
 		return $this->compress->compress($data, $level, $encoding);
 	}
 	
@@ -137,8 +157,18 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Gz ile sıkıştırılmış veriyi açar.								     	  |
 	|          																				  |
 	******************************************************************************************/
-	public function uncompress($data = '', $length = 0)
+	public function uncompress($data, $length = 0)
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+		}
+		
+		if( ! is_numeric($length) )
+		{
+			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+		}
+		
 		return $this->compress->uncompress($data, $length);
 	}
 	
@@ -156,8 +186,13 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Gzipli bir dizge oluşturur.				     						  |
 	|          																				  |
 	******************************************************************************************/
-	public function encode($data = '', $level = -1, $encoding = FORCE_GZIP)
+	public function encode($data, $level = -1, $encoding = FORCE_GZIP)
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+		}
+
 		return $this->compress->encode($data, $level, $encoding);
 	}
 	
@@ -167,8 +202,18 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Gzipli bir dizgenin sıkıştırmasını açar.								  |
 	|          																				  |
 	******************************************************************************************/
-	public function decode($data = '', $length = 0)
+	public function decode($data, $length = 0)
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+		}
+		
+		if( ! is_numeric($length) )
+		{
+			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+		}
+		
 		return $this->compress->decode($data, $length);
 	}
 	
@@ -186,8 +231,18 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Bir dizgeyi deflate biçeminde sıkıştırır.								  |
 	|          																				  |
 	******************************************************************************************/
-	public function deflate($data = '', $level = -1, $encoding = ZLIB_ENCODING_RAW)
+	public function deflate($data, $level = -1, $encoding = ZLIB_ENCODING_RAW)
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+		}
+		
+		if( ! is_numeric($level) || ! is_numeric($encoding) )
+		{
+			return ! $this->error = lang('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
+		}
+
 		return $this->compress->deflate($data, $level, $encoding);
 	}
 	
@@ -197,8 +252,18 @@ class InternalCompress implements CompressInterface
 	| Genel Kullanım: Deflate bir dizgenin sıkıştırmasını açar.								  |
 	|          																				  |
 	******************************************************************************************/
-	public function inflate($data = '', $length = 0)
+	public function inflate($data, $length = 0)
 	{
+		if( ! is_scalar($data) )
+		{
+			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+		}
+		
+		if( ! is_numeric($length) )
+		{
+			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+		}
+		
 		return $this->compress->inflate($data, $length);
 	}
 	

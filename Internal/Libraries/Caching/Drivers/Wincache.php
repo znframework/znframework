@@ -1,7 +1,5 @@
 <?php
 namespace ZN\Caching\Drivers;
-
-use ZN\Caching\CacheInterface;
 	
 class WincacheDriver
 {

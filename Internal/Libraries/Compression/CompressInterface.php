@@ -12,7 +12,7 @@ interface CompressInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function extract($source, $target, $password);
+	public function extract(String $source, String $target, $password);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Write
@@ -23,7 +23,7 @@ interface CompressInterface
 	// @param string $mode
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function write($file, $data, $mode);
+	public function write(String $file, $data, $mode);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Read
@@ -34,7 +34,7 @@ interface CompressInterface
 	// @param string  $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function read($file, $length, $type);
+	public function read(String $file, $length, $type);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Compress

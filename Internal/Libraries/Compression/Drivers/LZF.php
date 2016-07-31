@@ -1,9 +1,7 @@
 <?php
 namespace ZN\Compression\Drivers;
 
-use ZN\Compression\CompressInterface;
-
-class LZFDriver implements CompressInterface
+class LZFDriver extends \CompressAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -21,24 +19,6 @@ class LZFDriver implements CompressInterface
 			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'LZF'));	
 		}	
 	}
-	
-	public function extract($source = NULL, $target = NULL, $password = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function write($file = NULL, $data = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function read($file = NULL, $length = NULL, $type = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
 
 	/******************************************************************************************
 	* COMPRESS		                                                                          *
@@ -48,11 +28,6 @@ class LZFDriver implements CompressInterface
 	******************************************************************************************/
 	public function compress($data = '', $blockSize = NULL, $workFactor = NULL)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-		
 		return lzf_compress($data);
 	}
 	
@@ -64,35 +39,6 @@ class LZFDriver implements CompressInterface
 	******************************************************************************************/
 	public function uncompress($data = '', $small = 0)
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Errors::set('Error', 'valueParameter', '1.(data)');	
-		}
-
 		return lzf_decompress($data);
-	}
-	
-	public function encode($data = NULL, $level = NULL, $encoding = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function decode($data = NULL, $length = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function deflate($data = NULL, $level = NULL, $encoding = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
-	}
-	
-	public function inflate($data = NULL, $length = NULL)
-	{
-		// Bu sürücü tarafından desteklenmemektedir!
-		return false;	
 	}
 }
