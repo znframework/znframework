@@ -24,30 +24,6 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	}
 
 	//----------------------------------------------------------------------------------------------------
-    // Protected Undefined Variable
-    //----------------------------------------------------------------------------------------------------
-    //
-    // @param string $msg
-    //
-    //----------------------------------------------------------------------------------------------------
-	protected function _undefinedVariable($msg)
-	{
-		preg_match
-		(
-			'/^Undefined\svariable\:/xi',
-			$msg,
-			$match
-		);
-	
-		if( empty($match) )
-		{
-			return false;
-		}
-
-		return true;
-	}
-
-	//----------------------------------------------------------------------------------------------------
     // Protected Argument Missed
     //----------------------------------------------------------------------------------------------------
     //
@@ -164,8 +140,20 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	| Genel Kullanım: Hata tablosu.     													  |
 	|          																				  |
 	******************************************************************************************/	
-	private function _template($msg, $file, $line)
+	private function _template($msg, $file, $line, $no)
 	{
+		global $application;
+
+		if( ! \Config::get('Application', 'errorReporting') || empty($application['errorReporting']) )
+		{
+			return false;
+		}
+		
+		if( in_array($no, \Config::get('Application', 'escapeErrors')) )
+		{
+			return false;
+		}
+
 		$debug = \Errors::debugBackTrace(['object' => 10, 'file' => 12, 'default' => 5]);
 
 		$currentFile = str_replace('\\', '/', REAL_BASE_DIR.CURRENT_CFILE);
@@ -215,8 +203,8 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 		
 		report('GeneralError', $message, 'GeneralError');
-		
-		echo $this->_template($msg, $file, $line);  
+	
+		echo $this->_template($msg, $file, $line, $no);  
 	}
 	
 	/******************************************************************************************

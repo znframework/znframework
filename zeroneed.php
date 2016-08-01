@@ -97,7 +97,7 @@ require_once CORE_DIR.'Preloading.php';
 //----------------------------------------------------------------------------------------------------
 // Available Options: development, restoration or publication
 //----------------------------------------------------------------------------------------------------
-internalApplicationMode(APPMODE);
+internalApplicationMode(APPMODE, $application['errorReporting']);
 
 //----------------------------------------------------------------------------------------------------
 // Application Directory

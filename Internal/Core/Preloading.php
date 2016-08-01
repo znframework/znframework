@@ -1102,7 +1102,7 @@ function internalApplicationContainerDir()
 // @param string $mode: publication, development, restoration
 //
 //----------------------------------------------------------------------------------------------------
-function internalApplicationMode($mode)
+function internalApplicationMode($mode, $report = -1)
 {
 	//------------------------------------------------------------------------------------------------
 	// Kullanılabilir Uygulama Seçenekleri
@@ -1129,7 +1129,7 @@ function internalApplicationMode($mode)
 		// Tüm hatalar açıktır.
 		//--------------------------------------------------------------------------------------------
 		case 'development' : 
-			error_reporting(-1);
+			error_reporting($report);
 		break; 
 		//--------------------------------------------------------------------------------------------
 		
