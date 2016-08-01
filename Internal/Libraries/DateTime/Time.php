@@ -1,7 +1,7 @@
 <?php
 namespace ZN\DateTime;
 
-class InternalTime implements DateTimeCommonInterface
+class InternalTime extends \CallController implements DateTimeCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	// TIME CLASS

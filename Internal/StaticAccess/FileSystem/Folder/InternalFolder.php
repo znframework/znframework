@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Folder extends ZN\Foundations\StaticAccess
+class Folder extends StaticAccess
 {
 	public static function getClassName()
 	{

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class URI extends ZN\Foundations\StaticAccess
+class URI extends StaticAccess
 {
 	public static function getClassName()
 	{

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Round extends ZN\Foundations\StaticAccess
+class Round extends StaticAccess
 {
 	public static function getClassName()
 	{

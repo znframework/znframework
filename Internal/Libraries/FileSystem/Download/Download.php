@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalDownload implements DownloadInterface, \ErrorControlInterface
+class InternalDownload extends \CallController implements DownloadInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalDownload implements DownloadInterface, \ErrorControlInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* START                                                                                   *
@@ -49,7 +27,7 @@ class InternalDownload implements DownloadInterface, \ErrorControlInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return ! $this->error = lang('Error', 'fileParameter', $file);
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		// İndirilecek dosyanın yolu ile adını ayırmak için 

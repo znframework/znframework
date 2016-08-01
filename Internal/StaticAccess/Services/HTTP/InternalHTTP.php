@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class HTTP extends ZN\Foundations\StaticAccess
+class HTTP extends StaticAccess
 {
 	const CONFIG_NAME = 'Services:http';
 

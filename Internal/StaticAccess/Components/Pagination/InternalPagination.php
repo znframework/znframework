@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Pagination extends ZN\Foundations\StaticAccess
+class Pagination extends StaticAccess
 {
 	const CONFIG_NAME = 'Components:pagination';
 

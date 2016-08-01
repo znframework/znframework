@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Terminal extends ZN\Foundations\StaticAccess
+class Terminal extends StaticAccess
 {
 	const CONFIG_NAME = 'Components:terminal';
 

@@ -22,7 +22,7 @@ interface MLInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($app, $key, $data);
+	public function insert(String $app, $key, String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -35,7 +35,7 @@ interface MLInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($app, $key);
+	public function delete(String $app, $key);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete All
@@ -57,7 +57,7 @@ interface MLInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($app, $key, $data);
+	public function update(String $app, $key, String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -68,7 +68,7 @@ interface MLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($key, $convert);
+	public function select(String $key, $convert);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select All

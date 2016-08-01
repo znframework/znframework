@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Jquery extends ZN\Foundations\StaticAccess
+class Jquery extends StaticAccess
 {
 	public static function getClassName()
 	{

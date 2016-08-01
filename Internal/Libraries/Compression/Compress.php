@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Compression;
 
-class InternalCompress implements CompressInterface, \ErrorControlInterface, \DriverMethodInterface
+class InternalCompress extends \CallController implements CompressInterface, \DriverMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,6 +12,15 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Driver Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// driver()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \DriverMethodTrait;
+
 	//----------------------------------------------------------------------------------------------------
 	// Protected Compress
 	//----------------------------------------------------------------------------------------------------
@@ -37,37 +46,6 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Driver Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// driver()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \DriverMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Extract Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -81,7 +59,7 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_file($source) )
 		{
-			return ! $this->error = lang('Error', 'fileParameter', '1.(source)');
+			return \Exceptions::throws('Error', 'fileParameter', '1.(source)');
 		}
 
 		return $this->compress->extract($source, $target, $password);
@@ -105,7 +83,7 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '2.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '2.(data)');	
 		}
 
 		return $this->compress->write($file, $data, $mode);
@@ -121,7 +99,7 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_numeric($length) )
 		{
-			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return $this->compress->read($file, $length, $mode);
@@ -145,7 +123,7 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
 		}
 
 		return $this->compress->compress($data, $level, $encoding);
@@ -161,12 +139,12 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return $this->compress->uncompress($data, $length);
@@ -190,7 +168,7 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
 		}
 
 		return $this->compress->encode($data, $level, $encoding);
@@ -206,12 +184,12 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return $this->compress->decode($data, $length);
@@ -235,12 +213,12 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($level) || ! is_numeric($encoding) )
 		{
-			return ! $this->error = lang('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
 		}
 
 		return $this->compress->deflate($data, $level, $encoding);
@@ -256,12 +234,12 @@ class InternalCompress implements CompressInterface, \ErrorControlInterface, \Dr
 	{
 		if( ! is_scalar($data) )
 		{
-			return ! $this->error = lang('Error', 'valueParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
 		}
 		
 		if( ! is_numeric($length) )
 		{
-			return ! $this->error = lang('Error', 'numericParameter', '2.(length)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
 		}
 		
 		return $this->compress->inflate($data, $length);

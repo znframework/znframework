@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Validation extends ZN\Foundations\StaticAccess
+class Validation extends StaticAccess
 {
 	public static function getClassName()
 	{

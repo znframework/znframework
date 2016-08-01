@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Compress extends ZN\Foundations\StaticAccess
+class Compress extends StaticAccess
 {
 	public static function getClassName()
 	{

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Serial extends ZN\Foundations\StaticAccess
+class Serial extends StaticAccess
 {
 	public static function getClassName()
 	{

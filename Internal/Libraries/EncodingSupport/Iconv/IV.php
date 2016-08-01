@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalIV implements IVInterface, \ErrorControlInterface
+class InternalIV extends \CallController implements IVInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,22 +11,14 @@ class InternalIV implements IVInterface, \ErrorControlInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Inputs
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-
 	protected $inputs = ['input', 'output', 'internal'];
 	
 	/******************************************************************************************
@@ -46,7 +38,7 @@ class InternalIV implements IVInterface, \ErrorControlInterface
 		
 		if( ! isCharset($fromEncoding) || ! isCharset($toEncodingFirst) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');	
 		}
 		
 		return iconv($fromEncoding, $toEncoding, $string);
@@ -79,7 +71,7 @@ class InternalIV implements IVInterface, \ErrorControlInterface
 	{
 		if( ! in_array($type, $this->inputs) )
 		{
-			return ! $this->error = lang('Error', 'invalidInput', $type);	
+			return \Exceptions::throws('Error', 'invalidInput', $type);	
 		}
 		
 		return iconv_get_encoding($type.'_encoding');
@@ -99,12 +91,12 @@ class InternalIV implements IVInterface, \ErrorControlInterface
 	{
 		if( ! is_array($type, $this->inputs) )
 		{
-			return ! $this->error = lang('Error', 'invalidInput', $type);	
+			return \Exceptions::throws('Error', 'invalidInput', $type);	
 		}
 		
 		if( ! isCharset($charset) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '2.(charset)');
+			return \Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
 		}
 		
 		return iconv_set_encoding($type.'_encoding', $charset);

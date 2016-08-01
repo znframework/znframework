@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Session extends ZN\Foundations\StaticAccess
+class Session extends StaticAccess
 {
 	const CONFIG_NAME = 'Services:session';
 

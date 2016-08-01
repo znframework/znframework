@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Clean extends ZN\Foundations\StaticAccess
+class Clean extends StaticAccess
 {
 	public static function getClassName()
 	{

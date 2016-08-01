@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Route extends ZN\Foundations\StaticAccess
+class Route extends StaticAccess
 {
 	public static function getClassName()
 	{

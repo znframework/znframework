@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class FTP extends ZN\Foundations\StaticAccess
+class FTP extends StaticAccess
 {
 	const CONFIG_NAME = 'Services:ftp';
 

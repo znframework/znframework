@@ -1,7 +1,7 @@
 <?php
-namespace ZN\Database;
+namespace ZN\Foundations\Extend;
 
-class Grand extends \Model implements GrandInterface
+interface GrandInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,44 +11,7 @@ class Grand extends \Model implements GrandInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Variable Grand Table
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var string: empty
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $grandTable = '';
-	
-	//----------------------------------------------------------------------------------------------------
-	// Constructor
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function __construct()
-	{
-		if( defined('static::table') )
-		{
-			$this->grandTable = static::table;
-		}                                                  
-		else
-		{
-			$this->grandTable = str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class());
-		}
-	}
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Insert
 	//----------------------------------------------------------------------------------------------------
@@ -56,11 +19,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array $data: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($data = [])
-	{
-		return \DB::insert($this->grandTable, $data);
-	}
-	
+	public function insert($data);
 	//----------------------------------------------------------------------------------------------------
 	// Insert ID
 	//----------------------------------------------------------------------------------------------------
@@ -68,10 +27,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insertID()
-	{
-		return \DB::insertID();
-	}
+	public function insertID();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -80,12 +36,7 @@ class Grand extends \Model implements GrandInterface
 	// @param mixed $select: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($select = '*')
-	{
-		\DB::select($select);
-		
-		return $this;
-	}
+	public function select($select);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Update
@@ -94,10 +45,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array $data: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($data = [], $column = '', $value = '')
-	{
-		return \DB::where($column, $value)->update($this->grandTable, $data);
-	}
+	public function update($data, $column, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -107,22 +55,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $value : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($column = '', $value = '')
-	{
-		return \DB::where($column, $value)->delete($this->grandTable);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Get
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _get()
-	{
-		return \DB::get($this->grandTable);
-	}
+	public function delete($column, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Columns
@@ -131,10 +64,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns()
-	{
-		return $this->_get()->columns();
-	}
+	public function columns();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Columns
@@ -143,10 +73,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalColumns()
-	{
-		return $this->_get()->totalColumns();
-	}
+	public function totalColumns();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Row
@@ -155,10 +82,7 @@ class Grand extends \Model implements GrandInterface
 	// @param mixed $printable: false
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function row($printable = false)
-	{
-		return $this->_get()->row($printable);
-	}
+	public function row($printable);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Result
@@ -167,10 +91,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $type: object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function result($type = 'object')
-	{
-		return $this->_get()->result($type);
-	}
+	public function result($type);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Increment
@@ -180,10 +101,7 @@ class Grand extends \Model implements GrandInterface
 	// @param int   $increment: 1
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($columns = [], $increment = 1)
-	{
-		return \DB::increment($this->grandTable, $columns, $increment);
-	}
+	public function increment($columns, $increment);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decrement
@@ -193,10 +111,7 @@ class Grand extends \Model implements GrandInterface
 	// @param int   $decrement: 1
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($columns = [], $decrement = 1)
-	{
-		return \DB::decrement($this->grandTable, $columns, $decrement);
-	}
+	public function decrement($columns, $decrement);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Status
@@ -205,10 +120,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $type: row
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function status($type = 'row')
-	{
-		return \DB::status($this->grandTable)->$type();
-	}
+	public function status($type);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Rows
@@ -217,10 +129,7 @@ class Grand extends \Model implements GrandInterface
 	// @param bool $status: false
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows($status = false)
-	{
-		return $this->_get()->totalRows($status);
-	}
+	public function totalRows($status);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where
@@ -231,12 +140,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $logical: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column = '', $value = '', $logical = '')
-	{
-		\DB::where($column, $value, $logical);
-		
-		return $this;
-	}
+	public function where($column, $value, $logical);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Having
@@ -247,12 +151,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $logical: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column = '', $value = '', $logical = '')
-	{
-		\DB::having($column, $value, $logical);
-		
-		return $this;
-	}
+	public function having($column, $value, $logical);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where Group
@@ -261,12 +160,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function whereGroup(...$args)
-	{
-		\DB::whereGroup(...$args);
-		
-		return $this;
-	}
+	public function whereGroup();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Having Group
@@ -275,12 +169,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function havingGroup(...$args)
-	{
-		\DB::havingGroup(...$args);
-		
-		return $this;
-	}
+	public function havingGroup();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Inner Join
@@ -291,12 +180,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin($table = '', $otherColumn = '', $operator = '=')
-	{
-		\DB::innerJoin($table, $otherColumn, $operator);
-		
-		return $this;
-	}
+	public function innerJoin($table, $otherColumn, $operator);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Outer Join
@@ -307,12 +191,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
-	{
-		\DB::outerJoin($table, $otherColumn, $operator);
-		
-		return $this;
-	}
+	public function outerJoin($table, $otherColumn, $operator);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Left Join
@@ -323,12 +202,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
-	{
-		\DB::leftJoin($table, $otherColumn, $operator);
-		
-		return $this;
-	}
+	public function leftJoin($table, $otherColumn, $operator);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Right Join
@@ -339,12 +213,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
-	{
-		\DB::rightJoin($table, $otherColumn, $operator);
-		
-		return $this;
-	}
+	public function rightJoin($table, $otherColumn, $operator);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Join
@@ -355,12 +224,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $type     : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function join($table = '', $condition = '', $type = '')
-	{
-		\DB::join($table, $condition, $type);
-		
-		return $this;
-	}
+	public function join($table, $condition, $type);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Duplicate Check
@@ -369,12 +233,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function duplicateCheck(...$args)
-	{
-		\DB::duplicateCheck(...$args);
-		
-		return $this;
-	}
+	public function duplicateCheck();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -384,12 +243,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $type     : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($condition = '', $type = '')
-	{
-		\DB::orderBy($condition, $type);
-		
-		return $this;
-	}
+	public function orderBy($condition, $type);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Group By
@@ -398,12 +252,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy(...$args)
-	{
-		\DB::groupBy(...$args);
-		
-		return $this;
-	}
+	public function groupBy();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -413,12 +262,7 @@ class Grand extends \Model implements GrandInterface
 	// @param int   $limit: 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($start = 0, $limit = 0)
-	{
-		\DB::limit($start, $limit);
-		
-		return $this;
-	}
+	public function limit($start, $limit);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pagination
@@ -429,10 +273,7 @@ class Grand extends \Model implements GrandInterface
 	// @param bool   $output  : true
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pagination($url = '', $settings = [], $output = true)
-	{
-		return $this->_get()->pagination($url, $settings, $output);
-	}
+	public function pagination($url, $settings, $output);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -442,10 +283,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $extra: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($data = [], $extra = '')
-	{
-		return \DBForge::createTable($this->grandTable, $data, $extra);
-	}
+	public function create($data, $extra);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop
@@ -454,10 +292,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function drop()
-	{
-		return \DBForge::dropTable($this->grandTable);
-	}
+	public function drop();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Truncate
@@ -466,10 +301,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate()
-	{
-		return \DBForge::truncate($this->grandTable);
-	}
+	public function truncate();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename
@@ -478,10 +310,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rename($newName = '')
-	{
-		return \DBForge::renameTable($this->grandTable, $newName);
-	}
+	public function rename($newName);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Column
@@ -490,10 +319,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($column = [])
-	{
-		return \DBForge::addColumn($this->grandTable, $column);
-	}
+	public function addColumn($column);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Column
@@ -502,10 +328,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($column = '')
-	{
-		return \DBForge::dropColumn($this->grandTable, $column);
-	}
+	public function dropColumn($column);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Modify Column
@@ -514,10 +337,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($column = [])
-	{
-		return \DBForge::modifyColumn($this->grandTable, $column);
-	}
+	public function modifyColumn($column);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Column
@@ -526,10 +346,7 @@ class Grand extends \Model implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn($column = [])
-	{
-		return \DBForge::renameColumn($this->grandTable, $column);
-	}
+	public function renameColumn($column);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Optimize
@@ -538,10 +355,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimize()
-	{
-		return \DBTool::optimizeTables($this->grandTable);
-	}
+	public function optimize();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Repair
@@ -550,10 +364,7 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repair()
-	{
-		return \DBTool::repairTables($this->grandTable);
-	}
+	public function repair();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Backup
@@ -563,10 +374,7 @@ class Grand extends \Model implements GrandInterface
 	// @param string $path    : const STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($fileName = '', $path = STORAGE_DIR)
-	{
-		return \DBTool::backup($this->grandTable, $fileName, $path);
-	}
+	public function backup($fileName, $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error
@@ -575,23 +383,5 @@ class Grand extends \Model implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function error()
-	{
-		if( $error = \DB::error() )
-		{
-			return $error;
-		}
-		elseif( $error = \DBForge::error() )
-		{
-			return $error;
-		}
-		elseif( $error = \DBTool::error() )
-		{
-			return $error;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	public function error();
 }

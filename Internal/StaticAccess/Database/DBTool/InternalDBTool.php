@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class DBTool extends ZN\Foundations\StaticAccess
+class DBTool extends StaticAccess
 {
 	public static function getClassName()
 	{

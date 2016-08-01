@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Exceptions extends ZN\Foundations\StaticAccess
+class Exceptions extends StaticAccess
 {
 	public static function getClassName()
 	{

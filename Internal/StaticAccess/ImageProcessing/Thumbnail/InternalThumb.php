@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Thumb extends ZN\Foundations\StaticAccess
+class Thumb extends StaticAccess
 {
 	public static function getClassName()
 	{

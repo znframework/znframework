@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Permission extends ZN\Foundations\StaticAccess
+class Permission extends StaticAccess
 {
 	public static function getClassName()
 	{

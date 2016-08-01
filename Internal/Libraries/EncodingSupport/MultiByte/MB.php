@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalMB implements MBInterface, \ErrorControlInterface
+class InternalMB extends \CallController implements MBInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,21 +11,6 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* SPLIT                  	                                                              *
@@ -76,7 +61,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '3.($encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '3.($encoding)');	
 		}
 
 		return \Strings::section($str, $starting, $count, $encoding);
@@ -112,7 +97,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '2.($encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '2.($encoding)');	
 		}
 		
 		return mb_check_encoding($string, $encoding);
@@ -133,7 +118,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '3.($encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '3.($encoding)');	
 		}
 		
 		return mb_convert_case($string, \Convert::toConstant($flag, 'MB_CASE_'), $encoding);
@@ -154,7 +139,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($toEncoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '2.($toEncoding)');
+			return \Exceptions::throws('Error', 'charsetParameter', '2.($toEncoding)');
 		}
 		
 		return mb_convert_encoding($string, $toEncoding, $fromEncoding);
@@ -187,7 +172,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '2.(encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');	
 		}
 
 		return mb_encode_mimeheader($string, $encoding, $transferEncoding, $crlf, $indent);
@@ -208,7 +193,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '3.(encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '3.(encoding)');	
 		}
 
 		return mb_decode_numericentity($string, (array) $convertMap, $encoding);
@@ -229,7 +214,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '3.(encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '3.(encoding)');	
 		}
 
 		return mb_encode_numericentity($string, $convertMap, $encoding);
@@ -325,7 +310,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'charsetParameter', '1.(encoding)');	
+			return \Exceptions::throws('Error', 'charsetParameter', '1.(encoding)');	
 		}
 		
 		return mb_http_output($encoding);
@@ -387,7 +372,7 @@ class InternalMB implements MBInterface, \ErrorControlInterface
 	{
 		if( ! isCharset($encoding) )
 		{
-			return ! $this->error = lang('Error', 'stringParameter', '1.(encoding)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(encoding)');	
 		}
 		
 		return mb_preferred_mime_name($encoding);

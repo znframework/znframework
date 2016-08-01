@@ -1,7 +1,7 @@
 <?php
-namespace ZN\Foundations;
+namespace ZN\Foundations\Extend;
 
-class BaseController
+class Model
 {
 	//----------------------------------------------------------------------------------------------------
 	//

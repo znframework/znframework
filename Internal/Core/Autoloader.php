@@ -565,7 +565,7 @@ class Autoloader
 						$classContent .= '//----------------------------------------------------------------------------------------------------'.$eol;
 						$classContent .= '// This file automatically created and updated'.$eol;
 						$classContent .= '//----------------------------------------------------------------------------------------------------'.$eol.$eol;
-						$classContent .= 'class '.$newClassName.' extends ZN\Foundations\StaticAccess'.$eol;
+						$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
 						$classContent .= '{'.$eol;	
 						$classContent .= $constants;
 						$classContent .= "\t".'public static function getClassName()'.$eol;

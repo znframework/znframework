@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class ML extends ZN\Foundations\StaticAccess
+class ML extends StaticAccess
 {
 	const CONFIG_NAME = 'EncodingSupport:ml';
 

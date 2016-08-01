@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Import extends ZN\Foundations\StaticAccess
+class Import extends StaticAccess
 {
 	public static function getClassName()
 	{

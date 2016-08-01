@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Crontab extends ZN\Foundations\StaticAccess
+class Crontab extends StaticAccess
 {
 	const CONFIG_NAME = 'Services:crontab';
 

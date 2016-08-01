@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Redirect extends ZN\Foundations\StaticAccess
+class Redirect extends StaticAccess
 {
 	public static function getClassName()
 	{

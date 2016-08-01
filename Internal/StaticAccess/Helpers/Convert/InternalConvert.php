@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Convert extends ZN\Foundations\StaticAccess
+class Convert extends StaticAccess
 {
 	public static function getClassName()
 	{

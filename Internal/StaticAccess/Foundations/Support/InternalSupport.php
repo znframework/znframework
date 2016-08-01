@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Driver extends ZN\Foundations\StaticAccess
+class Support extends StaticAccess
 {
 	public static function getClassName()
 	{

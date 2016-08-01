@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class DataGrid extends ZN\Foundations\StaticAccess
+class DataGrid extends StaticAccess
 {
 	const CONFIG_NAME = 'Components:datagrid';
 

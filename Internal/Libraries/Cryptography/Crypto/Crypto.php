@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Cryptography;
 
-class InternalCrypto implements CryptoInterface, \ErrorControlInterface, \DriverMethodInterface
+class InternalCrypto extends \CallController implements CryptoInterface, \DriverMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,29 +11,7 @@ class InternalCrypto implements CryptoInterface, \ErrorControlInterface, \Driver
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
+		
 	//----------------------------------------------------------------------------------------------------
 	// Driver Method
 	//----------------------------------------------------------------------------------------------------
@@ -133,7 +111,7 @@ class InternalCrypto implements CryptoInterface, \ErrorControlInterface, \Driver
 	{
 		if( ! is_numeric($length) )
 		{
-			return ! $this->error = lang('Error', 'numericParameter', '1.(length)');	
+			return \Exceptions::throws('Error', 'numericParameter', '1.(length)');	
 		}
 		
 		return $this->crypto->keygen($length);

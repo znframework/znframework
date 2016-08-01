@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Encode extends ZN\Foundations\StaticAccess
+class Encode extends StaticAccess
 {
 	public static function getClassName()
 	{

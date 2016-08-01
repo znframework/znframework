@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class DBUser extends ZN\Foundations\StaticAccess
+class DBUser extends StaticAccess
 {
 	public static function getClassName()
 	{

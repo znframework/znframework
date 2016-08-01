@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Errors extends ZN\Foundations\StaticAccess
+class Errors extends StaticAccess
 {
 	public static function getClassName()
 	{

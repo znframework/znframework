@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class SSH extends ZN\Foundations\StaticAccess
+class SSH extends StaticAccess
 {
 	const CONFIG_NAME = 'Services:ssh';
 

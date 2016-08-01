@@ -23,6 +23,13 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		return $this->_template($this->getMessage(), $this->getFile(), $this->getLine());
 	}
 
+	//----------------------------------------------------------------------------------------------------
+    // Protected Undefined Variable
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    //
+    //----------------------------------------------------------------------------------------------------
 	protected function _undefinedVariable($msg)
 	{
 		preg_match
@@ -40,6 +47,13 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		return true;
 	}
 
+	//----------------------------------------------------------------------------------------------------
+    // Protected Argument Missed
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    //
+    //----------------------------------------------------------------------------------------------------
 	protected function _argumentMissed($msg)
 	{
 		$exceptionData = false;
@@ -73,6 +87,13 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		return $exceptionData;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+    // Protected Argument Passed
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    //
+    //----------------------------------------------------------------------------------------------------
 	protected function _argumentPassed($msg)
 	{
 		$exceptionData = false;
@@ -116,6 +137,15 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		return true;
 	}
 
+	//----------------------------------------------------------------------------------------------------
+    // Protected Throws
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $message
+    // @param string $key
+    // @param string $send
+    //
+    //----------------------------------------------------------------------------------------------------
 	public function throws($message = '', $key = '', $send = '')
 	{
 		$debug = \Errors::debugBackTrace(['object' => 11, 'file' => 11, 'default' => 5]);
@@ -168,11 +198,6 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		if( $missed = $this->_argumentMissed($msg) )
 		{
 			$exceptionData = $missed;
-		}
-
-		if( $this->_undefinedVariable($msg) )
-		{
-			return false;
 		}
 
 		return \Import::template('ExceptionTable', $exceptionData, true);

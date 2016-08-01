@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Regex extends ZN\Foundations\StaticAccess
+class Regex extends StaticAccess
 {
 	public static function getClassName()
 	{

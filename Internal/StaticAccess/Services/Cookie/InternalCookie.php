@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Cookie extends ZN\Foundations\StaticAccess
+class Cookie extends StaticAccess
 {
 	const CONFIG_NAME = 'Services:cookie';
 

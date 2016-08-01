@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Excel extends ZN\Foundations\StaticAccess
+class Excel extends StaticAccess
 {
 	public static function getClassName()
 	{

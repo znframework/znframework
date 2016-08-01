@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Arrays extends ZN\Foundations\StaticAccess
+class Arrays extends StaticAccess
 {
 	public static function getClassName()
 	{

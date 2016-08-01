@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalFolder implements FolderInterface
+class InternalFolder extends \CallController implements FolderInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,15 +11,6 @@ class InternalFolder implements FolderInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create Method Başlangıç
@@ -329,47 +320,37 @@ class InternalFolder implements FolderInterface
 			$path = '.';
 		}
 		
-		// 1. parametre bir dizinse
-		if( is_dir($path) )
-		{	
-			$dir = opendir($path);
-			
-			while( $file = readdir($dir) )
-			{
-				if( $file !== '.' && $file !== '..' )
-				{				
-					if( ! empty($extension) && $extension !== 'dir' )
+		$dir = opendir($path);
+		
+		while( $file = readdir($dir) )
+		{
+			if( $file !== '.' && $file !== '..' )
+			{				
+				if( ! empty($extension) && $extension !== 'dir' )
+				{
+					if( extension($file) === $extension )
 					{
-						if( extension($file) === $extension )
+						$files[] = $file;	
+					}
+				}
+				else
+				{
+					if( $extension === 'dir' )
+					{
+						if( is_dir(suffix($path).$file) )
 						{
 							$files[] = $file;	
 						}
 					}
 					else
 					{
-						if( $extension === 'dir' )
-						{
-							if( is_dir(suffix($path).$file) )
-							{
-								$files[] = $file;	
-							}
-						}
-						else
-						{
-							$files[] = $file;
-						}
+						$files[] = $file;
 					}
 				}
 			}
-			
-			return $files;
-		}
-		else
-		{
-			// 1. parametre dizin değilse false değeri döndür.
-			return \Errors::set('Error', 'dirParameter', 'path');	
 		}
 		
+		return $files;
 	}	
 	
 	/******************************************************************************************

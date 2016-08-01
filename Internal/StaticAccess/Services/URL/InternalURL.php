@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class URL extends ZN\Foundations\StaticAccess
+class URL extends StaticAccess
 {
 	const BASE = BASE_URL;
 

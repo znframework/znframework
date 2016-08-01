@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Schedule extends ZN\Foundations\StaticAccess
+class Schedule extends StaticAccess
 {
 	public static function getClassName()
 	{

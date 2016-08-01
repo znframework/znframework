@@ -1,7 +1,7 @@
 <?php
-namespace ZN\FileSystem;
+namespace ZN\Foundations;
 
-class InternalExcel extends \CallController implements ExcelInterface
+class InternalSupport extends \CallController implements SupportInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,113 +13,66 @@ class InternalExcel extends \CallController implements ExcelInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Output
+	// Protected Loaded
 	//----------------------------------------------------------------------------------------------------
-	//
-	// @param array  $rows
+	// 
+	// @param string $name
+	// @param string $value
+	// @param string $func
+	// @param string $error
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rows(Array $rows)
+	protected function _loaded($name, $value, $func, $error)
 	{
-		$this->rows = $rows;
-		
-		return $this;	
+		if( empty($value) )
+		{
+			$value = ucfirst($name);
+		}
+
+		if( ! $func($name) )
+		{
+			die(getErrorMessage('Error', $error, $value));	
+		}
+
+		return true;
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// fileName
+	// Func
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $name
+	// @param  string  $value
 	//
-	// @param string $fileName
-	//
 	//----------------------------------------------------------------------------------------------------
-	public function fileName(String $fileName)
+	public function func(String $name, String $value = NULL)
 	{
-		$this->fileName = suffix($fileName, '.xls');
-		
-		return $this;	
+		return $this->_loaded($name, $value, 'function_exists', 'undefinedFunction');
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// Array To XLS
+	// Extension
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $name
+	// @param  string  $value
 	//
-	// @param array  $data
-	// @param string $file
-	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLS(Array $data, $file = 'excel.xls')
+	public function extension(String $name, String $value = NULL)
 	{
-		if( ! empty($this->fileName) )
-		{
-			$file = $this->fileName;
-			$this->fileName = NULL;	
-		}
-		
-		$file = suffix($file, '.xls');
-		
-		header("Content-Disposition: attachment; filename=\"$file\"");
-		header("Content-Type: application/vnd.ms-excel;");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-		
-		if( ! empty($this->rows) )
-		{
-			$data = $this->rows;
-			$this->rows = NULL;	
-		}
-		
-		$output = fopen("php://output", 'w');
-		
-		foreach( $data as $column )
-		{
-			fputcsv($output, $column, "\t");
-		}
-		
-		fclose($output);
+		return $this->_loaded($name, $value, 'extension_loaded', 'undefinedFunctionExtension');
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// CSV To Array
+	// Library
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $name
+	// @param  string  $value
 	//
-	// @param string $file
-	//
 	//----------------------------------------------------------------------------------------------------
-	public function CSVToArray(String $file)
+	public function library(String $name, String $value = NULL)
 	{
-		if( ! empty($this->fileName) )
-		{
-			$file = $this->fileName;	
-			$this->fileName = NULL;	
-		}
-		
-		$file = suffix($file, '.csv');
-		
-		if( ! is_file($file) )
-		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
-		}
-		
-		$row  = 1;
-		$rows = [];
-		
-		if( ($resource = fopen($file, "r") ) !== false ) 
-		{
-			while( ($data = fgetcsv($resource, 1000, ",")) !== false ) 
-			{
-				$num = count($data);
-			
-				$row++;
-				for( $c = 0; $c < $num; $c++ ) 
-				{
-					$rows[] = explode(';', $data[$c]);
-				}
-			}
-			 
-			fclose($resource);
-		 }	
-		 
-		 return $rows;
+		return $this->_loaded($name, $value, 'class_exists', 'classError');
 	}
 }

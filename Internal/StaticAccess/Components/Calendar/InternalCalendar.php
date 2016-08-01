@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Calendar extends ZN\Foundations\StaticAccess
+class Calendar extends StaticAccess
 {
 	const CONFIG_NAME = 'Components:calendar';
 

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class CDN extends ZN\Foundations\StaticAccess
+class CDN extends StaticAccess
 {
 	public static function getClassName()
 	{

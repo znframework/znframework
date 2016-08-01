@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Captcha extends ZN\Foundations\StaticAccess
+class Captcha extends StaticAccess
 {
 	const CONFIG_NAME = 'Components:captcha';
 

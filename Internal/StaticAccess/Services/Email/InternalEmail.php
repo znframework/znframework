@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Email extends ZN\Foundations\StaticAccess
+class Email extends StaticAccess
 {
 	public static function getClassName()
 	{

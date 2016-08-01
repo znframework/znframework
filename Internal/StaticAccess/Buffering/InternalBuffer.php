@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Buffer extends ZN\Foundations\StaticAccess
+class Buffer extends StaticAccess
 {
 	public static function getClassName()
 	{

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class CURL extends ZN\Foundations\StaticAccess
+class CURL extends StaticAccess
 {
 	public static function getClassName()
 	{

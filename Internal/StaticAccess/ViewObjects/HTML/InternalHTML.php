@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class HTML extends ZN\Foundations\StaticAccess
+class HTML extends StaticAccess
 {
 	public static function getClassName()
 	{

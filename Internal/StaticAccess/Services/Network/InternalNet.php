@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Net extends ZN\Foundations\StaticAccess
+class Net extends StaticAccess
 {
 	public static function getClassName()
 	{

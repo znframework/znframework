@@ -1,5 +1,5 @@
 <?php 
-namespace ZN\Foundations;
+namespace ZN\Foundations\Structures;
 
 class Restoration
 {

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Authentication;
 
-class InternalUser implements UserInterface, UserPropertiesInterface, \ConfigMethodInterface, \ErrorControlInterface
+class InternalUser extends \CallController implements UserInterface, UserPropertiesInterface, \ConfigMethodInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -33,15 +33,6 @@ class InternalUser implements UserInterface, UserPropertiesInterface, \ConfigMet
 	//
 	//----------------------------------------------------------------------------------------------------
 	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// User Properties

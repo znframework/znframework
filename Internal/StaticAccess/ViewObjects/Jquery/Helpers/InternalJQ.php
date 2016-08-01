@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class JQ extends ZN\Foundations\StaticAccess
+class JQ extends StaticAccess
 {
 	public static function getClassName()
 	{

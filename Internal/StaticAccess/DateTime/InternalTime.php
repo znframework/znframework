@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Time extends ZN\Foundations\StaticAccess
+class Time extends StaticAccess
 {
 	public static function getClassName()
 	{

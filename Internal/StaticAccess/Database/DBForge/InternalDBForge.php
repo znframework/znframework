@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class DBForge extends ZN\Foundations\StaticAccess
+class DBForge extends StaticAccess
 {
 	public static function getClassName()
 	{

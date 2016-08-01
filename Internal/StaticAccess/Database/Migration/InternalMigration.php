@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Migration extends ZN\Foundations\StaticAccess
+class Migration extends StaticAccess
 {
 	public static function getClassName()
 	{

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Separator extends ZN\Foundations\StaticAccess
+class Separator extends StaticAccess
 {
 	public static function getClassName()
 	{

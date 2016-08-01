@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class Crypto extends ZN\Foundations\StaticAccess
+class Crypto extends StaticAccess
 {
 	public static function getClassName()
 	{

@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalGT implements GTInterface, \ErrorControlInterface
+class InternalGT extends \CallController implements GTInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,26 +14,8 @@ class InternalGT implements GTInterface, \ErrorControlInterface
 	
 	public function __construct()
 	{
-		if( ! function_exists('gettext') )
-		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Gettext'));	
-		}	
+		\Support::func('gettex', 'GT > Gettex()');
 	}
-	
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* DATA                   	                                                              *

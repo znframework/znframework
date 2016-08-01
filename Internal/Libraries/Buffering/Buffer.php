@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Buffering;
 
-class InternalBuffer implements BufferInterface, \ErrorControlInterface
+class InternalBuffer extends \CallController implements BufferInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -10,32 +10,6 @@ class InternalBuffer implements BufferInterface, \ErrorControlInterface
 	// Lisans     : The MIT License
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Take Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
@@ -50,7 +24,7 @@ class InternalBuffer implements BufferInterface, \ErrorControlInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return ! $this->error = lang('Error', 'fileParameter', 'file');	
+			return \Exceptions::throws('Error', 'fileParameter', 'file');	
 		}
 		
 		ob_start();
@@ -77,7 +51,7 @@ class InternalBuffer implements BufferInterface, \ErrorControlInterface
 	{
 		if( ! is_callable($func) )
 		{
-			return ! $this->error = lang('Error', 'callableParameter', 'func');
+			return \Exceptions::throws('Error', 'callableParameter', 'func');
 		}
 		
 		ob_start();
@@ -180,7 +154,7 @@ class InternalBuffer implements BufferInterface, \ErrorControlInterface
 		{
 			if( ! is_scalar($name) )
 			{
-				return ! $this->error = lang('Error', 'valueParameter', 'name');		
+				return \Exceptions::throws('Error', 'valueParameter', 'name');		
 			}
 		
 			return \Session::delete(md5('OB_DATAS_'.$name));

@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //----------------------------------------------------------------------------------------------------
 
-class XML extends ZN\Foundations\StaticAccess
+class XML extends StaticAccess
 {
 	public static function getClassName()
 	{
