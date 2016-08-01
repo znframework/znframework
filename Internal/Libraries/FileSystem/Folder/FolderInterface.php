@@ -24,20 +24,7 @@ interface FolderInterface
 	| Örnek Kullanım: create('dizin/yeniDizin');        						              |
 	|          																				  |
 	******************************************************************************************/
-	public function create($name, $permission, $recursive);
-	
-	/******************************************************************************************
-	* CHANGE                                                                           		  *
-	*******************************************************************************************
-	| Genel Kullanım: Çalışma dizini değiştirmek için kullanılır.    	 		     		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @name => Değiştirilecek çalışma dizininin adı veya yolu.				  |
-	|          											  									  |
-	| Örnek Kullanım: $veri = changer('dizin/yeniDizin');        					          |
-	|          																				  |
-	******************************************************************************************/	
-	public function change($name);
+	public function create(String $name, Integer $permission, $recursive);
 	
 	/******************************************************************************************
 	* RENAME                                                                                  *
@@ -51,7 +38,7 @@ interface FolderInterface
 	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public function rename($oldName, $newName);
+	public function rename(String $oldName, String $newName);
 	
 	/******************************************************************************************
 	* DELETE EMPTY                                                                            *
@@ -64,7 +51,7 @@ interface FolderInterface
 	| Örnek Kullanım: $veri = deleteEmpty('dizin/yeniDizin');        					      |
 	|          																				  |
 	******************************************************************************************/
-	public function deleteEmpty($name);
+	public function deleteEmpty(String $name);
 	
 	/******************************************************************************************
 	* COPY                                                                                    *
@@ -78,7 +65,7 @@ interface FolderInterface
 	| Örnek Kullanım: $veri = copy('dizin/kaynakDizin', 'dizin/hedefDizin');        		  |
 	|          																				  |
 	******************************************************************************************/
-	public function copy($source, $target);
+	public function copy(String $source, String $target);
 	
 	/******************************************************************************************
 	* DELETE	                                                                              *
@@ -93,7 +80,7 @@ interface FolderInterface
 	| Not: Bu yöntem bir dizinin içindeki diğer tüm verileride dizin ile birlikte silecektir. |
 	|          																				  |
 	******************************************************************************************/
-	public function delete($name);
+	public function delete(String $name);
 	
 	/******************************************************************************************
 	* FILES	                                                                                  *
@@ -110,8 +97,8 @@ interface FolderInterface
 	| Örnek Kullanım: $veri = files('dizin/'); // tüm dosya ve dizinleri listeler.            |
 	|          																				  |
 	******************************************************************************************/
-	public function files($path, $extension);
-	
+	public function files(String $path, String $extension);
+
 	/******************************************************************************************
 	* FILE INFO	                                                                              *
 	*******************************************************************************************
@@ -119,7 +106,20 @@ interface FolderInterface
 	| kullanılır.																			  |
 	|															                              |
 	******************************************************************************************/
-	public function fileInfo($dir, $extension);
+	public function fileInfo(String $dir, String $extension);
+
+    /******************************************************************************************
+     * CHANGE                                                                           		  *
+     *******************************************************************************************
+    | Genel Kullanım: Çalışma dizini değiştirmek için kullanılır.    	 		     		  |
+    |															                              |
+    | Parametreler: Tek parametresi vardır.                                                   |
+    | 1. string var @name => Değiştirilecek çalışma dizininin adı veya yolu.				  |
+    |          											  									  |
+    | Örnek Kullanım: $veri = changer('dizin/yeniDizin');        					          |
+    |          																				  |
+     ******************************************************************************************/
+    public function change(String $name);
 	
 	/******************************************************************************************
 	* ALL FILES	                                                                              *
@@ -133,7 +133,7 @@ interface FolderInterface
 	| Örnek Kullanım: $veri = allFiles('dizin/'); // tüm dosya ve dizinleri listeler.        |
 	|          																				  |
 	******************************************************************************************/
-	public function allFiles($pattern, $allFiles);
+	public function allFiles(String $pattern, $allFiles);
 	
 	/******************************************************************************************
 	* PERMISSION                                                                              *
@@ -147,5 +147,5 @@ interface FolderInterface
 	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
 	|          																				  |
 	******************************************************************************************/
-	public function permission($name, $permission);
+	public function permission(String $name, Integer $permission);
 }

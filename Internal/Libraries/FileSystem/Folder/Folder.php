@@ -13,19 +13,6 @@ class InternalFolder implements FolderInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Call Method
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -50,25 +37,14 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: create('dizin/yeniDizin');        						              |
 	|          																				  |
 	******************************************************************************************/
-	public function create($name = '', $permission = 0755, $recursive = true)
-	{		
-		if( ! is_string($name) ) 
+	public function create(String $file, Integer $permission = NULL, $recursive = true)
+	{
+		if( is_dir($file) )
 		{
-			$name = '';
+           return \Exceptions::throws('Folder', 'alreadyFileError', $file);
 		}
-		if( ! is_numeric($name) ) 
-		{
-			$permission = 0755;
-		}
-		
-		if( ! is_dir($name) )
-		{
-			mkdir($name,$permission, $recursive);
-		}
-		else
-		{
-			\Errors::set('Folder', 'alreadyFileError', $name);
-		}
+
+        return mkdir($file, ( $permission === NULL ? 0755 : $permission ), $recursive);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -91,25 +67,14 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
 	|          																				  |
 	******************************************************************************************/
-	public function rename($oldName = '', $newName = '')
-	{		
-		if( ! is_string($oldName) ) 
+	public function rename(String $oldName, String $newName)
+	{
+		if( ! file_exists($oldName) )
 		{
-			$oldName = '';
+            return \Exceptions::throws('Folder', 'notFoundError', $oldName);
 		}
-		if( ! is_string($newName) ) 
-		{
-			$newName = '';
-		}
-		
-		if( file_exists($oldName) )
-		{
-			rename($oldName, $newName);
-		}
-		else
-		{
-			return \Errors::set('Folder', 'alreadyFileError', $name);
-		}
+
+		return rename($oldName, $newName);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -131,21 +96,14 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: $veri = deleteEmpty('dizin/yeniDizin');        					      |
 	|          																				  |
 	******************************************************************************************/
-	public function deleteEmpty($name = '')
+	public function deleteEmpty(String $folder)
 	{
-		if( ! is_string($name) ) 
+		if( ! is_dir($folder) )
 		{
-			$name = '';
+           return \Exceptions::throws('Folder', 'notFoundError', $folder);
 		}
-		
-		if( is_dir($name) ) 
-		{
-			rmdir($name);
-		}
-		else
-		{
-			\Errors::set('Folder', 'notFoundError', $name);
-		}
+
+		return rmdir($folder);
 	}
 	
 	/******************************************************************************************
@@ -161,38 +119,30 @@ class InternalFolder implements FolderInterface
 	| Not: Bu yöntem bir dizinin içindeki diğer tüm verileride dizin ile birlikte silecektir. |
 	|          																				  |
 	******************************************************************************************/
-	public function delete($name = '')
+	public function delete(String $name)
 	{
-		// Parametre kontrolleri yapılıyor. -------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'name');
-		}
 		if( ! file_exists($name) )
 		{
-			return \Errors::set('Folder', 'notFoundError', $name);	
+			return \Exceptions::throws('Folder', 'notFoundError', $name);
 		}
-		// ----------------------------------------------------------------------------
 
-		// Bu bir dosya ise
+		// Is File
 		if( is_file($name) )
 		{
-			// dosyayı sil
+			// Delete File
 			\File::delete($name);	
 		}
 		else
 		{
-			// Bu bir dizinse
-			
-			// Dizin boş ise
+			// Is Dir
 			if( ! $this->files($name) )
 			{
-				// Boş dizini sil
+				// Delete Empty Dir
 				$this->deleteEmpty($name);
 			}	
 			else
 			{			
-				// Silme işlemini başlat
+				// Delete
 				for($i = 0; $i < count($this->files($name)); $i++)
 				{
 					foreach($this->files($name) as $val)
@@ -202,7 +152,7 @@ class InternalFolder implements FolderInterface
 				}
 			}
 			
-			// İçeriği silinmiş olan hedef dizinide sil.
+			// Delete Empty Dir
 			$this->deleteEmpty($name);
 		}
 	}
@@ -222,19 +172,8 @@ class InternalFolder implements FolderInterface
 	| kullanılır.																			  |
 	|															                              |
 	******************************************************************************************/
-	public function fileInfo($dir = '', $extension = '')
+	public function fileInfo(String $dir, String $extension = NULL)
 	{
-		// Parametre kontrolleri yapılıyor. -------------------------------------------	
-		if( ! is_string($dir) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'dir');
-		}
-		if( ! is_string($extension) ) 
-		{
-			$extension = '';
-		}	
-		// ----------------------------------------------------------------------------
-		
 		if( is_dir($dir) )
 		{
 			$files = $this->files($dir, $extension);
@@ -259,11 +198,11 @@ class InternalFolder implements FolderInterface
 		elseif( is_file($dir) )
 		{
 			$fileinfo = \File::info($dir);
-			return (array)$fileinfo;
+			return (array) $fileinfo;
 		}
 		else
 		{
-			return \Errors::set('Error', 'fileDirParameter', 'dir');
+			return \Exceptions::throws('Folder', 'notFoundError', $dir);
 		}	
 	}
 	
@@ -287,24 +226,12 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: $veri = copy('dizin/kaynakDizin', 'dizin/hedefDizin');        		  |
 	|          																				  |
 	******************************************************************************************/
-	public function copy($source = '', $target = '')
+	public function copy(String $source, String $target)
 	{
-		// Parametre kontrolleri yapılıyor. -------------------------------------------
-		if( ! is_string($source) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'source');
-		}
-		
-		if( ! is_string($target) )
-		{
-			return \Errors::set('Error', 'stringParameter', 'target');
-		}
-		
 		if( ! file_exists($source) )
 		{
-			return \Errors::set('Folder', 'notFoundError', $source);
+			return \Exceptions::throws('Folder', 'notFoundError', $source);
 		}
-		// ----------------------------------------------------------------------------
 		
 		// Bu bir dizinse
 		if( is_dir($source) )
@@ -363,21 +290,14 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: $veri = changer('dizin/yeniDizin');        					          |
 	|          																				  |
 	******************************************************************************************/	
-	public function change($name = '')
-	{		
-		if( ! is_string($name) ) 
+	public function change(String $name)
+	{
+		if( ! is_dir($name) )
 		{
-			$name = '';
+            return \Exceptions::throws('Folder', 'notFoundError', $name);
 		}
-		
-		if( is_dir($name) )
-		{
-			chdir($name);
-		}
-		else
-		{
-			return \Errors::set('Folder', 'alreadyFileError', $name);
-		}
+
+		return chdir($name);
 	}
 	/******************************************************************************************
 	* FILES	                                                                                  *
@@ -394,22 +314,12 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: $veri = files('dizin/'); // tüm dosya ve dizinleri listeler.            |
 	|          																				  |
 	******************************************************************************************/
-	public function files($path = '', $extension = '')
-	{	
-		// Parametre kontrolleri yapılıyor. -------------------------------------------	
-		if( ! is_string($path) ) 
+	public function files(String $path, String $extension = NULL)
+	{
+		if( ! is_dir($path) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');	
+			return \Exceptions::throws('Folder', 'notFoundError', $path);
 		}
-		if( ! is_string($extension) ) 
-		{
-			$extension = '';
-		}		
-		if( is_file($path) )
-		{
-			return \Errors::set('Folder', 'parameterError', $path);		
-		}
-		// ----------------------------------------------------------------------------
 		
 		$files = [];
 		
@@ -474,13 +384,9 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: $veri = allFiles('dizin/'); // tüm dosya ve dizinleri listeler.        |
 	|          																				  |
 	******************************************************************************************/
-	public function allFiles($pattern = "*", $allFiles = false)
+	public function allFiles(String $pattern = NULL, $allFiles = false)
 	{
-		// Parametre kontrolü yapılıyor.
-		if( ! is_string($pattern) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'pattern');	
-		}
+	    $pattern = $pattern === NULL ? '*' : $pattern;
 		
 		if( $allFiles === true )
 		{
@@ -538,8 +444,15 @@ class InternalFolder implements FolderInterface
 	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
 	|          																				  |
 	******************************************************************************************/
-	public function permission($name = '', $permission = 0755)
+	public function permission(String $name, Integer $permission = NULL)
 	{
+	    if( ! file_exists($name) )
+        {
+            return \Exceptions::throws('File', 'notFoundError', $name);
+        }
+
+	    $permission = $permission === NULL ? 0755 : $permission;
+
 		return \File::permission($name, $permission);
 	}
 	
