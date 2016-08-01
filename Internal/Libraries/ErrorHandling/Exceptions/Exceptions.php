@@ -144,7 +144,22 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	{
 		global $application;
 
-		if( ! \Config::get('Application', 'errorReporting') || empty($application['errorReporting']) )
+		$generalApplcationConfig = \Config::get('Application');
+
+		if
+		( 
+			strtolower($generalApplcationConfig['mode']) === 'publication' || 
+			strtolower($application['mode']) 			 === 'publication'
+		)
+		{
+			return false;
+		}
+
+		if
+		(
+			empty($generalApplcationConfig['errorReporting']) || 
+			empty($application['errorReporting']) 
+		)
 		{
 			return false;
 		}
