@@ -3,6 +3,8 @@ namespace ZN\FileSystem;
 
 interface GenerateInterface
 {
+	public function settings(Array $settings);
+
 	//----------------------------------------------------------------------------------------------------
 	// Model
 	//----------------------------------------------------------------------------------------------------
@@ -11,7 +13,7 @@ interface GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function model($name, $settings);
+	public function model(String $name, Array $settings);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Controller
@@ -21,7 +23,7 @@ interface GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function controller($name, $settings);
+	public function controller(String $name, Array $settings);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Library
@@ -32,7 +34,7 @@ interface GenerateInterface
 	// @param string $app : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function library($name, $settings);
+	public function library(String $name, Array $settings);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -42,5 +44,5 @@ interface GenerateInterface
 	// @param string $type: 'controller', 'model', 'library'
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name, $type, $app);
+	public function delete(String $name, String $type, String $app);
 }

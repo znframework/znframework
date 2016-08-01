@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalGenerate implements GenerateInterface
+class InternalGenerate extends \CallController implements GenerateInterface, \ErrorControlInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,8 +11,6 @@ class InternalGenerate implements GenerateInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error Control
@@ -27,32 +25,27 @@ class InternalGenerate implements GenerateInterface
 	//----------------------------------------------------------------------------------------------------
 	use \ErrorControlTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Settings
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $settings = [];
 	
-	public function settings($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Settings
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function settings(Array $settings)
 	{
 		$this->settings = $settings;
 		
 		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Object
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $name    : empty
-	// @param string $type    : empty
-	// @param array  $settings: empty
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _object($name, $type, $settings)
-	{
-		if( ! empty($settings) )
-		{
-			$this->settings = $settings;
-		}
-		
-		return $this->_contentWrite($name, $type);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -63,7 +56,7 @@ class InternalGenerate implements GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function model($name = '', $settings = [])
+	public function model(String $name, Array $settings = NULL)
 	{
 		return $this->_object($name, __FUNCTION__, $settings);
 	}
@@ -76,7 +69,7 @@ class InternalGenerate implements GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function controller($name = '', $settings = [])
+	public function controller(String $name, Array $settings = NULL)
 	{
 		return $this->_object($name, __FUNCTION__, $settings);
 	}
@@ -89,7 +82,7 @@ class InternalGenerate implements GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function library($name = '', $settings = [])
+	public function library(String $name, Array $settings = NULL)
 	{
 		return $this->_object($name, __FUNCTION__, $settings);
 	}
@@ -103,14 +96,14 @@ class InternalGenerate implements GenerateInterface
 	// @param string $app : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name = '', $type = 'controller', $app = '')
+	public function delete(String $name, String $type = NULL, String $app = NULL)
 	{
 		if( ! empty($app) )
 		{
 			$this->settings['application'] = $app;
 		}
 		
-		$file = $this->_path($name, $type);
+		$file = $this->_path($name, ($type === NULL ? 'controller' : $type));
 		
 		if( is_file($file) )
 		{
@@ -118,6 +111,25 @@ class InternalGenerate implements GenerateInterface
 		}
 		
 		return false;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Object
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name    : empty
+	// @param string $type    : empty
+	// @param array  $settings: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _object($name, $type, $settings)
+	{
+		if( ! empty($settings) )
+		{
+			$this->settings = (array) $settings;
+		}
+		
+		return $this->_contentWrite($name, $type);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

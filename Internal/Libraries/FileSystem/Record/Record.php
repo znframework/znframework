@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalRecord  implements RecordInterface
+class InternalRecord extends \CallController  implements RecordInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -108,46 +108,26 @@ class InternalRecord  implements RecordInterface
 			}
 		}
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Create Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	/******************************************************************************************
 	* CREATE RECORD                                                                       	  *
 	*******************************************************************************************
 	| Genel Kullanım: Yeni kayıt dizini oluşturuluyor.		   							      |
 	******************************************************************************************/	
-	public function createRecord($recordName = '')
+	public function createRecord(String $recordName)
 	{
-		if( ! is_string($recordName) || empty($recordName) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(recordName)');
-		}
-		
-		// ZNRecords/ ana dizini yoksa oluştur.
 		if( ! is_dir($this->znrDir) )
 		{
 			\Folder::create($this->znrDir, 0755, true);	
 		}
 		
-		// Dahan nce bu dizinden yoksa oluştur.
 		if( ! is_dir($this->znrDir.$recordName) )
 		{
 			\Folder::create($this->znrDir.$recordName, 0755, true);
 		}
 		else
 		{
-			return \Errors::set('File', 'alreadyFileError', $this->znrDir.$recordName);	
+			return \Exceptions::throws('File', 'alreadyFileError', $this->znrDir.$recordName);	
 		}
 	}
 	
@@ -156,16 +136,11 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Tablo oluşturmak için kullanılıyor.								      |
 	******************************************************************************************/	
-	public function createTable($tableName = '')
+	public function createTable(String $tableName)
 	{
-		if( ! is_string($tableName) || empty($tableName) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(tableName)');
-		}
-		
 		if( empty($this->selectRecord) )
 		{
-			return \Errors::set('Error', 'emptyVariable', '@this->selectRecord');
+			return \Exceptions::throws('Error', 'emptyVariable', '$this->selectRecord');
 		}
 		
 		$tableName = $this->_tableName($tableName);
@@ -177,39 +152,25 @@ class InternalRecord  implements RecordInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'alreadyFileError', $tableName);	
+			return \Exceptions::throws('File', 'alreadyFileError', $tableName);	
 		}
 	}
 	
-	//----------------------------------------------------------------------------------------------------
-	// Create Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Select Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
 	/******************************************************************************************
 	* SELECT RECORD                                                                       	  *
 	*******************************************************************************************
 	| Genel Kullanım: Kayıt dizini seçiliyor     			   							      |
 	******************************************************************************************/	
-	public function selectRecord($recordName = '')
+	public function selectRecord(String $recordName)
 	{
-		if( ! is_string($recordName) || empty($recordName) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(recordName)');
-		}
-		
 		$this->selectRecord = $this->_recordName($recordName);
 		
-		// Belirtilen kayıt dizini yoksa NULL değeri atar.
 		if( ! is_dir($this->selectRecord) )
 		{
-			\Errors::set('Error', 'dirNotFound', $this->selectRecord);
+			$selectRecord = $this->selectRecord
 			$this->selectRecord = NULL;
 			
-			return false;
+			return \Exceptions::throws('Error', 'dirNotFound', $selectRecord);
 		}
 		
 		return true;
@@ -222,20 +183,13 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Tablo seçmek için kullanılıyor.		   							      |
 	******************************************************************************************/	
-	public function table($table = '')
+	public function table(String $table)
 	{
-		if( ! is_string($table) || empty($table) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(table)');
-			return $this;
-		}
-	
 		$this->table = $this->_tableName($table);
 		
-		// Böyle bir tablo yoksa hata mesajı oluşturur.
 		if( ! is_file($this->table) )
 		{
-			\Errors::set('Error', 'fileNotFound', $table);	
+			return \Exceptions::throws('Error', 'fileNotFound', $table);	
 		}
 		
 		return $this;
@@ -248,11 +202,9 @@ class InternalRecord  implements RecordInterface
 	******************************************************************************************/	
 	public function where($where = 0)
 	{
-		if( ! is_numeric($where) || empty($where) )
+		if( ! is_numeric($where) )
 		{
-			\Errors::set('Error', 'numericParameter', '1.(where)');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'numericParameter', '1.($where)');
 		}
 		
 		$this->where = $where;
@@ -265,18 +217,11 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Veri seçmek için kullanılır.			   							      |
 	******************************************************************************************/	
-	public function select($table = '', $where = 0)
+	public function select(String $table, $where = 0)
 	{
-		if( ! is_string($table) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(table)');
-			return $this;
-		}
-		
 		if( ! is_numeric($where) )
 		{
-			\Errors::set('Error', 'numericParameter', '2.(where)');
-			return $this;
+			return \Exceptions::throws('Error', 'numericParameter', '2.($where)');
 		}
 		
 		$this->get($table, $where);
@@ -289,7 +234,7 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Veri seçmek için kullanılır.			   							      |
 	******************************************************************************************/	
-	public function get($table = '', $where = 0)
+	public function get($table = NULL, $where = 0)
 	{
 		if( ! empty($this->table) )
 		{
@@ -307,25 +252,11 @@ class InternalRecord  implements RecordInterface
 			$this->where = $where;	
 		}
 		
-		if( ! is_string($table) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(table)');
-			return $this;
-		}
-		
 		if( ! is_file($table) )
 		{
-			\Errors::set('Error', 'fileNotFound', $table);	
-			return $this;
+			return \Exceptions::throws('File', 'notFoundError', $table);	
 		}
 		
-		if( ! is_numeric($where) )
-		{
-			\Errors::set('Error', 'numericParameter', '2.(where)');
-			return $this;
-		}
-		
-		// İçerik alınıyor ve sonuçlar değişkenlere aktarılıyor.
 		$content 		   = file_get_contents($table);
 		$this->result      = $this->_secureDecodeData($content);
 		$this->resultArray = $this->_secureDecodeData($content, true);
@@ -356,7 +287,7 @@ class InternalRecord  implements RecordInterface
 		
 		if( ! is_scalar($where) )
 		{
-			return \Errors::set('Error', 'valueParameter', '1.(where)');
+			return \Exceptions::throws('Error', 'valueParameter', '1.($where)');
 		}
 		
 		if( $where === 'first' )
@@ -446,7 +377,7 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Kayıtları güncellemek için kullanılmaktadır.   					      |
 	******************************************************************************************/	
-	public function update($table = '', $data = [], $where = 0)
+	public function update($table = NULL, $data = [], $where = 0)
 	{
 		// Parametreler kaydırılıyor...
 		if( ! empty($this->table) )
@@ -468,17 +399,17 @@ class InternalRecord  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(table)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.($table)');
 		}
 		
 		if( ! is_file($table) )
 		{
-			return \Errors::set('Error', 'fileNotFound', '1.(table)');
+			return \Exceptions::throws('Error', 'fileNotFound', '1.($table)');
 		}
 		
 		if( empty($where) )
 		{
-			return \Errors::set('Error', 'emptyParameter', '3.(where)');	
+			return \Exceptions::throws('Error', 'emptyParameter', '3.($where)');	
 		}
 		
 		$oldData = $this->_secureDecodeData(file_get_contents($table), true);
@@ -490,7 +421,7 @@ class InternalRecord  implements RecordInterface
 
 			if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
 			{
-				return \Errors::set('Error', 'fileNotWrite', $table);
+				return \Exceptions::throws('Error', 'fileNotWrite', $table);
 			}
 		}
 	}
@@ -508,7 +439,7 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Kayıt eklemek için kullanılır.			   							      |
 	******************************************************************************************/	
-	public function insert($table = '', $data = [])
+	public function insert($table = NULL, $data = [])
 	{
 		if( ! empty($this->table) )
 		{
@@ -524,12 +455,12 @@ class InternalRecord  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(table)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.($table)');
 		}
 		
 		if( ! is_file($table) )
 		{
-			return \Errors::set('Error', 'fileNotFound', '1.(table)');
+			return \Exceptions::throws('Error', 'fileNotFound', '1.($table)');
 		}
 		
 		$oldData = $this->_secureDecodeData(file_get_contents($table), true);
@@ -552,12 +483,12 @@ class InternalRecord  implements RecordInterface
 		
 		if( ! is_file($table) )
 		{
-			return \Errors::set('Error', 'fileNotFound', '1.(table)');	
+			return \Exceptions::throws('Error', 'fileNotFound', '1.($table)');	
 		}
 		
 		if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
 		{
-			return \Errors::set('Error', 'fileNotWrite', $table);
+			return \Exceptions::throws('Error', 'fileNotWrite', $table);
 		}
 	}
 	
@@ -574,7 +505,7 @@ class InternalRecord  implements RecordInterface
 	*******************************************************************************************
 	| Genel Kullanım: Kayıt silmek için kullanılır.			   							      |
 	******************************************************************************************/	
-	public function delete($table = '', $where = 0)
+	public function delete($table = NULL, $where = 0)
 	{
 		if( ! empty($this->table) )
 		{
@@ -594,17 +525,17 @@ class InternalRecord  implements RecordInterface
 		
 		if( ! is_string($table) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(table)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.($table)');
 		}
 		
 		if( ! is_file($table) )
 		{
-			return \Errors::set('Error', 'fileNotFound', '1.(table)');
+			return \Exceptions::throws('Error', 'fileNotFound', '1.($table)');
 		}
 		
 		if( ! is_numeric($where) )
 		{
-			return \Errors::set('Error', 'numericParameter', '2.(where)');
+			return \Exceptions::throws('Error', 'numericParameter', '2.($where)');
 		}
 
 		$oldData = $this->_secureDecodeData(file_get_contents($table), true);
@@ -623,7 +554,7 @@ class InternalRecord  implements RecordInterface
 		
 		if( ! file_put_contents($table, $this->_secureEncodeData($oldData)) )
 		{
-			return \Errors::set('Error', 'fileNotWrite', $table);
+			return \Exceptions::throws('Error', 'fileNotWrite', $table);
 		}
 	}	
 	

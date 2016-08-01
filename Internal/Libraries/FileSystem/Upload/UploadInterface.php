@@ -12,7 +12,7 @@ interface UploadInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function settings($set);
+	public function settings(Array $set);
 
 	/******************************************************************************************
 	* EXTENSIONS                                                                      		  *
@@ -103,7 +103,7 @@ interface UploadInterface
 	| Örnek Kullanım: ->target('Uploads/') // 2048 Bytes	            					  |    
 	|          																				  |
 	******************************************************************************************/
-	public function target($target);
+	public function target(String $target);
 	
 	/******************************************************************************************
 	* SOURCE                                                                         		  *
@@ -116,7 +116,7 @@ interface UploadInterface
 	| Örnek Kullanım: ->source('FILEUPLOAD') // <input type="file" name="FILEUPLOAD">	      |    
 	|          																				  |
 	******************************************************************************************/
-	public function source($source);
+	public function source(String $source);
 	
 	/******************************************************************************************
 	* START                                                                                   *
@@ -130,7 +130,7 @@ interface UploadInterface
 	| Örnek Kullanım: start('fileupload', 'Aplication/Uploads');       		                  |
 	|          																				  |
 	******************************************************************************************/
-	public  function start($fileName, $rootDir);
+	public  function start(String $fileName, String $rootDir);
 	
 	/******************************************************************************************
 	* INFO                                                                                    *
@@ -149,7 +149,7 @@ interface UploadInterface
 	| $info->encodeName -> şifrelenen ismi.      											  |
 	|          																				  |
 	******************************************************************************************/
-	public function info($info);
+	public function info(String $info);
 	
 	/******************************************************************************************
 	* ERROR                                                                                   *

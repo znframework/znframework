@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalUpload implements UploadInterface
+class InternalUpload extends \CallController implements UploadInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -82,15 +82,6 @@ class InternalUpload implements UploadInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Setting Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -116,12 +107,9 @@ class InternalUpload implements UploadInterface
 	| // Kullanmak için: Sayısal türde miktar belirtilir. Örnek: 10 * 1024 => 10 KB			  |
 	|          																				  |
 	******************************************************************************************/
-	public function settings($set = [])
+	public function settings(Array $set = NULL)
 	{
-		if( ! is_array($set) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'set');
-		}
+		$set = (array) $set;
 
 		$this->settingStatus = true;
 		
@@ -210,14 +198,7 @@ class InternalUpload implements UploadInterface
 	******************************************************************************************/
 	public function convertName($convert = true)
 	{	
-		if( is_bool($convert) )
-		{
-			$this->settings['convertName'] = $convert;
-		}
-		else
-		{
-			\Errors::set('Error', 'booleanParameter', 'convert');	
-		}
+		$this->settings['convertName'] = (bool) $convert;
 		
 		return $this;
 	}
@@ -258,17 +239,10 @@ class InternalUpload implements UploadInterface
 	| Örnek Kullanım: ->prefix('onek_')				            							  |
 	|          																				  |
 	******************************************************************************************/
-	public function prefix($prefix = '')
+	public function prefix($prefix)
 	{
-		if( isChar($prefix) )
-		{
-			$this->settings['prefix'] = $prefix;	
-		}
-		else
-		{
-			\Errors::set('Error', 'valueParameter', 'prefix');		
-		}
-		
+		$this->settings['prefix'] = $prefix;
+
 		return $this;
 	}
 	
@@ -285,14 +259,7 @@ class InternalUpload implements UploadInterface
 	******************************************************************************************/
 	public function maxsize($maxsize = 0)
 	{
-		if( is_numeric($maxsize) )
-		{
-			$this->settings['maxsize'] = $maxsize;	
-		}
-		else
-		{
-			\Errors::set('Error', 'numericParameter', 'maxsize');		
-		}
+		$this->settings['maxsize'] = (int) $maxsize;	
 		
 		return $this;
 	}
@@ -310,15 +277,8 @@ class InternalUpload implements UploadInterface
 	******************************************************************************************/
 	public function encodeLength($encodeLength = 8)
 	{
-		if( is_numeric($encodeLength) )
-		{
-			$this->settings['encodeLength'] = $encodeLength;	
-		}
-		else
-		{
-			\Errors::set('Error', 'numericParameter', 'encodeLength');		
-		}
-		
+		$this->settings['encodeLength'] = (int) $encodeLength;	
+	
 		return $this;
 	}
 	
@@ -333,17 +293,10 @@ class InternalUpload implements UploadInterface
 	| Örnek Kullanım: ->target('Uploads/') // 2048 Bytes	            					  |    
 	|          																				  |
 	******************************************************************************************/
-	public function target($target = UPLOADS_DIR)
+	public function target(String $target = NULL)
 	{
-		if( is_string($target) )
-		{
-			$this->settings['target'] = $target;	
-		}
-		else
-		{
-			\Errors::set('Error', 'stringParameter', 'target');		
-		}
-		
+		$this->settings['target'] = $target === NULL ? UPLOADS_DIR : $target;	
+
 		return $this;
 	}
 	
@@ -358,17 +311,10 @@ class InternalUpload implements UploadInterface
 	| Örnek Kullanım: ->source('FILEUPLOAD') // <input type="file" name="FILEUPLOAD">	      |    
 	|          																				  |
 	******************************************************************************************/
-	public function source($source = 'upload')
+	public function source(String $source = NULL)
 	{
-		if( is_string($source) )
-		{
-			$this->settings['source'] = $source;	
-		}
-		else
-		{
-			\Errors::set('Error', 'stringParameter', 'source');	
-		}
-		
+		$this->settings['source'] = $source === NULL ? 'upload' : $source;	
+
 		return $this;
 	}
 	
@@ -397,8 +343,11 @@ class InternalUpload implements UploadInterface
 	| Örnek Kullanım: start('fileupload', 'Aplication/Uploads');       		                  |
 	|          																				  |
 	******************************************************************************************/
-	public  function start($fileName = 'upload', $rootDir = UPLOADS_DIR)
+	public  function start(String $fileName = NULL, String $rootDir = NULL)
 	{	
+		$fileName = $fileName === NULL ? 'upload'    : $fileName;
+		$rootDir  = $rootDir  === NULL ? UPLOADS_DIR : $rootDir;
+
 		if( isset($this->settings['source']) )
 		{
 			$fileName = $this->settings['source'];
@@ -408,25 +357,17 @@ class InternalUpload implements UploadInterface
 		{
 			$rootDir = $this->settings['target'];
 		}
-		
-		if( ! is_string($fileName) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'fileName');
-		}
-		
+
 		if( ! is_string($rootDir) ) 
 		{
 			$rootDir = UPLOADS_DIR;
 		}
-		
-		// Dosyanın yükleneceği dizin yoksa oluşturulur.
+
 		if( ! is_dir($rootDir) )
 		{
 			\Folder::create($rootDir);	
 		}
 		
-		// Dosya yükleme ayarları yapılmamışsa
-		// Varsayılan ayarları kullanması için.
 		if( $this->settingStatus === false ) 
 		{
 			$this->settings();
@@ -596,7 +537,7 @@ class InternalUpload implements UploadInterface
 	| $info->encodeName -> şifrelenen ismi.      											  |
 	|          																				  |
 	******************************************************************************************/
-	public function info($info = '')
+	public function info(String $info = NULL)
 	{
 		if( ! empty($_FILES[$this->file]) )
 		{
