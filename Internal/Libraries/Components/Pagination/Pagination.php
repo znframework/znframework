@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalPagination implements PaginationInterface
+class InternalPagination extends \CallController implements PaginationInterface, PaginationPropertiesInterface, \ConfigMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,104 +20,7 @@ class InternalPagination implements PaginationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:pagination';
-	
-	protected $settings     = [];
-	
-	/* Total Rows Değişkeni
-	 *  
-	 * Toplam satır sayısı bilgisini
-	 * tutması için oluşturulmuştur.
-	 * Varsayılan:0
-	 */
-	protected $totalRows 	= 50;
 
-	/* Start Değişkeni
-	 *  
-	 * Başlangıç bilgisini
-	 * tutması için oluşturulmuştur.
-	 * Varsayılan:0
-	 */
-	protected $start 		= 0;
-	
-	/* Type Değişkeni
-	 *  
-	 * Sayfalama türü bilgisini
-	 * tutması için oluşturulmuştur.
-	 * Varsayılan:'classic' -> ajax, classic
-	 */
-	protected $type 		= 'classic';
-	
-	/* Limit Değişkeni
-	 *  
-	 * Bir sayfada görüntülenmesi istenilen kayıt limit
-	 * bilgisini tutması için oluşturulmuştur.
-	 * Varsayılan:0
-	 */
-	protected $limit 		= 10;
-	
-	/* Count Links Değişkeni
-	 *  
-	 * Sayfalama nesnesinde olması gereken link sayısı
-	 * bilgisini tutması için oluşturulmuştur.
-	 * Varsayılan:10
-	 */
-	protected $countLinks 	= 10;
-	
-	/* Class Dizi Değişkeni
-	 *  
-	 * Sayfalama nesnesine eklenecek css sınıf
-	 * bilgisini tutması için oluşturulmuştur.
-	 * 
-	 */
-	protected $class		= [];
-	
-	/* Style Dizi Değişkeni
-	 *  
-	 * Sayfalama nesnesine eklenecek stil
-	 * bilgisini tutması için oluşturulmuştur.
-	 * 
-	 */
-	protected $style		= [];
-	
-	/* First Tag Değişkeni
-	 *  
-	 * Bir önceki butonunun isim 
-	 * bilgisini tutması için oluşturulmuştur.
-	 * Varsayılan:[prev]
-	 */
-	protected $prevTag 		= '[prev]';
-	
-	/* Last Tag Değişkeni
-	 *  
-	 * Bir sonraki butonunun isim 
-	 * bilgisini tutması için oluşturulmuştur.
-	 * Varsayılan:[next]
-	 */
-	protected $nextTag 		= '[next]';
-	
-	/* Firstest Tag Değişkeni
-	 *  
-	 * En baştaki butonunun isim 
-	 * bilgisini tutması için oluşturulmuştur.
-	 * Varsayılan:[first]
-	 */
-	protected $firstTag 	= '[first]';
-	
-	/* Lastest Tag Değişkeni
-	 *  
-	 * En sondaki butonunun isim 
-	 * bilgisini tutması için oluşturulmuştur.
-	 * Varsayılan:[last]
-	 */
-	protected $lastTag 		= '[last]';
-	
-	/* Url Tag Değişkeni
-	 *  
-	 * Sayfalama nesnesinin çalıştırılacağı url
-	 * bilgisini tutması için oluşturulmuştur.
-	 */
-	protected $url  		= CURRENT_CFPATH;
-	
 	//----------------------------------------------------------------------------------------------------
 	// Config Method
 	//----------------------------------------------------------------------------------------------------
@@ -126,222 +29,46 @@ class InternalPagination implements PaginationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use \ConfigMethodTrait;
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Pagination Properties
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// Properties
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
+	use PaginationPropertiesTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Designer Methods Başlangıç
+	// Settings
 	//----------------------------------------------------------------------------------------------------
-	
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $settings     = [];
+
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
 		$this->config();	
 	}
 
-	public function url($url = '')
-	{
-		if( is_string($url) )
-		{
-			$this->settings['url'] = $url;
-		}
-		else
-		{
-			\Errors::set('Error', 'stringParameter', 'url');	
-		}
-		
-		return $this;
-	}
-	
-	public function start($start = 0)
-	{
-		if( ! is_numeric($start) )
-		{
-			\Errors::set('Error', 'numericParameter', 'start');
-			return $this;
-		}
-		
-		$this->settings['start'] = $start;
-		
-		return $this;
-	}
-	
-	public function limit($limit = 10)
-	{
-		if( ! is_numeric($limit) )
-		{
-			\Errors::set('Error', 'numericParameter', 'limit');
-			return $this;
-		}
-		
-		$this->settings['limit'] = $limit;
-		
-		return $this;
-	}
-	
-	public function type($type = 'ajax')
-	{
-		if( ! is_string($type) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(type)');
-			return $this;
-		}
-		
-		$this->settings['type'] = $type;
-		
-		return $this;
-	}
-	
-	public function totalRows($totalRows = 0)
-	{
-		if( ! is_numeric($totalRows) )
-		{
-			\Errors::set('Error', 'numericParameter', 'totalRows');
-			return $this;
-		}
-		
-		$this->settings['totalRows'] = $totalRows;
-		
-		return $this;
-	}
-	
-	public function countLinks($countLinks = 10)
-	{
-		if( ! is_numeric($countLinks) )
-		{
-			\Errors::set('Error', 'numericParameter', 'countLinks');
-			return $this;
-		}
-		
-		$this->settings['countLinks'] = $countLinks;
-		
-		return $this;
-	}
-	
-	public function linkNames($prev = '[prev]', $next = '[next]', $first = '[first]', $last = '[last]')
-	{	
-		// ÖNCEKİ BUTONU
-		if( ! empty($prev) )
-		{
-			$this->settings['prevName']    = $prev;
-		}
-		
-		// SONRAKİ BUTONU
-		if( ! empty($next) )
-		{
-			$this->settings['nextName']     = $next;
-		}
-		
-		// EN BAŞTAKİ BUTON
-		if( ! empty($first) )
-		{
-			$this->settings['firstName'] = $first;
-		}
-			
-		// EN SONDAKİ BUTON
-		if( ! empty($last) )
-		{
-			$this->settings['lastName']  = $last;
-		}
-		
-		return $this;
-	}
-	
-	public function css($css = [])
-	{
-		if( ! is_array($css) )
-		{
-			\Errors::set('Error', 'arrayParameter', 'css');
-			return $this;	
-		}
-		
-		$this->settings['class'] = $css;
-		
-		return $this;
-	}
-	
-	public function style($style = [])
-	{
-		if( ! is_array($style) )
-		{
-			\Errors::set('Error', 'arrayParameter', 'style');
-			return $this;	
-		}
-		
-		$this->settings['style'] = $style;
-		
-		return $this;
-	}
-	
 	//----------------------------------------------------------------------------------------------------
-	// Designer Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Settings Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// SETTINGS                                                                               
+	// Settings                                                                               
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Sayfalama ayarlarını yapmak için kullanılmaktadır.                      
-	//															                              
-	// Parametreler: Tek dizi parametresi vardır.                                              
-	// 1. array var @config => Sayfalama ayarlarını içerecek dizi parametresidir.       	  	  
-	//          																				  
-	// Örnek Kullanım: setting(array(Sayfalama Ayarları));        	  					      
-	//          																				  
-	// Parametrenin Alabileceği Değerler         											  
-	//          																				  
-	// 1.totalRows 	=> Toplam kayıt sayısı.          										  
-	// 2.limit      	=> Bir sayfada yer alabilecek maximum kayıt sayısı.        			      
-	// 3.url         => Sayfalama nesnesi sayfa numarası verisinin ekleneceği url adresi.  	  
-	// 4.countLinks => Sayfalama nesnesinde yer alacak maximum link sayısı.         		  
-	// 5.prevName   => Önceki butonunun ismi.         										  
-	// 6.nextName   => Sonraki butonunun ismi.         										  
-	// 7.firstName  => 1. Sayfa butonunun ismi.         									  
-	// 8.lastName   => En son sayfa butonunun ismi.         								  
-	// 9.class       => Css sınıfları eklenecek dizi bilgisi tutar.         					  
-	// 10.style       => Stil eklenecek dizi bilgisi tutar.         						      
-	//          																				  
-	// Stil veya Sınıf Eklemede Kullanılabilir Parametreler         							  
-	//          																				  
-	// 1.links    => Sayfalama oluşturulan linklere stil veya sınıf eklenmesi için kullanılır. 
-	// 2.current  => Aktif sayfayı görteren linke stil veya sınıf eklenmesi için kullanılır.   
-	// 3.prev     => Önceki butonunu görteren linke stil veya sınıf eklenmesi için kullanılır. 
-	// 4.next     => Sonraki butonunu görteren linke stil veya sınıf eklenmesi için kullanılır.
-	// 5.first    => İlk butonunu görteren linke stil veya sınıf eklenmesi için kullanılır.    
-	// 6.last     => Son butonunu görteren linke stil veya sınıf eklenmesi için kullanılır.   
+	// @param array $config
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings($config = [])
+	public function settings(Array $config)
 	{
-		// Parametre kontrolü yapılıyor. ---------------------------------------------------------
-		if( ! is_array($config) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'config');	
-		}
-		
 		$configs = $this->config; 
 		
 		// ---------------------------------------------------------------------------------------
@@ -390,12 +117,16 @@ class InternalPagination implements PaginationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Create Method Başlangıç
+	// Create                                                                               
 	//----------------------------------------------------------------------------------------------------
-
-	public function create($start = NULL, $settings = [])
+	//
+	// @param mixed $start
+	// @param array $settings
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function create($start = NULL, Array $settings = NULL)
 	{
-		$settings = array_merge($this->config, $this->settings, $settings);
+		$settings = array_merge($this->config, $this->settings, (array) $settings);
 		
 		if( ! empty($settings) )
 		{
@@ -404,7 +135,7 @@ class InternalPagination implements PaginationInterface
 		
 		if( $this->start !== NULL )
 		{
-			$start = (int)$this->start;
+			$start = (int) $this->start;
 		}
 		
 		$page  = '';

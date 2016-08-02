@@ -12,25 +12,22 @@ interface PaginationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function url($url);
+	//----------------------------------------------------------------------------------------------------
+	// Settings                                                                               
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $config
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function settings(Array $config);
 	
-	public function start($start);
-	
-	public function limit($limit);
-	
-	public function type($type);
-	
-	public function totalRows($totalRows);
-	
-	public function countLinks($countLinks);
-	
-	public function linkNames($prev, $next, $first, $last);
-	
-	public function css($css);
-	
-	public function style($style);
-
-	public function settings($config);
-	
-	public function create($start, $settings);
+	//----------------------------------------------------------------------------------------------------
+	// Create                                                                               
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param mixed $start
+	// @param array $settings
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function create($start, Array $settings);
 }
