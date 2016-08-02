@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\Database;
 
-class InternalDBTool implements DBToolInterface, DatabaseInterface
+class InternalDBTool extends \CallController implements DBToolInterface, DatabaseInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//

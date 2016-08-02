@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database;
 
-class InternalDBUser implements DBUserInterface
+class InternalDBUser extends \CallController implements DBUserInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

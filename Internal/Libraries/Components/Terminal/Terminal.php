@@ -69,7 +69,7 @@ class InternalTerminal extends \CallController implements TerminalInterface, \Co
 	******************************************************************************************/
 	public function run(String $terminalType = NULL, Array $settings = NULL)
 	{
-		$terminalType = $terminalType === NULL ? 'php' : $terminalType; 		
+		nullCoalesce($terminalType, 'php');		
 
 		$configs = $this->config;
 		

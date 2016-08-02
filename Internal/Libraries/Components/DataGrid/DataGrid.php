@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalDataGrid implements DataGridInterface
+class InternalDataGrid extends \CallController implements DataGridInterface, \ConfigMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,6 +20,15 @@ class InternalDataGrid implements DataGridInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:datagrid';
+
+	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Columns
@@ -130,37 +139,6 @@ class InternalDataGrid implements DataGridInterface
 	protected $where     		= [];
 	
 	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Construct
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -181,10 +159,11 @@ class InternalDataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns($columns = [])
+	public function columns(Array $columns)
 	{
-		$this->columns = $columns;
+		$this->columns     = $columns;
 		$this->realColumns = $columns;
+
 		return $this;
 	}
 	
@@ -197,10 +176,10 @@ class InternalDataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function processColumn($column = 'id', $editable = false)
+	public function processColumn(String $column, Boolean $editable = NULL)
 	{
 		$this->processColumn   = $column;	
-		$this->processEditable = $editable;
+		$this->processEditable = $editable === NULL ? false : $editable;
 		
 		return $this;
 	}
@@ -213,7 +192,7 @@ class InternalDataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table($table = '')
+	public function table(String $table)
 	{
 		$this->table = $table;
 		
@@ -230,7 +209,7 @@ class InternalDataGrid implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	public function limit($limit = 20)
 	{
-		$this->limit = $limit;
+		$this->limit = (int) $limit;
 		
 		return $this;
 	}
@@ -244,7 +223,7 @@ class InternalDataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($column = '', $order = 'DESC')
+	public function orderBy(String $column, String $order)
 	{
 		$this->orderBy[$column] = $order;
 		
@@ -259,7 +238,7 @@ class InternalDataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy($column = '')
+	public function groupBy(String $column)
 	{
 		$this->groupBy = $column;
 		
@@ -289,7 +268,7 @@ class InternalDataGrid implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function joins($tables = [])
+	public function joins(Array $tables)
 	{
 		$this->joins = $tables;
 			

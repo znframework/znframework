@@ -22,5 +22,5 @@ interface ScheduleInterface
 	  @return string
 	|          																				  |
 	******************************************************************************************/
-	public function create($data);
+	public function create(Array $data);
 }

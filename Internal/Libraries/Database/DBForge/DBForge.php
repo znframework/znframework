@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Database;
 
-class InternalDBForge implements DBForgeInterface, DatabaseInterface
+class InternalDBForge extends \CallController implements DBForgeInterface, DatabaseInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

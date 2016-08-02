@@ -20,7 +20,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns($columns );
+	public function columns(Array $columns);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Process Columns
@@ -31,7 +31,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function processColumn($column);
+	public function processColumn(String $column, Boolean $editable);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -41,7 +41,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table($table);
+	public function table(String $table);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -62,7 +62,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($column, $order);
+	public function orderBy(String $column, String $order);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Group By
@@ -72,7 +72,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy($column);
+	public function groupBy(String $column);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where
@@ -82,7 +82,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where();
+	public function where(...$args);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -92,7 +92,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function joins($tables);
+	public function joins(Array $tables);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create

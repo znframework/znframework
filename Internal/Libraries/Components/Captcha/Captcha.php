@@ -151,7 +151,9 @@ class InternalCaptcha extends \CallController implements CaptchaInterface, \Conf
 	//----------------------------------------------------------------------------------------------------
 	public function border(Boolean $is = NULL, String $color = NULL)
 	{
-		$this->sets['border'] = $is === NULL ? true : $is;
+		nullCoalesce($is, true);
+
+		$this->sets['border'] = $is;
 		
 		if( ! empty($color) )
 		{
@@ -344,7 +346,9 @@ class InternalCaptcha extends \CallController implements CaptchaInterface, \Conf
 	//----------------------------------------------------------------------------------------------------
 	public function grid(Boolean $is = NULL, String $color = NULL)
 	{
-		$this->sets['grid'] = $is === NULL ? true : $is;
+		nullCoalesce($is, true);
+
+		$this->sets['grid'] = $is;
 		
 		if( ! empty($color) )
 		{
@@ -418,9 +422,11 @@ class InternalCaptcha extends \CallController implements CaptchaInterface, \Conf
 	//----------------------------------------------------------------------------------------------------
 	public function create(Boolean $img = NULL, Array $configs = NULL)
 	{	
-		$img     = $img === NULL ? false : $img;
+		nullCoalesce($img, false);
+		nullCoalesce($configs, []);
+
 		$config  = $this->config;
-		$configs = array_merge($config, $this->sets, (array) $configs);
+		$configs = array_merge($config, $this->sets, $configs);
 		
 		if( ! empty($configs) )
 		{

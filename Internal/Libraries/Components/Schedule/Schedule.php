@@ -28,7 +28,7 @@ class InternalSchedule implements ScheduleInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($data = [])
+	public function create(Array $data)
 	{ 			
 		return $this->_element($data, '', 0);
 	}

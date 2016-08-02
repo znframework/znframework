@@ -67,25 +67,27 @@ class InternalPagination extends \CallController implements PaginationInterface,
 	// @param array $config
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $config)
+	public function settings(Array $config = NULL)
 	{
+		nullCoalesce($config, []);
+
 		$configs = $this->config; 
 		
 		// ---------------------------------------------------------------------------------------
 		// Sayfalama Ayarlarını İçeren Değişkenler
 		// ---------------------------------------------------------------------------------------
-		if( ! empty($config['totalRows']) )  $this->totalRows 	= $config['totalRows'];
-		if( ! empty($config['start']) ) 	 $this->start 	    = $config['start'];
-		if( ! empty($config['limit']) ) 	 $this->limit 		= $config['limit'];
-		if( ! empty($config['countLinks']) ) $this->countLinks 	= $config['countLinks'];	
-		if( ! empty($config['prevName']) ) 	 $this->prevTag 	= $config['prevName'];
-		if( ! empty($config['nextName']) ) 	 $this->nextTag 	= $config['nextName'];
-		if( ! empty($config['firstName']) )  $this->firstTag  	= $config['firstName'];
-		if( ! empty($config['lastName']) ) 	 $this->lastTag 	= $config['lastName'];
-		if( ! empty($config['type']) ) 	 	 $this->type 	    = $config['type'];
-		
-		$this->class = array_merge($configs['class'], ( ! empty($config['class']) ? $config['class'] : []) );
-		$this->style = array_merge($configs['style'], ( ! empty($config['style']) ? $config['style'] : []) );
+		if( isset($config['totalRows']) )  	$this->totalRows 	= $config['totalRows'];
+		if( isset($config['start']) ) 	 	$this->start 	    = $config['start'];
+		if( isset($config['limit']) ) 	 	$this->limit 		= $config['limit'];
+		if( isset($config['countLinks']) ) 	$this->countLinks 	= $config['countLinks'];	
+		if( isset($config['prevName']) ) 	$this->prevTag 		= $config['prevName'];
+		if( isset($config['nextName']) ) 	$this->nextTag 		= $config['nextName'];
+		if( isset($config['firstName']) )  	$this->firstTag  	= $config['firstName'];
+		if( isset($config['lastName']) ) 	$this->lastTag 		= $config['lastName'];
+		if( isset($config['type']) ) 	 	$this->type 	    = $config['type'];
+
+		$this->class = array_merge($configs['class'], ( isset($config['class']) ? $config['class'] : []) );
+		$this->style = array_merge($configs['style'], ( isset($config['style']) ? $config['style'] : []) );
 		
 		if( isset($config['url']) && $this->type !== 'ajax' )			
 		{
@@ -401,7 +403,6 @@ class InternalPagination extends \CallController implements PaginationInterface,
 	
 			if( $this->totalRows > $this->limit ) 
 			{
-	
 				return $firstTag.' '.$first.' '.$links.' '.$last.' '.$lastTag;
 			}
 		}

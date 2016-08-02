@@ -239,7 +239,9 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function memoryUsage(Boolean $realMemory = NULL)
 	{
-		return  memory_get_usage((bool) $realMemory);
+		nullCoalesce($realMemory, false);
+
+		return  memory_get_usage($realMemory);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -252,7 +254,9 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	//----------------------------------------------------------------------------------------------------
 	public function maxMemoryUsage(Boolean $realMemory = NULL)
 	{
-		return  memory_get_peak_usage((bool) $realMemory);
+		nullCoalesce($realMemory, false);
+
+		return  memory_get_peak_usage($realMemory);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
