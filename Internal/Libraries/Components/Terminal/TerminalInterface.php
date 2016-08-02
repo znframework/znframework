@@ -24,5 +24,5 @@ interface TerminalInterface
 	| Örnek Kullanım: Terminal::run('cmd');        	  										  |
 	|          																				  |
 	******************************************************************************************/
-	public function run($terminalType, $settings);
+	public function run(String $terminalType, Array $settings);
 }

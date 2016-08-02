@@ -1,16 +1,15 @@
 <?php
-namespace ZN\Foundations\Traits;
+namespace ZN\Foundations\Traits\Driver;
 
-interface ConfigMethodInterface
+interface DriverMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	// config()                                                                       
+	// Driver                                                                       
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param  array  $settings: empty
-	// @param  string $path    : empty
-	// @return object 	        		     		 
+	// @param  string $driver
+	// @return object 	        		     			 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function config(Array $settings, String $path);
+	public function driver($driver);
 }

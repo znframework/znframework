@@ -1,5 +1,5 @@
 <?php
-namespace ZN\Foundations\Traits;
+namespace ZN\Foundations\Traits\Config;
 
 trait ConfigMethodTrait
 {

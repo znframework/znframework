@@ -1,8 +1,27 @@
 <?php
-namespace ZN\Foundations\Traits;
+namespace ZN\Foundations\Traits\Status;
 
-interface ErrorControlInterface
+trait ErrorControlTrait
 {
+	/* Error Değişkeni
+	 *  
+	 * Dosya işlemlerinde oluşan hata bilgilerini
+	 * tutması için oluşturulmuştur.
+	 *
+	 */
+	protected $error;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Success
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Oluşan başarı bilgisi 
+	//
+	// @var  string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $success;
+	
 	/******************************************************************************************
 	* ERROR                                                                                   *
 	*******************************************************************************************
@@ -11,7 +30,21 @@ interface ErrorControlInterface
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public function error();
+	public function error()
+	{
+		if( isset($this->error) )
+		{	
+			return $this->error;
+		}
+		elseif( $error = \Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) )
+		{
+			return $error;	
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Success
@@ -21,7 +54,24 @@ interface ErrorControlInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function success();
+	public function success()
+	{
+		if( empty($this->error) && ! \Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) ) 
+		{
+			if( ! empty($this->success) )
+			{
+				return $this->success;	
+			}
+			else
+			{
+				return lang('Success', 'success');
+			}
+		}
+		else 
+		{
+			return false;
+		}
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Status
@@ -31,5 +81,13 @@ interface ErrorControlInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function status();
+	public function status()
+	{
+		if( $this->success() ) 
+		{
+			return $this->success();
+		}
+
+		return $this->error();
+	}
 }

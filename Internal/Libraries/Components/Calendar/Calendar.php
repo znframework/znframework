@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalCalendar implements CalendarInterface
+class InternalCalendar extends \CallController implements CalendarInterface, \ConfigMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,6 +20,15 @@ class InternalCalendar implements CalendarInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:calendar';
+
+	//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Css
@@ -128,37 +137,6 @@ class InternalCalendar implements CalendarInterface
 		$this->css 			= $this->config['class'];
 		$this->style 		= $this->config['style'];
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
@@ -174,7 +152,7 @@ class InternalCalendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url($url = '')
+	public function url(String $url = NULL)
 	{
 		if( ! isUrl($url) )
 		{
@@ -198,15 +176,8 @@ class InternalCalendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nameType($day = 'short', $month = 'long')
+	public function nameType(String $day, String $month)
 	{
-		if( ! is_string($day) || ! is_string($month) )	
-		{
-			\Errors::set('Error', 'stringParameter', 'day | month');
-			
-			return $this;	
-		}
-		
 		$this->dayNames   = $day;	
 
 		$this->monthNames = $month;	
@@ -224,14 +195,8 @@ class InternalCalendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css($css = [])
+	public function css(Array $css)
 	{
-		if( ! is_array($css) )
-		{
-			\Errors::set('Error', 'arrayParameter', 'css');
-			return $this;	
-		}
-		
 		$this->css = $css;
 		
 		return $this;
@@ -247,14 +212,8 @@ class InternalCalendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style($style = [])
+	public function style(Array $style)
 	{
-		if( ! is_array($style) )
-		{
-			\Errors::set('Error', 'arrayParameter', 'style');
-			return $this;	
-		}
-		
 		$this->style = $style;
 		
 		return $this;
@@ -270,14 +229,8 @@ class InternalCalendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type($type = 'ajax')
+	public function type(String $type)
 	{
-		if( ! is_string($type) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(type)');
-			return $this;
-		}
-		
 		$this->type = $type;
 		
 		return $this;
@@ -295,23 +248,10 @@ class InternalCalendar implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function linkNames($prev = '<<', $next = '>>')
+	public function linkNames(String $prev, String $next)
 	{
-		if( ! ( is_string($prev) && is_string($next) ) )	
-		{
-			\Errors::set('Error', 'stringParameter', 'prev | next');
-			return $this;	
-		}
-		
-		if( ! empty($prev) )
-		{
-			$this->prev = $prev;
-		}
-		
-		if( ! empty($next) )
-		{
-			$this->next = $next;
-		}
+		$this->prev = $prev;
+		$this->next = $next;
 		
 		return $this;
 	}
@@ -330,7 +270,7 @@ class InternalCalendar implements CalendarInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function settings($settings = [])
+	public function settings(Array $settings)
 	{
 		\Config::set('Components', 'calendar', $settings);
 		

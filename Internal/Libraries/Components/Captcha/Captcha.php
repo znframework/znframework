@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalCaptcha implements CaptchaInterface
+class InternalCaptcha extends \CallController implements CaptchaInterface, \ConfigMethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,6 +20,15 @@ class InternalCaptcha implements CaptchaInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:captcha';
+
+		//----------------------------------------------------------------------------------------------------
+	// Config Method
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// config()
+	//
+	//----------------------------------------------------------------------------------------------------
+	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Sets
@@ -55,37 +64,6 @@ class InternalCaptcha implements CaptchaInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -99,19 +77,10 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($param = 0)
+	public function width($param)
 	{
-		if( ! is_numeric($param) )
-		{
-			\Errors::set('Error', 'numericParameter', 'param');
-			return $this;	
-		}
-		
-		if( ! empty($param) )
-		{
-			$this->sets['width'] = $param;
-		}
-		
+		$this->sets['width'] = $param;
+
 		return $this;
 	}
 	
@@ -125,18 +94,9 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($param = 0)
+	public function height($param)
 	{
-		if( ! is_numeric($param) )
-		{
-			\Errors::set('Error', 'numericParameter', 'param');
-			return $this;	
-		}
-		
-		if( ! empty($param) )
-		{
-			$this->sets['height'] = $param;
-		}
+		$this->sets['height'] = $param;
 		
 		return $this;
 	}
@@ -152,7 +112,7 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($width = 0, $height = 0)
+	public function size($width, $height)
 	{
 		$this->width($width);
 		$this->height($height);
@@ -170,19 +130,10 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length($param = 0)
+	public function length($param)
 	{
-		if( ! is_numeric($param) )
-		{
-			\Errors::set('Error', 'numericParameter', 'param');
-			return $this;	
-		}
-		
-		if( ! empty($param) )
-		{
-			$this->sets['charLength'] = $param;
-		}
-		
+		$this->sets['charLength'] = $param;
+
 		return $this;
 	}
 	
@@ -198,17 +149,9 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border($is = true, $color = '')
+	public function border(Boolean $is = NULL, String $color = NULL)
 	{
-		if( ! is_bool($is) || ! is_string($color) )
-		{
-			\Errors::set('Error', 'booleanParameter', 'is');
-			\Errors::set('Error', 'stringParameter', 'color');
-			
-			return $this;	
-		}
-		
-		$this->sets['border'] = $is;
+		$this->sets['border'] = $is === NULL ? true : $is;
 		
 		if( ! empty($color) )
 		{
@@ -228,19 +171,10 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderColor($color = '')
+	public function borderColor(String $color)
 	{
-		if( ! is_string($color) )
-		{
-			\Errors::set('Error', 'stringParameter', 'color');
-			return $this;	
-		}
+		$this->sets['borderColor'] = $this->_convertColor($color);
 
-		if( ! empty($color) )
-		{
-			$this->sets['borderColor'] = $this->_convertColor($color);
-		}
-		
 		return $this;
 	}
 	
@@ -254,18 +188,9 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgColor($color = '')
+	public function bgColor(String $color)
 	{
-		if( ! is_string($color) )
-		{
-			\Errors::set('Error', 'stringParameter', 'color');
-			return $this;	
-		}
-		
-		if( ! empty($color) )
-		{
-			$this->sets['bgColor'] = $this->_convertColor($color);
-		}
+		$this->sets['bgColor'] = $this->_convertColor($color);
 		
 		return $this;
 	}
@@ -280,7 +205,7 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgImage($image = [])
+	public function bgImage($image)
 	{
 		if( ! empty($image) )
 		{
@@ -308,15 +233,15 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function background($background = '')
+	public function background(String $background)
 	{
-		if( is_string($background) && ! is_file($background) )
+		if( is_file($background) )
 		{
-			$this->bgColor($background);
+			$this->bgImage($background);
 		}
 		else
 		{
-			$this->bgImage($background);	
+			$this->bgColor($background);	
 		}
 		
 		return $this;
@@ -332,18 +257,9 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textSize($size = 0)
+	public function textSize($size)
 	{
-		if( ! is_numeric($size) )
-		{
-			\Errors::set('Error', 'numericParameter', 'size');
-			return $this;
-		}
-		
-		if( ! empty($size) )
-		{
-			$this->sets['imageString']['size'] = $size;
-		}
+		$this->sets['imageString']['size'] = $size;
 		
 		return $this;
 	}
@@ -361,21 +277,8 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function textCoordinate($x = 0, $y = 0)
 	{
-		if( ! is_numeric($x) || ! is_numeric($y) )
-		{
-			\Errors::set('Error', 'numericParameter', 'x | y');
-			return $this;
-		}
-
-		if( ! empty($x) ) 
-		{
-			$this->sets['imageString']['x'] = $x;
-		}
-		
-		if( ! empty($y) )
-		{ 
-		 	$this->sets['imageString']['y'] = $y;
-		}
+		$this->sets['imageString']['x'] = (int) $x;
+		$this->sets['imageString']['y'] = (int) $y;	
 		
 		return $this;
 	}
@@ -390,19 +293,10 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textColor($color = '')
+	public function textColor(String $color)
 	{
-		if( ! is_string($color) )
-		{
-			\Errors::set('Error', 'stringParameter', 'color');
-			return $this;	
-		}
-		
-		if( ! empty($color) )
-		{
-			$this->sets['textColor'] = $this->_convertColor($color);
-		}
-		
+		$this->sets['textColor'] = $this->_convertColor($color);
+	
 		return $this;
 	}
 	
@@ -419,18 +313,9 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function text($size = 0, $x = 0, $y = 0, $color = '')
+	public function text($size, $x = 0, $y = 0, String $color = NULL)
 	{
-		if( ! is_numeric($size) || ! is_numeric($x) || ! is_numeric($y) )
-		{
-			\Errors::set('Error', 'numericParameter', 'size | x | y');
-			return $this;
-		}
-		
-		if( ! empty($size) )
-		{
-			$this->textSize($size);
-		}
+		$this->textSize($size);
 		
 		if( ! empty($x) && ! empty($y) )
 		{
@@ -457,17 +342,9 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grid($is = true, $color = '')
+	public function grid(Boolean $is = NULL, String $color = NULL)
 	{
-		if( ! is_bool($is) || ! is_string($color) )
-		{
-			\Errors::set('Error', 'booleanParameter', 'is');
-			\Errors::set('Error', 'stringParameter', 'color');
-			
-			return $this;	
-		}
-
-		$this->sets['grid'] = $is;
+		$this->sets['grid'] = $is === NULL ? true : $is;
 		
 		if( ! empty($color) )
 		{
@@ -487,19 +364,10 @@ class InternalCaptcha implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridColor($color = '')
-	{
-		if( ! is_string($color) )
-		{
-			\Errors::set('Error', 'stringParameter', 'color');
-			return $this;	
-		}
+	public function gridColor(String $color)
+	{		
+		$this->sets['gridColor'] = $this->_convertColor($color);
 
-		if( ! empty($color) )
-		{		
-			$this->sets['gridColor'] = $this->_convertColor($color);
-		}
-		
 		return $this;
 	}
 	
@@ -516,12 +384,6 @@ class InternalCaptcha implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	public function gridSpace($x = 0, $y = 0)
 	{
-		if( ! is_numeric($x) || ! is_numeric($y) )
-		{
-			\Errors::set('Error', 'numericParameter', 'x | y');
-			return $this;
-		}
-
 		if( ! empty($x) ) 
 		{
 			$this->sets['gridSpace']['x'] = $x;
@@ -554,11 +416,11 @@ class InternalCaptcha implements CaptchaInterface
 	// @return midex
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($img = false, $configs = [])
+	public function create(Boolean $img = NULL, Array $configs = NULL)
 	{	
+		$img     = $img === NULL ? false : $img;
 		$config  = $this->config;
-		
-		$configs = array_merge($config, $this->sets, $configs);
+		$configs = array_merge($config, $this->sets, (array) $configs);
 		
 		if( ! empty($configs) )
 		{

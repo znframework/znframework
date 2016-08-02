@@ -1,27 +1,8 @@
 <?php
-namespace ZN\Foundations\Traits;
+namespace ZN\Foundations\Traits\Status;
 
-trait ErrorControlTrait
+interface ErrorControlInterface
 {
-	/* Error Değişkeni
-	 *  
-	 * Dosya işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected $error;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Success
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Oluşan başarı bilgisi 
-	//
-	// @var  string
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $success;
-	
 	/******************************************************************************************
 	* ERROR                                                                                   *
 	*******************************************************************************************
@@ -30,21 +11,7 @@ trait ErrorControlTrait
 	| Parametreler: Herhangi bir parametresi yoktur.                                          |
 	|     														                              |
 	******************************************************************************************/
-	public function error()
-	{
-		if( isset($this->error) )
-		{	
-			return $this->error;
-		}
-		elseif( $error = \Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) )
-		{
-			return $error;	
-		}
-		else
-		{
-			return false;
-		}
-	}
+	public function error();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Success
@@ -54,24 +21,7 @@ trait ErrorControlTrait
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function success()
-	{
-		if( empty($this->error) && ! \Errors::get(str_ireplace(STATIC_ACCESS, '', __CLASS__)) ) 
-		{
-			if( ! empty($this->success) )
-			{
-				return $this->success;	
-			}
-			else
-			{
-				return lang('Success', 'success');
-			}
-		}
-		else 
-		{
-			return false;
-		}
-	}
+	public function success();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Status
@@ -81,13 +31,5 @@ trait ErrorControlTrait
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function status()
-	{
-		if( $this->success() ) 
-		{
-			return $this->success();
-		}
-
-		return $this->error();
-	}
+	public function status();
 }

@@ -170,7 +170,7 @@ class Autoloader
 		
 		// Belirtilen dizinler ve alt dizinler taranıyor
 		// ve sınıf haritaları oluşturuluyor...
-		if( ! empty($classMap) ) foreach($classMap as $directory)
+		if( ! empty($classMap) ) foreach( $classMap as $directory )
 		{
 			$classMaps = self::searchClassMap($directory, $directory);
 		}

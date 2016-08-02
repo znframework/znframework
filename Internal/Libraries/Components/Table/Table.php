@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalTable implements TableInterface
+class InternalTable extends \CallController implements TableInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -31,28 +31,6 @@ class InternalTable implements TableInterface
 	protected $table;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Designer Methods Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
@@ -63,18 +41,13 @@ class InternalTable implements TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attr($attributes = [])
+	public function attr(Array $attributes)
 	{
-		if( ! is_array($attributes))
-		{
-			\Errors::set('Error', 'arrayParameter', 'attributes');
-			return $this;	
-		}
-		
-		foreach($attributes as $att => $val)
+		foreach( $attributes as $att => $val )
 		{
 			$this->attr[$att] = $val; 
 		}
+
 		return $this;
 	}
 	
@@ -85,15 +58,9 @@ class InternalTable implements TableInterface
 	// @param string $align
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function align($align = '')
+	public function align(String $align)
 	{
-		if( ! is_string($align) )
-		{
-			\Errors::set('Error', 'stringParameter', 'align');
-			return $this;	
-		}
-		
-		if( ! empty($align)) $this->attr['align'] = $align;
+		$this->attr['align'] = $align;
 		
 		return $this;
 	}
@@ -163,15 +130,10 @@ class InternalTable implements TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cell($spacing = 0, $padding = 0)
+	public function cell($spacing, $padding)
 	{
-		if( ! is_numeric($spacing) || ! is_numeric($padding) )
-		{
-			\Errors::set('Error', 'numericParameter', 'spacing & padding');
-			return $this;	
-		}
-		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
-		if( ! empty($padding) ) $this->attr['cellpadding'] = $padding;
+		$this->attr['cellspacing'] = (int) $spacing;
+		$this->attr['cellpadding'] = (int) $padding;
 		
 		return $this;
 	}
@@ -183,15 +145,9 @@ class InternalTable implements TableInterface
 	// @param numeric $spacing
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellSpacing($spacing = 0)
+	public function cellSpacing($spacing)
 	{
-		if( ! is_numeric($spacing) )
-		{
-			\Errors::set('Error', 'numericParameter', 'spacing');
-			return $this;	
-		}
-		
-		if( ! empty($spacing) ) $this->attr['cellspacing'] = $spacing;
+		$this->attr['cellspacing'] = (int) $spacing;
 		
 		return $this;
 	}
@@ -203,15 +159,9 @@ class InternalTable implements TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellPadding($padding = 0)
+	public function cellPadding($padding)
 	{
-		if( ! is_numeric($padding) )
-		{
-			\Errors::set('Error', 'numericParameter', 'padding');
-			return $this;	
-		}
-		
-		if( ! empty($padding)) $this->attr['cellpadding'] = $padding;
+		$this->attr['cellpadding'] = (int) $padding;
 		
 		return $this;
 	}
@@ -224,23 +174,15 @@ class InternalTable implements TableInterface
 	// @param string  $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border($border = 0, $color = '')
+	public function border($border, String $color = NULL)
 	{
-		if( ! is_numeric($border) )
+		$this->attr['border'] = (int) $border;
+
+		if( ! empty($color) )
 		{
-			\Errors::set('Error', 'numericParameter', 'border');
-			return $this;	
+			$this->attr['bordercolor'] = $color;
 		}
-		
-		if( ! is_string($color) )
-		{
-			\Errors::set('Error', 'stringParameter', 'color');
-			return $this;	
-		}
-		
-		if( ! empty($border) ) $this->attr['border']      = $border;
-		if( ! empty($color) )  $this->attr['bordercolor'] = $color;
-	
+
 		return $this;
 	}
 	
@@ -251,15 +193,9 @@ class InternalTable implements TableInterface
 	// @param numeric $border
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderSize($border = 0)
+	public function borderSize($border)
 	{
-		if( ! is_numeric($border) )
-		{
-			\Errors::set('Error', 'numericParameter', 'border');
-			return $this;	
-		}
-		
-		if( ! empty($border) ) $this->attr['border'] = $border;
+		$this->attr['border'] = (int) $border;
 	
 		return $this;
 	}
@@ -271,15 +207,9 @@ class InternalTable implements TableInterface
 	// @param string $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderColor($color = '')
+	public function borderColor(String $color)
 	{
-		if( ! is_string($color) )
-		{
-			\Errors::set('Error', 'stringParameter', 'color');
-			return $this;	
-		}
-
-		if( ! empty($color)) $this->attr['bordercolor'] = $color;
+		$this->attr['bordercolor'] = $color;
 	
 		return $this;
 	}
@@ -291,15 +221,9 @@ class InternalTable implements TableInterface
 	// @param numeric $width
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($width = '')
+	public function width($width)
 	{
-		if( ! is_scalar($width) )
-		{
-			\Errors::set('Error', 'valueParameter', 'width');
-			return $this;	
-		}
-		
-		if( ! empty($width)) $this->attr['width'] = $width;
+		$this->attr['width'] = (int) $width;
 		
 		return $this;
 	}
@@ -311,15 +235,9 @@ class InternalTable implements TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($height = '')
+	public function height($height)
 	{
-		if( ! is_scalar($height) )
-		{
-			\Errors::set('Error', 'valueParameter', 'height');
-			return $this;	
-		}
-		
-		if( ! empty($height)) $this->attr['height'] = $height;
+		$this->attr['height'] = (int) $height;
 		
 		return $this;
 	}
@@ -332,16 +250,10 @@ class InternalTable implements TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($width = '', $height = '')
+	public function size($width, $height)
 	{
-		if( ! is_scalar($height) || ! is_scalar($width) )
-		{
-			\Errors::set('Error', 'valueParameter', 'width & height');
-			return $this;	
-		}
-		
-		if( ! empty($width) )  $this->attr['width']  = $width;
-		if( ! empty($height) ) $this->attr['height'] = $height;
+		$this->attr['width']  = (int) $width;
+		$this->attr['height'] = (int) $height;
 		
 		return $this;
 	}
@@ -353,15 +265,9 @@ class InternalTable implements TableInterface
 	// @param string $css
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css($css = '')
+	public function css(String $css)
 	{
-		if( ! is_string($css) )
-		{
-			\Errors::set('Error', 'stringParameter', 'css');
-			return $this;	
-		}
-		
-		if( ! empty($css) ) $this->attr['class'] = $css;
+		$this->attr['class'] = $css;
 		
 		return $this;
 	}
@@ -373,21 +279,18 @@ class InternalTable implements TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style($_attributes = [])
+	public function style(Array $attributes)
 	{
-		$attribute = "";
-		
-		if( is_array($_attributes) )
+		$attribute = '';
+	
+		foreach( $attributes as $key => $values )
 		{
-			foreach($_attributes as $key => $values)
+			if( is_numeric($key) )
 			{
-				if( is_numeric($key) )
-				{
-					$key = $values;
-				}
-				
-				$attribute .= ' '.$key.':'.$values.';';
-			}	
+				$key = $values;
+			}
+			
+			$attribute .= ' '.$key.':'.$values.';';
 		}
 		
 		$this->attr['style'] = $attribute;
@@ -402,15 +305,9 @@ class InternalTable implements TableInterface
 	// @param mixed $background
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function background($background = '')
+	public function background(String $background)
 	{
-		if( ! is_string($background) )
-		{
-			\Errors::set('Error', 'stringParameter', 'background');
-			return $this;	
-		}
-		
-		if( ! empty($background)) $this->attr['background'] = $background;
+		$this->attr['background'] = $background;
 		
 		return $this;
 	}
@@ -422,15 +319,9 @@ class InternalTable implements TableInterface
 	// @param string $bgColor
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgColor($bgColor = '')
+	public function bgColor(String $bgColor)
 	{
-		if( ! is_string($bgColor) )
-		{
-			\Errors::set('Error', 'stringParameter', 'bgColor');
-			return $this;	
-		}
-		
-		if( ! empty($bgColor)) $this->attr['bgcolor'] = $bgColor;
+		$this->attr['bgcolor'] = $bgColor;
 		
 		return $this;
 	}
