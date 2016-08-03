@@ -24,17 +24,9 @@ $config['Database']['migrationTable'] = 'migrations';
 // Driver                                                                           	      
 //----------------------------------------------------------------------------------------------------
 //
-// Genel Kullanım: // İşlev:Mysql bağlantı türünü belirlemek için kullanılır.		   	  
-// Parametre:Metinsel türde bağlantı türü girilir.										  
-// Drivers: mysql , mysqli , pdo , odbc , mssql , sqlite , pgsql , sqlsrv , sqlite3 , 	  
-// oracle8 , interbase , cubrid , frontbase , sybase												  				
-// PDO Sub Drivers = 4d , cubrid , dblib , firebird , ibm , informix , mysql , oci , 	  
-// odbc , pgsql , sqlite , sqlsrv		
-//												  
-// Pdo Driver Seçili ise alt sürülerini kullanmak için  									  
-// pdo:subdriver. 
-// Örnek: pdo:mysql , pdo:dblib		
-// Eğer sadece pdo yazılırsa varsayılan olarak pdo::mysql geçerli olcaktır.	 							  					
+// Drivers: mysql, odbc, mysqli, pdo, oracle8, postgres, sqlite, sqlite3, sqlserver
+// PDO Drivers: pdo:4d, pdo:cubrid, pdo:dblib, pdo:firebird, pdo:firebird, 
+// pdo:informix, pdo:mysql/pdo, pdo:oci, pdo:odbc, pdo:pgsql, pdo:sqlite, pdo:sqlsrv							  					
 //
 //----------------------------------------------------------------------------------------------------
 $config['Database']['driver'] 		= 'mysqli';

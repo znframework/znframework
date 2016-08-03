@@ -1,8 +1,8 @@
 <?php
-namespace ZN\Database;
+namespace ZN\Database\Abstracts;
 
-interface DBToolInterface
-{	
+abstract class ToolAbstract
+{
 	//----------------------------------------------------------------------------------------------------
 	//
 	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,7 +11,7 @@ interface DBToolInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// List Databases
 	//----------------------------------------------------------------------------------------------------
@@ -22,8 +22,11 @@ interface DBToolInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function listDatabases();
-	
+	public function listDatabases()
+	{
+		return false;
+	}
+
 	//----------------------------------------------------------------------------------------------------
 	// List Tables
 	//----------------------------------------------------------------------------------------------------
@@ -34,7 +37,10 @@ interface DBToolInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function listTables();
+	public function listTables()
+	{
+		return false;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Optimize Tables
@@ -46,7 +52,10 @@ interface DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimizeTables($table);
+	public function optimizeTables($table)
+	{
+		return false;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Repair Tables
@@ -58,7 +67,10 @@ interface DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repairTables($table);
+	public function repairTables($table)
+	{
+		return false;
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Backup
@@ -72,5 +84,8 @@ interface DBToolInterface
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables, String $fileName, $path);
+	public function backup($tables, $fileName, $path)
+	{
+		return false;		
+	}
 }

@@ -1,7 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-class SQLiteDriver implements DatabaseDriverInterface
+use ZN\Database\Abstracts\DriverAbstract;
+
+class SQLiteDriver extends DriverAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -69,13 +71,6 @@ class SQLiteDriver implements DatabaseDriverInterface
 		'timeStamp'		=> 'DATETIME'
 	);
 	
-	use SQLite\Traits\QueryTrait;
-	use SQLite\Traits\ForgeTrait;
-	use SQLite\Traits\ToolTrait;
-	use SQLite\Traits\UserTrait;
-	
-	use Traits\DatabaseDriverTrait;
-	
 	public function __construct()
 	{
 		if( ! function_exists('sqlite_open') )
@@ -102,6 +97,76 @@ class SQLiteDriver implements DatabaseDriverInterface
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
+	}
+
+	/******************************************************************************************
+	* EXEC                                                                                    *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki exec yönteminin kullanımıdır.  			  |
+	|          																				  |
+	******************************************************************************************/
+	public function exec($query, $security = NULL)
+	{
+		return sqlite_exec($this->connect, $query);
+	}
+	
+	/******************************************************************************************
+	* MULTI                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki multi query yönteminin kullanımıdır.   	  |
+	|          																				  |
+	******************************************************************************************/
+	public function multiQuery($query, $security = NULL)
+	{
+		return $this->query($query, $security);
+	}
+	
+	/******************************************************************************************
+	* QUERY                                                                                   *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
+	|          																				  |
+	******************************************************************************************/
+	public function query($query, $security = [])
+	{
+		$this->query = sqlite_query($this->connect, $query);
+		return $this->query;
+	}
+	
+	/******************************************************************************************
+	* TRANS START                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki begin transaction özelliğinin kullanımıdır.  |		
+	|          																				  |
+	******************************************************************************************/
+	public function transStart()
+	{
+		$this->query('BEGIN TRANSACTION');
+		return true;
+	}
+	
+	/******************************************************************************************
+	* TRANS ROLLBACK                                                                          *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki rollback özelliğinin kullanımıdır.  	  	  |
+	|          																				  |
+	******************************************************************************************/
+	public function transRollback()
+	{
+		$this->query('ROLLBACK');
+		return true;
+	}
+	
+	/******************************************************************************************
+	* TRANS COMMIT                                                                            *
+	*******************************************************************************************
+	| Genel Kullanım: Veritabanı sürücülerindeki commit özelliğinin kullanımıdır.        	  |
+	|          																				  |
+	******************************************************************************************/
+	public function transCommit()
+	{
+		$this->query('COMMIT');
+		return true;
 	}
 	
 	/******************************************************************************************

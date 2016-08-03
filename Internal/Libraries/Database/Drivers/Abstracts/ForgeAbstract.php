@@ -1,8 +1,8 @@
 <?php
-namespace ZN\Database;
+namespace ZN\Database\Abstracts;
 
-interface DBForgeInterface
-{	
+abstract class ForgeAbstract
+{
 	//----------------------------------------------------------------------------------------------------
 	//
 	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,112 +11,163 @@ interface DBForgeInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Create Database
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $dbname
 	// @param mixed  $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createDatabase(String $dbname, $extras);
+	public function createDatabase($dbname, $extras)
+	{
+		return 'CREATE DATABASE '.$dbname.$this->_extras($extras);	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Database
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $dbname
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropDatabase(String $dbname);
+	public function dropDatabase($dbname)
+	{		
+		return 'DROP DATABASE '.$dbname;	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _extras()
+	//----------------------------------------------------------------------------------------------------
+	protected function _extras($extras)
+	{
+		if( isArray($extras) )
+		{
+			$extraCodes = ' '.implode(' ', $extras).';';
+		}
+		elseif( is_string($extras) )
+		{
+			$extraCodes = ' '.$extras.';';	
+		}
+		else
+		{
+			$extraCodes = '';	
+		}
+		
+		return $extraCodes;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create Table
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $table
-	// @param array  $condition
+	//
 	// @param mixed  $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable(String $table, Array $condition, $extras);
+	public function createTable($table, $columns, $extras)
+	{
+		return 'CREATE TABLE '.$table.'('.rtrim(trim($columns), ',').')'.$this->_extras($extras);
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Table
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTable(String $table);
+	public function dropTable($table)
+	{
+		return 'DROP TABLE '.$table;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Alter Table
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $table
-	// @param array  $condition
+	// @param mixed  $condition
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alterTable(String $table, Array $condition);
+	public function alterTable($table, $condition){}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Table
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $name
 	// @param string $newName
 	//
-	//----------------------------------------------------------------------------------------------------
-	public function renameTable(String $name, String $newName);
-
+	//----------------------------------------------------------------------------------------------------	
+	public function renameTable($name, $newName)
+	{
+		return 'ALTER TABLE '.$name.' RENAME TO '.$newName;
+	}
+	
 	//----------------------------------------------------------------------------------------------------
 	// Truncate
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate(String $table);
+	public function truncate($table)
+	{
+		return 'TRUNCATE TABLE '.$table;
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Column
 	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $table
-	// @param array  $columns
 	//
-	//----------------------------------------------------------------------------------------------------
-	public function addColumn(String $table, Array $columns);
-	
-	//----------------------------------------------------------------------------------------------------
-	// Drop Column
-	//----------------------------------------------------------------------------------------------------
-	// 
 	// @param string $table
 	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn(String $table, $column);
+	public function addColumn($table, $column)
+	{
+		return 'ALTER TABLE '.$table.' ADD ('.rtrim($column, ',').');';
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Drop Column
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $table
+	// @param mixed  $column
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function dropColumn($table, $column)
+	{
+		return 'ALTER TABLE '.$table.' DROP '.$column.';';
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Modify Column
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $table
-	// @param mixed  $columns
+	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn(String $table, Array $columns);
+	public function modifyColumn($table, $column)
+	{
+		return 'ALTER TABLE '.$table.' MODIFY '.rtrim($column, ',').';';
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Column
 	//----------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $table
-	// @param mixed  $columns
+	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn(String $table, Array $condition);
+	public function renameColumn($table, $column)
+	{
+		return 'ALTER TABLE '.$table.' CHANGE COLUMN  '.rtrim($column, ',').';';
+	}
 }

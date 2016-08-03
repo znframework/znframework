@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\Database;
 
-class InternalDBTool extends \CallController implements DBToolInterface, DatabaseInterface
+class InternalDBTool extends DatabaseCommon implements DBToolInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,34 +11,22 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// Common
+	// Tool
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $config
-	// $prefix
-	// $secure
-	// $table
-	// $tableName
-	// $stringQuery
-	// $unlimitedStringQuery
-	//
-	// run()
-	// table()
-	// stringQuery()
-	// differentConnection()
-	// secure()
-	// error()
-	// close()
-	// version()
+	// @var object
 	//
 	//----------------------------------------------------------------------------------------------------
-	use DatabaseTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Database Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
+	protected $tool;
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->tool = uselib($this->_drvlib($this->config['driver'], 'Tool'));
+	}
 
 	//----------------------------------------------------------------------------------------------------
 	// List Databases
@@ -52,9 +40,9 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 	//----------------------------------------------------------------------------------------------------
 	public function listDatabases()
 	{
-		if( $this->db->listDatabases() !== false )
+		if( $otherListDatabases = $this->tool->listDatabases() )
 		{
-			return $this->db->listDatabases();
+			return $otherListDatabases;
 		}
 		
 		$this->db->query('SHOW DATABASES');
@@ -76,14 +64,6 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 		
 		return $newDatabases;
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Database Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Table Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// List Tables
@@ -97,9 +77,9 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 	//----------------------------------------------------------------------------------------------------
 	public function listTables()
 	{
-		if( $this->db->listTables() !== false )
+		if( $otherListTables = $this->tool->listTables() )
 		{
-			return $this->db->listTables();
+			return $otherListTables;
 		}
 		
 		$this->db->query('SHOW TABLES');
@@ -134,6 +114,11 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 	//----------------------------------------------------------------------------------------------------
 	public function optimizeTables($table = '*')
 	{
+		if( $otherOptimizeTable = $this->tool->optimizeTables($table) )
+		{
+			return $otherOptimizeTable;
+		}
+
 		$this->db->query("SHOW TABLES");
 		
 		if( $table === '*' )
@@ -183,6 +168,11 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 	//----------------------------------------------------------------------------------------------------
 	public function repairTables($table = '*')
 	{
+		if( $otherRepairTables = $this->tool->repairTables($table) )
+		{
+			return $otherRepairTables;
+		}
+
 		$this->db->query("SHOW TABLES");
 		
 		if( $table === '*' )
@@ -219,14 +209,6 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 				
 		return lang('Database', 'repairTablesSuccess');
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Table Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Backup Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Backup
@@ -240,11 +222,11 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables = '*', $fileName = '', $path = STORAGE_DIR)
+	public function backup($tables = '*', String $fileName = NULL, $path = STORAGE_DIR)
 	{		
-		if( $this->db->backup($fileName) !== false )
+		if( $otherBackup = $this->tool->backup($tables, $fileName, $path) )
 		{
-			return $this->db->backup($fileName);
+			return $otherBackup;
 		}
 		
 		if( $path === STORAGE_DIR )
@@ -334,13 +316,9 @@ class InternalDBTool extends \CallController implements DBToolInterface, Databas
 		
 		if( ! file_put_contents(suffix($path).$fileName, $return) )
 		{
-			\Errors::set('Error', 'fileNotWrite', $path.$fileName);
+			return \Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
 		}
 		
 		return lang('Database', 'backupTablesSuccess');
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Backup Method Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

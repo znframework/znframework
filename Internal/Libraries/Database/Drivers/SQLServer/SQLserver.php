@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverAbstract;
 
-class SQLite3Driver extends DriverAbstract
+class SQLserverDriver extends DriverAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -33,7 +33,7 @@ class SQLite3Driver extends DriverAbstract
 	 */
 	protected $statements = array
 	(
-		'autoIncrement' => 'AUTOINCREMENT',
+		'autoIncrement' => 'IDENTITY(1,1)',
 		'primaryKey'	=> 'PRIMARY KEY',
 		'foreignKey'	=> 'FOREIGN KEY',
 		'unique'		=> 'UNIQUE',
@@ -51,34 +51,34 @@ class SQLite3Driver extends DriverAbstract
 	 */
 	protected $variableTypes = array
 	(
-		'int' 			=> 'INTEGER',
+		'int' 			=> 'INT',
 		'smallInt'		=> 'SMALLINT',
 		'tinyInt'		=> 'TINYINT',
-		'mediumInt'		=> 'MEDIUMINT',
+		'mediumInt'		=> 'INT',
 		'bigInt'		=> 'BIGINT',
 		'decimal'		=> 'DECIMAL',
-		'double'		=> 'DOUBLE',
+		'double'		=> 'DOUBLE PRECISION',
 		'float'			=> 'FLOAT',
-		'char'			=> 'CHARACTER',
+		'char'			=> 'CHAR',
 		'varChar'		=> 'VARCHAR',
 		'tinyText'		=> 'VARCHAR(255)',
-		'text'			=> 'TEXT',
-		'mediumText'	=> 'CLOB',
-		'longText'		=> 'BLOB',
+		'text'			=> 'VARCHAR(65535)',
+		'mediumText'	=> 'VARCHAR(16277215)',
+		'longText'		=> 'VARCHAR(16277215)',
 		'date'			=> 'DATE',
 		'dateTime'		=> 'DATETIME',
-		'time'			=> 'DATE',
-		'timeStamp'		=> 'DATETIME'
+		'time'			=> 'TIME',
+		'timeStamp'		=> 'TIMESTAMP'
 	);
-	
+
 	public function __construct()
 	{
-		if( ! extension_loaded('SQLite3') )
+		if( ! function_exists('sqlsrv_connect') )
 		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQLite3'));	
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQL Server'));	
 		}	
 	}
-	
+
 	/******************************************************************************************
 	* CONNECT                                                                                 *
 	*******************************************************************************************
@@ -89,17 +89,33 @@ class SQLite3Driver extends DriverAbstract
 	{
 		$this->config = $config;
 		
-		try
+		$server = 	( ! empty($this->config['server']) )
+					? $this->config['server']
+					: $this->config['host'];
+					
+		if( ! empty($this->config['port']) ) 
 		{
-			$this->connect = 	( ! empty($this->config['password']) )
-							 	? new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
-							  	: new \SQLite3($this->config['database']);
-		}	
-		catch(Exception $e)
+			$server .= ', '.$this->config['port'];
+		}
+		
+		$connection = array
+		(
+			'UID'					=> $this->config['user'],
+			'PWD'					=> $this->config['password'],
+			'Database'				=> $this->config['database'],
+			'ConnectionPooling'		=> 0,
+			'CharacterSet'			=> $this->config['charset'],
+			'Encrypt'				=> $this->config['encode'],
+			'ReturnDatesAsStrings'	=> 1
+		);
+		
+		$this->connect = @sqlsrv_connect($server, $connection);
+		
+		if( empty($this->connect) ) 
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
-	}	
+	}
 
 	/******************************************************************************************
 	* EXEC                                                                                    *
@@ -109,7 +125,7 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function exec($query, $security = NULL)
 	{
-		return $this->connect->exec($query);
+		return sqlsrv_query($this->connect, $query);
 	}
 	
 	/******************************************************************************************
@@ -128,10 +144,10 @@ class SQLite3Driver extends DriverAbstract
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
 	|          																				  |
-	******************************************************************************************/	
-	public function query($query, $security = [])
+	******************************************************************************************/
+	public function query($query, $security = NULL)
 	{
-		$this->query = $this->connect->query($query);
+		$this->query = sqlsrv_query($this->connect, $query);
 		return $this->query;
 	}
 	
@@ -143,7 +159,7 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function transStart()
 	{
-		return $this->connect->exec('BEGIN TRANSACTION');
+		return sqlsrv_begin_transaction($this->connect);
 	}
 	
 	/******************************************************************************************
@@ -154,7 +170,7 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function transRollback()
 	{
-		return $this->connect->exec('ROLLBACK');		 
+		return sqlsrv_rollback($this->connect);		 
 	}
 	
 	/******************************************************************************************
@@ -165,9 +181,9 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function transCommit()
 	{
-		return $this->connect->exec('END TRANSACTION');
+		return sqlsrv_commit($this->connect);
 	}
-
+	
 	/******************************************************************************************
 	* INSERT ID                                                                               *
 	*******************************************************************************************
@@ -176,7 +192,9 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function insertId()
 	{
-		return $this->connect->lastInsertRowID();
+		$this->query('SELECT @@IDENTITY AS insert_id');
+		$row = $query->row();
+		return $row->insert_id;
 	}
 	
 	/******************************************************************************************
@@ -192,26 +210,16 @@ class SQLite3Driver extends DriverAbstract
 			return false;
 		}
 		
-		$dataTypes = array
-		(
-			SQLITE3_INTEGER	=> 'integer',
-			SQLITE3_FLOAT	=> 'float',
-			SQLITE3_TEXT	=> 'text',
-			SQLITE3_BLOB	=> 'blob',
-			SQLITE3_NULL	=> 'null'
-		);
-		
 		$columns = [];
 		
-		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
-		{	
-			$type 		= $this->query->columnType($i);
-			$fieldName 	= $this->query->columnName($i);
+		foreach( sqlsrv_field_metadata($this->query) as $field )
+		{
+			$fieldName = $field['Name'];
 			
 			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
-			$columns[$fieldName]->type			= isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
-			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->type			= $field['Type'];
+			$columns[$fieldName]->maxLength		= $field['Size'];
 			$columns[$fieldName]->primaryKey	= NULL;
 			$columns[$fieldName]->default		= NULL;
 		}
@@ -225,14 +233,14 @@ class SQLite3Driver extends DriverAbstract
 	}
 	
 	/******************************************************************************************
-	* TRUNCATE                                                                                *
+	* RENAME COLUMN                                                                           *
 	*******************************************************************************************
-	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş truncate yöntemidir.           | 
+	| Genel Kullanım: Bu sürücü için rename column kullanımıdır. 				  			  | 
 	|          																				  |
-	******************************************************************************************/		
-	public function truncate($table = '')
+	******************************************************************************************/
+	public function renameColumn()
 	{ 
-		return 'DELETE FROM '.$table; 
+		return 'RENAME COLUMN TO'; 
 	}
 	
 	/******************************************************************************************
@@ -243,12 +251,14 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function numRows()
 	{
-		if( empty($this->result) ) 
+		if( ! empty($this->query) )
 		{
-			return false;
+			return sqlsrv_num_rows($this->query);
 		}
-		
-		return count($this->result());
+		else
+		{
+			return 0;	
+		}
 	}
 	
 	/******************************************************************************************
@@ -264,12 +274,12 @@ class SQLite3Driver extends DriverAbstract
 			return false;
 		}
 		
-		$columns = [];		
+		$columns = [];
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
 		{		
-			$columns[] = $this->query->columnName($i);
+			$columns[] = sqlsrv_get_field($this->query, $i);
 		}
 		
 		return $columns;
@@ -285,28 +295,24 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->numColumns();
+			return sqlsrv_num_fields($this->query);
 		}
 		else
 		{
-			return 0;
+			return 0;	
 		}
 	}
 	
 	/******************************************************************************************
 	* REAL STRING ESCAPE                                                                      *
 	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için real_escape_string yönteminin kullanımıdır.			  | 
+	| Genel Kullanım: Bu sürücü için bu kullanım desteklenmediği için. aşağıdaki yöntemden	  |
+	| yararlanılmıştır.												 			              | 
 	|          																				  |
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		if( empty($this->connect) ) 
-		{
-			return false;
-		}
-		
-		return $this->connect->escapeString($data);
+		return \Security::escapeStringEncode($data);
 	}
 	
 	/******************************************************************************************
@@ -319,7 +325,8 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) )
 		{
-			return $this->connect->lastErrorMsg();
+			$error = sqlsrv_errors(SQLSRV_ERR_ERRORS);
+			return $error['message'];
 		}
 		else
 		{
@@ -337,7 +344,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetchArray(SQLITE3_BOTH);
+			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_BOTH);
 		}
 		else
 		{
@@ -355,7 +362,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetchArray(SQLITE3_ASSOC);
+			return sqlsrv_fetch_array($this->query, SQLSRV_FETCH_ASSOC);
 		}
 		else
 		{
@@ -373,7 +380,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetchArray();
+			return sqlsrv_fetch($this->query, SQLSRV_FETCH_ASSOC);
 		}
 		else
 		{
@@ -384,14 +391,14 @@ class SQLite3Driver extends DriverAbstract
 	/******************************************************************************************
 	* AFFECTED ROWS                                                                 		  *
 	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir. 		         		  | 
+	| Genel Kullanım: Bu sürücü için affected_rows yönteminin kullanımıdır. 		          | 
 	|          																				  |
 	******************************************************************************************/
 	public function affectedRows()
 	{
 		if( ! empty($this->connect) )
 		{
-			return  $this->connect->changes();
+			return sqlsrv_rows_affected($this->connect);
 		}
 		else
 		{
@@ -409,13 +416,13 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) ) 
 		{
-			@$this->connect->close(); 
+			@sqlsrv_close($this->connect); 
 		}
 		else 
 		{
 			return false;
 		}
-	}
+	}	
 	
 	/******************************************************************************************
 	* VERSION                                                                         		  *
@@ -423,13 +430,12 @@ class SQLite3Driver extends DriverAbstract
 	| Genel Kullanım: Bu sürücü için version yönteminin kullanımıdır. 		                  | 
 	|          																				  |
 	******************************************************************************************/
-	public function version($v = 'versionString')
+	public function version()
 	{
 		if( ! empty($this->connect) )
 		{
-			$version = \SQLite3::version();
-			
-			return $version[$v];
+			$info = sqlsrv_server_info($this->connect);
+			return $info['SQLServerVersion'];
 		}
 		else
 		{

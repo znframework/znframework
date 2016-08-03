@@ -1,9 +1,9 @@
 <?php
-namespace ZN\Database;
+namespace ZN\Database\Abstracts;
 
-class InternalDBUser extends DatabaseCommon implements DBUserInterface
+abstract class UserAbstract
 {
-	//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 	//
 	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 	// Site       : www.zntr.net
@@ -11,28 +11,139 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-
+	
 	//----------------------------------------------------------------------------------------------------
-	// User
+	// $name
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @var object
+	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $user;
-
-	//----------------------------------------------------------------------------------------------------
-	// Database Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
+	protected $name 	  	  = NULL;
 	
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->user = uselib($this->_drvlib($this->config['driver'], 'User'));
-	}
-
+	//----------------------------------------------------------------------------------------------------
+	// $parameters
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $parameters 	  = [];
 	
+	//----------------------------------------------------------------------------------------------------
+	// $host
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $host 	  	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $identified
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $identified 	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $required
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $required 	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $encode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $encode 		  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $with
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $with 		  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $lock
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $lock 		  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $resource
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $resource 	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $passwordExpire
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $passwordExpire = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $type           = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $select
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $select         = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $grantOption
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $grantOption	  = NULL;
+	
+	//----------------------------------------------------------------------------------------------------
+	// $resources
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $resources      = array
+	(
+		'query' 			=> 'MAX_QUERIES_PER_HOUR',
+	 	'update' 			=> 'MAX_UPDATES_PER_HOUR',
+	 	'connection' 		=> 'MAX_CONNECTIONS_PER_HOUR',
+	  	'user' 				=> 'MAX_USER_CONNECTIONS'
+	);
+
 	//----------------------------------------------------------------------------------------------------
 	// name()
 	//----------------------------------------------------------------------------------------------------
@@ -40,11 +151,19 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name(String $name)
+	public function name($name)
 	{
-		$this->user->name($name);
+		$this->name = $this->_stringQuote($name);
+	}
+	
+	protected function _name($name = '')
+	{
+		if( ! empty($this->name) )
+		{
+			return $this->name;	
+		}
 		
-		return $this;
+		return $name;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -54,11 +173,33 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $host: localhost
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function host(String $host)
+	public function host($host)
 	{
-		$this->user->host($host);	
+		$this->host = '@'.$this->_stringQuote($host);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _stringQuote()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $string: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _stringQuote($string = '')
+	{
+		if( ! empty($string) )
+		{
+			if( ! preg_match('/^\w+\(.*?\)/xi', $string) )
+			{
+				$string = str_replace('@', '\'@\'', $string);	
+				
+				return ' \''.$string.'\' '; 
+			}
+			
+			return ' '.$string.' ';	
+		}
 		
-		return $this;
+		return false;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -68,11 +209,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function password(String $authString)
+	public function password($authString)
 	{
-		$this->user->password($authString);
-		
-		return $this;
+		$this->identifiedBy($authString);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -82,11 +221,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groups(String $authString)
+	public function groups($authString)
 	{
-		$this->user->groups($authString);
-		
-		return $this;
+		$this->parameters[1] = $authString;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -96,11 +233,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function members(String $authString)
+	public function members($authString)
 	{
-		$this->user->members($authString);
-		
-		return $this;
+		$this->parameters[2] = $authString;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -110,11 +245,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function schema(String $authString)
+	public function schema($authString)
 	{
-		$this->user->schema($authString);
-		
-		return $this;
+		$this->parameters[0] = $authString;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -124,11 +257,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedBy(String $authString)
+	public function identifiedBy($authString)
 	{
-		$this->user->identifiedBy($authString);
-		
-		return $this;
+		$this->identified = ' IDENTIFIED BY '.$this->_stringQuote($authString);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -138,11 +269,23 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $hashString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedByPassword(String $hashString)
+	public function identifiedByPassword($hashString)
 	{
-		$this->user->identifiedByPassword($hashString);
-		
-		return $this;
+		$this->identified = ' IDENTIFIED BY PASSWORD '.$this->_stringQuote($hashString);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected _identifiedWithType()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $authPlugin: empty
+	// @param string $authString: empty
+	// @param string $type      : BY
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _identifiedWithType($authPlugin = NULL, $authString = NULL, $type = 'BY')
+	{
+		$this->identified = ' IDENTIFIED WITH '.$authPlugin.' '.$this->_stringQuote($authString);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -154,11 +297,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedWith(String $authPlugin, String $type, String $authString)
+	public function identifiedWith($authPlugin, $type, $authString)
 	{
-		$this->user->identifiedWith($authPlugin, $type, $authString);
-		
-		return $this;
+		$this->_identifiedWithType($authPlugin, $authString, $type);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -169,11 +310,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedWithBy(String $authPlugin, String $authString)
+	public function identifiedWithBy($authPlugin, $authString)
 	{
-		$this->user->identifiedWithBy($authPlugin, $authString);
-		
-		return $this;
+		$this->_identifiedWithType($authPlugin, $authString, 'BY');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -184,11 +323,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $hashString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedWithAs(String $hashPlugin, String $hashString)
+	public function identifiedWithAs($hashPlugin, $hashString)
 	{
-		$this->user->identifiedWithAs($hashPlugin, $hashString);
-		
-		return $this;
+		$this->_identifiedWithType($hashPlugin, $hashString, 'AS');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -200,9 +337,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function required()
 	{
-		$this->user->required();
-		
-		return $this;
+		$this->required = ' REQUIRE ';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -214,9 +349,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function with()
 	{
-		$this->user->with();
-		
-		return $this;
+		$this->with = ' WITH ';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -227,11 +360,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function option(String $name, String $value)
+	public function option()
 	{
-		$this->user->option($name, $value);
-		
-		return $this;
+		return false;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -243,11 +374,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $condition: and, or
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode(String $type, String $string, String $condition = NULL)
+	public function encode($type, $string, $condition)
 	{
-		$this->user->encode($type, $string, $condition);
-		
-		return $this;
+		$this->encode = ' '.$type.' '.$this->_stringQuote($string).' '.$condition.' ';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -261,11 +390,14 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $count   : 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function resource(String $resource, $count = 0)
+	public function resource($resource, $count)
 	{
-		$this->user->resource($resource, $count);
+		if( isset($this->resources[$resource]) )
+		{
+			$resource  = $this->resources[$resource];
+		}
 		
-		return $this;
+		$this->resource = ' '.$resource.' '.$count.' ';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -276,11 +408,26 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param numeric $n   : 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function passwordExpire(String $type = NULL, $n = 0)
+	public function passwordExpire($type, $n)
 	{
-		$this->user->passwordExpire($type, $n);
+		if( strtolower($type) === 'interval' )
+		{
+			$type = 'INTERVAL '.$n.' DAY ';
+		}
 		
-		return $this;
+		$this->passwordExpire = ' PASSWORD EXPIRE '.$type.' ';
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _lock()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $type: lock, unlock
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _lock($type = 'lock')
+	{
+		$this->lock = ' ACCOUNT '.$type.' ';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -290,13 +437,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: lock, unlock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lock(String $type = NULL)
+	public function lock($type)
 	{
-		nullCoalesce($type, 'lock');
-
-		$this->user->lock($type);
-		
-		return $this;
+		$this->lock = $this->_lock($type);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -306,13 +449,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: unlock, lock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function unlock(String $type = NULL)
+	public function unlock($type)
 	{
-		nullCoalesce($type, 'unlock');
-
-		$this->user->unlock($type);
-		
-		return $this;
+		$this->lock = $this->_lock($type);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -322,13 +461,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: TABLE, FUNCTION, PROCEDURE
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type = NULL)
+	public function type($type)
 	{
-		nullCoalesce($type, 'TABLE');
-
-		$this->user->type($type);
-		
-		return $this;
+		$this->type = $type;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -338,13 +473,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $select = NULL)
+	public function select($select)
 	{
-		nullCoalesce($select, '*.*');
-
-		$this->user->select($select);
-		
-		return $this;
+		$this->select = $select;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -356,9 +487,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	//----------------------------------------------------------------------------------------------------
 	public function grantOption()
 	{
-		$this->user->grantOption();
-		
-		return $this;
+		$this->grantOption = ' GRANT OPTION ';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -368,11 +497,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function firstName(String $authString)
+	public function firstName($authString)
 	{
-		$this->user->firstName($authString);
-		
-		return $this;
+		$this->parameters[1] = $authString;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -382,11 +509,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function middleName(String $authString)
+	public function middleName($authString)
 	{
-		$this->user->middleName($authString);
-		
-		return $this;
+		$this->parameters[2] = $authString;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -396,11 +521,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lastName(String $authString)
+	public function lastName($authString)
 	{
-		$this->user->lastName($authString);
-		
-		return $this;
+		$this->parameters[3] = $authString;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -410,13 +533,66 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function adminRole(String $authString = NULL)
+	public function adminRole($authString)
 	{
-		nullCoalesce($authString, 'GRANT');
-
-		$this->user->adminRole($authString);
+		$this->parameters[4] = $authString;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _process()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $name       : USER()
+	// @param string  $type       : ALTER USER
+	// @param string  $grantType  : empty
+	// @param string  $grantSelect: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _process($name = 'USER()', $type = 'ALTER USER', $grantType = '', $grantSelect = '')
+	{
+		$grant = '';
 		
-		return $this;
+		if( $type === 'GRANT' || $type === 'REVOKE' )
+		{	
+			if( ! empty($this->type) )
+			{
+				$grantType = $this->type;			
+			}
+			
+			if( ! empty($this->select) )
+			{
+				$grantSelect = $this->select;			
+			}
+			
+			$toFrom = ( $type === 'REVOKE' ) ? ' FROM ' : ' TO ';
+			
+			$grant = ' '.$name.' ON '.$grantType.' '.$grantSelect.$toFrom;	
+			
+			$name = '';
+					  
+		}
+		
+		if( empty($this->name) )
+		{
+			$this->name($name);			
+		}
+		
+		$query = $type.' '.
+				 $grant.
+		         $this->name.
+				 $this->host. 
+				 $this->identified.
+				 $this->required.
+				 $this->encode.
+				 $this->with.
+				 $this->grantOption.
+				 $this->resource.
+				 $this->passwordExpire;
+				 $this->lock;
+	
+		$this->_resetQuery();
+
+		return $query;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -426,13 +602,14 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alter(String $name = NULL, $schema = NULL)
+	public function alter($name, $schema)
 	{
-		nullCoalesce($name, 'USER()');
+		if( ! empty($schema) )
+		{
+			$this->parameters[0] = $schema;	
+		}
 
-		$query = $this->user->alter($name, $schema);
-
-		return $this->_runQuery($query);
+		return $this->_process($name, 'ALTER USER');
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -442,13 +619,14 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(String $name = NULL, $schema = NULL)
+	public function create($name, $schema)
 	{
-		nullCoalesce($name, 'USER()');
-
-		$query = $this->user->create($name, $schema);
-
-		return $this->_runQuery($query);
+		if( ! empty($schema) )
+		{
+			$this->parameters[0] = $schema;	
+		}
+	
+		return $this->_process($name, 'CREATE USER');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -458,13 +636,14 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function drop(String $name = NULL, $type = NULL)
+	public function drop($name, $type)
 	{
-		nullCoalesce($name, 'USER()');
-
-		$query = $this->user->drop($name, $type);
-
-		return $this->_runQuery($query);
+		if( ! empty($type) )
+		{
+			$this->parameters[0] = $type;	
+		}
+		
+		return $this->_process($name, 'DROP USER');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -476,14 +655,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grant(String $name = NULL, String $type = NULL, String $select = NULL)
+	public function grant($name, $type, $select)
 	{
-		nullCoalesce($name,   'ALL');
-		nullCoalesce($select, '*.*');
-
-		$query = $this->user->grant($name, $type, $select);
-;
-		return $this->_runQuery($query);
+		return $this->_process($name, 'GRANT', $type, $select);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -495,14 +669,9 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function revoke(String $name = NULL, String $type = NULL, String $select = NULL)
+	public function revoke($name, $type, $select)
 	{
-		nullCoalesce($name,   'ALL');
-		nullCoalesce($select, '*.*');
-
-		$query = $this->user->revoke($name, $schema);
-
-		return $this->_runQuery($query);
+		return $this->_process($name, 'REVOKE', $type, $select);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -513,11 +682,11 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rename(String $oldName, String $newName)
+	public function rename($oldName, $newName)
 	{
-		$query = $this->user->rename($oldName, $newName);
-
-		return $this->_runQuery($query);
+		$query = ' RENAME USER '.$this->_stringQuote($oldName).' TO '.$this->_stringQuote($newName);
+		
+		return $query;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -528,10 +697,59 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $pass: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function setPassword(String $user = NULL, String $pass = NULL)
+	public function setPassword($user, $pass)
 	{
-		$query = $this->user->setPassword($user, $pass);
-
-		return $this->_runQuery($query);
+		if( empty($this->name) )
+		{
+			$this->name($user);	
+		}
+	
+		if( ! empty($this->name) )
+		{
+			$this->name = 'FOR '.$this->name;
+		}
+		
+		if( $pass === 'old:')
+		{
+			$pass = 'OLD_PASSWORD(\''.$pass.'\')';
+		}
+		elseif( $pass === 'new:' )
+		{
+			$pass = 'PASSWORD(\''.$pass.'\')';	
+		}
+		else
+		{
+			$pass = $this->_stringQuote($pass);	
+		}
+		
+		$query = ' SET PASSWORD '.$this->name.' = '.$pass;
+		
+		$this->_resetQuery();
+		
+		return $query;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected _resetQuery()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void()
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _resetQuery()
+	{
+		$this->name				= NULL;
+		$this->lock				= NULL;
+		$this->parameters		= [];
+		$this->host				= NULL;
+		$this->identified 		= NULL;
+		$this->required 		= NULL;
+		$this->encode 			= NULL;
+		$this->with 			= NULL;
+		$this->resource 		= NULL;
+		$this->passwordExpire 	= NULL;
+		$this->type 			= NULL;	
+		$this->select 			= NULL;	
+		$this->grantOption	    = NULL;
 	}
 }

@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverAbstract;
 
-class SQLite3Driver extends DriverAbstract
+class PostgresDriver extends DriverAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -33,7 +33,7 @@ class SQLite3Driver extends DriverAbstract
 	 */
 	protected $statements = array
 	(
-		'autoIncrement' => 'AUTOINCREMENT',
+		'autoIncrement' => 'BIGSERIAL',
 		'primaryKey'	=> 'PRIMARY KEY',
 		'foreignKey'	=> 'FOREIGN KEY',
 		'unique'		=> 'UNIQUE',
@@ -53,29 +53,29 @@ class SQLite3Driver extends DriverAbstract
 	(
 		'int' 			=> 'INTEGER',
 		'smallInt'		=> 'SMALLINT',
-		'tinyInt'		=> 'TINYINT',
-		'mediumInt'		=> 'MEDIUMINT',
+		'tinyInt'		=> 'SMALLINT',
+		'mediumInt'		=> 'INTEGER',
 		'bigInt'		=> 'BIGINT',
 		'decimal'		=> 'DECIMAL',
-		'double'		=> 'DOUBLE',
-		'float'			=> 'FLOAT',
+		'double'		=> 'DOUBLE PRECISION',
+		'float'			=> 'NUMERIC',
 		'char'			=> 'CHARACTER',
-		'varChar'		=> 'VARCHAR',
-		'tinyText'		=> 'VARCHAR(255)',
+		'varChar'		=> 'CHARACTER VARYING',
+		'tinyText'		=> 'CHARACTER VARYING(255)',
 		'text'			=> 'TEXT',
-		'mediumText'	=> 'CLOB',
-		'longText'		=> 'BLOB',
+		'mediumText'	=> 'TEXT',
+		'longText'		=> 'TEXT',
 		'date'			=> 'DATE',
-		'dateTime'		=> 'DATETIME',
-		'time'			=> 'DATE',
-		'timeStamp'		=> 'DATETIME'
+		'dateTime'		=> 'TIMESTAMP',
+		'time'			=> 'TIME',
+		'timeStamp'		=> 'TIMESTAMP'
 	);
 	
 	public function __construct()
 	{
-		if( ! extension_loaded('SQLite3') )
+		if( ! function_exists('pg_connect') )
 		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SQLite3'));	
+			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'Postgre'));	
 		}	
 	}
 	
@@ -89,17 +89,34 @@ class SQLite3Driver extends DriverAbstract
 	{
 		$this->config = $config;
 		
-		try
+		$dsn = 'host='.$this->config['host'].' ';
+		
+		if( ! empty($this->config['port']) ) 		$dsn .= 'port='.$this->config['port'].' ';
+		if( ! empty($this->config['database']) ) 	$dsn .= 'dbname='.$this->config['database'].' ';
+		if( ! empty($this->config['user']) ) 		$dsn .= 'user='.$this->config['user'].' ';
+		if( ! empty($this->config['password']) ) 	$dsn .= 'password='.$this->config['password'].' ';
+		
+		if( ! empty($this->config['dsn']) )
 		{
-			$this->connect = 	( ! empty($this->config['password']) )
-							 	? new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
-							  	: new \SQLite3($this->config['database']);
-		}	
-		catch(Exception $e)
+			$dsn = $this->config['dsn'];	
+		}
+		
+		$dsn = rtrim($dsn);
+		
+		$this->connect = ( $this->config['pconnect'] === true )
+					     ? @pg_pconnect($dsn)
+						 : @pg_connect($dsn);
+		
+		if( empty($this->connect) ) 
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
-	}	
+		
+		if( ! empty($this->config['charset']) ) 
+		{
+			pg_set_client_encoding($this->connect, $this->config['charset']);
+		}
+	}
 
 	/******************************************************************************************
 	* EXEC                                                                                    *
@@ -109,7 +126,7 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function exec($query, $security = NULL)
 	{
-		return $this->connect->exec($query);
+		return pg_query($this->connect, $query);
 	}
 	
 	/******************************************************************************************
@@ -128,10 +145,10 @@ class SQLite3Driver extends DriverAbstract
 	*******************************************************************************************
 	| Genel Kullanım: Veritabanı sürücülerindeki query yönteminin kullanımıdır.  			  |
 	|          																				  |
-	******************************************************************************************/	
+	******************************************************************************************/
 	public function query($query, $security = [])
 	{
-		$this->query = $this->connect->query($query);
+		$this->query = pg_query($this->connect, $query);
 		return $this->query;
 	}
 	
@@ -143,7 +160,7 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function transStart()
 	{
-		return $this->connect->exec('BEGIN TRANSACTION');
+		return (bool) pg_query($this->connect, 'BEGIN');
 	}
 	
 	/******************************************************************************************
@@ -154,7 +171,7 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function transRollback()
 	{
-		return $this->connect->exec('ROLLBACK');		 
+		return (bool) pg_query($this->connect, 'ROLLBACK');	 
 	}
 	
 	/******************************************************************************************
@@ -165,9 +182,65 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function transCommit()
 	{
-		return $this->connect->exec('END TRANSACTION');
+		return (bool) pg_query($this->connect, 'COMMIT');
 	}
 
+	/******************************************************************************************
+	* LIST DATABASES                                                                          *
+	*******************************************************************************************
+	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
+	|          																				  |
+	******************************************************************************************/
+	public function listDatabases()
+	{
+		$this->query('SELECT datname FROM pg_database');
+		
+		if( $this->error() ) 
+		{
+			return false;
+		}
+		
+		$newDatabases = [];
+		
+		foreach( $this->result() as $databases )
+		{
+			foreach( $databases as $db => $database )
+			{
+				$newDatabases[] = $database;
+			}
+		}
+		
+		return $newDatabases;
+	}
+	
+	/******************************************************************************************
+	* LIST TABLES                                                                             *
+	*******************************************************************************************
+	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir.                 		  | 
+	|          																				  |
+	******************************************************************************************/
+	public function listTables()
+	{
+		$this->query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
+		
+		if( $this->error() ) 
+		{
+			return false;
+		}
+		
+		$newTables = [];
+		
+		foreach( $this->result() as $tables )
+		{
+			foreach( $tables as $tb => $table )
+			{
+				$newTables[] = $table;
+			}
+		}
+		
+		return $newTables;
+	}
+	
 	/******************************************************************************************
 	* INSERT ID                                                                               *
 	*******************************************************************************************
@@ -176,7 +249,12 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function insertId()
 	{
-		return $this->connect->lastInsertRowID();
+		if( empty($this->query) ) 
+		{
+			return false;
+		}
+		
+		return pg_last_oid($this->query);
 	}
 	
 	/******************************************************************************************
@@ -192,26 +270,16 @@ class SQLite3Driver extends DriverAbstract
 			return false;
 		}
 		
-		$dataTypes = array
-		(
-			SQLITE3_INTEGER	=> 'integer',
-			SQLITE3_FLOAT	=> 'float',
-			SQLITE3_TEXT	=> 'text',
-			SQLITE3_BLOB	=> 'blob',
-			SQLITE3_NULL	=> 'null'
-		);
-		
 		$columns = [];
 		
-		for ($i = 0, $c = $this->numFields(); $i < $c; $i++)
-		{	
-			$type 		= $this->query->columnType($i);
-			$fieldName 	= $this->query->columnName($i);
+		for( $i = 0, $c = $this->numFields(); $i < $c; $i++ )
+		{
+			$fieldName = pg_field_name($this->query, $i);
 			
 			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
-			$columns[$fieldName]->type			= isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
-			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->type			= pg_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= pg_field_size($this->query, $i);
 			$columns[$fieldName]->primaryKey	= NULL;
 			$columns[$fieldName]->default		= NULL;
 		}
@@ -225,14 +293,25 @@ class SQLite3Driver extends DriverAbstract
 	}
 	
 	/******************************************************************************************
-	* TRUNCATE                                                                                *
+	* RENAME COLUMN                                                                           *
 	*******************************************************************************************
-	| Genel Kullanım: Db sınıfında kullanımı için oluşturulmuş truncate yöntemidir.           | 
+	| Genel Kullanım: Bu sürücü için rename column kullanımıdır. 				  			  | 
 	|          																				  |
-	******************************************************************************************/		
-	public function truncate($table = '')
+	******************************************************************************************/
+	public function renameColumn()
 	{ 
-		return 'DELETE FROM '.$table; 
+		return 'RENAME COLUMN TO'; 
+	}
+	
+	/******************************************************************************************
+	* MODIFY COLUMN                                                                           *
+	*******************************************************************************************
+	| Genel Kullanım: Bu sürücü bu yöntemi desteklememektedir.			    				  | 
+	|          																				  |
+	******************************************************************************************/
+	public function modifyColumn()
+	{ 
+		return 'ALTER COLUMN '; 
 	}
 	
 	/******************************************************************************************
@@ -243,12 +322,14 @@ class SQLite3Driver extends DriverAbstract
 	******************************************************************************************/
 	public function numRows()
 	{
-		if( empty($this->result) ) 
+		if( ! empty($this->query) )
 		{
-			return false;
+			return pg_num_rows($this->query);
 		}
-		
-		return count($this->result());
+		else
+		{
+			return 0;	
+		}
 	}
 	
 	/******************************************************************************************
@@ -264,12 +345,12 @@ class SQLite3Driver extends DriverAbstract
 			return false;
 		}
 		
-		$columns = [];		
+		$columns = [];
 		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
 		{		
-			$columns[] = $this->query->columnName($i);
+			$columns[] = pg_field_name($this->query, $i);
 		}
 		
 		return $columns;
@@ -285,28 +366,24 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->numColumns();
+			return pg_num_fields($this->query);
 		}
 		else
 		{
-			return 0;
+			return 0;	
 		}
 	}
 	
 	/******************************************************************************************
 	* REAL STRING ESCAPE                                                                      *
 	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için real_escape_string yönteminin kullanımıdır.			  | 
+	| Genel Kullanım: Bu sürücü için bu kullanım desteklenmediği için. aşağıdaki yöntemden	  |
+	| yararlanılmıştır.												 			              | 
 	|          																				  |
 	******************************************************************************************/
 	public function realEscapeString($data = '')
 	{
-		if( empty($this->connect) ) 
-		{
-			return false;
-		}
-		
-		return $this->connect->escapeString($data);
+		return pg_escape_string($this->connect, $data);
 	}
 	
 	/******************************************************************************************
@@ -319,7 +396,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) )
 		{
-			return $this->connect->lastErrorMsg();
+			return pg_last_error($this->connect);
 		}
 		else
 		{
@@ -337,7 +414,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetchArray(SQLITE3_BOTH);
+			return pg_fetch_array($this->query);
 		}
 		else
 		{
@@ -355,7 +432,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetchArray(SQLITE3_ASSOC);
+			return pg_fetch_assoc($this->query);
 		}
 		else
 		{
@@ -373,7 +450,7 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return $this->query->fetchArray();
+			return pg_affected_rows($this->query);
 		}
 		else
 		{
@@ -384,19 +461,66 @@ class SQLite3Driver extends DriverAbstract
 	/******************************************************************************************
 	* AFFECTED ROWS                                                                 		  *
 	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir. 		         		  | 
+	| Genel Kullanım: Bu sürücü için affected_rows yönteminin kullanımıdır. 		          | 
 	|          																				  |
 	******************************************************************************************/
 	public function affectedRows()
 	{
 		if( ! empty($this->connect) )
 		{
-			return  $this->connect->changes();
+			return pg_affected_rows($this->connect);
 		}
 		else
 		{
 			return false;	
 		}
+	}
+
+	protected $postgreQuoteOptions = array
+	(
+		'PASSWORD',
+		'VALID UNTIL'
+	);
+	
+	public function name($name = '')
+	{
+		return $name;
+	}
+	
+	public function with($with = 'WITH')
+	{
+		return $with;
+	}
+	
+	public function option($option = '', $value = '')
+	{
+		if( ! empty($this->postgreQuoteOptions[strtoupper($option)]) )
+		{
+			$value = presuffix($value, '\'');	
+		}
+		
+		return $option.' '.$value;
+	}
+	
+	public function create($user = '', $parameters = [])
+	{
+		return 'CREATE USER '.
+		        $user.
+				( ! empty($parameters[0]) ? ' '.$parameters[0] : '' ).
+				( ! empty($parameters[1]) ? ' '.$parameters[1] : '' );
+	}
+	
+	public function drop($user = '')
+	{
+		return 'DROP USER '.$user;
+	}
+	
+	public function alter($user = '', $parameters = [])
+	{
+		return 'ALTER USER '.
+		        $user.
+				( ! empty($parameters[0]) ? ' '.$parameters[0] : '' ).
+				( ! empty($parameters[1]) ? ' '.$parameters[1] : '' );
 	}
 	
 	/******************************************************************************************
@@ -409,31 +533,26 @@ class SQLite3Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) ) 
 		{
-			@$this->connect->close(); 
+			@pg_close($this->connect);
 		}
 		else 
 		{
 			return false;
 		}
-	}
+	}	
 	
 	/******************************************************************************************
 	* VERSION                                                                         		  *
 	*******************************************************************************************
-	| Genel Kullanım: Bu sürücü için version yönteminin kullanımıdır. 		                  | 
+	| Genel Kullanım: Bu sürücü için bu yöntem desteklenmemektedir. 		                  | 
 	|          																				  |
 	******************************************************************************************/
-	public function version($v = 'versionString')
+	public function version()
 	{
-		if( ! empty($this->connect) )
+		// Ön tanımlı sorgu kullanıyor.
+		if( ! empty($this->connect) ) 
 		{
-			$version = \SQLite3::version();
-			
-			return $version[$v];
-		}
-		else
-		{
-			return false;
+			return pg_version($this->connect);
 		}
 	}
 }

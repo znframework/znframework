@@ -47,7 +47,7 @@ class InternalSupport extends \CallController implements SupportInterface
 	//----------------------------------------------------------------------------------------------------
 	public function func(String $name, String $value = NULL)
 	{
-		return $this->_loaded($name, $value, 'function_exists', 'undefinedFunction');
+		return $this->_loaded($name, $value, 'function_exists', 'undefinedFunctionExtension');
 	}
 
 	//----------------------------------------------------------------------------------------------------
