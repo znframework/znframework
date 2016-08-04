@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverAbstract;
 
-class Oracle8Driver extends DriverAbstract
+class SQLiteDriver extends DriverAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,7 +13,7 @@ class Oracle8Driver extends DriverAbstract
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Operators
 	//----------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	protected $statements =
 	[
-		'autoIncrement' => 'CREATE SEQUENCE % MINVALUE 1 STARVALUE WITH 1 INCREMENT BY 1;',
+		'autoIncrement' => 'AUTOINCREMENT',
 		'primaryKey'	=> 'PRIMARY KEY',
 		'foreignKey'	=> 'FOREIGN KEY',
 		'unique'		=> 'UNIQUE',
@@ -52,26 +52,26 @@ class Oracle8Driver extends DriverAbstract
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $variableTypes = 
+	protected $variableTypes =
 	[
-		'int' 			=> 'NUMERIC',
-		'smallInt'		=> 'NUMERIC',
-		'tinyInt'		=> 'NUMERIC',
-		'mediumInt'		=> 'NUMERIC',
-		'bigInt'		=> 'NUMERIC',
+		'int' 			=> 'INTEGER',
+		'smallInt'		=> 'SMALLINT',
+		'tinyInt'		=> 'TINYINT',
+		'mediumInt'		=> 'MEDIUMINT',
+		'bigInt'		=> 'BIGINT',
 		'decimal'		=> 'DECIMAL',
-		'double'		=> 'BINARY_DOUBLE',
-		'float'			=> 'BINARY_FLOAT',
-		'char'			=> 'CHAR',
-		'varChar'		=> 'VARCHAR2',
-		'tinyText'		=> 'VARCHAR2(255)',
-		'text'			=> 'VARCHAR2(65535)',
-		'mediumText'	=> 'VARCHAR2(16277215)',
-		'longText'		=> 'CLOB',
+		'double'		=> 'DOUBLE',
+		'float'			=> 'FLOAT',
+		'char'			=> 'CHARACTER',
+		'varChar'		=> 'VARCHAR',
+		'tinyText'		=> 'VARCHAR(255)',
+		'text'			=> 'TEXT',
+		'mediumText'	=> 'CLOB',
+		'longText'		=> 'BLOB',
 		'date'			=> 'DATE',
-		'dateTime'		=> 'TIMESTAMP',
-		'time'			=> 'TIMESTAMP',
-		'timeStamp'		=> 'TIMESTAMP'
+		'dateTime'		=> 'DATETIME',
+		'time'			=> 'DATE',
+		'timeStamp'		=> 'DATETIME'
 	];
 	
 	//----------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		\Support::func('oci_connect', 'Oracle 8');
+		\Support::extension('SQLite3', 'SQLite3');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -97,51 +97,17 @@ class Oracle8Driver extends DriverAbstract
 	{
 		$this->config = $config;
 		
-		$dsn = 	( ! empty($this->config['dsn']))
-				? $this->config['dsn']
-				: $this->config['host'];
-		
-		if( $this->config['pconnect'] === true )
+		try
 		{
-			$this->connect = 	(empty($this->config['charset']))
-								? @oci_pconnect 
-								  (
-									$this->config['user'], 
-									$this->config['password'], 
-									$dsn
-								  )
-								: @oci_pconnect 
-								  ( 
-									$this->config['user'], 
-									$this->config['password'], 
-									$dsn, 
-									$this->config['charset']
-								  );
-		}
-		else
-		{
-			$this->connect = 	(empty($this->config['charset']))
-								? @oci_connect 
-								  (
-									$this->config['user'], 
-									$this->config['password'], 
-									$dsn
-								  )
-								: @oci_connect 
-								  (
-									$this->config['user'], 
-									$this->config['password'], 
-									$dsn, 
-									$this->config['charset']
-								  );
-		}
-		
-		
-		if( empty($this->connect) ) 
+			$this->connect = 	( ! empty($this->config['password']) )
+							 	? new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
+							  	: new \SQLite3($this->config['database']);
+		}	
+		catch(Exception $e)
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
-	}
+	}	
 
 	//----------------------------------------------------------------------------------------------------
 	// Exec
@@ -153,10 +119,7 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function exec($query, $security = NULL)
 	{
-		$que = oci_parse($this->connect, $query);
-		oci_execute($que);
-		
-		return $que;
+		return $this->connect->exec($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -182,8 +145,8 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function query($query, $security = [])
 	{
-		$this->query = oci_parse($this->connect, $query);
-		return oci_execute($this->query);
+		$this->query = $this->connect->query($query);
+		return $this->query;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -195,12 +158,7 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function transStart()
 	{
-		$commit_mode = ( phpversion() > '5.3.2' ) 
-					   ? OCI_NO_AUTO_COMMIT 
-					   : OCI_DEFAULT;
-		
-		$this->exec($commit_mode);
-		return true;
+		return $this->connect->exec('BEGIN TRANSACTION');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -212,9 +170,7 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function transRollback()
 	{
-		oci_rollback($this->connect);
-		$commit_mode = OCI_COMMIT_ON_SUCCESS;
-		return $this->exec($commit_mode);		 
+		return $this->connect->exec('ROLLBACK');		 
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -226,9 +182,19 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function transCommit()
 	{
-		oci_commit($this->connect);
-		$commit_mode = OCI_COMMIT_ON_SUCCESS;
-		return $this->exec($commit_mode);
+		return $this->connect->exec('END TRANSACTION');
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Insert ID
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function insertID()
+	{
+		return $this->connect->lastInsertRowID();
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -245,18 +211,27 @@ class Oracle8Driver extends DriverAbstract
 			return false;
 		}
 		
-		$columns = [];
+		$dataTypes = array
+		(
+			SQLITE3_INTEGER	=> 'integer',
+			SQLITE3_FLOAT	=> 'float',
+			SQLITE3_TEXT	=> 'text',
+			SQLITE3_BLOB	=> 'blob',
+			SQLITE3_NULL	=> 'null'
+		);
 		
-		$count = $this->numFields();
+		$columns = [];
+		$count   = $this->numFields();
 
-		for ($i = 1; $i <= $count; $i++)
-		{
-			$fieldName = oci_field_name($this->query, $i);
+		for ($i = 0; $i < $count; $i++)
+		{	
+			$type 		= $this->query->columnType($i);
+			$fieldName 	= $this->query->columnName($i);
 			
-			$columns[$fieldName] 		    	= new \stdClass();
+			$columns[$fieldName]				= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
-			$columns[$fieldName]->type			= oci_field_type($this->query, $i);
-			$columns[$fieldName]->maxLength		= oci_field_size($this->query, $i);
+			$columns[$fieldName]->type			= isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
+			$columns[$fieldName]->maxLength		= NULL;
 			$columns[$fieldName]->primaryKey	= NULL;
 			$columns[$fieldName]->default		= NULL;
 		}
@@ -278,14 +253,12 @@ class Oracle8Driver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function numRows()
 	{
-		if( ! empty($this->query) )
+		if( empty($this->result) ) 
 		{
-			return oci_num_rows($this->query);
+			return false;
 		}
-		else
-		{
-			return 0;	
-		}
+		
+		return count($this->result());
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -295,6 +268,7 @@ class Oracle8Driver extends DriverAbstract
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
+
 	public function columns()
 	{
 		if( empty($this->query) ) 
@@ -302,12 +276,12 @@ class Oracle8Driver extends DriverAbstract
 			return false;
 		}
 		
-		$columns = [];
-		$num_fields = $this->numFields(); 
+		$columns = [];		
+		$num_fields = $this->numFields();
 		
 		for($i=0; $i < $num_fields; $i++)
-		{	
-				$columns[] = oci_field_name($this->query,$i);
+		{		
+			$columns[] = $this->query->columnName($i);
 		}
 		
 		return $columns;
@@ -324,11 +298,11 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return oci_num_fields($this->query);
+			return $this->query->numColumns();
 		}
 		else
 		{
-			return 0;	
+			return 0;
 		}
 	}
 	
@@ -339,9 +313,14 @@ class Oracle8Driver extends DriverAbstract
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function realEscapeString($data = '')
+	public function realEscapeString($data)
 	{
-		return \Security::escapeStringEncode($data);
+		if( empty($this->connect) ) 
+		{
+			return false;
+		}
+		
+		return $this->connect->escapeString($data);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -355,8 +334,7 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) )
 		{
-			$error = oci_error($this->connect);
-			return  $error['message'];
+			return $this->connect->lastErrorMsg();
 		}
 		else
 		{
@@ -375,7 +353,7 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return oci_fetch_array($this->query);
+			return $this->query->fetchArray(SQLITE3_BOTH);
 		}
 		else
 		{
@@ -394,7 +372,7 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return oci_fetch_assoc($this->query);
+			return $this->query->fetchArray(SQLITE3_ASSOC);
 		}
 		else
 		{
@@ -413,7 +391,7 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return oci_fetch_row($this->query);
+			return $this->query->fetchArray();
 		}
 		else
 		{
@@ -432,7 +410,7 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) )
 		{
-			return false;
+			return  $this->connect->changes();
 		}
 		else
 		{
@@ -451,13 +429,13 @@ class Oracle8Driver extends DriverAbstract
 	{
 		if( ! empty($this->connect) ) 
 		{
-			@oci_close($this->connect); 
+			@$this->connect->close(); 
 		}
 		else 
 		{
 			return false;
 		}
-	}	
+	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Version
@@ -466,15 +444,17 @@ class Oracle8Driver extends DriverAbstract
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function version()
+	public function version($v = 'versionString')
 	{
-		if( ! empty($this->connect) ) 
+		if( ! empty($this->connect) )
 		{
-			return oci_server_version($this->connect); 
+			$version = \SQLite3::version();
+			
+			return $version[$v];
 		}
-		else 
+		else
 		{
 			return false;
 		}
-	}	
+	}
 }

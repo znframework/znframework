@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverAbstract;
 
-class SQLiteDriver extends DriverAbstract
+class OracleDriver extends DriverAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,7 +13,7 @@ class SQLiteDriver extends DriverAbstract
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-
+	
 	//----------------------------------------------------------------------------------------------------
 	// Operators
 	//----------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	protected $statements =
 	[
-		'autoIncrement' => 'AUTOINCREMENT',
+		'autoIncrement' => 'CREATE SEQUENCE % MINVALUE 1 STARVALUE WITH 1 INCREMENT BY 1;',
 		'primaryKey'	=> 'PRIMARY KEY',
 		'foreignKey'	=> 'FOREIGN KEY',
 		'unique'		=> 'UNIQUE',
@@ -52,26 +52,26 @@ class SQLiteDriver extends DriverAbstract
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $variableTypes =
+	protected $variableTypes = 
 	[
-		'int' 			=> 'INTEGER',
-		'smallInt'		=> 'SMALLINT',
-		'tinyInt'		=> 'TINYINT',
-		'mediumInt'		=> 'MEDIUMINT',
-		'bigInt'		=> 'BIGINT',
+		'int' 			=> 'NUMERIC',
+		'smallInt'		=> 'NUMERIC',
+		'tinyInt'		=> 'NUMERIC',
+		'mediumInt'		=> 'NUMERIC',
+		'bigInt'		=> 'NUMERIC',
 		'decimal'		=> 'DECIMAL',
-		'double'		=> 'DOUBLE',
-		'float'			=> 'FLOAT',
-		'char'			=> 'CHARACTER',
-		'varChar'		=> 'VARCHAR',
-		'tinyText'		=> 'VARCHAR(255)',
-		'text'			=> 'TEXT',
-		'mediumText'	=> 'CLOB',
-		'longText'		=> 'BLOB',
+		'double'		=> 'BINARY_DOUBLE',
+		'float'			=> 'BINARY_FLOAT',
+		'char'			=> 'CHAR',
+		'varChar'		=> 'VARCHAR2',
+		'tinyText'		=> 'VARCHAR2(255)',
+		'text'			=> 'VARCHAR2(65535)',
+		'mediumText'	=> 'VARCHAR2(16277215)',
+		'longText'		=> 'CLOB',
 		'date'			=> 'DATE',
-		'dateTime'		=> 'DATETIME',
-		'time'			=> 'DATE',
-		'timeStamp'		=> 'DATETIME'
+		'dateTime'		=> 'TIMESTAMP',
+		'time'			=> 'TIMESTAMP',
+		'timeStamp'		=> 'TIMESTAMP'
 	];
 	
 	//----------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		\Support::func('sqlite_open', 'SQLite');	
+		\Support::func('oci_connect', 'Oracle 8');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -96,12 +96,48 @@ class SQLiteDriver extends DriverAbstract
 	public function connect($config = [])
 	{
 		$this->config = $config;
-		$this->connect = 	( $this->config['pconnect'] === true )
-							? @sqlite_popen($this->config['database'], 0666, $error)
-							: @sqlite_open($this->config['database'], 0666, $error);
+		
+		$dsn = 	( ! empty($this->config['dsn']))
+				? $this->config['dsn']
+				: $this->config['host'];
+		
+		if( $this->config['pconnect'] === true )
+		{
+			$this->connect = 	(empty($this->config['charset']))
+								? @oci_pconnect 
+								  (
+									$this->config['user'], 
+									$this->config['password'], 
+									$dsn
+								  )
+								: @oci_pconnect 
+								  ( 
+									$this->config['user'], 
+									$this->config['password'], 
+									$dsn, 
+									$this->config['charset']
+								  );
+		}
+		else
+		{
+			$this->connect = 	(empty($this->config['charset']))
+								? @oci_connect 
+								  (
+									$this->config['user'], 
+									$this->config['password'], 
+									$dsn
+								  )
+								: @oci_connect 
+								  (
+									$this->config['user'], 
+									$this->config['password'], 
+									$dsn, 
+									$this->config['charset']
+								  );
+		}
 		
 		
-		if( ! empty($error) ) 
+		if( empty($this->connect) ) 
 		{
 			die(getErrorMessage('Database', 'mysqlConnectError'));
 		}
@@ -117,7 +153,10 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function exec($query, $security = NULL)
 	{
-		return sqlite_exec($this->connect, $query);
+		$que = oci_parse($this->connect, $query);
+		oci_execute($que);
+		
+		return $que;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -143,8 +182,8 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function query($query, $security = [])
 	{
-		$this->query = sqlite_query($this->connect, $query);
-		return $this->query;
+		$this->query = oci_parse($this->connect, $query);
+		return oci_execute($this->query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -156,7 +195,11 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function transStart()
 	{
-		$this->query('BEGIN TRANSACTION');
+		$commit_mode = ( phpversion() > '5.3.2' ) 
+					   ? OCI_NO_AUTO_COMMIT 
+					   : OCI_DEFAULT;
+		
+		$this->exec($commit_mode);
 		return true;
 	}
 	
@@ -169,8 +212,9 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function transRollback()
 	{
-		$this->query('ROLLBACK');
-		return true;
+		oci_rollback($this->connect);
+		$commit_mode = OCI_COMMIT_ON_SUCCESS;
+		return $this->exec($commit_mode);		 
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -182,27 +226,9 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function transCommit()
 	{
-		$this->query('COMMIT');
-		return true;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Insert ID
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function insertID()
-	{
-		if( ! empty($this->connect) )
-		{
-			return sqlite_last_insert_rowid($this->connect);
-		}
-		else
-		{
-			return false;
-		}
+		oci_commit($this->connect);
+		$commit_mode = OCI_COMMIT_ON_SUCCESS;
+		return $this->exec($commit_mode);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -220,16 +246,17 @@ class SQLiteDriver extends DriverAbstract
 		}
 		
 		$columns = [];
-		$count   = $this->numFields();
+		
+		$count = $this->numFields();
 
-		for( $i = 0; $i < $count; $i++ )
+		for ($i = 1; $i <= $count; $i++)
 		{
-			$fieldName = sqlite_field_name($this->query, $i);
+			$fieldName = oci_field_name($this->query, $i);
 			
-			$columns[$fieldName]				= new \stdClass();
+			$columns[$fieldName] 		    	= new \stdClass();
 			$columns[$fieldName]->name			= $fieldName;
-			$columns[$fieldName]->type		 	= NULL;
-			$columns[$fieldName]->maxLength		= NULL;
+			$columns[$fieldName]->type			= oci_field_type($this->query, $i);
+			$columns[$fieldName]->maxLength		= oci_field_size($this->query, $i);
 			$columns[$fieldName]->primaryKey	= NULL;
 			$columns[$fieldName]->default		= NULL;
 		}
@@ -253,7 +280,7 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlite_num_rows($this->query);
+			return oci_num_rows($this->query);
 		}
 		else
 		{
@@ -276,16 +303,16 @@ class SQLiteDriver extends DriverAbstract
 		}
 		
 		$columns = [];
-		$num_fields = $this->numFields();
+		$num_fields = $this->numFields(); 
 		
 		for($i=0; $i < $num_fields; $i++)
-		{		
-			$columns[] = sqlite_field_name($this->query, $i);
+		{	
+				$columns[] = oci_field_name($this->query,$i);
 		}
 		
 		return $columns;
 	}
-
+	
 	//----------------------------------------------------------------------------------------------------
 	// Num Fields
 	//----------------------------------------------------------------------------------------------------
@@ -297,7 +324,7 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlite_num_fields($this->query);
+			return oci_num_fields($this->query);
 		}
 		else
 		{
@@ -312,14 +339,9 @@ class SQLiteDriver extends DriverAbstract
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function realEscapeString($data)
+	public function realEscapeString($data = '')
 	{
-		if( empty($this->connect) ) 
-		{
-			return false;
-		}
-		
-		return sqlite_escape_string($data);
+		return \Security::escapeStringEncode($data);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -331,10 +353,10 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function error()
 	{
-		if( ! empty($this->connect))
+		if( ! empty($this->connect) )
 		{
-			$code = sqlite_last_error($this->connect);
-			return sqlite_error_string($code);
+			$error = oci_error($this->connect);
+			return  $error['message'];
 		}
 		else
 		{
@@ -353,7 +375,7 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlite_fetch_array($this->query);
+			return oci_fetch_array($this->query);
 		}
 		else
 		{
@@ -372,7 +394,7 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlite_fetch_array($this->query);
+			return oci_fetch_assoc($this->query);
 		}
 		else
 		{
@@ -391,7 +413,7 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->query) )
 		{
-			return sqlite_fetch_single($this->query);
+			return oci_fetch_row($this->query);
 		}
 		else
 		{
@@ -408,13 +430,14 @@ class SQLiteDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function affectedRows()
 	{
-		// Ön tanımlı sorgu kullanıyor.
 		if( ! empty($this->connect) )
 		{
 			return false;
 		}
-		
-		return false;	
+		else
+		{
+			return false;	
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -428,7 +451,7 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->connect) ) 
 		{
-			@sqlite_close($this->connect); 
+			@oci_close($this->connect); 
 		}
 		else 
 		{
@@ -447,11 +470,11 @@ class SQLiteDriver extends DriverAbstract
 	{
 		if( ! empty($this->connect) ) 
 		{
-			return sqlite_libversion(); 
+			return oci_server_version($this->connect); 
 		}
 		else 
 		{
 			return false;
 		}
-	}
+	}	
 }

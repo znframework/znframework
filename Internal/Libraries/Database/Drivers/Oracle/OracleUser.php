@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\UserAbstract;
 
-class Oracle8User extends UserAbstract
+class OracleUser extends UserAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

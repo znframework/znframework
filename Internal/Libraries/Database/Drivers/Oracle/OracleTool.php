@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\ToolAbstract;
 
-class Oracle8Tool extends ToolAbstract
+class OracleTool extends ToolAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

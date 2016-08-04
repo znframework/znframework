@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\ForgeAbstract;
 
-class Oracle8Forge extends ForgeAbstract
+class OracleForge extends ForgeAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

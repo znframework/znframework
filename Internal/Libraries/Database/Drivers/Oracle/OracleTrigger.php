@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\TriggerAbstract;
 
-class Oracle8Trigger extends TriggerAbstract
+class OracleTrigger extends TriggerAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

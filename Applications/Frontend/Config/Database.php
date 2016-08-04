@@ -24,9 +24,8 @@ $config['Database']['migrationTable'] = 'migrations';
 // Driver                                                                           	      
 //----------------------------------------------------------------------------------------------------
 //
-// Drivers: mysql, odbc, mysqli, pdo, oracle8, postgres, sqlite, sqlite3, sqlserver
-// PDO Drivers: pdo:4d, pdo:cubrid, pdo:dblib, pdo:firebird, pdo:firebird, 
-// pdo:informix, pdo:mysql/pdo, pdo:oci, pdo:odbc, pdo:pgsql, pdo:sqlite, pdo:sqlsrv							  					
+// Drivers: odbc, mysqli, pdo, oracle, postgres, sqlite, sqlserver
+// PDO Drivers: pdo:mysql, pdo:odbc, pdo:postgres, pdo:sqlite, pdo:sqlserver							  					
 //
 //----------------------------------------------------------------------------------------------------
 $config['Database']['driver'] 		= 'mysqli';
