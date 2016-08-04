@@ -1,10 +1,10 @@
 <?php
-namespace ZN\Database\Drivers\MySQL\PDO\Drivers;
+namespace ZN\Database\Drivers\PDO\Drivers;
 
-use ZN\Database\Drivers\MySQL\PDO\DriverInterface;
-use ZN\Database\Drivers\MySQL\PDO\DriverTrait;
+use ZN\Database\Drivers\PDO\DriverInterface;
+use ZN\Database\Drivers\PDO\DriverTrait;
 
-class PDOSqliteDriver implements DriverInterface
+class PDOODBCDriver implements DriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -24,20 +24,31 @@ class PDOSqliteDriver implements DriverInterface
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn = 'sqlite:';
+		$dsn  = 'odbc:DRIVER={IBM DB2 ODBC DRIVER}';
 			
-		if( ! empty($this->config['database']) )
-		{
-			$dsn .= $this->config['database'];
-		}
-		elseif( ! empty($this->config['host']) ) 
-		{
-			$dsn .= $this->config['host'];
-		}
-		else 
-		{
-			$dsn .= ':memory:';
-		}
+		$dsn .= ( ! empty($this->config['database']) ) 
+				? ';DATABASE='.$this->config['database'] 
+				: '';
+				
+		$dsn .= ( ! empty($this->config['host']) ) 
+				? ';HOSTNAME='.$this->config['host'] 
+				: '';
+				
+		$dsn .= ( ! empty($this->config['port']) ) 
+				? ';PORT='.$this->config['port'] 
+				: '';
+				
+		$dsn .= ( ! empty($this->config['protocol']) ) 
+				? ';PROTOCOL='.$this->config['protocol'] 
+				: ';PROTOCOL=TCPIP';
+				
+		$dsn .= ( ! empty($this->config['user']) ) 
+				? ';UID='.$this->config['user'] 
+				: '';
+		
+		$dsn .= ( ! empty($this->config['password']) ) 
+				? ';PWD='.$this->config['password'] 
+				: '';
 	
 		return $dsn;
 	}	

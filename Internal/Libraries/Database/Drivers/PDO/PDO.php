@@ -525,7 +525,7 @@ class PDODriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	protected function _subDrivers($usr, $pass)
 	{
-		$namespace = 'ZN\Database\Drivers\MySQL\PDO\Drivers\\'; 
+		$namespace = 'ZN\Database\Drivers\PDO\Drivers\\'; 
 
 		$driver = $namespace.'PDO'.$this->selectDriver.'Driver';
 		

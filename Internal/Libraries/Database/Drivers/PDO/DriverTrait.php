@@ -1,7 +1,7 @@
-<?php	
-namespace ZN\Database\Drivers\MySQL\PDO;
+<?php
+namespace ZN\Database\Drivers\PDO;
 
-interface DriverInterface
+trait DriverTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,10 +12,19 @@ interface DriverInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	/* Config Değişkeni
+	 *  
+	 * Veritabanı ayarlar bilgisini
+	 * tutmak için oluşturulmuştur.
+	 *
+	 */
+	protected $config;
+	
 	/******************************************************************************************
-	* DNS       		                                                                      *
-	*******************************************************************************************
-	| Bu sürücü için dsn bilgisi oluşturuluyor.  							                  |
+	* CONSTRUCT     	                                                                      *
 	******************************************************************************************/
-	public function dsn();
+	public function __construct()
+	{
+		$this->config = \Config::get('Database');	
+	}
 }

@@ -1,10 +1,10 @@
 <?php
-namespace ZN\Database\Drivers\MySQL\PDO\Drivers;
+namespace ZN\Database\Drivers\PDO\Drivers;
 
-use ZN\Database\Drivers\MySQL\PDO\DriverInterface;
-use ZN\Database\Drivers\MySQL\PDO\DriverTrait;
+use ZN\Database\Drivers\PDO\DriverInterface;
+use ZN\Database\Drivers\PDO\DriverTrait;
 
-class PDOCubridDriver implements DriverInterface
+class PDOSQLiteDriver implements DriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -24,22 +24,21 @@ class PDOCubridDriver implements DriverInterface
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = 'cubrid:'.( ! empty($this->config['host']) ) 
-							   ? 'host='.$this->config['host'].';'
-							   : '';
+		$dsn = 'sqlite:';
 			
-		$dsn .= ( ! empty($this->config['database']) ) 
-				? 'dbname='.$this->config['database'].';' 
-				: '';
-				
-		$dsn .= ( ! empty($this->config['port']) ) 
-				? 'port='.$this->config['port'].';' 
-				: '';
-				
-		$dsn .= ( ! empty($this->config['charset']) ) 
-				? 'charset='.$this->config['charset'] 
-				: '';
-		
-		return rtrim($dsn, ';');
+		if( ! empty($this->config['database']) )
+		{
+			$dsn .= $this->config['database'];
+		}
+		elseif( ! empty($this->config['host']) ) 
+		{
+			$dsn .= $this->config['host'];
+		}
+		else 
+		{
+			$dsn .= ':memory:';
+		}
+	
+		return $dsn;
 	}	
 }

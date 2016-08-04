@@ -1,10 +1,10 @@
 <?php
-namespace ZN\Database\Drivers\MySQL\PDO\Drivers;
+namespace ZN\Database\Drivers\PDO\Drivers;
 
-use ZN\Database\Drivers\MySQL\PDO\DriverInterface;
-use ZN\Database\Drivers\MySQL\PDO\DriverTrait;
+use ZN\Database\Drivers\PDO\DriverInterface;
+use ZN\Database\Drivers\PDO\DriverTrait;
 
-class PDOSqlsrvDriver implements DriverInterface
+class PDOSQLServerDriver implements DriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

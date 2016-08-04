@@ -1,10 +1,10 @@
 <?php
-namespace ZN\Database\Drivers\MySQL\PDO\Drivers;
+namespace ZN\Database\Drivers\PDO\Drivers;
 
-use ZN\Database\Drivers\MySQL\PDO\DriverInterface;
-use ZN\Database\Drivers\MySQL\PDO\DriverTrait;
+use ZN\Database\Drivers\PDO\DriverInterface;
+use ZN\Database\Drivers\PDO\DriverTrait;
 
-class PDOInformixDriver implements DriverInterface
+class PDOPostgresDriver implements DriverInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -24,30 +24,28 @@ class PDOInformixDriver implements DriverInterface
 	******************************************************************************************/
 	public function dsn()
 	{
-		$dsn  = 'informix:';
+		$dsn  = 'pgsql:';
 			
-		$dsn .= ( ! empty($this->config['host']) ) 	
+		$dsn .= ( ! empty($this->config['host']) ) 
 				? 'host='.$this->config['host'].';'
 				: '';
-				
-		$dsn .= ( ! empty($this->config['database']) ) 
-				? 'database='.$this->config['database'].';' 
-				: '';
-				
-		$dsn .= ( ! empty($this->config['service']) ) 
-				? 'service='.$this->config['service'].';' 
-				: $this->config['port'].';';
-				
-		$dsn .= ( ! empty($this->config['server']) ) 
-				? 'server='.$this->config['server'].';' 
-				: '';
-				
-		$dsn .= ( ! empty($this->config['protocol']) ) 
-				? 'protocol='.$this->config['server'].';' 
-				: 'onsoctcp;';
-
-		$dsn .= 'EnableScrollableCursors=1';
 		
-		return $dsn;
+		$dsn .= ( ! empty($this->config['database']) ) 
+				? 'dbname='.$this->config['database'].';' 
+				: '';
+				
+		$dsn .= ( ! empty($this->config['port']) ) 
+				? 'port='.$this->config['port'] .';'
+				: '';
+				
+		$dsn .= ( ! empty($this->config['user']) ) 
+				? 'user='.$this->config['user'] .';'
+				: '';
+				
+		$dsn .= ( ! empty($this->config['password']) ) 
+				? 'password='.$this->config['password']
+				: '';
+	
+		return rtrim($dsn, ';');
 	}	
 }

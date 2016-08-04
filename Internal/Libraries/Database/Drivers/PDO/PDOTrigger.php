@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\TriggerAbstract;
 
-class MySQLiTrigger extends TriggerAbstract
+class PDOTrigger extends TriggerAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
