@@ -468,4 +468,38 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	{
 		return $this->db->exec($this->_querySecurity($query), $this->secure);	
 	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected P
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var    $p
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _p($p = NULL, $name = 'table')
+	{
+		if( $name === 'prefix' )
+		{
+			return $this->$name.$p;
+		}
+
+		if( $name === 'table' )
+		{
+			$p = $this->prefix.$p;
+		}
+
+		if( ! empty($this->$name) )
+		{
+			$data = $this->$name;
+
+			$this->$name = NULL;
+
+			return $data;
+		}
+		else
+		{
+			return $p;
+		}
+	}
 }

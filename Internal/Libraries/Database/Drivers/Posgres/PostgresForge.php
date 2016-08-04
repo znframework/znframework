@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\ForgeAbstract;
 
-class ODBCForge extends ForgeAbstract
+class PostgresForge extends ForgeAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,17 +15,18 @@ class ODBCForge extends ForgeAbstract
 	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
-	// Truncate
+	// Modify Column
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param string $table
+	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate($table)
-	{ 
-		return 'DELETE FROM '.$table; 
+	public function modifyColumn($table, $column)
+	{
+		return 'ALTER TABLE '.$table.' ALTER COLUMN '.rtrim($column, ',').';';
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Rename Column
 	//----------------------------------------------------------------------------------------------------
@@ -36,6 +37,6 @@ class ODBCForge extends ForgeAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function renameColumn($table, $column)
 	{ 
-		return 'ALTER TABLE '.$table.' RENAME COLUMN  '.rtrim($column, ',').';';
+		return 'ALTER TABLE '.$table.' RENAME COLUMN '.key($column).' TO '.current($column).';';
 	}
 }

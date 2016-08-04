@@ -44,19 +44,6 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use DB\Traits\FunctionsTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Triggers
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// createTrigger()
-	// order()
-	// event()
-	// when()
-	// body()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use DB\Traits\TriggerTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -648,8 +635,10 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string $return -> Sorgunun dönüş türü. object, string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get(String $table = NULL, $return = 'object')
+	public function get(String $table = NULL, String $return = NULL)
 	{		
+		nullCoalesce($return, 'object');
+
 		if( ! empty($table) ) 
 		{
 			$this->tableName = $this->prefix.$table;
@@ -711,15 +700,16 @@ class InternalDB extends DatabaseCommon implements DBInterface
 				  $this->forUpdate.
 				  $this->lockInShareMode;
 			
-		// Limitsiz Sorgu
+		// Limited
 		$queryBuilder = $paginationQueryBuilder.$this->limit.$extras;
 		
-		// Limitsiz sorgu 
+		// Unlimited
 		$this->unlimitedQuery = $paginationQueryBuilder.$extras;
 		
-		// Sorguyu Temizle
+		// Clear Query
 		$this->_resetSelectQuery();
 		
+		// Query Security
 		$secureQueryBuilder = $this->_querySecurity($queryBuilder);
 		
 		if( $return === 'string' )
@@ -727,10 +717,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 			return $secureQueryBuilder;	
 		}
 		
-		// Sorgu
 		$this->db->query($secureQueryBuilder, $this->secure);
 		
-		// Sorguyu Dizesini Döndür.
 		return $this;
 	}
 	
@@ -1348,24 +1336,11 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function status(String $table = NULL)
 	{
-		if( ! empty($this->table) ) 
-		{
-			$table = $this->table; 
-			$this->table = NULL;
-		}
+		$table = "'".$this->_p($table)."'";
 
-		if( empty($table) ) 
-		{
-			return \Exceptions::throws('Error', 'emptyParameter', '1.($table)');
-		}
-		else
-		{
-			$table = "'".$this->prefix.trim($table)."'";
+		$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
 	
-			$query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
-		
-			$this->_runQuery($query);
-		}
+		$this->_runQuery($query);
 
 		return $this;
 	}
@@ -1408,32 +1383,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function insert($table = NULL, $datas = [])
 	{
-		if( ! empty($this->table) ) 
-		{
-			$datas = $table;
-			$table = $this->table; 
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$datas = $this->column;
-		}
-
-		if( empty($table) ) 
-		{
-			return \Exceptions::throws('Error', 'emptyParameter', '1.($table)');
-		}
-		
-		if( ! is_array($datas) ) 
-		{
-			return \Exceptions::throws('Error', 'arrayParameter', '1.($datas)');
-		}
-		
-		$data = ""; $values = "";
+		$datas = $this->_p($datas, 'column');	
+		$data  = ""; $values = "";
 		
 		$duplicateCheckWhere = [];
 		
@@ -1486,7 +1437,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 						$this->highPriority.
 						$this->ignore.
 					    ' INTO '.
-		                $table.
+		                $this->_p($table).
 						$this->partition.
 		               ' ('.substr($data, 0, -1).') VALUES ('.substr($values, 0, -1).')';
 
@@ -1505,33 +1456,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function update($table = NULL, $set = [])
 	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$set   = $table;
-			$table = $this->table; 
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$set = $this->column;
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.($table)');
-		}
-		
-		if( ! is_array($set) || empty($set) ) 
-		{
-			return \Exceptions::throws('Error', 'arrayParameter', '2.(set)');
-		}
-
+		$set  = $this->_p($set, 'column');
 		$data = '';
 		
 		foreach( $set as $key => $value )
@@ -1546,7 +1471,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 		$updateQuery = 'UPDATE '.
 					    $this->lowPriority.
 					    $this->ignore.
-		                $table.
+		                $this->_p($table).
 						$set.
 						$this->_where().
 						$this->_orderBy().
@@ -1565,23 +1490,13 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function delete($table = NULL)
-	{
-		if( ! empty($table) ) 
-		{
-			$this->table = $this->prefix.$table; 
-		}
-		
-		if( ! is_string($this->table) || empty($this->table) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.($table)');
-		}
-		
+	{	
 		$deleteQuery = 'DELETE '.
 		               $this->lowPriority.
 					   $this->quick.
 					   $this->ignore.
 					   ' FROM '.
-					   $this->table.
+					   $this->_p($table).
 					   $this->partition.
 					   $this->_where().
 					   $this->_orderBy().
@@ -2131,25 +2046,11 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	// Protected Increment & Decrement
 	//----------------------------------------------------------------------------------------------------
-	protected function _incdec($table = '', $columns = [], $incdec = 0, $type = '')
+	protected function _incdec($table = '', $columns = [], $incdec = 0, $type)
 	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$columns = $type === 'increment'	
-					 ? abs($columns)
-					 : -abs($columns);
-			
-			$incdec  = $columns;
-			$columns = $table;
-			$table   = $this->table; 
-			$this->table = NULL;
-		}
-		
-		$incdec = $type === 'increment'	
-				 ? abs($incdec)
-				 : -abs($incdec);
+		$table   = $this->_p($table);
+		$columns = $this->_p($columns, 'column');
+		$incdec  = $type === 'increment' ? abs($incdec) : -abs($incdec);
 		
 		if( is_array($columns) ) foreach( $columns as $v )
 		{

@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\ForgeAbstract;
 
-class ODBCForge extends ForgeAbstract
+class SQLiteForge extends ForgeAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,22 +20,9 @@ class ODBCForge extends ForgeAbstract
 	//
 	// @param string $table
 	//
-	//----------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------	
 	public function truncate($table)
 	{ 
 		return 'DELETE FROM '.$table; 
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Rename Column
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $table
-	// @param mixed  $column
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function renameColumn($table, $column)
-	{ 
-		return 'ALTER TABLE '.$table.' RENAME COLUMN  '.rtrim($column, ',').';';
 	}
 }

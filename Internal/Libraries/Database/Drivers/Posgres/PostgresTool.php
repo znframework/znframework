@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\ForgeAbstract;
+use ZN\Database\Abstracts\ToolAbstract;
 
-class ODBCForge extends ForgeAbstract
+class PostgresTool extends ToolAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,27 +15,66 @@ class ODBCForge extends ForgeAbstract
 	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
-	// Truncate
+	// List Databases
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $table
+	// Hostunuda yer var olan veritabanlarını listeler.
+	//
+	// @param  void
+	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate($table)
-	{ 
-		return 'DELETE FROM '.$table; 
+	public function listDatabases()
+	{
+		$result = \DB::query('SELECT datname FROM pg_database')->result();
+		
+		if( \DB::error() ) 
+		{
+			return false;
+		}
+		
+		$newDatabases = [];
+		
+		foreach( $result as $databases )
+		{
+			foreach( $databases as $db => $database )
+			{
+				$newDatabases[] = $database;
+			}
+		}
+		
+		return $newDatabases;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Rename Column
+	// List Tables
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $table
-	// @param mixed  $column
+	// Bağlı olduğunuz veritabanına ait tabloları listeler.
+	//
+	// @param  void
+	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn($table, $column)
-	{ 
-		return 'ALTER TABLE '.$table.' RENAME COLUMN  '.rtrim($column, ',').';';
+	public function listTables()
+	{
+		$result = \DB::query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")->result();
+		
+		if( \DB::error() ) 
+		{
+			return false;
+		}
+		
+		$newTables = [];
+		
+		foreach( $result as $tables )
+		{
+			foreach( $tables as $tb => $table )
+			{
+				$newTables[] = $table;
+			}
+		}
+		
+		return $newTables;
 	}
 }
