@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Cryptography;
 
-class InternalCrypto extends \CallController implements CryptoInterface, \DriverMethodInterface
+class InternalCrypto extends \CallController implements CryptoInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,16 +11,24 @@ class InternalCrypto extends \CallController implements CryptoInterface, \Driver
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-		
+	
 	//----------------------------------------------------------------------------------------------------
-	// Driver Method
+	// Drivers
 	//----------------------------------------------------------------------------------------------------
-	// 
-	// driver()
+	//
+	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \DriverMethodTrait;
-
+	protected $drivers =
+	[
+		'hash',
+		'mhash',
+		'phash',
+		'openssl',
+		'mcrypt',
+		'zlib'
+	];
+	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Crypto
 	//----------------------------------------------------------------------------------------------------
@@ -42,7 +50,11 @@ class InternalCrypto extends \CallController implements CryptoInterface, \Driver
 	//----------------------------------------------------------------------------------------------------
 	public function __construct(String $driver = NULL)
 	{
-		$this->crypto = \Driver::run('Encode', $driver);
+		nullCoalesce($driver, \Config::get('Encode', 'driver'));
+
+		\Support::driver($this->drivers, $driver);
+
+		$this->crypto = uselib($driver.'Driver');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -118,6 +130,15 @@ class InternalCrypto extends \CallController implements CryptoInterface, \Driver
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Keygen Method Bitiş
+	// Driver                                                                       
 	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $driver
+	// @return object 	        		     			 
+	//          																				 
+	//----------------------------------------------------------------------------------------------------
+	public function driver(String $driver)
+	{
+		return new self($driver);
+	}
 }

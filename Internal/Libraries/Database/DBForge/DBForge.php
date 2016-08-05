@@ -41,7 +41,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	{
 		parent::__construct();
 
-		$this->forge = uselib($this->_drvlib($this->config['driver'], 'Forge'));
+		$this->forge = $this->_drvlib('Forge');
 	}
 
 	//----------------------------------------------------------------------------------------------------

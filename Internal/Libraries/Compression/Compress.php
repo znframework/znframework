@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Compression;
 
-class InternalCompress extends \CallController implements CompressInterface, \DriverMethodInterface
+class InternalCompress extends \CallController implements CompressInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,14 +13,22 @@ class InternalCompress extends \CallController implements CompressInterface, \Dr
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Driver Method
+	// Drivers
 	//----------------------------------------------------------------------------------------------------
-	// 
-	// driver()
+	//
+	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \DriverMethodTrait;
-
+	protected $drivers =
+	[
+		'bz',
+		'gz',
+		'lzf',
+		'rar',
+		'zip',
+		'zlib'
+	];
+	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Compress
 	//----------------------------------------------------------------------------------------------------
@@ -42,7 +50,11 @@ class InternalCompress extends \CallController implements CompressInterface, \Dr
 	//----------------------------------------------------------------------------------------------------
 	public function __construct(String $driver = NULL)
 	{	
-		$this->compress = \Driver::run('Compress', $driver);
+		nullCoalesce($driver, \Config::get('Compress', 'driver'));
+
+		\Support::driver($this->drivers, $driver);
+
+		$this->compress = uselib($driver.'Driver');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -246,6 +258,15 @@ class InternalCompress extends \CallController implements CompressInterface, \Dr
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Deflate Methods Bitiş
+	// Driver                                                                       
 	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  string $driver
+	// @return object 	        		     			 
+	//          																				 
+	//----------------------------------------------------------------------------------------------------
+	public function driver(String $driver)
+	{
+		return new self($driver);
+	}
 }

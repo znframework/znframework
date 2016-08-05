@@ -106,6 +106,15 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $column;
+
+	//----------------------------------------------------------------------------------------------------
+	// Driver
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $driver;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Construct
@@ -116,7 +125,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($config = [])
 	{
-		$this->db = $this->run();
+		$this->db = $this->_run();
 
 		$this->prefix = $this->config['prefix'];
 			
@@ -416,33 +425,13 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function run()
+	protected function _run()
 	{	
-		$config = \Config::get('Database');
+		$this->config = \Config::get('Database');
 		
-		$this->config = $config;
-		
-		if( isset($config['driver']) ) 
-		{		
-			$driver = $config['driver'];
-			
-			if( ! in_array(strtolower($driver), $this->drivers) )
-			{
-				die(\Errors::message('Database', 'driverError', $driver));		
-			}
-
-			if( strpos($driver, ':') )
-			{
-				$subDrivers = explode(':', $driver);
-				$driver     = $subDrivers[0];
-			}
-			
-			$drv = $this->_drvlib($driver, 'Driver');
-		
-			$db = new $drv;
-			
-			return $db;
-		}	
+		$this->driver = explode(':', $this->config['driver'])[0];
+	
+		return $this->_drvlib('Driver');
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -453,9 +442,11 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param string $suffix
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _drvlib($driver, $suffix)
+	protected function _drvlib($suffix = 'Driver')
 	{
-		return 'ZN\Database\Drivers\\'.$driver.$suffix;
+		\Support::driver($this->drivers, $this->driver);
+
+		return uselib('ZN\Database\Drivers\\'.$this->driver.$suffix);
 	}
 
 	//----------------------------------------------------------------------------------------------------

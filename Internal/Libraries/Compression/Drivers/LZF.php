@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Compression\Drivers;
 
-use ZN\Compression\CompressAbstract\CompressAbstract;
+use ZN\Compression\DriverMapping;
 
-class LZFDriver extends CompressAbstract
+class LZFDriver extends DriverMapping
 {
 	//----------------------------------------------------------------------------------------------------
 	//

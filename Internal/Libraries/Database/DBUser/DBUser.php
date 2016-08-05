@@ -29,7 +29,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	{
 		parent::__construct();
 
-		$this->user = uselib($this->_drvlib($this->config['driver'], 'User'));
+		$this->user = $this->_drvlib($this->config['driver'], 'User');
 	}
 
 	

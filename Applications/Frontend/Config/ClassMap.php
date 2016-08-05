@@ -669,4 +669,9 @@ $config['ClassMap']['namespaces']['zn\viewobjects\internalstyle'] = 'internalsty
 $config['ClassMap']['namespaces']['zn\viewobjects\templatewizard'] = 'templatewizard';
 $config['ClassMap']['namespaces']['zn\viewobjects\templatewizardinterface'] = 'templatewizardinterface';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalxml';
-$config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
+$config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';$config['ClassMap']['classes']['zn\compression\compressmapping'] = 'Internal/Libraries/Compression/CompressMapping.php';
+$config['ClassMap']['classes']['zn\datetime\datetimecommon'] = 'Internal/Libraries/DateTime/DateTimeCommon.php';
+$config['ClassMap']['namespaces']['zn\compression\compressmapping'] = 'compressmapping';
+$config['ClassMap']['namespaces']['zn\datetime\datetimecommon'] = 'datetimecommon';$config['ClassMap']['classes']['zn\compression\drivermapping'] = 'Internal/Libraries/Compression/DriverMapping.php';
+$config['ClassMap']['namespaces']['zn\compression\drivermapping'] = 'drivermapping';$config['ClassMap']['classes']['zn\caching\abstracts\drivermappingabstract'] = 'Internal/Libraries/Caching/DriverMappingAbstract.php';
+$config['ClassMap']['namespaces']['zn\caching\abstracts\drivermappingabstract'] = 'drivermappingabstract';

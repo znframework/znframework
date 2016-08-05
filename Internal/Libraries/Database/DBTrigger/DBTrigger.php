@@ -29,7 +29,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	{
 		parent::__construct();
 
-		$this->trigger = uselib($this->_drvlib($this->config['driver'], 'Trigger'));
+		$this->trigger = $this->_drvlib('Trigger');
 	}
 
 	//----------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalClean implements CleanInterface
+class InternalClean extends \CallController implements CleanInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,19 +12,15 @@ class InternalClean implements CleanInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \CallUndefinedMethodTrait;
-	
-	/******************************************************************************************
-	* DATA                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Dizi ya da metinsel ifadelerden veri silmek için kullanılır. 			  |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              	      |
-	| 1. string/array var @searchData => Aranacak metin veya dizi elamanları.				  |
-	| 2. string/array var @cleanWord => Silinecek metin veya dizi elamanları.				  |
-	|																						  |
-	******************************************************************************************/	
-	public function data($searchData = '', $cleanWord = '')
+	//----------------------------------------------------------------------------------------------------
+	// Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param mixed $searchData
+	// @param mixed $cleanWord
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function data($searchData, $cleanWord)
 	{
 		if( ! is_array($searchData) )
 		{	

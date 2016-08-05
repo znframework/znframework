@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalConvert implements ConvertInterface
+class InternalConvert extends \CallController implements ConvertInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,23 +12,8 @@ class InternalConvert implements ConvertInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// anchor
+	// Anchor
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param string $data
@@ -36,50 +21,32 @@ class InternalConvert implements ConvertInterface
 	// @param array  $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function anchor($data = '', $type = 'short', $attributes = [])
+	public function anchor(String $data, String $type = NULL, Array $attributes = NULL)
 	{
+		nullCoalesce($type, 'short');
+
 		return preg_replace
 		(
 			'/(((https?|ftp)\:\/\/)(\w+\.)*(\w+)\.\w+\/*\S*)/xi', 
-			'<a href="$1"'.\Html::attributes($attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
+			'<a href="$1"'.\Html::attributes((array) $attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
 			$data
 		);
 	}
 	
-	/******************************************************************************************
-	* CHAR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Karakterleri bir türden diğer türe dönüştürmek için kullanılır. 		  |
-	|																						  |
-	| Parametreler: 3 parametresi vardır.                                              	      |
-	| 1. string var @string => Dönüştürülecek metin.				                          |
-	| 2. [ string var @type ] => Hangi türden dönüşüm yapılacağı. Varsayılan:char			  |
-	| 3. [ string var @change_type ] => Hangi türe dönüşüm yapılacağı. Varsayılan:html		  |
-	|   																					  |
-	| Dönüştürülebilecek türler => char, html, dex, hex										  |
-	|       																				  |
-	| Örnek Kullanım:  																	      |
-	| echo char('Metin'); // Kaynak Kod Çıktı: &#77;&#101;&#116;&#105;&#110; 		  		  |
-	| echo char('Metin', 'char', 'dec'); // Çıktı: 77 101 116 105 110 			  			  |
-	| echo char('Metin', 'char', 'hex'); // Çıktı: 4D 65 74 69 6E 				  			  |
-	|																						  |
-	| Kendi Aralarında Dönüştürme														      |
-	| $html = char('Metin');														  		  |
-	| $dec = char('Metin', 'char', 'dec');										  			  |
-	| $hex = char('Metin', 'char', 'hex');										  			  |
-	|																						  |
-	| echo char($hex, 'hex', 'char'); // Çıktı: Metin								  		  |
-	| echo char($dec, 'dec', 'hex'); // Çıktı: 4D 65 74 69 6E					     	 	  |
-	| echo char($html, 'html', 'dec'); // Çıktı: 77 101 116 105 110                 		  |	
-	|       																				  |
-	******************************************************************************************/
-	public function char($string = '', $type = 'char', $changeType = 'html')
+	//----------------------------------------------------------------------------------------------------
+	// Char
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $string
+	// @param string $type      : char, dec, hex, html
+	// @param string $changeType: char, dec, hex, html
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function char(String $string, String $type = NULL, String $changeType = NULL)
 	{
-		if( ! is_scalar($string) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'string');
-		}
-		
+		nullCoalesce($type, 'char');
+		nullCoalesce($changeType, 'html');
+
 		$string = $this->accent($string);
 		
 		if( ! is_string($type) ) 
@@ -115,27 +82,15 @@ class InternalConvert implements ConvertInterface
 		return str_replace( $chars[strtolower($type)], $chars[strtolower($changeType)], $string );
 	}
 
-	/******************************************************************************************
-	* ACCENT CONVERTER                                                                        *
-	*******************************************************************************************
-	| Genel Kullanım: Yabancı içerikli karaketerleri standart karakterlere dönüştürür. 		  |
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @string => Dönüştürülecek metin.				                          |
-	|       																				  |
-	| Örnek Kullanım:  																	      |
-	| echo accent_converter('Åķŝǻň'); // Çıktı: Aksan 										  |
-	|       																				  |
-	******************************************************************************************/
-	public function accent($str = '') 
+	//----------------------------------------------------------------------------------------------------
+	// Accent
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $str
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function accent(String $str) 
 	{	
-		if( ! is_string($str) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'str');
-		}
-		
-		// Config/ForeignChars.php dosyasından
-		// kullanılacak karakter listesini al.
 		$accent = \Config::get('ForeignChars', 'accentChars');
 		
 		$accent = \Arrays::multikey($accent);
@@ -143,31 +98,17 @@ class InternalConvert implements ConvertInterface
 		return str_replace(array_keys($accent), array_values($accent), $str); 
 	} 
 
-	/******************************************************************************************
-	* URL WORD CONVERTER                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Yabancı karaketer içerikli metni url yapısına uygun hale dönüştürür 	  |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              	      |
-	| 1. string var @string => Dönüştürülecek metin.				                          |
-	| 1. [ string var @splitword ] => Kelimeler arasına konacak işaret. Varsayılan:-		  |
-	|       																				  |
-	| Örnek Kullanım:  																	      |
-	| echo url_word_converter('Zn Kod Çatısına Hoş'); // zn-kod-catisina-hos 				  |
-	| echo url_word_converter('Zn Kod Çatısına Hoş', '/'); //  zn/kod/catisina/hos			  |
-	|       																				  |
-	******************************************************************************************/
-	public function urlWord($str = '', $splitWord = '-')
+	//----------------------------------------------------------------------------------------------------
+	// Url Word
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $str
+	// @param string $splitWord
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function urlWord(String $str, String $splitWord = NULL)
 	{
-		if( ! is_string($str) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'str');
-		}
-	
-		if( ! is_string($splitWord) ) 
-		{
-			$splitWord = "-";
-		}	
+		nullCoalesce($splitWord, '-');	
 		
 		$badChars = \Config::get('Security', 'urlBadChars');
 		
@@ -180,55 +121,37 @@ class InternalConvert implements ConvertInterface
 		return $str;
 	}
 
-	/******************************************************************************************
-	* ARRAY CASE -> V2 - TEMMUZ GÜNCELLEMESİ                                                                        *
-	*******************************************************************************************
-	| Genel Kullanım: Küçük büyük harf dönüştürmeleri yapmak için kullanılır.			  	  |
-	|																						  |
-	| Parametreler: 3 parametresi vardır.                                              	      |
-	| 1. string var @string => Dönüştürülecek metin.				                          |
-	| 2. [ string var @type ] => Dönüşümün tipi. Varsayılan:lower					     	  |
-	| 3. [ string var @encoding ] => Dönüşümün karakter seti. Varsayılan:utf-8				  |
-	|       																				  |
-	| Kullanılabilir Dönüşüm Tipleri: lower, upper, title   								  |
-	|																						  |
-	| Örnek Kullanım:  																	      |
-	| echo case_converter('Zn Kod Çatısına Hoş'); // Çıktı: zn kod çatısına hoş				  |
-	| echo case_converter('Zn Kod Çatısına Hoş', 'upper'); // Çıktı: ZN KOD ÇATISINA HOŞ	  |
-	| echo case_converter('Zn Kod Çatısına Hoş', 'title'); // Çıktı: Zn Kod Çatısına Hoş	  |
-	|       																				  |
-	******************************************************************************************/
-	public function stringCase($str = '', $type = 'lower', $encoding = "utf-8")
+	//----------------------------------------------------------------------------------------------------
+	// String Case
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $str
+	// @param string $type: lower, upper, title
+	// @param string $encoding
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function stringCase(String $str, String $type = NULL, String $encoding = NULL)
 	{
-		if( ! is_string($str) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'str');
-		}
-		
+		nullCoalesce($type, 'lower');
+		nullCoalesce($encoding, 'utf-8');
+
 		return mb_convert_case($str, $this->toConstant($type, 'MB_CASE_'), $encoding);	
 	}	
 	
-	/******************************************************************************************
-	* ARRAY CASE -> V2 - TEMMUZ GÜNCELLEMESİ                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizi anahtar ve değerlerinde harf dönüşümü yapmak için kullanılır .     |
-	
-	  @param array  $array
-	  @param string $type lower, upper, title
-	  @param string $keyval all, key, val/value
-	|																						  |
-	******************************************************************************************/
-	public function arrayCase($array = [], $type = 'lower', $keyval = 'all')
+	//----------------------------------------------------------------------------------------------------
+	// Array Case
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array  $array
+	// @param string $type  : lower, upper, title
+	// @param string $keyval: key, val, value, all
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function arrayCase(Array $array, String $type = NULL, String $keyval = NULL)
 	{
-		if( ! is_array($array) || ! is_string($type) || ! is_string($keyval) )
-		{
-			\Errors::set('Error', 'arrayParameter', 'array');
-			\Errors::set('Error', 'stringParameter', 'type');
-			\Errors::set('Error', 'stringParameter', 'keyval');
-			
-			return false;	
-		}
-		
+		nullCoalesce($type, 'lower');
+		nullCoalesce($keyval, 'all');
+
 		if( $type === 'lower' )
 		{
 			$caseType = 'Strings::lowerCase';	
@@ -269,60 +192,34 @@ class InternalConvert implements ConvertInterface
 		return $newArray;
 	}
 	
-	/******************************************************************************************
-	* CHARSET CONVERTER                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Küçük büyük harf dönüştürmeleri yapmak için kullanılır.			  	  |
-	|																						  |
-	| Parametreler: 3 parametresi vardır.                                              	      |
-	| 1. string var @string => Dönüştürülecek metin.				                          |
-	| 2. [ string var @from_charset ] => Hangi karakter setinden. Varsayılan:utf-8			  |
-	| 3. [ string var @to_charset ] => Hangi karakter setine. Varsayılan:utf-8				  |
-	|																						  |
-	| Örnek Kullanım:  																	      |
-	| echo case_converter('Zn Kod Çatısına Hoş', 'latin5', 'urtf-8');                         |
-	|       																				  |
-	******************************************************************************************/
-	public function charset($str = '', $fromCharset = 'utf-8', $toCharset = 'utf-8')
+	//----------------------------------------------------------------------------------------------------
+	// Charset
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $str
+	// @param string $fromCharset
+	// @param string $toCharset
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function charset(String $str, String $fromCharset, String $toCharset = NULL)
 	{
-		if( ! is_string($str) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'str');
-		}
-		
-		if( ! isCharset($fromCharset) || ! isCharset($toCharset) ) 
-		{
-			\Errors::set('Error', 'charsetParameter', 'fromCharset');
-			\Errors::set('Error', 'charsetParameter', 'toCharset');
-			
-			return false;
-		}
-		
+		nullCoalesce($toCharset, 'utf-8');
+
 		return mb_convert_encoding($str, $fromCharset, $toCharset);	
 	}
 	
-	/******************************************************************************************
-	* HIGH LIGHT                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Girilen metinsel kodun yazı biçimini ve renkleri ayarlamak içindir.	  |
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              	      |
-	| 1. string var @string => Dönüştürülecek metin.				                          |
-	| 2. [ array var @settings ] => Renk ve yazı ayarları.									  |
-	|																						  |
-	| Örnek Kullanım: highLight('echo 1;');  											  	  |
-	|       																				  |
-	******************************************************************************************/
-	public function highLight($str = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// High Light
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $str
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function highLight(String $str, Array $settings = NULL)
 	{
-		if( ! is_string($str) || ! is_array($settings) )
-		{
-			\Errors::set('Error', 'stringParameter', 'str');
-			\Errors::set('Error', 'arrayParameter', 'settings');
-			
-			return false;	
-		}
-		
+		nullCoalesce($settings, []);
+
 		$phpFamily 	    = ! empty( $settings['php:family'] ) ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
 		$phpSize   	    = ! empty( $settings['php:size'] )   ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
 		$phpStyle   	= ! empty( $settings['php:style'] )  ? $settings['php:style'] : '';		
@@ -362,184 +259,157 @@ class InternalConvert implements ConvertInterface
 		return str_replace(['&#60;&#63;php', '&#63;&#62;'], $tagArray, $string);
     }
 	
-	/******************************************************************************************
-	* TO INT			                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü int türüne çevirmek için kullanılır.			  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toInt($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Int
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toInt($var)
 	{
-		return (int)$var;	
+		return (int) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO INTEGER			                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü int türüne çevirmek için kullanılır.			  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toInteger($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Integer
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toInteger($var)
 	{
-		return (integer)$var;	
+		return (int) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO BOOL			                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü boolean türüne çevirmek için kullanılır.		  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toBool($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Bool
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toBool($var)
 	{
-		return (bool)$var;	
+		return (bool) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO BOOLEAN    	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü boolean türüne çevirmek için kullanılır.		  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toBoolean($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Boolean
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toBoolean($var)
 	{
-		return (boolean)$var;	
+		return (bool) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO STRING      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü string türüne çevirmek için kullanılır.		  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toString($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To String
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toString($var)
 	{
 		if( is_array($var) || is_object($var) ) 
 		{
 			return $var;
 		}
 		
-		return (string)$var;	
+		return (string) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO FLOAT      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü float türüne çevirmek için kullanılır.		      |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toFloat($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Float
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toFloat($var)
 	{
-		return (float)$var;	
+		return (float) $var;	
 	}	
 	
-	/******************************************************************************************
-	* TO REAL        	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü real türüne çevirmek için kullanılır.		      |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toReal($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Real
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toReal($var)
 	{
-		return (real)$var;	
+		return (real) $var;	
 	}	
 	
-	/******************************************************************************************
-	* TO DOUBLE      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü double türüne çevirmek için kullanılır.		  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toDouble($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Double
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toDouble($var)
 	{
-		return (double)$var;	
+		return (double) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO OBJECT      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü object türüne çevirmek için kullanılır.		  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toObject($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Object
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toObject($var)
 	{
-		return (object)$var;	
+		return (object) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO ARRAY      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü array türüne çevirmek için kullanılır.		      |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toArray($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Array
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toArray($var)
 	{
-		return (array)$var;	
+		return (array) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO UNSET      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkeni silmek için kullanılır.		  								  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Silinecek değişken.				                         	  	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toUnset($var = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Unset
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var $var
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toUnset($var)
 	{
-		return (unset)$var;	
+		return (unset) $var;	
 	}
 	
-	/******************************************************************************************
-	* TO CONSTANT      	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: String ifadeyi contant türüne çevirmek için kullanılır.				  |	
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. var var @var => Çevrilecek değişken.				                         	  	  |
-	|       																				  |
-	******************************************************************************************/
-	public function toConstant($var = NULL, $prefix = '', $suffix = '')
+	//----------------------------------------------------------------------------------------------------
+	// To Constant
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var    $var
+	// @param string $prefix
+	// @param string $suffix
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toConstant($var, String $prefix = NULL, String $suffix = NULL)
 	{
 		if( ! is_scalar($var) )
 		{
-			return \Errors::set('Error', 'valueParameter', '1.(var)');	
-		}
-		
-		if( ! is_string($prefix) || ! is_string($suffix) )
-		{
-			return \Errors::set('Error', 'stringParameter', '2.(prefix) & 2.(suffix)');	
+			return \Exceptions::throws('Error', 'valueParameter', '1.(var)');	
 		}
 			
 		if( defined(strtoupper($prefix.$var.$suffix)) )
@@ -556,26 +426,16 @@ class InternalConvert implements ConvertInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* VAR TYPE			                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenin veri türünü değiştirmek için kullanılır.			  	  	  |	
-	|																						  |
-	| Parametreler: 2 parametresi vardır.                                              	      |
-	| 1. var var @var => Dönüştürülecek değişken.				                         	  |
-	| 2. [ string var @type ] => Hangi türe. Varsayılan:int									  |
-	|																						  |
-	| Örnek Kullanım:  																	      |
-	| echo case_converter('Zn Kod Çatısına Hoş', 'latin5', 'urtf-8');                         |
-	|       																				  |
-	******************************************************************************************/
-	public function varType($var = '', $type = 'int')
+	//----------------------------------------------------------------------------------------------------
+	// To Unset
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param var    $var
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function varType($var, String $type)
 	{
-		if( ! is_string($type) ) 
-		{
-			return false;
-		}
-		
 		switch($type)
 		{
 			case 'int':

@@ -37,7 +37,7 @@ interface DBTriggerInterface
 	// @param string $type: FOLLOWS, PRECEDES
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function order(String $type, String $name)
+	public function order(String $type, String $name);
 	
 	//----------------------------------------------------------------------------------------------------
 	// body()

@@ -21,17 +21,15 @@ class InternalIV extends \CallController implements IVInterface
 	//----------------------------------------------------------------------------------------------------
 	protected $inputs = ['input', 'output', 'internal'];
 	
-	/******************************************************************************************
-	* CONVERT                     	                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Dizgenin karakter kodlamasını dönüştürür.	  							  | 
-		
-	  @param  string  $string
-	  @param  string  $fromEncoding
-	  @param  string  $toEncoding
-	  @return string  
-	|														                                  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Convert
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $string
+	// @param string $fromEncoding
+	// @param string $toEncoding
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function convert(String $string, String $fromEncoding, String $toEncoding)
 	{	
 		$toEncodingFirst = \Arrays::getFirst(explode('//', $toEncoding));
@@ -44,31 +42,29 @@ class InternalIV extends \CallController implements IVInterface
 		return iconv($fromEncoding, $toEncoding, $string);
 	}
 	
-	/******************************************************************************************
-	* ENCODING                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Iconv için kullanılabilir kodlama setlerinin listesini döndürür.        | 
-		
-	  @param  void
-	  @return array
-	|														                                  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Encodings
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function encodings()
 	{
 		return iconv_get_encoding();
 	}
 	
-	/******************************************************************************************
-	* GET ENCODING                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: iconv eklentisinin dahili yapılandırma değişkenlerini döndürür.         | 
-		
-	  @param  string $type -> input, output, internal
-	  @return string
-	|														                                  |
-	******************************************************************************************/
-	public function getEncoding($type = 'input')
+	//----------------------------------------------------------------------------------------------------
+	// Get Encoding
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getEncoding(String $type = NULL)
 	{
+		nullCoalesce($type, 'input');
+
 		if( ! in_array($type, $this->inputs) )
 		{
 			return \Exceptions::throws('Error', 'invalidInput', $type);	
@@ -77,18 +73,19 @@ class InternalIV extends \CallController implements IVInterface
 		return iconv_get_encoding($type.'_encoding');
 	}
 	
-	/******************************************************************************************
-	* SET ENCODING                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Karakter kodlaması dönüşümü için geçerli karakter kümesini tanımlar.    | 
-		
-	  @param  string $type    -> input, output, internal
-	  @param  string $charset -> geçerli karakter setlerinden herhangi biri
-	  @return bool
-	|														                                  |
-	******************************************************************************************/
-	public function setEncoding($type = 'input', $charset = 'utf-8')
+	//----------------------------------------------------------------------------------------------------
+	// Set Encoding
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	// @param string $charset
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function setEncoding(String $type = NULL, String $charset = NULL)
 	{
+		nullCoalesce($type, 'input');
+		nullCoalesce($charset, 'utf-8');
+
 		if( ! is_array($type, $this->inputs) )
 		{
 			return \Exceptions::throws('Error', 'invalidInput', $type);	
@@ -102,17 +99,15 @@ class InternalIV extends \CallController implements IVInterface
 		return iconv_set_encoding($type.'_encoding', $charset);
 	}
 	
-	/******************************************************************************************
-	* MIME DECODE     		                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir defada birden fazla MIME başlık alanını çözümler.   				  | 
-		
-	  @param  string $encodedHeaders
-	  @param  int	 $mode 0
-	  @param  string $charset ini_get("iconv.internal_encoding")
-	  @return array  
-	|														                                  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Mimes Decode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $encodedHeaders
+	// @param int    $mode
+	// @param string $charset
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function mimesDecode(String $encodedHeaders, $mode = 0, $charset = NULL)
 	{
 		if( $charset === NULL )
@@ -123,17 +118,15 @@ class InternalIV extends \CallController implements IVInterface
 		return iconv_mime_decode_headers($encodedHeaders, $mode, $charset);
 	}
 	
-	/******************************************************************************************
-	* MIME DECODE                	                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bir MIME başlık alanının kodunu çözer.   								  | 
-		
-	  @param  string $encodedHeaders
-	  @param  int	 $mode 0
-	  @param  string $charset ini_get("iconv.internal_encoding")
-	  @return string  
-	|														                                  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Mime Decode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $encodedHeader
+	// @param int    $mode
+	// @param string $charset
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function mimeDecode(String $encodedHeader, $mode = 0, $charset = NULL)
 	{
 		if( $charset === NULL )
@@ -144,17 +137,15 @@ class InternalIV extends \CallController implements IVInterface
 		return iconv_mime_decode($encodedHeader, $mode, $charset);
 	}
 	
-	/******************************************************************************************
-	* MIME ENCODE                	                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bir MIME başlık alanı düzenler.		   								  | 
-		
-	  @param  string $fieldName
-	  @param  string $fieldValue
-	  @param  array  $preferences
-	  @return string  
-	|														                                  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Mime Encode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $fieldName
+	// @param string $fieldValue
+	// @param array  $preferences
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences = NULL)
 	{
 		return iconv_mime_encode($fieldName, $fieldValue, (array) $preferences);

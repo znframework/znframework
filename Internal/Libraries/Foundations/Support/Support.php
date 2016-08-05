@@ -31,7 +31,14 @@ class InternalSupport extends \CallController implements SupportInterface
 
 		if( ! $func($name) )
 		{
-			die(getErrorMessage('Error', $error, $value));	
+			if( is_string($error) )
+			{
+				die(getErrorMessage('Error', $error, $value));
+			}
+			else
+			{
+				die(getErrorMessage(key($error), current($error), $value));
+			}	
 		}
 
 		return true;
@@ -74,5 +81,36 @@ class InternalSupport extends \CallController implements SupportInterface
 	public function library(String $name, String $value = NULL)
 	{
 		return $this->_loaded($name, $value, 'class_exists', 'classError');
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Writable
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $name
+	// @param  string  $value
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function writable(String $name, String $value = NULL)
+	{
+		return $this->_loaded($name, $value, 'is_writable', 'fileNotWrite');
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Driver
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string  $name
+	// @param  string  $value
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function driver(Array $drivers, String $driver = NULL)
+	{
+		if( ! in_array(strtolower($driver), $drivers) )
+		{
+			die(getErrorMessage('Error', 'driverError', $driver));
+		}
+
+		return true;
 	}
 }

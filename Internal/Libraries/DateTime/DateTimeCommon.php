@@ -1,7 +1,7 @@
 <?php
 namespace ZN\DateTime;
 
-trait DateTimeTrait
+class DateTimeCommon extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -156,7 +156,7 @@ trait DateTimeTrait
 	//----------------------------------------------------------------------------------------------------
 	protected function _classname()
 	{
-		return $className = str_replace(STATIC_ACCESS, '', __CLASS__);	
+		return $className = str_replace(STATIC_ACCESS, '', get_called_class());	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

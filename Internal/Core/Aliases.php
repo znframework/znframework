@@ -24,8 +24,6 @@ class_alias('ZN\Foundations\Extend\CallController', 'CallController');
 class_alias('ZN\Foundations\Traits\CallUndefinedMethodTrait', 'CallUndefinedMethodTrait');
 class_alias('ZN\Foundations\Traits\Config\ConfigMethodTrait', 'ConfigMethodTrait');
 class_alias('ZN\Foundations\Traits\Config\ConfigMethodInterface', 'ConfigMethodInterface');
-class_alias('ZN\Foundations\Traits\Driver\DriverMethodTrait', 'DriverMethodTrait');
-class_alias('ZN\Foundations\Traits\Driver\DriverMethodInterface', 'DriverMethodInterface');
 class_alias('ZN\Foundations\Traits\Status\ErrorControlTrait', 'ErrorControlTrait');
 class_alias('ZN\Foundations\Traits\Status\ErrorControlInterface', 'ErrorControlInterface');
 //----------------------------------------------------------------------------------------------------

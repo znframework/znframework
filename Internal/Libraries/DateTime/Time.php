@@ -1,7 +1,7 @@
 <?php
 namespace ZN\DateTime;
 
-class InternalTime extends \CallController implements DateTimeCommonInterface
+class InternalTime extends DateTimeCommon implements DateTimeCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	// TIME CLASS
@@ -20,17 +20,6 @@ class InternalTime extends \CallController implements DateTimeCommonInterface
 	// Not: Büyük-küçük harf duyarlılığı yoktur.
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Common
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $config
-	//
-	// __construct()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use DateTimeTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Current

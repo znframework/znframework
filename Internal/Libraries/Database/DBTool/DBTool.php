@@ -25,7 +25,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	{
 		parent::__construct();
 
-		$this->tool = uselib($this->_drvlib($this->config['driver'], 'Tool'));
+		$this->tool = $this->_drvlib('Tool');
 	}
 
 	//----------------------------------------------------------------------------------------------------
