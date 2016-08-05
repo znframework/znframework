@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalSearch implements SearchInterface
+class InternalSearch extends \CallController implements SearchInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,183 +12,127 @@ class InternalSearch implements SearchInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Result Değişkeni
-	 *  
-	 * Arama sonucu verilerini tutaması
-	 * için tanımlanmış dizi değişken
-	 */
-	private $result;
-	
-	/* Word Değişkeni
-	 *  
-	 * Aranacak kelime bilgisini tutaması
-	 * için tanımlanmış dizi değişken
-	 */
-	private $word;
-	
-	/* Type Değişkeni
-	 *  
-	 * Arama türü bilgisini tutaması
-	 * için tanımlanmış dizi değişken
-	 */
-	private $type;
-	
-	/* Filter Değişkeni
-	 *  
-	 * Aramayı başlatmadan önce filtre uygulamak için
-	 * tanımlanmış dizi değişken
-	 */
-	private $filter = [];
-	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Result
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
+	protected $result;
 	
-	// filter ve or_filter için.
-	protected function _filter($column = '', $value = '', $type)
+	//----------------------------------------------------------------------------------------------------
+	// Word
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $word;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $type;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Filter
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $filter = [];
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Filter
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $column
+	// @param string $value
+	// @param string $type 
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _filter($column, $value, $type)
 	{
-		// sütun adı veya operatör metinsel ifade içermiyorsa false değeri döndür.
-		if( ! is_string($column) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'column');
-		}
-		
-		// değer, metinsel veya sayısal değer içermiyorsa false değeri döndür.
-		if( ! is_scalar($value) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'value');
-		}
-		
-		// $filtre dizi değişkenine parametre olarak gönderilen değerleri string olarak ekle.
 		$this->filter[] = "$column|$value|$type";
 	}
 	
-	/******************************************************************************************
-	* FILTER                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Aramaya filtre uygulamak için kullanılır.                               |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
-	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
-	|          																				  |
-	| Örnek Kullanım: filter('yas >', 15);        	  			  							  |
-	| // where yas > 15         														      |
-	|          																				  |
-	| ÇOKLU FİLTRELEME         																  |
-	| [VE] bağlacı ile yapılmak isteniyorsa filter() yöntemini kullanılır.        			  |
-	| [VEYA] bağlacı ile yapılmak isteniyorsa orFilter() yöntemini kullanılır.        		  |
-	|          																				  |
-	******************************************************************************************/	
-	public function filter($column = '', $value = '')
+	//----------------------------------------------------------------------------------------------------
+	// Filter
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $column
+	// @param string $value
+	//
+	//----------------------------------------------------------------------------------------------------	
+	public function filter(String $column, $value)
 	{
 		$this->_filter($column, $value, 'and');
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* OR FILTER                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Aramaya birden fazla filtre uygulanacağı zamana ve kullanımda veya      |
-	| bağlacı tercih edileceği zaman kullanılır.                                              |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @column => Filtre uygulanacak sütun ve operatör bilgisi.                  |
-	| 2. string var @value  => Belirlenen sütunda filtrelenecek veri.                   	  |
-	|          																				  |
-	| Örnek Kullanım: orFilter('yas >', 15);        	  			  						  |
-	| // or where yas > 15         														      |
-	|          																				  |
-	******************************************************************************************/	
-	public function orFilter($column = '', $value = '')
+	//----------------------------------------------------------------------------------------------------
+	// Filter
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $column
+	// @param string $value
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function orFilter(String $column, $value)
 	{
 		$this->_filter($column, $value, 'or');
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* WORD                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Aranacak kelime veya data.                                              |
-	
-	  @var string $word: aranacak kelime
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/	
-	public function word($word = '')
+	//----------------------------------------------------------------------------------------------------
+	// Word
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $word
+	//
+	//----------------------------------------------------------------------------------------------------	
+	public function word(String $word)
 	{
 		$this->word = $word;
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TYPE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Aranacak türü.          				                                  |
-	
-	  @var string $type: arama türü
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/	
-	public function type($type = '')
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function type(String $type)
 	{
 		$this->type = $type;
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* GET                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Arama işlemini başlatır ve sonucu çıktılar.                             |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. array var @conditions => Arama yapılacak tablo adı ve tabloya ait sütun dizisidir.   |
-	| 2. string var @word  => Belirtilen tablo ve sütunlarda aranacak veri.                   |
-	| 3. string var @type  => Aranan kelimenin içinde geçen, ile başlayan ve ile biten durumu.|
-	|          																				  |
-	| Örnek Kullanım: 																		  |
-	| get(																					  |	
-	|	  array																				  |
-	|	  (																					  |
-	|		   'table1' => array('column1','column2') , 									  |
-	|		   'table2' => array('column1','column2')										  |	
-	|     ) 																			      |
-	| );        	  			  							  						          |
-	|          																				  |
-	| 3. TYPE Parametresi 5 farklı değer alabilir        									  |
-	| inside, starting, ending, equal, auto 												  |
-	|          																				  |
-	******************************************************************************************/	
-	public function get($conditions = [], $word = '', $type = 'auto')
-	{
-		// Parametreler kontrol ediliyor. -----------------------------------------
-		if( ! is_array($conditions) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'conditions');
-		}
-		
-		if( ! is_scalar($word) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'word');
-		}
-		
+	//----------------------------------------------------------------------------------------------------
+	// Get
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array  $conditions
+	// @param string $word
+	// @param string $type: auto, inside, equal, starting, ending
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function get(Array $conditions, String $word = NULL, String $type = NULL)
+	{	
+		nullCoalesce($type, 'auto');
+
 		if( ! empty($this->type) )
 		{
 			$type = $this->type	;
@@ -302,29 +246,21 @@ class InternalSearch implements SearchInterface
 		return (object)$result;	
 	}
 	
-	// Function: data()
-	// İşlev: Dizilerde ve metinsel ifadeler arama yapmak için kullanılır.
-	// Parametreler
-	// @search_data = Aranacak olan metin veya dizi.
-	// @search_word = Aranacak olan karakter veya karakterler
-	// @output = Arama sonucu türü. Parametrenin alabileceği değerler: bool, boolean, pos, position
-	// 1- bool/boolean sonucun bulunuduğunu yada bulunmadığını gösteren true veya false değeri döndürür.
-	// 2- pos/position sonuc bulunmuş ise bulunan bilginin başlangıç indeks numarasını bulunmamış ise -1 değerini döndürür.
-	// Dönen Değer: Arama sonucu.
-	public function data($searchData = '', $searchWord = '', $output = 'bool')
+	//----------------------------------------------------------------------------------------------------
+	// Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param mixed  $searchData
+	// @param mixed  $searchWord
+	// @param string $output: bool, boolean, pos, position, str, string
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function data($searchData, $searchWord, String $output = NULL)
 	{
-		if( ! is_string($output) ) 
-		{
-			$output = 'bool';
-		}
-		
+		nullCoalesce($output, 'bool');
+
 		if( ! is_array($searchData) )
 		{	
-			if( ! is_scalar($searchWord) ) 
-			{
-				return \Errors::set('Error', 'valueParameter', 'searchWord');
-			}
-			
 			if( $output === 'str' || $output === 'string' ) 
 			{
 				return strstr($searchData, $searchWord);

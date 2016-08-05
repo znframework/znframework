@@ -1,65 +1,52 @@
 <?php
 namespace ZN\ImageProcessing;
 
-class InternalImage implements ImageInterface
+class InternalImage extends \CallController implements ImageInterface
 {
-	/***********************************************************************************/
-	/* IMAGE LIBRARY						                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: Image
-	/* Versiyon: 1.0
-	/* Tanımlanma: Statik
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: image::, $this->image, zn::$use->image, uselib('image')
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
-	
-	/* Dir Name Değişkeni
-	 *  
-	 * Oluşturulan yeni resmin kaydedileceği dizin bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $dirName = 'thumbs';
-	
-	/* Fıle Değişkeni
-	 *  
-	 * Dosyanın yol bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $file;
-	
-	/* Thumb Path Değişkeni
-	 *  
-	 * Thumb dosyası için yol bilgini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	private $thumbPath;
-	
-	use \CallUndefinedMethodTrait;
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Dir Name
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
+	protected $dirName = 'thumbs';
 	
-	// Dosya yolu verisinde düzenleme yapılıyor.
-	private function newPath($filePath)
+	//----------------------------------------------------------------------------------------------------
+	// File
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	private $file;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Thumb Path
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $thumbPath;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected New Path
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $filePath
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function newPath($filePath)
 	{
 		$fileEx = explode("/", $filePath);
 		
@@ -72,8 +59,14 @@ class InternalImage implements ImageInterface
 		$this->thumbPath = str_replace(baseUrl(), "", $this->thumbPath);
 	}
 	
-	// Uzantı kontrolü yapıyor.
-	private function fromFileType($paths)
+	//----------------------------------------------------------------------------------------------------
+	// Protected From File Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $paths
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function fromFileType($paths)
 	{
 		// UZANTI JPG
 		if( extension($this->file) === 'jpg' )
@@ -101,8 +94,14 @@ class InternalImage implements ImageInterface
 		}
 	}
 	
-	// Dosya uzantısı kontrol ediliyor.
-	private function isImageFile($file)
+	//----------------------------------------------------------------------------------------------------
+	// Protected Is Image File
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $file
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function isImageFile($file)
 	{
 		$extensions = ['jpg', 'jpeg', 'png', 'gif'];
 		
@@ -116,9 +115,16 @@ class InternalImage implements ImageInterface
 		}
 	}
 	
-	// Dosya uzantısına göre oluşturulucak image dosyası.
-	// Aynı zamanda uzantılara göre kalite parametresi ayarlanıyor.
-	private function createFileType($files, $paths, $quality = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Protected Create File Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $files
+	// @param string $paths
+	// @param int    $quality
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function createFileType($files, $paths, $quality = 0)
 	{
 		// JPG İÇİN KALİTE AYARI
 		if( extension($this->file) === 'jpg' )
@@ -161,45 +167,16 @@ class InternalImage implements ImageInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* THUMB                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Resmi ölçeklendirip ölçeklenen yeni resmin yolunu verir.  	          |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                              	      |
-	| 1. string var @fpath => Ölçeklendirilmek istenen resim.	  						      |
-	| 2. array var @settings => Resim üzerinde değişiklik yapmayı sağlayan ayarlar.	          |
-	|          																				  |
-	| Örnek Kullanım: thumb('ornek/resim.jpg', array(Ayarlar));        	  		              |      
-	|          																				  |
-	| 2. Ayarlar Parametresinin Kullanılabilir Parametreleri.         						  |
-	|																						  |
-	| 1. x => Resmi yatay düzlemde kaçıncı pixelden kırpmaya başlayacağını ifade eder.        |
-	| 2. y => Resmi dikey düzlemde kaçıncı pixelden kırpmaya başlayacağı ifade eder.          |
-	| 3. width => Resmin kırpma genişliğini belirlemek için kullanılır.                       |
-	| 4. height => Resmin kırpma yüksekliğini belirlemek için kullanılır.                     |
-	| 5. rewidth => Resmin yeni genişlik değer ayarlanır.                                     |
-	| 6. reheight => Resmin yeni yükseklik değer ayarlanır.                                   |
-	| 7. prowidth  => Eğer genişlik fazla ise bu ayara göre resmin yükseklik değeri otomatik  |
-	| olarak orantılı ayarlanır.                                  							  |
-	| 8. proheight => Eğer yükseklik fazla ise bu ayara göre resmin genişlik değeri otomatik  |
-	| olarak orantılı ayarlanır.                                   				              |
-	| 9. quality  => Resmin kalitesini ayarlamak için kullanılır.                             |
-	|          																				  |
-	******************************************************************************************/	
-	public function thumb($fpath = '', $set = [])
+	//----------------------------------------------------------------------------------------------------
+	// Thumb
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $fpath
+	// @param array  $set
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function thumb(String $fpath, Array $set)
 	{
-		// Parametre kontrolleri yapılıyor -------------------------------------------
-		if( ! is_string($fpath) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'fpath');
-		}
-		if( ! is_array($set) )
-		{
-			$set = [];
-		}
-		// ---------------------------------------------------------------------------
-		
 		$filePath = ( isset($fpath) ) 
 					 ? trim($fpath) 
 					 : '';
@@ -215,14 +192,14 @@ class InternalImage implements ImageInterface
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($filePath) )
 		{
-			return \Errors::set('Image', 'notFoundError', $filePath);	
+			return \Exceptions::throws('Image', 'notFoundError', $filePath);	
 		}
 		
 		// Dosyanın uzantısı belirlenen uzantılır dışında
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! $this->isImageFile($filePath) )
 		{
-			return \Errors::set('Image', 'notImageFileError', $filePath);	
+			return \Exceptions::throws('Image', 'notImageFileError', $filePath);	
 		}
 		
 		// Ayarlar parametresinde tanımlayan ayarlara
@@ -268,11 +245,8 @@ class InternalImage implements ImageInterface
 		{
 			if( $set["proheight"] < $currentHeight )
 			{
-				/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
 				$height = $set["proheight"];
-				 
-				/* resmin yeni genişliği buluyoruz */
-				$width = round(($currentWidth * $height) / $currentHeight);
+				$width  = round(($currentWidth * $height) / $currentHeight);
 			}
 		}
 		
@@ -280,56 +254,34 @@ class InternalImage implements ImageInterface
 		{
 			if( $set["prowidth"] < $currentWidth )
 			{
-				/* resmi ölçeklemek istediğimiz yükseklik ve genişlik */
-				$width = $set["prowidth"];
-				 
-				/* resmin yeni genişliği buluyoruz */
+				$width  = $set["prowidth"];	 
 				$height = round(($currentHeight * $width) / $currentWidth);
 			}
 		}
 	
 		$rWidth = $width; $rHeight = $height;
 		
-		// Yeni genişlik değerinin kontrolü yapılıyor.
 		if( ! empty($rewidth) ) 
 		{
 			$width = $rewidth;
 		}
 		
-		// Yeni yükseklik değerinin kontrolü yapılıyor.
 		if( ! empty($reheight) ) 
 		{
 			$height = $reheight;
 		}
 		
-		// Oluşturulacak yeni dosyanın isim bilgisi oluşturuluyor.
-		// Bu isimlendirmede şu bilgiler yer alacak.
-		// 1-Resmin Adı
-		// 2-X değeri
-		// 3-Y değeri
-		// 4-Genişlik Değeri
-		// 5-Yükseklik Değeri
 		$prefix = "-".$x."x".$y."px-".$width."x".$height."size";
 		
 		$this->newPath($filePath);
-		
-		// Dizin bilgisi kontrol ediliyor.
-		// Eğer thumb isminde bir dizin
-		// yoksa oluşturuluyor.
+	
 		if( ! is_dir($this->thumbPath) ) 
 		{ 
 			\Folder::create($this->thumbPath);		
 		}
 		
-		// Dosya uzantısı temizleniyor.
 		$newFile = removeExtension($this->file).$prefix.extension($this->file, true);
 		
-		// Yeni oluşturulan dosya varsa yeni dosyanın 
-		// yol ve isim bilgisi oluşturuluyor.
-		// Ve geri dönüş değeri olarak kulllanılıyor.
-		// Böyle bir dosya daha önce yoksa
-		// İşlemler kaldığı yerden dosya oluşturulana
-		// kadar devam ediyor.
 		if( file_exists($this->thumbPath.$newFile) ) 
 		{
 			return baseUrl($this->thumbPath.$newFile);
@@ -344,11 +296,6 @@ class InternalImage implements ImageInterface
 			$rWidth = $currentWidth; $rHeight = $currentHeight;
 		}
 	
-		// Dosyanın .png uzantılı olması durumunda
-		// Kırpma işlemlerinin transparant olması
-		// sağlanıyor. Diğer uzantılarda transparantlık 
-		// elde edilemeyeceğinden bu işlem sadece
-		// PNG uzantılı dosyalar için gerçekleşecektir.
 		if( extension($filePath) === "png" )
 		{
 			imagealphablending($nFile, false);
@@ -367,55 +314,26 @@ class InternalImage implements ImageInterface
 		
 	}
 	
-	/******************************************************************************************
-	* SIZE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Yolu belirtilen dosyanın boyutunu verilen genişlik veya yükseklik 	  |
-	| değerine göre orantılı şekilde almak için kullanılır.  	                              |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                              	      |
-	| 1. string var @fpath => Boyutu istenen resim dosyasının yolu.	  						  |
-	| 2. numeric var @width => Resmin genişlik ölçüsünün belirlenmesi.	                      |
-	| 3. numeric var @height => Resmin yükseklik ölçüsünün belirlenmesi.	                  |
-	|          																				  |
-	| Örnek Kullanım: size('ornek/resim.jpg', 10);        	  		                          |      
-	|          																				  |
-	| Not: Genişlik veya yükseklik parametrelerinden sadece bir tanesi kullanılmalıdır.       |
-	|          																				  |
-	******************************************************************************************/	
-	public function getProsize($path = '', $width = 0, $height = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Get Prosize
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $path
+	// @param int    $width
+	// @param int    $height
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getProsize(String $path, $width = 0, $height = 0)
 	{
-		// Parametre kontrolleri yapılıyor. ------------------------------------------
-		if( ! is_string($path) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'path');
-		}
-		if( ! is_numeric($width) )
-		{
-			$width = 0;
-		}
-		if( ! is_numeric($height) ) 
-		{
-			$height = 0;
-		}
-		if( empty($path) )
-		{
-			return \Errors::set('Image', 'notFoundError', $path);	
-		}
-		// ---------------------------------------------------------------------------
-		
-		// Yola göre resmin boyutları isteniyor.
 		$g = @getimagesize($path);
 		
-		// Boyut bilgisi boş ise durumun raporlanması isteniyor.
 		if( empty($g) )
 		{
-			return \Errors::set('Image', 'notFoundError', $path);	
+			return \Exceptions::throws('Image', 'notFoundError', $path);	
 		}
 		
 		$x = $g[0]; $y = $g[1];
 		
-		// Genişliğe göre yüksekliği orantılar.
 		if( $width > 0 )
 		{
 			if( $width <= $x )
@@ -435,8 +353,7 @@ class InternalImage implements ImageInterface
 				$y = $y * $o;	
 			}
 		}
-		
-		// Yüksekliğe göre genişliği orantılar.
+	
 		if( $height > 0 )
 		{
 			if( $height <= $y )

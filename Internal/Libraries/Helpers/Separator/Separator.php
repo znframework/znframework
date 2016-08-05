@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Helpers;
 
-class InternalSeparator implements SeparatorInterface
+class InternalSeparator extends \CallController implements SeparatorInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,34 +12,23 @@ class InternalSeparator implements SeparatorInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Key Değişkeni
-	 *  
-	 * Anahtar ile değer asındaki ayraç
-	 * Varsayılan:+-?||?-+
-	 */
-	private $key = "+-?||?-+" ;
-	
-	/* Seperator Değişkeni
-	 *  
-	 * Anahtar ve değerler asındaki ayraç
-	 * Varsayılan:|?-++-?|
-	 */
-	private $separator = "|?-++-?|";
-	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Key
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
+	protected $key = "+-?||?-+" ;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Separator
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $separator = "|?-++-?|";
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Security
@@ -48,7 +37,7 @@ class InternalSeparator implements SeparatorInterface
 	// @param string  $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _security($data = '')
+	protected function _security($data)
 	{
 		return str_replace([$this->key, $this->separator], '', $data);
 	}
@@ -62,24 +51,8 @@ class InternalSeparator implements SeparatorInterface
 	// @param string $separator
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($data = [], $key = '', $separator = '')
+	public function encode(Array $data, String $key = NULL, String $separator = NULL)
 	{
-		// Parametre kontrolleri yapılıyor. -------------------------------------------
-		if( ! is_array($data) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'data');
-		}
-		
-		if( ! is_string($key) ) 
-		{
-			$key = '';
-		}
-		
-		if( ! is_string($separator) ) 
-		{
-			$separator = '';
-		}
-		
 		$word = '';
 		
 		// @key parametresi boş ise ön tanımlı ayracı kullan.
@@ -113,29 +86,8 @@ class InternalSeparator implements SeparatorInterface
 	// @param string $separator
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode($word = '', $key = '', $separator = '')
+	public function decode(String $word, String $key = NULL, String $separator = NULL)
 	{
-		// Parametre kontrolleri yapılıyor. -------------------------------------------
-		if( ! is_string($word) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'word');
-		}
-		
-		if( empty($word) ) 
-		{
-			return \Errors::set('Error', 'emptyParameter', 'word');
-		}
-		
-		if( ! is_string($key) ) 
-		{
-			$key = '';
-		}
-		
-		if( ! is_string($separator) ) 
-		{
-			$separator = '';
-		}
-		
 		if( empty($key) ) 
 		{
 			$key = $this->key;
@@ -173,7 +125,7 @@ class InternalSeparator implements SeparatorInterface
 	// @param string $separator
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decodeArray($word = '', $key = '', $separator = '')
+	public function decodeArray(String $word, String $key = NULL, String $separator = NULL)
 	{
 		return (array)$this->decode($word, $key, $separator);
 	}

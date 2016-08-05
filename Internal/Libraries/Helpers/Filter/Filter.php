@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalFilter implements FilterInterface
+class InternalFilter extends \CallController implements FilterInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,44 +12,32 @@ class InternalFilter implements FilterInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Word
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @param string $string
+	// @param mixed  $badWords
+	// @param mixed  $changeChar
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	/******************************************************************************************
-	* WORD                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Metin içinde istenilmeyen kelimelerin izole edilmesi için kullanılır.   |
-	|          																				  |
-	******************************************************************************************/
-	public function word($string = '', $badWords = '', $changeChar = '[badwords]')
+	public function word(String $string, $badWords, $changeChar = NULL)
 	{
-		if( ! is_scalar($string) ) 
-		{
-			return \Errors::set('Error', 'valueParameter', 'string');
-		}
-		
+		nullCoalesce($changeChar, '[badwords]');
+
 		return str_ireplace($badWords, $changeChar, $string);
 	}	
 	
-	/******************************************************************************************
-	* DATA                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Filter::word() yöntemi ile aynı işlevi görür.     			          |
-	|          																				  |
-	******************************************************************************************/
-	public function data($string = '', $badWords = '', $changeChar = '[badwords]')
+	//----------------------------------------------------------------------------------------------------
+	// Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $string
+	// @param mixed  $badWords
+	// @param mixed  $changeChar
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function data(String $string, $badWords, $changeChar = NULL)
 	{
 		return $this->word($string, $badWords, $changeChar);
 	}

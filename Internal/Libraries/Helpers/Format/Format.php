@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalFormat implements FormatInterface
+class InternalFormat extends \CallController implements FormatInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,45 +12,17 @@ class InternalFormat implements FormatInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Byte
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @param int  $bytes
+	// @param int  $precision
+	// @param bool $unit
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	// Function: byte_formatter()
-	// İşlev: Girilen sayısal veriyi bayt biçimine çevirir.
-	// Parametreler
-	// @bytes = Sayısal veri.
-	// @precision = Virgülden sonraki ondalıklı bölümün kaç karaker olacağı.
-	// @unit = Dönüştürülen verinin birimi görüntülensin mi?.
-	// Dönen Değer: Dönüştürülmüş veri.
-	public function byte($bytes = 0, $precision = 1, $unit = true)
-	{
-		if( ! is_numeric($bytes) ) 
-		{
-			return \Errors::set('Error', 'numericParameter', 'bytes');
-		}
-		
-		if( ! is_numeric($precision) ) 
-		{
-			return \Errors::set('Error', 'numericParameter', 'precision');		
-		}
-		
-		if( ! is_bool($unit) ) 
-		{
-			$unit = true;
-		}
-		
+	public function byte($bytes, $precision = 1, $unit = true)
+	{		
 		$byte 	= 1024;
 		$kb		= 1024 * $byte;
 		$mb		= 1024 * $kb;
@@ -126,13 +98,15 @@ class InternalFormat implements FormatInterface
 		return $return;
 	}
 
-	// Function: money_formatter()
-	// İşlev: Girilen sayısal veriyi para birimine çevirir.
-	// Parametreler
-	// @money = Sayısal veri. Örnek 1.000,00
-	// @type = Paranın birimi belirlenir. Örnek 1.000,00 TL
-	// Dönen Değer: Dönüştürülmüş veri.
-	public function money($money = 0, $type = '')
+	//----------------------------------------------------------------------------------------------------
+	// Money
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int    $money
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function money($money = 0, String $type = NULL)
 	{
 		if( ! is_numeric($money) ) 
 		{
@@ -187,30 +161,20 @@ class InternalFormat implements FormatInterface
 		return $moneyFormat;
 	}
 
-	// Function: time_formatter()
-	// İşlev: Girilen sayısal veriyi zamana çevirir.
-	// Parametreler
-	// @count = Sayısal veri. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
-	// @type = Hangi türden. Parametrenin alabileceği değerler: second, minute, hour, day, month, year
-	// @type = Hangi türe 
-	// Dönen Değer: Dönüştürülmüş veri.
-	public function time($count = '', $type = "second", $output = "day")
+	//----------------------------------------------------------------------------------------------------
+	// Time
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int    $count
+	// @param string $type
+	// @param string $output
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function time($count, String $type = NULL, String $output = NULL)
 	{
-		if( ! is_numeric($count) ) 
-		{
-			return \Errors::set('Error', 'numericParameter', 'count');
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = "second";
-		}
-		
-		if( ! is_string($output) ) 
-		{
-			$output = "day";
-		}
-		
+		nullCoalesce($type, 'second');
+		nullCoalesce($output, 'day');
+
 		if( $output === "second" ) $out = 1;
 		if( $output === "minute" ) $out = 60;
 		if( $output === "hour" )   $out = 60 * 60;

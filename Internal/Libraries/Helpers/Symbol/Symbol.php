@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalSymbol implements SymbolInterface
+class InternalSymbol extends \CallController implements SymbolInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,40 +12,17 @@ class InternalSymbol implements SymbolInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Name
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	/******************************************************************************************
-	*  NAME                                                                     			  *
-	*******************************************************************************************
-	| Genel Kullanım: Config/Symbols.php dosyasında belirtilen özel sembolleri kullanabilmek  |
-	| için kullanılır.														                  |
-	|																						  |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @sybom_name => Config/Symbols.php dosyasındaki anahtar isimler.			  |
-	|          																				  |
-	| Örnek Kullanım: symbol('daimon');         											  |
-	|          																				  |
-	******************************************************************************************/	
-	public function name($symbolName = 'turkishLira')
+	public function name(String $symbolName = NULL)
 	{
-		if( ! is_string($symbolName) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'symbolName');
-		}
-		
+		nullCoalesce($symbolName, 'turkishLira');
+
 		$symbol = \Config::get('Symbols', $symbolName);
 		
 		if( ! empty($symbol) )

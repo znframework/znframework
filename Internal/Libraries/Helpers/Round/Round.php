@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Helpers;
 
-class InternalRound implements RoundInterface
+class InternalRound extends \CallController implements RoundInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,45 +12,19 @@ class InternalRound implements RoundInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Data
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @param int    $number
+	// @param int    $count
+	// @param string $type: average, down, up
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	// Function: data()
-	// İşlev: Sayıları yuvarlamak için kullanılır.
-	// Parametreler
-	// @number = Yuvarlanacak sayı.
-	// @count = Virgülden sonraki ondalıklı bölmün kaç karakter olacağı
-	// @type = Yuvarlamanın yönü. Parametrenin alabileceği değerler: average, down, up
-	// Dönen Değer: Yuvarlanmı sayısal veri.
-	public function data($number = '', $count = 0, $type = "average")
+	public function data($number, $count = 0, String $type = NULL)
 	{
-		if( ! is_numeric($number) || empty($number) ) 
-		{
-			return \Errors::set('Error', 'numericParameter', 'number');
-		}
-		
-		if( ! is_numeric($count) ) 
-		{
-			$count = 0;
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = "average";
-		}
-		
+		nullCoalesce($type, 'average');
+
 		if( is_int($number) )
 		{ 
 			return $number;

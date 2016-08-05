@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ImageProcessing;
 
-class InternalGD implements GDInterface
+class InternalGD extends \CallController implements GDInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -12,118 +12,102 @@ class InternalGD implements GDInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/*
-	 * Tuval oluşturmak için kullanılır.
-	 *
-	 * @var resource
-	 */
-	protected $canvas;
-	
-	/*
-	 * Resmin kaydedileceği dosyayı belirtmek kullanılır.
-	 *
-	 * @var string
-	 */
-	protected $save;
-	
-	/*
-	 * Resim kalite bilgisini tutması için kullanılır.
-	 *
-	 * @var numeric
-	 */
-	protected $quality = 0;
-	
-	/*
-	 * Oluşturulacak resim türü.
-	 *
-	 * @var string
-	 */
-	protected $type = 'jpeg';
-	
-	/*
-	 * Çıktı.
-	 *
-	 * @var bool
-	 */
-	protected $output = true;
-	
-	/*
-	 * Sonuç.
-	 *
-	 * @var array
-	 */
-	protected $result = [];
-	
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
-	// Error Control
+	// Canvas
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
+	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
+	protected $canvas;
 	
-	/******************************************************************************************
-	* INFO                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Kurulu GD kütüphanesi hakkında bilgi verir.							  |
+	//----------------------------------------------------------------------------------------------------
+	// Save
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $save;
 	
-	  @param  void 
-	  @return array
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Quality
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $quality = 0;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $type = 'jpeg';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Output
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $output = true;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Result
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $result = [];
+	
+	//----------------------------------------------------------------------------------------------------
+	// Info
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function info()
 	{
 		return gd_info();	
 	}
 	
-	/******************************************************************************************
-	* THUMB                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Image kütüphanesinin thumb() işlevini uygular.     					  |
-	
-	  @param  string $filePath 
-	  @param  array  $settings
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function thumb($filePath = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Thumb
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $filePath
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function thumb(String $filePath, Array $settings)
 	{
 		return \Image::thumb($filePath, $settings);	
 	}
 	
-	/******************************************************************************************
-	* CANVAS                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Yeni bir paletli resim oluşturur.										  |
-	
-	  @param  numeric  $width
-	  @param  numeric  $height
-	  @param  numeric  $rgb transparent
-	  @param  numeric  $real false -> false:create, true:createtruecolor
-	   
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function canvas($width = '', $height = '', $rgb = 'transparent', $real = false, $p1 = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Canvas
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param mixed  $width
+	// @param int    $height
+	// @param string $rgb
+	// @param bool   $real
+	// @param int    $p1
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function canvas($width, $height, $rgb = 'transparent', $real = false, $p1 = 0)
 	{
 		if( is_file($width) )
 		{
 			$this->type   = extension($width);
 			$this->canvas = $this->createFrom($this->type, $width, $height, $rgb, $real, $p1);
-			
-			return $this;
-		}
-		
-		if( ! is_numeric($width) || ! is_numeric($height) )
-		{
-			\Errors::set('Error', 'numericParameter', '1.(width) & 2.(height)');
 			
 			return $this;
 		}
@@ -145,24 +129,17 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CREATE FROM                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen türe göre kaynaktan resim oluşturulur. 					  |
-	
-	  @param  string  $type -> gd2, gd2p, gd, gif, jpeg, png, string, wbmp, webp, xbm, xpm
-	  @param  string  $source
-	   
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function createFrom($type = '', $source = '', $x = '', $y = '', $width = '', $height = '')
+	//----------------------------------------------------------------------------------------------------
+	// Create Form
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	// @param string $source
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function createFrom(String $type, String $source, Array $settings = NULL)
 	{
-		if( ! is_string($type) || ! is_string($source) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(type) & 2.(source)');
-		}
-		
 		$type = strtolower($type);
 		
 		switch( $type )	
@@ -177,22 +154,27 @@ class InternalGD implements GDInterface
 			case 'webp'   : $return = imagecreatefromwebp($source);	 	break;
 			case 'xbm'    : $return = imagecreatefromxbm($source); 		break;
 			case 'xpm'    : $return = imagecreatefromxpm($source); 		break;
-			case 'gd2p'   : $return = imagecreatefromgd2part($source, $x, $y, $width, $height);
+			case 'gd2p'   : $return = imagecreatefromgd2part
+			(
+				$source, 
+				isset($settings['x'])      ? $settings['x']      : NULL, 
+				isset($settings['y'])      ? $settings['y']      : NULL, 
+				isset($settings['width'])  ? $settings['width']  : NULL, 
+				isset($settings['height']) ? $settings['height'] : NULL
+			);
 		}
 		
 		return $return;
 	}
 	
-	/******************************************************************************************
-	* SIZE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resmin boyutlarını döndürür.										  |
-	
-	  @param  string $fileName 
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function size($fileName = '')
+	//----------------------------------------------------------------------------------------------------
+	// Size
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $fileName
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function size(String $fileName)
 	{
 		if( extension($fileName) && is_file($fileName) )
 		{
@@ -204,7 +186,7 @@ class InternalGD implements GDInterface
 		}
 		else
 		{
-			return \Errors::set('Error', 'fileParameter', '1.(fileName)');	
+			return \Exceptions::throws('Error', 'fileParameter', '1.(fileName)');	
 		}
 		
 		$newData['width'] 		= $data[0];
@@ -214,77 +196,66 @@ class InternalGD implements GDInterface
 		$newData['bits']		= $data['bits'];
 		$newData['mime']		= $data['mime'];
 		
-		return (object)$newData;
+		return (object) $newData;
 	}
 	
-	/******************************************************************************************
-	* TYPE EXTENSION                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Resim türüne göre uzantısını verir.				        			  |
-	
-	  @param  mixed $type
-	  @param  bool  $dote true 
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function extension($type = 'jpeg', $dote = true)
+	//----------------------------------------------------------------------------------------------------
+	// Extension
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	// @param bool   $dote
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function extension(String $type = NULL, Boolean $dote = NULL)
 	{
+		nullCoalesce($type, 'jpeg');
+		nullCoalesce($dote, true);
+
 		return image_type_to_extension(\Convert::toConstant($type, 'IMAGETYPE_'), $dote);	
 	}
 	
-	/******************************************************************************************
-	* TYPE MIME                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Resim türüne göre mime türünü verir.				        			  |
-	
-	  @param  mixed $type
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function mime($type = 'jpeg')
+	//----------------------------------------------------------------------------------------------------
+	// Mime
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function mime(String $type = NULL)
 	{
+		nullCoalesce($type, 'jpeg');
+
 		return image_type_to_mime_type(\Convert::toConstant($type, 'IMAGETYPE_'));	
 	}
 	
-	/******************************************************************************************
-	* TO WBMP                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dosyaya veya tarayıcıya bir WBMP resmi çıktılar.	      			  |
-	
-	  @param  string   $fileName
-	  @param  numeric  $threshold
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function toWbmp($fileName = '', $threshold = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// To Wbmp
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $fileName
+	// @param int    $threshold
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function toWbmp(String $fileName, $threshold = NULL)
 	{
-		if( is_string($fileName) )
-		{
-			image2wbmp($this->canvas, $fileName, $threshold);
-		}
-		else
-		{
-			\Errors::set('Error', 'stringParameter', '1.(fileName)');	
-		}
-		
+		image2wbmp($this->canvas, $fileName, $threshold);
+
 		return $this; 	
 	}
 	
-	/******************************************************************************************
-	* JPEG TO WBMP                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Jpeg formatlı resmi wbmp formatına çevirir.			      			  |
-	
-	  @param  string   $jpegFile
-	  @param  string   $wbmpFile
-	  @param  array	   $settings -> width, height, threshold
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function jpegToWbmp($jpegFile = '', $wbmpFile = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Jpep To Wbmp
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $jpegFile
+	// @param string $wbmpFile
+	// @param array  $setings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function jpegToWbmp(String $jpegFile, String $wbmpFile, Array $settings = NULL)
 	{
-		if( is_file($jpegFile) && is_string($wbmpFile))
+		if( is_file($jpegFile) )
 		{
 			$height    = isset($settings['height'])    ? $settings['height']    : 0;
 			$width     = isset($settings['width'])     ? $settings['width']     : 0;
@@ -294,28 +265,22 @@ class InternalGD implements GDInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'fileParameter', '1.(jpegFile)');	
-			\Errors::set('Error', 'stringParameter', '2.(wbmpFile)');	
-			
 			return false;
 		}
 	}
 	
-	/******************************************************************************************
-	* PNG TO WBMP                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Png formatlı resmi wbmp formatına çevirir.			      			  |
-	
-	  @param  string   $jpegFile
-	  @param  string   $wbmpFile
-	  @param  array	   $settings -> width, height, threshold
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function pngToWbmp($pngFile = '', $wbmpFile = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Png To Wbmp
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $pngFile
+	// @param string $wbmpFile
+	// @param array  $setings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function pngToWbmp(String $pngFile, String $wbmpFile, Array $settings = NULL)
 	{
-		if( is_file($pngFile) && is_string($wbmpFile))
+		if( is_file($pngFile) )
 		{
 			$height    = isset($settings['height'])    ? $settings['height']    : 0;
 			$width     = isset($settings['width'])     ? $settings['width']     : 0;
@@ -325,95 +290,65 @@ class InternalGD implements GDInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'fileParameter', '1.(jpegFile)');	
-			\Errors::set('Error', 'stringParameter', '2.(wbmpFile)');
-			
 			return false;	
 		}	
 	}
 	
-	/******************************************************************************************
-	* ALPHA BLENDING                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resim için harmanlama kipini etkinleştirir.		      			  |
-	
-	  @param  bool     $blendMode false
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function alphaBlending($blendMode = false)
+	//----------------------------------------------------------------------------------------------------
+	// Alpha Blending
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param bool $blendMode
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alphaBlending(Boolean $blendMode = NULL)
 	{
-		if( ! is_bool($blendMode) )
-		{
-			\Errors::set('Error', 'booleanParameter', '1.(blendMode)');
-			
-			return $this;
-		}
-		
-		imagealphablending($this->canvas, $blendMode);
+		imagealphablending($this->canvas, (bool) $blendMode);
 		
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* SAVE ALPHA                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: PNG resimleri kaydederken (tek renkli şeffaflığın tersine) alfa kanalı  |
-	  bilgisinin kaydedilip kaydedilmeyeceğini belirtir.		      			 
-	
-	  @param  bool     $save true
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function saveAlpha($save = true)
+	//----------------------------------------------------------------------------------------------------
+	// Save Alpha
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param bool $save
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function saveAlpha(Boolean $save = NULL)
 	{
+		nullCoalesce($save, true);
+
 		imagesavealpha($this->canvas, $save);
 		
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* SMOOTH	                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin kenarlarına yumuşatma uygular .	        	      			  |
-
-	  @param  bool     $mode true
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function smooth($mode = true)
+	//----------------------------------------------------------------------------------------------------
+	// Smooth
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param bool $mode
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function smooth(Boolean $mode = NULL)
 	{
-		if( ! is_bool($mode) )
-		{
-			\Errors::set('Error', 'booleanParameter', '1.(mode)');
-			
-			return $this;
-		}
-		
+		nullCoalesce($mode, true);
+
 		imageantialias($this->canvas, $mode);	
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ARC                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Yay çizer.	  								      	      			  |
-	
-	  @param  array    $settings
-				       $settings['type'] = pie, chord, nofill, edged
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function arc($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Arc
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function arc(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');
-			
-			return $this;
-		}
-		
 		$x 		= isset($settings['x'])      ? $settings['x']		: 0;
 		$y 		= isset($settings['y']) 	 ? $settings['y']		: 0;
 		$width 	= isset($settings['width'])  ? $settings['width']   : 100;
@@ -440,25 +375,15 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ELLIPSE                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Bir elips çizer.	 							      	      			  |
-	
-	  @param  array    $settings
-	  				   $settings['type'] fill veya NULL
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function ellipse($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Ellipse
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function ellipse(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');
-			
-			return $this;
-		}
-		
 		$x 		= isset($settings['x'])      ? $settings['x']		: 0;
 		$y 		= isset($settings['y']) 	 ? $settings['y']		: 0;
 		$width 	= isset($settings['width'])  ? $settings['width']   : 100;
@@ -478,25 +403,15 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* POLYGON                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Çokgen çizer.	 								      	      			  |
-	
-	  @param  array    $settings
-	  				   $settings['type'] fill ve NULL
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function polygon($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Polygon
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function polygon(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');
-			
-			return $this;
-		}
-		
 		$points 	= isset($settings['points'])     ? $settings['points']	   : 0;
 		$pointCount = isset($settings['pointCount']) ? $settings['pointCount'] : ceil(count($points) / 2);
 		$color 		= isset($settings['color'])      ? $settings['color']  	   : '0|0|0';
@@ -514,25 +429,15 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* RECTANGLE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Dörtgen çizer.								      	      			  |
-	
-	  @param  array    $settings
-	  				   $settings['type'] fill ve NULL
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function rectangle($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Rectangle
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rectangle(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');
-			
-			return $this;
-		}
-		
 		$x      = isset($settings['x'])      ? $settings['x']	   : 0;
 		$y      = isset($settings['y'])      ? $settings['y']      : 0;
 		$width  = isset($settings['width'])  ? $settings['width']  : 100;
@@ -556,24 +461,15 @@ class InternalGD implements GDInterface
 	}
 	
 	
-	/******************************************************************************************
-	* FILL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Resmi boyar.	 								      	      			  |
-
-	  @param  array    $settings
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function fill($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Fill
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function fill(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '2.(settings)');
-			
-			return $this;
-		}
-		
 		$x 		= isset($settings['x'])      ? $settings['x']		: 0;
 		$y 		= isset($settings['y']) 	 ? $settings['y']		: 0;
 		$color 	= isset($settings['color'])  ? $settings['color']   : '0|0|0';
@@ -583,24 +479,15 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* FILL AREA                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin belirli bir alanını boyamak için kullanılır.					  |
-	
-	  @param  array    $settings
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function fillArea($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Fill Area
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function fillArea(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');
-			
-			return $this;
-		}
-		
 		$x 			 = isset($settings['x'])      		? $settings['x']			: 0;
 		$y 			 = isset($settings['y']) 	 		? $settings['y']			: 0;
 		$borderColor = isset($settings['borderColor'])  ? $settings['borderColor']  : '0|0|0';
@@ -611,67 +498,46 @@ class InternalGD implements GDInterface
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* FILTER                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resme bir süzgeç uygular.											  |
-	
-	  @param  mixed    $filter negate, grayscale, brigthness, contrast, colorize, edgedetect
-	  						   emboss, gaussian_blur, selective_blur, mean_removel, smooth
-							   pixelate
-	  [ @param  mixed    $arg1 ]
-	  [ @param  mixed    $arg2 ]
-	  [ @param  mixed    $arg3 ]
-	  [ @param  mixed    $arg4 ]
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function filter($filter = '', $arg1 = 0, $arg2 = 0, $arg3 = 0, $arg4 = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Filter
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $filter
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function filter(String $filter, $arg1 = 0, $arg2 = 0, $arg3 = 0, $arg4 = 0)
 	{			
 		imagefilter($this->canvas, \Convert::toConstant($filter, 'IMG_FILTER_'), $arg1, $arg2, $arg3, $arg4);
 		
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* FLIP                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Belirli bir modunu kullanarak görüntüyü çevirir.						  |
-	
-	  @param  mixed    $type both, horizontal, vertical
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function flip($type = 'both')
+	//----------------------------------------------------------------------------------------------------
+	// Flip
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function flip(String $type = NULL)
 	{	
+		nullCoalesce($type, 'both');
+
 		imageflip($this->canvas, \Convert::toConstant($type, 'IMG_FLIP_'));
 		
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* CHAR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Yatay olarak bir karakter çizer.				      	      			  |
-	
-	  @param  string   $char
-	  @param  array    $settings
-	  				   $settings['type'] horizontal, vertical
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function char($char = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Char
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $char
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function char(String $char, Array $settings)
 	{
-		if( ! is_scalar($char) || ! is_array($settings) )
-		{
-			\Errors::set('Error', 'scalarParameter', '1.(char)');
-			\Errors::set('Error', 'arrayParameter', '2.(settings)');
-			
-			return $this;
-		}
-		
 		$x 		= isset($settings['x'])      ? $settings['x']		: 0;
 		$y 		= isset($settings['y']) 	 ? $settings['y']		: 0;
 		$font 	= isset($settings['font'])   ? $settings['font']    : 1;
@@ -690,27 +556,16 @@ class InternalGD implements GDInterface
 		return $this;
 	}  
 	
-	/******************************************************************************************
-	* TEXT                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Yatay olarak bir metin çizer.		     		      	      			  |
-	
-	  @param  string   $text
-	  @param  array    $settings
-	  				   $settings['type'] horizontal, vertical
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function text($text = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Text
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $text
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function text(String $text, Array $settings)
 	{
-		if( ! is_scalar($text) || ! is_array($settings) )
-		{
-			\Errors::set('Error', 'scalarParameter', '1.(text)');
-			\Errors::set('Error', 'arrayParameter', '2.(settings)');
-			
-			return $this;
-		}
-		
 		$x 		= isset($settings['x'])      ? $settings['x']		: 0;
 		$y 		= isset($settings['y']) 	 ? $settings['y']		: 0;
 		$font 	= isset($settings['font'])   ? $settings['font']    : 1;
@@ -729,27 +584,15 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CLOSEST                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Alfası ile birlikte belirtilen rengin en yakın benzerinin renk 		  |
-	  indisini verir.	     	      			 
-	
-	  @param  numeric  $alpha 0
-	  @param  string   $rgb
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function closest($rgb = '')
+	//----------------------------------------------------------------------------------------------------
+	// Closest
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function closest(String $rgb)
 	{
-		if( ! is_string($rgb) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(rgb)');
-			
-			return false;
-		}
-	
 		$rgb = explode('|', $rgb);
 		
 		$red   = isset($rgb[0]) ? $rgb[0] : 0;
@@ -760,27 +603,15 @@ class InternalGD implements GDInterface
 		return imagecolorclosestalpha($this->canvas, $red, $green, $blue, $alpha);
 	} 
 	
-	/******************************************************************************************
-	* ALPHA RESOLVE                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Alfası ile birlikte belirtilen rengin en yakın benzerinin renk 		  |
-	  indisini verir.	     	      			 
-	
-	  @param  numeric  $alpha 0
-	  @param  string   $rgb
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function resolve($rgb = '')
+	//----------------------------------------------------------------------------------------------------
+	// Resolve
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function resolve(String $rgb)
 	{
-		if( !! is_string($rgb) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(rgb)');
-			
-			return false;
-		}
-
 		$rgb = explode('|', $rgb);
 		
 		$red   = isset($rgb[0]) ? $rgb[0] : 0;
@@ -791,24 +622,15 @@ class InternalGD implements GDInterface
 		return imagecolorresolvealpha($this->canvas, $red, $green, $blue, $alpha);
 	} 
 	
-	/******************************************************************************************
-	* ALPHA INDEX                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Alfası ile birlikte belirtilen rengin indisini verir.					  |	     	      			 
-	
-	  @param  numeric  $alpha 0
-	  @param  string   $rgb
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function index($rgb = '')
+	//----------------------------------------------------------------------------------------------------
+	// Index
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function index(String $rgb)
 	{
-		if( ! is_string($rgb) )
-		{
-			return \Errors::set('Error', 'stringParameter', '1.(rgb)');
-		}
-		
 		$rgb = explode('|', $rgb);
 		
 		$red   = isset($rgb[0]) ? $rgb[0] : 0;
@@ -819,50 +641,28 @@ class InternalGD implements GDInterface
 		return imagecolorexactalpha($this->canvas, $red, $green, $blue, $alpha);
 	} 
 	
-	/******************************************************************************************
-	* PIXEL INDEX                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Bir pikselin renk indisini döndürür.	    		 	      			  |
-	
-	  @param  numeric  $x 0
-	  @param  numeric  $y 0
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function pixelIndex($x = 0, $y = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Pixel Index
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $x
+	// @param int $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function pixelIndex($x, $y)
 	{
-		if( ! is_numeric($x) || ! is_numeric($y) )
-		{
-			\Errors::set('Error', 'resourceParameter', '1.(image)');
-			\Errors::set('Error', 'numericParameter', '2.(x) & 3.(y)');
-			
-			return false;
-		}
-		
-		return imagecolorat($this->canvas, $x, $y);
+		return imagecolorat($this->canvas, (int) $x, (int) $y);
 	} 
 	
-	/******************************************************************************************
-	* CLOSEST HWB	             		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen En yakın renk sıcaklığına, beyaz ve siyahlığa sahip renk	  | 
-	  indisini verir.	  			
-
-	  @param  string   $rgb
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function closestHwb($rgb = '')
+	//----------------------------------------------------------------------------------------------------
+	// Closest Hwb
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function closestHwb(String $rgb)
 	{
-		if( ! is_string($rgb) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(rgb)');
-			
-			return false;
-		}
-		
 		$rgb = explode('|', $rgb);
 		
 		$red   = isset($rgb[0]) ? $rgb[0] : 0;
@@ -872,22 +672,18 @@ class InternalGD implements GDInterface
 		return imagecolorclosesthwb($this->canvas, $red, $green, $blue);
 	} 
 	
-	/******************************************************************************************
-	* MATCH         	         		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resmin paletli sürümünün renklerini gerçek renkli sürümünün 		  |	
-	| renkleriyle aynı yapar.	  								  						
-	
-	  @param  resource $sourceImage
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function match($sourceImage = '')
+	//----------------------------------------------------------------------------------------------------
+	// Match
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $sourceImage
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function match($sourceImage)
 	{
 		if( ! is_resource($sourceImage) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(sourceImage)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(sourceImage)');
 		}
 
 		imagecolormatch($this->canvas, $sourceImage);
@@ -895,27 +691,16 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SET		       	         		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir palet indisi için renk tanımlar.	  								  |		
-	
-	  @param  numeric  $index 0
-	  @param  string   $rgb
-	  
-	  @return void
-	|          																				  |
-	******************************************************************************************/
-	public function set($index = 0, $rgb = '')
-	{
-		if( ! is_numeric($index) || ! is_string($rgb) )
-		{
-			\Errors::set('Error', 'numericParameter', '1.(index)');
-			\Errors::set('Error', 'stringParameter', '2.(rgb)');
-			
-			return $this;
-		}
-		
+	//----------------------------------------------------------------------------------------------------
+	// Set
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int    $index
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function set($index = 0, String $rgb)
+	{	
 		$rgb = explode('|', $rgb);
 		
 		$red   = isset($rgb[0]) ? $rgb[0] : 0;
@@ -927,111 +712,75 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TOTAL		    	         		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resim paletindeki renk sayısını döndürür.							  |		
-	
-	  @return int
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Total
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function total()
 	{	
 		return imagecolorstotal($this->canvas);
 	}
 	
-	/******************************************************************************************
-	* TRANSPARENT     	         		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir rengi şeffaflaştırır.	 			 								  |		
-	
-	  @param  string   $rgb
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function transparent($rgb = '')
+	//----------------------------------------------------------------------------------------------------
+	// Transparent
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function transparent(String $rgb)
 	{
-		if( ! is_string($rgb) )
-		{
-			\Errors::set('Error', 'stringParameter', '1.(rgb)');
-			
-			return $this;
-		}
-	
 		imagecolortransparent($this->canvas, $this->allocate($rgb));
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CONVOLUTION     	         		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir konum ve katsayı ile 3x3'lük bir kıvrım matrisini uygular.		  |		
-	
-	  @param  array    $matrix
-	  @param  float    $div
-	  @param  float    $offset
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function convolution($matrix = [], $div = 0, $offset = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Convolution
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $matrix
+	// @param int   $div
+	// @param int   $offset
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function convolution(Array $matrix, $div = 0, $offset = 0)
 	{
-		if( ! is_array($matrix) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(matrix)');
-			
-			return $this;
-		}
-	
 		imageconvolution($this->canvas, $matrix, $div, $offset);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* INTERLACE     	         		                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Karışımlılığı açıp kapar.		 										  |		
-	
-	  @param  numeric $interlace 0
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Interlace
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $interlace
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function interlace($interlace = 0)
 	{
-		if( ! is_numeric($interlace) )
-		{
-			\Errors::set('Error', 'numericParameter', '1.(interlace)');
-			
-			return $this;
-		}
-	
-		imageinterlace($this->canvas, $interlace);
+		imageinterlace($this->canvas, (int) $interlace);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* COPY                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resim parçasını kopyalar.					      	      			  |
-	
-	  @param  resource $target
-	  @param  array    $settings -> xt, yt, xs, ys, width, height
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function copy($source = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Copy
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $source
+	// @param array    $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function copy($source, Array $settings)
 	{
 		if( ! is_resource($source) )
 		{
-			\Errors::set('Error', 'resourceParameter', '1.(source)');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt 	= isset($settings['xt'])     ? $settings['xt']	   : 0;
@@ -1046,24 +795,19 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* MIX                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resmi kopyalar ve karıştırır.				      	      			  |
-
-	  @param  resource $target
-	  @param  array    $settings -> xt, yt, xs, ys, width, height, percent
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function mix($source = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Mix
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $source
+	// @param array    $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function mix($source, Array $settings)
 	{
 		if( ! is_resource($source) )
 		{
-			\Errors::set('Error', 'resourceParameter', '1.(source)');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt 	 = isset($settings['xt'])      ? $settings['xt']	  : 0;
@@ -1079,25 +823,19 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* MIX GRAY                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resmi kopyalar ve VE gri ile karıştırır.	     	      			  |
-	
-	  @param  resource $source
-	  @param  resource $target
-	  @param  array    $settings -> xt, yt, xs, ys, width, height, percent
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function mixGray($source = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Mix Gray
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $source
+	// @param array    $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function mixGray($source, Array $settings)
 	{
 		if( ! is_resource($source) )
 		{
-			\Errors::set('Error', 'resourceParameter', '1.(source)');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt 	 = isset($settings['xt'])      ? $settings['xt']	  : 0;
@@ -1113,24 +851,19 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* RESAPMPLE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin bir parçasını örnekleyerek kopyalar ve boyutlandırır. 			  |
-	
-	  @param  resource $source
-	  @param  array    $settings -> xt, yt, xs, ys, wt, ht, ws, hs
-	
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function resample($source = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Resample
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $source
+	// @param array    $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function resample($source, Array $settings)
 	{
 		if( ! is_resource($source) )
 		{
-			\Errors::set('Error', 'resourceParameter', '1.(source)');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt = isset($settings['xt']) ? $settings['xt'] : 0;
@@ -1147,24 +880,19 @@ class InternalGD implements GDInterface
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* RESIZE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin bir parçasını kopyalar ve boyutlandırır. 		             	  |
-	
-	  @param  resource $source
-	  @param  array    $settings -> xt, yt, xs, ys, wt, ht, ws, hs
-	
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function resize($source = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Resize
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $source
+	// @param array    $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function resize($source, Array $settings)
 	{
 		if( ! is_resource($source) )
 		{
-			\Errors::set('Error', 'resourceParameter', '1.(source)');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt = isset($settings['xt']) ? $settings['xt'] : 0;
@@ -1181,68 +909,47 @@ class InternalGD implements GDInterface
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* CROP                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin bellir bir parçasını alır.				 		             	  |
-	
-	  @param  array    $settings -> x, y, width, height
-	
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function crop($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Crop
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function crop(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '2.(settings)');
-			
-			return $this;
-		}
-
 		imagecrop($this->canvas, $settings);	
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* AUTO CROP                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin belli bir parçasını alır.				 		             	  |
-	
-	  @param  mixed    $mode default, transparent, black, white, threshold, sides
-	  @param  numeric  $threshold
-	  @param  numeric  $color   
-	
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function autoCrop($mode = 'default', $threshold = .5, $color = -1)
+	//----------------------------------------------------------------------------------------------------
+	// Auto Crop
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $mode
+	// @param numeric $threshold
+	// @param numeric $color
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function autoCrop(String $mode = NULL, $threshold = .5, $color = -1)
 	{
+		nullCoalesce($mode, 'default');
+
 		imagecropauto($this->canvas, \Convert::toConstant($mode, 'IMG_CROP_'), $threshold, $color);	
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* LINE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Çizgi çizmek için kullanılır. 						             	  |
-	
-	  @param  array    $settings -> x1, y1, x2, y2, color, type -> solid, dashed
-	
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function line($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Line
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function line(Array $settings)
 	{
-		if( ! is_array($settings) )
-		{
-			\Errors::set('Error', 'arrayParameter', '1.(settings)');
-			
-			return $this;
-		}
-		
 		$x1   = isset($settings['x1']) ? $settings['x1'] : 0;
 		$y1   = isset($settings['y1']) ? $settings['y1'] : 0;
 		$x2	  = isset($settings['x2']) ? $settings['x2'] : 0;
@@ -1264,139 +971,105 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* FONT HEIGHT                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Font yüksekliğini döndürür.											  |
-	
-	  @param  numeric $height = 0
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function fontHeight($height = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Font Height
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $height
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function fontHeight($height)
 	{	
-		if( ! is_numeric($height) )
-		{
-			return \Errors::set('Error', 'numericParameter', '1.(height)');
-		}
-		
-		return imagefontheight($height);	
+		return imagefontheight((int) $height);	
 	}
 	
-	/******************************************************************************************
-	* FONT WIDTH                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Font genişliğini döndürür.											  |
-	
-	  @param  numeric $width = 0
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function fontWidth($width = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Font Width
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $width
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function fontWidth($width)
 	{	
-		if( ! is_numeric($width) )
-		{
-			return \Errors::set('Error', 'numericParameter', '1.(width)');
-		}
-		
-		return imagefontwidth($width);	
+		return imagefontwidth((int) $width);	
 	}
 	
-	/******************************************************************************************
-	* QUALITY                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Resim kalitesini ayarlar.												  |
-	
-	  @param  numeric $quality
-	  
-	  @return numeric
-	|          																				  |
-	******************************************************************************************/
-	public function quality($quality = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Quality
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $quality
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function quality($quality)
 	{
-		$this->quality = $quality;
+		$this->quality = (int) $quality;
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SAVE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin hangi dosyaya kaydedileceği.									  |
-	
-	  @param  string $file NULL
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function save($file = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// Save
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $file
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function save(String $file)
 	{
 		$this->save = $file;
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TYPE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin hangi türde olacağı ayarlanır.									  |
-	
-	  @param  string $type jpeg
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function type($type = 'jpeg')
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function type(String $type)
 	{
 		$this->type = $type;
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* OUTPUT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Resim çıktısı oluşturulsun mu?.										  |
-	
-	  @param  bool $output true
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function output($output = true)
+	//----------------------------------------------------------------------------------------------------
+	// Output
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param boolean $output
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function output(Boolean $output)
 	{
 		$this->output = $output;
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SCREEN SHOT                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Ekran görüntüsünü alır.												  |
-	
-	  @param  void
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Screenshot
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function screenshot()
 	{
 		$this->canvas = imagegrabscreen();
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ROTATE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Resmi döndürür.	    												  |
-	
-	  @param  numeric $angle 0
-	  [ @param string $spaceColor 0|0|0 ]
-	  [ @param numeric $ignoreTransparent 0 ]
-	  
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function rotate($angle = 0, $spaceColor = '0|0|0', $ignoreTransparent = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Rotate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int    $angle
+	// @param string $spaceColor
+	// @param int    $ignoreTransparent
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rotate($angle, $spaceColor = '0|0|0', $ignoreTransparent = 0)
 	{
 		$this->canvas = imagerotate($this->canvas, $angle, $this->allocate($spaceColor), $ignoreTransparent);
 		
@@ -1408,53 +1081,46 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SCALE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin ölçülendirmek için kullanılır.									  |
-	
-	  @param  numeric $width
-	  [ @param numeric $height -1 ]
-	  [ @param numeric $mode bilinear_fixed, nearest_neightbour, bicubic, bicubic_fixed ]
-	  
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function scale($width = 0, $height = -1, $mode = 'bilinear_fixed')
+	//----------------------------------------------------------------------------------------------------
+	// Scale
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int    $width
+	// @param int    $height
+	// @param string $mode
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function scale($width, $height = -1, $mode = 'bilinear_fixed')
 	{
 		$this->canvas = imagescale($this->canvas, $width, $height, \Convert::toConstant($mode, 'IMG_'));
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* INTERPOLATION                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Interpolation değeri ayarlanır.		     							  |
-	
-	  [ @param numeric $height bilinear_fixed, bell, bessel, bicubic, hamming, hanning ... ]
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function interpolation($method = 'bilinear_fixed')
+	//----------------------------------------------------------------------------------------------------
+	// Interpolation
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $method
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function interpolation(String $method = NULL)
 	{
+		nullCoalesce($method, 'bilinear_fixed');
+
 		imagesetinterpolation($this->canvas, \Convert::toConstant($method, 'IMG_'));
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* PIXEL                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Bir pikselin rengini değiştirir.		     							  |
-	
-	  @param array $settings
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function pixel($settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Pixel
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function pixel(Array $settings)
 	{
 		$x   = isset($settings['x'])     ? $settings['x'] : 0;
 		$y   = isset($settings['y'])     ? $settings['y'] : 0;
@@ -1465,33 +1131,27 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* STYLE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Çizgi tarzını ayarlar.				     							  |
-	
-	  @param array $style
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function style($style = [])
+	//----------------------------------------------------------------------------------------------------
+	// Style
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $style
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function style(Array $style)
 	{
 		imagesetstyle($this->canvas, $style);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* THICKNESS                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Çizgi kalınlığını ayarlar.			     							  |
-	
-	  @param numeric $thickness
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Thickness
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $thickness
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function thickness($thickness = 1)
 	{
 		imagesetthickness($this->canvas, $thickness);
@@ -1499,21 +1159,18 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TILE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Resmi doldurmak için döşemeyi etkin kılar.							  |
-	
-	  @param resource $tile
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function tile($tile = '')
+	//----------------------------------------------------------------------------------------------------
+	// Tile
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resources $tile
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function tile($tile)
 	{
 		if( ! is_resource($tile) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(tile)');	
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(tile)');	
 		}
 		
 		imagesettile($this->canvas, $tile);
@@ -1521,137 +1178,115 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* WINDOW DISPLAY                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bir pencereyi yakalar.												  |
-	
-	  @param  numeric $window 0
-	  @param  numeric $clientArea 0
-	  
-	  @return object
-	|          																				  |
-	******************************************************************************************/
-	public function windowDisplay($window = 0, $clientArea = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Window Display
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $window
+	// @param int $clientArea
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function windowDisplay($window, $clientArea = 0)
 	{
 		$this->canvas = imagegrabwindow($window, $clientArea);
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* LAYER EFFECT                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım:  PHP ile gelen libgd'nin katmanlama etkisini kullanmak için alfa		  | 
-	  harmanlama seçeneğini ayarlar.											 	
-	
-	  @param  mixed $effect normal, replace, overlay
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function layerEffect($effect = 'normal')
+	//----------------------------------------------------------------------------------------------------
+	// Layer Effect
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $effect
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function layerEffect(String $effect = NULL)
 	{	
+		nullCoalesce($effect, 'normal');
+
 		imagelayereffect($this->canvas, \Convert::toConstant($effect, 'IMG_EFFECT_'));	
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* LOAD FONT                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Yeni bir bit eşlemli yazı tipi yükler.								  |											 	
-	
-	  @param  mixed $effect normal, replace, overlay
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	public function loadFont($file = '')
+	//----------------------------------------------------------------------------------------------------
+	// Load Font
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $file
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function loadFont(String $file)
 	{	
 		if( ! is_file($file) )
 		{
-			return \Errors::set('Error', 'fileParameter', '1.(file)');	
+			return \Exceptions::throws('Error', 'fileParameter', '1.(file)');	
 		}
 		
 		return imageloadfont($file);	
 	}
 	
-	/******************************************************************************************
-	* COPY PALETTE                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Paleti bir resimden diğerine kopyalar.								  |											 	
-	
-	  @param  resource $source
-	  
-	  @return void
-	|          																				  |
-	******************************************************************************************/
-	public function copyPalette($source = '')
+	//----------------------------------------------------------------------------------------------------
+	// Copy Palette
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param resource $source
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function copyPalette($source)
 	{	
 		if( ! is_resource($source) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(source)');	
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');	
 		}
 		
 		return imagepalettecopy($this->canvas, $source);	
 	}
 	
-	/******************************************************************************************
-	* CANVAS WIDTH                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin genişliğini verir.												  |											 	
-	
-	  @param  void
-	  
-	  @return numeric
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Canvas Width
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function canvasWidth()
 	{	
 		return imagesx($this->canvas);	
 	}
 	
-	/******************************************************************************************
-	* CANVAS HEIGHT                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Resmin yüksekliğini verir.											  |											 	
-	
-	  @param  void
-	  
-	  @return numeric
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Canvas Height
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function canvasHeight()
 	{	
 		return imagesy($this->canvas);	
 	}
 	
-	/******************************************************************************************
-	* TYPES                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Kurulu PHP'nin desteklediği resim türlerini döndürür.					  |											 	
-	
-	  @param  void
-	  
-	  @return numeric
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Types
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function types()
 	{	
 		return imagetypes();	
 	}
 	
-	/******************************************************************************************
-	* GENERATE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Resmi oluşturur.														  |
-	
-	  @param  void
-	  
-	  @return resource
-	|          																				  |
-	******************************************************************************************/
-	public function generate($type = '', $save = '')
+	//----------------------------------------------------------------------------------------------------
+	// Generate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	// @param string $save
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function generate(String $type = NULL, String $save = NULL)
 	{	
 		$canvas = $this->canvas;
 		
@@ -1677,16 +1312,13 @@ class InternalGD implements GDInterface
 		return $canvas;
 	}
 	
-	/******************************************************************************************
-	* RESULT         				                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Kaydedilen resmi çıktısını görüntülemek için kullanılır.				  |
-	
-	  @param void
-	  
-	  @retur string
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Result
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function result()
 	{
 		if( empty($this->result['path']) )
@@ -1697,12 +1329,13 @@ class InternalGD implements GDInterface
 		return \Html::image($this->result['path']);	
 	}
 	
-	/******************************************************************************************
-	* PROTECTED COLORS				                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Renk isimlerine göre 0-255 lik değerleri ayarlanıyor.					  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Colors
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _colors($rgb)
 	{
 		// Renkler küçük isimlerle yazılmıştır.
@@ -1719,26 +1352,15 @@ class InternalGD implements GDInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* PROTECTED ALLOCATE                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resim için alfa kanallı bir renk ayırır.	     	      			  |
-	
-	  @param  numeric  $alpha 0
-	  @param  string   $rgb
-	  
-	  @return int
-	|          																				  |
-	******************************************************************************************/
-	protected function allocate($rgb = '')
+	//----------------------------------------------------------------------------------------------------
+	// Protected Allocate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $rgb
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function allocate($rgb)
 	{
-		if( ! is_string($rgb) )
-		{
-			\Errors::set('Error', 'stringParameter', '1(rgb)');
-			
-			return $this;
-		}
-		
 		$rgb = explode('|', $this->_colors($rgb));
 		
 		$red   = isset($rgb[0]) ? $rgb[0] : 0;
@@ -1749,16 +1371,13 @@ class InternalGD implements GDInterface
 		return imagecolorallocatealpha($this->canvas, $red, $green, $blue, $alpha);
 	} 
 		
-	/******************************************************************************************
-	* DESTROY                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Bir resmi bellekten siler. 							             	  |
-	
-	  @param  resource $source
-	
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Destroy
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _destroy()
 	{
 		imagedestroy($this->canvas);
@@ -1766,27 +1385,25 @@ class InternalGD implements GDInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CONTENT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya içerik türünü ayarlar.											  |
-	
-	  @param  string  $type jpeg
-	   
-	  @return void
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Content
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _content()
 	{
 		header("Content-type: image/".$this->type);
 	}
 	
-	/******************************************************************************************
-	* PROTECTED DEFAULT VARIABLES                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Değişken değerleri sıfırlanıyor.										  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Default Variables
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariables()
 	{
 		$this->canvas  = NULL;
@@ -1796,17 +1413,13 @@ class InternalGD implements GDInterface
 		$this->output  = true;
 	}
 	
-	/******************************************************************************************
-	* TYPES                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Resim oluşturma türleri.												  |
-	
-	  @param  string $type jpeg, gif, png, gd, gd2 
-	  [ @param  string $file NULL ]
-	  
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Types
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _types()
 	{
 		$type = strtolower($this->type);
