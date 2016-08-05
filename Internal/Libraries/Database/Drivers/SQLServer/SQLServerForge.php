@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\DriverForge;
 
-class PostgresForge extends DriverForge
+class SQLServerForge extends DriverForge
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,19 +13,6 @@ class PostgresForge extends DriverForge
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// Modify Column
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $table
-	// @param mixed  $column
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($table, $column)
-	{
-		return 'ALTER TABLE '.$table.' ALTER COLUMN '.rtrim($column, ',').';';
-	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Rename Column

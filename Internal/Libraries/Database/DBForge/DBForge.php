@@ -13,15 +13,6 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
-	// Forge
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @var object
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $forge;
-
-	//----------------------------------------------------------------------------------------------------
 	// Extras
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -29,6 +20,15 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $extras;
+
+	//----------------------------------------------------------------------------------------------------
+	// Forge
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var object
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $forge;
 
 	//----------------------------------------------------------------------------------------------------
 	// Construct
@@ -68,7 +68,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function createDatabase(String $dbname, $extras = NULL)
 	{
-		$query  = $this->forge->createDatabase($dbname, $this->extras($extras, 'extras'));	
+		$query = $this->forge->createDatabase($dbname, $this->_p($extras, 'extras'));	
 		
 		return $this->_runExecQuery($query);
 	}
@@ -82,7 +82,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function dropDatabase(String $dbname)
 	{
-		$query  = $this->forge->dropDatabase($dbname);	
+		$query = $this->forge->dropDatabase($dbname);	
 		
 		return $this->_runExecQuery($query);
 	}
@@ -92,31 +92,13 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param mixed $table
-	// @param mixed $condition
+	// @param mixed $colums
 	// @param mixed $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable(String $table = NULL, Array $condition, $extras = NULL)
-	{
-		$column = '';
-
-		foreach( $condition as $key => $value )
-		{
-			$values = '';
-			
-			if( is_array($value) ) foreach( $value as $val )
-			{
-				$values .= ' '.$val;
-			}
-			else
-			{
-				$values = $value;	
-			}
-			
-			$column .= $key.' '.$values.',';
-		}
-		
-		$query = $this->forge->createTable($this->_p($table), $column, $extras);
+	public function createTable(String $table = NULL, Array $colums, $extras = NULL)
+	{		
+		$query = $this->forge->createTable($this->_p($table), $colums, $extras);
 	
 		return $this->_runExecQuery($query);
 	}
@@ -145,7 +127,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function alterTable(String $table = NULL, Array $condition = NULL)
 	{
-		$table     = $this->_p($table);	
+		$table = $this->_p($table);	
 		
 		if( key($condition) === 'renameTable' ) 			
 		{
@@ -179,7 +161,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function renameTable(String $name, String $newName)
 	{
-		$query  = $this->forge->renameTable($this->_p($name, 'prefix'), $this->_p($newName, 'prefix'));
+		$query = $this->forge->renameTable($this->_p($name, 'prefix'), $this->_p($newName, 'prefix'));
 		
 		return $this->_runExecQuery($query);
 	}
@@ -208,30 +190,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function addColumn(String $table = NULL, Array $columns = NULL)
 	{	
-		$con = NULL;
-		
-		$columns = $this->_p($columns, 'column');
-
-		foreach( $columns as $column => $values )
-		{
-			$colvals = '';
-			
-			if( is_array($values) )
-			{	
-				foreach( $values as $val )
-				{
-					$colvals .= ' '.$val;
-				}
-			}
-			else
-			{
-				$colvals .= ' '.$values;
-			}
-			
-			$con .= $column.$colvals.',';
-		}		
-		
-		$query  = $this->forge->addColumn($this->_p($table), $con);
+		$query = $this->forge->addColumn($this->_p($table), $this->_p($columns, 'column'));
 		
 		return $this->_runExecQuery($query);
 	}
@@ -244,17 +203,17 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn(String $table = NULL, $column = NULL)
+	public function dropColumn(String $table = NULL, $columns = NULL)
 	{
-		if( ! is_array($column) )
+		if( ! is_array($columns) )
 		{
-			$query = $this->forge->dropColumn($this->_p($table), $column);
+			$query = $this->forge->dropColumn($this->_p($table), $columns);
 			
 			return $this->_runExecQuery($query);
 		}
 		else
 		{
-			$columns = $this->_p($column, 'column');
+			$columns = $this->_p($columns, 'column');
 
 			foreach( $columns as $col )
 			{
@@ -277,30 +236,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function modifyColumn(String $table = NULL, Array $columns = NULL)
 	{
-		$con = NULL;
-
-		$columns = $this->_p($columns, 'column');
-			
-		foreach( $columns as $column => $values )
-		{
-			$colvals = '';
-			
-			if( is_array($values) )
-			{	
-				foreach( $values as $val )
-				{
-					$colvals .= ' '.$val;
-				}
-			}
-			else
-			{
-				$colvals .= ' '.$values;
-			}
-			
-			$con .= $modifyColumn.$column.$colvals.',';
-		}		
-	
-		$query  = $this->forge->modifyColumn($this->_p($table), $con);
+		$query = $this->forge->modifyColumn($this->_p($table), $this->_p($columns, 'column'));
 		
 		return $this->_runExecQuery($query);
 	}
@@ -315,35 +251,8 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	public function renameColumn(String $table = NULL , Array $columns = NULL)
 	{	
-		$con = NULL;
-		
-		$columns = $this->_p($columns, 'column');
-
-		foreach( $columns as $column => $values )
-		{
-			$colvals = '';
-			
-			if( is_array($values) )
-			{	
-				foreach( $values as $val )
-				{
-					$colvals .= ' '.$val;
-				}
-			}
-			else
-			{
-				$colvals .= ' '.$values;
-			}
-			
-			$con .= $column.$to.$colvals.',';
-		}		
-
-		$query  = $this->forge->renameColumn($this->_p($table), $con);
+		$query = $this->forge->renameColumn($this->_p($table), $this->_p($columns, 'column'));
 		
 		return $this->_runExecQuery($query);
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Column Manipulation Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

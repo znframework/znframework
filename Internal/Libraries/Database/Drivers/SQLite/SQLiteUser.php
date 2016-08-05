@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\UserAbstract;
+use ZN\Database\DriverUser;
 
-class SQLiteUser extends UserAbstract
+class SQLiteUser extends DriverUser
 {
 	//----------------------------------------------------------------------------------------------------
 	//

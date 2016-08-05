@@ -1,7 +1,7 @@
 <?php
-namespace ZN\Database\Abstracts;
+namespace ZN\Database;
 
-abstract class ForgeAbstract
+class DriverForge
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -38,27 +38,6 @@ abstract class ForgeAbstract
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected _extras()
-	//----------------------------------------------------------------------------------------------------
-	protected function _extras($extras)
-	{
-		if( isArray($extras) )
-		{
-			$extraCodes = ' '.implode(' ', $extras).';';
-		}
-		elseif( is_string($extras) )
-		{
-			$extraCodes = ' '.$extras.';';	
-		}
-		else
-		{
-			$extraCodes = '';	
-		}
-		
-		return $extraCodes;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Create Table
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -69,7 +48,25 @@ abstract class ForgeAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function createTable($table, $columns, $extras)
 	{
-		return 'CREATE TABLE '.$table.'('.rtrim(trim($columns), ',').')'.$this->_extras($extras);
+		$column = '';
+
+		foreach( $columns as $key => $value )
+		{
+			$values = '';
+			
+			if( is_array($value) ) foreach( $value as $val )
+			{
+				$values .= ' '.$val;
+			}
+			else
+			{
+				$values = $value;	
+			}
+			
+			$column .= $key.' '.$values.',';
+		}
+
+		return 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$this->_extras($extras);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -127,9 +124,9 @@ abstract class ForgeAbstract
 	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($table, $column)
+	public function addColumn($table, $columns)
 	{
-		return 'ALTER TABLE '.$table.' ADD ('.rtrim($column, ',').');';
+		return 'ALTER TABLE '.$table.' ADD ('.$this->_extractColumn($columns).');';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -150,12 +147,12 @@ abstract class ForgeAbstract
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param string $table
-	// @param mixed  $column
+	// @param mixed  $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($table, $column)
+	public function modifyColumn($table, $columns)
 	{
-		return 'ALTER TABLE '.$table.' MODIFY '.rtrim($column, ',').';';
+		return 'ALTER TABLE '.$table.' MODIFY '.$this->_extractColumn($columns).';';
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -166,8 +163,62 @@ abstract class ForgeAbstract
 	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn($table, $column)
+	public function renameColumn($table, $columns)
 	{
-		return 'ALTER TABLE '.$table.' CHANGE COLUMN  '.rtrim($column, ',').';';
+		return 'ALTER TABLE '.$table.' CHANGE COLUMN  '.$this->_extractColumn($columns).';';
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Extract Column
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param mixed $columns
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _extractColumn($columns)
+	{
+		$con = NULL;
+
+		foreach( $columns as $column => $values )
+		{
+			$colvals = '';
+			
+			if( is_array($values) )
+			{	
+				foreach( $values as $val )
+				{
+					$colvals .= ' '.$val;
+				}
+			}
+			else
+			{
+				$colvals .= ' '.$values;
+			}
+			
+			$con .= $column.$colvals.',';
+		}
+
+		return rtrim($con, ',');
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected _extras()
+	//----------------------------------------------------------------------------------------------------
+	protected function _extras($extras)
+	{
+		if( isArray($extras) )
+		{
+			$extraCodes = ' '.implode(' ', $extras).';';
+		}
+		elseif( is_string($extras) )
+		{
+			$extraCodes = ' '.$extras.';';	
+		}
+		else
+		{
+			$extraCodes = '';	
+		}
+		
+		return $extraCodes;
 	}
 }

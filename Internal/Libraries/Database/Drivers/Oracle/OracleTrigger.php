@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\TriggerAbstract;
+use ZN\Database\DriverTrigger;
 
-class OracleTrigger extends TriggerAbstract
+class OracleTrigger extends DriverTrigger
 {
 	//----------------------------------------------------------------------------------------------------
 	//

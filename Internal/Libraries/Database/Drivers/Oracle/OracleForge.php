@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\ForgeAbstract;
+use ZN\Database\DriverForge;
 
-class OracleForge extends ForgeAbstract
+class OracleForge extends DriverForge
 {
 	//----------------------------------------------------------------------------------------------------
 	//

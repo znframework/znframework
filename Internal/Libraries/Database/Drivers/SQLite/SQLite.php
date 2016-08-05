@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\DriverAbstract;
+use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 
-class SQLiteDriver extends DriverAbstract
+class SQLiteDriver extends DriverConnectionMappingAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,7 +1,7 @@
 <?php
-namespace ZN\Database\Abstracts;
+namespace ZN\Database;
 
-abstract class UserAbstract
+class DriverUser
 {
 	//----------------------------------------------------------------------------------------------------
 	//

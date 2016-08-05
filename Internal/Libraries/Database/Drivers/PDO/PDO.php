@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\DriverAbstract;
+use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 
-class PDODriver extends DriverAbstract
+class PDODriver extends DriverConnectionMappingAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -22,29 +22,6 @@ class PDODriver extends DriverAbstract
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $selectDriver;
-	
-	//----------------------------------------------------------------------------------------------------
-	// PDO Sub Drivers
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var array
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $pdoSubdrivers =
-	[
-		'4d',
-		'cubrid',
-		'dblib',
-		'firebird',
-		'ibm',
-		'informix',
-		'mysql',
-		'oci',
-		'odbc',
-		'pgsql',
-		'sqlite',
-		'sqlsrv'
-	];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Sub Driver
@@ -147,11 +124,6 @@ class PDODriver extends DriverAbstract
 		if( empty($this->selectDriver) ) 
 		{
 			$this->selectDriver = 'mysql';
-		}
-		
-		if( ! in_array($this->selectDriver, $this->pdoSubdrivers) )
-		{
-			die(\Errors::message('Database', 'driverError', $this->selectDriver));		
 		}
 		
 		$this-> connect = $this->_subDrivers($this->config['user'], $this->config['password']); 	

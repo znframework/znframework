@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\DriverAbstract;
+use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 
-class MySQLiDriver extends DriverAbstract
+class MySQLiDriver extends DriverConnectionMappingAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -132,6 +132,21 @@ class MySQLiDriver extends DriverAbstract
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// Query
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $query
+	// @param array  $security
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function query($query, $security = NULL)
+	{
+		$this->query = $this->exec($query, $security);
+
+		return $this->query;
+	}
+
+	//----------------------------------------------------------------------------------------------------
 	// Multi Query
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -142,20 +157,6 @@ class MySQLiDriver extends DriverAbstract
 	public function multiQuery($query, $security = NULL)
 	{
 		$this->query = mysqli_multi_query($this->connect, $query);
-		return $this->query;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Query
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $query
-	// @param array  $security
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function query($query, $security = NULL)
-	{
-		$this->query = mysqli_query($this->connect, $query);
 		return $this->query;
 	}
 	

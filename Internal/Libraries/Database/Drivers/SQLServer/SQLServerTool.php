@@ -3,7 +3,7 @@ namespace ZN\Database\Drivers;
 
 use ZN\Database\DriverTool;
 
-class ODBCTool extends DriverTool
+class SQLServerTool extends DriverTool
 {
 	//----------------------------------------------------------------------------------------------------
 	//

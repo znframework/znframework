@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\DriverAbstract;
+use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 
-class PostgresDriver extends DriverAbstract
+class PostgresDriver extends DriverConnectionMappingAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//

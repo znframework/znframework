@@ -11,7 +11,30 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
+
+	//----------------------------------------------------------------------------------------------------
+	// Drivers
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $drivers = 
+	[
+		'odbc',
+		'mysqli',
+		'pdo',
+		'oracle',
+		'postgres',
+		'sqlite',
+		'sqlserver',
+		'pdo:mysql',
+		'pdo:postgres',
+		'pdo:sqlite',
+		'pdo:sqlserver',
+		'pdo:odbc'
+	];
+
 	//----------------------------------------------------------------------------------------------------
 	// Config
 	//----------------------------------------------------------------------------------------------------
@@ -402,9 +425,12 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 		if( isset($config['driver']) ) 
 		{		
 			$driver = $config['driver'];
-		
-			// Sub driver kullanılırken driver:subdriver
-			// kullanımı için böyle bir kontrol yapılmaktadır.
+			
+			if( ! in_array(strtolower($driver), $this->drivers) )
+			{
+				die(\Errors::message('Database', 'driverError', $driver));		
+			}
+
 			if( strpos($driver, ':') )
 			{
 				$subDrivers = explode(':', $driver);
@@ -413,7 +439,6 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 			
 			$drv = $this->_drvlib($driver, 'Driver');
 		
-			// Sürüden bir nesne oluşturuluyor.
 			$db = new $drv;
 			
 			return $db;

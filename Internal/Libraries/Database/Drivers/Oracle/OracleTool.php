@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\ToolAbstract;
+use ZN\Database\DriverTool;
 
-class OracleTool extends ToolAbstract
+class OracleTool extends DriverTool
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\Abstracts\UserAbstract;
+use ZN\Database\DriverUser;
 
-class OracleUser extends UserAbstract
+class OracleUser extends DriverUser
 {
 	//----------------------------------------------------------------------------------------------------
 	//

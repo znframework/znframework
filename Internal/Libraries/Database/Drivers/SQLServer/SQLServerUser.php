@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\DriverTool;
+use ZN\Database\DriverUser;
 
-class ODBCTool extends DriverTool
+class SQLServerUser extends DriverUser
 {
 	//----------------------------------------------------------------------------------------------------
 	//

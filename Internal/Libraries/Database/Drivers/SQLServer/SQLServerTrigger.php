@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Database\Drivers;
 
-use ZN\Database\DriverTool;
+use ZN\Database\DriverTrigger;
 
-class ODBCTool extends DriverTool
+class SQLServerTrigger extends DriverTrigger
 {
 	//----------------------------------------------------------------------------------------------------
 	//

@@ -55,15 +55,6 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	private $select;
 	
 	//----------------------------------------------------------------------------------------------------
-	// From
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var string
-	//
-	//----------------------------------------------------------------------------------------------------
-	private $from;
-	
-	//----------------------------------------------------------------------------------------------------
 	// where
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -400,21 +391,6 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// From
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $table
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function from(String $table)
-	{
-		$this->from      = ' '.$this->prefix.$table.' ';
-		$this->tableName = $this->prefix.$table;
-
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Where
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -639,17 +615,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	{		
 		nullCoalesce($return, 'object');
 
-		if( ! empty($table) ) 
-		{
-			$this->tableName = $this->prefix.$table;
-			$this->table     = ' '.$this->tableName.' ';			
-			
-		}
-		elseif( ! empty($this->from) )
-		{
-			$this->table = $this->from;
-		}
-		
+		$this->tableName = $table = $this->_p($table, 'table');
+	
 		if( ! empty($this->selectFunctions) )
 		{
 			$selectFunctions = rtrim(implode(',', $this->selectFunctions), ',');
@@ -669,42 +636,42 @@ class InternalDB extends DatabaseCommon implements DBInterface
 			$this->select = ' * ';	
 		}
 		
-		// Sorgu yöntemlerinden gelen değeler birleştiriliyor.		
-		$paginationQueryBuilder = 'SELECT '.
-								  $this->all.
-								  $this->distinct.
-								  $this->distinctRow.
-							 	  $this->highPriority.
-								  $this->maxStatementTime.
-								  $this->straightJoin.
-								  $this->smallResult.
-								  $this->bigResult.
-								  $this->bufferResult.
-								  $this->cache.
-								  $this->noCache.
-								  $this->calcFoundRows.					 
-								  $this->select.
-								  ' FROM '.
-								  $this->table.
-								  $this->join.
-								  $this->_where().
-								  $this->_groupBy().
-								  $this->_having().
-								  $this->_orderBy();
-		
-		$extras = $this->procedure.
-		          $this->outFile.
-				  $this->characterSet.
-				  $this->dumpFile.
-				  $this->into.
-				  $this->forUpdate.
-				  $this->lockInShareMode;
+		// First Query Build	
+	    $firstQueryBuilder  = 'SELECT '.
+							  $this->all.
+							  $this->distinct.
+							  $this->distinctRow.
+						 	  $this->highPriority.
+							  $this->maxStatementTime.
+							  $this->straightJoin.
+							  $this->smallResult.
+							  $this->bigResult.
+							  $this->bufferResult.
+							  $this->cache.
+							  $this->noCache.
+							  $this->calcFoundRows.					 
+							  $this->select.
+							  ' FROM '.
+							  $table.' '.
+							  $this->join.
+							  $this->_where().
+							  $this->_groupBy().
+							  $this->_having().
+							  $this->_orderBy();
+		// Second Query Build
+	    $secondQueryBuilder = $this->procedure.
+					          $this->outFile.
+							  $this->characterSet.
+							  $this->dumpFile.
+							  $this->into.
+							  $this->forUpdate.
+							  $this->lockInShareMode;
 			
 		// Limited
-		$queryBuilder = $paginationQueryBuilder.$this->limit.$extras;
+		$queryBuilder = $firstQueryBuilder.$this->limit.$secondQueryBuilder;
 		
 		// Unlimited
-		$this->unlimitedQuery = $paginationQueryBuilder.$extras;
+		$this->unlimitedQuery = $firstQueryBuilder.$secondQueryBuilder;
 		
 		// Clear Query
 		$this->_resetSelectQuery();
@@ -1225,12 +1192,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function query(String $query, Array $secure = NULL)
 	{
-		if( isset($this->secure) )
-		{
-			$secure = $this->secure;
-		}
-	
-		$this->db->query($this->_querySecurity($query), (array) $secure);
+		$this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
 		
 		if( ! empty($this->transStart) ) 
 		{
@@ -1255,12 +1217,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function execQuery(String $query, Array $secure = NULL)
 	{
-		if( isset($this->secure) )
-		{
-			$secure = $this->secure;	
-		}
-		
-		return $this->db->exec($this->_querySecurity($query), (array) $secure);
+		return $this->db->exec($this->_querySecurity($query), $this->_p($secure, 'secure'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1273,12 +1230,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function multiQuery(String $query, Array $secure = NULL)
 	{
-		if( isset($this->secure) )
-		{
-			$secure = $this->secure;	
-		}
-		
-		return $this->db->multiQuery($this->_querySecurity($query), (array) $secure);
+		return $this->db->multiQuery($this->_querySecurity($query), $this->_p($secure, 'secure'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
