@@ -161,8 +161,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function query($query, $security = NULL)
 	{
-		$this->query = sqlsrv_query($this->connect, $query);
-		return $this->query;
+		return $this->query = $this->exec($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

@@ -145,8 +145,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function query($query, $security = [])
 	{
-		$this->query = $this->connect->query($query);
-		return $this->query;
+		return $this->query = $this->connect->query($query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

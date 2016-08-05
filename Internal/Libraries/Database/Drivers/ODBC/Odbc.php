@@ -148,7 +148,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function query($query, $security = [])
 	{
-		$this->query = odbc_prepare($this->connect, $query);
+		$this->query = $this->exec($query);
 		return odbc_execute($this->query, $security);
 	}
 	

@@ -141,9 +141,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function query($query, $security = NULL)
 	{
-		$this->query = $this->exec($query, $security);
-
-		return $this->query;
+		return $this->query = $this->exec($query, $security);
 	}
 
 	//----------------------------------------------------------------------------------------------------
