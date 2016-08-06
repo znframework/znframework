@@ -101,7 +101,7 @@ class InternalErrors implements ErrorsInterface
     {
         $errors     = '';
         $funcParams = '';
-        $info       = $this->debugBackTrace();
+        $info       = $this->debugBackTrace(['object' => 4, 'file' => 6, 'default' => 5]);
 
         $className  = $info['className'];
         $methodName = $info['methodName'];
@@ -154,7 +154,7 @@ class InternalErrors implements ErrorsInterface
 			$errorMessage = lang($errorMessage, $output, $object);	
 		}
 		
-		$info       = $this->debugBackTrace();
+		$info       = $this->debugBackTrace(['object' => 4, 'file' => 6, 'default' => 5]);
         $className  = $info['className'];
         $methodName = $info['methodName'];
         $line       = $info['line'];

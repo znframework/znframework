@@ -20,7 +20,12 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	******************************************************************************************/	
 	public function __toString()
 	{
-		return $this->_template($this->getMessage(), $this->getFile(), $this->getLine());
+		return $this->_template($this->getMessage(), $this->getFile(), $this->getLine(), $this->getTrace());
+	}
+
+	protected function _cleanClassName($class)
+	{
+		return str_ireplace(STATIC_ACCESS, '', divide($class, '\\', -1));
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -49,15 +54,16 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return $exceptionData;
 		}
 		
-		$debug = \Errors::debugBackTrace(['object' => 13, 'file' => 13, 'default' => 5]);
+		$localObjectInfo = $trace[0];
+		$localFileInfo   = $trace[2];
+		$langMessage1    = $this->_cleanClassName($localObjectInfo['class']).'::'.
+		                   $localObjectInfo['function '].'() p'.$argument.':';
 
-		$langMessage1 = $debug['className'].'::'.$debug['methodName'].'() p'.$argument.':';
-
-		$exceptionData = array
+		$exceptionData   = array
 		(
 			'message' => lang('Error', 'emptyParameter', $langMessage1),
-			'file'	  => $debug['file'],
-			'line'    => $debug['line']
+			'file'	  => $localFileInfo['file'],
+			'line'    => $localFileInfo['line']
 		);
 
 		return $exceptionData;
@@ -70,7 +76,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     // @param string $msg
     //
     //----------------------------------------------------------------------------------------------------
-	protected function _argumentPassed($msg)
+	protected function _argumentPassed($msg, $file, $line, $trace)
 	{
 		$exceptionData = false;
 
@@ -93,18 +99,18 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return false;
 		}
 
+		$localFileInfo = $trace[2];
+
 		if( $type !== $data )
 		{
-			$debug = \Errors::debugBackTrace(['object' => 13, 'file' => 13, 'default' => 5]);
-
-			$langMessage1 = $debug['className'].'::'.$method.' p'.$argument.':';
+			$langMessage1 = $this->_cleanClassName($class).'::'.$method.' p'.$argument.':';
 			$langMessage2 = '`'.$type.'`';
 
 			$exceptionData = array
 			(
 				'message' => lang('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
-				'file'	  => $debug['file'],
-				'line'    => $debug['line'],
+				'file'	  => $localFileInfo['file'],
+				'line'    => $localFileInfo['line'],
 			);
 
 			return $exceptionData;
@@ -124,7 +130,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     //----------------------------------------------------------------------------------------------------
 	public function throws($message = '', $key = '', $send = '')
 	{
-		$debug = \Errors::debugBackTrace(['object' => 11, 'file' => 11, 'default' => 5]);
+		$debug = \Errors::debugBackTrace(['object' => 6, 'file' => 8, 'default' => 5]);
 
 		if( $lang = lang($message, $key, $send) )
 		{
@@ -140,7 +146,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	| Genel Kullanım: Hata tablosu.     													  |
 	|          																				  |
 	******************************************************************************************/	
-	private function _template($msg, $file, $line, $no)
+	private function _template($msg, $file, $line, $no, $trace)
 	{
 		global $application;
 
@@ -169,16 +175,6 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return false;
 		}
 
-		$debug = \Errors::debugBackTrace(['object' => 10, 'file' => 12, 'default' => 5]);
-
-		$currentFile = str_replace('\\', '/', REAL_BASE_DIR.CURRENT_CFILE);
-
-		if( str_replace('\\', '/', $file) !== $currentFile )
-		{
-			$file = $debug['file'];
-			$line = $debug['line'];
-		}
-
 		$exceptionData = array
 		(
 			'message' => $msg,
@@ -186,7 +182,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			'line'    => $line
 		);
 
-		if( $passed = $this->_argumentPassed($msg) )	
+		if( $passed = $this->_argumentPassed($msg, $file, $line, $trace) )	
 		{
 			if( is_array($passed) )
 			{
@@ -212,14 +208,14 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
 	|          																				  |
 	******************************************************************************************/	
-	public function table($no = '', $msg = '', $file = '', $line = '')
+	public function table($no = '', $msg = '', $file = '', $line = '', $trace = '')
 	{
 		$lang    = lang('Error');
 		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 		
 		report('GeneralError', $message, 'GeneralError');
 	
-		echo $this->_template($msg, $file, $line, $no);  
+		echo $this->_template($msg, $file, $line, $no, $trace);  
 	}
 	
 	/******************************************************************************************
