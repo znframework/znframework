@@ -732,6 +732,11 @@ class InternalImport implements ImportInterface
 		}
 
 		$arguments = array_unique($arguments);
+
+		if( $lastParam === true )
+		{
+			$arguments = \Arrays::removeLast($arguments);
+		}
 		
 		return (object)array
 		(
@@ -763,18 +768,19 @@ class InternalImport implements ImportInterface
 			{
 				$font = '';
 			}
-			
+
 			$f = divide($font, "/", -1);
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
 			
 			$fontFile = FONTS_DIR.$font;		
-			$baseUrl  = baseUrl($fontFile);
-			
+		
 			if( ! is_file($fontFile) )
 			{
 				$fontFile = EXTERNAL_FONTS_DIR.$font;
 			}
 			
+			$baseUrl  = baseUrl($fontFile);
+
 			if( extension($fontFile) )
 			{
 				if( is_file($fontFile) )
@@ -789,13 +795,16 @@ class InternalImport implements ImportInterface
 			{			
 				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.svg") format("truetype")}'.$eol;				
 			}
+			
 			if( is_file($fontFile.".woff") )
 			{			
 				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.woff") format("truetype")}'.$eol;		
 			}
+
 			// OTF IE VE CHROME DESTEKLEMIYOR
 			if( is_file($fontFile.".otf") )
 			{
+				echo 1;
 				$str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.otf") format("truetype")}'.$eol;			
 			}
 			
