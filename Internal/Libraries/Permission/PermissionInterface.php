@@ -20,7 +20,7 @@ interface PermissionInterface
 	// @param string  $process: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function start($roleId, $process);
+	public function start($roleId, String $process);
 	
 	//----------------------------------------------------------------------------------------------------
 	// end()
@@ -40,7 +40,7 @@ interface PermissionInterface
 	// @param string  $object : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function process($roleId, $process, $object);
+	public function process($roleId, String $process, String $object);
 	
 	//----------------------------------------------------------------------------------------------------
 	// page()

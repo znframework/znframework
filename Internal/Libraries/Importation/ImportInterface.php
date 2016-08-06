@@ -37,16 +37,16 @@ interface ImportInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($data);
+	public function data(Array $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// headData()
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @var string $headData
+	// @var array $headData
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function headData($headData);
+	public function headData(Array $headData);
 	
 	//----------------------------------------------------------------------------------------------------
 	// body()
@@ -55,7 +55,7 @@ interface ImportInterface
 	// @var string $body
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function body($body);
+	public function body(String $body);
 	
 	//----------------------------------------------------------------------------------------------------
 	// head()
@@ -64,7 +64,7 @@ interface ImportInterface
 	// @var mixed $head
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function head($head);
+	public function head(String $head);
 	
 	//----------------------------------------------------------------------------------------------------
 	// title()
@@ -73,7 +73,7 @@ interface ImportInterface
 	// @var string $title
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function title($title);
+	public function title(String $title);
 	
 	//----------------------------------------------------------------------------------------------------
 	// meta()
@@ -82,7 +82,7 @@ interface ImportInterface
 	// @var array $meta
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function meta($meta);
+	public function meta(Array $meta);
 	
 	//----------------------------------------------------------------------------------------------------
 	// attributes()
@@ -91,7 +91,7 @@ interface ImportInterface
 	// @var array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes);
+	public function attributes(Array $attributes);
 	
 	//----------------------------------------------------------------------------------------------------
 	// content()
@@ -100,149 +100,97 @@ interface ImportInterface
 	// @var array $content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content($content);
+	public function content(Array $content);
 	
-	/******************************************************************************************
-	* PAGE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function page($page, $data, $obGetContents, $randomPageDir);
+	//----------------------------------------------------------------------------------------------------
+	// page()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function page(String $page, Array $data, $obGetContents, $randomPageDir);
 	
-	/******************************************************************************************
-	* VIEW                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function view($page, $data, $obGetContents, $randomPageDir);
+	//----------------------------------------------------------------------------------------------------
+	// view()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function view(String $page, Array $data, $obGetContents, $randomPageDir);
 	
-	/******************************************************************************************
-	* HANDLOAD                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function handload();
+	//----------------------------------------------------------------------------------------------------
+	// handload()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function handload(...$args);
 	
-	/******************************************************************************************
-	* VIEW                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function template($page, $data, $obGetContents);
+	//----------------------------------------------------------------------------------------------------
+	// template()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function template(String $page, Array $data, $obGetContents);
 	
-	/******************************************************************************************
-	* MASTERPAGE                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Views/ dizini içinde yer alan herhangi bir sayfayı masterpage           |
-	| olarak ayarlamak için kullanılır.										  				  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. array var @data => Sayfanın body bölümüne veri göndermek için kullanılır. 		      |
-	| 2. array var @head => Sayfanın head bölümüne veri göndermek için kullanılır. 			  |
-	|          																				  |
-	| Örnek Kullanım: Import::masterpage();        						  					  |
-	|          																				  |
-	| NOT: Bir sayfayı masterpage olarak ayarlamak için Config/Masterpage.php dosyası		  |
-	| kullanılır.	        															      |
-	|          																				  |
-	******************************************************************************************/
-	public function masterPage($randomDataVariable, $head);
+	//----------------------------------------------------------------------------------------------------
+	// masterpage()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $randomDataVariable
+	// @param array $head
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function masterPage(Array $randomDataVariable, Array $head);
 	
-	/******************************************************************************************
-	* FONT                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Harici font yüklemek için kullanılır. Yüklenmek istenen fontlar		  |
-	| Resources/Fonts/ dizinine atılır.										  				  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. array/args var @fonts => Parametre olarak sıralı font dosyalarını veya dizi içinde   |
-	| eleman olarak kullanılan font dosyalarını dahil etmek için kullanılır.			      |
-	|          																				  |
-	| Örnek Kullanım: Import::font('f1', 'f2' ... 'fN');        						      |
-	| Örnek Kullanım: Import::font(array('f1', 'f2' ... 'fN'));        				          |
-	|          																				  |
-	******************************************************************************************/
-	public function font();
+	//----------------------------------------------------------------------------------------------------
+	// font()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $fonts
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function font(...$fonts);
 	
-	/******************************************************************************************
-	* STYLE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Harici stil yüklemek için kullanılır. Yüklenmek istenen stiller		  |
-	| Resources/Styles/ dizinine atılır.			     				  				      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. array/args var @styles => Parametre olarak sıralı stil dosyalarını veya dizi içinde  |
-	| eleman olarak kullanılan stil dosyalarını dahil etmek için kullanılır.			      |
-	|          																				  |
-	| Örnek Kullanım: Import::style('s1', 's2' ... 'sN');        						      |
-	| Örnek Kullanım: Import::style(array('s1', 's2' ... 'sN'));        				      |
-	|          																				  |
-	******************************************************************************************/
-	public function style();	
+	//----------------------------------------------------------------------------------------------------
+	// style()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $styles
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function style(...$styles);	
 
-	/******************************************************************************************
-	* SCRIPT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Harici js dosyası yüklemek için kullanılır. Yüklenmek istenen stiller	  |
-	| Resources/Scripts/ dizinine atılır.		    						  				  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. array/args var @scripts => Parametre olarak sıralı js dosyalarını veya dizi içinde   |
-	| eleman olarak kullanılan js dosyalarını dahil etmek için kullanılır.			     	  |
-	|          																				  |
-	| Örnek Kullanım: Import::script('s1', 's2' ... 'sN');        						      |
-	| Örnek Kullanım: Import::script(script('s1', 's2' ... 'sN'));        				      |
-	|          																				  |
-	******************************************************************************************/
-	public function script();
+	//----------------------------------------------------------------------------------------------------
+	// scripts()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $scripts
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function script(...$scripts);
 	
-	/******************************************************************************************
-	* SOMETHING                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Herhangi bir dosya dahil etmek için kullanılır.						  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::something('Application/Views/OrnekSayfa.php');             	  |
-	| Örnek Kullanım: Import::something('Application/Resources/Styles/Stil.js');  	          |
-	|          																				  |
-	******************************************************************************************/
-	public function something($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable);
+	//----------------------------------------------------------------------------------------------------
+	// something()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $contents
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function something(String $randomPageVariable, Array $randomDataVariable, $randomObGetContentsVariable);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Package

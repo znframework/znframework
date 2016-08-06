@@ -153,19 +153,12 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _method($name = '', $value = '', $input = '', $type = '')
-	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'name');
-		}
-		
+	protected function _method($name, $value, $input, $type)
+	{	
 		if( empty($name) ) 
 		{
 			return $input;
 		}
-		// ---------------------------------------------------------------------------
 			
 		// @value parametresi boş değilse
 		if( ! empty($value) )

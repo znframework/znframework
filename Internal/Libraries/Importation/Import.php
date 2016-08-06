@@ -14,38 +14,42 @@ class InternalImport implements ImportInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Is Import Değişkeni
-	 *  
-	 * Bir sınıfın daha önce dahil edilip edilmediği
-	 * bilgisini tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Is Import
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $isImport = [];
 	
-	/* Parameters Değişkeni
-	 *  
-	 * Parametre bilgilerini tutması içindir.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Parameters
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $parameters = array
 	(
 		'data'   => [],
 		'usable' => false 
 	);
 	
-	/* Template Wizard Değişkeni
-	 *  
-	 * Template uzantısı bilgisini
-	 * bilgisini tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Template Wizard Extension
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $templateWizardExtension = '.wizard';
 
 	//----------------------------------------------------------------------------------------------------
-	// usable()
+	// Usable
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @var bool $usable
+	// @param bool $usable
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function usable($usable = true)
@@ -76,7 +80,7 @@ class InternalImport implements ImportInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($data = [])
+	public function data(Array $data)
 	{
 		$this->parameters['data'] = $data;
 		
@@ -90,7 +94,7 @@ class InternalImport implements ImportInterface
 	// @var string $headData
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function headData($headData = true)
+	public function headData(Array $headData)
 	{
 		$this->parameters['headData'] = $headData;
 		
@@ -104,7 +108,7 @@ class InternalImport implements ImportInterface
 	// @var string $body
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function body($body = '')
+	public function body(String $body)
 	{
 		\Config::set('Masterpage', 'bodyPage', $body);
 		
@@ -118,7 +122,7 @@ class InternalImport implements ImportInterface
 	// @var mixed $head
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function head($head = '')
+	public function head(String $head)
 	{
 		\Config::set('Masterpage', 'headPage', $head);
 		
@@ -132,7 +136,7 @@ class InternalImport implements ImportInterface
 	// @var string $title
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function title($title = '')
+	public function title(String $title)
 	{
 		\Config::set('Masterpage', 'title', $title);
 		
@@ -140,13 +144,13 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// title()
+	// meta()
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @var string $title
+	// @var array $meta
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function meta($meta = [])
+	public function meta(Array $meta)
 	{
 		\Config::set('Masterpage', 'meta', $meta);
 		
@@ -160,7 +164,7 @@ class InternalImport implements ImportInterface
 	// @var array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes = [])
+	public function attributes(Array $attributes)
 	{
 		\Config::set('Masterpage', 'attributes', $attributes);
 		
@@ -174,7 +178,7 @@ class InternalImport implements ImportInterface
 	// @var array $content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content($content = [])
+	public function content(Array $content)
 	{
 		\Config::set('Masterpage', 'content', $content);
 		
@@ -182,27 +186,15 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Setting Methods Bitiş
+	// page()
 	//----------------------------------------------------------------------------------------------------
-		
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
 	//----------------------------------------------------------------------------------------------------
-	// View Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* PAGE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function page($page = '', $data = '', $obGetContents = false, $randomPageDir = PAGES_DIR)
+	public function page(String $page, Array $data = NULL, $obGetContents = false, $randomPageDir = PAGES_DIR)
 	{
 		if( stristr($page, $this->templateWizardExtension) )
 		{
@@ -212,37 +204,27 @@ class InternalImport implements ImportInterface
 		return $this->_page($page, $data, $obGetContents, $randomPageDir);
 	}
 	
-	/******************************************************************************************
-	* VIEW                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function view($page = '', $data = '', $obGetContents = false, $randomPageDir = PAGES_DIR)
+	//----------------------------------------------------------------------------------------------------
+	// page()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function view(String $page, Array $data = NULL, $obGetContents = false, $randomPageDir = PAGES_DIR)
 	{
 		return $this->page($page, $data, $obGetContents, $randomPageDir);
 	}
 	
-	/******************************************************************************************
-	* HANDLOAD                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// handload()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function handload(...$args)
 	{
 		if( ! empty($args) ) foreach( $args as $file )
@@ -262,20 +244,16 @@ class InternalImport implements ImportInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* PAGE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Views dosyası dahil etmek için kullanılır.						      |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	protected function _page($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false, $randomPageDir = PAGES_DIR)
+	//----------------------------------------------------------------------------------------------------
+	// Protected Page
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = PAGES_DIR)
 	{
 		if( ! empty($this->parameters['usable']) )
 		{
@@ -328,19 +306,15 @@ class InternalImport implements ImportInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* TEMPLATE WIZARD                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: view.template.php dosyalarını yüklemek ve ayrıştırmak için kullanılır.  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa.template');        	  						  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Template Wizard
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
 	{
 		$return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), $data);
@@ -354,27 +328,15 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// View Methods Bitiş
+	// template()
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Template Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* TEMPLATE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: .template uzantılı dosyaları yüklemek için kullanılır.				  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::page('OrnekSayfa');        	  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function template($page = '', $data = '', $obGetContents = false)
+	public function template(String $page, Array $data = NULL, $obGetContents = false)
 	{
 		if( $return = $this->page($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) ) 
 		{
@@ -393,14 +355,6 @@ class InternalImport implements ImportInterface
 			return \Exceptions::throws('Error', 'fileNotFound', $page);	
 		}
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Template Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Master Page Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protected Set Page
@@ -436,6 +390,13 @@ class InternalImport implements ImportInterface
 		return false;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Links
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @params
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _links($masterPageSet, $head, $type)
 	{
 		$header = '';
@@ -477,23 +438,15 @@ class InternalImport implements ImportInterface
 		return $header;
 	}
 	
-	/******************************************************************************************
-	* MASTERPAGE                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Views/ dizini içinde yer alan herhangi bir sayfayı masterpage           |
-	| olarak ayarlamak için kullanılır.										  				  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. array var @data => Sayfanın body bölümüne veri göndermek için kullanılır. 		      |
-	| 2. array var @head => Sayfanın head bölümüne veri göndermek için kullanılır. 			  |
-	|          																				  |
-	| Örnek Kullanım: Import::masterpage();        						  					  |
-	|          																				  |
-	| NOT: Bir sayfayı masterpage olarak ayarlamak için Config/Masterpage.php dosyası		  |
-	| kullanılır.	        															      |
-	|          																				  |
-	******************************************************************************************/
-	public function masterPage($randomDataVariable = [], $head = [])
+	//----------------------------------------------------------------------------------------------------
+	// masterpage()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $randomDataVariable
+	// @param array $head
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function masterPage(Array $randomDataVariable = NULL, Array $head = NULL)
 	{	
 		if( ! empty($this->parameters['headData']) )
 		{
@@ -757,13 +710,12 @@ class InternalImport implements ImportInterface
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
-	// Master Page Method Bitiş
+	// Protected Parameters
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @params
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Font Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-	
 	protected function _parameters($arguments, $cdn)
 	{
 		if( ! empty($this->parameters['usable']) )
@@ -789,20 +741,13 @@ class InternalImport implements ImportInterface
 		);
 	}
 	
-	/******************************************************************************************
-	* FONT                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Harici font yüklemek için kullanılır. Yüklenmek istenen fontlar		  |
-	| Resources/Fonts/ dizinine atılır.										  				  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. array/args var @fonts => Parametre olarak sıralı font dosyalarını veya dizi içinde   |
-	| eleman olarak kullanılan font dosyalarını dahil etmek için kullanılır.			      |
-	|          																				  |
-	| Örnek Kullanım: Import::font('f1', 'f2' ... 'fN');        						      |
-	| Örnek Kullanım: Import::font(array('f1', 'f2' ... 'fN'));        				          |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// font()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $fonts
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function font(...$fonts)
 	{	
 		$eol	   = EOL;
@@ -918,27 +863,12 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Font Method Bitiş
+	// style()
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param variadic $styles
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Style Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* STYLE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Harici stil yüklemek için kullanılır. Yüklenmek istenen stiller		  |
-	| Resources/Styles/ dizinine atılır.			     				  				      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. array/args var @styles => Parametre olarak sıralı stil dosyalarını veya dizi içinde  |
-	| eleman olarak kullanılan stil dosyalarını dahil etmek için kullanılır.			      |
-	|          																				  |
-	| Örnek Kullanım: Import::style('s1', 's2' ... 'sN');        						      |
-	| Örnek Kullanım: Import::style(array('s1', 's2' ... 'sN'));        				      |
-	|          																				  |
-	******************************************************************************************/
 	public function style(...$styles)
 	{
 		$str       = '';	
@@ -999,27 +929,12 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Style Method Bitiş
+	// scripts()
 	//----------------------------------------------------------------------------------------------------
-
+	//
+	// @param variadic $scripts
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Script Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* SCRIPT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Harici js dosyası yüklemek için kullanılır. Yüklenmek istenen stiller	  |
-	| Resources/Scripts/ dizinine atılır.		    						  				  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. array/args var @scripts => Parametre olarak sıralı js dosyalarını veya dizi içinde   |
-	| eleman olarak kullanılan js dosyalarını dahil etmek için kullanılır.			     	  |
-	|          																				  |
-	| Örnek Kullanım: Import::script('s1', 's2' ... 'sN');        						      |
-	| Örnek Kullanım: Import::script(script('s1', 's2' ... 'sN'));        				      |
-	|          																				  |
-	******************************************************************************************/
 	public function script(...$scripts)
 	{
 		$str 	   = '';	
@@ -1080,28 +995,15 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Script Method Bitiş
+	// something()
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $contents
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Something Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* SOMETHING                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Herhangi bir dosya dahil etmek için kullanılır.						  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @page => Dahil edilecek dosyanın yolu.								      |
-	| 2. array var @data => Dahil edilecen sayfaya gönderilecek veriler.				      |
-	| 3. boolean var @ob_get_contents => İçeriğin kullanımıyla ilgilidir..		              |
-	|          																				  |
-	| Örnek Kullanım: Import::something('Application/Views/OrnekSayfa.php');             	  |
-	| Örnek Kullanım: Import::something('Application/Resources/Styles/Stil.js');  	          |
-	|          																				  |
-	******************************************************************************************/
-	public function something($randomPageVariable = '', $randomDataVariable = '', $randomObGetContentsVariable = false)
+	public function something(String $randomPageVariable, Array $randomDataVariable = NULL, $randomObGetContentsVariable = false)
 	{
 		if( ! empty($this->parameters['usable']) )
 		{
@@ -1183,14 +1085,6 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Something Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Package Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
 	// Package
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -1199,7 +1093,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $getContents   	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function package($packages = "", $recursive = false, $getContents = false, $dir = '')
+	public function package($packages, $recursive = false, $getContents = false, $dir = NULL)
 	{
 		if( ! is_array($packages) )
 		{
@@ -1234,13 +1128,11 @@ class InternalImport implements ImportInterface
 	// @param bool   $getContents      	              
 	//       
 	//----------------------------------------------------------------------------------------------------   																				  
-	protected function _package($packages = "", $recursive = false, $getContents = false)
+	protected function _package($packages, $recursive, $getContents)
 	{
 		if( ! is_string($packages)  ) 
 		{
-			\Exceptions::throws('Error', 'stringParameter', 'packages');
-			
-			return false;
+			return \Exceptions::throws('Error', 'stringParameter', 'packages');
 		}
 		
 		if( ! empty($this->parameters['usable']) )
@@ -1326,8 +1218,4 @@ class InternalImport implements ImportInterface
 	{
 		return $this->package($plugin, $recursive, $getContents, PLUGINS_DIR);
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Package Method Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

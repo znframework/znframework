@@ -12,22 +12,26 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 
-	/* Permission Değişkeni
-	 *  
-	 * Config/Permission.php dosyasındaki ayar
-	 * bilgilerini tutması için oluşturulmuştur.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Permission
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $permission = [];
 	
-	/* Result Değişkeni
-	 *  
-	 * Yetki sonucu durum
-	 * bilgisini tutması için oluşturulmuştur.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Result
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $result;
 	
 	//----------------------------------------------------------------------------------------------------
-	// protected $content
+	// Content
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @var string
@@ -43,7 +47,7 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	// @param string  $process: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function start($roleId = 0, $process = '')
+	public function start($roleId = 0, String $process = NULL)
 	{
 		$this->content = $this->process($roleId, $process, 'object');
 	
@@ -84,22 +88,8 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	// @param string  $object : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function process($roleId = '', $process = '', $object = '')
-	{
-		// Parametrelerin kontrolleri yapılıyor.
-		if( ! is_numeric($roleId) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', 'roleId');	
-		}
-		if( ! is_scalar($process) ) 
-		{
-			$process = '';
-		}
-		if( ! is_scalar($object) ) 
-		{
-			$object = '';
-		}
-		
+	public function process($roleId = 0, String $process = NULL, String $object = NULL)
+	{	
 		$this->permission = $this->config['process'];
 		
 		if( isset($this->permission[$roleId]) ) 
@@ -208,13 +198,8 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	// @param numeric $roleId : 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function page($roleId = '6')
+	public function page($roleId = 6)
 	{
-		if( ! is_numeric($roleId) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', 'roleId');	
-		}
-		
 		$this->permission = $this->config['page'];
 		
 		if( isset($this->permission[$roleId]) )

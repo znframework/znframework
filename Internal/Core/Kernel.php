@@ -225,10 +225,8 @@ if( is_file($isFile) )
 			}
 			else
 			{
-				// Hatayı rapor et.
 				report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');	
-					
-				// Hatayı ekrana yazdır.
+		
 				die(Errors::message('Error', 'callUserFuncArrayError', $function));
 			}
 		}
@@ -242,10 +240,8 @@ else
 	}
 	else
 	{
-		// Hatayı rapor et.
 		report('Error', lang('Error', 'notIsFileError', $isFile), 'SystemNotIsFileError');
 		
-		// Hatayı ekrana yazdır.
 		die(Errors::message('Error', 'notIsFileError', $isFile));
 	}		
 }
