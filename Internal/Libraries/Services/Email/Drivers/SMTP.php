@@ -1,49 +1,48 @@
 <?php
 namespace ZN\Services\Drivers;
 
-class SMTPDriver implements EmailDriverInterface
+use ZN\Services\Abstracts\EmailMappingAbstract;
+
+class SMTPDriver extends EmailMappingAbstract
 {
-	/***********************************************************************************/
-	/* SMPT LIBRARY							                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: SmtpDriver
-	/* ZN Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Mixed
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Email kütüphanesi tarafından kullanılmaktadır.
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
-	/* 
-	 * Satır sonu karakter bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 * @var string \r\n
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// LF
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $lf = "\n";
 	
-	/* 
-	 * Soket bağlantı bilgisini
-	 * tutmak için oluşturulmuştur.
-	 * 
-	 * @var object
-	 */ 
+	//----------------------------------------------------------------------------------------------------
+	// Connect
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var resource
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $connect;
 
-	/******************************************************************************************
-	* CONSTRUCT                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: SMTP gönderimi yapılandırılıyor.										  |
-	
-	  @param  $to
-	  @return object
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $to
+	// @param string $subject
+	// @param string $message
+	// @param mixed  $headers
+	// @param mixed  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct($to = '', $subject = '', $body = '', $headers = '', $settings = [])
 	{
 		$this->to 		  = $to;
@@ -65,7 +64,32 @@ class SMTPDriver implements EmailDriverInterface
 		$this->dsn		  = isset($settings['dsn'])       ? $settings['dsn'] 		: '';
 		$this->tos		  = isset($settings['tos'])       ? $settings['tos'] 		: [];
 	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Send
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $to
+	// @param string $subject
+	// @param string $message
+	// @param mixed  $headers
+	// @param mixed  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function send($to, $subject, $message, $headers, $settings)
+	{
+		$smtp = new self($to, $subject, $message, $headers, $settings);
+		
+		return $smtp->sendEmail();
+	}   
 	
+	//----------------------------------------------------------------------------------------------------
+	// Send Email
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function sendEmail()
 	{
 		$connect = $this->_connect();
@@ -74,6 +98,13 @@ class SMTPDriver implements EmailDriverInterface
 		return $sending;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Connect
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _connect()
 	{
 		if( is_resource($this->connect) )
@@ -111,6 +142,13 @@ class SMTPDriver implements EmailDriverInterface
 		return $this->_setCommand('hello');
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Sending
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _sending()
 	{
 		if( empty($this->host) )
@@ -176,6 +214,13 @@ class SMTPDriver implements EmailDriverInterface
 		return true;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Auth Login
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _authLogin()
 	{
 		if( ! $this->auth )
@@ -219,6 +264,13 @@ class SMTPDriver implements EmailDriverInterface
 		return true;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Set Command
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _setCommand($cmd, $data = '')
 	{
 		
@@ -292,6 +344,13 @@ class SMTPDriver implements EmailDriverInterface
 		return true;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Set Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param $data
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _setData($data)
 	{
 		$data .= $this->lf;
@@ -313,6 +372,13 @@ class SMTPDriver implements EmailDriverInterface
 		return true;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Get Data
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _getData()
 	{
 		$data = '';
@@ -330,6 +396,13 @@ class SMTPDriver implements EmailDriverInterface
 		return $data;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Host Name
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _hostname()
 	{
 		if( isset($_SERVER['SERVER_NAME']) )
@@ -341,11 +414,4 @@ class SMTPDriver implements EmailDriverInterface
 			   ? '['.$_SERVER['SERVER_ADDR'].']' 
 			   : '[127.0.0.1]';
 	}
-	
-	public function send($to, $subject, $message, $headers, $settings)
-	{
-		$smtp = new self($to, $subject, $message, $headers, $settings);
-		
-		return $smtp->sendEmail();
-	}   
 }

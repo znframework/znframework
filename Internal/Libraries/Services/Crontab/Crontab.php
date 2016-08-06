@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalCrontab extends \Requirements implements CrontabInterface
+class InternalCrontab extends \Requirements implements CrontabInterface, IntervalInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -153,7 +153,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function driver($driver = '')
+	public function driver(String $driver)
 	{
 		$this->driver = $driver;
 		
@@ -168,7 +168,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect($config = [])
+	public function connect(Array $config)
 	{
 		\SSH::connect($config);
 		
@@ -183,7 +183,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path($path = '')
+	public function path(String $path = NULL)
 	{
 		if( empty($path) )
 		{
@@ -216,7 +216,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createFile($name = 'crontab.txt')
+	public function createFile(String $name = 'crontab.txt')
 	{
 		if( ! is_dir($this->crontabDir) )
 		{
@@ -243,7 +243,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteFile($name = 'crontab.txt')
+	public function deleteFile(String $name = 'crontab.txt')
 	{
 		$cronFile = $this->crontabDir.$name;
 			
@@ -263,7 +263,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remove($name = 'crontab.txt')
+	public function remove(String $name = 'crontab.txt')
 	{
 		$this->deleteFile($name);
 		
@@ -297,7 +297,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function run($cmd = '')
+	public function run(String $cmd = NULL)
 	{
 		$command = '';	
 		
@@ -360,7 +360,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _commandFix($command = '')
+	protected function _commandFix($command)
 	{
 		if( strlen($command) === 1 )
 		{
@@ -378,7 +378,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function debug($status = true)
+	public function debug(Bool $status = true)
 	{
 		$this->debug = $status;
 		
@@ -393,7 +393,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function command($command = '')
+	public function command(String $command)
 	{
 		$fix = '';
 		
@@ -429,7 +429,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($callback = '')
+	public function callback($callback)
 	{
 		\Buffer::insert('callback', $callback);
 		
@@ -444,7 +444,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function after($callback = '')
+	public function after($callback)
 	{
 		\Buffer::insert('after', $callback);
 		
@@ -459,7 +459,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function before($callback = '')
+	public function before($callback)
 	{
 		\Buffer::insert('before', $callback);
 		
@@ -474,7 +474,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file($file = '')
+	public function file(String $file)
 	{
 		$this->type = REAL_BASE_DIR.$file;
 		
@@ -490,7 +490,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url($url = '')
+	public function url(String $url)
 	{
 		if( ! isUrl($url) )
 		{

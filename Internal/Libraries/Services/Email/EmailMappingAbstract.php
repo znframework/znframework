@@ -1,7 +1,7 @@
-<?php	
-namespace ZN\Services\Drivers;
+<?php
+namespace ZN\Services\Abstracts;
 
-interface EmailDriverInterface
+abstract class EmailMappingAbstract
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,13 +15,13 @@ interface EmailDriverInterface
 	//----------------------------------------------------------------------------------------------------
 	// Send
 	//----------------------------------------------------------------------------------------------------
-	//
+	// 
 	// @param string $to
 	// @param string $subject
 	// @param string $message
 	// @param mixed  $headers
-	// @param array  $settings
+	// @param mixed  $settings
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function send($to, $subject, $message, $headers, $settings);
+	abstract public function send($to, $subject, $message, $headers, $settings);
 }

@@ -32,21 +32,7 @@ class InternalSession extends \Requirements implements SessionInterface
 	// Session Cookie Common
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// ErrorControlTrait
-	// CallUndefinedMethodTrait
-	//
-	// $config
-	// $name
-	// $value
-	// $regenerate
-	// $encode
-	//
-	// name()
-	// encode()
-	// decode()
-	// regenerate()
-	// value()
-	// defaultVariable()
+	// methods
 	//
 	//----------------------------------------------------------------------------------------------------
 	use SessionTrait;
@@ -69,47 +55,22 @@ class InternalSession extends \Requirements implements SessionInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Insert Method Başlangıç
+	// Insert
 	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* INSERT                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Oturum oluşturmak için kullanılır.								      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @name => Oluşturulacak oturumun adı.		    					      |
-	| 2. mixed var @value => Oluşturulacak oturumun tutacağı değer.         			      |
-	|          																				  |
-	| Örnek Kullanım: insert('isim', 'Değer');       										  |
-	| Not: Application/Config/Session.php dosyası üzerinden ayarlarını yapılandırabilirsiniz. |
-	|          																				  |
-	******************************************************************************************/
-	public function insert($name = '', $value = '')
+	// 
+	// @param string $name
+	// @param mixed  $value
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function insert(String $name, $value)
 	{
-		if( ! empty($name) ) 
-		{
-			if( ! isChar($name) )
-			{
-				\Exceptions::throws('Error', 'valueParameter', 'name');
-				return false;
-			}
-			
-			$this->name($name);
-		}
-		
-		if( ! empty($value) )
-		{
-			$this->value($value);	
-		}
-		
 		if( ! empty($this->encode) )
 		{
 			if( isset($this->encode['name']) )
 			{
 				if( isHash($this->encode['name']) )
 				{
-					$this->name = hash($this->encode['name'], $this->name);		
+					$name = hash($this->encode['name'], $name);		
 				}		
 			}
 			
@@ -117,7 +78,7 @@ class InternalSession extends \Requirements implements SessionInterface
 			{
 				if( isHash($this->encode['value']) )
 				{
-					$this->value = hash($this->encode['value'], $this->value);	
+					$value = hash($this->encode['value'], $value);	
 				}
 			}
 		}
@@ -130,20 +91,20 @@ class InternalSession extends \Requirements implements SessionInterface
 			
 			if( $encode === true )
 			{
-				$this->name = md5($this->name);
+				$name = md5($name);
 			}
 			elseif( is_string($encode) )
 			{
 				if( isHash($encode) )
 				{
-					$this->name = hash($encode, $this->name);		
+					$name = hash($encode, $name);		
 				}	
 			}
 		}
 		
-		$_SESSION[$this->name] = $this->value;
+		$_SESSION[$name] = $value;
 		
-		if( $_SESSION[$this->name] )
+		if( $_SESSION[$name] )
 		{
 			if( $this->regenerate === true )
 			{
@@ -161,20 +122,14 @@ class InternalSession extends \Requirements implements SessionInterface
 	} 
 	
 	//----------------------------------------------------------------------------------------------------
-	// Insert Method Bitiş
+	// Select
 	//----------------------------------------------------------------------------------------------------
-	
+	// 
+	// @param string $name
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Select Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	public function select($name = '')
+	public function select(String $name)
 	{
-		if( ! is_scalar($name) || empty($name) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'name');	
-		}
-		
 		if( isset($this->encode['name']) )
 		{
 			if( isHash($this->encode['name']) )
@@ -210,31 +165,25 @@ class InternalSession extends \Requirements implements SessionInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* SELECT ALL                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Oluşturulmuş tüm oturumlara erişmek için kullanılır.				      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: selectAll();       										              |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Select All
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function selectAll()
 	{
 		return $_SESSION;	
 	}
 	
-	/******************************************************************************************
-	* START                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Session oturumu başlatmak için kullanılır        .				      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: start();       										              |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Start
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function start()
 	{
 		if( ! isset($_SESSION) ) 
@@ -244,20 +193,14 @@ class InternalSession extends \Requirements implements SessionInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Select Methods Bitiş
+	// Delete
 	//----------------------------------------------------------------------------------------------------
-	
+	// 
+	// @param string $name
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Delete Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	public function delete($name = '')
+	public function delete(String $name)
 	{
-		if( ! is_scalar($name) || empty($name) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'name');	
-		}	
-		
 		$sessionConfig = $this->config;
 		
 		if( isset($this->encode['name']) )
@@ -295,24 +238,15 @@ class InternalSession extends \Requirements implements SessionInterface
 		}
 	}
 	
-	
-	
-	/******************************************************************************************
-	* DELETE ALL                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Oluşturulmuş tüm oturumları silmek için kullanılır.				      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: deleteAll();       										              |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Delete All
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function deleteAll()
 	{
 		session_destroy();
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Delete Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

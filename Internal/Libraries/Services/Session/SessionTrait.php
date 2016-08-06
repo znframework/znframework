@@ -12,53 +12,23 @@ trait SessionTrait
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Name Değişkeni
-	 *  
-	 * Çerez adı bilgisini tutması
-	 * için oluşturulumuştur.
-	 */
-	protected $name;
-	
-	/* Value Değişkeni
-	 *  
-	 * Çerez değeri bilgisini tutması
-	 * için oluşturulumuştur.
-	 */
-	protected $value;
-	
-	/* Regenerate Değişkeni
-	 *  
-	 * Çerez id bilgisini tutması
-	 * için oluşturulumuştur.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Regenerate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $regenerate = true;
 	
-	/* Encode Değişkeni
-	 *  
-	 * Çerez şifreleme bilgisini tutması
-	 * için oluşturulumuştur.
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Encode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $encode = [];
-	
-	//----------------------------------------------------------------------------------------------------
-	// Name
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $name
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function name($name = '')
-	{
-		if( ! isChar($name) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'name');
-			return $this;
-		}
-		
-		$this->name = $name;
-		
-		return $this;
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encode
@@ -68,16 +38,10 @@ trait SessionTrait
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($name = '', $value = '')
+	public function encode(String $nameAlgo = NULL, String $valueAlgo = NULL)
 	{
-		if( ! ( isHash($name) || isHash($value) ) )
-		{
-			\Exceptions::throws('Error', 'hashParameter', 'name | value');
-			return $this;		
-		}
-		
-		$this->encode['name']  = $name;
-		$this->encode['value'] = $value;
+		$this->encode['name']  = $nameAlgo;
+		$this->encode['value'] = $valueAlgo;
 		
 		return $this;
 	}
@@ -86,18 +50,12 @@ trait SessionTrait
 	// Decode
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $hash
+	// @param string $nameAlgo
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode($name = '')
+	public function decode(String $nameAlgo)
 	{
-		if( ! isHash($name))
-		{
-			\Exceptions::throws('Error', 'hashParameter', 'name');
-			return $this;	
-		}
-		
-		$this->encode['name'] = $name;
+		$this->encode['name'] = $nameAlgo;
 		
 		return $this;
 	}
@@ -109,29 +67,9 @@ trait SessionTrait
 	// @param bool $regenerate
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function regenerate($regenerate = true)
+	public function regenerate(Bool $regenerate = true)
 	{
-		if( ! is_bool($regenerate) )
-		{
-			\Exceptions::throws('Error', 'booleanParameter', 'regenerate');
-			return $this;		
-		}
-		
 		$this->regenerate = $regenerate;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Value
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $value
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function value($value = '')
-	{
-		$this->value = $value;
 		
 		return $this;
 	}

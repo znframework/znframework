@@ -169,15 +169,9 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param int    $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name = NULL, $value = NULL, Int $time = NULL)
+	public function insert(String $name, $value, Int $time = NULL)
 	{
-		if( ! empty($name) ) 
-		{	
-			$this->name($name);
-		}
-		
-		if( ! empty($value) ) $this->value($value);	
-		if( ! empty($time) )  $this->time($time);				
+		if( ! empty($time) ) $this->time($time);				
 		
 		if( ! empty($this->encode) )
 		{
@@ -185,7 +179,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 			{
 				if( isHash($this->encode['name']) )
 				{
-					$this->name = hash($this->encode['name'], $this->name);		
+					$name = hash($this->encode['name'], $name);		
 				}		
 			}
 			
@@ -193,7 +187,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 			{
 				if( isHash($this->encode['value']) )
 				{
-					$this->value = hash($this->encode['value'], $this->value);	
+					$value = hash($this->encode['value'], $value);	
 				}
 			}
 		}
@@ -212,18 +206,18 @@ class InternalCookie extends \Requirements implements CookieInterface
 			
 			if( $encode === true )
 			{
-				$this->name = md5($this->name);
+				$name = md5($name);
 			}
 			elseif( is_string($encode) )
 			{
 				if( isHash($encode) )
 				{
-					$this->name = hash($encode, $this->name);		
+					$name = hash($encode, $name);		
 				}	
 			}
 		}
 		
-		if( setcookie($this->name, $this->value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
+		if( setcookie($name, $value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
 		{
 			if( $this->regenerate === true )
 			{

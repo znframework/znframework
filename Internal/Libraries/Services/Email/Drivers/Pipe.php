@@ -1,32 +1,42 @@
 <?php
 namespace ZN\Services\Drivers;
 
-class PipeDriver implements EmailDriverInterface
+use ZN\Services\Abstracts\EmailMappingAbstract;
+
+class PipeDriver extends EmailMappingAbstract
 {
-	/***********************************************************************************/
-	/* PIPE EMAIL DRIVER					                   	                       */
-	/***********************************************************************************/
-	/* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	/* Site: www.zntr.net
-	/* Lisans: The MIT License
-	/* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	/*
-	/* Sınıf Adı: PipeDriver
-	/* ZN Versiyon: 2.0 Eylül Güncellemesi
-	/* Tanımlanma: Mixed
-	/* Dahil Edilme: Gerektirmez
-	/* Erişim: Email kütüphanesi tarafından kullanılmaktadır.
-	/* Not: Büyük-küçük harf duyarlılığı yoktur.
-	/***********************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.zntr.net
+	// Lisans     : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	//
+	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		if( ! function_exists('mail') )
-		{
-			die(getErrorMessage('Error', 'undefinedFunction', 'mail'));	
-		}	
+		\Support::func('popen');
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Send
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $to
+	// @param string $subject
+	// @param string $message
+	// @param mixed  $headers
+	// @param mixed  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function send($to, $subject, $message, $headers = NULL, $settings = [])
 	{
 		$returnPath = $settings['mailPath'].' -oi -f '.$settings['from'].' -t -r '.$settings['returnPath'];
