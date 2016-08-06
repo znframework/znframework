@@ -108,29 +108,14 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     //----------------------------------------------------------------------------------------------------
 	private function _template($msg, $file, $line, $no, $trace)
 	{
-		global $application;
+		$application = \Config::get('Application');
 
-		$generalApplcationConfig = \Config::get('Application');
-
-		if
-		( 
-			strtolower($generalApplcationConfig['mode']) === 'publication' || 
-			strtolower($application['mode']) 			 === 'publication'
-		)
-		{
-			return false;
-		}
-
-		if
-		(
-			empty($generalApplcationConfig['errorReporting']) || 
-			empty($application['errorReporting']) 
-		)
+		if( ! $application['errorReporting'] )
 		{
 			return false;
 		}
 		
-		if( in_array($no, \Config::get('Application', 'escapeErrors')) )
+		if( in_array($no, $application['escapeErrors']) )
 		{
 			return false;
 		}

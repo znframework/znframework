@@ -142,8 +142,6 @@ if( $starting['autoload']['status'] === true )
 	{
 		if( extension($file) === 'php' )
 		{
-			$file = restorationPath($file);
-			
 			if( is_file($file) )
 			{
 				require_once $file;
@@ -214,7 +212,10 @@ if( is_file($isFile) )
 			}
 			catch(\Throwable $e)
 			{
-				\Exceptions::table('', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+				if( APPMODE !== 'publication' )
+				{
+					\Exceptions::table('', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+				}
 			}
 		}
 		else

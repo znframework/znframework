@@ -231,7 +231,7 @@ class InternalImport implements ImportInterface
 		{
 			$suffix     = suffix($file, '.php');
 			$commonFile = EXTERNAL_HANDLOAD_DIR.$suffix ;
-			$file 		= restorationPath(HANDLOAD_DIR.$suffix);
+			$file 		= HANDLOAD_DIR.$suffix;
 			
 			if( is_file($file) )
 			{
@@ -277,7 +277,7 @@ class InternalImport implements ImportInterface
 			$randomPageVariable = suffix($randomPageVariable, '.php');
 		}
 		
-		$randomPagePath = restorationPath($randomPageDir.$randomPageVariable);
+		$randomPagePath = $randomPageDir.$randomPageVariable;
 
 		if( is_file($randomPagePath) ) 
 		{
@@ -767,7 +767,7 @@ class InternalImport implements ImportInterface
 			$f = divide($font, "/", -1);
 			// SVG IE VE MOZILLA DESTEKLEMIYOR
 			
-			$fontFile = restorationPath(FONTS_DIR.$font);		
+			$fontFile = FONTS_DIR.$font;		
 			$baseUrl  = baseUrl($fontFile);
 			
 			if( ! is_file($fontFile) )
@@ -885,7 +885,7 @@ class InternalImport implements ImportInterface
 				$style = '';
 			}	
 			
-			$styleFile = restorationPath(STYLES_DIR.suffix($style,".css"));
+			$styleFile = STYLES_DIR.suffix($style,".css");
 			
 			if( ! is_file($styleFile) )
 			{
@@ -951,7 +951,7 @@ class InternalImport implements ImportInterface
 				$script = '';
 			}
 			
-			$scriptFile = restorationPath(SCRIPTS_DIR.suffix($script, ".js"));
+			$scriptFile = SCRIPTS_DIR.suffix($script, ".js");
 			
 			if( ! is_file($scriptFile) )
 			{
@@ -1028,8 +1028,6 @@ class InternalImport implements ImportInterface
 		{
 			return \Exceptions::throws('Error', 'fileParameter', '1.(randomPageVariable)');
 		}
-		
-		$randomPageVariable = restorationPath($randomPageVariable);
 
 		if( $randomPageVariableExtension === 'js' )
 		{
@@ -1164,9 +1162,7 @@ class InternalImport implements ImportInterface
 			if( ! empty($packageFiles) ) 
 			{
 				foreach( $packageFiles as $val )
-				{	
-					$val = restorationPath($val);		
-						
+				{			
 					if( $getContents === true )
 					{
 						$return .= $this->something($val, '', true);

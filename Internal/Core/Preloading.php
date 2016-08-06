@@ -17,9 +17,9 @@
 // Versiyon Kontrolü Yapılıyor.
 //
 //----------------------------------------------------------------------------------------------------
-if( ! isPhpVersion('5.6.0') )
+if( ! isPhpVersion('7.0.0') )
 {	
-	trace('Invalid PHP Version! Required PHP version ["5.6.0"] and should be over!');
+	trace('Invalid PHP Version! Required PHP version ["7.0.0"] and should be over!');
 }
 //-----------------------------------------------------------------------------------------------------
 
@@ -31,15 +31,6 @@ if( ! isPhpVersion('5.6.0') )
 //
 //----------------------------------------------------------------------------------------------------
 define('APPLICATIONS_DIR', 'Applications/'); 
-
-//----------------------------------------------------------------------------------------------------
-// RESTORATIONS_DIR
-//----------------------------------------------------------------------------------------------------
-//
-// @return Restorations/
-//
-//----------------------------------------------------------------------------------------------------
-define('RESTORATIONS_DIR', 'Restorations/'); 
 
 //----------------------------------------------------------------------------------------------------
 // BASE_DIR
@@ -151,76 +142,6 @@ define('HT', "\t");
 //
 //----------------------------------------------------------------------------------------------------
 define('FF', "\f");	
-
-//----------------------------------------------------------------------------------------------------
-// isResmac()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Config/Repear.php dosyasında yer alan machines = [] dizisi içerisinde ip numarası veya
-// numaralarının o anki modeminizin ip'si ile eşleşip eşleşmediğini kontrol eder. Böylece site içi
-// tadilat yapılan bilgisayar ile diğer kullanıcı bilgisayarlarının ayırt edilmesi sağlanır.
-// Parametreler: Yok.
-// Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
-//
-//----------------------------------------------------------------------------------------------------
-function isResmac()
-{
-	global $application;
-
-	$restorationIP = $application['restoration']['machinesIP'];
-	
-	if( APPMODE === 'restoration' )
-	{
-		$ipv4 = ipv4();
-		
-		if( is_array($restorationIP) )
-		{
-			$result = in_array($ipv4, $restorationIP);
-		}
-		elseif( $ipv4 == $restorationIP )
-		{
-			$result = true;
-		}
-		else 
-		{
-			$result = false;
-		}
-	}
-	else
-	{
-		$result = false;	
-	}
-		
-	return $result;
-}
-
-//----------------------------------------------------------------------------------------------------
-// restorationPath()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Restorasyon durumu açıkça dizin verisini değiştirir.
-// Parametreler: Yok.
-// Dönen Değerler: O anki ip'ni girilen iplerden biri ile uyuşuyorsa true uyuşmuyorsa false değeri döner.
-//
-//----------------------------------------------------------------------------------------------------
-function restorationPath($path = '')
-{
-	if( isResmac() === true )
-	{
-		$newPath = preg_replace('/^'.rtrim(APPDIR, '/').'/', rtrim(RESDIR, '/'), $path);
-		
-		if( file_exists($newPath) )
-		{
-			return $newPath;	
-		}
-		else
-		{
-			return $path;	
-		}
-	} 
-	
-	return $path;
-}
 
 //----------------------------------------------------------------------------------------------------
 // isPhpVersion()

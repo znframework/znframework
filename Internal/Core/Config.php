@@ -54,7 +54,7 @@ class Config
 	{
 		global $config;
 		
-		$path = restorationPath(INTERNAL_CONFIG_DIR.suffix($file,".php"));
+		$path = INTERNAL_CONFIG_DIR.suffix($file,".php");
 		
 		if( ! is_file($path) ) 
 		{

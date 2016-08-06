@@ -62,7 +62,7 @@ class Autoloader
 		$classInfo = self::getClassFileInfo($class);
 		
 		// Sınıfın yolu alınıyor...
-		$file = restorationPath($classInfo['path']);
+		$file = $classInfo['path'];
 		
 		// Böyle bir sınıf varsa dahil ediliyor...
 		if( file_exists($file) )
@@ -132,7 +132,7 @@ class Autoloader
 		// Böyle bir sınıf varsa dahil ediliyor...
 		if( file_exists($classInfo['path']) )
 		{	
-			require_once(restorationPath($classInfo['path']));
+			require_once($classInfo['path']);
 		}
 		else
 		{	

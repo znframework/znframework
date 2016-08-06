@@ -96,7 +96,7 @@ function lang($file = '', $str = '', $changed = '')
 	
 	$key 		   = removeExtension($file, 'php');
 	$file 		   = Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
-	$langDir       = restorationPath(LANGUAGES_DIR.$file);
+	$langDir       = LANGUAGES_DIR.$file;
 	$sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
 	$commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
 	
@@ -302,7 +302,7 @@ function baseUrl($uri = '', $index = 0)
 	
 	$host = host();
 	
-	return sslStatus().$host.$newBaseDir.restorationPath(internalCleanInjection($uri));
+	return sslStatus().$host.$newBaseDir.internalCleanInjection($uri);
 }	
 	
 //----------------------------------------------------------------------------------------------------
