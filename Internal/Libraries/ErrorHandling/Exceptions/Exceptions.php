@@ -168,23 +168,23 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     // @param array $trace
     //
     //----------------------------------------------------------------------------------------------------
-	protected function _traceFinder($trace)
+	protected function _traceFinder($trace, $p1 = 2, $p2 = 0)
 	{
 		if
 		(
-			isset($trace[2]['class']) && 
-			$this->_cleanClassName($trace[2]['class']) === 'StaticAccess' &&
-			$trace[2]['function'] === '__callStatic'
+			isset($trace[$p1]['class']) && 
+			$this->_cleanClassName($trace[$p1]['class']) === 'StaticAccess' &&
+			$trace[$p1]['function'] === '__callStatic'
 		)
 		{
-			$traceInfo = $trace[2];
+			$traceInfo = $trace[$p1];
 
-			$traceInfo['class']    = isset($trace[0]['class']) ? $trace[0]['class'] : $trace[2]['class'];
-			$traceInfo['function'] = isset($trace[0]['function']) ? $trace[0]['function'] : $trace[2]['function'];
+			$traceInfo['class']    = isset($trace[$p2]['class']) ? $trace[$p2]['class'] : $trace[$p1]['class'];
+			$traceInfo['function'] = isset($trace[$p2]['function']) ? $trace[$p2]['function'] : $trace[$p1]['function'];
 		}
 		else
 		{
-			$traceInfo = $trace[0];
+			$traceInfo = $trace[$p2];
 		}
 
 		return 
@@ -203,10 +203,10 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     // @param array $trace
     //
     //----------------------------------------------------------------------------------------------------
-	protected function _throwFinder($trace)
+	protected function _throwFinder($trace, $p1 = 3, $p2 = 5)
 	{
-		$classInfo = $trace[3];
-		$fileInfo  = $trace[5];
+		$classInfo = $trace[$p1];
+		$fileInfo  = $trace[$p2];
 
 		return 
 		[
@@ -242,11 +242,18 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		{
 			return $exceptionData;
 		}
-		
-		$traceInfo       = $this->_traceFinder($trace);
-		
+
+		if( ! empty($trace) )
+		{
+			$traceInfo = $this->_traceFinder($trace, 2, 0);
+		}
+		else
+		{
+			$traceInfo = $this->_traceFinder(debug_backtrace(), 7, 5);
+		}
+
 		$langMessage1    = '['.$this->_cleanClassName($traceInfo['class']).'::'.
-		                   $traceInfo['function '].'()] p'.$argument.':';
+		                   $traceInfo['function'].'()] p'.$argument.':';
 
 		$exceptionData   = array
 		(
@@ -288,9 +295,14 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return false;
 		}
 
-		$traceInfo = $this->_traceFinder($trace);
-
-		//output($trace);
+		if( ! empty($trace) )
+		{
+			$traceInfo = $this->_traceFinder($trace, 2, 0);
+		}
+		else
+		{
+			$traceInfo = $this->_traceFinder(debug_backtrace(), 7, 5);
+		}
 
 		if( $type !== $data )
 		{
