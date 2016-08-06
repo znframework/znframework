@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalCDN implements CDNInterface
+class InternalCDN extends \CallController implements CDNInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,21 +11,6 @@ class InternalCDN implements CDNInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Image
@@ -38,7 +23,7 @@ class InternalCDN implements CDNInterface
 	{
 		if( ! is_string($name) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'symbolName');
+			return \Exceptions::throws('Error', 'stringParameter', 'symbolName');
 		}
 		
 		$config = \Config::get('ViewObjects', 'cdn');

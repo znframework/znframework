@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class InternalClasses implements ClassesInterface
+class InternalClasses extends \CallController implements ClassesInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalClasses implements ClassesInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* IS RELATION		                                                                      *
@@ -48,12 +26,12 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(className)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		if( ! is_object($object) )
 		{
-			return \Errors::set('Error', 'objectParameter', '2.(object)');	
+			return \Exceptions::throws('Error', 'objectParameter', '2.(object)');	
 		}
 	
 		return is_a($object, $prefix.$className);
@@ -74,7 +52,7 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(className)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
 		}
 	
 		return is_subclass_of($object, $prefix.$className);
@@ -94,7 +72,7 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_string($className) || ! is_string($method) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.($className) & 2.(method)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.($className) & 2.(method)');	
 		}
 	
 		return method_exists(uselib($prefix.$className), $method);
@@ -114,7 +92,7 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_string($className) || ! is_string($property) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.($className) & 2.(property)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.($className) & 2.(property)');	
 		}
 	
 		return  property_exists(uselib($prefix.$className), $property);
@@ -134,7 +112,7 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(className)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		return get_class_methods($prefix.$className);
@@ -154,7 +132,7 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_string($className) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(className)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
 		}
 		
 		return get_class_vars($prefix.$className);
@@ -174,7 +152,7 @@ class InternalClasses implements ClassesInterface
 	{
 		if( ! is_object($var) )
 		{
-			return \Errors::set('Error', 'objectParameter', '1.(var)');	
+			return \Exceptions::throws('Error', 'objectParameter', '1.(var)');	
 		}
 		
 		return str_replace($prefix, '', get_class($var));

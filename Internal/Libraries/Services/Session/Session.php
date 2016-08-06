@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalSession implements SessionInterface
+class InternalSession extends \Requirements implements SessionInterface
 {
 	/***********************************************************************************/
 	/* SESSION COMPONENT	   	     		                   	                       */
@@ -61,7 +61,7 @@ class InternalSession implements SessionInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config();
+		parent::__construct();
 		
 		\Config::iniSet(\Config::get('Htaccess', 'session')['settings']);
 		
@@ -91,7 +91,7 @@ class InternalSession implements SessionInterface
 		{
 			if( ! isChar($name) )
 			{
-				\Errors::set('Error', 'valueParameter', 'name');
+				\Exceptions::throws('Error', 'valueParameter', 'name');
 				return false;
 			}
 			
@@ -172,7 +172,7 @@ class InternalSession implements SessionInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return \Errors::set('Error', 'valueParameter', 'name');	
+			return \Exceptions::throws('Error', 'valueParameter', 'name');	
 		}
 		
 		if( isset($this->encode['name']) )
@@ -255,7 +255,7 @@ class InternalSession implements SessionInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return \Errors::set('Error', 'valueParameter', 'name');	
+			return \Exceptions::throws('Error', 'valueParameter', 'name');	
 		}	
 		
 		$sessionConfig = $this->config;

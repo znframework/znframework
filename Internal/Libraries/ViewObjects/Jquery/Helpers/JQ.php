@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Jquery\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
 
-class InternalJQ
+class InternalJQ extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,15 +15,6 @@ class InternalJQ
 	//----------------------------------------------------------------------------------------------------
 	
 	use JqueryTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// String Control
@@ -73,7 +64,7 @@ class InternalJQ
 	{
 		if( ! isChar($selector) )
 		{
-			\Errors::set('Error', 'valueParameter', 'selector');
+			\Exceptions::throws('Error', 'valueParameter', 'selector');
 			return $this;	
 		}
 		
@@ -104,7 +95,7 @@ class InternalJQ
 	{
 		if( ! is_string($property) || empty($property) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'property');	
+			return \Exceptions::throws('Error', 'stringParameter', 'property');	
 		}
 
 		return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");

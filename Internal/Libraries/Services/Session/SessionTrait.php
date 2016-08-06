@@ -12,37 +12,6 @@ trait SessionTrait
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
 	/* Name Değişkeni
 	 *  
 	 * Çerez adı bilgisini tutması
@@ -82,7 +51,7 @@ trait SessionTrait
 	{
 		if( ! isChar($name) )
 		{
-			\Errors::set('Error', 'valueParameter', 'name');
+			\Exceptions::throws('Error', 'valueParameter', 'name');
 			return $this;
 		}
 		
@@ -103,7 +72,7 @@ trait SessionTrait
 	{
 		if( ! ( isHash($name) || isHash($value) ) )
 		{
-			\Errors::set('Error', 'hashParameter', 'name | value');
+			\Exceptions::throws('Error', 'hashParameter', 'name | value');
 			return $this;		
 		}
 		
@@ -124,7 +93,7 @@ trait SessionTrait
 	{
 		if( ! isHash($name))
 		{
-			\Errors::set('Error', 'hashParameter', 'name');
+			\Exceptions::throws('Error', 'hashParameter', 'name');
 			return $this;	
 		}
 		
@@ -144,7 +113,7 @@ trait SessionTrait
 	{
 		if( ! is_bool($regenerate) )
 		{
-			\Errors::set('Error', 'booleanParameter', 'regenerate');
+			\Exceptions::throws('Error', 'booleanParameter', 'regenerate');
 			return $this;		
 		}
 		

@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Sheet\Helpers;
 
 use ZN\ViewObjects\SheetTrait;
 
-class Transition
+class Transition extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,8 +15,6 @@ class Transition
 	//----------------------------------------------------------------------------------------------------
 	
 	use SheetTrait;
-	
-	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* TRANSITION PROPERTY                                                                     *
@@ -33,7 +31,7 @@ class Transition
 	{
 		if( ! is_scalar($property))
 		{
-			\Errors::set('Error', 'valueParameter', 'property');
+			\Exceptions::throws('Error', 'valueParameter', 'property');
 			return $this;	
 		}
 		
@@ -57,7 +55,7 @@ class Transition
 	{
 		if( ! is_scalar($duration))
 		{
-			\Errors::set('Error', 'valueParameter', 'duration');
+			\Exceptions::throws('Error', 'valueParameter', 'duration');
 			return $this;	
 		}
 		
@@ -86,7 +84,7 @@ class Transition
 	{
 		if( ! is_scalar($delay) )
 		{
-			\Errors::set('Error', 'valueParameter', 'delay');
+			\Exceptions::throws('Error', 'valueParameter', 'delay');
 			return $this;	
 		}
 		
@@ -115,7 +113,7 @@ class Transition
 	{
 		if( ! is_scalar($easing))
 		{
-			\Errors::set('Error', 'valueParameter', 'easing');
+			\Exceptions::throws('Error', 'valueParameter', 'easing');
 			return $this;	
 		}
 		

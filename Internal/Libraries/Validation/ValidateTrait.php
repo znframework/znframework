@@ -268,7 +268,7 @@ trait ValidateTrait
 	{
 		if( ! is_numeric($no) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'no');
+			return \Exceptions::throws('Error', 'numericParameter', 'no');
 		}
 		
 		$numone 	= ($no[0] + $no[2] + $no[4] + $no[6]  + $no[8]) * 7;
@@ -315,7 +315,7 @@ trait ValidateTrait
 	{
 		if( ! is_string($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}
 		if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $data) ) 
 		{
@@ -342,7 +342,7 @@ trait ValidateTrait
 	{
 		if( ! is_string($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}
 		if( ! preg_match('#^(\w+:)?//#i', $data) ) 
 		{
@@ -369,7 +369,7 @@ trait ValidateTrait
 	{
 		if( ! is_scalar($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}
 		
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) ) 
@@ -398,12 +398,12 @@ trait ValidateTrait
 	{
 		if( ! is_scalar($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}
 		
 		if( ! is_numeric($char) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'char');
+			return \Exceptions::throws('Error', 'numericParameter', 'char');
 		}
 		
 		if( strlen($data) <= $char ) 
@@ -432,11 +432,11 @@ trait ValidateTrait
 	{
 		if( ! is_scalar($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}
 		if( ! is_numeric($char) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'char');
+			return \Exceptions::throws('Error', 'numericParameter', 'char');
 		}
 		
 		if( strlen($data) >= $char ) 

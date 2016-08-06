@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\Database;
 
-class InternalMigration implements MigrationInterface
+class InternalMigration extends \CallController implements MigrationInterface
 {	
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -94,29 +94,6 @@ class InternalMigration implements MigrationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// success()
-	// error()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Forge Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
 	// Create Table
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -131,7 +108,7 @@ class InternalMigration implements MigrationInterface
 		}	
 		else
 		{
-			$this->error = \Errors::set(\DBForge::error(), true);	
+			return false;	
 		}
 	}
 	
@@ -150,7 +127,7 @@ class InternalMigration implements MigrationInterface
 		}	
 		else
 		{
-			$this->error = \Errors::set(\DBForge::error(), true);	
+			return false;
 		}
 	}
 	
@@ -169,7 +146,7 @@ class InternalMigration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = \Errors::set(\DBForge::error(), true);	
+			return false;	
 		}
 	}
 
@@ -188,7 +165,7 @@ class InternalMigration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = \Errors::set(\DBForge::error(), true);	
+			return \Exceptions::throws(\DBForge::error(), true);	
 		}
 	}
 	
@@ -207,7 +184,7 @@ class InternalMigration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = \Errors::set(\DBForge::error(), true);	
+			return false;
 		}
 	}
 	
@@ -226,7 +203,7 @@ class InternalMigration implements MigrationInterface
 		}
 		else
 		{
-			$this->error = \Errors::set(\DBForge::error(), true);	
+			return false;	
 		}
 	}
 	
@@ -350,7 +327,7 @@ class InternalMigration implements MigrationInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'alreadyFileError', $file);	
+			return false;	
 		}
 	}
 	
@@ -397,7 +374,7 @@ class InternalMigration implements MigrationInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'notFoundError', $this->path);	
+			return false;	
 		}
 	}
 	
@@ -482,7 +459,7 @@ class InternalMigration implements MigrationInterface
 		
 		if( (int)$numeric > 999 || (int)$numeric < 0 )
 		{
-			return \Errors::set('Error', 'invalidVersion', $numeric);
+			return false;
 		}
 	
 		switch( $length )

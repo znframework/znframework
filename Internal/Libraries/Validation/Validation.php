@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Validation;
 
-class InternalValidation implements ValidationInterface
+class InternalValidation extends \CallController implements ValidationInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -50,15 +50,6 @@ class InternalValidation implements ValidationInterface
 	 *
 	 */
 	protected $index = 0;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Validate Trait
@@ -472,7 +463,7 @@ class InternalValidation implements ValidationInterface
 	{
 		if( ! is_scalar($name) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', 'name');
+			return \Exceptions::throws('Error', 'scalarParameter', 'name');
 		}
 		
 		if( isset($this->nval[$name]) )
@@ -564,7 +555,7 @@ class InternalValidation implements ValidationInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return \Errors::set('Error', 'scalarParameter', 'name');
+			return \Exceptions::throws('Error', 'scalarParameter', 'name');
 		}
 
 		if( ! is_string($met) ) 

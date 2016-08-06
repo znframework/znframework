@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalMethod implements MethodInterface
+class InternalMethod extends \CallController implements MethodInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalMethod implements MethodInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;	
 
 	//----------------------------------------------------------------------------------------------------
 	// Post
@@ -99,7 +77,7 @@ class InternalMethod implements MethodInterface
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'name');
+			return \Exceptions::throws('Error', 'stringParameter', 'name');
 		}
 		// ---------------------------------------------------------------------------
 		
@@ -124,7 +102,7 @@ class InternalMethod implements MethodInterface
 	{
 		if( ! is_string($fileName) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'fileName');
+			return \Exceptions::throws('Error', 'stringParameter', 'fileName');
 		}
 		
 		if( ! is_string($type) ) 
@@ -134,7 +112,7 @@ class InternalMethod implements MethodInterface
 		
 		if( empty($fileName) ) 
 		{
-			return \Errors::set('Error', 'emptyVariable', '@fileName');
+			return \Exceptions::throws('Error', 'emptyVariable', '@fileName');
 		}
 		
 		return $_FILES[$fileName][$type];
@@ -152,7 +130,7 @@ class InternalMethod implements MethodInterface
 	{
 		if( ! is_scalar($input) || ! is_scalar($name) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(input) && 2.(name)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(input) && 2.(name)');
 		}
 		
 		switch( $input )
@@ -180,7 +158,7 @@ class InternalMethod implements MethodInterface
 		// Parametreler kontrol ediliyor. --------------------------------------------
 		if( ! is_string($name) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'name');
+			return \Exceptions::throws('Error', 'stringParameter', 'name');
 		}
 		
 		if( empty($name) ) 
@@ -206,7 +184,7 @@ class InternalMethod implements MethodInterface
 		// böyle bir veri yoksa
 		if( empty($input[$name]) ) 
 		{
-			return \Errors::set('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']");
+			return \Exceptions::throws('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']");
 		}
 		
 		if( $value === false )

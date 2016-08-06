@@ -1,32 +1,31 @@
-<style type="text/css">
-	.generalExceptionTable
-	{
-		border:solid 1px #E1E4E5;
-		background:#FEFEFE;
-		padding:10px;
-		margin:10px;
-		font-family:Calibri, Ebrima, Century Gothic, Consolas, "Courier New", Courier, monospace, Tahoma, Arial;
-		color:#666;
-		font-size:14px;
-		text-align:left;
-	}
-	.importantColorExceptionTable{ color:#900; }
-</style>
+<?php 
+$style  = 'border:solid 1px #E1E4E5;';
+$style .= 'background:#FEFEFE;';
+$style .= 'padding:10px;';
+$style .= 'margin-bottom:10px;';
 
-<?php $lang = lang('Error'); ?>
+$table  = 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+$table .= 'color:#666;';
+$table .= 'text-align:left;';
+$table .= 'font-size:14px;';
 
-<div class="generalExceptionTable">
-<table>
+$color =  'color:#000;';
+$lang  = lang('Error'); 
+?>
+
+
+<div style="<?php echo $style; ?>">
+<table style="<?php echo $table; ?>">
     <?php if( ! empty($message) ): ?>
-    <tr><td><?php echo $lang['message']; ?></td><td>: <span class="importantColorExceptionTable"><?php echo $message; ?></span></td></tr>
+    <tr><td  style="<?php echo $color; ?>"><?php echo $lang['message']; ?> : </td><td><span><?php echo $message; ?></span></td></tr>
     <?php endif ?>
     
     <?php if( ! empty($file) ): ?>
-    <tr><td><?php echo $lang['file']; ?></td><td>: <span class="importantColorExceptionTable"><?php echo $file; ?></span></td></tr>
+    <tr><td style="<?php echo $color; ?>"><?php echo $lang['file']; ?> : </td><td><span><?php echo $file; ?></span></td></tr>
     <?php endif ?>
     
     <?php if( ! empty($line) ): ?>
-    <tr><td><?php echo $lang['line']; ?></td><td>: <span class="importantColorExceptionTable"><?php echo $line; ?></span></td></tr>
+    <tr><td style="<?php echo $color; ?>"><?php echo $lang['line']; ?> : </td><td><span><?php echo $line; ?></span></td></tr>
     <?php endif ?>
 </table>
 </div>

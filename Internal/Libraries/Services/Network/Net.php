@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Services;
 
-class InternalNet implements NetInterface
+class InternalNet extends \CallController implements NetInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,21 +11,6 @@ class InternalNet implements NetInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* PROTECTED CLEAN HTTP                                                                    *
@@ -54,7 +39,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) || ! is_string($type) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host) & 2.(type)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host) & 2.(type)');	
 		}
 		
 		return checkdnsrr($this->cleanHttp($host), $type);
@@ -77,7 +62,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
 		}
 
 		$dns = dns_get_record($this->cleanHttp($host), \Convert::toConstant($type, 'DNS_'), $auth, $add, $raw);
@@ -104,7 +89,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
 		}
 	
 		$mx = getmxrr($this->cleanHttp($host), $mxhosts, $weight);
@@ -132,18 +117,18 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		if( ! is_numeric($port) )
 		{
-			return \Errors::set('Error', 'numericParameter', '2.(port)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(port)');	
 		}
 		
 		$socket = fsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 		
-		\Errors::set($errno);
-		\Errors::set($errstr);
+		\Exceptions::throws($errno);
+		\Exceptions::throws($errstr);
 		
 		return $socket;
 	}
@@ -158,18 +143,18 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		if( ! is_numeric($port) )
 		{
-			return \Errors::set('Error', 'numericParameter', '2.(port)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(port)');	
 		}
 		
 		$socket = pfsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 		
-		\Errors::set($errno);
-		\Errors::set($errstr);
+		\Exceptions::throws($errno);
+		\Exceptions::throws($errstr);
 		
 		return $socket;
 	}
@@ -184,7 +169,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($ip) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(ip)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(ip)');	
 		}
 		
 		return gethostbyaddr($ip);
@@ -200,7 +185,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		return gethostbyname($this->cleanHttp($host));
@@ -216,7 +201,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($host) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(host)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
 		}
 		
 		return gethostbynamel($this->cleanHttp($host));
@@ -232,7 +217,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($name) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(name)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(name)');	
 		}
 		
 		return getprotobyname($name);
@@ -248,7 +233,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_numeric($number) )
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(number)');	
+			return \Exceptions::throws('Error', 'numericParameter', '1.(number)');	
 		}
 		
 		return getprotobynumber($number);
@@ -264,7 +249,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($service) || ! is_string($protocol) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(service) & 2.(protocol)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(service) & 2.(protocol)');	
 		}
 		
 		return getservbyname($service, $protocol);
@@ -280,12 +265,12 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_numeric($port) )
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(port)');	
+			return \Exceptions::throws('Error', 'numericParameter', '1.(port)');	
 		}
 		
 		if( ! is_string($protocol) )
 		{
-			return \Errors::set('Error', 'stringParameter', '2.(protocol)');	
+			return \Exceptions::throws('Error', 'stringParameter', '2.(protocol)');	
 		}
 		
 		return getservbyport($port, $protocol);
@@ -323,7 +308,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($chr) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(chr)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(chr)');	
 		}
 		
 		return inet_ntop($chr);
@@ -339,7 +324,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($addr) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(addr)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(addr)');	
 		}
 		
 		return inet_pton($addr);
@@ -355,7 +340,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_string($ip) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(ip)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(ip)');	
 		}
 		
 		return ip2long($ip);
@@ -371,7 +356,7 @@ class InternalNet implements NetInterface
 	{
 		if( ! is_numeric($numberAddress) )
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(numberAddress)');	
+			return \Exceptions::throws('Error', 'numericParameter', '1.(numberAddress)');	
 		}
 		
 		return long2ip($numberAddress);

@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Sheet\Helpers;
 
 use ZN\ViewObjects\SheetTrait;
 
-class Transform
+class Transform extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,8 +15,6 @@ class Transform
 	//----------------------------------------------------------------------------------------------------
 	
 	use SheetTrait;
-	
-	use \CallUndefinedMethodTrait;
 	
 	/* Transforms Değişkeni
 	 *  
@@ -104,7 +102,7 @@ class Transform
 	{
 		if( ! is_scalar($argument) )
 		{
-			\Errors::set('Error', 'valueParameter', 'argument');
+			\Exceptions::throws('Error', 'valueParameter', 'argument');
 			return $this;
 		}
 		
@@ -137,7 +135,7 @@ class Transform
 	{
 		if( ! is_numeric($x) || ! is_numeric($y) )
 		{
-			\Errors::set('Error', 'numericParameter', 'x & y');
+			\Exceptions::throws('Error', 'numericParameter', 'x & y');
 			return $this;
 		}
 		
@@ -161,7 +159,7 @@ class Transform
 	{	
 		if( ! is_numeric($x) )
 		{
-			\Errors::set('Error', 'numericParameter', 'x');
+			\Exceptions::throws('Error', 'numericParameter', 'x');
 			return $this;
 		}
 		
@@ -185,7 +183,7 @@ class Transform
 	{
 		if( ! is_numeric($y) )
 		{
-			\Errors::set('Error', 'numericParameter', 'y');
+			\Exceptions::throws('Error', 'numericParameter', 'y');
 			return $this;
 		}
 		
@@ -210,7 +208,7 @@ class Transform
 	{
 		if( ! is_scalar($x) || ! is_scalar($y) )
 		{
-			\Errors::set('Error', 'valueParameter', 'x & y');
+			\Exceptions::throws('Error', 'valueParameter', 'x & y');
 			return $this;
 		}
 		
@@ -243,7 +241,7 @@ class Transform
 	{
 		if( ! is_scalar($x) )
 		{
-			\Errors::set('Error', 'valueParameter', 'x');
+			\Exceptions::throws('Error', 'valueParameter', 'x');
 			return $this;
 		}
 		
@@ -272,7 +270,7 @@ class Transform
 	{
 		if( ! is_scalar($y) )
 		{
-			\Errors::set('Error', 'valueParameter', 'y');
+			\Exceptions::throws('Error', 'valueParameter', 'y');
 			return $this;
 		}
 		
@@ -302,7 +300,7 @@ class Transform
 	{
 		if( ! is_scalar($x) || ! is_scalar($y) )
 		{
-			\Errors::set('Error', 'valueParameter', 'x & y');
+			\Exceptions::throws('Error', 'valueParameter', 'x & y');
 			return $this;
 		}
 		
@@ -345,7 +343,7 @@ class Transform
 	{
 		if( ! is_scalar($x) )
 		{
-			\Errors::set('Error', 'valueParameter', 'x');
+			\Exceptions::throws('Error', 'valueParameter', 'x');
 			return $this;
 		}
 		
@@ -374,7 +372,7 @@ class Transform
 	{
 		if( ! is_scalar($y) )
 		{
-			\Errors::set('Error', 'valueParameter', 'y');
+			\Exceptions::throws('Error', 'valueParameter', 'y');
 			return $this;
 		}
 		

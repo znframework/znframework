@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalJquery implements JqueryInterface
+class InternalJquery extends \CallController implements JqueryInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,28 +13,6 @@ class InternalJquery implements JqueryInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	use JqueryTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	protected $namespace = 'ZN\ViewObjects\Jquery\Helpers\\';
 	
@@ -77,7 +55,7 @@ class InternalJquery implements JqueryInterface
 	{
 		if( ! is_string($property) )
 		{
-			\Errors::set('Error', 'stringParameter', 'property');
+			\Exceptions::throws('Error', 'stringParameter', 'property');
 			return $this;	
 		}
 		

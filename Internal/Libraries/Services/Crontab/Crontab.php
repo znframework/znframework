@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalCrontab implements CrontabInterface
+class InternalCrontab extends \Requirements implements CrontabInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,37 +20,6 @@ class InternalCrontab implements CrontabInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Services:crontab';
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Crontab Interval 
@@ -160,7 +129,7 @@ class InternalCrontab implements CrontabInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config();
+		parent::__construct();
 		
 		$this->driver     = $this->config['driver'];	
 		
@@ -581,7 +550,7 @@ class InternalCrontab implements CrontabInterface
 		
 		if( ! preg_match('/^'.$match.$match.$match.$match.$match.'$/', $datetimeFormat) )
 		{
-			return \Errors::set('Services', 'crontabTimeFormatError');
+			return \Exceptions::throws('Services', 'crontabTimeFormatError');
 		}
 		else
 		{

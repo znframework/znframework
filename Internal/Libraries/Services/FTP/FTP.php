@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalFTP implements FTPInterface
+class InternalFTP extends \Requirements implements FTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -46,42 +46,12 @@ class InternalFTP implements FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct($config = [])
+	public function __construct(Array $config = NULL)
 	{
-		$this->config($config);
+		parent::__construct($config);
+		
 		$this->connect();
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// connect()
@@ -94,7 +64,7 @@ class InternalFTP implements FTPInterface
 	{	
 		if( ! is_array($config) )
 		{
-			return \Errors::set('Error', 'arrayParameter', 'config');
+			return \Exceptions::throws('Error', 'arrayParameter', 'config');
 		}
 		
 		if( ! empty($config) )
@@ -124,7 +94,7 @@ class InternalFTP implements FTPInterface
 							
 		if( empty($this->connect) ) 
 		{
-			return \Errors::set('Error', 'emptyVariable', '@this->connect');
+			return \Exceptions::throws('Error', 'emptyVariable', '@this->connect');
 		}
 		
 		$this->login = @ftp_login($this->connect, $user, $password);
@@ -163,7 +133,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');	
+			return \Exceptions::throws('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ftp_mkdir($this->connect, $path) )
@@ -172,7 +142,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'alreadyFileError', $path);
+			return \Exceptions::throws('Folder', 'alreadyFileError', $path);
 		}
 	}
 	
@@ -187,7 +157,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');	
+			return \Exceptions::throws('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ftp_rmdir($this->connect, $path) )
@@ -196,7 +166,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'notFoundError', $path);	
+			return \Exceptions::throws('Folder', 'notFoundError', $path);	
 		}
 	
 	}
@@ -212,7 +182,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');
+			return \Exceptions::throws('Error', 'stringParameter', 'path');
 		}
 	
 		if( @ftp_chdir($this->connect, $path) )
@@ -221,7 +191,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'changeFolderError', $path);
+			return \Exceptions::throws('Folder', 'changeFolderError', $path);
 		}
 	}
 	
@@ -237,8 +207,8 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($oldName) || ! is_string($newName) ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'oldName');
-			\Errors::set('Error', 'stringParameter', 'newName');
+			\Exceptions::throws('Error', 'stringParameter', 'oldName');
+			\Exceptions::throws('Error', 'stringParameter', 'newName');
 			
 			return false;	
 		}
@@ -249,7 +219,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'changeFolderNameError', $oldName);	
+			return \Exceptions::throws('Folder', 'changeFolderNameError', $oldName);	
 		}
 	}
 	
@@ -264,7 +234,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');
+			return \Exceptions::throws('Error', 'stringParameter', 'path');
 		}
 		
 		if( @ftp_delete($this->connect, $path) )
@@ -273,7 +243,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'notFoundError', $path);	
+			return \Exceptions::throws('File', 'notFoundError', $path);	
 		}
 	}
 	
@@ -290,8 +260,8 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'localPath');
-			\Errors::set('Error', 'stringParameter', 'remotePath');
+			\Exceptions::throws('Error', 'stringParameter', 'localPath');
+			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
 			
 			return false;
 		}
@@ -307,7 +277,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'remoteUploadError', $localPath);	
+			return \Exceptions::throws('File', 'remoteUploadError', $localPath);	
 		}
 	}
 	
@@ -324,8 +294,8 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'remotePath');
-			\Errors::set('Error', 'stringParameter', 'localPath');
+			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
+			\Exceptions::throws('Error', 'stringParameter', 'localPath');
 			
 			return false;
 		}
@@ -341,7 +311,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'remoteDownloadError', $localPath);
+			return \Exceptions::throws('File', 'remoteDownloadError', $localPath);
 		}
 	}
 	
@@ -357,7 +327,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');		
+			return \Exceptions::throws('Error', 'stringParameter', 'path');		
 		}
 		
 		if( ! is_numeric($type) )
@@ -371,7 +341,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{ 
-			return \Errors::set('Error', 'emptyVariable', '@this->connect');	
+			return \Exceptions::throws('Error', 'emptyVariable', '@this->connect');	
 		}
 	}
 	
@@ -387,7 +357,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');		
+			return \Exceptions::throws('Error', 'stringParameter', 'path');		
 		}
 
 		$list = @ftp_nlist($this->connect, $path);
@@ -428,7 +398,7 @@ class InternalFTP implements FTPInterface
 		}
 		else
 		{
-			return \Errors::set('Error', 'emptyVariable', '@files');	
+			return \Exceptions::throws('Error', 'emptyVariable', '@files');	
 		}
 	}
 	
@@ -445,7 +415,7 @@ class InternalFTP implements FTPInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');		
+			return \Exceptions::throws('Error', 'stringParameter', 'path');		
 		}
 		
 		if( ! is_string($type) ) 

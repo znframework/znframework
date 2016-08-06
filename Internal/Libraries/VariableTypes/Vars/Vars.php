@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class InternalVars implements VarsInterface
+class InternalVars extends \CallController implements VarsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalVars implements VarsInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;	
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* BOOLEAN VALUE                                                                           *
@@ -159,7 +137,7 @@ class InternalVars implements VarsInterface
 	{
 		if( ! is_resource($resource) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(resource)');	
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(resource)');	
 		}
 		
 		return get_resource_type($resource);		

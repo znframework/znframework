@@ -110,12 +110,7 @@ class InternalFormat extends \CallController implements FormatInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'money');
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = '';
+			return \Exceptions::throws('Error', 'numericParameter', 'money');
 		}
 		
 		$moneyFormat = '';

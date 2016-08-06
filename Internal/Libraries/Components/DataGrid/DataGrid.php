@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalDataGrid extends \CallController implements DataGridInterface, \ConfigMethodInterface
+class InternalDataGrid extends \Requirements implements DataGridInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,15 +20,6 @@ class InternalDataGrid extends \CallController implements DataGridInterface, \Co
 	//
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:datagrid';
-
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Columns
@@ -147,7 +138,8 @@ class InternalDataGrid extends \CallController implements DataGridInterface, \Co
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config();	
+		parent::__construct();
+			
 		$this->prowData = md5('SystemPaginationRowData');
 	}
 	

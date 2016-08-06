@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalPagination extends \CallController implements PaginationInterface, PaginationPropertiesInterface, \ConfigMethodInterface
+class InternalPagination extends \Requirements implements PaginationInterface, PaginationPropertiesInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -22,15 +22,6 @@ class InternalPagination extends \CallController implements PaginationInterface,
 	const CONFIG_NAME  = 'Components:pagination';
 
 	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-
-	//----------------------------------------------------------------------------------------------------
 	// Pagination Properties
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -47,18 +38,6 @@ class InternalPagination extends \CallController implements PaginationInterface,
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $settings     = [];
-
-	//----------------------------------------------------------------------------------------------------
-	// Construct
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function __construct()
-	{
-		$this->config();	
-	}
 
 	//----------------------------------------------------------------------------------------------------
 	// Settings                                                                               

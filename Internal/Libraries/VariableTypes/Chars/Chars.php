@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class InternalChars implements CharsInterface
+class InternalChars extends \CallController implements CharsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalChars implements CharsInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* IS ALNUM                                                                                *
@@ -47,7 +25,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_alnum($string);		
@@ -66,7 +44,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_alpha($string);		
@@ -85,7 +63,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_scalar($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_digit($string);		
@@ -104,7 +82,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_graph($string);		
@@ -123,7 +101,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_lower($string);		
@@ -142,7 +120,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_upper($string);		
@@ -161,7 +139,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_print($string);		
@@ -181,7 +159,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_punct($string);		
@@ -200,7 +178,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_space($string);		
@@ -219,7 +197,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_xdigit($string);		
@@ -238,7 +216,7 @@ class InternalChars implements CharsInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');	
 		}
 		
 		return ctype_cntrl($string);		

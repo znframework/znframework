@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Sheet\Helpers;
 
 use ZN\ViewObjects\SheetTrait;
 
-class Animation
+class Animation extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,8 +15,6 @@ class Animation
 	//----------------------------------------------------------------------------------------------------
 	
 	use SheetTrait;
-	
-	use \CallUndefinedMethodTrait;
 
 	/******************************************************************************************
 	* ANIMATION NAME                                                                          *
@@ -33,7 +31,7 @@ class Animation
 	{
 		if( ! is_scalar($name) )
 		{
-			\Errors::set('Error', 'valueParameter', 'name');
+			\Exceptions::throws('Error', 'valueParameter', 'name');
 			return $this;	
 		}
 		
@@ -57,7 +55,7 @@ class Animation
 	{
 		if( ! is_scalar($direction) )
 		{
-			\Errors::set('Error', 'valueParameter', 'direction');
+			\Exceptions::throws('Error', 'valueParameter', 'direction');
 			return $this;	
 		}
 		
@@ -81,7 +79,7 @@ class Animation
 	{
 		if( ! is_scalar($status) )
 		{
-			\Errors::set('Error', 'valueParameter', 'status');
+			\Exceptions::throws('Error', 'valueParameter', 'status');
 			return $this;	
 		}
 		
@@ -105,7 +103,7 @@ class Animation
 	{
 		if( ! is_scalar($fill) )
 		{
-			\Errors::set('Error', 'valueParameter', 'fill');
+			\Exceptions::throws('Error', 'valueParameter', 'fill');
 			return $this;	
 		}
 		
@@ -129,7 +127,7 @@ class Animation
 	{
 		if( ! is_scalar($repeat) )
 		{
-			\Errors::set('Error', 'valueParameter', 'repeat');
+			\Exceptions::throws('Error', 'valueParameter', 'repeat');
 			return $this;	
 		}
 		
@@ -153,7 +151,7 @@ class Animation
 	{
 		if( ! is_scalar($duration) )
 		{
-			\Errors::set('Error', 'valueParameter', 'duration');
+			\Exceptions::throws('Error', 'valueParameter', 'duration');
 			return $this;	
 		}
 		
@@ -182,7 +180,7 @@ class Animation
 	{
 		if( ! is_scalar($delay) )
 		{
-			\Errors::set('Error', 'valueParameter', 'delay');
+			\Exceptions::throws('Error', 'valueParameter', 'delay');
 			return $this;	
 		}
 		
@@ -211,7 +209,7 @@ class Animation
 	{
 		if( ! is_scalar($easing) )
 		{
-			\Errors::set('Error', 'valueParameter', 'easing');
+			\Exceptions::throws('Error', 'valueParameter', 'easing');
 			return $this;	
 		}
 		

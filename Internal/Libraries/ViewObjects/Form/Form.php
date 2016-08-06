@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalForm implements FormInterface
+class InternalForm extends \CallController implements FormInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

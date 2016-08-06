@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class InternalArrays implements ArraysInterface
+class InternalArrays extends \CallController implements ArraysInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,24 +11,6 @@ class InternalArrays implements ArraysInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control                                                                      
-	//----------------------------------------------------------------------------------------------------
-	//
-	// error()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pos Change                                                                       
@@ -47,7 +29,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! isRealNumeric($poss) ) 
@@ -113,7 +95,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! isRealNumeric($poss) ) 
@@ -192,7 +174,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $count <= 1 )
@@ -229,7 +211,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $count <= 1 )
@@ -266,7 +248,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! is_array($element) )
@@ -293,7 +275,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( ! is_array($element) )
@@ -320,7 +302,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		$newArray = [];
@@ -410,7 +392,7 @@ class InternalArrays implements ArraysInterface
 		}
 		else 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 	}
 	
@@ -426,7 +408,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', 'array');
+			return \Exceptions::throws('Error', 'arrayParameter', 'array');
 		}
 		
 		if( $keyval === "val" || $keyval === "value" )
@@ -464,7 +446,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( $count <= 1 )
@@ -492,7 +474,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( $count <= 1 )
@@ -520,12 +502,12 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_string($type) )
 		{
-			return \Errors::set('Error', 'stringParameter', '2.(type)');	
+			return \Exceptions::throws('Error', 'stringParameter', '2.(type)');	
 		}
 
 		$flags = \Convert::toConstant($flags, 'SORT_');
@@ -577,7 +559,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($data) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return count($data);	
@@ -596,7 +578,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($data) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return array_chunk($data, $portionCount, $preserveKeys);	
@@ -614,7 +596,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($keys) || ! is_array($values) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(keys) & 2.(values)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(keys) & 2.(values)');	
 		}
 		
 		return array_combine($keys, $values);	
@@ -632,7 +614,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		$return = array_count_values($array);	
@@ -663,7 +645,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_flip($array);	
@@ -753,12 +735,12 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($preserveKeys) )
 		{
-			return \Errors::set('Error', 'booleanParameter', '2.(preserveKeys)');	
+			return \Exceptions::throws('Error', 'booleanParameter', '2.(preserveKeys)');	
 		}
 		
 		return array_reverse($array, $preserveKeys);
@@ -775,7 +757,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_product($array);
@@ -792,7 +774,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_sum($array);
@@ -810,12 +792,12 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_numeric($countRequest) )
 		{
-			return \Errors::set('Error', 'numericParameter', '2.(countRequest)');	
+			return \Exceptions::throws('Error', 'numericParameter', '2.(countRequest)');	
 		}
 		
 		return array_rand($array, $countRequest);
@@ -834,12 +816,12 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return \Errors::set('Error', 'booleanParameter', '3.(strict)');	
+			return \Exceptions::throws('Error', 'booleanParameter', '3.(strict)');	
 		}
 		
 		return array_search($element, $array, $strict);
@@ -858,12 +840,12 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		if( ! is_bool($strict) )
 		{
-			return \Errors::set('Error', 'booleanParameter', '3.(strict)');	
+			return \Exceptions::throws('Error', 'booleanParameter', '3.(strict)');	
 		}
 		
 		return in_array($element, $array, $strict);
@@ -881,7 +863,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_key_exists($key, $array);
@@ -901,7 +883,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_slice($array, $start, $length, $preserveKeys);
@@ -921,7 +903,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		array_splice($array, $start, $length, $newElement);
@@ -941,7 +923,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_unique($array, \Convert::toConstant($flags, 'SORT_'));
@@ -960,7 +942,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_numeric($start) || ! is_numeric($end) || ! is_numeric($step) )
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)');	
+			return \Exceptions::throws('Error', 'numericParameter', '1.(start) & 2.(end) & 3.(step)');	
 		}
 		
 		return range($start, $end, $step);
@@ -979,7 +961,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		return array_column($array, $columnKey, $indexKey);
@@ -997,7 +979,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		$newArray = [];
@@ -1025,7 +1007,7 @@ class InternalArrays implements ArraysInterface
 	{
 		if( ! is_array($array) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(array)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(array)');	
 		}
 		
 		$newArray = [];

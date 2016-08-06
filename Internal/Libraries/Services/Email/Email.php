@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalEmail implements EmailInterface
+class InternalEmail extends \CallController implements EmailInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -316,19 +316,6 @@ class InternalEmail implements EmailInterface
 		$this->settings();
 	}
 	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Settings Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
 	/******************************************************************************************
 	* SETTINGS                                                                                *
 	*******************************************************************************************
@@ -344,7 +331,7 @@ class InternalEmail implements EmailInterface
 	{
 		if( ! is_array($settings) )
 		{
-			\Errors::set('Error', 'emailParameter', '1.(settings)');	
+			\Exceptions::throws('Error', 'emailParameter', '1.(settings)');	
 			return $this;
 		}
 		
@@ -406,7 +393,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'charsetParameter', '1.(charset)');	
+			\Exceptions::throws('Error', 'charsetParameter', '1.(charset)');	
 		}
 		
 		return $this;
@@ -506,7 +493,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'scalarParameter', '1.(host)');	
+			\Exceptions::throws('Error', 'scalarParameter', '1.(host)');	
 		}
 		
 		return $this;
@@ -531,7 +518,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'scalarParameter', '1.(user)');	
+			\Exceptions::throws('Error', 'scalarParameter', '1.(user)');	
 		}
 		
 		return $this;
@@ -554,7 +541,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'booleanParameter', '1.(dsn)');	
+			\Exceptions::throws('Error', 'booleanParameter', '1.(dsn)');	
 		}
 		
 		return $this;
@@ -579,7 +566,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'scalarParameter', '1.(pass)');	
+			\Exceptions::throws('Error', 'scalarParameter', '1.(pass)');	
 		}
 		
 		return $this;
@@ -604,7 +591,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'numericParameter', '1.(port)');	
+			\Exceptions::throws('Error', 'numericParameter', '1.(port)');	
 		}
 		
 		return $this;
@@ -629,7 +616,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'numericParameter', '1.(timeout)');	
+			\Exceptions::throws('Error', 'numericParameter', '1.(timeout)');	
 		}
 		
 		return $this;
@@ -654,7 +641,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'booleanParameter', '1.(keepAlive)');	
+			\Exceptions::throws('Error', 'booleanParameter', '1.(keepAlive)');	
 		}
 		
 		return $this;
@@ -679,7 +666,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'stringParameter', '1.(encode)');	
+			\Exceptions::throws('Error', 'stringParameter', '1.(encode)');	
 		}
 		
 		return $this;
@@ -716,7 +703,7 @@ class InternalEmail implements EmailInterface
 			}
 			else
 			{
-				\Errors::set('Error', 'emailParameter', '1.('.$type.')');	
+				\Exceptions::throws('Error', 'emailParameter', '1.('.$type.')');	
 			}
 		}
 		
@@ -820,7 +807,7 @@ class InternalEmail implements EmailInterface
 	{
 		if( ! isEmail($from) )
 		{
-			\Errors::set('Error', 'emailParameter', '1.(from)');
+			\Exceptions::throws('Error', 'emailParameter', '1.(from)');
 			return $this;	
 		}
 		
@@ -871,7 +858,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'stringParameter', '1.(subject)');	
+			\Exceptions::throws('Error', 'stringParameter', '1.(subject)');	
 		}
 		
 		return $this;
@@ -894,7 +881,7 @@ class InternalEmail implements EmailInterface
 		}
 		else
 		{
-			\Errors::set('Error', 'stringParameter', '1.(message)');	
+			\Exceptions::throws('Error', 'stringParameter', '1.(message)');	
 		}
 		
 		return $this;
@@ -945,12 +932,12 @@ class InternalEmail implements EmailInterface
 		{
 			if( strpos($file, '://') === false && ! file_exists($file) )
 			{
-				return \Errors::set('Email', 'attachmentMissing', $file);
+				return \Exceptions::throws('Email', 'attachmentMissing', $file);
 			}
 			
 			if( ! $fp = @fopen($file, 'rb') )
 			{
-				return \Errors::set('Email', 'attachmentUnreadable', $file);
+				return \Exceptions::throws('Email', 'attachmentUnreadable', $file);
 			}
 			
 			$fileContent = stream_get_contents($fp);
@@ -1022,7 +1009,7 @@ class InternalEmail implements EmailInterface
 			}
 			else
 			{
-				return \Errors::set('Email', 'noFrom');
+				return \Exceptions::throws('Email', 'noFrom');
 			}
 		}
 		
@@ -1077,7 +1064,7 @@ class InternalEmail implements EmailInterface
 		
 		if( empty($send) )
 		{
-			return \Errors::set('Email', 'noSend');
+			return \Exceptions::throws('Email', 'noSend');
 		}
 		
 		$this->_defaultVariables();

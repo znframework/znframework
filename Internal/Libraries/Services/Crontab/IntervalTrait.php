@@ -244,7 +244,7 @@ trait IntervalTrait
 		
 		if( ! preg_match('/^'.$match.':'.$match.'$/', $clock) )
 		{
-			\Errors::set('Services', 'crontabTimeFormatError');
+			\Exceptions::throws('Services', 'crontabTimeFormatError');
 		}
 		else
 		{

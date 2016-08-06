@@ -124,7 +124,7 @@ trait SheetTrait
 	{
 		if( ! isChar($selector) )
 		{
-			\Errors::set('Error', 'valueParameter', 'selector');
+			\Exceptions::throws('Error', 'valueParameter', 'selector');
 			return $this;	
 		}
 

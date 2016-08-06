@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Jquery\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
 
-class Animate
+class Animate extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,15 +15,6 @@ class Animate
 	//----------------------------------------------------------------------------------------------------
 	
 	use JqueryTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	/* Easing Variables
 	 * Easing 
@@ -76,7 +67,7 @@ class Animate
 		}
 		else
 		{
-			\Errors::set('Error', 'valueParameter', 'duration');
+			\Exceptions::throws('Error', 'valueParameter', 'duration');
 		}
 		
 		return $this;
@@ -104,7 +95,7 @@ class Animate
 		}
 		else
 		{
-			\Errors::set('Error', 'valueParameter', 'queue');
+			\Exceptions::throws('Error', 'valueParameter', 'queue');
 			return $this;
 		}
 		
@@ -127,7 +118,7 @@ class Animate
 	{
 		if( ! is_array($attr) )
 		{
-			\Errors::set('Error', 'arrayParameter', 'attr');
+			\Exceptions::throws('Error', 'arrayParameter', 'attr');
 			return $this;	
 		}
 		

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Components;
 
-class InternalCalendar extends \CallController implements CalendarInterface, \ConfigMethodInterface
+class InternalCalendar extends \Requirements implements CalendarInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -21,15 +21,6 @@ class InternalCalendar extends \CallController implements CalendarInterface, \Co
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:calendar';
 
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
 	// Css
 	//----------------------------------------------------------------------------------------------------
@@ -128,7 +119,7 @@ class InternalCalendar extends \CallController implements CalendarInterface, \Co
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config();
+		parent::__construct();
 		
 		$this->prev 		= $this->config['prevName'];
 		$this->next 		= $this->config['nextName'];

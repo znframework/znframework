@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalHTML implements HTMLInterface
+class InternalHTML extends \CallController implements HTMLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -145,7 +145,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<b'.$this->attributes($attributes).'>'.$str.'</b>';
@@ -161,7 +161,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<strong'.$this->attributes($attributes).'>'.$str.'</strong>';
@@ -177,7 +177,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<em'.$this->attributes($attributes).'>'.$str.'</em>';
@@ -193,7 +193,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_string($src) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'src');
+			return \Exceptions::throws('Error', 'stringParameter', 'src');
 		}
 		
 		if( ! isUrl($src) ) 
@@ -387,12 +387,12 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_string($url) )
 		{
-			return \Errors::set('Error', 'valueParameter', 'url');
+			return \Exceptions::throws('Error', 'valueParameter', 'url');
 		}
 		
 		if( ! is_scalar($value) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'value');
+			return \Exceptions::throws('Error', 'valueParameter', 'value');
 		}
 		
 		if( ! isUrl($url) && ! strstr($url, '#'))
@@ -418,12 +418,12 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_string($mail) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'mail');
+			return \Exceptions::throws('Error', 'stringParameter', 'mail');
 		}
 		
 		if( ! isEmail($mail) ) 
 		{
-			return \Errors::set('Error', 'emailParameter', 'mail');
+			return \Exceptions::throws('Error', 'emailParameter', 'mail');
 		}
 		
 		return '<a'.$this->attributes($_attributes).' href="mailto:'.$mail.'">'.$mail.'</a>';	
@@ -447,7 +447,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return	'<p'.$this->attributes($attributes).'>'.$str.'</p>';
@@ -463,7 +463,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<del'.$this->attributes($attributes).'>'.$str.'</del>';
@@ -479,7 +479,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<sup'.$this->attributes($attributes).'>'.$str.'</sup>';
@@ -495,7 +495,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<u'.$this->attributes($attributes).'>'.$str.'</u>';
@@ -511,7 +511,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<sub'.$this->attributes($attributes).'>'.$str.'</sub>';
@@ -527,7 +527,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<font'.$this->attributes($attributes).'>'.$str.'</font>';
@@ -589,7 +589,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		if( ! is_numeric($type) ) 
@@ -619,12 +619,12 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($element) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'element');	
+			return \Exceptions::throws('Error', 'valueParameter', 'element');	
 		}
 		
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		return '<'.$element.$this->attributes($attributes).'>'.$str.'</'.$element.'>';
@@ -648,7 +648,7 @@ class InternalHTML implements HTMLInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'valueParameter', 'str');
+			return \Exceptions::throws('Error', 'valueParameter', 'str');
 		}
 		
 		if( is_array($array) )

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalCookie implements SessionInterface, CookieInterface
+class InternalCookie extends \Requirements implements SessionInterface, CookieInterface
 {
 	/***********************************************************************************/
 	/* COOKIE COMPONENT		     		                   	                           */
@@ -74,8 +74,8 @@ class InternalCookie implements SessionInterface, CookieInterface
 	public function __construct()
 	{
 		\Session::start();
-		
-		$this->config();
+
+		parent::__construct();
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_numeric($time))
 		{
-			\Errors::set('Error', 'numericParameter', 'time');
+			\Exceptions::throws('Error', 'numericParameter', 'time');
 			return $this;	
 		}
 		
@@ -144,7 +144,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_string($path))
 		{
-			\Errors::set('Error', 'stringParameter', 'path');
+			\Exceptions::throws('Error', 'stringParameter', 'path');
 			return $this;	
 		}
 		
@@ -168,7 +168,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_string($domain))
 		{
-			\Errors::set('Error', 'stringParameter', 'domain');
+			\Exceptions::throws('Error', 'stringParameter', 'domain');
 			return $this;	
 		}
 		
@@ -193,7 +193,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_bool($secure))
 		{
-			\Errors::set('Error', 'booleanParameter', 'secure');
+			\Exceptions::throws('Error', 'booleanParameter', 'secure');
 			return $this;	
 		}
 		
@@ -219,7 +219,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_bool($httpOnly))
 		{
-			\Errors::set('Error', 'booleanParameter', 'httpOnly');
+			\Exceptions::throws('Error', 'booleanParameter', 'httpOnly');
 			return $this;	
 		}
 		
@@ -255,7 +255,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 		{
 			if( ! isChar($name) )
 			{
-				return \Errors::set('Error', 'valueParameter', 'name');
+				return \Exceptions::throws('Error', 'valueParameter', 'name');
 			}
 			
 			$this->name($name);
@@ -326,7 +326,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 		}
 		else
 		{
-			return \Errors::set('Cookie', 'setError');
+			return \Exceptions::throws('Cookie', 'setError');
 		}
 	} 
 	
@@ -354,7 +354,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_scalar($name) )
 		{
-			return \Errors::set('Error', 'valueParameter', 'name');	
+			return \Exceptions::throws('Error', 'valueParameter', 'name');	
 		}
 		
 		if( empty($name) ) 
@@ -448,7 +448,7 @@ class InternalCookie implements SessionInterface, CookieInterface
 	{
 		if( ! is_scalar($name) || empty($name) )
 		{
-			return \Errors::set('Error', 'valueParameter', 'name');	
+			return \Exceptions::throws('Error', 'valueParameter', 'name');	
 		}
 	
 		$cookieConfig = $this->config;

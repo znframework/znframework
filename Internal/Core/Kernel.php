@@ -208,7 +208,14 @@ if( is_file($isFile) )
 		// -------------------------------------------------------------------------------	
 		if( is_callable([$page, $function]) )
 		{
-			uselib($page)->$function(...$parameters);
+			try
+			{
+				uselib($page)->$function(...$parameters);
+			}
+			catch(\Throwable $e)
+			{
+				\Exceptions::table('', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+			}
 		}
 		else
 		{

@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Sheet\Helpers;
 
 use ZN\ViewObjects\SheetTrait;
 
-class Manipulation
+class Manipulation extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,9 +15,7 @@ class Manipulation
 	//----------------------------------------------------------------------------------------------------
 	
 	use SheetTrait;
-	
-	use \CallUndefinedMethodTrait;
-	
+
 	/* Manipulation Değişkeni
 	 *  
 	 * Değişiklik bilgisini tutması 
@@ -40,7 +38,7 @@ class Manipulation
 	{		
 		if( ! is_array($attr) )
 		{
-			return \Errors::set('Error', 'arrayParameter', 'attr');	
+			return \Exceptions::throws('Error', 'arrayParameter', 'attr');	
 		}
 
 		$str  = $this->selector."{".EOL;	
@@ -117,7 +115,7 @@ class Manipulation
 	{
 		if( ! is_string($selector) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'selector');
+			return \Exceptions::throws('Error', 'stringParameter', 'selector');
 		}
 		
 		$space = '\s*';
@@ -147,8 +145,8 @@ class Manipulation
 	{
 		if( ! is_string($selector) || ! is_array($attr) )
 		{
-			\Errors::set('Error', 'stringParameter', 'selector');	
-			\Errors::set('Error', 'arrayParameter', 'attr');
+			\Exceptions::throws('Error', 'stringParameter', 'selector');	
+			\Exceptions::throws('Error', 'arrayParameter', 'attr');
 			
 			return false;
 		}	

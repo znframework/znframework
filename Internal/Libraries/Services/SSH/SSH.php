@@ -1,14 +1,14 @@
 <?php
 namespace ZN\Services;
 
-class InternalSSH implements SSHInterface
+class InternalSSH extends \Requirements implements SSHInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
 	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
 	// Site       : www.zntr.net
 	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
+	// Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
 	
@@ -66,46 +66,13 @@ class InternalSSH implements SSHInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct($config = [])
 	{
-		if( ! function_exists('ssh2_connect') )
-		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'SSH(Secure Shell)'));	
-		}
+		\Support::func('ssh2_connect', 'SSH(Secure Shell)');
 		
-		$this->config($config);
+		parent::__construct($config);
+
 		$this->connect();
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// connect()
 	//----------------------------------------------------------------------------------------------------
@@ -117,7 +84,7 @@ class InternalSSH implements SSHInterface
 	{	
 		if( ! is_array($config) )
 		{
-			\Errors::set('Error', 'arrayParameter', 'config');
+			\Exceptions::throws('Error', 'arrayParameter', 'config');
 			
 			return $this;
 		}
@@ -158,7 +125,7 @@ class InternalSSH implements SSHInterface
 		
 		if( empty($this->connect) ) 
 		{
-			\Errors::set('Error', 'emptyVariable', '@this->connect');
+			\Exceptions::throws('Error', 'emptyVariable', '@this->connect');
 			
 			return $this;
 		}
@@ -170,7 +137,7 @@ class InternalSSH implements SSHInterface
 		
 		if( empty($this->login) )
 		{
-			\Errors::set('Error', 'emptyVariable', '@this->login');
+			\Exceptions::throws('Error', 'emptyVariable', '@this->login');
 		}
 		
 		return $this;
@@ -269,8 +236,8 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'localPath');
-			\Errors::set('Error', 'stringParameter', 'remotePath');
+			\Exceptions::throws('Error', 'stringParameter', 'localPath');
+			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
 			
 			return false;
 		}
@@ -281,7 +248,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'remoteUploadError', $localPath);	
+			return \Exceptions::throws('File', 'remoteUploadError', $localPath);	
 		}
 	}
 	
@@ -297,8 +264,8 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($localPath) || ! is_string($remotePath) ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'remotePath');
-			\Errors::set('Error', 'stringParameter', 'localPath');
+			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
+			\Exceptions::throws('Error', 'stringParameter', 'localPath');
 			
 			return false;
 		}
@@ -309,7 +276,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'remoteDownloadError', $localPath);
+			return \Exceptions::throws('File', 'remoteDownloadError', $localPath);
 		}
 	}
 	
@@ -324,7 +291,7 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');	
+			return \Exceptions::throws('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ssh2_sftp_mkdir($this->connect, $path, $mode, $recursive) )
@@ -333,7 +300,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'alreadyFileError', $path);
+			return \Exceptions::throws('Folder', 'alreadyFileError', $path);
 		}
 	}
 	
@@ -348,7 +315,7 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');	
+			return \Exceptions::throws('Error', 'stringParameter', 'path');	
 		}
 		
 		if( @ssh2_sftp_rmdir($this->connect, $path) )
@@ -357,7 +324,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'notFoundError', $path);	
+			return \Exceptions::throws('Folder', 'notFoundError', $path);	
 		}
 	
 	}
@@ -374,8 +341,8 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($oldName) || ! is_string($newName) ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'oldName');
-			\Errors::set('Error', 'stringParameter', 'newName');
+			\Exceptions::throws('Error', 'stringParameter', 'oldName');
+			\Exceptions::throws('Error', 'stringParameter', 'newName');
 			
 			return false;	
 		}
@@ -386,7 +353,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{
-			return \Errors::set('Folder', 'changeFolderNameError', $oldName);	
+			return \Exceptions::throws('Folder', 'changeFolderNameError', $oldName);	
 		}
 	}
 	
@@ -401,7 +368,7 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($path) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');
+			return \Exceptions::throws('Error', 'stringParameter', 'path');
 		}
 		
 		if( @ssh2_sftp_unlink($this->connect, $path) )
@@ -410,7 +377,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{
-			return \Errors::set('File', 'notFoundError', $path);	
+			return \Exceptions::throws('File', 'notFoundError', $path);	
 		}
 	}
 	
@@ -426,7 +393,7 @@ class InternalSSH implements SSHInterface
 	{
 		if( ! is_string($path) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'path');		
+			return \Exceptions::throws('Error', 'stringParameter', 'path');		
 		}
 		
 		if( ! is_numeric($type) )
@@ -440,7 +407,7 @@ class InternalSSH implements SSHInterface
 		}
 		else
 		{ 
-			return \Errors::set('Error', 'emptyVariable', '@this->connect');	
+			return \Exceptions::throws('Error', 'emptyVariable', '@this->connect');	
 		}
 	}
 	

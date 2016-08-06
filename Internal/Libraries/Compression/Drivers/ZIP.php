@@ -37,7 +37,7 @@ class ZipDriver extends DriverMapping
 		
 		if( empty($open) )
 		{
-			return \Errors::set('Error', 'fileNotFound', $file);	
+			return \Exceptions::throws('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = zip_read($open);

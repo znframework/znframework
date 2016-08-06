@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class InternalFunctions implements FunctionsInterface
+class InternalFunctions extends \CallController implements FunctionsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalFunctions implements FunctionsInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* CALL ARRAY                                                                              *
@@ -44,12 +22,12 @@ class InternalFunctions implements FunctionsInterface
 	{
 		if( ! is_callable($callback) )
 		{
-			return \Errors::set('Error', 'callableParameter', '1.(callback)');	
+			return \Exceptions::throws('Error', 'callableParameter', '1.(callback)');	
 		}
 		
 		if( ! is_array($params) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '2.(params)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '2.(params)');	
 		}
 		
 		return call_user_func_array($callback, $params);		
@@ -76,12 +54,12 @@ class InternalFunctions implements FunctionsInterface
 	{
 		if( ! is_callable($callback) )
 		{
-			return \Errors::set('Error', 'callableParameter', '1.(callback)');	
+			return \Exceptions::throws('Error', 'callableParameter', '1.(callback)');	
 		}
 		
 		if( ! is_array($params) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '2.(params)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '2.(params)');	
 		}
 		
 		return forward_static_call_array($callback, $params);		

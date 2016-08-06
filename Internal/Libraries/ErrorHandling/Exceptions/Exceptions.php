@@ -12,20 +12,224 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 
-	/******************************************************************************************
-	* EXCEPTION REFERENCES                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
-	|          																				  |
-	******************************************************************************************/	
+	//----------------------------------------------------------------------------------------------------
+    // To String 
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //----------------------------------------------------------------------------------------------------	
 	public function __toString()
 	{
 		return $this->_template($this->getMessage(), $this->getFile(), $this->getLine(), $this->getTrace());
 	}
 
+	//----------------------------------------------------------------------------------------------------
+    // Throws
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $message
+    // @param string $key
+    // @param string $send
+    //
+    //----------------------------------------------------------------------------------------------------
+	public function throws($message = NULL, $key = NULL, $send = NULL)
+	{
+		$debug = $this->_throwFinder(debug_backtrace());
+
+		if( $lang = lang($message, $key, $send) )
+		{
+			$message = '['.$this->_cleanClassName($debug['class']).'::'.$debug['function'].'()] '.$lang;
+		}
+
+		$this->table('', $message, $debug['file'], $debug['line']);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+    // Table
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    // @param string $file
+    // @param string $line
+    // @param string $no
+    // @param array $trace
+    //
+    //----------------------------------------------------------------------------------------------------
+	public function table($no = NULL, $msg = NULL, $file = NULL, $line = NULL, $trace = NULL)
+	{
+		$lang    = lang('Error');
+		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
+		
+		report('GeneralError', $message, 'GeneralError');
+	
+		echo $this->_template($msg, $file, $line, $no, $trace);  
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+    // Restore
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //----------------------------------------------------------------------------------------------------
+	public function restore()
+	{
+		return restore_exception_handler();
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+    // Handler
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param callable $handler
+    //
+    //----------------------------------------------------------------------------------------------------
+	public function handler($handler)
+	{
+		if( ! is_callable($handler) )
+		{
+			return $this->set(lang('Error', 'callableParameter', '1.(handler)'));	
+		}
+
+		return set_exception_handler($handler);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+    // Private Template
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    // @param string $file
+    // @param string $line
+    // @param string $no
+    // @param array $trace
+    //
+    //----------------------------------------------------------------------------------------------------
+	private function _template($msg, $file, $line, $no, $trace)
+	{
+		global $application;
+
+		$generalApplcationConfig = \Config::get('Application');
+
+		if
+		( 
+			strtolower($generalApplcationConfig['mode']) === 'publication' || 
+			strtolower($application['mode']) 			 === 'publication'
+		)
+		{
+			return false;
+		}
+
+		if
+		(
+			empty($generalApplcationConfig['errorReporting']) || 
+			empty($application['errorReporting']) 
+		)
+		{
+			return false;
+		}
+		
+		if( in_array($no, \Config::get('Application', 'escapeErrors')) )
+		{
+			return false;
+		}
+
+		$exceptionData = array
+		(
+			'message' => '['.$msg.']',
+			'file'	  => $file,
+			'line'    => '['.$line.']'
+		);
+
+		if( $passed = $this->_argumentPassed($msg, $file, $line, $trace) )	
+		{
+			if( is_array($passed) )
+			{
+				$exceptionData = $passed;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		if( $missed = $this->_argumentMissed($msg, $trace) )
+		{
+			$exceptionData = $missed;
+		}
+
+		$message = \Import::template('ExceptionTable', $exceptionData, true);
+
+		return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+    // Protected Clean Class Name
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $class
+    //
+    //----------------------------------------------------------------------------------------------------
 	protected function _cleanClassName($class)
 	{
 		return str_ireplace(STATIC_ACCESS, '', divide($class, '\\', -1));
+	}
+
+	//----------------------------------------------------------------------------------------------------
+    // Protected Trace Finder
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param array $trace
+    //
+    //----------------------------------------------------------------------------------------------------
+	protected function _traceFinder($trace)
+	{
+		if
+		(
+			isset($trace[2]['class']) && 
+			$this->_cleanClassName($trace[2]['class']) === 'StaticAccess' &&
+			$trace[2]['function'] === '__callStatic'
+		)
+		{
+			$traceInfo = $trace[2];
+
+			$traceInfo['class']    = isset($trace[0]['class']) ? $trace[0]['class'] : $trace[2]['class'];
+			$traceInfo['function'] = isset($trace[0]['function']) ? $trace[0]['function'] : $trace[2]['function'];
+		}
+		else
+		{
+			$traceInfo = $trace[0];
+		}
+
+		return 
+		[
+			'class'    => $this->_cleanClassName($traceInfo['class']),
+			'function' => $traceInfo['function'],
+			'file'	   => $traceInfo['file'],
+			'line'	   => $traceInfo['line']
+		];
+	}
+
+	//----------------------------------------------------------------------------------------------------
+    // Protected Throw Finder
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param array $trace
+    //
+    //----------------------------------------------------------------------------------------------------
+	protected function _throwFinder($trace)
+	{
+		$classInfo = $trace[3];
+		$fileInfo  = $trace[5];
+
+		return 
+		[
+			'class'    => $this->_cleanClassName($classInfo['class']),
+			'function' => $classInfo['function'],
+			'file'	   => $fileInfo['file'],
+			'line'	   => $fileInfo['line']
+		];
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -35,7 +239,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     // @param string $msg
     //
     //----------------------------------------------------------------------------------------------------
-	protected function _argumentMissed($msg)
+	protected function _argumentMissed($msg, $trace)
 	{
 		$exceptionData = false;
 
@@ -54,16 +258,16 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return $exceptionData;
 		}
 		
-		$localObjectInfo = $trace[0];
-		$localFileInfo   = $trace[2];
-		$langMessage1    = $this->_cleanClassName($localObjectInfo['class']).'::'.
-		                   $localObjectInfo['function '].'() p'.$argument.':';
+		$traceInfo       = $this->_traceFinder($trace);
+		
+		$langMessage1    = '['.$this->_cleanClassName($traceInfo['class']).'::'.
+		                   $traceInfo['function '].'()] p'.$argument.':';
 
 		$exceptionData   = array
 		(
 			'message' => lang('Error', 'emptyParameter', $langMessage1),
-			'file'	  => $localFileInfo['file'],
-			'line'    => $localFileInfo['line']
+			'file'	  => $traceInfo['file'],
+			'line'    => '['.$traceInfo['line'].']'
 		);
 
 		return $exceptionData;
@@ -99,149 +303,25 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			return false;
 		}
 
-		$localFileInfo = $trace[2];
+		$traceInfo = $this->_traceFinder($trace);
+
+		//output($trace);
 
 		if( $type !== $data )
 		{
-			$langMessage1 = $this->_cleanClassName($class).'::'.$method.' p'.$argument.':';
-			$langMessage2 = '`'.$type.'`';
+			$langMessage1 = '['.$this->_cleanClassName($class).'::'.$method.'] p'.$argument.':';
+			$langMessage2 = '[`'.$type.'`]';
 
 			$exceptionData = array
 			(
 				'message' => lang('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
-				'file'	  => $localFileInfo['file'],
-				'line'    => $localFileInfo['line'],
+				'file'	  => $traceInfo['file'],
+				'line'    => '['.$traceInfo['line'].']',
 			);
 
 			return $exceptionData;
 		}
 
 		return true;
-	}
-
-	//----------------------------------------------------------------------------------------------------
-    // Protected Throws
-    //----------------------------------------------------------------------------------------------------
-    //
-    // @param string $message
-    // @param string $key
-    // @param string $send
-    //
-    //----------------------------------------------------------------------------------------------------
-	public function throws($message = '', $key = '', $send = '')
-	{
-		$debug = \Errors::debugBackTrace(['object' => 6, 'file' => 8, 'default' => 5]);
-
-		if( $lang = lang($message, $key, $send) )
-		{
-			$message = $debug['className'].'::'.$debug['methodName'].'() '.$lang;
-		}
-
-		$this->table('', $message, $debug['file'], $debug['line']);
-	}
-
-	/******************************************************************************************
-	* PRIVATE TEMPLATE                                                            			  *
-	*******************************************************************************************
-	| Genel Kullanım: Hata tablosu.     													  |
-	|          																				  |
-	******************************************************************************************/	
-	private function _template($msg, $file, $line, $no, $trace)
-	{
-		global $application;
-
-		$generalApplcationConfig = \Config::get('Application');
-
-		if
-		( 
-			strtolower($generalApplcationConfig['mode']) === 'publication' || 
-			strtolower($application['mode']) 			 === 'publication'
-		)
-		{
-			return false;
-		}
-
-		if
-		(
-			empty($generalApplcationConfig['errorReporting']) || 
-			empty($application['errorReporting']) 
-		)
-		{
-			return false;
-		}
-		
-		if( in_array($no, \Config::get('Application', 'escapeErrors')) )
-		{
-			return false;
-		}
-
-		$exceptionData = array
-		(
-			'message' => $msg,
-			'file'	  => $file,
-			'line'    => $line
-		);
-
-		if( $passed = $this->_argumentPassed($msg, $file, $line, $trace) )	
-		{
-			if( is_array($passed) )
-			{
-				$exceptionData = $passed;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		if( $missed = $this->_argumentMissed($msg) )
-		{
-			$exceptionData = $missed;
-		}
-
-		return \Import::template('ExceptionTable', $exceptionData, true);
-	}
-		
-	/******************************************************************************************
-	* TABLE         	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Hatayı yakalayıp özel bir çerçeve ile basması için oluşturulmuştur.     |
-	|          																				  |
-	******************************************************************************************/	
-	public function table($no = '', $msg = '', $file = '', $line = '', $trace = '')
-	{
-		$lang    = lang('Error');
-		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
-		
-		report('GeneralError', $message, 'GeneralError');
-	
-		echo $this->_template($msg, $file, $line, $no, $trace);  
-	}
-	
-	/******************************************************************************************
-	* RESTORE HANDLER                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
-	|          																				  |
-	******************************************************************************************/	
-	public function restore()
-	{
-		return restore_exception_handler();
-	}
-	
-	/******************************************************************************************
-	* SET HANDLER 		                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir önceki hata eylemcisini devreye sokar.			   				  |
-	|          																				  |
-	******************************************************************************************/	
-	public function handler($handler = 0)
-	{
-		if( ! is_callable($handler) )
-		{
-			return $this->set(lang('Error', 'callableParameter', '1.(handler)'));	
-		}
-
-		return set_exception_handler($handler);
 	}
 }

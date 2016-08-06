@@ -1,7 +1,7 @@
 <?php
 namespace ZN\VariableTypes;
 
-class InternalStrings implements StringsInterface
+class InternalStrings extends \CallController implements StringsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalStrings implements StringsInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// mtrim
@@ -45,7 +23,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($str) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(str)');
 		}
 		
 		$str = preg_replace
@@ -69,7 +47,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		$str = trim($str, "/");
@@ -103,8 +81,8 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			\Errors::set('Error', 'stringParameter', '1.(str)');
-			\Errors::set('Error', 'charsetParameter', '2.(encoding)');
+			\Exceptions::throws('Error', 'stringParameter', '1.(str)');
+			\Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');
 			
 			return false;
 		}
@@ -126,8 +104,8 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			\Errors::set('Error', 'stringParameter', '1.(str)');
-			\Errors::set('Error', 'charsetParameter', '2.(encoding)');
+			\Exceptions::throws('Error', 'stringParameter', '1.(str)');
+			\Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');
 			
 			return false;
 		}
@@ -149,8 +127,8 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || ! isCharset($encoding) ) 
 		{
-			\Errors::set('Error', 'stringParameter', '1.(str)');
-			\Errors::set('Error', 'charsetParameter', '2.(encoding)');
+			\Exceptions::throws('Error', 'stringParameter', '1.(str)');
+			\Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');
 			
 			return false;
 		}
@@ -201,7 +179,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return mb_substr($str, $starting, $count, $encoding);
@@ -221,7 +199,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || ! is_string($needle) || ! is_string($type) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str) & 2.(neddle) & 3.($type)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str) & 2.(neddle) & 3.($type)');
 		}
 		
 		if( $type === "str" || $type === "string" )
@@ -261,7 +239,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		if( ! is_scalar($shuffle) || empty($shuffle) ) 
@@ -298,7 +276,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		if( ! is_scalar($char) ) 
@@ -322,12 +300,12 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		if( ! is_array($array) ) 
 		{
-			return \Errors::set('Error', 'arrayParameter', '3.(array)');
+			return \Exceptions::throws('Error', 'arrayParameter', '3.(array)');
 		}
 		
 		if( ! empty($delimiter) )
@@ -367,7 +345,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($string) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');
 		}
 		
 		if( $case === true )
@@ -392,7 +370,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($string) || ! is_string($split) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(string) & 2.(split)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(string) & 2.(split)');
 		}
 		
 		return explode($split, $string);
@@ -409,7 +387,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_numeric($ascii) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(ascii)');
+			return \Exceptions::throws('Error', 'numericParameter', '1.(ascii)');
 		}
 		
 		return chr($ascii);
@@ -426,7 +404,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($string) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');
 		}
 		
 		return ord($string);
@@ -444,7 +422,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($string) || ! is_string($addDifferentChars) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string) & 2.(addDifferentChars)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string) & 2.(addDifferentChars)');
 		}
 		
 		$return = addslashes($string);
@@ -468,7 +446,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_string($string) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');
 		}
 		
 		return stripslashes(stripcslashes($string));
@@ -486,7 +464,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
 		}
 		
 		return mb_strlen($string, $encoding);
@@ -504,7 +482,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($string) || ! is_scalar($salt) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(string) & 2.(salt)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(string) & 2.(salt)');
 		}
 		
 		return crypt($string, $salt);
@@ -522,7 +500,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
 		}
 		
 		return str_repeat($string, $count);
@@ -542,7 +520,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
 		}
 		
 		return str_pad($string, $count, $chars, \Convert::toConstant($type, 'STR_PAD_'));
@@ -561,7 +539,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($string) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(string)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
 		}
 		
 		$arrayChunk = array_chunk(preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY), $length);
@@ -602,7 +580,7 @@ class InternalStrings implements StringsInterface
 	{
 		if( ! is_scalar($table) || ! is_scalar($quote) ) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(table) & 2.(quote)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(table) & 2.(quote)');
 		}
 		
 		return get_html_translation_table(\Convert::toConstant($table, 'HTML_'), \Convert::toConstant($quote, 'ENT_'));

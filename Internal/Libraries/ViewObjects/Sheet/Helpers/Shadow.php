@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Sheet\Helpers;
 
 use ZN\ViewObjects\SheetTrait;
 
-class Shadow
+class Shadow extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,8 +15,6 @@ class Shadow
 	//----------------------------------------------------------------------------------------------------
 	
 	use SheetTrait;
-	
-	use \CallUndefinedMethodTrait;
 	
 	/* Params Değişkeni
 	 *  
@@ -41,7 +39,7 @@ class Shadow
 	{
 		if( ! is_scalar($val) )
 		{
-			\Errors::set('Error', 'valueParameter', 'val');
+			\Exceptions::throws('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -88,7 +86,7 @@ class Shadow
 	{
 		if( ! is_scalar($val) )
 		{
-			\Errors::set('Error', 'valueParameter', 'val');
+			\Exceptions::throws('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -135,7 +133,7 @@ class Shadow
 	{
 		if( ! is_scalar($val) )
 		{
-			\Errors::set('Error', 'valueParameter', 'val');
+			\Exceptions::throws('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -164,7 +162,7 @@ class Shadow
 	{
 		if( ! is_scalar($val) )
 		{
-			\Errors::set('Error', 'valueParameter', 'val');
+			\Exceptions::throws('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -212,7 +210,7 @@ class Shadow
 	{
 		if( ! is_scalar($val))
 		{
-			\Errors::set('Error', 'valueParameter', 'val');
+			\Exceptions::throws('Error', 'valueParameter', 'val');
 			return $this;	
 		}
 		
@@ -241,7 +239,7 @@ class Shadow
 	{
 		if( ! is_string($val))
 		{
-			\Errors::set('Error', 'stringParameter', 'val');
+			\Exceptions::throws('Error', 'stringParameter', 'val');
 			return $this;	
 		}
 		

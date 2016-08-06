@@ -32,7 +32,7 @@ class RarDriver extends DriverMapping
 		}
 		else
 		{
-			return \Errors::set('Error', 'emptyVariable', '$list');	
+			return \Exceptions::throws('Error', 'emptyVariable', '$list');	
 		}
 		
 		rar_close($rarFile);

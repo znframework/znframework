@@ -35,7 +35,7 @@ class PipeDriver implements EmailDriverInterface
 		
 		if( empty($open) )
 		{
-			return \Errors::set('Email', 'sendFailureSendmail');
+			return \Exceptions::throws('Email', 'sendFailureSendmail');
 		}
 		
 		@fputs($open, $headers);
@@ -45,8 +45,8 @@ class PipeDriver implements EmailDriverInterface
 		
 		if( $status !== 0 )
 		{
-			\Errors::set('Email', 'exitStatus', $status);
-			\Errors::set('Email', 'noSocket');
+			\Exceptions::throws('Email', 'exitStatus', $status);
+			\Exceptions::throws('Email', 'noSocket');
 			
 			return false;
 		}

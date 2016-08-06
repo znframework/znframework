@@ -36,5 +36,5 @@ $config['Application'] =
 	// Engellenecek Hata Numaraları Belirtilir.				     			 	  		  
 	//
 	//----------------------------------------------------------------------------------------------------
-	'escapeErrors' => [E_NOTICE]
+	'escapeErrors' => []
 ];

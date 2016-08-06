@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Jquery\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
 
-class Action
+class Action extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,15 +15,6 @@ class Action
 	//----------------------------------------------------------------------------------------------------
 	
 	use JqueryTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	/* 
 	 * Özellik belirteci.
@@ -117,7 +108,7 @@ class Action
 	{
 		if( ! is_string($type))
 		{
-			\Errors::set('Error', 'stringParameter', 'type');
+			\Exceptions::throws('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		

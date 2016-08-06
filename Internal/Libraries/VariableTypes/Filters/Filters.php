@@ -1,7 +1,7 @@
 <?php	
 namespace ZN\VariableTypes;
 
-class InternalFilters implements FiltersInterface
+class InternalFilters extends \CallController implements FiltersInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalFilters implements FiltersInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* GET VAR                                                                                 *
@@ -99,7 +77,7 @@ class InternalFilters implements FiltersInterface
 	{
 		if( ! is_string($filterName) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(filterName)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(filterName)');	
 		}	
 		
 		return filter_id($filterName);	
@@ -137,7 +115,7 @@ class InternalFilters implements FiltersInterface
 	{		
 		if( ! is_array($data) )
 		{
-			return \Errors::set('Error', 'arrayParameter', '1.(data)');	
+			return \Exceptions::throws('Error', 'arrayParameter', '1.(data)');	
 		}
 		
 		return filter_var_array($data, $definition, $addEmpty);	
@@ -237,7 +215,7 @@ class InternalFilters implements FiltersInterface
 	{
 		if( ! is_string($varName) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(varName)');	
+			return \Exceptions::throws('Error', 'stringParameter', '1.(varName)');	
 		}	
 		
 		return filter_has_var($this->_inputConstant($type), $varName);	

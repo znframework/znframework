@@ -40,32 +40,6 @@ class InternalImport implements ImportInterface
 	 *
 	 */
 	protected $templateWizardExtension = '.wizard';
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Setting Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// usable()
@@ -317,7 +291,7 @@ class InternalImport implements ImportInterface
 		
 		if( ! is_string($randomPageVariable) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'randomPageVariable');
+			return \Exceptions::throws('Error', 'stringParameter', 'randomPageVariable');
 		}
 		
 		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
@@ -350,7 +324,7 @@ class InternalImport implements ImportInterface
 		}
 		else
 		{
-			return \Errors::set('Error', 'fileNotFound', $randomPageVariable);	
+			return \Exceptions::throws('Error', 'fileNotFound', $randomPageVariable);	
 		}
 	}
 	
@@ -416,7 +390,7 @@ class InternalImport implements ImportInterface
 		}
 		else
 		{
-			return \Errors::set('Error', 'fileNotFound', $page);	
+			return \Exceptions::throws('Error', 'fileNotFound', $page);	
 		}
 	}
 	
@@ -1150,7 +1124,7 @@ class InternalImport implements ImportInterface
 		
 		if( ! is_file($randomPageVariable) ) 
 		{
-			return \Errors::set('Error', 'fileParameter', '1.(randomPageVariable)');
+			return \Exceptions::throws('Error', 'fileParameter', '1.(randomPageVariable)');
 		}
 		
 		$randomPageVariable = restorationPath($randomPageVariable);
@@ -1264,7 +1238,7 @@ class InternalImport implements ImportInterface
 	{
 		if( ! is_string($packages)  ) 
 		{
-			\Errors::set('Error', 'stringParameter', 'packages');
+			\Exceptions::throws('Error', 'stringParameter', 'packages');
 			
 			return false;
 		}

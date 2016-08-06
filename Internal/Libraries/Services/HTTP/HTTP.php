@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalHTTP implements HTTPInterface
+class InternalHTTP extends \Requirements implements HTTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -46,29 +46,6 @@ class InternalHTTP implements HTTPInterface
 		'request'
 	);
 	
-	public function __construct()
-	{
-		$this->config();	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
 	//----------------------------------------------------------------------------------------------------
 	// Is Ajax
 	//----------------------------------------------------------------------------------------------------
@@ -100,7 +77,7 @@ class InternalHTTP implements HTTPInterface
 	{
 		if( ! is_string($default)) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(default)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(default)');
 		}
 		
 		$languages = \Config::get('Language', 'shortCodes');
@@ -126,7 +103,7 @@ class InternalHTTP implements HTTPInterface
 	{
 		if( ! is_scalar($code)) 
 		{
-			return \Errors::set('Error', 'scalarParameter', '1.(code)');
+			return \Exceptions::throws('Error', 'scalarParameter', '1.(code)');
 		}
 		
 		$messages = \Arrays::multikey($this->config['messages']);
@@ -192,7 +169,7 @@ class InternalHTTP implements HTTPInterface
 		}
 		else
 		{
-			\Errors::set(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
+			\Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
 		}
 		
 		return $this;

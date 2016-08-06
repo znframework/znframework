@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Jquery\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
 
-class Ajax
+class Ajax extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,15 +15,6 @@ class Ajax
 	//----------------------------------------------------------------------------------------------------
 	
 	use JqueryTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	/* 
 	 * Fonksiyon blokları 
@@ -65,7 +56,7 @@ class Ajax
 	{
 		if( ! is_string($url) )
 		{
-			\Errors::set('Error', 'stringParameter', '1.(url)');
+			\Exceptions::throws('Error', 'stringParameter', '1.(url)');
 			return $this;	
 		}
 		
@@ -94,7 +85,7 @@ class Ajax
 	{
 		if( ! is_scalar($data) )
 		{
-			\Errors::set('Error', 'valueParameter', '1.(data)');
+			\Exceptions::throws('Error', 'valueParameter', '1.(data)');
 			return $this;	
 		}
 		
@@ -117,7 +108,7 @@ class Ajax
 	{
 		if( ! is_scalar($headers) )
 		{
-			\Errors::set('Error', 'valueParameter', '1.(headers)');
+			\Exceptions::throws('Error', 'valueParameter', '1.(headers)');
 			return $this;	
 		}
 		
@@ -140,7 +131,7 @@ class Ajax
 	{
 		if( ! is_scalar($ifModified) )
 		{
-			\Errors::set('Error', 'valueParameter', '1.(isModified)');
+			\Exceptions::throws('Error', 'valueParameter', '1.(isModified)');
 			return $this;	
 		}
 		
@@ -166,7 +157,7 @@ class Ajax
 	{
 		if( ! is_scalar($isLocal) )
 		{
-			\Errors::set('Error', 'valueParameter', '1.(isLocal)');
+			\Exceptions::throws('Error', 'valueParameter', '1.(isLocal)');
 			return $this;	
 		}
 		
@@ -192,7 +183,7 @@ class Ajax
 	{
 		if( ! is_scalar($mimeType) )
 		{
-			\Errors::set('Error', 'valueParameter', 'mimeType');
+			\Exceptions::throws('Error', 'valueParameter', 'mimeType');
 			return $this;	
 		}
 		
@@ -246,7 +237,7 @@ class Ajax
 	{
 		if( ! is_scalar($jsonpCallback) )
 		{
-			\Errors::set('Error', 'valueParameter', 'jsonpCallback');
+			\Exceptions::throws('Error', 'valueParameter', 'jsonpCallback');
 			return $this;	
 		}
 		
@@ -274,7 +265,7 @@ class Ajax
 	{
 		if( ! is_string($type) )
 		{
-			\Errors::set('Error', 'stringParameter', 'type');
+			\Exceptions::throws('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		
@@ -290,7 +281,7 @@ class Ajax
 	{
 		if( ! is_string($password) )
 		{
-			\Errors::set('Error', 'stringParameter', 'password');
+			\Exceptions::throws('Error', 'stringParameter', 'password');
 			return $this;	
 		}
 		
@@ -306,7 +297,7 @@ class Ajax
 	{
 		if( ! is_string($username) )
 		{
-			\Errors::set('Error', 'stringParameter', 'username');
+			\Exceptions::throws('Error', 'stringParameter', 'username');
 			return $this;	
 		}
 		
@@ -323,7 +314,7 @@ class Ajax
 	{
 		if( ! is_string($method) )
 		{
-			\Errors::set('Error', 'stringParameter', 'method');
+			\Exceptions::throws('Error', 'stringParameter', 'method');
 			return $this;	
 		}
 		
@@ -350,7 +341,7 @@ class Ajax
 	{
 		if( ! isCharset($scriptCharset) )
 		{
-			\Errors::set('Error', 'charsetParameter', 'scriptCharset');
+			\Exceptions::throws('Error', 'charsetParameter', 'scriptCharset');
 			return $this;	
 		}
 		
@@ -366,7 +357,7 @@ class Ajax
 	{
 		if( ! is_scalar($traditional) )
 		{
-			\Errors::set('Error', 'valueParameter', 'traditional');
+			\Exceptions::throws('Error', 'valueParameter', 'traditional');
 			return $this;	
 		}
 		
@@ -383,7 +374,7 @@ class Ajax
 	{
 		if( ! is_scalar($processData) )
 		{
-			\Errors::set('Error', 'valueParameter', 'processData');
+			\Exceptions::throws('Error', 'valueParameter', 'processData');
 			return $this;	
 		}
 		
@@ -400,7 +391,7 @@ class Ajax
 	{
 		if( ! is_scalar($cache) )
 		{
-			\Errors::set('Error', 'valueParameter', 'cache');
+			\Exceptions::throws('Error', 'valueParameter', 'cache');
 			return $this;	
 		}
 		
@@ -417,7 +408,7 @@ class Ajax
 	{
 		if( ! is_string($xhrFields) )
 		{
-			\Errors::set('Error', 'stringParameter', 'xhrFields');
+			\Exceptions::throws('Error', 'stringParameter', 'xhrFields');
 			return $this;	
 		}
 		
@@ -433,7 +424,7 @@ class Ajax
 	{
 		if( ! is_scalar($context) )
 		{
-			\Errors::set('Error', 'valueParameter', 'context');
+			\Exceptions::throws('Error', 'valueParameter', 'context');
 			return $this;	
 		}
 		
@@ -449,7 +440,7 @@ class Ajax
 	{
 		if( ! is_string($accepts) )
 		{
-			\Errors::set('Error', 'stringParameter', 'accepts');
+			\Exceptions::throws('Error', 'stringParameter', 'accepts');
 			return $this;	
 		}
 		
@@ -465,7 +456,7 @@ class Ajax
 	{
 		if( ! is_string($contents) )
 		{
-			\Errors::set('Error', 'stringParameter', 'contents');
+			\Exceptions::throws('Error', 'stringParameter', 'contents');
 			return $this;	
 		}
 		
@@ -481,7 +472,7 @@ class Ajax
 	{
 		if( ! is_scalar($async) )
 		{
-			\Errors::set('Error', 'valueParameter', 'async');
+			\Exceptions::throws('Error', 'valueParameter', 'async');
 			return $this;	
 		}
 		
@@ -498,7 +489,7 @@ class Ajax
 	{
 		if( ! is_scalar($crossDomain) )
 		{
-			\Errors::set('Error', 'valueParameter', 'crossDomain');
+			\Exceptions::throws('Error', 'valueParameter', 'crossDomain');
 			return $this;	
 		}
 		
@@ -515,7 +506,7 @@ class Ajax
 	{
 		if( ! is_scalar($timeout) )
 		{
-			\Errors::set('Error', 'valueParameter', 'timeout');
+			\Exceptions::throws('Error', 'valueParameter', 'timeout');
 			return $this;	
 		}
 		
@@ -532,7 +523,7 @@ class Ajax
 	{
 		if( ! is_scalar($globals) )
 		{
-			\Errors::set('Error', 'valueParameter', 'globals');
+			\Exceptions::throws('Error', 'valueParameter', 'globals');
 			return $this;	
 		}
 		
@@ -559,7 +550,7 @@ class Ajax
 		}
 		else
 		{
-			\Errors::set('Error', 'valueParameter', 'contentType');
+			\Exceptions::throws('Error', 'valueParameter', 'contentType');
 			return $this;	
 		}
 		
@@ -572,7 +563,7 @@ class Ajax
 	{
 		if( ! is_array($codes) )
 		{
-			\Errors::set('Error', 'arrayParameter', 'codes');
+			\Exceptions::throws('Error', 'arrayParameter', 'codes');
 			return $this;	
 		}
 		
@@ -635,7 +626,7 @@ class Ajax
 	{
 		if( ! is_string($params) || ! is_string($codes) )
 		{
-			\Errors::set('Error', 'stringParameter', 'params & codes');
+			\Exceptions::throws('Error', 'stringParameter', 'params & codes');
 			return $this;
 		}
 		
@@ -772,7 +763,7 @@ class Ajax
 	{
 		if( ! is_string($url) || ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'url & data');
+			return \Exceptions::throws('Error', 'stringParameter', 'url & data');
 		}
 		
 		if( ! empty($url) )

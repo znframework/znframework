@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\EncodingSupport;
 
-class InternalML extends \CallController implements MLInterface
+class InternalML extends \Requirements implements MLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -30,15 +30,6 @@ class InternalML extends \CallController implements MLInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	use MLPropertiesTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// $appdir
@@ -74,7 +65,7 @@ class InternalML extends \CallController implements MLInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		$this->config();	
+		parent::__construct();
 		
 		// Dil doyalarının yer alacağı dizinin belirtiliyor.
 		$this->appdir = STORAGE_DIR.'MultiLanguage/';	

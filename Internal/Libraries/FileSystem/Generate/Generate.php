@@ -1,7 +1,7 @@
 <?php
 namespace ZN\FileSystem;
 
-class InternalGenerate extends \CallController implements GenerateInterface, \ErrorControlInterface
+class InternalGenerate extends \CallController implements GenerateInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,19 +11,6 @@ class InternalGenerate extends \CallController implements GenerateInterface, \Er
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Settings

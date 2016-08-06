@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\VariableTypes;
 
-class InternalSerial implements SerialInterface
+class InternalSerial extends \CallController implements SerialInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,8 +11,6 @@ class InternalSerial implements SerialInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* SERIAL                                                                                  *
@@ -35,7 +33,7 @@ class InternalSerial implements SerialInterface
 	{
 		if( ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		if( $array === false )
@@ -58,7 +56,7 @@ class InternalSerial implements SerialInterface
 	{
 		if( ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return (object) unserialize($data);
@@ -74,7 +72,7 @@ class InternalSerial implements SerialInterface
 	{
 		if( ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return unserialize($data);

@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalURI implements URIInterface
+class InternalURI extends \CallController implements URIInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,15 +11,6 @@ class InternalURI implements URIInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// Get Method Başlangıç
@@ -370,7 +361,7 @@ class InternalURI implements URIInterface
 	{
 		if( ! is_numeric($seg) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'seg');
+			return \Exceptions::throws('Error', 'numericParameter', 'seg');
 		}
 		
 		$segments = $this->segmentArray();

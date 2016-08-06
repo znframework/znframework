@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\ShoppingCart;
 
-class InternalCart implements CartInterface
+class InternalCart extends \CallController implements CartInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -19,28 +19,6 @@ class InternalCart implements CartInterface
 	 *
 	 */
 	private $items = [];
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* INSERT ITEM                                                                             *
@@ -66,13 +44,13 @@ class InternalCart implements CartInterface
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			return \Errors::set('Error', 'emptyParameter', 'product');	
+			return \Exceptions::throws('Error', 'emptyParameter', 'product');	
 		}
 		
 		// Ürünün parametresinin dizi olmaması durumunda rapor edilmesi istenmiştir.
 		if( ! is_array($product))
 		{
-			return \Errors::set('Error', 'arrayParameter', 'product');	
+			return \Exceptions::throws('Error', 'arrayParameter', 'product');	
 		}
 		
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -112,7 +90,7 @@ class InternalCart implements CartInterface
 		}
 		else
 		{
-			return \Errors::set('Cart', 'noDataError');
+			return \Exceptions::throws('Cart', 'noDataError');
 		}
 	}
 	
@@ -139,7 +117,7 @@ class InternalCart implements CartInterface
 	{
 		if( empty($code) ) 
 		{
-			return \Errors::set('Error', 'emptyParameter', 'code');
+			return \Exceptions::throws('Error', 'emptyParameter', 'code');
 		}
 		
 		$this->items = ( $sessionCart = \Session::select(md5('SystemCartData')) ) 
@@ -198,7 +176,7 @@ class InternalCart implements CartInterface
 		}
 		else
 		{
-			\Errors::set('Cart', 'noDataError');
+			\Exceptions::throws('Cart', 'noDataError');
 			return 0;	
 		}
 	}
@@ -223,7 +201,7 @@ class InternalCart implements CartInterface
 		
 		if( empty($this->items) )
 		{
-			\Errors::set('Cart', 'noDataError');
+			\Exceptions::throws('Cart', 'noDataError');
 			return 0;	
 		}
 		
@@ -274,17 +252,17 @@ class InternalCart implements CartInterface
 	{	
 		if( empty($code) )
 		{
-			return \Errors::set('Cart', 'updateCodeError');
+			return \Exceptions::throws('Cart', 'updateCodeError');
 		}
 		
 		if( empty($data) )
 		{
-			return \Errors::set('Cart', 'updateParameterEmptyError');
+			return \Exceptions::throws('Cart', 'updateParameterEmptyError');
 		}
 		
 		if( ! is_array($data) )
 		{
-			return \Errors::set('Cart', 'updateArrayParameterError');
+			return \Exceptions::throws('Cart', 'updateArrayParameterError');
 		}	
 		
 		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
@@ -357,7 +335,7 @@ class InternalCart implements CartInterface
 	{		
 		if( empty($code) )
 		{
-			return \Errors::set('Cart', 'deleteCodeError');	
+			return \Exceptions::throws('Cart', 'deleteCodeError');	
 		}
 
 		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
@@ -426,7 +404,7 @@ class InternalCart implements CartInterface
 	{
 		if( ! is_numeric($money) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'money');
+			return \Exceptions::throws('Error', 'numericParameter', 'money');
 		}
 		
 		if( ! is_string($type) ) 

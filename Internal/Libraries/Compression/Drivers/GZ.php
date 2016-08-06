@@ -26,7 +26,7 @@ class GZDriver extends DriverMapping
 		
 		if( empty($open) )
 		{
-			return \Errors::set('Error', 'fileNotFound', $file);	
+			return \Exceptions::throws('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = gzwrite($open, $data, strlen($data));
@@ -48,7 +48,7 @@ class GZDriver extends DriverMapping
 		
 		if( empty($open) )
 		{
-			return \Errors::set('Error', 'fileNotFound', $file);	
+			return \Exceptions::throws('Error', 'fileNotFound', $file);	
 		}
 		
 		$return = gzread($open, $length);

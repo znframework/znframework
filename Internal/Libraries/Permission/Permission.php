@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Permission;
 
-class InternalPermission implements PermissionInterface
+class InternalPermission extends \Requirements implements PermissionInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -34,42 +34,6 @@ class InternalPermission implements PermissionInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $content;
-	
-	public function __construct()
-	{
-		$this->config();	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// start()
@@ -125,7 +89,7 @@ class InternalPermission implements PermissionInterface
 		// Parametrelerin kontrolleri yapılıyor.
 		if( ! is_numeric($roleId) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'roleId');	
+			return \Exceptions::throws('Error', 'numericParameter', 'roleId');	
 		}
 		if( ! is_scalar($process) ) 
 		{
@@ -248,7 +212,7 @@ class InternalPermission implements PermissionInterface
 	{
 		if( ! is_numeric($roleId) ) 
 		{
-			return \Errors::set('Error', 'numericParameter', 'roleId');	
+			return \Exceptions::throws('Error', 'numericParameter', 'roleId');	
 		}
 		
 		$this->permission = $this->config['page'];

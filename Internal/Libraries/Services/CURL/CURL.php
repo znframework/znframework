@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Services;
 
-class InternalCURL implements CURLInterface
+class InternalCURL extends \CallController implements CURLInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -29,13 +29,8 @@ class InternalCURL implements CURLInterface
 	
 	public function __construct()
 	{
-		if( ! function_exists('curl_exec') )
-		{
-			die(getErrorMessage('Error', 'undefinedFunction', 'curl_xxx'));	
-		}	
+		\Support::func('curl_exec', 'CURL');
 	}
-	
-	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* INIT		                                                                              *
@@ -102,7 +97,7 @@ class InternalCURL implements CURLInterface
 		
 		if( ! is_resource($this->init) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_escape($this->init, $str);
@@ -127,7 +122,7 @@ class InternalCURL implements CURLInterface
 		
 		if( ! is_resource($this->init) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_unescape($this->init, $str);
@@ -147,7 +142,7 @@ class InternalCURL implements CURLInterface
 	{
 		if( ! is_resource($this->init) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_getinfo($this->init, \Convert::toConstant($opt, 'CURLINFO_'));
@@ -165,7 +160,7 @@ class InternalCURL implements CURLInterface
 	{
 		if( ! is_resource($this->init) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_error($this->init);
@@ -185,7 +180,7 @@ class InternalCURL implements CURLInterface
 	{
 		if( ! is_resource($this->init) )
 		{
-			return \Errors::set('Error', 'resourceParameter', '1.(ch)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
 		}
 		
 		return curl_errno($this->init);
@@ -298,7 +293,7 @@ class InternalCURL implements CURLInterface
 		
 		if( ! is_numeric($errno) )
 		{
-			return \Errors::set('Error', 'numericParameter', '1.(errno)');
+			return \Exceptions::throws('Error', 'numericParameter', '1.(errno)');
 		}
 		
 		return curl_strerror($errno);

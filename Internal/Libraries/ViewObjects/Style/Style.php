@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalStyle implements Common\ViewObjectsInterface
+class InternalStyle extends \CallController implements Common\ViewObjectsInterface
 {
 	/***********************************************************************************/
 	/* STYLE COMPONENT	     	     		                   	                       */
@@ -26,21 +26,6 @@ class InternalStyle implements Common\ViewObjectsInterface
 	 */
 	protected $type 	= 'text/css';
 	
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
 	/******************************************************************************************
 	* TYPE                                                                       			  *
 	*******************************************************************************************
@@ -56,7 +41,7 @@ class InternalStyle implements Common\ViewObjectsInterface
 	{
 		if( ! is_string($type) )
 		{
-			\Errors::set('Error', 'stringParameter', 'type');
+			\Exceptions::throws('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		

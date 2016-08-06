@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Authentication;
 
-class InternalUser extends \CallController implements UserInterface, UserPropertiesInterface, \ConfigMethodInterface, \ErrorControlInterface
+class InternalUser extends \Requirements implements UserInterface, UserPropertiesInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,28 +11,6 @@ class InternalUser extends \CallController implements UserInterface, UserPropert
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 
 	//----------------------------------------------------------------------------------------------------
 	// User Properties
@@ -44,10 +22,8 @@ class InternalUser extends \CallController implements UserInterface, UserPropert
 	use UserPropertiesTrait;
 
 	//----------------------------------------------------------------------------------------------------
-	// Protected Username
+	// Username
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Kullanıcı adı bilgisi 
 	//
 	// @var  string
 	//
@@ -55,10 +31,8 @@ class InternalUser extends \CallController implements UserInterface, UserPropert
 	protected $username;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected Password
+	// Password
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Şifre sütun bilgisi 
 	//
 	// @var  string
 	//
@@ -66,28 +40,13 @@ class InternalUser extends \CallController implements UserInterface, UserPropert
 	protected $password;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected Parameters
+	// Parameters
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Parametreler bilgisi 
 	//
 	// @var  array
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $parameters;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Construct
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param  void
-	// @return bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function __construct()
-	{
-		$this->config();
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Register
@@ -100,7 +59,7 @@ class InternalUser extends \CallController implements UserInterface, UserPropert
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL)
-	{
+	{	
 		if( isset($this->parameters['column']) )
 		{
 			$data = $this->parameters['column'];
@@ -912,8 +871,4 @@ class InternalUser extends \CallController implements UserInterface, UserPropert
 			return 0;		
 		}
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Info Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

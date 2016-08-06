@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class TemplateWizard implements TemplateWizardInterface
+class TemplateWizard extends \CallController implements TemplateWizardInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,15 +11,6 @@ class TemplateWizard implements TemplateWizardInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* DATA                                                                                    *
@@ -38,7 +29,7 @@ class TemplateWizard implements TemplateWizardInterface
 		// Parametre konrolleri sağlanıyor.
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'string');	
+			return \Exceptions::throws('Error', 'stringParameter', 'string');	
 		}
 
 		$htmlRegexChar 	= '.*?';

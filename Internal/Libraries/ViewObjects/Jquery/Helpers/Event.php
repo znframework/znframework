@@ -3,7 +3,7 @@ namespace ZN\ViewObjects\Jquery\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
 
-class Event
+class Event extends \CallController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -15,15 +15,6 @@ class Event
 	//----------------------------------------------------------------------------------------------------
 	
 	use JqueryTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
 	
 	/* Type Variables
 	 * Event Types
@@ -58,7 +49,7 @@ class Event
 	{
 		if( ! is_string($selector) || ! is_string($callback) )
 		{
-			\Errors::set('Error', 'stringParameter', 'selector & callback');	
+			\Exceptions::throws('Error', 'stringParameter', 'selector & callback');	
 		}
 		
 		$this->property = $type;
@@ -462,7 +453,7 @@ class Event
 	{
 		if( ! is_string($type))
 		{
-			\Errors::set('Error', 'stringParameter', 'type');
+			\Exceptions::throws('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		

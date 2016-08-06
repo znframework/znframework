@@ -1,7 +1,7 @@
 <?php
 namespace ZN\VariableTypes;
 
-class InternalRegex implements RegexInterface
+class InternalRegex extends \CallController implements RegexInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -24,28 +24,6 @@ class InternalRegex implements RegexInterface
 	{
 		$this->config = \Config::get('Regex');	
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Undefined Method                                                                       
-	//----------------------------------------------------------------------------------------------------
-	//
-	// __call()
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
 	
 	/******************************************************************************************
 	* MATCH                                                                                   *
@@ -74,8 +52,8 @@ class InternalRegex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			\Errors::set('Error', 'stringParameter', '1.(pattern)');
-			\Errors::set('Error', 'stringParameter', '2.(str)');	
+			\Exceptions::throws('Error', 'stringParameter', '1.(pattern)');
+			\Exceptions::throws('Error', 'stringParameter', '2.(str)');	
 			
 			return false;
 		}	
@@ -115,8 +93,8 @@ class InternalRegex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($str) ) 
 		{
-			\Errors::set('Error', 'stringParameter', '1.(pattern)');
-			\Errors::set('Error', 'stringParameter', '2.(str)');	
+			\Exceptions::throws('Error', 'stringParameter', '1.(pattern)');
+			\Exceptions::throws('Error', 'stringParameter', '2.(str)');	
 			
 			return false;
 		}	
@@ -157,9 +135,9 @@ class InternalRegex implements RegexInterface
 		// Parametre kontrolleri yapılıyor. ----------------------------------------------------------
 		if( ! is_string($pattern) || ! is_string($rep) || ! is_string($str) ) 
 		{
-			\Errors::set('Error', 'stringParameter', '1.(pattern)');
-			\Errors::set('Error', 'stringParameter', '2.(rep)');
-			\Errors::set('Error', 'stringParameter', '3.(str)');	
+			\Exceptions::throws('Error', 'stringParameter', '1.(pattern)');
+			\Exceptions::throws('Error', 'stringParameter', '2.(rep)');
+			\Exceptions::throws('Error', 'stringParameter', '3.(str)');	
 			
 			return false;
 		}
@@ -188,7 +166,7 @@ class InternalRegex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "(".$str.")";
@@ -212,7 +190,7 @@ class InternalRegex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "{".$str."}";
@@ -236,7 +214,7 @@ class InternalRegex implements RegexInterface
 	{
 		if( ! is_string($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(str)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
 		}
 		
 		return "[".$str."]";
@@ -254,7 +232,7 @@ class InternalRegex implements RegexInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return preg_quote($data, $delimiter);

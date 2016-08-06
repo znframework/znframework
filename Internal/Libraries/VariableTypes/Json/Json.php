@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\VariableTypes;
 
-class InternalJson implements JsonInterface
+class InternalJson extends \CallController implements JsonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,8 +11,6 @@ class InternalJson implements JsonInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-	
-	use \CallUndefinedMethodTrait;
 	
 	/******************************************************************************************
 	* ENCODE                                                                                  *
@@ -35,7 +33,7 @@ class InternalJson implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, $array, $length);
@@ -51,7 +49,7 @@ class InternalJson implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, false, $length);
@@ -67,7 +65,7 @@ class InternalJson implements JsonInterface
 	{
 		if( ! is_string($data) )
 		{
-			return \Errors::set('Error', 'stringParameter', '1.(data)');
+			return \Exceptions::throws('Error', 'stringParameter', '1.(data)');
 		}
 		
 		return json_decode($data, true, $length);

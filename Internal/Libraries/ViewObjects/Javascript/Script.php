@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalScript implements Common\ViewObjectsInterface
+class InternalScript extends \CallController implements Common\ViewObjectsInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -26,28 +26,6 @@ class InternalScript implements Common\ViewObjectsInterface
 	 */
 	protected $type  = 'text/javascript';
 	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
 	/******************************************************************************************
 	* TYPE                                                                                    *
 	*******************************************************************************************
@@ -62,7 +40,7 @@ class InternalScript implements Common\ViewObjectsInterface
 	{
 		if( ! is_string($type) )
 		{
-			\Errors::set('Error', 'stringParameter', 'type');
+			\Exceptions::throws('Error', 'stringParameter', 'type');
 			return $this;	
 		}
 		

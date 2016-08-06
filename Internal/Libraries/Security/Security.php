@@ -1,7 +1,7 @@
 <?php 
 namespace ZN\Security;
 
-class InternalSecurity implements SecurityInterface
+class InternalSecurity extends \Requirements implements SecurityInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -64,42 +64,6 @@ class InternalSecurity implements SecurityInterface
 		'/\&\#60\;\/script\&\#62\;/i'	 => '</script>'
 	);
 	
-	public function __construct()
-	{
-		$this->config();	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Config Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// config()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ConfigMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Call Method
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// __call()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \CallUndefinedMethodTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Error Control
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $error
-	// $success
-	//
-	// error()
-	// success()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use \ErrorControlTrait;
-	
 	/******************************************************************************************
 	* NC ENCODE                                                                               *
 	*******************************************************************************************
@@ -118,7 +82,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'string');
+			return \Exceptions::throws('Error', 'stringParameter', 'string');
 		}
 	
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
@@ -173,7 +137,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'string');
+			return \Exceptions::throws('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['injectionBadChars'];
@@ -210,7 +174,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($string))
 		{ 
-			return \Errors::set('Error', 'stringParameter', 'string');
+			return \Exceptions::throws('Error', 'stringParameter', 'string');
 		}
 		
 		return stripslashes(trim($string));
@@ -229,7 +193,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'string');
+			return \Exceptions::throws('Error', 'stringParameter', 'string');
 		}
 		
 		$secBadChars = $this->config['scriptBadChars'];
@@ -267,7 +231,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($string)) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'string');
+			return \Exceptions::throws('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -305,7 +269,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($string) )
 		{
-			return \Errors::set('Error', 'stringParameter', 'string');
+			return \Exceptions::throws('Error', 'stringParameter', 'string');
 		}
 		
 		if( ! is_string($type) ) 
@@ -338,7 +302,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 		
 		return str_replace(array_keys($this->phpTagChars), array_values($this->phpTagChars), $str);
@@ -353,7 +317,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 		
 		return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
@@ -368,7 +332,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 		
 		return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
@@ -383,7 +347,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 		
 		return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
@@ -398,7 +362,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 	
 		$str = str_replace(array_keys($this->nailChars), array_values($this->nailChars), $str);
@@ -415,7 +379,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 	
 		$str = str_replace(array_values($this->nailChars), array_keys($this->nailChars), $str);
@@ -432,7 +396,7 @@ class InternalSecurity implements SecurityInterface
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -449,7 +413,7 @@ class InternalSecurity implements SecurityInterface
 	{	
 		if( ! is_string($str) || empty($str) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'str');
+			return \Exceptions::throws('Error', 'stringParameter', 'str');
 		}
 		
 		$chars = $this->config['numericalCodes'];
@@ -466,7 +430,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}	
 		
 		return addslashes($data);
@@ -481,7 +445,7 @@ class InternalSecurity implements SecurityInterface
 	{
 		if( ! is_string($data) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'data');
+			return \Exceptions::throws('Error', 'stringParameter', 'data');
 		}	
 		
 		return stripslashes($data);

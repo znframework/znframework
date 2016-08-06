@@ -869,7 +869,7 @@ trait FunctionsTrait
 		// Parametrelerin string kontrolü yapılıyor.
 		if( ! is_scalar($value) || ! is_string($type) ) 
 		{
-			return \Errors::set('Error', 'stringParameter', 'value, type');
+			return \Exceptions::throws('Error', 'stringParameter', 'value, type');
 		}
 		
 		$operator = $this->db->operator(__FUNCTION__);
