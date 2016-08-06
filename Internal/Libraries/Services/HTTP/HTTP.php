@@ -45,7 +45,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 		'server',
 		'request'
 	);
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Is Ajax
 	//----------------------------------------------------------------------------------------------------
@@ -73,13 +73,8 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function browserLang($default = 'tr')
+	public function browserLang(String $default = 'en')
 	{
-		if( ! is_string($default)) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(default)');
-		}
-		
 		$languages = \Config::get('Language', 'shortCodes');
 		
 		$lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
@@ -99,13 +94,8 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param numeric $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function code($code = 200)
+	public function code(Int $code = 200)
 	{
-		if( ! is_scalar($code)) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(code)');
-		}
-		
 		$messages = \Arrays::multikey($this->config['messages']);
 		
 		if( isset($messages[$code]) )
@@ -123,7 +113,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function message($message = '')
+	public function message(String $message)
 	{
 		return $this->code($message);
 	}
@@ -135,7 +125,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name($name = '')
+	public function name(String $name)
 	{
 		$this->settings['name'] = $name;
 	}
@@ -147,7 +137,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param mixed $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value($value = '')
+	public function value(String $value)
 	{
 		$this->settings['value'] = $value;
 		
@@ -161,7 +151,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $input
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function input($input = '')
+	public function input(String $input)
 	{
 		if( in_array($input, $this->types) )
 		{
@@ -182,7 +172,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($name = '')
+	public function select(String $name)
 	{
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;
@@ -207,7 +197,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($name = '', $value = '')
+	public function insert(String $name, $value)
 	{
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;   
@@ -232,7 +222,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name = '')
+	public function delete(String $name)
 	{
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;

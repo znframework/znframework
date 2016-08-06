@@ -29,7 +29,7 @@ interface HTTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function browserLang($default);
+	public function browserLang(String $default = 'en');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Code
@@ -38,7 +38,7 @@ interface HTTPInterface
 	// @param numeric $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function code($code);
+	public function code(Int $code = 200);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Message
@@ -47,7 +47,7 @@ interface HTTPInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function message($message);
+	public function message(String $message);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Name
@@ -56,7 +56,7 @@ interface HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name($name);
+	public function name(String $name);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Value
@@ -65,7 +65,7 @@ interface HTTPInterface
 	// @param mixed $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value($value);
+	public function value(String $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Input
@@ -74,7 +74,7 @@ interface HTTPInterface
 	// @param string $input
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function input($input);
+	public function input(String $input);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -83,7 +83,7 @@ interface HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($name);
+	public function select(String $name);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -93,7 +93,7 @@ interface HTTPInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($name, $value);
+	public function insert(String $name, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -102,5 +102,5 @@ interface HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name);
+	public function delete(String $name);
 }

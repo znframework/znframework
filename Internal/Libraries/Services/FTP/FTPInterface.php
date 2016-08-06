@@ -19,7 +19,7 @@ interface FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect($con);
+	public function connect(Array $config);
 	
 	//----------------------------------------------------------------------------------------------------
 	// close()
@@ -37,7 +37,7 @@ interface FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createFolder($path);
+	public function createFolder(String $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// deleteFolder()
@@ -46,7 +46,7 @@ interface FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteFolder($path);
+	public function deleteFolder(String $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// changeFolder()
@@ -55,7 +55,7 @@ interface FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function changeFolder($path);
+	public function changeFolder(String $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// rename()
@@ -65,7 +65,7 @@ interface FTPInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rename($oldName, $newName);
+	public function rename(String $oldName, String $newName);
 	
 	//----------------------------------------------------------------------------------------------------
 	// deleteFile()
@@ -74,7 +74,7 @@ interface FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteFile($path);
+	public function deleteFile(String $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// upload()
@@ -84,8 +84,8 @@ interface FTPInterface
 	// @param string $remotePath: empty
 	// @param string $type      : binary, ascii
 	//
-	//----------------------------------------------------------------------------------------------------
-	public function upload($localPath, $remotePath, $type);
+	//----------------------------------------------------------------------------------------------------	
+	public function upload(String $localPath, String $remotePath, String $type = 'ascii');
 	
 	//----------------------------------------------------------------------------------------------------
 	// dowload()
@@ -96,7 +96,7 @@ interface FTPInterface
 	// @param string $type      : binary, ascii
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download($remotePath, $localPath, $type);
+	public function download(String $remotePath, String $localPath, String $type = 'ascii');
 	
 	//----------------------------------------------------------------------------------------------------
 	// permission()
@@ -106,7 +106,7 @@ interface FTPInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission($path, $type);
+	public function permission(String $path, Int $type = 0755);
 	
 	//----------------------------------------------------------------------------------------------------
 	// files()
@@ -116,7 +116,7 @@ interface FTPInterface
 	// @param string $extension: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function files($path, $extension);
+	public function files(String $path, String $extension = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// fileSize()
@@ -127,5 +127,5 @@ interface FTPInterface
 	// @param int    $decimal: 2
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fileSize($path, $type, $decimal);
+	public function fileSize(String $path, String $type = 'b', Int $decimal = 2);
 }

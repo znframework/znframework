@@ -46,9 +46,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct(Array $config = NULL)
+	public function __construct()
 	{
-		parent::__construct($config);
+		parent::__construct();
 		
 		$this->connect();
 	}
@@ -60,13 +60,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function connect($config = [])
+	public function connect(Array $config = [])
 	{	
-		if( ! is_array($config) )
-		{
-			return \Exceptions::throws('Error', 'arrayParameter', 'config');
-		}
-		
 		if( ! empty($config) )
 		{
 			$this->config($config);	
@@ -129,13 +124,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder($path = '')
+	public function createFolder(String $path)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');	
-		}
-		
 		if( @ftp_mkdir($this->connect, $path) )
 		{
 			return true;
@@ -153,13 +143,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFolder($path = '')
+	public function deleteFolder(String $path)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');	
-		}
-		
 		if( @ftp_rmdir($this->connect, $path) )
 		{
 			return true;
@@ -178,13 +163,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function changeFolder($path = '')
+	public function changeFolder(String $path)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');
-		}
-	
 		if( @ftp_chdir($this->connect, $path) )
 		{
 			return true;
@@ -203,16 +183,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function rename($oldName = '', $newName = '')
+	public function rename(String $oldName, String $newName)
 	{
-		if( ! is_string($oldName) || ! is_string($newName) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'oldName');
-			\Exceptions::throws('Error', 'stringParameter', 'newName');
-			
-			return false;	
-		}
-		
 		if( @ftp_rename($this->connect, $oldName, $newName) )
 		{
 			return true;
@@ -230,13 +202,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFile($path = '')
+	public function deleteFile(String $path)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');
-		}
-		
 		if( @ftp_delete($this->connect, $path) )
 		{
 			return true;
@@ -256,21 +223,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $type      : binary, ascii
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function upload($localPath = '', $remotePath = '', $type = 'ascii')
+	public function upload(String $localPath, String $remotePath, String $type = 'ascii')
 	{
-		if( ! is_string($localPath) || ! is_string($remotePath) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'localPath');
-			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
-			
-			return false;
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'ascii';	
-		}
-		
 		if( @ftp_put($this->connect, $remotePath, $localPath, \Convert::toConstant($type, 'FTP_')) )
 		{
 			return true;
@@ -290,21 +244,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $type      : binary, ascii
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download($remotePath = '', $localPath = '', $type = 'ascii')
+	public function download(String $remotePath, String $localPath, String $type = 'ascii')
 	{
-		if( ! is_string($localPath) || ! is_string($remotePath) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
-			\Exceptions::throws('Error', 'stringParameter', 'localPath');
-			
-			return false;
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'ascii';	
-		}
-		
 		if( @ftp_get($this->connect, $localPath, $remotePath, \Convert::toConstant($type, 'FTP_')) )
 		{
 			return true;
@@ -323,18 +264,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission($path = '', $type = 0755)
+	public function permission(String $path, Int $type = 0755)
 	{
-		if( ! is_string($path) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');		
-		}
-		
-		if( ! is_numeric($type) )
-		{
-			$type = 0755;
-		}
-		
 		if( @ftp_chmod($this->connect, $type, $path) )
 		{
 			return true;
@@ -353,13 +284,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $extension: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function files($path = '', $extension = '')
+	public function files(String $path, String $extension = NULL)
 	{
-		if( ! is_string($path) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');		
-		}
-
 		$list = @ftp_nlist($this->connect, $path);
 	
 		if( ! empty($list) ) foreach( $list as $file )
@@ -411,18 +337,8 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param int    $decimal: 2
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fileSize($path = '', $type = 'b', $decimal = 2)
+	public function fileSize(String $path, String $type = 'b', Int $decimal = 2)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');		
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'b';	
-		}
-		
 		$size = 0;
 		
 		$extension = extension($path);

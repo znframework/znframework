@@ -20,7 +20,7 @@ interface MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function post($name, $value);	
+	public function post(String $name, $value);	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get
@@ -30,7 +30,7 @@ interface MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get($name, $value);
+	public function get(String $name, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Env
@@ -40,7 +40,7 @@ interface MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function env($name, $value);
+	public function env(String $name, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Server
@@ -50,7 +50,7 @@ interface MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function server($name, $value);
+	public function server(String $name, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Request
@@ -60,7 +60,7 @@ interface MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function request($name, $value);
+	public function request(String $name, $value);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Files
@@ -70,7 +70,7 @@ interface MethodInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function files($fileName, $type);
+	public function files(String $fileName, String $type);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -79,5 +79,5 @@ interface MethodInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($input, $name);
+	public function delete(String $input, String $name);
 }

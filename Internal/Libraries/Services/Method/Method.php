@@ -20,7 +20,7 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function post($name = '', $value = '')
+	public function post(String $name = NULL, $value = NULL)
 	{
 		return $this->_method($name, $value, $_POST ,__FUNCTION__);
 	}	
@@ -33,7 +33,7 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get($name = '', $value = '')
+	public function get(String $name = NULL, $value = NULL)
 	{
 		return $this->_method($name, $value, $_GET, __FUNCTION__);
 	}	
@@ -46,7 +46,7 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function request($name = '', $value = '')
+	public function request(String $name = NULL, $value = NULL)
 	{
 		return $this->_method($name, $value, $_REQUEST, __FUNCTION__);
 	}
@@ -59,7 +59,7 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function env($name = '', $value = '')
+	public function env(String $name = NULL, $value = NULL)
 	{
 		return $this->_method($name, $value, $_ENV, __FUNCTION__);
 	}
@@ -72,15 +72,8 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function server($name = '', $value = '')
+	public function server(String $name = '', $value = NULL)
 	{
-		// Parametreler kontrol ediliyor. --------------------------------------------
-		if( ! is_string($name) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'name');
-		}
-		// ---------------------------------------------------------------------------
-		
 		// @value parametresi boş değilse
 		if( ! empty($value) )
 		{
@@ -98,23 +91,8 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function files($fileName = '', $type = 'name')
+	public function files(String $fileName = NULL, String $type = 'name')
 	{
-		if( ! is_string($fileName) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'fileName');
-		}
-		
-		if( ! is_string($type) ) 
-		{
-			$type = 'name';
-		}
-		
-		if( empty($fileName) ) 
-		{
-			return \Exceptions::throws('Error', 'emptyVariable', '@fileName');
-		}
-		
 		return $_FILES[$fileName][$type];
 	}
 	
@@ -126,13 +104,8 @@ class InternalMethod extends \CallController implements MethodInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($input = '', $name = '')
+	public function delete(String $input, String $name)
 	{
-		if( ! is_scalar($input) || ! is_scalar($name) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(input) && 2.(name)');
-		}
-		
 		switch( $input )
 		{
 			case 'post' 	: unset($_POST[$name]);    break;
@@ -171,20 +144,10 @@ class InternalMethod extends \CallController implements MethodInterface
 				case 'env'	   : $_ENV[$name]     = $value; break;
 				default  	   : $_POST[$name]    = $value; break;
 			}
+
+			return true;
 		}
-		
-		// Global veri içersinde
-		// böyle bir veri yoksa
-		if( empty($input[$name]) ) 
-		{
-			return \Exceptions::throws('Error', 'emptyVariable', '$_'.strtoupper($type)."['name']");
-		}
-		
-		if( $value === false )
-		{
-			return $input[$name];
-		}
-		
+
 		if( is_scalar($input[$name]) )
 		{
 			return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
