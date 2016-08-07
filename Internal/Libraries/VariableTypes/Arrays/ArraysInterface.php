@@ -16,31 +16,24 @@ interface ArraysInterface
 	// Pos Change                                                                       
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Herhangi bir dizi indeksini, istenilen başka bir dizi indeksine 		  
-	// eklemeye yarar.  															              
-	//																						  
-	// Parametreler: 3 parametresi vardır.                                              		  
-	// 1. array var @array => İşlem yapılıcak dizi.							  				  
-	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
-	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
+	// @param array  $array
+	// @param scalar $poss
+	// @param scalar $changePoss
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function posChange($array, $poss, $changePos);
+	public function posChange(Array $array, $poss, $changePos);
 
 	
 	//----------------------------------------------------------------------------------------------------
-	// Pos Reverse
+	// Pos Reverse                                                                       
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Dizi elementlarını kendi içlerinde yer değiştirmek için kullanılır. 	  
+	// @param array  $array
+	// @param scalar $poss
+	// @param scalar $changePoss
 	//																						  
-	// Parametreler: 3 parametresi vardır.                                              		  
-	// 1. array var @array => İşlem yapılıcak dizi.							  				  
-	// 2. string/numeric var @poss => Yerleştirme işlemi yapılacak elemanın indeksi.		      
-	// 3. string/numeric var @change_pos => Yerleştirme işlemi yapılacağı yeni indeks numarası.
-	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function posReverse($array, $poss, $changePos);
+	public function posReverse(Array $array, $poss, $changePos);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Casing
@@ -51,7 +44,7 @@ interface ArraysInterface
 	// @param string $keyval: all, key, val	                          								  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function casing($array, $type, $keyval);
+	public function casing(Array $array, String $type = 'lower', String $keyval = 'all');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Remove Last
@@ -61,9 +54,8 @@ interface ArraysInterface
 	// @param numeric $count							  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeLast($array, $count);
+	public function removeLast(Array $array, Int $count = 1);
 	
-	//----------------------------------------------------------------------------------------------------
 	// Remove First
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -71,7 +63,7 @@ interface ArraysInterface
 	// @param numeric $count			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeFirst($array, $count);
+	public function removeFirst(Array $array, Int $count = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add First
@@ -81,7 +73,7 @@ interface ArraysInterface
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addFirst($array, $element);
+	public function addFirst(Array $array, $element);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Last
@@ -91,7 +83,7 @@ interface ArraysInterface
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addLast($array, $element);
+	public function addLast(Array $array, $element);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete Element
@@ -101,7 +93,7 @@ interface ArraysInterface
 	// @param mixed $object						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteElement($array, $object);
+	public function deleteElement(Array $array, $object);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Multikey
@@ -111,7 +103,7 @@ interface ArraysInterface
 	// @param string $keySplit:|						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function multikey($array, $keySplit);
+	public function multikey(Array $array, String $keySplit = '|');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Keyval
@@ -121,7 +113,7 @@ interface ArraysInterface
 	// @param string $keyval: val/value, key, vals/values, keys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyval($array, $keyval);
+	public function keyval(Array $array, String $keyval = 'val');
 		
 	//----------------------------------------------------------------------------------------------------
 	// Get Last
@@ -132,7 +124,7 @@ interface ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getLast($array, $count, $preserverKey);
+	public function getLast(Array $array, Int $count = 1, Bool $preserveKey = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get First
@@ -143,7 +135,7 @@ interface ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function getFirst($array, $count, $preserverKey);
+	public function getFirst(Array $array, Int $count = 1, Bool $preserveKey = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order
@@ -154,7 +146,7 @@ interface ArraysInterface
 	// @param string $flags:regular						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function order($array, $type, $flags);
+	public function order(Array $array, String $type = NULL, String $flags = 'regular');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Object Data
@@ -163,7 +155,7 @@ interface ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function objectData($data);
+	public function objectData(Array $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Length
@@ -172,7 +164,7 @@ interface ArraysInterface
 	// @param array   $array						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function length($data);
+	public function length(Array $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Apportion
@@ -183,7 +175,7 @@ interface ArraysInterface
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function apportion($data, $portionCount, $preserveKeys);
+	public function apportion(Array $data, Int $portionCount = 1, Bool $preserveKeys = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Combine
@@ -193,7 +185,7 @@ interface ArraysInterface
 	// @param array $values					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function combine($keys, $values);
+	public function combine(Array $keys, Array $values);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Count Same Values
@@ -203,7 +195,7 @@ interface ArraysInterface
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function countSameValues($array, $key);
+	public function countSameValues(Array $array, String $key);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Flip
@@ -212,7 +204,7 @@ interface ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function flip($array);
+	public function flip(Array $array);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Transform
@@ -221,7 +213,7 @@ interface ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function transform($array);
+	public function transform(Array $array);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Implement Callback(Map)
@@ -230,7 +222,7 @@ interface ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function implementCallback();
+	public function implementCallback(...$args);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Map
@@ -239,7 +231,7 @@ interface ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function map();
+	public function map(...$args);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Recursive Merge
@@ -248,7 +240,7 @@ interface ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function recursiveMerge();
+	public function recursiveMerge(...$args);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Merge
@@ -257,7 +249,7 @@ interface ArraysInterface
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function merge();
+	public function merge(...$args);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Intersect
@@ -266,7 +258,7 @@ interface ArraysInterface
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function intersect();
+	public function intersect(...$args);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Reverse
@@ -276,7 +268,7 @@ interface ArraysInterface
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function reverse($array, $preserveKeys);
+	public function reverse(Array $array, Bool $preserveKeys = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Product
@@ -285,7 +277,7 @@ interface ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function product($array);
+	public function product(Array $array);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Sum
@@ -294,7 +286,7 @@ interface ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function sum($array);
+	public function sum(Array $array);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Random
@@ -304,7 +296,7 @@ interface ArraysInterface
 	// @param numeric $countRequest					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function random($array, $countRequest);
+	public function random(Array $array, Int $countRequest);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Search
@@ -315,7 +307,7 @@ interface ArraysInterface
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function search($array, $element, $strict);
+	public function search(Array $array, $element, Bool $strict = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Value Exists
@@ -326,7 +318,7 @@ interface ArraysInterface
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function valueExists($array, $element, $strict);
+	public function valueExists(Array $array, $element, Bool $strict = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Key Exists
@@ -336,7 +328,7 @@ interface ArraysInterface
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyExists($array, $key);
+	public function keyExists(Array $array, $key);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Section
@@ -348,7 +340,7 @@ interface ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function section($array, $start, $length, $preserveKeys);
+	public function section(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Resection
@@ -360,7 +352,7 @@ interface ArraysInterface
 	// @param mixed	  $newElement						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function resection($array, $start, $length, $newElement);
+	public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete Recurrent
@@ -370,7 +362,7 @@ interface ArraysInterface
 	// @param string $flags					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteRecurrent($array, $flags);
+	public function deleteRecurrent(Array $array, String $flags = 'string');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Series
@@ -381,7 +373,7 @@ interface ArraysInterface
 	// @param numeric $count						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function series($start, $end, $step);
+	public function series(Int $start, Int $end, Int $step = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Column
@@ -392,7 +384,7 @@ interface ArraysInterface
 	// @param mixed	  $indexKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function column($array, $columnKey, $indexKey);
+	public function column(Array $array, $columnKey, $indexKey);
 	
 	//----------------------------------------------------------------------------------------------------
 	// excluding
@@ -402,7 +394,7 @@ interface ArraysInterface
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function excluding($array, $excluding);
+	public function excluding(Array $array, Array $excluding);
 	
 	//----------------------------------------------------------------------------------------------------
 	// including
@@ -412,7 +404,7 @@ interface ArraysInterface
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function including($array, $including);
+	public function including(Array $array, Array $including);
 	
 	//----------------------------------------------------------------------------------------------------
 	// each
@@ -422,5 +414,5 @@ interface ArraysInterface
 	// @param callable $callable				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function each($array, $callable);
+	public function each(Array $array, $callable);
 }
