@@ -53,7 +53,7 @@ class InternalXML extends \CallController implements XMLInterface
 	// @return this
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function version($version = '1.0')
+	public function version(String $version = '1.0')
 	{
 		$this->version = $version;	
 		
@@ -70,32 +70,23 @@ class InternalXML extends \CallController implements XMLInterface
 	// @return this
 	//         																				  
 	//----------------------------------------------------------------------------------------------------
-	public function encoding($encoding = 'UTF-8')
+	public function encoding(String $encoding = 'UTF-8')
 	{
 		return $this->encoding = $encoding;	
 		
 		return $this;
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Settings Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Build Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Build       	                                                                          
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Bir XML belgesi oluşturur.							 				                                      
-	//  
-	// @param  array $data
-	// @return string
+	// @param array  $data
+	// @param string $version
+	// @param string $encoding
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function build($data = [], $version = '', $encoding = '')
+	public function build(Array $data, String $version = NULL, String $encoding = NULL)
 	{
 		if( ! empty($version) )  $this->version  = $version;
 		if( ! empty($encoding) ) $this->encoding = $encoding;
@@ -158,50 +149,29 @@ class InternalXML extends \CallController implements XMLInterface
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
-	// Build Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Save Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
 	// Save      	                                                                         
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Genel Kullanım: Bir XML dosyası oluşturur.							 				                                      
+	//----------------------------------------------------------------------------------------------------						 				                                      
 	// 
-	// @param  string 	$file
-	// @param  array 	$data
-	// @return bool
+	// @param string $file
+	// @param string $data 
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function save($file = '', $data = '')
+	public function save(String $file, String $data)
 	{
 		$file = suffix($file, $this->extension);
 		
 		return \File::write($file, $data);	
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Save Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Load Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Load               	                                                                  
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Genel Kullanım: Bir XML dosyasının içeriğini yükler					 				                                       
 	//  
 	// @param  string 	$file
 	// @return string
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function load($file = '')
+	public function load(String $file)
 	{
 		$file = suffix($file, '.xml');
 		
@@ -214,26 +184,16 @@ class InternalXML extends \CallController implements XMLInterface
 			return \Exceptions::throws('Error', 'fileNotFound', $file);	
 		}
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Load Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Parse Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Parse Array		                                                                          
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Bir XML verisini diziye çevirir.							 			                                      
-	// 
-	// @param  string 	$data
+	// @param  string $data
 	// @return array
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function parseArray($data = '')
+	public function parseArray(String $data)
 	{
 		return $this->parse($data, 'array');
 	}
@@ -241,29 +201,25 @@ class InternalXML extends \CallController implements XMLInterface
 	//----------------------------------------------------------------------------------------------------
 	// Parse Json		                                                                          
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Genel Kullanım: Bir XML verisini json'a çevirir.							 			                                      
-	//  
-	// @param  string 	$data
+	// 
+	// @param  string $data
 	// @return array
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parseJson($data = '')
+	public function parseJson(String $data)
 	{
 		return json_encode($this->parse($data, 'array'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Object
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Genel Kullanım: Bir XML verisini object veri türüne çevirir.				 			                                      
+	//----------------------------------------------------------------------------------------------------			 			                                      
 	// 
 	// @param  string 	$data
 	// @return object
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parseObject($data = '')
+	public function parseObject(String $data)
 	{
 		return $this->parse($data, 'object');
 	}
@@ -272,13 +228,11 @@ class InternalXML extends \CallController implements XMLInterface
 	// Parse
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Bir XML verisini object veri türüne çevirir.				 			                                      
-	// 
-	// @param  string 	$data
-	// @return object
+	// @param string $xml
+	// @param string $result
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parse($xml = '', $result = 'object')
+	public function parse(String $xml, String $result = 'object')
 	{
 		$parser   = xml_parser_create();
 		
@@ -335,8 +289,4 @@ class InternalXML extends \CallController implements XMLInterface
 		
 		return $elements[0];		
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Parse Method Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

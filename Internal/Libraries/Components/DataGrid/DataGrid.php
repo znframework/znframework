@@ -288,8 +288,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected function generateInput($input = 'text', $name = '', $value = '', $selected = '')
-	{
-		
+	{	
 		$attrs = $this->config['attributes']['inputs'];
 		
 		switch( $input )

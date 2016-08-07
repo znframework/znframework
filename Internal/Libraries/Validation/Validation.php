@@ -12,43 +12,49 @@ class InternalValidation extends \CallController implements ValidationInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Errors Değişkeni
-	 *  
-	 * Validasyon işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Errors
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $errors 	= [];
 	
-	/* Error Değişkeni
-	 *  
-	 * Validasyon işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Error
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $error  	= [];
 	
-	/* New Value Değişkeni
-	 *  
-	 * Validasyon işlemleri sonrasında oluşan
-	 * yeni değere ait bilgileri
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Nval
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $nval 	= [];
 	
-	/* Messages Değişkeni
-	 *  
-	 * Mesajlar bilgisini tutar.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Messages
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $messages = [];
 	
-	/* Index Değişkeni
-	 *  
-	 * Sıra bilgisini tutar.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Index
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var int
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $index = 0;
 	
 	//----------------------------------------------------------------------------------------------------
@@ -61,61 +67,17 @@ class InternalValidation extends \CallController implements ValidationInterface
 	use ValidateTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Rules Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// _messages()
+	// Rules
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $type
 	// @param string $name
+	// @param array  $config
 	// @param string $viewName
+	// @param string $met
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _messages($type, $name, $viewName)
+	public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post')
 	{
-		$message = lang('Validation', $type, $viewName);
-		$this->messages[$this->index] = $message.'<br>'; $this->index++;
-		$this->error[$name] = $message;
-	}
-	
-	/******************************************************************************************
-	* RULES                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: form araçlarının hangi kurallardan oluşacağını belirlemek için 		  |
-	| kullanılan fonksiyondur. Birinci parametre form nesnesinin adı, ikinci parametre ise    |
-	| oluşacak kurallar dizisidir		        		          	  						  |			
-	|															                              |
-	| Parametreler: 4 parametresi vardır.                                                     |
-	| 1. string var @name => Kontrol edilecek form verisi.                                    |
-	| 2. array var @config => Kontrol parametreleri dizisi.                                   |
-	| 3. string var @view_name => Kontrollerde görünmesini istediğiniz form verisinin ismi.   |
-	| 4. [ string var @method ] => Formdan hangi methodla verinin gönderildiğidir. Varsayılan:|
-	| post ayarlıdır.																	      |
-	|          																				  |
-	| Örnek Kullanım: rules('kullanici', array('required', 'email'), 'E-posta');              |
-	|          																				  |
-	| 2. Parametre => Kontrol Parametreleri         										  |
-	|          																				  |
-	| 1-required => Bu veri boş geçilemez.         											  |
-	| 2-idendity => Bu bir kimlik numarası olmalıdır.         								  |
-	| 3-url => Bu bir url veri tipi olmalıdır.         										  |
-	| 4-email => Bu bir e-posta veri tipi olmalıdır.         								  |
-	| 5-minchar => 5 => Bu verinin minimun karakter sayısı 5 olmalıdır.         			  |
-	| 6-maxchar => 5 => Bu verinin maksimum karakter sayısı 5 olmalıdır.         			  |
-	| .																						  |
-	| .																						  |
-	| .																						  |
-	|  >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı bilgi için ZNTR.NET<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   |    																				  |
-	******************************************************************************************/
-	public function rules($name = '', $config = [], $viewName = '', $met = 'post')
-	{
-		if( ! empty($this->settings['name']) )
-		{
-			$name = $this->settings['name'];
-		}
-		
 		if( ! empty($this->settings['method']) )
 		{
 			$met = $this->settings['method'];
@@ -380,92 +342,15 @@ class InternalValidation extends \CallController implements ValidationInterface
 		$this->_defaultVariables();
 	}
 	
-	/* PROTECTED Default Variables Fonksiyonu
-	 *  
-	 * Değişkenlerin sıfırlanması
-	 * için oluşturulmuştur.
-	 *
-	 */
-	protected function _defaultVariables()
-	{
-		$this->messages = [];
-		$this->index    = 0;
-	}
-	
-	/* PROTECTED Method Type Fonksiyonu
-	 *  
-	 * Method kontrolü yapması
-	 * için oluşturulmuştur.
-	 *
-	 */
-	protected function _methodType($name = '', $met = '')
-	{
-		if( $met === "post" ) 		
-		{
-			return \Method::post($name);
-		}
-		
-		if( $met === "get" ) 		
-		{
-			return \Method::get($name);
-		}
-		
-		if( $met === "request" ) 	
-		{
-			return \Method::request($name);
-		}	
-	}
-	
-	/* PROTECTED Method New Value Fonksiyonu
-	 *  
-	 * Kontrol edilen yeni değeri bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
-	protected function _methodNval($name = '', $val = '', $met = '')
-	{
-		if( $met === "post" ) 		
-		{
-			return \Method::post($name, $val);
-		}
-		
-		if( $met === "get" ) 		
-		{
-			return \Method::get($name, $val);
-		}
-		
-		if( $met === "request" ) 	
-		{
-			return \Method::request($name, $val);
-		}	
-	}
-	
 	//----------------------------------------------------------------------------------------------------
-	// Rules Method Bitiş
+	// Nval
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string $name
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Other Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* NEW VALUE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Validasyon kontrollerinden geçirilen yeni veri.	        		      |			
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @name => Kontroleri sağlanan form verisi.                                 |
-	|          																				  |
-	| Örnek Kullanım: nval('kullanici');              										  |
-	|          																				  |
-	******************************************************************************************/
-	public function nval($name = "")
+	public function nval(String $name)
 	{
-		if( ! is_scalar($name) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', 'name');
-		}
-		
 		if( isset($this->nval[$name]) )
 		{ 
 			return $this->nval[$name];
@@ -476,33 +361,15 @@ class InternalValidation extends \CallController implements ValidationInterface
 		}
 	}
 	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Validasyon işlemlerinde kurala ayrıkı veri girişlerini öğrenmek içindir.|			
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @name => Hata bilgilerini hangi formatta alınacağının belirtilmesidir.    |
-	|          																				  |
-	| Parametreye 3 farklı veri girişi yapılabilir.          								  |
-	|          																				  |
-	| 1- array  => Hatalar dizi türünde döndürülür.         								  |
-	| 2- string/echo => Hatalar metinsel türde döndürülür.         							  |
-	| 3- forum nesnesinin ismi => Hatanın oluştuğu forum nesnesinin adı.         			  |
-	|          																				  |
-	| Örnek Kullanım: error('array'); // Çıktı: array              							  |
-	| Örnek Kullanım: error('string'); // Çıktı: string              						  |
-	| Örnek Kullanım: error('echo'); // Çıktı: string              							  |
-	| Örnek Kullanım: error('kullanici'); // Çıktı: kullanici nesnesine ait string            |
-	|          																				  |
-	******************************************************************************************/
-	public function error($name = "array")
+	//----------------------------------------------------------------------------------------------------
+	// Error
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function error(String $name = 'array')
 	{
-		if( ! is_string($name) ) 
-		{
-			$name = "array";
-		}
-		
 		if( $name === "string" || $name === "array" || $name === "echo" )
 		{
 			if( count($this->errors) > 0 )
@@ -547,22 +414,16 @@ class InternalValidation extends \CallController implements ValidationInterface
 		}
 	}
 	
-	// sayfanın post edilmesin oluşan hatalardan dolayı tekrar aynı bilgilerin girilmesini engellemek yerine
-	// bu fonksiyon aracılığı ile sayfa yenilendiğin ya da formun gönderilmesi srıasında
-	
-	// hata oluştuğunda ekrana girilen bilgileri yansıtır.
-	public function postBack($name = '', $met = "post")
+	//----------------------------------------------------------------------------------------------------
+	// Error
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	// @param string $met
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function postBack(String $name, String $met = 'post')
 	{
-		if( ! is_scalar($name) || empty($name) )
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', 'name');
-		}
-
-		if( ! is_string($met) ) 
-		{
-			$met = "post";
-		}	
-		
 		$method = $this->_methodType($name, $met);
 		
 		if( ! isset($method) ) 
@@ -574,6 +435,84 @@ class InternalValidation extends \CallController implements ValidationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Other Methods Başlangıç
+	// Protected Messages
 	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $type
+	// @param string $name
+	// @param string $viewName
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _messages($type, $name, $viewName)
+	{
+		$message = lang('Validation', $type, $viewName);
+		$this->messages[$this->index] = $message.'<br>'; $this->index++;
+		$this->error[$name] = $message;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Default Variables
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _defaultVariables()
+	{
+		$this->messages = [];
+		$this->index    = 0;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Method Type
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	// @param string $met
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _methodType($name, $met)
+	{
+		if( $met === "post" ) 		
+		{
+			return \Method::post($name);
+		}
+		
+		if( $met === "get" ) 		
+		{
+			return \Method::get($name);
+		}
+		
+		if( $met === "request" ) 	
+		{
+			return \Method::request($name);
+		}	
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Method Nval
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	// @param string $val
+	// @param string $met
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _methodNval($name, $val, $met)
+	{
+		if( $met === "post" ) 		
+		{
+			return \Method::post($name, $val);
+		}
+		
+		if( $met === "get" ) 		
+		{
+			return \Method::get($name, $val);
+		}
+		
+		if( $met === "request" ) 	
+		{
+			return \Method::request($name, $val);
+		}	
+	}
 }

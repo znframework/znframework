@@ -22,7 +22,7 @@ interface XMLInterface
 	// @return this
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function version($version);
+	public function version(String $version = '1.0');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encoding		                                                                          
@@ -34,45 +34,39 @@ interface XMLInterface
 	// @return this
 	//        																				  
 	//----------------------------------------------------------------------------------------------------
-	public function encoding($encoding);
+	public function encoding(String $encoding = 'UTF-8');
 
 	
 	//----------------------------------------------------------------------------------------------------
 	// Build       	                                                                          
 	//----------------------------------------------------------------------------------------------------
 	//
-	// Genel Kullanım: Bir XML belgesi oluşturur.							 				                                      
-	//  
-	// @param  array $data
-	// @return string
+	// @param array  $data
+	// @param string $version
+	// @param string $encoding
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function build($data, $version, $encoding);
+	public function build(Array $data, String $version = NULL, String $encoding = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Save      	                                                                         
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Genel Kullanım: Bir XML dosyası oluşturur.							 				                                      
+	//----------------------------------------------------------------------------------------------------						 				                                      
 	// 
-	// @param  string 	$file
-	// @param  array 	$data
-	// @return bool
+	// @param string $file
+	// @param string $data 
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function save($file, $data);
+	public function save(String $file, String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Load               	                                                                  
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Genel Kullanım: Bir XML dosyasının içeriğini yükler					 				                                       
+	//----------------------------------------------------------------------------------------------------				 				                                       
 	//  
 	// @param  string 	$file
 	// @return string
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function load($file);
+	public function load(String $file);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Array		                                                                          
@@ -84,7 +78,7 @@ interface XMLInterface
 	// @return array
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function parseArray($data);
+	public function parseArray(String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Json		                                                                          
@@ -96,7 +90,7 @@ interface XMLInterface
 	// @return array
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parseJson($data);
+	public function parseJson(String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Object
@@ -108,7 +102,7 @@ interface XMLInterface
 	// @return object
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parseObject($data);
+	public function parseObject(String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse
@@ -120,5 +114,5 @@ interface XMLInterface
 	// @return object
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parse($xml, $result);
+	public function parse(String $xml, String $result = 'object');
 }

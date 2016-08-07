@@ -12,26 +12,14 @@ trait ValidateTrait
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/* Settings Değişkeni
-	 *  
-	 * Ayarlar bilgisini tutar.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Settings
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $settings = [];
-	
-	//----------------------------------------------------------------------------------------------------
-	// name()
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $name
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function name($name = '')
-	{
-		$this->settings['name'] = $name;
-		
-		return $this;
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// method()
@@ -40,7 +28,7 @@ trait ValidateTrait
 	// @param string $method
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function method($method = 'post')
+	public function method(String $method)
 	{
 		$this->settings['method'] = $method;
 		
@@ -54,7 +42,7 @@ trait ValidateTrait
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value($value = '')
+	public function value(String $value)
 	{
 		$this->settings['value'] = $value;
 		
@@ -96,7 +84,7 @@ trait ValidateTrait
 	// @param string $match
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function match($match = '')
+	public function match(String $match)
 	{
 		$this->settings['config']['match'] = $match;
 		
@@ -110,7 +98,7 @@ trait ValidateTrait
 	// @param string $match
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function matchPassword($match = '')
+	public function matchPassword(String $match)
 	{
 		$this->settings['config']['matchPassword'] = $match;
 		
@@ -124,7 +112,7 @@ trait ValidateTrait
 	// @param string $oldPassword
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function oldPassword($oldPassword = '')
+	public function oldPassword(String $oldPassword)
 	{
 		$this->settings['config']['oldPassword'] = $oldPassword;
 		
@@ -139,7 +127,7 @@ trait ValidateTrait
 	// @param numeric $max
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compare($min = '', $max = '')
+	public function compare(Int $min = NULL, Int $max = NULL)
 	{
 		$this->settings['config']['minchar'] = $min;
 		$this->settings['config']['maxchar'] = $max;
@@ -183,7 +171,7 @@ trait ValidateTrait
 	// @param string $char
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pattern($pattern = '', $char = '')
+	public function pattern(String $pattern, String $char = NULL)
 	{
 		$this->settings['config']['pattern'] = presuffix($pattern).$char;
 		
@@ -197,7 +185,7 @@ trait ValidateTrait
 	// @param string $design
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phone($design = '')
+	public function phone(String $design = NULL)
 	{
 		if( empty($design) )
 		{
@@ -246,31 +234,22 @@ trait ValidateTrait
 	// @param string $captcha
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function captcha($captcha = '')
+	public function captcha(String $captcha)
 	{
 		$this->settings['config']['captcha'] = $captcha;
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* IDENDITY                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Kimlik numarası kontrolü.		        		          				  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @no => Kontrol edilecek kimlik numarası bilgisi.                         |
-	|          																				  |
-	| Örnek Kullanım: identity(123213); // Çıktı: true veya false      		      			  |
-	|          																				  |
-	******************************************************************************************/
-	public function identity($no = '')
+	//----------------------------------------------------------------------------------------------------
+	// Identity
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param int $no
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function identity(Int $no)
 	{
-		if( ! is_numeric($no) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', 'no');
-		}
-		
 		$numone 	= ($no[0] + $no[2] + $no[4] + $no[6]  + $no[8]) * 7;
 		$numtwo 	= $no[1] + $no[3] + $no[5] + $no[7];
 		$result 	= $numone - $numtwo;
@@ -300,23 +279,15 @@ trait ValidateTrait
 		}
 	}
 	
-	/******************************************************************************************
-	* E-MAIL                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: E-posta kontrolü kontrolü.		        		          		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @data => Kontrol edilecek e-posta bilgisi.                               |
-	|          																				  |
-	| Örnek Kullanım: email('bilgi@zntr.net'); // Çıktı: true veya false      		      	  |
-	|          																				  |
-	******************************************************************************************/
-	public function email($data = '')
+	//----------------------------------------------------------------------------------------------------
+	// Email
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $no
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function email(String $data)
 	{
-		if( ! is_string($data) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'data');
-		}
 		if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $data) ) 
 		{
 			return false; 
@@ -327,23 +298,15 @@ trait ValidateTrait
 		}
 	}
 	
-	/******************************************************************************************
-	* URL                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: URL adres kontrolü kontrolü.		        		          		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @data => Kontrol edilecek url adres bilgisi.                             |
-	|          																				  |
-	| Örnek Kullanım: url('zntr.net'); // Çıktı: true veya false      		      	          |
-	|          																				  |
-	******************************************************************************************/
-	public function url($data = '')
+	//----------------------------------------------------------------------------------------------------
+	// URL
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function url(String $data)
 	{
-		if( ! is_string($data) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'data');
-		}
 		if( ! preg_match('#^(\w+:)?//#i', $data) ) 
 		{
 			return false; 
@@ -354,24 +317,15 @@ trait ValidateTrait
 		}
 	}
 	
-	/******************************************************************************************
-	* SPECIAL CHAR                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Özel karakter kontrolü kontrolü.		        		          		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @data => Kontrol edilecek metin bilgisi.                                 |
-	|          																				  |
-	| Örnek Kullanım: specialChar('zntr.net'); // Çıktı: true veya false      		      	  |
-	|          																				  |
-	******************************************************************************************/
-	public function specialChar($data = '')
+	//----------------------------------------------------------------------------------------------------
+	// Special Char
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function specialChar(String $data)
 	{
-		if( ! is_scalar($data) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'data');
-		}
-		
 		if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) ) 
 		{
 			return false; 
@@ -382,30 +336,16 @@ trait ValidateTrait
 		}
 	}
 	
-	/******************************************************************************************
-	* MAXCHAR                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Maksimum karakter kontrolü kontrolü.		        		          	  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. numeric var @data => Kontrol edilecek metin bilgisi.                                 |
-	| 2. numeric var @char => Maksimum karakter sayısı.                                       |
-	|          																				  |
-	| Örnek Kullanım: maxchar('zntr.net', 10); // Çıktı: true veya false      		      	  |
-	|          																				  |
-	******************************************************************************************/
-	public function maxchar($data = '', $char = '')
+	//----------------------------------------------------------------------------------------------------
+	// Maxchar
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	// @param int    $char
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function maxchar(String $data, Int $char)
 	{
-		if( ! is_scalar($data) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'data');
-		}
-		
-		if( ! is_numeric($char) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', 'char');
-		}
-		
 		if( strlen($data) <= $char ) 
 		{
 			return true; 
@@ -416,29 +356,16 @@ trait ValidateTrait
 		}
 	}
 	
-	/******************************************************************************************
-	* MINCHAR                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Minimum karakter kontrolü kontrolü.		        		          	  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. numeric var @data => Kontrol edilecek metin bilgisi.                                 |
-	| 2. numeric var @char => Minimum karakter sayısı.                                        |
-	|          																				  |
-	| Örnek Kullanım: minchar('zntr.net', 5); // Çıktı: true veya false      		      	  |
-	|          																				  |
-	******************************************************************************************/
-	public function minchar($data = '', $char = '')
+	//----------------------------------------------------------------------------------------------------
+	// Minchar
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	// @param int    $char
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function minchar(String $data, Int $char)
 	{
-		if( ! is_scalar($data) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'data');
-		}
-		if( ! is_numeric($char) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', 'char');
-		}
-		
 		if( strlen($data) >= $char ) 
 		{
 			return true; 
