@@ -1,7 +1,7 @@
 <?php
-namespace ZN\ViewObjects\HTML;
+namespace ZN\ViewObjects;
 
-trait ElementsTrait
+trait HTMLElementsTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//

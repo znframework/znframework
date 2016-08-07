@@ -1,10 +1,7 @@
 <?php
-namespace ZN\ViewObjects\Common;
+namespace ZN\ViewObjects;
 
-use ZN\ViewObjects\Form\ElementsTrait as FormElementsTrait;
-use ZN\ViewObjects\HTML\ElementsTrait as HTMLElementsTrait;
-
-trait HyperTextTrait
+trait CommonTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -51,54 +48,46 @@ trait HyperTextTrait
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes($attributes = [])
+	public function attributes(Array $attributes) : String
 	{
 		$attribute = '';
 		
-		if( is_array($attributes) )
+		if( ! empty($this->settings['attr']) )
 		{
-			if( ! empty($this->settings['attr']) )
-			{
-				$attributes = array_merge($attributes, $this->settings['attr']);	
-				
-				$this->settings['attr'] = [];						
-			}
-
-			foreach( $attributes as $key => $values )
-			{
-				if( is_numeric($key) )
-				{
-					$attribute .= ' '.$values;
-				}
-				else
-				{
-					if( ! empty($key) )
-					{
-						$attribute .= ' '.$key.'="'.$values.'"';
-					}
-				}
-			}	
+			$attributes = array_merge($attributes, $this->settings['attr']);	
+			
+			$this->settings['attr'] = [];						
 		}
+
+		foreach( $attributes as $key => $values )
+		{
+			if( is_numeric($key) )
+			{
+				$attribute .= ' '.$values;
+			}
+			else
+			{
+				if( ! empty($key) )
+				{
+					$attribute .= ' '.$key.'="'.$values.'"';
+				}
+			}
+		}	
 	
 		return $attribute;	
 	}
 	
-	/******************************************************************************************
-	* INPUT OBJECT                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Html <input type="xxxx"> tagının kullanımıdır.    			          |
-	|															                              |
-	| Parametreler: 4 parametresi vardır.		                                              |
-	| 1. string var @type => Form nesnesinin türü belirtilir.	  				              |
-	| 2. string var @name => Form nesnesinin ismi belirtilir.	  				              |
-	| 3. string var @name => Form nesnesinin değerini belirtilir.	  				          |
-	| 4. array var @attributes => Form nesnesine farklı özellik değer çifti belirtmek içindir.|
-	|          																				  |
-	| Örnek Kullanım: inputObject('text', 'nesne', 'Değer', array('style' => 'color:red'));  |
-	| // <input type="text" name="nesne" value="Değer" style="color:red">       	          | 
-	|          																				  |
-	******************************************************************************************/
-	public function input($type = "", $name = "", $value = "", $_attributes = '')
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $type
+	// @param string $name
+	// @param string $value
+	// @param array  $attributes
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $_attributes = []) : String
 	{
 		if( isset($this->settings['attr']['type']) )
 		{

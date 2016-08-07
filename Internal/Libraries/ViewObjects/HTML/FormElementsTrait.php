@@ -1,7 +1,7 @@
 <?php
-namespace ZN\ViewObjects\Form;
+namespace ZN\ViewObjects;
 
-trait ElementsTrait
+trait FormElementsTrait
 {
 	//----------------------------------------------------------------------------------------------------
 	//

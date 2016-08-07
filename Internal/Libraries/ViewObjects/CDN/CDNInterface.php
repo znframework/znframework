@@ -16,10 +16,11 @@ interface CDNInterface
 	// Get
 	//----------------------------------------------------------------------------------------------------
 	//
+	// @param string $configName
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get($configName, $name);
+	public function get(String $configName, String $name) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Image
@@ -28,7 +29,7 @@ interface CDNInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function image($name);
+	public function image(String $name) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Style
@@ -37,7 +38,7 @@ interface CDNInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style($name);
+	public function style(String $name) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Script
@@ -46,7 +47,7 @@ interface CDNInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function script($name);
+	public function script(String $name) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Font
@@ -55,7 +56,7 @@ interface CDNInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function font($name);
+	public function font(String $name) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Other
@@ -64,5 +65,5 @@ interface CDNInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file($name);
+	public function file(String $name) : String;
 }

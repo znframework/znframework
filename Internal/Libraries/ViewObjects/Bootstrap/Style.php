@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalStyle extends \CallController implements Common\ViewObjectsInterface
+class InternalStyle extends \CallController implements BootstrapInterface
 {
 	/***********************************************************************************/
 	/* STYLE COMPONENT	     	     		                   	                       */

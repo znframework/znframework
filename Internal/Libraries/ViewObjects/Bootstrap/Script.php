@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalScript extends \CallController implements Common\ViewObjectsInterface
+class InternalScript extends \CallController implements BootstrapInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

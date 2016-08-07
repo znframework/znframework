@@ -12,26 +12,16 @@ class TemplateWizard extends \CallController implements TemplateWizardInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* DATA                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Metinsel ifadelerde ayrıştırma işlemi yapmak için kullanılır.			  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @string => Metinsel veri.					 							  |
-	| 2. array var @data => Değiştirilecek veriler.					  					      |
-	|          																				  |
-	| Örnek Kullanım: ->data('test', array('test' => 'deneme'))         					  |
-	|          																				  |
-	******************************************************************************************/
-	public static function data($string = '', $data = [])
+	//----------------------------------------------------------------------------------------------------
+	// Data
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $string
+	// @param array  $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	public static function data(String $string, Array $data = []) : String
 	{
-		// Parametre konrolleri sağlanıyor.
-		if( ! is_string($string) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'string');	
-		}
-
 		$htmlRegexChar 	= '.*?';
 		$htmlTagClose 	= "</$1>";
 		
@@ -96,7 +86,7 @@ class TemplateWizard extends \CallController implements TemplateWizardInterface
 		
 		if( $lastError = \Errors::last() )
 		{
-			\Exceptions::table('', $lastError['message'], '', $lastError['line']);
+			return \Exceptions::table('', $lastError['message'], '', $lastError['line']);
 		}
 		else
 		{

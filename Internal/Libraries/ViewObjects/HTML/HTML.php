@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalHTML extends \CallController implements HTMLInterface
+class InternalHTML extends \CallController implements HTMLInterface, CommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -20,7 +20,7 @@ class InternalHTML extends \CallController implements HTMLInterface
 	// _input()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use Common\HyperTextTrait;
+	use CommonTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Media Methods Başlangıç
