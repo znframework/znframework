@@ -11,135 +11,78 @@ interface RegexInterface
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
+
+	//----------------------------------------------------------------------------------------------------
+	// Match                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $pattern
+	// @param string $str
+	// @param string $ex
+	// @param string $delimiter
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function match(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array;
 	
-	/******************************************************************************************
-	* MATCH                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: preg_match() yönteminin işlevini üstlensede bu yöntemden farklı         |
-	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
-	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
-	|															                              |
-	| Parametreler: 4 parametresi vardır.                                                     |
-	| 1. string var @pattern => Eşleşme istenen düzenli ifade deseni.                         |
-	| 2. string var @str =>  Eşlleşme sağlanması istenen metin.                               |
-	| 3. string var @ex => /desen/xi gibi bir desende kapsayıcı dışına yazılan x, i.          |
-	| 4. string var @delimiter => Kapsayıcı işaretleri. Varsayılan:/                          |
-	|          																				  |
-	| NOT: Düzenli ifadelerde kullanılan karakterlerde yapılan değişiklik Config/Regex.php    |
-	| dosyasında yer almaktadır. İnceleyiniz.                                                 |
-	|          																				  |
-	| Örnek Kullanım: match('<numeric>', 'a12', '<insesn>');        	  			          |
-	| // preg_match('/\d/i', 'a12')        												      |
-	|          																				  |
-	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
-	|          																				  |
-	******************************************************************************************/	
-	public function match($pattern, $str, $ex, $delimiter);
+	//----------------------------------------------------------------------------------------------------
+	// Match All                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $pattern
+	// @param string $str
+	// @param string $ex
+	// @param string $delimiter
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function matchAll(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array;
 	
-	/******************************************************************************************
-	* MATCH ALL                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: matchAll() yönteminin işlevini üstlensede bu yöntemden farklı           |
-	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
-	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
-	|															                              |
-	| Parametreler: 4 parametresi vardır.                                                     |
-	| 1. string var @pattern => Eşleşme istenen düzenli ifade deseni.                         |
-	| 2. string var @str =>  Eşlleşme sağlanması istenen metin.                               |
-	| 3. string var @ex => /desen/xi gibi bir desende kapsayıcı dışına yazılan x, i.          |
-	| 4. string var @delimiter => Kapsayıcı işaretleri. Varsayılan:/                          |
-	|          																				  |
-	| NOT: Düzenli ifadelerde kullanılan karakterlerde yapılan değişiklik Config/Regex.php    |
-	| dosyasında yer almaktadır. İnceleyiniz.                                                 |
-	|          																				  |
-	| Örnek Kullanım: matchAll('<numeric>', 'a12', '<insesn>');        	  			          |
-	| // matchAll('/\d/i', 'a12')        												      |
-	|          																				  |
-	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
-	|          																				  |
-	******************************************************************************************/	
-	public function matchAll($pattern, $str, $ex, $delimiter);
+	//----------------------------------------------------------------------------------------------------
+	// Replace                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $pattern
+	// @param string $rep
+	// @param string $str
+	// @param string $ex
+	// @param string $delimiter
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function replace(String $pattern, String $rep, String $str, String $ex = NULL, String $delimiter = '/');
 	
-	/******************************************************************************************
-	* REPLACE                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: matchAll() yönteminin işlevini üstlensede bu yöntemden farklı     |
-	| olarak böyle bir yöntemin geliştirilmesinin amacı düzenli ifadelerdeki karmaşık görünen |
-	| karakterler yerine isimlendirmeler yapılan yeni kelimeler oluşturulmuştur.              |
-	|															                              |
-	| Parametreler: 5 parametresi vardır.                                                     |
-	| 1. string var @pattern => Değiştirilmek istenen düzenli ifade deseni.                   |
-	| 2. string var @rep => Değiştirilecek karakter.                                          |
-	| 3. string var @str =>  Eşlleşme sağlanması istenen metin.                               |
-	| 4. string var @ex => /desen/xi gibi bir desende kapsayıcı dışına yazılan x, i.          |
-	| 5. string var @delimiter => Kapsayıcı işaretleri. Varsayılan:/                          |
-	|          																				  |
-	| NOT: Düzenli ifadelerde kullanılan karakterlerde yapılan değişiklik Config/Regex.php    |
-	| dosyasında yer almaktadır. İnceleyiniz.                                                 |
-	|          																				  |
-	| Örnek Kullanım: preg_reaplace('<numeric>', '', 'a12', '<insesn>');        	  		  |
-	| // preg_replace('/\d/i', '', 'a12')        											  |
-	|          																				  |
-	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
-	|          																				  |
-	******************************************************************************************/	
-	public function replace($pattern, $rep, $str, $ex, $delimiter);
+	//----------------------------------------------------------------------------------------------------
+	// Group                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $str
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function group(String $str) : String;
 	
-	/******************************************************************************************
-	* GROUP                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Düzenli ifadelerdeki ( ) grup karakterleri yerine kullanılır.           |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @str => Grup paranterzleri içerisine yazılacak veri.                      |
-	|          																				  |
-	| Örnek Kullanım: group('1|3');        	  		  										  |
-	| // (1|3)        											                              |
-	|          																				  |
-	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
-	|          																				  |
-	******************************************************************************************/	
-	public function group($str);
+	//----------------------------------------------------------------------------------------------------
+	// Recount                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $str
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function recount(String $str) : String;
 	
-	/******************************************************************************************
-	* RECOUNT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Düzenli ifadelerdeki { } karakterleri yerine kullanılır.                |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @str => Tekrar paranterzleri içerisine yazılacak veri.                    |
-	|          																				  |
-	| Örnek Kullanım: recount(3);        	  		  										  |
-	| // {3}        											                              |
-	|          																				  |
-	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
-	|          																				  |
-	******************************************************************************************/	
-	public function recount($str);
+	//----------------------------------------------------------------------------------------------------
+	// To                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $str
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function to(String $str) : String;
 	
-	/******************************************************************************************
-	* TO                                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Düzenli ifadelerdeki [ ] karakterleri yerine kullanılır.                |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @str => [ ] aranterzleri içerisine yazılacak veri.                        |
-	|          																				  |
-	| Örnek Kullanım: to(azAZ09);        	  		  										  |
-	| // [azAZ09]        											                          |
-	|          																				  |
-	|   >>>>>>>>>>>>>>>>>>>>>>Daha detaylı kullanımı için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<    |
-	|          																				  |
-	******************************************************************************************/	
-	public function to($str);
-	
-	/******************************************************************************************
-	* QUOTE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Düzenli ifadelerin özel karakterlerini önceler.                         |
-	 
-	  @param string $data
-	|          																				  |
-	******************************************************************************************/	
-	public function quote($data, $delimiter);
+	//----------------------------------------------------------------------------------------------------
+	// Quote                                                                
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	// @param string $delimiter
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function quote(String $data, String $delimiter = NULL) : String;
 }

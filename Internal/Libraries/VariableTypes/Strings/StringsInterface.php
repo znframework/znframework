@@ -19,7 +19,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mtrim($str);
+	public function mtrim(String $str) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Trim Slashes
@@ -28,7 +28,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function trimSlashes($str);
+	public function trimSlashes(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Casing
@@ -39,7 +39,7 @@ interface StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function casing($str, $type, $encoding);
+	public function casing(String $str, String $type = 'lower', String $encoding = 'utf-8') : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Upper Case
@@ -49,7 +49,7 @@ interface StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function upperCase($str, $encoding);
+	public function upperCase(String $str, String $encoding = 'utf-8') : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Lower Case
@@ -59,7 +59,7 @@ interface StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lowerCase($str, $encoding);
+	public function lowerCase(String $str, String $encoding = 'utf-8') : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Title Case
@@ -69,7 +69,7 @@ interface StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function titleCase($str, $encoding);
+	public function titleCase(String $str, String $encoding = 'utf-8') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Camel Case
@@ -78,7 +78,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function camelCase($str);	
+	public function camelCase(String $str) : String;	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pascal Case
@@ -87,7 +87,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pascalCase($str);
+	public function pascalCase(String $str) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Section
@@ -96,7 +96,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function section($str, $starting, $count, $encoding);
+	public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Search
@@ -108,7 +108,7 @@ interface StringsInterface
 	// @param string $case
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function search($str, $needle, $type, $case);
+	public function search(String $str, String $needle, String $type = 'str', Bool $case = true) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Reshuffle
@@ -119,7 +119,7 @@ interface StringsInterface
 	// @param string $reshuffle
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function reshuffle($str, $shuffle, $reshuffle);	
+	public function reshuffle(String $str, String $shuffle, String $reshuffle) : String;	
 
 	//----------------------------------------------------------------------------------------------------
 	// Recurrent Count
@@ -129,7 +129,7 @@ interface StringsInterface
 	// @param string $char
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function recurrentCount($str, $char);
+	public function recurrentCount(String $str, String $char) : Int;
 
 	//----------------------------------------------------------------------------------------------------
 	// Placement
@@ -140,7 +140,7 @@ interface StringsInterface
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function placement($str, $delimiter, $array);	
+	public function placement(String $str, String $delimiter, Array $array) : String;	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Replace
@@ -151,7 +151,7 @@ interface StringsInterface
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function replace($string, $oldChar, $newChar, $case);
+	public function replace(String $string, String $oldChar, String $newChar = '', Bool $case = true) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// To Array
@@ -161,16 +161,16 @@ interface StringsInterface
 	// @param string $split
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toArray($string, $split);
+	public function toArray(String $string, String $split = ' ') : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// To Char
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $ascii
+	// @param int $ascii
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toChar($ascii);
+	public function toChar(Int $ascii) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// To Ascii
@@ -179,7 +179,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toAscii($string);
+	public function toAscii(String $string) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Slashes
@@ -189,7 +189,7 @@ interface StringsInterface
 	// @param string $addDifferentChars
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addSlashes($string, $addDifferentChars);
+	public function addSlashes(String $string, String $addDifferentChars = NULL) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Remove Slashes
@@ -198,7 +198,7 @@ interface StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function removeSlashes($string);
+	public function removeSlashes(String $string) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Length
@@ -208,7 +208,7 @@ interface StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length($string, $encoding);
+	public function length(String $string, String $encoding = 'utf-8') : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encode
@@ -218,7 +218,7 @@ interface StringsInterface
 	// @param string $salt
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($string, $salt);
+	public function encode(String $string, String $salt) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Repeat
@@ -228,7 +228,7 @@ interface StringsInterface
 	// @param numeric $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repeat($string, $count);
+	public function repeat(String $string, Int $count = 1) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pad
@@ -240,7 +240,7 @@ interface StringsInterface
 	// @param string  $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pad($string, $count, $chars, $type);
+	public function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Apportion
@@ -251,7 +251,7 @@ interface StringsInterface
 	// @param string  $end
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function apportion($string, $length, $end);
+	public function apportion(String $string, Int $length = 76, String $end = "\r\n") : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Divide
@@ -262,7 +262,7 @@ interface StringsInterface
 	// @param numeric $index
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function divide($str, $separator, $index);
+	public function divide(String $str, String $separator = '|', $index = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Translation Table
@@ -272,5 +272,5 @@ interface StringsInterface
 	// @param numeric $quote
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function translationTable($table, $quote);
+	public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array;
 }

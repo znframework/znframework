@@ -19,13 +19,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mtrim($str = '')
+	public function mtrim(String $str) : String
 	{
-		if( ! is_scalar($str) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(str)');
-		}
-		
 		$str = preg_replace
 		(
 			['/\s+/', '/&nbsp;/', "/\n/", "/\r/", "/\t/"], 
@@ -43,13 +38,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function trimSlashes($str = '')
+	public function trimSlashes(String $str) : String
 	{
-		if( ! is_string($str) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
-		}
-		
 		$str = trim($str, "/");
 		
 		return $str;
@@ -64,7 +54,7 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function casing($str = '', $type = 'lower', $encoding = "utf-8")
+	public function casing(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
 	{
 		return \Convert::stringCase($str, $type, $encoding);
 	}
@@ -77,16 +67,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function upperCase($str = '', $encoding = 'utf-8')
+	public function upperCase(String $str, String $encoding = 'utf-8') : String
 	{
-		if( ! is_string($str) || ! isCharset($encoding) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', '1.(str)');
-			\Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');
-			
-			return false;
-		}
-		
 		$str = mb_convert_case($str, MB_CASE_UPPER, $encoding);
 		
 		return $str;
@@ -100,16 +82,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lowerCase($str = '', $encoding = 'utf-8')
+	public function lowerCase(String $str, String $encoding = 'utf-8') : String
 	{
-		if( ! is_string($str) || ! isCharset($encoding) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', '1.(str)');
-			\Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');
-			
-			return false;
-		}
-		
 		$str = mb_convert_case($str, MB_CASE_LOWER, $encoding);
 		
 		return $str;
@@ -123,16 +97,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function titleCase($str = '', $encoding = 'utf-8')
+	public function titleCase(String $str, String $encoding = 'utf-8') : String
 	{
-		if( ! is_string($str) || ! isCharset($encoding) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', '1.(str)');
-			\Exceptions::throws('Error', 'charsetParameter', '2.(encoding)');
-			
-			return false;
-		}
-		
 		$str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
 		
 		return $str;
@@ -145,7 +111,7 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function camelCase($str = '')
+	public function camelCase(String $str) : String
 	{
 		$string = $this->titleCase($str);
 		
@@ -161,7 +127,7 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pascalCase($str = '')
+	public function pascalCase(String $str) : String
 	{
 		$string = $this->titleCase($str);
 		
@@ -173,15 +139,13 @@ class InternalStrings extends \CallController implements StringsInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param string $str
+	// @param int    $starting
+	// @param int    $count
+	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function section($str = '', $starting = 0, $count = NULL, $encoding = "utf-8")
+	public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String
 	{
-		if( ! is_string($str) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
-		}
-		
 		return mb_substr($str, $starting, $count, $encoding);
 	}	
 
@@ -195,13 +159,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $case
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function search($str = '', $needle = '', $type = "str", $case = true)
+	public function search(String $str, String $needle, String $type = 'str', Bool $case = true) : String
 	{
-		if( ! is_string($str) || ! is_string($needle) || ! is_string($type) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(str) & 2.(neddle) & 3.($type)');
-		}
-		
 		if( $type === "str" || $type === "string" )
 		{
 			if( $case === true )
@@ -213,7 +172,8 @@ class InternalStrings extends \CallController implements StringsInterface
 				return mb_stristr($str, $needle);
 			}
 		}
-		if($type === "pos" || $type === "position")
+
+		if( $type === "pos" || $type === "position" )
 		{
 			if( $case === true )
 			{
@@ -235,28 +195,13 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $reshuffle
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function reshuffle($str = '', $shuffle = '', $reshuffle = '')
+	public function reshuffle(String $str, String $shuffle, String $reshuffle) : String
 	{
-		if( ! is_string($str) || empty($str) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
-		}
-		
-		if( ! is_scalar($shuffle) || empty($shuffle) ) 
-		{
-			return $str;
-		}
-		
-		if( ! is_scalar($reshuffle) ) 
-		{
-			return $str;
-		}
-		
 		$shuffleEx = explode($shuffle, $str);
 		
 		$newstr = '';
 		
-		foreach($shuffleEx as $v)
+		foreach( $shuffleEx as $v )
 		{
 			$newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;	
 		} 
@@ -272,18 +217,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $char
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function recurrentCount($str = '', $char = '')
+	public function recurrentCount(String $str, String $char) : Int
 	{
-		if( ! is_string($str) || empty($str) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
-		}
-		
-		if( ! is_scalar($char) ) 
-		{
-			return $str;
-		}
-		
 		return count(explode($char, $str)) - 1;
 	}	
 
@@ -296,13 +231,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function placement($str = '', $delimiter = '?', $array = [])
+	public function placement(String $str, String $delimiter, Array $array) : String
 	{
-		if( ! is_string($str) || empty($str) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(str)');
-		}
-		
 		if( ! is_array($array) ) 
 		{
 			return \Exceptions::throws('Error', 'arrayParameter', '3.(array)');
@@ -341,13 +271,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param array  $array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function replace($string = '', $oldChar = '', $newChar = '', $case = true)
+	public function replace(String $string, String $oldChar, String $newChar = '', Bool $case = true) : String
 	{
-		if( ! is_string($string) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');
-		}
-		
 		if( $case === true )
 		{
 			return str_replace($oldChar, $newChar, $string);
@@ -366,13 +291,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $split
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toArray($string = '', $split = ' ')
+	public function toArray(String $string, String $split = ' ') : Array
 	{
-		if( ! is_string($string) || ! is_string($split) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(string) & 2.(split)');
-		}
-		
 		return explode($split, $string);
 	}
 	
@@ -380,16 +300,11 @@ class InternalStrings extends \CallController implements StringsInterface
 	// To Char
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $ascii
+	// @param int $ascii
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toChar($ascii = 32)
+	public function toChar(Int $ascii) : String
 	{
-		if( ! is_numeric($ascii) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '1.(ascii)');
-		}
-		
 		return chr($ascii);
 	}
 	
@@ -400,13 +315,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toAscii($string = '')
+	public function toAscii(String $string) : Int
 	{
-		if( ! is_string($string) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');
-		}
-		
 		return ord($string);
 	}
 	
@@ -418,13 +328,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $addDifferentChars
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addSlashes($string = '', $addDifferentChars = '')
+	public function addSlashes(String $string, String $addDifferentChars = NULL) : String
 	{
-		if( ! is_string($string) || ! is_string($addDifferentChars) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(string) & 2.(addDifferentChars)');
-		}
-		
 		$return = addslashes($string);
 		
 		if( ! empty($addDifferentChars) )
@@ -442,13 +347,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function removeSlashes($string = '')
+	public function removeSlashes(String $string) : String
 	{
-		if( ! is_string($string) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(string)');
-		}
-		
 		return stripslashes(stripcslashes($string));
 	}
 	
@@ -460,13 +360,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length($string = '', $encoding = 'utf-8')
+	public function length(String $string, String $encoding = 'utf-8') : Int
 	{
-		if( ! is_scalar($string) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
-		}
-		
 		return mb_strlen($string, $encoding);
 	}
 	
@@ -478,13 +373,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string $salt
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($string = '', $salt = 'secure')
+	public function encode(String $string, String $salt) : String 
 	{
-		if( ! is_scalar($string) || ! is_scalar($salt) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(string) & 2.(salt)');
-		}
-		
 		return crypt($string, $salt);
 	}
 	
@@ -496,13 +386,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param numeric $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repeat($string = '', $count = 1)
+	public function repeat(String $string, Int $count = 1) : String
 	{
-		if( ! is_scalar($string) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
-		}
-		
 		return str_repeat($string, $count);
 	}
 	
@@ -516,13 +401,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string  $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pad($string = '', $count = 1, $chars = ' ', $type = 'right')
+	public function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
 	{
-		if( ! is_scalar($string) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
-		}
-		
 		return str_pad($string, $count, $chars, \Convert::toConstant($type, 'STR_PAD_'));
 	}
 	
@@ -535,13 +415,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param string  $end
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function apportion($string = '', $length = 76, $end = "\r\n")
+	public function apportion(String $string, Int $length = 76, String $end = "\r\n") : String
 	{
-		if( ! is_scalar($string) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(string)');
-		}
-		
 		$arrayChunk = array_chunk(preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY), $length);
 	
 		$string = "";
@@ -563,7 +438,7 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param numeric $index
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function divide($str = '', $separator = "|", $index = 0)
+	public function divide(String $str, String $separator = "|", $index = 0) : String
 	{
 		return divide($str, $separator, $index);
 	}
@@ -576,13 +451,8 @@ class InternalStrings extends \CallController implements StringsInterface
 	// @param numeric $quote
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function translationTable($table = HTML_SPECIALCHARS, $quote = ENT_COMPAT)
+	public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array
 	{
-		if( ! is_scalar($table) || ! is_scalar($quote) ) 
-		{
-			return \Exceptions::throws('Error', 'scalarParameter', '1.(table) & 2.(quote)');
-		}
-		
 		return get_html_translation_table(\Convert::toConstant($table, 'HTML_'), \Convert::toConstant($quote, 'ENT_'));
 	}
 }
