@@ -660,4 +660,6 @@ $config['ClassMap']['namespaces']['zn\viewobjects\internalstyle'] = 'internalsty
 $config['ClassMap']['namespaces']['zn\viewobjects\templatewizard'] = 'templatewizard';
 $config['ClassMap']['namespaces']['zn\viewobjects\templatewizardinterface'] = 'templatewizardinterface';
 $config['ClassMap']['namespaces']['zn\xmlmanipulation\internalxml'] = 'internalxml';
-$config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';
+$config['ClassMap']['namespaces']['zn\xmlmanipulation\xmlinterface'] = 'xmlinterface';$config['ClassMap']['classes']['zn\variabletypes\collectioninterface'] = 'Internal/Libraries/VariableTypes/Arrays/CollectionInterface.php';
+$config['ClassMap']['namespaces']['zn\variabletypes\collectioninterface'] = 'collectioninterface';$config['ClassMap']['classes']['zn\variabletypes\stackinterface'] = 'Internal/Libraries/VariableTypes/Strings/StackInterface.php';
+$config['ClassMap']['namespaces']['zn\variabletypes\stackinterface'] = 'stackinterface';

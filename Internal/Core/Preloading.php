@@ -11,74 +11,22 @@
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------
-// Invalid PHP Version
+// EXTERNAL_CONFIG_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// Versiyon Kontrolü Yapılıyor.
+// @return External/Config/
 //
 //----------------------------------------------------------------------------------------------------
-if( ! isPhpVersion('7.0.0') )
-{	
-	trace('Invalid PHP Version! Required PHP version ["7.0.0"] and should be over!');
-}
-//-----------------------------------------------------------------------------------------------------
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config/'); 
 
 //----------------------------------------------------------------------------------------------------
-// APPLICATIONS_DIR
+// INTERNAL_CONFIG_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// @return Applications/
+// @return Internal/Config/
 //
 //----------------------------------------------------------------------------------------------------
-define('APPLICATIONS_DIR', 'Applications/'); 
-
-//----------------------------------------------------------------------------------------------------
-// BASE_DIR
-//----------------------------------------------------------------------------------------------------
-//
-// @return Uygulamanın bulunduğu dizinin yolu.
-//
-//----------------------------------------------------------------------------------------------------
-$baseDir = explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME']);
-
-if( isset($baseDir[0]) )
-{
-	define('BASE_DIR', $baseDir[0]);
-}
-
-//----------------------------------------------------------------------------------------------------
-// URIAPPDIR
-//----------------------------------------------------------------------------------------------------
-//
-// @return URIAPPDIR
-//
-//----------------------------------------------------------------------------------------------------
-$currentPath = server('currentPath');
-
-$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : ''); 
-
-global $application;
-
-$othersapp = $application['directory']['others'];
-
-if( is_array($othersapp) )
-{
-	$internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
-}
-
-if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
-{
-	define('URIAPPDIR', $internalDir);	
-}
-
-//----------------------------------------------------------------------------------------------------
-// STATIC_ACCESS
-//----------------------------------------------------------------------------------------------------
-//
-// @return Static
-//
-//----------------------------------------------------------------------------------------------------
-define('STATIC_ACCESS', 'Internal');
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config/'); 
 
 //----------------------------------------------------------------------------------------------------
 // HIERARCHY_DIR
@@ -144,31 +92,42 @@ define('HT', "\t");
 define('FF', "\f");	
 
 //----------------------------------------------------------------------------------------------------
-// isPhpVersion()
+// BASE_DIR
 //----------------------------------------------------------------------------------------------------
 //
-// İşlev: Parametrenin geçerli php sürümü olup olmadığını kontrol eder.
-// Parametreler: $version => Geçerliliği kontrol edilecek veri.
-// Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
+// @return Uygulamanın bulunduğu dizinin yolu.
 //
 //----------------------------------------------------------------------------------------------------
-function isPhpVersion($version = '5.2.4')
+$baseDir = explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME']);
+
+if( isset($baseDir[0]) )
 {
-	if( ! is_scalar($version) )
-	{
-		return false;
-	}
-	
-	$version = (string)$version;
-	
-	if( version_compare(PHP_VERSION, $version, '>=') )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	define('BASE_DIR', $baseDir[0]);
+}
+
+//----------------------------------------------------------------------------------------------------
+// URIAPPDIR
+//----------------------------------------------------------------------------------------------------
+//
+// @return URIAPPDIR
+//
+//----------------------------------------------------------------------------------------------------
+$currentPath = server('currentPath');
+
+$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : ''); 
+
+global $application;
+
+$othersapp = $application['directory']['others'];
+
+if( is_array($othersapp) )
+{
+	$internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
+}
+
+if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
+{
+	define('URIAPPDIR', $internalDir);	
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -1074,34 +1033,6 @@ function internalApplicationMode($mode, $report = -1)
 		//--------------------------------------------------------------------------------------------
 	}	
 	//------------------------------------------------------------------------------------------------	
-}
-
-//----------------------------------------------------------------------------------------------------
-// trace()
-//----------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//          																				  
-//----------------------------------------------------------------------------------------------------
-function trace($message = '', $keys = [])
-{
-	$style  = 'border:solid 1px #E1E4E5;';
-	$style .= 'background:#FEFEFE;';
-	$style .= 'padding:10px;';
-	$style .= 'margin-bottom:10px;';
-	$style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
-	$style .= 'color:#666;';
-	$style .= 'text-align:left;';
-	$style .= 'font-size:14px;';
-	
-	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
-	
-	$str  = "<div style=\"$style\">";
-	$str .= $message;
-	$str .= '</div>';
-	
-	exit(write($str, $keys));
 }
 
 //----------------------------------------------------------------------------------------------------

@@ -184,7 +184,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		}
 		else
 		{
-			$traceInfo = $trace[$p2];
+			$traceInfo = isset($trace[$p2]) ? $trace[$p2] : $this->_traceFinder(debug_backtrace(), 8, 6);
 		}
 
 		return 

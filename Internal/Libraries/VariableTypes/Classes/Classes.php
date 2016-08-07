@@ -12,188 +12,177 @@ class InternalClasses extends \CallController implements ClassesInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* IS RELATION		                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Nesne ile sınıf arasında ebeveyn/çocuk ilişkisi var mı diye bakar.      |
-		
-	  @param  string $className
-	  @param  object $object
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function isRelation($className = '', $object = '', $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Is Relation                                                                   
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $className
+	// @param object $object
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function isRelation(String $className, $object) : Bool
 	{
-		if( ! is_string($className) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
-		}
-		
 		if( ! is_object($object) )
 		{
 			return \Exceptions::throws('Error', 'objectParameter', '2.(object)');	
 		}
 	
-		return is_a($object, $prefix.$className);
+		return is_a($object, $this->_class($className));
 	}
 	
-	/******************************************************************************************
-	* IS PARENT  		                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım:  Belirtilen sınıfın belirtilen nesnenin ebeveynlerinden biri olup 	  |
-	  olmadığına bakar.																	      
-		
-	  @param  string $className
-	  @param  object $object
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function isParent($className = '', $object = '', $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Is Parent                                                                   
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $className
+	// @param object $object
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function isParent(String $className, $object) : Bool
 	{
-		if( ! is_string($className) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
-		}
-	
-		return is_subclass_of($object, $prefix.$className);
+		return is_subclass_of($object, $this->_class($className));
 	}
 	
-	/******************************************************************************************
-	* METHOD EXISTS  		                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir sınıf yöntemi mevcut mu diye bakar.								  |																      
-		
-	  @param  string $className
-	  @param  string $object
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function methodExists($className = '', $method = '', $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Method Exists                                                                   
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $className
+	// @param object $method
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function methodExists(String $className, String $method) : Bool
 	{
-		if( ! is_string($className) || ! is_string($method) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.($className) & 2.(method)');	
-		}
-	
-		return method_exists(uselib($prefix.$className), $method);
+		return method_exists(uselib($this->_class($className)), $method);
 	}
 	
-	/******************************************************************************************
-	* PROPERTY EXISTS  		                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir nesne veya sınıfın belirtilen özelliğe sahip olup olmadığına bakar. |																      
-		
-	  @param  string $className
-	  @param  string $object
-	  @return bool
-	|          																				  |
-	******************************************************************************************/
-	public function propertyExists($className = '', $property = '', $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Property Exists                                                                   
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $className
+	// @param object $property
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function propertyExists(String $className, String $property) : Bool
 	{
-		if( ! is_string($className) || ! is_string($property) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.($className) & 2.(property)');	
-		}
-	
-		return  property_exists(uselib($prefix.$className), $property);
+		return  property_exists(uselib($this->_class($className)), $property);
 	}
 	
-	/******************************************************************************************
-	* METHODS			                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Sınıf yöntemlerinin isimlerini döndürür.							      |
-	 
-	  @param  mixed  $className
-	  @param  string $prefix
-	  @return array
-	|          																				  |
-	******************************************************************************************/
-	public function methods($className = '' , $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Methods                                                                  
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $className
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function methods(String $className)
 	{
-		if( ! is_string($className) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
-		}
-		
-		return get_class_methods($prefix.$className);
+		return get_class_methods($this->_class($className));
 	}
 	
-	/******************************************************************************************
-	* VARS		  		                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Sınıfın öntanımlı özelliklerini döndürür.							      |
-	 
-	  @param  mixed  $className
-	  @param  string $prefix
-	  @return array
-	|          																				  |
-	******************************************************************************************/
-	public function vars($className = '' , $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Vars                                                                  
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $className
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function vars(String $className)
 	{
-		if( ! is_string($className) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(className)');	
-		}
-		
-		return get_class_vars($prefix.$className);
+		return get_class_vars($this->_class($className));
 	}
 	
-	/******************************************************************************************
-	* NAME		  		                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Bir nesnenin ait olduğu sınıfın ismini döndürür.					      |
-	 
-	  @param  object $var
-	  @param  string $prefix
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function name($var = '', $prefix = STATIC_ACCESS)
+	//----------------------------------------------------------------------------------------------------
+	// Name                                                                  
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param object $var
+	// @param string $prefix
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function name($var) : String
 	{
 		if( ! is_object($var) )
 		{
 			return \Exceptions::throws('Error', 'objectParameter', '1.(var)');	
 		}
 		
-		return str_replace($prefix, '', get_class($var));
+		return get_class($var);
 	}	
 	
-	/******************************************************************************************
-	* DECLARED		 	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Tanımlı sınıfların isimlerini bir dizi olarak döndürür.  			      |
-	
-	  @return array
-	|          																				  |
-	******************************************************************************************/
-	public function declared()
+	//----------------------------------------------------------------------------------------------------
+	// Declared                                                                  
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function declared() : Array
 	{
 		return get_declared_classes();
 	}	
 	
-	/******************************************************************************************
-	* DECLARED INTERFACES 	                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım:  Bildirilmiş tüm arayüzleri bir dizi olarak döndürür.  			      |
-	
-	  @return array
-	|          																				  |
-	******************************************************************************************/
-	public function declaredInterfaces()
+	//----------------------------------------------------------------------------------------------------
+	// Declared Interfaces                                                               
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function declaredInterfaces() : Array
 	{
 		return get_declared_interfaces();
 	}	
 	
-	/******************************************************************************************
-	* DECLARED TRAITS  	                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım:  Tüm bildirilen özellikleri bir dizi olarak döndürür.  			      |
-	
-	  @return array
-	|          																				  |
-	******************************************************************************************/
-	public function declaredTraits()
+	//----------------------------------------------------------------------------------------------------
+	// Declared Traits                                                               
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function declaredTraits() : Array
 	{
 		return get_declared_traits();
 	}	
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Class                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	protected function _class($name)
+	{
+		$lowerName = strtolower($name);
+
+		$classMaps  = \Config::get('ClassMap');
+
+		$classMap   = array_flip($classMaps['namespaces']);
+
+		if( ! empty($classMap[$lowerName]) )
+		{
+			return $classMap[$lowerName];
+		}
+		elseif( ! empty($classMap[strtolower(STATIC_ACCESS).$lowerName]) )
+		{
+			return $classMap[strtolower(STATIC_ACCESS).$lowerName];
+		}
+		elseif( ! empty($classMaps['classes'][strtolower(STATIC_ACCESS).$lowerName]) )
+		{
+			return $classMaps['classes'][strtolower(STATIC_ACCESS).$lowerName];
+		}
+		else
+		{
+			return $name;
+		}
+	}
 }
