@@ -68,9 +68,9 @@ class InternalSSH extends \Requirements implements SSHInterface
 	{
 		\Support::func('ssh2_connect', 'SSH(Secure Shell)');
 		
-		parent::__construct($config);
+		parent::__construct();
 
-		$this->connect();
+		$this->connect($config);
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -80,15 +80,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function connect($config = [])
+	public function connect(Array $config = [])
 	{	
-		if( ! is_array($config) )
-		{
-			\Exceptions::throws('Error', 'arrayParameter', 'config');
-			
-			return $this;
-		}
-		
 		if( ! empty($config) )
 		{
 			$this->config($config);	
@@ -166,7 +159,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function command($command = '')
+	public function command(String $command)
 	{
 		$this->command .= $command.' ';
 		
@@ -180,7 +173,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function run($command = '')
+	public function run(String $command = NULL)
 	{
 		if( ! empty($this->connect) )
 		{
@@ -206,7 +199,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function output($length = 4096)
+	public function output(Int $length = 4096)
 	{
 		$stream = $this->stream;
 		
@@ -232,16 +225,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $remotePath: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function upload($localPath = '', $remotePath = '')
+	public function upload(String $localPath, String $remotePath)
 	{
-		if( ! is_string($localPath) || ! is_string($remotePath) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'localPath');
-			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
-			
-			return false;
-		}
-		
 		if( @ssh2_scp_send($this->connect, $localPath, $remotePath) )
 		{
 			return true;
@@ -260,16 +245,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $localPath : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download($remotePath = '', $localPath = '')
+	public function download(String $remotePath, String $localPath)
 	{
-		if( ! is_string($localPath) || ! is_string($remotePath) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'remotePath');
-			\Exceptions::throws('Error', 'stringParameter', 'localPath');
-			
-			return false;
-		}
-		
 		if( @ssh2_scp_recv($this->connect, $remotePath, $localPath) )
 		{
 			return true;
@@ -287,13 +264,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder($path = '', $mode = 0777, $recursive = true)
-	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');	
-		}
-		
+	public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true)
+	{	
 		if( @ssh2_sftp_mkdir($this->connect, $path, $mode, $recursive) )
 		{
 			return true;
@@ -311,13 +283,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFolder($path = '')
+	public function deleteFolder(String $path)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');	
-		}
-		
 		if( @ssh2_sftp_rmdir($this->connect, $path) )
 		{
 			return true;
@@ -337,16 +304,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function rename($oldName = '', $newName = '')
+	public function rename(String $oldName, String $newName)
 	{
-		if( ! is_string($oldName) || ! is_string($newName) ) 
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'oldName');
-			\Exceptions::throws('Error', 'stringParameter', 'newName');
-			
-			return false;	
-		}
-		
 		if( @ssh2_sftp_rename($this->connect, $oldName, $newName) )
 		{
 			return true;
@@ -364,13 +323,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFile($path = '')
+	public function deleteFile(String $path)
 	{
-		if( ! is_string($path) ) 
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');
-		}
-		
 		if( @ssh2_sftp_unlink($this->connect, $path) )
 		{
 			return true;
@@ -389,18 +343,8 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission($path = '', $type = 0755)
-	{
-		if( ! is_string($path) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'path');		
-		}
-		
-		if( ! is_numeric($type) )
-		{
-			$type = 0755;
-		}
-		
+	public function permission(String $path, Int $type = 0755)
+	{	
 		if( @ssh2_sftp_chmod($this->connect, $path, $type) )
 		{
 			return true;
@@ -418,7 +362,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function _defaultVariables()
+	protected function _defaultVariables()
 	{
 		$this->command = '';	
 	}

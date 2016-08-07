@@ -32,7 +32,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var string $action
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function action($action = '')
+	public function action(String $action)
 	{
 		$time = $this->redirect['time'];
 	    $data = $this->redirect['data'];
@@ -49,7 +49,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var numeric $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function time($time = 0)
+	public function time(Int $time = 0)
 	{
 		$this->redirect['time'] = $time;
 		
@@ -63,7 +63,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var numeric $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function wait($time = 0)
+	public function wait(Int $time = 0)
 	{
 		$this->redirect['time'] = $time;
 		
@@ -77,7 +77,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data($data = [])
+	public function data(Array $data)
 	{
 		$this->redirect['data'] = $data;
 		
@@ -91,7 +91,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($data = [])
+	public function insert(Array $data)
 	{
 		$this->redirect['data'] = $data;
 		
@@ -105,7 +105,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var string $key
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($key = '')
+	public function select(String $key)
 	{
 		return redirectData($key);
 	}
@@ -117,7 +117,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var mixed $key
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($key = '')
+	public function delete(String $key)
 	{
 		return redirectDeleteData($key);
 	}

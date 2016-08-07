@@ -13,29 +13,15 @@ class InternalURI extends \CallController implements URIInterface
 	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
-	// Get Method Başlangıç
+	// Get
 	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* GET                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Uri üzerinde istenilen segmenti elde etmek için oluşturulmuş yötemdir.  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @get => İstenilen segmentin bir önceki segment ismi.			          |
-	| 2. numeric var @index => Belirtilen segmentten kaç segment sonraki bölümün istendiği.   |
-	| 3. mixed var @while => Belirlenen segment aralığı alınsın mı?.	                      |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: get('test'); // zntr       		      								  |
-	| Örnek Kullanım: get('test', 2); // yerli       		      							  |
-	| Örnek Kullanım: get('test', 2, true); // zntr/yerli       		      				  |
-	| Örnek Kullanım: get('test', "count"); // test bölümü sonrası segment sayısı:3           |
-	| Örnek Kullanım: get('test', "all"); // zntr/yerli/framework    		                  |
-	| Örnek Kullanım: get('test', "framework"); // test/zntr/yerli/framework     		      |
-	|          																				  |
-	******************************************************************************************/
-	public function get($get = '', $index = 1, $while = false)
+	// 
+	// @param scalar $get
+	// @param scalar $index
+	// @param bool   $while
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function get($get = 1, $index = 1, Bool $while = false)
 	{
 		// Parametre kontrolleri yapılıyor. ---------------------------------------------------
 		if( ! isChar($index) ) 
@@ -126,18 +112,6 @@ class InternalURI extends \CallController implements URIInterface
 		}
 	}
 	
-	// Uri işlemleri için oluşturulmuştur.
-	protected function _cleanPath()
-	{
-		$pathInfo = \Security::htmlEncode(internalRequestURI());
-	
-		return $pathInfo;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Get Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
 	//----------------------------------------------------------------------------------------------------
 	// getNameCount
 	//----------------------------------------------------------------------------------------------------
@@ -147,7 +121,7 @@ class InternalURI extends \CallController implements URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getNameCount($get = '')
+	public function getNameCount(String $get)
 	{
 		$segArr = $this->segmentArray();
 		
@@ -170,7 +144,7 @@ class InternalURI extends \CallController implements URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getNameAll($get = '')
+	public function getNameAll(String $get)
 	{
 		$segArr = $this->segmentArray();
 		
@@ -203,13 +177,8 @@ class InternalURI extends \CallController implements URIInterface
 	// @param numeric $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getByIndex($get = 1, $index = 1)
+	public function getByIndex(Int $get = 1, Int $index = 1)
 	{
-		if( ! is_numeric($get) )
-		{
-			return false;	
-		}
-		
 		$segArr = $this->segmentArray();
 		
 		if( $get == 0 )
@@ -256,13 +225,8 @@ class InternalURI extends \CallController implements URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getByName($get = '', $index = '')
+	public function getByName(String $get, $index = NULL)
 	{
-		if( ! is_scalar($get) )
-		{
-			return false;	
-		}
-		
 		$segArr   = $this->segmentArray();	
 			
 		$getVal   = array_search($get, $segArr);
@@ -278,7 +242,7 @@ class InternalURI extends \CallController implements URIInterface
 		
 		$return   = '';
 
-		for($i = $getVal; $i <= $indexVal; $i++)
+		for( $i = $getVal; $i <= $indexVal; $i++ )
 		{
 			$return .= $segArr[$i]."/";
 		}
@@ -287,37 +251,25 @@ class InternalURI extends \CallController implements URIInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Segment Methods Başlangıç
+	// Segment Array
 	//----------------------------------------------------------------------------------------------------
-	
-	/******************************************************************************************
-	* SEGMENT ARRAY                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Uri bölümlerini bir dizi tipinde veri olarak almak için kullanılır.     |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segmentArray; // array('test', 'zntr', 'yerli', 'framework')         |
-	|          																				  |
-	******************************************************************************************/
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function segmentArray()
 	{
 		$segmentEx = explode("/", $this->_cleanPath());
 		return $segmentEx;	
 	}
 	
-	/******************************************************************************************
-	* TOTAL SEGMENTS                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: totalSegments(); // 4                                                  |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Total Segments
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function totalSegments()
 	{
 		$segmentEx     = explode("/", $this->_cleanPath());	
@@ -327,43 +279,27 @@ class InternalURI extends \CallController implements URIInterface
 		return $totalSegments;
 	}
 	
-	/******************************************************************************************
-	* SEGMENT COUNT                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: totalSegments(); // 4                                                   |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Segment Count
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function segmentCount()
 	{
 		return $this->totalSegments();
 	}
 	
-	/******************************************************************************************
-	* SEGMENT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @seg => İstenilen segmentin segment numarası.			                  |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segment(1); // test                                                     |
-	| Örnek Kullanım: segment(2); // zntr                                                     |
-	| Örnek Kullanım: segment(3); // yerli                                                    |
-	|          																				  |
-	******************************************************************************************/
-	public function segment($seg = 1)
+	//----------------------------------------------------------------------------------------------------
+	// Segment
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $seg
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function segment(Int $seg = 1)
 	{
-		if( ! is_numeric($seg) ) 
-		{
-			return \Exceptions::throws('Error', 'numericParameter', 'seg');
-		}
-		
 		$segments = $this->segmentArray();
 		
 		if( $seg > 0 )
@@ -384,17 +320,13 @@ class InternalURI extends \CallController implements URIInterface
 		return false;
 	}	
 	
-	/******************************************************************************************
-	* CURRENT SEGMENT                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Urideki son segmenti verir.                                             |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: currentSegment(); // framework                                         |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Current Segment
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function currentSegment()
 	{	
 		return $this->current(false);
@@ -408,7 +340,7 @@ class InternalURI extends \CallController implements URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current($isPath = true)
+	public function current(Bool $isPath = true)
 	{
 		return currentPath($isPath);
 	}
@@ -421,7 +353,7 @@ class InternalURI extends \CallController implements URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base($uri = '', $index = 0)
+	public function base(String $uri = '', Int $index = 0)
 	{
 		return basePath($uri, $index);
 	}
@@ -434,12 +366,21 @@ class InternalURI extends \CallController implements URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prev($isPath = true)
+	public function prev(Bool $isPath = true)
 	{
 		return prevPath($isPath);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Segment Methods Bitiş
+	// Protected Clean Path
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//----------------------------------------------------------------------------------------------------
+	protected function _cleanPath()
+	{
+		$pathInfo = \Security::htmlEncode(internalRequestURI());
+	
+		return $pathInfo;
+	}
 }

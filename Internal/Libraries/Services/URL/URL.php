@@ -156,7 +156,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base($uri = '', $index = 0)
+	public function base(String $uri = '', Int $index = 0)
 	{
 		return baseUrl($uri, $index);
 	}
@@ -170,7 +170,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function site($uri = '', $index = 0)
+	public function site(String $uri = '', Int $index = 0)
 	{
 		return siteUrl($uri, $index);
 	}
@@ -183,7 +183,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current($fix = '')
+	public function current(String $fix = NULL)
 	{
 		return currentUrl($fix);
 	}
@@ -196,7 +196,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function host($uri = '')
+	public function host(String $uri = '')
 	{
 		return hostUrl($uri);
 	}
@@ -223,7 +223,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base64Decode($data = '', $strict = false)
+	public function base64Decode(String $data, Bool $strict = false)
 	{
 		return base64_decode($data, $strict);
 	}
@@ -236,7 +236,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base64Encode($data = '')
+	public function base64Encode(String $data)
 	{	
 		return base64_encode($data);
 	}
@@ -250,7 +250,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function headers($url = '', $format = 0)
+	public function headers(String $url, $format = 0)
 	{
 		return get_headers($url, $format);
 	}
@@ -264,7 +264,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function metaTags($fileName = '', $useIncludePath = false)
+	public function metaTags(String $fileName, Bool $useIncludePath = false)
 	{
 		return get_meta_tags($fileName, $useIncludePath);
 	}
@@ -280,7 +280,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function buildQuery($data = '', $numericPrefix = NULL, $separator = NULL, $enctype = 'RFC1738')
+	public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738')
 	{
 		return http_build_query($data, $numericPrefix, $separator, \Convert::toConstant($enctype, 'PHP_QUERY_'));	
 	}
@@ -294,7 +294,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function parse($url = '', $component = 1)
+	public function parse(String $url, Int $component = 1)
 	{
 		return parse_url($url, $component);
 	}
@@ -307,7 +307,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rawDecode($str = '')
+	public function rawDecode(String $str)
 	{
 		return rawurldecode($str);
 	}
@@ -320,7 +320,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rawEncode($str = '')
+	public function rawEncode(String $str)
 	{
 		return rawurlencode($str);
 	}
@@ -333,7 +333,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode($str = '')
+	public function decode(String $str)
 	{
 		return urldecode($str);
 	}
@@ -346,7 +346,7 @@ class InternalURL extends \CallController implements URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($str = '')
+	public function encode(String $str)
 	{
 		return urlencode($str);
 	}

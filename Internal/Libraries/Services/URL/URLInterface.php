@@ -12,7 +12,7 @@ interface URLInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-		//----------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------
 	// Base
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -21,7 +21,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function base($uri, $index);
+	public function base(String $uri = '', Int $index = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Site
@@ -32,7 +32,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function site($uri, $index);
+	public function site(String $uri = '', Int $index = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Current
@@ -42,7 +42,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function current($fix);
+	public function current(String $fix = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Host
@@ -52,7 +52,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function host($uri);
+	public function host(String $uri = '');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Prev
@@ -62,7 +62,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function prev();
+	public function prev();
 	
 	//----------------------------------------------------------------------------------------------------
 	// Base 64 Decode
@@ -73,7 +73,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function base64Decode($data, $strict);
+	public function base64Decode(String $data, Bool $strict = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Base 64 Encode
@@ -83,7 +83,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function base64Encode($data);
+	public function base64Encode(String $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Headers
@@ -94,7 +94,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function headers($url, $format);
+	public function headers(String $url, $format = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Headers
@@ -105,7 +105,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function metaTags($fileName, $useIncludePath);
+	public function metaTags(String $fileName, Bool $useIncludePath = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Build Query
@@ -118,7 +118,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function buildQuery($data, $numericPrefix, $separator, $enctype);
+	public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse
@@ -129,7 +129,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function parse($url, $component);
+	public function parse(String $url, Int $component = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Raw Decode
@@ -139,7 +139,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function rawDecode($str);
+	public  function rawDecode(String $str);
 
 	//----------------------------------------------------------------------------------------------------
 	// Raw Encode
@@ -149,7 +149,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function rawEncode($str);
+	public function rawEncode(String $str);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decode
@@ -159,7 +159,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function decode($str);
+	public function decode(String $str);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encode
@@ -169,5 +169,5 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function encode($str);
+	public function encode(String $str);
 }

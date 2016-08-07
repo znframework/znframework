@@ -12,39 +12,16 @@ interface URIInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* GET                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Uri üzerinde istenilen segmenti elde etmek için oluşturulmuş yötemdir.  |
-	|															                              |
-	| Parametreler: 3 parametresi vardır.                                                     |
-	| 1. string var @get => İstenilen segmentin bir önceki segment ismi.			          |
-	| 2. numeric var @index => Belirtilen segmentten kaç segment sonraki bölümün istendiği.   |
-	| 3. mixed var @while => Belirlenen segment aralığı alınsın mı?.	                      |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: get('test'); // zntr       		      								  |
-	| Örnek Kullanım: get('test', 2); // yerli       		      							  |
-	| Örnek Kullanım: get('test', 2, true); // zntr/yerli       		      				  |
-	| Örnek Kullanım: get('test', "count"); // test bölümü sonrası segment sayısı:3           |
-	| Örnek Kullanım: get('test', "all"); // zntr/yerli/framework    		                  |
-	| Örnek Kullanım: get('test', "framework"); // test/zntr/yerli/framework     		      |
-	|          																				  |
-	******************************************************************************************/
-	public function get($get, $index, $while);
-	
-	/******************************************************************************************
-	* SEGMENT ARRAY                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Uri bölümlerini bir dizi tipinde veri olarak almak için kullanılır.     |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segment[]; // array('test', 'zntr', 'yerli', 'framework')         |
-	|          																				  |
-	******************************************************************************************/
-	public function segmentArray();
+	//----------------------------------------------------------------------------------------------------
+	// Get
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param scalar $get
+	// @param scalar $index
+	// @param bool   $while
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function get($get = 1, $index = 1, Bool $while = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// getNameCount
@@ -55,7 +32,7 @@ interface URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getNameCount($get);
+	public function getNameCount(String $get);
 	
 	//----------------------------------------------------------------------------------------------------
 	// getNameAll
@@ -66,7 +43,7 @@ interface URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getNameAll($get);
+	public function getNameAll(String $get);
 	
 	//----------------------------------------------------------------------------------------------------
 	// getByIndex
@@ -78,7 +55,7 @@ interface URIInterface
 	// @param numeric $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getByIndex($get, $index);
+	public function getByIndex(Int $get = 1, Int $index = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// getByName
@@ -90,61 +67,51 @@ interface URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getByName($get, $index);
+	public function getByName(String $get, $index = NULL);
+
+	//----------------------------------------------------------------------------------------------------
+	// Segment Array
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function segmentArray();
 	
-	/******************************************************************************************
-	* TOTAL SEGMENTS                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: totalSegments(); // 4                                                   |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Total Segments
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function totalSegments();
 	
-	/******************************************************************************************
-	* SEGMENT COUNT                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: totalSegments(); // 4                                                   |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Segment Count
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function segmentCount();
 	
-	/******************************************************************************************
-	* SEGMENT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Uride yer alan toplam segment sayısı.                                   |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @seg => İstenilen segmentin segment numarası.			                  |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: segment(1); // test                                                     |
-	| Örnek Kullanım: segment(2); // zntr                                                     |
-	| Örnek Kullanım: segment(3); // yerli                                                    |
-	|          																				  |
-	******************************************************************************************/
-	public function segment($seg);
+	//----------------------------------------------------------------------------------------------------
+	// Segment
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $seg
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function segment(Int $seg = 1);
 	
-	/******************************************************************************************
-	* CURRENT SEGMENT                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Urideki son segmenti verir.                                             |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|    																					  |
-	| Örnek URL: http://www.example.com/test/zntr/yerli/framework      						  |
-	| Örnek Kullanım: currentSegment(); // framework                                         |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Current Segment
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function currentSegment();
 	
 	//----------------------------------------------------------------------------------------------------
@@ -155,7 +122,7 @@ interface URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current($isPath);
+	public function current(Bool $isPath = true);
 
 	//----------------------------------------------------------------------------------------------------
 	// Base
@@ -165,7 +132,7 @@ interface URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base($uri, $index);
+	public function base(String $uri = '', Int $index = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Prev
@@ -175,5 +142,5 @@ interface URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prev($isPath);
+	public function prev(Bool $isPath = true);
 }

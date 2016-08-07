@@ -30,12 +30,9 @@ class InternalRoute extends \Controller implements RouteInterface
 	// @param array $route
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change($route = [])
+	public function change(Array $route)
 	{
-		if( is_array($route) )
-		{
-			$this->route = $route;
-		}
+		$this->route = $route;
 		
 		return $this;
 	}
@@ -50,14 +47,14 @@ class InternalRoute extends \Controller implements RouteInterface
 	//  @return mixed
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function run($functionName = '', $functionRun = '', $route = [])
+	public function run(String $functionName, $functionRun = NULL, Array $route = NULL)
 	{
 		if( ! empty($this->route) )
 		{
 			$route = $this->route;
 		}
 		
-		if( is_array($route) && ! empty($route) )
+		if( ! empty($route) )
 		{
 			\Config::set('Route', 'changeUri', $route);	
 		}

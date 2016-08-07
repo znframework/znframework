@@ -19,7 +19,7 @@ interface SSHInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect($con);
+	public function connect(Array $config = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// close()
@@ -37,7 +37,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function command($command);
+	public function command(String $command);
 	
 	//----------------------------------------------------------------------------------------------------
 	// run()
@@ -46,7 +46,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function run($command);
+	public function run(String $command = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// output()
@@ -55,7 +55,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function output($length);
+	public function output(Int $length = 4096);
 	
 	//----------------------------------------------------------------------------------------------------
 	// upload()
@@ -65,7 +65,7 @@ interface SSHInterface
 	// @param string $remotePath: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function upload($localPath, $remotePath);
+	public function upload(String $localPath, String $remotePath);
 	
 	//----------------------------------------------------------------------------------------------------
 	// dowload()
@@ -75,7 +75,7 @@ interface SSHInterface
 	// @param string $localPath : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download($remotePath, $localPath);
+	public function download(String $remotePath, String $localPath);
 	
 	//----------------------------------------------------------------------------------------------------
 	// createFolder()
@@ -84,7 +84,7 @@ interface SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder($path, $mode, $recursive);
+	public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true);
 	
 	//----------------------------------------------------------------------------------------------------
 	// deleteFolder()
@@ -93,7 +93,7 @@ interface SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFolder($path);
+	public function deleteFolder(String $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// rename()
@@ -103,7 +103,7 @@ interface SSHInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function rename($oldName, $newName);
+	public function rename(String $oldName, String $newName);
 	
 	//----------------------------------------------------------------------------------------------------
 	// deleteFile()
@@ -112,7 +112,7 @@ interface SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFile($path);
+	public function deleteFile(String $path);
 	
 	//----------------------------------------------------------------------------------------------------
 	// permission()
@@ -122,5 +122,5 @@ interface SSHInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission($path, $type);
+	public function permission(String $path, Int $type = 0755);
 }

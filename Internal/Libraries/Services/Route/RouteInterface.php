@@ -19,7 +19,7 @@ interface RouteInterface
 	// @param array $route
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change($route);
+	public function change(Array $route);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Run
@@ -31,5 +31,5 @@ interface RouteInterface
 	//  @return mixed
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function run($functionName, $functionRun, $route);	
+	public function run(String $functionName, $functionRun, Array $route = NULL);	
 }
