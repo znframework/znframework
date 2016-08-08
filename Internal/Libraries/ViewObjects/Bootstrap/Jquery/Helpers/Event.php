@@ -14,616 +14,603 @@ class Event extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Jquery Trait                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @methods
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use JqueryTrait;
 	
-	/* Type Variables
-	 * Event Types
-	 * click, mouseover, keyup, ...
-	 *
-	 * bind('click'), bind('mouseover'), bind('keyup'), ...
-	 */
-	protected $type		= '';
+	//----------------------------------------------------------------------------------------------------
+	// Type                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	protected $type	= '';
 	
-	/*
-	 * parametreler
-	 *
-	 * @var string
-	 */
-	protected $params		= '';
+	//----------------------------------------------------------------------------------------------------
+	// Params                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	protected $params = '';
 	
-	/* Property Variables
-	 * Property
-	 * live, bind, unbind...
-	 *
-	 * .live(), .bind(), .unbind()
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Property                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	protected $property = 'bind';
 	
-	/* Protected Event
-	 * Params: string @type, string @selector, string @callback 
-	 * 
-	 *
-	 * 
-	 */
-	protected function _event($type = '', $selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Click                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function click(String $selector = NULL, String $callback = NULL)
 	{
-		if( ! is_string($selector) || ! is_string($callback) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'selector & callback');	
-		}
-		
-		$this->property = $type;
-		
-		if( ! empty($selector))
-		{
-			$this->selector($selector);	
-		}
-		
-		if( ! empty($callback))
-		{
-			$this->callback('e', $callback);	
-		}
-	}
-	
-	/* Click Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: click, @callback: 'alert("example");'
-	 * 
-	 * 'click', 'function(e){alert("example");}'
-	 */
-	public function click($selector = '', $callback = '')
-	{
-		$this->_event('click', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Blur Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: blur, @callback: 'alert("example");'
-	 * 
-	 * 'blur', 'function(e){alert("example");}'
-	 */
-	public function blur($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Blur                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function blur(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('blur', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Change Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: change, @callback: 'alert("example");'
-	 * 
-	 * 'change', 'function(e){alert("example");}'
-	 */
-	public function change($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Change                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function change(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('change', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Double Click Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: dblclick, @callback: 'alert("example");'
-	 * 
-	 * 'dblclick', 'function(e){alert("example");}'
-	 */
-	public function dblClick($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Dblclick                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function dblclick(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('dblclick', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Error Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: error, @callback: 'alert("example");'
-	 * 
-	 * 'error', 'function(e){alert("example");}'
-	 */
-	public function error($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Error                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function error(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('error', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Resize Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: resize, @callback: 'alert("example");'
-	 * 
-	 * 'resize', 'function(e){alert("example");}'
-	 */
-	public function resize($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Resize                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function resize(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('resize', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Scroll Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: scroll, @callback: 'alert("example");'
-	 * 
-	 * 'scroll', 'function(e){alert("example");}'
-	 */
-	public function scroll($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Scroll                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function scroll(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('scroll', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Load Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: load, @callback: 'alert("example");'
-	 * 
-	 * 'load', 'function(e){alert("example");}'
-	 */
-	public function load($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Load                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function load(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('load', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Ready Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: ready, @callback: 'alert("example");'
-	 * 
-	 * 'ready', 'function(e){alert("example");}'
-	 */
-	public function ready($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Ready                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function ready(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('ready', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Unload Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: unload, @callback: 'alert("example");'
-	 * 
-	 * 'unload', 'function(e){alert("example");}'
-	 */
-	public function unload($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Unload                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function unload(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('unload', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Focus Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: focus, @callback: 'alert("example");'
-	 * 
-	 * 'focus', 'function(e){alert("example");}'
-	 */
-	public function focus($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Focus                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function focus(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('focus', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Focus In Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: focusin, @callback: 'alert("example");'
-	 * 
-	 * 'focusin', 'function(e){alert("example");}'
-	 */
-	public function focusIn($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Focus In                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function focusIn(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('focusin', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Focus Out Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: focusout, @callback: 'alert("example");'
-	 * 
-	 * 'focusout', 'function(e){alert("example");}'
-	 */
-	public function focusOut($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Focus Out                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function focusOut(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('focusout', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Select Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: select, @callback: 'alert("example");'
-	 * 
-	 * 'select', 'function(e){alert("example");}'
-	 */
-	public function select($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Select                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function select(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('select', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Submit Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: submit, @callback: 'alert("example");'
-	 * 
-	 * 'submit', 'function(e){alert("example");}'
-	 */
-	public function submit($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Submit                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function submit(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('submit', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Keydown Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: keydown, @callback: 'alert("example");'
-	 * 
-	 * 'keydown', 'function(e){alert("example");}'
-	 */
-	public function keyDown($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Key Down                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function keyDown(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('keydown', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Keypress Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: keypress, @callback: 'alert("example");'
-	 * 
-	 * 'keypress', 'function(e){alert("example");}'
-	 */
-	public function keyPress($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Key Press                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function keyPress(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('keypress', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Keyup Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: keyup, @callback: 'alert("example");'
-	 * 
-	 * 'keyup', 'function(e){alert("example");}'
-	 */
-	public function keyUp($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Key Up                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function keyUp(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('keyup', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Hover Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: hover, @callback: 'alert("example");'
-	 * 
-	 * 'hover', 'function(e){alert("example");}'
-	 */
-	public function hover($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Hover                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function hover(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('hover', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
+		
+		return $this->create();
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Down                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseDown(String $selector = NULL, String $callback = NULL)
+	{
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Down Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mousedown, @callback: 'alert("example");'
-	 * 
-	 * 'mousedown', 'function(e){alert("example");}'
-	 */
-	public function mouseDown($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Enter                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseEnter(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mousedown', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Enter Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mouseenter, @callback: 'alert("example");'
-	 * 
-	 * 'mouseenter', 'function(e){alert("example");}'
-	 */
-	public function mouseEnter($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Leave                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseLeave(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mouseenter', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Leave Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mouseleave, @callback: 'alert("example");'
-	 * 
-	 * 'mouseleave', 'function(e){alert("example");}'
-	 */
-	public function mouseLeave($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Move                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseMove(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mouseleave', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Move Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mousemove, @callback: 'alert("example");'
-	 * 
-	 * 'mousemove', 'function(e){alert("example");}'
-	 */
-	public function mouseMove($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Out                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseOut(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mousemove', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Out Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mouseout, @callback: 'alert("example");'
-	 * 
-	 * 'mouseout', 'function(e){alert("example");}'
-	 */
-	public function mouseOut($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Over                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseOver(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mouseout', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Over Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mouseover, @callback: 'alert("example");'
-	 * 
-	 * 'mouseover', 'function(e){alert("example");}'
-	 */
-	public function mouseOver($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Mouse Up                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function mouseUp(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mouseover', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Mouse Up Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: mouseup, @callback: 'alert("example");'
-	 * 
-	 * 'mouseup', 'function(e){alert("example");}'
-	 */
-	public function mouseUp($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Toggle                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $selector
+	// @param string $callback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function toggle(String $selector = NULL, String $callback = NULL)
 	{
-		$this->_event('mouseup', $selector, $callback);
+		$this->_event(__FUNCTION__, $selector, $callback);
 		
 		return $this->create();
 	}
 	
-	/* Toogle Event
-	 * Params: string @selector, string @callback 
-	 * 
-	 * @selector: toggle, @callback: 'alert("example");'
-	 * 
-	 * 'toggle', 'function(e){alert("example");}'
-	 */
-	public function toggle($selector = '', $callback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Type                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $type
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+ 	public function type(String $type = 'click')
 	{
-		$this->_event('toggle', $selector, $callback);
-		
-		return $this->create();
-	}
-	
-	/* Event Type Function
-	 * Event Types
-	 * click, mouseover, keyup, ...
-	 *
-	 * bind('click'), bind('mouseover'), bind('keyup'), ...
-	 */
- 	public function type($type = 'click')
-	{
-		if( ! is_string($type))
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'type');
-			return $this;	
-		}
-		
 		$this->property = $type;
 		
 		return $this;
 	}	
 	
-	/* Bind Property Function
-	 * Bind
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .bind('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Bind                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function bind(...$args)
 	{
-		$this->property = 'bind';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* Unbind Property Function
-	 * Unbind
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .unbind('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Unbind                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function unbind(...$args)
 	{
-		$this->property = 'unbind';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 	
 		return $this;	
 	}
 	
-	/* Trigger Property Function
-	 * Trigger
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .trigger('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Trigger                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function trigger(...$args)
 	{
-		$this->property = 'trigger';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 	
 		return $this;	
 	}
 	
-	/* Trigger Handler Property Function
-	 * Trigger Handler
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .triggerHandler('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Trigger Handler                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function triggerHandler(...$args)
 	{
-		$this->property = 'triggerHandler';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* Delegate Property Function
-	 * Delegate
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .delegate('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Delegate                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function delegate(...$args)
 	{
-		$this->property = 'delegate';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* One Property Function
-	 * One
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .one('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// One                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function one(...$args)
 	{
-		$this->property = 'one';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* On Property Function
-	 * On
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .on('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// On                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function on(...$args)
 	{
-		$this->property = 'on';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* Off Property Function
-	 * Off
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .off('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Off                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function off(...$args)
 	{
-		$this->property = 'off';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* Live Property Function
-	 * live
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .live('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Live                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function live(...$args)
 	{
-		$this->property = 'live';
+		$this->property = __FUNCTION__;
 		$this->params   = $args;
 		
 		return $this;	
 	}
 	
-	/* Remove(Die) Property Function
-	 * Remove(Die): die is keyword so It is selected to name remove
-	 *
-	 * Params: arg1, art2, ... argN
-	 *
-	 * 'click', '', '' ...
-	 *
-	 * .die('click', '', '') 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Remove                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function remove(...$args)
 	{
 		$this->property = 'die';
@@ -632,11 +619,13 @@ class Event extends \CallController
 		return $this;	
 	}
 	
-	/* Complete Function
-	 *
-	 * Jquery script completing
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Complete                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function complete()
 	{	
 		if( isset($this->callback) ) 
@@ -651,11 +640,13 @@ class Event extends \CallController
 		return $event;
 	}
 	
-	/* Create Jquery Function
-	 *
-	 * Jquery script creating
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Create                                                             
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param variadic $args
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function create(...$args)
 	{
 		$combineEvent = $args;
@@ -672,11 +663,27 @@ class Event extends \CallController
 		return $this->_tag($event);
 	}
 	
-	/* Default Variable
-	 *
-	 * 
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Protected                                                              
+	//----------------------------------------------------------------------------------------------------
+	protected function _event($type, $selector, $callback)
+	{
+		$this->property = strtolower($type);
+		
+		if( ! empty($selector))
+		{
+			$this->selector($selector);	
+		}
+		
+		if( ! empty($callback))
+		{
+			$this->callback('e', $callback);	
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected                                                              
+	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariable()
 	{
 		$this->selector = 'this';
