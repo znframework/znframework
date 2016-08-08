@@ -157,23 +157,6 @@ class DriverUser
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected name()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $name: USER()
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _name($name = '')
-	{
-		if( ! empty($this->name) )
-		{
-			return $this->name;	
-		}
-		
-		return $name;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// host()
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -183,30 +166,6 @@ class DriverUser
 	public function host($host)
 	{
 		$this->host = '@'.$this->_stringQuote($host);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected _stringQuote()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $string: empty
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _stringQuote($string = '')
-	{
-		if( ! empty($string) )
-		{
-			if( ! preg_match('/^\w+\(.*?\)/xi', $string) )
-			{
-				$string = str_replace('@', '\'@\'', $string);	
-				
-				return ' \''.$string.'\' '; 
-			}
-			
-			return ' '.$string.' ';	
-		}
-		
-		return false;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -290,7 +249,7 @@ class DriverUser
 	// @param string $type      : BY
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _identifiedWithType($authPlugin = NULL, $authString = NULL, $type = 'BY')
+	protected function _identifiedWithType($authPlugin, $authString, $type = 'BY')
 	{
 		$this->identified = ' IDENTIFIED WITH '.$authPlugin.' '.$this->_stringQuote($authString);
 	}
@@ -426,18 +385,6 @@ class DriverUser
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected _lock()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string  $type: lock, unlock
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _lock($type = 'lock')
-	{
-		$this->lock = ' ACCOUNT '.$type.' ';
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// lock()
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -543,63 +490,6 @@ class DriverUser
 	public function adminRole($authString)
 	{
 		$this->parameters[4] = $authString;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected _process()
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string  $name       : USER()
-	// @param string  $type       : ALTER USER
-	// @param string  $grantType  : empty
-	// @param string  $grantSelect: empty
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _process($name = 'USER()', $type = 'ALTER USER', $grantType = '', $grantSelect = '')
-	{
-		$grant = '';
-		
-		if( $type === 'GRANT' || $type === 'REVOKE' )
-		{	
-			if( ! empty($this->type) )
-			{
-				$grantType = $this->type;			
-			}
-			
-			if( ! empty($this->select) )
-			{
-				$grantSelect = $this->select;			
-			}
-			
-			$toFrom = ( $type === 'REVOKE' ) ? ' FROM ' : ' TO ';
-			
-			$grant = ' '.$name.' ON '.$grantType.' '.$grantSelect.$toFrom;	
-			
-			$name = '';
-					  
-		}
-		
-		if( empty($this->name) )
-		{
-			$this->name($name);			
-		}
-		
-		$query = $type.' '.
-				 $grant.
-		         $this->name.
-				 $this->host. 
-				 $this->identified.
-				 $this->required.
-				 $this->encode.
-				 $this->with.
-				 $this->grantOption.
-				 $this->resource.
-				 $this->passwordExpire;
-				 $this->lock;
-	
-		$this->_resetQuery();
-
-		return $query;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -735,6 +625,116 @@ class DriverUser
 		$this->_resetQuery();
 		
 		return $query;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected _stringQuote()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $string: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _stringQuote($string)
+	{
+		if( ! empty($string) )
+		{
+			if( ! preg_match('/^\w+\(.*?\)/xi', $string) )
+			{
+				$string = str_replace('@', '\'@\'', $string);	
+				
+				return ' \''.$string.'\' '; 
+			}
+			
+			return ' '.$string.' ';	
+		}
+		
+		return false;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected _lock()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $type: lock, unlock
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _lock($type)
+	{
+		$this->lock = ' ACCOUNT '.$type.' ';
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected _process()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string  $name       : USER()
+	// @param string  $type       : ALTER USER
+	// @param string  $grantType  : empty
+	// @param string  $grantSelect: empty
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _process($name, $type, $grantType, $grantSelect)
+	{
+		$grant = '';
+		
+		if( $type === 'GRANT' || $type === 'REVOKE' )
+		{	
+			if( ! empty($this->type) )
+			{
+				$grantType = $this->type;			
+			}
+			
+			if( ! empty($this->select) )
+			{
+				$grantSelect = $this->select;			
+			}
+			
+			$toFrom = ( $type === 'REVOKE' ) ? ' FROM ' : ' TO ';
+			
+			$grant = ' '.$name.' ON '.$grantType.' '.$grantSelect.$toFrom;	
+			
+			$name = '';
+					  
+		}
+		
+		if( empty($this->name) )
+		{
+			$this->name($name);			
+		}
+		
+		$query = $type.' '.
+				 $grant.
+		         $this->name.
+				 $this->host. 
+				 $this->identified.
+				 $this->required.
+				 $this->encode.
+				 $this->with.
+				 $this->grantOption.
+				 $this->resource.
+				 $this->passwordExpire;
+				 $this->lock;
+	
+		$this->_resetQuery();
+
+		return $query;
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected name()
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name: USER()
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _name($name)
+	{
+		if( ! empty($this->name) )
+		{
+			return $this->name;	
+		}
+		
+		return $name;
 	}
 	
 	//----------------------------------------------------------------------------------------------------

@@ -100,7 +100,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable($data = [])
+	public function createTable(Array $data)
 	{
 		if( \DBForge::createTable($this->_tableName(), $data) )
 		{
@@ -138,7 +138,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($column = [])
+	public function addColumn(Array $column)
 	{
 		if( \DBForge::addColumn($this->_tableName(), $column) )	
 		{
@@ -176,7 +176,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($column = [])
+	public function modifyColumn(Array $column = [])
 	{
 		if( \DBForge::modifyColumn($this->_tableName(), $column) )
 		{
@@ -208,63 +208,18 @@ class InternalMigration extends \CallController implements MigrationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Action
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _action($type = '')
-	{
-		if( $type === '' )
-		{
-			$type = 'noAction';
-		}
-		
-		$table   = $this->_tableName();
-		$version = $this->_getVersion();
-		
-		\DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Table Name
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _tableName()
-	{
-		$table = preg_replace('/[0-9][0-9][0-9]/', '', $this->tbl);
-		
-		return str_replace($this->classFix, '', $table);	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Path
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param string path: NULL
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path($path = NULL)
+	public function path(String $path = NULL)
 	{
-		if( is_string($path) )
-		{
-			$this->path = suffix($path);
-		}
+		$this->path = suffix($path);
 		
 		return $this;
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Forge Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -273,7 +228,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param string $name -- Migrasyon Adı
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($name = '', $ver = 0)
+	public function create(String $name, Int $ver = 0)
 	{
 		if( $version = $this->_version($ver) )
 		{
@@ -339,7 +294,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param numeric $version
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name = '', $ver = 0)
+	public function delete(String $name, Int $ver = 0)
 	{
 		if( $version = $this->_version($ver) )
 		{
@@ -377,7 +332,53 @@ class InternalMigration extends \CallController implements MigrationInterface
 			return false;	
 		}
 	}
-	
+
+	//----------------------------------------------------------------------------------------------------
+	// Version
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric $numeric
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function version(Int $version = 0)
+	{
+		if( empty($this->tbl) )
+		{
+			return false;	
+		}
+		
+		$name = $this->classFix.$this->_tableName();
+		
+		if( $version <= 0 )
+		{
+			return uselib($name);	
+		}
+		
+		$name .= $this->_version($version);
+		
+		return uselib($name);	
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Action
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _action($type)
+	{
+		if( $type === '' )
+		{
+			$type = 'noAction';
+		}
+		
+		$table   = $this->_tableName();
+		$version = $this->_getVersion();
+		
+		\DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
+	}
+
 	//----------------------------------------------------------------------------------------------------
 	// Migrations Table Create
 	//----------------------------------------------------------------------------------------------------
@@ -399,37 +400,17 @@ class InternalMigration extends \CallController implements MigrationInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Manipulation Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Version Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// Version
+	// Table Name
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param numeric $numeric
+	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function version($version = 0)
+	protected function _tableName()
 	{
-		if( empty($this->tbl) )
-		{
-			return false;	
-		}
+		$table = preg_replace('/[0-9][0-9][0-9]/', '', $this->tbl);
 		
-		$name = $this->classFix.$this->_tableName();
-		
-		if( $version <= 0 )
-		{
-			return uselib($name);	
-		}
-		
-		$name .= $this->_version($version);
-		
-		return uselib($name);	
+		return str_replace($this->classFix, '', $table);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -475,8 +456,4 @@ class InternalMigration extends \CallController implements MigrationInterface
 		
 		return $numeric;
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Version Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

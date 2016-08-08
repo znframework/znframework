@@ -22,7 +22,7 @@ interface UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function register(Array $data, $autoLogin, String$activationReturnLink);
+	public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Update
@@ -35,7 +35,7 @@ interface UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update(String $old, String $new, String $newAgain, Array $data);
+	public function update(String $old, String $new, String $newAgain = NULL, Array $data = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Login
@@ -47,7 +47,7 @@ interface UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function login(String $un, String $pw, $rememberMe);
+	public function login(String $un, String $pw, $rememberMe = false) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Logout
@@ -58,7 +58,7 @@ interface UserInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function logout(String $redirectUrl, $time);
+		public function logout(String $redirectUrl = NULL, Int $time = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Login
@@ -68,7 +68,7 @@ interface UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function isLogin();
+	public function isLogin() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Forgot Password
@@ -79,7 +79,7 @@ interface UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function forgotPassword(String $email, String $returnLinkPath);
+	public function forgotPassword(String $email = NULL, String $returnLinkPath = NULL) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Activation Complete
@@ -89,7 +89,7 @@ interface UserInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function activationComplete();
+	public function activationComplete() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Data
@@ -99,7 +99,7 @@ interface UserInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $tbl);
+	public function data(String $tbl = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Active Count
@@ -109,7 +109,7 @@ interface UserInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function activeCount();
+	public function activeCount() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Banned Count
@@ -119,7 +119,7 @@ interface UserInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bannedCount();
+	public function bannedCount() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Count
@@ -129,5 +129,5 @@ interface UserInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function count();
+	public function count() : Int;
 }

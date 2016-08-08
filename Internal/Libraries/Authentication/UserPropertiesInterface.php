@@ -20,7 +20,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function autoLogin($autoLogin);
+	public function autoLogin($autoLogin = true);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Return Link
@@ -100,7 +100,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remember($remember);
+	public function remember(Bool $remember = true);
 
 	//----------------------------------------------------------------------------------------------------
 	// Username

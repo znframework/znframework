@@ -58,7 +58,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL)
+	public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL) : Bool
 	{	
 		if( isset($this->parameters['column']) )
 		{
@@ -187,14 +187,12 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update(String $old, String $new, String $newAgain = NULL, Array $data = NULL)
+	public function update(String $old, String $new, String $newAgain = NULL, Array $data = []) : Bool
 	{
 		// Bu işlem için kullanıcının
 		// oturum açmıl olması gerelidir.
 		if( $this->isLogin() )
 		{
-			$data = (array) $data;
-
 			if( isset($this->parameters['oldPassword']) )
 			{
 				$old = $this->parameters['oldPassword'];
@@ -295,10 +293,6 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Update Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
 	// Login
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -308,7 +302,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function login(String $un, String $pw, $rememberMe = false)
+	public function login(String $un, String $pw, $rememberMe = false) : Bool
 	{
 		if( isset($this->parameters['username']) )
 		{
@@ -424,7 +418,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function logout(String $redirectUrl = NULL, $time = 0)
+	public function logout(String $redirectUrl = NULL, Int $time = 0)
 	{	
 		$config     = $this->config;
 		$getColumns = $config['matching']['columns'];
@@ -445,7 +439,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 			\Cookie::delete($password );			
 			\Session::delete($username);
 			
-			redirect($redirectUrl, (int) $time);
+			redirect($redirectUrl, $time);
 		}
 	}
 
@@ -457,7 +451,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function isLogin()
+	public function isLogin() : Bool
 	{
 		$config     = $this->config;
 		$getColumns = $config['matching']['columns'];
@@ -505,7 +499,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function forgotPassword(String $email = NULL, String $returnLinkPath = NULL)
+	public function forgotPassword(String $email = NULL, String $returnLinkPath = NULL) : Bool
 	{
 		if( isset($this->parameters['email']) )
 		{
@@ -602,18 +596,13 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	}
 
 	//----------------------------------------------------------------------------------------------------
-	// Activation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
 	// Activation Complete
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param  void
-	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function activationComplete()
+	public function activationComplete() : Bool
 	{
 		// ------------------------------------------------------------------------------
 		// CONFIG/USER.PHP AYARLARI
@@ -668,7 +657,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _activation($user = '', $pass = '', $activationReturnLink = '', $email = '')
+	protected function _activation($user, $pass, $activationReturnLink, $email)
 	{
 		if( ! isUrl($activationReturnLink) )
 		{
@@ -709,14 +698,6 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 		}
 	}
 	
-	//----------------------------------------------------------------------------------------------------
-	// Activation Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Info Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
 	//----------------------------------------------------------------------------------------------------
 	// Data
 	//----------------------------------------------------------------------------------------------------
@@ -792,7 +773,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function activeCount()
+	public function activeCount() : Int
 	{
 		$activeColumn 	= $this->config['matching']['columns']['active'];	
 		$tableName 		= $this->config['matching']['table'];
@@ -813,7 +794,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 			}
 		}
 		
-		return false;
+		return 0;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -824,7 +805,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bannedCount()
+	public function bannedCount() : Int
 	{
 		$bannedColumn 	= $this->config['matching']['columns']['banned'];	
 		$tableName 		= $this->config['matching']['table'];
@@ -845,7 +826,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 			}
 		}
 		
-		return false;
+		return 0;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -856,7 +837,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function count()
+	public function count() : Int
 	{
 		$tableName = $this->config['matching']['table'];
 		

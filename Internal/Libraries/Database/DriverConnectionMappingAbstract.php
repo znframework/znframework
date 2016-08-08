@@ -76,7 +76,7 @@ abstract class DriverConnectionMappingAbstract
 	// @param array  $security
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function multiQuery($query, $security = NULL){}
+	public function multiQuery($query, $security){}
 
 	//----------------------------------------------------------------------------------------------------
 	// Trans Start

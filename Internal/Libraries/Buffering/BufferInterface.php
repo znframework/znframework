@@ -20,7 +20,7 @@ interface BufferInterface
 	// @return content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file(String $file);	
+	public function file(String $file) : String; 	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Take Func Buffer
@@ -31,7 +31,7 @@ interface BufferInterface
 	// @return callable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function func($func, Array $params);
+	public function func($func, Array $params = []);
 
 	//----------------------------------------------------------------------------------------------------
 	// Take Func Buffer
@@ -42,7 +42,7 @@ interface BufferInterface
 	// @return callable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($func, Array $params);
+	public function callback($func, Array $params = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -54,7 +54,7 @@ interface BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $data, Array $params);
+	public function insert(String $name, $data, Array $params = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -74,5 +74,5 @@ interface BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name);
+	public function delete($name) : Bool;
 }

@@ -22,7 +22,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($param);
+	public function width(Int $param);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Height
@@ -34,7 +34,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($param);
+	public function height(Int $param);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Size
@@ -47,7 +47,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($width, $height);
+	public function size(Int $width, Int $height);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Length
@@ -59,7 +59,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length($param);
+	public function length(Int $param);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border
@@ -73,7 +73,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border(Boolean $is, String $color);
+	public function border(Bool $is = true, String $color = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border Color
@@ -134,7 +134,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textSize($size);
+	public function textSize(Int $size);
 		
 	//----------------------------------------------------------------------------------------------------
 	// Text Coordinate
@@ -147,7 +147,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textCoordinate($x, $y);
+	public function textCoordinate(Int $x, Int $y);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Text Color
@@ -174,7 +174,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function text($size, $x, $y, String $color);
+	public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Grid
@@ -188,7 +188,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grid(Boolean $is, String $color);
+	public function grid(Bool $is = true, String $color = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Grid Color
@@ -213,7 +213,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridSpace($X, $y);
+	public function gridSpace(Int $x = 0, Int $y = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -226,7 +226,7 @@ interface CaptchaInterface
 	// @return midex
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(Boolean $img, Array $configs);
+	public function create(Bool $img = false, Array $configs = []) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get Code
@@ -238,5 +238,5 @@ interface CaptchaInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getCode();
+	public function getCode() : String;
 }

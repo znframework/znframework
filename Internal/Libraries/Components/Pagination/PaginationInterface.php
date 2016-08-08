@@ -19,7 +19,7 @@ interface PaginationInterface
 	// @param array $config
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $config);
+	public function settings(Array $config = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create                                                                               
@@ -29,5 +29,5 @@ interface PaginationInterface
 	// @param array $settings
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function create($start, Array $settings);
+	public function create($start, Array $settings = []) : String;
 }

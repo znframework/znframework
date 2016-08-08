@@ -60,3 +60,15 @@ $config['Autoloader']['classMap'] =
 //
 //----------------------------------------------------------------------------------------------------
 $config['Autoloader']['aliases'] = [];
+
+//----------------------------------------------------------------------------------------------------
+// Composer                                                                       
+//----------------------------------------------------------------------------------------------------
+//
+// Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.   
+// Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının       
+// dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir. 			  
+// Example: 'example/vendor/autoload.php' / true / false														          
+//
+//----------------------------------------------------------------------------------------------------
+$config['Autoloader']['composer'] = false;

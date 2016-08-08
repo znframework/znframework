@@ -12,7 +12,16 @@ interface CompressInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function extract(String $source, String $target, $password);
+	//----------------------------------------------------------------------------------------------------
+	// Extract
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param  string $source
+	// @param  string $target
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function extract(String $source, String $target = NULL, String $password = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Write
@@ -23,7 +32,7 @@ interface CompressInterface
 	// @param string $mode
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function write(String $file, $data, $mode);
+	public function write(String $file, String $data, String $mode = 'w');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Read
@@ -34,7 +43,7 @@ interface CompressInterface
 	// @param string  $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function read(String $file, $length, $type);
+	public function read(String $file, Int $length = 1024, String $mode = 'r') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Compress
@@ -45,7 +54,7 @@ interface CompressInterface
 	// @param mixed   $workFactor
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compress($data, $blockSize, $workFactor);
+	public function compress(String $data, Int $level = -1, String $encoding = NULL) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Uncompress
@@ -55,28 +64,27 @@ interface CompressInterface
 	// @param numeric $small
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function uncompress($data, $small);
+	public function uncompress(String $data, Int $length = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encode
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param string  $data
-	// @param numeric $level
 	// @param mixed   $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode($data, $level, $encoding);
+	public function encode(String $data, Int $level = -1, String $encoding = NULL) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decode
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param string  $data
-	// @param numeric $length
+	// @param string  $length
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode($data, $length);
+	public function decode(String $data, Int $length = NULL) : String ;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Deflate
@@ -87,7 +95,7 @@ interface CompressInterface
 	// @param mixed   $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deflate($data, $level, $encoding);
+	public function deflate(String $data, Int $level = -1, String $encoding = NULL) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Inflate
@@ -97,7 +105,7 @@ interface CompressInterface
 	// @param numeric $length
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function inflate($data, $length);
+	public function inflate(String $data, Int $length = 0) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Driver                                                                       

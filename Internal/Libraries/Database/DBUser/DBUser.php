@@ -290,10 +290,8 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: lock, unlock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lock(String $type = NULL)
+	public function lock(String $type = 'lock')
 	{
-		nullCoalesce($type, 'lock');
-
 		$this->user->lock($type);
 		
 		return $this;
@@ -306,10 +304,8 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: unlock, lock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function unlock(String $type = NULL)
+	public function unlock(String $type = 'unlock')
 	{
-		nullCoalesce($type, 'unlock');
-
 		$this->user->unlock($type);
 		
 		return $this;
@@ -322,10 +318,8 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: TABLE, FUNCTION, PROCEDURE
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type = NULL)
+	public function type(String $type = 'TABLE')
 	{
-		nullCoalesce($type, 'TABLE');
-
 		$this->user->type($type);
 		
 		return $this;
@@ -338,10 +332,8 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $select = NULL)
+	public function select(String $select = '*.*')
 	{
-		nullCoalesce($select, '*.*');
-
 		$this->user->select($select);
 		
 		return $this;
@@ -410,10 +402,8 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function adminRole(String $authString = NULL)
+	public function adminRole(String $authString = 'GRANT')
 	{
-		nullCoalesce($authString, 'GRANT');
-
 		$this->user->adminRole($authString);
 		
 		return $this;
@@ -476,13 +466,10 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grant(String $name = NULL, String $type = NULL, String $select = NULL)
+	public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*')
 	{
-		nullCoalesce($name,   'ALL');
-		nullCoalesce($select, '*.*');
-
 		$query = $this->user->grant($name, $type, $select);
-;
+
 		return $this->_runQuery($query);
 	}
 	
@@ -495,11 +482,8 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function revoke(String $name = NULL, String $type = NULL, String $select = NULL)
+	public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*')
 	{
-		nullCoalesce($name,   'ALL');
-		nullCoalesce($select, '*.*');
-
 		$query = $this->user->revoke($name, $schema);
 
 		return $this->_runQuery($query);

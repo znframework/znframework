@@ -88,13 +88,8 @@ class Config
 	// @return array
 	// 
 	//----------------------------------------------------------------------------------------------------
-	public static function get($file = '', $configs = '')
+	public static function get(String $file, String $configs = NULL)
 	{	
-		if( ! is_string($file) || empty($file) ) 
-		{
-			return false;
-		}
-		
 		self::_config($file);
 		
 		if( isset(self::$setConfigs[$file]) )
@@ -142,13 +137,8 @@ class Config
 	// @return array
 	// 
 	//----------------------------------------------------------------------------------------------------
-	public static function set($file = '', $configs = '', $set = '')
+	public static function set(String $file, $configs, $set = NULL)
 	{
-		if( ! is_string($file) || empty($file) ) 
-		{
-			return false;
-		}
-		
 		if( empty($configs) ) 
 		{
 			return false;
@@ -180,7 +170,7 @@ class Config
 	// @return void
 	// 
 	//----------------------------------------------------------------------------------------------------
-	public static function iniSet($key = '', $val = '')
+	public static function iniSet($key, $val = NULL)
 	{
 		if( empty($key) ) 
 		{
@@ -219,13 +209,8 @@ class Config
 	// @return mixed
 	// 
 	//----------------------------------------------------------------------------------------------------
-	public static function iniGet($key = '')
+	public static function iniGet($key)
 	{
-		if( empty($key) ) 
-		{
-			return false;
-		}
-		
 		if( ! is_array($key) )
 		{	
 			return ini_get($key);
@@ -252,7 +237,7 @@ class Config
 	// @return array
 	// 
 	//----------------------------------------------------------------------------------------------------
-	public static function iniGetAll($extension = '', $details = true)
+	public static function iniGetAll(String $extension = NULL, Bool $details = true)
 	{
 		if( empty($extension) ) 
 		{
@@ -272,7 +257,7 @@ class Config
 	// @return bool
 	// 
 	//----------------------------------------------------------------------------------------------------
-	public static function iniRestore($str = '')
+	public static function iniRestore(String $str)
 	{
 		return ini_restore($str);	
 	}

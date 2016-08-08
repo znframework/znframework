@@ -19,7 +19,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
- 	public function extract()
+ 	public function extract($source, $target, $password)
 	{
 		return false;	
 	}
@@ -31,7 +31,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function write()
+	public function write($file, $data, $mode)
 	{
 		return false;	
 	}
@@ -43,7 +43,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function read()
+	public function read($file, $length, $mode)
 	{
 		return false;	
 	}
@@ -55,7 +55,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compress()
+	public function compress($data, $level, $encoding)
 	{
 		return false;
 	}
@@ -67,7 +67,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function uncompress()
+	public function uncompress($data, $length)
 	{
 		return false;
 	}
@@ -79,7 +79,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode()
+	public function encode($data, $level, $encoding) 
 	{
 		return false;	
 	}
@@ -91,7 +91,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode()
+	public function decode($data, $length)
 	{
 		return false;	
 	}
@@ -103,7 +103,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deflate()
+	public function deflate($data, $level, $encoding)
 	{
 		return false;	
 	}
@@ -115,7 +115,7 @@ class DriverMapping
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function inflate()
+	public function inflate($data, $length)
 	{
 		return false;
 	}

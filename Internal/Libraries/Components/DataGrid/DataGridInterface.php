@@ -31,7 +31,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function processColumn(String $column, Boolean $editable);
+	public function processColumn(String $column, Bool $editable = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -51,7 +51,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($limit);
+	public function limit(Int $limit = 20);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -99,8 +99,8 @@ interface DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param  void
-	// @return object
+	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create();
+	public function create() : String;
 }

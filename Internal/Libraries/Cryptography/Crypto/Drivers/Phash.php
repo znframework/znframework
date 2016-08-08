@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
+use ZN\Cryptography\CryptoMapping;
 
-class PhashDriver extends CryptoAbstract
+class PhashDriver extends CryptoMapping
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,6 +14,13 @@ class PhashDriver extends CryptoAbstract
 	//
 	//----------------------------------------------------------------------------------------------------
 
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
 		if( ! isPhpVersion('5.5.0') )
@@ -22,18 +29,14 @@ class PhashDriver extends CryptoAbstract
 		}	
 	}
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "PhashDriver::$method()"));	
-	}
-	
-	public function keygen($length = 8)
+	//----------------------------------------------------------------------------------------------------
+	// Keygen
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param numeric $length
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function keygen($length)
 	{
 		return mb_substr(password_hash(\Config::get('Encode', 'projectKey'), PASSWORD_BCRYPT), -$length);
 	}

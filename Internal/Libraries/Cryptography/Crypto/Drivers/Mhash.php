@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
+use ZN\Cryptography\CryptoMapping;
 
-class MhashDriver extends CryptoAbstract
+class MhashDriver extends CryptoMapping
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,7 +14,15 @@ class MhashDriver extends CryptoAbstract
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	public function encrypt($data = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Encrypt
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $data
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function encrypt($data, $settings)
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : \Config::get('Encode', 'projectKey'); 
@@ -25,7 +33,14 @@ class MhashDriver extends CryptoAbstract
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}
 	
-	public function keygen($length = 8)
+	//----------------------------------------------------------------------------------------------------
+	// Keygen
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param numeric $length
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function keygen($length)
 	{
 		return mhash_keygen_s2k(MHASH_MD5, md5(mt_rand()), md5(mt_rand()), $length);
 	}

@@ -168,10 +168,10 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function processColumn(String $column, Boolean $editable = NULL)
+	public function processColumn(String $column, Bool $editable = false)
 	{
 		$this->processColumn   = $column;	
-		$this->processEditable = $editable === NULL ? false : $editable;
+		$this->processEditable = $editable;
 		
 		return $this;
 	}
@@ -199,9 +199,9 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($limit = 20)
+	public function limit(Int $limit = 20)
 	{
-		$this->limit = (int) $limit;
+		$this->limit = $limit;
 		
 		return $this;
 	}
@@ -276,6 +276,38 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 		return $this;
 	}
 	
+	//----------------------------------------------------------------------------------------------------
+	// Create
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param  void
+	// @return object
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function create() : String
+	{
+		if( empty($this->columns) )
+		{
+			$query   = $this->_query();
+			$columns = $query->columns();	
+			
+			if( isArray($columns) ) foreach( $columns as $column )
+			{
+				$this->columns[$column] = ['alias' => $column, 'title' => $this->_title($column), 'input' => 'text'];	
+			}
+		}
+		
+		$this->_table();	
+		
+		\Session::delete($this->prowData);
+		
+		$return = $this->_ajaxTable();
+		
+		$this->_defaultVariables();
+		
+		return $return;
+	}
+
 	//----------------------------------------------------------------------------------------------------
 	// Protected Generate Input
 	//----------------------------------------------------------------------------------------------------
@@ -353,13 +385,13 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 			\Session::insert($this->prowData, $prow);
 		}
 		
-		$editId      		= \Method::post('editId');
-		$deleteId    		= \Method::post('deleteId');
-		$deleteCurrentId    = \Method::post('deleteCurrentId');
-		$deleteAllId 		= \Method::post('deleteAllId');
-		$updateId    		= \Method::post('updateId');
-		$addId	     		= \Method::post('addId');
-		$saveId      		= \Method::post('saveId');
+		$editId      		= \Method::post('editId')          ?? 'undefined';
+		$deleteId    		= \Method::post('deleteId')        ?? 'undefined';
+		$deleteCurrentId    = \Method::post('deleteCurrentId') ?? 'undefined';
+		$deleteAllId 		= \Method::post('deleteAllId')     ?? 'undefined';
+		$updateId    		= \Method::post('updateId')        ?? 'undefined';
+		$addId	     		= \Method::post('addId')           ?? 'undefined';
+		$saveId      		= \Method::post('saveId')          ?? 'undefined';
 		$datas       		= \Method::post();	
 		
 		$processColumn = $this->processColumn;
@@ -738,7 +770,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 			$table .= '<td align="right">'.\Form::id('datagridSave')->button('datagridSave', $this->config['buttonNames']['save'], $saveAttr).'</td>';
 			$table .= '</tr>'.EOL;
 		}
-		
+
 		if( isArray($rows) ) foreach( $rows as $key => $row )
 		{
 			$no = ($key + 1);
@@ -932,38 +964,6 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Create
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param  void
-	// @return object
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function create()
-	{
-		if( empty($this->columns) )
-		{
-			$query   = $this->_query();
-			$columns = $query->columns();	
-			
-			if( isArray($columns) ) foreach( $columns as $column )
-			{
-				$this->columns[$column] = ['alias' => $column, 'title' => $this->_title($column), 'input' => 'text'];	
-			}
-		}
-		
-		$this->_table();	
-		
-		\Session::delete($this->prowData);
-		
-		$return = $this->_ajaxTable();
-		
-		$this->_defaultVariables();
-		
-		return $return;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Protected Ajax Table
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -1041,13 +1041,8 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 		
 		$table .= \Script::open(true, $this->config['cdn']['jquery'], $this->config['cdn']['jqueryUi']);
 		
-		$ajax = \Jquery::ajax()->success
-		(
-			'data', 
-			\JQ::html('tbody[datagrid="result"]', ':data.grid').
-			\JQ::html('td[datagrid="pagination"]', ':data.pagination').
-			\JQ::html('td[datagrid="totalRows"]', ':data.totalRows')
-		)
+		$ajax = \Jquery::ajax()
+		->contentType('application/json')
 		->dataType('json')
 		->data
 		(
@@ -1063,6 +1058,13 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 			"&deleteCurrentId=" + '.\JQ::attr(':selector', '"DGDeleteCurrentId"', false).' +
 			"&deleteAllId="     + '.\JQ::attr(':selector', '"DGDeleteAllId"', false).' +
 			"&prow="            + '.\JQ::attr(':selector', '"prow"', false)
+		)
+		->success
+		(
+			'data', 
+			\JQ::html('tbody[datagrid="result"]', ':data.grid').
+			\JQ::html('td[datagrid="pagination"]', ':data.pagination').
+			\JQ::html('td[datagrid="totalRows"]', ':data.totalRows')
 		)
 		->send();	
 		

@@ -19,7 +19,7 @@ class InternalSchedule extends \CallController implements ScheduleInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(Array $data)
+	public function create(Array $data) : String
 	{ 			
 		return $this->_element($data, '', 0);
 	}
@@ -33,7 +33,7 @@ class InternalSchedule extends \CallController implements ScheduleInterface
 	// @param numeric $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _element($data = '', $tab = '', $start = 0)
+	protected function _element($data, $tab, $start)
 	{
 		static $start;
 		

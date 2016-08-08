@@ -21,7 +21,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $key, $compressed);
+	public function select(String $key, $compressed = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -34,7 +34,7 @@ interface CacheInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $key, $var, $time, $expressed);
+	public function insert(String $key, $var, Int $time = 60, $compressed = false);
 		
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -55,7 +55,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment(String $key, $increment);
+	public function increment(String $key, Int $increment = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Deccrement
@@ -66,7 +66,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement(String $key, $decrement);
+	public function decrement(String $key, Int $decrement = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Clean

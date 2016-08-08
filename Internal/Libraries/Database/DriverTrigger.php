@@ -55,7 +55,7 @@ class DriverTrigger
 	// @param string $type: BEFORE, AFTER
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function when($type = '')
+	public function when($type)
 	{
 		$this->when = $type;
 	}
@@ -67,7 +67,7 @@ class DriverTrigger
 	// @param string $type: INSERT, UPDATE, DELETE
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function event($type = '')
+	public function event($type)
 	{
 		$this->event = $type;
 	}
@@ -79,7 +79,7 @@ class DriverTrigger
 	// @param string $type: FOLLOWS, PRECEDES
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function order($type = '', $name = '')
+	public function order($type, $name)
 	{
 		$this->order = $type.' '.$name;
 	}
@@ -108,7 +108,7 @@ class DriverTrigger
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTrigger($name = '')
+	public function createTrigger($name)
 	{
 		$query = 'CREATE TRIGGER '.$name.
 		         ' '.$this->when.
@@ -131,7 +131,7 @@ class DriverTrigger
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTrigger($name = '')
+	public function dropTrigger($name)
 	{
 		return 'DROP TRIGGER '.$name;
 	}

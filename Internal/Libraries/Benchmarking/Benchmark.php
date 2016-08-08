@@ -128,13 +128,8 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function elapsedTime(String $result, $decimal = 4)
+	public function elapsedTime(String $result, Int $decimal = 4) : Float
 	{   
-		if( ! is_numeric($decimal) ) 
-		{
-			$decimal = 4;
-		}
-		
 		$resend  = $result."_end";
 		$restart = $result."_start";
 		
@@ -156,7 +151,7 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function usedFiles(String $result = NULL)
+	public function usedFiles(String $result = NULL) : Array
 	{
 		if( empty($result) )
 		{
@@ -180,11 +175,11 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function usedFileCount(String $result = NULL)
+	public function usedFileCount(String $result = NULL) : Int
 	{
 		if( empty($result) )
 		{
-			return get_required_files();
+			return count(get_required_files());
 		}
 		
 		$resend  = $result."_end";
@@ -204,7 +199,7 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculatedMemory(String $result)
+	public function calculatedMemory(String $result) : Int
 	{
 		$resend  = $result."_end";
 		$restart = $result."_start";
@@ -237,10 +232,8 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function memoryUsage(Boolean $realMemory = NULL)
+	public function memoryUsage(Bool $realMemory = false) : Int
 	{
-		nullCoalesce($realMemory, false);
-
 		return  memory_get_usage($realMemory);
 	}
 	
@@ -252,10 +245,8 @@ class InternalBenchmark extends \CallController implements BenchmarkInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function maxMemoryUsage(Boolean $realMemory = NULL)
+	public function maxMemoryUsage(Bool $realMemory = false) : Int
 	{
-		nullCoalesce($realMemory, false);
-
 		return  memory_get_peak_usage($realMemory);
 	}
 	

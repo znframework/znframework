@@ -81,7 +81,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $key, $var, $time = 60, $compressed = false)
+	public function insert(String $key, $var, Int $time = 60, $compressed = false)
 	{
 		return $this->cache->insert($key, $var, $time, $compressed);
 	}
@@ -108,7 +108,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment(String $key, $increment = 1)
+	public function increment(String $key, Int $increment = 1)
 	{
 		return $this->cache->increment($key, $increment);
 	}
@@ -122,7 +122,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement(String $key, $decrement = 1)
+	public function decrement(String $key, Int $decrement = 1)
 	{
 		return $this->cache->decrement($key, $decrement);
 	}

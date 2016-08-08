@@ -21,11 +21,13 @@ class InternalTerminal extends \Requirements implements TerminalInterface
 	//----------------------------------------------------------------------------------------------------
 	const CONFIG_NAME  = 'Components:terminal';
 	
-	/******************************************************************************************
-	* PROTECTED CLEAR COMMAND                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Oturum verilerini sıfılar.			  	                  		 	  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Protected Clear Command
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function clearCommand()
 	{	
 		unset($_SESSION['persistCommands']);
@@ -33,22 +35,16 @@ class InternalTerminal extends \Requirements implements TerminalInterface
 		unset($_SESSION['commands']);
 	}
 	
-	/******************************************************************************************
-	* RUN                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Terminali çalıştırır.					 	 						      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @terminalType => php , cmd.											      |
-	| 2. array var @settings => Terminal ayarları.						 				      |
-	|          																				  |
-	| Örnek Kullanım: Terminal::run('cmd');        	  										  |
-	|          																				  |
-	******************************************************************************************/
-	public function run(String $terminalType = NULL, Array $settings = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// Run
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $terminalType
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function run(String $terminalType = 'php', Array $settings = [])
 	{
-		nullCoalesce($terminalType, 'php');		
-
 		$configs = $this->config;
 		
 		$settings['width'] 		=  isset($settings['width']) 	  ? $settings['width']      : $configs['width'];

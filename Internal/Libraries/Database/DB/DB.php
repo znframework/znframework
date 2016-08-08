@@ -399,7 +399,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column, $value = NULL, String $logical = NULL)
+	public function where($column, String $value = NULL, String $logical = NULL)
 	{
 		$this->_wh($column, $value, $logical, __FUNCTION__);
 		
@@ -443,7 +443,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column, $value = NULL, String $logical = NULL)
+	public function having($column, String $value = NULL, String $logical = NULL)
 	{
 		$this->_wh($column, $value, $logical, __FUNCTION__);
 		
@@ -823,7 +823,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function maxStatementTime($time)
+	public function maxStatementTime(String $time)
 	{ 
 		$this->maxStatementTime = ' MAX_STATEMENT_TIME '.$time.' '; 
 		return $this; 
@@ -980,7 +980,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param bool   $return
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function characterSet(String $set, $return = false)
+	public function characterSet(String $set, Bool $return = false)
 	{ 
 		$string = 'CHARACTER SET '.$set.' ';
 		

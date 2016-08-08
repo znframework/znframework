@@ -58,16 +58,15 @@ class InternalCompress extends \CallController implements CompressInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Extract Method Başlangıç
+	// Extract
 	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* EXTRACT 		                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Sıkıştırılmış dosyaları çıkartır.								     	  |
-	|          																				  |
-	******************************************************************************************/
-	public function extract(String $source, String $target = NULL, $password = NULL)
+	// 
+	// @param  string $source
+	// @param  string $target
+	// @return bool
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function extract(String $source, String $target = NULL, String $password = NULL)
 	{
 		if( ! is_file($source) )
 		{
@@ -78,20 +77,15 @@ class InternalCompress extends \CallController implements CompressInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Extract Method Bitiş
+	// Write
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string $file
+	// @param string $data
+	// @param string $mode
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Write Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* WRITE   		                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Veriyi sıkıştırarak dosyaya yazar.							     	  |
-	|          																				  |
-	******************************************************************************************/
-	public function write(String $file, $data, $mode = 'w')
+	public function write(String $file, String $data, String $mode = 'w')
 	{
 		if( ! is_scalar($data) )
 		{
@@ -101,159 +95,98 @@ class InternalCompress extends \CallController implements CompressInterface
 		return $this->compress->write($file, $data, $mode);
 	}
 	
-	/******************************************************************************************
-	* READ   		                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Sıkıştırılmış veriyi dosyadan okur.							     	  |
-	|          																				  |
-	******************************************************************************************/
-	public function read(String $file, $length = 1024, $mode = 'r')
+	//----------------------------------------------------------------------------------------------------
+	// Read
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string  $file
+	// @param numeric $length
+	// @param string  $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function read(String $file, Int $length = 1024, String $mode = 'r') : String
 	{
-		if( ! is_numeric($length) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		return $this->compress->read($file, $length, $mode);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Write Methods Bitiş
+	// Compress
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string  $data
+	// @param int     $level
+	// @param string  $encoding
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Compress Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* COMPRESS		                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Verilen dizgeyi gz kodlamalı olarak sıkıştırır.				     	  |
-	|          																				  |
-	******************************************************************************************/
-	public function compress($data, $level = -1, $encoding = ZLIB_ENCODING_DEFLATE)
+	public function compress(String $data, Int $level = -1, String $encoding = NULL) : String
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
-		}
-
 		return $this->compress->compress($data, $level, $encoding);
 	}
 	
-	/******************************************************************************************
-	* UNCOMPRESS	                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Gz ile sıkıştırılmış veriyi açar.								     	  |
-	|          																				  |
-	******************************************************************************************/
-	public function uncompress($data, $length = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Uncompress
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string  $data
+	// @param numeric $small
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function uncompress(String $data, Int $length = 0) : String
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		return $this->compress->uncompress($data, $length);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Compress Methods Bitiş
+	// Encode
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string  $data
+	// @param int     $level
+	// @param string  $encoding
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Encode Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* ENCODE		                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Gzipli bir dizge oluşturur.				     						  |
-	|          																				  |
-	******************************************************************************************/
-	public function encode($data, $level = -1, $encoding = FORCE_GZIP)
+	public function encode(String $data, Int $level = -1, String $encoding = NULL) : String
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
-		}
-
 		return $this->compress->encode($data, $level, $encoding);
 	}
 	
-	/******************************************************************************************
-	* DECODE	                                                      	                      *
-	*******************************************************************************************
-	| Genel Kullanım: Gzipli bir dizgenin sıkıştırmasını açar.								  |
-	|          																				  |
-	******************************************************************************************/
-	public function decode($data, $length = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Decode
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string  $data
+	// @param numeric $length
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function decode(String $data, Int $length = NULL) : String 
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		return $this->compress->decode($data, $length);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Encode Methods Bitiş
+	// Deflate
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string  $data
+	// @param numeric $level
+	// @param string  $encoding
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Deflate Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* DEFLATE		                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizgeyi deflate biçeminde sıkıştırır.								  |
-	|          																				  |
-	******************************************************************************************/
-	public function deflate($data, $level = -1, $encoding = ZLIB_ENCODING_RAW)
+	public function deflate(String $data, Int $level = -1, String $encoding = NULL) : String
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($level) || ! is_numeric($encoding) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '2.(level) & 3.(encoding)');	
-		}
-
 		return $this->compress->deflate($data, $level, $encoding);
 	}
 	
-	/******************************************************************************************
-	* INFLATE	                                                      	                      *
-	*******************************************************************************************
-	| Genel Kullanım: Deflate bir dizgenin sıkıştırmasını açar.								  |
-	|          																				  |
-	******************************************************************************************/
-	public function inflate($data, $length = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Inflate
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string  $data
+	// @param numeric $length
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function inflate(String $data, Int $length = 0) : String
 	{
-		if( ! is_scalar($data) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', '1.(data)');	
-		}
-		
-		if( ! is_numeric($length) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '2.(length)');	
-		}
-		
 		return $this->compress->inflate($data, $length);
 	}
 	

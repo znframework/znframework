@@ -30,7 +30,7 @@ interface DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column, $value = NULL, String $logical = NULL);
+	public function where($column, String $value = NULL, String $logical = NULL);
 	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ interface DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column, $value = NULL, String $logical = NULL);
+	public function having($column, String $value = NULL, String $logical = NULL);
 
 	//----------------------------------------------------------------------------------------------------
 	// Where Group
@@ -508,7 +508,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function maxStatementTime($time);
+	public function maxStatementTime(String $time);
 
 	//----------------------------------------------------------------------------------------------------
 	// Distinct Row
@@ -616,7 +616,7 @@ interface DBInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function characterSet(String $set, $return);
+	public function characterSet(String $set, Bool $return = false);
 
 	//----------------------------------------------------------------------------------------------------
 	// Character Set

@@ -140,7 +140,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remember($remember = true)
+	public function remember(Bool $remember = true)
 	{
 		$this->parameters['remember'] = $remember;
 		

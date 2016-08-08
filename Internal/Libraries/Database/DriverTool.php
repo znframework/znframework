@@ -135,7 +135,7 @@ class DriverTool
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repairTables($table = '*')
+	public function repairTables($table)
 	{
 		$result = \DB::query("SHOW TABLES")->result();
 		
@@ -186,7 +186,7 @@ class DriverTool
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables = '*', String $fileName = NULL, $path = STORAGE_DIR)
+	public function backup($tables, $fileName, $path)
 	{		
 		if( $path === STORAGE_DIR )
 		{

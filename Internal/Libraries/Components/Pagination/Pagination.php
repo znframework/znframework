@@ -46,10 +46,8 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 	// @param array $config
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $config = NULL)
+	public function settings(Array $config = [])
 	{
-		nullCoalesce($config, []);
-
 		$configs = $this->config; 
 		
 		// ---------------------------------------------------------------------------------------
@@ -86,18 +84,6 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Settings Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	protected function _ajax($value)
-	{
-		if( $this->type === 'ajax' )
-		{
-			return ' prow="'.$value.'" ptype="ajax"';	
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Create                                                                               
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -105,9 +91,9 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 	// @param array $settings
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function create($start = NULL, Array $settings = NULL)
+	public function create($start = NULL, Array $settings = []) : String
 	{
-		$settings = array_merge($this->config, $this->settings, (array) $settings);
+		$settings = array_merge($this->config, $this->settings, $settings);
 		
 		if( ! empty($settings) )
 		{
@@ -237,6 +223,10 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 			if( $this->totalRows > $this->limit ) 
 			{
 				return $first.' '.$links.' '.$last;
+			}
+			else
+			{
+				return false;
 			}
 		}
 		else
@@ -384,10 +374,21 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 			{
 				return $firstTag.' '.$first.' '.$links.' '.$last.' '.$lastTag;
 			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Create Method Bitiş
+	// Proctected
 	//----------------------------------------------------------------------------------------------------
+	protected function _ajax($value)
+	{
+		if( $this->type === 'ajax' )
+		{
+			return ' prow="'.$value.'" ptype="ajax"';	
+		}
+	}
 }

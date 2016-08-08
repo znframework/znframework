@@ -19,7 +19,7 @@ interface MigrationInterface
 	// @param numeric $number
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function version($number);
+	public function version(Int $version = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -28,7 +28,7 @@ interface MigrationInterface
 	// @param string $name -- Migrasyon Adı
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($name, $version);
+	public function create(String $name, Int $ver = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -37,7 +37,7 @@ interface MigrationInterface
 	// @param string $name -- Migrasyon Adı
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name, $version);
+	public function delete(String $name, Int $ver = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete All
@@ -55,7 +55,7 @@ interface MigrationInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable($data);
+	public function createTable(Array $data);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Table
@@ -73,7 +73,7 @@ interface MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($columns);
+	public function addColumn(Array $columns);
 
 	//----------------------------------------------------------------------------------------------------
 	// Drop Column
@@ -91,7 +91,7 @@ interface MigrationInterface
 	// @param array $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($columns);
+	public function modifyColumn(Array $columns);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Truncate
@@ -109,5 +109,5 @@ interface MigrationInterface
 	// @param string path: NULL
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path($path);
+	public function path(String $path);
 }

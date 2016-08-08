@@ -37,7 +37,7 @@ interface PaginationPropertiesInterface
 	// @param int $limit
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($limit);
+	public function limit(Int $limit);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Type
@@ -55,7 +55,7 @@ interface PaginationPropertiesInterface
 	// @param int $totalRows
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows($totalRows);
+	public function totalRows(Int $totalRows);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Count Links
@@ -64,7 +64,7 @@ interface PaginationPropertiesInterface
 	// @param int $countLinks
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function countLinks($countLinks);
+	public function countLinks(Int $countLinks);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Link Names

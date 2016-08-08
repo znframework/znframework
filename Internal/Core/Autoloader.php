@@ -44,7 +44,7 @@ class Autoloader
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function run($class)
+	public static function run(String $class)
 	{
 		// ----------------------------------------------------------------------------------------
 		// ClassMap oluşturulmamış ise oluştur.
@@ -246,7 +246,7 @@ class Autoloader
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function getClassFileInfo($class = '')
+	public static function getClassFileInfo(String $class)
 	{	
 		// ClassMap.php dosyasında yer alan veriler küçük harfle 
 		// oluşturulduğu için parametre küçük harfe dönüştürülüyor.
@@ -325,7 +325,7 @@ class Autoloader
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function tokenClassFileInfo($fileName = '')
+	public static function tokenClassFileInfo(String $fileName)
 	{
 		if( ! is_file($fileName) )
 		{
@@ -408,7 +408,7 @@ class Autoloader
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public static function tokenFileInfo($fileName = '', $type = T_FUNCTION)
+	public static function tokenFileInfo(String $fileName, Int $type = T_FUNCTION)
 	{
 		if( ! is_file($fileName) )
 		{
@@ -455,7 +455,7 @@ class Autoloader
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected static function searchClassMap($directory = '', $baseDirectory = '' )
+	protected static function searchClassMap($directory, $baseDirectory = NULL)
 	{
 		static $classes;
 			

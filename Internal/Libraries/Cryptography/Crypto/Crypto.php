@@ -58,74 +58,40 @@ class InternalCrypto extends \CallController implements CryptoInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Encrypt Method Başlangıç
+	// Encrypt
 	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* ENCRYPT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Dizgeyi şifreler.										 		          |
-	
-	  @param string $data
-	  @param array  $settings -> cipher, key, mode, iv
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function encrypt(String $data,  Array $settings = NULL)
+	// 
+	// @param string $data
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function encrypt(String $data,  Array $settings = []) : String
 	{
-		return $this->crypto->encrypt($data,  (array) $settings);
+		return $this->crypto->encrypt($data, $settings);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Encrypt Method Bitiş
+	// Decrypt
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param string $data
+	// @param array  $settings
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Decrypt Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* DECRYPT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Şifrelenmiş dizgeyi çözer.							 		          |
-	
-	  @param string $data
-	  @param array  $settings -> cipher, key, mode, iv
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function decrypt(String $data, Array $settings = NULL)
+	public function decrypt(String $data, Array $settings = []) : String
 	{
-		return $this->crypto->decrypt($data,  (array) $settings);
+		return $this->crypto->decrypt($data, $settings);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Decrypt Method Bitiş
+	// Keygen
 	//----------------------------------------------------------------------------------------------------
-	
+	//
+	// @param numeric $length
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Keygen Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* KEYGEN                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen uzunlukta anahtar oluşturur.				 		          |
-	
-	  @param string $length = 8
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function keygen($length = 8)
+	public function keygen(Int $length = 8) : String
 	{
-		if( ! is_numeric($length) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '1.(length)');	
-		}
-		
 		return $this->crypto->keygen($length);
 	}
 	

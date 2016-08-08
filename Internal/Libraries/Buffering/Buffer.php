@@ -20,7 +20,7 @@ class InternalBuffer extends \CallController implements BufferInterface
 	// @return content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file(String $file)
+	public function file(String $file) : String
 	{
 		if( ! file_exists($file) )
 		{
@@ -47,7 +47,7 @@ class InternalBuffer extends \CallController implements BufferInterface
 	// @return callable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function func($func, Array $params = NULL)
+	public function func($func, Array $params = [])
 	{
 		if( ! is_callable($func) )
 		{
@@ -79,18 +79,10 @@ class InternalBuffer extends \CallController implements BufferInterface
 	// func() yönteminin takma adıdır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($func, Array $params = NULL)
+	public function callback($func, Array $params = [])
 	{
 		return $this->func($func, $params);
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Take Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Data Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -102,7 +94,7 @@ class InternalBuffer extends \CallController implements BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $data, Array $params = NULL)
+	public function insert(String $name, $data, Array $params = []) : Bool
 	{
 		$systemObData = md5('OB_DATAS_'.$name);
 		
@@ -141,7 +133,7 @@ class InternalBuffer extends \CallController implements BufferInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($name)
+	public function delete($name) : Bool
 	{
 		if( is_array($name) )
 		{
@@ -149,19 +141,14 @@ class InternalBuffer extends \CallController implements BufferInterface
 			{
 				\Session::delete(md5('OB_DATAS_'.$delete));
 			}
+
+			return true;
 		}
-		else
+		elseif( is_scalar($name) )
 		{
-			if( ! is_scalar($name) )
-			{
-				return \Exceptions::throws('Error', 'valueParameter', 'name');		
-			}
-		
 			return \Session::delete(md5('OB_DATAS_'.$name));
 		}
+
+		return false;
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Data Manipulation Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
 }

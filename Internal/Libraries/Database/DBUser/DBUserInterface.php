@@ -184,7 +184,7 @@ interface DBUserInterface
 	// @param string  $type: lock, unlock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lock(String $type);
+	public function lock(String $type = 'lock');
 	
 	//----------------------------------------------------------------------------------------------------
 	// unlock()
@@ -193,7 +193,7 @@ interface DBUserInterface
 	// @param string  $type: unlock, lock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function unlock(String $type);
+	public function unlock(String $type = 'unlock');
 	
 	//----------------------------------------------------------------------------------------------------
 	// type()
@@ -202,7 +202,7 @@ interface DBUserInterface
 	// @param string  $type: TABLE, FUNCTION, PROCEDURE
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type);
+	public function type(String $type = 'TABLE');
 	
 	//----------------------------------------------------------------------------------------------------
 	// select()
@@ -211,7 +211,7 @@ interface DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $select);
+	public function select(String $select = '*.*');
 	
 	//----------------------------------------------------------------------------------------------------
 	// grantOption()
@@ -257,7 +257,7 @@ interface DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function adminRole(String $authString);
+	public function adminRole(String $authString = 'GRANT');
 	
 	//----------------------------------------------------------------------------------------------------
 	// alter()
@@ -295,7 +295,7 @@ interface DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grant(String $name, String $type, String $select);
+	public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*');
 	
 	//----------------------------------------------------------------------------------------------------
 	// revoke()
@@ -306,7 +306,7 @@ interface DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function revoke(String $name, String $type, String $select);
+	public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*');
 	
 	//----------------------------------------------------------------------------------------------------
 	// rename()

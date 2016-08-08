@@ -69,7 +69,7 @@ class InternalTable extends \CallController implements TableInterface
 	// Content
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param void
+	// @param variadic $elements
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function content(...$elements)
@@ -130,10 +130,10 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cell($spacing, $padding)
+	public function cell(Int $spacing, Int $padding)
 	{
-		$this->attr['cellspacing'] = (int) $spacing;
-		$this->attr['cellpadding'] = (int) $padding;
+		$this->attr['cellspacing'] = $spacing;
+		$this->attr['cellpadding'] = $padding;
 		
 		return $this;
 	}
@@ -145,9 +145,9 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $spacing
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellSpacing($spacing)
+	public function cellSpacing(Int $spacing)
 	{
-		$this->attr['cellspacing'] = (int) $spacing;
+		$this->attr['cellspacing'] = $spacing;
 		
 		return $this;
 	}
@@ -159,9 +159,9 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellPadding($padding)
+	public function cellPadding(Int $padding)
 	{
-		$this->attr['cellpadding'] = (int) $padding;
+		$this->attr['cellpadding'] = $padding;
 		
 		return $this;
 	}
@@ -174,9 +174,9 @@ class InternalTable extends \CallController implements TableInterface
 	// @param string  $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border($border, String $color = NULL)
+	public function border(Int $border, String $color = NULL)
 	{
-		$this->attr['border'] = (int) $border;
+		$this->attr['border'] = $border;
 
 		if( ! empty($color) )
 		{
@@ -193,9 +193,9 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $border
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderSize($border)
+	public function borderSize(Int $border)
 	{
-		$this->attr['border'] = (int) $border;
+		$this->attr['border'] = $border;
 	
 		return $this;
 	}
@@ -221,9 +221,9 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $width
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($width)
+	public function width(Int $width)
 	{
-		$this->attr['width'] = (int) $width;
+		$this->attr['width'] = $width;
 		
 		return $this;
 	}
@@ -235,9 +235,9 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($height)
+	public function height(Int $height)
 	{
-		$this->attr['height'] = (int) $height;
+		$this->attr['height'] = $height;
 		
 		return $this;
 	}
@@ -250,10 +250,10 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($width, $height)
+	public function size(Int $width, Int $height)
 	{
-		$this->attr['width']  = (int) $width;
-		$this->attr['height'] = (int) $height;
+		$this->attr['width']  = $width;
+		$this->attr['height'] = $height;
 		
 		return $this;
 	}
@@ -334,7 +334,7 @@ class InternalTable extends \CallController implements TableInterface
 	// Create Method Başlangıç
 	//----------------------------------------------------------------------------------------------------
 
-	public function create()
+	public function create() : String
 	{
 		$table  = '<table'.\Html::attributes($this->attr).'>';
 		$table .= $this->table;

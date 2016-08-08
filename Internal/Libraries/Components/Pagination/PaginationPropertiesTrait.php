@@ -155,9 +155,9 @@ trait PaginationPropertiesTrait
 	// @param int $limit
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($limit)
+	public function limit(Int $limit)
 	{
-		$this->settings['limit'] = (int) $limit;
+		$this->settings['limit'] = $limit;
 		
 		return $this;
 	}
@@ -183,9 +183,9 @@ trait PaginationPropertiesTrait
 	// @param int $totalRows
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows($totalRows)
+	public function totalRows(Int $totalRows)
 	{
-		$this->settings['totalRows'] = (int) $totalRows;
+		$this->settings['totalRows'] = $totalRows;
 		
 		return $this;
 	}
@@ -197,9 +197,9 @@ trait PaginationPropertiesTrait
 	// @param int $countLinks
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function countLinks($countLinks)
+	public function countLinks(Int $countLinks)
 	{
-		$this->settings['countLinks'] = (int) $countLinks;
+		$this->settings['countLinks'] = $countLinks;
 		
 		return $this;
 	}

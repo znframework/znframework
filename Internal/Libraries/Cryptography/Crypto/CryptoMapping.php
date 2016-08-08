@@ -1,7 +1,7 @@
 <?php
-namespace ZN\Cryptography\CryptoAbstract;
+namespace ZN\Cryptography;
 
-abstract class CryptoAbstract
+class CryptoMapping
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -19,7 +19,7 @@ abstract class CryptoAbstract
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encrypt()
+	public function encrypt($data, $settings)
 	{
 		return false;
 	}
@@ -31,7 +31,7 @@ abstract class CryptoAbstract
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrypt()
+	public function decrypt($data, $settings)
 	{
 		return false;
 	}
@@ -43,7 +43,7 @@ abstract class CryptoAbstract
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function keygen()
+	public function keygen($length)
 	{
 		return false;
 	}

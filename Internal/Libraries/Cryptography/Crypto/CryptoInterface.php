@@ -20,7 +20,7 @@ interface CryptoInterface
 	// @param array  $settings
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encrypt(String $data, Array $settings);
+	public function encrypt(String $data,  Array $settings = []) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decrypt
@@ -30,7 +30,7 @@ interface CryptoInterface
 	// @param array  $settings
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrypt(String $data, Array $settings);
+	public function decrypt(String $data, Array $settings = []) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Keygen
@@ -39,7 +39,7 @@ interface CryptoInterface
 	// @param numeric $length
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function keygen($length);
+	public function keygen(Int $length = 8) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Driver                                                                       

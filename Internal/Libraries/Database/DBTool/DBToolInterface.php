@@ -22,7 +22,7 @@ interface DBToolInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function listDatabases();
+	public function listDatabases() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// List Tables
@@ -34,7 +34,7 @@ interface DBToolInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function listTables();
+	public function listTables() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Optimize Tables
@@ -46,7 +46,7 @@ interface DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimizeTables($table);
+	public function optimizeTables($table = '*');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Repair Tables
@@ -58,7 +58,7 @@ interface DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repairTables($table);
+	public function repairTables($table = '*');
 
 	//----------------------------------------------------------------------------------------------------
 	// Backup
@@ -72,5 +72,5 @@ interface DBToolInterface
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables, String $fileName, $path);
+	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR);
 }

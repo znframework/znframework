@@ -55,7 +55,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($param)
+	public function width(Int $param)
 	{
 		$this->sets['width'] = $param;
 
@@ -72,7 +72,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($param)
+	public function height(Int $param)
 	{
 		$this->sets['height'] = $param;
 		
@@ -90,7 +90,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($width, $height)
+	public function size(Int $width, Int $height)
 	{
 		$this->width($width);
 		$this->height($height);
@@ -108,7 +108,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length($param)
+	public function length(Int $param)
 	{
 		$this->sets['charLength'] = $param;
 
@@ -127,10 +127,8 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border(Boolean $is = NULL, String $color = NULL)
+	public function border(Bool $is = true, String $color = NULL)
 	{
-		nullCoalesce($is, true);
-
 		$this->sets['border'] = $is;
 		
 		if( ! empty($color) )
@@ -237,7 +235,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textSize($size)
+	public function textSize(Int $size)
 	{
 		$this->sets['imageString']['size'] = $size;
 		
@@ -255,10 +253,10 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textCoordinate($x = 0, $y = 0)
+	public function textCoordinate(Int $x = 0, Int $y = 0)
 	{
-		$this->sets['imageString']['x'] = (int) $x;
-		$this->sets['imageString']['y'] = (int) $y;	
+		$this->sets['imageString']['x'] = $x;
+		$this->sets['imageString']['y'] = $y;	
 		
 		return $this;
 	}
@@ -293,7 +291,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function text($size, $x = 0, $y = 0, String $color = NULL)
+	public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL)
 	{
 		$this->textSize($size);
 		
@@ -322,10 +320,8 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grid(Boolean $is = NULL, String $color = NULL)
+	public function grid(Bool $is = true, String $color = NULL)
 	{
-		nullCoalesce($is, true);
-
 		$this->sets['grid'] = $is;
 		
 		if( ! empty($color) )
@@ -364,7 +360,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridSpace($x = 0, $y = 0)
+	public function gridSpace(Int $x = 0, Int $y = 0)
 	{
 		if( ! empty($x) ) 
 		{
@@ -378,14 +374,6 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 		
 		return $this;
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Designer Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Create Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -398,11 +386,8 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return midex
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(Boolean $img = NULL, Array $configs = NULL)
+	public function create(Bool $img = false, Array $configs = []) : String
 	{	
-		nullCoalesce($img, false);
-		nullCoalesce($configs, []);
-
 		$config  = $this->config;
 		$configs = array_merge($config, $this->sets, $configs);
 		
@@ -560,14 +545,6 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Create Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Get Code Method Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
 	// Get Code
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -577,15 +554,11 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getCode()
+	public function getCode() : String
 	{
 		return \Session::select(md5('SystemCaptchaCodeData'));
 	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Get Code Method Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
+
 	//----------------------------------------------------------------------------------------------------
 	// Protected Color
 	//----------------------------------------------------------------------------------------------------
@@ -593,7 +566,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @param string
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _convertColor($color = '')
+	protected function _convertColor($color)
 	{
 		if( $convert = \Config::get('Colors', $color) )
 		{

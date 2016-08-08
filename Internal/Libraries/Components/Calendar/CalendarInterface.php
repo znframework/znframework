@@ -111,5 +111,5 @@ interface CalendarInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($year, $month);
+	public function create(Int $year = NULL, Int $month = NULL) : String;
 }

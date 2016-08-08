@@ -38,7 +38,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function listDatabases()
+	public function listDatabases() : Array
 	{
 		return $this->tool->listDatabases();
 	}
@@ -53,7 +53,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function listTables()
+	public function listTables() : Array
 	{
 		return $this->tool->listTables();
 	}
@@ -100,7 +100,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables = '*', String $fileName = NULL, $path = STORAGE_DIR)
+	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR)
 	{		
 		return $this->tool->backup($tables, $fileName, $path);
 	}

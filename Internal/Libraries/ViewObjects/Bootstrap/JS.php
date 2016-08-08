@@ -1205,7 +1205,7 @@ class InternalJS extends \CallController
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function elseClause(String $code) : String
+	public function elseClause(String $code = NULL) : String
 	{
 		return "else{".$code."}";
 	}

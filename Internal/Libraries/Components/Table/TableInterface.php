@@ -38,7 +38,7 @@ interface TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cell($spacing, $padding);
+	public function cell(Int $spacing, Int $padding);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Cell Spacing
@@ -47,7 +47,7 @@ interface TableInterface
 	// @param numeric $spacing
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellSpacing($spacing);
+	public function cellSpacing(Int $spacing);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Cell Padding
@@ -56,7 +56,7 @@ interface TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellPadding($padding);
+	public function cellPadding(Int $padding);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border
@@ -66,7 +66,7 @@ interface TableInterface
 	// @param string  $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border($border, String $color);
+	public function border(Int $border, String $color);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border Size
@@ -75,7 +75,7 @@ interface TableInterface
 	// @param numeric $border
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderSize($border);
+	public function borderSize(Int $border);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border Color
@@ -93,7 +93,7 @@ interface TableInterface
 	// @param numeric $width
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width($width);
+	public function width(Int $width);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Height
@@ -102,7 +102,7 @@ interface TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height($height);
+	public function height(Int $height);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Size
@@ -112,7 +112,7 @@ interface TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size($width, $height);
+	public function size(Int $width, Int $height);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Css
@@ -154,10 +154,10 @@ interface TableInterface
 	// Content
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param void
+	// @param variadic $elements
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content();
+	public function content(...$elements);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -166,5 +166,5 @@ interface TableInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create();
+	public function create() : String;
 }

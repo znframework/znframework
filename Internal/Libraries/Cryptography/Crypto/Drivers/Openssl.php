@@ -1,9 +1,9 @@
 <?php
 namespace ZN\Cryptography\Drivers;
 
-use ZN\Cryptography\CryptoAbstract\CryptoAbstract;
+use ZN\Cryptography\CryptoMapping;
 
-class OpensslDriver extends CryptoAbstract
+class OpensslDriver extends CryptoMapping
 {	
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -14,37 +14,27 @@ class OpensslDriver extends CryptoAbstract
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		if( ! function_exists('openssl_open') )
-		{
-			die(getErrorMessage('Error', 'undefinedFunctionExtension', 'OPENSSL'));	
-		}	
+		\Support::func('openssl_open', 'OPENSSL');
 	}
-	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "OpensslDriver::$method()"));	
-	}
-	
-	/******************************************************************************************
-	* ENCRYPT                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Dizgeyi şifreler.										 		          |
-	
-	  @param string $data
-	  @param array  $settings -> cipher, key, mode, iv
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function encrypt($data = '', $settings = [])
+
+	//----------------------------------------------------------------------------------------------------
+	// Encrypt
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $data
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function encrypt($data, $settings)
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'aes-128';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->keySize($cipher); 
@@ -58,18 +48,15 @@ class OpensslDriver extends CryptoAbstract
 		return base64_encode($encode);
 	}
 	
-	/******************************************************************************************
-	* DECRYPT                                                                                 *
-	********************************************ofb*********************************************
-	| Genel Kullanım: Şifrelenmiş dizgeyi çözer.							 		          |
-	
-	  @param string $data
-	  @param array  $settings -> cipher, key, mode, iv
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function decrypt($data = '', $settings = [])
+	//----------------------------------------------------------------------------------------------------
+	// Decrypt
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	// @param array  $settings
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function decrypt($data, $settings)
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'aes-128';
 	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->keySize($cipher); 
@@ -83,32 +70,22 @@ class OpensslDriver extends CryptoAbstract
 		return trim(openssl_decrypt(trim($data), $cipher, $key, 1, $iv));
 	}
 	
-	/******************************************************************************************
-	* KEYGEN                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Belirtilen uzunlukta anahtar oluşturur.				 		          |
-	
-	  @param string $length = 8
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function keygen($length = 8)
+	//----------------------------------------------------------------------------------------------------
+	// Keygen
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param numeric $length
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function keygen($length)
 	{
 		return openssl_random_pseudo_bytes($length);
 	}
 	
-	/******************************************************************************************
-	* PROTECTED KEY SIZE                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: Key belirtilmezse ön tanımlı key oluşturmak içindir.	 		          |
-	
-	  @param string $cipher
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	private function keySize($cipher = '')
+	//----------------------------------------------------------------------------------------------------
+	// Protected
+	//----------------------------------------------------------------------------------------------------
+	private function keySize($cipher)
 	{
 		$cipher = strtolower($cipher);
 		
@@ -127,18 +104,10 @@ class OpensslDriver extends CryptoAbstract
 		return mb_substr(hash('md5', \Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
 	}
 	
-	/******************************************************************************************
-	* PROTECTED VECTOR SIZE                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Iv belirtilmezse ön tanımlı iv oluşturmak içindir.	 		          |
-	
-	  @param string $mode
-	  @param string $cipher
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	protected function vectorSize($mode = '', $cipher = '')
+	//----------------------------------------------------------------------------------------------------
+	// Protected
+	//----------------------------------------------------------------------------------------------------
+	protected function vectorSize($mode, $cipher)
 	{
 		$mode   = strtolower($mode);
 		$cipher = strtolower($cipher);
