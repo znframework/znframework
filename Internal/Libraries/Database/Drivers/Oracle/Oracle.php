@@ -153,6 +153,11 @@ class OracleDriver extends DriverAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function exec($query, $security = NULL)
 	{
+		if( empty($query) )
+		{
+			return false;
+		}
+		
 		$que = oci_parse($this->connect, $query);
 		oci_execute($que);
 		

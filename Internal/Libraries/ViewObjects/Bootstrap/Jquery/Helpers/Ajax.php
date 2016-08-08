@@ -14,52 +14,51 @@ class Ajax extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Jquery Trait                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @methods
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use JqueryTrait;
 	
-	/* 
-	 * Fonksiyon blokları 
-	 *
-	 * success, error, complete...
-	 *
-	 * @var array
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Functions                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	protected $functions = [];
 	
-	/* 
-	 * Ayar blokları
-	 *
-	 * url, method, data...
-	 *
-	 * @var array
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Sets                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	protected $sets = [];
 	
-	/* Dönüş fonksiyon blokları
-	 *
-	 * .done, .always, .then .fail
-	 *
-	 * @var array 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Callbacks                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	protected $callbacks = [];
 
-	/******************************************************************************************
-	* URL                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Url parametresini ayarlamak için kullanılır.				    		  |
-	
-	  @param string $url
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function url($url = '')
+	//----------------------------------------------------------------------------------------------------
+	// URL                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $url
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function url(String $url = '')
 	{
-		if( ! is_string($url) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', '1.(url)');
-			return $this;	
-		}
-		
 		// Veri bir url içermiyorsa siteUrl yöntemi ile url'ye dönüştürülür.
 		if( ! isUrl($url) )
 		{
@@ -71,45 +70,32 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* DATA                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Gönderilen Veri parametresini ayarlamak için kullanılır.				  |
-	
-	  @param string $data
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function data($data = '')
+	//----------------------------------------------------------------------------------------------------
+	// Data                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $data
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function data(String $data)
 	{
-		if( ! is_scalar($data) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', '1.(data)');
-			return $this;	
-		}
-		
 		$this->sets['data'] = "\tdata:$data,".EOL;
 		
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* HEADERS                                                                                 *
-	*******************************************************************************************
-	| Genel Kullanım: Başlıklar parametresini ayarlamak için kullanılır.		    		  |
-	
-	  @param string $headers
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function headers($headers = '')
+	//----------------------------------------------------------------------------------------------------
+	// Headers                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $url
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function headers($headers)
 	{
 		if( ! is_scalar($headers) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', '1.(headers)');
-			return $this;	
+			throw new Exception(lang('Error', 'scalarParameter', '1.(headers)'));
 		}
 		
 		$this->sets['headers'] = "\theaders:$headers,".EOL;
@@ -117,25 +103,20 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* IF MODIFIED                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: If Modified parametresini ayarlamak için kullanılır.		    		  |
-	
-	  @param bool $ifModified true
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// If Modified                                                              
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param bool $ifModified
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function ifModified($ifModified = true)
 	{
 		if( ! is_scalar($ifModified) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', '1.(isModified)');
-			return $this;	
+			throw new Exception(lang('Error', 'scalarParameter', '1.(headers)'));
 		}
-		
-		// Mantıklasal veri metinsel veriye dönüştürülüyor.
+
 		$ifModified = $this->_boolToStr($ifModified);
 		
 		$this->sets['ifModified'] = "\tifModified:$ifModified,".EOL;
@@ -143,22 +124,18 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* IS LOCAL                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Is Local parametresini ayarlamak için kullanılır.	    	    		  |
-	
-	  @param bool $isLocal true
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Is Local                                                            
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param bool $isLocal
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function isLocal($isLocal = true)
 	{
 		if( ! is_scalar($isLocal) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', '1.(isLocal)');
-			return $this;	
+			throw new Exception(lang('Error', 'scalarParameter', '1.(isLocal)'));	
 		}
 		
 		$isLocal = $this->_boolToStr($isLocal);
@@ -168,23 +145,18 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	
-	/******************************************************************************************
-	* MIME TYPE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: MIME Type parametresini ayarlamak için kullanılır.	  	    		  |
-	
-	  @param bool $mimeType true
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Mime Type                                                           
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param bool $isLocal
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function mimeType($mimeType = true)
 	{
 		if( ! is_scalar($mimeType) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'mimeType');
-			return $this;	
+			throw new Exception(lang('Error', 'scalarParameter', '1.(mimeType)'));
 		}
 		
 		$mimeType = $this->_boolToStr($mimeType);
@@ -193,17 +165,14 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* JSONP                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Jsonp parametresini ayarlamak için kullanılır.     	  	    		  |
-	
-	  @param string/bool $jsonp
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function jsonp($jsonp = '')
+	//----------------------------------------------------------------------------------------------------
+	// Jsonp                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $jsonp
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function jsonp($jsonp)
 	{
 		if( is_bool($jsonp) )
 		{
@@ -223,24 +192,15 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* JSONP CALLBACK                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Jsonp Callback parametresini ayarlamak için kullanılır.   	   		  |
-	
-	  @param string $jsonpCallback
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function jsonpCallback($jsonpCallback = '')
+	//----------------------------------------------------------------------------------------------------
+	// Jsonp Callback                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $jsonpCallback
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function jsonpCallback(String $jsonpCallback)
 	{
-		if( ! is_scalar($jsonpCallback) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'jsonpCallback');
-			return $this;	
-		}
-		
 		if( $this->_isFunc($jsonpCallback) === false )
 		{
 			$jsonpCallback = "\"$jsonpCallback\"";
@@ -251,114 +211,102 @@ class Ajax extends \CallController
 		return $this;	
 	}
 	
-	/******************************************************************************************
-	* DATA TYPE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Data Type parametresini ayarlamak için kullanılır.  		 	   		  |
-	
-	  @param string $type
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function dataType($type = '')
-	{
-		if( ! is_string($type) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'type');
-			return $this;	
-		}
-		
+	//----------------------------------------------------------------------------------------------------
+	// Data Type                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $type
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function dataType(String $type)
+	{	
 		$this->sets['type'] = "\tdataType:\"$type\",".EOL;
 		
 		return $this;
 	}
 	
-	// PASSWORD Property -------------------------------------------------------
-	// password data
-	// password:string
-	public function password($password = '')
+	//----------------------------------------------------------------------------------------------------
+	// Password                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $password
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function password(String $password)
 	{
-		if( ! is_string($password) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'password');
-			return $this;	
-		}
-		
 		$this->sets['password'] = "\tpassword:\"$password\",".EOL;
 		
 		return $this;
 	}
 	
-	// USERNAME Property -------------------------------------------------------
-	// username data
-	// username:string
-	public function username($username = '')
+	//----------------------------------------------------------------------------------------------------
+	// Username                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function username(String $username)
 	{
-		if( ! is_string($username) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'username');
-			return $this;	
-		}
-		
 		$this->sets['username'] = "\tusername:\"$username\",".EOL;
 		
 		return $this;
 	}
 	
-	// METHOD/TYPE Property ----------------------------------------------------
-	// type() = method() 
-	// type data
-	// type:string : post, get ...
-	public function method($method = 'post')
+	//----------------------------------------------------------------------------------------------------
+	// Method                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $method
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function method(String $method = 'post')
 	{
-		if( ! is_string($method) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'method');
-			return $this;	
-		}
-		
 		$this->sets['method'] = "\tmethod:\"$method\",".EOL;
 		
 		return $this;
 	}
 	
-	// METHOD/TYPE Property ----------------------------------------------------
-	// type() = method() 
-	// type data
-	// type:string : post, get ...
-	public function type($method = 'post')
+	//----------------------------------------------------------------------------------------------------
+	// Type                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $method
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function type(String $method = 'post')
 	{
 		$this->method($method);
 		
 		return $this;
 	}
 	
-	// SCRIPT CHARSET Property -------------------------------------------------------
-	// scriptCharset data
-	// scriptCharset:string
-	public function scriptCharset($scriptCharset = 'utf-8')
+	//----------------------------------------------------------------------------------------------------
+	// Script Charset                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $sr
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function scriptCharset(String $scriptCharset = 'utf-8')
 	{
-		if( ! isCharset($scriptCharset) )
-		{
-			\Exceptions::throws('Error', 'charsetParameter', 'scriptCharset');
-			return $this;	
-		}
-		
 		$this->sets['scriptCharset'] = "\tscriptCharset:\"$scriptCharset\",".EOL;
 		
 		return $this;
 	}
 	
-	// TRADITIONAL Property -------------------------------------------------------
-	// traditional data
-	// traditional:bool: true or false
+	//----------------------------------------------------------------------------------------------------
+	// Traditional                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $tratidional
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function traditional($traditional = true)
 	{
 		if( ! is_scalar($traditional) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'traditional');
-			return $this;	
+			throw new \Exception(lang('Error', 'valueParameter', '1.(traditional)'));	
 		}
 		
 		$traditional = $this->_boolToStr($traditional);
@@ -367,15 +315,18 @@ class Ajax extends \CallController
 		return $this;
 	}
 	
-	// PROCESS DATA Property -------------------------------------------------------
-	// processData data
-	// processData:bool: true or false
+	//----------------------------------------------------------------------------------------------------
+	// Process Data                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $processData
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function processData($processData = true)
 	{
 		if( ! is_scalar($processData) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'processData');
-			return $this;	
+			throw new \Exception(lang('Error', 'valueParameter', 'processData'));
 		}
 		
 		$processData = $this->_boolToStr($processData);
@@ -384,15 +335,18 @@ class Ajax extends \CallController
 		return $this;
 	}
 	
-	// CACHE Property -------------------------------------------------------
-	// cache data
-	// cache:bool: true or false
+	//----------------------------------------------------------------------------------------------------
+	// Cache                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $cache
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function cache($cache = true)
 	{
 		if( ! is_scalar($cache) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'cache');
-			return $this;	
+			throw new \Exception(lang('Error', 'valueParameter', 'cache'));
 		}
 		
 		$cache = $this->_boolToStr($cache);
@@ -401,79 +355,74 @@ class Ajax extends \CallController
 		return $this;
 	}
 	
-	// XHR FIELDS Property -------------------------------------------------------
-	// xhrFields data
-	// xhrFields:string
-	public function xhrFields($xhrFields = '')
+	//----------------------------------------------------------------------------------------------------
+	// XHR Fields                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $xhrFields
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function xhrFields(String $xhrFields)
 	{
-		if( ! is_string($xhrFields) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'xhrFields');
-			return $this;	
-		}
-		
 		$this->sets['xhrFields'] = "\txhrFields:$xhrFields,".EOL;
 		
 		return $this;
 	}
 	
-	// CONTEXT Property -------------------------------------------------------
-	// context data
-	// context:plain object
-	public function context($context = '')
+	//----------------------------------------------------------------------------------------------------
+	// Context                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $context
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function context(String $context)
 	{
-		if( ! is_scalar($context) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'context');
-			return $this;	
-		}
-		
 		$this->sets['context'] = "\tcontext:$context,".EOL;
 		
 		return $this;
 	}
 	
-	// ACCEPTS Property -------------------------------------------------------
-	// accepts data
-	// accepts:plain object
-	public function accepts($accepts = '')
+	//----------------------------------------------------------------------------------------------------
+	// Accepts                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $accepts
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function accepts(String $accepts)
 	{
-		if( ! is_string($accepts) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'accepts');
-			return $this;	
-		}
-		
 		$this->sets['accepts'] = "\taccepts:$accepts,".EOL;
 		
 		return $this;
 	}
 	
-	// CONTENTS Property -------------------------------------------------------
-	// contents data
-	// contents:plain object
-	public function contents($contents = '')
+	//----------------------------------------------------------------------------------------------------
+	// Contents                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $contents
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function contents(String $contents)
 	{
-		if( ! is_string($contents) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'contents');
-			return $this;	
-		}
-		
 		$this->sets['contents'] = "\tcontents:$contents,".EOL;
 		
 		return $this;
 	}
 	
-	// ASYNC Property -------------------------------------------------------
-	// async data
-	// async:bool: true or false
+	//----------------------------------------------------------------------------------------------------
+	// Async                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $async
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function async($async = true)
 	{
 		if( ! is_scalar($async) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'async');
-			return $this;	
+			throw new \Exception(lang('Error', 'valueParameter', 'async'));
 		}
 		
 		$async = $this->_boolToStr($async);
@@ -482,15 +431,18 @@ class Ajax extends \CallController
 		return $this;
 	}
 	
-	// CROSS DOMAIN Property -------------------------------------------------------
-	// crossDomain data
-	// crossDomain:bool: true or false
+	//----------------------------------------------------------------------------------------------------
+	// Cross Domain                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $crossDomain
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function crossDomain($crossDomain = true)
 	{
 		if( ! is_scalar($crossDomain) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'crossDomain');
-			return $this;	
+			throw new \Exception(lang('Error', 'valueParameter', 'crossDomain'));	
 		}
 		
 		$crossDomain = $this->_boolToStr($crossDomain);
@@ -499,32 +451,32 @@ class Ajax extends \CallController
 		return $this;
 	}
 	
-	// TIMEOUT Property -------------------------------------------------------
-	// timeout data
-	// timeout:numeric
-	public function timeout($timeout = '')
+	//----------------------------------------------------------------------------------------------------
+	// Timeout                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param int $timeout
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function timeout(Int $timeout)
 	{
-		if( ! is_scalar($timeout) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'timeout');
-			return $this;	
-		}
-		
 		$this->sets['timeout'] = "\ttimeout:$timeout,".EOL;
 		
 		return $this;
 	}
 	
-	// GLOBAL Property -------------------------------------------------------
-	// global data
-	// global:bool : true or false
-	// global is keywords so global is name globals
+	//----------------------------------------------------------------------------------------------------
+	// Globals                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $globals
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function globals($globals = true)
 	{
 		if( ! is_scalar($globals) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'globals');
-			return $this;	
+			throw new \Exception(lang('Error', 'valueParameter', 'globals'));
 		}
 		
 		$globals = $this->_boolToStr($globals);
@@ -533,13 +485,20 @@ class Ajax extends \CallController
 		return $this;
 	}
 	
-	// CONTENT TYPE Property -------------------------------------------------------
-	// contentType data
-	// contentType:bool or string
-	// is bool  : true or false
-	// is_string: 'application/x-www-form-urlencoded; charset=UTF-8'
+	//----------------------------------------------------------------------------------------------------
+	// Content Type                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param scalar $contentType
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	public function contentType($contentType = 'application/x-www-form-urlencoded; charset=UTF-8')
 	{
+		if( ! is_scalar($contentType) )
+		{
+			throw new \Exception(lang('Error', 'valueParameter', 'contentType'));
+		}
+
 		if( is_bool($contentType) )
 		{
 			$contentType = $this->_boolToStr($contentType);		
@@ -548,224 +507,187 @@ class Ajax extends \CallController
 		{
 			$contentType = "\"$contentType\"";
 		}
-		else
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'contentType');
-			return $this;	
-		}
 		
 		$this->sets['contentType'] = "\tcontentType:$contentType,".EOL;
 		
 		return $this;
 	}
 	
-	protected function _object($name, $codes = [])
-	{
-		if( ! is_array($codes) )
-		{
-			\Exceptions::throws('Error', 'arrayParameter', 'codes');
-			return $this;	
-		}
-		
-		$eol = EOL;	
-		
-		$statusCode = $eol."\t$name:".$eol."\t{";
-		
-		if( ! empty($codes) )
-		{
-			foreach( $codes as $code => $value )
-			{
-				$param = '';
-				if(strstr($value, '->'))
-				{
-					$params = explode('->', $value);	
-					$param = $params[0];
-					$value = $params[1];
-				}
-				
-				$statusCode .= $eol."\t\t$code:function($param)".$eol."\t\t{".$eol."\t\t\t$value".$eol."\t\t},".$eol;
-			}
-			
-			$statusCode = trim(trim($statusCode), ',').$eol;
-		}
-		
-		$statusCode .= "\t}";
-		
-		$this->functions[$name] = $eol."\t".$statusCode;
-	}
 	
-	// STATUS CODE Property -------------------------------------------------------
-	// statusCode data
-	// statusCode:array
-	// array(404 => 'alert(404);', 403 => 'alert(403);') 
-	// To use parameters :::::    param1, param2->codes...   ::::: function(param1, param2){codes}
-	// -> parameters and codes is seperators
-	// array(404 => 'data->alert(data);', 403 => 'data->alert(data);')
-	public function statusCode($codes = [])
+	
+	//----------------------------------------------------------------------------------------------------
+	// Status Code                                                         
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $codes
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function statusCode(Array $codes)
 	{
 		$this->_object('statusCode', $codes);
 			
 		return $this;
 	}
 	
-	// CONVERTERS Property -------------------------------------------------------
-	// converters data
-	// converters:array
-	// To use parameters :::::    param1, param2->codes...   ::::: function(param1, param2){codes}
-	// -> parameters and codes is seperators
-	// array('C1' => 'alert('c1');', C2 => 'param1, param2->alert('c2');') 
-	public function converters($codes = [])
+	//----------------------------------------------------------------------------------------------------
+	// Converters                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param array $codes
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function converters(Array $codes)
 	{
 		$this->_object('converters', $codes);
 			
 		return $this;
 	}
 	
-	
-	protected function _functions($name, $params, $codes)
-	{
-		if( ! is_string($params) || ! is_string($codes) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'params & codes');
-			return $this;
-		}
-		
-		$eol = EOL;
-		
-		$this->functions[$name] = $eol."\t$name:function($params)".$eol."\t{".$eol."\t\t$codes".$eol."\t}";
-	}
-	
-	// SUCCESS FUNCTION Property -------------------------------------------------------
-	// success data
-	// success: 2 Parameters
-	// string @params : 'param1, param2'
-	// string @success: 'alert("example")'
-	public function success($params = 'e', $success = '')
+	//----------------------------------------------------------------------------------------------------
+	// Success                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $success
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function success(String $params, String $success)
 	{
 		$this->_functions('success', $params, $success);	
 		
 		return $this;
 	}
 	
-	// ERROR FUNCTION Property -------------------------------------------------------
-	// error data
-	// error: 2 Parameters
-	// string @params : 'param1, param2'
-	// string @error  : 'alert("example")'
-	public function error($params = 'e', $error = '')
+	//----------------------------------------------------------------------------------------------------
+	// Success                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $error
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function error(String $params, String $error)
 	{
 		$this->_functions('error', $params, $error);	
 	
 		return $this;
 	}
 	
-	// COMPLETE FUNCTION Property -------------------------------------------------------
-	// complete data
-	// complete: 2 Parameters
-	// string @params    : 'param1, param2'
-	// string @complete  : 'alert("example")'
-	public function complete($params = 'e', $complete = '')
+	//----------------------------------------------------------------------------------------------------
+	// Complete                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $complete
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function complete(String $params, String $complete)
 	{
 		$this->_functions('complete', $params, $complete);
 		
 		return $this;	
 	}
 	
-	// BEFORE SEND FUNCTION Property -------------------------------------------------------
-	// beforeSend data
-	// beforeSend: 2 Parameters
-	// string @params       : 'param1, param2'
-	// string @before_send  : 'alert("example")'
-	public function beforeSend($params = 'e', $beforeSend = '')
+	//----------------------------------------------------------------------------------------------------
+	// Before Send                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $beforeSend
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function beforeSend(String $params, String $beforeSend)
 	{
 		$this->_functions('beforeSend', $params, $beforeSend);
 		
 		return $this;
 	}	
 	
-	// DATA FILTER FUNCTION Property -------------------------------------------------------
-	// dataFilter data
-	// dataFilter: 2 Parameters
-	// string @params       : 'param1, param2'
-	// string @data_filter  : 'alert("example")'
-	public function dataFilter($params = 'e', $dataFilter = '')
+	//----------------------------------------------------------------------------------------------------
+	// Data Filter                                                          
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $dataFilter
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function dataFilter(String $params, String $dataFilter)
 	{
 		$this->_functions('dataFilter', $params, $dataFilter);
 		
 		return $this;
-	}
-	
-	protected function _callbacks($name, $params, $codes)
-	{
-		if( ! ( is_string($params) || is_string($codes) ) )
-		{
-			return $this;
-		}
-		
-		$eol = EOL;
-		
-		$this->callbacks[$name] = $eol.".$name(function($params)".$eol."{".$eol."\t$codes".$eol."})";
 	}	
 	
-	// DONE CALLBACK FUNCTION Property -------------------------------------------------------
-	// done data
-	// done: 2 Parameters
-	// string @params : 'param1, param2'
-	// string @done   : 'alert("example")'
-	public function done($params = 'e', $done = '')
+	//----------------------------------------------------------------------------------------------------
+	// Done                                                        
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $done
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function done(String $params = 'e', String $done = NULL)
 	{
 		$this->_callbacks('done', $params, $done);
 		
 		return $this;
 	}
 	
-	// FAIL CALLBACK FUNCTION Property -------------------------------------------------------
-	// fail data
-	// fail: 2 Parameters
-	// string @params : 'param1, param2'
-	// string @fail   : 'alert("example")'
-	public function fail($params = 'e', $fail = '')
+	//----------------------------------------------------------------------------------------------------
+	// Fail                                                         
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $fail
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function fail(String $params = 'e', String $fail = NULL)
 	{
 		$this->_callbacks('fail', $params, $fail);
 		
 		return $this;
 	}
 	
-	// ALWAYS CALLBACK FUNCTION Property -------------------------------------------------------
-	// always data
-	// always: 2 Parameters
-	// string @params : 'param1, param2'
-	// string @always : 'alert("example")'
-	public function always($params = 'e', $always = '')
+	//----------------------------------------------------------------------------------------------------
+	// Always                                                         
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $always
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function always(String $params = 'e', String $always = NULL)
 	{
 		$this->_callbacks('always', $params, $always);
 		
 		return $this;
 	}
 	
-	// THEN CALLBACK FUNCTION Property -------------------------------------------------------
-	// then data
-	// then: 2 Parameters
-	// string @params : 'param1, param2'
-	// string @then   : 'alert("example")'
-	public function then($params = 'e', $then = '')
+	//----------------------------------------------------------------------------------------------------
+	// Then                                                         
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $then
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function then(String $params = 'e', String $then = NULL)
 	{
 		$this->_callbacks('then', $params, $then);
 		
 		return $this;
 	}
 	
-	// Complementary method of operation
-	// Optional Use Parameters
-	// [string @url])  => url() method instead of the alternative  
-	// [string @data]) => data() method instead of the alternative 
-	public function send($url = '', $data = '')
+	//----------------------------------------------------------------------------------------------------
+	// Send                                                         
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $url
+	// @param string $data
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function send(String $url = '', String $data = NULL)
 	{
-		if( ! is_string($url) || ! is_string($data) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'url & data');
-		}
-		
 		if( ! empty($url) )
 		{
 			$this->url($url);	
@@ -819,16 +741,91 @@ class Ajax extends \CallController
 		return $ajax;
 	}
 	
-	// Complementary method of operation
-	// Optional Use Parameters
-	// [string @url])  => url() method instead of the alternative  
-	// [string @data]) => data() method instead of the alternative 
-	public function create($url = '', $data = '')
+	//----------------------------------------------------------------------------------------------------
+	// Create                                                         
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $params
+	// @param string $dataFilter
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function create(String $url = '', String $data = NULL)
 	{
 		return $this->send($url, $data);	
 	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected                                                          
+	//----------------------------------------------------------------------------------------------------
+	protected function _object($name, $codes = [])
+	{
+		if( ! is_array($codes) )
+		{
+			\Exceptions::throws('Error', 'arrayParameter', 'codes');
+			return $this;	
+		}
+		
+		$eol = EOL;	
+		
+		$statusCode = $eol."\t$name:".$eol."\t{";
+		
+		if( ! empty($codes) )
+		{
+			foreach( $codes as $code => $value )
+			{
+				$param = '';
+				if(strstr($value, '->'))
+				{
+					$params = explode('->', $value);	
+					$param = $params[0];
+					$value = $params[1];
+				}
+				
+				$statusCode .= $eol."\t\t$code:function($param)".$eol."\t\t{".$eol."\t\t\t$value".$eol."\t\t},".$eol;
+			}
+			
+			$statusCode = trim(trim($statusCode), ',').$eol;
+		}
+		
+		$statusCode .= "\t}";
+		
+		$this->functions[$name] = $eol."\t".$statusCode;
+	}
 	
-	// DEFAULT VARIABLES
+	//----------------------------------------------------------------------------------------------------
+	// Protected                                                          
+	//----------------------------------------------------------------------------------------------------
+	protected function _functions($name, $params, $codes)
+	{
+		if( ! is_string($params) || ! is_string($codes) )
+		{
+			\Exceptions::throws('Error', 'stringParameter', 'params & codes');
+			return $this;
+		}
+		
+		$eol = EOL;
+		
+		$this->functions[$name] = $eol."\t$name:function($params)".$eol."\t{".$eol."\t\t$codes".$eol."\t}";
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected                                                          
+	//----------------------------------------------------------------------------------------------------
+	protected function _callbacks($name, $params, $codes)
+	{
+		if( ! ( is_string($params) || is_string($codes) ) )
+		{
+			return $this;
+		}
+		
+		$eol = EOL;
+		
+		$this->callbacks[$name] = $eol.".$name(function($params)".$eol."{".$eol."\t$codes".$eol."})";
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected                                                          
+	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariable()
 	{
 		$this->functions = [];

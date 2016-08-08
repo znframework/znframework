@@ -60,7 +60,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @var array
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $secure;
+	protected $secure = [];
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -354,7 +354,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 			}
 			else
 			{
-				foreach($this->secure as $k => $v)
+				foreach( $this->secure as $k => $v )
 				{
 					$secureParams[$k] = $this->db->realEscapeString($v);
 				}
@@ -365,7 +365,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 		
 		$this->stringQuery = $query;
 		
-		$this->secure = NULL;
+		$this->secure = [];
 
 		return $query;
 	}

@@ -478,7 +478,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin(String $table, String $otherColumn, $operator = '=')
+	public function innerJoin(String $table, String $otherColumn, String $operator = '=')
 	{
 		$this->_join($table, $otherColumn, $operator, 'INNER');
 		
@@ -494,7 +494,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin(String $table, String $otherColumn, $operator = '=')
+	public function outerJoin(String $table, String $otherColumn, String $operator = '=')
 	{
 		$this->_join($table, $otherColumn, $operator, 'OUTER');
 		
@@ -510,7 +510,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin(String $table, String $otherColumn, $operator = '=')
+	public function leftJoin(String $table, String $otherColumn, String $operator = '=')
 	{
 		$this->_join($table, $otherColumn, $operator, 'LEFT');
 		
@@ -526,7 +526,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin(String $table, String $otherColumn, $operator = '=')
+	public function rightJoin(String $table, String $otherColumn, String $operator = '=')
 	{
 		$this->_join($table, $otherColumn, $operator, 'RIGHT');
 		
@@ -580,9 +580,9 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param int $limit
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($start = 0, $limit = 0)
+	public function limit($start = NULL, Int $limit = 0)
 	{ 
-		nullCoalesce($start, \URI::segment(-1));
+		nullCoalesce($start, (int) \URI::segment(-1));
 
 		if( ! empty($limit) ) 
 		{
@@ -593,10 +593,10 @@ class InternalDB extends DatabaseCommon implements DBInterface
 			$comma = '';
 		}
 		
-		$this->pagination['start'] = (int)$start;
-		$this->pagination['limit'] = (int)$limit;
+		$this->pagination['start'] = (int) $start;
+		$this->pagination['limit'] = $limit;
 		
-		$this->limit = ' LIMIT '.(int)$start.( ! empty($limit) ? $comma.(int)$limit.' ' : '' );
+		$this->limit = ' LIMIT '.$start.( ! empty($limit) ? $comma.$limit.' ' : '' );
 	
 		return $this; 
 	}
@@ -611,10 +611,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string $return -> Sorgunun dönüş türü. object, string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get(String $table = NULL, String $return = NULL)
+	public function get(String $table = NULL, String $return = 'object')
 	{		
-		nullCoalesce($return, 'object');
-
 		$this->tableName = $table = $this->_p($table, 'table');
 	
 		if( ! empty($this->selectFunctions) )
@@ -720,7 +718,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escapeString(String $data)
+	public function escapeString(String $data) : String
 	{
 		return $this->db->realEscapeString($data);	
 	}
@@ -735,7 +733,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function realEscapeString(String $data)
+	public function realEscapeString(String $data) : String
 	{
 		return $this->db->realEscapeString($data);	
 	}
@@ -750,7 +748,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getString(String $table)
+	public function getString(String $table) : String
 	{
 		return $this->get($table, 'string');	
 	}
@@ -767,7 +765,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alias(String $string, String $alias, $brackets = false)
+	public function alias(String $string, String $alias, Bool $brackets = false) : String
 	{
 		if( $brackets === true)
 		{
@@ -787,7 +785,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function brackets(String $string)
+	public function brackets(String $string) : String
 	{
 		return ' ( '.$string.' ) ';
 	}
@@ -1040,11 +1038,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $collate
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encoding(String $charset = NULL, String $collate = NULL)
+	public function encoding(String $charset = 'utf8', String $collate = 'utf8_general_ci') : String
 	{ 
-		nullCoalesce($charset, 'utf8');
-		nullCoalesce($collate, 'utf8_general_ci');
-
 		$encoding  = $this->cset($charset);
 		$encoding .= $this->collate($collate);
 		
@@ -1067,6 +1062,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 		{
 			$this->into .= ', '.$varname2.' ';  
 		}
+
 		return $this; 
 	}
 	
@@ -1190,7 +1186,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function query(String $query, Array $secure = NULL)
+	public function query(String $query, Array $secure = [])
 	{
 		$this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
 		
@@ -1215,7 +1211,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function execQuery(String $query, Array $secure = NULL)
+	public function execQuery(String $query, Array $secure = [])
 	{
 		return $this->db->exec($this->_querySecurity($query), $this->_p($secure, 'secure'));
 	}
@@ -1228,7 +1224,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function multiQuery(String $query, Array $secure = NULL)
+	public function multiQuery(String $query, Array $secure = [])
 	{
 		return $this->db->multiQuery($this->_querySecurity($query), $this->_p($secure, 'secure'));
 	}
@@ -1301,12 +1297,12 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// Increment
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param mixed   $table
+	// @param string  $table
 	// @param mixed   $columns
 	// @param numeric $increment
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($table = NULL, $columns = [], $increment = 1)
+	public function increment(String $table = NULL, $columns = [], Int $increment = 1)
 	{
 		return $this->_incdec($table, $columns, $increment, 'increment');
 	}
@@ -1315,12 +1311,12 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// Decrement
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param mixed   $table
+	// @param string  $table
 	// @param mixed   $columns
 	// @param numeric $decrement
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($table = NULL, $columns = [], $decrement = 1)
+	public function decrement(String $table = NULL, $columns = [], Int $decrement = 1)
 	{
 		return $this->_incdec($table, $columns, $decrement, 'decrement');
 	}
@@ -1333,7 +1329,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param mixed $datas
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($table = NULL, $datas = [])
+	public function insert(String $table = NULL, Array $datas = [])
 	{
 		$datas = $this->_p($datas, 'column');	
 		$data  = ""; $values = "";
@@ -1406,7 +1402,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param mixed $set
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($table = NULL, $set = [])
+	public function update(String $table = NULL, Array $set = [])
 	{
 		$set  = $this->_p($set, 'column');
 		$data = '';
@@ -1441,7 +1437,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param mixed $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($table = NULL)
+	public function delete(String $table = NULL)
 	{	
 		$deleteQuery = 'DELETE '.
 		               $this->lowPriority.
@@ -1466,10 +1462,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param bool $total
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows(Boolean $total = NULL)
+	public function totalRows(Bool $total = false)
 	{
-		nullCoalesce($total, false);
-
 		if( $total === false )
 		{
 			return $this->db->numRows(); 
@@ -1515,10 +1509,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $type: object, 'json', 'array'
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function result(String $type = NULL)
+	public function result(String $type = 'object')
 	{ 
-		nullCoalesce($type, 'object');
-
 		if( $type === 'object' )
 		{
 			return $this->db->result();
@@ -1588,10 +1580,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param string $type: assoc, array, row
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fetch(String $type = NULL)
+	public function fetch(String $type = 'assoc')
 	{ 
-		nullCoalesce($type, 'assoc');
-
 		if( $type === 'assoc' )
 		{
 			return $this->db->fetchAssoc(); 
@@ -1613,10 +1603,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param boolean $printable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fetchRow(Boolean $printable = NULL)
+	public function fetchRow(Bool $printable = false)
 	{ 
-		nullCoalesce($printable, false);
-
 		$row = $this->db->fetchRow();
 
 		if( $printable === false )
@@ -1674,7 +1662,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	public function value()
 	{ 
-		return current((array)$this->db->row());
+		return current((array) $this->db->row());
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -1722,11 +1710,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	// @param bool   $output
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pagination(String $url = NULL, Array $settings = NULL, Boolean $output = NULL)
+	public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
 	{ 
-		nullCoalesce($settings, []);
-		nullCoalesce($output, true);
-
 		$limit = $this->pagination['limit'];
 		$start = $this->pagination['start'];
 		
@@ -1769,7 +1754,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	// Protected Where Having
 	//----------------------------------------------------------------------------------------------------
-	protected function _wh($column = '', $value = '', $logical = '', $type = 'where')
+	protected function _wh($column, $value, $logical, $type = 'where')
 	{
 		if( isArray($column) )
 		{
@@ -1998,7 +1983,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
 	//----------------------------------------------------------------------------------------------------
 	// Protected Increment & Decrement
 	//----------------------------------------------------------------------------------------------------
-	protected function _incdec($table = '', $columns = [], $incdec = 0, $type)
+	protected function _incdec($table, $columns, $incdec, $type)
 	{
 		$table   = $this->_p($table);
 		$columns = $this->_p($columns, 'column');

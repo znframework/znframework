@@ -127,7 +127,12 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function exec($query, $security = NULL)
-	{
+	{	
+		if( empty($query) )
+		{
+			return false;
+		}
+
 		return mysqli_query($this->connect, $query);
 	}
 	
@@ -154,8 +159,12 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function multiQuery($query, $security = NULL)
 	{
-		$this->query = mysqli_multi_query($this->connect, $query);
-		return $this->query;
+		if( empty($query) )
+		{
+			return false;
+		}
+
+		return $this->query = mysqli_multi_query($this->connect, $query);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

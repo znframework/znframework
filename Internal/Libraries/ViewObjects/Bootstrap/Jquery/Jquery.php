@@ -12,73 +12,56 @@ class InternalJquery extends \CallController implements JqueryInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Jquery Trait                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @methods
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	use JqueryTrait;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Namespace                                                                  
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//																						  
+	//----------------------------------------------------------------------------------------------------
 	protected $namespace = 'ZN\ViewObjects\Jquery\Helpers\\';
 	
-	/* Property Variables
-	 * Property 
-	 * css, attr, val
-	 *
-	 * $.css(), .attr(), .val()
-	 */	 
-	protected $property = '';
-	
-	/* Property Queue Variables
-	 * 
-	 *
-	 * @string var = 1
-	 * 
-	 */	
+	//----------------------------------------------------------------------------------------------------
+	// Property Queue                                                                  
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//																						  
+	//----------------------------------------------------------------------------------------------------	
 	protected $propertyQueue = '';
 	
-	/* Attributes Variables
-	 * Attributes 
-	 * 
-	 *
-	 * {key:val} 
-	 */
-	protected $attr = '';
-	
-	/******************************************************************************************
-	* PROPERTY                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Özelliği belirlemek için kullanılır.									  |
-		
-	  @param string $property .property()
-	  @param array  $attr     .property(p1, p2, p3 .... )
-	  
-	  @return $this
-	|          																				  |
-	******************************************************************************************/
-	public function property($property = '', $attr = [])
+	//----------------------------------------------------------------------------------------------------
+	// Property                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $property
+	// @param variadic $attr
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function property(String $property, ...$attr)
 	{
-		if( ! is_string($property) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'property');
-			return $this;	
-		}
-		
-		$this->property = $property;
-
-		$this->attr = $attr;
-		
 		$this->propertyQueue .= \JQ::property($property, $attr);
 
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* COMPLETE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Bağlantılı dizge oluşturmak istenirse dizge bu yöntem ile sonlandırılır.|
-		
-	  @param string $void
-	  
-	  @return string
-	|          																				  |
-	******************************************************************************************/
-	public function complete()
+	//----------------------------------------------------------------------------------------------------
+	// Complete                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function complete() : String
 	{
 		$complete = $this->propertyQueue;
 
@@ -87,17 +70,14 @@ class InternalJquery extends \CallController implements JqueryInterface
 		return $complete;
 	}
 	
-	/******************************************************************************************
-	* CREATE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizgeyi tamamlayıp oluşturmak için kullanılan nihai yöntemdir.	      |
-		
-	  @param string arguments $complete1, $complete2 ... $completeN
-	  
-	  @return $string
-	|          																				  |
-	******************************************************************************************/
-	public function create(...$args)
+	//----------------------------------------------------------------------------------------------------
+	// Create                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	public function create(...$args) : String
 	{
 		$combineFunction = $args;
 		
@@ -115,24 +95,6 @@ class InternalJquery extends \CallController implements JqueryInterface
 		return $complete;	
 	}
 	
-	/******************************************************************************************
-	* PROTECTED DEFAULT VARIABLE                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Değişkenlerin var sayılan ayarlarına dönmeleri sağlanır.     		      |
-		
-	  @param void
-	  
-	  @return void
-	|          																				  |
-	******************************************************************************************/
-	protected function _defaultVariable()
-	{
-		$this->selector = 'this';
-		$this->property = '';
-		$this->attr = '';
-		$this->propertyQueue = '';
-	}
-	
 	//----------------------------------------------------------------------------------------------------
 	// Ajax
 	//----------------------------------------------------------------------------------------------------
@@ -140,7 +102,7 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ajax($tag = false, $jq = false, $jqui = false)
+	public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
 	{
 		return uselib($this->namespace.'Ajax', [$tag, $jq, $jqui]);
 	}
@@ -152,7 +114,7 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function action($tag = false, $jq = false, $jqui = false)
+	public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
 	{
 		return uselib($this->namespace.'Action', [$tag, $jq, $jqui]);
 	}
@@ -164,7 +126,7 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function animate($tag = false, $jq = false, $jqui = false)
+	public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
 	{
 		return uselib($this->namespace.'Animate', [$tag, $jq, $jqui]);
 	}
@@ -176,8 +138,21 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function event($tag = false, $jq = false, $jqui = false)
+	public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
 	{
 		return uselib($this->namespace.'Event', [$tag, $jq, $jqui]);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Variable                                                                 
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//																						  
+	//----------------------------------------------------------------------------------------------------
+	protected function _defaultVariable()
+	{
+		$this->selector = 'this';
+		$this->propertyQueue = '';
 	}
 }

@@ -30,7 +30,7 @@ interface DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column, $value, String $logical);
+	public function where($column, $value = NULL, String $logical = NULL);
 	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ interface DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column, $value, String $logical);
+	public function having($column, $value = NULL, String $logical = NULL);
 
 	//----------------------------------------------------------------------------------------------------
 	// Where Group
@@ -71,7 +71,7 @@ interface DBInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function join(String $table, String $condition, String $type);
+	public function join(String $table, String $condition, String $type = NULL);
 
 	//----------------------------------------------------------------------------------------------------
 	// Inner Join
@@ -82,7 +82,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin(String $table, String $otherColumn, $operator);
+	public function innerJoin(String $table, String $otherColumn, String $operator = '=');
 
 	//----------------------------------------------------------------------------------------------------
 	// Outer Join
@@ -93,7 +93,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin(String $table, String $otherColumn, $operator);
+	public function outerJoin(String $table, String $otherColumn, String $operator = '=');
 
 	//----------------------------------------------------------------------------------------------------
 	// Left Join
@@ -104,7 +104,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin(String $table, String $otherColumn, $operator);
+	public function leftJoin(String $table, String $otherColumn, String $operator = '=');
 
 	//----------------------------------------------------------------------------------------------------
 	// Right Join
@@ -115,7 +115,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin(String $table, String $otherColumn, $operator);
+	public function rightJoin(String $table, String $otherColumn, String $operator = '=');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get
@@ -127,7 +127,7 @@ interface DBInterface
 	// @return string $return -> Sorgunun dönüş türü. object, string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get(String $table, String $return);
+	public function get(String $table, String $return = 'object');
 
 	//----------------------------------------------------------------------------------------------------
 	// Get String
@@ -139,7 +139,7 @@ interface DBInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getString(String $table);
+	public function getString(String $table) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Query
@@ -149,7 +149,7 @@ interface DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function query(String $query, Array $secure);
+	public function query(String $query, Array $secure = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Exec Query
@@ -159,7 +159,7 @@ interface DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function execQuery(String $query, Array $secure);
+	public function execQuery(String $query, Array $secure = []);
 
 	//----------------------------------------------------------------------------------------------------
 	// Multi Query
@@ -169,7 +169,7 @@ interface DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function multiQuery(String $query, Array $secure);
+	public function multiQuery(String $query, Array $secure = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Trans Start
@@ -196,7 +196,7 @@ interface DBInterface
 	// @param bool $total
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows(Boolean $total);
+	public function totalRows(Bool $total = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Columns
@@ -223,7 +223,7 @@ interface DBInterface
 	// @param string $type: object, 'json', 'array'
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function result(String $type);
+	public function result(String $type = 'object');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Result Array
@@ -268,7 +268,7 @@ interface DBInterface
 	// @param string $type: assoc, array, row
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fetch(String $type);
+	public function fetch(String $type = 'assoc');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Fetch Row
@@ -277,7 +277,7 @@ interface DBInterface
 	// @param boolean $printable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fetchRow(Boolean $printable);
+	public function fetchRow(Bool $printable = false);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Row
@@ -342,7 +342,7 @@ interface DBInterface
 	// @param bool   $output
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pagination(String $url, Array $settings, Boolean $output);
+	public function pagination(String $url = NULL, Array $settings = [], Bool $output = true);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Group By
@@ -361,7 +361,7 @@ interface DBInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($condition, String $type);
+	public function orderBy($condition, String $type = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -371,7 +371,7 @@ interface DBInterface
 	// @param int $limit
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($start, $limit);
+	public function limit($start = NULL, Int $limit = 0);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Status
@@ -386,23 +386,23 @@ interface DBInterface
 	// Increment
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param mixed   $table
+	// @param string  $table
 	// @param mixed   $columns
 	// @param numeric $increment
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($table, $columns, $increment);
+	public function increment(String $table = NULL, $columns = [], Int $increment = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decrement
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param mixed   $table
+	// @param string  $table
 	// @param mixed   $columns
 	// @param numeric $decrement
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($table, $columns, $decrement);
+	public function decrement(String $table = NULL, $columns = [], Int $decrement = 1);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -412,7 +412,7 @@ interface DBInterface
 	// @param mixed $datas
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($table, $datas);
+	public function insert(String $table = NULL, Array $datas = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Updated
@@ -422,7 +422,7 @@ interface DBInterface
 	// @param mixed $set
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($table, $set);
+	public function update(String $table = NULL, Array $set = []);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -431,7 +431,7 @@ interface DBInterface
 	// @param mixed $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($table);
+	public function delete(String $table = NULL);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Escape String
@@ -443,7 +443,7 @@ interface DBInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escapeString(String $data);
+	public function escapeString(String $data) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Real Escape String
@@ -455,7 +455,7 @@ interface DBInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function realEscapeString(String $data);
+	public function realEscapeString(String $data) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Alias
@@ -469,7 +469,7 @@ interface DBInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alias(String $string, String $alias, $brackets);
+	public function alias(String $string, String $alias, Bool $brackets = false) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Brackets
@@ -481,7 +481,7 @@ interface DBInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function brackets(String $string);
+	public function brackets(String $string) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// All
@@ -644,7 +644,7 @@ interface DBInterface
 	// @param string $collate
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encoding(String $charset, String $collate);
+	public function encoding(String $charset = 'utf8', String $collate = 'utf8_general_ci') : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Into

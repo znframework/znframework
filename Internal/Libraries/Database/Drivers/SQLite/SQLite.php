@@ -119,6 +119,11 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function exec($query, $security = NULL)
 	{
+		if( empty($query) )
+		{
+			return false;
+		}
+		
 		return $this->connect->exec($query);
 	}
 	

@@ -136,6 +136,11 @@ class PostgresDriver extends DriverConnectionMappingAbstract
 	//----------------------------------------------------------------------------------------------------
 	public function exec($query, $security = NULL)
 	{
+		if( empty($query) )
+		{
+			return false;
+		}
+		
 		return pg_query($this->connect, $query);
 	}
 	
