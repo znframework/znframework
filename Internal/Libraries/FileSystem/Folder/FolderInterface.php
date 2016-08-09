@@ -12,140 +12,98 @@ interface FolderInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* CREATE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizin oluşturmak için kullanılır.    				     			      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @name => Oluşturulacak dizinin adı veya yolu.							  |
-	| 2. string var @permission => Oluşturulacak dizinin yetki kodu							  |
-	|          											  									  |
-	| Örnek Kullanım: create('dizin/yeniDizin');        						              |
-	|          																				  |
-	******************************************************************************************/
-	public function create(String $name, Integer $permission, $recursive);
+	//----------------------------------------------------------------------------------------------------
+	// create()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Dizin oluşturmak için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool;
 	
-	/******************************************************************************************
-	* RENAME                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Dizinin adını değiştirmek için kullanılır.    				     	  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @oldname => Dizinin eski ismi.							  				  |
-	| 2. string var @newname => Dizinin yeni ismi.							  				  |
-	|          											  									  |
-	| Örnek Kullanım: rename('dizin/eskiIsim', 'dizin/yeniIsim');        				      |
-	|          																				  |
-	******************************************************************************************/
-	public function rename(String $oldName, String $newName);
-	
-	/******************************************************************************************
-	* DELETE EMPTY                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: İçi boş dizini silmek için kullanılır.    	 			     		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @name => Silinecek boş dizinin adı veya yolu.							  |
-	|          											  									  |
-	| Örnek Kullanım: $veri = deleteEmpty('dizin/yeniDizin');        					      |
-	|          																				  |
-	******************************************************************************************/
-	public function deleteEmpty(String $name);
-	
-	/******************************************************************************************
-	* COPY                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: İçi boş veya dolu bir dizini kopyalamak için kullanılır.    	 		  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @source => Hangi dizinin kopyalanacağını belirtir.			  		      |
-	| 2. string var @target => Kopyalanan dizinin hangi yola yapıştırılacağı belirtir.        |
-	|          											  									  |
-	| Örnek Kullanım: $veri = copy('dizin/kaynakDizin', 'dizin/hedefDizin');        		  |
-	|          																				  |
-	******************************************************************************************/
-	public function copy(String $source, String $target);
-	
-	/******************************************************************************************
-	* DELETE	                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: İçi dolu veya boş dizini silmek için kullanılır.    	 			      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @name => Silinecek dizinin adı veya yolu.							      |
-	|          											  									  |
-	| Örnek Kullanım: $veri = delete('dizin/yeniDizin');        					          |
-	|          																				  |
-	| Not: Bu yöntem bir dizinin içindeki diğer tüm verileride dizin ile birlikte silecektir. |
-	|          																				  |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// rename()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Dosya veya dizinin adını değiştirmek için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rename(String $oldName, String $newName) : Bool;
+
+	//----------------------------------------------------------------------------------------------------
+	// deleteEmpty()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Boş bir dizini silmek için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function deleteEmpty(String $folder) : Bool;
+
+	//----------------------------------------------------------------------------------------------------
+	// delete()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bir dizin ve içindekilerinin tamamını silmek için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function delete(String $name);
-	
-	/******************************************************************************************
-	* FILES	                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizin içindeki dosya ve dizin listesini almak için kullanılır.      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @path => Listesi alınacak dizinin adı veya yolu.						  |
-	| 2. string var @extension => Listede hangi uzantılı dosyaların yer alacağıdır. Bu 		  |
-	| parametre boş bırakılırsa tüm dosya ve dizinler listeye alınacaktır.         			  |
-	|          											  									  |
-	| Örnek Kullanım: $veri = files('dizin/', 'php'); // php uzantılı dosyaları listeler.     |
-	| Örnek Kullanım: $veri = files('dizin/', 'dir'); // sadece dizinleri listeler.           |
-	| Örnek Kullanım: $veri = files('dizin/'); // tüm dosya ve dizinleri listeler.            |
-	|          																				  |
-	******************************************************************************************/
-	public function files(String $path, String $extension);
 
-	/******************************************************************************************
-	* FILE INFO	                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizinin içerisinde yer alan dosyalar hakkında bilgi edinmek için	  |
-	| kullanılır.																			  |
-	|															                              |
-	******************************************************************************************/
-	public function fileInfo(String $dir, String $extension);
+	//----------------------------------------------------------------------------------------------------
+	// fileInfo()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bir dosya veya dizine ait dosyalar ve dizinler hakkında çeşitli bilgiler almak için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function fileInfo(String $dir, String $extension = NULL) : Array;
 
-    /******************************************************************************************
-     * CHANGE                                                                           		  *
-     *******************************************************************************************
-    | Genel Kullanım: Çalışma dizini değiştirmek için kullanılır.    	 		     		  |
-    |															                              |
-    | Parametreler: Tek parametresi vardır.                                                   |
-    | 1. string var @name => Değiştirilecek çalışma dizininin adı veya yolu.				  |
-    |          											  									  |
-    | Örnek Kullanım: $veri = changer('dizin/yeniDizin');        					          |
-    |          																				  |
-     ******************************************************************************************/
-    public function change(String $name);
-	
-	/******************************************************************************************
-	* ALL FILES	                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Bir dizin içindeki dosya ve dizin listesini almak için kullanılır.      |
-	| Bu yöntemin files() yönteminden farkı herhangi bir uzantı parametresinin olmamasıdır.	  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @pattern => Listesi alınacak dizinin adı veya yolu.	Varsayılan:*		  |
-	|          											  									  |
-	| Örnek Kullanım: $veri = allFiles('dizin/'); // tüm dosya ve dizinleri listeler.        |
-	|          																				  |
-	******************************************************************************************/
-	public function allFiles(String $pattern, $allFiles);
-	
-	/******************************************************************************************
-	* PERMISSION                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya ve dizin yetkilerini düzenlemek için kullanılır.		     	  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @name => Yetki verilecek dosyanın ismi veya yolu.						  |
-	| 2. numeric var @name => Dosyaya verilecek yetki kodu. Varsayılan:0755  	     	      |
-	|          																				  |
-	| Örnek Kullanım: permission('dizin/dosya.txt', 0755);        							  |
-	|          																				  |
-	******************************************************************************************/
-	public function permission(String $name, Integer $permission);
+	//----------------------------------------------------------------------------------------------------
+	// Copy()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bir dizini belirtilen başka bir konuma kopyalamak için kullanılır. Bu işlem kopyalanacak dizine
+	// ait diğer alt dizin ve dosyaları da kapsamaktadır.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function copy(String $source, String $target);
+
+	//----------------------------------------------------------------------------------------------------
+	// change()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// PHP'nin aktif çalışma dizinini değiştirmek için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------	
+	public function change(String $name) : Bool;
+
+	//----------------------------------------------------------------------------------------------------
+	// files()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bir dizin içindeki dosya ve dizin listesini almak için kullanılır. Eğer listelenecek dosyalar
+	// arasında belli uzantılı dosyaların listelenmesi istenilirse 2. parametreye dosya uzantısı
+    // verilebilir. Sadece dizinlerin listelenmesi istenirse 'dir' parametresini kullanmanız gerekir.
+    // Birden fazla uzantı belirmek isterseniz 2. parametreyi ['dir', 'php'] gibi belirtebilirsiniz.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function files(String $path, $extension = NULL) : Array;
+
+	//----------------------------------------------------------------------------------------------------
+	// allFiles()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bir dizine ait tüm alt dizin ve dosyaların listesini almak için kullanılır. İç içe dizinlerde de
+	// yer alan dosyaların listelenmesini isterseniz 2. parametreyi true ayarlayabilirsiniz.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array;
+
+	//----------------------------------------------------------------------------------------------------
+	// permission()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Bir dizin veya dosyaya yetki vermek için kullanılır.
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function permission(String $name, Int $permission = 0755) : Bool;
 }

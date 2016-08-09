@@ -1,7 +1,5 @@
 <?php
-namespace ZN\Foundations\Extend;
-
-class BaseController
+class CallController extends BaseController
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -11,24 +9,21 @@ class BaseController
 	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
 	//
 	//----------------------------------------------------------------------------------------------------
-
+	
 	//----------------------------------------------------------------------------------------------------
-	// Get
+	// Call
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// Magic Get
+	// Magic Call
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __get($class)
-	{
-		// ---------------------------------------------------------------------
-		// Nesnenin tanımlanmamış ise tanımlanmasını sağla.
-		// ---------------------------------------------------------------------
-		if( ! isset($this->$class) )
-		{
-			// Sınıf Tanımlaması Yapılıyor.
-			return $this->$class = uselib($class);	
-		}
-		// ---------------------------------------------------------------------
+	public function __call($method = '', $param = '')
+	{	
+		die(getErrorMessage
+		(
+			'Error', 
+			'undefinedFunction', 
+			divide(str_ireplace(STATIC_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
+		));
 	}
 }

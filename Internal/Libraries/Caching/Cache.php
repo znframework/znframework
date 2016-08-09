@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Caching;
 
-class InternalCache extends \CallController implements CacheInterface
+class InternalCache extends \Requirements implements CacheInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -49,7 +49,9 @@ class InternalCache extends \CallController implements CacheInterface
 	//----------------------------------------------------------------------------------------------------
 	public function __construct(String $driver = NULL)
 	{	
-		nullCoalesce($driver, \Config::get('Cache', 'driver'));
+		parent::__construct();
+
+		nullCoalesce($driver, $this->config['driver']);
 
 		\Support::driver($this->drivers, $driver);
 
@@ -81,7 +83,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $key, $var, Int $time = 60, $compressed = false)
+	public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool
 	{
 		return $this->cache->insert($key, $var, $time, $compressed);
 	}
@@ -94,7 +96,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $key)
+	public function delete(String $key) : Bool
 	{
 		return $this->cache->delete($key);
 	}
@@ -108,7 +110,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment(String $key, Int $increment = 1)
+	public function increment(String $key, Int $increment = 1) : Int
 	{
 		return $this->cache->increment($key, $increment);
 	}
@@ -122,7 +124,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement(String $key, Int $decrement = 1)
+	public function decrement(String $key, Int $decrement = 1) : Int
 	{
 		return $this->cache->decrement($key, $decrement);
 	}
@@ -135,7 +137,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function clean()
+	public function clean() : Bool
 	{
 		return $this->cache->clean();
 	}
@@ -148,7 +150,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function info($type = NULL)
+	public function info($type = NULL) : Array
 	{
 		return $this->cache->info($type);
 	}
@@ -161,7 +163,7 @@ class InternalCache extends \CallController implements CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getMetaData(String $key)
+	public function getMetaData(String $key) : Array
 	{
 		return $this->cache->getMetaData($key);
 	}	

@@ -18,10 +18,10 @@ interface ExceptionsInterface
     //
     // @param string $message
     // @param string $key
-    // @param string $send
+    // @param mixed  $send
     //
     //----------------------------------------------------------------------------------------------------
-	public function throws($message, $key, $send);
+	public function throws(String $message = NULL, String $key = NULL, $send = NULL);
 
 	//----------------------------------------------------------------------------------------------------
     // Table
@@ -34,7 +34,7 @@ interface ExceptionsInterface
     // @param array $trace
     //
     //----------------------------------------------------------------------------------------------------
-	public function table($no, $msg, $file, $line, $trace);
+	public function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL);
 
 	//----------------------------------------------------------------------------------------------------
     // Restore
@@ -43,7 +43,7 @@ interface ExceptionsInterface
     // @param void
     //
     //----------------------------------------------------------------------------------------------------
-	public function restore();
+	public function restore() : Bool;
 
 	//----------------------------------------------------------------------------------------------------
     // Handler

@@ -48,7 +48,7 @@ class InternalExcel extends \CallController implements ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLS(Array $data, $file = 'excel.xls')
+	public function arrayToXLS(Array $data, String $file = 'excel.xls')
 	{
 		if( ! empty($this->fileName) )
 		{
@@ -86,7 +86,7 @@ class InternalExcel extends \CallController implements ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function CSVToArray(String $file)
+	public function CSVToArray(String $file) : Array
 	{
 		if( ! empty($this->fileName) )
 		{
@@ -98,13 +98,15 @@ class InternalExcel extends \CallController implements ExcelInterface
 		
 		if( ! is_file($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			\Exceptions::throws('File', 'notFoundError', $file);
+
+			return [];
 		}
 		
 		$row  = 1;
 		$rows = [];
 		
-		if( ($resource = fopen($file, "r") ) !== false ) 
+		if( ( $resource = fopen($file, "r") ) !== false ) 
 		{
 			while( ($data = fgetcsv($resource, 1000, ",")) !== false ) 
 			{

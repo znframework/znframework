@@ -34,7 +34,7 @@ interface CacheInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $key, $var, Int $time = 60, $compressed = false);
+	public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool;
 		
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -44,7 +44,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $key);
+	public function delete(String $key) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Increment
@@ -55,7 +55,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment(String $key, Int $increment = 1);
+	public function increment(String $key, Int $increment = 1) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Deccrement
@@ -66,7 +66,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement(String $key, Int $decrement = 1);
+	public function decrement(String $key, Int $decrement = 1) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Clean
@@ -76,7 +76,7 @@ interface CacheInterface
 	// @return void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function clean();
+	public function clean() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Info
@@ -86,7 +86,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function info($info);
+	public function info($info) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get Meta Data
@@ -96,7 +96,7 @@ interface CacheInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getMetaData(String $key);
+	public function getMetaData(String $key) : Array;
 
 	//----------------------------------------------------------------------------------------------------
 	// Driver                                                                       

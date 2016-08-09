@@ -1,6 +1,4 @@
 <?php
-namespace ZN\Foundations\Extend;
-
 interface RequirementsInterface
 {
 	//----------------------------------------------------------------------------------------------------

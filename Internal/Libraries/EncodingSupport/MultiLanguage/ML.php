@@ -90,7 +90,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $app, $key, String $data = NULL)
+	public function insert(String $app, $key, String $data = NULL) : Bool
 	{
 		$datas = [];
 		
@@ -147,7 +147,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $app, $key)
+	public function delete(String $app, $key) : Bool
 	{
 		$datas = [];
 		
@@ -190,7 +190,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @param string $app 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll($app = NULL)
+	public function deleteAll($app = NULL) : Bool
 	{
 		if( ! is_string($app) )
 		{
@@ -214,6 +214,8 @@ class InternalML extends \Requirements implements MLInterface
 				$removeExtension = str_replace('.ml', '', $file);
 				$this->deleteAll($removeExtension);
 			}
+
+			return true;
 		}
 		else
 		{
@@ -238,7 +240,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update(String $app = NULL, $key, String $data = NULL)
+	public function update(String $app = NULL, $key, String $data = NULL) : Bool
 	{
 		// Güncelleme işlemi ekleme yöntemi ile aynı özelliğe sahiptir.
 		return $this->insert($app, $key, $data);
@@ -253,7 +255,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $key, $convert = NULL)
+	public function select(String $key, $convert = NULL) : String
 	{
 		$read = \File::read($this->lang);
 		
@@ -284,7 +286,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectAll($app = NULL)
+	public function selectAll($app = NULL) : Array
 	{
 		if( ! is_string($app) )
 		{
@@ -329,7 +331,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table($app = NULL)
+	public function table($app = NULL) : String
 	{
 		$searchWord = '';
 		if( \Method::post() )
@@ -583,7 +585,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lang($lang = 'tr')
+	public function lang(String $lang = 'tr') : Bool
 	{
 		setLang($lang);
 	}
@@ -595,7 +597,7 @@ class InternalML extends \Requirements implements MLInterface
 	// @param array  $rows
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _langFile($app = '')
+	protected function _langFile($app)
 	{
 		return $this->appdir.$app.$this->extension;	
 	}

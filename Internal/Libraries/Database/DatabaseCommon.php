@@ -172,7 +172,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param mixed  $val
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $col, String $val)
+	public function column(String $col, $val)
 	{
 		$this->column[$col] = $val;
 		

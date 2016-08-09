@@ -43,6 +43,7 @@ $config['Autoloader']['directoryPermission'] = 0755;
 //----------------------------------------------------------------------------------------------------
 $config['Autoloader']['classMap'] = 
 [
+	INTERNAL_REQUIREMENTS_DIR,
 	INTERNAL_LIBRARIES_DIR,
 	LIBRARIES_DIR,
 	EXTERNAL_LIBRARIES_DIR,

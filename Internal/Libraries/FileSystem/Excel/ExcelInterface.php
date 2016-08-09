@@ -20,7 +20,7 @@ interface ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function arrayToXLS(Array $data, $file);
+	public function arrayToXLS(Array $data, String $file = 'excel.xls');
 	
 	//----------------------------------------------------------------------------------------------------
 	// CSV To Array
@@ -29,7 +29,7 @@ interface ExcelInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function CSVToArray(String $file);
+	public function CSVToArray(String $file) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// fileName

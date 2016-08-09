@@ -22,7 +22,7 @@ interface MLInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $app, $key, String $data);
+	public function insert(String $app, $key, String $data) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -35,7 +35,7 @@ interface MLInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $app, $key);
+	public function delete(String $app, $key) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete All
@@ -45,7 +45,7 @@ interface MLInterface
 	// @param string $app 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll($app);
+	public function deleteAll($app) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Update
@@ -57,7 +57,7 @@ interface MLInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update(String $app, $key, String $data);
+	public function update(String $app, $key, String $data) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -68,7 +68,7 @@ interface MLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $key, $convert);
+	public function select(String $key, $convert) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select All
@@ -78,7 +78,7 @@ interface MLInterface
 	// @return array
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectAll($app);
+	public function selectAll($app) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -88,7 +88,7 @@ interface MLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table($app);
+	public function table($app) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Lang
@@ -99,5 +99,5 @@ interface MLInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lang($lang);
+	public function lang(String $lang = 'tr') : Bool;
 }

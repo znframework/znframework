@@ -66,7 +66,7 @@ class InternalCompress extends \CallController implements CompressInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function extract(String $source, String $target = NULL, String $password = NULL)
+	public function extract(String $source, String $target = NULL, String $password = NULL) : Bool
 	{
 		if( ! is_file($source) )
 		{
@@ -85,7 +85,7 @@ class InternalCompress extends \CallController implements CompressInterface
 	// @param string $mode
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function write(String $file, String $data, String $mode = 'w')
+	public function write(String $file, String $data, String $mode = 'w') : Bool
 	{
 		if( ! is_scalar($data) )
 		{

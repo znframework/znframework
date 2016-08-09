@@ -14,14 +14,6 @@
 // Sistem Takma İsimleri
 //----------------------------------------------------------------------------------------------------
 class_alias('ZN\Core\Autoloader', 'Autoloader');
-class_alias('ZN\Foundations\Structures\StaticAccess', 'StaticAccess');
-class_alias('ZN\Foundations\Structures\Restoration', 'Restoration');
-class_alias('ZN\Foundations\Extend\Model', 'Model');
-class_alias('ZN\Foundations\Extend\Grand', 'Grand');
-class_alias('ZN\Foundations\Extend\Controller', 'Controller');
-class_alias('ZN\Foundations\Extend\BaseController', 'BaseController');
-class_alias('ZN\Foundations\Extend\CallController', 'CallController');
-class_alias('ZN\Foundations\Extend\Requirements', 'Requirements');
 //----------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------

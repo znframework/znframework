@@ -1,7 +1,5 @@
-<?php
-namespace ZN\FileSystem;
-
-class InternalDownload extends \CallController implements DownloadInterface
+<?php	
+class Objects
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,26 +11,20 @@ class InternalDownload extends \CallController implements DownloadInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Start
+	// Construct                                                                      
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $file
-	//
+	// @param array $array
+	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function start(String $file)
+	public function __construct(Array $array = [])
 	{
-		if( ! file_exists($file) )
+		if ( ! empty($array) ) 
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
-		}
-	
-		$fileEx   = explode("/", $file);
-		$fileName = $fileEx[count($fileEx)-1];
-		$filePath = trim($file, $fileName);
-		
-		header("Content-type: application/x-download");
-		header("Content-Disposition: attachment; filename=".$fileName);
-		
-		readfile($filePath.$fileName);
-	}	
+            foreach( $array as $key => $val ) 
+            {
+                $this->{$key} = $val;
+            }
+        }
+	}
 }

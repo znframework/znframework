@@ -21,7 +21,7 @@ interface CompressInterface
 	// @return bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function extract(String $source, String $target = NULL, String $password = NULL);
+	public function extract(String $source, String $target = NULL, String $password = NULL) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Write
@@ -32,7 +32,7 @@ interface CompressInterface
 	// @param string $mode
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function write(String $file, String $data, String $mode = 'w');
+	public function write(String $file, String $data, String $mode = 'w') : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Read
