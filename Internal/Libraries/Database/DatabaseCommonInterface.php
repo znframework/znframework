@@ -29,7 +29,7 @@ interface DatabaseCommonInterface
 	// @param mixed  $val
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $col, $val);
+	public function column(String $col, String $val);
 	
 	//----------------------------------------------------------------------------------------------------
 	// String Query
@@ -38,7 +38,7 @@ interface DatabaseCommonInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function stringQuery();
+	public function stringQuery() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Different Connection

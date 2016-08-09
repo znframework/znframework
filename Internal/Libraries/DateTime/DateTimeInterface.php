@@ -22,7 +22,7 @@ interface DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current($clock);
+	public function current(String $clock) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// To Numeric
@@ -34,7 +34,7 @@ interface DateTimeCommonInterface
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toNumeric(String $date);
+	public function toNumeric(String $dateFormat, Int $now = NULL) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Compare
@@ -46,7 +46,7 @@ interface DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compare(String $value1, String $condition, String $value2);
+	public function compare(String $value1, String $condition, String $value2) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Calculate
@@ -60,7 +60,7 @@ interface DateTimeCommonInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculate(String $input, String $calculate, $output);
+	public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Convert
@@ -73,7 +73,7 @@ interface DateTimeCommonInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert(String $date, $format);
+	public function convert(String $date, String $format) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Standart
@@ -85,7 +85,7 @@ interface DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function standart();
+	public function standart() : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Set
@@ -97,5 +97,5 @@ interface DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function set(String $exp);
+	public function set(String $exp) : String;
 }

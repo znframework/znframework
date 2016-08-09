@@ -123,7 +123,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param array $config
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function __construct($config = [])
+	public function __construct(Array $config = [])
 	{
 		$this->db = $this->_run();
 
@@ -144,7 +144,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param  void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function vartypes()
+	public function vartypes() : Array
 	{
 		return $this->db->vartypes();
 	}
@@ -172,7 +172,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param mixed  $val
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $col, $val)
+	public function column(String $col, String $val)
 	{
 		$this->column[$col] = $val;
 		
@@ -186,7 +186,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function stringQuery()
+	public function stringQuery() : String
 	{
 		if( ! empty($this->stringQuery) )
 		{
@@ -328,7 +328,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param string $query
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _querySecurity($query = '')
+	protected function _querySecurity($query)
 	{	
 		if( isset($this->secure) ) 
 		{
@@ -378,7 +378,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param array  $args
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _math($type, $args = [])
+	protected function _math($type, $args)
 	{
 		$type    = strtoupper($type);
 		$getLast = \Arrays::getLast($args);

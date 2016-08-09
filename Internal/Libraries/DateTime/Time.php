@@ -31,7 +31,7 @@ class InternalTime extends DateTimeCommon implements DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current($clock = '%H:%M:%S')
+	public function current(String $clock = '%H:%M:%S') : String
 	{
 		return $this->_datetime($clock);
 	}
@@ -47,7 +47,7 @@ class InternalTime extends DateTimeCommon implements DateTimeCommonInterface
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert(String $date, $format = '%d-%B-%Y %A, %H:%M:%S')
+	public function convert(String $date, String $format = '%d-%B-%Y %A, %H:%M:%S') : String
 	{
 		return $this->_datetime($format, strtotime($date));	
 	}
@@ -62,7 +62,7 @@ class InternalTime extends DateTimeCommon implements DateTimeCommonInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function standart()
+	public function standart() : String
 	{	
 		// Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
 		// Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.

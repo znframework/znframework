@@ -19,17 +19,17 @@ interface GTInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $message);
+	public function data(String $message) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Locale
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param mixed $message
-	// @param mixed $locale
+	// @param string $category : all, collate, ctype, monetary, numeric, time, messages
+	// @param mixed  $locale
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function locale($category, $locale);
+	public function locale(String $category, $locale) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Datas
@@ -40,7 +40,7 @@ interface GTInterface
 	// @param int    $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function datas(String $msgId1, String $msgId2, $count);
+	public function datas(String $msgId1, String $msgId2, Int $count = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Change
@@ -50,7 +50,7 @@ interface GTInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change(String $domain, String $message);
+	public function change(String $domain, String $message) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Changes
@@ -62,7 +62,7 @@ interface GTInterface
 	// @param int    $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function changes(String $domain, String $msgId1, String $msgId2, $count);
+	public function changes(String $domain, String $msgId1, String $msgId2, Int $count = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Search
@@ -73,7 +73,7 @@ interface GTInterface
 	// @param int    $category
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function search(String $domain, String $message, $category);
+	public function search(String $domain, String $message, Int $category = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Searches
@@ -86,7 +86,7 @@ interface GTInterface
 	// @param int    $category
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function searches(String $domain, String $msgId1, String $msgId2, $count, $category);
+	public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, Int $category = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Codeset
@@ -96,7 +96,7 @@ interface GTInterface
 	// @param string $codeset
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function codeset(String $domain, String $codeset);
+	public function codeset(String $domain, String $codeset) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Dir
@@ -106,7 +106,7 @@ interface GTInterface
 	// @param string $directory
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dir(String $domain, String $directory);
+	public function dir(String $domain, String $directory) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Name
@@ -115,5 +115,5 @@ interface GTInterface
 	// @param string $textDomain
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name(String $textDomain);
+	public function name(String $textDomain) : String;
 }

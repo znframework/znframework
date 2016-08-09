@@ -31,7 +31,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $message)
+	public function data(String $message) : String
 	{
 		return gettext($message);
 	}
@@ -40,11 +40,11 @@ class InternalGT extends \CallController implements GTInterface
 	// Locale
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param mixed $message
-	// @param mixed $locale
+	// @param string $category : all, collate, ctype, monetary, numeric, time, messages
+	// @param mixed  $locale
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function locale($category, $locale)
+	public function locale(String $category, $locale) : String
 	{
 		return setlocale(\Convert::toConstant($category, 'LC_'), $locale);
 	}
@@ -58,7 +58,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param int    $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function datas(String $msgId1, String $msgId2, $count = 0)
+	public function datas(String $msgId1, String $msgId2, Int $count = 0) : String
 	{
 		return ngettext($msgId1, $msgId2, $count);
 	}
@@ -71,7 +71,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change(String $domain, String $message)
+	public function change(String $domain, String $message) : String
 	{
 		return dgettext($domain, $message);
 	}
@@ -86,7 +86,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param int    $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function changes(String $domain, String $msgId1, String $msgId2, $count = 0)
+	public function changes(String $domain, String $msgId1, String $msgId2, Int $count = 0) : String
 	{
 		return dngettext($domain, $msgId1, $msgId2, $count);
 	}
@@ -100,7 +100,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param int    $category
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function search(String $domain, String $message, $category = 0)
+	public function search(String $domain, String $message, Int $category = 0) : String
 	{
 		return dcgettext($domain, $message, $category);
 	}
@@ -116,7 +116,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param int    $category
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function searches(String $domain, String $msgId1, String $msgId2, $count = 0, $category = 0)
+	public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, Int $category = 0) : String
 	{
 		return dcngettext($domain, $msgId1, $msgId2, $count, $category);
 	}
@@ -129,7 +129,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param string $codeset
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function codeset(String $domain, String $codeset)
+	public function codeset(String $domain, String $codeset) : String
 	{
 		return bind_textdomain_codeset($domain, $codeset);
 	}
@@ -142,7 +142,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param string $directory
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dir(String $domain, String $directory)
+	public function dir(String $domain, String $directory) : String
 	{
 		return bindtextdomain($domain, $directory);
 	}
@@ -154,7 +154,7 @@ class InternalGT extends \CallController implements GTInterface
 	// @param string $textDomain
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name(String $textDomain)
+	public function name(String $textDomain) : String
 	{
 		return textdomain($textDomain);
 	}

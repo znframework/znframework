@@ -30,7 +30,7 @@ class InternalIV extends \CallController implements IVInterface
 	// @param string $toEncoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function convert(String $string, String $fromEncoding, String $toEncoding)
+	public function convert(String $string, String $fromEncoding, String $toEncoding) : String
 	{	
 		$toEncodingFirst = \Arrays::getFirst(explode('//', $toEncoding));
 		
@@ -49,22 +49,20 @@ class InternalIV extends \CallController implements IVInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encodings()
+	public function encodings() : Array
 	{
-		return iconv_get_encoding();
+		return iconv_get_encoding('all');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get Encoding
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $type
+	// @param string $type: input, output, internal
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getEncoding(String $type = NULL)
+	public function getEncoding(String $type = 'input') : String
 	{
-		nullCoalesce($type, 'input');
-
 		if( ! in_array($type, $this->inputs) )
 		{
 			return \Exceptions::throws('Error', 'invalidInput', $type);	
@@ -81,19 +79,16 @@ class InternalIV extends \CallController implements IVInterface
 	// @param string $charset
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function setEncoding(String $type = NULL, String $charset = NULL)
+	public function setEncoding(String $type = 'input', String $charset = 'utf-8') : Bool
 	{
-		nullCoalesce($type, 'input');
-		nullCoalesce($charset, 'utf-8');
-
-		if( ! is_array($type, $this->inputs) )
+		if( ! in_array($type, $this->inputs) )
 		{
-			return \Exceptions::throws('Error', 'invalidInput', $type);	
+			\Exceptions::throws('Error', 'invalidInput', $type);	
 		}
 		
 		if( ! isCharset($charset) )
 		{
-			return \Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
+			\Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
 		}
 		
 		return iconv_set_encoding($type.'_encoding', $charset);
@@ -108,7 +103,7 @@ class InternalIV extends \CallController implements IVInterface
 	// @param string $charset
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mimesDecode(String $encodedHeaders, $mode = 0, $charset = NULL)
+	public function mimesDecode(String $encodedHeaders, Int $mode = 0, String $charset = NULL) : Array
 	{
 		if( $charset === NULL )
 		{
@@ -127,8 +122,8 @@ class InternalIV extends \CallController implements IVInterface
 	// @param string $charset
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mimeDecode(String $encodedHeader, $mode = 0, $charset = NULL)
-	{
+	public function mimeDecode(String $encodedHeader, Int $mode = 0, String $charset = NULL) : String
+ 	{
 		if( $charset === NULL )
 		{
 			$charset = ini_get("iconv.internal_encoding");
@@ -146,8 +141,8 @@ class InternalIV extends \CallController implements IVInterface
 	// @param array  $preferences
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences = NULL)
+	public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences = NULL) : String
 	{
-		return iconv_mime_encode($fieldName, $fieldValue, (array) $preferences);
+		return iconv_mime_encode($fieldName, $fieldValue, $preferences);
 	}
 }

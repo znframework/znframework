@@ -122,7 +122,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 
 		$exceptionData = array
 		(
-			'message' => '['.$msg.']',
+			'message' => $msg,
 			'file'	  => $file,
 			'line'    => '['.$line.']'
 		);

@@ -61,7 +61,7 @@ class DateTimeCommon extends \CallController
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compare(String $value1, String $condition, String $value2)
+	public function compare(String $value1, String $condition, String $value2) : String
 	{		
 		$value1 = $this->toNumeric($value1);
 		$value2 = $this->toNumeric($value2);
@@ -79,7 +79,7 @@ class DateTimeCommon extends \CallController
 	// @return numeric
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function toNumeric(String $dateFormat, $now = NULL)
+	public function toNumeric(String $dateFormat, Int $now = NULL) : Int
 	{
 		if( $now === NULL )
 		{
@@ -101,7 +101,7 @@ class DateTimeCommon extends \CallController
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calculate(String $input, String $calculate, $output = 'Y-m-d')
+	public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String
 	{	
 		if( ! preg_match('/^[0-9]/', $input) )
 		{
@@ -123,7 +123,7 @@ class DateTimeCommon extends \CallController
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function set(String $exp)
+	public function set(String $exp) : String
 	{	
 		return $this->_datetime($exp);
 	}
