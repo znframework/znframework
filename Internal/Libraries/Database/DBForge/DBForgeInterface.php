@@ -13,6 +13,15 @@ interface DBForgeInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
+	// Extras
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param mixed $extras
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function extras($extras) : InternalDBForge;
+
+	//----------------------------------------------------------------------------------------------------
 	// Create Database
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -20,7 +29,7 @@ interface DBForgeInterface
 	// @param mixed  $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createDatabase(String $dbname, $extras);
+	public function createDatabase(String $dbname, $extras) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Database
@@ -29,7 +38,7 @@ interface DBForgeInterface
 	// @param string $dbname
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropDatabase(String $dbname);
+	public function dropDatabase(String $dbname) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create Table
@@ -40,7 +49,7 @@ interface DBForgeInterface
 	// @param mixed  $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable(String $table, Array $condition, $extras);
+	public function createTable(String $table, Array $condition, $extras) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Table
@@ -49,7 +58,7 @@ interface DBForgeInterface
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTable(String $table);
+	public function dropTable(String $table) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Alter Table
@@ -59,7 +68,7 @@ interface DBForgeInterface
 	// @param array  $condition
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alterTable(String $table, Array $condition);
+	public function alterTable(String $table, Array $condition) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Table
@@ -69,7 +78,7 @@ interface DBForgeInterface
 	// @param string $newName
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameTable(String $name, String $newName);
+	public function renameTable(String $name, String $newName) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// Truncate
@@ -78,7 +87,7 @@ interface DBForgeInterface
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate(String $table);
+	public function truncate(String $table) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Column
@@ -88,7 +97,7 @@ interface DBForgeInterface
 	// @param array  $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn(String $table, Array $columns);
+	public function addColumn(String $table, Array $columns) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Column
@@ -98,7 +107,7 @@ interface DBForgeInterface
 	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn(String $table, $column);
+	public function dropColumn(String $table, $column) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Modify Column
@@ -108,7 +117,7 @@ interface DBForgeInterface
 	// @param mixed  $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn(String $table, Array $columns);
+	public function modifyColumn(String $table, Array $columns) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Column
@@ -118,5 +127,5 @@ interface DBForgeInterface
 	// @param mixed  $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn(String $table, Array $condition);
+	public function renameColumn(String $table, Array $condition) : Bool;
 }

@@ -5,7 +5,7 @@
 
 class Captcha extends StaticAccess
 {
-	const CONFIG_NAME = 'Components:captcha';
+	const config = 'Components:captcha';
 
 	public static function getClassName()
 	{

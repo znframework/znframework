@@ -100,11 +100,11 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable(Array $data)
+	public function createTable(Array $data) : Bool
 	{
 		if( \DBForge::createTable($this->_tableName(), $data) )
 		{
-			$this->_action(__FUNCTION__);	
+			return $this->_action(__FUNCTION__);	
 		}	
 		else
 		{
@@ -119,11 +119,11 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTable()
+	public function dropTable() : Bool
 	{
 		if( \DBForge::dropTable($this->_tableName()) )
 		{
-			$this->_action(__FUNCTION__);	
+			return $this->_action(__FUNCTION__);	
 		}	
 		else
 		{
@@ -138,11 +138,11 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn(Array $column)
+	public function addColumn(Array $column) : Bool
 	{
 		if( \DBForge::addColumn($this->_tableName(), $column) )	
 		{
-			$this->_action(__FUNCTION__);	
+			return $this->_action(__FUNCTION__);	
 		}
 		else
 		{
@@ -157,11 +157,11 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($column = [])
+	public function dropColumn($column) : Bool
 	{
 		if( \DBForge::dropColumn($this->_tableName(), $column) )
 		{
-			$this->_action(__FUNCTION__);	
+			return $this->_action(__FUNCTION__);	
 		}
 		else
 		{
@@ -176,11 +176,30 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param array $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn(Array $column = [])
+	public function modifyColumn(Array $column) : Bool
 	{
 		if( \DBForge::modifyColumn($this->_tableName(), $column) )
 		{
-			$this->_action(__FUNCTION__);	
+			return $this->_action(__FUNCTION__);	
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Rename Column
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $columns
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function renameColumn(Array $column) : Bool
+	{
+		if( \DBForge::renameColumn($this->_tableName(), $column) )
+		{
+			return $this->_action(__FUNCTION__);	
 		}
 		else
 		{
@@ -195,11 +214,11 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate()
+	public function truncate() : Bool
 	{
 		if( \DBForge::truncate($this->_tableName()) )	
 		{
-			$this->_action(__FUNCTION__);	
+			return $this->_action(__FUNCTION__);	
 		}
 		else
 		{
@@ -214,7 +233,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param string path: NULL
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path(String $path = NULL)
+	public function path(String $path = NULL) : InternalMigration
 	{
 		$this->path = suffix($path);
 		
@@ -228,7 +247,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param string $name -- Migrasyon Adı
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(String $name, Int $ver = 0)
+	public function create(String $name, Int $ver = 0) : Bool
 	{
 		if( $version = $this->_version($ver) )
 		{
@@ -294,7 +313,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param numeric $version
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name, Int $ver = 0)
+	public function delete(String $name, Int $ver = 0) : Bool
 	{
 		if( $version = $this->_version($ver) )
 		{
@@ -311,7 +330,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 			$file = $this->path.suffix($name, '.php');
 		}
 		
-		\File::delete($file);
+		return \File::delete($file);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -321,11 +340,11 @@ class InternalMigration extends \CallController implements MigrationInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll()
+	public function deleteAll() : Bool
 	{
 		if( is_dir($this->path) )
 		{
-			\Folder::delete($this->path);	
+			return \Folder::delete($this->path);	
 		}
 		else
 		{
@@ -376,7 +395,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 		$table   = $this->_tableName();
 		$version = $this->_getVersion();
 		
-		\DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
+		return \DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
 	}
 
 	//----------------------------------------------------------------------------------------------------

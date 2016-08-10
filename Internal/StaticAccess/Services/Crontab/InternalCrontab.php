@@ -5,7 +5,7 @@
 
 class Crontab extends StaticAccess
 {
-	const CONFIG_NAME = 'Services:crontab';
+	const config = 'Services:crontab';
 
 	public static function getClassName()
 	{

@@ -19,7 +19,7 @@ interface PaginationPropertiesInterface
 	// @param string $url
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url(String $url);
+	public function url(String $url) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Start
@@ -28,7 +28,7 @@ interface PaginationPropertiesInterface
 	// @param int $start
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function start($start);
+	public function start($start) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -37,7 +37,7 @@ interface PaginationPropertiesInterface
 	// @param int $limit
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit(Int $limit);
+	public function limit(Int $limit) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Type
@@ -46,7 +46,7 @@ interface PaginationPropertiesInterface
 	// @param string $type: ajax, classic
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type);
+	public function type(String $type) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Rows
@@ -55,7 +55,7 @@ interface PaginationPropertiesInterface
 	// @param int $totalRows
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows(Int $totalRows);
+	public function totalRows(Int $totalRows) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Count Links
@@ -64,7 +64,7 @@ interface PaginationPropertiesInterface
 	// @param int $countLinks
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function countLinks(Int $countLinks);
+	public function countLinks(Int $countLinks) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Link Names
@@ -76,7 +76,7 @@ interface PaginationPropertiesInterface
 	// @param string $last
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function linkNames(String $prev, String $next, String $first, String $last);
+	public function linkNames(String $prev, String $next, String $first, String $last) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Css
@@ -85,7 +85,7 @@ interface PaginationPropertiesInterface
 	// @param array $css
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css(Array $css);
+	public function css(Array $css) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Style
@@ -94,5 +94,5 @@ interface PaginationPropertiesInterface
 	// @param array $css
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style(Array $style);
+	public function style(Array $style) : InternalPagination;
 }

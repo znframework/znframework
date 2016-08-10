@@ -19,7 +19,7 @@ interface CollectionInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(Array $data);
+	public function data(Array $data) : InternalCollection;
 
 	//----------------------------------------------------------------------------------------------------
 	// Get

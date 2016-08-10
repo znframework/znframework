@@ -39,7 +39,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	// @param string $type: BEFORE, AFTER
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function when(String $type)
+	public function when(String $type) : InternalDBTrigger
 	{
 		$this->trigger->when($type);
 		
@@ -53,7 +53,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	// @param string $type: INSERT, UPDATE, DELETE
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function event(String $type)
+	public function event(String $type) : InternalDBTrigger
 	{
 		$this->trigger->event($type);
 		
@@ -67,7 +67,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	// @param string $type: FOLLOWS, PRECEDES
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function order(String $type, String $name)
+	public function order(String $type, String $name) : InternalDBTrigger
 	{
 		$this->trigger->order($type, $name);
 		
@@ -81,7 +81,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	// @param mixed $args: BEGIN $arg1; $arg2; .... $arg3; END;
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function body(...$args)
+	public function body(...$args) : InternalDBTrigger
 	{
 		$this->trigger->body(...$args);
 		
@@ -95,7 +95,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTrigger(String $name)
+	public function createTrigger(String $name) : Bool
 	{
 		$query = $this->trigger->createTrigger($name);
 
@@ -109,7 +109,7 @@ class InternalDBTrigger extends DatabaseCommon implements DBTriggerInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTrigger(String $name)
+	public function dropTrigger(String $name) : Bool
 	{
 		$query = $this->trigger->dropTrigger($name);
 				 

@@ -5,7 +5,7 @@
 
 class SSH extends StaticAccess
 {
-	const CONFIG_NAME = 'Services:ssh';
+	const config = 'Services:ssh';
 
 	public static function getClassName()
 	{

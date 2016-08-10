@@ -43,7 +43,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function model(String $name, Array $settings = NULL)
+	public function model(String $name, Array $settings = []) : Bool
 	{
 		return $this->_object($name, __FUNCTION__, $settings);
 	}
@@ -56,7 +56,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function controller(String $name, Array $settings = NULL)
+	public function controller(String $name, Array $settings = []) : Bool
 	{
 		return $this->_object($name, __FUNCTION__, $settings);
 	}
@@ -69,7 +69,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function library(String $name, Array $settings = NULL)
+	public function library(String $name, Array $settings = []) : Bool
 	{
 		return $this->_object($name, __FUNCTION__, $settings);
 	}
@@ -83,14 +83,14 @@ class InternalGenerate extends \CallController implements GenerateInterface
 	// @param string $app : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name, String $type = NULL, String $app = NULL)
+	public function delete(String $name, String $type = 'controller', String $app = NULL) : Bool
 	{
 		if( ! empty($app) )
 		{
 			$this->settings['application'] = $app;
 		}
 		
-		$file = $this->_path($name, ($type === NULL ? 'controller' : $type));
+		$file = $this->_path($name, $type);
 		
 		if( is_file($file) )
 		{
@@ -113,7 +113,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
 	{
 		if( ! empty($settings) )
 		{
-			$this->settings = (array) $settings;
+			$this->settings = $settings;
 		}
 		
 		return $this->_contentWrite($name, $type);

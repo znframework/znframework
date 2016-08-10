@@ -68,7 +68,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimizeTables($table = '*')
+	public function optimizeTables($table = '*') : String
 	{
 		return $this->tool->optimizeTables($table);
 	}
@@ -83,7 +83,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repairTables($table = '*')
+	public function repairTables($table = '*') : String
 	{
 		return $this->tool->repairTables($table);
 	}
@@ -100,7 +100,7 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR)
+	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String
 	{		
 		return $this->tool->backup($tables, $fileName, $path);
 	}

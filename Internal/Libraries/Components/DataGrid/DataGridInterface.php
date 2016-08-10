@@ -20,7 +20,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns(Array $columns);
+	public function columns(Array $columns) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Process Columns
@@ -31,7 +31,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function processColumn(String $column, Bool $editable = false);
+	public function processColumn(String $column, Bool $editable = false) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -41,7 +41,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table(String $table);
+	public function table(String $table) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -51,7 +51,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit(Int $limit = 20);
+	public function limit(Int $limit = 20) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -62,7 +62,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy(String $column, String $order);
+	public function orderBy(String $column, String $order) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Group By
@@ -72,7 +72,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy(String $column);
+	public function groupBy(String $column) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where
@@ -82,7 +82,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where(...$args);
+	public function where(...$args) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Table
@@ -92,7 +92,7 @@ interface DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function joins(Array $tables);
+	public function joins(Array $tables) : InternalDataGrid;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create

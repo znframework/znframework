@@ -13,13 +13,13 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Const CONFIG_NAME
+	// const config
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @const string
 	//
 	//----------------------------------------------------------------------------------------------------
-	const CONFIG_NAME  = 'Components:datagrid';
+	const config  = 'Components:datagrid';
 	
 	//----------------------------------------------------------------------------------------------------
 	// Columns
@@ -151,7 +151,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns(Array $columns)
+	public function columns(Array $columns) : InternalDataGrid
 	{
 		$this->columns     = $columns;
 		$this->realColumns = $columns;
@@ -168,7 +168,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function processColumn(String $column, Bool $editable = false)
+	public function processColumn(String $column, Bool $editable = false) : InternalDataGrid
 	{
 		$this->processColumn   = $column;	
 		$this->processEditable = $editable;
@@ -184,7 +184,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table(String $table)
+	public function table(String $table) : InternalDataGrid
 	{
 		$this->table = $table;
 		
@@ -199,7 +199,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit(Int $limit = 20)
+	public function limit(Int $limit = 20) : InternalDataGrid
 	{
 		$this->limit = $limit;
 		
@@ -215,7 +215,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy(String $column, String $order)
+	public function orderBy(String $column, String $order) : InternalDataGrid
 	{
 		$this->orderBy[$column] = $order;
 		
@@ -230,7 +230,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy(String $column)
+	public function groupBy(String $column) : InternalDataGrid
 	{
 		$this->groupBy = $column;
 		
@@ -245,7 +245,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where(...$args)
+	public function where(...$args) : InternalDataGrid
 	{
 		$this->where[] = $args;
 		
@@ -260,7 +260,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function joins(Array $tables)
+	public function joins(Array $tables) : InternalDataGrid
 	{
 		$this->joins = $tables;
 			

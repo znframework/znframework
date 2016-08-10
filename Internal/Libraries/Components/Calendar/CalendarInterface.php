@@ -22,7 +22,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url(String $url);
+	public function url(String $url) : InternalCalendar;
 
 	//----------------------------------------------------------------------------------------------------
 	// Name Type
@@ -36,7 +36,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nameType(String $day, String $month);
+	public function nameType(String $day, String $month) : InternalCalendar;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Css
@@ -48,7 +48,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css(Array $css);
+	public function css(Array $css) : InternalCalendar;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Style
@@ -60,7 +60,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style(Array $style);
+	public function style(Array $style) : InternalCalendar;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Type
@@ -72,7 +72,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type);
+	public function type(String $type) : InternalCalendar;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Link Names
@@ -86,7 +86,7 @@ interface CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function linkNames(String $prev, String $next);
+	public function linkNames(String $prev, String $next) : InternalCalendar;
 
 	//----------------------------------------------------------------------------------------------------
 	// Settings
@@ -98,7 +98,7 @@ interface CalendarInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $settings);
+	public function settings(Array $settings) : InternalCalendar;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create

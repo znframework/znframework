@@ -12,105 +12,99 @@ class InternalUpload extends \CallController implements UploadInterface
 	//
 	//----------------------------------------------------------------------------------------------------
 
-	/* Settings Değişkeni
-	 *  
-	 * Yükleme ayar bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Settings
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	private $settings = [];
 	
-	/* File Değişkeni
-	 *  
-	 * Yüklenecek dosyanın yol bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// File
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $file;
 	
-	/* Extension Control Değişkeni
-	 *  
-	 * Yüklenecek dosyanın uzantı bilgisini
-	 * kontrol etmesi için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Extension Control
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $extensionControl;
 	
-	/* Setting Status Değişkeni
-	 *  
-	 * Ayarların yapılma durumunu 
-	 * kontrol etmesi için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Setting Status
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var bool
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $settingStatus = false;
 	
-	/* Errors Değişkeni
-	 *  
-	 * Yükleme işlemlerinde oluşan hata bilgilerini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Errors
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $errors;
 	
-	/* Manuel Error Değişkeni
-	 *  
-	 * Elle oluşturulan hata bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Manuel Error
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $manuelError;
 	
-	/* Encode Name Değişkeni
-	 *  
-	 * Şifrelenmiş dosya isim bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Encode Name
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $encodeName;
 	
-	/* Path Değişkeni
-	 *  
-	 * Dosya Yol bilgisini
-	 * tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Path
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $path;
 	
+	//----------------------------------------------------------------------------------------------------
+	// Construct
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
 		\Config::iniSet(\Config::get('Htaccess', 'upload')['settings']);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Setting Methods Başlangıç
+	// Settings
 	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* SETTINGS                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya yükleme ayarlarını yapılandırmak için kullanılır.				  |
-	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array var @settings => Yükleme ayarlarını yapmak için kullanılır.			          |
-	|          																				  |
-	| Örnek Kullanım: settings(array('encode' => true, prefix => '_deneme_'));       		  |
-	|          																				  |
-	| Ayarlar Dizisinin Alabileceği Değerler         										  |
-	|          																				  |
-	| 1-extension => Uzantılar ayarlanır.    												  |
-	| // Kullanmak için: jpg|png|jpeg tipinde belirtilir.                                     |
-	| 2-encode    => true olması durumunda yüklenecek dosyanın ismi şifrelenir.          	  |
-	| // Kullanmak için: true veya false tipinde belirtilir.								  |
-	| 3-prefix    => Belirtilen veriye göre yüklenecek dosyanın ismine bu veriyi ilave eder.  |
-	| // Kullanmak için: Metinsel türde ek belirtilir. Örnek: onek_							  |
-	| 4-maxsize   => Belirtilen miktara göre yüklenecek dosyanın maksimum boyutu belirtilir.  |
-	| // Kullanmak için: Sayısal türde miktar belirtilir. Örnek: 10 * 1024 => 10 KB			  |
-	|          																				  |
-	******************************************************************************************/
-	public function settings(Array $set = NULL)
+	// 
+	// @param array $set
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function settings(Array $set = []) : InternalUpload
 	{
-		$set = (array) $set;
-
 		$this->settingStatus = true;
 		
 		// 1-extensions -> Dosyanın uzantısı
@@ -164,18 +158,14 @@ class InternalUpload extends \CallController implements UploadInterface
 		return $this;
 	}
 
-	/******************************************************************************************
-	* EXTENSIONS                                                                      		  *
-	*******************************************************************************************
-	| Genel Kullanım: Yüklenecek dosya uzantılarını ayarlamak için kullanılır.  			  |
-	|															                              |
-	| Parametreler: Argüment parametresi vardır.                                              |
-	| 1. argumentts var @extensions => Belirtilecek uzantılar.  			  			      |
-	|          																				  |
-	| Örnek Kullanım: ->extension('exe', 'jpg', 'gif')            							  |
-	|          																				  |
-	******************************************************************************************/
-	public function extensions(...$args)
+	//----------------------------------------------------------------------------------------------------
+	// Extension
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string variadic $args
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function extensions(...$args) : InternalUpload
 	{
 		if( ! empty($args ) )
 		{
@@ -185,36 +175,28 @@ class InternalUpload extends \CallController implements UploadInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CONVERT NAME                                                                    		  *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya isminde yer alan yabancı karaketerleri çevirsin mi?.  			  |
-	|															                              |
-	| Parametreler: Mantıksal parametresi vardır.                                             |
-	| 1. boolean var @convert => Dçnüştürmenin uygulanıp uygulanmayacağı.   			      |
-	|          																				  |
-	| Örnek Kullanım: ->extension('exe', 'jpg', 'gif')            							  |
-	|          																				  |
-	******************************************************************************************/
-	public function convertName($convert = true)
+	//----------------------------------------------------------------------------------------------------
+	// Convert Name
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param bool $convert
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function convertName(Bool $convert = true) : InternalUpload
 	{	
-		$this->settings['convertName'] = (bool) $convert;
+		$this->settings['convertName'] = $convert;
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ENCODE                                                                           		  *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya ismi şifrelenmesi için kullanılır.	      						  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @hash => Şifreleme algoritmalarından biri. Varsayılan:md5    		  	  |
-	|          																				  |
-	| Örnek Kullanım: ->encode(UPLOADS_DIR.'ornek.jpg')            							  |
-	|          																				  |
-	******************************************************************************************/
-	public function encode($hash = 'md5')
+	//----------------------------------------------------------------------------------------------------
+	// Encode
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $hash
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function encode(String $hash = 'md5') : InternalUpload
 	{
 		if( isHash($hash) )
 		{
@@ -228,126 +210,86 @@ class InternalUpload extends \CallController implements UploadInterface
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* PREFIX                                                                           		  *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya isminin başına ön ek getirilmesi için kullanılır.   			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @prefix => Ön ek.									         		  	  |
-	|          																				  |
-	| Örnek Kullanım: ->prefix('onek_')				            							  |
-	|          																				  |
-	******************************************************************************************/
-	public function prefix($prefix)
+	//----------------------------------------------------------------------------------------------------
+	// Prefix
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $prefix
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function prefix(String $prefix) : InternalUpload
 	{
 		$this->settings['prefix'] = $prefix;
 
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* MAXSIZE                                                                         		  *
-	*******************************************************************************************
-	| Genel Kullanım: Dosyanın yüklenebilir maksimum boyutunu ayarlamak için kullanılır.      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @maxsize => Byte cinsinden boyut değeri.			         		  	  |
-	|          																				  |
-	| Örnek Kullanım: ->maxsize(2048) // 2048 Bytes	            						      |    
-	|          																				  |
-	******************************************************************************************/
-	public function maxsize($maxsize = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Maxsize
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $maxsize
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function maxsize(Int $maxsize = 0) : InternalUpload
 	{
-		$this->settings['maxsize'] = (int) $maxsize;	
+		$this->settings['maxsize'] = $maxsize;	
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ENCODE LENGTH                                                               		  *
-	*******************************************************************************************
-	| Genel Kullanım: Şifrelenmiş ön ekin karakter uzunluğunu ayarlamak için kullanılır.      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @encodeLength => Karakter uzunluğu.			         		  	  |
-	|          																				  |
-	| Örnek Kullanım: ->encodeLength(20)	            						      |    
-	|          																				  |
-	******************************************************************************************/
-	public function encodeLength($encodeLength = 8)
+	//----------------------------------------------------------------------------------------------------
+	// Encode Length
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $encodeLength
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function encodeLength(Int $encodeLength = 8) : InternalUpload
 	{
-		$this->settings['encodeLength'] = (int) $encodeLength;	
+		$this->settings['encodeLength'] = $encodeLength;	
 	
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TARGET                                                                         		  *
-	*******************************************************************************************
-	| Genel Kullanım: Dosyanın nereye yükleneceğini belirtmek için kullanılır.		          |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @target => Dosyaların yükleneceği dizin. Varsayılan:UPLOADS_DIR	  	      |
-	|          																				  |
-	| Örnek Kullanım: ->target('Uploads/') // 2048 Bytes	            					  |    
-	|          																				  |
-	******************************************************************************************/
-	public function target(String $target = NULL)
+	//----------------------------------------------------------------------------------------------------
+	// Target
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $target
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function target(String $target = UPLOADS_DIR) : InternalUpload
 	{
-		$this->settings['target'] = $target === NULL ? UPLOADS_DIR : $target;	
-
-		return $this;
-	}
-	
-	/******************************************************************************************
-	* SOURCE                                                                         		  *
-	*******************************************************************************************
-	| Genel Kullanım: Dosyaların yükleneceği input file nesnesinin ismi.      				  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @target => Dosyaların alınacağı input file nesnesinin ismi.			      |
-	|          																				  |
-	| Örnek Kullanım: ->source('FILEUPLOAD') // <input type="file" name="FILEUPLOAD">	      |    
-	|          																				  |
-	******************************************************************************************/
-	public function source(String $source = NULL)
-	{
-		$this->settings['source'] = $source === NULL ? 'upload' : $source;	
+		$this->settings['target'] = $target;	
 
 		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Setting Methods Bitiş
+	// Source
 	//----------------------------------------------------------------------------------------------------
-	
-	protected function _encode()
+	// 
+	// @param string $source
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function source(String $source = 'upload') : InternalUpload
 	{
-		return substr(\Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';	
+		$this->settings['source'] = $source;	
+
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Start Method Başlangıç
+	// Start
 	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* START                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya yükleme işlemini başlatmak için kullanılır.				          |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @filename => Yükleme yapılacak <input="file"> nesnesinin name değeri.	  |
-	| 2. [ string var @rootdir ] => Dosyanın kaydedileceği dizin. Varsayılan:Uploads/	      |
-	|          																				  |
-	| Örnek Kullanım: start('fileupload', 'Aplication/Uploads');       		                  |
-	|          																				  |
-	******************************************************************************************/
-	public  function start(String $fileName = NULL, String $rootDir = NULL)
+	// 
+	// @param string $fileName
+	// @param string $rootDir
+	//
+	//----------------------------------------------------------------------------------------------------
+	public  function start(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
 	{	
-		$fileName = $fileName === NULL ? 'upload'    : $fileName;
-		$rootDir  = $rootDir  === NULL ? UPLOADS_DIR : $rootDir;
-
 		if( isset($this->settings['source']) )
 		{
 			$fileName = $this->settings['source'];
@@ -404,8 +346,7 @@ class InternalUpload extends \CallController implements UploadInterface
 		{
 			if( empty($name[0]) ) 
 			{
-				$this->manuelError = 4; 
-				return false; 
+				return ! $this->manuelError = 4; 
 			}
 			
 			for( $index = 0; $index < count($name); $index++ )
@@ -456,6 +397,8 @@ class InternalUpload extends \CallController implements UploadInterface
 					}
 				}
 			}
+
+			return true;
 		}	
 		else
 		{	
@@ -496,47 +439,29 @@ class InternalUpload extends \CallController implements UploadInterface
 			
 			if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				$this->extensionControl = lang('Upload', 'extensionError');	
+				return ! $this->extensionControl = lang('Upload', 'extensionError');	
 			}
 			else
 			{	
 				if( ! is_file($rootDir) ) 
 				{
-					move_uploaded_file($source, $target); 
+					return move_uploaded_file($source, $target); 
 				}
 				else 
 				{
-					$this->manuelError = 9;
+					return ! $this->manuelError = 9;
 				}				
 			}
 		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Start Method Bitiş
+	// Info
 	//----------------------------------------------------------------------------------------------------
-	
+	// 
+	// @param string $info
+	//
 	//----------------------------------------------------------------------------------------------------
-	// Info Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-
-	/******************************************************************************************
-	* INFO                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya yükleme işlemleri hakkında bilgi almak için kullanılır.			  |
-	| Object veri türünde çıktı üretir.												          |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: $info = info();       		                  						  |
-	| $info->name -> dosyanın adı      														  |  
-	| $info->type -> dosyanın tipi        													  |
-	| $info->size -> dosyanın boyutu      													  |
-	| $info->error -> dosya yükleme sırasında hata var ise 1 değeri alır.        			  |
-	| $info->tmpName -> dosyanın tmp dizinindeki ismi.        								  |
-	| $info->encodeName -> şifrelenen ismi.      											  |
-	|          																				  |
-	******************************************************************************************/
 	public function info(String $info = NULL)
 	{
 		if( ! empty($_FILES[$this->file]) )
@@ -582,17 +507,16 @@ class InternalUpload extends \CallController implements UploadInterface
 			return $values[$info];	
 		}
 		
-		return (object)$values;	
+		return (object) $values;	
 	}
 	
-	/******************************************************************************************
-	* ERROR                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Dosya işlemlerinde oluşan hata bilgilerini tutması için oluşturulmuştur.|
-	|     														                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|     														                              |
-	******************************************************************************************/
+	//----------------------------------------------------------------------------------------------------
+	// Error
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	public function error()
 	{
 		if( ! isset($_FILES[$this->file]['error']) ) 
@@ -660,6 +584,14 @@ class InternalUpload extends \CallController implements UploadInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Info Methods Bitiş
+	// Protected Encode
 	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _encode()
+	{
+		return substr(\Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';	
+	}
 }

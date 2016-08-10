@@ -28,7 +28,7 @@ class DriverTool
 		
 		if( \DB::error() ) 
 		{
-			return false;
+			return [];
 		}
 		
 		$newDatabases = [];
@@ -60,7 +60,7 @@ class DriverTool
 		
 		if( \DB::error() ) 
 		{
-			return false;
+			return [];
 		}
 		
 		$newTables = [];
@@ -269,7 +269,7 @@ class DriverTool
 		
 		if( ! file_put_contents(suffix($path).$fileName, $return) )
 		{
-			return \Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
+			\Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
 		}
 		
 		return lang('Database', 'backupTablesSuccess');

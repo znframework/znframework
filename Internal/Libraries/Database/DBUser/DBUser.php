@@ -29,7 +29,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	{
 		parent::__construct();
 
-		$this->user = $this->_drvlib($this->config['driver'], 'User');
+		$this->user = $this->_drvlib('User');
 	}
 
 	
@@ -40,7 +40,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name(String $name)
+	public function name(String $name) : InternalDBUser
 	{
 		$this->user->name($name);
 		
@@ -54,7 +54,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $host: localhost
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function host(String $host)
+	public function host(String $host) : InternalDBUser
 	{
 		$this->user->host($host);	
 		
@@ -68,7 +68,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function password(String $authString)
+	public function password(String $authString) : InternalDBUser
 	{
 		$this->user->password($authString);
 		
@@ -82,7 +82,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groups(String $authString)
+	public function groups(String $authString) : InternalDBUser
 	{
 		$this->user->groups($authString);
 		
@@ -96,7 +96,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function members(String $authString)
+	public function members(String $authString) : InternalDBUser
 	{
 		$this->user->members($authString);
 		
@@ -110,7 +110,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function schema(String $authString)
+	public function schema(String $authString) : InternalDBUser
 	{
 		$this->user->schema($authString);
 		
@@ -124,7 +124,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedBy(String $authString)
+	public function identifiedBy(String $authString) : InternalDBUser
 	{
 		$this->user->identifiedBy($authString);
 		
@@ -138,7 +138,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $hashString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedByPassword(String $hashString)
+	public function identifiedByPassword(String $hashString) : InternalDBUser
 	{
 		$this->user->identifiedByPassword($hashString);
 		
@@ -154,7 +154,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedWith(String $authPlugin, String $type, String $authString)
+	public function identifiedWith(String $authPlugin, String $type, String $authString) : InternalDBUser
 	{
 		$this->user->identifiedWith($authPlugin, $type, $authString);
 		
@@ -169,7 +169,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedWithBy(String $authPlugin, String $authString)
+	public function identifiedWithBy(String $authPlugin, String $authString) : InternalDBUser
 	{
 		$this->user->identifiedWithBy($authPlugin, $authString);
 		
@@ -184,7 +184,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $hashString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function identifiedWithAs(String $hashPlugin, String $hashString)
+	public function identifiedWithAs(String $hashPlugin, String $hashString) : InternalDBUser
 	{
 		$this->user->identifiedWithAs($hashPlugin, $hashString);
 		
@@ -198,7 +198,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function required()
+	public function required() : InternalDBUser
 	{
 		$this->user->required();
 		
@@ -212,7 +212,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function with()
+	public function with() : InternalDBUser
 	{
 		$this->user->with();
 		
@@ -227,7 +227,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function option(String $name, String $value)
+	public function option(String $name, String $value) : InternalDBUser
 	{
 		$this->user->option($name, $value);
 		
@@ -243,7 +243,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $condition: and, or
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode(String $type, String $string, String $condition = NULL)
+	public function encode(String $type, String $string, String $condition = NULL) : InternalDBUser
 	{
 		$this->user->encode($type, $string, $condition);
 		
@@ -261,7 +261,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $count   : 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function resource(String $resource, $count = 0)
+	public function resource(String $resource, $count = 0) : InternalDBUser
 	{
 		$this->user->resource($resource, $count);
 		
@@ -276,7 +276,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param numeric $n   : 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function passwordExpire(String $type = NULL, $n = 0)
+	public function passwordExpire(String $type = NULL, $n = 0) : InternalDBUser
 	{
 		$this->user->passwordExpire($type, $n);
 		
@@ -290,7 +290,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: lock, unlock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lock(String $type = 'lock')
+	public function lock(String $type = 'lock') : InternalDBUser
 	{
 		$this->user->lock($type);
 		
@@ -304,7 +304,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: unlock, lock
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function unlock(String $type = 'unlock')
+	public function unlock(String $type = 'unlock') : InternalDBUser
 	{
 		$this->user->unlock($type);
 		
@@ -318,7 +318,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $type: TABLE, FUNCTION, PROCEDURE
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type = 'TABLE')
+	public function type(String $type = 'TABLE') : InternalDBUser
 	{
 		$this->user->type($type);
 		
@@ -332,7 +332,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $select = '*.*')
+	public function select(String $select = '*.*') : InternalDBUser
 	{
 		$this->user->select($select);
 		
@@ -346,7 +346,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param void()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grantOption()
+	public function grantOption() : InternalDBUser
 	{
 		$this->user->grantOption();
 		
@@ -360,7 +360,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function firstName(String $authString)
+	public function firstName(String $authString) : InternalDBUser
 	{
 		$this->user->firstName($authString);
 		
@@ -374,7 +374,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function middleName(String $authString)
+	public function middleName(String $authString) : InternalDBUser
 	{
 		$this->user->middleName($authString);
 		
@@ -388,7 +388,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lastName(String $authString)
+	public function lastName(String $authString) : InternalDBUser
 	{
 		$this->user->lastName($authString);
 		
@@ -402,7 +402,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string $authString: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function adminRole(String $authString = 'GRANT')
+	public function adminRole(String $authString = 'GRANT') : InternalDBUser
 	{
 		$this->user->adminRole($authString);
 		
@@ -416,7 +416,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alter(String $name = NULL, $schema = NULL)
+	public function alter(String $name = NULL, $schema = NULL) : Bool
 	{
 		nullCoalesce($name, 'USER()');
 
@@ -432,7 +432,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(String $name = NULL, $schema = NULL)
+	public function create(String $name = NULL, $schema = NULL) : Bool
 	{
 		nullCoalesce($name, 'USER()');
 
@@ -448,7 +448,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $name: USER()
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function drop(String $name = NULL, $type = NULL)
+	public function drop(String $name = NULL, $type = NULL) : Bool
 	{
 		nullCoalesce($name, 'USER()');
 
@@ -466,7 +466,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*')
+	public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
 	{
 		$query = $this->user->grant($name, $type, $select);
 
@@ -482,7 +482,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $select: *.*
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*')
+	public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
 	{
 		$query = $this->user->revoke($name, $schema);
 
@@ -497,7 +497,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rename(String $oldName, String $newName)
+	public function rename(String $oldName, String $newName) : Bool
 	{
 		$query = $this->user->rename($oldName, $newName);
 
@@ -512,7 +512,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
 	// @param string  $pass: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function setPassword(String $user = NULL, String $pass = NULL)
+	public function setPassword(String $user = NULL, String $pass = NULL) : Bool
 	{
 		$query = $this->user->setPassword($user, $pass);
 

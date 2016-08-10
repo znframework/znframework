@@ -13,7 +13,7 @@ interface GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function model(String $name, Array $settings);
+	public function model(String $name, Array $settings = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Controller
@@ -23,7 +23,7 @@ interface GenerateInterface
 	// @param array  $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function controller(String $name, Array $settings);
+	public function controller(String $name, Array $settings = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Library
@@ -34,7 +34,7 @@ interface GenerateInterface
 	// @param string $app : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function library(String $name, Array $settings);
+	public function library(String $name, Array $settings = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -44,5 +44,5 @@ interface GenerateInterface
 	// @param string $type: 'controller', 'model', 'library'
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name, String $type, String $app);
+	public function delete(String $name, String $type = 'controller', String $app) : Bool;
 }

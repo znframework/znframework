@@ -68,7 +68,7 @@ class Requirements extends CallController implements RequirementsInterface
 		}
 		else
 		{
-			$getConfigName = defined('static::CONFIG_NAME') ? static::CONFIG_NAME : NULL;	
+			$getConfigName = defined('static::config') ? static::config : NULL;	
 		}
 		
 		// İsim bilgisi tanımlanmamışsa ön tanımlı olarak 

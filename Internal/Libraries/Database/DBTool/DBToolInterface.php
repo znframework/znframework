@@ -46,7 +46,7 @@ interface DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimizeTables($table = '*');
+	public function optimizeTables($table = '*') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Repair Tables
@@ -58,7 +58,7 @@ interface DBToolInterface
 	// @return string message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repairTables($table = '*');
+	public function repairTables($table = '*') : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Backup
@@ -72,5 +72,5 @@ interface DBToolInterface
 	// @return string $path: STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR);
+	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String;
 }

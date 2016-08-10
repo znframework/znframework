@@ -22,7 +22,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width(Int $param);
+	public function width(Int $param) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Height
@@ -34,7 +34,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height(Int $param);
+	public function height(Int $param) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Size
@@ -47,7 +47,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size(Int $width, Int $height);
+	public function size(Int $width, Int $height) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Length
@@ -59,7 +59,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length(Int $param);
+	public function length(Int $param) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border
@@ -73,7 +73,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border(Bool $is = true, String $color = NULL);
+	public function border(Bool $is = true, String $color = NULL) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border Color
@@ -85,7 +85,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderColor(String $color);
+	public function borderColor(String $color) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Bg Color
@@ -97,7 +97,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgColor(String $color);
+	public function bgColor(String $color) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Background Color
@@ -109,7 +109,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgImage($image);
+	public function bgImage($image) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Background
@@ -122,7 +122,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function background(String $background);
+	public function background(String $background) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Text Size
@@ -134,7 +134,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textSize(Int $size);
+	public function textSize(Int $size) : InternalCaptcha;
 		
 	//----------------------------------------------------------------------------------------------------
 	// Text Coordinate
@@ -147,7 +147,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textCoordinate(Int $x, Int $y);
+	public function textCoordinate(Int $x, Int $y) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Text Color
@@ -159,7 +159,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textColor(String $color);
+	public function textColor(String $color) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Text
@@ -174,7 +174,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL);
+	public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Grid
@@ -188,7 +188,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grid(Bool $is = true, String $color = NULL);
+	public function grid(Bool $is = true, String $color = NULL) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Grid Color
@@ -200,7 +200,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridColor(String $color);
+	public function gridColor(String $color) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Grid Space
@@ -213,7 +213,7 @@ interface CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridSpace(Int $x = 0, Int $y = 0);
+	public function gridSpace(Int $x = 0, Int $y = 0) : InternalCaptcha;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create

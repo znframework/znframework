@@ -5,7 +5,7 @@
 
 class FTP extends StaticAccess
 {
-	const CONFIG_NAME = 'Services:ftp';
+	const config = 'Services:ftp';
 
 	public static function getClassName()
 	{

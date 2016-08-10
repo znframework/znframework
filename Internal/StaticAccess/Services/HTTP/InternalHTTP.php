@@ -5,7 +5,7 @@
 
 class HTTP extends StaticAccess
 {
-	const CONFIG_NAME = 'Services:http';
+	const config = 'Services:http';
 
 	public static function getClassName()
 	{

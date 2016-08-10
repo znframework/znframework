@@ -41,7 +41,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attr(Array $attributes)
+	public function attr(Array $attributes) : InternalTable
 	{
 		foreach( $attributes as $att => $val )
 		{
@@ -58,7 +58,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param string $align
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function align(String $align)
+	public function align(String $align) : InternalTable
 	{
 		$this->attr['align'] = $align;
 		
@@ -72,7 +72,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param variadic $elements
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content(...$elements)
+	public function content(...$elements) : InternalTable
 	{	
 		$colNo = 1;
 		$rowNo = 1;
@@ -130,7 +130,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cell(Int $spacing, Int $padding)
+	public function cell(Int $spacing, Int $padding) : InternalTable
 	{
 		$this->attr['cellspacing'] = $spacing;
 		$this->attr['cellpadding'] = $padding;
@@ -145,7 +145,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $spacing
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellSpacing(Int $spacing)
+	public function cellSpacing(Int $spacing) : InternalTable
 	{
 		$this->attr['cellspacing'] = $spacing;
 		
@@ -159,7 +159,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellPadding(Int $padding)
+	public function cellPadding(Int $padding) : InternalTable
 	{
 		$this->attr['cellpadding'] = $padding;
 		
@@ -174,7 +174,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param string  $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border(Int $border, String $color = NULL)
+	public function border(Int $border, String $color = NULL) : InternalTable
 	{
 		$this->attr['border'] = $border;
 
@@ -193,7 +193,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $border
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderSize(Int $border)
+	public function borderSize(Int $border) : InternalTable
 	{
 		$this->attr['border'] = $border;
 	
@@ -207,7 +207,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param string $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderColor(String $color)
+	public function borderColor(String $color) : InternalTable
 	{
 		$this->attr['bordercolor'] = $color;
 	
@@ -221,7 +221,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $width
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width(Int $width)
+	public function width(Int $width) : InternalTable
 	{
 		$this->attr['width'] = $width;
 		
@@ -235,7 +235,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height(Int $height)
+	public function height(Int $height) : InternalTable
 	{
 		$this->attr['height'] = $height;
 		
@@ -250,7 +250,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size(Int $width, Int $height)
+	public function size(Int $width, Int $height) : InternalTable
 	{
 		$this->attr['width']  = $width;
 		$this->attr['height'] = $height;
@@ -265,7 +265,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param string $css
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css(String $css)
+	public function css(String $css) : InternalTable
 	{
 		$this->attr['class'] = $css;
 		
@@ -279,7 +279,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style(Array $attributes)
+	public function style(Array $attributes) : InternalTable
 	{
 		$attribute = '';
 	
@@ -305,7 +305,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param mixed $background
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function background(String $background)
+	public function background(String $background) : InternalTable
 	{
 		$this->attr['background'] = $background;
 		
@@ -319,7 +319,7 @@ class InternalTable extends \CallController implements TableInterface
 	// @param string $bgColor
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgColor(String $bgColor)
+	public function bgColor(String $bgColor) : InternalTable
 	{
 		$this->attr['bgcolor'] = $bgColor;
 		

@@ -13,13 +13,13 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Const CONFIG_NAME
+	// const config
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @const string
 	//
 	//----------------------------------------------------------------------------------------------------
-	const CONFIG_NAME  = 'Components:calendar';
+	const config  = 'Components:calendar';
 
 	//----------------------------------------------------------------------------------------------------
 	// Css
@@ -139,7 +139,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url(String $url = NULL)
+	public function url(String $url = NULL) : InternalCalendar
 	{
 		if( ! isUrl($url) )
 		{
@@ -163,7 +163,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nameType(String $day, String $month)
+	public function nameType(String $day, String $month) : InternalCalendar
 	{
 		$this->dayNames   = $day;	
 
@@ -182,7 +182,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css(Array $css)
+	public function css(Array $css) : InternalCalendar
 	{
 		$this->css = $css;
 		
@@ -199,7 +199,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style(Array $style)
+	public function style(Array $style) : InternalCalendar
 	{
 		$this->style = $style;
 		
@@ -216,7 +216,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $type)
+	public function type(String $type) : InternalCalendar
 	{
 		$this->type = $type;
 		
@@ -235,7 +235,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function linkNames(String $prev, String $next)
+	public function linkNames(String $prev, String $next) : InternalCalendar
 	{
 		$this->prev = $prev;
 		$this->next = $next;
@@ -253,7 +253,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $settings)
+	public function settings(Array $settings) : InternalCalendar
 	{
 		\Config::set('Components', 'calendar', $settings);
 		

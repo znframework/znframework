@@ -5,7 +5,7 @@
 
 class ML extends StaticAccess
 {
-	const CONFIG_NAME = 'EncodingSupport:ml';
+	const config = 'EncodingSupport:ml';
 
 	public static function getClassName()
 	{

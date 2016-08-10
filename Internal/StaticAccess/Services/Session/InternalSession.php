@@ -5,7 +5,7 @@
 
 class Session extends StaticAccess
 {
-	const CONFIG_NAME = 'Services:session';
+	const config = 'Services:session';
 
 	public static function getClassName()
 	{

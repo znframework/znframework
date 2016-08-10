@@ -19,7 +19,7 @@ interface DBInterface
 	// @param string ...$condition
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select(...$condition);
+	public function select(...$condition) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where
@@ -30,7 +30,7 @@ interface DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column, String $value = NULL, String $logical = NULL);
+	public function where($column, String $value = NULL, String $logical = NULL) : InternalDB;
 	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ interface DBInterface
 	// @param string $logical
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column, String $value = NULL, String $logical = NULL);
+	public function having($column, String $value = NULL, String $logical = NULL) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Where Group
@@ -51,7 +51,7 @@ interface DBInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function whereGroup(...$args);
+	public function whereGroup(...$args) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Having Group
@@ -60,7 +60,7 @@ interface DBInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function havingGroup(...$args);
+	public function havingGroup(...$args) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Join
@@ -71,7 +71,7 @@ interface DBInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function join(String $table, String $condition, String $type = NULL);
+	public function join(String $table, String $condition, String $type = NULL) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Inner Join
@@ -82,7 +82,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin(String $table, String $otherColumn, String $operator = '=');
+	public function innerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Outer Join
@@ -93,7 +93,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin(String $table, String $otherColumn, String $operator = '=');
+	public function outerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Left Join
@@ -104,7 +104,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin(String $table, String $otherColumn, String $operator = '=');
+	public function leftJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Right Join
@@ -115,7 +115,7 @@ interface DBInterface
 	// @param string $otherColumn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin(String $table, String $otherColumn, String $operator = '=');
+	public function rightJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get
@@ -149,7 +149,7 @@ interface DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function query(String $query, Array $secure = []);
+	public function query(String $query, Array $secure = []) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Exec Query
@@ -159,7 +159,7 @@ interface DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function execQuery(String $query, Array $secure = []);
+	public function execQuery(String $query, Array $secure = []) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// Multi Query
@@ -169,7 +169,7 @@ interface DBInterface
 	// @param array  $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function multiQuery(String $query, Array $secure = []);
+	public function multiQuery(String $query, Array $secure = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Trans Start
@@ -196,7 +196,7 @@ interface DBInterface
 	// @param bool $total
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows(Bool $total = false);
+	public function totalRows(Bool $total = false) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Columns
@@ -205,7 +205,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalColumns();
+	public function totalColumns() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Columns
@@ -214,7 +214,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns();
+	public function columns() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Result
@@ -232,7 +232,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function resultArray();
+	public function resultArray() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Result Json
@@ -241,7 +241,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function resultJson();
+	public function resultJson() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Fetch Array
@@ -250,7 +250,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fetchArray();
+	public function fetchArray() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Fetch Assoc
@@ -295,7 +295,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value();
+	public function value() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Affected Rows
@@ -304,7 +304,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function affectedRows();
+	public function affectedRows() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert ID
@@ -313,7 +313,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insertID();
+	public function insertID() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Column Data
@@ -331,7 +331,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function tableName();
+	public function tableName() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pagination
@@ -351,7 +351,7 @@ interface DBInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy(...$condition);
+	public function groupBy(...$condition) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -361,7 +361,7 @@ interface DBInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($condition, String $type = NULL);
+	public function orderBy($condition, String $type = NULL) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -371,7 +371,7 @@ interface DBInterface
 	// @param int $limit
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($start = NULL, Int $limit = 0);
+	public function limit($start = NULL, Int $limit = 0) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Status
@@ -380,7 +380,7 @@ interface DBInterface
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function status(String $table);
+	public function status(String $table) : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Increment
@@ -391,7 +391,7 @@ interface DBInterface
 	// @param numeric $increment
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment(String $table = NULL, $columns = [], Int $increment = 1);
+	public function increment(String $table = NULL, $columns = [], Int $increment = 1) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decrement
@@ -402,7 +402,7 @@ interface DBInterface
 	// @param numeric $decrement
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement(String $table = NULL, $columns = [], Int $decrement = 1);
+	public function decrement(String $table = NULL, $columns = [], Int $decrement = 1) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -412,7 +412,7 @@ interface DBInterface
 	// @param mixed $datas
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $table = NULL, Array $datas = []);
+	public function insert(String $table = NULL, Array $datas = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Updated
@@ -422,7 +422,7 @@ interface DBInterface
 	// @param mixed $set
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update(String $table = NULL, Array $set = []);
+	public function update(String $table = NULL, Array $set = []) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -431,7 +431,7 @@ interface DBInterface
 	// @param mixed $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $table = NULL);
+	public function delete(String $table = NULL) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Escape String
@@ -490,7 +490,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function all();
+	public function all() : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Distinct
@@ -499,7 +499,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function distinct();
+	public function distinct() : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Max Statement Time
@@ -508,7 +508,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function maxStatementTime(String $time);
+	public function maxStatementTime(String $time) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Distinct Row
@@ -517,7 +517,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function distinctRow();
+	public function distinctRow() : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Distinct Row
@@ -526,7 +526,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function straightJoin();
+	public function straightJoin() : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// High Priority
@@ -535,7 +535,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function highPriority();
+	public function highPriority() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Low Priority
@@ -544,7 +544,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lowPriority();
+	public function lowPriority() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Quick
@@ -553,7 +553,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function quick();
+	public function quick() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delayed
@@ -562,7 +562,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delayed();
+	public function delayed() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Ignore
@@ -571,7 +571,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ignore();
+	public function ignore() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Partition
@@ -580,7 +580,7 @@ interface DBInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function partition(...$args);
+	public function partition(...$args) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Procedure
@@ -589,7 +589,7 @@ interface DBInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function procedure(...$args);
+	public function procedure(...$args) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Out File
@@ -598,7 +598,7 @@ interface DBInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outFile(String $file);
+	public function outFile(String $file) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Dump File
@@ -607,7 +607,7 @@ interface DBInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dumpFile(String $file);
+	public function dumpFile(String $file) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Character Set
@@ -625,7 +625,7 @@ interface DBInterface
 	// @param string $set
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cset(String $set);
+	public function cset(String $set) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Collate
@@ -634,7 +634,7 @@ interface DBInterface
 	// @param string $set
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function collate(String $set);
+	public function collate(String $set) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Encoding
@@ -654,7 +654,7 @@ interface DBInterface
 	// @param string $varname2
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function into(String $varname1, String $varname2);
+	public function into(String $varname1, String $varname2) : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// For Update
@@ -663,7 +663,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function forUpdate();
+	public function forUpdate() : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Lock In Share Mode
@@ -672,7 +672,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function lockInShareMode();
+	public function lockInShareMode() : InternalDB;
 
 	//----------------------------------------------------------------------------------------------------
 	// Small Result
@@ -681,7 +681,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smallResult();
+	public function smallResult() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Big Result
@@ -690,7 +690,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bigResult();
+	public function bigResult() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Buffer Result
@@ -699,7 +699,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bufferResult();
+	public function bufferResult() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Cache
@@ -708,7 +708,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cache();
+	public function cache() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// No Cache
@@ -717,7 +717,7 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function noCache();
+	public function noCache() : InternalDB;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Calc Found Rows
@@ -726,5 +726,5 @@ interface DBInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function calcFoundRows();
+	public function calcFoundRows() : InternalDB;
 }

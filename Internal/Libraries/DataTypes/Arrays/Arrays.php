@@ -21,7 +21,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param scalar $changePoss
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function posChange(Array $array, $poss, $changePos)
+	public function posChange(Array $array, $poss, $changePos) : Array
 	{
 		if( ! isRealNumeric($poss) ) 
 		{
@@ -78,7 +78,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param scalar $changePoss
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function posReverse(Array $array, $poss, $changePos)
+	public function posReverse(Array $array, $poss, $changePos) : Array
 	{
 		if( ! isRealNumeric($poss) ) 
 		{
@@ -139,7 +139,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param string $keyval: all, key, val	                          								  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function casing(Array $array, String $type = 'lower', String $keyval = 'all')
+	public function casing(Array $array, String $type = 'lower', String $keyval = 'all') : Array
 	{
 		return \Convert::arrayCase($array, $type, $keyval);
 	}
@@ -152,7 +152,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param numeric $count							  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeLast(Array $array, Int $count = 1)
+	public function removeLast(Array $array, Int $count = 1) : Array
 	{
 		if( $count <= 1 )
 		{
@@ -184,7 +184,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param numeric $count			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function removeFirst(Array $array, Int $count = 1)
+	public function removeFirst(Array $array, Int $count = 1) : Array
 	{
 		if( $count <= 1 )
 		{
@@ -216,7 +216,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addFirst(Array $array, $element)
+	public function addFirst(Array $array, $element) : Array
 	{
 		if( ! is_array($element) )
 		{
@@ -238,7 +238,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param mixed $element						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function addLast(Array $array, $element)
+	public function addLast(Array $array, $element) : Array
 	{
 		if( ! is_array($element) )
 		{
@@ -260,7 +260,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param mixed $object						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteElement(Array $array, $object)
+	public function deleteElement(Array $array, $object) : Array
 	{
 		$newArray = [];
 		
@@ -329,7 +329,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param string $keySplit:|						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function multikey(Array $array, String $keySplit = '|')
+	public function multikey(Array $array, String $keySplit = '|') : Array
 	{
 		$newArray = [];
 		
@@ -433,7 +433,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param string $flags:regular						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function order(Array $array, String $type = NULL, String $flags = 'regular')
+	public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
 	{
 		$flags = \Convert::toConstant($flags, 'SORT_');
 		
@@ -463,7 +463,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function objectData(Array $data)
+	public function objectData(Array $data) : String
 	{
 		return json_encode($data);		
 	}	
@@ -475,7 +475,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $array						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function length(Array $data)
+	public function length(Array $data) : Int
 	{
 		return count($data);	
 	}
@@ -489,7 +489,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function apportion(Array $data, Int $portionCount = 1, Bool $preserveKeys = false)
+	public function apportion(Array $data, Int $portionCount = 1, Bool $preserveKeys = false) : Array
 	{
 		return array_chunk($data, $portionCount, $preserveKeys);	
 	}
@@ -502,7 +502,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array $values					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function combine(Array $keys, Array $values)
+	public function combine(Array $keys, Array $values) : Array
 	{
 		return array_combine($keys, $values);	
 	}
@@ -541,7 +541,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function flip(Array $array)
+	public function flip(Array $array) : Array
 	{
 		return array_flip($array);	
 	}
@@ -553,7 +553,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function transform(Array $array)
+	public function transform(Array $array) : Array
 	{
 		return $this->flip($array);	
 	}
@@ -565,7 +565,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function implementCallback(...$args)
+	public function implementCallback(...$args) : Array
 	{
 		return $this->map(...$args);
 	}
@@ -577,7 +577,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function map(...$args)
+	public function map(...$args) : Array
 	{
 		return array_map(...$args);
 	}
@@ -589,7 +589,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param ...args				  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function recursiveMerge(...$args)
+	public function recursiveMerge(...$args) : Array
 	{
 		return array_merge_recursive(...$args);
 	}
@@ -601,7 +601,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function merge(...$args)
+	public function merge(...$args) : Array
 	{
 		return array_merge(...$args);
 	}
@@ -613,7 +613,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param ...args			  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function intersect(...$args)
+	public function intersect(...$args) : Array
 	{
 		return array_intersect(...$args);
 	}
@@ -626,7 +626,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param bool	  $preserveKeys						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function reverse(Array $array, Bool $preserveKeys = false)
+	public function reverse(Array $array, Bool $preserveKeys = false) : Array
 	{
 		return array_reverse($array, $preserveKeys);
 	}
@@ -638,7 +638,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function product(Array $array)
+	public function product(Array $array) : Float
 	{
 		return array_product($array);
 	}
@@ -650,7 +650,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $array					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function sum(Array $array)
+	public function sum(Array $array) : Float
 	{
 		return array_sum($array);
 	}
@@ -691,7 +691,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param bool	$strict						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function valueExists(Array $array, $element, Bool $strict = false)
+	public function valueExists(Array $array, $element, Bool $strict = false) : Bool
 	{
 		return in_array($element, $array, $strict);
 	}
@@ -704,7 +704,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param mixed $key					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyExists(Array $array, $key)
+	public function keyExists(Array $array, $key) : Bool
 	{	
 		return array_key_exists($key, $array);
 	}
@@ -719,7 +719,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param bool	  $preserveKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function section(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false)
+	public function section(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false) : Array
 	{
 		return array_slice($array, $start, $length, $preserveKeys);
 	}
@@ -734,7 +734,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param mixed	  $newElement						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL)
+	public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL) : Array
 	{
 		array_splice($array, $start, $length, $newElement);
 		
@@ -749,7 +749,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param string $flags					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function deleteRecurrent(Array $array, String $flags = 'string')
+	public function deleteRecurrent(Array $array, String $flags = 'string') : Array
 	{
 		return array_unique($array, \Convert::toConstant($flags, 'SORT_'));
 	}
@@ -763,7 +763,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param numeric $count						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function series(Int $start, Int $end, Int $step = 1)
+	public function series(Int $start, Int $end, Int $step = 1) : Array
 	{
 		return range($start, $end, $step);
 	}
@@ -777,7 +777,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param mixed	  $indexKey						  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function column(Array $array, $columnKey = 0, $indexKey = NULL)
+	public function column(Array $array, $columnKey = 0, $indexKey = NULL) : Array
 	{
 		return array_column($array, $columnKey, $indexKey);
 	}
@@ -790,7 +790,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function excluding(Array $array, Array $excluding)
+	public function excluding(Array $array, Array $excluding) : Array
 	{
 		$newArray = [];
 		
@@ -813,7 +813,7 @@ class InternalArrays extends \CallController implements ArraysInterface
 	// @param array   $excluding					  
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function including(Array $array, Array $including)
+	public function including(Array $array, Array $including) : Array
 	{
 		$newArray = [];
 		

@@ -19,7 +19,7 @@ interface DatabaseCommonInterface
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table(String $table);
+	public function table(String $table) : DatabaseCommon;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Column
@@ -29,7 +29,7 @@ interface DatabaseCommonInterface
 	// @param mixed  $val
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $col, $val);
+	public function column(String $col, $val) : DatabaseCommon;
 	
 	//----------------------------------------------------------------------------------------------------
 	// String Query
@@ -47,7 +47,7 @@ interface DatabaseCommonInterface
 	// @param mixed $connectName
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function differentConnection($connectName);
+	public function differentConnection($connectName) : DatabaseCommon;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Secure
@@ -56,7 +56,7 @@ interface DatabaseCommonInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function secure(Array $data);
+	public function secure(Array $data) : DatabaseCommon;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Func

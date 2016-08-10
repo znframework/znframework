@@ -5,7 +5,7 @@
 
 class Terminal extends StaticAccess
 {
-	const CONFIG_NAME = 'Components:terminal';
+	const config = 'Components:terminal';
 
 	public static function getClassName()
 	{

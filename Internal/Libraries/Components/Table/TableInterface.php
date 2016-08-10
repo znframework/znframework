@@ -19,7 +19,7 @@ interface TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attr(Array $attributes);
+	public function attr(Array $attributes) : InternalTable;
 
 	//----------------------------------------------------------------------------------------------------
 	// Align
@@ -28,7 +28,7 @@ interface TableInterface
 	// @param string $align
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function align(String $align);
+	public function align(String $align) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Cell
@@ -38,7 +38,7 @@ interface TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cell(Int $spacing, Int $padding);
+	public function cell(Int $spacing, Int $padding) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Cell Spacing
@@ -47,7 +47,7 @@ interface TableInterface
 	// @param numeric $spacing
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellSpacing(Int $spacing);
+	public function cellSpacing(Int $spacing) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Cell Padding
@@ -56,7 +56,7 @@ interface TableInterface
 	// @param numeric $padding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cellPadding(Int $padding);
+	public function cellPadding(Int $padding) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border
@@ -66,7 +66,7 @@ interface TableInterface
 	// @param string  $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border(Int $border, String $color);
+	public function border(Int $border, String $color) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border Size
@@ -75,7 +75,7 @@ interface TableInterface
 	// @param numeric $border
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderSize(Int $border);
+	public function borderSize(Int $border) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Border Color
@@ -84,7 +84,7 @@ interface TableInterface
 	// @param string $color
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderColor(String $color);
+	public function borderColor(String $color) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Width
@@ -93,7 +93,7 @@ interface TableInterface
 	// @param numeric $width
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width(Int $width);
+	public function width(Int $width) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Height
@@ -102,7 +102,7 @@ interface TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height(Int $height);
+	public function height(Int $height) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Size
@@ -112,7 +112,7 @@ interface TableInterface
 	// @param numeric $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size(Int $width, Int $height);
+	public function size(Int $width, Int $height) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Css
@@ -121,7 +121,7 @@ interface TableInterface
 	// @param string $css
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function css(String $css);
+	public function css(String $css) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Style
@@ -130,7 +130,7 @@ interface TableInterface
 	// @param array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style(Array $attributes);
+	public function style(Array $attributes) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Background
@@ -139,7 +139,7 @@ interface TableInterface
 	// @param mixed $background
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function background(String $background);
+	public function background(String $background) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Bg Color
@@ -148,7 +148,7 @@ interface TableInterface
 	// @param string $bgColor
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgColor(String $bgColor);
+	public function bgColor(String $bgColor) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Content
@@ -157,7 +157,7 @@ interface TableInterface
 	// @param variadic $elements
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content(...$elements);
+	public function content(...$elements) : InternalTable;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create

@@ -5,7 +5,7 @@
 
 class Calendar extends StaticAccess
 {
-	const CONFIG_NAME = 'Components:calendar';
+	const config = 'Components:calendar';
 
 	public static function getClassName()
 	{

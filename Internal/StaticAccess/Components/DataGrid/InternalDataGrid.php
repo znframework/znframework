@@ -5,7 +5,7 @@
 
 class DataGrid extends StaticAccess
 {
-	const CONFIG_NAME = 'Components:datagrid';
+	const config = 'Components:datagrid';
 
 	public static function getClassName()
 	{

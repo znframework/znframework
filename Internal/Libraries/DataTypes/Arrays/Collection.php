@@ -43,7 +43,7 @@ class InternalCollection implements CollectionInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(Array $data)
+	public function data(Array $data) : InternalCollection
 	{
 		$this->data = $data;
 		
@@ -55,7 +55,6 @@ class InternalCollection implements CollectionInterface
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @param  void
-	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
 	public function get()

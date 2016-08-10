@@ -5,7 +5,7 @@
 
 class Pagination extends StaticAccess
 {
-	const CONFIG_NAME = 'Components:pagination';
+	const config = 'Components:pagination';
 
 	public static function getClassName()
 	{

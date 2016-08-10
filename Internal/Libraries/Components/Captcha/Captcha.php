@@ -13,13 +13,13 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Const CONFIG_NAME
+	// const config
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @const string
 	//
 	//----------------------------------------------------------------------------------------------------
-	const CONFIG_NAME  = 'Components:captcha';
+	const config  = 'Components:captcha';
 
 	//----------------------------------------------------------------------------------------------------
 	// Sets
@@ -55,7 +55,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function width(Int $param)
+	public function width(Int $param) : InternalCaptcha
 	{
 		$this->sets['width'] = $param;
 
@@ -72,7 +72,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function height(Int $param)
+	public function height(Int $param) : InternalCaptcha
 	{
 		$this->sets['height'] = $param;
 		
@@ -90,7 +90,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function size(Int $width, Int $height)
+	public function size(Int $width, Int $height) : InternalCaptcha
 	{
 		$this->width($width);
 		$this->height($height);
@@ -108,7 +108,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function length(Int $param)
+	public function length(Int $param) : InternalCaptcha
 	{
 		$this->sets['charLength'] = $param;
 
@@ -127,7 +127,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function border(Bool $is = true, String $color = NULL)
+	public function border(Bool $is = true, String $color = NULL) : InternalCaptcha
 	{
 		$this->sets['border'] = $is;
 		
@@ -149,7 +149,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function borderColor(String $color)
+	public function borderColor(String $color) : InternalCaptcha
 	{
 		$this->sets['borderColor'] = $this->_convertColor($color);
 
@@ -166,7 +166,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgColor(String $color)
+	public function bgColor(String $color) : InternalCaptcha
 	{
 		$this->sets['bgColor'] = $this->_convertColor($color);
 		
@@ -183,7 +183,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bgImage($image)
+	public function bgImage($image) : InternalCaptcha
 	{
 		if( ! empty($image) )
 		{
@@ -211,7 +211,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function background(String $background)
+	public function background(String $background) : InternalCaptcha
 	{
 		if( is_file($background) )
 		{
@@ -235,7 +235,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textSize(Int $size)
+	public function textSize(Int $size) : InternalCaptcha
 	{
 		$this->sets['imageString']['size'] = $size;
 		
@@ -253,7 +253,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textCoordinate(Int $x = 0, Int $y = 0)
+	public function textCoordinate(Int $x = 0, Int $y = 0) : InternalCaptcha
 	{
 		$this->sets['imageString']['x'] = $x;
 		$this->sets['imageString']['y'] = $y;	
@@ -271,7 +271,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function textColor(String $color)
+	public function textColor(String $color) : InternalCaptcha
 	{
 		$this->sets['textColor'] = $this->_convertColor($color);
 	
@@ -291,7 +291,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL)
+	public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL) : InternalCaptcha
 	{
 		$this->textSize($size);
 		
@@ -320,7 +320,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function grid(Bool $is = true, String $color = NULL)
+	public function grid(Bool $is = true, String $color = NULL) : InternalCaptcha
 	{
 		$this->sets['grid'] = $is;
 		
@@ -342,7 +342,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridColor(String $color)
+	public function gridColor(String $color) : InternalCaptcha
 	{		
 		$this->sets['gridColor'] = $this->_convertColor($color);
 
@@ -360,7 +360,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function gridSpace(Int $x = 0, Int $y = 0)
+	public function gridSpace(Int $x = 0, Int $y = 0) : InternalCaptcha
 	{
 		if( ! empty($x) ) 
 		{
@@ -400,7 +400,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
 		
 		$systemCaptchaCodeData = md5('SystemCaptchaCodeData');
 	
-		\Session::insert($systemCaptchaCodeData, substr(md5(rand(0,999999999999999)), -($set['charLength'])));	
+		\Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($set['charLength'])));	
 		
 		if( $sessionCaptchaCode = \Session::select($systemCaptchaCodeData) )
 		{

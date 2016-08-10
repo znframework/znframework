@@ -156,7 +156,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function table(String $table)
+	public function table(String $table) : DatabaseCommon
 	{
 		$this->table = ' '.$this->prefix.$table.' ';
 		$this->tableName = $this->prefix.$table;
@@ -172,7 +172,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param mixed  $val
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $col, $val)
+	public function column(String $col, $val) : DatabaseCommon
 	{
 		$this->column[$col] = $val;
 		
@@ -203,7 +203,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param mixed $connectName
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function differentConnection($connectName)
+	public function differentConnection($connectName) : DatabaseCommon
 	{	
 		$config 		 = $this->config;
 		$configDifferent = $config['differentConnection'];
@@ -218,7 +218,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Error', 'emptyParameter', 'connectName');	
+			\Exceptions::throws('Error', 'invalidInput', 'connectName');	
 		}
 		
 		foreach( $config as $key => $val )
@@ -242,7 +242,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function secure(Array $data)
+	public function secure(Array $data) : DatabaseCommon
 	{
 		$this->secure = $data;
 		

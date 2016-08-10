@@ -28,7 +28,7 @@ interface MigrationInterface
 	// @param string $name -- Migrasyon Adı
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create(String $name, Int $ver = 0);
+	public function create(String $name, Int $ver = 0) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -37,7 +37,7 @@ interface MigrationInterface
 	// @param string $name -- Migrasyon Adı
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name, Int $ver = 0);
+	public function delete(String $name, Int $ver = 0) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete All
@@ -46,7 +46,7 @@ interface MigrationInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll();
+	public function deleteAll() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create Table
@@ -55,7 +55,7 @@ interface MigrationInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable(Array $data);
+	public function createTable(Array $data) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Table
@@ -64,7 +64,7 @@ interface MigrationInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTable();
+	public function dropTable() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Column
@@ -73,7 +73,7 @@ interface MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn(Array $columns);
+	public function addColumn(Array $columns) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// Drop Column
@@ -82,7 +82,7 @@ interface MigrationInterface
 	// @param array $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($columns);
+	public function dropColumn($columns) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Modify Column
@@ -91,8 +91,17 @@ interface MigrationInterface
 	// @param array $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn(Array $columns);
-	
+	public function modifyColumn(Array $columns) : Bool;
+
+	//----------------------------------------------------------------------------------------------------
+	// Rename Column
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $columns
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function renameColumn(Array $column) : Bool;
+
 	//----------------------------------------------------------------------------------------------------
 	// Truncate
 	//----------------------------------------------------------------------------------------------------
@@ -100,7 +109,7 @@ interface MigrationInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate();
+	public function truncate() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Path
@@ -109,5 +118,5 @@ interface MigrationInterface
 	// @param string path: NULL
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path(String $path);
+	public function path(String $path) : InternalMigration;
 }

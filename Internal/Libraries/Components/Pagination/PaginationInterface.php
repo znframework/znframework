@@ -19,7 +19,7 @@ interface PaginationInterface
 	// @param array $config
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $config = []);
+	public function settings(Array $config = []) : InternalPagination;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create                                                                               

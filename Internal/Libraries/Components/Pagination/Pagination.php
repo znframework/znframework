@@ -13,13 +13,13 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Const CONFIG_NAME
+	// const config
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @const string
 	//
 	//----------------------------------------------------------------------------------------------------
-	const CONFIG_NAME  = 'Components:pagination';
+	const config  = 'Components:pagination';
 
 	//----------------------------------------------------------------------------------------------------
 	// Pagination Properties
@@ -46,7 +46,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
 	// @param array $config
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $config = [])
+	public function settings(Array $config = []) : InternalPagination
 	{
 		$configs = $this->config; 
 		

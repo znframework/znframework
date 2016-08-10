@@ -51,7 +51,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function extras($extras)
+	public function extras($extras) : InternalDBForge
 	{
 		$this->extras = $extras;
 
@@ -66,7 +66,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed  $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createDatabase(String $dbname, $extras = NULL)
+	public function createDatabase(String $dbname, $extras = NULL) : Bool
 	{
 		$query = $this->forge->createDatabase($dbname, $this->_p($extras, 'extras'));	
 		
@@ -80,7 +80,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param string $dbname
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropDatabase(String $dbname)
+	public function dropDatabase(String $dbname) : Bool
 	{
 		$query = $this->forge->dropDatabase($dbname);	
 		
@@ -96,7 +96,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed $extras
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createTable(String $table = NULL, Array $colums, $extras = NULL)
+	public function createTable(String $table = NULL, Array $colums, $extras = NULL) : Bool
 	{		
 		$query = $this->forge->createTable($this->_p($table), $colums, $extras);
 	
@@ -110,7 +110,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropTable(String $table = NULL)
+	public function dropTable(String $table = NULL) : Bool
 	{	
 		$query = $this->forge->dropTable($this->_p($table));
 		
@@ -125,7 +125,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed $condition
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function alterTable(String $table = NULL, Array $condition = NULL)
+	public function alterTable(String $table = NULL, Array $condition = NULL) : Bool
 	{
 		$table = $this->_p($table);	
 		
@@ -159,7 +159,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param string $newName
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameTable(String $name, String $newName)
+	public function renameTable(String $name, String $newName) : Bool
 	{
 		$query = $this->forge->renameTable($this->_p($name, 'prefix'), $this->_p($newName, 'prefix'));
 		
@@ -173,7 +173,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param string $table
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate(String $table = NULL)
+	public function truncate(String $table = NULL) : Bool
 	{
 		$query = $this->forge->truncate($this->_p($table));
 		
@@ -188,7 +188,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param array  $condition
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn(String $table = NULL, Array $columns = NULL)
+	public function addColumn(String $table = NULL, Array $columns = NULL) : Bool
 	{	
 		$query = $this->forge->addColumn($this->_p($table), $this->_p($columns, 'column'));
 		
@@ -203,7 +203,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed  $column
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn(String $table = NULL, $columns = NULL)
+	public function dropColumn(String $table = NULL, $columns = NULL) : Bool
 	{
 		if( ! is_array($columns) )
 		{
@@ -234,7 +234,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed  $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn(String $table = NULL, Array $columns = NULL)
+	public function modifyColumn(String $table = NULL, Array $columns = NULL) : Bool
 	{
 		$query = $this->forge->modifyColumn($this->_p($table), $this->_p($columns, 'column'));
 		
@@ -249,7 +249,7 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 	// @param mixed  $columns
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn(String $table = NULL , Array $columns = NULL)
+	public function renameColumn(String $table = NULL , Array $columns = NULL) : Bool
 	{	
 		$query = $this->forge->renameColumn($this->_p($table), $this->_p($columns, 'column'));
 		
