@@ -176,7 +176,7 @@ class InternalCache extends \Requirements implements CacheInterface
 	// @return object 	        		     			 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function driver(String $driver)
+	public function driver(String $driver) : InternalCache
 	{
 		return new self($driver);
 	}

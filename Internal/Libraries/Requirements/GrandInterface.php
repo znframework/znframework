@@ -17,7 +17,7 @@ interface GrandInterface
 	// @param array $data: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($data);
+	public function insert(Array $data) : Bool;
 	//----------------------------------------------------------------------------------------------------
 	// Insert ID
 	//----------------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insertID();
+	public function insertID() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -34,7 +34,7 @@ interface GrandInterface
 	// @param mixed $select: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($select);
+	public function select(...$select) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Update
@@ -43,7 +43,7 @@ interface GrandInterface
 	// @param array $data: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($data, $column, $value);
+	public function update(Array $data, String $column, String $value) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -53,7 +53,7 @@ interface GrandInterface
 	// @param string $value : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($column, $value);
+	public function delete(String $column, String $value) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Columns
@@ -62,7 +62,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns();
+	public function columns() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Columns
@@ -71,7 +71,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalColumns();
+	public function totalColumns() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Row
@@ -89,7 +89,7 @@ interface GrandInterface
 	// @param string $type: object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function result($type);
+	public function result(String $type = 'object');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Increment
@@ -99,7 +99,7 @@ interface GrandInterface
 	// @param int   $increment: 1
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($columns, $increment);
+	public function increment($columns, Int $increment = 1) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decrement
@@ -109,7 +109,7 @@ interface GrandInterface
 	// @param int   $decrement: 1
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($columns, $decrement);
+	public function decrement($columns, Int $decrement = 1) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Status
@@ -118,7 +118,7 @@ interface GrandInterface
 	// @param string $type: row
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function status($type);
+	public function status(String $type = 'row');
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Rows
@@ -127,7 +127,7 @@ interface GrandInterface
 	// @param bool $status: false
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows($status);
+	public function totalRows(Bool $status = false) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where
@@ -138,7 +138,7 @@ interface GrandInterface
 	// @param string $logical: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column, $value, $logical);
+	public function where($column, String $value = NULL, String $logical = NULL) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Having
@@ -149,7 +149,7 @@ interface GrandInterface
 	// @param string $logical: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column, $value, $logical);
+	public function having($column, String $value = NULL, String $logical = NULL) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Where Group
@@ -158,7 +158,7 @@ interface GrandInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function whereGroup();
+	public function whereGroup(...$args) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Having Group
@@ -167,7 +167,7 @@ interface GrandInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function havingGroup();
+	public function havingGroup(...$args) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Inner Join
@@ -178,7 +178,7 @@ interface GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin($table, $otherColumn, $operator);
+	public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Outer Join
@@ -189,7 +189,7 @@ interface GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin($table, $otherColumn, $operator);
+	public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Left Join
@@ -200,7 +200,7 @@ interface GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin($table, $otherColumn, $operator);
+	public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Right Join
@@ -211,7 +211,7 @@ interface GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin($table, $otherColumn, $operator);
+	public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Join
@@ -222,7 +222,7 @@ interface GrandInterface
 	// @param string $type     : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function join($table, $condition, $type);
+	public function join(String $table, String $condition, String $type = NULL) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Duplicate Check
@@ -231,7 +231,7 @@ interface GrandInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function duplicateCheck();
+	public function duplicateCheck(...$args) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Order By
@@ -241,7 +241,7 @@ interface GrandInterface
 	// @param string $type     : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($condition, $type);
+	public function orderBy($condition, String $type = NULL) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Group By
@@ -250,7 +250,7 @@ interface GrandInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy();
+	public function groupBy() : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Limit
@@ -260,7 +260,7 @@ interface GrandInterface
 	// @param int   $limit: 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($start, $limit);
+	public function limit($start = 0, Int $limit = 0) : Grand;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Pagination
@@ -271,7 +271,7 @@ interface GrandInterface
 	// @param bool   $output  : true
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pagination($url, $settings, $output);
+	public function pagination(String $url = NULL, Array $settings = [], Bool $output = true);
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create
@@ -281,7 +281,7 @@ interface GrandInterface
 	// @param string $extra: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($data, $extra);
+	public function create(Array $data, $extra = NULL) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop
@@ -290,7 +290,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function drop();
+	public function drop() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Truncate
@@ -299,7 +299,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate();
+	public function truncate() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename
@@ -308,7 +308,7 @@ interface GrandInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rename($newName);
+	public function rename(String $newName) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add Column
@@ -317,7 +317,7 @@ interface GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($column);
+	public function addColumn(Array $column) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Drop Column
@@ -326,7 +326,7 @@ interface GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($column);
+	public function dropColumn($column) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Modify Column
@@ -335,7 +335,7 @@ interface GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($column);
+	public function modifyColumn(Array $column) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rename Column
@@ -344,7 +344,7 @@ interface GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn($column);
+	public function renameColumn(Array $column) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Optimize
@@ -353,7 +353,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimize();
+	public function optimize() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Repair
@@ -362,7 +362,7 @@ interface GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repair();
+	public function repair() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Backup
@@ -372,7 +372,7 @@ interface GrandInterface
 	// @param string $path    : const STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($fileName, $path);
+	public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Error

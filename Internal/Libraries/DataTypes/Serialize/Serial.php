@@ -51,7 +51,7 @@ class InternalSerial extends \CallController implements SerialInterface
 	// @param string $data
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function decodeObject(String $data)
+	public function decodeObject(String $data) : \stdClass
 	{
 		return (object) unserialize($data);
 	}

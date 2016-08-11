@@ -357,7 +357,7 @@ class InternalUpload extends \CallController implements UploadInterface
 				
 				if( $this->settings['convertName'] === true )
 				{
-					 $nm = \Convert::urlWord($nm);	
+					 $nm = \Converter::urlWord($nm);	
 				}
 				
 				if( $this->settings['encryption'] ) 
@@ -404,7 +404,7 @@ class InternalUpload extends \CallController implements UploadInterface
 		{	
 			if( $this->settings['convertName'] === true )
 			{
-				 $name = \Convert::urlWord($name);	
+				 $name = \Converter::urlWord($name);	
 			}
 			
 			if( empty($_FILES[$fileName]['name']) ) 

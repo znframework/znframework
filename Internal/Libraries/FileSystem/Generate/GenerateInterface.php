@@ -3,7 +3,7 @@ namespace ZN\FileSystem;
 
 interface GenerateInterface
 {
-	public function settings(Array $settings);
+	public function settings(Array $settings) : InternalGenerate;
 
 	//----------------------------------------------------------------------------------------------------
 	// Model

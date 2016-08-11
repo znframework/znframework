@@ -46,7 +46,7 @@ class InternalGT extends \CallController implements GTInterface
 	//----------------------------------------------------------------------------------------------------
 	public function locale(String $category, $locale) : String
 	{
-		return setlocale(\Convert::toConstant($category, 'LC_'), $locale);
+		return setlocale(\Converter::toConstant($category, 'LC_'), $locale);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

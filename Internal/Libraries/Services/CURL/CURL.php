@@ -130,7 +130,7 @@ class InternalCURL extends \CallController implements CURLInterface
 			return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
 		}
 		
-		return curl_getinfo($this->init, \Convert::toConstant($opt, 'CURLINFO_'));
+		return curl_getinfo($this->init, \Converter::toConstant($opt, 'CURLINFO_'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	//----------------------------------------------------------------------------------------------------
 	public function option(String $options, $value)
 	{		
-		$this->options[\Convert::toConstant($options, 'CURLOPT_')] = $value;
+		$this->options[\Converter::toConstant($options, 'CURLOPT_')] = $value;
 		
 		return $this;
 	}

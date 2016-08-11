@@ -77,7 +77,7 @@ class GZDriver extends CompressDriverMapping
 	{
 		nullCoalesce($encoding, 'deflate');
 
-		return gzcompress($data, $level, \Convert::toConstant($encoding, 'ZLIB_ENCODING_'));
+		return gzcompress($data, $level, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ class GZDriver extends CompressDriverMapping
 	{
 		nullCoalesce($encoding, 'gzip');
 
-		return gzencode($data, $level, \Convert::toConstant($encoding, 'FORCE_'));
+		return gzencode($data, $level, \Converter::toConstant($encoding, 'FORCE_'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ class GZDriver extends CompressDriverMapping
 	{
 		nullCoalesce($encoding, 'raw');
 
-		return gzdeflate($data, $level, \Convert::toConstant($encoding, 'ZLIB_ENCODING_'));
+		return gzdeflate($data, $level, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------

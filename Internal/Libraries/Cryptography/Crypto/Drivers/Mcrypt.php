@@ -31,10 +31,10 @@ class McryptDriver extends CryptoMapping
 		$iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
 
 		// MCRYPT_ ön eki ilave ediliyor.
-		$cipher = \Convert::toConstant($cipher, 'MCRYPT_');
+		$cipher = \Converter::toConstant($cipher, 'MCRYPT_');
 		
 		// MCRYPT_MODE_ ön eki ilave ediliyor.
-		$mode   = \Convert::toConstant($mode, 'MCRYPT_MODE_');
+		$mode   = \Converter::toConstant($mode, 'MCRYPT_MODE_');
 		
 		$encode = trim(mcrypt_encrypt($cipher, $key, $data, $mode, $iv));
 		
@@ -58,10 +58,10 @@ class McryptDriver extends CryptoMapping
 		$iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
 		
 		// MCRYPT_ ön eki ilave ediliyor.
-		$cipher = \Convert::toConstant($cipher, 'MCRYPT_');
+		$cipher = \Converter::toConstant($cipher, 'MCRYPT_');
 		
 		// MCRYPT_MODE_ ön eki ilave ediliyor.
-		$mode   = \Convert::toConstant($mode, 'MCRYPT_MODE_');
+		$mode   = \Converter::toConstant($mode, 'MCRYPT_MODE_');
 		
 		$data = base64_decode($data);
 		

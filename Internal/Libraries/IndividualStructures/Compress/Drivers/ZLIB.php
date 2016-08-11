@@ -34,7 +34,7 @@ class ZlibDriver extends CompressDriverMapping
 	{
 		nullCoalesce($encoding, 'gzip');
 
-		return zlib_encode($data, \Convert::toConstant($encoding, 'ZLIB_ENCODING_'), $level);
+		return zlib_encode($data, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'), $level);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

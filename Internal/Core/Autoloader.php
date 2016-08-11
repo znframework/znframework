@@ -421,7 +421,7 @@ class Autoloader
 		
 		$i = 0;
 		
-		$type = \Convert::toConstant($type, 'T_');
+		$type = \Converter::toConstant($type, 'T_');
 		
 		foreach( $tokens as $token )
 		{

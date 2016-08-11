@@ -198,7 +198,7 @@ class InternalCompress extends \CallController implements CompressInterface
 	// @return object 	        		     			 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function driver(String $driver)
+	public function driver(String $driver) : InternalCompress
 	{
 		return new self($driver);
 	}

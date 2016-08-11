@@ -41,7 +41,7 @@ class InternalSupport extends \CallController implements SupportInterface
 			}	
 		}
 
-		return true;
+		return false;
 	}
 
 	//----------------------------------------------------------------------------------------------------

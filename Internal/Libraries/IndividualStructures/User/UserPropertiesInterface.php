@@ -20,7 +20,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function autoLogin($autoLogin = true);
+	public function autoLogin($autoLogin = true) : InternalUser;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Return Link
@@ -30,7 +30,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function returnLink(String $returnLink);
+	public function returnLink(String $returnLink) : InternalUser;
 
 	//----------------------------------------------------------------------------------------------------
 	// Old Password
@@ -40,7 +40,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function oldPassword(String $oldPassword);
+	public function oldPassword(String $oldPassword) : InternalUser;
 	
 	//----------------------------------------------------------------------------------------------------
 	// New Password
@@ -50,7 +50,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function newPassword(String $newPassword);
+	public function newPassword(String $newPassword) : InternalUser;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Password Again
@@ -60,7 +60,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function passwordAgain(String $passwordAgain);
+	public function passwordAgain(String $passwordAgain) : InternalUser;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Password Again
@@ -70,7 +70,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $column, $value);
+	public function column(String $column, $value) : InternalUser;
 
 	//----------------------------------------------------------------------------------------------------
 	// Username
@@ -80,7 +80,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function username(String $username);
+	public function username(String $username) : InternalUser;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Password
@@ -90,7 +90,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function password(String $password);
+	public function password(String $password) : InternalUser;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Remember
@@ -100,7 +100,7 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remember(Bool $remember = true);
+	public function remember(Bool $remember = true) : InternalUser;
 
 	//----------------------------------------------------------------------------------------------------
 	// Username
@@ -110,5 +110,5 @@ interface UserPropertiesInterface
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function email(String $email);
+	public function email(String $email) : InternalUser;
 }

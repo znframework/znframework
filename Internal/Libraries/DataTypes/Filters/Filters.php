@@ -226,7 +226,7 @@ class InternalFilters extends \CallController implements FiltersInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _inputConstant($const)
 	{
-		return \Convert::toConstant($const, 'INPUT_');
+		return \Converter::toConstant($const, 'INPUT_');
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -234,7 +234,7 @@ class InternalFilters extends \CallController implements FiltersInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _filterConstant($const)
 	{
-		return \Convert::toConstant($const, 'FILTER_');
+		return \Converter::toConstant($const, 'FILTER_');
 	}	
 
 	//----------------------------------------------------------------------------------------------------

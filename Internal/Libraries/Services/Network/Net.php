@@ -48,7 +48,7 @@ class InternalNet extends \CallController implements NetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function dnsRecords(String $host, String $type = 'any', Bool $raw = false)
 	{
-		$dns = dns_get_record($this->cleanHttp($host), \Convert::toConstant($type, 'DNS_'), $auth, $add, $raw);
+		$dns = dns_get_record($this->cleanHttp($host), \Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
 		
 		return (object)array
 		(

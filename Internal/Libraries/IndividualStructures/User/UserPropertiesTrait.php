@@ -20,7 +20,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function autoLogin($autoLogin = true)
+	public function autoLogin($autoLogin = true) : InternalUser
 	{
 		$this->parameters['autoLogin'] = $autoLogin;
 		
@@ -35,7 +35,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function returnLink(String $returnLink)
+	public function returnLink(String $returnLink) : InternalUser
 	{
 		$this->parameters['returnLink'] = $returnLink;
 		
@@ -50,7 +50,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function oldPassword(String $oldPassword)
+	public function oldPassword(String $oldPassword) : InternalUser
 	{
 		$this->parameters['oldPassword'] = $oldPassword;
 		
@@ -65,7 +65,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function newPassword(String $newPassword)
+	public function newPassword(String $newPassword) : InternalUser
 	{
 		$this->parameters['newPassword'] = $newPassword;
 		
@@ -80,7 +80,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function passwordAgain(String $passwordAgain)
+	public function passwordAgain(String $passwordAgain) : InternalUser
 	{
 		$this->parameters['passwordAgain'] = $passwordAgain;
 		
@@ -95,7 +95,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function column(String $column, $value)
+	public function column(String $column, $value) : InternalUser
 	{
 		$this->parameters['column'][$column] = $value;
 		
@@ -110,7 +110,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function username(String $username)
+	public function username(String $username) : InternalUser
 	{
 		$this->parameters['username'] = $username;
 		
@@ -125,7 +125,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function password(String $password)
+	public function password(String $password) : InternalUser
 	{
 		$this->parameters['password'] = $password;
 		
@@ -140,7 +140,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remember(Bool $remember = true)
+	public function remember(Bool $remember = true) : InternalUser
 	{
 		$this->parameters['remember'] = $remember;
 		
@@ -155,7 +155,7 @@ trait UserPropertiesTrait
 	// @return this
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function email(String $email)
+	public function email(String $email) : InternalUser
 	{
 		$this->parameters['email'] = $email;
 		

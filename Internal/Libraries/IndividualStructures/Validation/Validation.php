@@ -58,13 +58,13 @@ class InternalValidation extends \CallController implements ValidationInterface
 	protected $index = 0;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Validate Trait
+	// Validation Properties Trait
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// validate functions
+	// @methdos
 	//
 	//----------------------------------------------------------------------------------------------------
-	use ValidateTrait;
+	use ValidationPropertiesTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rules
@@ -229,7 +229,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// numeric form aracının sayısal değer olması gerektiğini belirtir.
 		if( in_array('numeric', $config) )
 		{ 
-			if( ! is_numeric($edit) )
+			if( ! \Validate::numeric($edit) )
 			{ 
 				$this->_messages('numeric', $name, $viewName);
 			} 
@@ -238,7 +238,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// verinin telefon bilgisi olup olmadığı kontrol edilir.
 		if( in_array('phone', $config) )
 		{ 
-			if( ! preg_match('/\+*[0-9]{10,14}$/', $edit) )
+			if( ! \Validate::phone($edit) )
 			{ 
 				$this->_messages('phone', $name, $viewName);
 			} 
@@ -246,22 +246,19 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// verinin belirtilen desende telefon bilgisi olup olmadığı kontrol edilir.
 		if( isset($config['phone']) )
 		{ 
-			$phoneData = $config['phone'];		
-			$phoneData = preg_replace('/([^\*])/', 'key:$1', $phoneData);			
+			$phoneData = preg_replace('/([^\*])/', 'key:$1', $config['phone']);			
 			$phoneData = '/'.str_replace(['*', 'key:'], ['[0-9]', '\\'], $phoneData).'/';
-			
+
 			if( ! preg_match($phoneData, $edit) )
 			{ 
 				$this->_messages('phone', $name, $viewName);
 			} 
-		
-		
 		}
 		
 		// verinin alfabetik karakter bilgisi olup olmadığı kontrol edilir.
 		if( in_array('alpha', $config) )
 		{ 
-			if( ! ctype_alpha($edit) )
+			if( ! \Validate::alpha($edit) )
 			{ 
 				$this->_messages('alpha', $name, $viewName);
 			} 
@@ -270,7 +267,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// verinin alfabetik ve sayısal veri olup olmadığı kontrol edilir.
 		if( in_array('alnum', $config) )
 		{ 
-			if( ! preg_match('/\w+/',$edit) )
+			if( ! \Validate::alnum($edit) )
 			{ 
 				$this->_messages('alnum', $name, $viewName);
 			} 
@@ -279,7 +276,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// email form aracının email olması gerektiğini belirtir.
 		if( in_array('email', $config) )
 		{ 
-			if( ! $this->email($edit) )
+			if( ! \Validate::email($edit) )
 			{ 
 				$this->_messages('email', $name, $viewName);
 			} 
@@ -287,7 +284,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		
 		if( in_array('url' ,$config) )
 		{ 
-			if( ! $this->url($edit) )
+			if( ! \Validate::url($edit) )
 			{ 
 				$this->_messages('url', $name, $viewName);
 			} 
@@ -295,7 +292,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		
 		if( in_array('identity', $config) )
 		{ 
-			if( ! $this->identity($edit) )
+			if( ! \Validate::identity($edit) )
 			{ 
 				$this->_messages('identity', $name, $viewName);
 			} 
@@ -304,7 +301,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// no special char, özel karakterlerin kullanımını engeller.
 		if( in_array('specialChar', $config) )
 		{
-			if( $this->specialChar($edit) )
+			if( \Validate::specialChar($edit) )
 			{ 
 				$this->_messages('noSpecialChar', $name, $viewName);
 			} 
@@ -313,7 +310,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// maxchar form aracının maximum alacağı karakter sayısını belirtir.	
 		if( isset($config['maxchar']) )
 		{ 
-			if( ! $this->maxchar($edit, $config['maxchar']) )
+			if( ! \Validate::maxchar($edit, $config['maxchar']) )
 			{ 
 				$this->_messages('maxchar', $name, ["%" => $viewName, "#" => $config['maxchar']]);
 			} 
@@ -322,7 +319,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 		// minchar from aracının minimum alacağı karakter sayısını belirtir.
 		if( isset($config['minchar']) )
 		{	
-			if( ! $this->minchar($edit, $config['minchar']) )
+			if( ! \Validate::minchar($edit, $config['minchar']) )
 			{ 
 				$this->_messages('minchar', $name, ["%" => $viewName, "#" => $config['minchar']]);
 			} 

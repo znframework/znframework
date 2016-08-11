@@ -225,7 +225,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 	//----------------------------------------------------------------------------------------------------	
 	public function upload(String $localPath, String $remotePath, String $type = 'ascii')
 	{
-		if( @ftp_put($this->connect, $remotePath, $localPath, \Convert::toConstant($type, 'FTP_')) )
+		if( @ftp_put($this->connect, $remotePath, $localPath, \Converter::toConstant($type, 'FTP_')) )
 		{
 			return true;
 		}
@@ -246,7 +246,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 	//----------------------------------------------------------------------------------------------------
 	public function download(String $remotePath, String $localPath, String $type = 'ascii')
 	{
-		if( @ftp_get($this->connect, $localPath, $remotePath, \Convert::toConstant($type, 'FTP_')) )
+		if( @ftp_get($this->connect, $localPath, $remotePath, \Converter::toConstant($type, 'FTP_')) )
 		{
 			return true;
 		}

@@ -19,7 +19,7 @@ class InternalStack implements StackInterface
 	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $data = '';
+	protected $data = NULL;
 
 	//----------------------------------------------------------------------------------------------------
 	// Magic Call
@@ -43,7 +43,7 @@ class InternalStack implements StackInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $data)
+	public function data(String $data) : InternalStack
 	{
 		$this->data = $data;
 		
@@ -62,7 +62,7 @@ class InternalStack implements StackInterface
 	{
 		$data = $this->data;
 		
-		$this->data = '';
+		$this->data = NULL;
 		
 		return $data;
 	}

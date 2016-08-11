@@ -19,7 +19,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isAlnum($string);
+	public function isAlnum(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Alpha                                                                   
@@ -28,7 +28,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isAlpha($string);
+	public function isAlpha(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Numeric                                                                   
@@ -37,7 +37,7 @@ interface CharsInterface
 	// @param int $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isNumeric($string);
+	public function isNumeric(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Graph                                                                   
@@ -46,7 +46,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isGraph($string);
+	public function isGraph(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Lower                                                                  
@@ -55,7 +55,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isLower($string);
+	public function isLower(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Upper                                                                  
@@ -64,7 +64,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isUpper($string);
+	public function isUpper(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Print                                                                  
@@ -73,7 +73,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isPrint($string);
+	public function isPrint(String $string) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// Is Non Alpha                                                                   
@@ -82,7 +82,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isNonAlnum($string);
+	public function isNonAlnum(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Space                                                                   
@@ -91,7 +91,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isSpace($string);
+	public function isSpace(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Hex                                                                   
@@ -100,7 +100,7 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isHex($string);
+	public function isHex(String $string) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Is Control                                                                   
@@ -109,5 +109,5 @@ interface CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isControl($string);	
+	public function isControl(String $string) : Bool;	
 }

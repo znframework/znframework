@@ -47,7 +47,7 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	// @param string  $process: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function start($roleId = 0, String $process = NULL)
+	public function start(Int $roleId = 0, String $process = NULL)
 	{
 		$this->content = $this->process($roleId, $process, 'object');
 	
@@ -88,7 +88,7 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	// @param string  $object : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function process($roleId = 0, String $process = NULL, String $object = NULL)
+	public function process(Int $roleId = 0, String $process = NULL, String $object = NULL) : String
 	{	
 		$this->permission = $this->config['process'];
 		
@@ -198,7 +198,7 @@ class InternalPermission extends \Requirements implements PermissionInterface
 	// @param numeric $roleId : 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function page($roleId = 6)
+	public function page(Int $roleId = 6) : Bool
 	{
 		$this->permission = $this->config['page'];
 		

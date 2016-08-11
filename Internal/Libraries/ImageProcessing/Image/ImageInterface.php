@@ -20,7 +20,7 @@ interface ImageInterface
 	// @param array  $set
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function thumb(String $fpath, Array $set);
+	public function thumb(String $fpath, Array $set) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Get Prosize
@@ -31,5 +31,5 @@ interface ImageInterface
 	// @param int    $height
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getProsize(String $path, $width, $height);
+	public function getProsize(String $path, Int $width = 0, Int $height = 0) : \stdClass;
 }

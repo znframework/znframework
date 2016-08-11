@@ -28,12 +28,12 @@ class InternalCart extends \CallController implements CartInterface
 	// @param array $product
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insertItem(Array $product)
+	public function insertItem(Array $product) : Bool
 	{
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			return \Exceptions::throws('Error', 'emptyParameter', 'product');	
+			\Exceptions::throws('Error', 'emptyParameter', 'product');	
 		}
 
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
@@ -54,7 +54,7 @@ class InternalCart extends \CallController implements CartInterface
 		
 		$this->items = \Session::select(md5('SystemCartData'));
 		
-		return $this->items;
+		return true;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ class InternalCart extends \CallController implements CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectItems()
+	public function selectItems() : Array
 	{
 		if( $sessionCart = \Session::select(md5('SystemCartData')) )
 		{
@@ -72,7 +72,7 @@ class InternalCart extends \CallController implements CartInterface
 		}
 		else
 		{
-			return false;
+			return [];
 		}
 	}
 	
@@ -83,7 +83,7 @@ class InternalCart extends \CallController implements CartInterface
 	// @param mixed $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectItem($code)
+	public function selectItem($code) : \stdClass
 	{
 		$this->items = ( $sessionCart = \Session::select(md5('SystemCartData')) ) 
 		               ? $sessionCart 
@@ -91,7 +91,7 @@ class InternalCart extends \CallController implements CartInterface
 		
 		if( empty($this->items) ) 
 		{
-			return false;
+			return (object)[];
 		}
 		
 		foreach( $this->items as $row )
@@ -110,7 +110,7 @@ class InternalCart extends \CallController implements CartInterface
 			
 			if( ! empty($key) )
 			{
-				return (object)$row;
+				return (object) $row;
 			}
 		}
 	}
@@ -122,23 +122,24 @@ class InternalCart extends \CallController implements CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalItems()
+	public function totalItems() : Int
 	{
+		$totalItems  = 0;
+
 		if( $sessionCart = \Session::select(md5('SystemCartData')) )
 		{
 			$this->items = $sessionCart;
-			$total_items = 0;
 			
 			if( ! empty($this->items) ) foreach( $this->items as $item )
 			{
-				$total_items += $item['quantity'];	
+				$totalItems += $item['quantity'];	
 			}
 			
-			return $total_items;
+			return $totalItems;
 		}
 		else
 		{
-			return 0;	
+			return $totalItems;	
 		}
 	}
 	
@@ -150,7 +151,7 @@ class InternalCart extends \CallController implements CartInterface
 	// @param mixed $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalPrices()
+	public function totalPrices() : Int
 	{
 		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
@@ -161,7 +162,7 @@ class InternalCart extends \CallController implements CartInterface
 			return 0;	
 		}
 		
-		$total = '';
+		$total = 0;
 		
 		foreach( $this->items as $values )
 		{
@@ -173,7 +174,7 @@ class InternalCart extends \CallController implements CartInterface
 			       ? $values['price']
 				   : 0;
 			
-			$total    += $price * $quantity;
+			$total += $price * $quantity;
 		}
 		
 		return $total;
@@ -187,7 +188,7 @@ class InternalCart extends \CallController implements CartInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function updateItem($code, Array $data)
+	public function updateItem($code, Array $data) : Bool
 	{	
 		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
@@ -198,7 +199,7 @@ class InternalCart extends \CallController implements CartInterface
 			return false;
 		}
 		
-		$i=0;
+		$i = 0;
 		
 		foreach( $this->items as $row )
 		{
@@ -234,7 +235,7 @@ class InternalCart extends \CallController implements CartInterface
 			$i++;
 		}
 		
-		\Session::insert(md5('SystemCartData'), $this->items);
+		return \Session::insert(md5('SystemCartData'), $this->items);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -244,7 +245,7 @@ class InternalCart extends \CallController implements CartInterface
 	// @param mixed $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteItem($code)
+	public function deleteItem($code) : Bool
 	{		
 		$this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
 				       ? $sessionSelect
@@ -277,7 +278,7 @@ class InternalCart extends \CallController implements CartInterface
 			$i++;
 		}
 		
-		\Session::insert(md5('SystemCartData'), $this->items);		
+		return \Session::insert(md5('SystemCartData'), $this->items);		
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -287,9 +288,9 @@ class InternalCart extends \CallController implements CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteItems()
+	public function deleteItems() : Bool
 	{
-		\Session::delete(md5('SystemCartData'));
+		return \Session::delete(md5('SystemCartData'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -300,7 +301,7 @@ class InternalCart extends \CallController implements CartInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function moneyFormat(Int $money, String $type = NULL)
+	public function moneyFormat(Int $money, String $type = NULL) : String
 	{
 		$moneyFormat = '';
 		$money  	 = round($money, 2);

@@ -19,7 +19,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isAlnum($string)
+	public function isAlnum(String $string) : Bool
 	{
 		return ctype_alnum($string);		
 	}
@@ -31,7 +31,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isAlpha($string)
+	public function isAlpha(String $string) : Bool
 	{
 		return ctype_alpha($string);		
 	}
@@ -43,7 +43,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isNumeric($string)
+	public function isNumeric(String $string) : Bool
 	{
 		return ctype_digit($string);		
 	}
@@ -55,7 +55,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isGraph($string)
+	public function isGraph(String $string) : Bool
 	{
 		return ctype_graph($string);		
 	}
@@ -67,7 +67,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isLower($string)
+	public function isLower(String $string) : Bool
 	{
 		return ctype_lower($string);		
 	}
@@ -79,7 +79,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isUpper($string)
+	public function isUpper(String $string) : Bool
 	{
 		return ctype_upper($string);		
 	}
@@ -91,7 +91,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isPrint($string)
+	public function isPrint(String $string) : Bool
 	{
 		return ctype_print($string);		
 	}
@@ -103,7 +103,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isNonAlnum($string)
+	public function isNonAlnum(String $string) : Bool
 	{
 		return ctype_punct($string);		
 	}
@@ -115,7 +115,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isSpace($string)
+	public function isSpace(String $string) : Bool
 	{
 		return ctype_space($string);		
 	}
@@ -127,7 +127,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isHex($string)
+	public function isHex(String $string) : Bool
 	{
 		return ctype_xdigit($string);		
 	}
@@ -139,7 +139,7 @@ class InternalChars extends \CallController implements CharsInterface
 	// @param string $string
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isControl($string)
+	public function isControl(String $string) : Bool
 	{
 		return ctype_cntrl($string);		
 	}	

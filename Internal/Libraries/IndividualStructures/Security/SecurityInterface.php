@@ -21,7 +21,7 @@ interface SecurityInterface
 	// @param mixed  $changeChar
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ncEncode(String $string, $badWords, $changeChar);		
+	public function ncEncode(String $string, $badWords, $changeChar) : String;		
 		
 	//----------------------------------------------------------------------------------------------------
 	// Injection Encode
@@ -30,7 +30,7 @@ interface SecurityInterface
 	// @param string $string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function injectionEncode(String $string);
+	public function injectionEncode(String $string) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Injection Decode
@@ -39,7 +39,7 @@ interface SecurityInterface
 	// @param string $string
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function injectionDecode(String $string);
+	public function injectionDecode(String $string) : String;
 		
 	//----------------------------------------------------------------------------------------------------
 	// Xss Encode
@@ -48,7 +48,7 @@ interface SecurityInterface
 	// @param string $string
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function xssEncode(String $string);
+	public function xssEncode(String $string) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Html Encode
@@ -59,7 +59,7 @@ interface SecurityInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function htmlEncode(String $string, $type, $encoding);
+	public function htmlEncode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Html Decode
@@ -69,7 +69,7 @@ interface SecurityInterface
 	// @param string $type: quotes, nonquotes, compat
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function htmlDecode(String $string, $type);
+	public function htmlDecode(String $string, String $type = 'quotes') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// PHP Tag Encode
@@ -78,7 +78,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phpTagEncode(String $str);
+	public function phpTagEncode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// PHP Tag Decode
@@ -87,7 +87,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phpTagDecode(String $str);
+	public function phpTagDecode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Script Tag Encode
@@ -96,7 +96,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function scriptTagEncode(String $str);
+	public function scriptTagEncode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Script Tag Decode
@@ -105,7 +105,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function scriptTagDecode(String $str);
+	public function scriptTagDecode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Nail Encode
@@ -114,7 +114,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nailEncode(String $str);
+	public function nailEncode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Nail Decode
@@ -123,7 +123,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nailDecode(String $str);
+	public function nailDecode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Foreign Char Encode
@@ -132,7 +132,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function foreignCharEncode(String $str);
+	public function foreignCharEncode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Foreign Char Decode
@@ -141,7 +141,7 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function foreignCharDecode(String $str);	
+	public function foreignCharDecode(String $str) : String;	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Escape String Encode
@@ -150,7 +150,7 @@ interface SecurityInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escapeStringEncode(String $data);
+	public function escapeStringEncode(String $data) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Escape String Decode
@@ -159,5 +159,5 @@ interface SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escapeStringDecode(String $data);
+	public function escapeStringDecode(String $data) : String;
 }

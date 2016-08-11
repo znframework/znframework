@@ -22,7 +22,7 @@ interface XMLInterface
 	// @return this
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function version(String $version = '1.0');
+	public function version(String $version = '1.0') : InternalXML;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encoding		                                                                          
@@ -34,7 +34,7 @@ interface XMLInterface
 	// @return this
 	//        																				  
 	//----------------------------------------------------------------------------------------------------
-	public function encoding(String $encoding = 'UTF-8');
+	public function encoding(String $encoding = 'UTF-8') : InternalXML;
 
 	
 	//----------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ interface XMLInterface
 	// @param string $encoding
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function build(Array $data, String $version = NULL, String $encoding = NULL);
+	public function build(Array $data, String $version = NULL, String $encoding = NULL) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Save      	                                                                         
@@ -56,7 +56,7 @@ interface XMLInterface
 	// @param string $data 
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function save(String $file, String $data);
+	public function save(String $file, String $data) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Load               	                                                                  
@@ -66,7 +66,7 @@ interface XMLInterface
 	// @return string
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function load(String $file);
+	public function load(String $file) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Array		                                                                          
@@ -78,7 +78,7 @@ interface XMLInterface
 	// @return array
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function parseArray(String $data);
+	public function parseArray(String $data) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Json		                                                                          
@@ -90,7 +90,7 @@ interface XMLInterface
 	// @return array
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parseJson(String $data);
+	public function parseJson(String $data) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse Object
@@ -102,7 +102,7 @@ interface XMLInterface
 	// @return object
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function parseObject(String $data);
+	public function parseObject(String $data) : \stdClass;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse

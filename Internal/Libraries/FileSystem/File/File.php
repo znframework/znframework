@@ -44,16 +44,16 @@ class InternalFile extends \CallController implements FileInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function find(String $file, String $data) : \Objects
+	public function find(String $file, String $data) : \stdClass
 	{
 		$index    = strpos(file_get_contents($file), $data);	
 		$contents = $this->contents($file);
 	
-		return new \Objects 
-		([
+		return (object)
+		[
 			'index'    => $index,
 			'contents' => $contents
-		]);	
+		];	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -125,15 +125,15 @@ class InternalFile extends \CallController implements FileInterface
 	// @param string $file
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function info(String $file) : \Objects
+	public function info(String $file) : \stdClass
 	{
 		if( ! is_file($file) )
 		{
 			\Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
-		return new \Objects
-		([
+		return (object)
+		[
 			'basename' 	 => pathInfos($file, 'basename'),
 			'size'		 => filesize($file),
 			'date' 		 => filemtime($file),
@@ -141,7 +141,7 @@ class InternalFile extends \CallController implements FileInterface
 			'writable' 	 => is_writable($file),
 			'executable' => is_executable($file),
 			'permission' => fileperms($file)	
-		]);
+		];
 	}
 	
 	//----------------------------------------------------------------------------------------------------

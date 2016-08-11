@@ -10,7 +10,7 @@
 //
 //----------------------------------------------------------------------------------------------------
 $lang['Database']['parameterError']            = '% parameter missing or empty!';
-$lang['Database']['tableNotExistsError']       = '';
+$lang['Database']['tableNotExistsError']       = '`%` table is not exists!';
 $lang['Database']['tableAlreadyExistsError']   = '';
 $lang['Database']['dbAlreadyExistsError']      = '';
 $lang['Database']['setValueError']             = '';

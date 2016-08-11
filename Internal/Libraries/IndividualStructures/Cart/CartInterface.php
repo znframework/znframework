@@ -19,7 +19,7 @@ interface CartInterface
 	// @param array $product
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insertItem(Array $product);
+	public function insertItem(Array $product) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Items
@@ -28,7 +28,7 @@ interface CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectItems();
+	public function selectItems() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select Item
@@ -37,7 +37,7 @@ interface CartInterface
 	// @param mixed $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectItem($code);
+	public function selectItem($code) : \stdClass;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Items
@@ -46,7 +46,7 @@ interface CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalItems();
+	public function totalItems() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Prices
@@ -55,7 +55,7 @@ interface CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalPrices();
+	public function totalPrices() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Update Item
@@ -65,7 +65,7 @@ interface CartInterface
 	// @param array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function updateItem($code, Array $data);
+	public function updateItem($code, Array $data) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete Item
@@ -74,7 +74,7 @@ interface CartInterface
 	// @param mixed $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteItem($code);
+	public function deleteItem($code) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete Items
@@ -83,7 +83,7 @@ interface CartInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteItems();
+	public function deleteItems() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Money Format
@@ -93,5 +93,5 @@ interface CartInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function moneyFormat(Int $money, String $type = NULL);
+	public function moneyFormat(Int $money, String $type = NULL) : String;
 }

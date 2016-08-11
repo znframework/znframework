@@ -52,7 +52,7 @@ class InternalImport implements ImportInterface
 	// @param bool $usable
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function usable($usable = true)
+	public function usable(Bool $usable = true) : InternalImport
 	{
 		$this->parameters['usable'] = $usable;
 		
@@ -66,7 +66,7 @@ class InternalImport implements ImportInterface
 	// @var bool $recursive
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function recursive($recursive = true)
+	public function recursive(Bool $recursive = true) : InternalImport
 	{
 		$this->parameters['recursive'] = $recursive;
 		
@@ -80,7 +80,7 @@ class InternalImport implements ImportInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(Array $data)
+	public function data(Array $data) : InternalImport
 	{
 		$this->parameters['data'] = $data;
 		
@@ -94,7 +94,7 @@ class InternalImport implements ImportInterface
 	// @var string $headData
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function headData(Array $headData)
+	public function headData(Array $headData) : InternalImport
 	{
 		$this->parameters['headData'] = $headData;
 		
@@ -108,7 +108,7 @@ class InternalImport implements ImportInterface
 	// @var string $body
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function body(String $body)
+	public function body(String $body) : InternalImport
 	{
 		\Config::set('Masterpage', 'bodyPage', $body);
 		
@@ -122,7 +122,7 @@ class InternalImport implements ImportInterface
 	// @var mixed $head
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function head(String $head)
+	public function head(String $head) : InternalImport
 	{
 		\Config::set('Masterpage', 'headPage', $head);
 		
@@ -136,7 +136,7 @@ class InternalImport implements ImportInterface
 	// @var string $title
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function title(String $title)
+	public function title(String $title) : InternalImport
 	{
 		\Config::set('Masterpage', 'title', $title);
 		
@@ -150,7 +150,7 @@ class InternalImport implements ImportInterface
 	// @var array $meta
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function meta(Array $meta)
+	public function meta(Array $meta) : InternalImport
 	{
 		\Config::set('Masterpage', 'meta', $meta);
 		
@@ -164,7 +164,7 @@ class InternalImport implements ImportInterface
 	// @var array $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attributes(Array $attributes)
+	public function attributes(Array $attributes) : InternalImport
 	{
 		\Config::set('Masterpage', 'attributes', $attributes);
 		
@@ -178,7 +178,7 @@ class InternalImport implements ImportInterface
 	// @var array $content
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content(Array $content)
+	public function content(Array $content) : InternalImport
 	{
 		\Config::set('Masterpage', 'content', $content);
 		
@@ -194,7 +194,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $obGetContents
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function page(String $page, Array $data = NULL, $obGetContents = false, $randomPageDir = PAGES_DIR)
+	public function page(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = PAGES_DIR) : String
 	{
 		if( stristr($page, $this->templateWizardExtension) )
 		{
@@ -213,7 +213,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $obGetContents
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function view(String $page, Array $data = NULL, $obGetContents = false, $randomPageDir = PAGES_DIR)
+	public function view(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = PAGES_DIR) : String
 	{
 		return $this->page($page, $data, $obGetContents, $randomPageDir);
 	}
@@ -336,7 +336,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $obGetContents
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function template(String $page, Array $data = NULL, $obGetContents = false)
+	public function template(String $page, Array $data = NULL, Bool $obGetContents = false) : String
 	{
 		if( $return = $this->page($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) ) 
 		{
@@ -352,7 +352,7 @@ class InternalImport implements ImportInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Error', 'fileNotFound', $page);	
+			\Exceptions::throws('Error', 'fileNotFound', $page);	
 		}
 	}
 	
@@ -446,7 +446,7 @@ class InternalImport implements ImportInterface
 	// @param array $head
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function masterPage(Array $randomDataVariable = NULL, Array $head = NULL)
+	public function masterPage(Array $randomDataVariable = NULL, Array $head = NULL) : String
 	{	
 		if( ! empty($this->parameters['headData']) )
 		{
@@ -753,7 +753,7 @@ class InternalImport implements ImportInterface
 	// @param variadic $fonts
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function font(...$fonts)
+	public function font(...$fonts) : String
 	{	
 		$eol	   = EOL;
 		$str       = "<style type='text/css'>".$eol;
@@ -862,7 +862,7 @@ class InternalImport implements ImportInterface
 			}
 			else
 			{
-				echo $str; 
+				echo $str; return true;
 			}
 		}
 		else
@@ -878,7 +878,7 @@ class InternalImport implements ImportInterface
 	// @param variadic $styles
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function style(...$styles)
+	public function style(...$styles) : String
 	{
 		$str       = '';	
 		$eol	   = EOL;	
@@ -928,7 +928,7 @@ class InternalImport implements ImportInterface
 			}
 			else
 			{
-				echo $str; 
+				echo $str; return true;
 			}
 		}
 		else
@@ -944,7 +944,7 @@ class InternalImport implements ImportInterface
 	// @param variadic $scripts
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function script(...$scripts)
+	public function script(...$scripts) : String
 	{
 		$str 	   = '';	
 		$eol	   = EOL;	
@@ -994,7 +994,7 @@ class InternalImport implements ImportInterface
 			}
 			else
 			{
-				echo $str; 
+				echo $str; return true;
 			}
 		}
 		else
@@ -1012,7 +1012,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $contents
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function something(String $randomPageVariable, Array $randomDataVariable = NULL, $randomObGetContentsVariable = false)
+	public function something(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false) : String
 	{
 		if( ! empty($this->parameters['usable']) )
 		{
@@ -1083,7 +1083,7 @@ class InternalImport implements ImportInterface
 		
 		if( $randomObGetContentsVariable === false )
 		{
-			echo $return;
+			echo $return; return true;
 		}
 		else
 		{
@@ -1100,7 +1100,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $getContents   	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function package($packages, $recursive = false, $getContents = false, $dir = NULL)
+	public function package($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL) : String
 	{
 		if( ! is_array($packages) )
 		{
@@ -1117,7 +1117,7 @@ class InternalImport implements ImportInterface
 			
 			if( $getContents === false )
 			{
-				echo $return;	
+				echo $return; return true;	
 			}
 			else
 			{
@@ -1205,7 +1205,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $getContents    	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function theme($theme = 'Default', $recursive = false, $getContents = false)
+	public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false) : String
 	{
 		return $this->package($theme, $recursive, $getContents, THEMES_DIR);
 	}
@@ -1219,7 +1219,7 @@ class InternalImport implements ImportInterface
 	// @param bool   $getContents     	              
 	//          																				  
 	//----------------------------------------------------------------------------------------------------
-	public function plugin($plugin = 'Default', $recursive = false, $getContents = false)
+	public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false) : String
 	{
 		return $this->package($plugin, $recursive, $getContents, PLUGINS_DIR);
 	}

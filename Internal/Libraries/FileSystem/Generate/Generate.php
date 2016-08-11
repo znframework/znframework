@@ -28,7 +28,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
 	// @param array $settings: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $settings)
+	public function settings(Array $settings) : InternalGenerate
 	{
 		$this->settings = $settings;
 		

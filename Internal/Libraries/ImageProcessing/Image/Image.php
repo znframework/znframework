@@ -40,6 +40,216 @@ class InternalImage extends \CallController implements ImageInterface
 	protected $thumbPath;
 	
 	//----------------------------------------------------------------------------------------------------
+	// Thumb
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $fpath
+	// @param array  $set
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function thumb(String $fpath, Array $set) : String
+	{
+		$filePath = ( isset($fpath) ) ? trim($fpath) : '';
+		
+		// Yol bilgis url eki içeriyorsa 
+		// bu ekin temizlenmesi sağlanıyor.
+		if( strstr($filePath, baseUrl()) ) 
+		{
+			$filePath = str_replace(baseUrl(), '', $filePath);
+		}
+		
+		// Geçersiz yol bilgisi girilmiş ise
+		// Durumu rapor etmesi sağlanıyor.
+		if( ! file_exists($filePath) )
+		{
+			\Exceptions::throws('Image', 'notFoundError', $filePath);	
+		}
+		
+		// Dosyanın uzantısı belirlenen uzantılır dışında
+		// ise durumu rapor etmesi sağlanıyor.
+		if( ! $this->isImageFile($filePath) )
+		{
+			\Exceptions::throws('Image', 'notImageFileError', $filePath);	
+		}
+		
+		// Ayarlar parametresinde tanımlayan ayarlara
+		// varsayılan değerler atanıyor.
+		list($currentWidth, $currentHeight) = getimagesize($filePath);
+		
+		// WIDTH Ayarı
+		$width 			= ( isset($set["width"]) ) 		
+						  ? $set["width"] 		
+						  : $currentWidth;
+		
+		// HEIGHT Ayarı				  
+		$height 		= ( isset($set["height"]) ) 		
+					      ? $set["height"] 		
+						  : $currentHeight;
+		
+		// REWIDTH Ayarı				  
+		$rewidth 		= ( isset($set["rewidth"]) ) 		
+						  ? $set["rewidth"] 		
+						  : 0;
+		
+		// REHEIGHT Ayarı					  
+		$reheight 		= ( isset($set["reheight"]) ) 	
+						  ? $set["reheight"]		
+						  : 0;
+		
+		// X Ayarı
+		$x				= ( isset($set["x"]) ) 			
+						  ? $set["x"] 			
+						  : 0;
+		
+		// Y Ayarı				  
+		$y				= ( isset($set["y"]) ) 			
+						  ? $set["y"] 			
+						  : 0;
+		
+		// QUALITY Ayarı				  
+		$quality 		= ( isset($set["quality"]) ) 		
+						  ? $set["quality"] 		
+						  : 0;
+		
+		if( isset($set["proheight"]) )
+		{
+			if( $set["proheight"] < $currentHeight )
+			{
+				$height = $set["proheight"];
+				$width  = round(($currentWidth * $height) / $currentHeight);
+			}
+		}
+		
+		if( isset($set["prowidth"]) )
+		{
+			if( $set["prowidth"] < $currentWidth )
+			{
+				$width  = $set["prowidth"];	 
+				$height = round(($currentHeight * $width) / $currentWidth);
+			}
+		}
+	
+		$rWidth = $width; $rHeight = $height;
+		
+		if( ! empty($rewidth) ) 
+		{
+			$width = $rewidth;
+		}
+		
+		if( ! empty($reheight) ) 
+		{
+			$height = $reheight;
+		}
+		
+		$prefix = "-".$x."x".$y."px-".$width."x".$height."size";
+		
+		$this->newPath($filePath);
+	
+		if( ! is_dir($this->thumbPath) ) 
+		{ 
+			\Folder::create($this->thumbPath);		
+		}
+		
+		$newFile = removeExtension($this->file).$prefix.extension($this->file, true);
+		
+		if( file_exists($this->thumbPath.$newFile) ) 
+		{
+			return baseUrl($this->thumbPath.$newFile);
+		}
+				
+		$rFile   = $this->fromFileType($filePath);
+		
+		$nFile   = imagecreatetruecolor($width, $height);
+		
+		if( isset($set["prowidth"]) || isset($set["proheight"]) )
+		{
+			$rWidth = $currentWidth; $rHeight = $currentHeight;
+		}
+	
+		if( extension($filePath) === "png" )
+		{
+			imagealphablending($nFile, false);
+			imagesavealpha($nFile,true);
+			$transparent = imagecolorallocatealpha($nFile, 255, 255, 255, 127);
+			imagefilledrectangle($nFile, 0, 0, $width, $height, $transparent);
+		}
+		
+		@imagecopyresampled($nFile, $rFile,  0, 0, $x, $y, $width, $height, $rWidth, $rHeight);
+			
+		$this->createFileType($nFile ,$this->thumbPath.$newFile, $quality);
+		
+		imagedestroy($rFile); imagedestroy($nFile);	
+		
+		return baseUrl($this->thumbPath.$newFile);
+		
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Get Prosize
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $path
+	// @param int    $width
+	// @param int    $height
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getProsize(String $path, Int $width = 0, Int $height = 0) : \stdClass
+	{
+		$g = @getimagesize($path);
+		
+		if( empty($g) )
+		{
+			\Exceptions::throws('Image', 'notFoundError', $path);	
+		}
+		
+		$x = $g[0]; $y = $g[1];
+		
+		if( $width > 0 )
+		{
+			if( $width <= $x )
+			{
+				$o = $x / $width;
+				
+				$x = $width;
+				
+				$y = $y / $o;
+			}
+			else
+			{
+				$o = $width / $x;
+				
+				$x = $width;
+				
+				$y = $y * $o;	
+			}
+		}
+	
+		if( $height > 0 )
+		{
+			if( $height <= $y )
+			{
+				$o = $y / $height;
+				
+				$y = $height;
+				
+				$x = $x / $o;
+			}
+			else
+			{
+				$o = $height / $y;
+				
+				$y = $height;
+				
+				$x = $x * $o;	
+			}
+		}
+		
+		$array["width"] = round($x); $array["height"] = round($y);
+		
+		return (object) $array;
+	}
+
+	//----------------------------------------------------------------------------------------------------
 	// Protected New Path
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -165,217 +375,5 @@ class InternalImage extends \CallController implements ImageInterface
 		{
 			return false;
 		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Thumb
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $fpath
-	// @param array  $set
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function thumb(String $fpath, Array $set)
-	{
-		$filePath = ( isset($fpath) ) 
-					 ? trim($fpath) 
-					 : '';
-		
-		// Yol bilgis url eki içeriyorsa 
-		// bu ekin temizlenmesi sağlanıyor.
-		if( strstr($filePath, baseUrl()) ) 
-		{
-			$filePath = str_replace(baseUrl(), '', $filePath);
-		}
-		
-		// Geçersiz yol bilgisi girilmiş ise
-		// Durumu rapor etmesi sağlanıyor.
-		if( ! file_exists($filePath) )
-		{
-			return \Exceptions::throws('Image', 'notFoundError', $filePath);	
-		}
-		
-		// Dosyanın uzantısı belirlenen uzantılır dışında
-		// ise durumu rapor etmesi sağlanıyor.
-		if( ! $this->isImageFile($filePath) )
-		{
-			return \Exceptions::throws('Image', 'notImageFileError', $filePath);	
-		}
-		
-		// Ayarlar parametresinde tanımlayan ayarlara
-		// varsayılan değerler atanıyor.
-		list($currentWidth, $currentHeight) = getimagesize($filePath);
-		
-		// WIDTH Ayarı
-		$width 			= ( isset($set["width"]) ) 		
-						  ? $set["width"] 		
-						  : $currentWidth;
-		
-		// HEIGHT Ayarı				  
-		$height 		= ( isset($set["height"]) ) 		
-					      ? $set["height"] 		
-						  : $currentHeight;
-		
-		// REWIDTH Ayarı				  
-		$rewidth 		= ( isset($set["rewidth"]) ) 		
-						  ? $set["rewidth"] 		
-						  : 0;
-		
-		// REHEIGHT Ayarı					  
-		$reheight 		= ( isset($set["reheight"]) ) 	
-						  ? $set["reheight"]		
-						  : 0;
-		
-		// X Ayarı
-		$x				= ( isset($set["x"]) ) 			
-						  ? $set["x"] 			
-						  : 0;
-		
-		// Y Ayarı				  
-		$y				= ( isset($set["y"]) ) 			
-						  ? $set["y"] 			
-						  : 0;
-		
-		// QUALITY Ayarı				  
-		$quality 		= ( isset($set["quality"]) ) 		
-						  ? $set["quality"] 		
-						  : 0;
-		
-		if( isset($set["proheight"]) )
-		{
-			if( $set["proheight"] < $currentHeight )
-			{
-				$height = $set["proheight"];
-				$width  = round(($currentWidth * $height) / $currentHeight);
-			}
-		}
-		
-		if( isset($set["prowidth"]) )
-		{
-			if( $set["prowidth"] < $currentWidth )
-			{
-				$width  = $set["prowidth"];	 
-				$height = round(($currentHeight * $width) / $currentWidth);
-			}
-		}
-	
-		$rWidth = $width; $rHeight = $height;
-		
-		if( ! empty($rewidth) ) 
-		{
-			$width = $rewidth;
-		}
-		
-		if( ! empty($reheight) ) 
-		{
-			$height = $reheight;
-		}
-		
-		$prefix = "-".$x."x".$y."px-".$width."x".$height."size";
-		
-		$this->newPath($filePath);
-	
-		if( ! is_dir($this->thumbPath) ) 
-		{ 
-			\Folder::create($this->thumbPath);		
-		}
-		
-		$newFile = removeExtension($this->file).$prefix.extension($this->file, true);
-		
-		if( file_exists($this->thumbPath.$newFile) ) 
-		{
-			return baseUrl($this->thumbPath.$newFile);
-		}
-				
-		$rFile   = $this->fromFileType($filePath);
-		
-		$nFile   = imagecreatetruecolor($width, $height);
-		
-		if( isset($set["prowidth"]) || isset($set["proheight"]) )
-		{
-			$rWidth = $currentWidth; $rHeight = $currentHeight;
-		}
-	
-		if( extension($filePath) === "png" )
-		{
-			imagealphablending($nFile, false);
-			imagesavealpha($nFile,true);
-			$transparent = imagecolorallocatealpha($nFile, 255, 255, 255, 127);
-			imagefilledrectangle($nFile, 0, 0, $width, $height, $transparent);
-		}
-		
-		@imagecopyresampled($nFile, $rFile,  0, 0, $x, $y, $width, $height, $rWidth, $rHeight);
-			
-		$this->createFileType($nFile ,$this->thumbPath.$newFile, $quality);
-		
-		imagedestroy($rFile); imagedestroy($nFile);	
-		
-		return baseUrl($this->thumbPath.$newFile);
-		
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Get Prosize
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $path
-	// @param int    $width
-	// @param int    $height
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function getProsize(String $path, $width = 0, $height = 0)
-	{
-		$g = @getimagesize($path);
-		
-		if( empty($g) )
-		{
-			return \Exceptions::throws('Image', 'notFoundError', $path);	
-		}
-		
-		$x = $g[0]; $y = $g[1];
-		
-		if( $width > 0 )
-		{
-			if( $width <= $x )
-			{
-				$o = $x / $width;
-				
-				$x = $width;
-				
-				$y = $y / $o;
-			}
-			else
-			{
-				$o = $width / $x;
-				
-				$x = $width;
-				
-				$y = $y * $o;	
-			}
-		}
-	
-		if( $height > 0 )
-		{
-			if( $height <= $y )
-			{
-				$o = $y / $height;
-				
-				$y = $height;
-				
-				$x = $x / $o;
-			}
-			else
-			{
-				$o = $height / $y;
-				
-				$y = $height;
-				
-				$x = $x * $o;	
-			}
-		}
-		
-		$array["width"] = round($x); $array["height"] = round($y);
-		
-		return (object)$array;
 	}
 }

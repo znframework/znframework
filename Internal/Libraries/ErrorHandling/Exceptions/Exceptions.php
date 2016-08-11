@@ -43,8 +43,6 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		}
 
 		$this->table('', $message, $debug['file'], $debug['line']);
-
-		exit;
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -65,7 +63,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		
 		report('GeneralError', $message, 'GeneralError');
 	
-		echo $this->_template($msg, $file, $line, $no, $trace);  
+		exit( $this->_template($msg, $file, $line, $no, $trace) );  
 	}
 	
 	//----------------------------------------------------------------------------------------------------

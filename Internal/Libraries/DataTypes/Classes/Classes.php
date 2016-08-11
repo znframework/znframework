@@ -25,7 +25,7 @@ class InternalClasses extends \CallController implements ClassesInterface
 	{
 		if( ! is_object($object) )
 		{
-			return \Exceptions::throws('Error', 'objectParameter', '2.(object)');	
+			\Exceptions::throws('Error', 'objectParameter', '2.(object)');	
 		}
 	
 		return is_a($object, $this->_class($className));

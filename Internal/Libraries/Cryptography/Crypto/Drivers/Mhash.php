@@ -28,7 +28,7 @@ class MhashDriver extends CryptoMapping
 	 	$key    = isset($settings['key'])    ? $settings['key']    : \Config::get('Encode', 'projectKey'); 
 		
 		// MHASH_ ön eki ilave ediliyor.
-		$cipher = \Convert::toConstant($cipher, 'MHASH_');
+		$cipher = \Converter::toConstant($cipher, 'MHASH_');
 		
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}

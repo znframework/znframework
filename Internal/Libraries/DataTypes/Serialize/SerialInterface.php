@@ -38,7 +38,7 @@ interface SerialInterface
 	// @param string $data
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function decodeObject(String $data);
+	public function decodeObject(String $data) : \stdClass;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decode Array                                                                

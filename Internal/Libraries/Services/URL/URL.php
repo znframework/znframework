@@ -282,7 +282,7 @@ class InternalURL extends \CallController implements URLInterface
 	//----------------------------------------------------------------------------------------------------
 	public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738')
 	{
-		return http_build_query($data, $numericPrefix, $separator, \Convert::toConstant($enctype, 'PHP_QUERY_'));	
+		return http_build_query($data, $numericPrefix, $separator, \Converter::toConstant($enctype, 'PHP_QUERY_'));	
 	}
 	
 	//----------------------------------------------------------------------------------------------------

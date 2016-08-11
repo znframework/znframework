@@ -36,6 +36,13 @@ class Grand extends CallController implements GrandInterface
 		{
 			$this->grandTable = str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class());
 		}
+
+		$tables = \DBTool::listTables();
+		
+		if( ! in_array($this->grandTable, $tables) )
+		{
+			throw new \Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$this->grandTable));
+		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -45,7 +52,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array $data: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert($data = [])
+	public function insert(Array $data) : Bool
 	{
 		return \DB::insert($this->grandTable, $data);
 	}
@@ -57,7 +64,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insertID()
+	public function insertID() : Int
 	{
 		return \DB::insertID();
 	}
@@ -69,9 +76,9 @@ class Grand extends CallController implements GrandInterface
 	// @param mixed $select: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function select($select = '*')
+	public function select(...$select) : Grand
 	{
-		\DB::select($select);
+		\DB::select(...$select);
 		
 		return $this;
 	}
@@ -83,7 +90,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array $data: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function update($data = [], $column = '', $value = '')
+	public function update(Array $data, String $column, String $value) : Bool
 	{
 		return \DB::where($column, $value)->update($this->grandTable, $data);
 	}
@@ -96,7 +103,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $value : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete($column = '', $value = '')
+	public function delete(String $column, String $value) : Bool
 	{
 		return \DB::where($column, $value)->delete($this->grandTable);
 	}
@@ -120,7 +127,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function columns()
+	public function columns() : Array
 	{
 		return $this->_get()->columns();
 	}
@@ -132,7 +139,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalColumns()
+	public function totalColumns() : Int
 	{
 		return $this->_get()->totalColumns();
 	}
@@ -156,7 +163,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $type: object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function result($type = 'object')
+	public function result(String $type = 'object')
 	{
 		return $this->_get()->result($type);
 	}
@@ -169,7 +176,7 @@ class Grand extends CallController implements GrandInterface
 	// @param int   $increment: 1
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function increment($columns = [], $increment = 1)
+	public function increment($columns, Int $increment = 1) : Bool
 	{
 		return \DB::increment($this->grandTable, $columns, $increment);
 	}
@@ -182,7 +189,7 @@ class Grand extends CallController implements GrandInterface
 	// @param int   $decrement: 1
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decrement($columns = [], $decrement = 1)
+	public function decrement($columns, Int $decrement = 1) : Bool
 	{
 		return \DB::decrement($this->grandTable, $columns, $decrement);
 	}
@@ -194,7 +201,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $type: row
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function status($type = 'row')
+	public function status(String $type = 'row')
 	{
 		return \DB::status($this->grandTable)->$type();
 	}
@@ -206,7 +213,7 @@ class Grand extends CallController implements GrandInterface
 	// @param bool $status: false
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalRows($status = false)
+	public function totalRows(Bool $status = false) : Int
 	{
 		return $this->_get()->totalRows($status);
 	}
@@ -220,7 +227,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $logical: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function where($column = '', $value = '', $logical = '')
+	public function where($column, String $value = NULL, String $logical = NULL) : Grand
 	{
 		\DB::where($column, $value, $logical);
 		
@@ -236,7 +243,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $logical: empty 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function having($column = '', $value = '', $logical = '')
+	public function having($column, String $value = NULL, String $logical = NULL) : Grand
 	{
 		\DB::having($column, $value, $logical);
 		
@@ -250,7 +257,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function whereGroup(...$args)
+	public function whereGroup(...$args) : Grand
 	{
 		\DB::whereGroup(...$args);
 		
@@ -264,7 +271,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function havingGroup(...$args)
+	public function havingGroup(...$args) : Grand
 	{
 		\DB::havingGroup(...$args);
 		
@@ -280,7 +287,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function innerJoin($table = '', $otherColumn = '', $operator = '=')
+	public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
 	{
 		\DB::innerJoin($table, $otherColumn, $operator);
 		
@@ -296,7 +303,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function outerJoin($table = '', $otherColumn = '', $operator = '=')
+	public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
 	{
 		\DB::outerJoin($table, $otherColumn, $operator);
 		
@@ -312,7 +319,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function leftJoin($table = '', $otherColumn = '', $operator = '=')
+	public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand
 	{
 		\DB::leftJoin($table, $otherColumn, $operator);
 		
@@ -328,7 +335,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $operator   : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rightJoin($table = '', $otherColumn = '', $operator = '=')
+	public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand
 	{
 		\DB::rightJoin($table, $otherColumn, $operator);
 		
@@ -344,7 +351,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $type     : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function join($table = '', $condition = '', $type = '')
+	public function join(String $table, String $condition, String $type = NULL) : Grand
 	{
 		\DB::join($table, $condition, $type);
 		
@@ -358,7 +365,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function duplicateCheck(...$args)
+	public function duplicateCheck(...$args) : Grand
 	{
 		\DB::duplicateCheck(...$args);
 		
@@ -373,7 +380,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $type     : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function orderBy($condition = '', $type = '')
+	public function orderBy($condition, String $type = NULL) : Grand
 	{
 		\DB::orderBy($condition, $type);
 		
@@ -387,7 +394,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string ...$args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function groupBy(...$args)
+	public function groupBy(...$args) : Grand
 	{
 		\DB::groupBy(...$args);
 		
@@ -402,7 +409,7 @@ class Grand extends CallController implements GrandInterface
 	// @param int   $limit: 0
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function limit($start = 0, $limit = 0)
+	public function limit($start = 0, Int $limit = 0) : Grand
 	{
 		\DB::limit($start, $limit);
 		
@@ -418,7 +425,7 @@ class Grand extends CallController implements GrandInterface
 	// @param bool   $output  : true
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pagination($url = '', $settings = [], $output = true)
+	public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
 	{
 		return $this->_get()->pagination($url, $settings, $output);
 	}
@@ -431,7 +438,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $extra: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function create($data = [], $extra = '')
+	public function create(Array $data, $extra = NULL) : Bool 
 	{
 		return \DBForge::createTable($this->grandTable, $data, $extra);
 	}
@@ -443,7 +450,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function drop()
+	public function drop() : Bool
 	{
 		return \DBForge::dropTable($this->grandTable);
 	}
@@ -455,7 +462,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function truncate()
+	public function truncate() : Bool
 	{
 		return \DBForge::truncate($this->grandTable);
 	}
@@ -467,7 +474,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rename($newName = '')
+	public function rename(String $newName) : Bool
 	{
 		return \DBForge::renameTable($this->grandTable, $newName);
 	}
@@ -479,7 +486,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addColumn($column = [])
+	public function addColumn(Array $column) : Bool
 	{
 		return \DBForge::addColumn($this->grandTable, $column);
 	}
@@ -491,7 +498,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dropColumn($column = '')
+	public function dropColumn($column) : Bool
 	{
 		return \DBForge::dropColumn($this->grandTable, $column);
 	}
@@ -503,7 +510,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function modifyColumn($column = [])
+	public function modifyColumn(Array $column) : Bool
 	{
 		return \DBForge::modifyColumn($this->grandTable, $column);
 	}
@@ -515,7 +522,7 @@ class Grand extends CallController implements GrandInterface
 	// @param array $column: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function renameColumn($column = [])
+	public function renameColumn(Array $column) : Bool
 	{
 		return \DBForge::renameColumn($this->grandTable, $column);
 	}
@@ -527,7 +534,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function optimize()
+	public function optimize() : String
 	{
 		return \DBTool::optimizeTables($this->grandTable);
 	}
@@ -539,7 +546,7 @@ class Grand extends CallController implements GrandInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function repair()
+	public function repair() : String
 	{
 		return \DBTool::repairTables($this->grandTable);
 	}
@@ -552,7 +559,7 @@ class Grand extends CallController implements GrandInterface
 	// @param string $path    : const STORAGE_DIR
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function backup($fileName = '', $path = STORAGE_DIR)
+	public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String
 	{
 		return \DBTool::backup($this->grandTable, $fileName, $path);
 	}

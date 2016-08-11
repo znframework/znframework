@@ -73,7 +73,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param mixed  $changeChar
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ncEncode(String $string, $badWords = NULL, $changeChar = '[badchars]')
+	public function ncEncode(String $string, $badWords = NULL, $changeChar = '[badchars]') : String
 	{
 		// 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.	
 		if( empty($badWords) )
@@ -119,7 +119,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function injectionEncode(String $string)
+	public function injectionEncode(String $string) : String
 	{
 		$secBadChars = $this->config['injectionBadChars'];
 		
@@ -149,7 +149,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function injectionDecode(String $string)
+	public function injectionDecode(String $string) : String
 	{
 		return stripslashes(trim($string));
 	}
@@ -161,7 +161,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function xssEncode(String $string)
+	public function xssEncode(String $string) : String
 	{
 		$secBadChars = $this->config['scriptBadChars'];
 		
@@ -194,9 +194,9 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $encoding
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function htmlEncode(String $string, $type = 'quotes', $encoding = 'utf-8')
+	public function htmlEncode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String
 	{
-		return htmlspecialchars(trim($string), \Convert::toConstant($type, 'ENT_'), $encoding);
+		return htmlspecialchars(trim($string), \Converter::toConstant($type, 'ENT_'), $encoding);
 	}
 	
 	
@@ -208,9 +208,9 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $type: quotes, nonquotes, compat
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function htmlDecode(String $string, $type = 'quotes')
+	public function htmlDecode(String $string, String $type = 'quotes') : String
 	{
-		return htmlspecialchars_decode(trim($string), \Convert::toConstant($type, 'ENT_'));
+		return htmlspecialchars_decode(trim($string), \Converter::toConstant($type, 'ENT_'));
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phpTagEncode(String $str)
+	public function phpTagEncode(String $str) : String
 	{	
 		return str_replace(array_keys($this->phpTagChars), array_values($this->phpTagChars), $str);
 	}
@@ -232,7 +232,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phpTagDecode(String $str)
+	public function phpTagDecode(String $str) : String
 	{
 		return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
 	}
@@ -244,7 +244,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function scriptTagEncode(String $str)
+	public function scriptTagEncode(String $str) : String
 	{
 		return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
 	}
@@ -256,7 +256,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function scriptTagDecode(String $str)
+	public function scriptTagDecode(String $str) : String
 	{
 		return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
 	}
@@ -268,7 +268,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nailEncode(String $str)
+	public function nailEncode(String $str) : String
 	{
 		$str = str_replace(array_keys($this->nailChars), array_values($this->nailChars), $str);
 		
@@ -282,7 +282,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function nailDecode(String $str)
+	public function nailDecode(String $str) : String
 	{
 		$str = str_replace(array_values($this->nailChars), array_keys($this->nailChars), $str);
 		
@@ -296,7 +296,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function foreignCharEncode(String $str)
+	public function foreignCharEncode(String $str) : String
 	{	
 		$chars = $this->config['numericalCodes'];
 		
@@ -310,7 +310,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function foreignCharDecode(String $str)
+	public function foreignCharDecode(String $str) : String
 	{	
 		$chars = $this->config['numericalCodes'];
 		
@@ -324,7 +324,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escapeStringEncode(String $data)
+	public function escapeStringEncode(String $data) : String
 	{
 		return addslashes($data);
 	}
@@ -336,7 +336,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
 	// @param string $str
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escapeStringDecode(String $data)
+	public function escapeStringDecode(String $data) : String
 	{
 		return stripslashes($data);
 	}

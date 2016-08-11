@@ -19,7 +19,7 @@ interface StackInterface
 	// @param string $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $data);
+	public function data(String $data) : InternalStack;
 
 	//----------------------------------------------------------------------------------------------------
 	// Get
