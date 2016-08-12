@@ -57,7 +57,7 @@ class Action extends \CallController
 	// @param scalar $speed
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function speed($speed)
+	public function speed(String $speed) : Action
 	{
 		$this->speed = $speed;
 		
@@ -71,7 +71,7 @@ class Action extends \CallController
 	// @param scalar $speed
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function duration($speed)
+	public function duration(String $speed) : Action
 	{
 		$this->speed($speed);
 		
@@ -85,7 +85,7 @@ class Action extends \CallController
 	// @param string $data
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function easing(String $data)
+	public function easing(String $data) : Action
 	{
 		$this->easing = $data;
 		
@@ -99,7 +99,7 @@ class Action extends \CallController
 	// @param string $type
 	//																						  
 	//----------------------------------------------------------------------------------------------------
- 	public function type(String $type = 'show')
+ 	public function type(String $type = 'show') : Action
 	{
 		$this->type = $type;
 		
@@ -115,7 +115,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function show(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function show(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -131,7 +131,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function hide(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function hide(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -147,7 +147,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function fadeIn(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function fadeIn(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -163,7 +163,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function fadeOut(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function fadeOut(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -179,7 +179,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function fadeTo(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function fadeTo(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -195,7 +195,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function slideUp(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function slideUp(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -211,7 +211,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function slideDown(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function slideDown(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -227,7 +227,7 @@ class Action extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function slideToggle(String $selector = NULL, $speed = NULL, String $callback = NULL)
+	public function slideToggle(String $selector = NULL, String $speed = NULL, String $callback = NULL) : String
 	{
 		$this->_effect(__FUNCTION__, $selector, $speed, $callback);
 		
@@ -241,7 +241,7 @@ class Action extends \CallController
 	// @param void
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function complete()
+	public function complete() : String
 	{
 		$event = \JQ::property($this->type, [$this->speed, $this->easing, $this->callback]);
 		
@@ -254,10 +254,10 @@ class Action extends \CallController
 	// Create                                                             
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param variadic $args
+	// @param string variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function create(...$args)
+	public function create(...$args) : String
 	{
 		$combineEffect = $args;
 		

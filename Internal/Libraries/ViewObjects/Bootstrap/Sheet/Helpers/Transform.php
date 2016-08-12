@@ -14,100 +14,47 @@ class Transform extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Style Sheet Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// methods
+	//
+	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
 	
-	/* Transforms Değişkeni
-	 *  
-	 * Dönüşüm efektlerine ait kullanacak
-	 * verileri tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Transform
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $transforms = [];
 	
-	// Protected Params Fonkisyonu
-	// Css yöntemleri için oluşturulmuştur.
-	protected function _params($data)
+	//----------------------------------------------------------------------------------------------------
+	// Matrix
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param numeric variadic $arguments
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function matrix(...$arguments) : Transform
 	{
-		$arguments = $data;
-		$argument  = '';
-		
-		if( is_array($data) )
-		{
-			foreach($arguments as $arg)
-			{
-				$argument .= $arg.",";
-			}
-			
-			$argument = substr($argument, 0, -1);
-		}
-		else
-		{
-			$argument = $data;	
-		}	
-		
-		return $argument;
-	}
-	
-	// Protected transform nesnesi
-	protected function _transform($data)
-	{
-		$str  = '';
-		$str .= $this->selector."{".EOL;	
-		
-		foreach($this->browsers as $val)
-		{
-			$str .= $val."transform:$data;".EOL;
-		}
-		
-		$str .= "}".EOL;
-		
-		return $str;
-	}
-	
-	/******************************************************************************************
-	* MATRIX                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 matrix transform nesnesinin kullanımıdır.        		  		  |
-	|															                              |
-	| Parametreler: Argüment parametresi vardır.                                              |
-	| 1. arguments var @args => Matrix kullanımda girilen 6 adet değer girilir.		          |
-	|          																				  |
-	| Örnek Kullanım: ->matrix(0, 1, 1, 0, 20, 50) 						 		 		  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function matrix(...$arguments)
-	{
-		if( isset($arguments[0]) && is_array($arguments[0]) )
-		{
-			$arguments = $arguments[0];	
-		}
-		
 		$this->transforms['matrix'] = "matrix(".$this->_params($arguments).")";
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* MATRIX                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 rotate transform nesnesinin kullanımıdır.        		  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric/string var @argument => Sayılsal veri girilirken "deg" ifadesine gerek yoktur|
-	|          																				  |
-	| Örnek Kullanım: ->rorate(90) // 90deg	     						 		 		  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function rotate($argument = '')
+	//----------------------------------------------------------------------------------------------------
+	// Rotate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $argument
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rotate(String $argument) : Transform
 	{
-		if( ! is_scalar($argument) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'argument');
-			return $this;
-		}
-		
-		// Parametre sayısal olduğu taktirde
-		// deg ibraresini ekleyetiyoruz.
 		if( is_numeric($argument) )
 		{
 			$argument = $argument."deg";
@@ -119,103 +66,64 @@ class Transform extends \CallController
 	}
 	
 	
-	/******************************************************************************************
-	* SCALE                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 scale transform nesnesinin kullanımıdır.        		  		      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. numeric var @x => X parametresidir.												  |	 
-	| 1. numeric var @y => Y parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->scale(10, 20)			     						 		 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function scale($x = 0, $y = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Scale
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $x
+	// @param int $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function scale(Int $x, Int $y) : Transform
 	{
-		if( ! is_numeric($x) || ! is_numeric($y) )
-		{
-			\Exceptions::throws('Error', 'numericParameter', 'x & y');
-			return $this;
-		}
-		
 		$this->transforms['scale'] = "scale(".$this->_params("$x,$y").")";
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SCALEX                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 scaleX transform nesnesinin kullanımıdır.        		  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @x => X parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->scaleX(10)			     						 		 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function scaleX($x = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Scale X
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $x
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function scaleX(Int $x) : Transform
 	{	
-		if( ! is_numeric($x) )
-		{
-			\Exceptions::throws('Error', 'numericParameter', 'x');
-			return $this;
-		}
-		
 		$this->transforms['scalex'] = "scaleX(".$this->_params($x).")";
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SCALEY                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 scaleY transform nesnesinin kullanımıdır.        		  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @y => Y parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->scaleY(10)			     						 		 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function scaleY($y = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Scale Y
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param int $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function scaleY(Int $y) : Transform
 	{
-		if( ! is_numeric($y) )
-		{
-			\Exceptions::throws('Error', 'numericParameter', 'y');
-			return $this;
-		}
-		
 		$this->transforms['scaley'] = "scaleY(".$this->_params($y).")";
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SKEW                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 skew transform nesnesinin kullanımıdır.        		  		      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. numeric var @x => X parametresidir.												  |	 
-	| 1. numeric var @y => Y parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->skew(10, 20)			     						 		 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function skew($x = '', $y = '')
+	//----------------------------------------------------------------------------------------------------
+	// Skew
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $x
+	// @param string $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function skew(String $x, String $y) : Transform
 	{
-		if( ! is_scalar($x) || ! is_scalar($y) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'x & y');
-			return $this;
-		}
-		
 		if( is_numeric($x) )
 		{
 			$x = $x."deg";
-		}		
+		}	
+
 		if( is_numeric($y) )
 		{
 			$y = $y."deg";
@@ -226,25 +134,15 @@ class Transform extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SKEWX                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 skewX transform nesnesinin kullanımıdır.        		  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @x => X parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->skewx(10)			     						 		 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function skewX($x = '')
+	//----------------------------------------------------------------------------------------------------
+	// Skew X
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $x
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function skewX(String $x) : Transform
 	{
-		if( ! is_scalar($x) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'x');
-			return $this;
-		}
-		
 		if( is_numeric($x) )
 		{
 			$x = $x."deg";
@@ -255,25 +153,15 @@ class Transform extends \CallController
 		return $this;
 	}
 		
-	/******************************************************************************************
-	* SKEWY                                                                                   *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 skewY transform nesnesinin kullanımıdır.        		  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @y => Y parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->skewy(10)			     						 		 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function skewY($y = '')
+	//----------------------------------------------------------------------------------------------------
+	// Skew Y
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function skewY(String $y) : Transform
 	{
-		if( ! is_scalar($y) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'y');
-			return $this;
-		}
-		
 		if( is_numeric($y) )
 		{
 			$y = $y."deg";
@@ -284,26 +172,16 @@ class Transform extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TRANSLATE                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 translate transform nesnesinin kullanımıdır.        		  		  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. numeric var @x => X parametresidir.												  |	 
-	| 1. numeric var @y => Y parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->translate(10, 20)			     						 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function translate($x = 0, $y = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Translate
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $x
+	// @param string $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function translate(String $x, String $y) : Transform
 	{
-		if( ! is_scalar($x) || ! is_scalar($y) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'x & y');
-			return $this;
-		}
-		
 		if( is_numeric($x) )
 		{
 			$x = $x."px";
@@ -328,25 +206,15 @@ class Transform extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TRANSLATEX                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 translateX transform nesnesinin kullanımıdır.        		  	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @x => X parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->translatex(10)			     						 		 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function translateX($x = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Transtele X
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $x
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function translateX(String $x) : Transform
 	{
-		if( ! is_scalar($x) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'x');
-			return $this;
-		}
-		
 		if( is_numeric($x) )
 		{
 			$x = $x."px";
@@ -357,25 +225,15 @@ class Transform extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TRANSLATEY                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Css3 translateY transform nesnesinin kullanımıdır.        		  	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. numeric var @y => Y parametresidir.												  |	 
-	|          																				  |
-	| Örnek Kullanım: ->translatey(10)			     						 		 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function translateY($y = 0)
+	//----------------------------------------------------------------------------------------------------
+	// Transtele Y
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $y
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function translateY(String $y) : Transform
 	{
-		if( ! is_scalar($y) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'y');
-			return $this;
-		}
-		
 		if( is_numeric($y) )
 		{
 			$y = $y."px";
@@ -386,13 +244,14 @@ class Transform extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CREATE                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Transform nesnesini oluşturmak için nihai kullanılan yöntemdir.		  |
-	|          																				  |
-	******************************************************************************************/
-	public function create()
+	//----------------------------------------------------------------------------------------------------
+	// Create
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function create() : String
 	{
 		$transforms = '';
 		
@@ -407,11 +266,68 @@ class Transform extends \CallController
 		
 		return $this->_tag($transforms);
 	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Params
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _params($data)
+	{
+		$arguments = $data;
+		$argument  = '';
+		
+		if( is_array($data) )
+		{
+			foreach($arguments as $arg)
+			{
+				$argument .= $arg.",";
+			}
+			
+			$argument = substr($argument, 0, -1);
+		}
+		else
+		{
+			$argument = $data;	
+		}	
+		
+		return $argument;
+	}
 	
-	// Değişkenler varsayılan ayarlarına getiriliyor.
+	//----------------------------------------------------------------------------------------------------
+	// Protected Transform
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $data
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _transform($data)
+	{
+		$str  = '';
+		$str .= $this->selector."{".EOL;	
+		
+		foreach( $this->browsers as $val )
+		{
+			$str .= $val."transform:$data;".EOL;
+		}
+		
+		$str .= "}".EOL;
+		
+		return $str;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Default Variable
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariable()
 	{
-		if( $this->selector !== 'this' ) $this->selector = 'this';
-		if( ! empty($this->transforms) ) $this->transforms = [];
+		$this->selector   = 'this';
+		$this->transforms = [];
 	}
 }

@@ -19,7 +19,7 @@ interface CookieInterface
 	// @param int $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function time(Int $time);
+	public function time(Int $time) : InternalCookie;
 	
 	//----------------------------------------------------------------------------------------------------
 	// String 
@@ -28,7 +28,7 @@ interface CookieInterface
 	// @param string $path
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path(String $path);
+	public function path(String $path) : InternalCookie;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Domain 
@@ -37,7 +37,7 @@ interface CookieInterface
 	// @param string $domain
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function domain(String $domain);
+	public function domain(String $domain) : InternalCookie;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Secure 
@@ -46,7 +46,7 @@ interface CookieInterface
 	// @param bool $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function secure(Bool $secure);
+	public function secure(Bool $secure) : InternalCookie;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Http Only 
@@ -55,7 +55,7 @@ interface CookieInterface
 	// @param bool $httpOnly
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function httpOnly(Bool $httpOnly);
+	public function httpOnly(Bool $httpOnly) : InternalCookie;
 
 	//----------------------------------------------------------------------------------------------------
 	// Insert
@@ -70,7 +70,7 @@ interface CookieInterface
 	// @param bool   $httpOnly
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $value, Int $time);
+	public function insert(String $name, $value, Int $time) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -88,7 +88,7 @@ interface CookieInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectAll();
+	public function selectAll() : Array;
 
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -97,7 +97,7 @@ interface CookieInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name, String $path = NULL);
+	public function delete(String $name, String $path = NULL) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// Delete All
@@ -106,5 +106,5 @@ interface CookieInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll();
+	public function deleteAll() : Bool;
 }

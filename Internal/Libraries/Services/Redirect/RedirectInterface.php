@@ -29,7 +29,7 @@ interface RedirectInterface
 	// @var numeric $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function time(Int $time = 0);
+	public function time(Int $time = 0) : InternalRedirect;
 	
 	//----------------------------------------------------------------------------------------------------
 	// wait()
@@ -38,7 +38,7 @@ interface RedirectInterface
 	// @var numeric $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function wait(Int $time = 0);
+	public function wait(Int $time = 0) : InternalRedirect;
 	
 	//----------------------------------------------------------------------------------------------------
 	// data()
@@ -47,7 +47,7 @@ interface RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(Array $data);
+	public function data(Array $data) : InternalRedirect;
 	
 	//----------------------------------------------------------------------------------------------------
 	// insert()
@@ -56,7 +56,7 @@ interface RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(Array $data);
+	public function insert(Array $data) : InternalRedirect;
 	
 	//----------------------------------------------------------------------------------------------------
 	// select()
@@ -74,5 +74,5 @@ interface RedirectInterface
 	// @var mixed $key
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $key);
+	public function delete(String $key) : Bool;
 }

@@ -21,7 +21,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base(String $uri = '', Int $index = 0);
+	public function base(String $uri = '', Int $index = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Site
@@ -32,7 +32,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function site(String $uri = '', Int $index = 0);
+	public function site(String $uri = '', Int $index = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Current
@@ -42,7 +42,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current(String $fix = NULL);
+	public function current(String $fix = NULL) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Host
@@ -52,7 +52,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function host(String $uri = '');
+	public function host(String $uri = '') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Prev
@@ -62,7 +62,7 @@ interface URLInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prev();
+	public function prev() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Base 64 Decode
@@ -73,7 +73,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base64Decode(String $data, Bool $strict = false);
+	public function base64Decode(String $data, Bool $strict = false) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Base 64 Encode
@@ -83,7 +83,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base64Encode(String $data);
+	public function base64Encode(String $data) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Headers
@@ -94,7 +94,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function headers(String $url, $format = 0);
+	public function headers(String $url, Int $format = 0) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Headers
@@ -105,7 +105,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function metaTags(String $fileName, Bool $useIncludePath = false);
+	public function metaTags(String $fileName, Bool $useIncludePath = false) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Build Query
@@ -118,7 +118,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738');
+	public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Parse
@@ -139,7 +139,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public  function rawDecode(String $str);
+	public  function rawDecode(String $str) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Raw Encode
@@ -149,7 +149,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function rawEncode(String $str);
+	public function rawEncode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Decode
@@ -159,7 +159,7 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function decode(String $str);
+	public function decode(String $str) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Encode
@@ -169,5 +169,5 @@ interface URLInterface
 	// @return mixed
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encode(String $str);
+	public function encode(String $str) : String;
 }

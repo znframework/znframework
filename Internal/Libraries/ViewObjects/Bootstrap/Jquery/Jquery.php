@@ -22,15 +22,6 @@ class InternalJquery extends \CallController implements JqueryInterface
 	use JqueryTrait;
 	
 	//----------------------------------------------------------------------------------------------------
-	// Namespace                                                                  
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var string
-	//																						  
-	//----------------------------------------------------------------------------------------------------
-	protected $namespace = 'ZN\ViewObjects\Jquery\Helpers\\';
-	
-	//----------------------------------------------------------------------------------------------------
 	// Property Queue                                                                  
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -43,11 +34,11 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// Property                                                                 
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $property
+	// @param string   $property
 	// @param variadic $attr
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function property(String $property, ...$attr)
+	public function property(String $property, ...$attr) : InternalJquery
 	{
 		$this->propertyQueue .= \JQ::property($property, $attr);
 
@@ -102,9 +93,9 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
+	public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax
 	{
-		return uselib($this->namespace.'Ajax', [$tag, $jq, $jqui]);
+		return uselib('Ajax', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -114,9 +105,9 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
+	public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action
 	{
-		return uselib($this->namespace.'Action', [$tag, $jq, $jqui]);
+		return uselib('Action', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -126,9 +117,9 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
+	public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate
 	{
-		return uselib($this->namespace.'Animate', [$tag, $jq, $jqui]);
+		return uselib('Animate', [$tag, $jq, $jqui]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -138,9 +129,9 @@ class InternalJquery extends \CallController implements JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false)
+	public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event
 	{
-		return uselib($this->namespace.'Event', [$tag, $jq, $jqui]);
+		return uselib('Event', [$tag, $jq, $jqui]);
 	}
 
 	//----------------------------------------------------------------------------------------------------

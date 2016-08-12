@@ -14,35 +14,33 @@ class Shadow extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Style Sheet Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// methods
+	//
+	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
 	
-	/* Params Değişkeni
-	 *  
-	 * Sınıfa ait kullanacak
-	 * verileri tutması için oluşturulmuştur.
-	 *
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Params
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var array
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $params = [];
 	
-	/******************************************************************************************
-	* X                                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Gölgenin yataydaki boyutu.        		  		  				      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->x(10) // 10px 		  												  |
-	|          																				  |
-	******************************************************************************************/
-	public function x($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// X
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function x(String $val) : Shadow
 	{
-		if( ! is_scalar($val) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'val');
-			return $this;	
-		}
-		
 		if( is_numeric($val) )
 		{
 			$val = $val."px";
@@ -53,43 +51,29 @@ class Shadow extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* HORIZONTAL / X                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: X() yönteminin alternatifidir. Gölgenin yataydaki boyutu.        		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->horizontal(10) // 10px 		  										  |
-	|          																				  |
-	******************************************************************************************/
-	public function horizontal($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Horizontal
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function horizontal(String $val) : Shadow
 	{
 		$this->x($val);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* Y                                                                                       *
-	*******************************************************************************************
-	| Genel Kullanım: Gölgenin dikeydeki boyutu.        		  		  				      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->y(10) // 10px 		  												  |
-	|          																				  |
-	******************************************************************************************/
-	public function y($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Y
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function y(String $val) : Shadow
 	{
-		if( ! is_scalar($val) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'val');
-			return $this;	
-		}
-		
 		if( is_numeric($val) )
 		{
 			$val = $val."px";
@@ -100,43 +84,29 @@ class Shadow extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* VERTICAL / Y                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Y() yönteminin alternatifidir. Gölgenin dikeydeki boyutu.        		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->y(10) // 10px 		  												  |
-	|          																				  |
-	******************************************************************************************/
-	public function vertical($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Vertical
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function vertical(String $val) : Shadow
 	{
 		$this->y($val);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* BLUR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Gölgenin görünülük miktarıdır.        		  						  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->blur(10) // 10px 		  											  |
-	|          																				  |
-	******************************************************************************************/
-	public function blur($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Blur
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function blur(String $val) : Shadow
 	{
-		if( ! is_scalar($val) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'val');
-			return $this;	
-		}
-		
 		if( is_numeric($val) )
 		{
 			$val = $val."px";
@@ -147,25 +117,15 @@ class Shadow extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* DIFFUSION                                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: Gölgenin yayılma miktarı.        		  						  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->diffusion(10) // 10px 		  										  |
-	|          																				  |
-	******************************************************************************************/
-	public function diffusion($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Diffusion
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function diffusion(String $val) : Shadow
 	{
-		if( ! is_scalar($val) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'val');
-			return $this;	
-		}
-		
 		if( is_numeric($val) )
 		{
 			$val = $val."px";
@@ -176,44 +136,29 @@ class Shadow extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* SPREAD / DIFFUSION                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: diffusion() yönteminin alternatifidir. Gölgenin yayılma miktarı.        |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Miktar.		     			  							  |
-	|          																				  |
-	| Örnek Kullanım: ->spread(10) // 10px 		  										      |
-	|          																				  |
-	******************************************************************************************/
-	public function spread($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Spread
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function spread(String $val) : Shadow
 	{
 		$this->diffusion($val);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* COLOR                                                                     			  *
-	*******************************************************************************************
-	| Genel Kullanım: Gölgenin rengini belirlemek için kullanılır.					          |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Renk kodu veya adı.  		  							  |
-	|          																				  |
-	| Örnek Kullanım: ->color('red')			  										      |
-	| Örnek Kullanım: ->color('000') // #000		  										  |
-	|          																				  |
-	******************************************************************************************/
-	public function color($val = '')
+	//----------------------------------------------------------------------------------------------------
+	// Color
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function color(String $val) : Shadow
 	{
-		if( ! is_scalar($val))
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'val');
-			return $this;	
-		}
-		
 		if( is_numeric($val) )
 		{
 			$val = "#".$val;
@@ -224,39 +169,28 @@ class Shadow extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TYPE                                                                     			      *
-	*******************************************************************************************
-	| Genel Kullanım: Gölgenin rengini belirlemek için kullanılır.					          |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string/numeric var @val => Renk kodu veya adı.  		  							  |
-	|          																				  |
-	| Örnek Kullanım: ->type('box')	// box veya text		  								  |
-	|          																				  |
-	******************************************************************************************/
-	public function type($val = 'box')
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $val
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function type(String $val = 'box') : Shadow
 	{
-		if( ! is_string($val))
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'val');
-			return $this;	
-		}
-		
 		$this->params['type'] = $val;
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* CREATE                                                                     			  *
-	*******************************************************************************************
-	| Genel Kullanım: Efekti tamamlamak için kullanılan zincirin son halkasıdır.			  |
-	|															                              |
-	| Örnek Kullanım: ->create('box') // box veya text					  					  |
-	|          																				  |
-	******************************************************************************************/	
-	public function create($type = 'box')
+	//----------------------------------------------------------------------------------------------------
+	// Create
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function create(String $type = 'box') : String
 	{
 		$str  = $this->selector."{".EOL;	
 		$str .= $this->attr.EOL;
@@ -267,10 +201,10 @@ class Shadow extends \CallController
 		}
 		
 		$x 			= ! isset($this->params['horizontal']) ? 0 : $this->params['horizontal'];	
-		$y 			= ! isset($this->params['vertical']) ? 0 : $this->params['vertical'];	
-		$blur 		= ! isset($this->params['blur']) ? 0 : $this->params['blur'];
-		$diffusion 	= ! isset($this->params['spread']) ? 0 : $this->params['spread'];	
-		$color 		= ! isset($this->params['color']) ? 0 : $this->params['color'];
+		$y 			= ! isset($this->params['vertical'])   ? 0 : $this->params['vertical'];	
+		$blur 		= ! isset($this->params['blur'])       ? 0 : $this->params['blur'];
+		$diffusion 	= ! isset($this->params['spread'])     ? 0 : $this->params['spread'];	
+		$color 		= ! isset($this->params['color'])      ? 0 : $this->params['color'];
 		
 		if( $type === 'box' )
 		{ 
@@ -283,10 +217,11 @@ class Shadow extends \CallController
 		
 		$browser = '';	
 				
-		foreach($this->browsers as $val)
+		foreach( $this->browsers as $val )
 		{
 			$str .= $val.$shadow.EOL;
 		}
+
 		$str .= "}".EOL;
 		
 		$this->_defaultVariable();
@@ -294,10 +229,13 @@ class Shadow extends \CallController
 		return $this->_tag($str);
 	}
 	
-	// VARSAYILAN DEĞİŞKEN AYARLARI
-	// Efekt tamamlandığında değişkenler
-	// varsayılan ayarlarına getirmek için
-	// kullanılmaktadır.
+	//----------------------------------------------------------------------------------------------------
+	// Protected Default Variable
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariable()
 	{
 		if( ! empty($this->attr) ) 			$this->attr = NULL;

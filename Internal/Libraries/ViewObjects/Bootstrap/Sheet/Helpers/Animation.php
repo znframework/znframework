@@ -14,143 +14,95 @@ class Animation extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Style Sheet Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// methods
+	//
+	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
 
-	/******************************************************************************************
-	* ANIMATION NAME                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: animation-name nesnesine ait verilecek isim bilgisi.    		  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @name  => Animasyon ismi.		     			      					  |
-	|          																				  |
-	| Örnek Kullanım: ->name('animasyon') 		  									  		  |
-	|          																				  |
-	******************************************************************************************/
-	public function name($name = '')
+	//----------------------------------------------------------------------------------------------------
+	// Animation
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function name(String $name) : Animation
 	{
-		if( ! is_scalar($name) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'name');
-			return $this;	
-		}
-		
 		$this->transitions .= $this->_transitions("animation-name:$name;".EOL);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION DIRECTION                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: animation-directon nesnesinin kullanımıdır.    		  		 		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @direction => Animasyonun yönü. Varsayılan:reverse    					  |
-	|          																				  |
-	| Örnek Kullanım: ->direction('reverse') 		  									  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function direction($direction = 'reverse')
+	//----------------------------------------------------------------------------------------------------
+	// Direction
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $direction
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function direction(String $direction = 'reverse') : Animation
 	{
-		if( ! is_scalar($direction) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'direction');
-		}
-		
 		$this->transitions .= $this->_transitions("animation-direction:$direction;".EOL);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION PLAY STATE                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: animation-play-state nesnesinin kullanımıdır.    		  		 		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @status => Animasyonun oynatılma durumu.			   					  |
-	|          																				  |
-	| Örnek Kullanım: ->status('pause') 		  									  	 	  |
-	|          																				  |
-	******************************************************************************************/
-	public function status($status = '')
+	//----------------------------------------------------------------------------------------------------
+	// Status
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function status(String $status) : Animation
 	{
-		if( ! is_scalar($status) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'status');
-		}
-		
 		$this->transitions .= $this->_transitions("animation-play-state:$status;".EOL);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION FILL MODE                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: animation-fill-mode kullanımıdır.    		  		 		  			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @fill => Özellik bilgisi.			   					  	  			  |
-	|          																				  |
-	| Örnek Kullanım: ->fill() 		  									  	 	 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function fill($fill = '')
+	//----------------------------------------------------------------------------------------------------
+	// Fill
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function fill(String $fill) : Animation
 	{
-		if( ! is_scalar($fill) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'fill');	
-		}
-		
 		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".EOL);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION ITERATION COUNT                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: animation-iteration-count kullanımıdır.    				  			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. numeric var @repeat => Tekrar bilgisi.			   					  	  			  |
-	|          																				  |
-	| Örnek Kullanım: ->repeat(2) 		  									  	 	 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function repeat($repeat = '')
+	//----------------------------------------------------------------------------------------------------
+	// Repeat
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function repeat(String $repeat) : Animation
 	{
-		if( ! is_scalar($repeat) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'repeat');	
-		}
-		
 		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".EOL);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION DURATION                                                                      *
-	*******************************************************************************************
-	| Genel Kullanım: animation-duration kullanımıdır.    				  			  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/numeric var @duration => Süre bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->duration(2) 		  									  	 	 	  |
-	|          																				  |
-	******************************************************************************************/
-	public function duration($duration = '')
+	//----------------------------------------------------------------------------------------------------
+	// Duration
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function duration(String $duration) : Animation
 	{
-		if( ! is_scalar($duration) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'duration');
-		}
-		
-		if(is_numeric($duration))
+		if( is_numeric($duration) )
 		{
 			$duration = $duration."s";	
 		}
@@ -160,24 +112,15 @@ class Animation extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION DELAY                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: animation-delay kullanımıdır.    				  			  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/numeric var @delay => Geçikme bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->delay(2) 		  									  	 	 	  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function delay($delay = '')
+	//----------------------------------------------------------------------------------------------------
+	// Delay
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function delay(String $delay) : Animation
 	{
-		if( ! is_scalar($delay) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'delay');	
-		}
-		
 		if( is_numeric($delay) )
 		{
 			$delay = $delay."s";	
@@ -188,24 +131,15 @@ class Animation extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* ANIMATION TIMING FUNCTION                                                               *
-	*******************************************************************************************
-	| Genel Kullanım: animation-timing-function kullanımıdır.    				  			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @easing => Animasyon türü bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->easing('ease-in-out') 		  									  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function easing($easing = '')
+	//----------------------------------------------------------------------------------------------------
+	// Easing
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function easing(String $easing) : Animation
 	{
-		if( ! is_scalar($easing) )
-		{
-			return \Exceptions::throws('Error', 'valueParameter', 'easing');
-		}
-		
 		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".EOL);
 		
 		return $this;

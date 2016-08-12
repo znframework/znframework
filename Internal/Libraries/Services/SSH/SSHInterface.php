@@ -19,7 +19,7 @@ interface SSHInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect(Array $config = []);
+	public function connect(Array $config = []) : InternalSSH;
 	
 	//----------------------------------------------------------------------------------------------------
 	// close()
@@ -28,7 +28,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function close();
+	public function close() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// command()
@@ -37,7 +37,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function command(String $command);
+	public function command(String $command) : InternalSSH;
 	
 	//----------------------------------------------------------------------------------------------------
 	// run()
@@ -46,7 +46,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function run(String $command = NULL);
+	public function run(String $command = NULL) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// output()
@@ -55,7 +55,7 @@ interface SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function output(Int $length = 4096);
+	public function output(Int $length = 4096) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// upload()
@@ -65,7 +65,7 @@ interface SSHInterface
 	// @param string $remotePath: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function upload(String $localPath, String $remotePath);
+	public function upload(String $localPath, String $remotePath) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// dowload()
@@ -75,7 +75,7 @@ interface SSHInterface
 	// @param string $localPath : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download(String $remotePath, String $localPath);
+	public function download(String $remotePath, String $localPath) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// createFolder()
@@ -84,7 +84,7 @@ interface SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true);
+	public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// deleteFolder()
@@ -93,7 +93,7 @@ interface SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFolder(String $path);
+	public function deleteFolder(String $path) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// rename()
@@ -103,7 +103,7 @@ interface SSHInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function rename(String $oldName, String $newName);
+	public function rename(String $oldName, String $newName) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// deleteFile()
@@ -112,7 +112,7 @@ interface SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFile(String $path);
+	public function deleteFile(String $path) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// permission()
@@ -122,5 +122,5 @@ interface SSHInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission(String $path, Int $type = 0755);
+	public function permission(String $path, Int $type = 0755) : Bool;
 }

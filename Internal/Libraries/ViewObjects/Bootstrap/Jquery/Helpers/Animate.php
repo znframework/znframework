@@ -48,13 +48,8 @@ class Animate extends \CallController
 	// @param scalar $duration
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function speed($duration)
+	public function speed(String $duration) : Animate
 	{
-		if( ! is_scalar($duration) )
-		{
-			throw new \Exception(lang('Error', 'scalarParameter', '1.($duration)'));
-		}
-
 		$this->duration($duration);
 		
 		return $this;
@@ -67,13 +62,8 @@ class Animate extends \CallController
 	// @param scalar $duration
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function duration($duration)
+	public function duration(String $duration) : Animate
 	{
-		if( ! is_scalar($duration) )
-		{
-			throw new \Exception(lang('Error', 'scalarParameter', '1.($duration)'));
-		}
-
 		$this->easing['duration'] = $duration;
 
 		return $this;
@@ -86,14 +76,9 @@ class Animate extends \CallController
 	// @param scalar $queue
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function queue($queue = true)
+	public function queue(String $queue) : Animate
 	{
-		if( ! is_scalar($queue) )
-		{
-			throw new \Exception(lang('Error', 'scalarParameter', '1.($queue)'));
-		}
-
-		if( is_bool($queue) )
+		if( is_numeric($queue) )
 		{
 			$queue = $this->_boolToStr($queue);	
 		}
@@ -114,7 +99,7 @@ class Animate extends \CallController
 	// @param array $attr
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function attr(Array $attr)
+	public function attr(Array $attr) : Animate
 	{
 		$this->attr = $this->_object($attr);	
 		
@@ -128,7 +113,7 @@ class Animate extends \CallController
 	// @param string $easing
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function easing(String $easing)
+	public function easing(String $easing) : Animate
 	{	
 		$this->easing['easing'] = $easing;	
 		
@@ -142,7 +127,7 @@ class Animate extends \CallController
 	// @param array $specialEasing
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function specialEasing(Array $specialEasing)
+	public function specialEasing(Array $specialEasing) : Animate
 	{	
 		$this->easing['specialEasing'] = $this->_object($specialEasing);	
 		
@@ -156,7 +141,7 @@ class Animate extends \CallController
 	// @param string $step
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function step(String $step)
+	public function step(String $step) : Animate
 	{	
 		$this->easing['step'] = \JQ::func('now, fx', $step);	
 		
@@ -170,7 +155,7 @@ class Animate extends \CallController
 	// @param string $comp
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function comp(String $comp)
+	public function comp(String $comp) : Animate
 	{	
 		$this->easing['complete'] = \JQ::func('', $comp);	
 		
@@ -184,7 +169,7 @@ class Animate extends \CallController
 	// @param void
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function complete()
+	public function complete() : String
 	{
 		$attr = [];
 		
@@ -199,10 +184,10 @@ class Animate extends \CallController
 	// Create                                                           
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param variadic $args
+	// @param string variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function create(...$args)
+	public function create(...$args) : String
 	{
 		$combineAnimation = $args;
 		

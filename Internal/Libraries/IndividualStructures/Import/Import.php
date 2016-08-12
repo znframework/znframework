@@ -245,89 +245,6 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected Page
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $page
-	// @param array  $data
-	// @param bool   $obGetContents
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = PAGES_DIR)
-	{
-		if( ! empty($this->parameters['usable']) )
-		{
-			$randomObGetContentsVariable = $this->parameters['usable'];
-		}
-		
-		if( ! empty($this->parameters['data']) )
-		{
-			$randomDataVariable = $this->parameters['data'];
-		}
-
-		$this->parameters = [];
-		
-		if( ! is_string($randomPageVariable) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'randomPageVariable');
-		}
-		
-		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
-		{
-			$randomPageVariable = suffix($randomPageVariable, '.php');
-		}
-		
-		$randomPagePath = $randomPageDir.$randomPageVariable;
-
-		if( is_file($randomPagePath) ) 
-		{
-			if( is_array($randomDataVariable) )
-			{
-				extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
-			}
-		
-			if( $randomObGetContentsVariable === false )
-			{	
-				require($randomPagePath); 
-			}
-			else
-			{
-				ob_start(); 
-				require($randomPagePath); 
-				$randomContentVariable = ob_get_contents(); 
-				ob_end_clean(); 
-				
-				return $randomContentVariable ; 
-			}
-		}
-		else
-		{
-			return \Exceptions::throws('Error', 'fileNotFound', $randomPageVariable);	
-		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Template Wizard
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $page
-	// @param array  $data
-	// @param bool   $obGetContents
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
-	{
-		$return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), $data);
-			
-		if( $obGetContents === true )
-		{
-			return $return;
-		}
-		
-		echo $return;	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// template()
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -354,88 +271,6 @@ class InternalImport implements ImportInterface
 		{
 			return \Exceptions::throws('Error', 'fileNotFound', $page);	
 		}
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Set Page
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param mixed $page
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _setpage($page)
-	{
-		if( ! empty($page) )
-		{
-			$eol    = EOL;
-			$return = '';
-			
-			// Tek bir üst sayfa kullanımı için.
-			if( ! is_array($page) )
-			{
-				$return .= $this->page($page, '', true).$eol;
-			}
-			else
-			{
-				// Birden fazla üst sayfa kullanımı için.
-				foreach( $page as $p )
-				{
-					$return .= $this->page($p, '', true).$eol;
-				}
-			}	
-			
-			return $return;
-		}
-		
-		return false;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Links
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @params
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _links($masterPageSet, $head, $type)
-	{
-		$header = '';
-		
-		if( empty($masterPageSet[$type]) && empty($head[$type]) )
-		{
-			return false;	
-		}
-	
-		$params = $masterPageSet[$type];
-		
-		if( ! is_array($params) )
-		{
-			$params = [$params, true];
-		}
-		else
-		{
-			$params[] = true;	
-		}
-		
-		$header .= $this->$type(...$params);
-		
-		if( isset($head[$type]) )
-		{	
-			if( is_string($head[$type]) )
-			{
-				$headLinks = [$head[$type], true];	
-			}
-			else
-			{
-				$head[$type][] = true;
-				
-				$headLinks = $head[$type];
-			}
-						
-			$header .= $this->$type(...$headLinks);
-		}
-		
-		return $header;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -708,43 +543,6 @@ class InternalImport implements ImportInterface
 		// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		//-----------------------------------------------------------------------------------------------------
 	}	
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected Parameters
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @params
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function _parameters($arguments, $cdn)
-	{
-		if( ! empty($this->parameters['usable']) )
-		{
-			$lastParam = $this->parameters['usable'];
-			
-			$this->parameters = [];
-		}
-		else
-		{
-			$argumentCount = count($arguments) - 1;
-			
-			$lastParam = isset($arguments[$argumentCount]) ? $arguments[$argumentCount] : false;	
-		}
-
-		$arguments = array_unique($arguments);
-
-		if( $lastParam === true )
-		{
-			$arguments = \Arrays::removeLast($arguments);
-		}
-		
-		return (object)array
-		(
-			'arguments' => $arguments,
-			'lastParam' => $lastParam,
-			'cdnLinks'  => array_change_key_case(\Config::get('ViewObjects', 'cdn')[$cdn])
-		);
-	}
 	
 	//----------------------------------------------------------------------------------------------------
 	// font()
@@ -1127,6 +925,199 @@ class InternalImport implements ImportInterface
 	}
 	
 	//----------------------------------------------------------------------------------------------------
+	// Theme
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $theme
+	// @param bool   $recursive  
+	// @param bool   $getContents    	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false) : String
+	{
+		return $this->package($theme, $recursive, $getContents, THEMES_DIR);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Plugin
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $plugin
+	// @param bool   $recursive  
+	// @param bool   $getContents     	              
+	//          																				  
+	//----------------------------------------------------------------------------------------------------
+	public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false) : String
+	{
+		return $this->package($plugin, $recursive, $getContents, PLUGINS_DIR);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Page
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = PAGES_DIR)
+	{
+		if( ! empty($this->parameters['usable']) )
+		{
+			$randomObGetContentsVariable = $this->parameters['usable'];
+		}
+		
+		if( ! empty($this->parameters['data']) )
+		{
+			$randomDataVariable = $this->parameters['data'];
+		}
+
+		$this->parameters = [];
+		
+		if( ! is_string($randomPageVariable) )
+		{
+			return \Exceptions::throws('Error', 'stringParameter', 'randomPageVariable');
+		}
+		
+		if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
+		{
+			$randomPageVariable = suffix($randomPageVariable, '.php');
+		}
+		
+		$randomPagePath = $randomPageDir.$randomPageVariable;
+
+		if( is_file($randomPagePath) ) 
+		{
+			if( is_array($randomDataVariable) )
+			{
+				extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
+			}
+		
+			if( $randomObGetContentsVariable === false )
+			{	
+				return require($randomPagePath); 
+			}
+			else
+			{
+				ob_start(); 
+				require($randomPagePath); 
+				$randomContentVariable = ob_get_contents(); 
+				ob_end_clean(); 
+				
+				return $randomContentVariable ; 
+			}
+		}
+		else
+		{
+			return \Exceptions::throws('Error', 'fileNotFound', $randomPageVariable);	
+		}
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Template Wizard
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $page
+	// @param array  $data
+	// @param bool   $obGetContents
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
+	{
+		$return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), $data);
+			
+		if( $obGetContents === true )
+		{
+			return $return;
+		}
+		
+		echo $return; return true;	
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Set Page
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param mixed $page
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _setpage($page)
+	{
+		if( ! empty($page) )
+		{
+			$eol    = EOL;
+			$return = '';
+			
+			// Tek bir üst sayfa kullanımı için.
+			if( ! is_array($page) )
+			{
+				$return .= $this->page($page, '', true).$eol;
+			}
+			else
+			{
+				// Birden fazla üst sayfa kullanımı için.
+				foreach( $page as $p )
+				{
+					$return .= $this->page($p, '', true).$eol;
+				}
+			}	
+			
+			return $return;
+		}
+		
+		return false;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Protected Links
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @params
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function _links($masterPageSet, $head, $type)
+	{
+		$header = '';
+		
+		if( empty($masterPageSet[$type]) && empty($head[$type]) )
+		{
+			return false;	
+		}
+	
+		$params = $masterPageSet[$type];
+		
+		if( ! is_array($params) )
+		{
+			$params = [$params, true];
+		}
+		else
+		{
+			$params[] = true;	
+		}
+		
+		$header .= $this->$type(...$params);
+		
+		if( isset($head[$type]) )
+		{	
+			if( is_string($head[$type]) )
+			{
+				$headLinks = [$head[$type], true];	
+			}
+			else
+			{
+				$head[$type][] = true;
+				
+				$headLinks = $head[$type];
+			}
+						
+			$header .= $this->$type(...$headLinks);
+		}
+		
+		return $header;
+	}
+
+	//----------------------------------------------------------------------------------------------------
 	// Protected Package
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -1195,32 +1186,41 @@ class InternalImport implements ImportInterface
 			return $this->something($packages, '', $getContents);	
 		}
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------
-	// Theme
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $theme
-	// @param bool   $recursive  
-	// @param bool   $getContents    	              
-	//          																				  
-	//----------------------------------------------------------------------------------------------------
-	public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false) : String
-	{
-		return $this->package($theme, $recursive, $getContents, THEMES_DIR);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Plugin
+	// Protected Parameters
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param string $plugin
-	// @param bool   $recursive  
-	// @param bool   $getContents     	              
-	//          																				  
+	// @params
+	//
 	//----------------------------------------------------------------------------------------------------
-	public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false) : String
+	protected function _parameters($arguments, $cdn)
 	{
-		return $this->package($plugin, $recursive, $getContents, PLUGINS_DIR);
+		if( ! empty($this->parameters['usable']) )
+		{
+			$lastParam = $this->parameters['usable'];
+			
+			$this->parameters = [];
+		}
+		else
+		{
+			$argumentCount = count($arguments) - 1;
+			
+			$lastParam = isset($arguments[$argumentCount]) ? $arguments[$argumentCount] : false;	
+		}
+
+		$arguments = array_unique($arguments);
+
+		if( $lastParam === true )
+		{
+			$arguments = \Arrays::removeLast($arguments);
+		}
+		
+		return (object)array
+		(
+			'arguments' => $arguments,
+			'lastParam' => $lastParam,
+			'cdnLinks'  => array_change_key_case(\Config::get('ViewObjects', 'cdn')[$cdn])
+		);
 	}
 }

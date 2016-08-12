@@ -30,7 +30,7 @@ class InternalRoute extends \Controller implements RouteInterface
 	// @param array $route
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change(Array $route)
+	public function change(Array $route) : InternalRoute
 	{
 		$this->route = $route;
 		

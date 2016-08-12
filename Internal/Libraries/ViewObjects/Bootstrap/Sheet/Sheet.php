@@ -16,12 +16,10 @@ class InternalSheet extends \CallController implements SheetInterface
 	// Style Sheet Trait
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// traits()
+	// methods
 	//
 	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
-	
-	protected $namespace = 'ZN\ViewObjects\Sheet\Helpers\\';
 	
 	//----------------------------------------------------------------------------------------------------
 	// Animation
@@ -30,9 +28,9 @@ class InternalSheet extends \CallController implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function animation($tag = false)
+	public function animation(Bool $tag = false) : Sheet\Helpers\Animation
 	{
-		return uselib($this->namespace.'Animation', [$tag]);
+		return uselib('Animation', [$tag]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -42,9 +40,9 @@ class InternalSheet extends \CallController implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function manipulation()
+	public function manipulation() : Sheet\Helpers\Manipulation
 	{
-		return uselib($this->namespace.'Manipulation');
+		return uselib('Manipulation');
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -54,9 +52,9 @@ class InternalSheet extends \CallController implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function shadow($tag = false)
+	public function shadow(Bool $tag = false) : Sheet\Helpers\Shadow
 	{
-		return uselib($this->namespace.'Shadow', [$tag]);
+		return uselib('Shadow', [$tag]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -66,9 +64,9 @@ class InternalSheet extends \CallController implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function transform($tag = false)
+	public function transform(Bool $tag = false) : Sheet\Helpers\Transform
 	{
-		return uselib($this->namespace.'Transform', [$tag]);
+		return uselib('Transform', [$tag]);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -78,8 +76,8 @@ class InternalSheet extends \CallController implements SheetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function transition($tag = false)
+	public function transition(Bool $tag = false) : Sheet\Helpers\Transition
 	{
-		return uselib($this->namespace.'Transition', [$tag]);
+		return uselib('Transition', [$tag]);
 	}
 }

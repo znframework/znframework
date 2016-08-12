@@ -57,7 +57,7 @@ class Ajax extends \CallController
 	// @param string $url
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function url(String $url = '')
+	public function url(String $url = '') : Ajax
 	{
 		// Veri bir url içermiyorsa siteUrl yöntemi ile url'ye dönüştürülür.
 		if( ! isUrl($url) )
@@ -77,7 +77,7 @@ class Ajax extends \CallController
 	// @param string $data
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function data(String $data)
+	public function data(String $data) : Ajax
 	{
 		$this->sets['data'] = "\tdata:$data,".EOL;
 		
@@ -91,13 +91,8 @@ class Ajax extends \CallController
 	// @param string $url
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function headers($headers)
+	public function headers(String $headers) : Ajax
 	{
-		if( ! is_scalar($headers) )
-		{
-			throw new Exception(lang('Error', 'scalarParameter', '1.(headers)'));
-		}
-		
 		$this->sets['headers'] = "\theaders:$headers,".EOL;
 		
 		return $this;	
@@ -110,13 +105,8 @@ class Ajax extends \CallController
 	// @param bool $ifModified
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function ifModified($ifModified = true)
+	public function ifModified(String $ifModified) : Ajax
 	{
-		if( ! is_scalar($ifModified) )
-		{
-			throw new Exception(lang('Error', 'scalarParameter', '1.(headers)'));
-		}
-
 		$ifModified = $this->_boolToStr($ifModified);
 		
 		$this->sets['ifModified'] = "\tifModified:$ifModified,".EOL;
@@ -131,13 +121,8 @@ class Ajax extends \CallController
 	// @param bool $isLocal
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function isLocal($isLocal = true)
+	public function isLocal(String $isLocal) : Ajax
 	{
-		if( ! is_scalar($isLocal) )
-		{
-			throw new Exception(lang('Error', 'scalarParameter', '1.(isLocal)'));	
-		}
-		
 		$isLocal = $this->_boolToStr($isLocal);
 		
 		$this->sets['isLocal'] = "\tisLocal:$isLocal,".EOL;
@@ -152,13 +137,8 @@ class Ajax extends \CallController
 	// @param bool $isLocal
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mimeType($mimeType = true)
+	public function mimeType(String $mimeType) : Ajax
 	{
-		if( ! is_scalar($mimeType) )
-		{
-			throw new Exception(lang('Error', 'scalarParameter', '1.(mimeType)'));
-		}
-		
 		$mimeType = $this->_boolToStr($mimeType);
 		$this->sets['mimeType'] = "\tmimeType:$mimeType,".EOL;
 		
@@ -172,19 +152,15 @@ class Ajax extends \CallController
 	// @param scalar $jsonp
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function jsonp($jsonp)
+	public function jsonp(String $jsonp) : Ajax
 	{
-		if( is_bool($jsonp) )
+		if( is_numeric($jsonp) )
 		{
 			$jsonp = $this->_boolToStr($jsonp);	
 		}
 		elseif( is_string($jsonp) )
 		{
 			$jsonp = "\"$jsonp\"";
-		}
-		else
-		{
-			return $this;
 		}
 		
 		$this->sets['jsonp'] = "\tjsonp:$jsonp,".EOL;
@@ -199,7 +175,7 @@ class Ajax extends \CallController
 	// @param scalar $jsonpCallback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function jsonpCallback(String $jsonpCallback)
+	public function jsonpCallback(String $jsonpCallback) : Ajax
 	{
 		if( $this->_isFunc($jsonpCallback) === false )
 		{
@@ -218,7 +194,7 @@ class Ajax extends \CallController
 	// @param string $type
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function dataType(String $type)
+	public function dataType(String $type) : Ajax
 	{	
 		$this->sets['type'] = "\tdataType:\"$type\",".EOL;
 		
@@ -232,7 +208,7 @@ class Ajax extends \CallController
 	// @param string $password
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function password(String $password)
+	public function password(String $password) : Ajax
 	{
 		$this->sets['password'] = "\tpassword:\"$password\",".EOL;
 		
@@ -246,7 +222,7 @@ class Ajax extends \CallController
 	// @param string $
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function username(String $username)
+	public function username(String $username) : Ajax
 	{
 		$this->sets['username'] = "\tusername:\"$username\",".EOL;
 		
@@ -260,7 +236,7 @@ class Ajax extends \CallController
 	// @param string $method
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function method(String $method = 'post')
+	public function method(String $method = 'post') : Ajax
 	{
 		$this->sets['method'] = "\tmethod:\"$method\",".EOL;
 		
@@ -274,7 +250,7 @@ class Ajax extends \CallController
 	// @param string $method
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function type(String $method = 'post')
+	public function type(String $method = 'post') : Ajax
 	{
 		$this->method($method);
 		
@@ -288,7 +264,7 @@ class Ajax extends \CallController
 	// @param string $sr
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function scriptCharset(String $scriptCharset = 'utf-8')
+	public function scriptCharset(String $scriptCharset = 'utf-8') : Ajax
 	{
 		$this->sets['scriptCharset'] = "\tscriptCharset:\"$scriptCharset\",".EOL;
 		
@@ -302,13 +278,8 @@ class Ajax extends \CallController
 	// @param scalar $tratidional
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function traditional($traditional = true)
+	public function traditional(String $traditional) : Ajax
 	{
-		if( ! is_scalar($traditional) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', '1.(traditional)'));	
-		}
-		
 		$traditional = $this->_boolToStr($traditional);
 		$this->sets['traditional'] = "\ttraditional:$traditional,".EOL;
 		
@@ -322,13 +293,8 @@ class Ajax extends \CallController
 	// @param scalar $processData
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function processData($processData = true)
+	public function processData(String $processData) : Ajax
 	{
-		if( ! is_scalar($processData) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', 'processData'));
-		}
-		
 		$processData = $this->_boolToStr($processData);
 		$this->sets['processData'] = "\tprocessData:$processData,".EOL;
 		
@@ -342,13 +308,8 @@ class Ajax extends \CallController
 	// @param scalar $cache
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function cache($cache = true)
+	public function cache(String $cache) : Ajax
 	{
-		if( ! is_scalar($cache) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', 'cache'));
-		}
-		
 		$cache = $this->_boolToStr($cache);
 		$this->sets['cache'] = "\tcache:$cache,".EOL;
 		
@@ -362,7 +323,7 @@ class Ajax extends \CallController
 	// @param string $xhrFields
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function xhrFields(String $xhrFields)
+	public function xhrFields(String $xhrFields) : Ajax
 	{
 		$this->sets['xhrFields'] = "\txhrFields:$xhrFields,".EOL;
 		
@@ -376,7 +337,7 @@ class Ajax extends \CallController
 	// @param string $context
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function context(String $context)
+	public function context(String $context) : Ajax
 	{
 		$this->sets['context'] = "\tcontext:$context,".EOL;
 		
@@ -390,7 +351,7 @@ class Ajax extends \CallController
 	// @param string $accepts
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function accepts(String $accepts)
+	public function accepts(String $accepts) : Ajax
 	{
 		$this->sets['accepts'] = "\taccepts:$accepts,".EOL;
 		
@@ -404,7 +365,7 @@ class Ajax extends \CallController
 	// @param string $contents
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function contents(String $contents)
+	public function contents(String $contents) : Ajax
 	{
 		$this->sets['contents'] = "\tcontents:$contents,".EOL;
 		
@@ -418,13 +379,8 @@ class Ajax extends \CallController
 	// @param scalar $async
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function async($async = true)
+	public function async(String $async) : Ajax
 	{
-		if( ! is_scalar($async) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', 'async'));
-		}
-		
 		$async = $this->_boolToStr($async);
 		$this->sets['async'] = "\tasync:$async,".EOL;
 		
@@ -438,13 +394,8 @@ class Ajax extends \CallController
 	// @param scalar $crossDomain
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function crossDomain($crossDomain = true)
+	public function crossDomain(String $crossDomain) : Ajax
 	{
-		if( ! is_scalar($crossDomain) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', 'crossDomain'));	
-		}
-		
 		$crossDomain = $this->_boolToStr($crossDomain);
 		$this->sets['crossDomain'] = "\tcrossDomain:$crossDomain,".EOL;
 		
@@ -458,7 +409,7 @@ class Ajax extends \CallController
 	// @param int $timeout
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function timeout(Int $timeout)
+	public function timeout(Int $timeout) : Ajax
 	{
 		$this->sets['timeout'] = "\ttimeout:$timeout,".EOL;
 		
@@ -472,13 +423,8 @@ class Ajax extends \CallController
 	// @param scalar $globals
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function globals($globals = true)
+	public function globals(String $globals) : Ajax
 	{
-		if( ! is_scalar($globals) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', 'globals'));
-		}
-		
 		$globals = $this->_boolToStr($globals);
 		$this->sets['globals'] = "\tglobal:$globals,".EOL;
 		
@@ -492,14 +438,9 @@ class Ajax extends \CallController
 	// @param scalar $contentType
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function contentType($contentType = 'application/x-www-form-urlencoded; charset=UTF-8')
+	public function contentType(String $contentType = 'application/x-www-form-urlencoded; charset=UTF-8') : Ajax
 	{
-		if( ! is_scalar($contentType) )
-		{
-			throw new \Exception(lang('Error', 'valueParameter', 'contentType'));
-		}
-
-		if( is_bool($contentType) )
+		if( is_numeric($contentType) )
 		{
 			$contentType = $this->_boolToStr($contentType);		
 		}
@@ -522,7 +463,7 @@ class Ajax extends \CallController
 	// @param array $codes
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function statusCode(Array $codes)
+	public function statusCode(Array $codes) : Ajax
 	{
 		$this->_object('statusCode', $codes);
 			
@@ -536,7 +477,7 @@ class Ajax extends \CallController
 	// @param array $codes
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function converters(Array $codes)
+	public function converters(Array $codes) : Ajax
 	{
 		$this->_object('converters', $codes);
 			
@@ -551,7 +492,7 @@ class Ajax extends \CallController
 	// @param string $success
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function success(String $params, String $success)
+	public function success(String $params, String $success) : Ajax
 	{
 		$this->_functions('success', $params, $success);	
 		
@@ -566,7 +507,7 @@ class Ajax extends \CallController
 	// @param string $error
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function error(String $params, String $error)
+	public function error(String $params, String $error) : Ajax
 	{
 		$this->_functions('error', $params, $error);	
 	
@@ -581,7 +522,7 @@ class Ajax extends \CallController
 	// @param string $complete
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function complete(String $params, String $complete)
+	public function complete(String $params, String $complete) : Ajax
 	{
 		$this->_functions('complete', $params, $complete);
 		
@@ -596,7 +537,7 @@ class Ajax extends \CallController
 	// @param string $beforeSend
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function beforeSend(String $params, String $beforeSend)
+	public function beforeSend(String $params, String $beforeSend) : Ajax
 	{
 		$this->_functions('beforeSend', $params, $beforeSend);
 		
@@ -611,7 +552,7 @@ class Ajax extends \CallController
 	// @param string $dataFilter
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function dataFilter(String $params, String $dataFilter)
+	public function dataFilter(String $params, String $dataFilter) : Ajax
 	{
 		$this->_functions('dataFilter', $params, $dataFilter);
 		
@@ -626,7 +567,7 @@ class Ajax extends \CallController
 	// @param string $done
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function done(String $params = 'e', String $done = NULL)
+	public function done(String $params = 'e', String $done = NULL) : Ajax
 	{
 		$this->_callbacks('done', $params, $done);
 		
@@ -641,7 +582,7 @@ class Ajax extends \CallController
 	// @param string $fail
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function fail(String $params = 'e', String $fail = NULL)
+	public function fail(String $params = 'e', String $fail = NULL) : Ajax
 	{
 		$this->_callbacks('fail', $params, $fail);
 		
@@ -656,7 +597,7 @@ class Ajax extends \CallController
 	// @param string $always
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function always(String $params = 'e', String $always = NULL)
+	public function always(String $params = 'e', String $always = NULL) : Ajax
 	{
 		$this->_callbacks('always', $params, $always);
 		
@@ -671,7 +612,7 @@ class Ajax extends \CallController
 	// @param string $then
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function then(String $params = 'e', String $then = NULL)
+	public function then(String $params = 'e', String $then = NULL) : Ajax
 	{
 		$this->_callbacks('then', $params, $then);
 		
@@ -686,7 +627,7 @@ class Ajax extends \CallController
 	// @param string $data
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function send(String $url = '', String $data = NULL)
+	public function send(String $url = '', String $data = NULL) : String
 	{
 		if( ! empty($url) )
 		{
@@ -749,7 +690,7 @@ class Ajax extends \CallController
 	// @param string $dataFilter
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function create(String $url = '', String $data = NULL)
+	public function create(String $url = '', String $data = NULL) : String
 	{
 		return $this->send($url, $data);	
 	}

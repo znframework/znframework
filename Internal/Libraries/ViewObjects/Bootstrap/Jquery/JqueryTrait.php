@@ -139,11 +139,11 @@ trait JqueryTrait
 	//----------------------------------------------------------------------------------------------------
 	protected function _boolToStr($bool = true)
 	{
-		if( $bool === true )
+		if( $bool == true )
 		{
 			return 'true';
 		}
-		elseif( $bool === false )
+		elseif( $bool == false )
 		{
 			return 'false';
 		}

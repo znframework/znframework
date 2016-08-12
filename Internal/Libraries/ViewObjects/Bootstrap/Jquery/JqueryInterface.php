@@ -29,7 +29,7 @@ interface JqueryInterface
 	// @param variadic $attr
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function property(String $property, ...$attr);
+	public function property(String $property, ...$attr) : InternalJquery;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Complete                                                                 
@@ -56,7 +56,7 @@ interface JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false);
+	public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Action
@@ -65,7 +65,7 @@ interface JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false);
+	public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Animate
@@ -74,7 +74,7 @@ interface JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false);
+	public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Event
@@ -83,5 +83,5 @@ interface JqueryInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false);
+	public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event;
 }

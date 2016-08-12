@@ -19,7 +19,7 @@ interface RouteInterface
 	// @param array $route
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function change(Array $route);
+	public function change(Array $route) : InternalRoute;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Run

@@ -14,52 +14,39 @@ class Transition extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Style Sheet Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// methods
+	//
+	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
 	
-	/******************************************************************************************
-	* TRANSITION PROPERTY                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: transition-duration kullanımıdır.    				  			  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/numeric var @property => Özellikler bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->property('color') 		  									  	 	 	  |
-	|          																				  |
-	******************************************************************************************/
-	public function property($property = '')
+	//----------------------------------------------------------------------------------------------------
+	// Property
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $property
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function property(String $property) : Transition
 	{
-		if( ! is_scalar($property))
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'property');
-			return $this;	
-		}
-		
 		$this->transitions .= $this->_transitions("transition-property:$property;".EOL);
 		
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TRANSITION DURATION                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: transition-duration kullanımıdır.    				  			  		  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/numeric var @duration => Süre bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->duration(2) 		  									  	 	 	  |
-	|          																				  |
-	******************************************************************************************/
-	public function duration($duration = '')
+	//----------------------------------------------------------------------------------------------------
+	// Duration
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $duration
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function duration(String $duration) : Transition
 	{
-		if( ! is_scalar($duration))
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'duration');
-			return $this;	
-		}
-		
-		if(is_numeric($duration))
+		if( is_numeric($duration) )
 		{
 			$duration = $duration."s";	
 		}
@@ -69,25 +56,15 @@ class Transition extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TRANSITION DELAY                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: transition-delay kullanımıdır.    				  		  		      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/numeric var @delay => Geçikme bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->delay(2) 		  									  	 	 	  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function delay($delay = '')
+	//----------------------------------------------------------------------------------------------------
+	// Delay
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $delay
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function delay(String $delay) : Transition
 	{
-		if( ! is_scalar($delay) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'delay');
-			return $this;	
-		}
-		
 		if( is_numeric($delay) )
 		{
 			$delay = $delay."s";	
@@ -98,25 +75,15 @@ class Transition extends \CallController
 		return $this;
 	}
 	
-	/******************************************************************************************
-	* TRANSITION TIMING FUNCTION                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: transition-timing-function kullanımıdır.    				  			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string var @easing => Animasyon türü bilgisi.			   					  	      |
-	|          																				  |
-	| Örnek Kullanım: ->easing('ease-in-out') 		  									  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function easing($easing = '')
+	//----------------------------------------------------------------------------------------------------
+	// Easing
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $easing
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function easing(String $easing) : Transition
 	{
-		if( ! is_scalar($easing))
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'easing');
-			return $this;	
-		}
-		
 		$this->transitions .= $this->_transitions("transition-timing-function:$easing;".EOL);
 		
 		return $this;

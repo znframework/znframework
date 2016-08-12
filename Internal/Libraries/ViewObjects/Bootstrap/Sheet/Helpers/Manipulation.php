@@ -14,33 +14,33 @@ class Manipulation extends \CallController
 	//
 	//----------------------------------------------------------------------------------------------------
 	
+	//----------------------------------------------------------------------------------------------------
+	// Style Sheet Trait
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// methods
+	//
+	//----------------------------------------------------------------------------------------------------
 	use SheetTrait;
 
-	/* Manipulation Değişkeni
-	 *  
-	 * Değişiklik bilgisini tutması 
-	 * için oluşturulumuştur. 
-	 */
+	//----------------------------------------------------------------------------------------------------
+	// Manipulation
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected $manipulation;
 
-	/******************************************************************************************
-	* ATTR                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Css kodu eklemek için kullanılır.        		  		 				  |
-	|															                              |
-	| Parametreler: Tek dizi parametresi vardır.                                              |
-	| 1. array var @_attributes => Eklenecek css kodları ve değerleri.		     			  |
-	|          																				  |
-	| Örnek Kullanım: ->attr(array('color' => 'red', 'border' => 'solid 1px #000')) 		  |
-	|          																				  |
-	******************************************************************************************/
-	public function attr($attr = [])
+	//----------------------------------------------------------------------------------------------------
+	// Attr
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param array $attr
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function attr(Array $attr) : String
 	{		
-		if( ! is_array($attr) )
-		{
-			return \Exceptions::throws('Error', 'arrayParameter', 'attr');	
-		}
-
 		$str  = $this->selector."{".EOL;	
 		$str .= $this->_attr($attr).EOL;
 		$str .= "}".EOL;
@@ -50,29 +50,63 @@ class Manipulation extends \CallController
 		return $str;
 	}
 	
-	/******************************************************************************************
-	* FILE                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Manüpile edilmek istenen css dosyasının adını belirtmek için kullanılır.|
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @file => Dosya adı bilgisi.  					  						  |
-	|          																				  |
-	| Örnek Kullanım: ->file('style')					 		         					  |
-	|          																				  |
-	******************************************************************************************/
-	public function file($file = '')
+	//----------------------------------------------------------------------------------------------------
+	// File
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $file
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function file(String $file) : Manipulation
 	{
-		if( is_string($file) )
-		{
-			$this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
-			$this->manipulation['file'] = \File::contents($this->manipulation['filename']);
-		}
+		$this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
+		$this->manipulation['file'] = \File::contents($this->manipulation['filename']);
 		
 		return $this;	
 	}
 	
-	// PROTECTED MANIPULATION
+	//----------------------------------------------------------------------------------------------------
+	// Get Selector
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $selector
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function getSelector(String $selector) : String
+	{
+		$space  = '\s*';
+		$output = $this->_manipulation($selector);		  
+		$output = preg_replace('/'.$selector.$space.'\{/', '', $output);
+		$output = preg_replace('/\}/', '', $output);
+		
+		return trim($output);
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Set Selector
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $selector
+	// @param array  $attr
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function setSelector(String $selector, Array $attr) : Bool
+	{
+		$file   = $this->manipulation['file'];
+		$value  = $this->selector($selector)->attr($attr);
+		$output = $this->_manipulation($selector);
+		$output = str_replace($output, $value , $file);
+		
+		return \File::write($this->manipulation['filename'], $output);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Manipulation
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $selector
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _manipulation($selector)
 	{
 		$space = '\s*';
@@ -99,70 +133,13 @@ class Manipulation extends \CallController
 		return $output;
 	}
 	
-	/******************************************************************************************
-	* GET SELECTOR                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Manüpile edilmek istenen css dosyasında yer alan seçiçinin içeriğine.	  |
-	| erişmek için kullanılır.																  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @selector => Seçici bilgisi.					  						  |
-	|          																				  |
-	| Örnek Kullanım: ->getSelector('.test');			 		         					  |
-	|          																				  |
-	******************************************************************************************/
-	public function getSelector($selector = '')
-	{
-		if( ! is_string($selector) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', 'selector');
-		}
-		
-		$space = '\s*';
-		
-		$output = $this->_manipulation($selector);
-					  
-		$output = preg_replace('/'.$selector.$space.'\{/', '', $output);
-		$output = preg_replace('/\}/', '', $output);
-		
-		return trim($output);
-	}
-	
-	/******************************************************************************************
-	* SET SELECTOR                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Manüpile edilmek istenen css dosyasında yer alan seçiçinin içeriğine.	  |
-	| erişmek için kullanılır.																  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @selector => Seçici bilgisi.					  						  |
-	| 1. array var @attr => Yeni değerler.					  						  		  |
-	|          																				  |
-	| Örnek Kullanım: ->setSelector('.test', array('color' => 'red'));			 		      |
-	|          																				  |
-	******************************************************************************************/
-	public function setSelector($selector = '', $attr = [])
-	{
-		if( ! is_string($selector) || ! is_array($attr) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'selector');	
-			\Exceptions::throws('Error', 'arrayParameter', 'attr');
-			
-			return false;
-		}	
-
-		$file = $this->manipulation['file'];
-		
-		$value = $this->selector($selector)->attr($attr);
-		
-		$output = $this->_manipulation($selector);
-		
-		$output = str_replace($output, $value , $file);
-		
-		\File::write($this->manipulation['filename'], $output);
-	}
-	
-	// Değişkenler varsayılan ayarlarına getiriliyor.
+	//----------------------------------------------------------------------------------------------------
+	// Protected Default Variable
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
 	protected function _defaultVariable()
 	{
 		$this->attr = NULL;

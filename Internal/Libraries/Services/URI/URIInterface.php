@@ -21,7 +21,7 @@ interface URIInterface
 	// @param bool   $while
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function get($get = 1, $index = 1, Bool $while = false);
+	public function get($get = 1, $index = 1, Bool $while = false) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// getNameCount
@@ -32,7 +32,7 @@ interface URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getNameCount(String $get);
+	public function getNameCount(String $get) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// getNameAll
@@ -43,7 +43,7 @@ interface URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getNameAll(String $get);
+	public function getNameAll(String $get) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// getByIndex
@@ -55,7 +55,7 @@ interface URIInterface
 	// @param numeric $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getByIndex(Int $get = 1, Int $index = 1);
+	public function getByIndex(Int $get = 1, Int $index = 1) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// getByName
@@ -67,7 +67,7 @@ interface URIInterface
 	// @param string $get
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function getByName(String $get, $index = NULL);
+	public function getByName(String $get, $index = NULL) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Segment Array
@@ -76,7 +76,7 @@ interface URIInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function segmentArray();
+	public function segmentArray() : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Total Segments
@@ -85,7 +85,7 @@ interface URIInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function totalSegments();
+	public function totalSegments() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Segment Count
@@ -94,7 +94,7 @@ interface URIInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function segmentCount();
+	public function segmentCount() : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Segment
@@ -103,7 +103,7 @@ interface URIInterface
 	// @param int $seg
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function segment(Int $seg = 1);
+	public function segment(Int $seg = 1) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Current Segment
@@ -112,7 +112,7 @@ interface URIInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function currentSegment();
+	public function currentSegment() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Current
@@ -122,7 +122,7 @@ interface URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function current(Bool $isPath = true);
+	public function current(Bool $isPath = true) : String;
 
 	//----------------------------------------------------------------------------------------------------
 	// Base
@@ -132,7 +132,7 @@ interface URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function base(String $uri = '', Int $index = 0);
+	public function base(String $uri = '', Int $index = 0) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Prev
@@ -142,5 +142,5 @@ interface URIInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function prev(Bool $isPath = true);
+	public function prev(Bool $isPath = true) : String;
 }

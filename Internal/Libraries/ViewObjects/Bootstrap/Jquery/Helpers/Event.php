@@ -58,7 +58,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function click(String $selector = NULL, String $callback = NULL)
+	public function click(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -73,7 +73,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function blur(String $selector = NULL, String $callback = NULL)
+	public function blur(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -88,7 +88,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function change(String $selector = NULL, String $callback = NULL)
+	public function change(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -103,7 +103,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function dblclick(String $selector = NULL, String $callback = NULL)
+	public function dblclick(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -118,7 +118,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function error(String $selector = NULL, String $callback = NULL)
+	public function error(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -133,7 +133,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function resize(String $selector = NULL, String $callback = NULL)
+	public function resize(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -148,7 +148,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function scroll(String $selector = NULL, String $callback = NULL)
+	public function scroll(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -163,7 +163,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function load(String $selector = NULL, String $callback = NULL)
+	public function load(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -178,7 +178,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function ready(String $selector = NULL, String $callback = NULL)
+	public function ready(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -193,7 +193,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function unload(String $selector = NULL, String $callback = NULL)
+	public function unload(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -208,7 +208,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function focus(String $selector = NULL, String $callback = NULL)
+	public function focus(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -223,7 +223,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function focusIn(String $selector = NULL, String $callback = NULL)
+	public function focusIn(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -238,7 +238,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function focusOut(String $selector = NULL, String $callback = NULL)
+	public function focusOut(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -253,7 +253,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function select(String $selector = NULL, String $callback = NULL)
+	public function select(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -268,7 +268,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function submit(String $selector = NULL, String $callback = NULL)
+	public function submit(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -283,7 +283,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyDown(String $selector = NULL, String $callback = NULL)
+	public function keyDown(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -298,7 +298,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyPress(String $selector = NULL, String $callback = NULL)
+	public function keyPress(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -313,7 +313,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function keyUp(String $selector = NULL, String $callback = NULL)
+	public function keyUp(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -328,7 +328,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function hover(String $selector = NULL, String $callback = NULL)
+	public function hover(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -343,7 +343,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseDown(String $selector = NULL, String $callback = NULL)
+	public function mouseDown(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -358,7 +358,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseEnter(String $selector = NULL, String $callback = NULL)
+	public function mouseEnter(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -373,7 +373,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseLeave(String $selector = NULL, String $callback = NULL)
+	public function mouseLeave(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -388,7 +388,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseMove(String $selector = NULL, String $callback = NULL)
+	public function mouseMove(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -403,7 +403,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseOut(String $selector = NULL, String $callback = NULL)
+	public function mouseOut(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -418,7 +418,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseOver(String $selector = NULL, String $callback = NULL)
+	public function mouseOver(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -433,7 +433,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function mouseUp(String $selector = NULL, String $callback = NULL)
+	public function mouseUp(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -448,7 +448,7 @@ class Event extends \CallController
 	// @param string $callback
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function toggle(String $selector = NULL, String $callback = NULL)
+	public function toggle(String $selector = NULL, String $callback = NULL) : String
 	{
 		$this->_event(__FUNCTION__, $selector, $callback);
 		
@@ -462,7 +462,7 @@ class Event extends \CallController
 	// @param string $type
 	//																						  
 	//----------------------------------------------------------------------------------------------------
- 	public function type(String $type = 'click')
+ 	public function type(String $type = 'click') : Event
 	{
 		$this->property = $type;
 		
@@ -476,7 +476,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function bind(...$args)
+	public function bind(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -491,7 +491,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function unbind(...$args)
+	public function unbind(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -506,7 +506,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function trigger(...$args)
+	public function trigger(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -521,7 +521,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function triggerHandler(...$args)
+	public function triggerHandler(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -536,7 +536,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function delegate(...$args)
+	public function delegate(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -551,7 +551,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function one(...$args)
+	public function one(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -566,7 +566,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function on(...$args)
+	public function on(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -581,7 +581,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function off(...$args)
+	public function off(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -596,7 +596,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function live(...$args)
+	public function live(...$args) : Event
 	{
 		$this->property = __FUNCTION__;
 		$this->params   = $args;
@@ -611,7 +611,7 @@ class Event extends \CallController
 	// @param variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function remove(...$args)
+	public function remove(...$args) : Event
 	{
 		$this->property = 'die';
 		$this->params   = $args;
@@ -626,7 +626,7 @@ class Event extends \CallController
 	// @param void
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function complete()
+	public function complete() : String
 	{	
 		if( isset($this->callback) ) 
 		{
@@ -644,10 +644,10 @@ class Event extends \CallController
 	// Create                                                             
 	//----------------------------------------------------------------------------------------------------
 	//
-	// @param variadic $args
+	// @param string variadic $args
 	//																						  
 	//----------------------------------------------------------------------------------------------------
-	public function create(...$args)
+	public function create(...$args) : String
 	{
 		$combineEvent = $args;
 		

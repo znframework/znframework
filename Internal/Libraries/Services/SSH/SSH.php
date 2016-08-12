@@ -80,7 +80,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function connect(Array $config = [])
+	public function connect(Array $config = []) : InternalSSH
 	{	
 		if( ! empty($config) )
 		{
@@ -141,13 +141,17 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function close()
+	public function close() : Bool
 	{
 		if( ! empty($this->connect) )
 		{
 			ssh2_exec($this->connect, 'exit');
 			$this->connect = NULL;
+
+			return true;
 		}
+
+		return false;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -157,7 +161,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function command(String $command)
+	public function command(String $command) : InternalSSH
 	{
 		$this->command .= $command.' ';
 		
@@ -171,7 +175,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function run(String $command = NULL)
+	public function run(String $command = NULL) : Bool
 	{
 		if( ! empty($this->connect) )
 		{
@@ -197,7 +201,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function output(Int $length = 4096)
+	public function output(Int $length = 4096) : String
 	{
 		$stream = $this->stream;
 		
@@ -223,7 +227,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $remotePath: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function upload(String $localPath, String $remotePath)
+	public function upload(String $localPath, String $remotePath) : Bool
 	{
 		if( @ssh2_scp_send($this->connect, $localPath, $remotePath) )
 		{
@@ -243,7 +247,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $localPath : empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download(String $remotePath, String $localPath)
+	public function download(String $remotePath, String $localPath) : Bool
 	{
 		if( @ssh2_scp_recv($this->connect, $remotePath, $localPath) )
 		{
@@ -262,7 +266,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true)
+	public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true) : Bool
 	{	
 		if( @ssh2_sftp_mkdir($this->connect, $path, $mode, $recursive) )
 		{
@@ -281,7 +285,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFolder(String $path)
+	public function deleteFolder(String $path) : Bool
 	{
 		if( @ssh2_sftp_rmdir($this->connect, $path) )
 		{
@@ -302,7 +306,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function rename(String $oldName, String $newName)
+	public function rename(String $oldName, String $newName) : Bool
 	{
 		if( @ssh2_sftp_rename($this->connect, $oldName, $newName) )
 		{
@@ -321,7 +325,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFile(String $path)
+	public function deleteFile(String $path) : Bool
 	{
 		if( @ssh2_sftp_unlink($this->connect, $path) )
 		{
@@ -341,7 +345,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission(String $path, Int $type = 0755)
+	public function permission(String $path, Int $type = 0755) : Bool
 	{	
 		if( @ssh2_sftp_chmod($this->connect, $path, $type) )
 		{

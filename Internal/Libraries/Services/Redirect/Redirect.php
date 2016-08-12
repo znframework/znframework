@@ -49,7 +49,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var numeric $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function time(Int $time = 0)
+	public function time(Int $time = 0) : InternalRedirect
 	{
 		$this->redirect['time'] = $time;
 		
@@ -63,7 +63,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var numeric $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function wait(Int $time = 0)
+	public function wait(Int $time = 0) : InternalRedirect
 	{
 		$this->redirect['time'] = $time;
 		
@@ -77,7 +77,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function data(Array $data)
+	public function data(Array $data) : InternalRedirect
 	{
 		$this->redirect['data'] = $data;
 		
@@ -91,7 +91,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var array $data
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(Array $data)
+	public function insert(Array $data) : InternalRedirect
 	{
 		$this->redirect['data'] = $data;
 		
@@ -117,7 +117,7 @@ class InternalRedirect extends \CallController implements RedirectInterface
 	// @var mixed $key
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $key)
+	public function delete(String $key) : Bool
 	{
 		return redirectDeleteData($key);
 	}

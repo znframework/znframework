@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalSession extends \Requirements implements SessionInterface
+class InternalSession extends \Requirements implements SessionInterface, SessionCookieCommonInterface
 {
 	/***********************************************************************************/
 	/* SESSION COMPONENT	   	     		                   	                       */
@@ -35,7 +35,7 @@ class InternalSession extends \Requirements implements SessionInterface
 	// methods
 	//
 	//----------------------------------------------------------------------------------------------------
-	use SessionTrait;
+	use SessionCookieCommonTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Construct
@@ -62,7 +62,7 @@ class InternalSession extends \Requirements implements SessionInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $value)
+	public function insert(String $name, $value) : Bool
 	{
 		if( ! empty($this->encode) )
 		{
@@ -172,7 +172,7 @@ class InternalSession extends \Requirements implements SessionInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectAll()
+	public function selectAll() : Array
 	{
 		return $_SESSION;	
 	}
@@ -199,7 +199,7 @@ class InternalSession extends \Requirements implements SessionInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name)
+	public function delete(String $name) : Bool
 	{
 		$sessionConfig = $this->config;
 		
@@ -231,6 +231,8 @@ class InternalSession extends \Requirements implements SessionInterface
 		if( isset($_SESSION[$name]) )
 		{ 	
 			unset($_SESSION[$name]);
+
+			return true;
 		}
 		else
 		{ 
@@ -245,8 +247,8 @@ class InternalSession extends \Requirements implements SessionInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll()
+	public function deleteAll() : Bool
 	{
-		session_destroy();
+		return session_destroy();
 	}
 }

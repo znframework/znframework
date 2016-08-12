@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalCookie extends \Requirements implements CookieInterface
+class InternalCookie extends \Requirements implements CookieInterface, SessionCookieCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -88,7 +88,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @methods
 	//
 	//----------------------------------------------------------------------------------------------------
-	use SessionTrait;
+	use SessionCookieCommonTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Time
@@ -97,7 +97,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param int $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function time(Int $time)
+	public function time(Int $time) : InternalCookie
 	{
 		$this->time = $time;
 		
@@ -111,7 +111,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param string $path
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path(String $path)
+	public function path(String $path) : InternalCookie
 	{
 		$this->path = $path;
 		
@@ -125,7 +125,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param string $domain
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function domain(String $domain)
+	public function domain(String $domain) : InternalCookie
 	{
 		$this->domain = $domain;
 		
@@ -139,7 +139,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param bool $secure
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function secure(Bool $secure = false)
+	public function secure(Bool $secure = false) : InternalCookie
 	{
 		$this->secure = $secure;
 		
@@ -153,7 +153,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param bool $httpOnly
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function httpOnly(Bool $httpOnly = true)
+	public function httpOnly(Bool $httpOnly = true) : InternalCookie
 	{
 		$this->httpOnly = $httpOnly;
 		
@@ -169,7 +169,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param int    $time
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $value, Int $time = NULL)
+	public function insert(String $name, $value, Int $time = NULL) : Bool
 	{
 		if( ! empty($time) ) $this->time($time);				
 		
@@ -291,7 +291,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selectAll()
+	public function selectAll() : Array
 	{
 		if( ! empty($_COOKIE) ) 
 		{
@@ -310,7 +310,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name, String $path = NULL)
+	public function delete(String $name, String $path = NULL) : Bool
 	{
 		$cookieConfig = $this->config;
 		
@@ -353,6 +353,8 @@ class InternalCookie extends \Requirements implements CookieInterface
 		{ 	
 			setcookie($name, '', (time() - 1), $this->path); 
 			$this->path = NULL;
+
+			return true;
 		}
 		else
 		{ 
@@ -367,7 +369,7 @@ class InternalCookie extends \Requirements implements CookieInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteAll()
+	public function deleteAll() : Bool
 	{	
 		$path = $this->config['path'];
 		
@@ -379,6 +381,8 @@ class InternalCookie extends \Requirements implements CookieInterface
 		{
 			return false;
 		}
+
+		return true;
 	}
 
 	//----------------------------------------------------------------------------------------------------
