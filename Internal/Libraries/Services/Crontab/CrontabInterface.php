@@ -11,7 +11,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function driver(String $driver);
+	public function driver(String $driver) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Connect
@@ -21,7 +21,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect(Array $config);
+	public function connect(Array $config) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Path
@@ -31,7 +31,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path(String $path);
+	public function path(String $path) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Roster
@@ -41,7 +41,7 @@ interface CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function roster();
+	public function roster() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Create File
@@ -51,7 +51,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createFile(String $name);
+	public function createFile(String $name) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete File
@@ -61,7 +61,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteFile(String $name);
+	public function deleteFile(String $name) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Remove
@@ -71,7 +71,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remove(String $name);
+	public function remove(String $name) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Add
@@ -81,7 +81,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function add();
+	public function add() : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Run
@@ -91,7 +91,7 @@ interface CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function run(String $cmd);
+	public function run(String $cmd) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Debug
@@ -101,7 +101,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function debug(Bool $status);
+	public function debug(Bool $status) : InternalCrontab;
 
 	//----------------------------------------------------------------------------------------------------
 	// Command
@@ -111,7 +111,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function command(String $command);
+	public function command(String $command) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Callback
@@ -122,7 +122,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($callback);
+	public function callback($callback) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// After
@@ -132,7 +132,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function after($callback);
+	public function after($callback) : InternalCrontab;
 
 	
 	//----------------------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ interface CrontabInterface
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function before($callback);
+	public function before($callback) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// File
@@ -153,7 +153,7 @@ interface CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file(String $file);
+	public function file(String $file) : InternalCrontab;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Url
@@ -164,5 +164,5 @@ interface CrontabInterface
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url(String $url);
+	public function url(String $url) : InternalCrontab;
 }

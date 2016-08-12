@@ -33,7 +33,7 @@ class InternalCart extends \CallController implements CartInterface
 		// Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
 		if( empty($product) )
 		{
-			\Exceptions::throws('Error', 'emptyParameter', 'product');	
+			return \Exceptions::throws('Error', 'emptyParameter', 'product');	
 		}
 
 		// Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.

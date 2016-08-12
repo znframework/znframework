@@ -1375,7 +1375,8 @@ class InternalDB extends DatabaseCommon implements DBInterface
 			if( $this->where($duplicateCheckWhere)->get($table)->totalRows() )
 			{
 				$this->duplicateCheck = NULL;
-				\Exceptions::throws('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));	
+				
+				return \Exceptions::throws('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));	
 			}
 		}
 			

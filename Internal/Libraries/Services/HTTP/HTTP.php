@@ -53,7 +53,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function isAjax()
+	public function isAjax() : Bool
 	{
 		if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
 		{
@@ -73,7 +73,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function browserLang(String $default = 'en')
+	public function browserLang(String $default = 'en') : String
 	{
 		$languages = \Config::get('Language', 'shortCodes');
 		
@@ -94,7 +94,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param numeric $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function code(Int $code = 200)
+	public function code(Int $code = 200) : String
 	{
 		$messages = \Arrays::multikey($this->config['messages']);
 		
@@ -113,7 +113,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function message(String $message)
+	public function message(String $message) : String
 	{
 		return $this->code($message);
 	}
@@ -125,9 +125,11 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name(String $name)
+	public function name(String $name) : InternalHTTP
 	{
 		$this->settings['name'] = $name;
+
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -137,7 +139,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param mixed $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value(String $value)
+	public function value($value) : InternalHTTP
 	{
 		$this->settings['value'] = $value;
 		
@@ -151,7 +153,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $input
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function input(String $input)
+	public function input(String $input) : InternalHTTP
 	{
 		if( in_array($input, $this->types) )
 		{
@@ -159,7 +161,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 		}
 		else
 		{
-			\Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
+			return \Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');	
 		}
 		
 		return $this;
@@ -197,7 +199,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $value)
+	public function insert(String $name, $value) : Bool
 	{
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;   
@@ -222,7 +224,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name)
+	public function delete(String $name) : Bool
 	{
 		$name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
 		$input = isset($this->settings['input']) ? $this->settings['input'] : false;
@@ -237,5 +239,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
 			case 'server' 	: unset($_SERVER[$name]);  break;
 			case 'request' 	: unset($_REQUEST[$name]); break;
 		}
+
+		return true;
 	}
 }

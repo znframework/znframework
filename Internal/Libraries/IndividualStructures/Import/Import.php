@@ -352,7 +352,7 @@ class InternalImport implements ImportInterface
 		}
 		else
 		{
-			\Exceptions::throws('Error', 'fileNotFound', $page);	
+			return \Exceptions::throws('Error', 'fileNotFound', $page);	
 		}
 	}
 	

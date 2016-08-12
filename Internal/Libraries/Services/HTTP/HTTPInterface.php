@@ -19,7 +19,7 @@ interface HTTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function isAjax();
+	public function isAjax() : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Browser Lang
@@ -29,7 +29,7 @@ interface HTTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function browserLang(String $default = 'en');
+	public function browserLang(String $default = 'en') : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Code
@@ -38,7 +38,7 @@ interface HTTPInterface
 	// @param numeric $code
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function code(Int $code = 200);
+	public function code(Int $code = 200) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Message
@@ -47,7 +47,7 @@ interface HTTPInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function message(String $message);
+	public function message(String $message) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Name
@@ -56,7 +56,7 @@ interface HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function name(String $name);
+	public function name(String $name) : InternalHTTP;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Value
@@ -65,7 +65,7 @@ interface HTTPInterface
 	// @param mixed $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value(String $value);
+	public function value($value) : InternalHTTP;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Input
@@ -74,7 +74,7 @@ interface HTTPInterface
 	// @param string $input
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function input(String $input);
+	public function input(String $input) : InternalHTTP;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Select
@@ -93,7 +93,7 @@ interface HTTPInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function insert(String $name, $value);
+	public function insert(String $name, $value) : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Delete
@@ -102,5 +102,5 @@ interface HTTPInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name);
+	public function delete(String $name) : Bool;
 }

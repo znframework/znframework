@@ -13,18 +13,6 @@ class InternalNet extends \CallController implements NetInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected Clean HTTP
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param string $host
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected function cleanHttp($host)
-	{
-		return str_ireplace(['http://', 'https://'], '', $host);	
-	}
-	
-	//----------------------------------------------------------------------------------------------------
 	// Check DNS
 	//----------------------------------------------------------------------------------------------------
 	// 
@@ -32,7 +20,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function checkDns(String $host, String $type = 'MX')
+	public function checkDns(String $host, String $type = 'MX') : Bool
 	{
 		return checkdnsrr($this->cleanHttp($host), $type);
 	}
@@ -46,16 +34,16 @@ class InternalNet extends \CallController implements NetInterface
 	// @param bool   $raw
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dnsRecords(String $host, String $type = 'any', Bool $raw = false)
+	public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass
 	{
 		$dns = dns_get_record($this->cleanHttp($host), \Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
 		
-		return (object)array
-		(
+		return (object)
+		[
 			'records' => $dns,
 			'authns'  => $auth,
 			'addtl'   => $add
-		);
+		];
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -65,15 +53,15 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mxRecords(String $host)
+	public function mxRecords(String $host) : \stdClass
 	{
 		$mx = getmxrr($this->cleanHttp($host), $mxhosts, $weight);
 		
-		return (object)array
-		(
+		return (object)
+		[
 			'records' => $mxhosts,
 			'weight'  => $weight
-		);
+		];
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -89,9 +77,11 @@ class InternalNet extends \CallController implements NetInterface
 	{
 		$socket = fsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 		
-		\Exceptions::throws($errno);
-		\Exceptions::throws($errstr);
-		
+		if( ! empty($errno) )
+		{
+			return \Exceptions::throws($errno.'-'.$errstr);
+		}
+
 		return $socket;
 	}
 	
@@ -106,21 +96,13 @@ class InternalNet extends \CallController implements NetInterface
 	//----------------------------------------------------------------------------------------------------
 	public function psocket(String $host, Int $port = -1, Int $timeout = 60)
 	{
-		if( ! is_string($host) )
-		{
-			return \Exceptions::throws('Error', 'stringParameter', '1.(host)');	
-		}
-		
-		if( ! is_numeric($port) )
-		{
-			return \Exceptions::throws('Error', 'numericParameter', '2.(port)');	
-		}
-		
 		$socket = pfsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 		
-		\Exceptions::throws($errno);
-		\Exceptions::throws($errstr);
-		
+		if( ! empty($errno) )
+		{
+			return \Exceptions::throws($errno.'-'.$errstr);
+		}
+
 		return $socket;
 	}
 	
@@ -131,7 +113,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $ip
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ipv4ToHost(String $ip)
+	public function ipv4ToHost(String $ip) : String
 	{
 		return gethostbyaddr($ip);
 	}
@@ -143,7 +125,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function hostToIpv4(String $host)
+	public function hostToIpv4(String $host) : String
 	{
 		return gethostbyname($this->cleanHttp($host));
 	}
@@ -155,7 +137,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function hostToIpv4List(String $host)
+	public function hostToIpv4List(String $host) : Array
 	{
 		return gethostbynamel($this->cleanHttp($host));
 	}
@@ -167,7 +149,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function protocolNumber(String $name)
+	public function protocolNumber(String $name) : Int
 	{
 		return getprotobyname($name);
 	}
@@ -179,7 +161,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param int $number
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function protocolName(Int $number)
+	public function protocolName(Int $number) : String
 	{
 		return getprotobynumber($number);
 	}
@@ -192,7 +174,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $protocol
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function servicePort(String $service, String $protocol)
+	public function servicePort(String $service, String $protocol) : Int
 	{
 		return getservbyname($service, $protocol);
 	}
@@ -205,7 +187,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $protocol
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function serviceName(Int $port, String $protocol)
+	public function serviceName(Int $port, String $protocol) : String
 	{
 		return getservbyport($port, $protocol);
 	}
@@ -217,7 +199,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function local()
+	public function local() : String
 	{
 		return gethostname();
 	}
@@ -241,7 +223,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $chr
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function chrToIpv4(String $chr)
+	public function chrToIpv4(String $chr) : String
 	{
 		return inet_ntop($chr);
 	}
@@ -253,7 +235,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $addr
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ipv4ToChr(String $addr)
+	public function ipv4ToChr(String $addr) : String
 	{
 		return inet_pton($addr);
 	}
@@ -265,7 +247,7 @@ class InternalNet extends \CallController implements NetInterface
 	// @param string $ip
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ipv4ToNumber(String $ip)
+	public function ipv4ToNumber(String $ip) : Int
 	{
 		return ip2long($ip);
 	}
@@ -277,8 +259,20 @@ class InternalNet extends \CallController implements NetInterface
 	// @param int $numberAddress
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function numberToIpv4(Int $numberAddress)
+	public function numberToIpv4(Int $numberAddress) : String
 	{
 		return long2ip($numberAddress);
+	}
+
+	//----------------------------------------------------------------------------------------------------
+	// Protected Clean HTTP
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $host
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected function cleanHttp($host)
+	{
+		return str_ireplace(['http://', 'https://'], '', $host);	
 	}
 }

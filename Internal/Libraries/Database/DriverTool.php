@@ -269,7 +269,7 @@ class DriverTool
 		
 		if( ! file_put_contents(suffix($path).$fileName, $return) )
 		{
-			\Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
+			return \Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
 		}
 		
 		return lang('Database', 'backupTablesSuccess');

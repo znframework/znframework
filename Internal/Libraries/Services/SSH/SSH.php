@@ -118,9 +118,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 		
 		if( empty($this->connect) ) 
 		{
-			\Exceptions::throws('Error', 'emptyVariable', '@this->connect');
-			
-			return $this;
+			return \Exceptions::throws('Error', 'emptyVariable', '@this->connect');
 		}
 		
 		if( ! empty($user) )
@@ -130,7 +128,7 @@ class InternalSSH extends \Requirements implements SSHInterface
 		
 		if( empty($this->login) )
 		{
-			\Exceptions::throws('Error', 'emptyVariable', '@this->login');
+			return \Exceptions::throws('Error', 'emptyVariable', '@this->login');
 		}
 		
 		return $this;

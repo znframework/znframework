@@ -46,7 +46,7 @@ interface FolderInterface
 	// Bir dizin ve içindekilerinin tamamını silmek için kullanılır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name);
+	public function delete(String $name) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// fileInfo()
@@ -65,7 +65,7 @@ interface FolderInterface
 	// ait diğer alt dizin ve dosyaları da kapsamaktadır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function copy(String $source, String $target);
+	public function copy(String $source, String $target) : Bool;
 
 	//----------------------------------------------------------------------------------------------------
 	// change()

@@ -42,7 +42,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			$message = '['.$this->_cleanClassName($debug['class']).'::'.$debug['function'].'()] '.$lang;
 		}
 
-		$this->table('', $message, $debug['file'], $debug['line']);
+		$this->table('self', $message, $debug['file'], $debug['line']);
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -62,8 +62,16 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 		$message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 		
 		report('GeneralError', $message, 'GeneralError');
-	
-		exit( $this->_template($msg, $file, $line, $no, $trace) );  
+		
+		$table = $this->_template($msg, $file, $line, $no, $trace);  
+		
+		// Error Type: TypeHint -> exit
+		if( in_array($no, ['0', '2']) )
+		{
+			exit($table);
+		}
+		
+		echo $table;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -109,13 +117,18 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 	private function _template($msg, $file, $line, $no, $trace)
 	{
 		$application = \Config::get('Application');
-
+		
 		if( ! $application['errorReporting'] )
 		{
 			return false;
 		}
 		
 		if( in_array($no, $application['escapeErrors']) )
+		{
+			return false;
+		}
+
+		if( $this->_returnValue($msg) === true )
 		{
 			return false;
 		}
@@ -215,6 +228,23 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
 			'file'	   => $fileInfo['file'],
 			'line'	   => $fileInfo['line']
 		];
+	}
+
+	//----------------------------------------------------------------------------------------------------
+    // Protected Return Value
+    //----------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    //
+    //----------------------------------------------------------------------------------------------------
+	protected function _returnValue($msg)
+	{
+		if( stripos($msg, 'Return value') === 0 )
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	//----------------------------------------------------------------------------------------------------

@@ -218,7 +218,7 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
 		}
 		else
 		{
-			\Exceptions::throws('Error', 'invalidInput', 'connectName');	
+			return \Exceptions::throws('Error', 'invalidInput', 'connectName');	
 		}
 		
 		foreach( $config as $key => $val )

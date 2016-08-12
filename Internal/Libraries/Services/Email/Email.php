@@ -369,7 +369,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param array $settings
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function settings(Array $settings = NULL)
+	public function settings(Array $settings = NULL) : InternalEmail
 	{
 		$config = \Config::get('Services', 'email');
 		
@@ -402,7 +402,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $type: plain, html
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function contentType(String $type = 'plain')
+	public function contentType(String $type = 'plain') : InternalEmail
 	{
 		$this->contentType = $type === 'plain'
 							 ? 'plain' 
@@ -417,7 +417,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $charset
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function charset(String $charset = 'UTF-8')
+	public function charset(String $charset = 'UTF-8') : InternalEmail
 	{
 		if( isCharset($charset) )
 		{
@@ -438,7 +438,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param int $count
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function priority(Int $count = 3)
+	public function priority(Int $count = 3) : InternalEmail
 	{
 		$this->priority = preg_match('/^[1-5]$/', $count) 
 						? (int)$count 
@@ -455,7 +455,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function addHeader(String $header, String $value)
+	public function addHeader(String $header, String $value) : InternalEmail
 	{
 		$this->headers[$header] = str_replace(["\n", "\r"], '', $value);
 		
@@ -469,7 +469,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function encodingType(String $type = '8bit')
+	public function encodingType(String $type = '8bit') : InternalEmail
 	{
 		$this->encodingType = $type;
 		
@@ -483,7 +483,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $multiPart
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function multiPart(String $multiPart = 'related')
+	public function multiPart(String $multiPart = 'related') : InternalEmail
 	{
 		$this->multiPart = $multiPart;
 		
@@ -497,7 +497,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpHost(String $host)
+	public function smtpHost(String $host) : InternalEmail
 	{
 		$this->smtpHost = $host;	
 		
@@ -511,7 +511,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $user
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpUser(String $user)
+	public function smtpUser(String $user) : InternalEmail
 	{
 		$this->smtpUser = $user;	
 	
@@ -525,7 +525,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param bool $dsn
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpDsn(Bool $dsn = true)
+	public function smtpDsn(Bool $dsn = true) : InternalEmail
 	{
 		$this->smtpDsn = $dsn;	
 
@@ -539,7 +539,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $pass
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpPassword(String $pass)
+	public function smtpPassword(String $pass) : InternalEmail
 	{
 		$this->smtpPassword = $pass;
 
@@ -553,7 +553,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param int $port
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpPort(Int $port = 587)
+	public function smtpPort(Int $port = 587) : InternalEmail
 	{
 		$this->smtpPort = $port;
 		
@@ -567,7 +567,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param int $timeout
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpTimeout(Int $timeout = 10)
+	public function smtpTimeout(Int $timeout = 10) : InternalEmail
 	{
 		$this->smtpTimeout = $timeout;	
 		
@@ -581,7 +581,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param bool $keepAlive
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpKeepAlive(Bool $keepAlive = true)
+	public function smtpKeepAlive(Bool $keepAlive = true) : InternalEmail
 	{
 		$this->smtpKeepAlive = $keepAlive;
 
@@ -595,7 +595,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $encode
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function smtpEncode(String $encode)
+	public function smtpEncode(String $encode) : InternalEmail
 	{
 		$this->smtpEncode = $encode;
 
@@ -631,11 +631,9 @@ class InternalEmail extends \CallController implements EmailInterface
 			}
 			else
 			{
-				\Exceptions::throws('Error', 'emailParameter', '1.('.$type.')');	
+				return \Exceptions::throws('Error', 'emailParameter', '1.('.$type.')');	
 			}
 		}
-		
-		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -646,7 +644,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function to($to, String $name = NULL)
+	public function to($to, String $name = NULL) : InternalEmail
 	{
 		$this->_to($to, $name, 'to');
 		
@@ -661,7 +659,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function receiver($to, String $name = NULL)
+	public function receiver($to, String $name = NULL) : InternalEmail
 	{
 		$this->to($to, $name);
 		
@@ -676,7 +674,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function replyTo($replyTo, String $name = NULL)
+	public function replyTo($replyTo, String $name = NULL) : InternalEmail
 	{
 		$this->_to($replyTo, $name, 'replyTo');
 		
@@ -691,7 +689,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function cc($cc, String $name = NULL)
+	public function cc($cc, String $name = NULL) : InternalEmail
 	{
 		$this->_to($cc, $name, 'cc');
 		
@@ -706,7 +704,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function bcc($bcc, String $name = NULL)
+	public function bcc($bcc, String $name = NULL) : InternalEmail
 	{
 		$this->_to($bcc, $name, 'bcc');
 		
@@ -722,7 +720,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $returnPath
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function from(String $from, String $name = NULL, String $returnPath = NULL)
+	public function from(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail
 	{
 		if( ! isEmail($from) )
 		{
@@ -750,7 +748,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $returnPath
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function sender(String $from, String $name = NULL, String $returnPath = NULL)
+	public function sender(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail
 	{
 		$this->from($from, $name, $returnPath);
 		
@@ -764,7 +762,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $subject
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function subject(String $subject)
+	public function subject(String $subject) : InternalEmail
 	{
 		$this->subject = $subject;
 		$this->addHeader('Subject', $this->subject);
@@ -779,7 +777,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function message(String $message)
+	public function message(String $message) : InternalEmail
 	{
 		$this->message = $message;
 
@@ -793,7 +791,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function content(String $message)
+	public function content(String $message) : InternalEmail
 	{
 		$this->message($message);
 		
@@ -810,7 +808,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param mixed  $mime
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL)
+	public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL) : InternalEmail
 	{
 		$mimeTypes = \Config::get('MimeTypes');
 		
@@ -890,7 +888,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @param string $message
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function send(String $subject = NULL, String $message = NULL)
+	public function send(String $subject = NULL, String $message = NULL) : Bool
 	{
 		if( ! isset($this->headers['From']) )
 		{
@@ -953,11 +951,6 @@ class InternalEmail extends \CallController implements EmailInterface
 
 		$send = $this->email->send(key($this->to), $this->subject, $this->message, $this->header, $settings);
 		
-		if( empty($send) )
-		{
-			return \Exceptions::throws('Email', 'noSend');
-		}
-		
 		$this->_defaultVariables();
 		
 		return $send;
@@ -971,7 +964,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	// @return object 	        		     			 
 	//          																				 
 	//----------------------------------------------------------------------------------------------------
-	public function driver(String $driver)
+	public function driver(String $driver) : InternalEmail
 	{
 		return new self($driver);
 	}

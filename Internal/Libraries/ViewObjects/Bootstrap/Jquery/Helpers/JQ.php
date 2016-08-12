@@ -60,14 +60,8 @@ class InternalJQ extends \CallController
 	// @return string 
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function selector($selector = '')
+	public function selector(String $selector = NULL)
 	{
-		if( ! isChar($selector) )
-		{
-			\Exceptions::throws('Error', 'valueParameter', 'selector');
-			return $this;	
-		}
-		
 		if( empty($selector) )
 		{
 			$selector = 'this';	

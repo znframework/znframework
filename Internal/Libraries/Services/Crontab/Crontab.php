@@ -1,7 +1,7 @@
 <?php
 namespace ZN\Services;
 
-class InternalCrontab extends \Requirements implements CrontabInterface, IntervalInterface
+class InternalCrontab extends \Requirements implements CrontabInterface, CrontabIntervalInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -28,7 +28,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// comands
 	//
 	//----------------------------------------------------------------------------------------------------
-	use Crontab\IntervalTrait;	
+	use CrontabIntervalTrait;	
 	
 	//----------------------------------------------------------------------------------------------------
 	// Command
@@ -153,7 +153,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function driver(String $driver)
+	public function driver(String $driver) : InternalCrontab
 	{
 		$this->driver = $driver;
 		
@@ -168,7 +168,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function connect(Array $config)
+	public function connect(Array $config) : InternalCrontab
 	{
 		\SSH::connect($config);
 		
@@ -183,7 +183,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function path(String $path = NULL)
+	public function path(String $path = NULL) : InternalCrontab
 	{
 		if( empty($path) )
 		{
@@ -203,7 +203,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function roster()
+	public function roster() : Bool
 	{
 		return $this->_exec('crontab -l');
 	}
@@ -216,11 +216,11 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function createFile(String $name = 'crontab.txt')
+	public function createFile(String $name = 'crontab.txt') : Bool
 	{
 		if( ! is_dir($this->crontabDir) )
 		{
-			\Folder::create($this->crontabDir);
+			return \Folder::create($this->crontabDir);
 		}
 		else
 		{
@@ -243,7 +243,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function deleteFile(String $name = 'crontab.txt')
+	public function deleteFile(String $name = 'crontab.txt') : Bool
 	{
 		$cronFile = $this->crontabDir.$name;
 			
@@ -253,6 +253,8 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 
 			return $this->_exec($command);
 		}
+
+		return false;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -263,7 +265,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function remove(String $name = 'crontab.txt')
+	public function remove(String $name = 'crontab.txt') : Bool
 	{
 		$this->deleteFile($name);
 		
@@ -278,7 +280,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function add()
+	public function add() : InternalCrontab
 	{		
 		$command = $this->_command();
 		
@@ -297,7 +299,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function run(String $cmd = NULL)
+	public function run(String $cmd = NULL) : Bool
 	{
 		$command = '';	
 		
@@ -378,7 +380,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function debug(Bool $status = true)
+	public function debug(Bool $status = true) : InternalCrontab
 	{
 		$this->debug = $status;
 		
@@ -393,7 +395,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function command(String $command)
+	public function command(String $command) : InternalCrontab
 	{
 		$fix = '';
 		
@@ -429,7 +431,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function callback($callback)
+	public function callback($callback) : InternalCrontab
 	{
 		\Buffer::insert('callback', $callback);
 		
@@ -444,7 +446,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function after($callback)
+	public function after($callback) : InternalCrontab
 	{
 		\Buffer::insert('after', $callback);
 		
@@ -459,7 +461,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return object
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function before($callback)
+	public function before($callback) : InternalCrontab
 	{
 		\Buffer::insert('before', $callback);
 		
@@ -474,7 +476,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function file(String $file)
+	public function file(String $file) : InternalCrontab
 	{
 		$this->type = REAL_BASE_DIR.$file;
 		
@@ -490,7 +492,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Interva
 	// @return string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function url(String $url)
+	public function url(String $url) : InternalCrontab
 	{
 		if( ! isUrl($url) )
 		{

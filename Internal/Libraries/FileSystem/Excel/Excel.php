@@ -98,9 +98,7 @@ class InternalExcel extends \CallController implements ExcelInterface
 		
 		if( ! is_file($file) )
 		{
-			\Exceptions::throws('File', 'notFoundError', $file);
-
-			return [];
+			return \Exceptions::throws('File', 'notFoundError', $file);
 		}
 		
 		$row  = 1;

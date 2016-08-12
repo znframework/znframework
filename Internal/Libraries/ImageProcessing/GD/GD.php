@@ -186,7 +186,7 @@ class InternalGD extends \CallController implements GDInterface
 		}
 		else
 		{
-			\Exceptions::throws('Error', 'fileParameter', '1.(fileName)');	
+			return \Exceptions::throws('Error', 'fileParameter', '1.(fileName)');	
 		}
 		
 		$newData['width'] 		= $data[0];
@@ -672,7 +672,7 @@ class InternalGD extends \CallController implements GDInterface
 	{
 		if( ! is_resource($sourceImage) )
 		{
-			\Exceptions::throws('Error', 'resourceParameter', '1.(sourceImage)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(sourceImage)');
 		}
 
 		imagecolormatch($this->canvas, $sourceImage);
@@ -769,7 +769,7 @@ class InternalGD extends \CallController implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			\Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt 	= isset($settings['xt'])     ? $settings['xt']	   : 0;
@@ -796,7 +796,7 @@ class InternalGD extends \CallController implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			\Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt 	 = isset($settings['xt'])      ? $settings['xt']	  : 0;
@@ -824,7 +824,7 @@ class InternalGD extends \CallController implements GDInterface
 	{
 		if( ! is_resource($source) )
 		{
-			\Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
 		}
 		
 		$xt 	 = isset($settings['xt'])      ? $settings['xt']	  : 0;
@@ -1156,7 +1156,7 @@ class InternalGD extends \CallController implements GDInterface
 	{
 		if( ! is_resource($tile) )
 		{
-			\Exceptions::throws('Error', 'resourceParameter', '1.(tile)');	
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(tile)');	
 		}
 		
 		imagesettile($this->canvas, $tile);
@@ -1204,7 +1204,7 @@ class InternalGD extends \CallController implements GDInterface
 	{	
 		if( ! is_file($file) )
 		{
-			\Exceptions::throws('Error', 'fileParameter', '1.(file)');	
+			return \Exceptions::throws('Error', 'fileParameter', '1.(file)');	
 		}
 		
 		return imageloadfont($file);	
@@ -1221,7 +1221,7 @@ class InternalGD extends \CallController implements GDInterface
 	{	
 		if( ! is_resource($source) )
 		{
-			\Exceptions::throws('Error', 'resourceParameter', '1.(source)');	
+			return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');	
 		}
 		
 		imagepalettecopy($this->canvas, $source);	

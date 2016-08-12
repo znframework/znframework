@@ -130,7 +130,7 @@ class InternalXML extends \CallController implements XMLInterface
 		}
 		else
 		{
-			\Exceptions::throws('Error', 'fileNotFound', $file);	
+			return \Exceptions::throws('Error', 'fileNotFound', $file);	
 		}
 	}
 

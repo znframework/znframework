@@ -24,7 +24,7 @@ class InternalFunctions extends \CallController implements FunctionsInterface
 	{
 		if( ! is_callable($callback) )
 		{
-			\Exceptions::throws('Error', 'callableParameter', '1.(callback)');	
+			return \Exceptions::throws('Error', 'callableParameter', '1.(callback)');	
 		}
 		
 		return call_user_func_array($callback, $params);		

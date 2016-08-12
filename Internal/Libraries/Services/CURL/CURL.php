@@ -49,7 +49,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param string $url
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function init(String $url = NULL)
+	public function init(String $url = NULL) : InternalCURL
 	{	
 		$this->init = curl_init($url);
 		
@@ -63,7 +63,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function exec()
+	public function exec() : Bool
 	{
 		if( ! is_resource($this->init) )
 		{
@@ -89,7 +89,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param string $url
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function escape(String $str)
+	public function escape(String $str) : String
 	{
 		if( ! is_resource($this->init) )
 		{
@@ -106,7 +106,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param string $url
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function unescape(String $str)
+	public function unescape(String $str) : String
 	{
 		if( ! is_resource($this->init) )
 		{
@@ -140,7 +140,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function error()
+	public function error() : String
 	{
 		if( ! is_resource($this->init) )
 		{
@@ -157,7 +157,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function errno()
+	public function errno() : Int
 	{
 		if( ! is_resource($this->init) )
 		{
@@ -174,7 +174,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param int $bitmask
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pause(Int $bitmask = 0)
+	public function pause(Int $bitmask = 0) : Int
 	{
 		if( ! empty($this->init) )
 		{
@@ -191,11 +191,13 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function reset()
+	public function reset() : Bool
 	{
 		if( ! empty($this->init) )
 		{
-			return curl_reset($this->init);
+			curl_reset($this->init);
+
+			return true;
 		}
 
 		return false;
@@ -209,7 +211,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param mixed  $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function option(String $options, $value)
+	public function option(String $options, $value) : InternalCURL
 	{		
 		$this->options[\Converter::toConstant($options, 'CURLOPT_')] = $value;
 		
@@ -223,7 +225,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function close()
+	public function close() : Bool
 	{
 		$init = $this->init;
 		
@@ -231,9 +233,11 @@ class InternalCURL extends \CallController implements CURLInterface
 		{
 			$this->init = NULL;
 			
-			return curl_close($init);
+			curl_close($init);
+
+			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -244,7 +248,7 @@ class InternalCURL extends \CallController implements CURLInterface
 	// @param int $errno
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function errval(Int $errno = 0)
+	public function errval(Int $errno = 0) : String
 	{
 		return curl_strerror($errno);
 	}

@@ -759,12 +759,6 @@ class Ajax extends \CallController
 	//----------------------------------------------------------------------------------------------------
 	protected function _object($name, $codes = [])
 	{
-		if( ! is_array($codes) )
-		{
-			\Exceptions::throws('Error', 'arrayParameter', 'codes');
-			return $this;	
-		}
-		
 		$eol = EOL;	
 		
 		$statusCode = $eol."\t$name:".$eol."\t{";
@@ -797,12 +791,6 @@ class Ajax extends \CallController
 	//----------------------------------------------------------------------------------------------------
 	protected function _functions($name, $params, $codes)
 	{
-		if( ! is_string($params) || ! is_string($codes) )
-		{
-			\Exceptions::throws('Error', 'stringParameter', 'params & codes');
-			return $this;
-		}
-		
 		$eol = EOL;
 		
 		$this->functions[$name] = $eol."\t$name:function($params)".$eol."\t{".$eol."\t\t$codes".$eol."\t}";

@@ -83,12 +83,12 @@ class InternalIV extends \CallController implements IVInterface
 	{
 		if( ! in_array($type, $this->inputs) )
 		{
-			\Exceptions::throws('Error', 'invalidInput', $type);	
+			return \Exceptions::throws('Error', 'invalidInput', $type);	
 		}
 		
 		if( ! isCharset($charset) )
 		{
-			\Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
+			return \Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
 		}
 		
 		return iconv_set_encoding($type.'_encoding', $charset);

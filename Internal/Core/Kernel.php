@@ -214,7 +214,7 @@ if( is_file($isFile) )
 			{
 				if( APPMODE !== 'publication' )
 				{
-					\Exceptions::table('', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+					\Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
 				}
 			}
 		}

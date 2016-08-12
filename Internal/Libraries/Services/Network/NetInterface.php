@@ -20,7 +20,7 @@ interface NetInterface
 	// @param string $type
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function checkDns(String $host, String $type = 'MX');
+	public function checkDns(String $host, String $type = 'MX') : Bool;
 	
 	//----------------------------------------------------------------------------------------------------
 	// DNS Records
@@ -31,7 +31,7 @@ interface NetInterface
 	// @param bool   $raw
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function dnsRecords(String $host, String $type = 'any', Bool $raw = false);
+	public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass;
 	
 	//----------------------------------------------------------------------------------------------------
 	// MX Records
@@ -40,7 +40,7 @@ interface NetInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function mxRecords(String $host);
+	public function mxRecords(String $host) : \stdClass;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Socket
@@ -71,7 +71,7 @@ interface NetInterface
 	// @param string $ip
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ipv4ToHost(String $ip);
+	public function ipv4ToHost(String $ip) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Host To IP v4
@@ -80,7 +80,7 @@ interface NetInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function hostToIpv4(String $host);
+	public function hostToIpv4(String $host) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Host To IP v4 List
@@ -89,7 +89,7 @@ interface NetInterface
 	// @param string $host
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function hostToIpv4List(String $host);
+	public function hostToIpv4List(String $host) : Array;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protocol Number
@@ -98,7 +98,7 @@ interface NetInterface
 	// @param string $name
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function protocolNumber(String $name);
+	public function protocolNumber(String $name) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Protocol Name
@@ -107,7 +107,7 @@ interface NetInterface
 	// @param int $number
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function protocolName(Int $number);
+	public function protocolName(Int $number) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Service Port
@@ -117,7 +117,7 @@ interface NetInterface
 	// @param string $protocol
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function servicePort(String $service, String $protocol);
+	public function servicePort(String $service, String $protocol) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Service Name
@@ -127,7 +127,7 @@ interface NetInterface
 	// @param string $protocol
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function serviceName(Int $port, String $protocol);
+	public function serviceName(Int $port, String $protocol) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Local
@@ -136,7 +136,7 @@ interface NetInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function local();
+	public function local() : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Rcode
@@ -154,7 +154,7 @@ interface NetInterface
 	// @param string $chr
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function chrToIpv4(String $chr);
+	public function chrToIpv4(String $chr) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Ip v4 To Chr
@@ -163,7 +163,7 @@ interface NetInterface
 	// @param string $addr
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ipv4ToChr(String $addr);
+	public function ipv4ToChr(String $addr) : String;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Ip v4 To Number
@@ -172,7 +172,7 @@ interface NetInterface
 	// @param string $ip
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function ipv4ToNumber(String $ip);
+	public function ipv4ToNumber(String $ip) : Int;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Number To IP v4
@@ -181,5 +181,5 @@ interface NetInterface
 	// @param int $numberAddress
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function numberToIpv4(Int $numberAddress);
+	public function numberToIpv4(Int $numberAddress) : String;
 }

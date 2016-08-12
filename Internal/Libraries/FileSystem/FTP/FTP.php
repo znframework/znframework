@@ -1,5 +1,5 @@
 <?php
-namespace ZN\Services;
+namespace ZN\FileSystem;
 
 class InternalFTP extends \Requirements implements FTPInterface
 {
@@ -60,7 +60,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param array $config: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function connect(Array $config = [])
+	public function connect(Array $config = []) : InternalFTP
 	{	
 		if( ! empty($config) )
 		{
@@ -89,14 +89,14 @@ class InternalFTP extends \Requirements implements FTPInterface
 							
 		if( empty($this->connect) ) 
 		{
-			return \Exceptions::throws('Error', 'emptyVariable', '@this->connect');
+			return \Exceptions::throws('Error', 'emptyVariable', 'Connect');
 		}
 		
-		$this->login = @ftp_login($this->connect, $user, $password);
+		$this->login = ftp_login($this->connect, $user, $password);
 		
 		if( empty($this->login) )
 		{
-			return false;
+			return \Exceptions::throws('Error', 'emptyVariable', 'Login');
 		}
 		
 		return $this;
@@ -109,12 +109,14 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function close()
+	public function close() : Bool
 	{
 		if( ! empty($this->connect) )
 		{
-			@ftp_close($this->connect);
+			return ftp_close($this->connect);
 		}
+
+		return false;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -124,9 +126,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function createFolder(String $path)
+	public function createFolder(String $path) : Bool
 	{
-		if( @ftp_mkdir($this->connect, $path) )
+		if( ftp_mkdir($this->connect, $path) )
 		{
 			return true;
 		}
@@ -143,9 +145,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFolder(String $path)
+	public function deleteFolder(String $path) : Bool
 	{
-		if( @ftp_rmdir($this->connect, $path) )
+		if( ftp_rmdir($this->connect, $path) )
 		{
 			return true;
 		}
@@ -163,9 +165,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function changeFolder(String $path)
+	public function changeFolder(String $path) : Bool
 	{
-		if( @ftp_chdir($this->connect, $path) )
+		if( ftp_chdir($this->connect, $path) )
 		{
 			return true;
 		}
@@ -183,9 +185,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $newName: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function rename(String $oldName, String $newName)
+	public function rename(String $oldName, String $newName) : Bool
 	{
-		if( @ftp_rename($this->connect, $oldName, $newName) )
+		if( ftp_rename($this->connect, $oldName, $newName) )
 		{
 			return true;
 		}
@@ -202,9 +204,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $path: empty
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function deleteFile(String $path)
+	public function deleteFile(String $path) : Bool
 	{
-		if( @ftp_delete($this->connect, $path) )
+		if( ftp_delete($this->connect, $path) )
 		{
 			return true;
 		}
@@ -223,9 +225,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $type      : binary, ascii
 	//
 	//----------------------------------------------------------------------------------------------------	
-	public function upload(String $localPath, String $remotePath, String $type = 'ascii')
+	public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
 	{
-		if( @ftp_put($this->connect, $remotePath, $localPath, \Converter::toConstant($type, 'FTP_')) )
+		if( ftp_put($this->connect, $remotePath, $localPath, \Converter::toConstant($type, 'FTP_')) )
 		{
 			return true;
 		}
@@ -244,9 +246,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $type      : binary, ascii
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function download(String $remotePath, String $localPath, String $type = 'ascii')
+	public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool
 	{
-		if( @ftp_get($this->connect, $localPath, $remotePath, \Converter::toConstant($type, 'FTP_')) )
+		if( ftp_get($this->connect, $localPath, $remotePath, \Converter::toConstant($type, 'FTP_')) )
 		{
 			return true;
 		}
@@ -264,9 +266,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param int $type   : 0755
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function permission(String $path, Int $type = 0755)
+	public function permission(String $path, Int $type = 0755) : Bool
 	{
-		if( @ftp_chmod($this->connect, $type, $path) )
+		if( ftp_chmod($this->connect, $type, $path) )
 		{
 			return true;
 		}
@@ -284,9 +286,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param string $extension: empty
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function files(String $path, String $extension = NULL)
+	public function files(String $path, String $extension = NULL) : Array
 	{
-		$list = @ftp_nlist($this->connect, $path);
+		$list = ftp_nlist($this->connect, $path);
 	
 		if( ! empty($list) ) foreach( $list as $file )
 		{
@@ -324,7 +326,9 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Error', 'emptyVariable', '@files');	
+			$this->error = lang('Error', 'emptyVariable', '@files');	
+
+			return [];
 		}
 	}
 	
@@ -337,7 +341,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @param int    $decimal: 2
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function fileSize(String $path, String $type = 'b', Int $decimal = 2)
+	public function fileSize(String $path, String $type = 'b', Int $decimal = 2) : Float
 	{
 		$size = 0;
 		
@@ -345,21 +349,22 @@ class InternalFTP extends \Requirements implements FTPInterface
 		
 		if( ! empty($extension) )
 		{
-			$size = @ftp_size($this->connect, $path);
+			$size = ftp_size($this->connect, $path);
 		}
 		else
 		{
 			if( $this->files($path) )
 			{
-				foreach($this->files($path) as $val)
+				foreach( $this->files($path) as $val )
 				{	
-					$size += @ftp_size($this->connect, $path."/".$val);	
+					$size += ftp_size($this->connect, $path."/".$val);	
 				}
-				$size += @ftp_size($this->connect, $path);
+
+				$size += ftp_size($this->connect, $path);
 			}
 			else
 			{
-				$size += @ftp_size($this->connect, $path);
+				$size += ftp_size($this->connect, $path);
 			}	
 		}
 		

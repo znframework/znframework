@@ -40,7 +40,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! file_exists($oldName) )
 		{
-            \Exceptions::throws('Folder', 'notFoundError', $oldName);
+            return \Exceptions::throws('Folder', 'notFoundError', $oldName);
 		}
 
 		return rename($oldName, $newName);
@@ -70,18 +70,18 @@ class InternalFolder extends \CallController implements FolderInterface
 	// Bir dizini içindekilerle birlikte silmek için kullanılır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function delete(String $name)
+	public function delete(String $name) : Bool
 	{
 		if( ! file_exists($name) )
 		{
-			\Exceptions::throws('Folder', 'notFoundError', $name);
+			return \Exceptions::throws('Folder', 'notFoundError', $name);
 		}
 
 		// Is File
 		if( is_file($name) )
 		{
 			// Delete File
-			\File::delete($name);	
+			return \File::delete($name);	
 		}
 		else
 		{
@@ -89,14 +89,14 @@ class InternalFolder extends \CallController implements FolderInterface
 			if( ! $this->files($name) )
 			{
 				// Delete Empty Dir
-				$this->deleteEmpty($name);
+				return $this->deleteEmpty($name);
 			}	
 			else
 			{			
 				// Delete
-				for($i = 0; $i < count($this->files($name)); $i++)
+				for( $i = 0; $i < count($this->files($name)); $i++ )
 				{
-					foreach($this->files($name) as $val)
+					foreach( $this->files($name) as $val )
 					{					
 						$this->delete($name."/".$val);
 					}
@@ -104,7 +104,7 @@ class InternalFolder extends \CallController implements FolderInterface
 			}
 			
 			// Delete Empty Dir
-			$this->deleteEmpty($name);
+			return $this->deleteEmpty($name);
 		}
 	}
 	
@@ -144,7 +144,7 @@ class InternalFolder extends \CallController implements FolderInterface
 		}
 		else
 		{
-			\Exceptions::throws('Folder', 'notFoundError', $dir);
+			return \Exceptions::throws('Folder', 'notFoundError', $dir);
 		}	
 	}
 	
@@ -156,18 +156,18 @@ class InternalFolder extends \CallController implements FolderInterface
 	// ait diğer alt dizin ve dosyaları da kapsamaktadır.
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function copy(String $source, String $target)
+	public function copy(String $source, String $target) : Bool
 	{
 		if( ! file_exists($source) )
 		{
-			\Exceptions::throws('Folder', 'notFoundError', $source);
+			return \Exceptions::throws('Folder', 'notFoundError', $source);
 		}
 		
 		if( is_dir($source) )
 		{
 			if( ! $this->files($source) )
 			{
-				copy($source, $target);
+				return copy($source, $target);
 			}
 			else
 			{			
@@ -176,7 +176,7 @@ class InternalFolder extends \CallController implements FolderInterface
 					$this->create($target);
 				}
 				
-				if( is_array($this->files($source)) )foreach( $this->files($source) as $val )
+				if( is_array($this->files($source)) ) foreach( $this->files($source) as $val )
 				{
 					$sourceDir = $source."/".$val;
 					$targetDir = $target."/".$val;
@@ -187,12 +187,14 @@ class InternalFolder extends \CallController implements FolderInterface
 					}
 					
 					$this->copy($sourceDir, $targetDir);
-				}							
+				}	
+
+				return true;						
 			}		
 		}
 		else
 		{
-			copy($source, $target);	
+			return copy($source, $target);	
 		}
 	}
 	
@@ -207,7 +209,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! is_dir($name) )
 		{
-            \Exceptions::throws('Folder', 'notFoundError', $name);
+            return \Exceptions::throws('Folder', 'notFoundError', $name);
 		}
 
 		return chdir($name);
@@ -225,6 +227,11 @@ class InternalFolder extends \CallController implements FolderInterface
 	//----------------------------------------------------------------------------------------------------
 	public function files(String $path, $extension = NULL) : Array
 	{
+		if( ! is_dir($path) )
+		{
+			return \Exceptions::throws('Folder', 'notFoundError', $path);
+		}
+
 		if( is_array($extension) )
 		{
 			$allFiles = [];
@@ -299,7 +306,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 	    if( ! file_exists($name) )
         {
-            \Exceptions::throws('File', 'notFoundError', $name);
+            return \Exceptions::throws('File', 'notFoundError', $name);
         }
 
 		return \File::permission($name, $permission);
@@ -310,11 +317,6 @@ class InternalFolder extends \CallController implements FolderInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _files($path, $extension)
 	{
-		if( ! is_dir($path) )
-		{
-			\Exceptions::throws('Folder', 'notFoundError', $path);
-		}
-		
 		$files = [];
 		
 		if( empty($path) )

@@ -62,14 +62,14 @@ class InternalImage extends \CallController implements ImageInterface
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($filePath) )
 		{
-			\Exceptions::throws('Image', 'notFoundError', $filePath);	
+			return \Exceptions::throws('Image', 'notFoundError', $filePath);	
 		}
 		
 		// Dosyanın uzantısı belirlenen uzantılır dışında
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! $this->isImageFile($filePath) )
 		{
-			\Exceptions::throws('Image', 'notImageFileError', $filePath);	
+			return \Exceptions::throws('Image', 'notImageFileError', $filePath);	
 		}
 		
 		// Ayarlar parametresinde tanımlayan ayarlara
@@ -199,7 +199,7 @@ class InternalImage extends \CallController implements ImageInterface
 		
 		if( empty($g) )
 		{
-			\Exceptions::throws('Image', 'notFoundError', $path);	
+			return \Exceptions::throws('Image', 'notFoundError', $path);	
 		}
 		
 		$x = $g[0]; $y = $g[1];

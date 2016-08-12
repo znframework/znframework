@@ -55,8 +55,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($direction) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'direction');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'direction');
 		}
 		
 		$this->transitions .= $this->_transitions("animation-direction:$direction;".EOL);
@@ -79,8 +78,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($status) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'status');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'status');
 		}
 		
 		$this->transitions .= $this->_transitions("animation-play-state:$status;".EOL);
@@ -103,8 +101,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($fill) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'fill');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'fill');	
 		}
 		
 		$this->transitions .= $this->_transitions("animation-fill-mode:$fill;".EOL);
@@ -127,8 +124,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($repeat) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'repeat');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'repeat');	
 		}
 		
 		$this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".EOL);
@@ -151,8 +147,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($duration) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'duration');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'duration');
 		}
 		
 		if(is_numeric($duration))
@@ -180,8 +175,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($delay) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'delay');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'delay');	
 		}
 		
 		if( is_numeric($delay) )
@@ -209,8 +203,7 @@ class Animation extends \CallController
 	{
 		if( ! is_scalar($easing) )
 		{
-			\Exceptions::throws('Error', 'valueParameter', 'easing');
-			return $this;	
+			return \Exceptions::throws('Error', 'valueParameter', 'easing');
 		}
 		
 		$this->transitions .= $this->_transitions("animation-timing-function:$easing;".EOL);

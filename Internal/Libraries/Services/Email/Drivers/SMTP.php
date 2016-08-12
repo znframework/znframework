@@ -124,7 +124,6 @@ class SMTPDriver extends EmailMappingAbstract
 		}
 		
 		stream_set_timeout($this->connect, $this->timeout);
-		\Exceptions::throws($this->_getData());
 		
 		if( $this->encode === 'tls' )
 		{
@@ -194,8 +193,6 @@ class SMTPDriver extends EmailMappingAbstract
 		$this->_setData('.');
 		
 		$reply = $this->_getData();
-		
-		\Exceptions::throws($reply);
 		
 		if( strpos($reply, '250') !== 0 )
 		{
@@ -329,9 +326,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		$reply = $this->_getData();
 		
-		\Exceptions::throws($cmd.': '.$reply);
-		
-		if( (int)substr($reply, 0, 3) !== $resp )
+		if( (int) substr($reply, 0, 3) !== $resp )
 		{
 			return \Exceptions::throws('Email', 'smtpError', $reply);
 		}
