@@ -1,7 +1,7 @@
 <?php
-namespace ZN\IndividualStructures;
+namespace ZN\ViewObjects;
 
-trait ValidationPropertiesTrait
+interface ValidationInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,27 +13,13 @@ trait ValidationPropertiesTrait
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Settings
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @var array
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $settings = [];
-	
-	//----------------------------------------------------------------------------------------------------
 	// method()
 	//----------------------------------------------------------------------------------------------------
 	//
 	// @param string $method
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function method(String $method) : InternalValidation
-	{
-		$this->settings['method'] = $method;
-		
-		return $this;
-	}
+	public function method(String $method) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// value()
@@ -42,12 +28,7 @@ trait ValidationPropertiesTrait
 	// @param string $value
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function value(String $value) : InternalValidation
-	{
-		$this->settings['value'] = $value;
-		
-		return $this;
-	}
+	public function value(String $value) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// required()
@@ -56,12 +37,7 @@ trait ValidationPropertiesTrait
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function required() : InternalValidation
-	{
-		$this->settings['config'][] = 'required';
-		
-		return $this;
-	}
+	public function required() : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// numeric()
@@ -70,12 +46,25 @@ trait ValidationPropertiesTrait
 	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function numeric() : InternalValidation
-	{
-		$this->settings['config'][] = 'numeric';
-		
-		return $this;
-	}
+	public function numeric() : InternalValidation;
+	
+	//----------------------------------------------------------------------------------------------------
+	// alpha()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alpha() : InternalValidation;
+	
+	//----------------------------------------------------------------------------------------------------
+	// alnum()
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function alnum() : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// match()
@@ -84,12 +73,7 @@ trait ValidationPropertiesTrait
 	// @param string $match
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function match(String $match) : InternalValidation
-	{
-		$this->settings['config']['match'] = $match;
-		
-		return $this;
-	}
+	public function match(String $match) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// matchPassword()
@@ -98,12 +82,7 @@ trait ValidationPropertiesTrait
 	// @param string $match
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function matchPassword(String $match) : InternalValidation
-	{
-		$this->settings['config']['matchPassword'] = $match;
-		
-		return $this;
-	}
+	public function matchPassword(String $match) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// oldPassword()
@@ -112,12 +91,7 @@ trait ValidationPropertiesTrait
 	// @param string $oldPassword
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function oldPassword(String $oldPassword) : InternalValidation
-	{
-		$this->settings['config']['oldPassword'] = $oldPassword;
-		
-		return $this;
-	}
+	public function oldPassword(String $oldPassword) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// compare()
@@ -127,13 +101,7 @@ trait ValidationPropertiesTrait
 	// @param numeric $max
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function compare(Int $min = NULL, Int $max = NULL) : InternalValidation
-	{
-		$this->settings['config']['minchar'] = $min;
-		$this->settings['config']['maxchar'] = $max;
-		
-		return $this;
-	}
+	public function compare(Int $min = NULL, Int $max = NULL) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// validate()
@@ -142,12 +110,7 @@ trait ValidationPropertiesTrait
 	// @param args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function validate(...$args) : InternalValidation
-	{
-		$this->settings['validate'] = $args;
-		
-		return $this;
-	}
+	public function validate(...$args) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// secure()
@@ -156,12 +119,7 @@ trait ValidationPropertiesTrait
 	// @param args
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function secure(...$args) : InternalValidation
-	{
-		$this->settings['secure'] = $args;
-		
-		return $this;
-	}
+	public function secure(...$args) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// pattern()
@@ -171,13 +129,8 @@ trait ValidationPropertiesTrait
 	// @param string $char
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function pattern(String $pattern, String $char = NULL) : InternalValidation
-	{
-		$this->settings['config']['pattern'] = presuffix($pattern).$char;
-		
-		return $this;
-	}
-	
+	public function pattern(String $pattern, String $char = NULL) : InternalValidation;
+
 	//----------------------------------------------------------------------------------------------------
 	// phone()
 	//----------------------------------------------------------------------------------------------------
@@ -185,47 +138,7 @@ trait ValidationPropertiesTrait
 	// @param string $design
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function phone(String $design = NULL) : InternalValidation
-	{
-		if( empty($design) )
-		{
-			$this->settings['config'][] = 'phone';
-		}
-		else
-		{
-			$this->settings['config']['phone'] = $design;
-		}
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// alpha()
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function alpha() : InternalValidation
-	{
-		$this->settings['config'][] = 'alpha';
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// alnum()
-	//----------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function alnum() : InternalValidation
-	{
-		$this->settings['config'][] = 'alnum';
-		
-		return $this;
-	}
+	public function phone(String $design = NULL) : InternalValidation;
 	
 	//----------------------------------------------------------------------------------------------------
 	// captcha()
@@ -234,10 +147,45 @@ trait ValidationPropertiesTrait
 	// @param string $captcha
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function captcha(String $captcha) : InternalValidation
-	{
-		$this->settings['config']['captcha'] = $captcha;
-		
-		return $this;
-	}
+	public function captcha(String $captcha) : InternalValidation;
+	
+	//----------------------------------------------------------------------------------------------------
+	// Rules
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	// @param array  $config
+	// @param string $viewName
+	// @param string $met
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post');
+	
+	//----------------------------------------------------------------------------------------------------
+	// Nval
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function nval(String $name);
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function error(String $name = 'array');
+	
+	//----------------------------------------------------------------------------------------------------
+	// Error
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @param string $name
+	// @param string $met
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function postBack(String $name, String $met = 'post');
 }

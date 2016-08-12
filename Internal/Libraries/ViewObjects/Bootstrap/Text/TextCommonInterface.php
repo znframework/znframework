@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-interface BootstrapInterface
+interface TextCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

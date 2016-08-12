@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-trait CommonTrait
+class InternalScript extends \CallController implements TextCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,129 +13,106 @@ trait CommonTrait
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// FormElementsTrait
+	// Ready
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// elements ...
+	// @var bool
 	//
 	//----------------------------------------------------------------------------------------------------
-	use FormElementsTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// HTMLElementsTrait
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// elements ...
-	//
-	//----------------------------------------------------------------------------------------------------
-	use HTMLElementsTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// $settings
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Ayarları tutmak için
-	//
-	// @var array
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $settings = [];
-	
-	//----------------------------------------------------------------------------------------------------
-	// Attributes
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @param array $attributes
-	//
-	//----------------------------------------------------------------------------------------------------
-	public function attributes(Array $attributes) : String
-	{
-		$attribute = '';
-		
-		if( ! empty($this->settings['attr']) )
-		{
-			$attributes = array_merge($attributes, $this->settings['attr']);	
-			
-			$this->settings['attr'] = [];						
-		}
-
-		foreach( $attributes as $key => $values )
-		{
-			if( is_numeric($key) )
-			{
-				$attribute .= ' '.$values;
-			}
-			else
-			{
-				if( ! empty($key) )
-				{
-					$attribute .= ' '.$key.'="'.$values.'"';
-				}
-			}
-		}	
-	
-		return $attribute;	
-	}
+	protected $ready = true;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Type
 	//----------------------------------------------------------------------------------------------------
-	//
-	// @param string $type
-	// @param string $name
-	// @param string $value
-	// @param array  $attributes
+	// 
+	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $_attributes = []) : String
+	protected $type  = 'text/javascript';
+	
+	//----------------------------------------------------------------------------------------------------
+	// Type
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param string $type()
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function type(String $type)
 	{
-		if( isset($this->settings['attr']['type']) )
-		{
-			$type = $this->settings['attr']['type'];
-			
-			unset($this->settings['attr']['type']);
-		}
+		$this->type = $type;
 		
-		$this->settings['attr'] = [];	
-		
-		return $this->_input($name, $value, $_attributes, $type);
+		return $this;
 	}
 	
 	//----------------------------------------------------------------------------------------------------
-	// Protected Attributes
+	// Library
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $name
-	// @param string $value
-	// @param array  $_attributes
-	// @param string $type
+	// @param variadic $libraries
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _input($name = "", $value = "", $_attributes = [], $type = '')
+	public function library(...$libraries)
 	{
-		if( $name !== '' )
+		\Import::script(...$libraries);
+		
+		return $this;
+	}
+	
+	//----------------------------------------------------------------------------------------------------
+	// Open
+	//----------------------------------------------------------------------------------------------------
+	// 
+	// @param bool $ready
+	// @param bool $jqueryCdn
+	// @param bool $jqueryUiCdn
+	//
+	//----------------------------------------------------------------------------------------------------
+	public function open(Bool $ready = true, Bool $jqueryCdn = false, Bool $jqueryUiCdn = false) : String
+	{		
+		$this->ready = $ready;
+		
+		$eol     = EOL;
+		$script  = "";
+		
+		if( $jqueryCdn === true ) 
 		{
-			$_attributes['name'] = $name;
+			$script .= \Import::script('jquery', true);
 		}
 		
-		if( $value !== '' )
+		if( $jqueryUiCdn === true ) 
 		{
-			$_attributes['value'] = $value;
+			$script .= \Import::script('jqueryUi', true);
 		}
+		
+		$script .= "<script type=\"$this->type\">".$eol;
+		
+		if( $this->ready === true )
+		{
+			$script .= "$(document).ready(function()".$eol."{".$eol;
+		}
+		
+		return $script;
+	}
 
-		return '<input type="'.$type.'"'.$this->attributes($_attributes).'>'.EOL;
-	}
-	
 	//----------------------------------------------------------------------------------------------------
-	// protected _element()
+	// Close
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param string $function
-	// @param string $element
+	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _element($function, $element)
-	{
-		$this->settings['attr'][strtolower($function)] = $element;
-	}
+	public function close() : String
+	{	
+		$script = "";
+		$eol    = EOL;
+		
+		if( $this->ready === true )
+		{
+			$script .= $eol.'});';
+		}
+		
+		$script .=  $eol.'</script>'.$eol;
+		
+		return $script;
+	}	
 }

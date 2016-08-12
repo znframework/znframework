@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalForm extends \CallController implements FormInterface, CommonInterface
+class InternalForm extends \CallController implements FormInterface, ViewCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -22,6 +22,15 @@ class InternalForm extends \CallController implements FormInterface, CommonInter
 	//
 	//----------------------------------------------------------------------------------------------------
 	protected $validate = [];
+
+	//----------------------------------------------------------------------------------------------------
+	// $method
+	//----------------------------------------------------------------------------------------------------
+	//
+	// @var string
+	//
+	//----------------------------------------------------------------------------------------------------
+	protected $method;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Common
@@ -31,7 +40,7 @@ class InternalForm extends \CallController implements FormInterface, CommonInter
 	// _input()
 	//
 	//----------------------------------------------------------------------------------------------------
-	use CommonTrait;
+	use ViewCommonTrait;
 	
 	//----------------------------------------------------------------------------------------------------
 	// Open
@@ -66,7 +75,9 @@ class InternalForm extends \CallController implements FormInterface, CommonInter
 		{
 			$_attributes['method'] = 'post';
 		}
-		
+
+		$this->method = $_attributes['method'];
+
 		$return = '<form'.$this->attributes($_attributes).'>'.EOL;	
 		
 		return $return;
@@ -272,6 +283,17 @@ class InternalForm extends \CallController implements FormInterface, CommonInter
 		{
 			$value = $this->settings['attr']['value'];
 		}
+
+		if( ! empty($this->settings['attr']['name']) )
+		{
+			if( isset($this->postback['bool']) && $this->postback['bool'] === true )
+			{
+				$method = ! empty($this->method) ? $this->method : $this->postback['type'];
+				$value  = \Validation::postBack($this->settings['attr']['name'], $method);
+
+				$this->postback = [];
+			}
+		}
 		
 		return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
 	}
@@ -451,6 +473,17 @@ class InternalForm extends \CallController implements FormInterface, CommonInter
 		if( $name !== '' )
 		{
 			$_attributes['name'] = $name;	
+		}
+
+		if( ! empty($_attributes['name']) )
+		{
+			if( isset($this->postback['bool']) && $this->postback['bool'] === true )
+			{
+				$method   = ! empty($this->method) ? $this->method : $this->postback['type'];
+				$selected = \Validation::postBack($_attributes['name'], $method);
+
+				$this->postback = [];
+			}
 		}
 				  
 		$selectbox = '<select'.$this->attributes($_attributes).'>';

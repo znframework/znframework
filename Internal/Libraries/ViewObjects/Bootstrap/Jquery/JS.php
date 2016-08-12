@@ -1,5 +1,5 @@
 <?php
-namespace ZN\ViewObjects\Javascript;
+namespace ZN\ViewObjects;
 
 class InternalJS extends \CallController
 {

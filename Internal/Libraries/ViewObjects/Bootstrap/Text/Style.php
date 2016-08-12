@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-class InternalScript extends \CallController implements BootstrapInterface
+class InternalStyle extends \CallController implements TextCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//
@@ -13,22 +13,13 @@ class InternalScript extends \CallController implements BootstrapInterface
 	//----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
-	// Ready
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// @var bool
-	//
-	//----------------------------------------------------------------------------------------------------
-	protected $ready = true;
-	
-	//----------------------------------------------------------------------------------------------------
 	// Type
 	//----------------------------------------------------------------------------------------------------
 	// 
 	// @var string
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected $type  = 'text/javascript';
+	protected $type = 'text/css';
 	
 	//----------------------------------------------------------------------------------------------------
 	// Type
@@ -40,7 +31,7 @@ class InternalScript extends \CallController implements BootstrapInterface
 	public function type(String $type)
 	{
 		$this->type = $type;
-		
+
 		return $this;
 	}
 	
@@ -53,7 +44,7 @@ class InternalScript extends \CallController implements BootstrapInterface
 	//----------------------------------------------------------------------------------------------------
 	public function library(...$libraries)
 	{
-		\Import::script(...$libraries);
+		\Import::style(...$libraries);
 		
 		return $this;
 	}
@@ -62,38 +53,16 @@ class InternalScript extends \CallController implements BootstrapInterface
 	// Open
 	//----------------------------------------------------------------------------------------------------
 	// 
-	// @param bool $ready
-	// @param bool $jqueryCdn
-	// @param bool $jqueryUiCdn
+	// @param void
 	//
 	//----------------------------------------------------------------------------------------------------
-	public function open(Bool $ready = true, Bool $jqueryCdn = false, Bool $jqueryUiCdn = false) : String
+	public function open() : String 
 	{		
-		$this->ready = $ready;
-		
-		$eol     = EOL;
-		$script  = "";
-		
-		if( $jqueryCdn === true ) 
-		{
-			$script .= \Import::script('jquery', true);
-		}
-		
-		if( $jqueryUiCdn === true ) 
-		{
-			$script .= \Import::script('jqueryUi', true);
-		}
-		
-		$script .= "<script type=\"$this->type\">".$eol;
-		
-		if( $this->ready === true )
-		{
-			$script .= "$(document).ready(function()".$eol."{".$eol;
-		}
+		$script = "<style type=\"$this->type\">".EOL;
 		
 		return $script;
 	}
-
+	
 	//----------------------------------------------------------------------------------------------------
 	// Close
 	//----------------------------------------------------------------------------------------------------
@@ -103,16 +72,7 @@ class InternalScript extends \CallController implements BootstrapInterface
 	//----------------------------------------------------------------------------------------------------
 	public function close() : String
 	{	
-		$script = "";
-		$eol    = EOL;
-		
-		if( $this->ready === true )
-		{
-			$script .= $eol.'});';
-		}
-		
-		$script .=  $eol.'</script>'.$eol;
-		
+		$script =  '</style>'.EOL;
 		return $script;
 	}	
 }

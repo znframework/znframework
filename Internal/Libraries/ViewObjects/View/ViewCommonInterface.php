@@ -1,7 +1,7 @@
 <?php
 namespace ZN\ViewObjects;
 
-interface CommonInterface
+interface ViewCommonInterface
 {
 	//----------------------------------------------------------------------------------------------------
 	//

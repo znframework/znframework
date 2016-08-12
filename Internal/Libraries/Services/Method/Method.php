@@ -148,15 +148,20 @@ class InternalMethod extends \CallController implements MethodInterface
 			return true;
 		}
 
-		if( is_scalar($input[$name]) )
+		if( isset($input[$name]) )
 		{
-			return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
-		}
-		elseif( is_array($input[$name]) )
-		{
-			return array_map('Security::htmlEncode', $input[$name]);
-		}
+			if( is_scalar($input[$name]) )
+			{
+				return htmlspecialchars($input[$name], ENT_QUOTES, "utf-8");
+			}
+			elseif( is_array($input[$name]) )
+			{
+				return array_map('Security::htmlEncode', $input[$name]);
+			}
 		
-		return $input[$name];
+			return $input[$name];
+		}
+
+		return false;
 	}
 }
