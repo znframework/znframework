@@ -1,5 +1,4 @@
-<?php 
-namespace ZN\EncodingSupport;
+<?php namespace ZN\EncodingSupport;
 
 class InternalIV extends \CallController implements IVInterface
 {

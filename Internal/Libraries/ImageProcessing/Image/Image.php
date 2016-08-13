@@ -1,5 +1,4 @@
-<?php
-namespace ZN\ImageProcessing;
+<?php namespace ZN\ImageProcessing;
 
 class InternalImage extends \CallController implements ImageInterface
 {

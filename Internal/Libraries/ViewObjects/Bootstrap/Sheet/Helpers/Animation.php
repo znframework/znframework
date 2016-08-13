@@ -1,5 +1,4 @@
-<?php
-namespace ZN\ViewObjects\Sheet\Helpers;
+<?php namespace ZN\ViewObjects\Sheet\Helpers;
 
 use ZN\ViewObjects\SheetTrait;
 

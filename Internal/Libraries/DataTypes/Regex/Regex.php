@@ -1,5 +1,4 @@
-<?php
-namespace ZN\DataTypes;
+<?php namespace ZN\DataTypes;
 
 class InternalRegex extends \Requirements implements RegexInterface
 {

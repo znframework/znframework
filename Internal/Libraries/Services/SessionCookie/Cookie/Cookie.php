@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Services;
+<?php namespace ZN\Services;
 
 class InternalCookie extends \Requirements implements CookieInterface, SessionCookieCommonInterface
 {

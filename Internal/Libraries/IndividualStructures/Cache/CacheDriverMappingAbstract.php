@@ -1,5 +1,4 @@
-<?php
-namespace ZN\IndividualStructures\Abstracts;
+<?php namespace ZN\IndividualStructures\Abstracts;
 
 abstract class CacheDriverMappingAbstract
 {

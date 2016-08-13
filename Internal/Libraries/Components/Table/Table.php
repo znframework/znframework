@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Components;
+<?php namespace ZN\Components;
 
 class InternalTable extends \CallController implements TableInterface
 {

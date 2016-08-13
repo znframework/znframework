@@ -1,5 +1,4 @@
-<?php
-interface ThrowablesInterface extends Throwable
+<?php interface ThrowablesInterface extends Throwable
 {
 	//----------------------------------------------------------------------------------------------------
     //

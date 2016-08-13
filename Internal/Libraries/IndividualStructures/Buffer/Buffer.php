@@ -1,5 +1,4 @@
-<?php 
-namespace ZN\IndividualStructures;
+<?php namespace ZN\IndividualStructures;
 
 class InternalBuffer extends \CallController implements BufferInterface
 {

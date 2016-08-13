@@ -1,5 +1,4 @@
-<?php
-namespace ZN\ImageProcessing;
+<?php namespace ZN\ImageProcessing;
 
 interface ThumbInterface
 {

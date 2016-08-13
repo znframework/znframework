@@ -1,5 +1,4 @@
-<?php
-namespace ZN\ViewObjects;
+<?php namespace ZN\ViewObjects;
 
 class InternalStyle extends \CallController implements TextCommonInterface
 {

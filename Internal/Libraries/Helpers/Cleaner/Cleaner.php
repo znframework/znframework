@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Helpers;
+<?php namespace ZN\Helpers;
 
 class InternalCleaner extends \CallController implements CleanerInterface
 {

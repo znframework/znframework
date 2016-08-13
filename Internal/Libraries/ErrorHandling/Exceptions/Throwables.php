@@ -1,5 +1,4 @@
-<?php
-class Throwables extends Exception implements ThrowablesInterface
+<?php class Throwables extends Exception implements ThrowablesInterface
 {
 	//----------------------------------------------------------------------------------------------------
     //

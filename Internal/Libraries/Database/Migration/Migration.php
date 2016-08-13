@@ -1,5 +1,4 @@
-<?php	
-namespace ZN\Database;
+<?php namespace ZN\Database;
 
 class InternalMigration extends \CallController implements MigrationInterface
 {	

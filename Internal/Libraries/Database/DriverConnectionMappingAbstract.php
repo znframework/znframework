@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Database\Abstracts;
+<?php namespace ZN\Database\Abstracts;
 
 abstract class DriverConnectionMappingAbstract
 {

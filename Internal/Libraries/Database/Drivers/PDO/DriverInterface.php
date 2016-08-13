@@ -1,5 +1,4 @@
-<?php	
-namespace ZN\Database\Drivers\PDO;
+<?php namespace ZN\Database\Drivers\PDO;
 
 interface DriverInterface
 {

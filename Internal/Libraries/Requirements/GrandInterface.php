@@ -1,5 +1,4 @@
-<?php
-namespace ZN;
+<?php namespace ZN;
 
 interface GrandInterface
 {

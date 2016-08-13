@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Database\DB\Traits;
+<?php namespace ZN\Database\DB\Traits;
 
 trait VariableTypesTrait
 {

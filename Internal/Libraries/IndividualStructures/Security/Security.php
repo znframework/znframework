@@ -1,5 +1,4 @@
-<?php 
-namespace ZN\IndividualStructures;
+<?php namespace ZN\IndividualStructures;
 
 class InternalSecurity extends \Requirements implements SecurityInterface
 {

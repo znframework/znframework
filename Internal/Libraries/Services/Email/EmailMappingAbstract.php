@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Services\Abstracts;
+<?php namespace ZN\Services\Abstracts;
 
 abstract class EmailMappingAbstract
 {

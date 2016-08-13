@@ -1,5 +1,4 @@
-<?php	
-namespace ZN\DataTypes;
+<?php namespace ZN\DataTypes;
 
 class InternalVars extends \CallController implements VarsInterface
 {

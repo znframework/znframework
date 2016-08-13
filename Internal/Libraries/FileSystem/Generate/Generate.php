@@ -1,5 +1,4 @@
-<?php
-namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem;
 
 class InternalGenerate extends \CallController implements GenerateInterface
 {

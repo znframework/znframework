@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Cryptography\Drivers;
+<?php namespace ZN\Cryptography\Drivers;
 
 use ZN\Cryptography\CryptoMapping;
 

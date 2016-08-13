@@ -1,5 +1,4 @@
-<?php
-namespace ZN\DateTime;
+<?php namespace ZN\DateTime;
 
 class InternalTime extends DateTimeCommon implements DateTimeCommonInterface
 {

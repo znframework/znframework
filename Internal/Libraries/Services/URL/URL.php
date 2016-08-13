@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Services;
+<?php namespace ZN\Services;
 
 class InternalURL extends \CallController implements URLInterface
 {

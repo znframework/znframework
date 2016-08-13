@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Database\Drivers;
+<?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 

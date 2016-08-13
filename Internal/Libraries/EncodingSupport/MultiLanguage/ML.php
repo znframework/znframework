@@ -1,5 +1,4 @@
-<?php 
-namespace ZN\EncodingSupport;
+<?php namespace ZN\EncodingSupport;
 
 class InternalML extends \Requirements implements MLInterface
 {

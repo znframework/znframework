@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Helpers;
+<?php namespace ZN\Helpers;
 
 class InternalLimiter extends \CallController implements LimiterInterface
 {

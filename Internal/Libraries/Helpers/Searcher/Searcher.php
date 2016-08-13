@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Helpers;
+<?php namespace ZN\Helpers;
 
 class InternalSearcher extends \CallController implements SearcherInterface
 {

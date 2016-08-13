@@ -1,5 +1,4 @@
-<?php
-namespace ZN\ErrorHandling;
+<?php namespace ZN\ErrorHandling;
 
 class InternalExceptions extends \Exception implements ExceptionsInterface
 {

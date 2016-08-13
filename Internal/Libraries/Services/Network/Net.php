@@ -1,5 +1,4 @@
-<?php 
-namespace ZN\Services;
+<?php namespace ZN\Services;
 
 class InternalNet extends \CallController implements NetInterface
 {

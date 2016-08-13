@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Cryptography;
+<?php namespace ZN\Cryptography;
 
 class InternalCrypto extends \CallController implements CryptoInterface
 {

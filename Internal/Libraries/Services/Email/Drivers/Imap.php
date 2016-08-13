@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Services\Drivers;
+<?php namespace ZN\Services\Drivers;
 
 use ZN\Services\Abstracts\EmailMappingAbstract;
 

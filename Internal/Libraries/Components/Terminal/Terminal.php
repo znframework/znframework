@@ -1,5 +1,4 @@
-<?php
-namespace ZN\Components;
+<?php namespace ZN\Components;
 
 class InternalTerminal extends \Requirements implements TerminalInterface
 {

@@ -1,5 +1,4 @@
-<?php
-namespace ZN\ErrorHandling;
+<?php namespace ZN\ErrorHandling;
 
 class InternalErrors implements ErrorsInterface
 {
