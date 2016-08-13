@@ -10,23 +10,26 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------
-// DB Grid
-//----------------------------------------------------------------------------------------------------
-//
-// DB Grid Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['Components']['dbgrid:processLabel'] 		= 'İşlemler';
-$lang['Components']['dbgrid:deleteButton'] 		= 'Sil';
-$lang['Components']['dbgrid:editButton']   		= 'Düzenle';
-$lang['Components']['dbgrid:saveButton']   		= 'Kaydet';
-$lang['Components']['dbgrid:updateButton']   	= 'Güncelle';
-$lang['Components']['dbgrid:addButton']    		= 'Yeni Ekle';
-$lang['Components']['dbgrid:deleteSelectedName']= 'Seçilileri Sil';
-$lang['Components']['dbgrid:deleteAllName']     = 'Tüm Sayfayı Sil';
-$lang['Components']['dbgrid:totalRowsText']     = 'Toplam Kayıt Sayısı';
-$lang['Components']['dbgrid:searchHolder']     	= 'Arama...';
-$lang['Components']['dbgrid:inputsHolder']      = 'Veri girin!';
-$lang['Components']['dbgrid:areYouSure']        = 'Bu işlemi yapmak istediğinizden emin misiniz?';
-$lang['Components']['dbgrid:noData']            = 'Gösterilecek veri bulunamadı!';
+return
+[
+	//------------------------------------------------------------------------------------------------
+	// DB Grid
+	//------------------------------------------------------------------------------------------------
+	//
+	// DB Grid Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'dbgrid:processLabel' 		=> 'İşlemler',
+	'dbgrid:deleteButton' 		=> 'Sil',
+	'dbgrid:editButton'   		=> 'Düzenle',
+	'dbgrid:saveButton'   		=> 'Kaydet',
+	'dbgrid:updateButton'   	=> 'Güncelle',
+	'dbgrid:addButton'    		=> 'Yeni Ekle',
+	'dbgrid:deleteSelectedName' => 'Seçilileri Sil',
+	'dbgrid:deleteAllName'     	=> 'Tüm Sayfayı Sil',
+	'dbgrid:totalRowsText'     	=> 'Toplam Kayıt Sayısı',
+	'dbgrid:searchHolder'     	=> 'Arama...',
+	'dbgrid:inputsHolder'      	=> 'Veri girin!',
+	'dbgrid:areYouSure'        	=> 'Bu işlemi yapmak istediğinizden emin misiniz?',
+	'dbgrid:noData'           	=> 'Gösterilecek veri bulunamadı!'
+];

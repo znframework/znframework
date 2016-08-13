@@ -10,22 +10,25 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------
-// ML
-//----------------------------------------------------------------------------------------------------
-//
-// ML Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['EncodingSupport']['ml:addButton'] 				= 'New Add';
-$lang['EncodingSupport']['ml:updateButton'] 			= 'Update';
-$lang['EncodingSupport']['ml:deleteButton'] 			= 'Delete';
-$lang['EncodingSupport']['ml:clearButton'] 				= 'Clear';
-$lang['EncodingSupport']['ml:searchButton'] 			= 'Search';
-$lang['EncodingSupport']['ml:titleLabel']				= 'Multi Language Data Table';
-$lang['EncodingSupport']['ml:confirmLabel']				= 'Are you sure you want to do this operation?';
-$lang['EncodingSupport']['ml:keywordsLabel']			= 'Keywords';
-$lang['EncodingSupport']['ml:processLabel']				= 'Process';
-$lang['EncodingSupport']['ml:addLanguagePlaceHolder']	= 'Add Language';
-$lang['EncodingSupport']['ml:keywordPlaceHolder'] 		= 'New Keyword';
-$lang['EncodingSupport']['ml:searchPlaceHolder'] 		= 'Search Word';
+return
+[
+	//------------------------------------------------------------------------------------------------
+	// ML
+	//------------------------------------------------------------------------------------------------
+	//
+	// ML Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'ml:addButton' 				=> 'New Add',
+	'ml:updateButton' 			=> 'Update',
+	'ml:deleteButton' 			=> 'Delete',
+	'ml:clearButton' 			=> 'Clear',
+	'ml:searchButton' 			=> 'Search',
+	'ml:titleLabel'				=> 'Multi Language Data Table',
+	'ml:confirmLabel'			=> 'Are you sure you want to do this operation?',
+	'ml:keywordsLabel'			=> 'Keywords',
+	'ml:processLabel'			=> 'Process',
+	'ml:addLanguagePlaceHolder'	=> 'Add Language',
+	'ml:keywordPlaceHolder'		=> 'New Keyword',
+	'ml:searchPlaceHolder' 		=> 'Search Word'
+];

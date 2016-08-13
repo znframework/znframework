@@ -10,4 +10,7 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-$lang['Success']['success'] = 'The operation completed successfully.';
+return
+[
+	'success' => 'The operation completed successfully.'
+];

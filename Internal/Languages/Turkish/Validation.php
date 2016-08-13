@@ -10,19 +10,22 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-$lang['Validation']['required']         = '% alanı boş geçilemez!';
-$lang['Validation']['passwordMatch']    = 'Şifreler uyumsuz!';
-$lang['Validation']['dataMatch']        = '% bilgileri uyumsuz!';
-$lang['Validation']['oldPasswordMatch'] = 'Eski şifre yanlış!';
-$lang['Validation']['email']            = '% alanı geçersiz posta adresidir!';
-$lang['Validation']['url']              = '% alanı geçersiz url bilgisidir!';
-$lang['Validation']['identity']         = '% alanı geçersiz kimlik bilgisidir!';
-$lang['Validation']['noSpecialChar']    = '% alanı özel karakter içeremez!';
-$lang['Validation']['numeric']          = '% alanı sadece sayılardan oluşmalıdır!';
-$lang['Validation']['alpha']            = '% alanı sadece harflerden oluşmalıdır!';
-$lang['Validation']['alnum']            = '% alanı sadece sayı ve harflerden oluşmalıdır!';
-$lang['Validation']['phone']            = '% alanı sadece telefon bilgisi içermelidir!';
-$lang['Validation']['maxchar']          = '% alanı en fazla # karakterden oluşmalıdır!';
-$lang['Validation']['minchar']          = '% alanı en az # karakterden oluşmalıdır!';
-$lang['Validation']['captchaCode']      = 'Güvenlik kodu hatalı!';
-$lang['Validation']['pattern']      	= '% verisi ile desen uyumsuz!';
+return 
+[
+	'required'         => '% alanı boş geçilemez!',
+	'passwordMatch'    => 'Şifreler uyumsuz!',
+	'dataMatch'        => '% bilgileri uyumsuz!',
+	'oldPasswordMatch' => 'Eski şifre yanlış!',
+	'email'            => '% alanı geçersiz posta adresidir!',
+	'url'              => '% alanı geçersiz url bilgisidir!',
+	'identity'         => '% alanı geçersiz kimlik bilgisidir!',
+	'noSpecialChar'    => '% alanı özel karakter içeremez!',
+	'numeric'          => '% alanı sadece sayılardan oluşmalıdır!',
+	'alpha'            => '% alanı sadece harflerden oluşmalıdır!',
+	'alnum'            => '% alanı sadece sayı ve harflerden oluşmalıdır!',
+	'phone'            => '% alanı sadece telefon bilgisi içermelidir!',
+	'maxchar'          => '% alanı en fazla # karakterden oluşmalıdır!',
+	'minchar'          => '% alanı en az # karakterden oluşmalıdır!',
+	'captchaCode'      => 'Güvenlik kodu hatalı!',
+	'pattern'          => '% verisi ile desen uyumsuz!'
+];

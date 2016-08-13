@@ -105,45 +105,35 @@ function setLang($l = '')
 // Genel Kullanım: Dahil edilen dil dosyalarına ait verileri kullanma işlevini üstlenir.	 
 //          																				  
 //----------------------------------------------------------------------------------------------------
-function lang($file = '', $str = '', $changed = '')
+function lang(String $file, String $str = NULL, $changed = NULL)
 {
-	// Parametreler kontrol ediliyor.		
-	if( ! is_string($file) || ! is_string($str) ) 
-	{
-		return false;
-	}
-	
-	$key 		   = removeExtension($file, 'php');
+	global $lang;
+
 	$file 		   = Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
 	$langDir       = LANGUAGES_DIR.$file;
 	$sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
 	$commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
 	
-	global $lang;
-	
-	if( is_file($langDir) ) 
+	if( is_file($langDir) && ! isImport($langDir) ) 
 	{
-		require_once($langDir);	
+		$lang[$file] = require_once($langDir);	
 	}
-	elseif( is_file($sysLangDir) )
+	elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
 	{
-		require_once($sysLangDir);	
+		$lang[$file] = require_once($sysLangDir);	
 	}
-	elseif( is_file($commonLangDir) )
+	elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
 	{
-		require_once($commonLangDir);	
+		$lang[$file] = require_once($commonLangDir);	
 	}
 	
-	// Belirtilen anahtar dahil edilen
-	// Dil dosyası içerisinde mevcutsa
-	// İşlemlere devam et.
-	if( isset($lang[$key][$str]) )
+	if( empty($str) && isset($lang[$file]) )
 	{
-		$langstr = $lang[$key][$str];	
+		return $lang[$file];	
 	}
-	elseif( isset($lang[$key]) && empty($str) )
+	elseif( ! empty($lang[$file][$str]) )
 	{
-		return $lang[$key];	
+		$langstr = $lang[$file][$str];	
 	}
 	else
 	{

@@ -10,58 +10,61 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------
-// File
-//----------------------------------------------------------------------------------------------------
-//
-// File Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['FileSystem']['file:notFoundError']       = '`%` file could not be found!';
-$lang['FileSystem']['file:alreadyFileError']    = '`%` file already exists!';
-$lang['FileSystem']['file:remoteUploadError']   = '`%` file is not installed on the server!';
-$lang['FileSystem']['file:remoteDownloadError'] = '`%` file is not downloaded from the server!';
-$lang['FileSystem']['file:zipExtractError']     = '`%` file is not extracted!';
+return 
+[
+	//------------------------------------------------------------------------------------------------
+	// File
+	//------------------------------------------------------------------------------------------------
+	//
+	// File Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'file:notFoundError'        => '`%` file could not be found!',
+	'file:alreadyFileError'    	=> '`%` file already exists!',
+	'file:remoteUploadError'   	=> '`%` file is not installed on the server!',
+	'file:remoteDownloadError' 	=> '`%` file is not downloaded from the server!',
+	'file:zipExtractError'	    => '`%` file is not extracted!',
 
-//----------------------------------------------------------------------------------------------------
-// Folder
-//----------------------------------------------------------------------------------------------------
-//
-// Folder Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['FileSystem']['folder:notFoundError']         = '`%` directory could not be found!';
-$lang['FileSystem']['folder:alreadyFileError']      = '`%` directory already exists!';
-$lang['FileSystem']['folder:parameterError']        = '`%` path to the directory must contain the information!';
-$lang['FileSystem']['folder:changeFolderError']     = '`%` Can not change the working directory!';
-$lang['FileSystem']['folder:changeFolderNameError'] = ' The name of the `%` file can not be changed!';
+	//------------------------------------------------------------------------------------------------
+	// Folder
+	//------------------------------------------------------------------------------------------------
+	//
+	// Folder Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'folder:notFoundError'          => '`%` directory could not be found!',
+	'folder:alreadyFileError'       => '`%` directory already exists!',
+	'folder:parameterError'         => '`%` path to the directory must contain the information!',
+	'folder:changeFolderError'      => '`%` Can not change the working directory!',
+	'folder:changeFolderNameError'  => ' The name of the `%` file can not be changed!',
 
-//----------------------------------------------------------------------------------------------------
-// Generate
-//----------------------------------------------------------------------------------------------------
-//
-// Generate Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['FileSystem']['generate:success']    = '`%` class has been successfully generated.';
-$lang['FileSystem']['generate:notSuccess'] = '`%` class could not be generated successfully!';
+	//------------------------------------------------------------------------------------------------
+	// Generate
+	//------------------------------------------------------------------------------------------------
+	//
+	// Generate Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'generate:success'     => '`%` class has been successfully generated.',
+	'generate:notSuccess'  => '`%` class could not be generated successfully!',
 
-//----------------------------------------------------------------------------------------------------
-// Upload
-//----------------------------------------------------------------------------------------------------
-//
-// Upload Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['FileSystem']['upload:extensionError'] = 'Invalid file extension!';
-$lang['FileSystem']['upload:unknownError']   = 'Unknown error or file is too large!';
-$lang['FileSystem']['upload:0']              = 'The file was uploaded successfully.';
-$lang['FileSystem']['upload:1']              = 'Maximum file size exceeded your php.ini file!';
-$lang['FileSystem']['upload:2']              = 'Form max_file_size directive file size limit has been exceeded!';
-$lang['FileSystem']['upload:3']              = 'File partially uploaded!';
-$lang['FileSystem']['upload:4']              = 'Upload file does not exist!';
-$lang['FileSystem']['upload:6']              = 'files to install a temporary directory not found!';
-$lang['FileSystem']['upload:7']              = 'File perpendicular to write on!';
-$lang['FileSystem']['upload:8']              = 'File upload does not support the extension!';
-$lang['FileSystem']['upload:9']              = 'File installation path is not valid!';
-$lang['FileSystem']['upload:10']             = 'Determine the maximum file size has been exceeded!';
+	//------------------------------------------------------------------------------------------------
+	// Upload
+	//------------------------------------------------------------------------------------------------
+	//
+	// Upload Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'upload:extensionError'  => 'Invalid file extension!',
+	'upload:unknownError'    => 'Unknown error or file is too large!',
+	'upload:0'               => 'The file was uploaded successfully.',
+	'upload:1'               => 'Maximum file size exceeded your php.ini file!',
+	'upload:2'               => 'Form max_file_size directive file size limit has been exceeded!',
+	'upload:3'               => 'File partially uploaded!',
+	'upload:4'               => 'Upload file does not exist!',
+	'upload:6'               => 'files to install a temporary directory not found!',
+	'upload:7'               => 'File perpendicular to write on!',
+	'upload:8'               => 'File upload does not support the extension!',
+	'upload:9'               => 'File installation path is not valid!',
+	'upload:10'              => 'Determine the maximum file size has been exceeded!'
+];

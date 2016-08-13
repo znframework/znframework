@@ -1,4 +1,4 @@
-<?php
+<?php 
 //----------------------------------------------------------------------------------------------------
 // DATABASE
 //----------------------------------------------------------------------------------------------------
@@ -10,25 +10,22 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-$lang['Database']['parameterError']            = '% parameter missing or empty!';
-$lang['Database']['tableNotExistsError']       = '`%` table is not exists!';
-$lang['Database']['tableAlreadyExistsError']   = '';
-$lang['Database']['dbAlreadyExistsError']      = '';
-$lang['Database']['setValueError']             = '';
-$lang['Database']['insertValueError']          = '';
-$lang['Database']['unknownColumnError']        = '';
-$lang['Database']['SQLSytaxError']             = '';
-$lang['Database']['updateError']               = 'Update not performed!';
-$lang['Database']['classNotExistsError']       = '% parameter class information not found!';
-$lang['Database']['mysqlConnectError']         = 'HATA: Database connection error! Please check your connection settings.';
-$lang['Database']['stringError']               = '% parameter query should include the source variable!';
-$lang['Database']['connectResourceError']      = '% parameter connection resource variable must contain!';
-$lang['Database']['stringParameterError']      = '% parameter should contain string data type!';
-$lang['Database']['numericParameterError']     = '% parameter should contain numeric data type!';
-$lang['Database']['arrayParameterError']       = '% parameter should contain array data type!';
-$lang['Database']['arrayStringParameterError'] = '%  parameter should contain array or string data type!';
-$lang['Database']['driverError']               = '`%` driver not found!';
-$lang['Database']['duplicateCheckError']       = '`%` Column or Columns could not be added because it has the same value as before!';
-$lang['Database']['optimizeTablesSuccess']     = 'The optimization process was completed successfully.';
-$lang['Database']['backupTablesSuccess']       = 'The backup process was completed successfully.';
-$lang['Database']['repairTablesSuccess']       = 'The repair process was completed successfully.';
+return 
+[
+	'parameterError' 				=> '% parameter missing or empty!',
+	'tableNotExistsError'      		=> '`%` table is not exists!',
+	'updateError'               	=> 'Update not performed!',
+	'classNotExistsError'       	=> '% parameter class information not found!',
+	'mysqlConnectError'         	=> 'ERROR: Database connection error! Please check your connection settings.',
+	'stringError'               	=> '% parameter query should include the source variable!',
+	'connectResourceError'      	=> '% parameter connection resource variable must contain!',
+	'stringParameterError'      	=> '% parameter should contain string data type!',
+	'numericParameterError'     	=> '% parameter should contain numeric data type!',
+	'arrayParameterError'       	=> '% parameter should contain array data type!',
+	'arrayStringParameterError' 	=> '%  parameter should contain array or string data type!',
+	'driverError'               	=> '`%` driver not found!',
+	'duplicateCheckError'       	=> '`%` Column or Columns could not be added because it has the same value as before!',
+	'optimizeTablesSuccess'     	=> 'The optimization process was completed successfully.',
+	'backupTablesSuccess'       	=> 'The backup process was completed successfully.',
+	'repairTablesSuccess'       	=> 'The repair process was completed successfully.'
+];

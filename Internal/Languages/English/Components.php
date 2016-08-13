@@ -10,23 +10,26 @@
 //
 //----------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------------------------------------------------
-// DB Grid
-//----------------------------------------------------------------------------------------------------
-//
-// DB Grid Lang Words
-//
-//----------------------------------------------------------------------------------------------------
-$lang['Components']['dbgrid:processLabel'] 		= 'Process';
-$lang['Components']['dbgrid:deleteButton'] 		= 'Delete';
-$lang['Components']['dbgrid:editButton']   		= 'Edit';
-$lang['Components']['dbgrid:saveButton']   		= 'Save';
-$lang['Components']['dbgrid:updateButton']   	= 'Update';
-$lang['Components']['dbgrid:addButton']    		= 'Add New';
-$lang['Components']['dbgrid:deleteSelectedName']= 'Delete Selected';
-$lang['Components']['dbgrid:deleteAllName']     = 'Delete All Page';
-$lang['Components']['dbgrid:totalRowsText']     = 'Total Number of Records';
-$lang['Components']['dbgrid:searchHolder']     	= 'Search...';
-$lang['Components']['dbgrid:inputsHolder']      = 'Enter the data!';
-$lang['Components']['dbgrid:areYouSure']        = 'Are you sure you want to do this operation?';
-$lang['Components']['dbgrid:noData']            = 'No data will be shown!';
+return
+[
+	//------------------------------------------------------------------------------------------------
+	// DB Grid
+	//------------------------------------------------------------------------------------------------
+	//
+	// DB Grid Lang Words
+	//
+	//------------------------------------------------------------------------------------------------
+	'dbgrid:processLabel' 		=> 'Process',
+	'dbgrid:deleteButton' 		=> 'Delete',
+	'dbgrid:editButton'   		=> 'Edit',
+	'dbgrid:saveButton'   		=> 'Save',
+	'dbgrid:updateButton'   	=> 'Update',
+	'dbgrid:addButton'    		=> 'Add New',
+	'dbgrid:deleteSelectedName' => 'Delete Selected',
+	'dbgrid:deleteAllName'     	=> 'Delete All Page',
+	'dbgrid:totalRowsText'     	=> 'Total Number of Records',
+	'dbgrid:searchHolder'     	=> 'Search...',
+	'dbgrid:inputsHolder'      	=> 'Enter the data!',
+	'dbgrid:areYouSure'        	=> 'Are you sure you want to do this operation?',
+	'dbgrid:noData'           	=> 'No data will be shown!'
+];
