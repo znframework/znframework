@@ -86,7 +86,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function bold(String $str, Array $attributes = []) : String
 	{
-		return $this->_element('b', $str, $attributes);
+		return $this->_multiElement('b', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function strong(String $str, Array $attributes = []) : String
 	{
-		return $this->_element(__FUNCTION__, $str, $attributes);
+		return $this->_multiElement(__FUNCTION__, $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function italic(String $str, Array $attributes = []) : String
 	{
-		return $this->_element('em', $str, $attributes);
+		return $this->_multiElement('em', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -178,7 +178,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 			$attributes['form'] = $form;
 		}
 
-		return $this->_element(__FUNCTION__, $value, $attributes);
+		return $this->_multiElement(__FUNCTION__, $value, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -287,7 +287,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 
 		nullCoalesce($value, $url);
 
-		return $this->_element('a', $value, $attributes);	
+		return $this->_multiElement('a', $value, $attributes);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -310,7 +310,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 		
 		nullCoalesce($value, $mail);
 
-		return $this->_element('a', $value, $attributes);
+		return $this->_multiElement('a', $value, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -323,7 +323,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function parag(String $str = NULL, Array $attributes = []) : String
 	{	
-		return $this->_element('p', $str, $attributes);
+		return $this->_multiElement('p', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -336,7 +336,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function overLine(String $str, Array $attributes = []) : String
 	{
-		return $this->_element('del', $str, $attributes);
+		return $this->_multiElement('del', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -349,7 +349,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function overText(String $str, Array $attributes = []) : String
 	{
-		return $this->_element('sup', $str, $attributes);
+		return $this->_multiElement('sup', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -362,7 +362,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function underLine(String $str, Array $attributes = []) : String
 	{
-		return $this->_element('u', $str, $attributes);
+		return $this->_multiElement('u', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -375,7 +375,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function underText(String $str, Array $attributes = []) : String
 	{
-		return $this->_element('sub', $str, $attributes);
+		return $this->_multiElement('sub', $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -406,7 +406,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 			$attributes['face'] = $face;
 		}
 
-		return $this->_element('font', $str, $attributes);
+		return $this->_multiElement('font', $str, $attributes);
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -456,7 +456,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function heading(String $str, Int $type = 3, Array $attributes = []) : String
 	{
-		return $this->_element('h'.$type, $str, $attributes);
+		return $this->_multiElement('h'.$type, $str, $attributes);
 	}	
 	
 	//----------------------------------------------------------------------------------------------------
@@ -470,7 +470,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	//----------------------------------------------------------------------------------------------------
 	public function element(String $element, String $str = NULL, Array $attributes = []) : String
 	{
-		return $this->_element($element, $str, $attributes);
+		return $this->_multiElement($element, $str, $attributes);
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -836,7 +836,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
 	// @param array  $attributes
 	//
 	//----------------------------------------------------------------------------------------------------
-	protected function _element($element, $str, $attributes = [])
+	protected function _multiElement($element, $str, $attributes = [])
 	{
 		$element = strtolower($element);
 
