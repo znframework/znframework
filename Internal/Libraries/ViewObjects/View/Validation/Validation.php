@@ -441,7 +441,7 @@ class InternalValidation extends \CallController implements ValidationInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _messages($type, $name, $viewName)
 	{
-		$message = lang('Validation', $type, $viewName);
+		$message = lang('ViewObjects', 'validation:'.$type, $viewName);
 		$this->messages[$this->index] = $message.'<br>'; $this->index++;
 		$this->error[$name] = $message;
 	}
