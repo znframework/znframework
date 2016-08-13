@@ -4,13 +4,13 @@ namespace ZN\Services;
 class InternalCrontab extends \Requirements implements CrontabInterface, CrontabIntervalInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// const config
@@ -552,7 +552,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
 		
 		if( ! preg_match('/^'.$match.$match.$match.$match.$match.'$/', $datetimeFormat) )
 		{
-			return \Exceptions::throws('Services', 'crontabTimeFormatError');
+			return \Exceptions::throws('Services', 'crontab:timeFormatError');
 		}
 		else
 		{

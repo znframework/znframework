@@ -37,10 +37,10 @@ $config['EncodingSupport']['ml'] =
 		//--------------------------------------------------------------------------------------------
 		'labels' => 
 		[
-			'title' 	=> lang('ML', 'titleLabel'),
-			'confirm' 	=> lang('ML', 'confirmLabel'),
-			'process'	=> lang('ML', 'processLabel'),
-			'keywords'	=> lang('ML', 'keywordsLabel'),
+			'title' 	=> lang('EncodingSupport', 'ml:titleLabel'),
+			'confirm' 	=> lang('EncodingSupport', 'ml:confirmLabel'),
+			'process'	=> lang('EncodingSupport', 'ml:processLabel'),
+			'keywords'	=> lang('EncodingSupport', 'ml:keywordsLabel'),
 		],
 		
 		//--------------------------------------------------------------------------------------------
@@ -52,11 +52,11 @@ $config['EncodingSupport']['ml'] =
 		//--------------------------------------------------------------------------------------------
 		'buttonNames' =>
 		[
-			'add'    		=> lang('ML', 'addButton'),
-			'update'   		=> lang('ML', 'updateButton'),
-			'delete'   		=> lang('ML', 'deleteButton'),
-			'clear'   		=> lang('ML', 'clearButton'),
-			'search'		=> lang('ML', 'searchButton')
+			'add'    		=> lang('EncodingSupport', 'ml:addButton'),
+			'update'   		=> lang('EncodingSupport', 'ml:updateButton'),
+			'delete'   		=> lang('EncodingSupport', 'ml:deleteButton'),
+			'clear'   		=> lang('EncodingSupport', 'ml:clearButton'),
+			'search'		=> lang('EncodingSupport', 'ml:searchButton')
 		],
 		
 		//--------------------------------------------------------------------------------------------
@@ -69,9 +69,9 @@ $config['EncodingSupport']['ml'] =
 		//--------------------------------------------------------------------------------------------
 		'placeHolders' =>
 		[
-			'keyword'     => lang('ML', 'keywordPlaceHolder'),
-			'addLanguage' => lang('ML', 'addLanguagePlaceHolder'),
-			'search'	  => lang('ML', 'searchPlaceHolder')
+			'keyword'     => lang('EncodingSupport', 'ml:keywordPlaceHolder'),
+			'addLanguage' => lang('EncodingSupport', 'ml:addLanguagePlaceHolder'),
+			'search'	  => lang('EncodingSupport', 'ml:searchPlaceHolder')
 		],
 		
 		//--------------------------------------------------------------------------------------------

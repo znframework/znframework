@@ -4,13 +4,13 @@ namespace ZN\FileSystem;
 class InternalFolder extends \CallController implements FolderInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// create()
@@ -40,7 +40,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! file_exists($oldName) )
 		{
-            return \Exceptions::throws('Folder', 'notFoundError', $oldName);
+            return \Exceptions::throws('FileSystem', 'folder:notFoundError', $oldName);
 		}
 
 		return rename($oldName, $newName);
@@ -74,7 +74,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! file_exists($name) )
 		{
-			return \Exceptions::throws('Folder', 'notFoundError', $name);
+			return \Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
 		}
 
 		// Is File
@@ -144,7 +144,7 @@ class InternalFolder extends \CallController implements FolderInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Folder', 'notFoundError', $dir);
+			return \Exceptions::throws('FileSystem', 'folder:notFoundError', $dir);
 		}	
 	}
 	
@@ -160,7 +160,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! file_exists($source) )
 		{
-			return \Exceptions::throws('Folder', 'notFoundError', $source);
+			return \Exceptions::throws('FileSystem', 'folder:notFoundError', $source);
 		}
 		
 		if( is_dir($source) )
@@ -209,7 +209,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! is_dir($name) )
 		{
-            return \Exceptions::throws('Folder', 'notFoundError', $name);
+            return \Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
 		}
 
 		return chdir($name);
@@ -229,7 +229,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 		if( ! is_dir($path) )
 		{
-			return \Exceptions::throws('Folder', 'notFoundError', $path);
+			return \Exceptions::throws('FileSystem', 'folder:notFoundError', $path);
 		}
 
 		if( is_array($extension) )
@@ -306,7 +306,7 @@ class InternalFolder extends \CallController implements FolderInterface
 	{
 	    if( ! file_exists($name) )
         {
-            return \Exceptions::throws('File', 'notFoundError', $name);
+            return \Exceptions::throws('FileSystem', 'file:notFoundError', $name);
         }
 
 		return \File::permission($name, $permission);

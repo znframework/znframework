@@ -9,6 +9,7 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Validation']['required']         = '% alanı boş geçilemez!';
 $lang['Validation']['passwordMatch']    = 'Şifreler uyumsuz!';
 $lang['Validation']['dataMatch']        = '% bilgileri uyumsuz!';

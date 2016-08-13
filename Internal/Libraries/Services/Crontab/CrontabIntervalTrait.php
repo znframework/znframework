@@ -4,13 +4,13 @@ namespace ZN\Services;
 trait CrontabIntervalTrait
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Interval
@@ -244,7 +244,7 @@ trait CrontabIntervalTrait
 		
 		if( ! preg_match('/^'.$match.':'.$match.'$/', $clock) )
 		{
-			return \Exceptions::throws('Services', 'crontabTimeFormatError');
+			return \Exceptions::throws('Services', 'crontab:timeFormatError');
 		}
 		else
 		{

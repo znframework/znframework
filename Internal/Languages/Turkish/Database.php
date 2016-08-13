@@ -9,6 +9,7 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Database']['parameterError']              = '% parametre eksik veya boş!';
 $lang['Database']['tableNotExistsError']         = '`%` tablosu bulunamadı!';
 $lang['Database']['tableAlreadyExistsError']     = '`%` tablosu zaten var!';

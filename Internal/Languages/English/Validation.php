@@ -9,6 +9,7 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Validation']['required']         = '% field blank, impenetrable!';
 $lang['Validation']['passwordMatch']    = 'Passwords do not match!';
 $lang['Validation']['dataMatch']        = '% datas do not match!';

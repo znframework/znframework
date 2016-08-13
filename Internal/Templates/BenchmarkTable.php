@@ -11,15 +11,15 @@ $table .= 'font-size:14px;';
 
 $color =  'color:#900;';
 
-$lang  = lang('Benchmark'); 
+$lang  = lang('IndividualStructures'); 
 ?>
 
 <div style="<?php echo $style; ?>">
 <table width="100%" style="<?php echo $table; ?>">
-    <tr><td style="<?php echo $color;?>" colspan='2'><?php echo $lang['resultTable']; ?></td></tr>
-    <tr><td width="160"><?php echo $lang['elapsedTime']; ?></td><td>: <b><?php echo $elapsedTime." ".$lang['second']; ?></b></td></tr>
-    <tr><td><?php echo $lang['memoryUsage']; ?></td><td>: <b><?php echo $memoryUsage." ".$lang['byte']; ?></b></td></tr>
-    <tr><td><?php echo $lang['maxMemoryUsage']; ?></td><td>: <b><?php echo $maxMemoryUsage." ".$lang['byte']; ?></b></td></tr>
-    <tr><td><?php echo $lang['countFile']; ?></td><td>: <b><?php echo count(get_required_files()); ?></b></td></tr>
+    <tr><td style="<?php echo $color;?>" colspan='2'><?php echo $lang['benchmark:resultTable']; ?></td></tr>
+    <tr><td width="160"><?php echo $lang['benchmark:elapsedTime']; ?></td><td>: <b><?php echo $elapsedTime." ".$lang['benchmark:second']; ?></b></td></tr>
+    <tr><td><?php echo $lang['benchmark:memoryUsage']; ?></td><td>: <b><?php echo $memoryUsage." ".$lang['benchmark:byte']; ?></b></td></tr>
+    <tr><td><?php echo $lang['benchmark:maxMemoryUsage']; ?></td><td>: <b><?php echo $maxMemoryUsage." ".$lang['benchmark:byte']; ?></b></td></tr>
+    <tr><td><?php echo $lang['benchmark:countFile']; ?></td><td>: <b><?php echo count(get_required_files()); ?></b></td></tr>
 </table>
 </div>

@@ -4,13 +4,13 @@ namespace ZN\FileSystem;
 class InternalUpload extends \CallController implements UploadInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// Settings
@@ -379,7 +379,7 @@ class InternalUpload extends \CallController implements UploadInterface
 				
 				if( isset($this->settings['extensions']) && ! in_array(extension($nm), $extensions) )
 				{
-					$this->extensionControl = lang('Upload', 'extensionError');	
+					$this->extensionControl = lang('FileSystem', 'upload:extensionError');	
 				}
 				elseif( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($src) )
 				{
@@ -439,7 +439,7 @@ class InternalUpload extends \CallController implements UploadInterface
 			
 			if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
 			{
-				return ! $this->extensionControl = lang('Upload', 'extensionError');	
+				return ! $this->extensionControl = lang('FileSystem', 'upload:extensionError');	
 			}
 			else
 			{	
@@ -521,7 +521,7 @@ class InternalUpload extends \CallController implements UploadInterface
 	{
 		if( ! isset($_FILES[$this->file]['error']) ) 
 		{
-			return lang('Upload', 'unknownError');
+			return lang('FileSystem', 'upload:unknownError');
 		}
 		
 		$errorNo = $_FILES[$this->file]['error'];	
@@ -545,15 +545,15 @@ class InternalUpload extends \CallController implements UploadInterface
 		$this->errors = array
 		(
 			'0'  => "scc", 			  // Dosya başarı ile yüklendi. 
-			'1'  => lang('Upload', '1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
-			'2'  => lang('Upload', '2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
-			'3'  => lang('Upload', '3'), // Dosya yükleme işlemi tamamlanmadı. 
-			'4'  => lang('Upload', '4'), // Yüklenecek dosya yok. 
-			'6'  => lang('Upload', '6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
-			'7'  => lang('Upload', '7'), // Dosya dik üzerine yazılamadı. 
-			'8'  => lang('Upload', '8'), // Dosya yükleme uzantı desteği yok. 
-			'9'  => lang('Upload', '9'), // Dosya yükleme yolu geçerli değil.
-			'10' => lang('Upload', '10') // Belirlenen maksimum dosya boyutu aşıldı!
+			'1'  => lang('FileSystem', 'upload:1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı. 
+			'2'  => lang('FileSystem', 'upload:2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı. 
+			'3'  => lang('FileSystem', 'upload:3'), // Dosya yükleme işlemi tamamlanmadı. 
+			'4'  => lang('FileSystem', 'upload:4'), // Yüklenecek dosya yok. 
+			'6'  => lang('FileSystem', 'upload:6'), // Dosyaların geçici olarak yükleneceği dizin bulunamadı. 
+			'7'  => lang('FileSystem', 'upload:7'), // Dosya dik üzerine yazılamadı. 
+			'8'  => lang('FileSystem', 'upload:8'), // Dosya yükleme uzantı desteği yok. 
+			'9'  => lang('FileSystem', 'upload:9'), // Dosya yükleme yolu geçerli değil.
+			'10' => lang('FileSystem', 'upload:10') // Belirlenen maksimum dosya boyutu aşıldı!
 		);
 		// Manuel belirlenen hata oluşmuşsa
 		if( ! empty($this->manuelError) )
@@ -579,7 +579,7 @@ class InternalUpload extends \CallController implements UploadInterface
 		// hata uyarısı ver.	
 		else 
 		{
-			return lang('Upload', 'unknownError');
+			return lang('FileSystem', 'upload:unknownError');
 		}
 	}
 	

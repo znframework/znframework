@@ -4,13 +4,13 @@ namespace ZN\Services;
 class InternalEmail extends \CallController implements EmailInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Sender Mail
@@ -825,12 +825,12 @@ class InternalEmail extends \CallController implements EmailInterface
 		{
 			if( strpos($file, '://') === false && ! file_exists($file) )
 			{
-				return \Exceptions::throws('Email', 'attachmentMissing', $file);
+				return \Exceptions::throws('Services', 'email:attachmentMissing', $file);
 			}
 			
 			if( ! $fp = @fopen($file, 'rb') )
 			{
-				return \Exceptions::throws('Email', 'attachmentUnreadable', $file);
+				return \Exceptions::throws('Services', 'email:attachmentUnreadable', $file);
 			}
 			
 			$fileContent = stream_get_contents($fp);
@@ -898,7 +898,7 @@ class InternalEmail extends \CallController implements EmailInterface
 			}
 			else
 			{
-				return \Exceptions::throws('Email', 'noFrom');
+				return \Exceptions::throws('Services', 'email:noFrom');
 			}
 		}
 		
@@ -1012,7 +1012,7 @@ class InternalEmail extends \CallController implements EmailInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _mimeMessage()
 	{
-		return lang('Email', 'mimeMessage', $this->lf);
+		return lang('Services', 'email:mimeMessage', $this->lf);
 	}
 	
 	//----------------------------------------------------------------------------------------------------

@@ -4,13 +4,13 @@ namespace ZN\FileSystem;
 class InternalFile extends \CallController implements FileInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Read
@@ -96,7 +96,7 @@ class InternalFile extends \CallController implements FileInterface
 			return touch($name);
 		}
 		
-		return \Exceptions::throws('File', 'alreadyFileError', $name);	
+		return \Exceptions::throws('FileSystem', 'file:alreadyFileError', $name);	
 	}
 	
 	//----------------------------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! is_file($name)) 
 		{
-			return \Exceptions::throws('File', 'notFoundError', $name);	
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $name);	
 		}
 		else 
 		{
@@ -129,7 +129,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! is_file($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 		
 		return (object)
@@ -157,7 +157,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 		
 		$size      = 0;
@@ -221,7 +221,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 		
 		$date = filectime($file); 
@@ -242,7 +242,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 		
 		$date = filemtime($file);
@@ -280,7 +280,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 		
 		if( function_exists('posix_getgrgid') )
@@ -307,7 +307,7 @@ class InternalFile extends \CallController implements FileInterface
 
 		if( ! file_exists($source) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $source);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $source);
 		}
 
 		if( empty($target) )
@@ -399,7 +399,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($oldName) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $oldName);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $oldName);
 		}
 	
 		return rename($oldName, $newName);
@@ -437,7 +437,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 		
 		return chmod($file, $permission);
@@ -456,7 +456,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! is_file($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 	
 		$fileOpen  = fopen($file, $mode);
@@ -477,7 +477,7 @@ class InternalFile extends \CallController implements FileInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 
 		if( is_file($file) )

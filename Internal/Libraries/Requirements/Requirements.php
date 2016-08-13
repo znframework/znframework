@@ -1,14 +1,16 @@
 <?php
+namespace ZN;
+
 class Requirements extends CallController implements RequirementsInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Config                                                                       
@@ -185,3 +187,5 @@ class Requirements extends CallController implements RequirementsInterface
 		return $this->error();
 	}
 }
+
+class_alias('ZN\Requirements', 'Requirements');

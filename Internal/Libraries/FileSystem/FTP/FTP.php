@@ -4,13 +4,13 @@ namespace ZN\FileSystem;
 class InternalFTP extends \Requirements implements FTPInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// const config
@@ -134,7 +134,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Folder', 'alreadyFileError', $path);
+			return \Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
 		}
 	}
 	
@@ -153,7 +153,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Folder', 'notFoundError', $path);	
+			return \Exceptions::throws('FileSystem', 'folder:notFoundError', $path);	
 		}
 	
 	}
@@ -173,7 +173,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Folder', 'changeFolderError', $path);
+			return \Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
 		}
 	}
 	
@@ -193,7 +193,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('Folder', 'changeFolderNameError', $oldName);	
+			return \Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName);	
 		}
 	}
 	
@@ -212,7 +212,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('File', 'notFoundError', $path);	
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $path);	
 		}
 	}
 	
@@ -233,7 +233,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('File', 'remoteUploadError', $localPath);	
+			return \Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath);	
 		}
 	}
 	
@@ -254,7 +254,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 		}
 		else
 		{
-			return \Exceptions::throws('File', 'remoteDownloadError', $localPath);
+			return \Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
 		}
 	}
 	

@@ -4,13 +4,13 @@ namespace ZN\FileSystem;
 class InternalDownload extends \CallController implements DownloadInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Start
@@ -23,7 +23,7 @@ class InternalDownload extends \CallController implements DownloadInterface
 	{
 		if( ! file_exists($file) )
 		{
-			return \Exceptions::throws('File', 'notFoundError', $file);
+			return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
 		}
 	
 		$fileEx   = explode("/", $file);

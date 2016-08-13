@@ -4,13 +4,13 @@ namespace ZN\ImageProcessing;
 class InternalImage extends \CallController implements ImageInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Dir Name
@@ -62,14 +62,14 @@ class InternalImage extends \CallController implements ImageInterface
 		// Durumu rapor etmesi sağlanıyor.
 		if( ! file_exists($filePath) )
 		{
-			return \Exceptions::throws('Image', 'notFoundError', $filePath);	
+			return \Exceptions::throws('ImageProcessing', 'image:notFoundError', $filePath);	
 		}
 		
 		// Dosyanın uzantısı belirlenen uzantılır dışında
 		// ise durumu rapor etmesi sağlanıyor.
 		if( ! $this->isImageFile($filePath) )
 		{
-			return \Exceptions::throws('Image', 'notImageFileError', $filePath);	
+			return \Exceptions::throws('ImageProcessing', 'image:notImageFileError', $filePath);	
 		}
 		
 		// Ayarlar parametresinde tanımlayan ayarlara
@@ -199,7 +199,7 @@ class InternalImage extends \CallController implements ImageInterface
 		
 		if( empty($g) )
 		{
-			return \Exceptions::throws('Image', 'notFoundError', $path);	
+			return \Exceptions::throws('ImageProcessing', 'image:notFoundError', $path);	
 		}
 		
 		$x = $g[0]; $y = $g[1];

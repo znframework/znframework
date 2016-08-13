@@ -4,13 +4,13 @@ namespace ZN\Database;
 class InternalMigration extends \CallController implements MigrationInterface
 {	
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Migration Path
@@ -80,7 +80,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 		
 		if( ! is_dir($this->path) )
 		{
-			library('Folder', 'create', [$this->path, 0755]);	
+			library('FileSystem', 'folder:create', [$this->path, 0755]);	
 		}
 		
 		$this->tbl = isset(static::$table)

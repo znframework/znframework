@@ -207,13 +207,13 @@ $config['Components']['datagrid'] =
 	//------------------------------------------------------------------------------------------------
 	'buttonNames' =>
 	[
-		'add'    		=> lang('DataGrid', 'addButton'),
-		'edit'   		=> lang('DataGrid', 'editButton'),
-		'update'   		=> lang('DataGrid', 'updateButton'),
-		'save'   		=> lang('DataGrid', 'saveButton'),
-		'delete' 		=> lang('DataGrid', 'deleteButton'),
-		'deleteSelected'=> lang('DataGrid', 'deleteSelectedName'),
-		'deleteAll' 	=> lang('DataGrid', 'deleteAllName')
+		'add'    		=> lang('Components', 'dbgrid:addButton'),
+		'edit'   		=> lang('Components', 'dbgrid:editButton'),
+		'update'   		=> lang('Components', 'dbgrid:updateButton'),
+		'save'   		=> lang('Components', 'dbgrid:saveButton'),
+		'delete' 		=> lang('Components', 'dbgrid:deleteButton'),
+		'deleteSelected'=> lang('Components', 'dbgrid:deleteSelectedName'),
+		'deleteAll' 	=> lang('Components', 'dbgrid:deleteAllName')
 	],
 	
 	//------------------------------------------------------------------------------------------------
@@ -226,8 +226,8 @@ $config['Components']['datagrid'] =
 	//------------------------------------------------------------------------------------------------
 	'placeHolders' =>
 	[
-		'search'    => lang('DataGrid', 'searchHolder'),
-		'inputs'   	=> lang('DataGrid', 'inputsHolder'),
+		'search'    => lang('Components', 'dbgrid:searchHolder'),
+		'inputs'   	=> lang('Components', 'dbgrid:inputsHolder'),
 	],
 	
 	//------------------------------------------------------------------------------------------------

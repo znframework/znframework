@@ -9,6 +9,7 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Error']['classError'] 				= 'Error: `%` class was not found!';
 $lang['Error']['controllerNameError'] 		= 'Error: A controller can not be identified by the file `%` name!';
 $lang['Error']['classDeclaredError'] 		= 'Error: `%` class already exists! Not declared again!';

@@ -6,13 +6,13 @@ use ZN\Services\Abstracts\EmailMappingAbstract;
 class SMTPDriver extends EmailMappingAbstract
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// LF
@@ -120,7 +120,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		if( ! is_resource($this->connect) )
 		{
-			return \Exceptions::throws('Email', 'smtpError', $errno.' '.$errstr);
+			return \Exceptions::throws('Services', 'email:smtpError', $errno.' '.$errstr);
 		}
 		
 		stream_set_timeout($this->connect, $this->timeout);
@@ -134,7 +134,7 @@ class SMTPDriver extends EmailMappingAbstract
 			
 			if( $crypto !== true )
 			{
-				return \Exceptions::throws('Email', 'smtpError', $this->_getData());
+				return \Exceptions::throws('Services', 'email:smtpError', $this->_getData());
 			}
 		}
 		
@@ -196,7 +196,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		if( strpos($reply, '250') !== 0 )
 		{
-			return \Exceptions::throws('Email', 'smtpError', $reply);
+			return \Exceptions::throws('Services', 'email:smtpError', $reply);
 		}
 		
 		if( $this->keepAlive )
@@ -227,7 +227,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		if( $this->user === '' && $this->password === '' )
 		{
-			return \Exceptions::throws('Email', 'noSmtpUnpassword');
+			return \Exceptions::throws('Services', 'email:noSmtpUnpassword');
 		}
 		
 		$this->_setData('AUTH LOGIN');
@@ -239,7 +239,7 @@ class SMTPDriver extends EmailMappingAbstract
 		}
 		elseif( strpos($reply, '334') !== 0 )
 		{
-			return \Exceptions::throws('Email', 'failedSmtpLogin', $reply);
+			return \Exceptions::throws('Services', 'email:failedSmtpLogin', $reply);
 		}
 		
 		$this->_setData(base64_encode($this->user));	
@@ -247,7 +247,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		if( strpos($reply, '334') !== 0 )
 		{
-			return \Exceptions::throws('Email', 'smtpAuthUserName', $reply);
+			return \Exceptions::throws('Services', 'email:smtpAuthUserName', $reply);
 		}
 		
 		$this->_setData(base64_encode($this->password));
@@ -255,7 +255,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		if( strpos($reply, '235') !== 0 )
 		{
-			return \Exceptions::throws('Email', 'smtpAuthPassword', $reply);
+			return \Exceptions::throws('Services', 'email:smtpAuthPassword', $reply);
 		}
 		
 		return true;
@@ -328,7 +328,7 @@ class SMTPDriver extends EmailMappingAbstract
 		
 		if( (int) substr($reply, 0, 3) !== $resp )
 		{
-			return \Exceptions::throws('Email', 'smtpError', $reply);
+			return \Exceptions::throws('Services', 'email:smtpError', $reply);
 		}
 		
 		if( $cmd === 'quit' )
@@ -361,7 +361,7 @@ class SMTPDriver extends EmailMappingAbstract
 		}
 		if( $result === false )
 		{
-			return \Exceptions::throws('Email', 'smtpDataFailure', $data);
+			return \Exceptions::throws('Services', 'email:smtpDataFailure', $data);
 		}
 		
 		return true;

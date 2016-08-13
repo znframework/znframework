@@ -4,13 +4,13 @@ namespace ZN\FileSystem;
 class InternalGenerate extends \CallController implements GenerateInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Settings
@@ -309,16 +309,16 @@ class InternalGenerate extends \CallController implements GenerateInterface
 		{
 			if( \File::write($file, $controller) )
 			{
-				return $this->success = lang('Generate', 'success', $name);	
+				return $this->success = lang('FileSystem', 'generate:success', $name);	
 			}	
 			else
 			{
-				return ! $this->error = lang('Generate', 'notSuccess', $name);
+				return ! $this->error = lang('FileSystem', 'generate:notSuccess', $name);
 			}
 		}	
 		else
 		{
-			return ! $this->error = lang('File', 'alreadyFileError', $name);	
+			return ! $this->error = lang('FileSystem', 'file:alreadyFileError', $name);	
 		}
 	}
 	

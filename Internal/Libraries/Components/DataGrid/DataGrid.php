@@ -4,13 +4,13 @@ namespace ZN\Components;
 class InternalDataGrid extends \Requirements implements DataGridInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// const config
@@ -595,7 +595,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 				\DB::delete($this->table);
 			}
 			
-			$data['grid'] = '<tr><td colspan="'.(count($columns) + 3).'">'.lang('DataGrid', 'noData').'</td></tr>';
+			$data['grid'] = '<tr><td colspan="'.(count($columns) + 3).'">'.lang('Components', 'dbgrid:noData').'</td></tr>';
 			
 			echo \Json::encode($data); exit;
 		}
@@ -733,7 +733,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 		$rows      = $query->resultArray();
 		$totalRows = $query->totalRows();
 		
-		$totalRowsText = lang('DataGrid', 'totalRowsText').': '.$totalRows.' / '.\DB::totalRows(true);
+		$totalRowsText = lang('Components', 'dbgrid:totalRowsText').': '.$totalRows.' / '.\DB::totalRows(true);
 		
 		$paginationSettings = array_merge($this->config['pagination'], ['start' => $prow, 'type' => 'ajax']);
 		
@@ -862,7 +862,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 		}	
 		else
 		{
-			$table .= '<tr><td colspan="'.(count($columns) + 3).'">'.lang('DataGrid', 'noData').'</td></tr>';
+			$table .= '<tr><td colspan="'.(count($columns) + 3).'">'.lang('Components', 'dbgrid:noData').'</td></tr>';
 			$data['grid'] = $table;
 			
 			echo \Json::encode($data); exit;
@@ -1025,7 +1025,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 			$table .= '<td>'.\Html::anchor('#column='.$column, \Html::strong($title), $columnsAttr).'</td>';
 		}	
 		
-		$table .= '<td align="right"><span'.\Html::attributes($this->config['attributes']['columns']).'>'.\Html::strong(lang('DataGrid', 'processLabel')).'</span></td>';
+		$table .= '<td align="right"><span'.\Html::attributes($this->config['attributes']['columns']).'>'.\Html::strong(lang('Components', 'dbgrid:processLabel')).'</span></td>';
 		$table .= '</tr>'.EOL;
 		$table .= '</thead>'.EOL;
 		$table .= '<tbody datagrid="result">'.EOL;
@@ -1076,7 +1076,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 		
 		$callback = \JQ::callback('e', $func);
 		
-		$confirm  = \JQ::callback('e', \JS::confirm(lang('DataGrid', 'areYouSure'), $func.\JQ::prop('#datagridSelectAll', ['checked', ':false']).' checking = 1; '));
+		$confirm  = \JQ::callback('e', \JS::confirm(lang('Components', 'dbgrid:areYouSure'), $func.\JQ::prop('#datagridSelectAll', ['checked', ':false']).' checking = 1; '));
 		
 		$table .= $func;
 		

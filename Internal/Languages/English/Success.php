@@ -9,4 +9,5 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Success']['success'] = 'The operation completed successfully.';

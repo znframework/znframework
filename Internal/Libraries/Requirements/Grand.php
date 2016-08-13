@@ -1,14 +1,16 @@
 <?php
+namespace ZN;
+
 class Grand extends CallController implements GrandInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------------------------------
 	// Variable Grand Table
@@ -34,7 +36,7 @@ class Grand extends CallController implements GrandInterface
 		}                                                  
 		else
 		{
-			$this->grandTable = str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class());
+			$this->grandTable = divide(str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
 		}
 
 		$tables = \DBTool::listTables();
@@ -591,3 +593,5 @@ class Grand extends CallController implements GrandInterface
 		}
 	}
 }
+
+class_alias('ZN\Grand', 'Grand');

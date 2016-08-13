@@ -4,13 +4,13 @@ namespace ZN\IndividualStructures;
 class InternalUser extends \Requirements implements UserInterface, UserPropertiesInterface
 {
 	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //----------------------------------------------------------------------------------------------------
 
 	//----------------------------------------------------------------------------------------------------
 	// User Properties
@@ -106,7 +106,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 		
 		if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) ) 
 		{
-			return ! $this->error = lang('User', 'registerUsernameError');
+			return ! $this->error = lang('IndividualStructures', 'user:registerUsernameError');
 		}
 		
 		$loginUsername  = $data[$usernameColumn];
@@ -126,7 +126,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 			
 			if( ! \DB::insert($tableName , $data) )
 			{
-				return ! $this->error = lang('User', 'registerUnknownError');
+				return ! $this->error = lang('IndividualStructures', 'user:registerUnknownError');
 			}	
 
 			if( ! empty($joinTables) )
@@ -141,7 +141,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 				}	
 			}
 		
-			$this->success = lang('User', 'registerSuccess');
+			$this->success = lang('IndividualStructures', 'user:registerSuccess');
 			
 			if( ! empty($activationColumn) )
 			{
@@ -172,7 +172,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 		}
 		else
 		{
-			return ! $this->error = lang('User', 'registerError');
+			return ! $this->error = lang('IndividualStructures', 'user:registerError');
 		}
 	}
 	
@@ -252,11 +252,11 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 		
 			if( $oldPassword != $password )
 			{
-				return ! $this->error = lang('User', 'oldPasswordError');	
+				return ! $this->error = lang('IndividualStructures', 'user:oldPasswordError');	
 			}
 			elseif( $newPassword != $newPasswordAgain )
 			{
-				return ! $this->error = lang('User', 'passwordNotMatchError');
+				return ! $this->error = lang('IndividualStructures', 'user:passwordNotMatchError');
 			}
 			else
 			{
@@ -279,11 +279,11 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 				{
 					if( ! \DB::where($uc.' =', $username)->update($tn, $data) )
 					{
-						return ! $this->error = lang('User', 'registerUnknownError');
+						return ! $this->error = lang('IndividualStructures', 'user:registerUnknownError');
 					}	
 				}
 				
-				return $this->success = lang('User', 'updateProcessSuccess');		
+				return $this->success = lang('IndividualStructures', 'user:updateProcessSuccess');		
 			}
 		}
 		else 
@@ -354,7 +354,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 		
 		if( ! isset($r->$passwordColumn) )
 		{
-			return ! $this->error = lang('User', 'loginError');
+			return ! $this->error = lang('IndividualStructures', 'user:loginError');
 		}
 				
 		$passwordControl   = $r->$passwordColumn;
@@ -376,12 +376,12 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 		{
 			if( ! empty($bannedColumn) && ! empty($bannedControl) )
 			{
-				return ! $this->error = lang('User', 'bannedError');
+				return ! $this->error = lang('IndividualStructures', 'user:bannedError');
 			}
 			
 			if( ! empty($activationColumn) && empty($activationControl) )
 			{
-				return ! $this->error = lang('User', 'activationError');
+				return ! $this->error = lang('IndividualStructures', 'user:activationError');
 			}
 			
 			\Session::insert($usernameColumn, $username); 
@@ -401,11 +401,11 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 				\DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
 			}
 			
-			return $this->success = lang('User', 'loginSuccess');
+			return $this->success = lang('IndividualStructures', 'user:loginSuccess');
 		}
 		else
 		{
-			return ! $this->error = lang('User', 'loginError');
+			return ! $this->error = lang('IndividualStructures', 'user:loginError');
 		}
 	}
 	
@@ -563,7 +563,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 			
 			\Email::sender($senderInfo['mail'], $senderInfo['name'])
 			      ->receiver($email, $email)
-			      ->subject(lang('User', 'newYourPassword'))
+			      ->subject(lang('IndividualStructures', 'user:newYourPassword'))
 			      ->content($message);
 			
 			if( \Email::send() )
@@ -579,19 +579,19 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 				
 				if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
 				{
-					return $this->success = lang('User', 'forgotPasswordSuccess');
+					return $this->success = lang('IndividualStructures', 'user:forgotPasswordSuccess');
 				}
 				
 				return ! $this->error = lang('Database', 'updateError');
 			}
 			else
 			{	
-				return ! $this->error = lang('User', 'emailError');
+				return ! $this->error = lang('IndividualStructures', 'user:emailError');
 			}
 		}
 		else
 		{
-			return ! $this->error = lang('User', 'forgotPasswordError');
+			return ! $this->error = lang('IndividualStructures', 'user:forgotPasswordError');
 		}
 	}
 
@@ -633,16 +633,16 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 				\DB::where($usernameColumn.' =', $user)
 				   ->update($tableName, [$activationColumn => '1']);
 				
-				return $this->success = lang('User', 'activationComplete');
+				return $this->success = lang('IndividualStructures', 'user:activationComplete');
 			}	
 			else
 			{
-				return ! $this->error = lang('User', 'activationCompleteError');
+				return ! $this->error = lang('IndividualStructures', 'user:activationCompleteError');
 			}				
 		}
 		else
 		{
-			return ! $this->error = lang('User', 'activationCompleteError');
+			return ! $this->error = lang('IndividualStructures', 'user:activationCompleteError');
 		}
 	}
 	
@@ -685,16 +685,16 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
 				
 		\Email::sender($senderInfo['mail'], $senderInfo['name'])
 		      ->receiver($user, $user)
-		      ->subject(lang('User', 'activationProcess'))
+		      ->subject(lang('IndividualStructures', 'user:activationProcess'))
 		      ->content($message);
 		
 		if( \Email::send() )
 		{
-			return $this->success = lang('User', 'activationEmail');
+			return $this->success = lang('IndividualStructures', 'user:activationEmail');
 		}
 		else
 		{	
-			return ! $this->error = lang('User', 'emailError');
+			return ! $this->error = lang('IndividualStructures', 'user:emailError');
 		}
 	}
 	

@@ -9,6 +9,7 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Error']['classError'] 				= 'Hata: `%` sınıfı bulunamadı!';
 $lang['Error']['controllerNameError'] 		= 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!';
 $lang['Error']['classDeclaredError'] 		= 'Hata: `%` sınıfı zaten var! Yeniden tanımlanamaz!';

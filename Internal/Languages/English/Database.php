@@ -9,6 +9,7 @@
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
 //----------------------------------------------------------------------------------------------------
+
 $lang['Database']['parameterError']            = '% parameter missing or empty!';
 $lang['Database']['tableNotExistsError']       = '`%` table is not exists!';
 $lang['Database']['tableAlreadyExistsError']   = '';
