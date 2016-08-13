@@ -1,5 +1,4 @@
-<?php
-class Home extends Controller
+<?php class Home extends Controller
 {	
     //--------------------------------------------------------------------------------------------------------
     // Called URL: http://example.com/zeroneed.php/home/main

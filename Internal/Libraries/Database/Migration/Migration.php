@@ -395,7 +395,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 		$table   = $this->_tableName();
 		$version = $this->_getVersion();
 		
-		return \DB::insert($this->config['migrationTable'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
+		return \DB::insert($this->config['migration:table'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
 	}
 
 	//----------------------------------------------------------------------------------------------------
@@ -407,7 +407,7 @@ class InternalMigration extends \CallController implements MigrationInterface
 	//----------------------------------------------------------------------------------------------------
 	protected function _create()
 	{
-		$table   = $this->config['migrationTable'];
+		$table   = $this->config['migration:table'];
 		
 		\DBForge::createTable('IF NOT EXISTS '.$table, array
 		(

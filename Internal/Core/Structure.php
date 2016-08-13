@@ -1,5 +1,4 @@
-<?php 
-namespace ZN\Core;
+<?php namespace ZN\Core;
 
 class Structure
 {

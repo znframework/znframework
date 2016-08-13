@@ -1,5 +1,4 @@
-<?php	
-namespace ZN\Core;
+<?php namespace ZN\Core;
 
 class Config
 {
@@ -73,9 +72,7 @@ class Config
 		
 		if( ! isImport($path) ) 
 		{
-			require_once $path;
-			
-			self::$config = $config;
+			self::$config[$file] = require_once $path;
 		}
 	}
 	
