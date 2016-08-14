@@ -1,7 +1,7 @@
 <?php
-//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 // This file automatically created and updated
-//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 $classMap['classes']['zn\components\internalcalendar'] = 'Internal/Libraries/Components/Calendar/Calendar.php';
 $classMap['classes']['calendar'] = 'Internal/StaticAccess/Components/Calendar/InternalCalendar.php';
 $classMap['classes']['zn\components\calendarinterface'] = 'Internal/Libraries/Components/Calendar/CalendarInterface.php';
@@ -332,8 +332,8 @@ $classMap['classes']['zn\viewobjects\jquery\helpers\animate'] = 'Internal/Librar
 $classMap['classes']['zn\viewobjects\jquery\helpers\event'] = 'Internal/Libraries/ViewObjects/Bootstrap/Jquery/Helpers/Event.php';
 $classMap['classes']['zn\viewobjects\internaljq'] = 'Internal/Libraries/ViewObjects/Bootstrap/Jquery/JQ.php';
 $classMap['classes']['jq'] = 'Internal/StaticAccess/ViewObjects/Bootstrap/Jquery/InternalJQ.php';
-$classMap['classes']['zn\viewobjects\internaljs'] = 'Internal/Libraries/ViewObjects/Bootstrap/Text/JS.php';
-$classMap['classes']['js'] = 'Internal/StaticAccess/ViewObjects/Bootstrap/Text/InternalJS.php';
+$classMap['classes']['zn\viewobjects\internaljs'] = 'Internal/Libraries/ViewObjects/Bootstrap/Jquery/JS.php';
+$classMap['classes']['js'] = 'Internal/StaticAccess/ViewObjects/Bootstrap/Jquery/InternalJS.php';
 $classMap['classes']['zn\viewobjects\internaljquery'] = 'Internal/Libraries/ViewObjects/Bootstrap/Jquery/Jquery.php';
 $classMap['classes']['jquery'] = 'Internal/StaticAccess/ViewObjects/Bootstrap/Jquery/InternalJquery.php';
 $classMap['classes']['zn\viewobjects\jqueryinterface'] = 'Internal/Libraries/ViewObjects/Bootstrap/Jquery/JqueryInterface.php';
