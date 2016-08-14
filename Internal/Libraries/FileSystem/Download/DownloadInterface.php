@@ -2,7 +2,7 @@
 
 interface DownloadInterface
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
@@ -10,6 +10,6 @@ interface DownloadInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-	
-	public function start(String $file);
+    
+    public function start(String $file);
 }

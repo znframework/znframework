@@ -1,6 +1,6 @@
 <?php class Throwables extends Exception implements ThrowablesInterface
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com

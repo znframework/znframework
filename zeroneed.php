@@ -71,7 +71,7 @@ elseif( defined('URIAPPDIR') )
 {
     $flip   = array_flip($appdir);
     $appdir = URIAPPDIR;
-			
+            
     if( ! empty($flip[URIAPPDIR]) )
     {
         define('CURRENT_URIAPPDIR', $flip[URIAPPDIR]);
@@ -79,7 +79,7 @@ elseif( defined('URIAPPDIR') )
 }
 elseif( is_array($appdir) )
 {
-    $appdir = $application['directory']['default'];	
+    $appdir = $application['directory']['default']; 
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -98,13 +98,13 @@ if( ! is_dir(APPDIR) )
 //--------------------------------------------------------------------------------------------------
 require_once HIERARCHY_DIR; 
 //--------------------------------------------------------------------------------------------------
-	
+    
 //--------------------------------------------------------------------------------------------------
 // Finish Micro Time
 //--------------------------------------------------------------------------------------------------
 $finish = microtime();
 //--------------------------------------------------------------------------------------------------
-	
+    
 if( Config::get('Application', 'benchmark') === true ) 
 {
     //----------------------------------------------------------------------------------------------
@@ -130,10 +130,10 @@ if( Config::get('Application', 'benchmark') === true )
     //----------------------------------------------------------------------------------------------
     $benchmarkData = 
     [
-	    'elapsedTime'	 => $elapsedTime,
-	    'memoryUsage'	 => $memoryUsage,
-	    'maxMemoryUsage' => $maxMemoryUsage
-    ];	
+        'elapsedTime'    => $elapsedTime,
+        'memoryUsage'    => $memoryUsage,
+        'maxMemoryUsage' => $maxMemoryUsage
+    ];  
 
     $benchResult = Import::template('BenchmarkTable', $benchmarkData, true);
     //----------------------------------------------------------------------------------------------
@@ -143,4 +143,4 @@ if( Config::get('Application', 'benchmark') === true )
     //----------------------------------------------------------------------------------------------
     internalBenchmarkReport($benchResult);
     //----------------------------------------------------------------------------------------------
-}	
+}   
