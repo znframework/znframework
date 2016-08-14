@@ -11,6 +11,74 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
+// Config
+//--------------------------------------------------------------------------------------------------
+// 
+// @param string $file
+// @param string $value
+// @param mixed  $newValue
+//
+// @return mixed
+//
+//--------------------------------------------------------------------------------------------------
+function config(String $file, String $value = NULL, String $newValue = NULL)
+{
+    if( $newValue === NULL )
+    {
+        return Config::get($file, $value);
+    }
+    else
+    {
+        return Config::set($file, $value, $newValue);
+    }
+} 
+
+//--------------------------------------------------------------------------------------------------
+// Gconfig
+//--------------------------------------------------------------------------------------------------
+// 
+// @param string $value
+//
+// @return mixed
+//
+//--------------------------------------------------------------------------------------------------
+function gconfig(String $value = NULL)
+{
+    global $gconfig;
+
+    if( empty($gconfig) )
+    {
+        $configs = array_merge
+        (
+            Folder::files(EXTERNAL_CONFIG_DIR, 'php'),
+            Folder::files(CONFIG_DIR, 'php'),
+            Folder::files(INTERNAL_CONFIG_DIR, 'php')
+        );
+
+        $gconfig = [];
+
+        foreach( $configs as $file )
+        {
+            $file    = removeExtension($file);
+            $gconfig = array_merge($gconfig, (array) Config::get($file)); 
+        }
+    }
+
+    if( $value === NULL )
+    {
+        return $gconfig;
+    }
+    elseif( isset($gconfig[$value]) )
+    {
+        return $gconfig[$value];
+    }
+    else
+    {
+        return false;
+    }
+} 
+
+//--------------------------------------------------------------------------------------------------
 // Symbol
 //--------------------------------------------------------------------------------------------------
 // 

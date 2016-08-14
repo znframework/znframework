@@ -85,7 +85,7 @@ interface FolderInterface
     // Birden fazla uzantı belirmek isterseniz 2. parametreyi ['dir', 'php'] gibi belirtebilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(String $path, $extension = NULL) : Array;
+    public function files(String $path, $extension = NULL, Bool $pathType = false) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // allFiles()

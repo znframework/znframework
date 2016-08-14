@@ -989,7 +989,7 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
 
     if( is_object($data) )
     {
-        $data = (array)$data;
+        $data = (array) $data;
         $vartype = 'object';
     }
 
@@ -999,11 +999,11 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
     }
     else
     {
-        foreach($data as $k => $v)
+        foreach( $data as $k => $v )
         {
             if( is_object($v) )
             {
-                $v = (array)$v;
+                $v = (array) $v;
                 $vartype = 'object';
             }
 
@@ -1022,9 +1022,7 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
                 }
                 elseif( $type === 'boolean' )
                 {
-                    $v = ( $v === true )
-                        ? 'true'
-                        : 'false';
+                    $v = ( $v === true ) ? 'true' : 'false';
 
                     $type = 'boolean';
                 }
@@ -1033,7 +1031,7 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
             }
             else
             {
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, $start++)." $tab), ".$eof;
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, (int) $start++)." $tab), ".$eof;
                 $start--;
             }
         }

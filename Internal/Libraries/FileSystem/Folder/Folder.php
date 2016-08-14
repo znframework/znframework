@@ -224,7 +224,7 @@ class InternalFolder extends \CallController implements FolderInterface
     // Birden fazla uzantı belirmek isterseniz 2. parametreyi ['dir', 'php'] gibi belirtebilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(String $path, $extension = NULL) : Array
+    public function files(String $path, $extension = NULL, Bool $pathType = false) : Array
     {
         if( ! is_dir($path) )
         {
@@ -237,13 +237,13 @@ class InternalFolder extends \CallController implements FolderInterface
 
             foreach( $extension as $ext )
             {
-                $allFiles = array_merge($allFiles, $this->_files($path, $ext));
+                $allFiles = array_merge($allFiles, $this->_files($path, $ext, $pathType));
             }
 
             return $allFiles;
         }
 
-        return $this->_files($path, $extension);
+        return $this->_files($path, $extension, $pathType);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -314,13 +314,22 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     // protected _files()
     //--------------------------------------------------------------------------------------------------------
-    protected function _files($path, $extension)
+    protected function _files($path, $extension, $pathType = false)
     {
         $files = [];
         
         if( empty($path) )
         {
             $path = '.';
+        }
+
+        if( $pathType === true )
+        {
+            $prefixPath = $path;
+        }
+        else
+        {
+            $prefixPath = '';
         }
         
         $dir = opendir($path);
@@ -333,7 +342,7 @@ class InternalFolder extends \CallController implements FolderInterface
                 {
                     if( extension($file) === $extension )
                     {
-                        $files[] = $file;   
+                        $files[] = $prefixPath.$file;   
                     }
                 }
                 else
@@ -342,12 +351,12 @@ class InternalFolder extends \CallController implements FolderInterface
                     {
                         if( is_dir(suffix($path).$file) )
                         {
-                            $files[] = $file;   
+                            $files[] = $prefixPath.$file;   
                         }
                     }
                     else
                     {
-                        $files[] = $file;
+                        $files[] = $prefixPath.$file;
                     }
                 }
             }

@@ -138,7 +138,7 @@ interface DBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getString(String $table) : String;
+    public function getString(String $table = NULL) : String;
     
     //--------------------------------------------------------------------------------------------------------
     // Query

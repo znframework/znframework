@@ -747,7 +747,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getString(String $table) : String
+    public function getString(String $table = NULL) : String
     {
         return $this->get($table, 'string');    
     }
