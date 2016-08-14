@@ -162,9 +162,9 @@ class Autoloader
 		if( ! is_file($path) )
 		{
 			$classMapPage  = '<?php'.$eol;
-			$classMapPage .= '//--------------------------------------------------------------------------------------------------------'.$eol;
+			$classMapPage .= '//--------------------------------------------------------------------------------------------------'.$eol;
 			$classMapPage .= '// This file automatically created and updated'.$eol;
-			$classMapPage .= '//--------------------------------------------------------------------------------------------------------'.$eol;
+			$classMapPage .= '//--------------------------------------------------------------------------------------------------'.$eol;
 		}
 		else
 		{
@@ -532,9 +532,9 @@ class Autoloader
 	
 						// Statik sınıf içeriği oluşturuluyor....
 						$classContent  = '<?php'.$eol;
-						$classContent .= '//--------------------------------------------------------------------------------------------------------'.$eol;
+						$classContent .= '//--------------------------------------------------------------------------------------------------'.$eol;
 						$classContent .= '// This file automatically created and updated'.$eol;
-						$classContent .= '//--------------------------------------------------------------------------------------------------------'.$eol.$eol;
+						$classContent .= '//--------------------------------------------------------------------------------------------------'.$eol.$eol;
 						$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
 						$classContent .= '{'.$eol;	
 						$classContent .= $constants;
@@ -543,7 +543,7 @@ class Autoloader
 						$classContent .= "\t\t".'return __CLASS__;'.$eol;
 						$classContent .= "\t".'}'.$eol;
 						$classContent .= '}'.$eol.$eol;
-						$classContent .= '//--------------------------------------------------------------------------------------------------------';
+						$classContent .= '//--------------------------------------------------------------------------------------------------';
 						
 						$fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0; 
 						

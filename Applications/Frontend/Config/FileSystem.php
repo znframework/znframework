@@ -1,7 +1,7 @@
-<?php return
+<?php return 
 [
     //--------------------------------------------------------------------------------------------------
-    // Compress 
+    // FileSystem 
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -12,11 +12,19 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Driver                                                                             	  
+    // Ftp
     //--------------------------------------------------------------------------------------------------
-    // 
-    // Genel Kullanım: Drivers: bz, gz, lzf, zip, zlib, rar.		     						  
+    //
+    // Genel Kullanım: Ftp bağlantı ayarları yapılır.	         						  
     //
     //--------------------------------------------------------------------------------------------------
-    'driver' => 'gz'
+    'ftp' => 
+    [
+        'host'       => '',   // Bağlantının sağlanacağı host bilgisi
+        'user'       => '',   // Sunucu kullanıcı adı.
+        'password'   => '',   // Sunucu kullanıcı şifresi.
+        'timeout'    => 90,   // Sunucu bağlantı zaman aşımı süresi.
+        'port'       => 21,   // Bağlantı port numarası.
+        'sslConnect' => false // SSL kullanılarak sunucu bağlantısı kurulsun mu?.	
+    ]
 ];

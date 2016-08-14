@@ -18,7 +18,7 @@ class InternalFTP extends \Requirements implements FTPInterface
 	// @const string
 	//
 	//--------------------------------------------------------------------------------------------------------
-	const config  = 'Services:ftp';
+	const config  = 'FileSystem:ftp';
 	
 	//--------------------------------------------------------------------------------------------------------
 	// Protected $connect
