@@ -1,7 +1,7 @@
 <?php
-//----------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // This file automatically created and updated
-//----------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 $classMap['classes']['zn\components\internalcalendar'] = 'Internal/Libraries/Components/Calendar/Calendar.php';
 $classMap['classes']['calendar'] = 'Internal/StaticAccess/Components/Calendar/InternalCalendar.php';
 $classMap['classes']['zn\components\calendarinterface'] = 'Internal/Libraries/Components/Calendar/CalendarInterface.php';
