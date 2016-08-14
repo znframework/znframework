@@ -4,7 +4,7 @@ use ZN\Database\DriverUser;
 
 class SQLiteUser extends DriverUser
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com

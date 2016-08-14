@@ -2,7 +2,7 @@
 
 trait DriverTrait
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
@@ -10,20 +10,20 @@ trait DriverTrait
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-	
-	/* Config Değişkeni
-	 *  
-	 * Veritabanı ayarlar bilgisini
-	 * tutmak için oluşturulmuştur.
-	 *
-	 */
-	protected $config;
-	
-	/******************************************************************************************
-	* CONSTRUCT     	                                                                      *
-	******************************************************************************************/
-	public function __construct()
-	{
-		$this->config = \Config::get('Database');	
-	}
+    
+    /* Config Değişkeni
+     *  
+     * Veritabanı ayarlar bilgisini
+     * tutmak için oluşturulmuştur.
+     *
+     */
+    protected $config;
+    
+    /******************************************************************************************
+    * CONSTRUCT                                                                               *
+    ******************************************************************************************/
+    public function __construct()
+    {
+        $this->config = \Config::get('Database');   
+    }
 }

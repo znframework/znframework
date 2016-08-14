@@ -12,14 +12,14 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Create File                                                              		  
+    // Create File                                                                        
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Çalışma esnasında oluşan kod hatalarını kayıt altına alır.			  
-    // Parametreler: true veya false															  
-    // Varsayılan: false																		  
-    // Kayıtlar Logs/ dizini içerisinde kayıt altına alınmaktadır.	  
-    //   					  
+    // Genel Kullanım: Çalışma esnasında oluşan kod hatalarını kayıt altına alır.             
+    // Parametreler: true veya false                                                              
+    // Varsayılan: false                                                                          
+    // Kayıtlar Logs/ dizini içerisinde kayıt altına alınmaktadır.    
+    //                        
     //--------------------------------------------------------------------------------------------------
     'createFile' => false,
 
@@ -27,13 +27,13 @@
     // File Time
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Log dosyalarının ne kadar süre ile kayıtları tutacağı ayarlanır.		  
-    // Parametreler: Metinsel türde zaman bilgileri day, month, year							  
-    // Varsayılan: 30 day																	  
-    // Sürenin dolması durumunda herhangi bir hata oluştuğunda eski kayıtlar					  
-    // silinir ve yeni hata kaydı eklenir. Böylece Log dosyalarının şismesinin				  
+    // Genel Kullanım: Log dosyalarının ne kadar süre ile kayıtları tutacağı ayarlanır.       
+    // Parametreler: Metinsel türde zaman bilgileri day, month, year                              
+    // Varsayılan: 30 day                                                                     
+    // Sürenin dolması durumunda herhangi bir hata oluştuğunda eski kayıtlar                      
+    // silinir ve yeni hata kaydı eklenir. Böylece Log dosyalarının şismesinin                
     // önüne geçilmiş olur.
-    //	     					  										  				
+    //                                                                                  
     //--------------------------------------------------------------------------------------------------
     'fileTime' => '30 day'
 ];

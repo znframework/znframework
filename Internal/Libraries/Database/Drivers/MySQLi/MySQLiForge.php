@@ -4,7 +4,7 @@ use ZN\Database\DriverForge;
 
 class MySQLiForge extends DriverForge
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com

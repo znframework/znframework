@@ -4,7 +4,7 @@ use ZN\Database\DriverUser;
 
 class MySQLiUser extends DriverUser
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com

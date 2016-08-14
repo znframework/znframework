@@ -63,7 +63,7 @@ define('CURRENT_CONTROLLER', $page);
 // CURRENT_CPATH
 //--------------------------------------------------------------------------------------------------
 //
-// @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu	bilgisi.
+// @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu   bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
 define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
@@ -72,7 +72,7 @@ define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/
 // CURRENT_CFURI
 //--------------------------------------------------------------------------------------------------
 //
-// @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu	bilgisi.
+// @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu   bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
 define('CURRENT_CFURI', CURRENT_CFPATH);
@@ -95,12 +95,12 @@ $starting = Config::get('Starting');
 // Starting Controllers
 //--------------------------------------------------------------------------------------------------
 $startController = $starting['controller'];
-	
+    
 if( ! empty($startController) )
 {
     if( is_string($startController) )
     {
-        internalStartingContoller($startController);	
+        internalStartingContoller($startController);    
     }
     elseif( is_array($startController) )
     {
@@ -108,13 +108,13 @@ if( ! empty($startController) )
         {
             if( is_numeric($key) )
             {
-                internalStartingContoller($val);	
-            }	
+                internalStartingContoller($val);    
+            }   
             else
             {
-                internalStartingContoller($key, $val);	
+                internalStartingContoller($key, $val);  
             }
-        }	
+        }   
     }
 }
 
@@ -122,7 +122,7 @@ if( $starting['autoload']['status'] === true )
 {
     $startingAutoload       = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
     $commonStartingAutoload = Folder::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
-	
+    
     //----------------------------------------------------------------------------------------------
     // Yerel Otomatik Olarak Yüklenen Fonksiyonlar
     //----------------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ if( $starting['autoload']['status'] === true )
             }
         }
     }
-	
+    
     //------------------------------------------------------------------------------------------------
     // Ortak Otomatik Olarak Yüklenen Fonksiyonlar
     //------------------------------------------------------------------------------------------------
@@ -145,14 +145,14 @@ if( $starting['autoload']['status'] === true )
         if( extension($file) === 'php' )
         {
             $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
-			
+            
             if( ! is_file($commonIsSameExistsFile) && is_file($file) )
             {
                 require_once $file;
             }
         }
     }
-}	
+}   
 
 //--------------------------------------------------------------------------------------------------
 // El ile Yüklenen Fonksiyonlar
@@ -170,13 +170,13 @@ if( ! empty($starting['handload']) )
 if( is_file($isFile) )
 {
     require_once $isFile;
-		
+        
     if( class_exists($page, false) )
     {
         if( strtolower($function) === 'index' && ! is_callable([$page, $function]) )
         {
-            $function = 'main';	
-        }	
+            $function = 'main'; 
+        }   
 
         if( is_callable([$page, $function]) )
         {
@@ -195,30 +195,30 @@ if( is_file($isFile) )
         else
         {
             if( Config::get('Route', 'show404') )
-            {	
-                redirect(Config::get('Route', 'show404'));	
+            {   
+                redirect(Config::get('Route', 'show404'));  
             }
             else
             {
-                report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');	
-		
+                report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');    
+        
                 die(Errors::message('Error', 'callUserFuncArrayError', $function));
             }
         }
     }
 }
 else
-{	
+{   
     if( Config::get('Route','show404') ) 
-    {				
-        redirect(Config::get('Route','show404'));		
+    {               
+        redirect(Config::get('Route','show404'));       
     }
     else
     {
         report('Error', lang('Error', 'notIsFileError', $isFile), 'SystemNotIsFileError');
-		
+        
         die(Errors::message('Error', 'notIsFileError', $isFile));
-    }		
+    }       
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -247,9 +247,9 @@ else
         $message = $lang['line']   .':'.$errorLast['line'].', '.
                    $lang['file']   .':'.$errorLast['file'].', '.
                    $lang['message'].':'.$errorLast['message'];
-		
+        
         report('GeneralError', $message, 'GeneralError');
-    }	
+    }   
 }
 
 //--------------------------------------------------------------------------------------------------

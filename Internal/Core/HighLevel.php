@@ -44,7 +44,7 @@ define('HIERARCHY_DIR', CORE_DIR.'Hierarchy.php');
 // @return \r\n
 //
 //--------------------------------------------------------------------------------------------------
-define('EOL', PHP_EOL);	
+define('EOL', PHP_EOL); 
 
 //--------------------------------------------------------------------------------------------------
 // CRLF
@@ -53,7 +53,7 @@ define('EOL', PHP_EOL);
 // @return \r\n
 //
 //--------------------------------------------------------------------------------------------------
-define('CRLF', "\r\n");	
+define('CRLF', "\r\n"); 
 
 //--------------------------------------------------------------------------------------------------
 // CR
@@ -62,7 +62,7 @@ define('CRLF', "\r\n");
 // @return \r
 //
 //--------------------------------------------------------------------------------------------------
-define('CR', "\r");	
+define('CR', "\r"); 
 
 //--------------------------------------------------------------------------------------------------
 // LF
@@ -71,7 +71,7 @@ define('CR', "\r");
 // @return \n
 //
 //--------------------------------------------------------------------------------------------------
-define('LF', "\n");	
+define('LF', "\n"); 
 
 //--------------------------------------------------------------------------------------------------
 // LF
@@ -80,7 +80,7 @@ define('LF', "\n");
 // @return \t
 //
 //--------------------------------------------------------------------------------------------------
-define('HT', "\t");	
+define('HT', "\t"); 
 
 //--------------------------------------------------------------------------------------------------
 // FF
@@ -89,7 +89,7 @@ define('HT', "\t");
 // @return \f
 //
 //--------------------------------------------------------------------------------------------------
-define('FF', "\f");	
+define('FF', "\f"); 
 
 //--------------------------------------------------------------------------------------------------
 // BASE_DIR
@@ -102,7 +102,7 @@ $baseDir = explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME']);
 
 if( isset($baseDir[0]) )
 {
-	define('BASE_DIR', $baseDir[0]);
+    define('BASE_DIR', $baseDir[0]);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -122,12 +122,12 @@ $othersapp = $application['directory']['others'];
 
 if( is_array($othersapp) )
 {
-	$internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
+    $internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
 }
 
 if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
 {
-	define('URIAPPDIR', $internalDir);	
+    define('URIAPPDIR', $internalDir);  
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -140,15 +140,15 @@ if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
 //
 //--------------------------------------------------------------------------------------------------
 function isImport(String $path) : Bool
-{	
-	if( in_array( realpath(suffix($path, '.php')), get_required_files() ) ) 
-	{
-		return true;
-	}
-	else
-	{ 
-		return false;
-	}
+{   
+    if( in_array( realpath(suffix($path, '.php')), get_required_files() ) ) 
+    {
+        return true;
+    }
+    else
+    { 
+        return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -162,14 +162,14 @@ function isImport(String $path) : Bool
 //--------------------------------------------------------------------------------------------------
 function isUrl(String $url) : Bool
 {
-	if( ! preg_match('#^(\w+:)?//#i', $url) )
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+    if( ! preg_match('#^(\w+:)?//#i', $url) )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -183,14 +183,14 @@ function isUrl(String $url) : Bool
 //--------------------------------------------------------------------------------------------------
 function isEmail(String $email) : Bool
 {
-	if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email) )
-	{ 
-		return false; 
-	}
-	else
-	{ 
-		return true;
-	}
+    if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email) )
+    { 
+        return false; 
+    }
+    else
+    { 
+        return true;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -204,15 +204,15 @@ function isEmail(String $email) : Bool
 //--------------------------------------------------------------------------------------------------
 function isChar($str) : Bool
 {
-	if( is_scalar($str) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}	
+    if( is_scalar($str) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}   
 
 //--------------------------------------------------------------------------------------------------
 // isRealNumeric()
@@ -225,14 +225,14 @@ function isChar($str) : Bool
 //--------------------------------------------------------------------------------------------------
 function isRealNumeric($num = 0) : Bool
 {
-	if( ! is_string($num) && is_numeric($num) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if( ! is_string($num) && is_numeric($num) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -246,14 +246,14 @@ function isRealNumeric($num = 0) : Bool
 //--------------------------------------------------------------------------------------------------
 function isDeclaredClass(String $class) : Bool
 {
-	if( in_array(strtolower($class), array_map('strtolower', get_declared_classes())) )
-	{
-		return true;	
-	}
-	else
-	{
-		return false;	
-	}
+    if( in_array(strtolower($class), array_map('strtolower', get_declared_classes())) )
+    {
+        return true;    
+    }
+    else
+    {
+        return false;   
+    }
 }
 
 
@@ -268,14 +268,14 @@ function isDeclaredClass(String $class) : Bool
 //--------------------------------------------------------------------------------------------------
 function isHash(String $type) : Bool
 {
-	if( in_array($type, hash_algos()) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if( in_array($type, hash_algos()) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -289,14 +289,14 @@ function isHash(String $type) : Bool
 //--------------------------------------------------------------------------------------------------
 function isCharset(String $charset) : Bool
 {
-	if( array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if( array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -310,14 +310,14 @@ function isCharset(String $charset) : Bool
 //--------------------------------------------------------------------------------------------------
 function isArray($array) : Bool
 {
-	if( ! empty($array) && is_array($array) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if( ! empty($array) && is_array($array) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -332,7 +332,7 @@ function isArray($array) : Bool
 //--------------------------------------------------------------------------------------------------
 function nullCoalesce( & $var, $value)
 {
-	$var = $var === NULL ? $value : $var;
+    $var = $var === NULL ? $value : $var;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -346,7 +346,7 @@ function nullCoalesce( & $var, $value)
 //--------------------------------------------------------------------------------------------------
 function charsetList() : Array
 {
-	return mb_list_encodings();	
+    return mb_list_encodings(); 
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -355,34 +355,34 @@ function charsetList() : Array
 //
 // @param mixed $data
 // @param array $settings = []
-// @param bool  $content  = false	
+// @param bool  $content  = false   
 //
-// @return void	  																				                                   							
+// @return void                                                                                                                                             
 //
 //--------------------------------------------------------------------------------------------------
 function output($data, Array $settings = [], Bool $content = false)
-{	
-	// ---------------------------------------------------------------------------------------------
-	// AYARLAR
-	// ---------------------------------------------------------------------------------------------
-	$textType 		= isset($settings['textType'])      ? $settings['textType']     : 'monospace, Tahoma, Arial';
-	$textSize 		= isset($settings['textSize'])      ? $settings['textSize']     : '12px';	
-	// ---------------------------------------------------------------------------------------------
-	
-	$globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
-	
-	$output  = "<span$globalStyle>";
-	$output .= internalOutput($data, '', 0, $settings);
-	$output .= "</span>";
-	
-	if( $content === false)
-	{
-		echo $output;
-	}
-	else
-	{
-		return $output;	
-	}
+{   
+    // ---------------------------------------------------------------------------------------------
+    // AYARLAR
+    // ---------------------------------------------------------------------------------------------
+    $textType       = isset($settings['textType'])      ? $settings['textType']     : 'monospace, Tahoma, Arial';
+    $textSize       = isset($settings['textSize'])      ? $settings['textSize']     : '12px';   
+    // ---------------------------------------------------------------------------------------------
+    
+    $globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
+    
+    $output  = "<span$globalStyle>";
+    $output .= internalOutput($data, '', 0, $settings);
+    $output .= "</span>";
+    
+    if( $content === false)
+    {
+        echo $output;
+    }
+    else
+    {
+        return $output; 
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -393,29 +393,29 @@ function output($data, Array $settings = [], Bool $content = false)
 // @param array  $vars = []
 //
 // @return void
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function write(String $data, Array $vars = [])
 {
-	if( ! is_scalar($data) )
-	{
-		echo 'Not String!'; 
-		return false;
-	}
+    if( ! is_scalar($data) )
+    {
+        echo 'Not String!'; 
+        return false;
+    }
 
-	if( ! empty($data) && is_array($vars) )
-	{
-		$varsArray = [];
-		
-		foreach( $vars as $k => $v )
-		{
-			$varsArray['{'.$k.'}']	= $v;
-		}
-		
-		$data = str_replace(array_keys($varsArray), array_values($varsArray), $data);
-	}
-	
-	echo $data;
+    if( ! empty($data) && is_array($vars) )
+    {
+        $varsArray = [];
+        
+        foreach( $vars as $k => $v )
+        {
+            $varsArray['{'.$k.'}']  = $v;
+        }
+        
+        $data = str_replace(array_keys($varsArray), array_values($varsArray), $data);
+    }
+    
+    echo $data;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -426,12 +426,12 @@ function write(String $data, Array $vars = [])
 // @param array  $vars    = []
 // @param int    $brCount = 1
 //
-// @return void						  					          														                              
-//          																				  
+// @return void                                                                                                                                       
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function writeLine(String $data, Array $vars = [], Int $brCount = 1)
 {
-	echo write($data, $vars).str_repeat("<br>", $brCount);
+    echo write($data, $vars).str_repeat("<br>", $brCount);
 }
 
 
@@ -444,11 +444,11 @@ function writeLine(String $data, Array $vars = [], Int $brCount = 1)
 // @param string $p3
 //
 // @return Bool
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function compare(String $p1, String $operator, String $p2) : Bool
 {
-	return version_compare($p1, $p2, $operator);
+    return version_compare($p1, $p2, $operator);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -458,11 +458,11 @@ function compare(String $p1, String $operator, String $p2) : Bool
 // @param int $repeat = 1
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function eol(Int $repeat = 1) : String
 {
-	return str_repeat(EOL, $repeat);
+    return str_repeat(EOL, $repeat);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -472,26 +472,26 @@ function eol(Int $repeat = 1) : String
 // @param void
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function getOS() : String
 {
-	if( stristr(PHP_OS, 'WIN') ) 
-	{
+    if( stristr(PHP_OS, 'WIN') ) 
+    {
         return 'WIN';        
     }
     elseif( stristr(PHP_OS, 'MAC') )
-	{
+    {
         return 'MAC';
-	}
-	elseif( stristr(PHP_OS, 'LINUX') )
-	{
+    }
+    elseif( stristr(PHP_OS, 'LINUX') )
+    {
         return 'LINUX';
-	}
-	else
-	{
-		return 'UNKNOWN';
-	}
+    }
+    else
+    {
+        return 'UNKNOWN';
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -502,30 +502,30 @@ function getOS() : String
 // @param string $fix = '/'
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function suffix(String $string, String $fix = '/') : String
 {
-	if( strlen($fix) <= strlen($string) )
-	{
-		$suffix = substr($string, -strlen($fix));
-		
-		if( $suffix !== $fix)
-		{
-			$string = $string.$fix;
-		}
-	}
-	else
-	{
-		$string = $string.$fix;	
-	}
-	
-	if( $string === '/' )
-	{
-		return false;	
-	}
-	
-	return $string;
+    if( strlen($fix) <= strlen($string) )
+    {
+        $suffix = substr($string, -strlen($fix));
+        
+        if( $suffix !== $fix)
+        {
+            $string = $string.$fix;
+        }
+    }
+    else
+    {
+        $string = $string.$fix; 
+    }
+    
+    if( $string === '/' )
+    {
+        return false;   
+    }
+    
+    return $string;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -536,30 +536,30 @@ function suffix(String $string, String $fix = '/') : String
 // @param string $fix = '/'
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function prefix(String $string, String $fix = '/') : String
 {
-	if( strlen($fix) <= strlen($string) )
-	{	
-		$prefix = substr($string, 0, strlen($fix));
-	
-		if( $prefix !== $fix )
-		{
-			$string = $fix.$string;
-		}
-	}
-	else
-	{
-		$string = $fix.$string;	
-	}
-	
-	if( $string === '/' )
-	{
-		return false;	
-	}
-	
-	return $string;
+    if( strlen($fix) <= strlen($string) )
+    {   
+        $prefix = substr($string, 0, strlen($fix));
+    
+        if( $prefix !== $fix )
+        {
+            $string = $fix.$string;
+        }
+    }
+    else
+    {
+        $string = $fix.$string; 
+    }
+    
+    if( $string === '/' )
+    {
+        return false;   
+    }
+    
+    return $string;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -569,12 +569,12 @@ function prefix(String $string, String $fix = '/') : String
 // @param string $string
 // @param string $fix = '/'
 //
-// @return string		 
-//          																				  
+// @return string        
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function presuffix(String $string, String $fix = '/') : String
 {
-	return suffix(prefix($string, $fix), $fix);
+    return suffix(prefix($string, $fix), $fix);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -584,40 +584,40 @@ function presuffix(String $string, String $fix = '/') : String
 // @param void
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function host() : String
 {
-	if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
-	{
-		$host =	$_SERVER['HTTP_X_FORWARDED_HOST'];
-		
-		$elements = explode(',', $host);
+    if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
+    {
+        $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+        
+        $elements = explode(',', $host);
 
-		$host = trim(end($elements));
-	}
-	else
-	{
-		if( isset($_SERVER['HTTP_HOST']) )
-		{
-			$host = $_SERVER['HTTP_HOST'];
-		}
-		else
-		{
-			if( isset($_SERVER['SERVER_NAME']) )
-			{
-				$host = $_SERVER['SERVER_NAME'];
-			}
-			else
-			{
-				$host = ! empty($_SERVER['SERVER_ADDR']) 
-						? $_SERVER['SERVER_ADDR'] 
-						: '';	
-			}
-		}
-	}
-		
-	return trim($host);
+        $host = trim(end($elements));
+    }
+    else
+    {
+        if( isset($_SERVER['HTTP_HOST']) )
+        {
+            $host = $_SERVER['HTTP_HOST'];
+        }
+        else
+        {
+            if( isset($_SERVER['SERVER_NAME']) )
+            {
+                $host = $_SERVER['SERVER_NAME'];
+            }
+            else
+            {
+                $host = ! empty($_SERVER['SERVER_ADDR']) 
+                        ? $_SERVER['SERVER_ADDR'] 
+                        : '';   
+            }
+        }
+    }
+        
+    return trim($host);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -627,11 +627,11 @@ function host() : String
 // @param void
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function hostName() : String
 {
-	return host();
+    return host();
 }
 //--------------------------------------------------------------------------------------------------
 // pathInfos()
@@ -641,20 +641,20 @@ function hostName() : String
 // @param string $info = 'basename'
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function pathInfos(String $file, String $info = 'basename') : String
 {
-	$pathInfo = pathinfo($file);
-	
-	if( isset($pathInfo[$info]) )
-	{
-		return $pathInfo[$info];
-	}
-	else
-	{ 
-		return false;
-	}
+    $pathInfo = pathinfo($file);
+    
+    if( isset($pathInfo[$info]) )
+    {
+        return $pathInfo[$info];
+    }
+    else
+    { 
+        return false;
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -665,15 +665,15 @@ function pathInfos(String $file, String $info = 'basename') : String
 // @param bool   $dote = false
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function extension(String $file, Bool $dote = false) : String
 {
-	$dote = $dote === true 
-		  ? '.'
-		  : '';
-	
-	return $dote.strtolower(pathInfos($file, "extension"));
+    $dote = $dote === true 
+          ? '.'
+          : '';
+    
+    return $dote.strtolower(pathInfos($file, "extension"));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -683,11 +683,11 @@ function extension(String $file, Bool $dote = false) : String
 // @param string $file
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function removeExtension(String $file) : String
 {
-	return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
+    return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -699,42 +699,42 @@ function removeExtension(String $file) : String
 // @param scalar $index     = 0
 //
 // @return mixed
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function divide(String $str, String $separator = '|', String $index = '0')
 {
-	$arrayEx = explode($separator, $str);
-	
-	if( $index === 'all' )
-	{
-		return $arrayEx;
-	}
-	
-	if( $index < 0 )
-	{
- 		$ind = (count($arrayEx)+($index));
-	}
-	elseif( $index === 'last' )
-	{
-		$ind = (count($arrayEx) - 1);
-	}
-	elseif( $index === 'first' )
-	{
-		$ind = 0;
-	}
-	else
-	{
-		$ind = $index;
-	}
-	
-	if( isset($arrayEx[$ind]) )
-	{
-		return $arrayEx[$ind];
-	}
-	else
-	{
-		return false;
-	}
+    $arrayEx = explode($separator, $str);
+    
+    if( $index === 'all' )
+    {
+        return $arrayEx;
+    }
+    
+    if( $index < 0 )
+    {
+        $ind = (count($arrayEx)+($index));
+    }
+    elseif( $index === 'last' )
+    {
+        $ind = (count($arrayEx) - 1);
+    }
+    elseif( $index === 'first' )
+    {
+        $ind = 0;
+    }
+    else
+    {
+        $ind = $index;
+    }
+    
+    if( isset($arrayEx[$ind]) )
+    {
+        return $arrayEx[$ind];
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
@@ -745,29 +745,29 @@ function divide(String $str, String $separator = '|', String $index = '0')
 // @param void
 //
 // @return string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function ipv4() : String
 {
-	if( isset($_SERVER['HTTP_CLIENT_IP']) ) 
-	{
-		$ip = $_SERVER['HTTP_CLIENT_IP'];
-	}
-	elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) 
-	{
-		$ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
-	}
-	else
-	{
-	  	$ip = $_SERVER['REMOTE_ADDR'];
-	}
+    if( isset($_SERVER['HTTP_CLIENT_IP']) ) 
+    {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }
+    elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) 
+    {
+        $ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
+    }
+    else
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
  
-	if( $ip === '::1')
- 	{
-		$ip = '127.0.0.1';	
-	}
-	
-	return $ip;
+    if( $ip === '::1')
+    {
+        $ip = '127.0.0.1';  
+    }
+    
+    return $ip;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -777,78 +777,78 @@ function ipv4() : String
 // @param string $type = ''
 //
 // @return mixed
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function server(String $type = '')
 {
-	$server = array
-	(
-		''							 => $_SERVER,
-		'name' 						 => (isset($_SERVER['SERVER_NAME'])) 			? $_SERVER['SERVER_NAME'] 			: false,
-		'admin'						 => (isset($_SERVER['SERVER_ADMIN'])) 			? $_SERVER['SERVER_ADMIN'] 			: false,
-		'protocol'					 => (isset($_SERVER['SERVER_PROTOCOL'])) 		? $_SERVER['SERVER_PROTOCOL'] 		: false,
-		'signature'			 	     => (isset($_SERVER['SERVER_SIGNATURE'])) 		? $_SERVER['SERVER_SIGNATURE'] 		: false,
-		'software'					 => (isset($_SERVER['SERVER_SOFTWARE'])) 		? $_SERVER['SERVER_SOFTWARE'] 		: false,		
-		'remoteAddr'				 => (isset($_SERVER['REMOTE_ADDR'])) 			? $_SERVER['REMOTE_ADDR'] 			: false,
-		'remotePort'				 => (isset($_SERVER['REMOTE_PORT'])) 			? $_SERVER['REMOTE_PORT'] 			: false,	
-		'requestMethod'			 	 => (isset($_SERVER['REQUEST_METHOD'] )) 		? $_SERVER['REQUEST_METHOD'] 		: false,
-		'requestUri'				 => (isset($_SERVER['REQUEST_URI'])) 			? $_SERVER['REQUEST_URI'] 			: false,
-		'requestScheme'			 	 => (isset($_SERVER['REQUEST_SCHEME'])) 		? $_SERVER['REQUEST_SCHEME'] 		: false,
-		'requestTime'				 => (isset($_SERVER['REQUEST_TIME'])) 			? $_SERVER['REQUEST_TIME'] 			: false,
-		'requestTimeFloat'		 	 => (isset($_SERVER['REQUEST_TIME_FLOAT'])) 	? $_SERVER['REQUEST_TIME_FLOAT'] 	: false,
-		'accept'					 => (isset($_SERVER['HTTP_ACCEPT'])) 			? $_SERVER['HTTP_ACCEPT'] 			: false,
-		'acceptCharset'			 	 => (isset($_SERVER['HTTP_ACCEPT_CHARSET'])) 	? $_SERVER['HTTP_ACCEPT_CHARSET'] 	: false,
-		'acceptEncoding'			 => (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) 	? $_SERVER['HTTP_ACCEPT_ENCODING'] 	: false,
-		'acceptLanguage'			 => (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) 	? $_SERVER['HTTP_ACCEPT_LANGUAGE'] 	: false,
-		'clientIp'			 		 => (isset($_SERVER['HTTP_CLIENT_IP'])) 		? $_SERVER['HTTP_CLIENT_IP'] 		: false,
-		'xForwardedHost'			 => (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) 	? $_SERVER['HTTP_X_FORWARDED_HOST'] : false,
-		'xForwardedFor'				 => (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) 	? $_SERVER['HTTP_X_FORWARDED_FOR'] 	: false,
-		'xOriginalUrl'		 		 => (isset($_SERVER['HTTP_X_ORIGINAL_URL'])) 	? $_SERVER['HTTP_X_ORIGINAL_URL'] 	: false,
-		'xRequestedWith'		 	 => (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) 	? $_SERVER['HTTP_X_REQUESTED_WITH'] : false,
-		'connection'				 => (isset($_SERVER['HTTP_CONNECTION'])) 		? $_SERVER['HTTP_CONNECTION'] 		: false,
-		'host'						 => (isset($_SERVER['HTTP_HOST'])) 				? $_SERVER['HTTP_HOST'] 			: false,
-		'referer'					 => (isset($_SERVER['HTTP_REFERER'])) 			? $_SERVER['HTTP_REFERER'] 			: false,
-		'userAgent'				 	 => (isset($_SERVER['HTTP_USER_AGENT'])) 		? $_SERVER['HTTP_USER_AGENT'] 		: false,
-		'cookie'					 => (isset($_SERVER['HTTP_COOKIE'])) 			? $_SERVER['HTTP_COOKIE'] 			: false,
-		'cacheControl'				 => (isset($_SERVER['HTTP_CACHE_CONTROL'])) 	? $_SERVER['HTTP_CACHE_CONTROL'] 	: false,
-		'https'					 	 => (isset($_SERVER['HTTPS'])) 					? $_SERVER['HTTPS'] 				: false,
-		'scriptFileName'			 => (isset($_SERVER['SCRIPT_FILENAME'])) 		? $_SERVER['SCRIPT_FILENAME'] 		: false,
-		'scriptName'				 => (isset($_SERVER['SCRIPT_NAME'])) 			? $_SERVER['SCRIPT_NAME'] 			: false,
-		'path'						 => (isset($_SERVER['PATH'])) 					? $_SERVER['PATH'] 					: false,
-		'pathInfo'					 => (isset($_SERVER['PATH_INFO'])) 				? $_SERVER['PATH_INFO'] 			: false,
-		'currentPath'				 => (isset($_SERVER['PATH_INFO'])) 				? $_SERVER['PATH_INFO'] 			: $_SERVER['QUERY_STRING'],
-		'pathTranslated'			 => (isset($_SERVER['PATH_TRANSLATED'])) 		? $_SERVER['PATH_TRANSLATED'] 		: false,
-		'pathext'					 => (isset($_SERVER['PATHEXT'])) 				? $_SERVER['PATHEXT'] 				: false,
-		'redirectQueryString'		 => (isset($_SERVER['REDIRECT_QUERY_STRING'])) 	? $_SERVER['REDIRECT_QUERY_STRING'] : false,
-		'redirectUrl'				 => (isset($_SERVER['REDIRECT_URL'])) 			? $_SERVER['REDIRECT_URL'] 			: false,
-		'redirectStatus'			 => (isset($_SERVER['REDIRECT_STATUS'])) 		? $_SERVER['REDIRECT_STATUS'] 		: false,
-		'phpSelf'					 => (isset($_SERVER['PHP_SELF'])) 				? $_SERVER['PHP_SELF'] 				: false,
-		'queryString'				 => (isset($_SERVER['QUERY_STRING'])) 			? $_SERVER['QUERY_STRING'] 			: false,	
-		'documentRoot' 			 	 => (isset($_SERVER['DOCUMENT_ROOT'])) 			? $_SERVER['DOCUMENT_ROOT'] 		: false,							
-		'windir'					 => (isset($_SERVER['WINDIR'])) 				? $_SERVER['WINDIR'] 				: false,
-		'comspec'					 => (isset($_SERVER['COMSPEC'])) 				? $_SERVER['COMSPEC'] 				: false,
-		'systemRoot'				 => (isset($_SERVER['SystemRoot'])) 			? $_SERVER['SystemRoot'] 			: false,
-		'gatewayInterface'			 => (isset($_SERVER['GATEWAY_INTERFACE'])) 		? $_SERVER['GATEWAY_INTERFACE'] 	: false			
-	);	
-	
-	if( isset($server[$type]) )
-	{
-		if( is_array($server[$type]) )
-		{
-			return $server[$type];	
-		}
-		else
-		{
-			return htmlspecialchars($server[$type], ENT_QUOTES, "utf-8");
-		}
-	}
-	elseif( isset($_SERVER[$type]) )
-	{
-		return htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
-	}
-	
-	return false;
-}	
+    $server = array
+    (
+        ''                           => $_SERVER,
+        'name'                       => (isset($_SERVER['SERVER_NAME']))            ? $_SERVER['SERVER_NAME']           : false,
+        'admin'                      => (isset($_SERVER['SERVER_ADMIN']))           ? $_SERVER['SERVER_ADMIN']          : false,
+        'protocol'                   => (isset($_SERVER['SERVER_PROTOCOL']))        ? $_SERVER['SERVER_PROTOCOL']       : false,
+        'signature'                  => (isset($_SERVER['SERVER_SIGNATURE']))       ? $_SERVER['SERVER_SIGNATURE']      : false,
+        'software'                   => (isset($_SERVER['SERVER_SOFTWARE']))        ? $_SERVER['SERVER_SOFTWARE']       : false,        
+        'remoteAddr'                 => (isset($_SERVER['REMOTE_ADDR']))            ? $_SERVER['REMOTE_ADDR']           : false,
+        'remotePort'                 => (isset($_SERVER['REMOTE_PORT']))            ? $_SERVER['REMOTE_PORT']           : false,    
+        'requestMethod'              => (isset($_SERVER['REQUEST_METHOD'] ))        ? $_SERVER['REQUEST_METHOD']        : false,
+        'requestUri'                 => (isset($_SERVER['REQUEST_URI']))            ? $_SERVER['REQUEST_URI']           : false,
+        'requestScheme'              => (isset($_SERVER['REQUEST_SCHEME']))         ? $_SERVER['REQUEST_SCHEME']        : false,
+        'requestTime'                => (isset($_SERVER['REQUEST_TIME']))           ? $_SERVER['REQUEST_TIME']          : false,
+        'requestTimeFloat'           => (isset($_SERVER['REQUEST_TIME_FLOAT']))     ? $_SERVER['REQUEST_TIME_FLOAT']    : false,
+        'accept'                     => (isset($_SERVER['HTTP_ACCEPT']))            ? $_SERVER['HTTP_ACCEPT']           : false,
+        'acceptCharset'              => (isset($_SERVER['HTTP_ACCEPT_CHARSET']))    ? $_SERVER['HTTP_ACCEPT_CHARSET']   : false,
+        'acceptEncoding'             => (isset($_SERVER['HTTP_ACCEPT_ENCODING']))   ? $_SERVER['HTTP_ACCEPT_ENCODING']  : false,
+        'acceptLanguage'             => (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))   ? $_SERVER['HTTP_ACCEPT_LANGUAGE']  : false,
+        'clientIp'                   => (isset($_SERVER['HTTP_CLIENT_IP']))         ? $_SERVER['HTTP_CLIENT_IP']        : false,
+        'xForwardedHost'             => (isset($_SERVER['HTTP_X_FORWARDED_HOST']))  ? $_SERVER['HTTP_X_FORWARDED_HOST'] : false,
+        'xForwardedFor'              => (isset($_SERVER['HTTP_X_FORWARDED_FOR']))   ? $_SERVER['HTTP_X_FORWARDED_FOR']  : false,
+        'xOriginalUrl'               => (isset($_SERVER['HTTP_X_ORIGINAL_URL']))    ? $_SERVER['HTTP_X_ORIGINAL_URL']   : false,
+        'xRequestedWith'             => (isset($_SERVER['HTTP_X_REQUESTED_WITH']))  ? $_SERVER['HTTP_X_REQUESTED_WITH'] : false,
+        'connection'                 => (isset($_SERVER['HTTP_CONNECTION']))        ? $_SERVER['HTTP_CONNECTION']       : false,
+        'host'                       => (isset($_SERVER['HTTP_HOST']))              ? $_SERVER['HTTP_HOST']             : false,
+        'referer'                    => (isset($_SERVER['HTTP_REFERER']))           ? $_SERVER['HTTP_REFERER']          : false,
+        'userAgent'                  => (isset($_SERVER['HTTP_USER_AGENT']))        ? $_SERVER['HTTP_USER_AGENT']       : false,
+        'cookie'                     => (isset($_SERVER['HTTP_COOKIE']))            ? $_SERVER['HTTP_COOKIE']           : false,
+        'cacheControl'               => (isset($_SERVER['HTTP_CACHE_CONTROL']))     ? $_SERVER['HTTP_CACHE_CONTROL']    : false,
+        'https'                      => (isset($_SERVER['HTTPS']))                  ? $_SERVER['HTTPS']                 : false,
+        'scriptFileName'             => (isset($_SERVER['SCRIPT_FILENAME']))        ? $_SERVER['SCRIPT_FILENAME']       : false,
+        'scriptName'                 => (isset($_SERVER['SCRIPT_NAME']))            ? $_SERVER['SCRIPT_NAME']           : false,
+        'path'                       => (isset($_SERVER['PATH']))                   ? $_SERVER['PATH']                  : false,
+        'pathInfo'                   => (isset($_SERVER['PATH_INFO']))              ? $_SERVER['PATH_INFO']             : false,
+        'currentPath'                => (isset($_SERVER['PATH_INFO']))              ? $_SERVER['PATH_INFO']             : $_SERVER['QUERY_STRING'],
+        'pathTranslated'             => (isset($_SERVER['PATH_TRANSLATED']))        ? $_SERVER['PATH_TRANSLATED']       : false,
+        'pathext'                    => (isset($_SERVER['PATHEXT']))                ? $_SERVER['PATHEXT']               : false,
+        'redirectQueryString'        => (isset($_SERVER['REDIRECT_QUERY_STRING']))  ? $_SERVER['REDIRECT_QUERY_STRING'] : false,
+        'redirectUrl'                => (isset($_SERVER['REDIRECT_URL']))           ? $_SERVER['REDIRECT_URL']          : false,
+        'redirectStatus'             => (isset($_SERVER['REDIRECT_STATUS']))        ? $_SERVER['REDIRECT_STATUS']       : false,
+        'phpSelf'                    => (isset($_SERVER['PHP_SELF']))               ? $_SERVER['PHP_SELF']              : false,
+        'queryString'                => (isset($_SERVER['QUERY_STRING']))           ? $_SERVER['QUERY_STRING']          : false,    
+        'documentRoot'               => (isset($_SERVER['DOCUMENT_ROOT']))          ? $_SERVER['DOCUMENT_ROOT']         : false,                            
+        'windir'                     => (isset($_SERVER['WINDIR']))                 ? $_SERVER['WINDIR']                : false,
+        'comspec'                    => (isset($_SERVER['COMSPEC']))                ? $_SERVER['COMSPEC']               : false,
+        'systemRoot'                 => (isset($_SERVER['SystemRoot']))             ? $_SERVER['SystemRoot']            : false,
+        'gatewayInterface'           => (isset($_SERVER['GATEWAY_INTERFACE']))      ? $_SERVER['GATEWAY_INTERFACE']     : false         
+    );  
+    
+    if( isset($server[$type]) )
+    {
+        if( is_array($server[$type]) )
+        {
+            return $server[$type];  
+        }
+        else
+        {
+            return htmlspecialchars($server[$type], ENT_QUOTES, "utf-8");
+        }
+    }
+    elseif( isset($_SERVER[$type]) )
+    {
+        return htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
+    }
+    
+    return false;
+}   
 
 //--------------------------------------------------------------------------------------------------
 // errorReport()
@@ -857,27 +857,27 @@ function server(String $type = '')
 // @param string $type = NULL
 //
 // @param mixed
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function errorReport(String $type = NULL)
-{	
-	$result = error_get_last();
-	
-	if( $type === NULL )
-	{
-		return $result;
-	}
-	else
-	{
-		if( isset($result[$type]) )
-		{
-			return $result[$type];
-		}
-		else
-		{
-			return false;
-		}
-	}
+{   
+    $result = error_get_last();
+    
+    if( $type === NULL )
+    {
+        return $result;
+    }
+    else
+    {
+        if( isset($result[$type]) )
+        {
+            return $result[$type];
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -887,22 +887,22 @@ function errorReport(String $type = NULL)
 // @param void
 //
 // @param string
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function internalApplicationContainerDir() : String
 {
-	global $application;
-	
-	$containers = $application['containers'];
-	
-	if( ! empty($containers) && defined('URIAPPDIR') )
-	{
-		return ! empty($containers[URIAPPDIR])
-			   ? APPLICATIONS_DIR.suffix($containers[URIAPPDIR])
-			   : APPDIR;
-	}
-	
-	return APPDIR;
+    global $application;
+    
+    $containers = $application['containers'];
+    
+    if( ! empty($containers) && defined('URIAPPDIR') )
+    {
+        return ! empty($containers[URIAPPDIR])
+               ? APPLICATIONS_DIR.suffix($containers[URIAPPDIR])
+               : APPDIR;
+    }
+    
+    return APPDIR;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -917,42 +917,42 @@ function internalApplicationContainerDir() : String
 //--------------------------------------------------------------------------------------------------
 function internalApplicationMode(String $mode, Int $report = -1)
 {
-	//----------------------------------------------------------------------------------------------
-	// Kullanılabilir Uygulama Seçenekleri
-	//----------------------------------------------------------------------------------------------
-	switch( strtolower($mode) )
-	{ 
-		//------------------------------------------------------------------------------------------
-		// Publication Yayın Modu
-		// Tüm hatalar kapalıdır.
-		// Projenin tamamlanmasından sonra bu modun kullanılması önerilir.
-		//------------------------------------------------------------------------------------------
-		case 'publication' :
-			error_reporting(0); 
-		break;
-		//------------------------------------------------------------------------------------------
-		
-		//------------------------------------------------------------------------------------------
-		// Restoration Onarım Modu
-		// Hataların görünümü görecelidir.
-		//------------------------------------------------------------------------------------------
-		case 'restoration' :
-		//------------------------------------------------------------------------------------------
-		// Development Geliştirme Modu
-		// Tüm hatalar açıktır.
-		//------------------------------------------------------------------------------------------
-		case 'development' : 
-			error_reporting($report);
-		break; 
-		//------------------------------------------------------------------------------------------
-		
-		//------------------------------------------------------------------------------------------
-		// Farklı bir kullanım hatası
-		//------------------------------------------------------------------------------------------
-		default: trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
-		//------------------------------------------------------------------------------------------
-	}	
-	//----------------------------------------------------------------------------------------------	
+    //----------------------------------------------------------------------------------------------
+    // Kullanılabilir Uygulama Seçenekleri
+    //----------------------------------------------------------------------------------------------
+    switch( strtolower($mode) )
+    { 
+        //------------------------------------------------------------------------------------------
+        // Publication Yayın Modu
+        // Tüm hatalar kapalıdır.
+        // Projenin tamamlanmasından sonra bu modun kullanılması önerilir.
+        //------------------------------------------------------------------------------------------
+        case 'publication' :
+            error_reporting(0); 
+        break;
+        //------------------------------------------------------------------------------------------
+        
+        //------------------------------------------------------------------------------------------
+        // Restoration Onarım Modu
+        // Hataların görünümü görecelidir.
+        //------------------------------------------------------------------------------------------
+        case 'restoration' :
+        //------------------------------------------------------------------------------------------
+        // Development Geliştirme Modu
+        // Tüm hatalar açıktır.
+        //------------------------------------------------------------------------------------------
+        case 'development' : 
+            error_reporting($report);
+        break; 
+        //------------------------------------------------------------------------------------------
+        
+        //------------------------------------------------------------------------------------------
+        // Farklı bir kullanım hatası
+        //------------------------------------------------------------------------------------------
+        default: trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
+        //------------------------------------------------------------------------------------------
+    }   
+    //----------------------------------------------------------------------------------------------    
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -971,18 +971,18 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
 {
     static $start;
 
-    $lengthColor 	= isset($settings['lengthColor'])  	? $settings['lengthColor']  : 'grey';
-    $keyColor 		= isset($settings['keyColor']) 		? $settings['keyColor']		: '#000';
-    $typeColor 		= isset($settings['typeColor']) 	? $settings['typeColor']	: '#8C2300';
-    $stringColor 	= isset($settings['stringColor']) 	? $settings['stringColor']	: 'red';
-    $numericColor 	= isset($settings['numericColor']) 	? $settings['numericColor']	: 'green';
+    $lengthColor    = isset($settings['lengthColor'])   ? $settings['lengthColor']  : 'grey';
+    $keyColor       = isset($settings['keyColor'])      ? $settings['keyColor']     : '#000';
+    $typeColor      = isset($settings['typeColor'])     ? $settings['typeColor']    : '#8C2300';
+    $stringColor    = isset($settings['stringColor'])   ? $settings['stringColor']  : 'red';
+    $numericColor   = isset($settings['numericColor'])  ? $settings['numericColor'] : 'green';
 
     $output = '';
-    $eof 	= '<br>';
-    $tab 	= str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
+    $eof    = '<br>';
+    $tab    = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
 
     $lengthstyle = ' style="color:'.$lengthColor.'"';
-    $keystyle 	 = ' style="color:'.$keyColor.'"';
+    $keystyle    = ' style="color:'.$keyColor.'"';
     $typestyle   = ' style="color:'.$typeColor.'"';
 
     $vartype = 'array';

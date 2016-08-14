@@ -1,17 +1,17 @@
 <?php
-//--------------------------------------------------------------------------------------------------------
-// Individual Structrues
-//--------------------------------------------------------------------------------------------------------
-//
-// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-// Site       : www.znframework.com
-// License    : The MIT License
-// Copyright  : Copyright (c) 2012-2016, ZN Framework
-//
-//--------------------------------------------------------------------------------------------------------
-
 return 
 [
+	//----------------------------------------------------------------------------------------------------
+	// Individual Structrues
+	//----------------------------------------------------------------------------------------------------
+	//
+	// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+	// Site       : www.znframework.com
+	// License    : The MIT License
+	// Copyright  : Copyright (c) 2012-2016, ZN Framework
+	//
+	//----------------------------------------------------------------------------------------------------
+
 	//----------------------------------------------------------------------------------------------------
 	// Benchmark
 	//----------------------------------------------------------------------------------------------------
@@ -19,17 +19,17 @@ return
 	// Benchmark Lang Words
 	//
 	//----------------------------------------------------------------------------------------------------
-	'benchmark:elapsedTime'  		=> 'System Load Time',
-	'benchmark:memoryUsage' 		=> 'Memory Usage',
-	'benchmark:maxMemoryUsage'  	=> 'Maximum Memory Usage',
-	'benchmark:resultTable' 		=> 'BENCHMARK RESULT TABLE',
-	'benchmark:performanceTips' 	=> 'PERFORMANCE ENHANCING TIPS',
-	'benchmark:laterProcess' 		=> 'Use the following settings are recommended after completion of your project.',
-	'benchmark:configAutoloader'	=> 'Config/Autoloader.php',
-	'benchmark:configHtaccess'		=> 'Config/Htaccess.php',
-	'benchmark:second'				=> 'Seconds',
-	'benchmark:byte'				=> 'Bytes',
-	'benchmark:countFile'			=> 'Count Load Files',
+	'benchmark:elapsedTime'         => 'System Load Time',
+	'benchmark:memoryUsage'         => 'Memory Usage',
+	'benchmark:maxMemoryUsage'      => 'Maximum Memory Usage',
+	'benchmark:resultTable'         => 'BENCHMARK RESULT TABLE',
+	'benchmark:performanceTips'     => 'PERFORMANCE ENHANCING TIPS',
+	'benchmark:laterProcess'        => 'Use the following settings are recommended after completion of your project.',
+	'benchmark:configAutoloader'    => 'Config/Autoloader.php',
+	'benchmark:configHtaccess'      => 'Config/Htaccess.php',
+	'benchmark:second'              => 'Seconds',
+	'benchmark:byte'                => 'Bytes',
+	'benchmark:countFile'           => 'Count Load Files',
 
 	//----------------------------------------------------------------------------------------------------
 	// Cache

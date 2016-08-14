@@ -8,7 +8,7 @@
 // License    : The MIT License
 // Copyright  : Copyright (c) 2012-2016, ZN Framework
 //
-//--------------------------------------------------------------------------------------------------	
+//--------------------------------------------------------------------------------------------------    
 
 //--------------------------------------------------------------------------------------------------
 // Applcation Container Dir
@@ -45,7 +45,7 @@ define('STORAGE_DIR', APPDIR.'Storage/');
 // @return Application/Resources/
 //
 //--------------------------------------------------------------------------------------------------
-define('RESOURCES_DIR', $containerDir.'Resources/');		
+define('RESOURCES_DIR', $containerDir.'Resources/');        
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_RESOURCES_DIR
@@ -54,7 +54,7 @@ define('RESOURCES_DIR', $containerDir.'Resources/');
 // @return External/Resources/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources/');	
+define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources/');    
 
 //--------------------------------------------------------------------------------------------------
 // STARTING_DIR
@@ -63,7 +63,7 @@ define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources/');
 // @return Application/Starting/
 //
 //--------------------------------------------------------------------------------------------------
-define('STARTING_DIR', $containerDir.'Starting/');	
+define('STARTING_DIR', $containerDir.'Starting/');  
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_STARTING_DIR
@@ -72,7 +72,7 @@ define('STARTING_DIR', $containerDir.'Starting/');
 // @return External/Starting/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_STARTING_DIR', EXTERNAL_DIR.'Starting/');	
+define('EXTERNAL_STARTING_DIR', EXTERNAL_DIR.'Starting/');  
 
 //--------------------------------------------------------------------------------------------------
 // AUTOLOAD_DIR
@@ -81,7 +81,7 @@ define('EXTERNAL_STARTING_DIR', EXTERNAL_DIR.'Starting/');
 // @return Application/Starting/Autoload/
 //
 //--------------------------------------------------------------------------------------------------
-define('AUTOLOAD_DIR', STARTING_DIR.'Autoload/');	
+define('AUTOLOAD_DIR', STARTING_DIR.'Autoload/');   
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_AUTOLOAD_DIR
@@ -90,7 +90,7 @@ define('AUTOLOAD_DIR', STARTING_DIR.'Autoload/');
 // @return External/Starting/Autoload/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_AUTOLOAD_DIR', EXTERNAL_STARTING_DIR.'Autoload/');	
+define('EXTERNAL_AUTOLOAD_DIR', EXTERNAL_STARTING_DIR.'Autoload/'); 
 
 //--------------------------------------------------------------------------------------------------
 // HANDLOAD_DIR
@@ -99,7 +99,7 @@ define('EXTERNAL_AUTOLOAD_DIR', EXTERNAL_STARTING_DIR.'Autoload/');
 // @return Application/Starting/Handload/
 //
 //--------------------------------------------------------------------------------------------------
-define('HANDLOAD_DIR', STARTING_DIR.'Handload/');	
+define('HANDLOAD_DIR', STARTING_DIR.'Handload/');   
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_HANDLOAD_DIR
@@ -108,7 +108,7 @@ define('HANDLOAD_DIR', STARTING_DIR.'Handload/');
 // @return External/Starting/Handload/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_HANDLOAD_DIR', EXTERNAL_STARTING_DIR.'Handload/');		
+define('EXTERNAL_HANDLOAD_DIR', EXTERNAL_STARTING_DIR.'Handload/');     
 
 //--------------------------------------------------------------------------------------------------
 // INTERNAL_LANGUAGES_DIR
@@ -153,7 +153,7 @@ define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries/');
 // @return Application/Libraries/
 //
 //--------------------------------------------------------------------------------------------------
-define('LIBRARIES_DIR', $containerDir.'Libraries/'); 		
+define('LIBRARIES_DIR', $containerDir.'Libraries/');        
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_LIBRARIES_DIR
@@ -162,7 +162,7 @@ define('LIBRARIES_DIR', $containerDir.'Libraries/');
 // @return External/Libraries/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries/'); 	
+define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries/');    
 
 //--------------------------------------------------------------------------------------------------
 // CONTROLLERS_DIR
@@ -171,7 +171,7 @@ define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries/');
 // @return Application/Controllers/
 //
 //--------------------------------------------------------------------------------------------------
-define('CONTROLLERS_DIR', APPDIR.'Controllers/'); 			
+define('CONTROLLERS_DIR', APPDIR.'Controllers/');           
 
 //--------------------------------------------------------------------------------------------------
 // MODELS_DIR
@@ -189,7 +189,7 @@ define('MODELS_DIR', $containerDir.'Models/');
 // @return External/Models/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_MODELS_DIR', EXTERNAL_DIR.'Models/'); 				
+define('EXTERNAL_MODELS_DIR', EXTERNAL_DIR.'Models/');              
 
 //--------------------------------------------------------------------------------------------------
 // VIEWS_DIR
@@ -198,7 +198,7 @@ define('EXTERNAL_MODELS_DIR', EXTERNAL_DIR.'Models/');
 // @return Application/Views/
 //
 //--------------------------------------------------------------------------------------------------
-define('VIEWS_DIR', APPDIR.'Views/'); 									
+define('VIEWS_DIR', APPDIR.'Views/');                                   
 
 //--------------------------------------------------------------------------------------------------
 // PAGES_DIR
@@ -207,7 +207,7 @@ define('VIEWS_DIR', APPDIR.'Views/');
 // @return Application/Views/
 //
 //--------------------------------------------------------------------------------------------------
-define('PAGES_DIR', VIEWS_DIR); 													
+define('PAGES_DIR', VIEWS_DIR);                                                     
 
 //--------------------------------------------------------------------------------------------------
 // FILES_DIR
@@ -234,7 +234,7 @@ define('EXTERNAL_FILES_DIR', EXTERNAL_RESOURCES_DIR.'Files/');
 // @return Application/Resources/Fonts/
 //
 //--------------------------------------------------------------------------------------------------
-define('FONTS_DIR', RESOURCES_DIR.'Fonts/');	
+define('FONTS_DIR', RESOURCES_DIR.'Fonts/');    
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_FONTS_DIR
@@ -243,7 +243,7 @@ define('FONTS_DIR', RESOURCES_DIR.'Fonts/');
 // @return External/Resources/Fonts/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_FONTS_DIR', EXTERNAL_RESOURCES_DIR.'Fonts/');	
+define('EXTERNAL_FONTS_DIR', EXTERNAL_RESOURCES_DIR.'Fonts/');  
 
 //--------------------------------------------------------------------------------------------------
 // SCRIPTS_DIR
@@ -252,7 +252,7 @@ define('EXTERNAL_FONTS_DIR', EXTERNAL_RESOURCES_DIR.'Fonts/');
 // @return Application/Resources/Scripts/
 //
 //--------------------------------------------------------------------------------------------------
-define('SCRIPTS_DIR', RESOURCES_DIR.'Scripts/'); 	
+define('SCRIPTS_DIR', RESOURCES_DIR.'Scripts/');    
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_SCRIPTS_DIR
@@ -261,7 +261,7 @@ define('SCRIPTS_DIR', RESOURCES_DIR.'Scripts/');
 // @return External/Resources/Scripts/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_SCRIPTS_DIR', EXTERNAL_RESOURCES_DIR.'Scripts/'); 	
+define('EXTERNAL_SCRIPTS_DIR', EXTERNAL_RESOURCES_DIR.'Scripts/');  
 
 //--------------------------------------------------------------------------------------------------
 // SCRIPTS_DIR
@@ -270,7 +270,7 @@ define('EXTERNAL_SCRIPTS_DIR', EXTERNAL_RESOURCES_DIR.'Scripts/');
 // @return Application/Resources/Scripts/
 //
 //--------------------------------------------------------------------------------------------------
-define('STYLES_DIR', RESOURCES_DIR.'Styles/'); 	
+define('STYLES_DIR', RESOURCES_DIR.'Styles/');  
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_STYLES_DIR
@@ -279,7 +279,7 @@ define('STYLES_DIR', RESOURCES_DIR.'Styles/');
 // @return External/Resources/Styles/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_STYLES_DIR', EXTERNAL_RESOURCES_DIR.'Styles/'); 						
+define('EXTERNAL_STYLES_DIR', EXTERNAL_RESOURCES_DIR.'Styles/');                        
 
 //--------------------------------------------------------------------------------------------------
 // TEMPLATES_DIR
@@ -288,7 +288,7 @@ define('EXTERNAL_STYLES_DIR', EXTERNAL_RESOURCES_DIR.'Styles/');
 // @return Application/Resources/Templates/
 //
 //--------------------------------------------------------------------------------------------------
-define('TEMPLATES_DIR', RESOURCES_DIR.'Templates/');	
+define('TEMPLATES_DIR', RESOURCES_DIR.'Templates/');    
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_TEMPLATES_DIR
@@ -306,7 +306,7 @@ define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates/');
 // @return Application/Resources/Themes/
 //
 //--------------------------------------------------------------------------------------------------
-define('THEMES_DIR', RESOURCES_DIR.'Themes/');	
+define('THEMES_DIR', RESOURCES_DIR.'Themes/');  
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_THEMES_DIR
@@ -315,7 +315,7 @@ define('THEMES_DIR', RESOURCES_DIR.'Themes/');
 // @return External/Resources/Themes/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_THEMES_DIR', EXTERNAL_RESOURCES_DIR.'Themes/');	
+define('EXTERNAL_THEMES_DIR', EXTERNAL_RESOURCES_DIR.'Themes/');    
 
 //--------------------------------------------------------------------------------------------------
 // PLUGINS_DIR
@@ -324,7 +324,7 @@ define('EXTERNAL_THEMES_DIR', EXTERNAL_RESOURCES_DIR.'Themes/');
 // @return Application/Resources/Plugins/
 //
 //--------------------------------------------------------------------------------------------------
-define('PLUGINS_DIR', RESOURCES_DIR.'Plugins/');	
+define('PLUGINS_DIR', RESOURCES_DIR.'Plugins/');    
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_PLUGINS_DIR
@@ -333,7 +333,7 @@ define('PLUGINS_DIR', RESOURCES_DIR.'Plugins/');
 // @return External/Resources/Plugins/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_PLUGINS_DIR', EXTERNAL_RESOURCES_DIR.'Plugins/');		
+define('EXTERNAL_PLUGINS_DIR', EXTERNAL_RESOURCES_DIR.'Plugins/');      
 
 //--------------------------------------------------------------------------------------------------
 // UPLOADS_DIR
@@ -360,4 +360,4 @@ define('EXTERNAL_UPLOADS_DIR', EXTERNAL_RESOURCES_DIR.'Uploads/');
 // @return Internal/Templates/
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates/');				
+define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates/');                

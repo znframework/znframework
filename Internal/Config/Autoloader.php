@@ -16,11 +16,11 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Çağrılan bir sınıf bulunamadığında tarama yapıp classMap yapısının      
-    // yeniden oluşturulmasını sağlamak içindir. Bu ayar true olarak kalırsa yeni 		      
-    // oluşturduğunuz sınıfların kullanıma hazır hale gelmesi için belirtilen dizinleri		  
-    // arar kullandığınız sınıf bulunrsa classmap yeniden oluşturularak sınıfınız çalışması	  
-    // sağlanır. False olarak ayarlanırsa böyle bir tarama yapmaz.							  
-    //											     			 	  						  
+    // yeniden oluşturulmasını sağlamak içindir. Bu ayar true olarak kalırsa yeni             
+    // oluşturduğunuz sınıfların kullanıma hazır hale gelmesi için belirtilen dizinleri       
+    // arar kullandığınız sınıf bulunrsa classmap yeniden oluşturularak sınıfınız çalışması   
+    // sağlanır. False olarak ayarlanırsa böyle bir tarama yapmaz.                            
+    //                                                                                        
     //--------------------------------------------------------------------------------------------------
     'directoryScanning' => true,
 
@@ -29,8 +29,8 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Dosyalar otomatik yükleme ile oluşturulurken oluşturulduğu dizine ait yetki
-    // derecesi ayarlanır.							  
-    //											     			 	  						  
+    // derecesi ayarlanır.                            
+    //                                                                                        
     //--------------------------------------------------------------------------------------------------
     'directoryPermission' => 0755,
 
@@ -38,8 +38,8 @@
     // Autoloader Class Map                                                                   
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Sınıf yolları oluşturulacak dizinler belirtiliyor.				      
-    // Dizi içerisinde dizin bilgileri yer alır. 				     			 	  		  
+    // Genel Kullanım: Sınıf yolları oluşturulacak dizinler belirtiliyor.                     
+    // Dizi içerisinde dizin bilgileri yer alır.                                              
     //
     //--------------------------------------------------------------------------------------------------
     'classMap' => 
@@ -57,7 +57,7 @@
     //
     // Genel Kullanım: Sınıflara takma isimler vermek için kullanılır.
     //
-    // Example: ['aliasName' => 'originName', ...] 				     			 	  		  
+    // Example: ['aliasName' => 'originName', ...]                                            
     //
     //--------------------------------------------------------------------------------------------------
     'aliases' => [],
@@ -68,8 +68,8 @@
     //
     // Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.   
     // Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının       
-    // dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir. 			  
-    // Example: 'example/vendor/autoload.php' / true / false														          
+    // dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir.             
+    // Example: 'example/vendor/autoload.php' / true / false                                                                  
     //
     //--------------------------------------------------------------------------------------------------
     'composer' => false

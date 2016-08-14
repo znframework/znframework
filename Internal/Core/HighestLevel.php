@@ -24,8 +24,8 @@ require_once CORE_DIR.'ZN.php';
 //
 //--------------------------------------------------------------------------------------------------
 if( ! isPhpVersion(ZN::REQUIRED_PHP_VERSION) )
-{	
-	trace('Invalid PHP Version! Required PHP version ["'.ZN::REQUIRED_PHP_VERSION.'"] and should be over!');
+{   
+    trace('Invalid PHP Version! Required PHP version ["'.ZN::REQUIRED_PHP_VERSION.'"] and should be over!');
 }
 //--------------------------------------------------------------------------------------------------
 
@@ -71,26 +71,26 @@ define('EXTERNAL_DIR', 'External/');
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-//          																				  
+//                                                                                            
 //--------------------------------------------------------------------------------------------------
 function trace($message)
 {
-	$style  = 'border:solid 1px #E1E4E5;';
-	$style .= 'background:#FEFEFE;';
-	$style .= 'padding:10px;';
-	$style .= 'margin-bottom:10px;';
-	$style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
-	$style .= 'color:#666;';
-	$style .= 'text-align:left;';
-	$style .= 'font-size:14px;';
-	
-	$message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
-	
-	$str  = "<div style=\"$style\">";
-	$str .= $message;
-	$str .= '</div>';
-	
-	exit($str);
+    $style  = 'border:solid 1px #E1E4E5;';
+    $style .= 'background:#FEFEFE;';
+    $style .= 'padding:10px;';
+    $style .= 'margin-bottom:10px;';
+    $style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+    $style .= 'color:#666;';
+    $style .= 'text-align:left;';
+    $style .= 'font-size:14px;';
+    
+    $message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
+    
+    $str  = "<div style=\"$style\">";
+    $str .= $message;
+    $str .= '</div>';
+    
+    exit($str);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -104,19 +104,19 @@ function trace($message)
 //--------------------------------------------------------------------------------------------------
 function isPhpVersion($version = '5.2.4')
 {
-	if( ! is_scalar($version) )
-	{
-		return false;
-	}
-	
-	$version = (string) $version;
-	
-	if( version_compare(PHP_VERSION, $version, '>=') )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if( ! is_scalar($version) )
+    {
+        return false;
+    }
+    
+    $version = (string) $version;
+    
+    if( version_compare(PHP_VERSION, $version, '>=') )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

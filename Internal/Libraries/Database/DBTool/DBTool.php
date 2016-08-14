@@ -1,8 +1,8 @@
 <?php namespace ZN\Database;
 
 class InternalDBTool extends DatabaseCommon implements DBToolInterface
-{	
-	//--------------------------------------------------------------------------------------------------------
+{   
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
@@ -11,96 +11,96 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------------------------------------
-	// Tool
-	//--------------------------------------------------------------------------------------------------------
-	// 
-	// @var object
-	//
-	//--------------------------------------------------------------------------------------------------------
-	protected $tool;
+    //--------------------------------------------------------------------------------------------------------
+    // Tool
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @var object
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $tool;
 
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->tool = $this->_drvlib('Tool');
-	}
+        $this->tool = $this->_drvlib('Tool');
+    }
 
-	//--------------------------------------------------------------------------------------------------------
-	// List Databases
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// Hostunuda yer var olan veritabanlarını listeler.
-	//
-	// @param  void
-	// @return array
-	//
-	//--------------------------------------------------------------------------------------------------------
-	public function listDatabases() : Array
-	{
-		return $this->tool->listDatabases();
-	}
+    //--------------------------------------------------------------------------------------------------------
+    // List Databases
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Hostunuda yer var olan veritabanlarını listeler.
+    //
+    // @param  void
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function listDatabases() : Array
+    {
+        return $this->tool->listDatabases();
+    }
 
-	//--------------------------------------------------------------------------------------------------------
-	// List Tables
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// Bağlı olduğunuz veritabanına ait tabloları listeler.
-	//
-	// @param  void
-	// @return array
-	//
-	//--------------------------------------------------------------------------------------------------------
-	public function listTables() : Array
-	{
-		return $this->tool->listTables();
-	}
-	
-	//--------------------------------------------------------------------------------------------------------
-	// Optimize Tables
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// Bağlı olduğunuz veritabanına ait tabloları optimize eder.
-	//
-	// @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
-	// @return string message
-	//
-	//--------------------------------------------------------------------------------------------------------
-	public function optimizeTables($table = '*') : String
-	{
-		return $this->tool->optimizeTables($table);
-	}
-	
-	//--------------------------------------------------------------------------------------------------------
-	// Repair Tables
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// Bağlı olduğunuz veritabanına ait tabloları onarır.
-	//
-	// @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
-	// @return string message
-	//
-	//--------------------------------------------------------------------------------------------------------
-	public function repairTables($table = '*') : String
-	{
-		return $this->tool->repairTables($table);
-	}
+    //--------------------------------------------------------------------------------------------------------
+    // List Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları listeler.
+    //
+    // @param  void
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function listTables() : Array
+    {
+        return $this->tool->listTables();
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Optimize Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları optimize eder.
+    //
+    // @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+    // @return string message
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function optimizeTables($table = '*') : String
+    {
+        return $this->tool->optimizeTables($table);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Repair Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları onarır.
+    //
+    // @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+    // @return string message
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function repairTables($table = '*') : String
+    {
+        return $this->tool->repairTables($table);
+    }
 
-	//--------------------------------------------------------------------------------------------------------
-	// Backup
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// Bağlı olduğunuz veritabanına ait tablolarınızın yedeğini alır.
-	// Yedek dosyası içerisinde tablo oluşturma veriler ve kayıtlar yer alır.
-	//
-	// @param  mixed  $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
-	// @param  string $filename
-	// @return string $path: STORAGE_DIR
-	//
-	//--------------------------------------------------------------------------------------------------------
-	public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String
-	{		
-		return $this->tool->backup($tables, $fileName, $path);
-	}
+    //--------------------------------------------------------------------------------------------------------
+    // Backup
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tablolarınızın yedeğini alır.
+    // Yedek dosyası içerisinde tablo oluşturma veriler ve kayıtlar yer alır.
+    //
+    // @param  mixed  $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+    // @param  string $filename
+    // @return string $path: STORAGE_DIR
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String
+    {       
+        return $this->tool->backup($tables, $fileName, $path);
+    }
 }

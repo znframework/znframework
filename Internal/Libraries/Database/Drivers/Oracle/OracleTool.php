@@ -4,7 +4,7 @@ use ZN\Database\DriverTool;
 
 class OracleTool extends DriverTool
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com

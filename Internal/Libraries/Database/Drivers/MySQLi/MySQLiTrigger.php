@@ -4,7 +4,7 @@ use ZN\Database\DriverTrigger;
 
 class MySQLiTrigger extends DriverTrigger
 {
-	//--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com

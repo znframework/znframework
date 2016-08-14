@@ -12,12 +12,12 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Driver                                                                           	      
+    // Driver                                                                                     
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Ön bellekleme türü seçmek için kullanılır.		   	          		  
-    // Parametre: Ön bellekleme sürücülerinin herhangi biri.									  
-    // Drivers: apc, memcache, wincache, file, redis  				 	 					  	
+    // Genel Kullanım: Ön bellekleme türü seçmek için kullanılır.                             
+    // Parametre: Ön bellekleme sürücülerinin herhangi biri.                                      
+    // Drivers: apc, memcache, wincache, file, redis                                            
     //
     //--------------------------------------------------------------------------------------------------
     'driver' => 'file',
@@ -27,8 +27,8 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Ön bellekleme sürücüleri için bağlantı ayarlarını yapmak için kullanılır
-    // Parametre: Sürücüler.									  							      
-    // Drivers: apc, memcache, wincache								 	 					  	
+    // Parametre: Sürücüler.                                                                      
+    // Drivers: apc, memcache, wincache                                                         
     //
     //--------------------------------------------------------------------------------------------------
     'driverSettings' => 
@@ -46,7 +46,7 @@
             'port'   => '11211',
             'weight' => '1',
         ],
-		
+        
         //----------------------------------------------------------------------------------------------
         // Redis Connection Settings                                                                                 
         //----------------------------------------------------------------------------------------------
@@ -58,19 +58,19 @@
         [
             'password'   => NULL,
             'socketType' => 'tcp',
-            'host'       => '127.0.0.1',	
+            'host'       => '127.0.0.1',    
             'port'       => 6379,
             'timeout'    => 0
         ]
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // OB Gzhandler                                                                        	
+    // OB Gzhandler                                                                         
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Tamponlamada ob_gzhandler işlevini aktif etmek için kullanılır.         
-    // Parametre: Gzip modu açık(true), gzip modu kapalı(false).  							  
-    // Örnek: true veya false.														          
+    // Parametre: Gzip modu açık(true), gzip modu kapalı(false).                              
+    // Örnek: true veya false.                                                                
     //
     //--------------------------------------------------------------------------------------------------
     'obGzhandler' => false

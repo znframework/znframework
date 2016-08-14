@@ -13,7 +13,7 @@
 
     // Transparent 
     'transparent'       => '0|0|0|127',
-	
+    
     // Red Types
     'lightsalmon'       => '255|160|122',
     'salmon'            => '250|128|114',
@@ -28,7 +28,7 @@
     'tomato'            => '255|99|71',
     'orangered'         => '255|69|0',
     'palevioletred'     => '219|112|147',
-	
+    
     // Blue Types
     'aliceblue'         => '240|248|255',
     'lavender'          => '230|230|250',
@@ -66,7 +66,7 @@
     'darkturquoise'     => '0|206|209',
     'darkcyan'          => '0|139|139',
     'teal'              => '0|128|128',
-	
+    
     // Green Types
     'lawngreen'         => '124|252|0',
     'chartreuse'        => '127|255|0',
@@ -87,7 +87,7 @@
     'olive'             => '128|128|0',
     'darkolivegreen'    => '85|107|47',
     'olivedrab'         => '107|142|35',
-	
+    
     // Grey Types
     'gainsboro'         => '220|220|220',
     'lightgray'         => '211|211|211',
@@ -106,7 +106,7 @@
     'darkslategray'     => '47|79|79',
     'darkslategrey'     => '47|79|79',
     'black'             => '0|0|0',
-	
+    
     // Yellow Types
     'lightyellow'       => '255|255|224',
     'lightyellow1'      => '255|255|204',
@@ -128,13 +128,13 @@
     'khaki'             => '240|230|140',
     'darkkhaki'         => '189|183|107',
     'yellowgreen'       => '154|205|50',
-	
+    
     // Pink Types
     'pink'              => '255|192|203',
     'lightpink'         => '255|182|193',
     'hotpink'           => '255|105|180',
     'deeppink'          => '255|20|147',
-	
+    
     // Purple  Types
     'thistle'           => '216|191|216',
     'plum'              => '221|160|221',
@@ -148,16 +148,16 @@
     'darkorchid'        => '153|50|204',
     'darkmagenta'       => '139|0|139',
     'purple'            => '128|0|128',
-	
+    
     // Orange Types
     'coral'             => '255|127|80',
     'gold'              => '255|215|0',
     'orange'            => '255|165|0',
     'darkorange'        => '255|140|0',
-	
+    
     // Brown Types
     'brown'             => '165|42|42',
-	
+    
     // White Types
     'white'             => '255|255|255',
     'snow'              => '255|250|250',

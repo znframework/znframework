@@ -1,57 +1,57 @@
 <?php namespace ZN\Core;
 
 class Autoloader
-{	
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------
+{   
+	//--------------------------------------------------------------------------------------------------
+	//
+	// Author     : Ozan UYKUN <ozanbote@gmail.com>
+	// Site       : www.znframework.com
+	// License    : The MIT License
+	// Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+	//
+	//--------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Classes
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------
-    protected static $classes;
+	//--------------------------------------------------------------------------------------------------
+	// Protected Static Classes
+	//--------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//--------------------------------------------------------------------------------------------------
+	protected static $classes;
 	
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Namespaces
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------
-    protected static $namespaces;
+	//--------------------------------------------------------------------------------------------------
+	// Protected Static Namespaces
+	//--------------------------------------------------------------------------------------------------
+	//
+	// @var array
+	//
+	//--------------------------------------------------------------------------------------------------
+	protected static $namespaces;
 	
-    //--------------------------------------------------------------------------------------------------
-    // Run
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  autoloader $class
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function run(String $class)
-    {
-        $path = CONFIG_DIR.'ClassMap.php';
+	//--------------------------------------------------------------------------------------------------
+	// Run
+	//--------------------------------------------------------------------------------------------------
+	//
+	// @param  autoloader $class
+	// @return void
+	//
+	//--------------------------------------------------------------------------------------------------
+	public static function run(String $class)
+	{
+		$path = CONFIG_DIR.'ClassMap.php';
 		
-        if( ! file_exists($path) )
-        {
-            self::createClassMap();
-        }
+		if( ! file_exists($path) )
+		{
+			self::createClassMap();
+		}
 		
 		$classInfo = self::getClassFileInfo($class);
 		
 		$file = $classInfo['path'];
 		
 		if( file_exists($file) )
-		{	
+		{   
 			require_once($file);
 			
 			if
@@ -110,7 +110,7 @@ class Autoloader
 		
 		if( $configAutoloader['directoryScanning'] === false )
 		{
-			return false;			
+			return false;           
 		}
 	
 		$classMap = $configAutoloader['classMap'];
@@ -139,7 +139,7 @@ class Autoloader
 		}
 		else
 		{
-			$classMapPage = '';	
+			$classMapPage = ''; 
 		}
 		
 		if( ! empty($classArray) ) 
@@ -182,17 +182,17 @@ class Autoloader
 	//
 	//--------------------------------------------------------------------------------------------------
 	public static function getClassFileInfo(String $class)
-	{	
+	{   
 		$classCaseLower = strtolower($class);
 		$classMap       = self::_config();
 		$classes        = array_merge(isset($classMap['classes']) ? $classMap['classes'] : [], (array)self::$classes);
-		$namespaces     = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : [], (array)self::$namespaces);	
-		$path 	        = '';
+		$namespaces     = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : [], (array)self::$namespaces); 
+		$path           = '';
 		$namespace      = '';
 		
 		if( isset($classes[$classCaseLower]) )
 		{
-			$path      = $classes[$classCaseLower];	
+			$path      = $classes[$classCaseLower]; 
 			$namespace = $class;
 		}
 		elseif( ! empty($namespaces) )
@@ -201,7 +201,7 @@ class Autoloader
 			
 			if( isset($namespaces[$classCaseLower]) )
 			{
-				$namespace = $namespaces[$classCaseLower];							   
+				$namespace = $namespaces[$classCaseLower];                             
 				$path      = isset($classes[$namespace])
 						   ? $classes[$namespace]
 						   : '';
@@ -210,9 +210,9 @@ class Autoloader
 		
 		return
 		[
-			'path' 		=> $path,
-			'class'	   	=> $class,
-			'namespace'	=> $namespace
+			'path'      => $path,
+			'class'     => $class,
+			'namespace' => $namespace
 		];
 	}
 	
@@ -230,7 +230,7 @@ class Autoloader
 	{
 		if( ! is_file($fileName) )
 		{
-			return false;	
+			return false;   
 		}
 		
 		$tokens    = token_get_all(file_get_contents($fileName));
@@ -273,14 +273,14 @@ class Autoloader
 			)
 			{
 				$classInfo['class'] = isset($tokens[$i + 2][1])
-								    ? $tokens[$i + 2][1]
-								    : NULL;
+									? $tokens[$i + 2][1]
+									: NULL;
 				
 				break;
 			}
 			
 			$i++;
-		}	
+		}   
 	
 		return $classInfo;
 	}
@@ -299,7 +299,7 @@ class Autoloader
 	{
 		if( ! is_file($fileName) )
 		{
-			return false;	
+			return false;   
 		}
 		
 		$tokens = token_get_all(file_get_contents($fileName));
@@ -319,7 +319,7 @@ class Autoloader
 			}
 			
 			$i++;
-		}	
+		}   
 	
 		return $info;
 	}
@@ -340,13 +340,13 @@ class Autoloader
 	{
 		static $classes;
 			
-		$directory 	         = suffix($directory); 
+		$directory           = suffix($directory); 
 		$baseDirectory       = suffix($baseDirectory); 
 		$configClassMap      = self::_config();
 		$configAutoloader    = Config::get('Autoloader');
 		$directoryPermission = $configAutoloader['directoryPermission'];
 
-		$files = glob($directory.'*');	
+		$files = glob($directory.'*');  
 		$files = array_diff
 		(
 			$files, 
@@ -368,8 +368,8 @@ class Autoloader
 					$class = strtolower($classInfo['class']);
 					
 					if( isset($classInfo['namespace']) )
-					{		
-						$className = strtolower($classInfo['namespace']).'\\'.$class;		
+					{       
+						$className = strtolower($classInfo['namespace']).'\\'.$class;       
 						
 						$classes['namespaces'][$className] = $class;
 					}
@@ -378,7 +378,7 @@ class Autoloader
 						$className = $class;
 					}
 					
-					$classes['classes'][$className] = $v;	
+					$classes['classes'][$className] = $v;   
 					
 					$useStaticAccess = strtolower(STATIC_ACCESS);
 								
@@ -386,13 +386,13 @@ class Autoloader
 					{
 						$newClassName = str_ireplace($useStaticAccess, '', $classInfo['class']);
 					
-						$newPath = str_ireplace($baseDirectory, '', $v);	
+						$newPath = str_ireplace($baseDirectory, '', $v);    
 						
-						$pathEx = explode('/', $newPath);		
-						array_pop($pathEx);		
+						$pathEx = explode('/', $newPath);       
+						array_pop($pathEx);     
 						$newDir = implode('/', $pathEx);
 						$dir    = $staticAccessDirectory;
-						$newDir = $dir.$newDir;	
+						$newDir = $dir.$newDir; 
 						
 						if( ! is_dir($dir) )
 						{
@@ -428,7 +428,7 @@ class Autoloader
 						$classContent .= '// This file automatically created and updated'.$eol;
 						$classContent .= '//--------------------------------------------------------------------------------------------------'.$eol.$eol;
 						$classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
-						$classContent .= '{'.$eol;	
+						$classContent .= '{'.$eol;  
 						$classContent .= $constants;
 						$classContent .= "\t".'public static function getClassName()'.$eol;
 						$classContent .= "\t".'{'.$eol;
@@ -452,7 +452,7 @@ class Autoloader
 			{
 				self::searchClassMap($v, $baseDirectory);
 			}
-		}	
+		}   
 		
 		return $classes;
 	}
@@ -489,17 +489,17 @@ class Autoloader
 	//
 	//--------------------------------------------------------------------------------------------------
 	protected static function tryAgainCreateClassMap($class)
-	{	
-		self::createClassMap();	
+	{   
+		self::createClassMap(); 
 			
 		$classInfo = self::getClassFileInfo($class);
 		
 		if( file_exists($classInfo['path']) )
-		{	
+		{   
 			require_once($classInfo['path']);
 		}
 		else
-		{	
+		{   
 			die(getErrorMessage('Error', 'classError', $class));
 		}
 	}

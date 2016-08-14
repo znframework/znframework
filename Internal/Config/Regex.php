@@ -15,8 +15,8 @@
     // Regex Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki 		  
-    // değişiklikler yapılmıştır.					  										  
+    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki           
+    // değişiklikler yapılmıştır.                                                             
     //
     //--------------------------------------------------------------------------------------------------
     'regexChars' => 
@@ -48,8 +48,8 @@
     // Setting Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle 	  
-    // ilgili aşağıdaki değişiklikler yapılmıştır 											  
+    // Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle     
+    // ilgili aşağıdaki değişiklikler yapılmıştır                                             
     //
     //--------------------------------------------------------------------------------------------------
     'settingChars' => 
@@ -66,7 +66,7 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi  
-    // kullanmak için aşağıdaki değişiklikler yapılmıştır.									  
+    // kullanmak için aşağıdaki değişiklikler yapılmıştır.                                    
     //
     //--------------------------------------------------------------------------------------------------
     'specialChars' => 

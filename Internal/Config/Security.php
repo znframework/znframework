@@ -15,8 +15,8 @@
     // Nc Encode
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Security sınıfında kullanılan ncEncode() yönteminin temizlemesi 	  
-    // istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.			      						
+    // Genel Kullanımı: Security sınıfında kullanılan ncEncode() yönteminin temizlemesi       
+    // istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.                                       
     //
     //--------------------------------------------------------------------------------------------------
     'ncEncode' =>  
@@ -30,7 +30,7 @@
             '<', 
             '>'
         ], // string veya array
-			
+            
         'changeBadChars' => '[badchars]' // string veya array
     ],
 
@@ -38,18 +38,18 @@
     // Url Change Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve 		  
+    // Genel Kullanımı: URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve         
     // değiştirilmesini istediğiniz kelimeler veya imgeler. Anahtar ifade olarak değişmesini   
     // istediğiniz karakterler, değer olarak değişecek karakterlerin yerini                    
-    // alacak yeni karakterler.																  
-    // NOT: Küçük-Büyük harf duyarlılığı yoktur. 											  
+    // alacak yeni karakterler.                                                               
+    // NOT: Küçük-Büyük harf duyarlılığı yoktur.                                              
     //
     // Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri 
     // koymanız gereklidir. Örnek \. Değiştirme işlemi için preg_replace() yöntemi kullanıldığı
-    // için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler 	  
-    // olan / / karakterleri kullanmanıza gerek yoktur. 										 
-    // Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.		
-    //	     					  				
+    // için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler    
+    // olan / / karakterleri kullanmanıza gerek yoktur.                                          
+    // Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.     
+    //                                          
     //--------------------------------------------------------------------------------------------------
     'urlChangeChars' => 
     [
@@ -62,7 +62,7 @@
     // File Bad Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Dosya isimlerinde tehlike yaratacak karater listesi.			          					
+    // Genel Kullanımı: Dosya isimlerinde tehlike yaratacak karater listesi.                                        
     //
     //--------------------------------------------------------------------------------------------------
     'fileBadChars' => 
@@ -85,7 +85,7 @@
     // Url Bad Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.			          	  					
+    // Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.                                            
     //
     //--------------------------------------------------------------------------------------------------
     'urlBadChars' => 
@@ -100,7 +100,7 @@
     // Injection Bad Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          					
+    // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.                                      
     //
     //--------------------------------------------------------------------------------------------------
     'injectionBadChars' => 
@@ -112,10 +112,10 @@
     // Script Bad Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.			          						
+    // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.                                          
     //
     //--------------------------------------------------------------------------------------------------
-	'scriptBadChars' => 
+    'scriptBadChars' => 
     [
         'document\.cookie' => 'document&#46;cookie',
         'document\.write'  => 'document&#46;write',
@@ -130,7 +130,7 @@
     // Regex Bad Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Düzenli ifadelerde tehlikeye neden olacak karater listesi.			  					
+    // Genel Kullanımı: Düzenli ifadelerde tehlikeye neden olacak karater listesi.                              
     //
     //--------------------------------------------------------------------------------------------------
     'regexBadChars' => 
@@ -139,10 +139,10 @@
         '(document|(document\.)?window)\.(location|on\w*)',
         'expression\s*(\(|&\#40;)', 
         'Redirect\s+30\d',
-        'javascript\s*:',	
+        'javascript\s*:',   
         'vbscript\s*:',
         'wscript\s*:',
         'jscript\s*:',
-        'vbs\s*:',		
+        'vbs\s*:',      
     ]
 ];
