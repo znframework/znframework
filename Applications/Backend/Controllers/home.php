@@ -24,5 +24,5 @@
     public function test()
     {
         // Your codes ...
-	}
+    }
 }

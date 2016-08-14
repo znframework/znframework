@@ -5,7 +5,8 @@
     "keywords": ["zn","zeroneed"],
     "homepage": "https://github.com/znframework/znframework",
     "license": "MIT",
-    "authors": [
+    "authors": 
+    [
         {
             "name": "Ozan UYKUN",
             "email": "ozanbote@gmail.com",
@@ -13,7 +14,8 @@
             "role": "Developer"
         }
     ],
-    "require": {
+    "require": 
+    {
         "php": ">=7.0.0"
     }
 }

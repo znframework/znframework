@@ -3,12 +3,12 @@
 #----------------------------------------------------------------------------------------------------
 
 <ifmodule mod_headers.c>
-	Options -Indexes
+    Options -Indexes
 </ifmodule>
 
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /
+    RewriteEngine On
+    RewriteBase /
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$  /zeroneed/zeroneed.php/$1 [L]
