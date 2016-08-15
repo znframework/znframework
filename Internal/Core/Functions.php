@@ -242,7 +242,7 @@ function lang(String $file, String $str = NULL, $changed = NULL)
 //--------------------------------------------------------------------------------------------------
 function currentLang() : String
 {
-    if( ! Config::get('Uri','lang') ) 
+    if( ! Config::get('Services','uri')['lang'] ) 
     {
         return false;
     }
@@ -785,7 +785,7 @@ function headers($header)
 //--------------------------------------------------------------------------------------------------
 function sslStatus() : String
 {
-    if( Config::get('Uri','ssl') )
+    if( Config::get('Services','uri')['ssl'] )
     { 
         return 'https://'; 
     }
@@ -898,7 +898,9 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
 //--------------------------------------------------------------------------------------------------
 function internalRouteURI(String $requestUri = NULL) : String
 {
-    if( Config::get('Route','openPage') )
+    $config = Config::get('Services', 'route');
+
+    if( $config['openPage'] )
     {
         $internalDir = NULL;
         
@@ -926,11 +928,10 @@ function internalRouteURI(String $requestUri = NULL) : String
             empty($requestUri) 
         ) 
         {
-            $requestUri = Config::get('Route','openPage');  
+            $requestUri = $config['openPage'];  
         }
     }
         
-    $config      = Config::get('Route');
     $uriChange   = $config['changeUri'];
     $patternType = $config['patternType'];
         
@@ -958,7 +959,7 @@ function internalRouteURI(String $requestUri = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalCleanInjection(String $string = NULL) : String
 {
-    $urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
+    $urlInjectionChangeChars = Config::get('IndividualStructures', 'security')['urlChangeChars'];
 
     if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
     {       

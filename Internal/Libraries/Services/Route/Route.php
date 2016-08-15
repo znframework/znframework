@@ -55,7 +55,7 @@ class InternalRoute extends \Controller implements RouteInterface
         
         if( ! empty($route) )
         {
-            \Config::set('Route', 'changeUri', $route); 
+            \Config::set('Services', 'route', ['changeUri' => $route]); 
         }
         
         $datas      = Structure::data();
@@ -84,7 +84,7 @@ class InternalRoute extends \Controller implements RouteInterface
                 else
                 {
                     // Sayfa bilgisine erişilemezse hata bildir.
-                    if( ! \Config::get('Route', 'show404') )
+                    if( ! $routeShow404 = \Config::get('Services', 'route')['show404'] )
                     {       
                         // Hatayı rapor et.
                         report('Error', lang('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
@@ -94,7 +94,7 @@ class InternalRoute extends \Controller implements RouteInterface
                     }
                     else
                     {
-                        redirect(\Config::get('Route', 'show404'));
+                        redirect($routeShow404);
                     }
                 }
             }

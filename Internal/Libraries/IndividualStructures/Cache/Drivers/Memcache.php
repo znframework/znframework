@@ -34,7 +34,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function connect(Array $settings = NULL)
     {   
-        $config = \Config::get('Cache', 'driverSettings');
+        $config = \Config::get('IndividualStructures', 'cache')['driverSettings'];
         
         $config = ! empty($settings)
                   ? $settings

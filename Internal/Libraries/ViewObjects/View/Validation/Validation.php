@@ -131,7 +131,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
         if( in_array('nc', $config) )
         {
-            $secnc = \Config::get('Security', 'ncEncode');
+            $secnc = Config::get('IndividualStructures', 'security')['ncEncode'];
             $edit  = \Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
         }   
         

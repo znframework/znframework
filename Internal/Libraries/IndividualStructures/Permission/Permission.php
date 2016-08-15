@@ -48,7 +48,7 @@ class InternalPermission extends \Requirements implements PermissionInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize('config');
+        \Requirements::initialize(['config' => 'IndividualStructures:permission']);
     }
     
     //--------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class DatabaseCommon extends \CallController implements DatabaseCommonInterface
+class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -124,6 +124,8 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(Array $config = [])
     {
+        \Requirements::initialize(['config' => 'Database']);
+        
         $this->db = $this->_run();
 
         $this->prefix = $this->config['prefix'];
@@ -426,8 +428,6 @@ class DatabaseCommon extends \CallController implements DatabaseCommonInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _run()
     {   
-        $this->config = \Config::get('Database');
-        
         $this->driver = explode(':', $this->config['driver'])[0];
     
         return $this->_drvlib('Driver');

@@ -20,9 +20,9 @@ trait ConfigTrait
     //--------------------------------------------------------------------------------------------------------
     public function config($settings = NULL)
     {
-        if( defined('REQUIREMENT_CONFIG') )
+        if( is_string($settings) && defined('REQUIREMENT_CONFIG') )
         {
-            $getConfigName = REQUIREMENT_CONFIG;
+            $getConfigName = $settings;
         }
         else
         {

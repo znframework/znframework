@@ -21,7 +21,7 @@ class InternalEncode extends \Requirements implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize('config');
+        \Requirements::initialize(['config' => 'CryptoGraphy:encode']);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -25,7 +25,9 @@ class PhashDriver extends CryptoMapping
 		if( ! isPhpVersion('5.5.0') )
 		{
 			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'password_', '#' => '5.5.0']));		
-		}	
+		}
+
+        parent::__construct();	
 	}
 	
 	//--------------------------------------------------------------------------------------------------------
@@ -37,6 +39,6 @@ class PhashDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	public function keygen($length)
 	{
-		return mb_substr(password_hash(\Config::get('Encode', 'projectKey'), PASSWORD_BCRYPT), -$length);
+		return mb_substr(password_hash($this->config['projectKey'], PASSWORD_BCRYPT), -$length);
 	}
 }

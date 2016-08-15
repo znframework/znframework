@@ -37,12 +37,12 @@ class Requirements extends CallController implements RequirementsInterface
                 else
                 {
                     $const = 'REQUIREMENT_'.strtoupper($key);
-                   
+                  
                     if( ! defined($const) )
                     {
-                        define($const, $type);
+                        define($const, true);
                     }
-
+        
                     $this->$key($type);
                 }
             }

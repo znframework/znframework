@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalCompress extends \CallController implements CompressInterface
+class InternalCompress extends \Requirements implements CompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -47,10 +47,12 @@ class InternalCompress extends \CallController implements CompressInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $driver = NULL)
+    public function __construct()
     {   
-        nullCoalesce($driver, \Config::get('Compress', 'driver'));
+        \Requirements::initialize(['config' => 'IndividualStructures:compress']);
 
+        $driver = $this->config['driver'];
+        
         \Support::driver($this->drivers, $driver);
 
         $this->compress = uselib($driver.'Driver');

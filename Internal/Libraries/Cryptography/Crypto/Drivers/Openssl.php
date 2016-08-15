@@ -23,6 +23,8 @@ class OpensslDriver extends CryptoMapping
 	public function __construct()
 	{
 		\Support::func('openssl_open', 'OPENSSL');
+
+		 parent::__construct();
 	}
 
 	//--------------------------------------------------------------------------------------------------------
@@ -88,10 +90,10 @@ class OpensslDriver extends CryptoMapping
 	{
 		$cipher = strtolower($cipher);
 		
-		$ciphers = array
-		(	
+		$ciphers =
+		[	
 			'aes-128' 	=> 16,
-		);
+		];
 		
 		$ciphers = \Arrays::multikey($ciphers);
 		
@@ -100,7 +102,7 @@ class OpensslDriver extends CryptoMapping
 			$ciphers[$cipher] = 16;	
 		}
 		
-		return mb_substr(hash('md5', \Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
+		return mb_substr(hash('md5', $this->config['projectKey']), 0, $ciphers[$cipher]);
 	}
 	
 	//--------------------------------------------------------------------------------------------------------
@@ -111,12 +113,12 @@ class OpensslDriver extends CryptoMapping
 		$mode   = strtolower($mode);
 		$cipher = strtolower($cipher);
 		
-		$modes = array
-		(
+		$modes =
+		[
 			'cbc' 	=> 16,
 			'rc2'   => 8,
 			'ecb'   => 0
-		);
+		];
 		
 		$modes = \Arrays::multikey($modes);
 		
@@ -127,6 +129,6 @@ class OpensslDriver extends CryptoMapping
 			$mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
 		}
 		
-		return mb_substr(hash('sha1', \Config::get('Encode', 'projectKey')), 0, $mode);
+		return mb_substr(hash('sha1', $this->config['projectKey']), 0, $mode);
 	}
 }

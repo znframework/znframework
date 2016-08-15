@@ -73,7 +73,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize('config');
+        \Requirements::initialize(['config' => 'IndividualStructures:security']);
     }
     
     //--------------------------------------------------------------------------------------------------------

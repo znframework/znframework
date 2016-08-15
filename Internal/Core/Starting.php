@@ -121,7 +121,7 @@ internalApplicationMode(APPMODE, $appcon['errorReporting']);
 // Tampon başlatılıyor.
 //
 //--------------------------------------------------------------------------------------------------
-if( Config::get('Cache','obGzhandler') && substr_count(server('acceptEncoding'), 'gzip') ) 
+if( Config::get('IndividualStructures', 'cache')['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') ) 
 {
     ob_start('ob_gzhandler');
 }

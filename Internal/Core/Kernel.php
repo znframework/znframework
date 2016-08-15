@@ -194,9 +194,9 @@ if( is_file($isFile) )
         }
         else
         {
-            if( Config::get('Route', 'show404') )
+            if( $routeShow404 = Config::get('Services', 'route')['show404'] )
             {   
-                redirect(Config::get('Route', 'show404'));  
+                redirect($routeShow404);  
             }
             else
             {
@@ -209,9 +209,9 @@ if( is_file($isFile) )
 }
 else
 {   
-    if( Config::get('Route','show404') ) 
+    if( $routeShow404 = Config::get('Services', 'route')['show404'] ) 
     {               
-        redirect(Config::get('Route','show404'));       
+        redirect($routeShow404);       
     }
     else
     {

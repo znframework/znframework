@@ -58,14 +58,12 @@ trait LangTrait
         }
         else
         {
-            if( $key === REQUIREMENT_LANG )
+            $newKey = $key;
+            $key    = NULL;   
+        
+            if( stristr($newKey, ':') )
             {
-                $key = NULL;
-            }
-
-            if( stristr(REQUIREMENT_LANG, ':') )
-            {
-                $langEx  = explode(':', REQUIREMENT_LANG);
+                $langEx  = explode(':',$newKey);
 
                 if( ! empty($options) )
                 {
@@ -81,7 +79,7 @@ trait LangTrait
             }
             else
             {
-                $this->lang = lang(REQUIREMENT_LANG);
+                $this->lang = lang($newKey);
             }
         }
     }

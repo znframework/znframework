@@ -29,10 +29,7 @@ class McryptDriver extends CryptoMapping
         $mode   = isset($settings['mode'])   ? $settings['mode']   : 'cbc';
         $iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
 
-        // MCRYPT_ ön eki ilave ediliyor.
         $cipher = \Converter::toConstant($cipher, 'MCRYPT_');
-        
-        // MCRYPT_MODE_ ön eki ilave ediliyor.
         $mode   = \Converter::toConstant($mode, 'MCRYPT_MODE_');
         
         $encode = trim(mcrypt_encrypt($cipher, $key, $data, $mode, $iv));
@@ -56,13 +53,10 @@ class McryptDriver extends CryptoMapping
         $mode   = isset($settings['mode'])   ? $settings['mode']   : 'cbc';
         $iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
         
-        // MCRYPT_ ön eki ilave ediliyor.
         $cipher = \Converter::toConstant($cipher, 'MCRYPT_');
-        
-        // MCRYPT_MODE_ ön eki ilave ediliyor.
         $mode   = \Converter::toConstant($mode, 'MCRYPT_MODE_');
         
-        $data = base64_decode($data);
+        $data   = base64_decode($data);
         
         return trim(mcrypt_decrypt($cipher, $key, trim($data), $mode, $iv));
     }
@@ -86,14 +80,13 @@ class McryptDriver extends CryptoMapping
     {
         $cipher = strtolower($cipher);
         
-        $ciphers = array
-        (   
+        $ciphers =
+        [  
             'des'                                           => 8,
             'cast_128|rijndael_128|serpent|twofish|xtea'    => 16,
             '3des|rijndael_192|saferplus|tripledes'         => 24,
             'cast_256|gost|loki97|rijndael_256'             => 32
-                
-        );
+        ];
         
         $ciphers = \Arrays::multikey($ciphers);
         
@@ -102,7 +95,7 @@ class McryptDriver extends CryptoMapping
             $ciphers[$cipher] = 8;  
         }
         
-        return mb_substr(hash('md5', \Config::get('Encode', 'projectKey')), 0, $ciphers[$cipher]);
+        return mb_substr(hash('md5', $this->config['projectKey']), 0, $ciphers[$cipher]);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -113,13 +106,13 @@ class McryptDriver extends CryptoMapping
         $mode   = strtolower($mode);
         $cipher = strtolower($cipher);
         
-        $modes = array
-        (
+        $modes =
+        [
             'cbc'                                                       => 8,
             'cast_256|loki97|rijndael_128|saferplus|serpent|twofish'    => 16,
             'rijndael_192'                                              => 24,
             'rijndael_256'                                              => 32,
-        );
+        ];
         
         $modes = \Arrays::multikey($modes);
         
@@ -130,6 +123,6 @@ class McryptDriver extends CryptoMapping
             $mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
         }
         
-        return mb_substr(hash('sha1', \Config::get('Encode', 'projectKey')), 0, $mode);
+        return mb_substr(hash('sha1', $this->config['projectKey']), 0, $mode);
     }
 }

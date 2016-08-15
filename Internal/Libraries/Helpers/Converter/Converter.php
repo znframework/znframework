@@ -244,7 +244,7 @@ class InternalConverter extends \CallController implements ConverterInterface
     //--------------------------------------------------------------------------------------------------------
     public function urlWord(String $str, String $splitWord = '-') : String
     {
-        $badChars = \Config::get('Security', 'urlBadChars');
+        $badChars = Config::get('IndividualStructures', 'security')['urlBadChars'];
         
         $str = $this->accent($str);
         $str = str_replace($badChars, '', $str);

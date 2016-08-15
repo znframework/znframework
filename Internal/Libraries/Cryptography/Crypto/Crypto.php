@@ -1,6 +1,6 @@
 <?php namespace ZN\Cryptography;
 
-class InternalCrypto extends \CallController implements CryptoInterface
+class InternalCrypto extends \Requirements implements CryptoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -47,9 +47,11 @@ class InternalCrypto extends \CallController implements CryptoInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $driver = NULL)
+    public function __construct()
     {
-        nullCoalesce($driver, \Config::get('Encode', 'driver'));
+        \Requirements::initialize(['config' => 'Cryptography:crypto']);
+
+        $driver = $this->config['driver'];
 
         \Support::driver($this->drivers, $driver);
 

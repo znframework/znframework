@@ -57,7 +57,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize('config');
+        \Requirements::initialize(['config' => 'IndividualStructures:user']);
     }
     
     //--------------------------------------------------------------------------------------------------------
