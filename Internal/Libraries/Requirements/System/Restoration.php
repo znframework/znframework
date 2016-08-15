@@ -1,4 +1,4 @@
-<?php namespace ZN;
+<?php namespace ZN\Requirements;
 
 class Restoration
 {
@@ -114,4 +114,4 @@ class Restoration
     }   
 }
 
-class_alias('ZN\Restoration', 'Restoration');
+class_alias('ZN\Requirements\Restoration', 'Restoration');

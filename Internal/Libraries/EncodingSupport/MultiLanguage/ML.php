@@ -12,15 +12,6 @@ class InternalML extends \Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
-    // const config
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @const string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    const config  = 'EncodingSupport:ml';
-    
-    //--------------------------------------------------------------------------------------------------------
     // ML Properties Trait
     //--------------------------------------------------------------------------------------------------------
     // 
@@ -64,18 +55,15 @@ class InternalML extends \Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        parent::__construct();
-        
-        // Dil doyalarının yer alacağı dizinin belirtiliyor.
+        \Requirements::initialize(['config' => 'EncodingSupport:ml']);
+    
         $this->appdir = STORAGE_DIR.'MultiLanguage/';   
         
-        // Eğer dizin mevcut değilse oluşturulması sağlanıyor.
         if( ! is_dir($this->appdir) )
         {
             \Folder::create($this->appdir, 0755);   
         }
             
-        // Aktif dil dosyasının yolu belirtiliyor.
         $this->lang   = $this->appdir.getLang().$this->extension;
     }
     

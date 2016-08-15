@@ -10,15 +10,6 @@ class InternalCalendar extends \Requirements implements CalendarInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------------
-    // const config
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @const string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    const config  = 'Components:calendar';
 
     //--------------------------------------------------------------------------------------------------------
     // Css
@@ -118,7 +109,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        parent::__construct();
+        \Requirements::initialize(['config' => 'Components:calendar']);
         
         $this->prev         = $this->config['prevName'];
         $this->next         = $this->config['nextName'];

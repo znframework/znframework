@@ -1,26 +1,24 @@
-<?php namespace ZN;
+<?php namespace ZN\Requirements;
 
-interface RequirementsInterface
+trait StatusTrait
 {
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------------
-    // config()                                                                       
+    // Error                                                                       
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  array  $settings: empty
-    // @param  string $path    : empty
-    // @return object                                
+    // @var string                           
     //                                                                                           
     //--------------------------------------------------------------------------------------------------------
-    public function config(Array $settings, String $path);
+    protected $error;
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Success
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var  string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $success;
 
     //--------------------------------------------------------------------------------------------------------
     // error()                                                                       
@@ -29,7 +27,22 @@ interface RequirementsInterface
     // @param void                               
     //                                                                                           
     //--------------------------------------------------------------------------------------------------------
-    public function error();
+    public function error()
+    {
+        if( ! empty($this->error) ) 
+        {
+            if( is_array($this->error) )
+            {
+                return implode('<br>', $this->error);
+            }
+
+            return $this->error;
+        }
+        else 
+        {
+            return false;
+        }
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // success()                                                                       
@@ -38,7 +51,29 @@ interface RequirementsInterface
     // @param void                               
     //                                                                                           
     //--------------------------------------------------------------------------------------------------------
-    public function success();
+    public function success()
+    {
+        if( empty($this->error) ) 
+        {
+            if( ! empty($this->success) )
+            {
+                if( is_array($this->success) )
+                {
+                    return implode('<br>', $this->success);
+                }
+
+                return $this->success;
+            }
+            else
+            {
+                return lang('Success', 'success');
+            }
+        }
+        else 
+        {
+            return false;
+        }
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Status
@@ -48,5 +83,15 @@ interface RequirementsInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status();
+    public function status()
+    {
+        if( $success = $this->success() ) 
+        {
+            return $success;
+        }
+
+        return $this->error();
+    }
 }
+
+class_alias('ZN\Requirements\StatusTrait', 'StatusTrait');

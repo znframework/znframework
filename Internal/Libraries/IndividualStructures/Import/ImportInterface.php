@@ -110,7 +110,7 @@ interface ImportInterface
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function page(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = PAGES_DIR) : String;
+    public function page(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = PAGES_DIR);
     
     //--------------------------------------------------------------------------------------------------------
     // view()
@@ -121,7 +121,7 @@ interface ImportInterface
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function view(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = PAGES_DIR) : String;
+    public function view(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = PAGES_DIR);
     
     //--------------------------------------------------------------------------------------------------------
     // handload()
@@ -141,7 +141,7 @@ interface ImportInterface
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function template(String $page, Array $data = NULL, Bool $obGetContents = false) : String;
+    public function template(String $page, Array $data = NULL, Bool $obGetContents = false);
     
     //--------------------------------------------------------------------------------------------------------
     // masterpage()
@@ -151,7 +151,7 @@ interface ImportInterface
     // @param array $head
     //
     //--------------------------------------------------------------------------------------------------------
-    public function masterPage(Array $randomDataVariable, Array $head) : String;
+    public function masterPage(Array $randomDataVariable, Array $head);
     
     //--------------------------------------------------------------------------------------------------------
     // font()
@@ -160,7 +160,7 @@ interface ImportInterface
     // @param variadic $fonts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(...$fonts) : String;
+    public function font(...$fonts);
     
     //--------------------------------------------------------------------------------------------------------
     // style()
@@ -169,7 +169,7 @@ interface ImportInterface
     // @param variadic $styles
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(...$styles) : String; 
+    public function style(...$styles); 
 
     //--------------------------------------------------------------------------------------------------------
     // scripts()
@@ -178,7 +178,7 @@ interface ImportInterface
     // @param variadic $scripts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function script(...$scripts) : String;
+    public function script(...$scripts);
     
     //--------------------------------------------------------------------------------------------------------
     // something()
@@ -189,7 +189,7 @@ interface ImportInterface
     // @param bool   $contents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function something(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false) : String;
+    public function something(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false);
     
     //--------------------------------------------------------------------------------------------------------
     // Package
@@ -200,7 +200,7 @@ interface ImportInterface
     // @param bool   $getContents                     
     //                                                                                            
     //--------------------------------------------------------------------------------------------------------
-    public function package($package, Bool $recursive = false, Bool $getContents = false) : String;
+    public function package($package, Bool $recursive = false, Bool $getContents = false);
     
     //--------------------------------------------------------------------------------------------------------
     // Theme
@@ -211,7 +211,7 @@ interface ImportInterface
     // @param bool   $getContents                     
     //                                                                                            
     //--------------------------------------------------------------------------------------------------------
-    public function theme($theme, Bool $recursive = false, Bool $getContents = false) : String;
+    public function theme($theme, Bool $recursive = false, Bool $getContents = false);
     
     //--------------------------------------------------------------------------------------------------------
     // Plugin
@@ -222,5 +222,5 @@ interface ImportInterface
     // @param bool   $getContents                     
     //                                                                                            
     //--------------------------------------------------------------------------------------------------------
-    public function plugin($plugin, Bool $recursive = false, Bool $getContents = false) : String;
+    public function plugin($plugin, Bool $recursive = false, Bool $getContents = false);
 }

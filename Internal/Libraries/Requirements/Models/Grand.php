@@ -1,6 +1,6 @@
-<?php namespace ZN;
+<?php namespace ZN\Requirements;
 
-interface GrandInterface
+class Grand extends CallController implements GrandInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,7 +10,42 @@ interface GrandInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Variable Grand Table
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $grandTable = '';
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Constructor
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
+    {
+        if( defined('static::table') )
+        {
+            $this->grandTable = static::table;
+        }                                                  
+        else
+        {
+            $this->grandTable = divide(str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+        }
 
+        $tables = \DBTool::listTables();
+        
+        if( ! in_array($this->grandTable, $tables) )
+        {
+            throw new \Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$this->grandTable));
+        }
+    }
+    
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
@@ -18,7 +53,11 @@ interface GrandInterface
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(Array $data) : Bool;
+    public function insert(Array $data) : Bool
+    {
+        return \DB::insert($this->grandTable, $data);
+    }
+    
     //--------------------------------------------------------------------------------------------------------
     // Insert ID
     //--------------------------------------------------------------------------------------------------------
@@ -26,7 +65,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insertID() : Int;
+    public function insertID() : Int
+    {
+        return \DB::insertID();
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Select
@@ -35,7 +77,12 @@ interface GrandInterface
     // @param mixed $select: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(...$select) : Grand;
+    public function select(...$select) : Grand
+    {
+        \DB::select(...$select);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Update
@@ -44,7 +91,10 @@ interface GrandInterface
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(Array $data, String $column, String $value) : Bool;
+    public function update(Array $data, String $column, String $value) : Bool
+    {
+        return \DB::where($column, $value)->update($this->grandTable, $data);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -54,7 +104,22 @@ interface GrandInterface
     // @param string $value : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $column, String $value) : Bool;
+    public function delete(String $column, String $value) : Bool
+    {
+        return \DB::where($column, $value)->delete($this->grandTable);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Get
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _get()
+    {
+        return \DB::get($this->grandTable);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Columns
@@ -63,7 +128,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function columns() : Array;
+    public function columns() : Array
+    {
+        return $this->_get()->columns();
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Total Columns
@@ -72,7 +140,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalColumns() : Int;
+    public function totalColumns() : Int
+    {
+        return $this->_get()->totalColumns();
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Row
@@ -81,7 +152,10 @@ interface GrandInterface
     // @param mixed $printable: false
     //
     //--------------------------------------------------------------------------------------------------------
-    public function row($printable);
+    public function row($printable = false)
+    {
+        return $this->_get()->row($printable);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Result
@@ -90,7 +164,10 @@ interface GrandInterface
     // @param string $type: object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function result(String $type = 'object');
+    public function result(String $type = 'object')
+    {
+        return $this->_get()->result($type);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Increment
@@ -100,7 +177,10 @@ interface GrandInterface
     // @param int   $increment: 1
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment($columns, Int $increment = 1) : Bool;
+    public function increment($columns, Int $increment = 1) : Bool
+    {
+        return \DB::increment($this->grandTable, $columns, $increment);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Decrement
@@ -110,7 +190,10 @@ interface GrandInterface
     // @param int   $decrement: 1
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement($columns, Int $decrement = 1) : Bool;
+    public function decrement($columns, Int $decrement = 1) : Bool
+    {
+        return \DB::decrement($this->grandTable, $columns, $decrement);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Status
@@ -119,7 +202,10 @@ interface GrandInterface
     // @param string $type: row
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status(String $type = 'row');
+    public function status(String $type = 'row')
+    {
+        return \DB::status($this->grandTable)->$type();
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Total Rows
@@ -128,7 +214,10 @@ interface GrandInterface
     // @param bool $status: false
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalRows(Bool $status = false) : Int;
+    public function totalRows(Bool $status = false) : Int
+    {
+        return $this->_get()->totalRows($status);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Where
@@ -139,7 +228,12 @@ interface GrandInterface
     // @param string $logical: empty 
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, String $value = NULL, String $logical = NULL) : Grand;
+    public function where($column, String $value = NULL, String $logical = NULL) : Grand
+    {
+        \DB::where($column, $value, $logical);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Having
@@ -150,7 +244,12 @@ interface GrandInterface
     // @param string $logical: empty 
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, String $value = NULL, String $logical = NULL) : Grand;
+    public function having($column, String $value = NULL, String $logical = NULL) : Grand
+    {
+        \DB::having($column, $value, $logical);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Where Group
@@ -159,7 +258,12 @@ interface GrandInterface
     // @param array ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function whereGroup(...$args) : Grand;
+    public function whereGroup(...$args) : Grand
+    {
+        \DB::whereGroup(...$args);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Having Group
@@ -168,7 +272,12 @@ interface GrandInterface
     // @param array ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function havingGroup(...$args) : Grand;
+    public function havingGroup(...$args) : Grand
+    {
+        \DB::havingGroup(...$args);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Inner Join
@@ -179,7 +288,12 @@ interface GrandInterface
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
+    public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    {
+        \DB::innerJoin($table, $otherColumn, $operator);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Outer Join
@@ -190,7 +304,12 @@ interface GrandInterface
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
+    public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    {
+        \DB::outerJoin($table, $otherColumn, $operator);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Left Join
@@ -201,7 +320,12 @@ interface GrandInterface
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
+    public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    {
+        \DB::leftJoin($table, $otherColumn, $operator);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Right Join
@@ -212,7 +336,12 @@ interface GrandInterface
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand;
+    public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    {
+        \DB::rightJoin($table, $otherColumn, $operator);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Join
@@ -223,7 +352,12 @@ interface GrandInterface
     // @param string $type     : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function join(String $table, String $condition, String $type = NULL) : Grand;
+    public function join(String $table, String $condition, String $type = NULL) : Grand
+    {
+        \DB::join($table, $condition, $type);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Duplicate Check
@@ -232,7 +366,12 @@ interface GrandInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duplicateCheck(...$args) : Grand;
+    public function duplicateCheck(...$args) : Grand
+    {
+        \DB::duplicateCheck(...$args);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Order By
@@ -242,7 +381,12 @@ interface GrandInterface
     // @param string $type     : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orderBy($condition, String $type = NULL) : Grand;
+    public function orderBy($condition, String $type = NULL) : Grand
+    {
+        \DB::orderBy($condition, $type);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Group By
@@ -251,7 +395,12 @@ interface GrandInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function groupBy() : Grand;
+    public function groupBy(...$args) : Grand
+    {
+        \DB::groupBy(...$args);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Limit
@@ -261,7 +410,12 @@ interface GrandInterface
     // @param int   $limit: 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit($start = 0, Int $limit = 0) : Grand;
+    public function limit($start = 0, Int $limit = 0) : Grand
+    {
+        \DB::limit($start, $limit);
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Pagination
@@ -272,7 +426,10 @@ interface GrandInterface
     // @param bool   $output  : true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pagination(String $url = NULL, Array $settings = [], Bool $output = true);
+    public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
+    {
+        return $this->_get()->pagination($url, $settings, $output);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -282,7 +439,10 @@ interface GrandInterface
     // @param string $extra: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Array $data, $extra = NULL) : Bool;
+    public function create(Array $data, $extra = NULL) : Bool 
+    {
+        return \DBForge::createTable($this->grandTable, $data, $extra);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Drop
@@ -291,7 +451,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop() : Bool;
+    public function drop() : Bool
+    {
+        return \DBForge::dropTable($this->grandTable);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Truncate
@@ -300,7 +463,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate() : Bool;
+    public function truncate() : Bool
+    {
+        return \DBForge::truncate($this->grandTable);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Rename
@@ -309,7 +475,10 @@ interface GrandInterface
     // @param string $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $newName) : Bool;
+    public function rename(String $newName) : Bool
+    {
+        return \DBForge::renameTable($this->grandTable, $newName);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Add Column
@@ -318,7 +487,10 @@ interface GrandInterface
     // @param array $column: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addColumn(Array $column) : Bool;
+    public function addColumn(Array $column) : Bool
+    {
+        return \DBForge::addColumn($this->grandTable, $column);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
@@ -327,7 +499,10 @@ interface GrandInterface
     // @param array $column: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropColumn($column) : Bool;
+    public function dropColumn($column) : Bool
+    {
+        return \DBForge::dropColumn($this->grandTable, $column);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
@@ -336,7 +511,10 @@ interface GrandInterface
     // @param array $column: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function modifyColumn(Array $column) : Bool;
+    public function modifyColumn(Array $column) : Bool
+    {
+        return \DBForge::modifyColumn($this->grandTable, $column);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
@@ -345,7 +523,10 @@ interface GrandInterface
     // @param array $column: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameColumn(Array $column) : Bool;
+    public function renameColumn(Array $column) : Bool
+    {
+        return \DBForge::renameColumn($this->grandTable, $column);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Optimize
@@ -354,7 +535,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function optimize() : String;
+    public function optimize() : String
+    {
+        return \DBTool::optimizeTables($this->grandTable);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Repair
@@ -363,7 +547,10 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repair() : String;
+    public function repair() : String
+    {
+        return \DBTool::repairTables($this->grandTable);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Backup
@@ -373,7 +560,10 @@ interface GrandInterface
     // @param string $path    : const STORAGE_DIR
     //
     //--------------------------------------------------------------------------------------------------------
-    public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String;
+    public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String
+    {
+        return \DBTool::backup($this->grandTable, $fileName, $path);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Error
@@ -382,5 +572,25 @@ interface GrandInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error();
+    public function error()
+    {
+        if( $error = \DB::error() )
+        {
+            return $error;
+        }
+        elseif( $error = \DBForge::error() )
+        {
+            return $error;
+        }
+        elseif( $error = \DBTool::error() )
+        {
+            return $error;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
+
+class_alias('ZN\Requirements\Grand', 'Grand');

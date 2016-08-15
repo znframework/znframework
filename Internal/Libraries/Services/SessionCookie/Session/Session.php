@@ -2,30 +2,14 @@
 
 class InternalSession extends \Requirements implements SessionInterface, SessionCookieCommonInterface
 {
-    /***********************************************************************************/
-    /* SESSION COMPONENT                                                               */
-    /***********************************************************************************/
-    /* Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    /* Site: www.zntr.net
-    /* Lisans: The MIT License
-    /* Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-    /*
-    /* Sınıf Adı: Session
-    /* Versiyon: 1.2
-    /* Tanımlanma: Dinamik
-    /* Dahil Edilme: Gerektirmez
-    /* Erişim: Session:: $this->Session, zn::$use->Session, uselib('Session')
-    /* Not: Büyük-küçük harf duyarlılığı yoktur.
-    /***********************************************************************************/
-    
     //--------------------------------------------------------------------------------------------------------
-    // const config
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @const string
+    //
+    // Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+    // Site       : www.zntr.net
+    // Lisans     : The MIT License
+    // Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
     //
     //--------------------------------------------------------------------------------------------------------
-    const config  = 'Services:session';
     
     //--------------------------------------------------------------------------------------------------------
     // Session Cookie Common
@@ -46,7 +30,7 @@ class InternalSession extends \Requirements implements SessionInterface, Session
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        parent::__construct();
+        \Requirements::initialize(['config' => 'Services:session']);
         
         \Config::iniSet(\Config::get('Htaccess', 'session')['settings']);
         

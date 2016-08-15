@@ -5,8 +5,6 @@
 
 class Cookie extends StaticAccess
 {
-	const config = 'Services:cookie';
-
 	public static function getClassName()
 	{
 		return __CLASS__;

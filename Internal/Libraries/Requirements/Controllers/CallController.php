@@ -1,6 +1,6 @@
-<?php namespace ZN;
+<?php namespace ZN\Requirements;
 
-class BaseController
+class CallController extends BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,21 +10,23 @@ class BaseController
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
+    
     //--------------------------------------------------------------------------------------------------------
-    // Get
+    // Call
     //--------------------------------------------------------------------------------------------------------
     // 
-    // Magic Get
+    // Magic Call
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __get($class)
-    {
-        if( ! isset($this->$class) )
-        {
-            return $this->$class = uselib($class);  
-        }
+    public function __call($method = '', $param = '')
+    {   
+        die(getErrorMessage
+        (
+            'Error', 
+            'undefinedFunction', 
+            divide(str_ireplace(STATIC_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
+        ));
     }
 }
 
-class_alias('ZN\BaseController', 'BaseController');
+class_alias('ZN\Requirements\CallController', 'CallController');
