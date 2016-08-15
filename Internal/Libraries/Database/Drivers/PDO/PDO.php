@@ -58,6 +58,8 @@ class PDODriver extends DriverConnectionMappingAbstract
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
         'notNull'       => 'NOT NULL',
+        'exists'        => 'EXISTS',
+        'notExists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
