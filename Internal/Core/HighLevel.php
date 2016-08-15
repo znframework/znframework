@@ -125,7 +125,7 @@ if( is_array($othersapp) )
     $internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
 }
 
-if( ! empty($internalDir) && is_dir(APPLICATIONS_DIR.$internalDir) )
+if( ! empty($internalDir) && is_dir(PROJECTS_DIR.$internalDir) )
 {
     define('URIAPPDIR', $internalDir);  
 }
@@ -898,7 +898,7 @@ function internalApplicationContainerDir() : String
     if( ! empty($containers) && defined('URIAPPDIR') )
     {
         return ! empty($containers[URIAPPDIR])
-               ? APPLICATIONS_DIR.suffix($containers[URIAPPDIR])
+               ? PROJECTS_DIR.suffix($containers[URIAPPDIR])
                : APPDIR;
     }
     

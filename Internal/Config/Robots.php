@@ -38,10 +38,9 @@
         'allow'     => [],
         'disallow'  => 
         [
-            '/Applications/', 
             '/External/', 
             '/Internal/', 
-            '/Restorations/'
+            '/Projects/'
         ]   
     ]
 ];

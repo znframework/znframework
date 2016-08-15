@@ -133,7 +133,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
             $this->settings['application'] = divide(APPDIR, '/', 1);
         }
         
-        return APPLICATIONS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
+        return PROJECTS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
     }
     
     //--------------------------------------------------------------------------------------------------------
