@@ -241,7 +241,7 @@ else
     // Yakalanan son hata log dosyasına kaydediliyor.
     //
     //----------------------------------------------------------------------------------------------
-    if(  Config::get('Log', 'createFile') === true && $errorLast = Errors::last() )
+    if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
     {
         $lang    = lang('Error');
         $message = $lang['line']   .':'.$errorLast['line'].', '.

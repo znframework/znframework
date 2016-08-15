@@ -710,7 +710,7 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
 //--------------------------------------------------------------------------------------------------
 function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
 {
-    if( ! Config::get('Log', 'createFile')) 
+    if( ! Config::get('General', 'log')['createFile'] ) 
     {
         return false;
     }
@@ -732,7 +732,7 @@ function report(String $subject, String $message, String $destination = NULL, St
     {
         if( empty($time) ) 
         {
-            $time = Config::get('Log', 'fileTime');
+            $time = Config::get('General', 'log')['fileTime'];
         }
         
         $createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');

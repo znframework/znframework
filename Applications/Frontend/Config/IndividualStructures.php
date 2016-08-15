@@ -342,20 +342,20 @@
         // Matching
         //----------------------------------------------------------------------------------------------
         //
-        // Veritabanında yer alan tablo ile ilgili sütunları eşleştirmek için kullanılır. Tablo ismini table
-        // bölümüne diğer sütunlardan mevcut olanlarıda ilgili anahtarlarla eşleştirmelisiniz.      
+        // Veritabanında yer alan tablo ile ilgili sütunları eşleştirmek için kullanılır. Tablo ismini 
+        // table bölümüne diğer sütunlardan mevcut olanlarıda ilgili anahtarlarla eşleştirmelisiniz.      
         //
         // table: Eşleştirme yapılacak tablo adı.   
         //
         // columns: Eşleştirme yapılacak sütunlar.
         //     username: Kullanıcı adı bilgisini tutan sütun adı.
         //     password: Kullanıcı şifresini tutan sütun adı.
-        //     email   : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta sütunu olarak kullanılır.
-        //               bu nedenle kullanımı görecelidir.
-        //     active  : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı. 0 ve 1 değeri alacak
-        //               şekilde veri türü seçilmelidir.
-        //     banned  : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı. 0 ve 1 değeri alacak
-        //               şekilde veri türü seçilmelidir.                                                                                                            
+        //     email   : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta 
+        //               sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
+        //     active  : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı. 
+        //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
+        //     banned  : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı. 
+        //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.                                                                                                            
         //
         //----------------------------------------------------------------------------------------------
         'matching' =>

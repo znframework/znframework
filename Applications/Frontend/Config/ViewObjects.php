@@ -104,7 +104,8 @@
         // Font                                                                               
         //----------------------------------------------------------------------------------------------
         //
-        // Harici sunuculardan çağırmayı düşündüğünüz fontların anahtar ismi ve url bilgisini eklemek için. 
+        // Harici sunuculardan çağırmayı düşündüğünüz fontların anahtar ismi ve url bilgisini eklemek 
+        // için. 
         // Import::font('anahtar') ile direk import ettirebilirsiniz.                                     
         //
         //----------------------------------------------------------------------------------------------
@@ -117,7 +118,8 @@
         // Image                                                                              
         //----------------------------------------------------------------------------------------------
         //
-        // Harici sunuculardan çağırmayı düşündüğünüz resimlerin anahtar ismi ve url bilgisini eklemek için.
+        // Harici sunuculardan çağırmayı düşündüğünüz resimlerin anahtar ismi ve url bilgisini eklemek
+        // için. 
         // CND::image('anahtar') ile anahtarın değerini döndürebilirsiniz.
         // Html::image(CND::image('image1'));                                             
         //
@@ -131,7 +133,8 @@
         // File                                                                               
         //----------------------------------------------------------------------------------------------
         //
-        // Harici sunuculardan çağırmayı düşündüğünüz dosyaların anahtar ismi ve url bilgisini eklemek için.    
+        // Harici sunuculardan çağırmayı düşündüğünüz dosyaların anahtar ismi ve url bilgisini eklemek 
+        // için.    
         // CND::file('anahtar') ile anahtarın değerini döndürebilirsiniz.   
         // File::contents(CND::file('anahtar'));                                  
         //

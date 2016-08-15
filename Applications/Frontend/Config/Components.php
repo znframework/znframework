@@ -296,8 +296,8 @@
         //
         // Genel Kullanımı: Yukardaki ayarlar aynen geçerlidir. Sadece Datagrid için farklı bir.
         // sayfalama görünümü dizayn edilmek istenirse yukarıdaki ayarların kullanımı değişmeyecek
-        // şekilde kullanılabilir. Ortak bir sayfalama tasarımı kullanıyorsa zaten sayfalama ayarlarının
-        // yukarıdaki mevcut ayarlarından yapılması tavsiye edilir.                                                 
+        // şekilde kullanılabilir. Ortak bir sayfalama tasarımı kullanıyorsa zaten sayfalama 
+        // ayarlarının yukarıdaki mevcut ayarlarından yapılması tavsiye edilir.                                                 
         //
         //----------------------------------------------------------------------------------------------
         'pagination' =>
