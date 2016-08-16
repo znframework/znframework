@@ -20,7 +20,7 @@ class Requirements extends \CallController implements RequirementsInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function initialize($types)
+    public function initialize($types = NULL)
     {
         if( is_string($types) )
         {
