@@ -8,7 +8,7 @@
         //----------------------------------------------------------------------------------------------
         // Sending Data: font, style, title
         //----------------------------------------------------------------------------------------------
-        $data['font']  = Import::font('font');
+        $data['font']  = Import::font('font', true);
         $data['style'] = Import::style('style', true);
         $data['title'] = 'ZERONEED PHP WEB FRAMEWORK';
 
