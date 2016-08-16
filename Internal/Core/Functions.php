@@ -354,7 +354,12 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
     
     $host = host();
     
-    return sslStatus().$host.$newBaseDir.indexStatus().suffix(currentLang()).internalCleanInjection($uri);
+    return sslStatus().
+           $host.
+           $newBaseDir.
+           indexStatus().
+           suffix(currentLang()).
+           internalCleanInjection(suffix(illustrate('CURRENT_PROJECT_DIR')).$uri);
 }
 
 //--------------------------------------------------------------------------------------------------

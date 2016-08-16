@@ -69,12 +69,16 @@ if( is_array($projectDir) && ! empty($projectDir[host()]) )
 }
 elseif( defined('_CURRENT_PROJECT_DIR') )
 {
-    $flip   = array_flip($projectDir);
+    $flip       = array_flip($projectDir);
     $projectDir = _CURRENT_PROJECT_DIR;
             
-    if( ! empty($flip[_CURRENT_PROJECT_DIR]) )
+    if( ! empty($flip[$projectDir]) )
     {
-        define('CURRENT_PROJECT_DIR', $flip[_CURRENT_PROJECT_DIR]);
+        define('CURRENT_PROJECT_DIR', $flip[$projectDir]);
+    }
+    else
+    {
+        define('CURRENT_PROJECT_DIR', $projectDir);
     }
 }
 elseif( is_array($projectDir) )
