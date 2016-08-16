@@ -861,9 +861,9 @@ function internalRequestURI() : String
     $requestUri = internalCleanInjection(internalRouteURI($requestUri));
     $requestUri = internalCleanURIPrefix($requestUri, currentLang());
     
-    if( defined('URIAPPDIR') )
+    if( defined('_CURRENT_PROJECT_DIR') )
     {
-        $requestUri = internalCleanURIPrefix($requestUri, URIAPPDIR);
+        $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT_DIR);
     }
     
     return $requestUri;
@@ -904,19 +904,19 @@ function internalRouteURI(String $requestUri = NULL) : String
     {
         $internalDir = NULL;
         
-        if( defined('URIAPPDIR') )
+        if( defined('_CURRENT_PROJECT_DIR') )
         {
-            global $application;
+            global $projects;
             
-            $configAppdir = $application['directory']['others'];
+            $configAppdir = $projects['directory']['others'];
             
             if( is_array($configAppdir) )
             {
-                $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : URIAPPDIR;
+                $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : _CURRENT_PROJECT_DIR;
             }
             else
             {
-                $internalDir = URIAPPDIR;   
+                $internalDir = _CURRENT_PROJECT_DIR;   
             }
         }
         

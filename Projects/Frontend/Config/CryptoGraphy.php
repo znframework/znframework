@@ -36,16 +36,6 @@
         // hash algoritmasını yazmanız yeterlidir.                                                                                      
         //
         //----------------------------------------------------------------------------------------------
-        'type' => 'md5',
-
-        //----------------------------------------------------------------------------------------------
-        // Project Key
-        //----------------------------------------------------------------------------------------------
-        // Genel Kullanım: Encode sınıfına ait super() yöntemi için oluşturulmuş şifrelemeye          
-        // dahil edilecek ilave karakter ayarıdır. Böyle bir kullanımın oluşturulmasının temel    
-        // amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını           
-        // sağlayarak şifre güvenliğini sağlamaktır.                                                  
-        //----------------------------------------------------------------------------------------------
-        'projectKey' => 'default project'
+        'type' => 'md5'
     ]
 ];

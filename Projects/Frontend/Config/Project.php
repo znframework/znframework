@@ -1,7 +1,7 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Application 
+    // Project 
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -10,6 +10,16 @@
     // Copyright  : Copyright (c) 2012-2016, ZN Framework
     //
     //--------------------------------------------------------------------------------------------------
+        
+    //----------------------------------------------------------------------------------------------
+    // Key
+    //----------------------------------------------------------------------------------------------
+    // Genel Kullanım: Encode sınıfına ait super() yöntemi için oluşturulmuş şifrelemeye          
+    // dahil edilecek ilave karakter ayarıdır. Böyle bir kullanımın oluşturulmasının temel    
+    // amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını           
+    // sağlayarak şifre güvenliğini sağlamaktır.                                                  
+    //----------------------------------------------------------------------------------------------
+    'key' => 'default project',
 
     //--------------------------------------------------------------------------------------------------
     // Benchmarking Test                                                                  
@@ -22,10 +32,10 @@
     'benchmark' => false,
 	
     //--------------------------------------------------------------------------------------------------
-    // Application Mode                                                                  
+    // Mode                                                                  
     //--------------------------------------------------------------------------------------------------
     //
-    // Uygulama modu belirtilir. Kullanılabilir modlar: publication, restoration, development				     			 	  		  
+    // Proje modu belirtilir. Kullanılabilir modlar: publication, restoration, development				     			 	  		  
     //
     //--------------------------------------------------------------------------------------------------
     'mode' => 'development',

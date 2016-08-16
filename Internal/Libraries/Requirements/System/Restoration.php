@@ -20,9 +20,9 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function isMachinesIP()
     {
-        $application   = \Config::get('Application');
+        $projects = \Config::get('Project');
 
-        $restorationIP = $application['restoration']['machinesIP'];
+        $restorationIP = $projects['restoration']['machinesIP'];
         
         if( APPMODE === 'restoration' )
         {
@@ -65,9 +65,9 @@ class Restoration
     
         error_reporting(0); 
             
-        $application        = \Config::get('Application');
+        $projects           = \Config::get('Project');
         
-        $restoration        = $application['restoration'];
+        $restoration        = $projects['restoration'];
         $restorationPages   = $restoration['pages'];
         $routePage          = strtolower($restoration['routePage']);
         $currentPath        = strtolower(currentPath()); 

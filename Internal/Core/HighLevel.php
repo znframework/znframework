@@ -106,19 +106,19 @@ if( isset($baseDir[0]) )
 }
 
 //--------------------------------------------------------------------------------------------------
-// URIAPPDIR
+// _CURRENT_PROJECT_DIR
 //--------------------------------------------------------------------------------------------------
 //
-// @return URIAPPDIR
+// @return _CURRENT_PROJECT_DIR
 //
 //--------------------------------------------------------------------------------------------------
 $currentPath = server('currentPath');
 
 $internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : ''); 
 
-global $application;
+global $projects;
 
-$othersapp = $application['directory']['others'];
+$othersapp = $projects['directory']['others'];
 
 if( is_array($othersapp) )
 {
@@ -127,7 +127,7 @@ if( is_array($othersapp) )
 
 if( ! empty($internalDir) && is_dir(PROJECTS_DIR.$internalDir) )
 {
-    define('URIAPPDIR', $internalDir);  
+    define('_CURRENT_PROJECT_DIR', $internalDir);  
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -891,18 +891,18 @@ function errorReport(String $type = NULL)
 //--------------------------------------------------------------------------------------------------
 function internalApplicationContainerDir() : String
 {
-    global $application;
+    global $projects;
     
-    $containers = $application['containers'];
+    $containers = $projects['containers'];
     
-    if( ! empty($containers) && defined('URIAPPDIR') )
+    if( ! empty($containers) && defined('_CURRENT_PROJECT_DIR') )
     {
-        return ! empty($containers[URIAPPDIR])
-               ? PROJECTS_DIR.suffix($containers[URIAPPDIR])
-               : APPDIR;
+        return ! empty($containers[_CURRENT_PROJECT_DIR])
+               ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT_DIR])
+               : PROJECT_DIR;
     }
     
-    return APPDIR;
+    return PROJECT_DIR;
 }
 
 //--------------------------------------------------------------------------------------------------

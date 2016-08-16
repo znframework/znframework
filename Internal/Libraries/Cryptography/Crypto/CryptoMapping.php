@@ -13,7 +13,7 @@ class CryptoMapping extends \Requirements
     
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'CryptoGraphy:encode']);
+        \Requirements::initialize(['config' => 'Project']);
     }
 
     //--------------------------------------------------------------------------------------------------------

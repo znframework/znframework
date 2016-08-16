@@ -95,7 +95,7 @@ class McryptDriver extends CryptoMapping
             $ciphers[$cipher] = 8;  
         }
         
-        return mb_substr(hash('md5', $this->config['projectKey']), 0, $ciphers[$cipher]);
+        return mb_substr(hash('md5', $this->config['key']), 0, $ciphers[$cipher]);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -123,6 +123,6 @@ class McryptDriver extends CryptoMapping
             $mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
         }
         
-        return mb_substr(hash('sha1', $this->config['projectKey']), 0, $mode);
+        return mb_substr(hash('sha1', $this->config['key']), 0, $mode);
     }
 }

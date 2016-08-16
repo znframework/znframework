@@ -39,6 +39,6 @@ class PhashDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	public function keygen($length)
 	{
-		return mb_substr(password_hash($this->config['projectKey'], PASSWORD_BCRYPT), -$length);
+		return mb_substr(password_hash($this->config['key'], PASSWORD_BCRYPT), -$length);
 	}
 }

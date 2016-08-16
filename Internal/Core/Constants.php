@@ -36,7 +36,7 @@ define('CONFIG_DIR', $containerDir.'Config/');
 // @return Application/Storage/
 //
 //--------------------------------------------------------------------------------------------------
-define('STORAGE_DIR', APPDIR.'Storage/'); 
+define('STORAGE_DIR', PROJECT_DIR.'Storage/'); 
 
 //--------------------------------------------------------------------------------------------------
 // RESOURCES_DIR
@@ -171,7 +171,7 @@ define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries/');
 // @return Application/Controllers/
 //
 //--------------------------------------------------------------------------------------------------
-define('CONTROLLERS_DIR', APPDIR.'Controllers/');           
+define('CONTROLLERS_DIR', PROJECT_DIR.'Controllers/');           
 
 //--------------------------------------------------------------------------------------------------
 // MODELS_DIR
@@ -198,7 +198,7 @@ define('EXTERNAL_MODELS_DIR', EXTERNAL_DIR.'Models/');
 // @return Application/Views/
 //
 //--------------------------------------------------------------------------------------------------
-define('VIEWS_DIR', APPDIR.'Views/');                                   
+define('VIEWS_DIR', PROJECT_DIR.'Views/');                                   
 
 //--------------------------------------------------------------------------------------------------
 // PAGES_DIR

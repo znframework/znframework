@@ -1,10 +1,10 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Application Directory                                                                  
+    // Project Directory                                                                  
     //--------------------------------------------------------------------------------------------------
     //
-    // Uygulama dizinlerinin kullanımına yönelik ayarlar yer alır.	     			 	  		  
+    // Proje dizinlerinin kullanımına yönelik ayarlar yer alır.	     			 	  		  
     //
     //--------------------------------------------------------------------------------------------------
     'directory' => 
@@ -13,7 +13,7 @@
         // Default                                                                                  
         //----------------------------------------------------------------------------------------------
         //
-        // URI' da herhangi bir uzantı gerektirmeden kullanılması istenilen uygulama dizini belirtilir.
+        // URI' da herhangi bir uzantı gerektirmeden kullanılması istenilen proje dizini belirtilir.
         // Ön tanımlı olarak Applications/Frontend/ dizini kullanılmıştır.	  								                    														 						
         //
         //----------------------------------------------------------------------------------------------
@@ -26,17 +26,17 @@
         // Bu ayar 2 formda kullanılır. 
         //
         // 1 - Çoklu Domain Kullanımı	
-        // Eğer bir host için birden fazla domain kullanıyorsanız hangi hostun hangi uygulama dizinini
+        // Eğer bir host için birden fazla domain kullanıyorsanız hangi hostun hangi proje dizinini
         // kullanacağını belirtmeniz gerekir.
         // Example: ['www.example.com' => 'ExampleApp', 'localhost' => 'LocalApp']
         //
         // 2 - Takma Ad Kullanımı
-        // Applications/ dizini altında yer alan uygulama dizinine takma ad verip site.com/ dan sonraki
-        // bölüm için uygulama dizinin adı yerine takma adını kullanabilirsiniz.
+        // Applications/ dizini altında yer alan proje dizinine takma ad verip site.com/ dan sonraki
+        // bölüm için proje dizinin adı yerine takma adını kullanabilirsiniz.
         // Applications/UygulamaDizini gibi bir uygulamamız olduğunu varsayarsak normalde bu dizini
         // çalıştırmak için site.com/UygulamaDizini olarak kullanmamız gerekirdi. Ancak siz buna takma
-        // isim vererek yani ['uygulama-dizini' => 'UygulamaDizini'] şeklinde ayarlarsanız artık
-        // site.com/uygulama-dizini formunda bu uygulamanın çalıştırılmasını sağlayabilirsiniz.
+        // isim vererek yani ['proje-dizini' => 'UygulamaDizini'] şeklinde ayarlarsanız artık
+        // site.com/proje-dizini formunda bu uygulamanın çalıştırılmasını sağlayabilirsiniz.
         // Example:	['panel' => 'Panel']	                    														 						
         //
         //----------------------------------------------------------------------------------------------
@@ -47,11 +47,11 @@
      ],
 	
     //--------------------------------------------------------------------------------------------------
-    // Application Containers                                                                  
+    // Project Containers                                                                  
     //--------------------------------------------------------------------------------------------------
     //
-    // Uygulamaların birbirlerini kapsaması üzerine oluşturulmuş ayardır. Bu ayar sayesinde kapsayıcı 
-    // olarak belirlenen uygulamadaki yer alan Config/, Languages/, Libraries/, Models/, Resources/ ve 
+    // Projelerin birbirlerini kapsaması üzerine oluşturulmuş ayardır. Bu ayar sayesinde kapsayıcı 
+    // olarak belirlenen projede yer alan Config/, Languages/, Libraries/, Models/, Resources/ ve 
     // Starting/ dizinlerini referans göstererek ortak dizinler haline gelmesi sağlanır. Bu ayar 
     // kullanılırsa kapsanan dizindeki bu belirtilen dizinler kullanılamaz olup kapsayıcı dizinde yer 
     // alan bu dizinler hem kendi hemde kapsanan dizin için ortak dizinler haline gelir.

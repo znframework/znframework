@@ -21,7 +21,7 @@ class InternalEncode extends \Requirements implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'CryptoGraphy:encode']);
+        \Requirements::initialize(['config' => 'Project']);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ class InternalEncode extends \Requirements implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function super(String $data) : String
     {
-        $projectKey = $this->config['projectKey'];
+        $projectKey = $this->config['key'];
         
         $algo = $this->config['type'];
         

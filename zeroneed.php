@@ -49,7 +49,7 @@ require_once CORE_DIR.'HighestLevel.php';
 // Require Projects Config File
 //--------------------------------------------------------------------------------------------------
 
-$application = require_once PROJECTS_DIR.'Projects.php';
+$projects = require_once PROJECTS_DIR.'Projects.php';
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -61,36 +61,36 @@ require_once CORE_DIR.'HighLevel.php';
 //--------------------------------------------------------------------------------------------------
 // Application Directory
 //--------------------------------------------------------------------------------------------------
-$appdir = $application['directory']['others'];
+$projectDir = $projects['directory']['others'];
 
-if( is_array($appdir) && ! empty($appdir[host()]) )
+if( is_array($projectDir) && ! empty($projectDir[host()]) )
 {
-    $appdir = $appdir[host()];
+    $projectDir = $projectDir[host()];
 }
-elseif( defined('URIAPPDIR') )
+elseif( defined('_CURRENT_PROJECT_DIR') )
 {
-    $flip   = array_flip($appdir);
-    $appdir = URIAPPDIR;
+    $flip   = array_flip($projectDir);
+    $projectDir = _CURRENT_PROJECT_DIR;
             
-    if( ! empty($flip[URIAPPDIR]) )
+    if( ! empty($flip[_CURRENT_PROJECT_DIR]) )
     {
-        define('CURRENT_URIAPPDIR', $flip[URIAPPDIR]);
+        define('CURRENT_PROJECT_DIR', $flip[_CURRENT_PROJECT_DIR]);
     }
 }
-elseif( is_array($appdir) )
+elseif( is_array($projectDir) )
 {
-    $appdir = $application['directory']['default']; 
+    $projectDir = $projects['directory']['default']; 
 }
 
 //--------------------------------------------------------------------------------------------------
-// Applications Directories
+// Project Directory
 //--------------------------------------------------------------------------------------------------
-define('APPDIR', suffix(PROJECTS_DIR.$appdir));
+define('PROJECT_DIR', suffix(PROJECTS_DIR.$projectDir));
 //--------------------------------------------------------------------------------------------------
 
-if( ! is_dir(APPDIR) )
+if( ! is_dir(PROJECT_DIR) )
 {
-    trace('["'.$appdir.'"] Application Directory Not Found!');
+    trace('["'.$projectDir.'"] Project Directory Not Found!');
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ require_once HIERARCHY_DIR;
 $finish = microtime();
 //--------------------------------------------------------------------------------------------------
     
-if( Config::get('Application', 'benchmark') === true ) 
+if( Config::get('Project', 'benchmark') === true ) 
 {
     //----------------------------------------------------------------------------------------------
     // System Elapsed Time Calculating

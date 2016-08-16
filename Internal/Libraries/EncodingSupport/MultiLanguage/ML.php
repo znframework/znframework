@@ -351,6 +351,11 @@ class InternalML extends \Requirements implements MLInterface
             {
                 $addWords   = \Method::post('ML_ADD_WORDS');
                 $addKeyword = \Method::post('ML_ADD_KEYWORD');
+
+                if( is_numeric($addKeyword) )
+                {
+                    $addKeyword = 'Wrong Keyword! Only String.';
+                }     
                 
                 if( ! empty($languages) ) foreach( $languages as $key => $lang )
                 {
@@ -512,17 +517,17 @@ class InternalML extends \Requirements implements MLInterface
         
         if( empty($this->url) )
         {
-            if( defined('URIAPPDIR') )
+            if( defined('_CURRENT_PROJECT_DIR') )
             {
-                global $application;
+                global $projects;
         
-                if( defined('CURRENT_URIAPPDIR') )
+                if( defined('CURRENT_PROJECT_DIR') )
                 {
-                    $preUrl = CURRENT_URIAPPDIR;
+                    $preUrl = CURRENT_PROJECT_DIR;
                 }
                 else
                 {
-                    $preUrl = URIAPPDIR;
+                    $preUrl = _CURRENT_PROJECT_DIR;
                 }
                 
                 $paginationUrl = $preUrl.'/'.CURRENT_CONTROLLER.'/'.CURRENT_CFUNCTION;
