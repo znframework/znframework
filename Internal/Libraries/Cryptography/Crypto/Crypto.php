@@ -1,4 +1,4 @@
-<?php namespace ZN\Cryptography;
+<?php namespace ZN\CryptoGraphy;
 
 class InternalCrypto extends \Requirements implements CryptoInterface
 {
@@ -24,8 +24,7 @@ class InternalCrypto extends \Requirements implements CryptoInterface
         'mhash',
         'phash',
         'openssl',
-        'mcrypt',
-        'zlib'
+        'mcrypt'
     ];
     
     //--------------------------------------------------------------------------------------------------------
@@ -47,15 +46,15 @@ class InternalCrypto extends \Requirements implements CryptoInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function __construct(String $driver = NULL)
     {
-        \Requirements::initialize(['config' => 'Cryptography:crypto']);
+        $this->config = config('CryptoGraphy', 'crypto');
 
-        $driver = $this->config['driver'];
+        nullCoalesce($driver, $this->config->driver);
 
         \Support::driver($this->drivers, $driver);
 
-        $this->crypto = uselib($driver.'Driver');
+        $this->crypto = $this->_drvlib($driver);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -107,5 +106,18 @@ class InternalCrypto extends \Requirements implements CryptoInterface
     public function driver(String $driver) : InternalCrypto
     {
         return new self($driver);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Drvlib                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $driver
+    // @return object                                    
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    protected function _drvlib($driver)
+    {
+        return uselib('ZN\CryptoGraphy\Drivers\\'.$driver.'Driver');
     }
 }

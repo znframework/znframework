@@ -1,4 +1,4 @@
-<?php namespace ZN\Cryptography;
+<?php namespace ZN\CryptoGraphy;
 
 interface EncodeInterface
 {

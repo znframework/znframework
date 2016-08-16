@@ -32,7 +32,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Components:captcha']);
+         $this->config = config('Components', 'captcha');
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -378,8 +378,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(Bool $img = false, Array $configs = []) : String
     {   
-        $config  = $this->config;
-        $configs = array_merge($config, $this->sets, $configs);
+        $configs = array_merge((array) $this->config, $this->sets, $configs);
         
         if( ! empty($configs) )
         {

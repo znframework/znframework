@@ -1,6 +1,6 @@
-<?php namespace ZN\Cryptography\Drivers;
+<?php namespace ZN\CryptoGraphy\Drivers;
 
-use ZN\Cryptography\CryptoMapping;
+use ZN\CryptoGraphy\CryptoMapping;
 
 class PhashDriver extends CryptoMapping
 {
@@ -39,6 +39,6 @@ class PhashDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	public function keygen($length)
 	{
-		return mb_substr(password_hash($this->config['key'], PASSWORD_BCRYPT), -$length);
+		return mb_substr(password_hash($this->config->key, PASSWORD_BCRYPT), -$length);
 	}
 }

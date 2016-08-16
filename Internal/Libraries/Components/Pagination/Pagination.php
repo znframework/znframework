@@ -39,7 +39,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Components:pagination']);
+        $this->config = config('Components', 'pagination'); 
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $config = []) : InternalPagination
     {
-        $configs = $this->config; 
+        $configs = (array) $this->config; 
         
         // ---------------------------------------------------------------------------------------
         // Sayfalama Ayarlarını İçeren Değişkenler
@@ -96,7 +96,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
     //--------------------------------------------------------------------------------------------------------
     public function create($start = NULL, Array $settings = []) : String
     {
-        $settings = array_merge($this->config, $this->settings, $settings);
+        $settings = array_merge((array) $this->config, $this->settings, $settings);
         
         if( ! empty($settings) )
         {

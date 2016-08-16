@@ -38,7 +38,7 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'FileSystem:ftp']);
+        $this->config = (array) config('FileSystem', 'ftp']);
      
         $this->connect();
     }
@@ -54,7 +54,7 @@ class InternalFTP extends \Requirements implements FTPInterface
     {   
         if( ! empty($config) )
         {
-            $this->config($config); 
+            $this->config = (array) config('FileSystem', 'ftp', $config);
         }
         
         // Config/Ftp.php dosyasından ftp ayarları alınıyor.

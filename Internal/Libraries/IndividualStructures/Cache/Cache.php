@@ -48,7 +48,7 @@ class InternalCache extends \Requirements implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {   
-        \Requirements::initialize(['config' => 'IndividualStructures:cache']);
+        $this->config = (array) config('IndividualStructures', 'cache');
 
         $driver = $this->config['driver'];
 

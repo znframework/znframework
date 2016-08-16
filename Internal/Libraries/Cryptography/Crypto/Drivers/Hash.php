@@ -1,6 +1,6 @@
-<?php namespace ZN\Cryptography\Drivers;
+<?php namespace ZN\CryptoGraphy\Drivers;
 
-use ZN\Cryptography\CryptoMapping;
+use ZN\CryptoGraphy\CryptoMapping;
 
 class HashDriver extends CryptoMapping
 {
@@ -24,7 +24,7 @@ class HashDriver extends CryptoMapping
     public function encrypt($data, $settings)
     {
         $cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
-        $key    = isset($settings['key'])    ? $settings['key']    : $this->config['key']; 
+        $key    = isset($settings['key'])    ? $settings['key']    : $this->config->key; 
         
         return base64_encode(trim(hash_hmac($cipher, $data, $key)));
     }

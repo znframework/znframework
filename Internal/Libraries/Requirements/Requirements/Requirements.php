@@ -11,42 +11,12 @@ class Requirements extends \CallController implements RequirementsInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use ConfigTrait, LangTrait, StatusTrait;
+    use ConfigTrait, StatusTrait;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Initialize
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function initialize($types = NULL)
+    public function __destruct()
     {
-        if( is_string($types) )
-        {
-            $this->$types();
-        }
-        elseif( is_array($types) )
-        {
-            foreach( $types as $key => $type )
-            {
-                if( is_numeric($key) )
-                {
-                    $this->$type();
-                }
-                else
-                {
-                    $const = 'REQUIREMENT_'.strtoupper($key);
-                  
-                    if( ! defined($const) )
-                    {
-                        define($const, true);
-                    }
-        
-                    $this->$key($type);
-                }
-            }
-        }
+        $this->config = NULL;
+        $this->lang   = NULL;
     }
 }
 

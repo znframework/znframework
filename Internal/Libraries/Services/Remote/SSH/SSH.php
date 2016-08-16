@@ -58,7 +58,7 @@ class InternalSSH extends \Requirements implements SSHInterface
     {
         \Support::func('ssh2_connect', 'SSH(Secure Shell)');
 
-        \Requirements::initialize(['config' => 'Services:ssh']);
+        $this->config = (array) config('Services', 'ssh');
 
         $this->connect($config);
     }

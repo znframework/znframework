@@ -30,7 +30,7 @@ class InternalSession extends \Requirements implements SessionInterface, Session
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Services:session']);
+        $this->config = (array) config('Services', 'session');
         
         \Config::iniSet(\Config::get('Htaccess', 'session')['settings']);
         

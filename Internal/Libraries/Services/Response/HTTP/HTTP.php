@@ -46,7 +46,8 @@ class InternalHTTP extends \Requirements implements HTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Services:http']);
+        $this->config = (array) config('Services', 'http');
+
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -351,7 +351,7 @@ class InternalEmail extends \Requirements implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {   
-        \Requirements::initialize(['config' => 'Services:email']);
+        $this->config = (array) config('Services', 'email');
 
         $driver = $this->config['driver'];
 

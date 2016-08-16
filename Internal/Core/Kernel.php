@@ -66,7 +66,7 @@ define('CURRENT_CONTROLLER', $page);
 // @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu   bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
+define('CURRENT_CFPATH', suffix(illustrate('CURRENT_PROJECT_DIR')).str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CFURI

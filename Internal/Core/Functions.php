@@ -11,6 +11,53 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
+// Illustrate
+//--------------------------------------------------------------------------------------------------
+// 
+// @param string $const
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function illustrate(String $const) : String
+{
+    if( defined($const) )
+    {
+        return constant($const);
+    }
+
+    return false;
+} 
+
+//--------------------------------------------------------------------------------------------------
+// Configs
+//--------------------------------------------------------------------------------------------------
+// 
+// @param array variadic $configs
+//
+// @return mixed
+//
+//--------------------------------------------------------------------------------------------------
+function configs(...$configs) : stdClass
+{
+    $allConfig = [];
+
+    foreach( $configs as $config )
+    {
+        if( is_array($config) )
+        {
+            $allConfig = array_merge($allConfig, (array) config(key($config), current($config)));
+        }
+        else
+        {
+            $allConfig = array_merge($allConfig, (array) config($config));
+        }
+    }
+
+    return (object) $allConfig;
+} 
+
+//--------------------------------------------------------------------------------------------------
 // Config
 //--------------------------------------------------------------------------------------------------
 // 
@@ -21,15 +68,21 @@
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function config(String $file, String $value = NULL, String $newValue = NULL)
+function config(String $file, String $value = NULL, String $newValue = NULL) : stdClass
 {
     if( $newValue === NULL )
     {
-        return Config::get($file, $value);
+        return (object) Config::get($file, $value);
     }
     else
     {
-        return Config::set($file, $value, $newValue);
+        Config::set($file, $value, $newValue);
+
+        $config = (object) Config::get($file);
+
+        Config::set($file, $value);
+
+        return $config;
     }
 } 
 

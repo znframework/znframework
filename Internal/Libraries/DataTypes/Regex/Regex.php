@@ -21,7 +21,7 @@ class InternalRegex extends \Requirements implements RegexInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize('config');
+        $this->config = (array) config('Regex');
     }
 
     //--------------------------------------------------------------------------------------------------------

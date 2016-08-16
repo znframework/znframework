@@ -18,50 +18,8 @@ trait ConfigTrait
     // @param  array  $settings: empty                   
     //                                                                                           
     //--------------------------------------------------------------------------------------------------------
-    public function config($settings = NULL)
+    public function config(Array $settings = NULL)
     {
-        if( is_string($settings) && defined('REQUIREMENT_CONFIG') )
-        {
-            $getConfigName = $settings;
-        }
-        else
-        {
-            $getConfigName = NULL;
-        } 
-
-        if( empty($getConfigName) )
-        {
-            $file = divide(str_replace(STATIC_ACCESS, '', get_called_class()), '\\', -1);; 
-            
-            if( ! empty($settings) )
-            {
-                \Config::set($file, $settings);
-            }
-            
-            $this->config = \Config::get($file);
-        }
-        else
-        {
-            $configName = explode(':', $getConfigName);
-            
-            $file   = ! empty($configName[0]) ? $configName[0] : '';
-            $config = ! empty($configName[1]) ? $configName[1] : ''; 
-            
-            if( isArray($settings) )
-            {
-                if( ! empty($config) )
-                {  
-                    \Config::set($file, $config, $settings);
-                }
-                else
-                {
-                    \Config::set($file, $settings); 
-                }
-            }
-            
-            $this->config = \Config::get($file, $config);
-        }
-        
         return $this;
     }
 }

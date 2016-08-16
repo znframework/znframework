@@ -1,4 +1,4 @@
-<?php namespace ZN\Cryptography;
+<?php namespace ZN\CryptoGraphy;
 
 class CryptoMapping extends \Requirements
 {
@@ -13,7 +13,7 @@ class CryptoMapping extends \Requirements
     
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Project']);
+        $this->config = config('Project');
     }
 
     //--------------------------------------------------------------------------------------------------------

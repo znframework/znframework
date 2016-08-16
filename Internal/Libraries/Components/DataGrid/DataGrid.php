@@ -128,8 +128,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Components:datagrid']);
-       
+        $this->config   = config('Components', 'datagrid'); 
         $this->prowData = md5('SystemPaginationRowData');
     }
     
@@ -311,12 +310,12 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
     //--------------------------------------------------------------------------------------------------------
     protected function generateInput($input = 'text', $name = '', $value = '', $selected = '')
     {   
-        $attrs = $this->config['attributes']['inputs'];
+        $attrs = $this->config->attributes['inputs'];
         
         switch( $input )
         {
             case 'textarea' :
-                return \Form::placeholder($this->config['placeHolders']['inputs'])->textarea($name, $value, $attrs['textarea']);
+                return \Form::placeholder($this->config->placeHolders['inputs'])->textarea($name, $value, $attrs['textarea']);
             break;
             
             case 'select' :
@@ -324,7 +323,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
             break;
             
             case 'text' :
-                return \Form::placeholder($this->config['placeHolders']['inputs'])->text($name, $value, $attrs['text']);
+                return \Form::placeholder($this->config->placeHolders['inputs'])->text($name, $value, $attrs['text']);
             break;
             
             case 'radio' :
@@ -725,7 +724,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
         
         $totalRowsText = lang('Components', 'dbgrid:totalRowsText').': '.$totalRows.' / '.\DB::totalRows(true);
         
-        $paginationSettings = array_merge($this->config['pagination'], ['start' => $prow, 'type' => 'ajax']);
+        $paginationSettings = array_merge($this->config->pagination, ['start' => $prow, 'type' => 'ajax']);
         
         $pagination = \DB::pagination('', $paginationSettings); 
         $table      = $this->table;
@@ -736,7 +735,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
         {
             $saveAttr = array_merge
             (
-                $this->config['attributes']['save'], 
+                $this->config->attributes['save'], 
                 ['DGSaveButton' => 'save', 'DGSaveId' => 'save']
             );
                 
@@ -757,7 +756,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
                 
                 $table .= '<td>'.$input.'</td>';
             }   
-            $table .= '<td align="right">'.\Form::id('datagridSave')->button('datagridSave', $this->config['buttonNames']['save'], $saveAttr).'</td>';
+            $table .= '<td align="right">'.\Form::id('datagridSave')->button('datagridSave', $this->config->buttonNames['save'], $saveAttr).'</td>';
             $table .= '</tr>'.EOL;
         }
 
@@ -765,7 +764,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
         {
             $no = ($key + 1);
             
-            $orderColorArray = $this->config['colors']['rowOrder'];
+            $orderColorArray = $this->config->colors['rowOrder'];
             
             $orderColor = ( $no % 2 === 1 ) ? $orderColorArray['single'] : $orderColorArray['double'];
             
@@ -809,11 +808,11 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
 
                 $updateAttr = array_merge
                 (
-                    $this->config['attributes']['update'], 
+                    $this->config->attributes['update'], 
                     ['DGUpdateButton' => 'update', 'DGUpdateId' => $row->$processColumn]
                 );
                 
-                $table .= '<td align="right">'.\Form::button('update', $this->config['buttonNames']['update'], $updateAttr).'</td>';
+                $table .= '<td align="right">'.\Form::button('update', $this->config->buttonNames['update'], $updateAttr).'</td>';
             }         
             else
             {     
@@ -824,26 +823,26 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
                 
                 $editAttr = array_merge
                 (
-                    $this->config['attributes']['edit'], 
+                    $this->config->attributes['edit'], 
                     ['DGEditButton' => 'edit', 'DGEditId' => $row[$processColumn]]
                 );
                 
                 $addAttr  = array_merge
                 (
-                    $this->config['attributes']['delete'], 
+                    $this->config->attributes['delete'], 
                     ['DGDeleteButton' => 'delete', 'DGDeleteId' => $row[$processColumn]]
                 );
                 
                 $table .= '<td align="right">'.\Html::anchor
                 (
                     '#edit='.$row[$processColumn], 
-                    $this->config['buttonNames']['edit'], 
+                    $this->config->buttonNames['edit'], 
                     $editAttr
                 );
                 $table .= ' '.\Html::anchor
                 (
                     '#delete='.$row[$processColumn], 
-                    $this->config['buttonNames']['delete'], 
+                    $this->config->buttonNames['delete'], 
                     $addAttr
                 ).'</td>';
             }
@@ -965,33 +964,33 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
     {   
         $columns = $this->columns;
         
-        $buttonNames = $this->config['buttonNames'];
+        $buttonNames = $this->config->buttonNames;
         
         $addAttr = array_merge
         (
-            $this->config['attributes']['add'], 
+            $this->config->attributes['add'], 
             ['DGAddButton' => 'add', 'DGAddId' => 'add']
         );
         
         $deleteCurrentAttr = array_merge
         (
-            $this->config['attributes']['deleteSelected'], 
+            $this->config->attributes['deleteSelected'], 
             ['DGDeleteCurrentButton' => 'deleteCurrent', 'DGDeleteCurrentId' => 'deleteCurrent']
         );
         
         $deleteAllAttr = array_merge
         (
-            $this->config['attributes']['deleteAll'], 
+            $this->config->attributes['deleteAll'], 
             ['DGDeleteAllButton' => 'deleteAll', 'DGDeleteAllId' => 'deleteAll']
         );
         
         $table  = \Form::id('datagridForm')->open();
-        $table .= '<table type="datagrid"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table type="datagrid"'.\Html::attributes($this->config->attributes['table']).'>'.EOL;
         $table .= '<thead>'.EOL;
         $table .= '<tr><td colspan="'.(count($columns) + 3).'">';
         $table .= \Form::hidden('datagridSortingHidden');
         $table .= \Form::hidden('datagridColumnNameHidden');
-        $table .= \Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search');
+        $table .= \Form::placeholder($this->config->placeHolders['search'])->id('datagridSearch')->attr($this->config->attributes['search'])->text('search');
         $table .= \Form::attr($addAttr)->id('datagridAdd')->button('datagridAdd', $buttonNames['add']); 
         $table .= \Form::attr($deleteCurrentAttr)->id('datagridDeleteCurrent')->button('datagridDeleteCurrent', $buttonNames['deleteSelected']);
         $table .= \Form::attr($deleteAllAttr)->id('datagridDeleteAll')->button('datagridDeleteAll', $buttonNames['deleteAll']);
@@ -1006,7 +1005,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
             $columnsAttr = array_merge
             (
 
-                $this->config['attributes']['columns'],
+                $this->config->attributes['columns'],
                 array('column' => $column, 'type' => 'order')
             );
             
@@ -1015,7 +1014,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
             $table .= '<td>'.\Html::anchor('#column='.$column, \Html::strong($title), $columnsAttr).'</td>';
         }   
         
-        $table .= '<td align="right"><span'.\Html::attributes($this->config['attributes']['columns']).'>'.\Html::strong(lang('Components', 'dbgrid:processLabel')).'</span></td>';
+        $table .= '<td align="right"><span'.\Html::attributes($this->config->attributes['columns']).'>'.\Html::strong(lang('Components', 'dbgrid:processLabel')).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
         $table .= '<tbody datagrid="result">'.EOL;
@@ -1024,12 +1023,12 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
         $table .= '</table>'.EOL;
         $table .= \Form::close();
         
-        if( $this->config['cdn']['bootstrap'] === true )
+        if( $this->config->cdn['bootstrap'] === true )
         {
             $table .= \Import::style('bootstrap', true);
         }
         
-        $table .= \Script::open(true, $this->config['cdn']['jquery'], $this->config['cdn']['jqueryUi']);
+        $table .= \Script::open(true, $this->config->cdn['jquery'], $this->config->cdn['jqueryUi']);
         
         $ajax = \Jquery::ajax()
         ->contentType('application/json')
@@ -1134,7 +1133,7 @@ class InternalDataGrid extends \Requirements implements DataGridInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _defaultVariables()
     {
-        $this->config           = [];
+        $this->config           = NULL;
         $this->columns          = [];
         $this->joins            = [];
         $this->whereJoins       = [];

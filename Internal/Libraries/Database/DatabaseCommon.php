@@ -124,7 +124,7 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(Array $config = [])
     {
-        \Requirements::initialize(['config' => 'Database']);
+        $this->config = (array) config('Database');
         
         $this->db = $this->_run();
 

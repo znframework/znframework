@@ -21,7 +21,7 @@ class InternalTerminal extends \Requirements implements TerminalInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Requirements::initialize(['config' => 'Components:terminal']);
+        $this->config = config('Components', 'terminal');
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class InternalTerminal extends \Requirements implements TerminalInterface
     //--------------------------------------------------------------------------------------------------------
     public function run(String $terminalType = 'php', Array $settings = [])
     {
-        $configs = $this->config;
+        $configs = (array) $this->config;
         
         $settings['width']      =  isset($settings['width'])      ? $settings['width']      : $configs['width'];
         $settings['height']     =  isset($settings['height'])     ? $settings['height']     : $configs['height'];
