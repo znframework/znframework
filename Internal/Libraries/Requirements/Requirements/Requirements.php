@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements;
 
-class Requirements extends CallController implements RequirementsInterface
+class Requirements extends \CallController implements RequirementsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

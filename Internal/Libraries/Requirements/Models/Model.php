@@ -1,4 +1,4 @@
-<?php namespace ZN\Requirements;
+<?php namespace ZN\Requirements\Models;
 
 class Model
 {
@@ -27,4 +27,4 @@ class Model
     }
 }
 
-class_alias('ZN\Requirements\Model', 'Model');
+class_alias('ZN\Requirements\Models\Model', 'Model');

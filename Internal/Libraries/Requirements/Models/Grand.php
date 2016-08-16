@@ -1,6 +1,6 @@
-<?php namespace ZN\Requirements;
+<?php namespace ZN\Requirements\Models;
 
-class Grand extends CallController implements GrandInterface
+class GrandModel extends \CallController implements GrandModelInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -593,4 +593,4 @@ class Grand extends CallController implements GrandInterface
     }
 }
 
-class_alias('ZN\Requirements\Grand', 'Grand');
+class_alias('ZN\Requirements\Models\Grand', 'Grand');

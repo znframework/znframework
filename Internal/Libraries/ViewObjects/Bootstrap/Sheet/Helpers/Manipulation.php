@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects\Sheet\Helpers;
+<?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-use ZN\ViewObjects\SheetTrait;
+use ZN\ViewObjects\Bootstrap\SheetTrait;
 
 class Manipulation extends \CallController
 {

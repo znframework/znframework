@@ -1,4 +1,4 @@
-<?php namespace ZN\Requirements;
+<?php namespace ZN\Requirements\Controllers;
 
 class CallController extends BaseController
 {
@@ -29,4 +29,4 @@ class CallController extends BaseController
     }
 }
 
-class_alias('ZN\Requirements\CallController', 'CallController');
+class_alias('ZN\Requirements\Controllers\CallController', 'CallController');

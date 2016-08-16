@@ -1,4 +1,4 @@
-<?php namespace ZN\Requirements;
+<?php namespace ZN\Requirements\Controllers;
 
 class Controller
 {
@@ -39,4 +39,4 @@ class Controller
     }
 }
 
-class_alias('ZN\Requirements\Controller', 'Controller');
+class_alias('ZN\Requirements\Controllers\Controller', 'Controller');

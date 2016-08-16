@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\ViewObjects\View;
 
 trait ViewCommonTrait
 {

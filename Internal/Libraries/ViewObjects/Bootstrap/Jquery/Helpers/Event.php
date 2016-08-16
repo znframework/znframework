@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects\Jquery\Helpers;
+<?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
-use ZN\ViewObjects\JqueryTrait;
+use ZN\ViewObjects\Bootstrap\JqueryTrait;
 
 class Event extends \CallController
 {

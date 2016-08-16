@@ -1,4 +1,4 @@
-<?php namespace ZN\Requirements;
+<?php namespace ZN\Requirements\System;
 
 class StaticAccess
 {
@@ -51,4 +51,4 @@ class StaticAccess
     }
 }
 
-class_alias('ZN\Requirements\StaticAccess', 'StaticAccess');
+class_alias('ZN\Requirements\System\StaticAccess', 'StaticAccess');

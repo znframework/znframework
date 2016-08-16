@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\ViewObjects\View;
 
 class InternalValidation extends \CallController implements ValidationInterface
 {
