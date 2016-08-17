@@ -161,23 +161,25 @@ class InternalClasses extends \CallController implements ClassesInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _class($name)
     {
-        $lowerName = strtolower($name);
+        $lowerName  = strtolower($name);
 
-        $classMaps  = \Config::get('ClassMap');
+        global $classMap;
 
-        $classMap   = array_flip($classMaps['namespaces']);
+        \Config::get('ClassMap');
 
-        if( ! empty($classMap[$lowerName]) )
+        $cm  = array_flip($classMap['namespaces']);
+
+        if( ! empty($cm[$lowerName]) )
         {
-            return $classMap[$lowerName];
+            return $cm[$lowerName];
         }
-        elseif( ! empty($classMap[strtolower(STATIC_ACCESS).$lowerName]) )
+        elseif( ! empty($cm[strtolower(STATIC_ACCESS).$lowerName]) )
         {
-            return $classMap[strtolower(STATIC_ACCESS).$lowerName];
+            return $cm[strtolower(STATIC_ACCESS).$lowerName];
         }
-        elseif( ! empty($classMaps['classes'][strtolower(STATIC_ACCESS).$lowerName]) )
+        elseif( ! empty($classMap['classes'][strtolower(STATIC_ACCESS).$lowerName]) )
         {
-            return $classMaps['classes'][strtolower(STATIC_ACCESS).$lowerName];
+            return $classMap['classes'][strtolower(STATIC_ACCESS).$lowerName];
         }
         else
         {

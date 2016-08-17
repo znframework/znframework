@@ -129,7 +129,7 @@ class InternalCalendar extends \Requirements implements CalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $url = NULL) : InternalCalendar
+    public function url(String $url) : InternalCalendar
     {
         if( ! isUrl($url) )
         {

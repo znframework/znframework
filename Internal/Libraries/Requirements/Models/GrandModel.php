@@ -593,4 +593,4 @@ class GrandModel extends \CallController implements GrandModelInterface
     }
 }
 
-class_alias('ZN\Requirements\Models\Grand', 'Grand');
+class_alias('ZN\Requirements\Models\GrandModel', 'GrandModel');

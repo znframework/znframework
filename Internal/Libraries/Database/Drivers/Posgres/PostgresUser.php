@@ -83,7 +83,7 @@ class PostgresUser extends DriverUser
     // @param string $user
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop($user)
+    public function drop($user, $type = NULL)
     {
         $query = 'DROP USER '.$user;
 

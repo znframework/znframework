@@ -325,7 +325,7 @@ class DriverUser
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option()
+    public function option($option, $value)
     {
         $this->parameters[1] = false;
     }

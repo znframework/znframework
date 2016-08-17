@@ -19,5 +19,5 @@ interface CleanerInterface
     // @param mixed $cleanWord
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data($searchData);
+    public function data($searchData, $cleanWord);
 }
