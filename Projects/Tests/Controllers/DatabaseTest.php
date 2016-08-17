@@ -29,14 +29,51 @@
         
         echo $type === true ? 'Insert Data.' : 'Not Insert Data!';
     }
+
+    public function increment()
+    {
+        DB::where('id', 1)->increment($this->table, 'name');
+    }
+
+    public function decrement()
+    {
+        DB::where('id', 1)->decrement($this->table, 'name');
+    }
     
     public function select()
-    {
-        // Veri Çekme       
+    {   
         $get = DB::limit(NULL, 2)->get($this->table);
-    
-        output($get->result());
+
+        output($get->result()); 
+
+        // Exception
+        // $get' e dair sonuç verilerinin pagination() yönteminden
+        // önce alınması gerekir. 
         output($get->pagination());
+    }
+
+    public function totalRows()
+    {
+        $get = DB::orderby('id', 'desc')->limit(5)->get($this->table);
+
+        // Exception
+        // Aynı anda hem gerçek satır hem limitli satır sayısı alınacaksa 
+        // limitli satırın önce alınması gerekir.
+        writeLine('Real Total Rows:{0}, Total Rows:{1}', [$get->totalRows(), $get->totalRows(true)]);
+    }
+
+    public function status()
+    {
+        output(DB::status($this->table)->row());
+    }
+
+    public function statusTables()
+    {
+        output(DBTool::statusTables('test'));
+
+        output(DBTool::statusTables(['test', 'example']));
+
+        output(DBTool::statusTables('*'));
     }
     
     public function delete()
@@ -47,8 +84,6 @@
         // belirtilmezse = operatörü kabul edilir.
         // ancak önceki kullanım hala geçerlidir.
         DB::where('id', URI::get('id'))->delete($this->table);
-        // Gelinen sayfadaki geçerli kayıt sayfasına geri döndürülüyor.
-        redirect('example/DatabaseExample/select/'.URI::get('row'));
     }
     
     public function truncate()

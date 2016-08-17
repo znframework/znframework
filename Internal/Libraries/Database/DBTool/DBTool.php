@@ -56,6 +56,19 @@ class InternalDBTool extends DatabaseCommon implements DBToolInterface
     {
         return $this->tool->listTables();
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // statusTables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  mixed $table: '*', 'oneTable' or ['tbl1', 'tbl2']
+    // @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function statusTables($table = '*') : \stdClass
+    {
+        return $this->tool->statusTables($table);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Optimize Tables

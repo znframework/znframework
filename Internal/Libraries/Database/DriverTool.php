@@ -74,6 +74,42 @@ class DriverTool
         
         return $newTables;
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // statusTables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  mixed $table: '*', 'oneTable' or ['tbl1', 'tbl2']
+    // @return stdClass
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function statusTables($table)
+    {
+        $infos = new \stdClass;
+
+        if( $table === '*' )
+        {
+            $listTables = $this->listTables();
+
+            foreach( $listTables as $table )
+            {
+                $infos->$table = \DB::status($table)->row();
+            }
+        }
+        elseif( is_array($table) )
+        {
+            foreach( $table as $tbl )
+            {
+                $infos->$tbl = \DB::status($tbl)->row();
+            }
+        }
+        else
+        {
+            $infos = \DB::status($table)->row();
+        }
+
+        return $infos;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Optimize Tables
