@@ -20,7 +20,7 @@ trait ConfigTrait
     //--------------------------------------------------------------------------------------------------------
     public function config(Array $settings = [])
     {
-        $this->config = (object) array_merge( (array) $this->config, $settings );
+        $this->config = array_merge($this->config, $settings);
  
         return $this;
     }
