@@ -47,15 +47,15 @@ class InternalCompress extends \Requirements implements CompressInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function __construct(String $driver = NULL)
     {   
         $this->config = (array) config('IndividualStructures', 'compress');
 
-        $driver = $this->config['driver'];
+        nullCoalesce($driver, $this->config['driver']);
         
         \Support::driver($this->drivers, $driver);
 
-        $this->compress = uselib($driver.'Driver');
+        $this->compress = $this->_drvlib($driver);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -202,5 +202,18 @@ class InternalCompress extends \Requirements implements CompressInterface
     public function driver(String $driver) : InternalCompress
     {
         return new self($driver);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Drvlib                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $driver
+    // @return object                                    
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    protected function _drvlib($driver)
+    {
+        return uselib('ZN\IndividualStructures\Compress\Drivers\\'.$driver.'Driver');
     }
 }

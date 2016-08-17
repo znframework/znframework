@@ -349,15 +349,15 @@ class InternalEmail extends \Requirements implements EmailInterface
     // @param string $driver
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function __construct(String $driver = NULL)
     {   
         $this->config = (array) config('Services', 'email');
 
-        $driver = $this->config['driver'];
+        nullCoalesce($driver, $this->config['driver']);
 
         \Support::driver($this->drivers, $driver);
 
-        $this->email  = uselib($driver.'Driver');
+        $this->email  = $this->_drvlib($driver);
         $this->driver = $driver;
     
         $this->settings();
@@ -372,7 +372,7 @@ class InternalEmail extends \Requirements implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings = NULL) : InternalEmail
     {
-        $config = \Config::get('Services', 'email');
+        $config = $this->config;
         
         $smtpConfig    = $config['smtp'];
         $generalConfig = $config['general'];
@@ -968,6 +968,19 @@ class InternalEmail extends \Requirements implements EmailInterface
     public function driver(String $driver) : InternalEmail
     {
         return new self($driver);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Drvlib                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $driver
+    // @return object                                    
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    protected function _drvlib($driver)
+    {
+        return uselib('ZN\Services\Remote\Email\Drivers\\'.$driver.'Driver');
     }
     
     //--------------------------------------------------------------------------------------------------------

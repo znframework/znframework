@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures\Drivers;
+<?php namespace ZN\IndividualStructures\Compress\Drivers;
 
 use ZN\IndividualStructures\CompressDriverMapping;
 

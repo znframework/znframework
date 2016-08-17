@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures\Drivers;
+<?php namespace ZN\IndividualStructures\Cache\Drivers;
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 

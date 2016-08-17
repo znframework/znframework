@@ -46,15 +46,15 @@ class InternalCache extends \Requirements implements CacheInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function __construct(String $driver = NULL)
     {   
         $this->config = (array) config('IndividualStructures', 'cache');
 
-        $driver = $this->config['driver'];
+        nullCoalesce($driver, $this->config['driver']);
 
         \Support::driver($this->drivers, $driver);
 
-        $this->cache = uselib($driver.'Driver');
+        $this->cache = $this->_drvlib($driver);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -178,5 +178,18 @@ class InternalCache extends \Requirements implements CacheInterface
     public function driver(String $driver) : InternalCache
     {
         return new self($driver);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Drvlib                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $driver
+    // @return object                                    
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    protected function _drvlib($driver)
+    {
+        return uselib('ZN\IndividualStructures\Cache\Drivers\\'.$driver.'Driver');
     }
 }
