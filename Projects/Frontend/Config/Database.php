@@ -85,11 +85,11 @@
         // Genel Kullanım: Özellikle PDO alt sürücüleri için bağlantılar oluşturmak için              
         // kullanılan bağlantı ayar kümesidir. Varsayılan:empty                                       
         //                                                                                        
-        // DNS Kullanan Veritabanları                                                             
-        // 1-OCI8                                                                                 
+        // Using Databases                                                            
+        // 1-Oracle                                                                                 
         // 2-ODBC                                                                                 
-        // 3-POSTGRE                                                                                  
-        // 4-PDO ve Alt Sürücüleri                                                                              
+        // 3-Postgres                                                                                  
+        // 4-PDO and Sub Drivers                                                                            
         //
         //----------------------------------------------------------------------------------------------
         'dsn' => '',
@@ -101,13 +101,10 @@
         // Genel Kullanım: Server bağlantısı gerektiren sürücüler için kullanılan ayardır.        
         // Varsayılan:empty                                                                           
         //                                                                                       
-        // SERVER Kullanan Veritabanları                                                              
-        // 1-MSSQL                                                                                
-        // 2-ODBC                                                                                 
-        // 3-SQLSRV                                                                               
-        // 4-SYBASE                                                                               
-        // 5-PDO -> INFORMIX                                                                          
-        // 6-PDO -> SQLSRV  
+        // Using Databases                                                                                                                                            
+        // 1-ODBC                                                                                 
+        // 2-SQLServer                                                                                                                                                                                                                                   
+        // 4-PDO -> SQLServer  
         //                                                                              
         //----------------------------------------------------------------------------------------------
         'server' => '',
@@ -119,50 +116,16 @@
         // Genel Kullanım: Port bağlantısı gerektiren sürücüler için kullanılan ayardır.          
         // Varsayılan:empty                                                                           
         //                                                                                        
-        // PORT Kullanan Veritabanları                                                            
-        // 1-CUBRID                                                                               
-        // 2-POSTGRE                                                                                  
-        // 3-SQLSRV                                                                               
-        // 4-PDO -> 4D                                                                            
-        // 5-PDO -> CUBRID                                                                        
-        // 6-PDO -> DBLIB                                                                         
-        // 7-PDO -> IBM                                                                           
-        // 8-PDO -> INFORMIX                                                                            
-        // 9-PDO -> MYSQL                                                                         
-        // 10-PDO -> OCI                                                                              
-        // 11-PDO -> ODBC                                                                         
-        // 12-PDO -> POSTGRE                                                                          
-        // 13-PDO -> SQLSRV                                                                             
+        // Using Databases                                                                                                                                         
+        // 1-Postgres                                                                                  
+        // 2-SQLServer                                                                                                                                                                                                                            
+        // 3-PDO -> MySQL                                                                                                                                                     
+        // 4-PDO -> ODBC                                                                         
+        // 5-PDO -> Posgres                                                                          
+        // 6-PDO -> SQLServer                                                                             
         //
         //----------------------------------------------------------------------------------------------
         'port' => '',
-
-        //----------------------------------------------------------------------------------------------
-        // Appname                                                                                 
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanım: Uygulama ismi gerektiren sürücüler için kullanılan ayardır.            
-        // Varsayılan:empty                                                                           
-        //                                                                                        
-        // APPNAME Kullanan Veritabanları                                                         
-        // 1-SYBASE                                                                               
-        // 2-PDO -> DBLIB                                                                         
-        //
-        //----------------------------------------------------------------------------------------------
-        'appname' => '', 
-
-        //----------------------------------------------------------------------------------------------
-        // Service                                                                                 
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanım: Service bilgisi gerektiren sürücüler için kullanılan ayardır.          
-        // Varsayılan:empty                                                                           
-        //                                                                                        
-        // SERVICE Kullanan Veritabanları                                                         
-        // 1-PDO -> INFORMIX                                                                          
-        //
-        //----------------------------------------------------------------------------------------------
-        'service' => '',
 
         //----------------------------------------------------------------------------------------------
         // Protocol                                                                                
@@ -171,26 +134,11 @@
         // Genel Kullanım: Protocol bağlantısı gerektiren sürücüler için kullanılan ayardır.      
         // Varsayılan:empty                                                                           
         //                                                                                        
-        // PROTOCOL Kullanan Veritabanları                                                        
-        // 1-PDO -> IBM                                                                           
-        // 2-PDO -> INFORMIX                                                                                                                                                      
+        // Using Databases                                                                                                                                                                                                           
         // 3-PDO -> ODBC                                                                                    
         //
         //----------------------------------------------------------------------------------------------
         'protocol' => '',
-
-        //----------------------------------------------------------------------------------------------
-        // Role                                                                                    
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanım: Role bilgisi gerektiren sürücüler için kullanılan ayardır.             
-        // Varsayılan:empty                                                                           
-        //                                                                                        
-        // ROLE Kullanan Veritabanları                                                            
-        // 1-PDO -> FIREBIRD
-        //                                                                              
-        //----------------------------------------------------------------------------------------------
-        'role' => '',
 
         //----------------------------------------------------------------------------------------------
         // Pconnect                                                                             
@@ -199,16 +147,12 @@
         // Genel Kullanım: Pconnect bağlantısı destekleyen sürücüler için kullanılan ayardır.     
         // Varsayılan:false                                                                           
         //                                                                                        
-        // PCONNECT Kullanan Veritabanları                                                        
-        // 1-FBSQL                                                                                
-        // 2-IBASE                                                                                                                                                            
-        // 3-MSSQL                                                                                  
-        // 4-MYSQL                                                                                      
-        // 5-OCI8                                                                                   
-        // 6-ODBC                                                                                       
-        // 7-POSTGRE                                                                                    
-        // 8-SQLITE                                                                                 
-        // 9-SYBASE 
+        // Using Databases                                                                                                                                       
+        // 1-MySQL                                                                                      
+        // 2-Oracle                                                                                   
+        // 3-ODBC                                                                                       
+        // 4-Postgres                                                                                    
+        // 5-SQLITE                                                                                 
         //                                                                            
         //----------------------------------------------------------------------------------------------
         'pconnect' => false,
@@ -220,8 +164,8 @@
         // Genel Kullanım: Encode şifreleme bilgisi gerektiren sürücüler için kullanılan ayardır.  
         // Varsayılan:false                                                                           
         //                                                                                        
-        // ENCODE Kullanan Veritabanları                                                              
-        // 1-SQLSRV                                                                                     
+        // Using Databases                                                              
+        // 1-SQLServer                                                                                     
         //
         //----------------------------------------------------------------------------------------------
         'encode' => false,
@@ -231,10 +175,7 @@
         //----------------------------------------------------------------------------------------------
         //
         // Genel Kullanım: Tablo ön eki bilgisi kullanabilen sürücüler için kullanılan ayardır.    
-        // Varsayılan:empty                                                                           
-        //                                                                                        
-        // PREFIX Kullanan Veritabanları                                                              
-        // 1-TÜM SÜRÜCÜLER                                                                                  
+        // Varsayılan:empty                                                                                                                                                        
         //
         //----------------------------------------------------------------------------------------------
         'prefix' => '',
@@ -244,10 +185,7 @@
         //----------------------------------------------------------------------------------------------
         //
         // Genel Kullanım: Karakter seti bilgisi kullanabilen sürücüler için kullanılan ayardır.   
-        // Varsayılan:utf8                                                                        
-        //                                                                                        
-        // CHARSET Kullanan Veritabanları                                                         
-        // 1-TÜM SÜRÜCÜLER                                                                                  
+        // Varsayılan:utf8                                                                                                                                                                                                                                           
         //
         //----------------------------------------------------------------------------------------------
         'charset' => 'utf8', 
@@ -259,10 +197,10 @@
         // Genel Kullanım: Karakter grubu bilgisi kullanabilen sürücüler için kullanılan ayardır.  
         // Varsayılan:utf8_general_ci                                                             
         //                                                                                        
-        // COLLATION Kullanan Veritabanları                                                       
-        // 1-MYSQL                                                                                      
-        // 2-MYSQLI                                                                                   
-        // 1-PDO -> MYSQL
+        // Using Databases                                                       
+        // 1-MySQL                                                                                      
+        // 2-MySQLi                                                                                   
+        // 1-PDO -> MySQL
         //                                                                              
         //----------------------------------------------------------------------------------------------
         'collation' => 'utf8_general_ci',
