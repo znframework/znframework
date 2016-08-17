@@ -1,4 +1,6 @@
-<?php class Objects
+<?php namespace ZN\DataTypes;
+
+class Objects
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -27,3 +29,5 @@
         }
     }
 }
+
+class_alias('ZN\DataTypes\Objects', 'Objects');

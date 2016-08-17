@@ -336,6 +336,22 @@ function nullCoalesce( & $var, $value)
 }
 
 //--------------------------------------------------------------------------------------------------
+// Objects
+//--------------------------------------------------------------------------------------------------
+//
+// @param array $array
+//
+// @return object
+//
+//--------------------------------------------------------------------------------------------------
+function objects(Array $array) : stdClass
+{
+    $object = new stdClass;
+
+    return internalObjects($array, $object);
+}
+
+//--------------------------------------------------------------------------------------------------
 // charsetList()
 //--------------------------------------------------------------------------------------------------
 //
@@ -1038,4 +1054,33 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
     }
 
     return $output;
+}
+
+//--------------------------------------------------------------------------------------------------
+// Internal Objects
+//--------------------------------------------------------------------------------------------------
+//
+// @param array    $array
+// @param stdClass $obj
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function internalObjects(Array $array, stdClass &$std) : stdClass
+{
+    foreach( $array as $key => $value )
+    {
+        if( is_array($value) )
+        {
+            $std->$key = new stdClass;
+
+            internalObjects($value, $std->$key);
+        }
+        else
+        {     
+            $std->$key = $value;
+        }
+    }
+
+    return $std;
 }

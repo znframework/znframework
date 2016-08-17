@@ -49,7 +49,7 @@ class InternalCompress extends \Requirements implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $driver = NULL)
     {   
-        $this->config = (array) config('IndividualStructures', 'compress');
+        $this->config = config('IndividualStructures', 'compress');
 
         nullCoalesce($driver, $this->config['driver']);
         

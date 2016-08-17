@@ -71,7 +71,7 @@ class InternalEncode extends \Requirements implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function golden(String $data, String $additional = 'default') : String
     {
-        $algo = $this->config->type;
+        $algo = $this->config['type'];
         
         if( ! isHash($algo) )
         {
@@ -99,9 +99,9 @@ class InternalEncode extends \Requirements implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function super(String $data) : String
     {
-        $projectKey = $this->config->key;
+        $projectKey = $this->config['key'];
         
-        $algo = $this->config->type;
+        $algo = $this->config['type'];
         
         if( ! isHash($algo) )
         {

@@ -73,7 +73,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = (array) config('IndividualStructures', 'security');
+        $this->config = config('IndividualStructures', 'security');
     }
     
     //--------------------------------------------------------------------------------------------------------

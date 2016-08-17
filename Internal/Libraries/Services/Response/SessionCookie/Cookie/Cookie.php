@@ -68,7 +68,7 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
     {
         \Session::start();
 
-        $this->config = (array) config('Services', 'cookie');
+        $this->config = config('Services', 'cookie');
     }
     
     //--------------------------------------------------------------------------------------------------------

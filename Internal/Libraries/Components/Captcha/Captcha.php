@@ -378,7 +378,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(Bool $img = false, Array $configs = []) : String
     {   
-        $configs = array_merge((array) $this->config, $this->sets, $configs);
+        $configs = array_merge($this->config, $this->sets, $configs);
         
         if( ! empty($configs) )
         {

@@ -351,7 +351,7 @@ class InternalEmail extends \Requirements implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $driver = NULL)
     {   
-        $this->config = (array) config('Services', 'email');
+        $this->config = config('Services', 'email');
 
         nullCoalesce($driver, $this->config['driver']);
 

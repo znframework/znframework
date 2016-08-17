@@ -111,12 +111,12 @@ class InternalCalendar extends \Requirements implements CalendarInterface
     {
         $this->config       = config('Components', 'calendar');
         
-        $this->prev         = $this->config->prevName;
-        $this->next         = $this->config->nextName;
-        $this->dayNames     = $this->config->dayType;
-        $this->monthNames   = $this->config->monthType;
-        $this->css          = $this->config->class;
-        $this->style        = $this->config->style;
+        $this->prev         = $this->config['prevName'];
+        $this->next         = $this->config['nextName'];
+        $this->dayNames     = $this->config['dayType'];
+        $this->monthNames   = $this->config['monthType'];
+        $this->css          = $this->config['class'];
+        $this->style        = $this->config['style'];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -326,17 +326,17 @@ class InternalCalendar extends \Requirements implements CalendarInterface
         
         if( $this->monthNames === 'long' )
         {
-            $monthNames = array_keys($this->config->monthNames[getLang()]);
+            $monthNames = array_keys($this->config['monthNames'][getLang()]);
         }
         else
         {
-            $monthNames = array_values($this->config->monthNames[getLang()]);
+            $monthNames = array_values($this->config['monthNames'][getLang()]);
         }
         
         $monthName = $monthNames[$month - 1];
         // Gün ismini sitenin aktif
         // diline göre ayarlar.
-        $dayNames  = ( $this->dayNames === 'long' ) ? array_keys($this->config->dayNames[getLang()]) : array_values($this->config->dayNames[getLang()]);
+        $dayNames  = ( $this->dayNames === 'long' ) ? array_keys($this->config['dayNames'][getLang()]) : array_values($this->config['dayNames'][getLang()]);
         
         // Belirtilen ayarlamara göre tarih bilgisi elde ediliyor.
         $firstDay = getdate( mktime(0, 0, 0, $month, 1, $year) );

@@ -48,7 +48,7 @@ class InternalTerminal extends \Requirements implements TerminalInterface
     //--------------------------------------------------------------------------------------------------------
     public function run(String $terminalType = 'php', Array $settings = [])
     {
-        $configs = (array) $this->config;
+        $configs = $this->config;
         
         $settings['width']      =  isset($settings['width'])      ? $settings['width']      : $configs['width'];
         $settings['height']     =  isset($settings['height'])     ? $settings['height']     : $configs['height'];

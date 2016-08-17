@@ -50,7 +50,7 @@ class InternalCrypto extends \Requirements implements CryptoInterface
     {
         $this->config = config('CryptoGraphy', 'crypto');
 
-        nullCoalesce($driver, $this->config->driver);
+        nullCoalesce($driver, $this->config['driver']);
 
         \Support::driver($this->drivers, $driver);
 

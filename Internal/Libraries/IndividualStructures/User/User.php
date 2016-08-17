@@ -57,7 +57,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = (array) config('IndividualStructures', 'user');
+        $this->config = config('IndividualStructures', 'user');
     }
     
     //--------------------------------------------------------------------------------------------------------

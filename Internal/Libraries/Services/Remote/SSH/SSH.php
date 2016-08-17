@@ -83,12 +83,12 @@ class InternalSSH extends \Requirements implements SSHInterface
         // ----------------------------------------------------------------------------
         // SSH BAĞLANTI AYARLARI YAPILANDIRILIYOR
         // ----------------------------------------------------------------------------
-        $host      = $config->host;           
-        $port      = $config->port;   
-        $user      = $config->user;           
-        $password  = $config->password;       
-        $methods   = $config->methods;        
-        $callbacks = $config->callbacks;      
+        $host      = $config['host'];           
+        $port      = $config['port'];   
+        $user      = $config['user'];           
+        $password  = $config['password'];       
+        $methods   = $config['methods'];        
+        $callbacks = $config['callbacks'];      
         // ----------------------------------------------------------------------------
     
         // Bağlantı türü ayarına göre ssl veya normal

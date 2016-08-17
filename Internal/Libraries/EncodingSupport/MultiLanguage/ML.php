@@ -55,7 +55,7 @@ class InternalML extends \Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = (array) config('EncodingSupport', 'ml');
+        $this->config = config('EncodingSupport', 'ml');
     
         $this->appdir = STORAGE_DIR.'MultiLanguage/';   
         

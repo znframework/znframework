@@ -38,7 +38,7 @@ function illustrate(String $const) : String
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function configs(...$configs) : stdClass
+function configs(...$configs) : Array
 {
     $allConfig = [];
 
@@ -46,15 +46,15 @@ function configs(...$configs) : stdClass
     {
         if( is_array($config) )
         {
-            $allConfig = array_merge($allConfig, (array) config(key($config), current($config)));
+            $allConfig = array_merge($allConfig, config(key($config), current($config)));
         }
         else
         {
-            $allConfig = array_merge($allConfig, (array) config($config));
+            $allConfig = array_merge($allConfig, config($config));
         }
     }
 
-    return (object) $allConfig;
+    return $allConfig;
 } 
 
 //--------------------------------------------------------------------------------------------------
@@ -68,17 +68,17 @@ function configs(...$configs) : stdClass
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function config(String $file, String $value = NULL, String $newValue = NULL) : stdClass
+function config(String $file, String $value = NULL, String $newValue = NULL) : Array
 {
     if( $newValue === NULL )
     {
-        return (object) Config::get($file, $value);
+        return Config::get($file, $value);
     }
     else
     {
         Config::set($file, $value, $newValue);
 
-        $config = (object) Config::get($file);
+         return $config = Config::get($file);
 
         Config::set($file, $value);
 

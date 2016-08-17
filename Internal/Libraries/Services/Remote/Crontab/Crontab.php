@@ -119,7 +119,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = (array) config('Services', 'crontab');
+        $this->config = config('Services', 'crontab');
         
         $this->driver = $this->config['driver'];    
         
