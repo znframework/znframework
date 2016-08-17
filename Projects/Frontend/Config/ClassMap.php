@@ -659,3 +659,5 @@ $classMap['namespaces']['zn\viewobjects\view\validationinterface'] = 'validation
 $classMap['namespaces']['zn\viewobjects\view\validationpropertiestrait'] = 'validationpropertiestrait';
 $classMap['namespaces']['zn\viewobjects\view\viewcommoninterface'] = 'viewcommoninterface';
 $classMap['namespaces']['zn\viewobjects\view\viewcommontrait'] = 'viewcommontrait';
+$classMap['classes']['internalmigrateblog'] = 'Projects/Frontend/Models/Migrations/Blog.php';
+$classMap['classes']['migrateblog'] = 'Internal/StaticAccess/Migrations/InternalMigrateBlog.php';

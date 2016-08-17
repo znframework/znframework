@@ -74,16 +74,16 @@ class InternalMigration extends \CallController implements MigrationInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = \Config::get('Database');
+        $this->config = \Config::get('Database', 'migration');
         $this->path   = MODELS_DIR.'Migrations/';
         
         if( ! is_dir($this->path) )
         {
-            library('FileSystem', 'folder:create', [$this->path, 0755]);    
+            \Folder::create($this->path, 0755);    
         }
         
-        $this->tbl = isset(static::$table)
-                   ? static::$table 
+        $this->tbl = defined('static::table')
+                   ? static::table 
                    : false;
         
         $this->_create();
@@ -272,13 +272,9 @@ class InternalMigration extends \CallController implements MigrationInterface
             $str .= 'class '.$this->classFix.$name.' extends '.$this->extendsFix.$eol;
             $str .= '{'.$eol;
             $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
-            $str .= "\t".'// Call Undefined Method'.$eol;
-            $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
-            $str .= "\t".'use CallUndefinedMethodTrait;'.$eol.$eol;
-            $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
             $str .= "\t".'// Class/Table Name'.$eol;
             $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
-            $str .= "\t".'protected static $table = __CLASS__;'.$eol.$eol;
+            $str .= "\t".'const table = __CLASS__;'.$eol.$eol;
             $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
             $str .= "\t".'// Up'.$eol;
             $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
@@ -394,7 +390,7 @@ class InternalMigration extends \CallController implements MigrationInterface
         $table   = $this->_tableName();
         $version = $this->_getVersion();
         
-        return \DB::insert($this->config['migration:table'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
+        return \DB::insert($this->config['table'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -406,7 +402,7 @@ class InternalMigration extends \CallController implements MigrationInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _create()
     {
-        $table   = $this->config['migration:table'];
+        $table   = $this->config['table'];
         
         \DBForge::createTable('IF NOT EXISTS '.$table, array
         (

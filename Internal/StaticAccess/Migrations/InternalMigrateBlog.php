@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //--------------------------------------------------------------------------------------------------
 
-class Migration extends StaticAccess
+class MigrateBlog extends StaticAccess
 {
 	const table = __CLASS__;
 
