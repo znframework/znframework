@@ -11,13 +11,16 @@ class Requirements extends \CallController implements RequirementsInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use ConfigTrait, StatusTrait;
+    //--------------------------------------------------------------------------------------------------------
+    // Lang                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array                        
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    protected $lang = [];
 
-    public function __destruct()
-    {
-        $this->config = NULL;
-        $this->lang   = NULL;
-    }
+    use ConfigTrait, StatusTrait;
 }
 
 class_alias('ZN\Requirements\Requirements', 'Requirements');

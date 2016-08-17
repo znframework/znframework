@@ -54,13 +54,13 @@ class InternalSSH extends \Requirements implements SSHInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct($config = [])
+    public function __construct()
     {
         \Support::func('ssh2_connect', 'SSH(Secure Shell)');
 
-        $this->config = (array) config('Services', 'ssh');
+        $this->config = config('Services', 'ssh');
 
-        $this->connect($config);
+        $this->connect($this->config);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -83,12 +83,12 @@ class InternalSSH extends \Requirements implements SSHInterface
         // ----------------------------------------------------------------------------
         // SSH BAĞLANTI AYARLARI YAPILANDIRILIYOR
         // ----------------------------------------------------------------------------
-        $host      = $config['host'];           
-        $port      = $config['port'];   
-        $user      = $config['user'];           
-        $password  = $config['password'];       
-        $methods   = $config['methods'];        
-        $callbacks = $config['callbacks'];      
+        $host      = $config->host;           
+        $port      = $config->port;   
+        $user      = $config->user;           
+        $password  = $config->password;       
+        $methods   = $config->methods;        
+        $callbacks = $config->callbacks;      
         // ----------------------------------------------------------------------------
     
         // Bağlantı türü ayarına göre ssl veya normal

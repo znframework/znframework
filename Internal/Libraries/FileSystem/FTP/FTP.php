@@ -38,9 +38,9 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = (array) config('FileSystem', 'ftp']);
+        $this->config = config('FileSystem', 'ftp');
      
-        $this->connect();
+        $this->connect($this->config);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -54,21 +54,20 @@ class InternalFTP extends \Requirements implements FTPInterface
     {   
         if( ! empty($config) )
         {
-            $this->config = (array) config('FileSystem', 'ftp', $config);
+            $this->config($config); 
         }
         
-        // Config/Ftp.php dosyasından ftp ayarları alınıyor.
         $config = $this->config;
     
         // ----------------------------------------------------------------------------
         // FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
         // ----------------------------------------------------------------------------
-        $host     = $config['host'];            
-        $port     = $config['port'];        
-        $timeout  = $config['timeout'];     
-        $user     = $config['user'];            
-        $password = $config['password'];        
-        $ssl      = $config['sslConnect'];  
+        $host     = $config->host;            
+        $port     = $config->port;        
+        $timeout  = $config->timeout;     
+        $user     = $config->user;            
+        $password = $config->password;        
+        $ssl      = $config->sslConnect;  
         // ----------------------------------------------------------------------------
     
         // Bağlantı türü ayarına göre ssl veya normal

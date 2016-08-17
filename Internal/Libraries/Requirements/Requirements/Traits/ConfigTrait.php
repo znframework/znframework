@@ -18,8 +18,10 @@ trait ConfigTrait
     // @param  array  $settings: empty                   
     //                                                                                           
     //--------------------------------------------------------------------------------------------------------
-    public function config(Array $settings = NULL)
+    public function config(Array $settings = [])
     {
+        $this->config = (object) array_merge( (array) $this->config, $settings );
+ 
         return $this;
     }
 }
