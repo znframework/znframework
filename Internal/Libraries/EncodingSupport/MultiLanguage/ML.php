@@ -519,8 +519,6 @@ class InternalML extends \Requirements implements MLInterface
         {
             if( defined('_CURRENT_PROJECT_DIR') )
             {
-                global $projects;
-        
                 if( defined('CURRENT_PROJECT_DIR') )
                 {
                     $preUrl = CURRENT_PROJECT_DIR;

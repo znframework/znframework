@@ -3,7 +3,7 @@
 // This file automatically created and updated
 //--------------------------------------------------------------------------------------------------
 
-class DataGrid extends StaticAccess
+class MLGrid extends StaticAccess
 {
 	public static function getClassName()
 	{
