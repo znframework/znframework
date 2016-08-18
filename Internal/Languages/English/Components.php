@@ -31,5 +31,6 @@
     'dbgrid:inputsHolder'       => 'Enter the data!',
     'dbgrid:areYouSure'         => 'Are you sure you want to do this operation?',
     'dbgrid:noData'             => 'No data will be shown!',
-    'dbgrid:noTable'            => 'Table name is not specified!'
+    'dbgrid:noTable'            => 'Table name is not specified!',
+    'dbgrid:noSearch'           => 'search () method to search by specifying the column is required!'
 ];

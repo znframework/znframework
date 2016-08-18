@@ -232,22 +232,6 @@
         ],
         
         //----------------------------------------------------------------------------------------------
-        // Cdn Links
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: Uzaktan jquery, jqueryui ve bootstrap'a ait css dosyalarının kullanım 
-        // durumları ayarlanır. Mevcut sayfanızda zaten bir jquery dosyası dahil ediliyorsa aşağıdaki
-        // değerler false olarak ayarlanmalıdır.                                                
-        //
-        //----------------------------------------------------------------------------------------------
-        'cdn' => 
-        [
-            'jquery'    => true,
-            'jqueryUi'  => false,
-            'bootstrap' => false
-        ],
-        
-        //----------------------------------------------------------------------------------------------
         // Attributes
         //----------------------------------------------------------------------------------------------
         //
@@ -257,20 +241,21 @@
         //----------------------------------------------------------------------------------------------
         'attributes'    => 
         [
-            'table'         => ['width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'],
+            'table'         => ['width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'margin-top:15px; margin-bottom:15px; border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'],
+            'editTables'    => ['style' => 'font-family:Arial; color:#888; font-size:14px;'],
             'columns'       => ['style' => 'text-decoration:none; color:#0085B2'],
-            'search'        => ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
+            'search'        => ['style' => 'height:34px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
             'add'           => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'deleteSelected'=> ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'deleteAll'     => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'save'          => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'update'        => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
-            'delete'        => ['style' => 'text-decoration:none; color:red; font-weight:bold; pointer:'],
-            'edit'          => ['style' => 'text-decoration:none; color:#0085B2; font-weight:bold'],
+            'delete'        => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'edit'          => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'listTables'    => [],
             'inputs'        => 
             [
-                'text'      => ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
+                'text'      => ['style' => 'height:34px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
                 'textarea'  => ['style' => 'height:60px; width:250px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
                 'radio'     => [],
                 'checkbox'  => [],

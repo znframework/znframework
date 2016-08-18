@@ -559,13 +559,13 @@ class InternalDBGrid extends \Requirements
     {
         $table = \Form::open('saveForm');
 
+        $table .= '<table type="datagrid"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<tr>';
+
+        $newGetRow = NULL;
+
         if( ! empty($this->joins) )
         {
-            $table .= '<table type="datagrid"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
-            $table .= '<tr>';
-
-            $newGetRow = NULL;
-
             foreach( $joinsData as $join )
             {
                 if( \URI::get('process') === 'edit' )
@@ -581,15 +581,62 @@ class InternalDBGrid extends \Requirements
                 }
 
                 $table .= '<td>'.$this->_editTable($newGet->columns(), $join['table'], $newGetRow).'</td>';
+            }         
+        }
+        else
+        {   
+            if( \URI::get('process') === 'edit' )
+            {
+                \DB::where($this->processColumn, \URI::get('column'));
             }
 
-            $table .= '<tr><td colspan="'.count($joinsData).'">'.
+            $newGet = \DB::get($this->table);
+
+            if( \URI::get('process') === 'edit' )
+            {
+                $newGetRow = $newGet->row();
+            }
+
+            $table .= '<td>'.$this->_editTable($newGet->columns(), $this->table, $newGetRow).'</td>';
+        }
+
+        $table .= '<tr><td colspan="'.count($joinsData).'">'.
                       \Form::attr($this->config['attributes']['save'])->submit('saveButton', $this->config['buttonNames']['save']).
                       '</td></tr>';
-            $table .= '</tr></table>';
-        }
-    
+        $table .= '</tr></table>';
         $table .= \Form::close();
+
+        return $table;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Edit Table
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $columns
+    // @param string $tbl
+    // @param array  $row
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _editTable($columns, $tbl, $row)
+    {
+        $table  = '<table'.\Html::attributes($this->config['attributes']['editTables']).'>';
+        $table .= '<tr><td width="100">'.\Strings::upperCase($tbl).'</td></tr>';
+        
+        foreach( $columns as $column )
+        {
+            if( ! in_array($column, $this->joinColumns) && strtolower($column) !== strtolower($this->processColumn) )
+            {
+                $table .= '<tr><td>'.\Strings::titleCase($column).'</td><td>'.
+                          \Form::placeholder($column)
+                          ->attr($this->config['attributes']['inputs']['text'])
+                          ->text($tbl.':'.$column, isset($row->$column) ? $row->$column : NULL).
+                          '</td></tr>';
+            }
+
+        }
+
+        $table .= '</tr></table>';
 
         return $table;
     }
@@ -621,13 +668,20 @@ class InternalDBGrid extends \Requirements
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _search($search)
-    {
-        foreach( $this->search as $column )
+    {   
+        if( is_array($this->search) ) 
         {
-            $whereGroup[] = [$column.' like ', \DB::like($search, 'inside'), 'or'];
-        }
+            foreach( $this->search as $column )
+            {
+                $whereGroup[] = [$column.' like ', \DB::like($search, 'inside'), 'or'];
+            }
 
-        \DB::whereGroup($whereGroup);
+            \DB::whereGroup($whereGroup);
+        }
+        else
+        {
+            throw new \Exception($this->lang['dbgrid:noSearch']);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -773,37 +827,4 @@ class InternalDBGrid extends \Requirements
     {
         return str_replace('"', "'", \Json::encode($data));
     }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Edit Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $columns
-    // @param string $tbl
-    // @param array  $row
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _editTable($columns, $tbl, $row)
-    {
-        $table  = '<table'.\Html::attributes($this->config['attributes']['editTables']).'>';
-        $table .= '<tr><td width="100">'.\Strings::upperCase($tbl).'</td></tr>';
-
-        foreach( $columns as $column )
-        {
-            if( ! in_array($column, $this->joinColumns))
-            {
-                $table .= '<tr><td>'.\Strings::titleCase($column).'</td><td>'.
-                          \Form::placeholder($column)
-                          ->attr($this->config['attributes']['inputs']['text'])
-                          ->text($tbl.':'.$column, isset($row->$column) ? $row->$column : NULL).
-                          '</td></tr>';
-            }
-
-        }
-
-        $table .= '</tr></table>';
-
-        return $table;
-    }
-
 }

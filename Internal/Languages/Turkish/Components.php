@@ -31,5 +31,6 @@
     'dbgrid:inputsHolder'       => 'Veri girin!',
     'dbgrid:areYouSure'         => 'Bu işlemi yapmak istediğinizden emin misiniz?',
     'dbgrid:noData'             => 'Gösterilecek veri bulunamadı!',
-    'dbgrid:noTable'            => 'Tablo adı belirtilmedi!'      
+    'dbgrid:noTable'            => 'Tablo adı belirtilmedi!',
+    'dbgrid:noSearch'           => 'search() yöntemi ile arama yapılacak sütunların belirtimesi gereklidir!'      
 ];
