@@ -386,7 +386,6 @@ class InternalML extends \Requirements implements MLInterface
         
         $attributes         = $config['attributes'];
         $pagcon             = $config['pagination'];
-        $orderColorArray    = $config['colors']['rowOrder'];
         $placeHolders       = $config['placeHolders'];
         $buttonNames        = $config['buttonNames'];
         $title              = $config['labels']['title'];
@@ -394,19 +393,17 @@ class InternalML extends \Requirements implements MLInterface
         $process            = $config['labels']['process'];
         $keywords           = $config['labels']['keywords'];
         
-        $double = ' bgcolor="'.$orderColorArray['double'].'"';
-        $single = ' bgcolor="'.$orderColorArray['single'].'"';
-        
         $confirmBox = ' onsubmit="return confirm(\''.$confirmMessage.'\');"';
         
         
         $data = $this->selectAll($app); 
         $languageCount = count($data);
         
-        $table  = '<table'.\Html::attributes($attributes['table']).'>';
+        $table  = $this->_styleElement();
+        $table .= '<table id="ML_TABLE"'.\Html::attributes($attributes['table']).'>';
         $table .= '<thead>';
-        $table .= '<tr'.$single.'><th colspan="'.($languageCount + 4).'">'.$title.'</th></tr>';
-        $table .= '<tr'.$double.'><th>S/L</th>';
+        $table .= '<tr><th colspan="'.($languageCount + 4).'">'.$title.'</th></tr>';
+        $table .= '<tr><th>S/L</th>';
         $table .= '<td colspan="'.($languageCount + 3).'">';
         $table .= '<form name="ML_SEARCH_ADD_LANGUAGE_FORM" method="post">';
         $table .= \Form::attr($attributes['textbox'])->placeholder($placeHolders['search'])->text('ML_SEARCH');
@@ -416,7 +413,7 @@ class InternalML extends \Requirements implements MLInterface
         $table .= '</form>';
         $table .= '</tr>';
             
-        $table .= '<tr'.$single.'><th>#</th><td><strong>'.$keywords.'</strong></td>';
+        $table .= '<tr><th>#</th><td><strong>'.$keywords.'</strong></td>';
         
         $words = [];
         $formObjects = '';
@@ -442,7 +439,7 @@ class InternalML extends \Requirements implements MLInterface
         $table .= '</tr>';
         $table .= '</thead>';
         $table .= '<tbody>';
-        $table .= '<tr'.$double.'>';
+        $table .= '<tr>';
         $table .= '<form name="ML_TOP_FORM" method="post">';
         $table .= '<th>N</th>';
         $table .= '<td>'.$mlLanguages.\Form::attr($attributes['textbox'])->placeholder($placeHolders['keyword'])->text('ML_ADD_KEYWORD').'</td>';
@@ -496,9 +493,7 @@ class InternalML extends \Requirements implements MLInterface
         
         foreach( $words as $key => $val )
         {
-            $orderColor = ( $index % 2 === 1 ) ? $single : $double;
-            
-            $table .= '<tr'.$orderColor .'>';
+            $table .= '<tr>';
             $table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post"'.$confirmBox.'>';
             $table .= '<th>'.$index++.'</th>';
             $table .= '<td>'.\Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
@@ -578,6 +573,30 @@ class InternalML extends \Requirements implements MLInterface
     public function lang(String $lang = 'tr') : Bool
     {
         setLang($lang);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Style Element
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _styleElement()
+    {
+        if( ! empty($this->config['table']['styleElement']) )
+        { 
+            $attributes = NULL;
+
+            foreach( $this->config['table']['styleElement'] as $selector => $attr )
+            {
+                $attributes .= \Sheet::selector($selector)->attr($attr)->create();
+            }
+
+            return \Style::open().$attributes.\Style::close();
+        }
+
+        return NULL;
     }
     
     //--------------------------------------------------------------------------------------------------------

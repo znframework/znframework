@@ -74,6 +74,19 @@
                 'addLanguage' => lang('EncodingSupport', 'ml:addLanguagePlaceHolder'),
                 'search'      => lang('EncodingSupport', 'ml:searchPlaceHolder')
             ],
+
+            //----------------------------------------------------------------------------------------------
+            // Style Element
+            //----------------------------------------------------------------------------------------------
+            //
+            // Bu ayar değer alırsa gridin bulunduğu sayfada dahili <style> kullanımı aktif hale gelir.                                               
+            //
+            //----------------------------------------------------------------------------------------------
+            'styleElement' => 
+            [
+                '#ML_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],
+                '#ML_TABLE tr:nth-child(odd)'  => ['background' => '#FFF']
+            ],
             
             //------------------------------------------------------------------------------------------
             // Attributes
@@ -92,18 +105,6 @@
                 'clear'         => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
                 'textbox'       => ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px']
 
-            ],
-            
-            //------------------------------------------------------------------------------------------
-            // Colors
-            //------------------------------------------------------------------------------------------
-            //
-            // Genel Kullanımı: Grid'de yer alan yapıların renklerini düzenlemek için kullanılır.                                                   
-            //
-            //------------------------------------------------------------------------------------------
-            'colors' =>
-            [
-                'rowOrder' => ['single' => '#fff', 'double' => '#E6F9FF']
             ],
             
             //------------------------------------------------------------------------------------------

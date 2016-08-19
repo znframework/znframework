@@ -230,6 +230,19 @@
             'search'    => lang('Components', 'dbgrid:searchHolder'),
             'inputs'    => lang('Components', 'dbgrid:inputsHolder'),
         ],
+
+        //----------------------------------------------------------------------------------------------
+        // Style Element
+        //----------------------------------------------------------------------------------------------
+        //
+        // Bu ayar değer alırsa gridin bulunduğu sayfada dahili <style> kullanımı aktif hale gelir.                                               
+        //
+        //----------------------------------------------------------------------------------------------
+        'styleElement' => 
+        [
+            '#DBGRID_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],
+            '#DBGRID_TABLE tr:nth-child(odd)'  => ['background' => '#FFF']
+        ],
         
         //----------------------------------------------------------------------------------------------
         // Attributes
@@ -243,7 +256,7 @@
         [
             'table'         => ['width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'margin-top:15px; margin-bottom:15px; border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'],
             'editTables'    => ['style' => 'font-family:Arial; color:#888; font-size:14px;'],
-            'columns'       => ['style' => 'text-decoration:none; color:#0085B2'],
+            'columns'       => ['height' => 75, 'style' => 'text-decoration:none; color:#0085B2'],
             'search'        => ['style' => 'height:34px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
             'add'           => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'deleteSelected'=> ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
@@ -261,18 +274,6 @@
                 'checkbox'  => [],
                 'select'    => []
             ]
-        ],
-        
-        //----------------------------------------------------------------------------------------------
-        // Colors
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: Grid'de yer alan yapıların renklerini düzenlemek için kullanılır.                                                   
-        //
-        //----------------------------------------------------------------------------------------------
-        'colors' =>
-        [
-            'rowOrder' => ['single' => '#fff', 'double' => '#E6F9FF']
         ],
         
         //----------------------------------------------------------------------------------------------

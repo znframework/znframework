@@ -294,7 +294,7 @@ class InternalDBGrid extends \Requirements
             return \Exceptions::throws('Components', 'dbgrid:noTable');
         }
 
-        $table = NULL;
+        $table = $this->_styleElement();
 
         //----------------------------------------------------------------------------------------------------
         // Search
@@ -428,13 +428,37 @@ class InternalDBGrid extends \Requirements
         // Genel görünümün oluşturulduğu bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        $table .= '<table type="datagrid"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table id="DBGRID_TABLE"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
         $table .= $this->_thead($columns, $countColumns);
         $table .= $this->_tbody($result, $countColumns, $joinsData);
         $table .= $this->_pagination($pagination, $countColumns);
         $table .= '</table>'.EOL;
         
         return $table;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Style Element
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _styleElement()
+    {
+        if( ! empty($this->config['styleElement']) )
+        { 
+            $attributes = NULL;
+
+            foreach( $this->config['styleElement'] as $selector => $attr )
+            {
+                $attributes .= \Sheet::selector($selector)->attr($attr)->create();
+            }
+
+            return \Style::open().$attributes.\Style::close();
+        }
+
+        return NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -448,14 +472,12 @@ class InternalDBGrid extends \Requirements
     protected function _thead($columns, $countColumns)
     {
         $table  = '<thead>'.EOL;
-        $table .= '<tr><td colspan="'.($countColumns + 3).'">';
-        $table .= '<table width="100%"><tr><td>';
+        $table .= '<tr'.\Html::attributes($this->config['attributes']['columns']).'>';
+        $table .= '<td colspan="2">';
         $table .= \Form::open('addForm').\Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search').\Form::close(); 
-        $table .= '</td><td align="right">';
-        $table .= \Form::action(CURRENT_CFPATH.( \URI::get('page') ? '/page/'.\URI::get('page') : NULL).'/process/add')->open('addForm').\Form::attr($this->config['attributes']['add'])->submit('addButton', $this->config['buttonNames']['add']).\Form::close(); 
-        $table .= '</td></table>';
-        $table .= '</td></tr>';    
-        $table .= '<tr>';   
+        $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
+        $table .= \Form::action(CURRENT_CFPATH.( \URI::get('page') ? '/page/'.\URI::get('page') : NULL).'/process/add')->open('addForm').\Form::attr($this->config['attributes']['add'])->submit('addButton', $this->config['buttonNames']['add']).\Form::close();  
+        $table .= '</tr><tr'.\Html::attributes($this->config['attributes']['columns']).'>';   
         $table .= '<td width="20">#</td>';
 
         //----------------------------------------------------------------------------------------------------
@@ -470,7 +492,7 @@ class InternalDBGrid extends \Requirements
             $table .= '<td>'.\Html::anchor(CURRENT_CFPATH.'/order/'.$column.'/type/'.(\URI::get('type') === 'asc' ? 'desc' : 'asc'), \Html::strong($column), $this->config['attributes']['columns']).'</td>';
         }   
         
-        $table .= '<td align="right"><span'.\Html::attributes($this->config['attributes']['columns']).'>'.\Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
+        $table .= '<td align="right" colspan="2"><span'.\Html::attributes($this->config['attributes']['columns']).'>'.\Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
 
@@ -514,23 +536,21 @@ class InternalDBGrid extends \Requirements
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
                     implode('</td><td>', $value).
-                    '</td><td align="right" colspan="'.$countColumns.'">'.
-                    '<table><tr>'.
-                    '<td>'.
+                    '</td><td align="right">'.
+                   
                     \Form::action(CURRENT_CFPATH.( \URI::get('page') ? '/page/'.\URI::get('page') : NULL).'/column/'.$hiddenValue.'/process/edit')->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
                     \Form::attr($this->config['attributes']['edit'])->submit('editButton', $this->config['buttonNames']['edit']).
                     \Form::close().
                     '</td>'.
-                    '<td>'.
+                    '<td width="60" align="right">'.
                     \Form::onsubmit($this->confirm)->open('addButtonForm').
                     $hiddenId.
                     $hiddenJoins.
                     \Form::attr($this->config['attributes']['delete'])->submit('deleteButton', $this->config['buttonNames']['delete']).
                     \Form::close().
-                    '</td>'.
-                    '</tr></table>'.
+              
                     '</td></tr>'.
                     EOL;
         } 
@@ -569,7 +589,7 @@ class InternalDBGrid extends \Requirements
     {
         $table = \Form::open('saveForm');
 
-        $table .= '<table type="datagrid"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
         $table .= '<tr>';
 
         $newGetRow = NULL;
