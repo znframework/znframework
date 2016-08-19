@@ -282,8 +282,13 @@ class InternalDBGrid extends \Requirements
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create() : String
+    public function create(String $table = NULL) : String
     {   
+        if( $table !== NULL )
+        {
+            $this->table($table);
+        }
+        
         if( ! isset($this->table) )
         {
             return \Exceptions::throws('Components', 'dbgrid:noTable');
@@ -341,6 +346,11 @@ class InternalDBGrid extends \Requirements
         $columns      = $get->columns();
         $result       = $get->resultArray();
         $countColumns = count($columns);
+
+        if( $error = \DB::error() )
+        {
+            return \Exceptions::throws($error);
+        }
 
         //----------------------------------------------------------------------------------------------------
         // Pagination

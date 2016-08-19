@@ -951,6 +951,11 @@ class InternalEmail extends \Requirements implements EmailInterface
         );
 
         $send = $this->email->send(key($this->to), $this->subject, $this->message, $this->header, $settings);
+
+        if( empty($send) )
+        {
+            return ! $this->error[] = lang('Services', 'email:noSend');
+        }
         
         $this->_defaultVariables();
         

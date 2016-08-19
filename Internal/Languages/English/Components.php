@@ -32,5 +32,5 @@
     'dbgrid:areYouSure'         => 'Are you sure you want to do this operation?',
     'dbgrid:noData'             => 'No data will be shown!',
     'dbgrid:noTable'            => 'Table name is not specified!',
-    'dbgrid:noSearch'           => 'search () method to search by specifying the column is required!'
+    'dbgrid:noSearch'           => 'DBGrid::search(string $col1, string $col2, ...) method to search by specifying the column is required!'
 ];

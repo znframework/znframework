@@ -32,5 +32,5 @@
     'dbgrid:areYouSure'         => 'Bu işlemi yapmak istediğinizden emin misiniz?',
     'dbgrid:noData'             => 'Gösterilecek veri bulunamadı!',
     'dbgrid:noTable'            => 'Tablo adı belirtilmedi!',
-    'dbgrid:noSearch'           => 'search() yöntemi ile arama yapılacak sütunların belirtimesi gereklidir!'      
+    'dbgrid:noSearch'           => 'DBGrid::search(string $col1, string $col2, ...) yöntemi ile arama yapılacak sütunların belirtimesi gereklidir!'      
 ];
