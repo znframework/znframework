@@ -25,8 +25,8 @@
     // Benchmarking Test                                                                  
     //--------------------------------------------------------------------------------------------------
     //
-    // Bu ayarın true olarak seçilmesi durumunda sistemin açılış hızını
-    // ve yüklenme zamanını gösteren bir tablo gösterilir.	     			 	  		  
+    // Bu ayarın true olarak ayarlanması durumunda ekranın sağ alt köşesinde sayfa açılış hızı
+    // gibi bir takım verilerin yer aldığı bir tablo görüntülenir.	     			 	  		  
     //
     //--------------------------------------------------------------------------------------------------
     'benchmark' => false,
