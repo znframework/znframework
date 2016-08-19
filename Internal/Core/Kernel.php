@@ -18,10 +18,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 $datas      = ZN\Core\Structure::data();
+
 $parameters = $datas['parameters'];
 $page       = $datas['page'];
 $isFile     = $datas['file'];
 $function   = $datas['function'];
+$namespace  = $datas['namespace'];
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CFILE
@@ -170,7 +172,12 @@ if( ! empty($starting['handload']) )
 if( is_file($isFile) )
 {
     require_once $isFile;
-        
+    
+    if( ! class_exists($page, false) )
+    {
+        $page = $namespace.$page; 
+    }
+
     if( class_exists($page, false) )
     {
         if( strtolower($function) === 'index' && ! is_callable([$page, $function]) )

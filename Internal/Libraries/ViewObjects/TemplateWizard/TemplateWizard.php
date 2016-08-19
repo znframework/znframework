@@ -63,8 +63,8 @@ class TemplateWizard extends \CallController implements TemplateWizardInterface
             
             // HTML TAGS
             '/\s+\#\#(\w+)/'                                                    => $htmlTagClose,
-            '/\#(\w+)\s*(\[(.*?)\])*\:/'                                        => '<$1 $3>',
-            '/\#(\w+)\s*(\[(.*?)\])*\s+/'                                       => '<$1 $3>',
+            '/\#(!*\w+)\s*(\[(.*?)\])*\:/'                                      => '<$1 $3>',
+            '/\#(!*\w+)\s*(\[(.*?)\])*\s+/'                                     => '<$1 $3>',
             '/\#(\w+)\s*(\[(.*?)\])*\s*\(\s*(.*?)\s*\)\:/s'                     => '<$1 $3>$4'.$htmlTagClose,
             '/\<(\w+)\s+\>/'                                                    => '<$1>',
             

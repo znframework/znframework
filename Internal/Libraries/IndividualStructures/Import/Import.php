@@ -1023,7 +1023,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
     {
-        $return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), $data);
+        $return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), (array) $data);
             
         if( $obGetContents === true )
         {
