@@ -62,7 +62,7 @@
     // Restoration                                                                 
     //--------------------------------------------------------------------------------------------------
     //
-    // Restorasyon işlemlerini başlatmak için yukarıdaki Application:mode ayarını 'Restoration' olarak
+    // Restorasyon işlemlerini başlatmak için yukarıdaki Projects:mode ayarını 'Restoration' olarak
     // ayarlamanı gerekmektedir. Bu ayarlamadan sonra aşağıdaki ayarları yapabilirsiniz.				     			 	  		  
     //
     //--------------------------------------------------------------------------------------------------

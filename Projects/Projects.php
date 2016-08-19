@@ -14,7 +14,7 @@
         //----------------------------------------------------------------------------------------------
         //
         // URI' da herhangi bir uzantı gerektirmeden kullanılması istenilen proje dizini belirtilir.
-        // Ön tanımlı olarak Applications/Frontend/ dizini kullanılmıştır.	  								                    														 						
+        // Ön tanımlı olarak Projects/Frontend/ dizini kullanılmıştır.	  								                    														 						
         //
         //----------------------------------------------------------------------------------------------
         'default' => 'Frontend',
@@ -31,9 +31,9 @@
         // Example: ['www.example.com' => 'ExampleApp', 'localhost' => 'LocalApp']
         //
         // 2 - Takma Ad Kullanımı
-        // Applications/ dizini altında yer alan proje dizinine takma ad verip site.com/ dan sonraki
+        // Projects/ dizini altında yer alan proje dizinine takma ad verip site.com/ dan sonraki
         // bölüm için proje dizinin adı yerine takma adını kullanabilirsiniz.
-        // Applications/UygulamaDizini gibi bir uygulamamız olduğunu varsayarsak normalde bu dizini
+        // Projects/UygulamaDizini gibi bir uygulamamız olduğunu varsayarsak normalde bu dizini
         // çalıştırmak için site.com/UygulamaDizini olarak kullanmamız gerekirdi. Ancak siz buna takma
         // isim vererek yani ['proje-dizini' => 'UygulamaDizini'] şeklinde ayarlarsanız artık
         // site.com/proje-dizini formunda bu uygulamanın çalıştırılmasını sağlayabilirsiniz.
