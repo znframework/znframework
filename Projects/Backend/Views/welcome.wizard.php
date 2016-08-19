@@ -5,13 +5,52 @@
     #head
         #meta[http-equiv="Content-Type" content="text/html; charset=utf-8"]:
         #title(ZERONEED PHP WEB FRAMEWORK):
-        
-        @Import::font('font'):
-        @Import::style('style'):
+
+        #link[href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css"]
+
+        #style
+            html, body 
+            {
+                height: 100%;
+            }
+
+            body 
+            {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                display: table;
+                font-weight: lighter;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            /#container 
+            {
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            /#content 
+            {
+                text-align: center;
+                display: inline-block;
+            }
+
+            /#title 
+            {
+                font-size: 96px;
+                opacity: 0.80;
+            }
+        ##style
     ##head
 
     #body
-    	#div[id="logo-image"]: ##div
+        #div[id="container"]
+            #div[id="content"]
+                #div[id="title"] ZN 4 EIP EDITION ##div
+            ##div
+        ##div
     ##body
 
 ##html
