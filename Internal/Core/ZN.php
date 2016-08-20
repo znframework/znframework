@@ -29,7 +29,7 @@ class ZN
     // return string
     //
     //--------------------------------------------------------------------------------------------------
-    const VERSION = '4.0.1-beta-2';
+    const VERSION = '4.0.1-EIP';
  
     //--------------------------------------------------------------------------------------------------
     // Constant Required PHP Version
@@ -41,16 +41,16 @@ class ZN
     const REQUIRED_PHP_VERSION = '7.0.0';
 
     //--------------------------------------------------------------------------------------------------------
-    // Magic Call
+    // Magic Call Static
     //--------------------------------------------------------------------------------------------------------
     // 
-    // @param string $method
+    // @param string $class
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callSTatic($method, $parameters)
+    public static function __callSTatic($class, $parameters)
     {
-        return uselib($method, $parameters);
+        return uselib($class, $parameters);
     }
 }
 
