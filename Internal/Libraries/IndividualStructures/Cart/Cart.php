@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalCart extends \CallController implements CartInterface
+class InternalCart extends \Requirements implements CartInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,7 +18,47 @@ class InternalCart extends \CallController implements CartInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    private $items = [];
+    protected $items = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Driver
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $driver;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Drivers
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $drivers =
+    [
+        'cookie',
+        'session'
+    ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Construct
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void      
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct(String $driver = NULL)
+    {
+        $defaultDriver = strtolower(config('IndividualStructures', 'cart')['driver']);
+
+        nullCoalesce($driver, $defaultDriver);
+
+        \Support::driver($this->drivers, $driver);
+
+        $this->driver = uselib($driver);
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Insert Item
@@ -42,16 +82,16 @@ class InternalCart extends \CallController implements CartInterface
         }
         
         // Sepettin daha önce oluşturulup oluşturulmadığına göre işlemler gerçekleştiriliyor.
-        if( $sessionCart = \Session::select(md5('SystemCartData')) )
+        if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
         {
             $this->items = $sessionCart;
         }
         
         array_push($this->items, $product);
         
-        \Session::insert(md5('SystemCartData'), $this->items);
+        $this->driver->insert(md5('SystemCartData'), $this->items);
         
-        $this->items = \Session::select(md5('SystemCartData'));
+        $this->items = $this->driver->select(md5('SystemCartData'));
         
         return true;
     }
@@ -65,7 +105,7 @@ class InternalCart extends \CallController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function selectItems() : Array
     {
-        if( $sessionCart = \Session::select(md5('SystemCartData')) )
+        if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
         {
             return $this->items = $sessionCart;
         }
@@ -84,7 +124,7 @@ class InternalCart extends \CallController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function selectItem($code) : \stdClass
     {
-        $this->items = ( $sessionCart = \Session::select(md5('SystemCartData')) ) 
+        $this->items = ( $sessionCart = $this->driver->select(md5('SystemCartData')) ) 
                        ? $sessionCart 
                        : '';
         
@@ -125,7 +165,7 @@ class InternalCart extends \CallController implements CartInterface
     {
         $totalItems  = 0;
 
-        if( $sessionCart = \Session::select(md5('SystemCartData')) )
+        if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
         {
             $this->items = $sessionCart;
             
@@ -152,7 +192,7 @@ class InternalCart extends \CallController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function totalPrices() : Int
     {
-        $this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
+        $this->items = ( $sessionSelect = $this->driver->select(md5('SystemCartData')) ) 
                        ? $sessionSelect
                        : '';
         
@@ -189,7 +229,7 @@ class InternalCart extends \CallController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function updateItem($code, Array $data) : Bool
     {   
-        $this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
+        $this->items = ( $sessionSelect = $this->driver->select(md5('SystemCartData')) ) 
                        ? $sessionSelect
                        : '';
         
@@ -234,7 +274,7 @@ class InternalCart extends \CallController implements CartInterface
             $i++;
         }
         
-        return \Session::insert(md5('SystemCartData'), $this->items);
+        return $this->driver->insert(md5('SystemCartData'), $this->items);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -246,7 +286,7 @@ class InternalCart extends \CallController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function deleteItem($code) : Bool
     {       
-        $this->items = ( $sessionSelect = \Session::select(md5('SystemCartData')) ) 
+        $this->items = ( $sessionSelect = $this->driver->select(md5('SystemCartData')) ) 
                        ? $sessionSelect
                        : '';
         
@@ -277,7 +317,7 @@ class InternalCart extends \CallController implements CartInterface
             $i++;
         }
         
-        return \Session::insert(md5('SystemCartData'), $this->items);       
+        return $this->driver->insert(md5('SystemCartData'), $this->items);       
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -289,7 +329,7 @@ class InternalCart extends \CallController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function deleteItems() : Bool
     {
-        return \Session::delete(md5('SystemCartData'));
+        return $this->driver->delete(md5('SystemCartData'));
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -339,5 +379,18 @@ class InternalCart extends \CallController implements CartInterface
         $moneyFormat = substr($moneyFormat,0,-1).','.$remaining.$type;
         
         return $moneyFormat;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Driver                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $driver
+    // @return object                                    
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    public function driver(String $driver) : InternalCart
+    {
+        return new self($driver);
     }
 }

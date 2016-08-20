@@ -206,6 +206,11 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
                 }   
             }
         }
+
+        if( ! is_scalar($value) )
+        {
+            $value = \Json::encode($value);
+        }
         
         if( setcookie($name, $value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
         {
@@ -266,6 +271,11 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
         
         if( isset($_COOKIE[$name]) )
         {
+            if( $decodeArray = \Json::decodeArray($_COOKIE[$name]) )
+            {
+                return $decodeArray;
+            }   
+
             return $_COOKIE[$name];
         }
         else
