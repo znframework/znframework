@@ -68,7 +68,7 @@ function configs(...$configs) : Array
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function config(String $file, String $value = NULL, String $newValue = NULL) : Array
+function config(String $file, String $value = NULL, $newValue = NULL) : Array
 {
     if( $newValue === NULL )
     {
@@ -76,11 +76,20 @@ function config(String $file, String $value = NULL, String $newValue = NULL) : A
     }
     else
     {
+        $default = Config::get($file, $value);
+
         Config::set($file, $value, $newValue);
 
-        $config = Config::get($file);
+        if( is_array($newValue) )
+        {
+            $config = Config::get($file, $value);
+        }
+        else
+        {
+            $config = Config::get($file);
+        }
 
-        Config::set($file, $value);
+        Config::set($file, $value, $default);
 
         return $config;
     }
