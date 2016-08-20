@@ -31,18 +31,20 @@ class GrandModel extends \CallController implements GrandModelInterface
     {
         if( defined('static::table') )
         {
-            $this->grandTable = static::table;
+            $grandTable = static::table;
         }                                                  
         else
         {
-            $this->grandTable = divide(str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+            $grandTable = divide(str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
         }
+
+        $this->grandTable = strtolower($grandTable);
 
         $tables = \DBTool::listTables();
         
-        if( ! in_array($this->grandTable, $tables) )
+        if( ! in_array($this->grandTable, \Arrays::map('strtolower', $tables)) )
         {
-            throw new \Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$this->grandTable));
+            throw new \Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$grandTable));
         }
     }
     
