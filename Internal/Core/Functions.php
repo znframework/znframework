@@ -915,7 +915,7 @@ function sslStatus() : String
 //--------------------------------------------------------------------------------------------------
 function indexStatus() : String
 {
-    if( Config::get('Htaccess', 'uri')[DIRECTORY_INDEX] ) 
+    if( Config::get('Htaccess', 'uri')['directoryIndex'] ) 
     {
         return DIRECTORY_INDEX.'/'; 
     }
@@ -1324,7 +1324,7 @@ function internalCreateHtaccessFile()
     $htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
     
     //-----------------------URI ZERONEED PHP----------------------------------------------------   
-    if( ! $htaccessSettings['uri'][DIRECTORY_INDEX] )
+    if( ! $htaccessSettings['uri']['directoryIndex'] )
     {
         $indexSuffix = $htaccessSettings['uri']['indexSuffix'];
         $flag        = ! empty($indexSuffix) ? 'QSA' : 'L';
