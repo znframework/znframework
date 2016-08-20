@@ -199,6 +199,11 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
             $traceInfo = isset($trace[$p2]) ? $trace[$p2] : $this->_traceFinder(debug_backtrace(), 8, 6);
         }
 
+        if( ! isset($traceInfo['class']) )
+        {
+            $traceInfo['class'] = $traceInfo['function'];
+        }
+
         return 
         [
             'class'    => $this->_cleanClassName($traceInfo['class']),
@@ -219,6 +224,13 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     {
         $classInfo = $trace[$p1];
         $fileInfo  = $trace[$p2];
+
+        if( ! isset($classInfo['class']) && isset($classInfo['function']) )
+        {
+            $classInfo['class'] = $classInfo['function'];
+            $fileInfo['file']   = $classInfo['file'];
+            $fileInfo['line']   = $classInfo['line'];
+        }
 
         return 
         [

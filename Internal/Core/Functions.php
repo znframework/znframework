@@ -78,7 +78,7 @@ function config(String $file, String $value = NULL, String $newValue = NULL) : A
     {
         Config::set($file, $value, $newValue);
 
-         return $config = Config::get($file);
+        $config = Config::get($file);
 
         Config::set($file, $value);
 
@@ -137,6 +137,8 @@ function gconfig(String $value = NULL)
 // 
 // @param string $symbolName
 //
+// @return string
+//
 //--------------------------------------------------------------------------------------------------
 function symbol(String $symbolName = 'turkishLira') : String
 {
@@ -157,6 +159,8 @@ function symbol(String $symbolName = 'turkishLira') : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function getLang() : String
@@ -198,6 +202,8 @@ function getLang() : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $l
+//
+// @return bool
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function setLang(String $l = NULL) : Bool
@@ -216,7 +222,9 @@ function setLang(String $l = NULL) : Bool
 //
 // @param string $file
 // @param string $str
-// @param mixed  $changed    
+// @param mixed  $changed 
+//
+// @return mixed   
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function lang(String $file, String $str = NULL, $changed = NULL)
@@ -291,6 +299,8 @@ function lang(String $file, String $str = NULL, $changed = NULL)
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function currentLang() : String
@@ -310,6 +320,8 @@ function currentLang() : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $fix
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function currentUrl(String $fix = NULL) : String
@@ -330,6 +342,8 @@ function currentUrl(String $fix = NULL) : String
 //
 // @param string $uri
 // @param int    $index
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function siteUrl(String $uri = NULL, Int $index = 0) : String
@@ -368,6 +382,8 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
 //
 // @param string $uri
 // @param int    $index
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function baseUrl(String $uri = NULL, Int $index = 0) : String
@@ -400,6 +416,8 @@ function baseUrl(String $uri = NULL, Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------    
 function prevUrl() : String
@@ -425,6 +443,8 @@ function prevUrl() : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $uri
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------    
 function hostUrl(String $uri = NULL) : String
@@ -437,6 +457,8 @@ function hostUrl(String $uri = NULL) : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param bool $isPath
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function currentPath(Bool $isPath = true) : String
@@ -471,6 +493,8 @@ function currentPath(Bool $isPath = true) : String
 //
 // @param string $uri
 // @param int    $index
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function basePath(String $uri = NULL, Int $index = 0) : String
@@ -502,6 +526,8 @@ function basePath(String $uri = NULL, Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param bool $isPath
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------    
 function prevPath(Bool $isPath = true) : String
@@ -543,6 +569,8 @@ function prevPath(Bool $isPath = true) : String
 //
 // @param string $file
 // @param string $removeurl
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function filePath(String $file = NULL, String $removeUrl = NULL) : String
@@ -604,6 +632,8 @@ function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = tru
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $k
+//
+// @return mixed
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function redirectData(String $k)
@@ -623,6 +653,8 @@ function redirectData(String $k)
 //--------------------------------------------------------------------------------------------------
 //
 // @param mixed $data
+//
+// @return bool
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function redirectDeleteData($data) : Bool
@@ -646,6 +678,8 @@ function redirectDeleteData($data) : Bool
 // @param string $class
 // @param string $function
 // @param mixed  $parameters
+//
+// @return callable
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function library(String $class, String $function, $parameters = [])
@@ -672,7 +706,9 @@ function library(String $class, String $function, $parameters = [])
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $class
-// @param array  $parameters                      
+// @param array  $parameters  
+//
+// @return class                    
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function uselib(String $class, Array $parameters = [])
@@ -709,6 +745,8 @@ function uselib(String $class, Array $parameters = [])
 // @param string $langFile
 // @param string $errorMsg
 // @param mixed  $ex
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
@@ -764,6 +802,8 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
 // @param string $message
 // @param string $destination
 // @param string $time
+//
+// @return bool
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
@@ -839,6 +879,8 @@ function headers($header)
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function sslStatus() : String
@@ -858,6 +900,8 @@ function sslStatus() : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function indexStatus() : String
@@ -877,6 +921,8 @@ function indexStatus() : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function currentUri() : String
@@ -903,6 +949,8 @@ function currentUri() : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function internalRequestURI() : String
@@ -952,6 +1000,8 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $requestUri
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function internalRouteURI(String $requestUri = NULL) : String
@@ -1013,6 +1063,8 @@ function internalRouteURI(String $requestUri = NULL) : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $string
+//
+// @return string
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
 function internalCleanInjection(String $string = NULL) : String
@@ -1099,7 +1151,7 @@ function internalCreateRobotsFile()
     
     if( ! file_put_contents('robots.txt', trim($robots)) )
     {
-        Errors::set('Error', 'fileNotWrite', 'robots.txt');
+        Exceptions::throws('Error', 'fileNotWrite', 'robots.txt');
     }
     
     unset( $robots );   
@@ -1363,7 +1415,7 @@ function internalCreateHtaccessFile()
     
     if( ! file_put_contents('.htaccess', trim($htaccess)) )
     {
-        Errors::set('Error', 'fileNotWrite', '.htaccess');
+        Exceptions::throws('Error', 'fileNotWrite', '.htaccess');
     }
     
     unset( $htaccess ); 
