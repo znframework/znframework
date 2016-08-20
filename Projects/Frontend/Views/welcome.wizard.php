@@ -4,7 +4,7 @@
 
     #head
         #meta[http-equiv="Content-Type" content="text/html; charset=utf-8"]:
-        #title(ZN PHP Web Framework):
+        #title(ZN 4 EIP EDITION):
 
         #link[href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css"]
 
