@@ -63,7 +63,7 @@ interface ImportInterface
     // @var mixed $head
     //
     //--------------------------------------------------------------------------------------------------------
-    public function head(String $head) : InternalImport;
+    public function head($head) : InternalImport;
     
     //--------------------------------------------------------------------------------------------------------
     // title()
