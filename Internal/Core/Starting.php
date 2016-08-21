@@ -106,12 +106,12 @@ define('HOST_NAME', HOST);
 $appcon = Config::get('Project');
 
 //--------------------------------------------------------------------------------------------------
-// Application Mode
+// Project Mode
 //--------------------------------------------------------------------------------------------------
-define('APPMODE', strtolower($appcon['mode']));
+define('PROJECT_MODE', strtolower($appcon['mode']));
 //--------------------------------------------------------------------------------------------------
 
-internalApplicationMode(APPMODE, $appcon['errorReporting']);
+internalProjectMode(PROJECT_MODE, $appcon['errorReporting']);
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ headers(Config::get('General', 'headers'));
 // Yakanalan hata set ediliyor.
 //
 //--------------------------------------------------------------------------------------------------
-if( APPMODE !== 'publication' )
+if( PROJECT_MODE !== 'publication' )
 {
     set_error_handler('Exceptions::table');
 }

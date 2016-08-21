@@ -922,7 +922,7 @@ function internalApplicationContainerDir() : String
 }
 
 //--------------------------------------------------------------------------------------------------
-// Application Mode
+// Project Mode
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $mode: publication, development, restoration
@@ -931,7 +931,7 @@ function internalApplicationContainerDir() : String
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function internalApplicationMode(String $mode, Int $report = -1)
+function internalProjectMode(String $mode, Int $report = -1)
 {
     //----------------------------------------------------------------------------------------------
     // Kullanılabilir Uygulama Seçenekleri

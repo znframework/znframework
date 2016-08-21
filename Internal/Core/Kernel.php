@@ -193,7 +193,7 @@ if( is_file($isFile) )
             }
             catch(\Throwable $e)
             {
-                if( APPMODE !== 'publication' )
+                if( PROJECT_MODE !== 'publication' )
                 {
                     \Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
                 }
@@ -235,7 +235,7 @@ else
 // @mode = 'publication'
 //
 //--------------------------------------------------------------------------------------------------
-if( APPMODE !== 'publication' )
+if( PROJECT_MODE !== 'publication' )
 {
     restore_error_handler();
 }

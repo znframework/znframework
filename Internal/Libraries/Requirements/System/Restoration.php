@@ -24,7 +24,7 @@ class Restoration
 
         $restorationIP = $projects['restoration']['machinesIP'];
         
-        if( APPMODE === 'restoration' )
+        if( PROJECT_MODE === 'restoration' )
         {
             $ipv4 = ipv4();
             
