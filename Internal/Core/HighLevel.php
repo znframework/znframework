@@ -29,13 +29,13 @@ define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config/');
 define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config/'); 
 
 //--------------------------------------------------------------------------------------------------
-// HIERARCHY_DIR
+// REQUIRED_DIR
 //--------------------------------------------------------------------------------------------------
 //
-// @return Internal/Core/Hierarchy.php
+// @return Internal/Core/Required.php
 //
 //--------------------------------------------------------------------------------------------------
-define('HIERARCHY_DIR', CORE_DIR.'Hierarchy.php');
+define('REQUIRED_DIR', CORE_DIR.'Required.php');
 
 //--------------------------------------------------------------------------------------------------
 // EOL
