@@ -797,55 +797,55 @@ function ipv4() : String
 //--------------------------------------------------------------------------------------------------
 function server(String $type = '')
 {
-    $server = array
-    (
+    $server =
+    [
         ''                           => $_SERVER,
-        'name'                       => (isset($_SERVER['SERVER_NAME']))            ? $_SERVER['SERVER_NAME']           : false,
-        'admin'                      => (isset($_SERVER['SERVER_ADMIN']))           ? $_SERVER['SERVER_ADMIN']          : false,
-        'protocol'                   => (isset($_SERVER['SERVER_PROTOCOL']))        ? $_SERVER['SERVER_PROTOCOL']       : false,
-        'signature'                  => (isset($_SERVER['SERVER_SIGNATURE']))       ? $_SERVER['SERVER_SIGNATURE']      : false,
-        'software'                   => (isset($_SERVER['SERVER_SOFTWARE']))        ? $_SERVER['SERVER_SOFTWARE']       : false,        
-        'remoteAddr'                 => (isset($_SERVER['REMOTE_ADDR']))            ? $_SERVER['REMOTE_ADDR']           : false,
-        'remotePort'                 => (isset($_SERVER['REMOTE_PORT']))            ? $_SERVER['REMOTE_PORT']           : false,    
-        'requestMethod'              => (isset($_SERVER['REQUEST_METHOD'] ))        ? $_SERVER['REQUEST_METHOD']        : false,
-        'requestUri'                 => (isset($_SERVER['REQUEST_URI']))            ? $_SERVER['REQUEST_URI']           : false,
-        'requestScheme'              => (isset($_SERVER['REQUEST_SCHEME']))         ? $_SERVER['REQUEST_SCHEME']        : false,
-        'requestTime'                => (isset($_SERVER['REQUEST_TIME']))           ? $_SERVER['REQUEST_TIME']          : false,
-        'requestTimeFloat'           => (isset($_SERVER['REQUEST_TIME_FLOAT']))     ? $_SERVER['REQUEST_TIME_FLOAT']    : false,
-        'accept'                     => (isset($_SERVER['HTTP_ACCEPT']))            ? $_SERVER['HTTP_ACCEPT']           : false,
-        'acceptCharset'              => (isset($_SERVER['HTTP_ACCEPT_CHARSET']))    ? $_SERVER['HTTP_ACCEPT_CHARSET']   : false,
-        'acceptEncoding'             => (isset($_SERVER['HTTP_ACCEPT_ENCODING']))   ? $_SERVER['HTTP_ACCEPT_ENCODING']  : false,
-        'acceptLanguage'             => (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))   ? $_SERVER['HTTP_ACCEPT_LANGUAGE']  : false,
-        'clientIp'                   => (isset($_SERVER['HTTP_CLIENT_IP']))         ? $_SERVER['HTTP_CLIENT_IP']        : false,
-        'xForwardedHost'             => (isset($_SERVER['HTTP_X_FORWARDED_HOST']))  ? $_SERVER['HTTP_X_FORWARDED_HOST'] : false,
-        'xForwardedFor'              => (isset($_SERVER['HTTP_X_FORWARDED_FOR']))   ? $_SERVER['HTTP_X_FORWARDED_FOR']  : false,
-        'xOriginalUrl'               => (isset($_SERVER['HTTP_X_ORIGINAL_URL']))    ? $_SERVER['HTTP_X_ORIGINAL_URL']   : false,
-        'xRequestedWith'             => (isset($_SERVER['HTTP_X_REQUESTED_WITH']))  ? $_SERVER['HTTP_X_REQUESTED_WITH'] : false,
-        'connection'                 => (isset($_SERVER['HTTP_CONNECTION']))        ? $_SERVER['HTTP_CONNECTION']       : false,
-        'host'                       => (isset($_SERVER['HTTP_HOST']))              ? $_SERVER['HTTP_HOST']             : false,
-        'referer'                    => (isset($_SERVER['HTTP_REFERER']))           ? $_SERVER['HTTP_REFERER']          : false,
-        'userAgent'                  => (isset($_SERVER['HTTP_USER_AGENT']))        ? $_SERVER['HTTP_USER_AGENT']       : false,
-        'cookie'                     => (isset($_SERVER['HTTP_COOKIE']))            ? $_SERVER['HTTP_COOKIE']           : false,
-        'cacheControl'               => (isset($_SERVER['HTTP_CACHE_CONTROL']))     ? $_SERVER['HTTP_CACHE_CONTROL']    : false,
-        'https'                      => (isset($_SERVER['HTTPS']))                  ? $_SERVER['HTTPS']                 : false,
-        'scriptFileName'             => (isset($_SERVER['SCRIPT_FILENAME']))        ? $_SERVER['SCRIPT_FILENAME']       : false,
-        'scriptName'                 => (isset($_SERVER['SCRIPT_NAME']))            ? $_SERVER['SCRIPT_NAME']           : false,
-        'path'                       => (isset($_SERVER['PATH']))                   ? $_SERVER['PATH']                  : false,
-        'pathInfo'                   => (isset($_SERVER['PATH_INFO']))              ? $_SERVER['PATH_INFO']             : false,
-        'currentPath'                => (isset($_SERVER['PATH_INFO']))              ? $_SERVER['PATH_INFO']             : $_SERVER['QUERY_STRING'],
-        'pathTranslated'             => (isset($_SERVER['PATH_TRANSLATED']))        ? $_SERVER['PATH_TRANSLATED']       : false,
-        'pathext'                    => (isset($_SERVER['PATHEXT']))                ? $_SERVER['PATHEXT']               : false,
-        'redirectQueryString'        => (isset($_SERVER['REDIRECT_QUERY_STRING']))  ? $_SERVER['REDIRECT_QUERY_STRING'] : false,
-        'redirectUrl'                => (isset($_SERVER['REDIRECT_URL']))           ? $_SERVER['REDIRECT_URL']          : false,
-        'redirectStatus'             => (isset($_SERVER['REDIRECT_STATUS']))        ? $_SERVER['REDIRECT_STATUS']       : false,
-        'phpSelf'                    => (isset($_SERVER['PHP_SELF']))               ? $_SERVER['PHP_SELF']              : false,
-        'queryString'                => (isset($_SERVER['QUERY_STRING']))           ? $_SERVER['QUERY_STRING']          : false,    
-        'documentRoot'               => (isset($_SERVER['DOCUMENT_ROOT']))          ? $_SERVER['DOCUMENT_ROOT']         : false,                            
-        'windir'                     => (isset($_SERVER['WINDIR']))                 ? $_SERVER['WINDIR']                : false,
-        'comspec'                    => (isset($_SERVER['COMSPEC']))                ? $_SERVER['COMSPEC']               : false,
-        'systemRoot'                 => (isset($_SERVER['SystemRoot']))             ? $_SERVER['SystemRoot']            : false,
-        'gatewayInterface'           => (isset($_SERVER['GATEWAY_INTERFACE']))      ? $_SERVER['GATEWAY_INTERFACE']     : false         
-    );  
+        'name'                       => $_SERVER['SERVER_NAME']           ?? false,
+        'admin'                      => $_SERVER['SERVER_ADMIN']          ?? false,
+        'protocol'                   => $_SERVER['SERVER_PROTOCOL']       ?? false,
+        'signature'                  => $_SERVER['SERVER_SIGNATURE']      ?? false,
+        'software'                   => $_SERVER['SERVER_SOFTWARE']       ?? false,        
+        'remoteAddr'                 => $_SERVER['REMOTE_ADDR']           ?? false,
+        'remotePort'                 => $_SERVER['REMOTE_PORT']           ?? false,    
+        'requestMethod'              => $_SERVER['REQUEST_METHOD']        ?? false,
+        'requestUri'                 => $_SERVER['REQUEST_URI']           ?? false,
+        'requestScheme'              => $_SERVER['REQUEST_SCHEME']        ?? false,
+        'requestTime'                => $_SERVER['REQUEST_TIME']          ?? false,
+        'requestTimeFloat'           => $_SERVER['REQUEST_TIME_FLOAT']    ?? false,
+        'accept'                     => $_SERVER['HTTP_ACCEPT']           ?? false,
+        'acceptCharset'              => $_SERVER['HTTP_ACCEPT_CHARSET']   ?? false,
+        'acceptEncoding'             => $_SERVER['HTTP_ACCEPT_ENCODING']  ?? false,
+        'acceptLanguage'             => $_SERVER['HTTP_ACCEPT_LANGUAGE']  ?? false,
+        'clientIp'                   => $_SERVER['HTTP_CLIENT_IP']        ?? false,
+        'xForwardedHost'             => $_SERVER['HTTP_X_FORWARDED_HOST'] ?? false,
+        'xForwardedFor'              => $_SERVER['HTTP_X_FORWARDED_FOR']  ?? false,
+        'xOriginalUrl'               => $_SERVER['HTTP_X_ORIGINAL_URL']   ?? false,
+        'xRequestedWith'             => $_SERVER['HTTP_X_REQUESTED_WITH'] ?? false,
+        'connection'                 => $_SERVER['HTTP_CONNECTION']       ?? false,
+        'host'                       => $_SERVER['HTTP_HOST']             ?? false,
+        'referer'                    => $_SERVER['HTTP_REFERER']          ?? false,
+        'userAgent'                  => $_SERVER['HTTP_USER_AGENT']       ?? false,
+        'cookie'                     => $_SERVER['HTTP_COOKIE']           ?? false,
+        'cacheControl'               => $_SERVER['HTTP_CACHE_CONTROL']    ?? false,
+        'https'                      => $_SERVER['HTTPS']                 ?? false,
+        'scriptFileName'             => $_SERVER['SCRIPT_FILENAME']       ?? false,
+        'scriptName'                 => $_SERVER['SCRIPT_NAME']           ?? false,
+        'path'                       => $_SERVER['PATH']                  ?? false,
+        'pathInfo'                   => $_SERVER['PATH_INFO']             ?? false,
+        'currentPath'                => $_SERVER['PATH_INFO']             ?? $_SERVER['QUERY_STRING'] ?? false,
+        'pathTranslated'             => $_SERVER['PATH_TRANSLATED']       ?? false,
+        'pathext'                    => $_SERVER['PATHEXT']               ?? false,
+        'redirectQueryString'        => $_SERVER['REDIRECT_QUERY_STRING'] ?? false,
+        'redirectUrl'                => $_SERVER['REDIRECT_URL']          ?? false,
+        'redirectStatus'             => $_SERVER['REDIRECT_STATUS']       ?? false,
+        'phpSelf'                    => $_SERVER['PHP_SELF']              ?? false,
+        'queryString'                => $_SERVER['QUERY_STRING']          ?? false,    
+        'documentRoot'               => $_SERVER['DOCUMENT_ROOT']         ?? false,                            
+        'windir'                     => $_SERVER['WINDIR']                ?? false,
+        'comspec'                    => $_SERVER['COMSPEC']               ?? false,
+        'systemRoot'                 => $_SERVER['SystemRoot']            ?? false,
+        'gatewayInterface'           => $_SERVER['GATEWAY_INTERFACE']     ?? false         
+    ];  
     
     if( isset($server[$type]) )
     {
@@ -867,7 +867,7 @@ function server(String $type = '')
 }   
 
 //--------------------------------------------------------------------------------------------------
-// errorReport()
+// lastError()
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $type = NULL
@@ -875,7 +875,7 @@ function server(String $type = '')
 // @param mixed
 //                                                                                            
 //--------------------------------------------------------------------------------------------------
-function errorReport(String $type = NULL)
+function lastError(String $type = NULL)
 {   
     $result = error_get_last();
     

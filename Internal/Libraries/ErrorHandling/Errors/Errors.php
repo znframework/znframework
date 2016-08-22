@@ -44,7 +44,7 @@ class InternalErrors implements ErrorsInterface
     //--------------------------------------------------------------------------------------------------------
     public function last(String $type = NULL)
     {
-        return errorReport($type);
+        return lastError($type);
     }
     
     //--------------------------------------------------------------------------------------------------------
