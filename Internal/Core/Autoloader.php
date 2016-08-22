@@ -181,7 +181,7 @@ class Autoloader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function getClassFileInfo(String $class)
+    public static function getClassFileInfo(String $class) : Array
     {   
         $classCaseLower = strtolower($class);
         $classMap       = self::_config();
@@ -226,18 +226,18 @@ class Autoloader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function tokenClassFileInfo(String $fileName)
+    public static function tokenClassFileInfo(String $fileName) : Array
     {
+        $classInfo = [];
+
         if( ! is_file($fileName) )
         {
-            return false;   
+            return $classInfo;   
         }
         
-        $tokens    = token_get_all(file_get_contents($fileName));
-        $classInfo = [];
-        
-        $i = 0;
-        $ns = '';
+        $tokens = token_get_all(file_get_contents($fileName));
+        $i      = 0;
+        $ns     = '';
         
         foreach( $tokens as $token )
         {
