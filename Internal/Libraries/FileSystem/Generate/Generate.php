@@ -204,8 +204,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
                                           );
         }
         
-        $controller .= ";".$eol;
-        $controller .= "{".$eol;
+        $controller .= $eol."{".$eol;
         
         // Traits Data
         if( ! empty($this->settings['traits']) )
