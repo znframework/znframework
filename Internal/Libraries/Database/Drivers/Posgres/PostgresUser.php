@@ -20,11 +20,11 @@ class PostgresUser extends DriverUser
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $postgreQuoteOptions = array
-    (
+    protected $postgreQuoteOptions = 
+    [
         'PASSWORD',
         'VALID UNTIL'
-    );
+    ];
     
     //--------------------------------------------------------------------------------------------------------
     // name()
@@ -53,7 +53,7 @@ class PostgresUser extends DriverUser
             $value = presuffix($value, '\'');   
         }
         
-        $this->parameters[1] = $option.' '.$value;
+        $this->parameters['option'] = $option.' '.$value;
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -64,12 +64,11 @@ class PostgresUser extends DriverUser
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create($user, $parameters)
+    public function create($user)
     {
         $query = 'CREATE USER '.
                  $user.
-                 ( ! empty($parameters[0]) ? ' '.$parameters[0] : '' ).
-                 ( ! empty($parameters[1]) ? ' '.$parameters[1] : '' );
+                 ( ! empty($this->parameters['option']) ? ' '.$this->parameters['option'] : '' );
 
         $this->_resetQuery();
 
@@ -83,7 +82,7 @@ class PostgresUser extends DriverUser
     // @param string $user
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop($user, $type = NULL)
+    public function drop($user)
     {
         $query = 'DROP USER '.$user;
 
@@ -100,12 +99,11 @@ class PostgresUser extends DriverUser
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter($user, $parameters)
+    public function alter($user)
     {
         $query = 'ALTER USER '.
                  $user.
-                 ( ! empty($parameters[0]) ? ' '.$parameters[0] : '' ).
-                 ( ! empty($parameters[1]) ? ' '.$parameters[1] : '' );
+                 ( ! empty($this->parameters['option']) ? ' '.$this->parameters['option'] : '' );
 
         $this->_resetQuery();
 

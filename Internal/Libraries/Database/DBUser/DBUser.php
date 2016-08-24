@@ -75,48 +75,6 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // groups()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function groups(String $authString) : InternalDBUser
-    {
-        $this->user->groups($authString);
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // members()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function members(String $authString) : InternalDBUser
-    {
-        $this->user->members($authString);
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // schema()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function schema(String $authString) : InternalDBUser
-    {
-        $this->user->schema($authString);
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
     // identifiedBy()
     //--------------------------------------------------------------------------------------------------------
     // 
@@ -351,63 +309,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
         
         return $this;
     }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // firstName()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function firstName(String $authString) : InternalDBUser
-    {
-        $this->user->firstName($authString);
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // middleName()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function middleName(String $authString) : InternalDBUser
-    {
-        $this->user->middleName($authString);
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // lastName()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function lastName(String $authString) : InternalDBUser
-    {
-        $this->user->lastName($authString);
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // adminRole()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function adminRole(String $authString = 'GRANT') : InternalDBUser
-    {
-        $this->user->adminRole($authString);
-        
-        return $this;
-    }
-    
+  
     //--------------------------------------------------------------------------------------------------------
     // alter()
     //--------------------------------------------------------------------------------------------------------
@@ -415,11 +317,11 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter(String $name = NULL, $schema = NULL) : Bool
+    public function alter(String $name = NULL) : Bool
     {
         nullCoalesce($name, 'USER()');
 
-        $query = $this->user->alter($name, $schema);
+        $query = $this->user->alter($name);
 
         return $this->_runQuery($query);
     }
@@ -431,11 +333,11 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name = NULL, $schema = NULL) : Bool
+    public function create(String $name = NULL) : Bool
     {
         nullCoalesce($name, 'USER()');
 
-        $query = $this->user->create($name, $schema);
+        $query = $this->user->create($name);
 
         return $this->_runQuery($query);
     }
@@ -447,11 +349,11 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name = NULL, $type = NULL) : Bool
+    public function drop(String $name = NULL) : Bool
     {
         nullCoalesce($name, 'USER()');
 
-        $query = $this->user->drop($name, $type);
+        $query = $this->user->drop($name);
 
         return $this->_runQuery($query);
     }
@@ -483,7 +385,7 @@ class InternalDBUser extends DatabaseCommon implements DBUserInterface
     //--------------------------------------------------------------------------------------------------------
     public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
     {
-        $query = $this->user->revoke($name, $schema);
+        $query = $this->user->revoke($name, $type, $select);
 
         return $this->_runQuery($query);
     }

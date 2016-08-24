@@ -71,7 +71,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         'longText'      => 'BLOB',
         'date'          => 'DATE',
         'dateTime'      => 'DATETIME',
-        'time'          => 'DATE',
+        'time'          => 'DATETIME',
         'timeStamp'     => 'DATETIME'
     ];
     
