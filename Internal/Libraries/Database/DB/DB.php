@@ -1235,9 +1235,11 @@ class InternalDB extends DatabaseCommon implements DBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transStart()
+    public function transStart() : InternalDB
     {
         $this->transStart = $this->db->transStart();
+
+        return $this;
     }
     
     //--------------------------------------------------------------------------------------------------------
