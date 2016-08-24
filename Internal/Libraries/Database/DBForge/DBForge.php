@@ -95,9 +95,9 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
     // @param mixed $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTable(String $table = NULL, Array $colums, $extras = NULL) : Bool
+    public function createTable(String $table = NULL, Array $colums = NULL, $extras = NULL) : Bool
     {       
-        $query = $this->forge->createTable($this->_p($table), $colums, $extras);
+        $query = $this->forge->createTable($this->_p($table), $this->_p($colums, 'column'), $extras);
     
         return $this->_runExecQuery($query);
     }

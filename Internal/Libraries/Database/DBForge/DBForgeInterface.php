@@ -28,7 +28,7 @@ interface DBForgeInterface
     // @param mixed  $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createDatabase(String $dbname, $extras) : Bool;
+    public function createDatabase(String $dbname, $extras = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Drop Database
@@ -48,7 +48,7 @@ interface DBForgeInterface
     // @param mixed  $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTable(String $table, Array $condition, $extras) : Bool;
+    public function createTable(String $table = NULL, Array $colums = NULL, $extras = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Drop Table
@@ -57,7 +57,7 @@ interface DBForgeInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTable(String $table) : Bool;
+    public function dropTable(String $table = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Alter Table
@@ -67,7 +67,7 @@ interface DBForgeInterface
     // @param array  $condition
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alterTable(String $table, Array $condition) : Bool;
+    public function alterTable(String $table = NULL, Array $condition = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Rename Table
@@ -86,7 +86,7 @@ interface DBForgeInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate(String $table) : Bool;
+    public function truncate(String $table = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Add Column
@@ -96,7 +96,7 @@ interface DBForgeInterface
     // @param array  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addColumn(String $table, Array $columns) : Bool;
+    public function addColumn(String $table = NULL, Array $columns = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
@@ -106,7 +106,7 @@ interface DBForgeInterface
     // @param mixed  $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropColumn(String $table, $column) : Bool;
+    public function dropColumn(String $table = NULL, $columns = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
@@ -116,7 +116,7 @@ interface DBForgeInterface
     // @param mixed  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function modifyColumn(String $table, Array $columns) : Bool;
+    public function modifyColumn(String $table = NULL, Array $columns = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
@@ -126,5 +126,5 @@ interface DBForgeInterface
     // @param mixed  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameColumn(String $table, Array $condition) : Bool;
+    public function renameColumn(String $table = NULL, Array $columns = NULL) : Bool;
 }
