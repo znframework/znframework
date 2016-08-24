@@ -28,7 +28,7 @@ interface DatabaseCommonInterface
     // @param mixed  $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $col, $val) : DatabaseCommon;
+    public function column(String $col, $val = NULL) : DatabaseCommon;
     
     //--------------------------------------------------------------------------------------------------------
     // String Query

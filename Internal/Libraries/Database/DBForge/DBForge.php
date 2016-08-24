@@ -203,7 +203,9 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function dropColumn(String $table = NULL, $columns = NULL) : Bool
-    {
+    {   
+        $columns = $this->_p($columns, 'column');
+
         if( ! is_array($columns) )
         {
             $query = $this->forge->dropColumn($this->_p($table), $columns);
@@ -212,10 +214,13 @@ class InternalDBForge extends DatabaseCommon implements DBForgeInterface
         }
         else
         {
-            $columns = $this->_p($columns, 'column');
-
-            foreach( $columns as $col )
+            foreach( $columns as $key => $col )
             {
+                if( ! is_numeric($key) )
+                {
+                    $col = $key;
+                }
+
                 $query = $this->forge->dropColumn($this->_p($table), $col);
                 
                 $this->_runExecQuery($query);
