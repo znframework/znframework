@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class DriverTrigger
+class DriverTrigger extends DatabaseCommon
 {
     //--------------------------------------------------------------------------------------------------------
     //

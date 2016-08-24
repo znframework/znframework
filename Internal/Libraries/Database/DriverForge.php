@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class DriverForge
+class DriverForge extends DatabaseCommon
 {
     //--------------------------------------------------------------------------------------------------------
     //

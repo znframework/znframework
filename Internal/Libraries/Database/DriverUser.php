@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class DriverUser
+class DriverUser extends DatabaseCommon
 {
     //--------------------------------------------------------------------------------------------------------
     //
