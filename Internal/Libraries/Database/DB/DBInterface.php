@@ -258,7 +258,7 @@ interface DBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchAssoc();
+    public function fetchAssoc() : Array;
     
     //--------------------------------------------------------------------------------------------------------
     // Fetch
@@ -267,7 +267,7 @@ interface DBInterface
     // @param string $type: assoc, array, row
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetch(String $type = 'assoc');
+    public function fetch(String $type = 'assoc') : Array;
     
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
@@ -276,7 +276,7 @@ interface DBInterface
     // @param boolean $printable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchRow(Bool $printable = false);
+    public function fetchRow(Bool $printable = false) : Array;
     
     //--------------------------------------------------------------------------------------------------------
     // Row
