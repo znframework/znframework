@@ -16,10 +16,10 @@
 // 
 // @param string $const
 //
-// @return string
+// @return scalar
 //
 //--------------------------------------------------------------------------------------------------
-function illustrate(String $const) : String
+function illustrate(String $const)
 {
     if( defined($const) )
     {
