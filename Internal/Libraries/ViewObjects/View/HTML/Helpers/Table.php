@@ -1,6 +1,8 @@
-<?php namespace ZN\Components;
+<?php namespace ZN\ViewObjects\View\HTML\Helpers;
 
-interface TableInterface
+use ZN\ViewObjects\View\Abstracts\HTMLHelpersAbstract;
+
+class Table extends HTMLHelpersAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,11 +17,29 @@ interface TableInterface
     // Attr
     //--------------------------------------------------------------------------------------------------------
     // 
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $attr = [];
+    
+
+    //--------------------------------------------------------------------------------------------------------
+    // Attr
+    //--------------------------------------------------------------------------------------------------------
+    // 
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attr(Array $attributes) : InternalTable;
+    public function attr(Array $attributes) : Table
+    {
+        foreach( $attributes as $att => $val )
+        {
+            $this->attr[$att] = $val; 
+        }
 
+        return $this;
+    }
+    
     //--------------------------------------------------------------------------------------------------------
     // Align
     //--------------------------------------------------------------------------------------------------------
@@ -27,7 +47,12 @@ interface TableInterface
     // @param string $align
     //
     //--------------------------------------------------------------------------------------------------------
-    public function align(String $align) : InternalTable;
+    public function align(String $align) : Table
+    {
+        $this->attr['align'] = $align;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Cell
@@ -37,7 +62,13 @@ interface TableInterface
     // @param numeric $padding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cell(Int $spacing, Int $padding) : InternalTable;
+    public function cell(Int $spacing, Int $padding) : Table
+    {
+        $this->attr['cellspacing'] = $spacing;
+        $this->attr['cellpadding'] = $padding;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Cell Spacing
@@ -46,7 +77,12 @@ interface TableInterface
     // @param numeric $spacing
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cellSpacing(Int $spacing) : InternalTable;
+    public function cellSpacing(Int $spacing) : Table
+    {
+        $this->attr['cellspacing'] = $spacing;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Cell Padding
@@ -55,7 +91,12 @@ interface TableInterface
     // @param numeric $padding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cellPadding(Int $padding) : InternalTable;
+    public function cellPadding(Int $padding) : Table
+    {
+        $this->attr['cellpadding'] = $padding;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Border
@@ -65,7 +106,17 @@ interface TableInterface
     // @param string  $color
     //
     //--------------------------------------------------------------------------------------------------------
-    public function border(Int $border, String $color) : InternalTable;
+    public function border(Int $border, String $color = NULL) : Table
+    {
+        $this->attr['border'] = $border;
+
+        if( ! empty($color) )
+        {
+            $this->attr['bordercolor'] = $color;
+        }
+
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Border Size
@@ -74,7 +125,12 @@ interface TableInterface
     // @param numeric $border
     //
     //--------------------------------------------------------------------------------------------------------
-    public function borderSize(Int $border) : InternalTable;
+    public function borderSize(Int $border) : Table
+    {
+        $this->attr['border'] = $border;
+    
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Border Color
@@ -83,7 +139,12 @@ interface TableInterface
     // @param string $color
     //
     //--------------------------------------------------------------------------------------------------------
-    public function borderColor(String $color) : InternalTable;
+    public function borderColor(String $color) : Table
+    {
+        $this->attr['bordercolor'] = $color;
+    
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Width
@@ -92,7 +153,12 @@ interface TableInterface
     // @param numeric $width
     //
     //--------------------------------------------------------------------------------------------------------
-    public function width(Int $width) : InternalTable;
+    public function width(Int $width) : Table
+    {
+        $this->attr['width'] = $width;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Height
@@ -101,7 +167,12 @@ interface TableInterface
     // @param numeric $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function height(Int $height) : InternalTable;
+    public function height(Int $height) : Table
+    {
+        $this->attr['height'] = $height;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Size
@@ -111,7 +182,13 @@ interface TableInterface
     // @param numeric $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(Int $width, Int $height) : InternalTable;
+    public function size(Int $width, Int $height) : Table
+    {
+        $this->attr['width']  = $width;
+        $this->attr['height'] = $height;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Css
@@ -120,7 +197,12 @@ interface TableInterface
     // @param string $css
     //
     //--------------------------------------------------------------------------------------------------------
-    public function css(String $css) : InternalTable;
+    public function css(String $css) : Table
+    {
+        $this->attr['class'] = $css;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Style
@@ -129,7 +211,24 @@ interface TableInterface
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(Array $attributes) : InternalTable;
+    public function style(Array $attributes) : Table
+    {
+        $attribute = '';
+    
+        foreach( $attributes as $key => $values )
+        {
+            if( is_numeric($key) )
+            {
+                $key = $values;
+            }
+            
+            $attribute .= ' '.$key.':'.$values.';';
+        }
+        
+        $this->attr['style'] = $attribute;
+        
+        return $this;   
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Background
@@ -138,7 +237,12 @@ interface TableInterface
     // @param mixed $background
     //
     //--------------------------------------------------------------------------------------------------------
-    public function background(String $background) : InternalTable;
+    public function background(String $background) : Table
+    {
+        $this->attr['background'] = $background;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Bg Color
@@ -147,23 +251,84 @@ interface TableInterface
     // @param string $bgColor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgColor(String $bgColor) : InternalTable;
-    
+    public function bgColor(String $bgColor) : Table
+    {
+        $this->attr['bgcolor'] = $bgColor;
+        
+        return $this;
+    }
+
     //--------------------------------------------------------------------------------------------------------
-    // Content
+    // Create
     //--------------------------------------------------------------------------------------------------------
     // 
     // @param variadic $elements
     //
     //--------------------------------------------------------------------------------------------------------
-    public function content(...$elements) : InternalTable;
-    
+    public function create(...$elements) : String
+    {
+        $table  = '<table'.\Html::attributes($this->attr).'>';
+        $table .= $this->_content(...$elements);
+        $table .= '</table>';
+        
+        if( ! empty($this->table)) $this->table = NULL;
+        if( ! empty($this->attr))  $this->attr = [];
+        
+        return $table;
+    }
+
     //--------------------------------------------------------------------------------------------------------
-    // Create
+    // Protected Content
     //--------------------------------------------------------------------------------------------------------
     // 
-    // @param void
+    // @param variadic $elements
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create() : String;
+    protected function _content(...$elements)
+    {   
+        $colNo = 1;
+        $rowNo = 1;
+        $table = '';
+        $eol   = EOL;
+        
+        if( isset($elements[0][0]) && is_array($elements[0][0]))
+        {
+            $elements = $elements[0];   
+        }
+  
+        foreach( $elements as $key => $element )
+        {
+            $table .= $eol."\t".'<tr>'.$eol;
+            
+            if(is_array($element))foreach($element as $k => $v)
+            {
+                $val = $v;
+                $attr = "";
+                
+                if(is_array($v))
+                {
+                    $attr = \Html::attributes($v);
+                    $val = $k;
+                }
+                
+                if( strpos($val, 'th:') === 0 )
+                {
+                    $rowType = 'th';
+                    $val = substr($val, 3);
+                }
+                else
+                {
+                    $rowType = 'td';
+                }
+                
+                $table .= "\t\t".'<'.$rowType.$attr.'>'.$val.'</'.$rowType.'>'.$eol;    
+                $colNo++;
+            }
+        
+            $table .= "\t".'</tr>'.$eol;
+            $rowNo++;
+        }
+        
+        return $table;
+    }
 }

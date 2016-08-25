@@ -1,6 +1,8 @@
-<?php namespace ZN\Components;
+<?php namespace ZN\ViewObjects\View\HTML\Helpers;
 
-class InternalSchedule extends \CallController implements ScheduleInterface
+use ZN\ViewObjects\View\Abstracts\HTMLHelpersAbstract;
+
+class Lists extends HTMLHelpersAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,9 +20,9 @@ class InternalSchedule extends \CallController implements ScheduleInterface
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Array $data) : String
+    public function create(...$elements) : String
     {           
-        return $this->_element($data, '', 0);
+        return $this->_element($elements[0], '', 0);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -49,20 +51,37 @@ class InternalSchedule extends \CallController implements ScheduleInterface
         {
             foreach( $data as $k => $v )
             {
-                if( is_numeric($k) )
+                if( isRealNumeric($k) )
                 {
-                    $k = 'li';
-                }   
+                    $value = $k;
+                    $k     = 'li';
+                } 
+                else
+                {
+                    $value = NULL;
+                }  
                 
-                $end = "/".\Arrays::getFirst(explode(' ', $k));
-                
+                $end = prefix(\Arrays::getFirst(explode(' ', $k))); 
+
                 if( ! is_array($v) )
-                {           
+                {   
+                          
                     $output .= "$tab<$k>$v<$end>$eof";
                 }
                 else
-                {
-                    $output .= $tab."<$k>$eof".$this->_element($v, $tab, $start++).$tab."<$end>".$tab.$eof; 
+                {    
+                    if( stripos($k, 'ul') !== 0 && stripos($k, 'ol') !== 0 && $k !== 'li' )
+                    {
+                        $value = $k;   
+                        $k     = 'li';      
+                        $end   = prefix($k);
+                    }   
+                    else
+                    {
+                        $value = NULL;
+                    } 
+                    
+                    $output .= $tab."<$k>$value$eof".$this->_element($v, $tab, $start++).$tab."<$end>".$tab.$eof; 
                     $start--;
                 }
             }
