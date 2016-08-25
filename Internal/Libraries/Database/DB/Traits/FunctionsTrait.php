@@ -22,8 +22,17 @@ trait FunctionsTrait
     //--------------------------------------------------------------------------------------------------------
     public function switchCase(String $switch, Array $conditions = [], Bool $return = false)
     {
-        $case = ' CASE '.$switch;
-        
+        $case  = ' CASE '.$switch;    
+       
+        $alias = NULL;
+
+        if( isset($conditions['as']) )
+        {
+            $alias = ' as '.$conditions['as'].' ';
+
+            unset($conditions['as']);
+        }
+       
         if( is_array($conditions) ) foreach( $conditions as $key => $val )
         {
             if( strtolower($key) === 'default' || strtolower($key) === 'else' )
@@ -38,7 +47,7 @@ trait FunctionsTrait
             $case .= $key.$val;
         }
         
-        $case .= ' END; ';
+        $case .= ' END '.$alias;
         
         if( $return === true )
         {
