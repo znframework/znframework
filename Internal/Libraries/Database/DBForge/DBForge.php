@@ -1,705 +1,262 @@
-<?php
-namespace ZN\Database;
+<?php namespace ZN\Database;
 
-class InternalDBForge implements DBForgeInterface, DatabaseInterface
+class InternalDBForge extends DatabaseCommon implements DBForgeInterface
 {
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
-	
-	protected $extras;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Common
-	//----------------------------------------------------------------------------------------------------
-	// 
-	// $config
-	// $prefix
-	// $secure
-	// $table
-	// $tableName
-	// $stringQuery
-	// $unlimitedStringQuery
-	//
-	// run()
-	// table()
-	// stringQuery()
-	// differentConnection()
-	// secure()
-	// error()
-	// close()
-	// version()
-	//
-	//----------------------------------------------------------------------------------------------------
-	use DatabaseTrait;
-	
-	//----------------------------------------------------------------------------------------------------
-	// Database Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-	
-	/******************************************************************************************
-	* CREATE DATABASE                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde CREATE DATABASE kullanımı için oluşturulmuştur.	  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @dbname => Oluşturulacak veritabanı ismi.                                 |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->createDatabase('OrnekVeritabani')        			  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function createDatabase($dbname = '', $extras = '')
-	{
-		if( ! is_string($dbname) || empty($dbname) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'dbname');
-		}
-		
-		if( ! empty($this->extras) )
-		{
-			$extras = $this->extras;
-			
-			$this->extras = NULL;	
-		}
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //--------------------------------------------------------------------------------------------------------
 
-		$query  = 'CREATE DATABASE '.$dbname.$this->_extras($extras);	
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	/******************************************************************************************
-	* DROP DATABASE                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde DROP DATABASE kullanımı için oluşturulmuştur.	      |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @dbname => Kaldırılacak veritabanı ismi.                                  |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->dropDatabase('OrnekVeritabani')        			      |
-	|          																				  |
-	******************************************************************************************/
-	public function dropDatabase($dbname = '')
-	{
-		if( ! is_string($dbname) || empty($dbname) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'dbname');
-		}
-		
-		$query  = 'DROP DATABASE '.$dbname;	
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Database Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Table Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
-	
-	public function extras($extras = '')
-	{
-		$this->extras = $extras;
-		
-		return $this;
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Protected _extras()
-	//----------------------------------------------------------------------------------------------------
-	protected function _extras($extras)
-	{
-		if( isArray($extras) )
-		{
-			$extraCodes = ' '.implode(' ', $extras).';';
-		}
-		elseif( is_string($extras) )
-		{
-			$extraCodes = ' '.$extras.';';	
-		}
-		else
-		{
-			$extraCodes = '';	
-		}
-		
-		return $extraCodes;
-	}
-	
-	/******************************************************************************************
-	* CREATE TABLE                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde CREATE TABLE kullanımı için oluşturulmuştur.	      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @table => Oluşturulacak tablo ismi.                                  	  |
-	| 2. array var @condition => Sütun isimler ve özellikleri bilgisini içerir.               |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->createTable('OrnekTablo', array('id' => 'int(11)'));   |
-	|          																				  |
-	******************************************************************************************/
-	public function createTable($table = '', $condition = [], $extras = '')
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$extras    = $condition;
-			$condition = $table;
-			$table     = $this->table; 
-			
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$condition = $this->column;
-			$this->column = NULL;
-		}
-		
-		if( ! empty($this->extras) )
-		{
-			$extras = $this->extras;
-			
-			$this->extras = NULL;	
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		if( ! is_array($condition) || empty($condition) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'condition');
-		}
-		
-		$keys = array_keys($condition);
-		
-		$column = "";
+    //--------------------------------------------------------------------------------------------------------
+    // Extras
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @var mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $extras;
 
-		foreach( $condition as $key => $value )
-		{
-			$values = "";
-			
-			if( is_array($value) ) foreach( $value as $val )
-			{
-				$values .= ' '.$val;
-			}
-			else
-			{
-				$values = $value;	
-			}
-			
-			$column .= $key.' '.$values.',';
-		}
-		
-		$query  = 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$this->_extras($extras);
-	
-		return $this->_runExecQuery($query);
-	}
-	
-	/******************************************************************************************
-	* DROP TABLE                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde DROP TABLE kullanımı için oluşturulmuştur.	          |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @table => Kaldırılacak tablo ismi.                                  	  |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->dropTable('OrnekTablo');   							  |
-	|          																				  |
-	******************************************************************************************/
-	public function dropTable($table = '')
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		$query  = 'DROP TABLE '.$table;
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	/******************************************************************************************
-	* ALTER TABLE                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde ALTER TABLE kullanımı için oluşturulmuştur.	      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @table => Düzenlenecek tablo ismi.                                  	  |
-	| 2. array var @condition => Sütun isimler ve özellikleri bilgisini içerir.               |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->alterTable('OrnekTablo', array('işlemler'));   		  |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function alterTable($table = '', $condition = [])
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$condition = $table;
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( key($condition) === 'renameTable' ) 			
-		{
-			return $this->renameTable($table, $condition['renameTable']);
-		}
-		elseif( key($condition) === 'addColumn' ) 		
-		{
-			return $this->addColumn($table, $condition['addColumn']);
-		}
-		elseif( key($condition) === 'dropColumn' ) 		
-		{
-			return $this->dropColumn($table, $condition['dropColumn']);	
-		}
-		elseif( key($condition) === 'modifyColumn' ) 	
-		{
-			return $this->modifyColumn($table, $condition['modifyColumn']);
-		}
-		elseif( key($condition) === 'renameColumn' ) 	
-		{
-			return $this->renameColumn($table, $condition['renameColumn']);
-		}
-	}
-	
-	/******************************************************************************************
-	* RENAME TABLE                                                                            *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde ALTER TABLE kullanımına alternatif olarak kullanılır.|
-	| daha basit bir şekilde tablo ismini değiştirmek için kullanılır.               	      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @name => Eski tablo ismi.                                  	  		      |
-	| 1. string var @new_name => Yeni tablo ismi.                                  	  		  |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->renameTable('OrnekTablo', 'YeniTablo');   		      |
-	|          																				  |
-	******************************************************************************************/	
-	public function renameTable($name = '', $newName = '')
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$newName = $name;
-			$name = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$name = $this->prefix.$name;	
-		}
-		
-		if( ! is_string($name) || empty($name) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'name');
-		}
-		
-		if( ! is_string($newName) || empty($newName) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'newName');
-		}
-		
-		$query  = 'ALTER TABLE '.$name.' RENAME TO '.$this->prefix.$newName;
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	/******************************************************************************************
-	* TRUNCATE                                                                                *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde TRUNCATE kullanımı için oluşturulmuştur.			  |
-	|															                              |
-	| Parametreler: Tek parametresi vardır.                                                   |
-	| 1. string var @table => İçi boşaltılacak tablo ismi.                                    |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->truncate('OrnekTablo');       						  |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function truncate($table = '')
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		$truncate = $this->db->truncate() !== false
-				  ? $this->db->truncate()
-				  : 'TRUNCATE TABLE ';
-		
-		$query  = $truncate.$table;
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Table Manipulation Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
-	
-	//----------------------------------------------------------------------------------------------------
-	// Column Manipulation Methods Başlangıç
-	//----------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+    // Forge
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @var object
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $forge;
 
-	/******************************************************************************************
-	* ADD COLUMN                                                                              *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde ALTER TABLE kullanımına alternatif olarak kullanılır.|
-	| daha basit bir şekilde sütun eklemek için kullanılır.               	                  |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @table => Sütun eklenecek tablo ismi.                                     |
-	| 1. array var @condition => Sütun ismi ve özellikleri.                                   |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->addColumn('OrnekTablo', array('sütun işlemleri'));     |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/	
-	public function addColumn($table = '', $condition = [])
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$condition = $table;
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$condition = $this->column;
-			$this->column = NULL;
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		if( ! is_array($condition) || empty($condition) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'condition');
-		}
-		
-		$addColumn = $this->db->addColumn() !== false
-				   ? $this->db->addColumn()
-			       : 'ADD ';
-				   
-		$con = NULL;
-		
-		foreach( $condition as $column => $values )
-		{
-			$colvals = '';
-			
-			if( is_array($values) )
-			{	
-				foreach( $values as $val )
-				{
-					$colvals .= ' '.$val;
-				}
-			}
-			else
-			{
-				$colvals .= ' '.$values;
-			}
-			
-			$con .= $addColumn.$column.$colvals.',';
-		}		
-			
-		$con = substr($con, 0 , -1);
-		
-		$query  = 'ALTER TABLE '.$table.' '.$con.';';
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	/******************************************************************************************
-	* DROP COLUMN                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde ALTER TABLE kullanımına alternatif olarak kullanılır.|
-	| daha basit bir şekilde sütun kaldırmak için kullanılır.               	              |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @table => Sütun kaldırılacak tablo ismi.                                  |
-	| 1. string/array var @column => Sütun ismi.                                              |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->dropColumn('OrnekTablo', 'col1');   			          |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/	
-	public function dropColumn($table = '', $column = '')
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$column = $table;
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$column = array_keys($this->column);
-			$this->column = NULL;
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		if( ! ( is_string($column) || is_array($column) ) || empty($column) ) 
-		{
-			return \Errors::set('Error', 'stringArrayParameter', 'column');
-		}
-		
-		$dropColumn = $this->db->dropColumn() !== false
-					? $this->db->dropColumn()
-					: 'DROP ';
-	
-		if( ! is_array($column) )
-		{
-			$query  = 'ALTER TABLE '.$table.' '.$dropColumn.$column.';';
-			
-			return $this->_runExecQuery($query);
-		}
-		else
-		{
-			foreach($column as $col)
-			{
-				$query  = 'ALTER TABLE '.$table.' '.$dropColumn.$col.';';
-				
-				$this->_runExecQuery($query);
-			}
-			
-			return true;
-		}
-	}
-	
-	/******************************************************************************************
-	* MODIFY COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde ALTER TABLE kullanımına alternatif olarak kullanılır.|
-	| daha basit bir şekilde sütun düzenlemek için kullanılır.               	              |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @table => Sütun kaldırılacak tablo ismi.                                  |
-	| 1. string/array var @condition => Sütun ismi ve özellikleri.                            |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->modifyColumn('OrnekTablo', array('sütun işlemleri'));  |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/	
-	public function modifyColumn($table = '', $condition = [])
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$condition = $table;
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$condition = $this->column;
-			$this->column = NULL;
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		if( ! is_array($condition) || empty($condition) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'condition');
-		}
-		
-		$modifyColumn = $this->db->modifyColumn() !== false
-					  ? $this->db->modifyColumn()
-					  : 'MODIFY ';
-	
-		$con = NULL;
-			
-		foreach( $condition as $column => $values )
-		{
-			$colvals = '';
-			
-			if( is_array($values) )
-			{	
-				foreach($values as $val)
-				{
-					$colvals .= ' '.$val;
-				}
-			}
-			else
-			{
-				$colvals .= ' '.$values;
-			}
-			
-			$con .= $modifyColumn.$column.$colvals.',';
-		}		
-		
-		$con = substr($con, 0 , -1);
-		
-		$query  = 'ALTER TABLE '.$table.' '.$con.';';
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	/******************************************************************************************
-	* RENAME COLUMN                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Sorgu işlemlerinde ALTER TABLE kullanımına alternatif olarak kullanılır.|
-	| daha basit bir şekilde sütun ismini değiştirmek için kullanılır.               	      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @table => Sütun kaldırılacak tablo ismi.                                  |
-	| 1. string/array var @condition => Sütun ismi ve özellikleri.                            |
-	|          																				  |
-	| Örnek Kullanım: $this->dbforge->renameColumn('OrnekTablo', array('sütun işlemleri'));  |
-	|          																				  |
-	| >>>>>>>>>>>>>>>>>>>>>>>>>>>Detaylı kullanım için zntr.net<<<<<<<<<<<<<<<<<<<<<<<<<<  	  |
-	|          																				  |
-	******************************************************************************************/
-	public function renameColumn($table = '', $condition = [])
-	{
-		if( ! empty($this->table) ) 
-		{
-			// Table yöntemi tanımlanmış ise
-			// 1. parametre, 2. parametre olarak kullanılsın
-			$condition = $table;
-			$table = $this->table; 
-			$this->table = NULL;
-		}
-		else
-		{
-			$table = $this->prefix.$table;	
-		}
-		
-		if( ! empty($this->column) )
-		{
-			$condition = $this->column;
-			$this->column = NULL;
-		}
-		
-		if( ! is_string($table) || empty($table) ) 
-		{
-			return \Errors::set('Error', 'stringParameter', 'table');
-		}
-		
-		if( ! is_array($condition) || empty($condition) ) 
-		{
-			return \Errors::set('Error', 'arrayParameter', 'condition');
-		}
-		
-		$renameColumn = $this->db->renameColumn() !== false
-					  ? $this->db->renameColumn()
-					  : 'CHANGE COLUMN ';
-		
-		$con = NULL;
-		
-		if( stristr($renameColumn, 'TO') )
-		{
-			$renameColumn = str_ireplace('TO', '', $renameColumn);
-			$to = ' TO ';	
-		}
-		else
-		{
-			$to = '';	
-		}
-		
-		foreach( $condition as $column => $values )
-		{
-			$colvals = '';
-			
-			if( is_array($values) )
-			{	
-				foreach( $values as $val )
-				{
-					$colvals .= ' '.$val;
-				}
-			}
-			else
-			{
-				$colvals .= ' '.$values;
-			}
-			
-			$con .= $renameColumn.$column.$to.$colvals.',';
-		}		
-		
-		$con = substr($con, 0 , -1);
-		
-		$query  = 'ALTER TABLE '.$table.' '.$con.';';
-		
-		return $this->_runExecQuery($query);
-	}
-	
-	//----------------------------------------------------------------------------------------------------
-	// Column Manipulation Methods Bitiş
-	//----------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+    // Construct
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->forge = $this->_drvlib('Forge');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Extras
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param mixed $extras
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function extras($extras) : InternalDBForge
+    {
+        $this->extras = $extras;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Create Database
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $dbname
+    // @param mixed  $extras
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function createDatabase(String $dbname, $extras = NULL) : Bool
+    {
+        $query = $this->forge->createDatabase($dbname, $this->_p($extras, 'extras'));   
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Drop Database
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $dbname
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dropDatabase(String $dbname) : Bool
+    {
+        $query = $this->forge->dropDatabase($dbname);   
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Create Table
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param mixed $table
+    // @param mixed $colums
+    // @param mixed $extras
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function createTable(String $table = NULL, Array $colums = NULL, $extras = NULL) : Bool
+    {       
+        $query = $this->forge->createTable($this->_p($table), $this->_p($colums, 'column'), $extras);
+    
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Drop Table
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param mixed $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dropTable(String $table = NULL) : Bool
+    {   
+        $query = $this->forge->dropTable($this->_p($table));
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Alter Table
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param mixed $table
+    // @param mixed $condition
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function alterTable(String $table = NULL, Array $condition = NULL) : Bool
+    {
+        $table = $this->_p($table); 
+        
+        if( key($condition) === 'renameTable' )             
+        {
+            return $this->renameTable($table, $condition['renameTable']);
+        }
+        elseif( key($condition) === 'addColumn' )       
+        {
+            return $this->addColumn($table, $condition['addColumn']);
+        }
+        elseif( key($condition) === 'dropColumn' )      
+        {
+            return $this->dropColumn($table, $condition['dropColumn']); 
+        }
+        elseif( key($condition) === 'modifyColumn' )    
+        {
+            return $this->modifyColumn($table, $condition['modifyColumn']);
+        }
+        elseif( key($condition) === 'renameColumn' )    
+        {
+            return $this->renameColumn($table, $condition['renameColumn']);
+        }
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Rename Table
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $name
+    // @param string $newName
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function renameTable(String $name, String $newName) : Bool
+    {
+        $query = $this->forge->renameTable($this->_p($name, 'prefix'), $this->_p($newName, 'prefix'));
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Truncate
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function truncate(String $table = NULL) : Bool
+    {
+        $query = $this->forge->truncate($this->_p($table));
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Add Column
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $table
+    // @param array  $condition
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function addColumn(String $table = NULL, Array $columns = NULL) : Bool
+    {   
+        $query = $this->forge->addColumn($this->_p($table), $this->_p($columns, 'column'));
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Drop Column
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $table
+    // @param mixed  $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dropColumn(String $table = NULL, $columns = NULL) : Bool
+    {   
+        $columns = $this->_p($columns, 'column');
+
+        if( ! is_array($columns) )
+        {
+            $query = $this->forge->dropColumn($this->_p($table), $columns);
+            
+            return $this->_runExecQuery($query);
+        }
+        else
+        {
+            foreach( $columns as $key => $col )
+            {
+                if( ! is_numeric($key) )
+                {
+                    $col = $key;
+                }
+
+                $query = $this->forge->dropColumn($this->_p($table), $col);
+                
+                $this->_runExecQuery($query);
+            }
+            
+            return true;
+        }
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Modify Column
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $table
+    // @param mixed  $columns
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function modifyColumn(String $table = NULL, Array $columns = NULL) : Bool
+    {
+        $query = $this->forge->modifyColumn($this->_p($table), $this->_p($columns, 'column'));
+        
+        return $this->_runExecQuery($query);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Rename Column
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $table
+    // @param mixed  $columns
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function renameColumn(String $table = NULL , Array $columns = NULL) : Bool
+    {   
+        $query = $this->forge->renameColumn($this->_p($table), $this->_p($columns, 'column'));
+        
+        return $this->_runExecQuery($query);
+    }
 }

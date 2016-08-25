@@ -1,48 +1,45 @@
-<?php
-namespace ZN\Cryptography\Drivers;
+<?php namespace ZN\CryptoGraphy\Drivers;
 
-use ZN\Cryptography\CryptoInterface;
+use ZN\CryptoGraphy\CryptoMapping;
 
-class MhashDriver implements CryptoInterface
+class MhashDriver extends CryptoMapping
 {
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //--------------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* CALL                                                                                    *
-	*******************************************************************************************
-	| Genel Kullanım: Geçersiz fonksiyon girildiğinde çağrılması için.						  |
-	|          																				  |
-	******************************************************************************************/
-	public function __call($method = '', $param = '')
-	{	
-		die(getErrorMessage('Error', 'undefinedFunction', "MhashDriver::$method()"));	
-	}
-
-	public function encrypt($data = '', $settings = [])
+	//--------------------------------------------------------------------------------------------------------
+	// Encrypt
+	//--------------------------------------------------------------------------------------------------------
+	// 
+	// @param string $data
+	// @param array  $settings
+	//
+	//--------------------------------------------------------------------------------------------------------
+	public function encrypt($data, $settings)
 	{
 		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
-	 	$key    = isset($settings['key'])    ? $settings['key']    : \Config::get('Encode', 'projectKey'); 
+	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->config['key']; 
 		
 		// MHASH_ ön eki ilave ediliyor.
-		$cipher = \Convert::toConstant($cipher, 'MHASH_');
+		$cipher = \Converter::toConstant($cipher, 'MHASH_');
 		
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}
 	
-	public function decrypt($data = '', $settings = [])
-	{
-		// Bu sürücü tarafından desteklenmemektedir.
-		return lang('Error', 'notSupport');
-	}
-	
-	public function keygen($length = 8)
+	//--------------------------------------------------------------------------------------------------------
+	// Keygen
+	//--------------------------------------------------------------------------------------------------------
+	//
+	// @param numeric $length
+	//
+	//--------------------------------------------------------------------------------------------------------
+	public function keygen($length)
 	{
 		return mhash_keygen_s2k(MHASH_MD5, md5(mt_rand()), md5(mt_rand()), $length);
 	}

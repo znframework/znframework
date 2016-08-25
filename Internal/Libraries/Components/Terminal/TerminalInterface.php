@@ -1,28 +1,23 @@
-<?php
-namespace ZN\Components;
+<?php namespace ZN\Components;
 
 interface TerminalInterface
 {
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //--------------------------------------------------------------------------------------------------------
 	
-	/******************************************************************************************
-	* RUN                                                                                     *
-	*******************************************************************************************
-	| Genel Kullanım: Terminali çalıştırır.					 	 						      |
-	|															                              |
-	| Parametreler: 2 parametresi vardır.                                                     |
-	| 1. string var @terminalType => php , cmd.											      |
-	| 2. array var @settings => Terminal ayarları.						 				      |
-	|          																				  |
-	| Örnek Kullanım: Terminal::run('cmd');        	  										  |
-	|          																				  |
-	******************************************************************************************/
-	public function run($terminalType, $settings);
+	//--------------------------------------------------------------------------------------------------------
+	// Run
+	//--------------------------------------------------------------------------------------------------------
+	// 
+	// @param string $terminalType
+	// @param array  $settings
+	//
+	//--------------------------------------------------------------------------------------------------------
+	public function run(String $terminalType = 'php', Array $settings = []);
 }

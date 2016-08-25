@@ -1,57 +1,62 @@
-<?php
-//----------------------------------------------------------------------------------------------------
-// ERROR
-//----------------------------------------------------------------------------------------------------
-//
-// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-// Site       : www.znframework.com
-// License    : The MIT License
-// Copyright  : Copyright (c) 2012-2016, ZN Framework
-//
-//----------------------------------------------------------------------------------------------------
-$lang['Error']['classError'] 				= 'Hata: `%` sınıfı bulunamadı!';
-$lang['Error']['controllerNameError'] 		= 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!';
-$lang['Error']['classDeclaredError'] 		= 'Hata: `%` sınıfı zaten var! Yeniden tanımlanamaz!';
-$lang['Error']['callUserFuncArrayError'] 	= 'Hata: URL geçerli fonksiyon veya metot bilgisi içermiyor! `%` metodu bulunamadı!';
-$lang['Error']['notIsFileError'] 			= 'Hata: URL geçerli bir yol içermiyor! `%` dosyası bulunamadı!';
-$lang['Error']['fileNotFound']				= 'Hata: `%` dosyasi bulunamadi!';
-$lang['Error']['fileNotWrite']				= 'Hata: `%` dosyası oluşturulamıyor! Lütfen dosya oluşturma yetkilerini kontrol edin!';
-$lang['Error']['dirNotWrite']				= 'Hata: `%` dizini oluşturulamıyor! Lütfen dizin oluşturma yetkilerini kontrol edin!';
-$lang['Error']['undefinedFunction']			= 'Hata: `%` fonksiyonu tanımlı değil!';
-$lang['Error']['undefinedFunctionExtension']= 'Hata: `%` eklentisi yüklü değil! `%` fonksiyonlarını kullanmak için yükleyiniz.';
-$lang['Error']['invalidVersion']			= 'Hata: `%` yöntemlerini kullanabilmeniz için en az `#` PHP sürümünün yüklü olması gerekmektedir!';
-$lang['Error']['driverError'] 				= '`%` sürücüsü bulunamadı!';
-$lang['Error']['unsupportedDriver'] 		= '`%` sürücünü kullanmak için yüklenmesi gerekmektedir!';
-$lang['Error']['invalidDriver'] 			= '`%` sürücüsü geçersizdir!';
-$lang['Error']['invalidDriverFunction']  	= '`%` sürücüsüne ait ` #`() kullanımı bulunmamaktadır!';
-$lang['Error']['notSupport']				= 'Desteklenmiyor!';
-$lang['Error']['line']						= 'Satır';
-$lang['Error']['upperLine']					= 'SATIR';
-$lang['Error']['message']					= 'Hata';
-$lang['Error']['file']						= 'Dosya';
-$lang['Error']['upperFile']					= 'DOSYA';
-$lang['Error']['class']						= 'SINIF';
-$lang['Error']['method']					= 'FONKSİYON';
-$lang['Error']['errorInfo']					= 'HATA BİLGİSİ';
-$lang['Error']['noError']					= 'Hata tespit edilemedi.';
-$lang['Error']['stringParameter']			= '`%` parametresi string veri türü içermelidir!';
-$lang['Error']['booleanParameter']			= '`%` parametresi boolean veri türü içermelidir!';
-$lang['Error']['hashParameter']			    = '`%` parametresi şifreleme algoritmalarıdan(md5, sha1) birini içermelidir!';
-$lang['Error']['emailParameter']			= '`%` parametresi e-posta veri türü içermelidir!';
-$lang['Error']['arrayParameter']			= '`%` parametresi array veri türü içermelidir!';
-$lang['Error']['objectParameter']			= '`%` parametresi object veri türü içermelidir!';
-$lang['Error']['numericParameter']			= '`%` parametresi numerik veri türü içermelidir!';
-$lang['Error']['valueParameter']			= '`%` parametresi string, numeric veya boolean veri türlerinden birini içermelidir!';
-$lang['Error']['scalarParameter']			= '`%` parametresi scalar veri türü içermelidir!';
-$lang['Error']['resourceParameter']			= '`%` parametresi kaynak(resource) veri türü içermelidir!';
-$lang['Error']['callableParameter']			= '`%` parametresi çağrılabilir(callable) veri türü içermelidir!';
-$lang['Error']['stringArrayParameter']		= '`%` parametresi string veya array veri türü içermelidir!';
-$lang['Error']['dirParameter']				= '`%` parametresi dizin bilgisi içermelidir!';
-$lang['Error']['fileParameter']				= '`%` parametresi dosya bilgisi içermelidir!';
-$lang['Error']['fileDirParameter']			= '`%` parametresi dosya veya dizin bilgisi içermelidir!';
-$lang['Error']['emptyParameter']			= '`%` parametresi bir değer içermelidir!';
-$lang['Error']['emptyVariable']			    = '`%` değişkeni bir değer içermelidir!';
-$lang['Error']['charsetParameter']			= '`%` parametresi geçerli karakter seti içermelidir!';
-$lang['Error']['invalidVersion']			= '`%` geçersiz versiyon bilgisi!';
-$lang['Error']['invalidInput']			    = '`%` geçersiz girdi bilgisi!';
-$lang['Error']['invalidPHPVersion']		    = 'Gerekli PHP sürümü `%` ve üzeri olmalı!';
+<?php return 
+[
+    //----------------------------------------------------------------------------------------------------
+    // Error
+    //----------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Copyright  : Copyright (c) 2012-2016, ZN Framework
+    //
+    //----------------------------------------------------------------------------------------------------
+
+    'classError'                => 'Hata: `%` sınıfı bulunamadı!',
+    'controllerNameError'       => 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!',
+    'classDeclaredError'        => 'Hata: `%` sınıfı zaten var! Yeniden tanımlanamaz!',
+    'callUserFuncArrayError'    => 'Hata: URL geçerli fonksiyon veya metot bilgisi içermiyor! `%` metodu bulunamadı!',
+    'notIsFileError'            => 'Hata: URL geçerli bir yol içermiyor! `%` dosyası bulunamadı!',
+    'fileNotFound'              => 'Hata: `%` dosyasi bulunamadi!',
+    'fileNotWrite'              => 'Hata: `%` dosyası oluşturulamıyor! Lütfen dosya oluşturma yetkilerini kontrol edin!',
+    'dirNotWrite'               => 'Hata: `%` dizini oluşturulamıyor! Lütfen dizin oluşturma yetkilerini kontrol edin!',
+    'undefinedFunction'         => 'Hata: `%` fonksiyonu tanımlı değil!',
+    'undefinedFunctionExtension'=> 'Hata: `%` eklentisi yüklü değil! `%` fonksiyonlarını kullanmak için yükleyiniz.',
+    'invalidVersion'            => 'Hata: `%` yöntemlerini kullanabilmeniz için en az `#` PHP sürümünün yüklü olması gerekmektedir!',
+    'driverError'               => '`%` sürücüsü bulunamadı!',
+    'invalidDriverFunction'     => '`%` sürücünü kullanmak için yüklenmesi gerekmektedir!',
+    'notSupport'                => 'Desteklenmiyor!',
+    'line'                      => 'Satır',
+    'upperLine'                 => 'SATIR',
+    'message'                   => 'Hata',
+    'file'                      => 'Dosya',
+    'upperFile'                 => 'DOSYA',
+    'class'                     => 'SINIF',
+    'method'                    => 'FONKSİYON',
+    'errorInfo'                 => 'HATA BİLGİSİ',
+    'noError'                   => 'Hata tespit edilemedi.',
+    'stringParameter'           => '`%` parametresi string veri türü içermelidir!',
+    'booleanParameter'          => '`%` parametresi boolean veri türü içermelidir!',
+    'boolParameter'             => '`%` parametresi bool veri türü içermelidir!',
+    'hashParameter'             => '`%` parametresi şifreleme algoritmalarıdan(md5, sha1) birini içermelidir!',
+    'emailParameter'            => '`%` parametresi e-posta veri türü içermelidir!',
+    'arrayParameter'            => '`%` parametresi array veri türü içermelidir!',
+    'objectParameter'           => '`%` parametresi object veri türü içermelidir!',
+    'numericParameter'          => '`%` parametresi numerik veri türü içermelidir!',
+    'intParameter'              => '`%` parametresi int veri türü içermelidir!',
+    'integerParameter'          => '`%` parametresi integer veri türü içermelidir!',
+    'valueParameter'            => '`%` parametresi string, numeric veya boolean veri türlerinden birini içermelidir!',
+    'scalarParameter'           => '`%` parametresi scalar veri türü içermelidir!',
+    'resourceParameter'         => '`%` parametresi kaynak(resource) veri türü içermelidir!',
+    'callableParameter'         => '`%` parametresi çağrılabilir(callable) veri türü içermelidir!',
+    'stringArrayParameter'      => '`%` parametresi string veya array veri türü içermelidir!',
+    'dirParameter'              => '`%` parametresi dizin bilgisi içermelidir!',
+    'fileParameter'             => '`%` parametresi dosya bilgisi içermelidir!',
+    'fileDirParameter'          => '`%` parametresi dosya veya dizin bilgisi içermelidir!',
+    'emptyParameter'            => '`%` parametresi bir değer içermelidir!',
+    'emptyVariable'             => '`%` değişkeni bir değer içermelidir!',
+    'charsetParameter'          => '`%` parametresi geçerli karakter seti içermelidir!',
+    'invalidVersion'            => '`%` geçersiz versiyon bilgisi!',
+    'invalidInput'              => '`%` geçersiz girdi bilgisi!',
+    'invalidPHPVersion'         => 'Gerekli PHP sürümü `%` ve üzeri olmalı!',
+    'typeHint'                  => '& parametresi % türü olmalıdır!'
+];

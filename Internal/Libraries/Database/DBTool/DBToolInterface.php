@@ -1,79 +1,85 @@
-<?php
-namespace ZN\Database;
+<?php namespace ZN\Database;
 
 interface DBToolInterface
-{	
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.zntr.net
-	// Lisans     : The MIT License
-	// Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-	//
-	//----------------------------------------------------------------------------------------------------
-	
-	/******************************************************************************************
-	* LIST DATABASES                                                                          *
-	*******************************************************************************************
-	| Genel Kullanım: Database listesini öğrenmek için kullanılır.  					      |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->listDatabases();        		 						  |
-	|          																				  |
-	******************************************************************************************/
-	public function listDatabases();
-	
-	/******************************************************************************************
-	* LIST TABLES                                                                             *
-	*******************************************************************************************
-	| Genel Kullanım: Tablo listesini öğrenmek için kullanılır.  					      	  |
-	|															                              |
-	| Parametreler: Herhangi bir parametresi yoktur.                                          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->listTables();        		 							  |
-	|          																				  |
-	******************************************************************************************/
-	public function listTables();
-	
-	/******************************************************************************************
-	* BACKUP                                                                                  *
-	*******************************************************************************************
-	| Genel Kullanım: Veritabanının yedeğini almak için kullanılır.  					      |
-	|															                              |
-    | Parametreler: 3 parametresi vardır.                                              		  |
-	| 1. string/array var @tables => Yedeği alınmak istenen tablo listesi. Varsayılan:*       |
-	| 2. string var @filename => Hangi isimle kaydedileceği. Varsayılan:*       			  |
-	| 3. string var @path => Yedeğin kaydedileceği dizin. Varsayılan:FILES_DIR		          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->backup('*', 'backup');        		 					  |
-	|          																				  |
-	******************************************************************************************/
-	public function backup($tables, $fileName, $path);
-	
-	/******************************************************************************************
-	* OPTIMIZE TABLES                                                                         *
-	*******************************************************************************************
-	| Genel Kullanım: Tabloları optimize etmek için kullanılır.  					    	  |
-	|															                              |
-    | Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/array var @table => Optimize edilmesi istenilen tablo listesi. Varsayılan:*   |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->optimizeTables("tbl1, tbl2"); 					     	  |
-	|          																				  |
-	******************************************************************************************/
-	public function optimizeTables($table);
-	
-	/******************************************************************************************
-	* REPAIR TABLES                                                                           *
-	*******************************************************************************************
-	| Genel Kullanım: Tabloları onarmak etmek için kullanılır.      	     		    	  |
-	|															                              |
-    | Parametreler: Tek parametresi vardır.                                              	  |
-	| 1. string/array var @table => Onarılması istenilen tablo listesi. Varsayılan:*          |
-	|          																				  |
-	| Örnek Kullanım: $this->dbtool->repairTables("tbl1, tbl2");        		 			  |
-	|          																				  |
-	******************************************************************************************/
-	public function repairTables($table);
+{   
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //--------------------------------------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------------------------------------
+    // List Databases
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Hostunuda yer var olan veritabanlarını listeler.
+    //
+    // @param  void
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function listDatabases() : Array;
+    
+    //--------------------------------------------------------------------------------------------------------
+    // List Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları listeler.
+    //
+    // @param  void
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function listTables() : Array;
+
+    //--------------------------------------------------------------------------------------------------------
+    // statusTables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  mixed $table: '*', 'oneTable' or ['tbl1', 'tbl2']
+    // @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function statusTables($table = '*') : \stdClass;
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Optimize Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları optimize eder.
+    //
+    // @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+    // @return string message
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function optimizeTables($table = '*') : String;
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Repair Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları onarır.
+    //
+    // @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+    // @return string message
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function repairTables($table = '*') : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Backup
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tablolarınızın yedeğini alır.
+    // Yedek dosyası içerisinde tablo oluşturma veriler ve kayıtlar yer alır.
+    //
+    // @param  mixed  $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
+    // @param  string $filename
+    // @return string $path: STORAGE_DIR
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String;
 }

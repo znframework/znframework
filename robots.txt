@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /Applications/
 Disallow: /External/
 Disallow: /Internal/
-Disallow: /Restorations/
+Disallow: /Projects/
