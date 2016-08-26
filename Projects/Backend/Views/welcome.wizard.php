@@ -39,7 +39,13 @@
 
             /#title 
             {
-                font-size: 60px;
+                font-size: 96px;
+                color:#BFC4C8;
+            }
+
+            /#sub-title 
+            {
+                font-size: 44.4px;
                 color:#BFC4C8;
             }
         ##style
@@ -48,7 +54,8 @@
     #body
         #div[id="container"]
             #div[id="content"]
-                #div[id="title"] Simplicity is our choice, how about yours ? ##div
+                #div[id="title"] ZN4 EIP EDITION ##div
+                #div[id="sub-title"] Simplicity is our choice, how about yours ? ##div
             ##div
         ##div
     ##body
