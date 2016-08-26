@@ -1,6 +1,6 @@
-<?php namespace ZN\Components\DataGrids;
+<?php namespace ZN\ViewObjects\Grids;
 
-class InternalMLGrid extends \Requirements
+class InternalMLGrid extends Abstracts\GridAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //

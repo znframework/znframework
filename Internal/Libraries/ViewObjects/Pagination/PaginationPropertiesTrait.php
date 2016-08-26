@@ -1,6 +1,6 @@
-<?php namespace ZN\Components;
+<?php namespace ZN\ViewObjects;
 
-interface CaptchaInterface
+trait PaginationPropertiesTrait
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,230 +12,242 @@ interface CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
-    // Width
+    // Total Rows
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin genişlik değeri belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
+    // 
+    // @var int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function width(Int $param) : InternalCaptcha;
+    protected $totalRows    = 50;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Start
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @var int
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $start        = 0;
     
     //--------------------------------------------------------------------------------------------------------
-    // Height
+    // Type
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin yükseklik değeri belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
+    // 
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function height(Int $param) : InternalCaptcha;
+    protected $type         = 'classic';
     
     //--------------------------------------------------------------------------------------------------------
-    // Size
+    // Limit
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin genişlikk ve yükseklik değeri belirtilir.
-    //
-    // @param  numeric $width
-    // @param  numeric $height
-    // @return this
+    // 
+    // @var int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(Int $width, Int $height) : InternalCaptcha;
+    protected $limit        = 10;
     
     //--------------------------------------------------------------------------------------------------------
-    // Length
+    // Count Links
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin kaç karakterden olacağı belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
+    // 
+    // @var int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(Int $param) : InternalCaptcha;
+    protected $countLinks   = 10;
     
     //--------------------------------------------------------------------------------------------------------
-    // Border
+    // Class
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin çerçevesinin olup olmayacağı olacaksa da hangi.           
-    // hangi renkte olacağı belirtilir.
-    //
-    // @param  boolean $is
-    // @param  string  $color
-    // @return this
+    // 
+    // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function border(Bool $is = true, String $color = NULL) : InternalCaptcha;
+    protected $class        = [];
     
     //--------------------------------------------------------------------------------------------------------
-    // Border Color
+    // Style
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu çerçeve rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
+    // 
+    // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function borderColor(String $color) : InternalCaptcha;
+    protected $style        = [];
     
     //--------------------------------------------------------------------------------------------------------
-    // Bg Color
+    // Prev Tag
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
+    // 
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgColor(String $color) : InternalCaptcha;
+    protected $prevTag      = '[prev]';
     
     //--------------------------------------------------------------------------------------------------------
-    // Background Color
+    // Next Tag
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan resimleri ayarlamak için kullanılır.
-    //
-    // @param  mixed $image
-    // @return this
+    // 
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgImage($image) : InternalCaptcha;
+    protected $nextTag      = '[next]';
     
     //--------------------------------------------------------------------------------------------------------
-    // Background
+    // First Tag
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan rengini veya resimlerini ayarlamak için        
-    // kullanılır. Bgimage ve bgcolor yöntemlerinin alternatifidir.
-    //
-    // @param  mixed $background
-    // @return this
+    // 
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function background(String $background) : InternalCaptcha;
+    protected $firstTag     = '[first]';
     
     //--------------------------------------------------------------------------------------------------------
-    // Text Size
+    // Last Tag
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutunu ayarlamak içindir.
-    //
-    // @param  numeric $size
-    // @return this
+    // 
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textSize(Int $size) : InternalCaptcha;
+    protected $lastTag      = '[last]';
+    
+    //--------------------------------------------------------------------------------------------------------
+    // URL
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $url          = CURRENT_CFPATH;
+
+    //--------------------------------------------------------------------------------------------------------
+    // URL
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $url
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function url(String $url) : InternalPagination
+    {
+        $this->settings['url'] = $url;
         
-    //--------------------------------------------------------------------------------------------------------
-    // Text Coordinate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutunu ayarlamak içindir.
-    //
-    // @param  numeric $x
-    // @param  numeric $y
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function textCoordinate(Int $x, Int $y) : InternalCaptcha;
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Text Color
+    // Start
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
+    // 
+    // @param int $start
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textColor(String $color) : InternalCaptcha;
+    public function start($start) : InternalPagination
+    {
+        $this->settings['start'] = $start;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Text
+    // Limit
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutu x ve ye değerlerini ayarlamak içindir.
-    //
-    // @param  numeric $size
-    // @param  numeric $x
-    // @param  numeric $y
-    // @param  string  $color
-    // @return this
+    // 
+    // @param int $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL) : InternalCaptcha;
+    public function limit(Int $limit) : InternalPagination
+    {
+        $this->settings['limit'] = $limit;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Grid
+    // Type
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin ızgarasının olup olmayacağı olacaksa da hangi.        
-    // hangi renkte olacağı belirtilir.
-    //
-    // @param  boolean $is
-    // @param  string  $color
-    // @return this
+    // 
+    // @param string $type: ajax, classic
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grid(Bool $is = true, String $color = NULL) : InternalCaptcha;
+    public function type(String $type) : InternalPagination
+    {
+        $this->settings['type'] = $type;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Grid Color
+    // Total Rows
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara rengini ayarlamak için kullanılır.        
-    //
-    // @param  string $color
-    // @return this
+    // 
+    // @param int $totalRows
     //
     //--------------------------------------------------------------------------------------------------------
-    public function gridColor(String $color) : InternalCaptcha;
+    public function totalRows(Int $totalRows) : InternalPagination
+    {
+        $this->settings['totalRows'] = $totalRows;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Grid Space
+    // Count Links
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.       
-    //
-    // @param  numeric $x
-    // @param  numeric $y
-    // @return this
+    // 
+    // @param int $countLinks
     //
     //--------------------------------------------------------------------------------------------------------
-    public function gridSpace(Int $x = 0, Int $y = 0) : InternalCaptcha;
+    public function countLinks(Int $countLinks) : InternalPagination
+    {
+        $this->settings['countLinks'] = $countLinks;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Create
+    // Link Names
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.       
-    //
-    // @param  boolean $img
-    // @param  array   $configs
-    // @return midex
+    // 
+    // @param string $prev
+    // @param string $next
+    // @param string $first
+    // @param string $last
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Bool $img = false, Array $configs = []) : String;
+    public function linkNames(String $prev, String $next, String $first, String $last) : InternalPagination
+    {   
+        $this->settings['prevName']  = $prev;
+        $this->settings['nextName']  = $next;
+        $this->settings['firstName'] = $first;
+        $this->settings['lastName']  = $last;
+        
+        return $this;
+    }
     
     //--------------------------------------------------------------------------------------------------------
-    // Get Code
+    // Css
     //--------------------------------------------------------------------------------------------------------
-    //
-    // Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir.       
-    //
-    // @param  void
-    // @return string
+    // 
+    // @param array $css
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getCode() : String;
+    public function css(Array $css) : InternalPagination
+    {
+        $this->settings['class'] = $css;
+        
+        return $this;
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    // Style
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param array $css
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function style(Array $style) : InternalPagination
+    {
+        $this->settings['style'] = $style;
+        
+        return $this;
+    }
 }

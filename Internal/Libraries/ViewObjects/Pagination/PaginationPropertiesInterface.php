@@ -1,4 +1,4 @@
-<?php namespace ZN\Components;
+<?php namespace ZN\ViewObjects;
 
 interface PaginationPropertiesInterface
 {

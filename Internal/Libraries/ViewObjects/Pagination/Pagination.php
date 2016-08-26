@@ -1,4 +1,4 @@
-<?php namespace ZN\Components;
+<?php namespace ZN\ViewObjects;
 
 class InternalPagination extends \Requirements implements PaginationInterface, PaginationPropertiesInterface
 {

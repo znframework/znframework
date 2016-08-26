@@ -8,4 +8,9 @@ class Home extends Controller
     {
         Import::view('welcome.wizard');
     }
+
+    public function try()
+    {
+        // Simplicity is our choice, how about yours ?
+    }
 }

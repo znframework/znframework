@@ -1,6 +1,6 @@
-<?php namespace ZN\Components;
+<?php namespace ZN\ViewObjects;
 
-class InternalCalendar extends \Requirements implements CalendarInterface
+class InternalCalendar extends GridAbstract implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
