@@ -310,7 +310,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function foreignCharEncode(String $str) : String
     {   
-        $chars = $this->config['numericalCodes'];
+        $chars = config('ForeignChars', 'numericalCodes');
         
         return str_replace(array_keys($chars), array_values($chars), $str);
     }   
@@ -324,7 +324,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function foreignCharDecode(String $str) : String
     {   
-        $chars = $this->config['numericalCodes'];
+        $chars = config('ForeignChars', 'numericalCodes');
         
         return str_replace(array_values($chars), array_keys($chars), $str);
     }   
