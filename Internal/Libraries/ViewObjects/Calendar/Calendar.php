@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-class InternalCalendar extends GridAbstract implements CalendarInterface
+class InternalCalendar implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
