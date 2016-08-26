@@ -4,7 +4,7 @@
 
     #head
         #meta[http-equiv="Content-Type" content="text/html; charset=utf-8"]:
-        #title(ZN 4 EIP EDITION):
+        #title(Simplicity is our choice, how about yours ?):
 
         #link[href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css"]
 
@@ -39,7 +39,7 @@
 
             /#title 
             {
-                font-size: 96px;
+                font-size: 60px;
                 color:#BFC4C8;
             }
         ##style
@@ -48,7 +48,7 @@
     #body
     	#div[id="container"]
             #div[id="content"]
-                #div[id="title"] ZN 4 EIP EDITION ##div
+                #div[id="title"] Simplicity is our choice, how about yours ? ##div
             ##div
         ##div
     ##body
