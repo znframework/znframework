@@ -70,7 +70,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL) : Bool
+    public function register(Array $data = NULL, $autoLogin = false, String $activationReturnLink = NULL) : Bool
     {   
         if( isset($this->parameters['column']) )
         {
@@ -199,7 +199,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(String $old, String $new, String $newAgain = NULL, Array $data = []) : Bool
+    public function update(String $old = NULL, String $new = NULL, String $newAgain = NULL, Array $data = []) : Bool
     {
         // Bu işlem için kullanıcının
         // oturum açmıl olması gerelidir.
@@ -314,7 +314,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function login(String $un, String $pw, $rememberMe = false) : Bool
+    public function login(String $un = NULL, String $pw = NULL, $rememberMe = false) : Bool
     {
         if( isset($this->parameters['username']) )
         {

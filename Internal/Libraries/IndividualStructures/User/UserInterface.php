@@ -21,7 +21,7 @@ interface UserInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL) : Bool;
+    public function register(Array $data = NULL, $autoLogin = false, String $activationReturnLink = NULL) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Update
@@ -34,7 +34,7 @@ interface UserInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(String $old, String $new, String $newAgain = NULL, Array $data = []) : Bool;
+    public function update(String $old = NULL, String $new = NULL, String $newAgain = NULL, Array $data = []) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Login
@@ -46,7 +46,7 @@ interface UserInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function login(String $un, String $pw, $rememberMe = false) : Bool;
+    public function login(String $un = NULL, String $pw = NULL, $rememberMe = false) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Logout
