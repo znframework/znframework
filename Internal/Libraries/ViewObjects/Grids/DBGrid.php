@@ -85,8 +85,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config  = config('Components', 'datagrid');
-        $this->lang    = lang('Components');
+        $this->config  = config('ViewObjects', 'datagrid');
+        $this->lang    = lang('ViewObjects');
 
         $this->confirm = 'return confirm(\''.$this->lang['dbgrid:areYouSure'].'\');';
     }
@@ -291,7 +291,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         
         if( ! isset($this->table) )
         {
-            return \Exceptions::throws('Components', 'dbgrid:noTable');
+            return \Exceptions::throws('ViewObjects', 'dbgrid:noTable');
         }
 
         $table = $this->_styleElement();

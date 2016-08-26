@@ -32,7 +32,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-         $this->config = config('Components', 'captcha');
+         $this->config = config('ViewObjects', 'captcha');
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -382,10 +382,10 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
         
         if( ! empty($configs) )
         {
-            \Config::set('Components', 'captcha', $configs);
+            \Config::set('ViewObjects', 'captcha', $configs);
         }
         
-        $set = \Config::get('Components', 'captcha');
+        $set = \Config::get('ViewObjects', 'captcha');
         
         $systemCaptchaCodeData = md5('SystemCaptchaCodeData');
     

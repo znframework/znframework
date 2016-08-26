@@ -39,7 +39,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = config('Components', 'pagination'); 
+        $this->config = config('ViewObjects', 'pagination'); 
     }
 
     //--------------------------------------------------------------------------------------------------------

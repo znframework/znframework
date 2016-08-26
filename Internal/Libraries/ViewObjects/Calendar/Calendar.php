@@ -109,7 +109,7 @@ class InternalCalendar extends GridAbstract implements CalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config       = config('Components', 'calendar');
+        $this->config       = config('ViewObjects', 'calendar');
         
         $this->prev         = $this->config['prevName'];
         $this->next         = $this->config['nextName'];
@@ -245,7 +245,7 @@ class InternalCalendar extends GridAbstract implements CalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings) : InternalCalendar
     {
-        \Config::set('Components', 'calendar', $settings);
+        \Config::set('ViewObjects', 'calendar', $settings);
         
         return $this;
     }
