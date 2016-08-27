@@ -23,11 +23,6 @@ class InternalCleaner extends \CallController implements CleanerInterface
     {
         if( ! is_array($searchData) )
         {   
-            if( ! is_scalar($cleanWord) ) 
-            {
-                $cleanWord = '';
-            }
-            
             $result = str_replace($cleanWord, '', $searchData);
         }
         else
