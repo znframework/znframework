@@ -1,6 +1,6 @@
-<?php namespace ZN\IndividualStructures\Compress\Drivers;
+<?php namespace ZN\IndividualStructures\Compress\Drivers\Abstracts;
 
-class ZipDriver extends Abstracts\CompressDriverMappingAbstract
+abstract class CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,83 +12,47 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
+    // Extract
     //--------------------------------------------------------------------------------------------------------
     // 
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        \Support::library('ZipArchive', 'ZIP Archive');  
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Extract
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param  string $source
-    // @param  string $target
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function extract($source, $target, $password = NULL)
-    {
-        return \File::zipExtract($source, $target);
-    }
+    abstract public function extract($source, $target, $password);
     
     //--------------------------------------------------------------------------------------------------------
     // Write
     //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $data
-    // @param string $mode
+    // 
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
-    {
-        return uselib('GZDriver')->write($file, $data, $mode);
-    }
+    abstract public function write($file, $data, $mode);
     
     //--------------------------------------------------------------------------------------------------------
     // Read
     //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $file
-    // @param numeric $length
-    // @param string  $type
+    // 
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $mode)
-    {
-        return uselib('GZDriver')->write($file, $length, $mode);
-    }
+    abstract public function read($file, $length, $mode);
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Compress
     //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $blockSize
-    // @param mixed   $workFactor
+    // 
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data, $level = NULL, $encoding = NULL)
-    {
-        return uselib('GZDriver')->do($data, $level, $encoding);
-    }
-    
+    abstract public function do($data, $level, $encoding);
+
     //--------------------------------------------------------------------------------------------------------
-    // Undo
+    // Uncompress
     //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $small
+    // 
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo($data, $length = NULL)
-    {
-        return uselib('GZDriver')->undo($data, $length);
-    }
+    abstract public function undo($data, $length);
 }

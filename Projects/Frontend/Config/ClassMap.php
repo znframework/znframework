@@ -217,7 +217,7 @@ $classMap['classes']['cart'] = 'Internal/StaticAccess/IndividualStructures/Cart/
 $classMap['classes']['zn\individualstructures\cartinterface'] = 'Internal/Libraries/IndividualStructures/Cart/CartInterface.php';
 $classMap['classes']['zn\individualstructures\internalcompress'] = 'Internal/Libraries/IndividualStructures/Compress/Compress.php';
 $classMap['classes']['compress'] = 'Internal/StaticAccess/IndividualStructures/Compress/InternalCompress.php';
-$classMap['classes']['zn\individualstructures\compressdrivermapping'] = 'Internal/Libraries/IndividualStructures/Compress/CompressDriverMapping.php';
+$classMap['classes']['zn\individualstructures\compress\drivers\abstracts\compressdrivermappingabstract'] = 'Internal/Libraries/IndividualStructures/Compress/CompressDriverMappingAbstract.php';
 $classMap['classes']['zn\individualstructures\compressinterface'] = 'Internal/Libraries/IndividualStructures/Compress/CompressInterface.php';
 $classMap['classes']['zn\individualstructures\compress\drivers\bzdriver'] = 'Internal/Libraries/IndividualStructures/Compress/Drivers/BZ.php';
 $classMap['classes']['zn\individualstructures\compress\drivers\gzdriver'] = 'Internal/Libraries/IndividualStructures/Compress/Drivers/GZ.php';
@@ -536,7 +536,7 @@ $classMap['namespaces']['zn\individualstructures\cache\drivers\wincachedriver'] 
 $classMap['namespaces']['zn\individualstructures\internalcart'] = 'internalcart';
 $classMap['namespaces']['zn\individualstructures\cartinterface'] = 'cartinterface';
 $classMap['namespaces']['zn\individualstructures\internalcompress'] = 'internalcompress';
-$classMap['namespaces']['zn\individualstructures\compressdrivermapping'] = 'compressdrivermapping';
+$classMap['namespaces']['zn\individualstructures\compress\drivers\abstracts\compressdrivermappingabstract'] = 'compressdrivermappingabstract';
 $classMap['namespaces']['zn\individualstructures\compressinterface'] = 'compressinterface';
 $classMap['namespaces']['zn\individualstructures\compress\drivers\bzdriver'] = 'bzdriver';
 $classMap['namespaces']['zn\individualstructures\compress\drivers\gzdriver'] = 'gzdriver';

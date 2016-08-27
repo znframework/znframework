@@ -343,12 +343,12 @@
             
             'columns' => 
             [
-                'username'   => '', // Kullanımı zorunludur.
-                'password'   => '', // Kullanımı zorunludur.
-                'email'      => '', // Kullanımı görecelidir.
-                'active'     => '', // İsteğe bağlı.
-                'banned'     => '', // İsteğe bağlı.
-                'activation' => ''  // İsteğe bağlı.
+                'username'   => '', // Required
+                'password'   => '', // Required
+                'email'      => '', // Required
+                'active'     => '', // Relative
+                'banned'     => '', // Relative
+                'activation' => ''  // Relative
             ]
         ],
 

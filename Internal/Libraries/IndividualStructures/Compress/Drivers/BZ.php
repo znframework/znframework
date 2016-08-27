@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
-use ZN\IndividualStructures\CompressDriverMapping;
-
-class BZDriver extends CompressDriverMapping
+class BZDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,6 +11,30 @@ class BZDriver extends CompressDriverMapping
     //
     //--------------------------------------------------------------------------------------------------------
     
+    //--------------------------------------------------------------------------------------------------------
+    // Construct
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
+    {
+        \Support::func('bzopen', 'BZ');  
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Extract
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function extract($source, $target, $password)
+    {
+        \Support::func('bzextract', 'BZ Driver Extract');   
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Write
     //--------------------------------------------------------------------------------------------------------
@@ -64,7 +86,7 @@ class BZDriver extends CompressDriverMapping
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Compress
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
@@ -72,24 +94,21 @@ class BZDriver extends CompressDriverMapping
     // @param int     $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compress($data, $blockSize, $workFactor)
+    public function do($data, $blockSize, $workFactor)
     {
-        nullCoalesce($blockSize, 4);
-        nullCoalesce($workFactor, 0);
-
-        return bzcompress($data, $blockSize, (int) $workFactor);
+        return bzcompress($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Uncompress
+    // Undo
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
     // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function uncompress($data, $small)
+    public function undo($data, $small)
     {
-        return bzdecompress($data, $small);
+        return bzdecompress($data);
     }
 }

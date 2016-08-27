@@ -111,7 +111,7 @@ class InternalCompress extends \Requirements implements CompressInterface
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Compress
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
@@ -119,76 +119,22 @@ class InternalCompress extends \Requirements implements CompressInterface
     // @param string  $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compress(String $data, Int $level = -1, String $encoding = NULL) : String
+    public function do(String $data, Int $level = -1, String $encoding = NULL) : String
     {
-        return $this->compress->compress($data, $level, $encoding);
+        return $this->compress->do($data, $level, $encoding);
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Uncompress
+    // Undo
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
     // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function uncompress(String $data, Int $length = 0) : String
+    public function undo(String $data, Int $length = 0) : String
     {
-        return $this->compress->uncompress($data, $length);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Encode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param int     $level
-    // @param string  $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function encode(String $data, Int $level = -1, String $encoding = NULL) : String
-    {
-        return $this->compress->encode($data, $level, $encoding);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Decode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function decode(String $data, Int $length = NULL) : String 
-    {
-        return $this->compress->decode($data, $length);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Deflate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $level
-    // @param string  $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function deflate(String $data, Int $level = -1, String $encoding = NULL) : String
-    {
-        return $this->compress->deflate($data, $level, $encoding);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Inflate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function inflate(String $data, Int $length = 0) : String
-    {
-        return $this->compress->inflate($data, $length);
+        return $this->compress->undo($data, $length);
     }
     
     //--------------------------------------------------------------------------------------------------------
