@@ -83,17 +83,16 @@ class InternalCompress extends \Requirements implements CompressInterface
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data, String $mode = 'w') : Bool
+    public function write(String $file, String $data) : Bool
     {
         if( ! is_scalar($data) )
         {
             return \Exceptions::throws('Error', 'valueParameter', '2.(data)');  
         }
 
-        return $this->compress->write($file, $data, $mode);
+        return $this->compress->write($file, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -101,13 +100,11 @@ class InternalCompress extends \Requirements implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file, Int $length = 1024, String $mode = 'r') : String
+    public function read(String $file) : String
     {
-        return $this->compress->read($file, $length, $mode);
+        return $this->compress->read($file);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -115,13 +112,11 @@ class InternalCompress extends \Requirements implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param int     $level
-    // @param string  $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Int $level = -1, String $encoding = NULL) : String
+    public function do(String $data) : String
     {
-        return $this->compress->do($data, $level, $encoding);
+        return $this->compress->do($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -129,12 +124,11 @@ class InternalCompress extends \Requirements implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo(String $data, Int $length = 0) : String
+    public function undo(String $data) : String
     {
-        return $this->compress->undo($data, $length);
+        return $this->compress->undo($data);
     }
     
     //--------------------------------------------------------------------------------------------------------

@@ -41,10 +41,9 @@ class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
+    public function write($file, $data)
     {
         $data = $this->do($data);
 
@@ -56,11 +55,9 @@ class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $mode)
+    public function read($file)
     {
         $content = \File::read($file);
 
@@ -72,14 +69,11 @@ class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param mixed   $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data, $level, $encoding)
+    public function do($data)
     {
-        nullCoalesce($encoding, 'gzip');
-
-        return zlib_encode($data, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'), $level);
+        return zlib_encode($data, ZLIB_ENCODING_GZIP);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -87,11 +81,10 @@ class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo($data, $length)
+    public function undo($data)
     {
-        return zlib_decode($data, $length);
+        return zlib_decode($data);
     }
 }

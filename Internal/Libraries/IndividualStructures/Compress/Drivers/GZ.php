@@ -41,12 +41,11 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
+    public function write($file, $data)
     {
-        $open = gzopen($file, $mode);
+        $open = gzopen($file, 'w');
         
         if( empty($open) )
         {
@@ -65,20 +64,18 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $mode)
+    public function read($file)
     {
-        $open = gzopen($file, $mode);
+        $open = gzopen($file, 'r');
         
         if( empty($open) )
         {
             return \Exceptions::throws('Error', 'fileNotFound', $file); 
         }
         
-        $return = gzread($open, $length);
+        $return = gzread($open, 8096);
         
         gzclose($open);
         
@@ -90,15 +87,11 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $blockSize
-    // @param mixed   $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data, $level, $encoding) 
+    public function do($data) 
     {
-        nullCoalesce($encoding, 'deflate');
-
-        return gzcompress($data, $level, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'));
+        return gzcompress($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -106,11 +99,10 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo($data, $length)
+    public function undo($data)
     {
-        return gzuncompress($data, $length);
+        return gzuncompress($data);
     }
 }

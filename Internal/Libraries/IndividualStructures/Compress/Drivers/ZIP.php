@@ -43,12 +43,11 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
+    public function write($file, $data)
     {
-        return uselib('GZDriver')->write($file, $data, $mode);
+        return uselib('GZDriver')->write($file, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -56,13 +55,11 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $mode)
+    public function read($file)
     {
-        return uselib('GZDriver')->write($file, $length, $mode);
+        return uselib('GZDriver')->read($file);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -70,13 +67,11 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $blockSize
-    // @param mixed   $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data, $level = NULL, $encoding = NULL)
+    public function do($data)
     {
-        return uselib('GZDriver')->do($data, $level, $encoding);
+        return uselib('GZDriver')->do($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -84,11 +79,10 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo($data, $length = NULL)
+    public function undo($data)
     {
-        return uselib('GZDriver')->undo($data, $length);
+        return uselib('GZDriver')->undo($data);
     }
 }

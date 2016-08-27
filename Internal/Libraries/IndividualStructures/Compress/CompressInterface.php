@@ -31,7 +31,7 @@ interface CompressInterface
     // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data, String $mode = 'w') : Bool;
+    public function write(String $file, String $data) : Bool;
     
     //--------------------------------------------------------------------------------------------------------
     // Read
@@ -42,7 +42,7 @@ interface CompressInterface
     // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file, Int $length = 1024, String $mode = 'r') : String;
+    public function read(String $file) : String;
     
     //--------------------------------------------------------------------------------------------------------
     // Do
@@ -53,7 +53,7 @@ interface CompressInterface
     // @param mixed   $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Int $level = -1, String $encoding = NULL) : String;
+    public function do(String $data) : String;
     
     //--------------------------------------------------------------------------------------------------------
     // Undo
@@ -63,5 +63,15 @@ interface CompressInterface
     // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo(String $data, Int $length = 0) : String;
+    public function undo(String $data) : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Driver                                                                       
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $driver
+    // @return object                                    
+    //                                                                                           
+    //--------------------------------------------------------------------------------------------------------
+    public function driver(String $driver) : InternalCompress;
 }

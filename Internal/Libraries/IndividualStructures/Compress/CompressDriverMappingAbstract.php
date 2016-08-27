@@ -27,7 +27,7 @@ abstract class CompressDriverMappingAbstract
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function write($file, $data, $mode);
+    abstract public function write($file, $data);
     
     //--------------------------------------------------------------------------------------------------------
     // Read
@@ -36,7 +36,7 @@ abstract class CompressDriverMappingAbstract
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function read($file, $length, $mode);
+    abstract public function read($file);
 
     //--------------------------------------------------------------------------------------------------------
     // Compress
@@ -45,7 +45,7 @@ abstract class CompressDriverMappingAbstract
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function do($data, $level, $encoding);
+    abstract public function do($data);
 
     //--------------------------------------------------------------------------------------------------------
     // Uncompress
@@ -54,5 +54,5 @@ abstract class CompressDriverMappingAbstract
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function undo($data, $length);
+    abstract public function undo($data);
 }

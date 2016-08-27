@@ -41,10 +41,9 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
+    public function write($file, $data)
     {
         $data = $this->do($data);
 
@@ -56,11 +55,9 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $mode)
+    public function read($file)
     {
         $content = \File::read($file);
 
@@ -72,11 +69,9 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $blockSize
-    // @param mixed   $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data, $level = NULL, $encoding = NULL)
+    public function do($data)
     {
         return lzf_compress($data);
     }
@@ -86,10 +81,9 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo($data, $length = NULL)
+    public function undo($data)
     {
         return lzf_decompress($data);
     }
