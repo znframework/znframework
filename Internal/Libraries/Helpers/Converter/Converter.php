@@ -300,24 +300,17 @@ class InternalConverter extends \CallController implements ConverterInterface
         {
             $arrayKeys = array_map($caseType, $arrayKeys);
         }
-        elseif( $keyval === 'val' || $keyval === 'value' )
+        elseif( $keyval === 'value' )
         {
             $arrayVals = array_map($caseType, $arrayVals);
         }
         else
         {
             $arrayKeys = array_map($caseType, $arrayKeys);
-            $arrayVals = array_map($caseType, $arrayVals);      
+            $arrayVals = array_map($caseType, $arrayVals);          
         }
         
-        $newArray = [];
-        
-        for( $i = 0; $i < count($array); $i++ )
-        {
-            $newArray[$arrayKeys[$i]] = $arrayVals[$i];
-        }
-        
-        return $newArray;
+        return array_combine($arrayKeys, $arrayVals);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -344,13 +337,13 @@ class InternalConverter extends \CallController implements ConverterInterface
     //--------------------------------------------------------------------------------------------------------
     public function highLight(String $str, Array $settings = []) : String
     {
-        $phpFamily      = ! empty( $settings['php:family'] ) ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
-        $phpSize        = ! empty( $settings['php:size'] )   ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
-        $phpStyle       = ! empty( $settings['php:style'] )  ? $settings['php:style'] : '';     
-        $htmlFamily     = ! empty( $settings['html:family'] ) ? 'font-family:'.$settings['html:family'] : '';
-        $htmlSize       = ! empty( $settings['html:size'] )   ? 'font-size:'.$settings['html:size'] : '';
-        $htmlColor      = ! empty( $settings['html:color'] )  ? $settings['html:color'] : '';
-        $htmlStyle      = ! empty( $settings['html:style'] )  ? $settings['html:style'] : '';       
+        $phpFamily      = ! empty( $settings['php:family'] )    ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
+        $phpSize        = ! empty( $settings['php:size'] )      ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
+        $phpStyle       = ! empty( $settings['php:style'] )     ? $settings['php:style'] : '';     
+        $htmlFamily     = ! empty( $settings['html:family'] )   ? 'font-family:'.$settings['html:family'] : '';
+        $htmlSize       = ! empty( $settings['html:size'] )     ? 'font-size:'.$settings['html:size'] : '';
+        $htmlColor      = ! empty( $settings['html:color'] )    ? $settings['html:color'] : '';
+        $htmlStyle      = ! empty( $settings['html:style'] )    ? $settings['html:style'] : '';       
         $comment        = ! empty( $settings['comment:color'] ) ? $settings['comment:color'] : '#969896';
         $commentStyle   = ! empty( $settings['comment:style'] ) ? $settings['comment:style'] : '';
         $default        = ! empty( $settings['default:color'] ) ? $settings['default:color'] : '#000000';
@@ -359,8 +352,8 @@ class InternalConverter extends \CallController implements ConverterInterface
         $keywordStyle   = ! empty( $settings['keyword:style'] ) ? $settings['keyword:style'] : '';
         $string         = ! empty( $settings['string:color'] )  ? $settings['string:color']  : '#183691';
         $stringStyle    = ! empty( $settings['string:style'] )  ? $settings['string:style']  : '';  
-        $background     = ! empty( $settings['background'] )   ? $settings['background'] : '';  
-        $tags           = isset( $settings['tags'] )  ? $settings['tags']  : true;
+        $background     = ! empty( $settings['background'] )    ? $settings['background'] : '';  
+        $tags           =   isset( $settings['tags'] )          ? $settings['tags']  : true;
         
         ini_set("highlight.comment", "$comment; $phpFamily; $phpSize; $phpStyle; $commentStyle");
         ini_set("highlight.default", "$default; $phpFamily; $phpSize; $phpStyle; $defaultStyle");
@@ -509,18 +502,6 @@ class InternalConverter extends \CallController implements ConverterInterface
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // To Unset
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param var $var
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function toUnset($var)
-    {
-        return (unset) $var;    
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
     // To Constant
     //--------------------------------------------------------------------------------------------------------
     // 
@@ -547,66 +528,6 @@ class InternalConverter extends \CallController implements ConverterInterface
         else
         {
             return $var;    
-        }
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // To Unset
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param var    $var
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function varType($var, String $type)
-    {
-        switch($type)
-        {
-            case 'int':
-                return (int)$var;
-            break;  
-            
-            case 'integer':
-                return (integer)$var;
-            break;  
-            
-            case 'bool':
-                return (bool)$var;
-            break;  
-            
-            case 'boolean':
-                return (boolean)$var;
-            break;
-            
-            case 'str':
-            case 'string':
-                if(is_array($var) || is_object($var)) return implode(' ', (array) $var);
-                return (string)$var;
-            break;
-            
-            case 'float':
-                return (float)$var;
-            break;
-            
-            case 'real':
-                return (real)$var;
-            break;
-            
-            case 'double':
-                return (double)$var;
-            break;
-            
-            case 'object':
-                return (object)$var;
-            break;
-            
-            case 'array':
-                return (array)$var;
-            break;
-            
-            case 'unset':
-                return (unset)$var;
-            break;
         }
     }
 }
