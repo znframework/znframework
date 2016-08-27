@@ -34,7 +34,7 @@ class RarDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function extract($source, $target, $password)
     {
-        $rarFile = rar_open($source, $password);
+        $rarFile = rar_open(suffix($source, '.rar'), $password);
         $list    = rar_list($rarFile);
         
         if( ! empty($list) ) foreach( $list as $file ) 
