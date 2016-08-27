@@ -19,7 +19,7 @@ interface SearcherInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------  
-    public function filter(String $column, $value);
+    public function filter(String $column, $value) : InternalSearcher;
     
     //--------------------------------------------------------------------------------------------------------
     // Or Filter
@@ -29,7 +29,7 @@ interface SearcherInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------  
-    public function orFilter(String $column, $value);
+    public function orFilter(String $column, $value) : InternalSearcher;
     
     //--------------------------------------------------------------------------------------------------------
     // Word
@@ -38,7 +38,7 @@ interface SearcherInterface
     // @param string $word
     //
     //--------------------------------------------------------------------------------------------------------  
-    public function word(String $word);
+    public function word(String $word) : InternalSearcher;
     
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -47,10 +47,10 @@ interface SearcherInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type);
+    public function type(String $type) : InternalSearcher;
     
     //--------------------------------------------------------------------------------------------------------
-    // Get
+    // Database
     //--------------------------------------------------------------------------------------------------------
     // 
     // @param array  $conditions
@@ -58,7 +58,7 @@ interface SearcherInterface
     // @param string $type: auto, inside, equal, starting, ending
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(Array $conditions, String $word, String $type = 'auto');
+    public function database(Array $conditions, String $word, String $type = 'auto') : \stdClass;
     
     //--------------------------------------------------------------------------------------------------------
     // Data
@@ -69,5 +69,5 @@ interface SearcherInterface
     // @param string $output: bool, boolean, pos, position, str, string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data($searchData, $searchWord, String $output = 'bool');
+    public function data($searchData, $searchWord, String $output = 'boolean');
 }
