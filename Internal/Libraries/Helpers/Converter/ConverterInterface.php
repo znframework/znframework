@@ -41,7 +41,7 @@ interface ConverterInterface
     // @param string $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time($count, String $type = 'second', String $output = 'day') : Float;  
+    public function time(Int $count, String $type = 'second', String $output = 'day') : Float;  
     
     //--------------------------------------------------------------------------------------------------------
     // Word

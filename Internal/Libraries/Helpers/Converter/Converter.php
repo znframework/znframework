@@ -120,7 +120,7 @@ class InternalConverter extends \CallController implements ConverterInterface
     // @param string $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time($count, String $type = 'second', String $output = 'day') : Float
+    public function time(Int $count, String $type = 'second', String $output = 'day') : Float
     {
         if( $output === "second" ) $out = 1;
         if( $output === "minute" ) $out = 60;
@@ -244,7 +244,7 @@ class InternalConverter extends \CallController implements ConverterInterface
     //--------------------------------------------------------------------------------------------------------
     public function urlWord(String $str, String $splitWord = '-') : String
     {
-        $badChars = Config::get('IndividualStructures', 'security')['urlBadChars'];
+        $badChars = \Config::get('IndividualStructures', 'security')['urlBadChars'];
         
         $str = $this->accent($str);
         $str = str_replace($badChars, '', $str);
