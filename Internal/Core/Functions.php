@@ -1144,9 +1144,9 @@ function internalCreateRobotsFile()
     }
     
     // robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
-    if( file_exists('robots.txt') )
+    if( file_exists($robotTxt = REAL_BASE_DIR.'robots.txt') )
     {
-        $getContents = file_get_contents('robots.txt');
+        $getContents = file_get_contents($robotTxt);
     }
     else
     {
@@ -1158,12 +1158,10 @@ function internalCreateRobotsFile()
         return false;
     }
     
-    if( ! file_put_contents('robots.txt', trim($robots)) )
+    if( ! file_put_contents($robotTxt, trim($robots)) )
     {
         Exceptions::throws('Error', 'fileNotWrite', 'robots.txt');
     }
-    
-    unset( $robots );   
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1403,9 +1401,9 @@ function internalCreateHtaccessFile()
     }
     
     // .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
-    if( file_exists('.htaccess') )
+    if( file_exists($htaccessTxt = REAL_BASE_DIR.'.htaccess') )
     {
-        $getContents = trim(file_get_contents('.htaccess'));
+        $getContents = trim(file_get_contents($htaccessTxt));
     }
     else
     {
@@ -1422,12 +1420,10 @@ function internalCreateHtaccessFile()
         return false;
     }
     
-    if( ! file_put_contents('.htaccess', trim($htaccess)) )
+    if( ! file_put_contents($htaccessTxt, trim($htaccess)) )
     {
         Exceptions::throws('Error', 'fileNotWrite', '.htaccess');
     }
-    
-    unset( $htaccess ); 
 }
 
 //--------------------------------------------------------------------------------------------------

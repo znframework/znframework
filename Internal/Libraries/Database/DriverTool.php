@@ -302,7 +302,7 @@ class DriverTool extends DatabaseCommon
             mkdir($path, 0755, true);   
         }
         
-        if( ! file_put_contents(suffix($path).$fileName, $return) )
+        if( ! file_put_contents(REAL_BASE_DIR.suffix($path).$fileName, $return) )
         {
             return \Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
         }

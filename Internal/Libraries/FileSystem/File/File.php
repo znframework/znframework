@@ -32,7 +32,7 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function contents(String $file) : String
     {
-        return file_get_contents($file);
+        return $this->read($file);
     }
     
     //--------------------------------------------------------------------------------------------------------
