@@ -215,6 +215,20 @@ class InternalFolder extends \CallController implements FolderInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // basePath()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------  
+    public function basePath() : String
+    {
+        return getcwd();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // disk()
     //--------------------------------------------------------------------------------------------------------
     //
@@ -289,10 +303,13 @@ class InternalFolder extends \CallController implements FolderInterface
         {
             static $classes;
         
-            $directory = suffix($pattern); 
-            
-            $files = glob($directory.'*');
-        
+            if( is_dir($pattern) )
+            {
+                $pattern = suffix($pattern).'*'; 
+            }
+
+            $files = glob($pattern);
+
             if( ! empty($files) ) foreach( $files as $v )
             {
                 if( is_file($v) )

@@ -307,16 +307,16 @@ class InternalGenerate extends \CallController implements GenerateInterface
         {
             if( \File::write($file, $controller) )
             {
-                return $this->success = lang('FileSystem', 'generate:success', $name);  
+                return true;
             }   
             else
             {
-                return ! $this->error = lang('FileSystem', 'generate:notSuccess', $name);
+                return \Exceptions::throws('FileSystem', 'generate:notSuccess', $name);
             }
         }   
         else
         {
-            return ! $this->error = lang('FileSystem', 'file:alreadyFileError', $name); 
+            return \Exceptions::throws('FileSystem', 'file:alreadyFileError', $name); 
         }
     }
     

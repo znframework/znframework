@@ -15,12 +15,12 @@ interface ConverterInterface
     // Byte
     //--------------------------------------------------------------------------------------------------------
     // 
-    // @param int  $bytes
-    // @param int  $precision
-    // @param bool $unit
+    // @param float $bytes
+    // @param int   $precision
+    // @param bool  $unit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function byte(Int $bytes, Int $precision = 1, Bool $unit = true) : String;
+    public function byte(Float $bytes, Int $precision = 1, Bool $unit = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Money
