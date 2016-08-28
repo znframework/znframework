@@ -215,6 +215,35 @@ class InternalFolder extends \CallController implements FolderInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // disk()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $dir
+    // @param string $type = 'free'
+    //
+    // @return Float
+    //
+    //--------------------------------------------------------------------------------------------------------  
+    public function disk(String $dir, String $type = 'free') : Float
+    {
+        if( ! is_dir($dir) )
+        {
+            return \Exceptions::throws('FileSystem', 'folder:notFoundError', $dir);
+        }
+
+        $dir = REAL_BASE_DIR.$dir;
+
+        if( $type === 'free' )
+        {
+            return disk_free_space($dir);
+        }
+        else
+        {
+            return disk_total_space($dir);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // files()
     //--------------------------------------------------------------------------------------------------------
     //
