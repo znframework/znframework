@@ -177,7 +177,7 @@ class Structure
         [
             'parameters' => $parameters,
             'page'       => $page,
-            'file'       => $isFile,
+            'file'       => str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $isFile),
             'function'   => $function,
             'namespace'  => $namespace
         ];
