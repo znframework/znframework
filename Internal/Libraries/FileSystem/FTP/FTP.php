@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Converter, Exceptions;
+use Converter, Exceptions, Requirements;
 
-class InternalFTP extends \Requirements implements FTPInterface
+class InternalFTP extends Requirements implements FTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

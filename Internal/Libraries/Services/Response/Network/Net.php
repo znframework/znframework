@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Converter, Exceptions;
+use Converter, Exceptions, CallController;
 
-class InternalNet extends \CallController implements NetInterface
+class InternalNet extends CallController implements NetInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

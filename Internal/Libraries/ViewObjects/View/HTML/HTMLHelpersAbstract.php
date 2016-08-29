@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\View\Abstracts;
 
-abstract class HTMLHelpersAbstract extends \CallController
+use CallController;
+
+abstract class HTMLHelpersAbstract extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

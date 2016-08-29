@@ -1,8 +1,8 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image;
+use Image, CallController;
 
-class InternalThumb extends \CallController implements ThumbInterface
+class InternalThumb extends CallController implements ThumbInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

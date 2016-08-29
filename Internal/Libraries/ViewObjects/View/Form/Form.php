@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validation, Arrays, DB;
+use Validation, Arrays, DB, CallController;
 
-class InternalForm extends \CallController implements FormInterface, ViewCommonInterface
+class InternalForm extends CallController implements FormInterface, ViewCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

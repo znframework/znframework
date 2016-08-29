@@ -1,8 +1,8 @@
 <?php namespace ZN\Helpers;
 
-use Cart, Html, Config, Arrays, Security, Exceptions;
+use Cart, Html, Config, Arrays, Security, Exceptions, CallController;
 
-class InternalConverter extends \CallController implements ConverterInterface
+class InternalConverter extends CallController implements ConverterInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

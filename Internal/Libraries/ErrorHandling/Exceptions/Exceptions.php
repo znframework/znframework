@@ -1,8 +1,8 @@
 <?php namespace ZN\ErrorHandling;
 
-use Config, Import;
+use Exception, Config, Import;
 
-class InternalExceptions extends \Exception implements ExceptionsInterface
+class InternalExceptions extends Exception implements ExceptionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

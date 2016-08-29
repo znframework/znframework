@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-class InternalJS extends \CallController
+use CallController;
+
+class InternalJS extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\DateTime;
 
-use Config, Arrays;
+use Config, Arrays, CallController;
 
-class DateTimeCommon extends \CallController
+class DateTimeCommon extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

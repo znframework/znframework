@@ -1,8 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use Folder, File, Json, Method, Html, Form, URI, Pagination, Sheet, Style;
+use Requirements, Folder, File, Json, Method, Html, Form, URI, Pagination, Sheet, Style;
 
-class InternalML extends \Requirements implements MLInterface
+class InternalML extends Requirements implements MLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

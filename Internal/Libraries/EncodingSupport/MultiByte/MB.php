@@ -1,8 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use Strings, Exceptions, Converter;
+use Strings, Exceptions, Converter, CallController;
 
-class InternalMB extends \CallController implements MBInterface
+class InternalMB extends CallController implements MBInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

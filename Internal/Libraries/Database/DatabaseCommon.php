@@ -1,8 +1,8 @@
 <?php namespace ZN\Database;
 
-use Support, Exceptions, Arrays;
+use Support, Exceptions, Arrays, Requirements;
 
-class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
+class DatabaseCommon extends Requirements implements DatabaseCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

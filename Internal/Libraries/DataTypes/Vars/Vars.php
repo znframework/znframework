@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Exceptions;
+use Exceptions, CallController;
 
-class InternalVars extends \CallController implements VarsInterface
+class InternalVars extends CallController implements VarsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

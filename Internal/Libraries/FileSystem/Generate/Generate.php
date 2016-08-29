@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use File, Exceptions;
+use File, Exceptions, CallController;
 
-class InternalGenerate extends \CallController implements GenerateInterface
+class InternalGenerate extends CallController implements GenerateInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

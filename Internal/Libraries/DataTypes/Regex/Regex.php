@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Arrays;
+use Arrays, Requirements;
 
-class InternalRegex extends \Requirements implements RegexInterface
+class InternalRegex extends Requirements implements RegexInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

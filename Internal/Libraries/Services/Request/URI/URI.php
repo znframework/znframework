@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Request;
 
-use Security;
+use Security, CallController;
 
-class InternalURI extends \CallController implements URIInterface
+class InternalURI extends CallController implements URIInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

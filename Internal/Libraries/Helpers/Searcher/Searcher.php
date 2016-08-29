@@ -1,8 +1,8 @@
 <?php namespace ZN\Helpers;
 
-use DB;
+use DB, CallController;
 
-class InternalSearcher extends \CallController implements SearcherInterface
+class InternalSearcher extends CallController implements SearcherInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

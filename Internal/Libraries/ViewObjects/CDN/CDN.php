@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config;
+use Config, CallController;
 
-class InternalCDN extends \CallController implements CDNInterface
+class InternalCDN extends CallController implements CDNInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

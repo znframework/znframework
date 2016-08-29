@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Session, Json, Exceptions;
+use Session, Json, Exceptions, Requirements;
 
-class InternalCookie extends \Requirements implements CookieInterface, SessionCookieCommonInterface
+class InternalCookie extends Requirements implements CookieInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

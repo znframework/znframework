@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Exceptions;
+use Exceptions, CallController;
 
-class InternalHTML extends \CallController implements HTMLInterface, ViewCommonInterface
+class InternalHTML extends CallController implements HTMLInterface, ViewCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

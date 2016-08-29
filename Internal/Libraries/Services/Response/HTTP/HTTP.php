@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Arrays, Exceptions, Method;
+use Config, Arrays, Exceptions, Method, Requirements;
 
-class InternalHTTP extends \Requirements implements HTTPInterface
+class InternalHTTP extends Requirements implements HTTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

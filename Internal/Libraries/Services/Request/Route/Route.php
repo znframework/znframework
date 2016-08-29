@@ -1,9 +1,9 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Config, Errors;
+use Config, Errors, Controller;
 
-class InternalRoute extends \Controller implements RouteInterface
+class InternalRoute extends Controller implements RouteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

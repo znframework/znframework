@@ -1,8 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use Support, Converter;
+use Support, Converter, CallController;
 
-class InternalGT extends \CallController implements GTInterface
+class InternalGT extends CallController implements GTInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

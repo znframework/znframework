@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Config;
+use Config, Requirements;
 
-class InternalSession extends \Requirements implements SessionInterface, SessionCookieCommonInterface
+class InternalSession extends Requirements implements SessionInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

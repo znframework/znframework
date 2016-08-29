@@ -1,8 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use Arrays, Exceptions;
+use Arrays, Exceptions, CallController;
 
-class InternalIV extends \CallController implements IVInterface
+class InternalIV extends CallController implements IVInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

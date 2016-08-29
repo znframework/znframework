@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Grids\Abstracts;
 
-abstract class GridAbstract extends \Requirements
+use Requirements;
+
+abstract class GridAbstract extends Requirements
 {
     //--------------------------------------------------------------------------------------------------------
     //

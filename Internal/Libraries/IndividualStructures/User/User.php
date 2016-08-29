@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Encode, DB, Session, Cookie, Method, Import, Email, URI;
+use Requirements, Encode, DB, Session, Cookie, Method, Import, Email, URI;
 
-class InternalUser extends \Requirements implements UserInterface, UserPropertiesInterface
+class InternalUser extends Requirements implements UserInterface, UserPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

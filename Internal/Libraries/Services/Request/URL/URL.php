@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Request;
 
-use Converter;
+use Converter, CallController;
 
-class InternalURL extends \CallController implements URLInterface
+class InternalURL extends CallController implements URLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

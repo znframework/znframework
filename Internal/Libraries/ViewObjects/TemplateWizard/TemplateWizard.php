@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Errors, Exceptions;
+use Errors, Exceptions, CallController;
 
-class TemplateWizard extends \CallController implements TemplateWizardInterface
+class TemplateWizard extends CallController implements TemplateWizardInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

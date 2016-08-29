@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions;
+use Support, Exceptions, Requirements;
 
-class InternalCompress extends \Requirements implements CompressInterface
+class InternalCompress extends Requirements implements CompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

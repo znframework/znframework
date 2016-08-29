@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use File, Html, Exceptions;
+use File, Html, Exceptions, CallController;
 
-class InternalXML extends \CallController implements XMLInterface
+class InternalXML extends CallController implements XMLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

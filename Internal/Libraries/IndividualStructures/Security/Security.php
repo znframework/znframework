@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Regex, Converter;
+use Regex, Converter, Requirements;
 
-class InternalSecurity extends \Requirements implements SecurityInterface
+class InternalSecurity extends Requirements implements SecurityInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-class InternalMethod extends \CallController implements MethodInterface
+use CallController;
+
+class InternalMethod extends CallController implements MethodInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

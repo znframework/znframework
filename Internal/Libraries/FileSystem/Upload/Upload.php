@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Folder, Converter, Encode;
+use Config, Folder, Converter, Encode, CallController;
 
-class InternalUpload extends \CallController implements UploadInterface
+class InternalUpload extends CallController implements UploadInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

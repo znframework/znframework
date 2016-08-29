@@ -1,8 +1,8 @@
 <?php namespace ZN\ImageProcessing;
 
-use Folder, Exceptions;
+use Folder, Exceptions, CallController;
 
-class InternalImage extends \CallController implements ImageInterface
+class InternalImage extends CallController implements ImageInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

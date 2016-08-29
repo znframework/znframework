@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Config, Security, Session, Encode, Method, Validate;
+use Config, Security, Session, Encode, Method, Validate, CallController;
 
-class InternalValidation extends \CallController implements ValidationInterface
+class InternalValidation extends CallController implements ValidationInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

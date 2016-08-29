@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use SSH, Folder, Buffer, Exceptions;
+use SSH, Folder, Buffer, Exceptions, Requirements;
 
-class InternalCrontab extends \Requirements implements CrontabInterface, CrontabIntervalInterface
+class InternalCrontab extends Requirements implements CrontabInterface, CrontabIntervalInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

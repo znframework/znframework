@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-class InternalChars extends \CallController implements CharsInterface
+use CallController;
+
+class InternalChars extends CallController implements CharsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

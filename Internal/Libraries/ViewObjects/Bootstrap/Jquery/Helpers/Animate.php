@@ -1,8 +1,9 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
 use ZN\ViewObjects\Bootstrap\JqueryTrait;
+use CallController;
 
-class Animate extends \CallController
+class Animate extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

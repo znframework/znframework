@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions;
+use Support, Exceptions, Requirements;
 
-class InternalSSH extends \Requirements implements SSHInterface
+class InternalSSH extends Requirements implements SSHInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

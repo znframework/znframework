@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Exceptions;
+use Exceptions, CallController;
 
-class InternalDownload extends \CallController implements DownloadInterface
+class InternalDownload extends CallController implements DownloadInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use URI;
+use URI, Requirements;
 
-class InternalPagination extends \Requirements implements PaginationInterface, PaginationPropertiesInterface
+class InternalPagination extends Requirements implements PaginationInterface, PaginationPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

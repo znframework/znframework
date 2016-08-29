@@ -1,6 +1,8 @@
 <?php namespace ZN\Helpers;
 
-class InternalRounder extends \CallController implements RounderInterface
+use CallController;
+
+class InternalRounder extends CallController implements RounderInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

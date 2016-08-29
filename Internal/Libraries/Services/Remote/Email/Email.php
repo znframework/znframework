@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, Config;
+use Support, Exceptions, Config, Requirements;
 
-class InternalEmail extends \Requirements implements EmailInterface
+class InternalEmail extends Requirements implements EmailInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Converter;
+use Converter, CallController;
 
-class InternalFilters extends \CallController implements FiltersInterface
+class InternalFilters extends CallController implements FiltersInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

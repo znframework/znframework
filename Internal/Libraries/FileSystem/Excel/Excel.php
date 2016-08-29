@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Exceptions;
+use Exceptions, CallController;
 
-class InternalExcel extends \CallController implements ExcelInterface
+class InternalExcel extends CallController implements ExcelInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

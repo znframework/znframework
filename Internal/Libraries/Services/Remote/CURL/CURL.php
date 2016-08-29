@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Converter, Exceptions;
+use Support, Converter, Exceptions, CallController;
 
-class InternalCURL extends \CallController implements CURLInterface
+class InternalCURL extends CallController implements CURLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

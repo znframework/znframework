@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use Import;
+use Import, CallController;
 
-class InternalScript extends \CallController implements TextCommonInterface
+class InternalScript extends CallController implements TextCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

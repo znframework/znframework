@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions;
+use Support, Exceptions, Requirements;
 
-class InternalCart extends \Requirements implements CartInterface
+class InternalCart extends Requirements implements CartInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

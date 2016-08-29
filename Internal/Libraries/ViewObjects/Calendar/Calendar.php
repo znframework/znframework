@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, URI;
+use Config, URI, Requirements;
 
-class InternalCalendar implements CalendarInterface
+class InternalCalendar extends Requirements implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalSupport extends \CallController implements SupportInterface
+use CallController;
+
+class InternalSupport extends CallController implements SupportInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support;
+use Support, Requirements;
 
-class InternalCache extends \Requirements implements CacheInterface
+class InternalCache extends Requirements implements CacheInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

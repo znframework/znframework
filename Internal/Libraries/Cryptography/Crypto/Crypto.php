@@ -1,8 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-use Support;
+use Support, Requirements;
 
-class InternalCrypto extends \Requirements implements CryptoInterface
+class InternalCrypto extends Requirements implements CryptoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

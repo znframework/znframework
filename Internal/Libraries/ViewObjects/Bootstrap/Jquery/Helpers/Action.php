@@ -1,8 +1,9 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
 use ZN\ViewObjects\Bootstrap\JqueryTrait;
+use CallController;
 
-class Action extends \CallController
+class Action extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session;
+use Config, Session, Requirements;
 
-class InternalCaptcha extends \Requirements implements CaptchaInterface
+class InternalCaptcha extends Requirements implements CaptchaInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

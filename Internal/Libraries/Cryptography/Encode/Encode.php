@@ -1,8 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-use Exceptions;
+use Exceptions, Requirements;
 
-class InternalEncode extends \Requirements implements EncodeInterface
+class InternalEncode extends Requirements implements EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Session, Exceptions;
+use Session, Exceptions, CallController;
 
-class InternalBuffer extends \CallController implements BufferInterface
+class InternalBuffer extends CallController implements BufferInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

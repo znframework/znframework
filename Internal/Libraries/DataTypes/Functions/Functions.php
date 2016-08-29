@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Exceptions;
+use Exceptions, CallController;
 
-class InternalFunctions extends \CallController implements FunctionsInterface
+class InternalFunctions extends CallController implements FunctionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

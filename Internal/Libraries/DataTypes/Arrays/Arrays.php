@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Converter;
+use Converter, CallController;
 
-class InternalArrays extends \CallController implements ArraysInterface
+class InternalArrays extends CallController implements ArraysInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use JQ;
+use JQ, CallController;
 
-class InternalJquery extends \CallController implements JqueryInterface
+class InternalJquery extends CallController implements JqueryInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

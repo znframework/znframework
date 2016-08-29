@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, Exceptions;
+use Converter, Exceptions, CallController;
 
-class InternalStrings extends \CallController implements StringsInterface
+class InternalStrings extends CallController implements StringsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image, Exceptions, Converter, Html, Config;
+use Image, Exceptions, Converter, Html, Config, CallController;
 
-class InternalGD extends \CallController implements GDInterface
+class InternalGD extends CallController implements GDInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

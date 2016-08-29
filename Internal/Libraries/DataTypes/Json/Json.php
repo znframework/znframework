@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Converter;
+use Converter, CallController;
 
-class InternalJson extends \CallController implements JsonInterface
+class InternalJson extends CallController implements JsonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
