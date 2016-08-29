@@ -1,6 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
+use Converter;
 
 class MhashDriver extends CryptoMapping
 {
@@ -27,7 +28,7 @@ class MhashDriver extends CryptoMapping
 	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->config['key']; 
 		
 		// MHASH_ ön eki ilave ediliyor.
-		$cipher = \Converter::toConstant($cipher, 'MHASH_');
+		$cipher = Converter::toConstant($cipher, 'MHASH_');
 		
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}

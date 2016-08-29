@@ -1,6 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
+use Support, Arrays;
 
 class OpensslDriver extends CryptoMapping
 {	
@@ -22,9 +23,9 @@ class OpensslDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		\Support::func('openssl_open', 'OPENSSL');
+		Support::func('openssl_open', 'OPENSSL');
 
-		 parent::__construct();
+		parent::__construct();
 	}
 
 	//--------------------------------------------------------------------------------------------------------
@@ -95,7 +96,7 @@ class OpensslDriver extends CryptoMapping
 			'aes-128' 	=> 16,
 		];
 		
-		$ciphers = \Arrays::multikey($ciphers);
+		$ciphers = Arrays::multikey($ciphers);
 		
 		if( ! isset($ciphers[$cipher]) )
 		{
@@ -120,9 +121,8 @@ class OpensslDriver extends CryptoMapping
 			'ecb'   => 0
 		];
 		
-		$modes = \Arrays::multikey($modes);
-		
-		$mode = isset($modes[$mode]) ? $modes[$mode] : 16;
+		$modes = Arrays::multikey($modes);
+		$mode  = isset($modes[$mode]) ? $modes[$mode] : 16;
 		
 		if( ! empty($cipher) )
 		{

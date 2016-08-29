@@ -1,6 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
+use Converter, Arrays;
 
 class McryptDriver extends CryptoMapping
 {
@@ -29,8 +30,8 @@ class McryptDriver extends CryptoMapping
         $mode   = isset($settings['mode'])   ? $settings['mode']   : 'cbc';
         $iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
 
-        $cipher = \Converter::toConstant($cipher, 'MCRYPT_');
-        $mode   = \Converter::toConstant($mode, 'MCRYPT_MODE_');
+        $cipher = Converter::toConstant($cipher, 'MCRYPT_');
+        $mode   = Converter::toConstant($mode, 'MCRYPT_MODE_');
         
         $encode = trim(mcrypt_encrypt($cipher, $key, $data, $mode, $iv));
         
@@ -53,8 +54,8 @@ class McryptDriver extends CryptoMapping
         $mode   = isset($settings['mode'])   ? $settings['mode']   : 'cbc';
         $iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
         
-        $cipher = \Converter::toConstant($cipher, 'MCRYPT_');
-        $mode   = \Converter::toConstant($mode, 'MCRYPT_MODE_');
+        $cipher = Converter::toConstant($cipher, 'MCRYPT_');
+        $mode   = Converter::toConstant($mode, 'MCRYPT_MODE_');
         
         $data   = base64_decode($data);
         
@@ -88,7 +89,7 @@ class McryptDriver extends CryptoMapping
             'cast_256|gost|loki97|rijndael_256'             => 32
         ];
         
-        $ciphers = \Arrays::multikey($ciphers);
+        $ciphers = Arrays::multikey($ciphers);
         
         if( ! isset($ciphers[$cipher]) )
         {
@@ -114,9 +115,8 @@ class McryptDriver extends CryptoMapping
             'rijndael_256'                                              => 32,
         ];
         
-        $modes = \Arrays::multikey($modes);
-        
-        $mode = isset($modes[$mode]) ? $modes[$mode] : 8;
+        $modes = Arrays::multikey($modes);  
+        $mode  = isset($modes[$mode]) ? $modes[$mode] : 8;
         
         if( ! empty($cipher) )
         {

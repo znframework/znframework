@@ -1,5 +1,7 @@
 <?php namespace ZN\CryptoGraphy;
 
+use Exceptions;
+
 class InternalEncode extends \Requirements implements EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -142,12 +144,12 @@ class InternalEncode extends \Requirements implements EncodeInterface
         
         if( ! isHash($type) && ! in_array($type, $algos) )
         {
-            return \Exceptions::throws('Error', 'hashParameter', '2.(type)');   
+            return Exceptions::throws('Error', 'hashParameter', '2.(type)');   
         }
         
         if( in_array($type, $algos) )
         {
-            return \Encode::$type($data);   
+            return $this->$type($data);   
         }
         
         return hash($type, $data);
