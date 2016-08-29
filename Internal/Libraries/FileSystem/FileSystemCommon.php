@@ -1,5 +1,7 @@
 <?php namespace ZN\FileSystem;
 
+use Exceptions;
+
 class FileSystemCommon extends \CallController implements FileSystemCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -97,13 +99,13 @@ class FileSystemCommon extends \CallController implements FileSystemCommonInterf
     //--------------------------------------------------------------------------------------------------------
     public function permission(String $name, Int $permission = 0755) : Bool
     {
-        $name = \File::rpath($name);
+        $name = $this->rpath($name);
         
         if( ! file_exists($name) )
         {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $name);
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $name);
         }
 
-        return \File::permission($name, $permission);
+        return chmod($name, $permission);
     }
 }

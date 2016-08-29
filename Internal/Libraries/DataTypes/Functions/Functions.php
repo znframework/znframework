@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Exceptions;
+
 class InternalFunctions extends \CallController implements FunctionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -23,7 +25,7 @@ class InternalFunctions extends \CallController implements FunctionsInterface
     {
         if( ! is_callable($callback) )
         {
-            return \Exceptions::throws('Error', 'callableParameter', '1.(callback)');   
+            return Exceptions::throws('Error', 'callableParameter', '1.(callback)');   
         }
         
         return call_user_func_array($callback, $params);        
@@ -53,7 +55,7 @@ class InternalFunctions extends \CallController implements FunctionsInterface
     {
         if( ! is_callable($callback) )
         {
-            return \Exceptions::throws('Error', 'callableParameter', '1.(callback)');   
+            return Exceptions::throws('Error', 'callableParameter', '1.(callback)');   
         }
         
         return forward_static_call_array($callback, $params);       

@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
+use Regex, Converter;
+
 class InternalSecurity extends \Requirements implements SecurityInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -97,7 +99,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
         
         if( ! is_array($badWords) ) 
         {
-            return $string = \Regex::replace($badWords, $changeChar, $string, 'xi');
+            return $string = Regex::replace($badWords, $changeChar, $string, 'xi');
         }
         
         $ch = '';
@@ -118,7 +120,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
                 }
             }
             
-            $string = \Regex::replace($value, $ch, $string, 'xi');
+            $string = Regex::replace($value, $ch, $string, 'xi');
         }
     
         return $string;
@@ -208,7 +210,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function htmlEncode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String
     {
-        return htmlspecialchars(trim($string), \Converter::toConstant($type, 'ENT_'), $encoding);
+        return htmlspecialchars(trim($string), Converter::toConstant($type, 'ENT_'), $encoding);
     }
     
     
@@ -222,7 +224,7 @@ class InternalSecurity extends \Requirements implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function htmlDecode(String $string, String $type = 'quotes') : String
     {
-        return htmlspecialchars_decode(trim($string), \Converter::toConstant($type, 'ENT_'));
+        return htmlspecialchars_decode(trim($string), Converter::toConstant($type, 'ENT_'));
     }
     
     //--------------------------------------------------------------------------------------------------------

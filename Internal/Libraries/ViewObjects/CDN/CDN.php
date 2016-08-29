@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
+use Config;
+
 class InternalCDN extends \CallController implements CDNInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ class InternalCDN extends \CallController implements CDNInterface
     //--------------------------------------------------------------------------------------------------------
     public function get(String $configName, String $name) : String
     {
-        $config = \Config::get('ViewObjects', 'cdn');
+        $config = Config::get('ViewObjects', 'cdn');
         
         $configData = ! empty($config[$configName]) ? $config[$configName] : '';
         

@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
+use Support, Exceptions;
+
 class InternalCart extends \Requirements implements CartInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -55,7 +57,7 @@ class InternalCart extends \Requirements implements CartInterface
 
         nullCoalesce($driver, $defaultDriver);
 
-        \Support::driver($this->drivers, $driver);
+        Support::driver($this->drivers, $driver);
 
         $this->driver = uselib($driver);
     }
@@ -72,7 +74,7 @@ class InternalCart extends \Requirements implements CartInterface
         // Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
         if( empty($product) )
         {
-            return \Exceptions::throws('Error', 'emptyParameter', 'product');   
+            return Exceptions::throws('Error', 'emptyParameter', 'product');   
         }
 
         // Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.

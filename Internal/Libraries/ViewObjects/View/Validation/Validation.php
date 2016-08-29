@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
+use Config, Security, Session, Encode, Method, Validate;
+
 class InternalValidation extends \CallController implements ValidationInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -132,37 +134,37 @@ class InternalValidation extends \CallController implements ValidationInterface
         if( in_array('nc', $config) )
         {
             $secnc = Config::get('IndividualStructures', 'security')['ncEncode'];
-            $edit  = \Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
+            $edit  = Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
         }   
         
         // xss_clean genel de xss ataklarını engellemek için kullanılır.
         if( in_array('html' ,$config) )
         {
-            $edit = \Security::htmlEncode($edit);       
+            $edit = Security::htmlEncode($edit);       
         }
         
         // nail_clean tırnak işaretlerini temizlemek için kullanılır.
         if( in_array('xss', $config) )
         {
-            $edit = \Security::xssEncode($edit);    
+            $edit = Security::xssEncode($edit);    
         }
         
         // tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
         if( in_array('injection', $config) )
         {
-            $edit = \Security::injectionEncode($edit);
+            $edit = Security::injectionEncode($edit);
         }
         
         // Script tag kullanımı engellemek için kullanılır.
         if( in_array('script' ,$config) )
         {
-            $edit = \Security::scriptTagEncode($edit);      
+            $edit = Security::scriptTagEncode($edit);      
         }
         
         // PHP tag kullanımı engellemek için kullanılır.
         if( in_array('php' ,$config) )
         {
-            $edit = \Security::phpTagEncode($edit);     
+            $edit = Security::phpTagEncode($edit);     
         }
         
         // Süzgeç sonrası validation::nval() yönteminin yeni değeri
@@ -185,9 +187,9 @@ class InternalValidation extends \CallController implements ValidationInterface
         
         if( in_array('captcha', $config) )
         { 
-            \Session::start();
+            Session::start();
             
-            if( $edit != \Session::select(md5('SystemCaptchaCodeData')) )
+            if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
             { 
                 $this->_messages('captchaCode', $name, $viewName);  
             } 
@@ -219,7 +221,7 @@ class InternalValidation extends \CallController implements ValidationInterface
             $pm = "";
             $pm = $config['oldPassword'];
     
-            if( \Encode::super($edit) != $pm )
+            if( Encode::super($edit) != $pm )
             { 
                 $this->_messages('oldPasswordMatch', $name, $viewName);
             } 
@@ -228,7 +230,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // numeric form aracının sayısal değer olması gerektiğini belirtir.
         if( in_array('numeric', $config) )
         { 
-            if( ! \Validate::numeric($edit) )
+            if( ! Validate::numeric($edit) )
             { 
                 $this->_messages('numeric', $name, $viewName);
             } 
@@ -237,7 +239,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // verinin telefon bilgisi olup olmadığı kontrol edilir.
         if( in_array('phone', $config) )
         { 
-            if( ! \Validate::phone($edit) )
+            if( ! Validate::phone($edit) )
             { 
                 $this->_messages('phone', $name, $viewName);
             } 
@@ -257,7 +259,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // verinin alfabetik karakter bilgisi olup olmadığı kontrol edilir.
         if( in_array('alpha', $config) )
         { 
-            if( ! \Validate::alpha($edit) )
+            if( ! Validate::alpha($edit) )
             { 
                 $this->_messages('alpha', $name, $viewName);
             } 
@@ -266,7 +268,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // verinin alfabetik ve sayısal veri olup olmadığı kontrol edilir.
         if( in_array('alnum', $config) )
         { 
-            if( ! \Validate::alnum($edit) )
+            if( ! Validate::alnum($edit) )
             { 
                 $this->_messages('alnum', $name, $viewName);
             } 
@@ -275,7 +277,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // email form aracının email olması gerektiğini belirtir.
         if( in_array('email', $config) )
         { 
-            if( ! \Validate::email($edit) )
+            if( ! Validate::email($edit) )
             { 
                 $this->_messages('email', $name, $viewName);
             } 
@@ -283,7 +285,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         
         if( in_array('url' ,$config) )
         { 
-            if( ! \Validate::url($edit) )
+            if( ! Validate::url($edit) )
             { 
                 $this->_messages('url', $name, $viewName);
             } 
@@ -291,7 +293,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         
         if( in_array('identity', $config) )
         { 
-            if( ! \Validate::identity($edit) )
+            if( ! Validate::identity($edit) )
             { 
                 $this->_messages('identity', $name, $viewName);
             } 
@@ -300,7 +302,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // no special char, özel karakterlerin kullanımını engeller.
         if( in_array('specialChar', $config) )
         {
-            if( \Validate::specialChar($edit) )
+            if( Validate::specialChar($edit) )
             { 
                 $this->_messages('noSpecialChar', $name, $viewName);
             } 
@@ -309,7 +311,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // maxchar form aracının maximum alacağı karakter sayısını belirtir.    
         if( isset($config['maxchar']) )
         { 
-            if( ! \Validate::maxchar($edit, $config['maxchar']) )
+            if( ! Validate::maxchar($edit, $config['maxchar']) )
             { 
                 $this->_messages('maxchar', $name, ["%" => $viewName, "#" => $config['maxchar']]);
             } 
@@ -318,7 +320,7 @@ class InternalValidation extends \CallController implements ValidationInterface
         // minchar from aracının minimum alacağı karakter sayısını belirtir.
         if( isset($config['minchar']) )
         {   
-            if( ! \Validate::minchar($edit, $config['minchar']) )
+            if( ! Validate::minchar($edit, $config['minchar']) )
             { 
                 $this->_messages('minchar', $name, ["%" => $viewName, "#" => $config['minchar']]);
             } 
@@ -471,17 +473,17 @@ class InternalValidation extends \CallController implements ValidationInterface
     {
         if( $met === "post" )       
         {
-            return \Method::post($name);
+            return Method::post($name);
         }
         
         if( $met === "get" )        
         {
-            return \Method::get($name);
+            return Method::get($name);
         }
         
         if( $met === "request" )    
         {
-            return \Method::request($name);
+            return Method::request($name);
         }   
     }
     
@@ -498,17 +500,17 @@ class InternalValidation extends \CallController implements ValidationInterface
     {
         if( $met === "post" )       
         {
-            return \Method::post($name, $val);
+            return Method::post($name, $val);
         }
         
         if( $met === "get" )        
         {
-            return \Method::get($name, $val);
+            return Method::get($name, $val);
         }
         
         if( $met === "request" )    
         {
-            return \Method::request($name, $val);
+            return Method::request($name, $val);
         }   
     }
 }

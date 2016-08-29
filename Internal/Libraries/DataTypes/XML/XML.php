@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use File, Html, Exceptions;
+
 class InternalXML extends \CallController implements XMLInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +110,7 @@ class InternalXML extends \CallController implements XMLInterface
     {
         $file = suffix($file, $this->extension);
         
-        return \File::write($file, $data);  
+        return File::write($file, $data);  
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -123,13 +125,13 @@ class InternalXML extends \CallController implements XMLInterface
     {
         $file = suffix($file, '.xml');
         
-        if( is_file($file) )
+        if( File::exists($file) )
         {
-            return \File::read($file);  
+            return File::read($file);  
         }
         else
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $file); 
+            return Exceptions::throws('Error', 'fileNotFound', $file); 
         }
     }
 
@@ -265,7 +267,7 @@ class InternalXML extends \CallController implements XMLInterface
             $content = isset( $data['content'] ) ?  $data['content'] : '';
             $child   = isset( $data['child'] )   ?  $data['child']   : '';
             
-            $output .= "$tab<$name".\Html::attributes($attr).">";
+            $output .= "$tab<$name".Html::attributes($attr).">";
             
             if( ! empty($content) )
             {

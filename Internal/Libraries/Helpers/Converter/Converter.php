@@ -1,5 +1,7 @@
 <?php namespace ZN\Helpers;
 
+use Cart, Html, Config, Arrays, Security, Exceptions;
+
 class InternalConverter extends \CallController implements ConverterInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +110,7 @@ class InternalConverter extends \CallController implements ConverterInterface
     //--------------------------------------------------------------------------------------------------------
     public function money(Int $money = 0, String $type = NULL) : String
     {
-        return \Cart::moneyFormat($money, $type);
+        return Cart::moneyFormat($money, $type);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -167,7 +169,7 @@ class InternalConverter extends \CallController implements ConverterInterface
         return preg_replace
         (
             '/(((https?|ftp)\:\/\/)(\w+\.)*(\w+)\.\w+\/*\S*)/xi', 
-            '<a href="$1"'.\Html::attributes((array) $attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
+            '<a href="$1"'.Html::attributes((array) $attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>', 
             $data
         );
     }
@@ -227,9 +229,9 @@ class InternalConverter extends \CallController implements ConverterInterface
     //--------------------------------------------------------------------------------------------------------
     public function accent(String $str) : String 
     {   
-        $accent = \Config::get('ForeignChars', 'accentChars');
+        $accent = Config::get('ForeignChars', 'accentChars');
         
-        $accent = \Arrays::multikey($accent);
+        $accent = Arrays::multikey($accent);
         
         return str_replace(array_keys($accent), array_values($accent), $str); 
     } 
@@ -244,7 +246,7 @@ class InternalConverter extends \CallController implements ConverterInterface
     //--------------------------------------------------------------------------------------------------------
     public function urlWord(String $str, String $splitWord = '-') : String
     {
-        $badChars = \Config::get('IndividualStructures', 'security')['urlBadChars'];
+        $badChars = Config::get('IndividualStructures', 'security')['urlBadChars'];
         
         $str = $this->accent($str);
         $str = str_replace($badChars, '', $str);
@@ -367,7 +369,7 @@ class InternalConverter extends \CallController implements ConverterInterface
         $string = highlight_string($str, true);
         // ----------------------------------------------------------------------------------------------
     
-        $string = \Security::scriptTagEncode(\Security::phpTagEncode(\Security::htmlDecode($string)));
+        $string = Security::scriptTagEncode(Security::phpTagEncode(Security::htmlDecode($string)));
         
         $tagArray = $tags === true 
                   ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
@@ -514,7 +516,7 @@ class InternalConverter extends \CallController implements ConverterInterface
     {
         if( ! is_scalar($var) )
         {
-            return \Exceptions::throws('Error', 'valueParameter', '1.(var)');   
+            return Exceptions::throws('Error', 'valueParameter', '1.(var)');   
         }
             
         if( defined(strtoupper($prefix.$var.$suffix)) )

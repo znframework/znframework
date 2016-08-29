@@ -1,5 +1,7 @@
 <?php namespace ZN\Services\Response;
 
+use Session, Json, Exceptions;
+
 class InternalCookie extends \Requirements implements CookieInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -66,7 +68,7 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Session::start();
+        Session::start();
 
         $this->config = config('Services', 'cookie');
     }
@@ -209,7 +211,7 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
 
         if( ! is_scalar($value) )
         {
-            $value = \Json::encode($value);
+            $value = Json::encode($value);
         }
         
         if( setcookie($name, $value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
@@ -226,7 +228,7 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
         }
         else
         {
-            return \Exceptions::throws('Services', 'cookie:setError');
+            return Exceptions::throws('Services', 'cookie:setError');
         }
     } 
     
@@ -271,7 +273,7 @@ class InternalCookie extends \Requirements implements CookieInterface, SessionCo
         
         if( isset($_COOKIE[$name]) )
         {
-            if( $decodeArray = \Json::decodeArray($_COOKIE[$name]) )
+            if( $decodeArray = Json::decodeArray($_COOKIE[$name]) )
             {
                 return $decodeArray;
             }   

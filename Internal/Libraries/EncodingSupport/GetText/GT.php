@@ -1,5 +1,7 @@
 <?php namespace ZN\EncodingSupport;
 
+use Support, Converter;
+
 class InternalGT extends \CallController implements GTInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -20,7 +22,7 @@ class InternalGT extends \CallController implements GTInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('gettex', 'GT > Gettex()');
+        Support::func('gettex', 'GT > Gettex()');
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -45,7 +47,7 @@ class InternalGT extends \CallController implements GTInterface
     //--------------------------------------------------------------------------------------------------------
     public function locale(String $category, $locale) : String
     {
-        return setlocale(\Converter::toConstant($category, 'LC_'), $locale);
+        return setlocale(Converter::toConstant($category, 'LC_'), $locale);
     }
     
     //--------------------------------------------------------------------------------------------------------

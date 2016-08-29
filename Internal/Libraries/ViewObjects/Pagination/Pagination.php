@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
+use URI;
+
 class InternalPagination extends \Requirements implements PaginationInterface, PaginationPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -118,7 +120,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
         {   
             // Eğer son segmen sayısal bir veri değilse
             // Başlangıç değerini 0 olarak ayarla.
-            if( ! is_numeric(\Uri::segment(-1)) )
+            if( ! is_numeric(URI::segment(-1)) )
             { 
                 $startPage = 0; 
             }
@@ -126,7 +128,7 @@ class InternalPagination extends \Requirements implements PaginationInterface, P
             { 
                 // Son segment sayısal veri ise
                 // başlangıç değeri olarak ayarla
-                $startPage = \Uri::segment(-1);
+                $startPage = URI::segment(-1);
             }
         }
         else 

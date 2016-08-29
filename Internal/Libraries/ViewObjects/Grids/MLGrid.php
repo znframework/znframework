@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Grids;
 
+use ML;
+
 class InternalMLGrid extends Abstracts\GridAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,6 +24,6 @@ class InternalMLGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function create($app = NULL) : String
     {   
-        return \ML::table($app);
+        return ML::table($app);
     }
 }

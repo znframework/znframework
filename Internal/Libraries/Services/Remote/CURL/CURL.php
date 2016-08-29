@@ -1,5 +1,7 @@
 <?php namespace ZN\Services\Remote;
 
+use Support, Converter, Exceptions;
+
 class InternalCURL extends \CallController implements CURLInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -38,7 +40,7 @@ class InternalCURL extends \CallController implements CURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('curl_exec', 'CURL');
+        Support::func('curl_exec', 'CURL');
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -92,7 +94,7 @@ class InternalCURL extends \CallController implements CURLInterface
     {
         if( ! is_resource($this->init) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
         }
         
         return curl_escape($this->init, $str);
@@ -109,7 +111,7 @@ class InternalCURL extends \CallController implements CURLInterface
     {
         if( ! is_resource($this->init) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
         }
         
         return curl_unescape($this->init, $str);
@@ -126,10 +128,10 @@ class InternalCURL extends \CallController implements CURLInterface
     {
         if( ! is_resource($this->init) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
         }
         
-        return curl_getinfo($this->init, \Converter::toConstant($opt, 'CURLINFO_'));
+        return curl_getinfo($this->init, Converter::toConstant($opt, 'CURLINFO_'));
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -143,7 +145,7 @@ class InternalCURL extends \CallController implements CURLInterface
     {
         if( ! is_resource($this->init) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
         }
         
         return curl_error($this->init);
@@ -160,7 +162,7 @@ class InternalCURL extends \CallController implements CURLInterface
     {
         if( ! is_resource($this->init) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(ch)');
         }
         
         return curl_errno($this->init);
@@ -212,7 +214,7 @@ class InternalCURL extends \CallController implements CURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function option(String $options, $value) : InternalCURL
     {       
-        $this->options[\Converter::toConstant($options, 'CURLOPT_')] = $value;
+        $this->options[Converter::toConstant($options, 'CURLOPT_')] = $value;
         
         return $this;
     }

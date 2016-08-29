@@ -1,5 +1,7 @@
 <?php namespace ZN\FileSystem;
 
+use File, Exceptions;
+
 class InternalGenerate extends \CallController implements GenerateInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -91,9 +93,9 @@ class InternalGenerate extends \CallController implements GenerateInterface
         
         $file = $this->_path($name, $type);
         
-        if( \File::exists($file) )
+        if( File::exists($file) )
         {
-            return \File::delete($file);    
+            return File::delete($file);    
         }
         
         return false;
@@ -303,20 +305,20 @@ class InternalGenerate extends \CallController implements GenerateInterface
 
         $file = $this->_path($name, $type);
                 
-        if( ! \File::exists($file) )
+        if( ! File::exists($file) )
         {
-            if( \File::write($file, $controller) )
+            if( File::write($file, $controller) )
             {
                 return true;
             }   
             else
             {
-                return \Exceptions::throws('FileSystem', 'generate:notSuccess', $name);
+                return Exceptions::throws('FileSystem', 'generate:notSuccess', $name);
             }
         }   
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:alreadyFileError', $name); 
+            return Exceptions::throws('FileSystem', 'file:alreadyFileError', $name); 
         }
     }
     

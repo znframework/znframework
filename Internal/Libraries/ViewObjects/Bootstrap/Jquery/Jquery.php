@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
+use JQ;
+
 class InternalJquery extends \CallController implements JqueryInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -39,7 +41,7 @@ class InternalJquery extends \CallController implements JqueryInterface
     //--------------------------------------------------------------------------------------------------------
     public function property(String $property, ...$attr) : InternalJquery
     {
-        $this->propertyQueue .= \JQ::property($property, $attr);
+        $this->propertyQueue .= JQ::property($property, $attr);
 
         return $this;
     }
@@ -71,7 +73,7 @@ class InternalJquery extends \CallController implements JqueryInterface
     {
         $combineFunction = $args;
         
-        $complete  = EOL.\JQ::selector($this->selector);
+        $complete  = EOL.JQ::selector($this->selector);
         
         $complete .= $this->complete();     
             

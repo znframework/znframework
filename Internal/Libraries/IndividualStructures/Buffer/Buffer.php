@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
+use Session, Exceptions;
+
 class InternalBuffer extends \CallController implements BufferInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -23,7 +25,7 @@ class InternalBuffer extends \CallController implements BufferInterface
     {
         if( ! file_exists($file) )
         {
-            return \Exceptions::throws('Error', 'fileParameter', 'file');   
+            return Exceptions::throws('Error', 'fileParameter', 'file');   
         }
         
         ob_start();
@@ -50,7 +52,7 @@ class InternalBuffer extends \CallController implements BufferInterface
     {
         if( ! is_callable($func) )
         {
-            return \Exceptions::throws('Error', 'callableParameter', 'func');
+            return Exceptions::throws('Error', 'callableParameter', 'func');
         }
         
         ob_start();
@@ -99,15 +101,15 @@ class InternalBuffer extends \CallController implements BufferInterface
         
         if( is_callable($data) )
         {
-            return \Session::insert($systemObData, $this->func($data, (array) $params));    
+            return Session::insert($systemObData, $this->func($data, (array) $params));    
         }
         elseif( file_exists($data) )
         {
-            return \Session::insert($systemObData, $this->file($data)); 
+            return Session::insert($systemObData, $this->file($data)); 
         }
         else
         {
-            return \Session::insert($systemObData, $data);
+            return Session::insert($systemObData, $data);
         }
     }
     
@@ -121,7 +123,7 @@ class InternalBuffer extends \CallController implements BufferInterface
     //--------------------------------------------------------------------------------------------------------
     public function select(String $name)
     {
-        return \Session::select(md5('OB_DATAS_'.$name));
+        return Session::select(md5('OB_DATAS_'.$name));
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -138,14 +140,14 @@ class InternalBuffer extends \CallController implements BufferInterface
         {
             foreach( $name as $delete )
             {
-                \Session::delete(md5('OB_DATAS_'.$delete));
+                Session::delete(md5('OB_DATAS_'.$delete));
             }
 
             return true;
         }
         elseif( is_scalar($name) )
         {
-            return \Session::delete(md5('OB_DATAS_'.$name));
+            return Session::delete(md5('OB_DATAS_'.$name));
         }
 
         return false;

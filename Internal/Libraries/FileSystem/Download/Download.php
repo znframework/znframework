@@ -1,5 +1,7 @@
 <?php namespace ZN\FileSystem;
 
+use Exceptions;
+
 class InternalDownload extends \CallController implements DownloadInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,7 +24,7 @@ class InternalDownload extends \CallController implements DownloadInterface
     {
         if( ! file_exists($file) )
         {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
     
         $fileEx   = explode("/", $file);

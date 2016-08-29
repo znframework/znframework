@@ -1,5 +1,7 @@
 <?php namespace ZN\ImageProcessing;
 
+use Image, Exceptions, Converter, Html, Config;
+
 class InternalGD extends \CallController implements GDInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -87,7 +89,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function thumb(String $filePath, Array $settings) : String
     {
-        return \Image::thumb($filePath, $settings); 
+        return Image::thumb($filePath, $settings); 
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -185,7 +187,7 @@ class InternalGD extends \CallController implements GDInterface
         }
         else
         {
-            return \Exceptions::throws('Error', 'fileParameter', '1.(fileName)');   
+            return Exceptions::throws('Error', 'fileParameter', '1.(fileName)');   
         }
         
         $newData['width']       = $data[0];
@@ -208,7 +210,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function extension(String $type = 'jpeg', Bool $dote = true) : String
     {
-        return image_type_to_extension(\Converter::toConstant($type, 'IMAGETYPE_'), $dote); 
+        return image_type_to_extension(Converter::toConstant($type, 'IMAGETYPE_'), $dote); 
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -220,7 +222,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function mime(String $type = 'jpeg') : String
     {
-        return image_type_to_mime_type(\Converter::toConstant($type, 'IMAGETYPE_'));    
+        return image_type_to_mime_type(Converter::toConstant($type, 'IMAGETYPE_'));    
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -358,7 +360,7 @@ class InternalGD extends \CallController implements GDInterface
             (
                 $this->canvas, $x, $y, $width, $height, $start, $end, 
                 $this->allocate($color), 
-                \Converter::toConstant($style, 'IMG_ARC_')
+                Converter::toConstant($style, 'IMG_ARC_')
             );
         }
         
@@ -497,7 +499,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function filter(String $filter, Int $arg1 = 0, Int $arg2 = 0, Int $arg3 = 0, Int $arg4 = 0) : InternalGD
     {           
-        imagefilter($this->canvas, \Converter::toConstant($filter, 'IMG_FILTER_'), $arg1, $arg2, $arg3, $arg4);
+        imagefilter($this->canvas, Converter::toConstant($filter, 'IMG_FILTER_'), $arg1, $arg2, $arg3, $arg4);
         
         return $this;   
     }
@@ -511,7 +513,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function flip(String $type = 'both') : InternalGD
     {   
-        imageflip($this->canvas, \Converter::toConstant($type, 'IMG_FLIP_'));
+        imageflip($this->canvas, Converter::toConstant($type, 'IMG_FLIP_'));
         
         return $this;   
     }
@@ -671,7 +673,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($sourceImage) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(sourceImage)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(sourceImage)');
         }
 
         imagecolormatch($this->canvas, $sourceImage);
@@ -768,7 +770,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($source) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(source)');
         }
         
         $xt     = isset($settings['xt'])     ? $settings['xt']     : 0;
@@ -795,7 +797,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($source) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(source)');
         }
         
         $xt      = isset($settings['xt'])      ? $settings['xt']      : 0;
@@ -823,7 +825,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($source) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(source)');
         }
         
         $xt      = isset($settings['xt'])      ? $settings['xt']      : 0;
@@ -851,7 +853,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($source) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(source)');
         }
         
         $xt = isset($settings['xt']) ? $settings['xt'] : 0;
@@ -880,7 +882,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($source) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(source)');
+            return Exceptions::throws('Error', 'resourceParameter', '1.(source)');
         }
         
         $xt = isset($settings['xt']) ? $settings['xt'] : 0;
@@ -922,7 +924,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function autoCrop(String $mode = 'default', Float $threshold = .5, Int $color = -1) : InternalGD
     {
-        imagecropauto($this->canvas, \Converter::toConstant($mode, 'IMG_CROP_'), $threshold, $color);   
+        imagecropauto($this->canvas, Converter::toConstant($mode, 'IMG_CROP_'), $threshold, $color);   
         
         return $this;
     }
@@ -1079,7 +1081,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function scale(Int $width, Int $height = -1, String $mode = 'bilinear_fixed') : InternalGD
     {
-        $this->canvas = imagescale($this->canvas, $width, $height, \Converter::toConstant($mode, 'IMG_'));
+        $this->canvas = imagescale($this->canvas, $width, $height, Converter::toConstant($mode, 'IMG_'));
         
         return $this;
     }
@@ -1093,7 +1095,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function interpolation(String $method = 'bilinear_fixed') : InternalGD
     {
-        imagesetinterpolation($this->canvas, \Converter::toConstant($method, 'IMG_'));
+        imagesetinterpolation($this->canvas, Converter::toConstant($method, 'IMG_'));
         
         return $this;
     }
@@ -1155,7 +1157,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         if( ! is_resource($tile) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(tile)');   
+            return Exceptions::throws('Error', 'resourceParameter', '1.(tile)');   
         }
         
         imagesettile($this->canvas, $tile);
@@ -1187,7 +1189,7 @@ class InternalGD extends \CallController implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function layerEffect(String $effect = 'normal') : InternalGD
     {   
-        imagelayereffect($this->canvas, \Converter::toConstant($effect, 'IMG_EFFECT_'));    
+        imagelayereffect($this->canvas, Converter::toConstant($effect, 'IMG_EFFECT_'));    
         
         return $this;
     }
@@ -1203,7 +1205,7 @@ class InternalGD extends \CallController implements GDInterface
     {   
         if( ! is_file($file) )
         {
-            return \Exceptions::throws('Error', 'fileParameter', '1.(file)');   
+            return Exceptions::throws('Error', 'fileParameter', '1.(file)');   
         }
         
         return imageloadfont($file);    
@@ -1220,7 +1222,7 @@ class InternalGD extends \CallController implements GDInterface
     {   
         if( ! is_resource($source) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(source)'); 
+            return Exceptions::throws('Error', 'resourceParameter', '1.(source)'); 
         }
         
         imagepalettecopy($this->canvas, $source);   
@@ -1311,7 +1313,7 @@ class InternalGD extends \CallController implements GDInterface
             return 'No Result!';
         }
         
-        return \Html::image($this->result['path']); 
+        return Html::image($this->result['path']); 
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -1325,7 +1327,7 @@ class InternalGD extends \CallController implements GDInterface
     {
         // Renkler küçük isimlerle yazılmıştır.
         $rgb    = strtolower($rgb);
-        $colors = \Config::get('Colors');
+        $colors = Config::get('Colors');
         
         if( isset($colors[$rgb]) )
         {

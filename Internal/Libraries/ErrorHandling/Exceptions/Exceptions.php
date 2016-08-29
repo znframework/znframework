@@ -1,5 +1,7 @@
 <?php namespace ZN\ErrorHandling;
 
+use Config, Import;
+
 class InternalExceptions extends \Exception implements ExceptionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -115,7 +117,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     private function _template($msg, $file, $line, $no, $trace)
     {
-        $projects = \Config::get('Project');
+        $projects = Config::get('Project');
         
         if( ! $projects['errorReporting'] )
         {
@@ -156,7 +158,7 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
             $exceptionData = $missed;
         }
 
-        $message = \Import::template('ExceptionTable', $exceptionData, true);
+        $message = Import::template('ExceptionTable', $exceptionData, true);
 
         return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
     }
@@ -296,12 +298,12 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
         $langMessage1    = '['.$this->_cleanClassName($traceInfo['class']).'::'.
                            $traceInfo['function'].'()] p'.$argument.':';
 
-        $exceptionData   = array
-        (
+        $exceptionData   = 
+        [
             'message' => lang('Error', 'emptyParameter', $langMessage1),
             'file'    => $traceInfo['file'],
             'line'    => '['.$traceInfo['line'].']'
-        );
+        ];
 
         return $exceptionData;
     }
@@ -350,12 +352,12 @@ class InternalExceptions extends \Exception implements ExceptionsInterface
             $langMessage1 = '['.$this->_cleanClassName($class).'::'.$method.'] p'.$argument.':';
             $langMessage2 = '[`'.$type.'`]';
 
-            $exceptionData = array
-            (
+            $exceptionData =
+            [
                 'message' => lang('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
                 'file'    => $traceInfo['file'],
                 'line'    => '['.$traceInfo['line'].']',
-            );
+            ];
 
             return $exceptionData;
         }

@@ -1,5 +1,7 @@
 <?php namespace ZN\EncodingSupport;
 
+use Arrays, Exceptions;
+
 class InternalIV extends \CallController implements IVInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -31,11 +33,11 @@ class InternalIV extends \CallController implements IVInterface
     //--------------------------------------------------------------------------------------------------------
     public function convert(String $string, String $fromEncoding, String $toEncoding) : String
     {   
-        $toEncodingFirst = \Arrays::getFirst(explode('//', $toEncoding));
+        $toEncodingFirst = Arrays::getFirst(explode('//', $toEncoding));
         
         if( ! isCharset($fromEncoding) || ! isCharset($toEncodingFirst) )
         {
-            return \Exceptions::throws('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');   
+            return Exceptions::throws('Error', 'charsetParameter', '2.(fromEncoding) & 3.(toEncoding)');   
         }
         
         return iconv($fromEncoding, $toEncoding, $string);
@@ -64,7 +66,7 @@ class InternalIV extends \CallController implements IVInterface
     {
         if( ! in_array($type, $this->inputs) )
         {
-            return \Exceptions::throws('Error', 'invalidInput', $type); 
+            return Exceptions::throws('Error', 'invalidInput', $type); 
         }
         
         return iconv_get_encoding($type.'_encoding');
@@ -82,12 +84,12 @@ class InternalIV extends \CallController implements IVInterface
     {
         if( ! in_array($type, $this->inputs) )
         {
-            return \Exceptions::throws('Error', 'invalidInput', $type); 
+            return Exceptions::throws('Error', 'invalidInput', $type); 
         }
         
         if( ! isCharset($charset) )
         {
-            return \Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
+            return Exceptions::throws('Error', 'charsetParameter', '2.(charset)');
         }
         
         return iconv_set_encoding($type.'_encoding', $charset);

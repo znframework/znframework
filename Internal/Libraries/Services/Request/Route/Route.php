@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
+use Config, Errors;
 
 class InternalRoute extends \Controller implements RouteInterface
 {
@@ -55,7 +56,7 @@ class InternalRoute extends \Controller implements RouteInterface
         
         if( ! empty($route) )
         {
-            \Config::set('Services', 'route', ['changeUri' => $route]); 
+            Config::set('Services', 'route', ['changeUri' => $route]); 
         }
         
         $datas      = Structure::data();
@@ -84,13 +85,13 @@ class InternalRoute extends \Controller implements RouteInterface
                 else
                 {
                     // Sayfa bilgisine erişilemezse hata bildir.
-                    if( ! $routeShow404 = \Config::get('Services', 'route')['show404'] )
+                    if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
                     {       
                         // Hatayı rapor et.
                         report('Error', lang('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
                                 
                         // Hatayı ekrana yazdır.
-                        die(\Errors::message('Error', 'callUserFuncArrayError', $functionRun));
+                        die(Errors::message('Error', 'callUserFuncArrayError', $functionRun));
                     }
                     else
                     {

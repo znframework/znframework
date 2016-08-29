@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Converter, Exceptions;
+
 class InternalStrings extends \CallController implements StringsInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -55,7 +57,7 @@ class InternalStrings extends \CallController implements StringsInterface
     //--------------------------------------------------------------------------------------------------------
     public function casing(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
     {
-        return \Converter::stringCase($str, $type, $encoding);
+        return Converter::stringCase($str, $type, $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -234,7 +236,7 @@ class InternalStrings extends \CallController implements StringsInterface
     {
         if( ! is_array($array) ) 
         {
-            return \Exceptions::throws('Error', 'arrayParameter', '3.(array)');
+            return Exceptions::throws('Error', 'arrayParameter', '3.(array)');
         }
         
         if( ! empty($delimiter) )
@@ -402,7 +404,7 @@ class InternalStrings extends \CallController implements StringsInterface
     //--------------------------------------------------------------------------------------------------------
     public function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
     {
-        return str_pad($string, $count, $chars, \Converter::toConstant($type, 'STR_PAD_'));
+        return str_pad($string, $count, $chars, Converter::toConstant($type, 'STR_PAD_'));
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -452,6 +454,6 @@ class InternalStrings extends \CallController implements StringsInterface
     //--------------------------------------------------------------------------------------------------------
     public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array
     {
-        return get_html_translation_table(\Converter::toConstant($table, 'HTML_'), \Converter::toConstant($quote, 'ENT_'));
+        return get_html_translation_table(Converter::toConstant($table, 'HTML_'), Converter::toConstant($quote, 'ENT_'));
     }
 }

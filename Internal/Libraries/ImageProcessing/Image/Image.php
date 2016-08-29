@@ -1,5 +1,7 @@
 <?php namespace ZN\ImageProcessing;
 
+use Folder, Exceptions;
+
 class InternalImage extends \CallController implements ImageInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -61,14 +63,14 @@ class InternalImage extends \CallController implements ImageInterface
         // Durumu rapor etmesi sağlanıyor.
         if( ! file_exists($filePath) )
         {
-            return \Exceptions::throws('ImageProcessing', 'image:notFoundError', $filePath);    
+            return Exceptions::throws('ImageProcessing', 'image:notFoundError', $filePath);    
         }
         
         // Dosyanın uzantısı belirlenen uzantılır dışında
         // ise durumu rapor etmesi sağlanıyor.
         if( ! $this->isImageFile($filePath) )
         {
-            return \Exceptions::throws('ImageProcessing', 'image:notImageFileError', $filePath);    
+            return Exceptions::throws('ImageProcessing', 'image:notImageFileError', $filePath);    
         }
         
         // Ayarlar parametresinde tanımlayan ayarlara
@@ -144,9 +146,9 @@ class InternalImage extends \CallController implements ImageInterface
         
         $this->newPath($filePath);
     
-        if( ! is_dir($this->thumbPath) ) 
+        if( ! Folder::exists($this->thumbPath) ) 
         { 
-            \Folder::create($this->thumbPath);      
+            Folder::create($this->thumbPath);      
         }
         
         $newFile = removeExtension($this->file).$prefix.extension($this->file, true);
@@ -198,7 +200,7 @@ class InternalImage extends \CallController implements ImageInterface
         
         if( empty($g) )
         {
-            return \Exceptions::throws('ImageProcessing', 'image:notFoundError', $path);    
+            return Exceptions::throws('ImageProcessing', 'image:notFoundError', $path);    
         }
         
         $x = $g[0]; $y = $g[1];

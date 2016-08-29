@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
+use Validation, Arrays, DB;
+
 class InternalForm extends \CallController implements FormInterface, ViewCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -288,7 +290,7 @@ class InternalForm extends \CallController implements FormInterface, ViewCommonI
             if( isset($this->postback['bool']) && $this->postback['bool'] === true )
             {
                 $method = ! empty($this->method) ? $this->method : $this->postback['type'];
-                $value  = \Validation::postBack($this->settings['attr']['name'], $method);
+                $value  = Validation::postBack($this->settings['attr']['name'], $method);
 
                 $this->postback = [];
             }
@@ -399,7 +401,7 @@ class InternalForm extends \CallController implements FormInterface, ViewCommonI
             $key     = key($options);
             $current = current($options);
             
-            $options = \Arrays::removeFirst($options);
+            $options = Arrays::removeFirst($options);
     
             if( ! empty($this->settings['table']) )
             {
@@ -411,17 +413,17 @@ class InternalForm extends \CallController implements FormInterface, ViewCommonI
                     $table   = $tableEx[1];  
                     $db      = $tableEx[0];
                     
-                    $db = \DB::differentConnection($db);
+                    $db = DB::differentConnection($db);
                     $result = $db->select($current, $key)->get($table)->result();
                 }
                 else
                 {
-                    $result = \DB::select($current, $key)->get($table)->result();   
+                    $result = DB::select($current, $key)->get($table)->result();   
                 }
             }
             else
             {
-                $result = \DB::query($this->settings['query'])->result();   
+                $result = DB::query($this->settings['query'])->result();   
             }
                     
             foreach( $result as $row )
@@ -437,17 +439,17 @@ class InternalForm extends \CallController implements FormInterface, ViewCommonI
         
         if( isset($this->settings['exclude']) )
         {
-            $options = \Arrays::excluding($options, $this->settings['exclude']);
+            $options = Arrays::excluding($options, $this->settings['exclude']);
         }
         
         if( isset($this->settings['include']) )
         {
-            $options = \Arrays::including($options, $this->settings['include']);
+            $options = Arrays::including($options, $this->settings['include']);
         }
         
         if( isset($this->settings['order']['type']) )
         {
-            $options = \Arrays::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);   
+            $options = Arrays::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);   
         }
         
         if( isset($this->settings['selectedKey']) )
@@ -479,7 +481,7 @@ class InternalForm extends \CallController implements FormInterface, ViewCommonI
             if( isset($this->postback['bool']) && $this->postback['bool'] === true )
             {
                 $method   = ! empty($this->method) ? $this->method : $this->postback['type'];
-                $selected = \Validation::postBack($_attributes['name'], $method);
+                $selected = Validation::postBack($_attributes['name'], $method);
 
                 $this->postback = [];
             }

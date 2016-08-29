@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Grids;
 
+use DB, URI, Arrays, Exceptions, Exception, Method, Html, Form, Sheet, Style, Strings, Json;
+
 class InternalDBGrid extends Abstracts\GridAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -120,7 +122,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     {
         $this->limit = $limit;
 
-        \DB::limit((int) \URI::get('page'), $limit);
+        DB::limit((int) URI::get('page'), $limit);
 
         return $this;
     }
@@ -170,7 +172,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     { 
         foreach( $joins as $key => $join )
         {
-            \DB::{ isset($join[2]) ? $join[2].'Join' : 'leftJoin' }($join[0], $join[1]);
+            DB::{ isset($join[2]) ? $join[2].'Join' : 'leftJoin' }($join[0], $join[1]);
 
             $col1Ex = explode('.', $join[0]);
             $col2Ex = explode('.', $join[1]);
@@ -178,7 +180,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
             $this->joinColumns[] = $col1Ex[1];
             $this->joinColumns[] = $col2Ex[1];
 
-            $this->joins = \Arrays::addLast($this->joins, [$join[0], $join[1]]);
+            $this->joins = Arrays::addLast($this->joins, [$join[0], $join[1]]);
 
             $this->joinTables[$col1Ex[0]] = $col1Ex[1];
             $this->joinTables[$col2Ex[0]] = $col2Ex[1];
@@ -202,7 +204,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function orderBy($orderBy, String $type = NULL) : InternalDBGrid
     {
-        \DB::orderBy($orderBy, $type);
+        DB::orderBy($orderBy, $type);
 
         return $this;
     }
@@ -218,7 +220,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function groupBy(...$args) : InternalDBGrid
     {
-        \DB::groupBy(...$args);
+        DB::groupBy(...$args);
 
         return $this;
     }
@@ -236,7 +238,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function where($column, String $value = NULL, String $logical = NULL) : InternalDBGrid
     {
-        \DB::where($column, $value, $logical);
+        DB::where($column, $value, $logical);
         
         return $this;
     }
@@ -252,7 +254,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function whereGroup(...$args) : InternalDBGrid
     {
-        \DB::whereGroup(...$args);
+        DB::whereGroup(...$args);
         
         return $this;
     }
@@ -291,7 +293,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         
         if( ! isset($this->table) )
         {
-            return \Exceptions::throws('ViewObjects', 'dbgrid:noTable');
+            return Exceptions::throws('ViewObjects', 'dbgrid:noTable');
         }
 
         $table = $this->_styleElement();
@@ -303,7 +305,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // @search
         //
         //----------------------------------------------------------------------------------------------------
-        if( $search = \Method::post('search') )
+        if( $search = Method::post('search') )
         {
             $this->_search($search);
         }
@@ -327,9 +329,9 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // @orderby
         //
         //----------------------------------------------------------------------------------------------------
-        if( $column = \URI::get('order') )
+        if( $column = URI::get('order') )
         {
-            $this->orderBy($column, \URI::get('type'));
+            $this->orderBy($column, URI::get('type'));
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -342,14 +344,14 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // int    $countColumns
         //
         //----------------------------------------------------------------------------------------------------
-        $get          = \DB::get($this->table);
+        $get          = DB::get($this->table);
         $columns      = $get->columns();
         $result       = $get->resultArray();
         $countColumns = count($columns);
 
-        if( $error = \DB::error() )
+        if( $error = DB::error() )
         {
-            return \Exceptions::throws($error);
+            return Exceptions::throws($error);
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -375,7 +377,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // Ekleme ve düzenleme işlemleri için oluşturulan bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        if( \Method::post('saveButton') )
+        if( Method::post('saveButton') )
         {
             $this->_save();      
         }
@@ -404,7 +406,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // Ekleme ve güncelleme tablosunun açılması için oluşturulan bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        if( $uri = \URI::get('process') === 'add' || \URI::get('process') === 'edit' )
+        if( $uri = URI::get('process') === 'add' || URI::get('process') === 'edit' )
         {
             $table .= $this->_addEditTable($joinsData);
         }
@@ -416,7 +418,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // Silme işleminin yapıldığı bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        if( \Method::post('deleteButton') )
+        if( Method::post('deleteButton') )
         {
            $this->_delete($join);
         }
@@ -428,7 +430,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // Genel görünümün oluşturulduğu bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        $table .= '<table id="DBGRID_TABLE"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table id="DBGRID_TABLE"'.Html::attributes($this->config['attributes']['table']).'>'.EOL;
         $table .= $this->_thead($columns, $countColumns);
         $table .= $this->_tbody($result, $countColumns, $joinsData);
         $table .= $this->_pagination($pagination, $countColumns);
@@ -452,10 +454,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
             foreach( $this->config['styleElement'] as $selector => $attr )
             {
-                $attributes .= \Sheet::selector($selector)->attr($attr)->create();
+                $attributes .= Sheet::selector($selector)->attr($attr)->create();
             }
 
-            return \Style::open().$attributes.\Style::close();
+            return Style::open().$attributes.Style::close();
         }
 
         return NULL;
@@ -472,12 +474,12 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected function _thead($columns, $countColumns)
     {
         $table  = '<thead>'.EOL;
-        $table .= '<tr'.\Html::attributes($this->config['attributes']['columns']).'>';
+        $table .= '<tr'.Html::attributes($this->config['attributes']['columns']).'>';
         $table .= '<td colspan="2">';
-        $table .= \Form::open('addForm').\Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search').\Form::close(); 
+        $table .= Form::open('addForm').Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search').Form::close(); 
         $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
-        $table .= \Form::action(CURRENT_CFPATH.( \URI::get('page') ? '/page/'.\URI::get('page') : NULL).'/process/add')->open('addForm').\Form::attr($this->config['attributes']['add'])->submit('addButton', $this->config['buttonNames']['add']).\Form::close();  
-        $table .= '</tr><tr'.\Html::attributes($this->config['attributes']['columns']).'>';   
+        $table .= Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/process/add')->open('addForm').Form::attr($this->config['attributes']['add'])->submit('addButton', $this->config['buttonNames']['add']).Form::close();  
+        $table .= '</tr><tr'.Html::attributes($this->config['attributes']['columns']).'>';   
         $table .= '<td width="20">#</td>';
 
         //----------------------------------------------------------------------------------------------------
@@ -489,10 +491,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
         //----------------------------------------------------------------------------------------------------
         if( isArray($columns) ) foreach( $columns as $column )
         {
-            $table .= '<td>'.\Html::anchor(CURRENT_CFPATH.'/order/'.$column.'/type/'.(\URI::get('type') === 'asc' ? 'desc' : 'asc'), \Html::strong($column), $this->config['attributes']['columns']).'</td>';
+            $table .= '<td>'.Html::anchor(CURRENT_CFPATH.'/order/'.$column.'/type/'.(URI::get('type') === 'asc' ? 'desc' : 'asc'), Html::strong($column), $this->config['attributes']['columns']).'</td>';
         }   
         
-        $table .= '<td align="right" colspan="2"><span'.\Html::attributes($this->config['attributes']['columns']).'>'.\Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
+        $table .= '<td align="right" colspan="2"><span'.Html::attributes($this->config['attributes']['columns']).'>'.Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
 
@@ -523,33 +525,33 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         foreach( $result as $key => $value )
         {    
-            $value = \Arrays::casing($value, 'lower', 'key');
+            $value = Arrays::casing($value, 'lower', 'key');
 
             $hiddenValue = $value[strtolower($this->processColumn)];
 
-            $hiddenId = \Form::hidden('id', $value[strtolower($this->processColumn)] );
+            $hiddenId = Form::hidden('id', $value[strtolower($this->processColumn)] );
           
             if( ! empty( $this->joins ) )
             {
-                $hiddenJoins = \Form::hidden('joinsId', $this->_encode($joinsData));
+                $hiddenJoins = Form::hidden('joinsId', $this->_encode($joinsData));
             }
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
                     implode('</td><td>', $value).
                     '</td><td align="right">'.
                    
-                    \Form::action(CURRENT_CFPATH.( \URI::get('page') ? '/page/'.\URI::get('page') : NULL).'/column/'.$hiddenValue.'/process/edit')->open('editButtonForm').
+                    Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.$hiddenValue.'/process/edit')->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    \Form::attr($this->config['attributes']['edit'])->submit('editButton', $this->config['buttonNames']['edit']).
-                    \Form::close().
+                    Form::attr($this->config['attributes']['edit'])->submit('editButton', $this->config['buttonNames']['edit']).
+                    Form::close().
                     '</td>'.
                     '<td width="60" align="right">'.
-                    \Form::onsubmit($this->confirm)->open('addButtonForm').
+                    Form::onsubmit($this->confirm)->open('addButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    \Form::attr($this->config['attributes']['delete'])->submit('deleteButton', $this->config['buttonNames']['delete']).
-                    \Form::close().
+                    Form::attr($this->config['attributes']['delete'])->submit('deleteButton', $this->config['buttonNames']['delete']).
+                    Form::close().
               
                     '</td></tr>'.
                     EOL;
@@ -587,9 +589,9 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _addEditTable($joinsData)
     {
-        $table = \Form::open('saveForm');
+        $table  = Form::open('saveForm');
 
-        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.\Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.Html::attributes($this->config['attributes']['table']).'>'.EOL;
         $table .= '<tr>';
 
         $newGetRow = NULL;
@@ -598,14 +600,14 @@ class InternalDBGrid extends Abstracts\GridAbstract
         {
             foreach( $joinsData as $join )
             {
-                if( \URI::get('process') === 'edit' )
+                if( URI::get('process') === 'edit' )
                 {
-                    \DB::where($this->joinTables[$join['table']], \URI::get('column'));
+                    DB::where($this->joinTables[$join['table']], URI::get('column'));
                 }
 
-                $newGet = \DB::get($join['table']);
+                $newGet = DB::get($join['table']);
 
-                if( \URI::get('process') === 'edit' )
+                if( URI::get('process') === 'edit' )
                 {
                     $newGetRow = $newGet->row();
                 }
@@ -615,14 +617,14 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
         else
         {   
-            if( \URI::get('process') === 'edit' )
+            if( URI::get('process') === 'edit' )
             {
-                \DB::where($this->processColumn, \URI::get('column'));
+                DB::where($this->processColumn, URI::get('column'));
             }
 
-            $newGet = \DB::get($this->table);
+            $newGet = DB::get($this->table);
 
-            if( \URI::get('process') === 'edit' )
+            if( URI::get('process') === 'edit' )
             {
                 $newGetRow = $newGet->row();
             }
@@ -631,10 +633,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
-                      \Form::attr($this->config['attributes']['save'])->submit('saveButton', $this->config['buttonNames']['save']).
+                      Form::attr($this->config['attributes']['save'])->submit('saveButton', $this->config['buttonNames']['save']).
                       '</td></tr>';
         $table .= '</tr></table>';
-        $table .= \Form::close();
+        $table .= Form::close();
 
         return $table;
     }
@@ -650,15 +652,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _editTable($columns, $tbl, $row)
     {
-        $table  = '<table'.\Html::attributes($this->config['attributes']['editTables']).'>';
-        $table .= '<tr><td width="100">'.\Strings::upperCase($tbl).'</td></tr>';
+        $table  = '<table'.Html::attributes($this->config['attributes']['editTables']).'>';
+        $table .= '<tr><td width="100">'.Strings::upperCase($tbl).'</td></tr>';
         
         foreach( $columns as $column )
         {
             if( ! in_array($column, $this->joinColumns) && strtolower($column) !== strtolower($this->processColumn) )
             {
-                $table .= '<tr><td>'.\Strings::titleCase($column).'</td><td>'.
-                          \Form::placeholder($column)
+                $table .= '<tr><td>'.Strings::titleCase($column).'</td><td>'.
+                          Form::placeholder($column)
                           ->attr($this->config['attributes']['inputs']['text'])
                           ->text($tbl.':'.$column, isset($row->$column) ? $row->$column : NULL).
                           '</td></tr>';
@@ -684,10 +686,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( ! empty($this->joins) )
         {
-            $select = \Arrays::addFirst($this->select, $this->table.'.'.$this->processColumn.' as ID');
+            $select = Arrays::addFirst($this->select, $this->table.'.'.$this->processColumn.' as ID');
         }
 
-        \DB::select(...$select);
+        DB::select(...$select);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -703,14 +705,14 @@ class InternalDBGrid extends Abstracts\GridAbstract
         {
             foreach( $this->search as $column )
             {
-                $whereGroup[] = [$column.' like ', \DB::like($search, 'inside'), 'or'];
+                $whereGroup[] = [$column.' like ', DB::like($search, 'inside'), 'or'];
             }
 
-            \DB::whereGroup($whereGroup);
+            DB::whereGroup($whereGroup);
         }
         else
         {
-            throw new \Exception($this->lang['dbgrid:noSearch']);
+            throw new Exception($this->lang['dbgrid:noSearch']);
         }
     }
 
@@ -727,12 +729,12 @@ class InternalDBGrid extends Abstracts\GridAbstract
         {
             foreach( $this->_decode('joinsId') as $join )
             {
-                \DB::where($join['column'], \Method::post('id'))->delete($join['table']);
+                DB::where($join['column'], Method::post('id'))->delete($join['table']);
             }
         }
         else
         {
-            \DB::where('id', \Method::post('id'))->delete($this->table);
+            DB::where('id', Method::post('id'))->delete($this->table);
         }
 
        redirect(CURRENT_URL);
@@ -747,7 +749,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _saveData()
     {
-        $saveData = \Method::post();
+        $saveData = Method::post();
 
         unset($saveData['saveButton']);
 
@@ -772,20 +774,20 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _processAdd($newSaveData)
     {
-        if( \URI::get('process') === 'add' )
+        if( URI::get('process') === 'add' )
         {
-            \DB::insert($this->table, $newSaveData[$this->table]);
+            DB::insert($this->table, $newSaveData[$this->table]);
 
             if( ! empty($this->joins) )
             {
-                $insertId = \DB::insertID();
+                $insertId = DB::insertID();
 
                 unset($newSaveData[$this->table]);
 
                 foreach( $newSaveData as $t => $d )
                 {
                     $d[$this->joinTables[$t]] = $insertId;
-                    \DB::insert($t, $d);
+                    DB::insert($t, $d);
                 }
             }
         }
@@ -800,9 +802,9 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _processEdit($newSaveData)
     {
-        if( \URI::get('process') === 'edit' )
+        if( URI::get('process') === 'edit' )
         {
-            \DB::where($this->processColumn, \URI::get('column'))->update($this->table, $newSaveData[$this->table]);
+            DB::where($this->processColumn, URI::get('column'))->update($this->table, $newSaveData[$this->table]);
 
             if( ! empty($this->joins) )
             {
@@ -810,7 +812,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
                 foreach( $newSaveData as $t => $d )
                 {
-                    \DB::where($this->joinTables[$t], \URI::get('column'))->update($t, $d);
+                    DB::where($this->joinTables[$t], URI::get('column'))->update($t, $d);
                 }
             }
         }
@@ -843,7 +845,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _decode($data)
     {
-        return \Json::decodeArray(str_replace("'", '"', $_POST[$data]));
+        return Json::decodeArray(str_replace("'", '"', $_POST[$data]));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -855,6 +857,6 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _encode($data)
     {
-        return str_replace('"', "'", \Json::encode($data));
+        return str_replace('"', "'", Json::encode($data));
     }
 }

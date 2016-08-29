@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Arrays;
+
 class InternalRegex extends \Requirements implements RegexInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -141,9 +143,9 @@ class InternalRegex extends \Requirements implements RegexInterface
         
         // Config/Regex.php dosyasından düzenlenmiş karakter 
         // listeleri alınıyor.
-        $regexChars   = \Arrays::multikey($this->config['regexChars']);
+        $regexChars   = Arrays::multikey($this->config['regexChars']);
         
-        $settingChars = \Arrays::multikey($this->config['settingChars']);
+        $settingChars = Arrays::multikey($this->config['settingChars']);
         // --------------------------------------------------------------------------------------------
         
         $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);  

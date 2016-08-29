@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Converter;
+
 class InternalArrays extends \CallController implements ArraysInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +142,7 @@ class InternalArrays extends \CallController implements ArraysInterface
     //--------------------------------------------------------------------------------------------------------
     public function casing(Array $array, String $type = 'lower', String $keyval = 'all') : Array
     {
-        return \Converter::arrayCase($array, $type, $keyval);
+        return Converter::arrayCase($array, $type, $keyval);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -434,7 +436,7 @@ class InternalArrays extends \CallController implements ArraysInterface
     //--------------------------------------------------------------------------------------------------------
     public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
     {
-        $flags = \Converter::toConstant($flags, 'SORT_');
+        $flags = Converter::toConstant($flags, 'SORT_');
         
         switch($type)
         {   
@@ -750,7 +752,7 @@ class InternalArrays extends \CallController implements ArraysInterface
     //--------------------------------------------------------------------------------------------------------
     public function deleteRecurrent(Array $array, String $flags = 'string') : Array
     {
-        return array_unique($array, \Converter::toConstant($flags, 'SORT_'));
+        return array_unique($array, Converter::toConstant($flags, 'SORT_'));
     }
     
     //--------------------------------------------------------------------------------------------------------

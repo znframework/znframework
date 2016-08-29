@@ -1,5 +1,7 @@
 <?php namespace ZN\Services\Response;
 
+use Config;
+
 class InternalSession extends \Requirements implements SessionInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -32,7 +34,7 @@ class InternalSession extends \Requirements implements SessionInterface, Session
     {
         $this->config = config('Services', 'session');
         
-        \Config::iniSet(\Config::get('Htaccess', 'session')['settings']);
+        Config::iniSet(Config::get('Htaccess', 'session')['settings']);
         
         $this->start();
     }

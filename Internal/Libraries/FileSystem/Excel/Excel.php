@@ -1,5 +1,7 @@
 <?php namespace ZN\FileSystem;
 
+use Exceptions;
+
 class InternalExcel extends \CallController implements ExcelInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -97,7 +99,7 @@ class InternalExcel extends \CallController implements ExcelInterface
         
         if( ! is_file($file) )
         {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
         
         $row  = 1;

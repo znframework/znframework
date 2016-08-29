@@ -1,5 +1,7 @@
 <?php namespace ZN\FileSystem;
 
+use Converter, Exceptions;
+
 class InternalFTP extends \Requirements implements FTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -78,14 +80,14 @@ class InternalFTP extends \Requirements implements FTPInterface
                             
         if( empty($this->connect) ) 
         {
-            return \Exceptions::throws('Error', 'emptyVariable', 'Connect');
+            return Exceptions::throws('Error', 'emptyVariable', 'Connect');
         }
         
         $this->login = ftp_login($this->connect, $user, $password);
         
         if( empty($this->login) )
         {
-            return \Exceptions::throws('Error', 'emptyVariable', 'Login');
+            return Exceptions::throws('Error', 'emptyVariable', 'Login');
         }
         
         return $this;
@@ -123,7 +125,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
+            return Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
         }
     }
     
@@ -142,7 +144,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
+            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
         }
     
     }
@@ -162,7 +164,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
+            return Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
         }
     }
     
@@ -182,7 +184,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
+            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
         }
     }
     
@@ -201,7 +203,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
         }
     }
     
@@ -216,13 +218,13 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------  
     public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
     {
-        if( ftp_put($this->connect, $remotePath, $localPath, \Converter::toConstant($type, 'FTP_')) )
+        if( ftp_put($this->connect, $remotePath, $localPath, Converter::toConstant($type, 'FTP_')) )
         {
             return true;
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
+            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
         }
     }
     
@@ -237,13 +239,13 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool
     {
-        if( ftp_get($this->connect, $localPath, $remotePath, \Converter::toConstant($type, 'FTP_')) )
+        if( ftp_get($this->connect, $localPath, $remotePath, Converter::toConstant($type, 'FTP_')) )
         {
             return true;
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
+            return Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
         }
     }
     
@@ -263,7 +265,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         { 
-            return \Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
+            return Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
         }
     }
     

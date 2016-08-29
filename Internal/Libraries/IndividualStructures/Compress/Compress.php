@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
+use Support, Exceptions;
+
 class InternalCompress extends \Requirements implements CompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ class InternalCompress extends \Requirements implements CompressInterface
 
         nullCoalesce($driver, $this->config['driver']);
         
-        \Support::driver($this->drivers, $driver);
+        Support::driver($this->drivers, $driver);
 
         $this->compress = $this->_drvlib($driver);
     }
@@ -71,7 +73,7 @@ class InternalCompress extends \Requirements implements CompressInterface
     {
         if( ! is_file($source) )
         {
-            return \Exceptions::throws('Error', 'fileParameter', '1.(source)');
+            return Exceptions::throws('Error', 'fileParameter', '1.(source)');
         }
 
         return $this->compress->extract($source, $target, $password);
@@ -89,7 +91,7 @@ class InternalCompress extends \Requirements implements CompressInterface
     {
         if( ! is_scalar($data) )
         {
-            return \Exceptions::throws('Error', 'valueParameter', '2.(data)');  
+            return Exceptions::throws('Error', 'valueParameter', '2.(data)');  
         }
 
         return $this->compress->write($file, $data);

@@ -1,5 +1,7 @@
 <?php namespace ZN\Services\Request;
 
+use Security;
+
 class InternalURI extends \CallController implements URIInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -378,7 +380,7 @@ class InternalURI extends \CallController implements URIInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanPath()
     {
-        $pathInfo = \Security::htmlEncode(internalRequestURI());
+        $pathInfo = Security::htmlEncode(internalRequestURI());
     
         return $pathInfo;
     }

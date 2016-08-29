@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Strings;
+
 class InternalStack implements StackInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ class InternalStack implements StackInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $this->data = \Strings::$method($this->data, ...$parameters);
+        $this->data = Strings::$method($this->data, ...$parameters);
 
         return $this;
     }

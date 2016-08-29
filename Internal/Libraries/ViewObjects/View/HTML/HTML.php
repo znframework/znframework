@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
+use Exceptions;
+
 class InternalHTML extends \CallController implements HTMLInterface, ViewCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -326,7 +328,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
     {
         if( ! isEmail($mail) ) 
         {
-            return \Exceptions::throws('Error', 'emailParameter', 'mail');
+            return Exceptions::throws('Error', 'emailParameter', 'mail');
         }
 
         $attributes['href'] = 'mailto:'.$mail;

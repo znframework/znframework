@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
+use Config, URI;
+
 class InternalCalendar implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -245,7 +247,7 @@ class InternalCalendar implements CalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings) : InternalCalendar
     {
-        \Config::set('ViewObjects', 'calendar', $settings);
+        Config::set('ViewObjects', 'calendar', $settings);
         
         return $this;
     }
@@ -279,22 +281,22 @@ class InternalCalendar implements CalendarInterface
         // yıl bilgisini tutmaktadır.
         if( $month === NULL && $year === NULL ) 
         {
-            if( ! is_numeric(\Uri::segment(-1)) )
+            if( ! is_numeric(URI::segment(-1)) )
             { 
                 $month = $today['mon']; 
             }
             else
             { 
-                $month = \Uri::segment(-1);
+                $month = URI::segment(-1);
             }
             
-            if( ! is_numeric(\Uri::segment(-2)) )
+            if( ! is_numeric(URI::segment(-2)) )
             { 
                 $year = $today['year']; 
             }
             else
             { 
-                $year = \Uri::segment(-2);
+                $year = URI::segment(-2);
             }
         }
         else 

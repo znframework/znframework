@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
+use Config, Session;
+
 class InternalCaptcha extends \Requirements implements CaptchaInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -382,16 +384,16 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
         
         if( ! empty($configs) )
         {
-            \Config::set('ViewObjects', 'captcha', $configs);
+            Config::set('ViewObjects', 'captcha', $configs);
         }
         
-        $set = \Config::get('ViewObjects', 'captcha');
+        $set = Config::get('ViewObjects', 'captcha');
         
         $systemCaptchaCodeData = md5('SystemCaptchaCodeData');
     
-        \Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($set['charLength'])));   
+        Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($set['charLength'])));   
         
-        if( $sessionCaptchaCode = \Session::select($systemCaptchaCodeData) )
+        if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
         {
             if( ! isset($set["width"]) ) $set["width"]                              = 100;
             if( ! isset($set["height"]) ) $set["height"]                            = 30;
@@ -545,7 +547,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function getCode() : String
     {
-        return \Session::select(md5('SystemCaptchaCodeData'));
+        return Session::select(md5('SystemCaptchaCodeData'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -557,7 +559,7 @@ class InternalCaptcha extends \Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _convertColor($color)
     {
-        if( $convert = \Config::get('Colors', $color) )
+        if( $convert = Config::get('Colors', $color) )
         {
             return $convert;    
         }

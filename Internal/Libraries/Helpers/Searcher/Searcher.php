@@ -1,5 +1,7 @@
 <?php namespace ZN\Helpers;
 
+use DB;
+
 class InternalSearcher extends \CallController implements SearcherInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -149,26 +151,26 @@ class InternalSearcher extends \CallController implements SearcherInterface
             }
             else
             {
-                $str = \DB::like($word, 'inside');
+                $str = DB::like($word, 'inside');
             }
         }
         
         // İçerisinde Geçen
         if( $type === "inside" ) 
         {
-            $str = \DB::like($word, 'inside');
+            $str = DB::like($word, 'inside');
         }
         
         // İle Başlayan
         if( $type === "starting" ) 
         {
-            $str = \DB::like($word, 'starting');
+            $str = DB::like($word, 'starting');
         }
         
         // İle Biten
         if( $type === "ending" ) 
         {
-            $str = \DB::like($word, 'ending');
+            $str = DB::like($word, 'ending');
         }
         
         if( $type === 'equal')
@@ -181,11 +183,11 @@ class InternalSearcher extends \CallController implements SearcherInterface
         foreach( $conditions as $key => $values )
         {
             // Tekrarlayan verileri engelle.
-            \DB::distinct();
+            DB::distinct();
             
             foreach( $values as $keys )
             {   
-                \DB::where($keys.$operator, $str, 'OR');
+                DB::where($keys.$operator, $str, 'OR');
                 
                 // Filter dizisi boş değilse
                 // Filtrelere göre verileri çek
@@ -198,21 +200,21 @@ class InternalSearcher extends \CallController implements SearcherInterface
                         // Ve bağlaçlı filter kullanılmışsa
                         if( $exval[2] === "and" )
                         {
-                            \DB::where("$exval[0] ", $exval[1], 'AND'); 
+                            DB::where("$exval[0] ", $exval[1], 'AND'); 
                         }
                         
                         // Veya bağlaçlı or_filter kullanılmışsa
                         if( $exval[2] === "or" )
                         {
-                            \DB::where("$exval[0] ", $exval[1], 'OR');
+                            DB::where("$exval[0] ", $exval[1], 'OR');
                         }
                     }   
                 }
             }
             
-            \DB::get($key);
+            DB::get($key);
             
-            $this->result[$key] = \DB::result();
+            $this->result[$key] = DB::result();
         }
         
         $result = $this->result;

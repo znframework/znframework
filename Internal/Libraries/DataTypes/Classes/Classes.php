@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Exceptions, Config;
+
 class InternalClasses extends \CallController implements ClassesInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -24,7 +26,7 @@ class InternalClasses extends \CallController implements ClassesInterface
     {
         if( ! is_object($object) )
         {
-            return \Exceptions::throws('Error', 'objectParameter', '2.(object)');   
+            return Exceptions::throws('Error', 'objectParameter', '2.(object)');   
         }
     
         return is_a($object, $this->_class($className));
@@ -110,7 +112,7 @@ class InternalClasses extends \CallController implements ClassesInterface
     {
         if( ! is_object($var) )
         {
-            return \Exceptions::throws('Error', 'objectParameter', '1.(var)');  
+            return Exceptions::throws('Error', 'objectParameter', '1.(var)');  
         }
         
         return get_class($var);
@@ -165,7 +167,7 @@ class InternalClasses extends \CallController implements ClassesInterface
 
         global $classMap;
 
-        \Config::get('ClassMap');
+        Config::get('ClassMap');
 
         $cm  = array_flip($classMap['namespaces']);
 
