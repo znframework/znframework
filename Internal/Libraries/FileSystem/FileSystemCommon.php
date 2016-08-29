@@ -71,6 +71,20 @@ class FileSystemCommon implements FileSystemCommonInterface
         return $this;
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // Orgin Path
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function originpath(String $string) : String
+    {
+        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $string);
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Rpath
     //--------------------------------------------------------------------------------------------------------
@@ -93,7 +107,7 @@ class FileSystemCommon implements FileSystemCommonInterface
 
         if( $config['realPath'] === true )
         {
-            $file = prefix($file, REAL_BASE_DIR);
+            $file = $this->originpath(prefix($file, REAL_BASE_DIR));
         }  
 
         return $file;

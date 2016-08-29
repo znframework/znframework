@@ -66,7 +66,7 @@ define('STATIC_ACCESS', 'Internal');
 // @return Applications/
 //
 //--------------------------------------------------------------------------------------------------
-define('PROJECTS_DIR', REAL_BASE_DIR.'Projects/'); 
+define('PROJECTS_DIR', REAL_BASE_DIR.'Projects'.DS); 
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_DIR
@@ -75,7 +75,7 @@ define('PROJECTS_DIR', REAL_BASE_DIR.'Projects/');
 // @return External/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_DIR', REAL_BASE_DIR.'External/'); 
+define('EXTERNAL_DIR', REAL_BASE_DIR.'External'.DS); 
 
 //--------------------------------------------------------------------------------------------------
 // trace()

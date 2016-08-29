@@ -89,6 +89,7 @@ class Autoloader
         if( is_file($path) ) 
         {
             unlink($path);
+            clearstatcache();
         }
     
         return self::createClassMap();
@@ -342,8 +343,8 @@ class Autoloader
     {
         static $classes;
             
-        $directory           = suffix($directory); 
-        $baseDirectory       = suffix($baseDirectory); 
+        $directory           = suffix($directory, DS); 
+        $baseDirectory       = suffix($baseDirectory, DS); 
         $configClassMap      = self::_config();
         $configAutoloader    = Config::get('Autoloader');
         $directoryPermission = $configAutoloader['directoryPermission'];
@@ -355,12 +356,14 @@ class Autoloader
             isset($configClassMap['classes']) ? $configClassMap['classes'] : []
         );
         
-        $staticAccessDirectory = INTERNAL_DIR.'StaticAccess/';
+        $staticAccessDirectory = self::_directorySeparator(STORAGE_DIR.'StaticAccess/');
         
         $eol = EOL;
         
         if( ! empty($files) ) foreach( $files as $v )
         {
+            $v = self::_directorySeparator($v);
+
             if( is_file($v) )
             {
                 $classInfo = self::tokenClassFileInfo($v);
@@ -390,12 +393,12 @@ class Autoloader
                     
                         $newPath = str_ireplace($baseDirectory, '', $v);    
                         
-                        $pathEx = explode('/', $newPath);       
+                        $pathEx = explode(DS, $newPath);       
                         array_pop($pathEx);     
-                        $newDir = implode('/', $pathEx);
+                        $newDir = implode(DS, $pathEx);
                         $dir    = $staticAccessDirectory;
-                        $newDir = $dir.$newDir; 
-                        
+                        $newDir = $dir.$newDir;
+
                         if( ! is_dir($dir) )
                         {
                             mkdir($dir, $directoryPermission, true);
@@ -406,7 +409,9 @@ class Autoloader
                             mkdir($newDir, $directoryPermission, true);
                         }
                         
-                        $path = suffix($newDir).$classInfo['class'].'.php';
+                        $path = suffix($newDir, DS).$classInfo['class'].'.php';
+
+                        $path = self::_directorySeparator($path);
                                 
                         $getFileContent = file_get_contents($v);
                         
@@ -493,7 +498,7 @@ class Autoloader
     protected static function tryAgainCreateClassMap($class)
     {   
         self::createClassMap(); 
-            
+          
         $classInfo = self::getClassFileInfo($class);
         
         if( file_exists($classInfo['path']) )
@@ -501,9 +506,22 @@ class Autoloader
             require_once($classInfo['path']);
         }
         else
-        {   
-            die(getErrorMessage('Error', 'classError', $class));
+        { 
+            trace('Error: ['.$class.'] class was not found! Try to rebuild with [Autoloader::restart()]');
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Directory Separator
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _directorySeparator($string)
+    {
+        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $string);
     }
 }
 

@@ -17,7 +17,7 @@
 // @return External/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config/'); 
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config'.DS); 
 
 //--------------------------------------------------------------------------------------------------
 // INTERNAL_CONFIG_DIR
@@ -26,7 +26,7 @@ define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config/');
 // @return Internal/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config/'); 
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config'.DS); 
 
 //--------------------------------------------------------------------------------------------------
 // REQUIRED_FILE
