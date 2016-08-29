@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-class InternalFile extends \CallController implements FileInterface
+class InternalFile extends FileSystemCommon implements FileInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,20 +11,6 @@ class InternalFile extends \CallController implements FileInterface
     //
     //--------------------------------------------------------------------------------------------------------
     
-    //--------------------------------------------------------------------------------------------------------
-    // Rpath
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @param string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function rpath(String $file) : String
-    {
-        return prefix($file, REAL_BASE_DIR);
-    }
-
     //--------------------------------------------------------------------------------------------------------
     // Exists
     //--------------------------------------------------------------------------------------------------------
@@ -39,27 +25,6 @@ class InternalFile extends \CallController implements FileInterface
         $file = $this->rpath($file);
 
         if( is_file($file) )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Is Available
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @param bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function isAvailable(String $file) : Bool
-    {
-        $file = $this->rpath($file);
-
-        if( file_exists($file) )
         {
             return true;
         }
@@ -546,26 +511,6 @@ class InternalFile extends \CallController implements FileInterface
         {
             clearstatcache($real, $fileName);
         }
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Permission
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param int    $permission
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function permission(String $file, Int $permission = 0755) : Bool
-    {
-        $file = $this->rpath($file);
-
-        if( ! file_exists($file) )
-        {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
-        }
-        
-        return chmod($file, $permission);
     }
     
     //--------------------------------------------------------------------------------------------------------

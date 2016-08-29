@@ -656,3 +656,7 @@ $classMap['namespaces']['zn\viewobjects\view\validationinterface'] = 'validation
 $classMap['namespaces']['zn\viewobjects\view\validationpropertiestrait'] = 'validationpropertiestrait';
 $classMap['namespaces']['zn\viewobjects\view\viewcommoninterface'] = 'viewcommoninterface';
 $classMap['namespaces']['zn\viewobjects\view\viewcommontrait'] = 'viewcommontrait';
+$classMap['classes']['zn\filesystem\filesystemcommon'] = 'C:\xampp7\htdocs\zeroneed\Internal/Libraries/FileSystem/FileSystemCommon.php';
+$classMap['namespaces']['zn\filesystem\filesystemcommon'] = 'filesystemcommon';
+$classMap['classes']['zn\filesystem\filesystemcommoninterface'] = 'C:\xampp7\htdocs\zeroneed\Internal/Libraries/FileSystem/FileSystemCommonInterface.php';
+$classMap['namespaces']['zn\filesystem\filesystemcommoninterface'] = 'filesystemcommoninterface';
