@@ -1143,10 +1143,12 @@ function internalCreateRobotsFile()
         }
     }
     
+    $robotTxt = 'robots.txt';
+
     // robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
-    if( file_exists($robotTxt = REAL_BASE_DIR.'robots.txt') )
+    if( File::exists($robotTxt) )
     {
-        $getContents = file_get_contents($robotTxt);
+        $getContents = File::read($robotTxt);
     }
     else
     {
@@ -1158,9 +1160,9 @@ function internalCreateRobotsFile()
         return false;
     }
     
-    if( ! file_put_contents($robotTxt, trim($robots)) )
+    if( ! File::write($robotTxt, trim($robots)) )
     {
-        Exceptions::throws('Error', 'fileNotWrite', 'robots.txt');
+        Exceptions::throws('Error', 'fileNotWrite', $robotTxt);
     }
 }
 
@@ -1399,11 +1401,12 @@ function internalCreateHtaccessFile()
             $htaccess .= "</IfModule>";
         }
     }
+
+    $htaccessTxt = '.htaccess';
     
-    // .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
-    if( file_exists($htaccessTxt = REAL_BASE_DIR.'.htaccess') )
+    if( File::exists($htaccessTxt) )
     {
-        $getContents = trim(file_get_contents($htaccessTxt));
+        $getContents = trim(File::read($htaccessTxt));
     }
     else
     {
@@ -1411,18 +1414,16 @@ function internalCreateHtaccessFile()
     }
     
     $htaccess .= '#----------------------------------------------------------------------------------------------------';
+    $htaccess  = trim($htaccess);
     
-    $htaccess = trim($htaccess);
-    
-    // $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
     if( $htaccess === $getContents ) 
     {
         return false;
     }
     
-    if( ! file_put_contents($htaccessTxt, trim($htaccess)) )
+    if( ! File::write($htaccessTxt, trim($htaccess)) )
     {
-        Exceptions::throws('Error', 'fileNotWrite', '.htaccess');
+        Exceptions::throws('Error', 'fileNotWrite', $htaccessTxt);
     }
 }
 

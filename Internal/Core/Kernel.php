@@ -240,9 +240,9 @@ else
     }
     else
     {
-        report('Error', lang('Error', 'notIsFileError', $isFile), 'SystemNotIsFileError');
+        report('Error', lang('Error', 'notFoundController', CURRENT_CONTROLLER), 'SystemNotFoundControllerError');
         
-        die(Errors::message('Error', 'notIsFileError', $isFile));
+        die(Errors::message('Error', 'notFoundController', CURRENT_CONTROLLER));
     }       
 }
 

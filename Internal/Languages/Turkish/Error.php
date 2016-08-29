@@ -13,6 +13,7 @@
 
     'classError'                => 'Hata: `%` sınıfı bulunamadı!',
     'controllerNameError'       => 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!',
+    'notFoundController'        => 'Hata: URL geçerli bir kontrolcü bilgisi içermiyor! `%` kontrolcüsü bulunamadı!',
     'classDeclaredError'        => 'Hata: `%` sınıfı zaten var! Yeniden tanımlanamaz!',
     'callUserFuncArrayError'    => 'Hata: URL geçerli fonksiyon veya metot bilgisi içermiyor! `%` metodu bulunamadı!',
     'notIsFileError'            => 'Hata: URL geçerli bir yol içermiyor! `%` dosyası bulunamadı!',

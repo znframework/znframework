@@ -13,6 +13,7 @@
 
     'classError'                => 'Error: `%` class was not found!',
     'controllerNameError'       => 'Error: A controller can not be identified by the file `%` name!',
+    'notFoundController'        => 'Error: URL does not contain a valid controller information! `%` controller could not be found!',
     'classDeclaredError'        => 'Error: `%` class already exists! Not declared again!',
     'callUserFuncArrayError'    => 'Error: URL does not contain a valid function or method information! `%` method could not be found!',
     'notIsFileError'            => 'Error: URL does not contain a valid path! `%` file could not be found!',

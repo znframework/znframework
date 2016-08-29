@@ -12,6 +12,27 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
+    // Exists
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @param bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function exists(String $file) : Bool
+    {
+        $file = \File::rpath($file);
+
+        if( is_dir($file) )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // create()
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,6 +41,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
     {
+        $file = \File::rpath($file);
+
         if( is_dir($file) )
         {
            return false;
@@ -37,6 +60,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function rename(String $oldName, String $newName) : Bool
     {
+        $oldName = \File::rpath($oldName);
+
         if( ! file_exists($oldName) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $oldName);
@@ -54,6 +79,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function deleteEmpty(String $folder) : Bool
     {
+        $folder = \File::rpath($folder);
+
         if( ! is_dir($folder) )
         {
            return false;
@@ -71,6 +98,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
+        $name = \File::rpath($name);
+
         if( ! file_exists($name) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
@@ -116,6 +145,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function fileInfo(String $dir, String $extension = NULL) : Array
     {
+        $dir = \File::rpath($dir);
+
         if( is_dir($dir) )
         {
             $files = $this->files($dir, $extension);
@@ -157,6 +188,9 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function copy(String $source, String $target) : Bool
     {
+        $source = \File::rpath($source);
+        $target = \File::rpath($target);
+
         if( ! file_exists($source) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $source);
@@ -206,6 +240,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------  
     public function change(String $name) : Bool
     {
+        $name = \File::rpath($name);
+
         if( ! is_dir($name) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
@@ -240,12 +276,12 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------  
     public function disk(String $dir, String $type = 'free') : Float
     {
+        $dir = \File::rpath($dir);
+
         if( ! is_dir($dir) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $dir);
         }
-
-        $dir = REAL_BASE_DIR.$dir;
 
         if( $type === 'free' )
         {
@@ -269,6 +305,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function files(String $path, $extension = NULL, Bool $pathType = false) : Array
     {
+        $path = \File::rpath($path);
+
         if( ! is_dir($path) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $path);
@@ -299,6 +337,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array
     {
+        $pattern = \File::rpath($pattern);
+
         if( $allFiles === true )
         {
             static $classes;
@@ -349,6 +389,8 @@ class InternalFolder extends \CallController implements FolderInterface
     //--------------------------------------------------------------------------------------------------------
     public function permission(String $name, Int $permission = 0755) : Bool
     {
+        $name = \File::rpath($name);
+        
         if( ! file_exists($name) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $name);

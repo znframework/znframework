@@ -168,7 +168,7 @@ class Autoloader
             }
         }
 
-        file_put_contents(REAL_BASE_DIR.$path, $classMapPage, FILE_APPEND);
+        file_put_contents($path, $classMapPage, FILE_APPEND);
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -235,7 +235,7 @@ class Autoloader
             return $classInfo;   
         }
         
-        $tokens = token_get_all(file_get_contents(REAL_BASE_DIR.$fileName));
+        $tokens = token_get_all(file_get_contents($fileName));
         $i      = 0;
         $ns     = '';
         
@@ -302,7 +302,7 @@ class Autoloader
             return false;   
         }
         
-        $tokens = token_get_all(file_get_contents(REAL_BASE_DIR.$fileName));
+        $tokens = token_get_all(file_get_contents($fileName));
         $info   = [];
         
         $i = 0;
@@ -406,7 +406,7 @@ class Autoloader
                         
                         $path = suffix($newDir).$classInfo['class'].'.php';
                                 
-                        $getFileContent = file_get_contents(REAL_BASE_DIR.$v);
+                        $getFileContent = file_get_contents($v);
                         
                         preg_match_all('/const\s+(\w+)\s+\=\s+(.*?);/i', $getFileContent, $match);
                         
@@ -437,11 +437,11 @@ class Autoloader
                         $classContent .= '}'.$eol.$eol;
                         $classContent .= '//--------------------------------------------------------------------------------------------------';
                         
-                        $fileContentLength = is_file($path) ? strlen(file_get_contents(REAL_BASE_DIR.$path)) : 0; 
+                        $fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0; 
                         
                         if( strlen($classContent) !== $fileContentLength )
                         {
-                            file_put_contents(REAL_BASE_DIR.$path, $classContent);
+                            file_put_contents($path, $classContent);
                         }
                         
                         $classes['classes'][strtolower($newClassName)] = $path;

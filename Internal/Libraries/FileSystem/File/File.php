@@ -12,6 +12,41 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
+    // Rpath
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @param string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function rpath(String $file) : String
+    {
+        return prefix($file, REAL_BASE_DIR);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Exists
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @param bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function exists(String $file) : Bool
+    {
+        $file = $this->rpath($file);
+
+        if( is_file($file) )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Read
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,7 +55,7 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function read(String $file) : String
     {
-        return file_get_contents($file);
+        return file_get_contents($this->rpath($file));
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -65,7 +100,7 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function write(String $file, String $data) : Int
     {
-        return file_put_contents($file, $data);
+        return file_put_contents($this->rpath($file), $data);
     }   
     
     //--------------------------------------------------------------------------------------------------------
@@ -78,7 +113,7 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function append(String $file, String $data) : Int
     {
-        return file_put_contents($file, $data, FILE_APPEND);
+        return file_put_contents($this->rpath($file), $data, FILE_APPEND);
     }   
     
     //--------------------------------------------------------------------------------------------------------
@@ -90,6 +125,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(String $name) : Bool
     {
+        $name = $this->rpath($name);
+
         if( ! is_file($name) )
         { 
             return touch($name);
@@ -111,6 +148,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function replace(String $file, $data, $replace) : String
     {
+        $file = $this->rpath($file);
+
         if( ! is_file($file)) 
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);  
@@ -136,6 +175,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
+        $file = $this->rpath($file);
+
         if( ! is_file($name)) 
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $name);  
@@ -155,6 +196,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function info(String $file) : \stdClass
     {
+        $file = $this->rpath($file);
+
         if( ! is_file($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -183,6 +226,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function size(String $file, String $type = 'b', Int $decimal = 2) : Float
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -247,6 +292,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function createDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -268,6 +315,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function changeDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -287,6 +336,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function owner(String $file)
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -313,6 +364,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function group(String $file)
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -340,6 +393,9 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function zipExtract(String $source, String $target = NULL) : Bool
     {
+        $source = $this->rpath($source);
+        $target = $this->rpath($target);
+
         $source = suffix($source, '.zip');
 
         if( ! file_exists($source) )
@@ -377,8 +433,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function createZip(String $path, Array $data) : Bool
     {           
-        $zip = new \ZipArchive();
-
+        $path    = $this->rpath($path);
+        $zip     = new \ZipArchive();
         $zipPath = suffix($path, ".zip");
         
         if( file_exists($zipPath) ) 
@@ -439,6 +495,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function rename(String $oldName, String $newName) : Bool
     {
+        $oldName = $this->rpath($oldName);
+
         if( ! file_exists($oldName) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $oldName);
@@ -457,6 +515,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function cleanCache(String $fileName = NULL, Bool $real = false)
     {
+        $fileName = $this->rpath($fileName);
+
         if( ! file_exists($fileName) )
         {
             clearstatcache($real);
@@ -477,6 +537,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function permission(String $file, Int $permission = 0755) : Bool
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -496,6 +558,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function truncate(String $file, Int $limit = 0, String $mode = 'r+')
     {
+        $file = $this->rpath($file);
+
         if( ! is_file($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
@@ -517,6 +581,8 @@ class InternalFile extends \CallController implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function rowCount(String $file = '/', Bool $recursive = true) : Int
     {
+        $file = $this->rpath($file);
+
         if( ! file_exists($file) )
         {
             return \Exceptions::throws('FileSystem', 'file:notFoundError', $file);
