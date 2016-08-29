@@ -100,13 +100,13 @@ class InternalFolder extends \CallController implements FolderInterface
     {
         $name = \File::rpath($name);
 
-        if( ! file_exists($name) )
+        if( ! \File::exists($name) )
         {
             return \Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
         }
 
         // Is File
-        if( is_file($name) )
+        if( \File::exists($name) )
         {
             // Delete File
             return \File::delete($name);    

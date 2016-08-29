@@ -84,7 +84,7 @@ class InternalML extends \Requirements implements MLInterface
         $createFile = $this->_langFile($app);
         
         // Daha önce bir dil dosyası oluşturulmamışsa oluştur.
-        if( ! is_file($createFile) )
+        if( ! \File::exists($createFile) )
         {
             \File::write($createFile, \Json::encode([]));   
         }
@@ -141,7 +141,7 @@ class InternalML extends \Requirements implements MLInterface
         $createFile = $this->_langFile($app);
         
         // Dosya mevcutsa verileri al.
-        if( is_file($createFile) )
+        if( \File::exists($createFile) )
         {
             $datas = \Json::decodeArray(\File::read($createFile));      
         }
@@ -208,7 +208,7 @@ class InternalML extends \Requirements implements MLInterface
         {
             $createFile = $this->_langFile($app);
             // Dosya mevcutsa verileri al.
-            if( is_file($createFile) )
+            if( \File::exists($createFile) )
             {
                 return \File::delete($createFile);      
             }

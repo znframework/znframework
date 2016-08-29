@@ -91,7 +91,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
         
         $file = $this->_path($name, $type);
         
-        if( is_file($file) )
+        if( \File::exists($file) )
         {
             return \File::delete($file);    
         }
@@ -303,7 +303,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
 
         $file = $this->_path($name, $type);
                 
-        if( ! is_file($file) )
+        if( ! \File::exists($file) )
         {
             if( \File::write($file, $controller) )
             {
