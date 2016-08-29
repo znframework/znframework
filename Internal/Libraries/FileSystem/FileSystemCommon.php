@@ -140,7 +140,7 @@ class FileSystemCommon implements FileSystemCommonInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Exists
+    // Protected Is
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $type
@@ -149,7 +149,7 @@ class FileSystemCommon implements FileSystemCommonInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function _is($type, $file)
+    protected function _is($type, $file)
     {
         $file = $this->rpath($file);
 
