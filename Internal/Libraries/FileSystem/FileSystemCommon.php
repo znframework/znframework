@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Exceptions;
+use Exceptions, Classes;
 
-class FileSystemCommon extends \CallController implements FileSystemCommonInterface
+class FileSystemCommon implements FileSystemCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -21,6 +21,37 @@ class FileSystemCommon extends \CallController implements FileSystemCommonInterf
     //
     //--------------------------------------------------------------------------------------------------------
     protected $access = NULL;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Methods
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $methods = 
+    [
+        'executable' => 'is_executable', 
+        'writable'   => 'is_writable', 
+        'writeable'  => 'is_writeable', 
+        'readable'   => 'is_readable', 
+        'uploaded'   => 'is_uploaded_file'
+    ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Is Control Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    // @return bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        return $this->_is($method, ...$parameters);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Access
@@ -63,14 +94,13 @@ class FileSystemCommon extends \CallController implements FileSystemCommonInterf
         if( $config['realPath'] === true )
         {
             $file = prefix($file, REAL_BASE_DIR);
-
         }  
 
         return $file;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Is Available
+    // Available
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
@@ -78,7 +108,7 @@ class FileSystemCommon extends \CallController implements FileSystemCommonInterf
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isAvailable(String $file) : Bool
+    public function available(String $file) : Bool
     {
         $file = $this->rpath($file);
 
@@ -107,5 +137,34 @@ class FileSystemCommon extends \CallController implements FileSystemCommonInterf
         }
 
         return chmod($name, $permission);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Exists
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type
+    // @param string $file
+    //
+    // @param bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function _is($type, $file)
+    {
+        $file = $this->rpath($file);
+
+        $validType = $this->methods[$type] ?? NULL;
+
+        if( ! function_exists($validType) || $validType === NULL )
+        {
+            die(getErrorMessage('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
+        }
+
+        if( $validType($file) )
+        {
+            return true;
+        }
+
+        return false;
     }
 }

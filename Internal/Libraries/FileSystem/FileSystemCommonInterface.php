@@ -35,7 +35,7 @@ interface FileSystemCommonInterface
     public function rpath(String $file) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Is Available
+    // Available
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
@@ -43,7 +43,7 @@ interface FileSystemCommonInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isAvailable(String $file) : Bool;
+    public function available(String $file) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // permission()
