@@ -507,7 +507,7 @@ class Autoloader
         }
         else
         { 
-            trace('Error: ['.$class.'] class was not found! Try to rebuild with [Autoloader::restart()]');
+            trace('Error: ['.$class.'] class was not found! Make sure the [class name] is spelled correctly or try to rebuild with [Autoloader::restart()]');
         }
     }
 
