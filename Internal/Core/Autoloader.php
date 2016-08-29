@@ -356,7 +356,7 @@ class Autoloader
             isset($configClassMap['classes']) ? $configClassMap['classes'] : []
         );
         
-        $staticAccessDirectory = self::_directorySeparator(STORAGE_DIR.'StaticAccess/');
+        $staticAccessDirectory = self::_directorySeparator(RESOURCES_DIR.'StaticAccess/');
         
         $eol = EOL;
         
