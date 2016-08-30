@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\Models;
 
-use CallController, DB, DBTool, DBForge, Arrays, Exception;
+use CallController, DB, DBTool, DBForge, Arrays, Exception, Config;
 
 class GrandModel extends CallController
 {
@@ -12,7 +12,7 @@ class GrandModel extends CallController
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Grand Table
     //--------------------------------------------------------------------------------------------------------
@@ -31,13 +31,18 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
+        if( isset(static::$connection) )
+        {
+            Config::set('Database', 'database', static::$connection);
+        }
+
         if( defined('static::table') )
         {
             $grandTable = static::table;
         }                                                  
         else
         {
-            $grandTable = divide(str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+            $grandTable = divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
         }
 
         $this->grandTable = strtolower($grandTable);

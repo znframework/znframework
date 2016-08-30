@@ -6,11 +6,12 @@ interface GenerateInterface
     // Grand Vision
     //--------------------------------------------------------------------------------------------------------
     // 
-    // @param string $name    : empty
-    // @param array  $settings: empty
+    // @param mixed $database = NULL
+    //
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision(String $database = NULL);
+    public function grandVision($database = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Settings

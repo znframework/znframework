@@ -172,7 +172,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanClassName($class)
     {
-        return str_ireplace(STATIC_ACCESS, '', divide($class, '\\', -1));
+        return str_ireplace(INTERNAL_ACCESS, '', divide($class, '\\', -1));
     }
 
     //--------------------------------------------------------------------------------------------------------

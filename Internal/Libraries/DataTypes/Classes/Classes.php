@@ -165,7 +165,7 @@ class InternalClasses extends CallController implements ClassesInterface
     //--------------------------------------------------------------------------------------------------------
     public function onlyName(String $class) : String
     {
-        return divide(str_replace(STATIC_ACCESS, '', $class), '\\', -1);
+        return divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -189,13 +189,13 @@ class InternalClasses extends CallController implements ClassesInterface
         {
             return $cm[$lowerName];
         }
-        elseif( ! empty($cm[strtolower(STATIC_ACCESS).$lowerName]) )
+        elseif( ! empty($cm[strtolower(INTERNAL_ACCESS).$lowerName]) )
         {
-            return $cm[strtolower(STATIC_ACCESS).$lowerName];
+            return $cm[strtolower(INTERNAL_ACCESS).$lowerName];
         }
-        elseif( ! empty($classMap['classes'][strtolower(STATIC_ACCESS).$lowerName]) )
+        elseif( ! empty($classMap['classes'][strtolower(INTERNAL_ACCESS).$lowerName]) )
         {
-            return $classMap['classes'][strtolower(STATIC_ACCESS).$lowerName];
+            return $classMap['classes'][strtolower(INTERNAL_ACCESS).$lowerName];
         }
         else
         {

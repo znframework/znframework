@@ -157,7 +157,7 @@ class DateTimeCommon extends CallController
     //--------------------------------------------------------------------------------------------------------
     protected function _classname()
     {
-        return $className = str_replace(STATIC_ACCESS, '', get_called_class()); 
+        return $className = str_replace(INTERNAL_ACCESS, '', get_called_class()); 
     }
     
     //--------------------------------------------------------------------------------------------------------

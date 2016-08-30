@@ -385,7 +385,7 @@ class Autoloader
                     
                     $classes['classes'][$className] = $v;   
                     
-                    $useStaticAccess = strtolower(STATIC_ACCESS);
+                    $useStaticAccess = strtolower(INTERNAL_ACCESS);
                                 
                     if( strpos($class, $useStaticAccess) === 0 )
                     {

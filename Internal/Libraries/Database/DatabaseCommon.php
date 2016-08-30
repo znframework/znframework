@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use Support, Exceptions, Arrays, Requirements;
+use Support, Exceptions, Arrays, Requirements, Config;
 
 class DatabaseCommon extends Requirements implements DatabaseCommonInterface
 {
@@ -236,6 +236,8 @@ class DatabaseCommon extends Requirements implements DatabaseCommonInterface
         }
 
         $getCalledClass = get_called_class();
+
+        Config::set('Database', 'database', $connection);
 
         return new $getCalledClass($connection);
     }

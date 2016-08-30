@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use Folder, File, Exceptions, CallController, DBTool, Config;
+use CallController, Folder, File, DBTool, Config;
 
 class InternalGenerate extends CallController implements GenerateInterface
 {
@@ -26,40 +26,81 @@ class InternalGenerate extends CallController implements GenerateInterface
     // Grand Vision
     //--------------------------------------------------------------------------------------------------------
     // 
-    // @param string $name    : empty
-    // @param array  $settings: empty
+    // @param mixed $database = NULL
+    //
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision(String $database = NULL)
+    public function grandVision($database = NULL)
     {
-        if( ! empty($database) )
+        $databases = [];
+
+        if( is_string($database) )
         {
-            Config::set('Database', 'database', ['database' => $database]);
+            $databases[0] = $database;
         }
         else
         {
-            $database =  Config::get('Database', 'database')['database'];
+            $databases = $database;
         }
-      
-        $tables   = DBTool::listTables();
-        $database = ucfirst($database);
-        $filePath = 'Visions'.DS.$database;
 
-        Folder::create(MODELS_DIR.$filePath);
-
-        foreach( $tables as $table )
+        if( empty($database) )
         {
-            $table = ucfirst($table);
-
-            $this->model(STATIC_ACCESS.$table.'Vision',
-            [
-                'path'      => $filePath,
-                'namespace' => 'Visions\\'.$database,
-                'use'       => ['GrandModel'],
-                'extends'   => 'GrandModel',
-                'constants' => ['table' => "'".$table."'"]
-            ]);
+            $databases = DBTool::listDatabases();
         }
+
+        $visionPath = 'Visions'.DS;
+
+        $defaultDB = config('Database', 'database')['database'];
+        
+        foreach( $databases as $connection => $database )
+        {
+            $configs = [];
+
+            if( is_array($database) )
+            {
+                $configs  = $database; 
+                $database = $connection; 
+            }
+            else
+            {
+                $configs['database'] = $database; 
+            }
+
+            $tables   = DBTool::differentConnection(['database' => $database])->listTables();
+            $database = ucfirst($database);
+            $filePath = $visionPath.$database;
+
+            Folder::create(MODELS_DIR.$filePath);
+
+            foreach( $tables as $table )
+            {
+                $table = ucfirst($table);
+
+                $this->model(INTERNAL_ACCESS.( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).$table.'Vision',
+                [
+                    'path'      => $filePath,
+                    'namespace' => 'Visions\\'.$database,
+                    'use'       => ['GrandModel'],
+                    'extends'   => 'GrandModel',
+                    'constants' => ['table' => "'".$table."'"],
+                    'vars'      => ['protected static:connection' => $this->_stringArray($configs)] 
+                ]);
+            }
+        }
+    }
+
+    protected function _stringArray($data)
+    {
+        $str = EOL.HT.'['.EOL;
+        foreach( $data as $key => $val )
+        {
+            $str .= HT.HT."'".$key."' => '".$val."',".EOL;
+        }
+        $str = rtrim($str, ','.EOL);
+        $str .= EOL.HT.']';
+        
+        return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -393,20 +434,27 @@ class InternalGenerate extends CallController implements GenerateInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _varType($var)
     {
-        if( stripos($var, 'protected:') === 0 )
+        $static = NULL;
+
+        if( strstr($var, 'static') )
+        {
+            $static = ' static';
+        }
+
+        if( stripos($var, 'protected'.$static.':') === 0 )
         {
             $priority = 'protected';
-            $var      = str_ireplace('protected:', '', $var);
+            $var      = str_ireplace('protected'.$static.':', '', $var);
         }
-        elseif( stripos($var, 'public:') === 0 )
+        elseif( stripos($var, 'public'.$static.':') === 0 )
         {
             $priority = 'public';
-            $var      = str_ireplace('public:', '', $var);
+            $var      = str_ireplace('public'.$static.':', '', $var);
         }
-        elseif( stripos($var, 'private:') === 0 )
+        elseif( stripos($var, 'private'.$static.':') === 0 )
         {
             $priority = 'private';
-            $var     = str_ireplace('private:', '', $var);
+            $var     = str_ireplace('private'.$static.':', '', $var);
         }
         else
         {
@@ -416,7 +464,7 @@ class InternalGenerate extends CallController implements GenerateInterface
         
         return (object) 
         [
-            'priority' => $priority, 
+            'priority' => $priority.$static, 
             'var'      => $var
         ];
     }

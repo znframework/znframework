@@ -88,7 +88,7 @@ class InternalMigration extends \CallController implements MigrationInterface
         
         $this->_create();
         
-        $this->classFix   = STATIC_ACCESS.'Migrate';
+        $this->classFix   = INTERNAL_ACCESS.'Migrate';
         $this->extendsFix = __CLASS__;
     }
     
