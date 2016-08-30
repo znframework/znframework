@@ -8,7 +8,7 @@ ZN aimed at simplicity.
 It is very easy access to objects. 
 Easy integration of internal and external structure. 
 It is also flexible. 
-PHP versions 5.6.0 and above are supported. 
+PHP versions 7.0.0 and above are supported. 
 Generally it complies with the PSR standards. 
 It contains exclusively. 
 Multiple applications are suitable for development.

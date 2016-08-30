@@ -88,19 +88,6 @@ class InternalGenerate extends CallController implements GenerateInterface
         }
     }
 
-    protected function _stringArray($data)
-    {
-        $str = EOL.HT.'['.EOL;
-        foreach( $data as $key => $val )
-        {
-            $str .= HT.HT."'".$key."' => '".$val."',".EOL;
-        }
-        $str = rtrim($str, ','.EOL);
-        $str .= EOL.HT.']';
-        
-        return $str;
-    }
-
     //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
@@ -178,6 +165,28 @@ class InternalGenerate extends CallController implements GenerateInterface
         }
         
         return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected String Array
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param array $data
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _stringArray($data)
+    {
+        $str = EOL.HT.'['.EOL;
+        foreach( $data as $key => $val )
+        {
+            $str .= HT.HT."'".$key."' => '".$val."',".EOL;
+        }
+        $str = rtrim($str, ','.EOL);
+        $str .= EOL.HT.']';
+        
+        return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
