@@ -54,7 +54,7 @@ class Autoloader
 
         if( is_file($file) )
         {   
-            require_once($file);
+            require_once $file;
             
             if
             (
@@ -501,9 +501,11 @@ class Autoloader
           
         $classInfo = self::getClassFileInfo($class);
         
-        if( is_file($classInfo['path']) )
+        $file = REAL_BASE_DIR.$classInfo['path'];
+
+        if( is_file($file) )
         {   
-            require_once($classInfo['path']);
+            require_once $file;
         }
         else
         { 
