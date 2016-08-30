@@ -62,10 +62,8 @@ class InternalGenerate extends CallController implements GenerateInterface
                 $configs  = $database; 
                 $database = $connection; 
             }
-            else
-            {
-                $configs['database'] = $database; 
-            }
+            
+            $configs['database'] = $database; 
 
             $tables   = DBTool::differentConnection(['database' => $database])->listTables();
             $database = ucfirst($database);

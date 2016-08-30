@@ -593,6 +593,14 @@ class InternalUpload extends CallController implements UploadInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _encode()
     {
-        return substr(Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';    
+        $encode = $this->settings['encryption'];
+        $length = $this->settings['encodeLength'];
+
+        if( ! isHash($encode) )
+        {
+            $encode = 'md5';
+        }
+
+        return substr(Encode::type(uniqid(rand()), $encode), 0, $length).'-';    
     }
 }
