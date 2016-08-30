@@ -99,8 +99,6 @@ class InternalFTP extends Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------  
     public function changeFolder(String $path) : Bool
     {
-        $this->_usecon();
-
         if( ftp_chdir($this->connect, $path) )
         {
             return true;
