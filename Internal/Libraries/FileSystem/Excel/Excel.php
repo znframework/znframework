@@ -14,34 +14,6 @@ class InternalExcel extends CallController implements ExcelInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
-    // Output
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $rows
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function rows(Array $rows)
-    {
-        $this->rows = $rows;
-        
-        return $this;   
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // fileName
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $fileName
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function fileName(String $fileName)
-    {
-        $this->fileName = suffix($fileName, '.xls');
-        
-        return $this;   
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
     // Array To XLS
     //--------------------------------------------------------------------------------------------------------
     //
@@ -51,12 +23,6 @@ class InternalExcel extends CallController implements ExcelInterface
     //--------------------------------------------------------------------------------------------------------
     public function arrayToXLS(Array $data, String $file = 'excel.xls')
     {
-        if( ! empty($this->fileName) )
-        {
-            $file = $this->fileName;
-            $this->fileName = NULL; 
-        }
-        
         $file = suffix($file, '.xls');
         
         header("Content-Disposition: attachment; filename=\"$file\"");
@@ -89,12 +55,6 @@ class InternalExcel extends CallController implements ExcelInterface
     //--------------------------------------------------------------------------------------------------------
     public function CSVToArray(String $file) : Array
     {
-        if( ! empty($this->fileName) )
-        {
-            $file = $this->fileName;    
-            $this->fileName = NULL; 
-        }
-        
         $file = suffix($file, '.csv');
         
         if( ! is_file($file) )

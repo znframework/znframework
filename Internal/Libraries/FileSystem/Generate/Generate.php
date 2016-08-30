@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use File, Exceptions, CallController;
+use Folder, File, Exceptions, CallController, DBTool, Config;
 
 class InternalGenerate extends CallController implements GenerateInterface
 {
@@ -22,6 +22,46 @@ class InternalGenerate extends CallController implements GenerateInterface
     //--------------------------------------------------------------------------------------------------------
     protected $settings = [];
     
+    //--------------------------------------------------------------------------------------------------------
+    // Grand Vision
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $name    : empty
+    // @param array  $settings: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function grandVision(String $database = NULL)
+    {
+        if( ! empty($database) )
+        {
+            Config::set('Database', 'database', ['database' => $database]);
+        }
+        else
+        {
+            $database =  Config::get('Database', 'database')['database'];
+        }
+      
+        $tables   = DBTool::listTables();
+        $database = ucfirst($database);
+        $filePath = 'Visions'.DS.$database;
+
+        Folder::create(MODELS_DIR.$filePath);
+
+        foreach( $tables as $table )
+        {
+            $table = ucfirst($table);
+
+            $this->model(STATIC_ACCESS.$table.'Vision',
+            [
+                'path'      => $filePath,
+                'namespace' => 'Visions\\'.$database,
+                'use'       => ['GrandModel'],
+                'extends'   => 'GrandModel',
+                'constants' => ['table' => "'".$table."'"]
+            ]);
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
@@ -134,7 +174,7 @@ class InternalGenerate extends CallController implements GenerateInterface
         {
             $this->settings['application'] = divide(rtrim(PROJECT_DIR, DS), DS, -1);
         }
-        
+
         return PROJECTS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
     }
     
@@ -166,9 +206,12 @@ class InternalGenerate extends CallController implements GenerateInterface
         }
         
         // Namespace Data
+        $namespace = NULL;
+
         if( ! empty($this->settings['namespace']) )
         {
-            $controller .= "namespace ".$this->settings['namespace'].";".$eol.$eol;
+            $namespace   = $this->settings['namespace'];
+            $controller .= "namespace ".$namespace.";".$eol.$eol;
         }
         
         // Use Data
@@ -187,6 +230,11 @@ class InternalGenerate extends CallController implements GenerateInterface
             }
             
             $controller .= $eol;
+        }
+
+        if( ! empty($this->settings['name']) )
+        {
+            $name = $this->settings['name'];
         }
         
         $controller .= $this->settings['object']." ".$name;
@@ -303,7 +351,21 @@ class InternalGenerate extends CallController implements GenerateInterface
         $controller  = rtrim($controller, $eol);
         $controller .= $eol."}";
 
-        $file = $this->_path($name, $type);
+        if( ! empty($this->settings['alias']) )
+        {
+            $controller .= $eol.$eol.'class_alias("'.suffix($namespace, '\\').$name.'", "'.$this->settings['alias'].'");';
+        }
+
+        if( ! empty($this->settings['path']) )
+        {
+            $filePath = suffix($this->settings['path'], DS).$name;
+        }
+        else
+        {
+            $filePath = $name;
+        }
+
+        $file = $this->_path($filePath, $type);
                 
         if( ! File::exists($file) )
         {
@@ -313,12 +375,12 @@ class InternalGenerate extends CallController implements GenerateInterface
             }   
             else
             {
-                return Exceptions::throws('FileSystem', 'generate:notSuccess', $name);
+                return false;
             }
         }   
         else
         {
-            return Exceptions::throws('FileSystem', 'file:alreadyFileError', $name); 
+            return false; 
         }
     }
     
@@ -383,6 +445,6 @@ class InternalGenerate extends CallController implements GenerateInterface
             $return = 'Libraries';
         }
         
-        return presuffix($return);
+        return presuffix($return, DS);
     }
 }

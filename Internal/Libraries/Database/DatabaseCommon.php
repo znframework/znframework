@@ -234,8 +234,10 @@ class DatabaseCommon extends Requirements implements DatabaseCommonInterface
                 }
             }
         }
-        
-        return new self($connection);
+
+        $getCalledClass = get_called_class();
+
+        return new $getCalledClass($connection);
     }
     
     //--------------------------------------------------------------------------------------------------------
