@@ -82,7 +82,21 @@ class FileSystemCommon implements FileSystemCommonInterface
     //--------------------------------------------------------------------------------------------------
     public function originpath(String $string) : String
     {
-        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $string);
+        return str_replace(['/', '\\'], DS, $string);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Relative Path
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function relativepath(String $string) : String
+    {
+        return str_replace(['/', '\\', REAL_BASE_DIR], [DS, DS, NULL], $string);
     }
 
     //--------------------------------------------------------------------------------------------------------

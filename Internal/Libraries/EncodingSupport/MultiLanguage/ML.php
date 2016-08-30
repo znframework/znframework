@@ -515,15 +515,15 @@ class InternalML extends Requirements implements MLInterface
         
         if( empty($this->url) )
         {
-            if( defined('_CURRENT_PROJECT_DIR') )
+            if( defined('_CURRENT_PROJECT') )
             {
-                if( defined('CURRENT_PROJECT_DIR') )
+                if( defined('CURRENT_PROJECT') )
                 {
-                    $preUrl = CURRENT_PROJECT_DIR;
+                    $preUrl = CURRENT_PROJECT;
                 }
                 else
                 {
-                    $preUrl = _CURRENT_PROJECT_DIR;
+                    $preUrl = _CURRENT_PROJECT;
                 }
                 
                 $paginationUrl = $preUrl.'/'.CURRENT_CONTROLLER.'/'.CURRENT_CFUNCTION;

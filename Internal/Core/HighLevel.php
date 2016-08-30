@@ -106,10 +106,10 @@ if( isset($baseDir[0]) )
 }
 
 //--------------------------------------------------------------------------------------------------
-// _CURRENT_PROJECT_DIR
+// _CURRENT_PROJECT
 //--------------------------------------------------------------------------------------------------
 //
-// @return _CURRENT_PROJECT_DIR
+// @return _CURRENT_PROJECT
 //
 //--------------------------------------------------------------------------------------------------
 $currentPath = server('currentPath');
@@ -127,7 +127,7 @@ if( is_array($othersapp) )
 
 if( ! empty($internalDir) && is_dir(PROJECTS_DIR.$internalDir) )
 {
-    define('_CURRENT_PROJECT_DIR', $internalDir);  
+    define('_CURRENT_PROJECT', $internalDir);  
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -911,10 +911,10 @@ function internalApplicationContainerDir() : String
     
     $containers = $projects['containers'];
     
-    if( ! empty($containers) && defined('_CURRENT_PROJECT_DIR') )
+    if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
-        return ! empty($containers[_CURRENT_PROJECT_DIR])
-               ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT_DIR])
+        return ! empty($containers[_CURRENT_PROJECT])
+               ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT])
                : PROJECT_DIR;
     }
     

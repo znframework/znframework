@@ -80,20 +80,24 @@ if( is_array($projectDir) && ! empty($projectDir[host()]) )
 {
     $projectDir = $projectDir[host()];
 }
-elseif( defined('_CURRENT_PROJECT_DIR') )
+elseif( defined('_CURRENT_PROJECT') )
 {
     $flip              = array_flip($projectDir);
-    $projectDir        = _CURRENT_PROJECT_DIR;          
+    $projectDir        = _CURRENT_PROJECT;          
     $currentProjectDir = ! empty($flip[$projectDir]) 
                          ? $flip[$projectDir] 
                          : $projectDir;
-
-    define('CURRENT_PROJECT_DIR', $currentProjectDir);
 }
 elseif( is_array($projectDir) )
 {
     $projectDir = $projects['directory']['default']; 
 }
+
+//--------------------------------------------------------------------------------------------------
+// Current Project Name
+//--------------------------------------------------------------------------------------------------
+define('CURRENT_PROJECT', $currentProjectDir ?? $projectDir);
+//--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
 // Project Directory

@@ -382,7 +382,7 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
            $newBaseDir.
            indexStatus().
            suffix(currentLang()).
-           internalCleanInjection(suffix(illustrate('CURRENT_PROJECT_DIR')).$uri);
+           internalCleanInjection(suffix(illustrate('CURRENT_PROJECT')).$uri);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -976,9 +976,9 @@ function internalRequestURI() : String
     $requestUri = internalCleanInjection(internalRouteURI($requestUri));
     $requestUri = internalCleanURIPrefix($requestUri, currentLang());
     
-    if( defined('_CURRENT_PROJECT_DIR') )
+    if( defined('_CURRENT_PROJECT') )
     {
-        $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT_DIR);
+        $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT);
     }
     
     return $requestUri;
@@ -1021,7 +1021,7 @@ function internalRouteURI(String $requestUri = NULL) : String
     {
         $internalDir = NULL;
         
-        if( defined('_CURRENT_PROJECT_DIR') )
+        if( defined('_CURRENT_PROJECT') )
         {
             global $projects;
             
@@ -1029,11 +1029,11 @@ function internalRouteURI(String $requestUri = NULL) : String
             
             if( is_array($configAppdir) )
             {
-                $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : _CURRENT_PROJECT_DIR;
+                $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : _CURRENT_PROJECT;
             }
             else
             {
-                $internalDir = _CURRENT_PROJECT_DIR;   
+                $internalDir = _CURRENT_PROJECT;   
             }
         }
         

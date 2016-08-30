@@ -43,16 +43,16 @@ class Autoloader
     {
         $path = CONFIG_DIR.'ClassMap.php';
         
-        if( ! file_exists($path) )
+        if( ! is_file($path) )
         {
             self::createClassMap();
         }
         
         $classInfo = self::getClassFileInfo($class);
         
-        $file = $classInfo['path'];
-        
-        if( file_exists($file) )
+        $file = REAL_BASE_DIR.$classInfo['path'];
+
+        if( is_file($file) )
         {   
             require_once($file);
             
@@ -501,7 +501,7 @@ class Autoloader
           
         $classInfo = self::getClassFileInfo($class);
         
-        if( file_exists($classInfo['path']) )
+        if( is_file($classInfo['path']) )
         {   
             require_once($classInfo['path']);
         }
@@ -521,7 +521,7 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     protected static function _directorySeparator($string)
     {
-        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $string);
+        return str_replace(['/', '\\', REAL_BASE_DIR], [DS, DS, NULL], $string);
     }
 }
 
