@@ -50,7 +50,7 @@ class Autoloader
         
         $classInfo = self::getClassFileInfo($class);
         
-        $file = REAL_BASE_DIR.$classInfo['path'];
+        $file = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
 
         if( is_file($file) )
         {   
@@ -356,13 +356,13 @@ class Autoloader
             isset($configClassMap['classes']) ? $configClassMap['classes'] : []
         );
         
-        $staticAccessDirectory = self::_directorySeparator(RESOURCES_DIR.'Statics/');
+        $staticAccessDirectory = self::_relativePath(RESOURCES_DIR.'Statics/');
         
         $eol = EOL;
         
         if( ! empty($files) ) foreach( $files as $v )
         {
-            $v = self::_directorySeparator($v);
+            $v = self::_relativePath($v);
 
             if( is_file($v) )
             {
@@ -411,7 +411,7 @@ class Autoloader
                         
                         $path = suffix($newDir, DS).$classInfo['class'].'.php';
 
-                        $path = self::_directorySeparator($path);
+                        $path = self::_relativePath($path);
                                 
                         $getFileContent = file_get_contents($v);
                         
@@ -501,7 +501,7 @@ class Autoloader
           
         $classInfo = self::getClassFileInfo($class);
         
-        $file = REAL_BASE_DIR.$classInfo['path'];
+        $file = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
 
         if( is_file($file) )
         {   
@@ -521,9 +521,22 @@ class Autoloader
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _directorySeparator($string)
+    protected static function _relativePath($string)
     {
-        return str_replace(['/', '\\', REAL_BASE_DIR], [DS, DS, NULL], $string);
+        return str_replace(REAL_BASE_DIR, NULL, self::_originPath($string));
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Origin Path
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _originPath($string)
+    {
+        return str_replace(['/', '\\'], DS, $string);
     }
 }
 

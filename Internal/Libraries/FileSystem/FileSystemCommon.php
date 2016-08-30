@@ -96,7 +96,7 @@ class FileSystemCommon implements FileSystemCommonInterface
     //--------------------------------------------------------------------------------------------------
     public function relativepath(String $string) : String
     {
-        return str_replace(['/', '\\', REAL_BASE_DIR], [DS, DS, NULL], $string);
+        return str_replace(REAL_BASE_DIR, NULL, $this->originpath($string));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ class FileSystemCommon implements FileSystemCommonInterface
 
         if( $config['realPath'] === true )
         {
-            $file = $this->originpath(prefix($file, REAL_BASE_DIR));
+            $file = prefix($this->originpath($file), REAL_BASE_DIR);
         }  
 
         return $file;
