@@ -10,6 +10,5 @@ Easy integration of internal and external structure.<br />
 It is also flexible.<br />
 PHP versions 7.0.0 + are supported.<br />
 It is complied with PSD standarts and contains exclusively.<br />
-<br />
 ZN Framework is suitable for Multiple Application Development.
 </p>
