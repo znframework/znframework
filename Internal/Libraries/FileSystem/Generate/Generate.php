@@ -89,6 +89,44 @@ class InternalGenerate extends CallController implements GenerateInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Delete Vision
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $database = '*'
+    // @param array  $tables   = NULL
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function deleteVision(String $database = '*', Array $tables = NULL)
+    {
+        $path = MODELS_DIR.'Visions/';
+
+        if( $database === '*' )
+        {
+            Folder::delete($path);
+        } 
+        else
+        {
+            $database = ucfirst($database);
+
+            if( $tables === NULL )
+            {
+                Folder::delete($path.$database);
+            }
+            else
+            {
+                $defaultDB = config('Database', 'database')['database'];
+
+                foreach( $tables as $table )
+                {
+                    File::delete($path.$database.DS.INTERNAL_ACCESS.( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).ucfirst($table).'Vision.php');
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
     // 

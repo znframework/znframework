@@ -102,28 +102,18 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
     {
         $name = $this->rpath($name);
 
-        if( ! is_file($name) )
-        {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
-        }
-
-        // Is File
         if( is_file($name) )
         {
-            // Delete File
             return unlink($name);    
         }
         else
         {
-            // Is Dir
             if( ! $this->files($name) )
             {
-                // Delete Empty Dir
                 return $this->deleteEmpty($name);
             }   
             else
             {           
-                // Delete
                 for( $i = 0; $i < count($this->files($name)); $i++ )
                 {
                     foreach( $this->files($name) as $val )
@@ -132,8 +122,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
                     }
                 }
             }
-            
-            // Delete Empty Dir
+
             return $this->deleteEmpty($name);
         }
     }

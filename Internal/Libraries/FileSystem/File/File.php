@@ -163,7 +163,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
-        $file = $this->rpath($file);
+        $name = $this->rpath($name);
 
         if( ! is_file($name)) 
         {
