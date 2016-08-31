@@ -377,4 +377,17 @@ abstract class DriverConnectionMappingAbstract
                ? $this->cvartype($this->variableTypes[$vartype], $len, $type)
                : false;
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // End Connection
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function closeConnection()
+    {
+        $this->query   = NULL;
+        $this->connect = NULL;
+    }
 }

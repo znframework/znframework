@@ -464,7 +464,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) ) 
         {
-            mysqli_close($this->connect); 
+            mysqli_close($this->connect);
         }
         else 
         {
