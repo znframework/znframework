@@ -376,13 +376,13 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
     }
     
     $host = host();
-    
+   
     return sslStatus().
            $host.
            $newBaseDir.
            indexStatus().
            suffix(currentLang()).
-           internalCleanInjection(suffix(illustrate('CURRENT_PROJECT')).$uri);
+           internalCleanInjection((CURRENT_PROJECT === DEFAULT_PROJECT ? NULL : suffix(CURRENT_PROJECT)).$uri);
 }
 
 //--------------------------------------------------------------------------------------------------
