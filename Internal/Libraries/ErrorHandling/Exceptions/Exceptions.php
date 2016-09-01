@@ -62,7 +62,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
         $lang    = lang('Error');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
         
-        report('GeneralError', $message, 'GeneralError');
+        report('ExceptionError', $message, 'ExceptionError');
         
         $table = $this->_template($msg, $file, $line, $no, $trace);  
         
