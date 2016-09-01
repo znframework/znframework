@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// ZERONEED PHP WEB FRAMEWORK 
+// ZERONEED PHP WEB FRAMEWORK
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -41,7 +41,7 @@ chdir(REAL_BASE_DIR);
 // @return Internal/
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_DIR', REAL_BASE_DIR.'Internal'.DS); 
+define('INTERNAL_DIR', REAL_BASE_DIR.'Internal'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // CORE_DIR
@@ -50,7 +50,7 @@ define('INTERNAL_DIR', REAL_BASE_DIR.'Internal'.DS);
 // @return Internal/Core/
 //
 //--------------------------------------------------------------------------------------------------
-define('CORE_DIR', INTERNAL_DIR.'Core'.DS); 
+define('CORE_DIR', INTERNAL_DIR.'Core'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // Base
@@ -92,14 +92,14 @@ if( is_array($projectDir) && ! empty($projectDir[host()]) )
 elseif( defined('_CURRENT_PROJECT') )
 {
     $flip              = array_flip($projectDir);
-    $projectDir        = _CURRENT_PROJECT;          
-    $currentProjectDir = ! empty($flip[$projectDir]) 
-                         ? $flip[$projectDir] 
+    $projectDir        = _CURRENT_PROJECT;
+    $currentProjectDir = ! empty($flip[$projectDir])
+                         ? $flip[$projectDir]
                          : $projectDir;
 }
 elseif( is_array($projectDir) )
 {
-    $projectDir = DEFAULT_PROJECT; 
+    $projectDir = DEFAULT_PROJECT;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -122,16 +122,16 @@ if( ! is_dir(PROJECT_DIR) )
 //--------------------------------------------------------------------------------------------------
 // Internal/Core/Required.php
 //--------------------------------------------------------------------------------------------------
-require_once REQUIRED_FILE; 
+require_once REQUIRED_FILE;
 //--------------------------------------------------------------------------------------------------
-    
+
 //--------------------------------------------------------------------------------------------------
 // Finish Micro Time
 //--------------------------------------------------------------------------------------------------
 $finish = microtime();
 //--------------------------------------------------------------------------------------------------
-    
-if( Config::get('Project', 'benchmark') === true ) 
+
+if( Config::get('Project', 'benchmark') === true )
 {
     //----------------------------------------------------------------------------------------------
     // System Elapsed Time Calculating
@@ -154,12 +154,12 @@ if( Config::get('Project', 'benchmark') === true )
     //----------------------------------------------------------------------------------------------
     // Template Benchmark Performance Result Table
     //----------------------------------------------------------------------------------------------
-    $benchmarkData = 
+    $benchmarkData =
     [
         'elapsedTime'    => $elapsedTime,
         'memoryUsage'    => $memoryUsage,
         'maxMemoryUsage' => $maxMemoryUsage
-    ];  
+    ];
 
     $benchResult = Import::template('BenchmarkTable', $benchmarkData, true);
     //----------------------------------------------------------------------------------------------
@@ -169,4 +169,4 @@ if( Config::get('Project', 'benchmark') === true )
     //----------------------------------------------------------------------------------------------
     internalBenchmarkReport($benchResult);
     //----------------------------------------------------------------------------------------------
-}   
+}
