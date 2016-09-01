@@ -509,7 +509,12 @@ class Autoloader
         }
         else
         { 
-            trace('Error: ['.$class.'] class was not found! Make sure the [class name] is spelled correctly or try to rebuild with [Autoloader::restart()]');
+            $debug    = debug_backtrace()[2]; 
+            $message  = 'Error: ['.$class.'] class was not found! Make sure the [class name] is spelled correctly or try to rebuild with [Autoloader::restart()]<br>';
+            $message .= 'File: '.$debug['file'].'<br>';
+            $message .= 'Line: '.$debug['line'];
+
+            trace($message);
         }
     }
 
