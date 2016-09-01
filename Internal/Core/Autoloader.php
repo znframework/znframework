@@ -3,7 +3,7 @@
 use Converter;
 
 class Autoloader
-{   
+{
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
@@ -21,7 +21,7 @@ class Autoloader
     //
     //--------------------------------------------------------------------------------------------------
     protected static $classes;
-    
+
     //--------------------------------------------------------------------------------------------------
     // Protected Static Namespaces
     //--------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class Autoloader
     //
     //--------------------------------------------------------------------------------------------------
     protected static $namespaces;
-    
+
     //--------------------------------------------------------------------------------------------------
     // Run
     //--------------------------------------------------------------------------------------------------
@@ -42,25 +42,25 @@ class Autoloader
     public static function run(String $class)
     {
         $path = CONFIG_DIR.'ClassMap.php';
-        
+
         if( ! is_file($path) )
         {
             self::createClassMap();
         }
-        
+
         $classInfo = self::getClassFileInfo($class);
-        
+
         $file = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
 
         if( is_file($file) )
-        {   
+        {
             require_once $file;
-            
+
             if
             (
-                ! class_exists($classInfo['namespace']) && 
-                ! trait_exists($classInfo['namespace']) && 
-                ! interface_exists($classInfo['namespace'])  
+                ! class_exists($classInfo['namespace']) &&
+                ! trait_exists($classInfo['namespace']) &&
+                ! interface_exists($classInfo['namespace'])
             )
             {
                 self::tryAgainCreateClassMap($class);
@@ -70,8 +70,8 @@ class Autoloader
         {
             self::tryAgainCreateClassMap($class);
         }
-    } 
-    
+    }
+
     //--------------------------------------------------------------------------------------------------
     // Restart
     //--------------------------------------------------------------------------------------------------
@@ -85,21 +85,21 @@ class Autoloader
     public static function restart()
     {
         $path = CONFIG_DIR.'ClassMap.php';
-        
-        if( is_file($path) ) 
+
+        if( is_file($path) )
         {
             unlink($path);
             clearstatcache();
         }
-    
+
         return self::createClassMap();
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // Create Class Map
     //--------------------------------------------------------------------------------------------------
     //
-    // Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.  
+    // Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.
     // yol bilgisi oluşturulur. Böylece bir sınıf dahil edilmeden kullanılabilir.
     //
     // @param  void
@@ -110,29 +110,29 @@ class Autoloader
     {
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();
-        
+
         if( $configAutoloader['directoryScanning'] === false )
         {
-            return false;           
+            return false;
         }
-    
+
         $classMap = $configAutoloader['classMap'];
-        
+
         if( ! empty($classMap) ) foreach( $classMap as $directory )
         {
             $classMaps = self::searchClassMap($directory, $directory);
         }
-        
+
         $classArray = array_diff_key
         (
-            isset($classMaps['classes'])      ? $classMaps['classes']      : [], 
+            isset($classMaps['classes'])      ? $classMaps['classes']      : [],
             isset($configClassMap['classes']) ? $configClassMap['classes'] : []
         );
-        
+
         $eol  = EOL;
-        
+
         $path = CONFIG_DIR.'ClassMap.php';
-        
+
         if( ! is_file($path) )
         {
             $classMapPage  = '<?php'.$eol;
@@ -142,29 +142,29 @@ class Autoloader
         }
         else
         {
-            $classMapPage = ''; 
+            $classMapPage = '';
         }
-        
-        if( ! empty($classArray) ) 
+
+        if( ! empty($classArray) )
         {
             self::$classes    = $classMaps['classes'];
-            
+
             foreach( $classArray as $k => $v )
             {
                 $classMapPage .= '$classMap[\'classes\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
             }
         }
-        
+
         $namespaceArray = array_diff_key
         (
-            isset($classMaps['namespaces']) ? $classMaps['namespaces'] : [], 
+            isset($classMaps['namespaces']) ? $classMaps['namespaces'] : [],
             isset($configClassMap['namespaces']) ? $configClassMap['namespaces'] : []
         );
-        
-        if( ! empty($namespaceArray) ) 
+
+        if( ! empty($namespaceArray) )
         {
             self::$namespaces = $classMaps['namespaces'];
-            
+
             foreach( $namespaceArray as $k => $v )
             {
                 $classMapPage .= '$classMap[\'namespaces\'][\''.$k.'\'] = \''.$v.'\';'.$eol;
@@ -173,7 +173,7 @@ class Autoloader
 
         file_put_contents($path, $classMapPage, FILE_APPEND);
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // Get Class File Info
     //--------------------------------------------------------------------------------------------------
@@ -185,32 +185,32 @@ class Autoloader
     //
     //--------------------------------------------------------------------------------------------------
     public static function getClassFileInfo(String $class) : Array
-    {   
+    {
         $classCaseLower = strtolower($class);
         $classMap       = self::_config();
         $classes        = array_merge(isset($classMap['classes']) ? $classMap['classes'] : [], (array)self::$classes);
-        $namespaces     = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : [], (array)self::$namespaces); 
+        $namespaces     = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : [], (array)self::$namespaces);
         $path           = '';
         $namespace      = '';
-        
+
         if( isset($classes[$classCaseLower]) )
         {
-            $path      = $classes[$classCaseLower]; 
+            $path      = $classes[$classCaseLower];
             $namespace = $class;
         }
         elseif( ! empty($namespaces) )
         {
             $namespaces = array_flip($namespaces);
-            
+
             if( isset($namespaces[$classCaseLower]) )
             {
-                $namespace = $namespaces[$classCaseLower];                             
+                $namespace = $namespaces[$classCaseLower];
                 $path      = isset($classes[$namespace])
                            ? $classes[$namespace]
                            : '';
             }
         }
-        
+
         return
         [
             'path'      => $path,
@@ -218,7 +218,7 @@ class Autoloader
             'namespace' => $namespace
         ];
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // Token Class File Info
     //--------------------------------------------------------------------------------------------------
@@ -235,13 +235,13 @@ class Autoloader
 
         if( ! is_file($fileName) )
         {
-            return $classInfo;   
+            return $classInfo;
         }
-        
+
         $tokens = token_get_all(file_get_contents($fileName));
         $i      = 0;
         $ns     = '';
-        
+
         foreach( $tokens as $token )
         {
             if( $token[0] === T_NAMESPACE )
@@ -255,39 +255,39 @@ class Autoloader
                     else
                     {
                         $ii = $i;
-                    
+
                         while( isset($tokens[$ii + 2][1]) )
                         {
                             $ns .= $tokens[$ii + 2][1];
-                            
+
                             $ii++;
                         }
                     }
                 }
-                
+
                 $classInfo['namespace'] = trim($ns);
             }
-            
+
             if
-            ( 
-                $token[0] === T_CLASS     || 
-                $token[0] === T_INTERFACE || 
-                $token[0] === T_TRAIT 
+            (
+                $token[0] === T_CLASS     ||
+                $token[0] === T_INTERFACE ||
+                $token[0] === T_TRAIT
             )
             {
                 $classInfo['class'] = isset($tokens[$i + 2][1])
                                     ? $tokens[$i + 2][1]
                                     : NULL;
-                
+
                 break;
             }
-            
+
             $i++;
-        }   
-    
+        }
+
         return $classInfo;
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // Token File Info
     //--------------------------------------------------------------------------------------------------
@@ -302,16 +302,16 @@ class Autoloader
     {
         if( ! is_file($fileName) )
         {
-            return false;   
+            return false;
         }
-        
+
         $tokens = token_get_all(file_get_contents($fileName));
         $info   = [];
-        
+
         $i = 0;
-        
+
         $type = Converter::toConstant($type, 'T_');
-        
+
         foreach( $tokens as $token )
         {
             if( $token[0] === $type )
@@ -320,18 +320,18 @@ class Autoloader
                         ? $tokens[$i + 2][1]
                         : NULL;
             }
-            
+
             $i++;
-        }   
-    
+        }
+
         return $info;
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // Protected Search Class Map
     //--------------------------------------------------------------------------------------------------
     //
-    // Yolu belirtilen Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.  
+    // Yolu belirtilen Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.
     // yol bilgisi oluşturulur. createClassMap() yöntemi için oluşturulmuştur.
     //
     // @param  string $directory
@@ -342,24 +342,24 @@ class Autoloader
     protected static function searchClassMap($directory, $baseDirectory = NULL)
     {
         static $classes;
-            
-        $directory           = suffix($directory, DS); 
-        $baseDirectory       = suffix($baseDirectory, DS); 
+
+        $directory           = suffix($directory, DS);
+        $baseDirectory       = suffix($baseDirectory, DS);
         $configClassMap      = self::_config();
         $configAutoloader    = Config::get('Autoloader');
         $directoryPermission = $configAutoloader['directoryPermission'];
 
-        $files = glob($directory.'*');  
+        $files = glob($directory.'*');
         $files = array_diff
         (
-            $files, 
+            $files,
             isset($configClassMap['classes']) ? $configClassMap['classes'] : []
         );
-        
+
         $staticAccessDirectory = self::_relativePath(RESOURCES_DIR.'Statics/');
-        
+
         $eol = EOL;
-        
+
         if( ! empty($files) ) foreach( $files as $v )
         {
             $v = self::_relativePath($v);
@@ -367,34 +367,34 @@ class Autoloader
             if( is_file($v) )
             {
                 $classInfo = self::tokenClassFileInfo($v);
-                
+
                 if( isset($classInfo['class']) )
                 {
                     $class = strtolower($classInfo['class']);
-                    
+
                     if( isset($classInfo['namespace']) )
-                    {       
-                        $className = strtolower($classInfo['namespace']).'\\'.$class;       
-                        
+                    {
+                        $className = strtolower($classInfo['namespace']).'\\'.$class;
+
                         $classes['namespaces'][$className] = $class;
                     }
                     else
                     {
                         $className = $class;
                     }
-                    
-                    $classes['classes'][$className] = $v;   
-                    
+
+                    $classes['classes'][$className] = $v;
+
                     $useStaticAccess = strtolower(INTERNAL_ACCESS);
-                                
+
                     if( strpos($class, $useStaticAccess) === 0 )
                     {
                         $newClassName = str_ireplace($useStaticAccess, '', $classInfo['class']);
-                    
-                        $newPath = str_ireplace($baseDirectory, '', $v);    
-                        
-                        $pathEx = explode(DS, $newPath);       
-                        array_pop($pathEx);     
+
+                        $newPath = str_ireplace($baseDirectory, '', $v);
+
+                        $pathEx = explode(DS, $newPath);
+                        array_pop($pathEx);
                         $newDir = implode(DS, $pathEx);
                         $dir    = $staticAccessDirectory;
                         $newDir = $dir.$newDir;
@@ -403,54 +403,27 @@ class Autoloader
                         {
                             mkdir($dir, $directoryPermission, true);
                         }
-                            
+
                         if( ! is_dir($newDir) )
                         {
                             mkdir($newDir, $directoryPermission, true);
                         }
-                        
+
                         $path = suffix($newDir, DS).$classInfo['class'].'.php';
 
                         $path = self::_relativePath($path);
-                                
-                        $getFileContent = file_get_contents($v);
-                        
-                        preg_match_all('/const\s+(\w+)\s+\=\s+(.*?);/i', $getFileContent, $match);
-                        
-                        $const = ! empty($match[1]) ? $match[1] : [];
-                        $value = ! empty($match[2]) ? $match[2] : [];
-                        
-                        $constants = '';
-                        
-                        if( ! empty($const) ) 
-                        {
-                            foreach( $const as $key => $c )
-                            {
-                                $constants .= "\tconst ".$c.' = '.$value[$key].';'.$eol.$eol;
-                            }
-                        }
-    
-                        $classContent  = '<?php'.$eol;
-                        $classContent .= '//--------------------------------------------------------------------------------------------------'.$eol;
-                        $classContent .= '// This file automatically created and updated'.$eol;
-                        $classContent .= '//--------------------------------------------------------------------------------------------------'.$eol.$eol;
-                        $classContent .= 'class '.$newClassName.' extends StaticAccess'.$eol;
-                        $classContent .= '{'.$eol;  
-                        $classContent .= $constants;
-                        $classContent .= "\t".'public static function getClassName()'.$eol;
-                        $classContent .= "\t".'{'.$eol;
-                        $classContent .= "\t\t".'return __CLASS__;'.$eol;
-                        $classContent .= "\t".'}'.$eol;
-                        $classContent .= '}'.$eol.$eol;
-                        $classContent .= '//--------------------------------------------------------------------------------------------------';
-                        
-                        $fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0; 
-                        
+
+                        $constants = self::_findConstants($v);
+
+                        $classContent = self::_classFileContent($newClassName, $constants);
+
+                        $fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0;
+
                         if( strlen($classContent) !== $fileContentLength )
                         {
                             file_put_contents($path, $classContent);
                         }
-                        
+
                         $classes['classes'][strtolower($newClassName)] = $path;
                     }
                 }
@@ -459,13 +432,68 @@ class Autoloader
             {
                 self::searchClassMap($v, $baseDirectory);
             }
-        }   
-        
+        }
+
         return $classes;
     }
 
     //--------------------------------------------------------------------------------------------------
-    // Private Class Map Conig
+    // Protected Find Constants
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _findConstants($v)
+    {
+        $getFileContent = file_get_contents($v);
+
+        preg_match_all('/const\s+(\w+)\s+\=\s+(.*?);/i', $getFileContent, $match);
+
+        $const = ! empty($match[1]) ? $match[1] : [];
+        $value = ! empty($match[2]) ? $match[2] : [];
+
+        $constants = '';
+
+        if( ! empty($const) )
+        {
+            foreach( $const as $key => $c )
+            {
+                $constants .= HT."const ".$c.' = '.$value[$key].';'.EOL.EOL;
+            }
+        }
+
+        return $constants;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Class File Content
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _classFileContent($newClassName, $constants)
+    {
+        $classContent  = '<?php'.EOL;
+        $classContent .= '//--------------------------------------------------------------------------------------------------'.EOL;
+        $classContent .= '// This file automatically created and updated'.EOL;
+        $classContent .= '//--------------------------------------------------------------------------------------------------'.EOL.EOL;
+        $classContent .= 'class '.$newClassName.' extends StaticAccess'.EOL;
+        $classContent .= '{'.EOL;
+        $classContent .= $constants;
+        $classContent .= HT.'public static function getClassName()'.EOL;
+        $classContent .= HT.'{'.EOL;
+        $classContent .= HT.HT.'return __CLASS__;'.EOL;
+        $classContent .= HT.'}'.EOL;
+        $classContent .= '}'.EOL.EOL;
+        $classContent .= '//--------------------------------------------------------------------------------------------------';
+
+        return $classContent;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Private Config
     //--------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -496,20 +524,20 @@ class Autoloader
     //
     //--------------------------------------------------------------------------------------------------
     protected static function tryAgainCreateClassMap($class)
-    {   
-        self::createClassMap(); 
-          
+    {
+        self::createClassMap();
+
         $classInfo = self::getClassFileInfo($class);
-        
+
         $file = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
 
         if( is_file($file) )
-        {   
+        {
             require_once $file;
         }
         else
-        { 
-            $debug    = debug_backtrace()[2]; 
+        {
+            $debug    = debug_backtrace()[2];
             $message  = 'Error: ['.$class.'] class was not found! Make sure the [class name] is spelled correctly or try to rebuild with [Autoloader::restart()]<br>';
             $message .= 'File: '.$debug['file'].'<br>';
             $message .= 'Line: '.$debug['line'];
