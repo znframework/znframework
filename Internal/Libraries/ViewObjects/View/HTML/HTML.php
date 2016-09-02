@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Exceptions, CallController;
+use Exceptions;
 
-class InternalHTML extends CallController implements HTMLInterface, ViewCommonInterface
+class InternalHTML implements HTMLInterface, ViewCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,11 +12,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Common
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // attributes()
     // _input()
     //
@@ -46,7 +46,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return new HTML\Helpers\Lists;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Audio
     //--------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_mediaContent($src, $content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Video
     //--------------------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_mediaContent($src, $content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Embed
     //--------------------------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_media($src, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Source
     //--------------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_media($src, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Bold
     //--------------------------------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement('b', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Strong
     //--------------------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement(__FUNCTION__, $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Italic
     //--------------------------------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement('em', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Image
     //--------------------------------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     //--------------------------------------------------------------------------------------------------------
     public function image(String $src, Int $width = NULL, Int $height = NULL, Array $attributes = []) : String
     {
-        if( ! isUrl($src) ) 
+        if( ! isUrl($src) )
         {
             $src = baseUrl($src);
         }
@@ -166,24 +166,24 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
         {
             $attributes['height'] = $height;
         }
-        
+
         if( ! isset($attributes['title']) )
-        { 
+        {
             $attributes['title'] = '';
         }
-        
+
         if( ! isset($attributes['alt']) )
-        { 
+        {
             $attributes['alt'] = '';
         }
-        
-        return $this->_singleElement('img', $attributes);   
+
+        return $this->_singleElement('img', $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Label
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $for
     // @param  string $value
     // @param  string $form
@@ -193,23 +193,23 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     //--------------------------------------------------------------------------------------------------------
     public function label(String $for, String $value = NULL, String $form = NULL, Array $attributes = []) : String
     {
-        if( ! empty($for) ) 
+        if( ! empty($for) )
         {
             $attributes['for'] = $for;
         }
-        
-        if( ! empty($form) ) 
-        {   
+
+        if( ! empty($form) )
+        {
             $attributes['form'] = $form;
         }
 
         return $this->_multiElement(__FUNCTION__, $value, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Canvas
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $for
     // @param  array  $attributes
     // @return string
@@ -219,11 +219,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Aside
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
@@ -231,11 +231,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_content($html, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Article
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
@@ -243,11 +243,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_content($html, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Footer
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
@@ -255,11 +255,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_content($html, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Header
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
@@ -267,23 +267,23 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_content($html, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Nav
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
     public function nav(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Section
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
@@ -291,11 +291,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_content($html, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Anchor
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $url
     // @param string $value
     // @param array  $attributes
@@ -304,7 +304,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     public function anchor(String $url, String $value = NULL, Array $attributes = []) : String
     {
         if( ! isUrl($url) && strpos($url, '#') !== 0 )
-        { 
+        {
             $url = siteUrl($url);
         }
 
@@ -312,13 +312,13 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
 
         nullCoalesce($value, $url);
 
-        return $this->_multiElement('a', $value, $attributes);  
+        return $this->_multiElement('a', $value, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Mail To
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $mail
     // @param string $value
     // @param array  $attributes
@@ -326,35 +326,35 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     //--------------------------------------------------------------------------------------------------------
     public function mailTo(String $mail, String $value = NULL, Array $attributes = []) : String
     {
-        if( ! isEmail($mail) ) 
+        if( ! isEmail($mail) )
         {
             return Exceptions::throws('Error', 'emailParameter', 'mail');
         }
 
         $attributes['href'] = 'mailto:'.$mail;
-        
+
         nullCoalesce($value, $mail);
 
         return $this->_multiElement('a', $value, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Parag
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
     public function parag(String $str = NULL, Array $attributes = []) : String
-    {   
+    {
         return $this->_multiElement('p', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Over Line
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param array  $attributes
     //
@@ -363,11 +363,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement('del', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Over Text
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param array  $attributes
     //
@@ -376,11 +376,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement('sup', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Under Line
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param array  $attributes
     //
@@ -389,11 +389,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement('u', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Under Text
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param array  $attributes
     //
@@ -402,11 +402,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement('sub', $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Font
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $size
     // @param string $color
@@ -432,12 +432,12 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
         }
 
         return $this->_multiElement('font', $str, $attributes);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Hgroup
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $html
     //
     //--------------------------------------------------------------------------------------------------------
@@ -445,11 +445,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_content($html, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // BR
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int $cunt
     //
     //--------------------------------------------------------------------------------------------------------
@@ -457,11 +457,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return str_repeat($this->_singleElement(__FUNCTION__), $count);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Space
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int $count
     //
     //--------------------------------------------------------------------------------------------------------
@@ -473,7 +473,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     //--------------------------------------------------------------------------------------------------------
     // Heading
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param int    $type
     // @param array  $attributes
@@ -482,12 +482,12 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     public function heading(String $str, Int $type = 3, Array $attributes = []) : String
     {
         return $this->_multiElement('h'.$type, $str, $attributes);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Element
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $element
     // @param string $str
     // @param array  $attributes
@@ -497,11 +497,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_multiElement($element, $str, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Attr
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $element
     // @param array  $array
     //
@@ -513,27 +513,27 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
             $open = '';
             $close = '';
             $att = '';
-            
+
             foreach( $array as $k => $v )
             {
                 if( ! is_numeric($k) )
                 {
-                    $element = $k;  
-                    
+                    $element = $k;
+
                     if( ! is_array($v) )
                     {
                         $att = ' '.$v;
                     }
                     else
                     {
-                        $att = $this->attributes($v);   
+                        $att = $this->attributes($v);
                     }
                 }
                 else
                 {
-                    $element = $v;  
+                    $element = $v;
                 }
-                
+
                 $open .= '<'.$element.$att.'>';
                 $close = '</'.$element.'>'.$close;
             }
@@ -542,14 +542,14 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
         {
             return $str;
         }
-        
+
         return $open.$str.$close;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Meta
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param mixec  $name
     // @param string $content
     // @param string $type
@@ -559,57 +559,57 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         if( ! is_array($name) )
         {
-            if( $type === 'name' ) 
+            if( $type === 'name' )
             {
-                $name = ' name="'.$name.'"'; 
+                $name = ' name="'.$name.'"';
             }
             elseif( $type === 'http' )
-            { 
-                $name = ' http-equiv="'.$name.'"'; 
-            }
-            
-            if( ! empty($content) ) 
             {
-                $content = ' content="'.$content.'"';   
+                $name = ' http-equiv="'.$name.'"';
+            }
+
+            if( ! empty($content) )
+            {
+                $content = ' content="'.$content.'"';
             }
             else
-            { 
+            {
                 $content = '';
             }
-            
+
             return '<meta'.$name.$content.' />'."\n";
         }
         else
         {
             $metas = '';
-            
+
             foreach( $name as $val )
             {
                 if( ! isset($val['name']) )
-                { 
+                {
                     $val['name'] = '';
                 }
-                
-                if( ! isset($val['content']) ) 
+
+                if( ! isset($val['content']) )
                 {
                     $val['content'] = '';
                 }
-                
+
                 if( ! isset($val['type']) )
-                { 
+                {
                     $val['type'] = 'name';
                 }
-                
+
                 if( $val['type'] === 'http' )
-                { 
+                {
                     $type = ' http-equiv="'.$val['name'].'"';
                 }
-                
+
                 if( $val['type'] === 'name' )
                 {
-                    $type = ' name="'.$val['name'].'"';         
+                    $type = ' name="'.$val['name'].'"';
                 }
-                
+
                 if( ! empty($val['content']) )
                 {
                     $content = ' content="'.$val['content'].'"';
@@ -618,18 +618,18 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
                 {
                     $content = '';
                 }
-                
+
                 $metas .= '<meta'.$type.$content.' />'."\n";
             }
-                
+
             return $metas;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Command
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -638,11 +638,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Data List
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -651,11 +651,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Details
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -664,11 +664,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Dialog
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -677,11 +677,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fig Caption
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -690,11 +690,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Figure
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -703,11 +703,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Keygen
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
@@ -715,11 +715,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_singleElement(__FUNCTION__, $attributes);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Mark
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -728,11 +728,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Meter
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -741,11 +741,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Time
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -754,11 +754,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Summary
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -767,11 +767,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Progress
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -780,11 +780,11 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Output
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $content
     // @param array  $attributes
     //
@@ -793,34 +793,34 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Content
     //--------------------------------------------------------------------------------------------------------
     protected function _content($html, $type)
     {
         $type = strtolower($type);
-        
+
         $str = "<$type>$html</$type>";
-        
+
         return $str;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Content Attribute
     //--------------------------------------------------------------------------------------------------------
     protected function _contentAttribute($content, $_attributes, $type)
     {
-        if( ! is_scalar($content) )  
+        if( ! is_scalar($content) )
         {
             $content = '';
         }
 
         $type = strtolower($type);
-        
+
         return '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".EOL;
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Media
     //--------------------------------------------------------------------------------------------------------
@@ -834,7 +834,7 @@ class InternalHTML extends CallController implements HTMLInterface, ViewCommonIn
     {
         return '<'.strtolower($type).'src="'.$src.'"'.$this->attributes($_attributes).'>'.EOL;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Media Content
     //--------------------------------------------------------------------------------------------------------
